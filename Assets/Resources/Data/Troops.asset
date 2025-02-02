@@ -1,0 +1,926 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 311bac454bcdae34884a7edc8144ea4b, type: 3}
+  m_Name: Troops
+  m_EditorClassIdentifier: 
+  Data:
+  - TroopId: 1
+    TroopEnemies:
+    - Id: 1
+      TroopId: 1
+      EnemyId: 4
+      Lv: 40
+      BossFlag: 0
+      Line: 1
+      StageLv: 0
+    - Id: 1
+      TroopId: 1
+      EnemyId: 14
+      Lv: 40
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 1
+      TroopId: 1
+      EnemyId: 7
+      Lv: 40
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 402
+    TroopEnemies:
+    - Id: 2
+      TroopId: 402
+      EnemyId: 4
+      Lv: 1
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 3
+      TroopId: 402
+      EnemyId: 4
+      Lv: 1
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 4
+      TroopId: 402
+      EnemyId: 4
+      Lv: 1
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 5
+      TroopId: 402
+      EnemyId: 4
+      Lv: 1
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 1011
+    TroopEnemies:
+    - Id: 1011
+      TroopId: 1011
+      EnemyId: 1
+      Lv: 1
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 1031
+    TroopEnemies:
+    - Id: 1031
+      TroopId: 1031
+      EnemyId: 3
+      Lv: 2
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 1051
+    TroopEnemies:
+    - Id: 1051
+      TroopId: 1051
+      EnemyId: 1
+      Lv: 3
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 1061
+    TroopEnemies:
+    - Id: 1061
+      TroopId: 1061
+      EnemyId: 1
+      Lv: 4
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 1061
+      TroopId: 1061
+      EnemyId: 3
+      Lv: 4
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 1062
+    TroopEnemies:
+    - Id: 1062
+      TroopId: 1062
+      EnemyId: 1
+      Lv: 4
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 1062
+      TroopId: 1062
+      EnemyId: 3
+      Lv: 4
+      BossFlag: 1
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 1101
+    TroopEnemies:
+    - Id: 1101
+      TroopId: 1101
+      EnemyId: 101
+      Lv: 10
+      BossFlag: 1
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 2041
+    TroopEnemies:
+    - Id: 2041
+      TroopId: 2041
+      EnemyId: 4
+      Lv: 5
+      BossFlag: 1
+      Line: 0
+      StageLv: 0
+    - Id: 2041
+      TroopId: 2041
+      EnemyId: 2
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 2041
+      TroopId: 2041
+      EnemyId: 14
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 2042
+    TroopEnemies:
+    - Id: 2042
+      TroopId: 2042
+      EnemyId: 11
+      Lv: 15
+      BossFlag: 1
+      Line: 0
+      StageLv: 0
+    - Id: 2042
+      TroopId: 2042
+      EnemyId: 2
+      Lv: 5
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 2042
+      TroopId: 2042
+      EnemyId: 14
+      Lv: 5
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 2101
+    TroopEnemies:
+    - Id: 2101
+      TroopId: 2101
+      EnemyId: 102
+      Lv: 10
+      BossFlag: 1
+      Line: 0
+      StageLv: 0
+    - Id: 2101
+      TroopId: 2101
+      EnemyId: 4
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 2102
+    TroopEnemies:
+    - Id: 2102
+      TroopId: 2102
+      EnemyId: 102
+      Lv: 20
+      BossFlag: 1
+      Line: 0
+      StageLv: 0
+    - Id: 2102
+      TroopId: 2102
+      EnemyId: 4
+      Lv: 10
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 2201
+    TroopEnemies:
+    - Id: 2201
+      TroopId: 2201
+      EnemyId: 9
+      Lv: 5
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 2201
+      TroopId: 2201
+      EnemyId: 4
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 2201
+      TroopId: 2201
+      EnemyId: 4
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 2201
+      TroopId: 2201
+      EnemyId: 9
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 20
+    - Id: 2201
+      TroopId: 2201
+      EnemyId: 4
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 40
+    StageTurn: 0
+  - TroopId: 2202
+    TroopEnemies:
+    - Id: 2202
+      TroopId: 2202
+      EnemyId: 5
+      Lv: 5
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 2202
+      TroopId: 2202
+      EnemyId: 3
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 2202
+      TroopId: 2202
+      EnemyId: 3
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 2202
+      TroopId: 2202
+      EnemyId: 5
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 20
+    - Id: 2202
+      TroopId: 2202
+      EnemyId: 3
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 40
+    StageTurn: 0
+  - TroopId: 2203
+    TroopEnemies:
+    - Id: 2203
+      TroopId: 2203
+      EnemyId: 8
+      Lv: 5
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 2203
+      TroopId: 2203
+      EnemyId: 7
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 2203
+      TroopId: 2203
+      EnemyId: 7
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 2203
+      TroopId: 2203
+      EnemyId: 8
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 20
+    - Id: 2203
+      TroopId: 2203
+      EnemyId: 7
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 40
+    StageTurn: 0
+  - TroopId: 2204
+    TroopEnemies:
+    - Id: 2204
+      TroopId: 2204
+      EnemyId: 6
+      Lv: 5
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 2204
+      TroopId: 2204
+      EnemyId: 14
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 2204
+      TroopId: 2204
+      EnemyId: 14
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 2204
+      TroopId: 2204
+      EnemyId: 6
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 20
+    - Id: 2204
+      TroopId: 2204
+      EnemyId: 14
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 40
+    StageTurn: 0
+  - TroopId: 2205
+    TroopEnemies:
+    - Id: 2205
+      TroopId: 2205
+      EnemyId: 12
+      Lv: 5
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 2205
+      TroopId: 2205
+      EnemyId: 2
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 2205
+      TroopId: 2205
+      EnemyId: 2
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 2205
+      TroopId: 2205
+      EnemyId: 12
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 20
+    - Id: 2205
+      TroopId: 2205
+      EnemyId: 2
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 40
+    StageTurn: 0
+  - TroopId: 3041
+    TroopEnemies:
+    - Id: 3041
+      TroopId: 3041
+      EnemyId: 6
+      Lv: 5
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 3041
+      TroopId: 3041
+      EnemyId: 13
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 3041
+      TroopId: 3041
+      EnemyId: 14
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 3041
+      TroopId: 3041
+      EnemyId: 6
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 3042
+    TroopEnemies:
+    - Id: 3042
+      TroopId: 3042
+      EnemyId: 2
+      Lv: 15
+      BossFlag: 1
+      Line: 0
+      StageLv: 0
+    - Id: 3042
+      TroopId: 3042
+      EnemyId: 12
+      Lv: 5
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 3042
+      TroopId: 3042
+      EnemyId: 7
+      Lv: 5
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 3042
+      TroopId: 3042
+      EnemyId: 12
+      Lv: 5
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 3101
+    TroopEnemies:
+    - Id: 3101
+      TroopId: 3101
+      EnemyId: 103
+      Lv: 15
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 3101
+      TroopId: 3101
+      EnemyId: 1
+      Lv: 5
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 3101
+      TroopId: 3101
+      EnemyId: 5
+      Lv: 5
+      BossFlag: 0
+      Line: 1
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 3102
+    TroopEnemies:
+    - Id: 3102
+      TroopId: 3102
+      EnemyId: 103
+      Lv: 25
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 3102
+      TroopId: 3102
+      EnemyId: 1
+      Lv: 15
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 3102
+      TroopId: 3102
+      EnemyId: 5
+      Lv: 15
+      BossFlag: 0
+      Line: 1
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 4041
+    TroopEnemies:
+    - Id: 4041
+      TroopId: 4041
+      EnemyId: 8
+      Lv: 5
+      BossFlag: 1
+      Line: 0
+      StageLv: 0
+    - Id: 4041
+      TroopId: 4041
+      EnemyId: 1
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 4041
+      TroopId: 4041
+      EnemyId: 1
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 4041
+      TroopId: 4041
+      EnemyId: 11
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 4041
+      TroopId: 4041
+      EnemyId: 11
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 4042
+    TroopEnemies:
+    - Id: 4042
+      TroopId: 4042
+      EnemyId: 3
+      Lv: 15
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 4042
+      TroopId: 4042
+      EnemyId: 15
+      Lv: 5
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 4042
+      TroopId: 4042
+      EnemyId: 14
+      Lv: 5
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 4042
+      TroopId: 4042
+      EnemyId: 14
+      Lv: 5
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 4042
+      TroopId: 4042
+      EnemyId: 3
+      Lv: 5
+      BossFlag: 0
+      Line: 1
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 4101
+    TroopEnemies:
+    - Id: 4101
+      TroopId: 4101
+      EnemyId: 104
+      Lv: 20
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 4102
+    TroopEnemies:
+    - Id: 4102
+      TroopId: 4102
+      EnemyId: 104
+      Lv: 30
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 5041
+    TroopEnemies:
+    - Id: 5041
+      TroopId: 5041
+      EnemyId: 12
+      Lv: 5
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 5041
+      TroopId: 5041
+      EnemyId: 12
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 5041
+      TroopId: 5041
+      EnemyId: 12
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 5041
+      TroopId: 5041
+      EnemyId: 1
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 5041
+      TroopId: 5041
+      EnemyId: 1
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 5042
+    TroopEnemies:
+    - Id: 5042
+      TroopId: 5042
+      EnemyId: 4
+      Lv: 15
+      BossFlag: 1
+      Line: 0
+      StageLv: 0
+    - Id: 5042
+      TroopId: 5042
+      EnemyId: 6
+      Lv: 5
+      BossFlag: 0
+      Line: 1
+      StageLv: 0
+    - Id: 5042
+      TroopId: 5042
+      EnemyId: 14
+      Lv: 5
+      BossFlag: 0
+      Line: 1
+      StageLv: 0
+    - Id: 5042
+      TroopId: 5042
+      EnemyId: 4
+      Lv: 5
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 5042
+      TroopId: 5042
+      EnemyId: 4
+      Lv: 5
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 5101
+    TroopEnemies:
+    - Id: 5101
+      TroopId: 5101
+      EnemyId: 105
+      Lv: 30
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 5101
+      TroopId: 5101
+      EnemyId: 8
+      Lv: 10
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 5101
+      TroopId: 5101
+      EnemyId: 1
+      Lv: 10
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 5101
+      TroopId: 5101
+      EnemyId: 8
+      Lv: 10
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 5101
+      TroopId: 5101
+      EnemyId: 11
+      Lv: 10
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 5102
+    TroopEnemies:
+    - Id: 5102
+      TroopId: 5102
+      EnemyId: 105
+      Lv: 40
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 5102
+      TroopId: 5102
+      EnemyId: 8
+      Lv: 20
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 5102
+      TroopId: 5102
+      EnemyId: 1
+      Lv: 20
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 5102
+      TroopId: 5102
+      EnemyId: 8
+      Lv: 20
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 5102
+      TroopId: 5102
+      EnemyId: 11
+      Lv: 20
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 6021
+    TroopEnemies:
+    - Id: 6021
+      TroopId: 6021
+      EnemyId: 1002
+      Lv: 10
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 6021
+      TroopId: 6021
+      EnemyId: 1003
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 6021
+      TroopId: 6021
+      EnemyId: 1004
+      Lv: 0
+      BossFlag: 0
+      Line: 1
+      StageLv: 0
+    - Id: 6021
+      TroopId: 6021
+      EnemyId: 8
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 6021
+      TroopId: 6021
+      EnemyId: 1
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 6022
+    TroopEnemies:
+    - Id: 6022
+      TroopId: 6022
+      EnemyId: 1011
+      Lv: 10
+      BossFlag: 1
+      Line: 0
+      StageLv: 0
+    - Id: 6022
+      TroopId: 6022
+      EnemyId: 1005
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 6022
+      TroopId: 6022
+      EnemyId: 1010
+      Lv: 0
+      BossFlag: 0
+      Line: 1
+      StageLv: 0
+    - Id: 6022
+      TroopId: 6022
+      EnemyId: 10
+      Lv: 0
+      BossFlag: 0
+      Line: 1
+      StageLv: 0
+    - Id: 6022
+      TroopId: 6022
+      EnemyId: 14
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 6031
+    TroopEnemies:
+    - Id: 6031
+      TroopId: 6031
+      EnemyId: 1001
+      Lv: 10
+      BossFlag: 1
+      Line: 0
+      StageLv: 0
+    - Id: 6031
+      TroopId: 6031
+      EnemyId: 1006
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 6031
+      TroopId: 6031
+      EnemyId: 1008
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 6031
+      TroopId: 6031
+      EnemyId: 1007
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 6031
+      TroopId: 6031
+      EnemyId: 1009
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    StageTurn: 0
+  - TroopId: 6101
+    TroopEnemies:
+    - Id: 6101
+      TroopId: 6101
+      EnemyId: 201
+      Lv: 10
+      BossFlag: 1
+      Line: 1
+      StageLv: 0
+    - Id: 6101
+      TroopId: 6101
+      EnemyId: 15
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 6101
+      TroopId: 6101
+      EnemyId: 11
+      Lv: 0
+      BossFlag: 0
+      Line: 0
+      StageLv: 0
+    - Id: 6101
+      TroopId: 6101
+      EnemyId: 5
+      Lv: 0
+      BossFlag: 0
+      Line: 1
+      StageLv: 0
+    - Id: 6101
+      TroopId: 6101
+      EnemyId: 13
+      Lv: 0
+      BossFlag: 0
+      Line: 1
+      StageLv: 0
+    StageTurn: 0

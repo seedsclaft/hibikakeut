@@ -1,0 +1,1580 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74e889193e22a9747940ed2cfe192e6e, type: 3}
+  m_Name: Boot.chapter
+  m_EditorClassIdentifier: 
+  chapterName: Boot
+  dataList:
+  - {fileID: 11400000, guid: 175a71ca6a664cd498bc10ff2b098d26, type: 2}
+  - {fileID: 11400000, guid: 1b619cb39165b044a812767efa9d0d21, type: 2}
+  - {fileID: 11400000, guid: 4b31597573d63634b9206528aba493a4, type: 2}
+  - {fileID: 11400000, guid: 7c9b729d570724f45ab33b559fc564d5, type: 2}
+  - {fileID: 11400000, guid: 410ff278c8dfe0e409324c08c2129ad1, type: 2}
+  - {fileID: 11400000, guid: feb75d6d3a564914e8a30906732b5932, type: 2}
+  - {fileID: 11400000, guid: 595ee0ec117f78641b2a75926b3b3b31, type: 2}
+  - {fileID: 11400000, guid: 5744d5cccba9c5d4bb5defbfd5b4015c, type: 2}
+  - {fileID: 11400000, guid: f3b33759c6cd668409e060d15d97d667, type: 2}
+  - {fileID: 11400000, guid: c7671f84a1acb684cb5478dc77873e47, type: 2}
+  - {fileID: 11400000, guid: 877fef201c441734e9bb142a80d1daf4, type: 2}
+  - {fileID: 11400000, guid: cb6ee41f0dd43d143ac0410882a34007, type: 2}
+  - {fileID: 11400000, guid: 66c33f5696362e14ab7372ef595eb5b1, type: 2}
+  - {fileID: 11400000, guid: 7aad7ccf8629e0a4e827fbe7177e1625, type: 2}
+  - {fileID: 11400000, guid: 606f409076f2d654e80ea25d9f79f7dc, type: 2}
+  - {fileID: 11400000, guid: b75a18eb9bd45994bb1cd20ee5efc8c6, type: 2}
+  - {fileID: 11400000, guid: 278571ad26b801c4aa6a63e833d2d6e4, type: 2}
+  - {fileID: 11400000, guid: a55645ae585dcf8408be2d8a9f67e4d5, type: 2}
+  - {fileID: 11400000, guid: 64c1f347850edf9418b0b97cf8d3af8c, type: 2}
+  - {fileID: 11400000, guid: 740799e0f66f2de41950d95e679d1822, type: 2}
+  - {fileID: 11400000, guid: 94ae6c68e4c4b3243aa629703c39ae3e, type: 2}
+  - {fileID: 11400000, guid: d5ba2b4a66ec35f4d833deb935aca1b8, type: 2}
+  - {fileID: 11400000, guid: 67a6087da685fed46a319a300387cd56, type: 2}
+  - {fileID: 11400000, guid: ab85eca8fae699041993377123796b20, type: 2}
+  - {fileID: 11400000, guid: 72d07f7284221384c99e9ee61d9db077, type: 2}
+  - {fileID: 11400000, guid: 667f1638360a6bb49a0dd99105976fb8, type: 2}
+  - {fileID: 11400000, guid: 36338a979380d8b41a28cd8f6cf273b9, type: 2}
+  - {fileID: 11400000, guid: 8c5d1db68b643474699a068c72416469, type: 2}
+  - {fileID: 11400000, guid: ed9b0d467b2c8f84e92ea3280a5ad371, type: 2}
+  - {fileID: 11400000, guid: fed370d49dba5b04ba9008d198940c9f, type: 2}
+  - {fileID: 11400000, guid: 0108ac47a5419ba4c8f378c980d22205, type: 2}
+  - {fileID: 11400000, guid: 420d1adfdfc5efe48a656971ed72568d, type: 2}
+  - {fileID: 11400000, guid: 780216a9d0468cd4483cf474e73071b1, type: 2}
+  - {fileID: 11400000, guid: a22fef6ca8bc3f6468ac2e38127855a5, type: 2}
+  - {fileID: 11400000, guid: 2ecceeeb27b7e8c43a893a4e2b797eb9, type: 2}
+  - {fileID: 11400000, guid: db45e5adcf25c464f8e2ae88875463e9, type: 2}
+  - {fileID: 11400000, guid: 7e393e066bef54e4c8cd90a5c58d8b3c, type: 2}
+  - {fileID: 11400000, guid: 8bff9ab97a34572429a271e8fab82d5c, type: 2}
+  - {fileID: 11400000, guid: 703b03fc541be09448f8c994939c17cc, type: 2}
+  - {fileID: 11400000, guid: 090b6e5fa798d334a940b19452e60da6, type: 2}
+  - {fileID: 11400000, guid: 25c2b9ee69b40844784f8b05b64c1bdb, type: 2}
+  - {fileID: 11400000, guid: 962593342c9943c42bc36c97cba5c816, type: 2}
+  - {fileID: 11400000, guid: 7679c295ebc179049a0741213baf8253, type: 2}
+  - {fileID: 11400000, guid: 527faa05c0167864b8b500487048f51d, type: 2}
+  - {fileID: 11400000, guid: 1c07e3126a69bf948937562bd6e98af3, type: 2}
+  - {fileID: 11400000, guid: 4376e622e8292e24e8f599f67ffab86a, type: 2}
+  - {fileID: 11400000, guid: 2c3f1fd921b62774f97b87875b0f9d2f, type: 2}
+  - {fileID: 11400000, guid: b93dffe8fd980bc4cac0c7df6073c586, type: 2}
+  - {fileID: 11400000, guid: e17d353e634077548910527bff9aa2a3, type: 2}
+  - {fileID: 11400000, guid: 6c25cda146f357a44b3add1e4b613ae0, type: 2}
+  - {fileID: 11400000, guid: 31ffc7fd5fcab134fa487d670e4a0c36, type: 2}
+  - {fileID: 11400000, guid: 8cff921ba70b42a419accdf51e0ce005, type: 2}
+  - {fileID: 11400000, guid: 55edec12676ec3745a6e4090a02ca638, type: 2}
+  - {fileID: 11400000, guid: da6bb2411a8b77a4e99043828d6c6b69, type: 2}
+  - {fileID: 11400000, guid: 509bcbbeffad2fd498403e7caeea912d, type: 2}
+  - {fileID: 11400000, guid: c6deffb351a406045b832470fe288bd1, type: 2}
+  - {fileID: 11400000, guid: ec4a6840cc7b14f41977b9c52000b2cd, type: 2}
+  - {fileID: 11400000, guid: bc11b30e2162c3544958b15cb07e75cd, type: 2}
+  - {fileID: 11400000, guid: bd7c93f8aa453644f88d573bfbaa06ad, type: 2}
+  - {fileID: 11400000, guid: e463b616088103647aa1074fa6fb771d, type: 2}
+  - {fileID: 11400000, guid: e259096c29b17bb438a16ef49e064d69, type: 2}
+  - {fileID: 11400000, guid: a16ccbfc33918ce42b039467c9ca9b1c, type: 2}
+  - {fileID: 11400000, guid: c3167b3ddc1910c45b37e5a7b70d0763, type: 2}
+  - {fileID: 11400000, guid: 272a1747a4b90fa4b8d8151dead26400, type: 2}
+  - {fileID: 11400000, guid: 63a40895aee991a46989558f06d0c25e, type: 2}
+  - {fileID: 11400000, guid: 8bc7f6d6d93f238409b83bdd60ab08d8, type: 2}
+  - {fileID: 11400000, guid: 0fede69fbea4d954a82605b137838216, type: 2}
+  - {fileID: 11400000, guid: 286443efa60edb144935c74be140973c, type: 2}
+  - {fileID: 11400000, guid: c0a20dbf6a94df5408d769abef977db9, type: 2}
+  - {fileID: 11400000, guid: d9a54c6be2ff61049bdbf9248c0ffd69, type: 2}
+  - {fileID: 11400000, guid: 4a66f70ced1c2bb4f8d147c00da5b719, type: 2}
+  - {fileID: 11400000, guid: 1e0ef0866bafe2f4bad1bfec040cd61e, type: 2}
+  - {fileID: 11400000, guid: 89045ebe1d0f0ea46b59c1f89645ae7e, type: 2}
+  - {fileID: 11400000, guid: 0cef7ad06a748db43a0b5d7e76c13426, type: 2}
+  - {fileID: 11400000, guid: 48a62b999560d0b40a606f5e8e58e696, type: 2}
+  - {fileID: 11400000, guid: a1d1ebd1beba2fb489670445d21e1ea7, type: 2}
+  - {fileID: 11400000, guid: 1a568e89f3acc1f4a80582a39e5a06f0, type: 2}
+  - {fileID: 11400000, guid: 249b7464da79f994688aae6fb6bf6a46, type: 2}
+  - {fileID: 11400000, guid: d2b7dae711d87a2468ec072ad65b2e94, type: 2}
+  - {fileID: 11400000, guid: 25c6746dc7039ed438f67c7391d65fbd, type: 2}
+  - {fileID: 11400000, guid: 68cf1ba33c73c4f459b0a24677564641, type: 2}
+  - {fileID: 11400000, guid: bea4504973d51d84db51e48cedb27a9d, type: 2}
+  - {fileID: 11400000, guid: be9a52b8c80573b4cae554cd9c2b7c9f, type: 2}
+  - {fileID: 11400000, guid: 33ab7e664b326334695b3cb33f196277, type: 2}
+  - {fileID: 11400000, guid: 210abdddb486c8f4594261f06a842e1d, type: 2}
+  - {fileID: 11400000, guid: f87fa7b8bddb3704bb15a96e141b32fe, type: 2}
+  - {fileID: 11400000, guid: 03dc14d9d11a8874db7d38027389ccff, type: 2}
+  - {fileID: 11400000, guid: 52a8023ee6498a84eaecfef23b16ed49, type: 2}
+  - {fileID: 11400000, guid: 5fc32a6d81ee76b4b8aaec30de400fa6, type: 2}
+  - {fileID: 11400000, guid: f9ec1e5bfa71b1e479615bbdc38caca4, type: 2}
+  - {fileID: 11400000, guid: 0dc4c1acb175b1d4ab34308957f00560, type: 2}
+  - {fileID: 11400000, guid: 65ef564ab7400974ba79af63aeeddd96, type: 2}
+  - {fileID: 11400000, guid: ba9206135bb74024d9825ca769bf0536, type: 2}
+  - {fileID: 11400000, guid: 805b30fc0b87f524c9ad914df903fae5, type: 2}
+  - {fileID: 11400000, guid: 14acd677ec5d91e41be73b3c7ff7d560, type: 2}
+  settingList:
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - CharacterName
+      - NameText
+      - Pattern
+      - X
+      - Y
+      - Z
+      - Pivot
+      - Scale
+      - Conditional
+      - FileName
+      - SubFileName
+      - FileType
+      - Animation
+      - RenderTexture
+      - RenderRect
+      - EyeBlink
+      - LipSynch
+      - Icon
+      - IconSubFileName
+      - IconRect
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 1
+      debugIndex: 1
+      strings:
+      - Actor01_00
+      - "\u30A8\u30EA\u30B7\u30E3"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0001/Actor01_0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 2
+      debugIndex: 2
+      strings:
+      - Actor01_01
+      - "\u30A8\u30EA\u30B7\u30E3"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0001/Actor01_1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 3
+      debugIndex: 3
+      strings:
+      - Actor01_02
+      - "\u30A8\u30EA\u30B7\u30E3"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0001/Actor01_2
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 4
+      debugIndex: 4
+      strings:
+      - Actor01_03
+      - "\u30A8\u30EA\u30B7\u30E3"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0001/Actor01_3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 5
+      debugIndex: 5
+      strings:
+      - Actor01_04
+      - "\u30A8\u30EA\u30B7\u30E3"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0001/Actor01_4
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 6
+      debugIndex: 6
+      strings:
+      - Actor02_00
+      - "\u30BD\u30E9"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0002/Actor02_0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 7
+      debugIndex: 7
+      strings:
+      - Actor02_01
+      - "\u30BD\u30E9"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0002/Actor02_1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 8
+      debugIndex: 8
+      strings:
+      - Actor02_02
+      - "\u30BD\u30E9"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0002/Actor02_2
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 9
+      debugIndex: 9
+      strings:
+      - Actor02_03
+      - "\u30BD\u30E9"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0002/Actor02_3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 10
+      debugIndex: 10
+      strings:
+      - Actor02_04
+      - "\u30BD\u30E9"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0002/Actor02_4
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 11
+      debugIndex: 11
+      strings:
+      - Actor03_00
+      - "\u30EA\u30B8\u30A7"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0003/Actor03_0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 12
+      debugIndex: 12
+      strings:
+      - Actor03_01
+      - "\u30EA\u30B8\u30A7"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0003/Actor03_1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 13
+      debugIndex: 13
+      strings:
+      - Actor03_02
+      - "\u30EA\u30B8\u30A7"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0003/Actor03_2
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 14
+      debugIndex: 14
+      strings:
+      - Actor03_03
+      - "\u30EA\u30B8\u30A7"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0003/Actor03_3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 15
+      debugIndex: 15
+      strings:
+      - Actor03_04
+      - "\u30EA\u30B8\u30A7"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0003/Actor03_4
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 16
+      debugIndex: 16
+      strings:
+      - Actor04_00
+      - "\u30DF\u30B7\u30A7\u30EB"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0004/Actor04_0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 17
+      debugIndex: 17
+      strings:
+      - Actor04_01
+      - "\u30DF\u30B7\u30A7\u30EB"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0004/Actor04_1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 18
+      debugIndex: 18
+      strings:
+      - Actor04_02
+      - "\u30DF\u30B7\u30A7\u30EB"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0004/Actor04_2
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 19
+      debugIndex: 19
+      strings:
+      - Actor04_03
+      - "\u30DF\u30B7\u30A7\u30EB"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0004/Actor04_3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 20
+      debugIndex: 20
+      strings:
+      - Actor04_04
+      - "\u30DF\u30B7\u30A7\u30EB"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0004/Actor04_4
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 21
+      debugIndex: 21
+      strings:
+      - Actor05_00
+      - "\u30B7\u30FC\u30CA"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0005/Actor05_0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 22
+      debugIndex: 22
+      strings:
+      - Actor05_01
+      - "\u30B7\u30FC\u30CA"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0005/Actor05_1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 23
+      debugIndex: 23
+      strings:
+      - Actor05_02
+      - "\u30B7\u30FC\u30CA"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0005/Actor05_2
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 24
+      debugIndex: 24
+      strings:
+      - Actor05_03
+      - "\u30B7\u30FC\u30CA"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0005/Actor05_3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 25
+      debugIndex: 25
+      strings:
+      - Actor05_04
+      - "\u30B7\u30FC\u30CA"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0005/Actor05_4
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 26
+      debugIndex: 26
+      strings:
+      - Actor06_00
+      - "\u30E6\u30CB"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0006/Actor06_0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 27
+      debugIndex: 27
+      strings:
+      - Actor06_01
+      - "\u30E6\u30CB"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0006/Actor06_1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 28
+      debugIndex: 28
+      strings:
+      - Actor06_02
+      - "\u30E6\u30CB"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0006/Actor06_2
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 29
+      debugIndex: 29
+      strings:
+      - Actor06_03
+      - "\u30E6\u30CB"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0006/Actor06_3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 30
+      debugIndex: 30
+      strings:
+      - Actor06_04
+      - "\u30E6\u30CB"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0006/Actor06_4
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 31
+      debugIndex: 31
+      strings:
+      - Actor07_00
+      - "\u30DE\u30EA\u30FC"
+      - 
+      - 
+      - 0
+      - 
+      - 
+      - .5
+      - 
+      - Actors/0007/Actor07_0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/ADVScene/ADVScene.xls:Character
+    type: 1
+    textLength: 1301
+    headerRow: 0
+    sourceAssetInEditor: {fileID: 102900000, guid: cfe001472457b044c85053811f5aa116,
+      type: 3}
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - Label
+      - Type
+      - X
+      - Y
+      - Z
+      - Pivot
+      - Scale
+      - Conditional
+      - FileName
+      - FileType
+      - SubFileName
+      - Animation
+      - RenderTexture
+      - RenderRect
+      - Thumbnail
+      - CgCategolly
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 1
+      debugIndex: 1
+      strings:
+      - event1
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - event1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 2
+      debugIndex: 2
+      strings:
+      - event2
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - event2
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 3
+      debugIndex: 3
+      strings:
+      - event3
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - event3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 4
+      debugIndex: 4
+      strings:
+      - event4
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - event4
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 5
+      debugIndex: 5
+      strings:
+      - event5
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - event5
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 6
+      debugIndex: 6
+      strings:
+      - event6
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - event6
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 7
+      debugIndex: 7
+      strings:
+      - event7
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - event7
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 8
+      debugIndex: 8
+      strings:
+      - event8
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - event8
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 9
+      debugIndex: 9
+      strings:
+      - event9
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - event9
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 10
+      debugIndex: 10
+      strings:
+      - stage1
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 11
+      debugIndex: 11
+      strings:
+      - stage2
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage2
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 12
+      debugIndex: 12
+      strings:
+      - stage3
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 13
+      debugIndex: 13
+      strings:
+      - stage4
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage4
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 14
+      debugIndex: 14
+      strings:
+      - stage5
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage5
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 15
+      debugIndex: 15
+      strings:
+      - stage6
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage6
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 16
+      debugIndex: 16
+      strings:
+      - stage7
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage7
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 17
+      debugIndex: 17
+      strings:
+      - stage8
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage8
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 18
+      debugIndex: 18
+      strings:
+      - stage9
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage9
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 19
+      debugIndex: 19
+      strings:
+      - stage10
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage10
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 20
+      debugIndex: 20
+      strings:
+      - stage11
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage11
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 21
+      debugIndex: 21
+      strings:
+      - stage12
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage12
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 22
+      debugIndex: 22
+      strings:
+      - stage13
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage13
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 23
+      debugIndex: 23
+      strings:
+      - stage14
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage14
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 24
+      debugIndex: 24
+      strings:
+      - stage15
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage15
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 25
+      debugIndex: 25
+      strings:
+      - stage16
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage16
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 26
+      debugIndex: 26
+      strings:
+      - stage17
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage17
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 27
+      debugIndex: 27
+      strings:
+      - stage18
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage18
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 28
+      debugIndex: 28
+      strings:
+      - stage19
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - stage19
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 29
+      debugIndex: 29
+      strings:
+      - Slime
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - Slime
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 30
+      debugIndex: 30
+      strings:
+      - Behemoth
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - Behemoth
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 31
+      debugIndex: 31
+      strings:
+      - backtitle
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - backtitle
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 32
+      debugIndex: 32
+      strings:
+      - Chimera
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - Chimera
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 33
+      debugIndex: 33
+      strings:
+      - Dragon
+      - Bg
+      - 
+      - 0
+      - 
+      - 
+      - 1
+      - 
+      - Dragon
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/ADVScene/ADVScene.xls:Texture
+    type: 1
+    textLength: 670
+    headerRow: 0
+    sourceAssetInEditor: {fileID: 102900000, guid: cfe001472457b044c85053811f5aa116,
+      type: 3}
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - Label
+      - FileName
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/ADVScene/ADVScene.xls:Particle
+    type: 1
+    textLength: 13
+    headerRow: 0
+    sourceAssetInEditor: {fileID: 102900000, guid: cfe001472457b044c85053811f5aa116,
+      type: 3}
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - LayerName
+      - Type
+      - X
+      - Y
+      - Order
+      - LayerMask
+      - ScaleX
+      - ScaleY
+      - FlipX
+      - FlipY
+      - Width
+      - Height
+      - BorderLeft
+      - BorderRight
+      - BorderTop
+      - BorderBottom
+      - Align
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 1
+      debugIndex: 1
+      strings:
+      - Character1
+      - Character
+      - 0
+      - -40
+      - 200
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 2
+      debugIndex: 2
+      strings:
+      - Character0
+      - Character
+      - 280
+      - -40
+      - 190
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 3
+      debugIndex: 3
+      strings:
+      - Character2
+      - Character
+      - -280
+      - -40
+      - 190
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 4
+      debugIndex: 4
+      strings:
+      - Character1_1
+      - Character
+      - 0
+      - -240
+      - 200
+      - 
+      - 1.25
+      - 1.25
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 5
+      debugIndex: 5
+      strings:
+      - Picture1
+      - Bg
+      - 0
+      - 0
+      - 10
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 6
+      debugIndex: 6
+      strings:
+      - Picture2
+      - Bg
+      - 0
+      - 0
+      - 20
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 7
+      debugIndex: 7
+      strings:
+      - Picture3
+      - Bg
+      - 0
+      - 0
+      - 30
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 8
+      debugIndex: 8
+      strings:
+      - Balloon
+      - Character
+      - 0
+      - 0
+      - 210
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/ADVScene/ADVScene.xls:Layer
+    type: 1
+    textLength: 292
+    headerRow: 0
+    sourceAssetInEditor: {fileID: 102900000, guid: cfe001472457b044c85053811f5aa116,
+      type: 3}
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - Label
+      - IntervalMin
+      - IntervalMax
+      - RandomDouble
+      - Tag
+      - Name0
+      - Duration0
+      - Name1
+      - Duration1
+      - Name2
+      - Duration2
+      - Name3
+      - Duration3
+      - Name4
+      - Duration4
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/ADVScene/ADVScene.xls:EyeBlink
+    type: 1
+    textLength: 112
+    headerRow: 0
+    sourceAssetInEditor: {fileID: 102900000, guid: cfe001472457b044c85053811f5aa116,
+      type: 3}
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - Label
+      - Type
+      - Interval
+      - Tag
+      - ScaleVoiceVolume
+      - Name0
+      - Duration0
+      - Name1
+      - Duration1
+      - Name2
+      - Duration2
+      - Name3
+      - Duration3
+      - Name4
+      - Duration4
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/ADVScene/ADVScene.xls:LipSynch
+    type: 1
+    textLength: 106
+    headerRow: 0
+    sourceAssetInEditor: {fileID: 102900000, guid: cfe001472457b044c85053811f5aa116,
+      type: 3}
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - '*SampleAnimation'
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 1
+      debugIndex: 1
+      strings:
+      - Time
+      - 0
+      - .5
+      - 1
+      - 1.5
+      - 2
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 2
+      debugIndex: 2
+      strings:
+      - X
+      - 0
+      - 
+      - 0
+      - 0
+      - 100
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 3
+      debugIndex: 3
+      strings:
+      - Y
+      - -50
+      - 50
+      - 0
+      - 0
+      - 0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 4
+      debugIndex: 4
+      strings:
+      - Angle
+      - 0
+      - 
+      - 0
+      - 0
+      - 360
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 5
+      debugIndex: 5
+      strings:
+      - ScaleX
+      - .2
+      - 1.2
+      - 1
+      - 1
+      - 1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 6
+      debugIndex: 6
+      strings:
+      - ScaleY
+      - .2
+      - 1.2
+      - 1
+      - 1
+      - 1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 7
+      debugIndex: 7
+      strings:
+      - Alpha
+      - 0
+      - 1
+      - 1
+      - 1
+      - 1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/ADVScene/ADVScene.xls:Animation
+    type: 1
+    textLength: 93
+    headerRow: 0
+    sourceAssetInEditor: {fileID: 102900000, guid: cfe001472457b044c85053811f5aa116,
+      type: 3}
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - Label
+      - Title
+      - Type
+      - FileName
+      - IntroTime
+      - Volume
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/ADVScene/ADVScene.xls:Sound
+    type: 1
+    textLength: 37
+    headerRow: 0
+    sourceAssetInEditor: {fileID: 102900000, guid: cfe001472457b044c85053811f5aa116,
+      type: 3}
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - Label
+      - Type
+      - Value
+      - FileType
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 1
+      debugIndex: 1
+      strings:
+      - PlayerName
+      - String
+      - "\u540D\u524D"
+      - Default
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 2
+      debugIndex: 2
+      strings:
+      - Select1
+      - String
+      - "\u30D8\u30AB\u30C6\u30FC"
+      - Default
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 3
+      debugIndex: 3
+      strings:
+      - RouteSelect
+      - Int
+      - -1
+      - Default
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/ADVScene/ADVScene.xls:Param
+    type: 1
+    textLength: 94
+    headerRow: 0
+    sourceAssetInEditor: {fileID: 102900000, guid: cfe001472457b044c85053811f5aa116,
+      type: 3}
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - Name
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 1
+      debugIndex: 1
+      strings:
+      - Type
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 2
+      debugIndex: 2
+      strings:
+      - FileType
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/ADVScene/ADVScene.xls:ParamTbl{}
+    type: 1
+    textLength: 16
+    headerRow: 0
+    sourceAssetInEditor: {fileID: 102900000, guid: cfe001472457b044c85053811f5aa116,
+      type: 3}
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - ScenarioLabel
+      - Title
+      - Thumbnail
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/ADVScene/ADVScene.xls:SceneGallery
+    type: 1
+    textLength: 27
+    headerRow: 0
+    sourceAssetInEditor: {fileID: 102900000, guid: cfe001472457b044c85053811f5aa116,
+      type: 3}
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - Key
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/ADVScene/ADVScene.xls:Localize
+    type: 1
+    textLength: 3
+    headerRow: 0
+    sourceAssetInEditor: {fileID: 102900000, guid: cfe001472457b044c85053811f5aa116,
+      type: 3}
+  customDataList: []
