@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ryneus
 {
@@ -19,6 +20,7 @@ namespace Ryneus
         {
             _currentSeek = currentSeek;
         }
+        public int EndSeek => _symbolInfos.Max(a => a.Master.Seek);
 
         private int _currentSeekIndex = -1;
         public int CurrentSeekIndex => _currentSeekIndex;

@@ -696,7 +696,37 @@ MonoBehaviour:
     BackGround: stage1
     BGMId: 1010
     BossBGMId: 2010
-    StageEvents: []
+    StageEvents:
+    - EventKey: 0BeforeTacticsAdvStart10
+      Turns: 0
+      Timing: 11
+      Type: 11
+      Param: 10
+      ReadFlag: 1
+    - EventKey: 0BeforeTacticsAdvStart20
+      Turns: 0
+      Timing: 11
+      Type: 11
+      Param: 20
+      ReadFlag: 1
+    - EventKey: 2BeforeTacticsAdvStart30
+      Turns: 2
+      Timing: 11
+      Type: 11
+      Param: 30
+      ReadFlag: 1
+    - EventKey: 6BeforeTacticsAdvStart50
+      Turns: 6
+      Timing: 11
+      Type: 11
+      Param: 50
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart60
+      Turns: 7
+      Timing: 2
+      Type: 11
+      Param: 60
+      ReadFlag: 1
     StageSymbols:
     - StageId: 10
       Seek: 0
@@ -791,7 +821,13 @@ MonoBehaviour:
     BackGround: stage2
     BGMId: 1020
     BossBGMId: 2010
-    StageEvents: []
+    StageEvents:
+    - EventKey: 0BeforeTacticsAdvStart70
+      Turns: 0
+      Timing: 11
+      Type: 11
+      Param: 70
+      ReadFlag: 1
     StageSymbols: []
   - Id: 30
     StageNo: 3

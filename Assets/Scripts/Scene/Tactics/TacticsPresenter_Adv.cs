@@ -65,25 +65,6 @@ namespace Ryneus
             }
         }
 
-        private bool CheckAdvEvent()
-        {
-            var StartTacticsAdvData = _model.StartTacticsAdvData();
-            if (StartTacticsAdvData != null)
-            {
-                var advInfo = new AdvCallInfo();
-                advInfo.SetLabel(_model.GetAdvFile(StartTacticsAdvData.Id));
-                advInfo.SetCallEvent(() => 
-                {
-                    if (StartTacticsAdvData.EndJump != Scene.None)
-                    {
-                        _view.CommandSceneChange(StartTacticsAdvData.EndJump);
-                    }   
-                });
-                _view.CommandCallAdv(advInfo);
-                _view.ChangeUIActive(false);
-            }
-            return StartTacticsAdvData != null;
-        }
 
         private bool CheckBeforeTacticsAdvEvent()
         {

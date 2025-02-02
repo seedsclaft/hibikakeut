@@ -24,10 +24,6 @@ namespace Ryneus
             _model = new TacticsModel();
             SetModel(_model);
 
-            if (CheckAdvEvent())
-            {
-                return;
-            }
             if (CheckBeforeTacticsAdvEvent())
             {
                 return;

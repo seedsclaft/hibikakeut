@@ -72,7 +72,7 @@ namespace Ryneus
                     break;
             }
             // チュートリアル確認
-            CheckTutorialState(viewEvent.commandType);
+            //CheckTutorialState(viewEvent.commandType);
         }
 
         private void CheckTutorialState(CommandType commandType = CommandType.None)
@@ -389,7 +389,6 @@ namespace Ryneus
                 _view.CommandGotoSceneChange(Scene.Tactics,tacticsSceneInfo);
             } else
             {
-                // レコード新規保存
                 _model.EndStrategy();
                 _model.SeekStage();
                 var tacticsSceneInfo = new TacticsSceneInfo

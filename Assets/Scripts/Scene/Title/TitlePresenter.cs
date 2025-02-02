@@ -78,16 +78,10 @@ namespace Ryneus
                 case "CONTINUE":
                     CommandContinue();
                     return;
+                case "OPTION":
+                    CommandOption();
+                    return;
             }
-            /*
-            var loadFile = SaveSystem.ExistsLoadPlayerFile();
-            if (loadFile)
-            {
-                CommandContinue();
-            } else
-            {
-            }
-            */
         }
 
         private void CommandNewGame()
@@ -126,6 +120,17 @@ namespace Ryneus
                 _model.StartOpeningStage();
             }
             _view.CommandGotoSceneChange(Scene.Tactics);
+        }
+
+        private void CommandOption()
+        {
+            _busy = true;
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _view.CommandCallOption(() => 
+            {
+                _busy = false;
+                CommandRefresh();
+            });
         }
 
         private void CommandRefresh()

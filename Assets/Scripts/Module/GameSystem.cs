@@ -235,8 +235,8 @@ namespace Ryneus
                 case Base.CommandType.StartTransition:
                     transitionFade.FadeIn(0.8f,() => {
                         foreach(Transform child in transitionRoot.transform){
-                            var endEvent = (System.Action)viewEvent.template;
-                            if ((System.Action)viewEvent.template != null) endEvent();
+                            var endEvent = (Action)viewEvent.template;
+                            if ((Action)viewEvent.template != null) endEvent();
                             Destroy(child.gameObject);
                             transitionFade.FadeOut(0);
                             transitionRoot.SetActive(false);
@@ -438,6 +438,8 @@ namespace Ryneus
             advHelpWindow.SetInputInfo("ADV_READING");
             while (advEngine.IsWaitBootLoading) yield return null;
             while (advEngine.IsLoading) yield return null;
+            advEngine.Param.SetParameterBoolean("SelectionParam_0",false);
+            advEngine.Param.SetParameterBoolean("SelectionParam_1",false);
             advEngine.JumpScenario(label);
             advEngine.Config.IsSkip = ConfigData.EventSkipIndex;
             advController.StartAdv();

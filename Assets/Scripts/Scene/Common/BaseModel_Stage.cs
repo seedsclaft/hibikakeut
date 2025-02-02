@@ -72,6 +72,15 @@ namespace Ryneus
             }
             PartyInfo.SetSeek(PartyInfo.Seek + 1);
             PartyInfo.SetSeekIndex(0);
+            // ステージ終了していたら次のステージへ
+            if (PartyInfo.Seek > CurrentStage.EndSeek)
+            {
+                var next = DataSystem.FindNextStage(CurrentStage.Id);
+                if (next != null)
+                {
+                    MakeStageInfo(next.Id);
+                }
+            }
         }
     }
 }

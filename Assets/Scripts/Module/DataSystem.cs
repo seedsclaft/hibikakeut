@@ -39,15 +39,6 @@ namespace Ryneus
         
         public static Color PowerUpColor => new(0,128,128);
 
-
-
-        //private static AlcanaData _alcana;
-        //public static List<AlcanaData.Alcana> Alcana => _alcana._data;
-
-
-
-
-
         public static void LoadData()
         {
             var ActorsData = Resources.Load<ActorDates>("Data/Actors").Data;
@@ -99,6 +90,11 @@ namespace Ryneus
         public static StageData FindStage(int id)
         {
             return Stages.Find(a => a.Id == id);
+        }
+
+        public static StageData FindNextStage(int currentStageId)
+        {
+            return Stages.Find(a => a.Id > currentStageId);
         }
 
         public static StateData FindState(int id)

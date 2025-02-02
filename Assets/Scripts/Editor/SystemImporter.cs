@@ -209,6 +209,10 @@ namespace Ryneus
 						{
 							Data.WeakPointRate = AssetPostImporter.ImportNumeric(BaseRow,(int)BaseDefineColumn.Param);
 						}
+						if (KeyName == "StartStageId")
+						{
+							Data.StartStageId = AssetPostImporter.ImportNumeric(BaseRow,(int)BaseDefineColumn.Param);
+						}
 					}
 				}
 			}

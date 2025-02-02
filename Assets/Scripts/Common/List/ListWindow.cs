@@ -21,9 +21,9 @@ namespace Ryneus
         }
         private int _defaultInputFrame = 0;
 
-        private int _listMoveInputFrameFirst = 36;
+        private int _listMoveInputFrameFirst = 12;
         private int _listMoveGamePadFrameFirst = 39;
-        private int _listMoveInputFrame = 6;
+        private int _listMoveInputFrame = 4;
         private int _listMoveGamePadFrame = 9;
         public void SetInputFrame(int frame)
         {
@@ -433,7 +433,7 @@ namespace Ryneus
         {
             if (keyType == InputKeyType.None)
             {
-                ResetInputOneFrame();
+                //ResetInputOneFrame();
             }
             if (!IsInputEnable())
             {

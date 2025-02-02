@@ -103,6 +103,7 @@ namespace Ryneus
             {
                 foreach (var d in CommonEventDates)
                 {
+                    var csvColList = new List<List<string>>();
                     var csvStrings = new List<string>
                     {
                         // パラメータ設定
@@ -120,6 +121,8 @@ namespace Ryneus
                     var lastFace = 0;
                     var lastPosition = -1;
                     var doubleText = false;
+                    var selection2 = new List<string>();
+                    var paramFlag = -1;
                     var codeIdx = 0;
                     foreach (var l in d.list)
                     {
@@ -193,6 +196,73 @@ namespace Ryneus
                                 mainText = mainText.Replace("\\N[13]","子供エリシャ");
                                 mainText = mainText.Replace("\\N[14]","母親（？）");
                                 csvCol.Add(mainText);
+                                // 次が選択肢ならInput
+                                if (nextCode.code == 102)
+                                {
+                                    csvCol.Add("Input");
+                                }
+                                break;
+                            case 102: // 選択肢
+                                csvCol.Add("Selection");
+                                csvCol.Add("*" + d.id.ToString() + "_0");
+                                csvCol.Add("");
+                                csvCol.Add("");
+                                csvCol.Add("");
+                                csvCol.Add("");
+                                csvCol.Add("");
+                                csvCol.Add("");
+                                // 402データから取得
+                                var SelectionList = d.list.ToList().FindAll(a => a.code == 402);
+                                var selectionText = SelectionList[0].parameters[1];
+                                selectionText = selectionText.Replace("\\N[1]","エリシャ");
+                                selectionText = selectionText.Replace("\\N[2]","ソラ");
+                                selectionText = selectionText.Replace("\\N[3]","リジェ");
+                                selectionText = selectionText.Replace("\\N[4]","ミシェル");
+                                selectionText = selectionText.Replace("\\N[5]","シイナ");
+                                selectionText = selectionText.Replace("\\N[6]","ルネ");
+                                selectionText = selectionText.Replace("\\N[7]","マリー");
+                                csvCol.Add(selectionText);
+
+                                selection2.Add("Selection");
+                                selection2.Add("*" + d.id.ToString() + "_1");
+                                selection2.Add("");
+                                selection2.Add("");
+                                selection2.Add("");
+                                selection2.Add("");
+                                selection2.Add("");
+                                selection2.Add("");
+                                selectionText = SelectionList[1].parameters[1];
+                                selectionText = selectionText.Replace("\\N[1]","エリシャ");
+                                selectionText = selectionText.Replace("\\N[2]","ソラ");
+                                selectionText = selectionText.Replace("\\N[3]","リジェ");
+                                selectionText = selectionText.Replace("\\N[4]","ミシェル");
+                                selectionText = selectionText.Replace("\\N[5]","シイナ");
+                                selectionText = selectionText.Replace("\\N[6]","ルネ");
+                                selectionText = selectionText.Replace("\\N[7]","マリー");
+                                selection2.Add(selectionText);
+                                break;
+                            case 402: // 選択肢のラベル
+                                csvCol.Add("*" + d.id.ToString() + "_" + l.parameters[0]);
+                                paramFlag = int.Parse(l.parameters[0]);
+                                break;
+                            case 118: // ラベル
+                                // 選択肢前にLayerReset
+                                    csvCol.Add("*" + d.id.ToString() + "_" + l.parameters[0]);
+                                if (l.parameters[0] == "選択肢前")
+                                {
+                                    selection2.Add("LayerReset");
+                                    selection2.Add("All");
+                                }
+                                break;
+                            case 119: // ラベルジャンプ
+                                csvCol.Add("Jump");
+                                csvCol.Add("*" + d.id.ToString() + "_" + l.parameters[0]);
+                                // 選択肢後
+                                if (l.parameters[0] == "選択肢後")
+                                {
+                                    // 条件を追加
+                                    csvCol.Add("SelectionParam_0 && SelectionParam_1");
+                                }
                                 break;
                             case 108: // 注釈
                                 break;
@@ -295,7 +365,7 @@ namespace Ryneus
                                 csvCol.Add(l.soundDate.pitch.ToString());
                                 break;
                             case 320: // アクター名変更（変換不可）
-                            break;
+                                break;
                         }
                         codeIdx++;
                         if (csvCol.Count == 0)
@@ -311,6 +381,7 @@ namespace Ryneus
                             }
                         }
                         var csvText = "";
+                        csvColList.Add(csvCol);
                         foreach (var csvC in csvCol)
                         {
                             csvText += csvC + ",";
@@ -318,6 +389,32 @@ namespace Ryneus
                         if (csvText != "")
                         {
                             csvStrings.Add(csvText);  
+                        }
+                        if (selection2.Count > 0)
+                        {
+                            // ","を挿入
+                            if (selection2.Count < 11)
+                            {
+                                for (int i = selection2.Count;i < 11;i++)
+                                {   
+                                    selection2.Add("");
+                                }
+                            }
+                            csvColList.Add(selection2);
+                            var selection2Text = "";
+                            foreach (var selection2C in selection2)
+                            {
+                                selection2Text += selection2C + ",";
+                            }
+                            csvStrings.Add(selection2Text); 
+                            selection2.Clear();
+                        }
+                        if (paramFlag > -1)
+                        {
+                            var paramText = "Param,";
+                            paramText += "SelectionParam_"+paramFlag + "=true," + ",,,,,,,,,,";
+                            csvStrings.Add(paramText);
+                            paramFlag = -1;
                         }
                     }
 

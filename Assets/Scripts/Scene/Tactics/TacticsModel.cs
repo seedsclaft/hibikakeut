@@ -175,25 +175,6 @@ namespace Ryneus
             return actorInfos;
         }
 
-        public AdvData StartTacticsAdvData()
-        {
-            var isGameOver = false;//PartyInfo.ActorIdList.Count > 0 && (Actors().Find(a => a.ActorId == PartyInfo.ActorIdList[0])).Lost;
-            if (isGameOver)
-            {
-                CurrentStage.SetEndingType(EndingType.C);
-                return DataSystem.Adventures.Find(a => a.Id == 21);
-            }
-            /*
-            var isAEndGameClear = CurrentStage.StageClear;
-            if (isAEndGameClear)
-            {
-                CurrentStage.SetEndingType(EndingType.A);
-                StageClear();
-                return DataSystem.Adventures.Find(a => a.Id == 151);
-            }
-            */
-            return null;
-        }
 
         public List<ListData> SideMenu()
         {
