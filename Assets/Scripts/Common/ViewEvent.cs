@@ -46,6 +46,7 @@ namespace Ryneus
         Status,
         Battle,
         BattleParty,
+        Strategy,
     }
 
     public interface IClickHandlerEvent

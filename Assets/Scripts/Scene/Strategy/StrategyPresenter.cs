@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Strategy;
 using System;
 
 namespace Ryneus
 {
+    using Strategy;
     public class StrategyPresenter : BasePresenter
     {
         StrategyModel _model = null;
@@ -37,14 +37,14 @@ namespace Ryneus
             _busy = false;
         }
 
-        private void UpdateCommand(StrategyViewEvent viewEvent)
+        private void UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
             {
                 return;
             }
             Debug.Log(viewEvent.commandType);
-            switch (viewEvent.commandType)
+            switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.StartStrategy:
                     CommandStartStrategy();
