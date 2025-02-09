@@ -75,11 +75,6 @@ namespace Ryneus
         {
             InitSaveInfo();
             InitSaveStageInfo();
-            foreach (var getItemInfo in OpeningGetItemInfos())
-            {
-                getItemInfo.SetGetFlag(true);
-                PartyInfo.AddGetItemInfo(getItemInfo);            
-            }
             MakeStageInfo(DataSystem.System.StartStageId);
         }
     }

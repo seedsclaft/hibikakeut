@@ -178,9 +178,8 @@ namespace Ryneus
 
         public List<StageEventData> StageEvents(EventTiming eventTiming)
         {
-            int CurrentTurn = CurrentStage.CurrentSeek;
             var eventKeys = CurrentGameInfo.ReadEventKeys;
-            return StageEventDates.FindAll(a => a.Timing == eventTiming && a.Turns == CurrentTurn && !eventKeys.Contains(a.EventKey));
+            return StageEventDates.FindAll(a => a.Timing == eventTiming && a.Turns == PartyInfo.Seek && !eventKeys.Contains(a.EventKey));
         }
         
 
@@ -309,19 +308,6 @@ namespace Ryneus
             CurrentData.PlayerInfo.GainClearCount();
         }
 
-        public List<GetItemInfo> OpeningGetItemInfos()
-        {
-            var getItemInfos = new List<GetItemInfo>();
-            // 初期加入マス
-            var stageSymbolDates = DataSystem.FindStage(0).StageSymbols;
-            stageSymbolDates = stageSymbolDates.FindAll(a => a.Seek == 0 && a.ClearCount <= CurrentData.PlayerInfo.ClearCount);
-            foreach (var stageSymbolData in stageSymbolDates)
-            {
-                var symbolInfo = new SymbolInfo(stageSymbolData);
-                getItemInfos.AddRange(symbolInfo.GetItemInfos);
-            }
-            return getItemInfos;
-        }
 
 
 
@@ -522,11 +508,11 @@ namespace Ryneus
         public string CurrentStageKey()
         {
             var stageKey = new System.Text.StringBuilder();
-            if (CurrentStage != null)
+            if (PartyInfo != null)
             {
-                stageKey.Append(string.Format(CurrentStage.Id.ToString("00")));
-                stageKey.Append(string.Format(CurrentStage.CurrentSeek.ToString("00")));
-                stageKey.Append(string.Format(CurrentStage.CurrentSeekIndex.ToString("00")));
+                stageKey.Append(string.Format(PartyInfo.StageId.ToString("00")));
+                stageKey.Append(string.Format(PartyInfo.Seek.ToString("00")));
+                stageKey.Append(string.Format(PartyInfo.SeekIndex.ToString("00")));
             }
             return stageKey.ToString();
         }
@@ -536,7 +522,7 @@ namespace Ryneus
             var cost = ActorLevelUpCost(actorInfo);
             // 新規魔法取得があるか
             var skills = actorInfo.LearningSkills(1);
-            var levelUpInfo = actorInfo.LevelUp(cost,CurrentStage.Id,CurrentStage.CurrentSeek,-1);
+            var levelUpInfo = actorInfo.LevelUp(cost,PartyInfo.StageId,PartyInfo.Seek,-1);
             foreach (var skill in skills)
             {
                 actorInfo.AddSkillTriggerSkill(skill.Id);

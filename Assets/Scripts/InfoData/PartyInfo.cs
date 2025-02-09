@@ -12,8 +12,6 @@ namespace Ryneus
         // 所持アクターリスト
         private List<ActorInfo> _actorInfos = new();
         public List<ActorInfo> ActorInfos => _actorInfos;
-        public void SetActorInfos(List<ActorInfo> actorInfos) => _actorInfos = actorInfos;
-    
         // 現在のステージ場所
         private int _stageId = -1;
         public int StageId => _stageId;
@@ -84,7 +82,10 @@ namespace Ryneus
                     var actorInfo = new ActorInfo(actorData);
                     actorInfo.SetBattleIndex(_actorInfos.Count+1);
                     actorInfo.SetLevel(actorData.InitLv);
+                    actorInfo.ChangeHp(actorInfo.MaxHp);
                     _actorInfos.Add(actorInfo);
+                    // 整列
+                    _actorInfos.Sort((a,b) => a.BattleIndex - b.BattleIndex > 0 ? 1 : -1);
                 }
             }
         }

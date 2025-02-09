@@ -453,8 +453,8 @@ namespace Ryneus
 
         private void CommandSelectRecord(SymbolResultInfo recordInfo)
         {
-            var currentTurn = _model.CurrentStage.CurrentSeek;
-            var currentStage = _model.CurrentStage.Id;
+            var currentTurn = _model.PartyInfo.Seek;
+            var currentStage = _model.PartyInfo.StageId;
             if (recordInfo.Seek == currentTurn && recordInfo.StageId == currentStage)
             {
                 // 現在

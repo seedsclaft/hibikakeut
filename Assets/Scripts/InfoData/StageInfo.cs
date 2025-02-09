@@ -14,12 +14,6 @@ namespace Ryneus
         public void SetSymbolInfos(List<SymbolInfo> symbolInfos) => _symbolInfos = symbolInfos;
         private int _id;
         public int Id => _id;
-        private int _currentSeek;
-        public int CurrentSeek => _currentSeek;
-        public void SetCurrentTurn(int currentSeek)
-        {
-            _currentSeek = currentSeek;
-        }
         public int EndSeek => _symbolInfos.Max(a => a.Master.Seek);
 
         private int _currentSeekIndex = -1;

@@ -8,6 +8,11 @@ namespace Ryneus
         public void MakeStageInfo(int stageId)
         {
             var stageInfo = new StageInfo(stageId);
+            foreach (var getItemInfo in StageOpeningGetItemInfos(stageId))
+            {
+                getItemInfo.SetGetFlag(true);
+                PartyInfo.AddGetItemInfo(getItemInfo);            
+            }
             stageInfo.SetSymbolInfos(GetStageSymbolInfos(stageId));
             CurrentGameInfo.SetStageInfo(stageInfo);
             PartyInfo.SetStageId(stageId);
@@ -15,6 +20,19 @@ namespace Ryneus
             PartyInfo.SetSeekIndex(0);
         }
         
+        public List<GetItemInfo> StageOpeningGetItemInfos(int stageId)
+        {
+            var getItemInfos = new List<GetItemInfo>();
+            var stageSymbolDates = DataSystem.FindStage(stageId).StageSymbols;
+            stageSymbolDates = stageSymbolDates.FindAll(a => a.Seek == -1 && a.ClearCount <= CurrentData.PlayerInfo.ClearCount);
+            foreach (var stageSymbolData in stageSymbolDates)
+            {
+                var symbolInfo = new SymbolInfo(stageSymbolData);
+                getItemInfos.AddRange(symbolInfo.GetItemInfos);
+            }
+            return getItemInfos;
+        }
+
         public List<SymbolInfo> GetStageSymbolInfos(int stageId)
         {
             return StageSymbolInfos(DataSystem.FindStage(stageId).StageSymbols);

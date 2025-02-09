@@ -25,6 +25,7 @@ namespace Ryneus
         [SerializeField] private GameObject cursor;
         public GameObject Cursor => cursor;
         [SerializeField] private bool changeCursorColor = true;
+        [SerializeField] private CursorRectAnimation cursorRectAnimation = null;
         [SerializeField] private GameObject disable = null;
         public GameObject Disable => disable;
 
@@ -38,11 +39,16 @@ namespace Ryneus
         {
             _addListenHandler = add;
         }
+
         public void Awake()
         {
             if (changeCursorColor)
             {
                 SetCursorColor();
+            }
+            if (cursorRectAnimation != null)
+            {
+                cursorRectAnimation.SelectAnimation();
             }
         }        
         

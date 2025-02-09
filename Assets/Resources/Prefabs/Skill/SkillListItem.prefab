@@ -930,13 +930,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1757363491584649035}
+  - component: {fileID: 5173746166053272579}
   m_Layer: 5
   m_Name: Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1757363491584649035
 RectTransform:
   m_ObjectHideFlags: 0
@@ -957,6 +958,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &5173746166053272579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3873287132538470683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfaca62f86be41c4ba731fa676e6f292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseCanvas: {fileID: 3797883337683807505}
+  Busy: 0
 --- !u!1 &4506639402658582600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,6 +1340,7 @@ GameObject:
   - component: {fileID: 8672133788153662675}
   - component: {fileID: 4877122253236203043}
   - component: {fileID: 6681609303743445006}
+  - component: {fileID: 3797883337683807505}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -1389,6 +1405,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &3797883337683807505
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180340123750483709}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7550832307387123806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1608,6 +1636,7 @@ MonoBehaviour:
   clickButton: {fileID: 8554750561699588780}
   cursor: {fileID: 3873287132538470683}
   changeCursorColor: 1
+  cursorRectAnimation: {fileID: 5173746166053272579}
   disable: {fileID: 0}
   selectColor: {r: 0, g: 0, b: 0, a: 0}
   unSelectColor: {r: 0, g: 0, b: 0, a: 0}
@@ -1650,7 +1679,6 @@ MonoBehaviour:
   selectable: {fileID: 0}
   selectedAlcana: {fileID: 0}
   shinyReflect: {fileID: 0}
-  slotType: {fileID: 0}
 --- !u!1 &8056983789135712199
 GameObject:
   m_ObjectHideFlags: 0
