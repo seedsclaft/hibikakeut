@@ -828,6 +828,12 @@ MonoBehaviour:
       Type: 11
       Param: 70
       ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart90
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 90
+      ReadFlag: 1
     StageSymbols:
     - StageId: 20
       Seek: -1
@@ -859,7 +865,19 @@ MonoBehaviour:
     BackGround: stage3
     BGMId: 1030
     BossBGMId: 2010
-    StageEvents: []
+    StageEvents:
+    - EventKey: 1BeforeTacticsAdvStart100
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 100
+      ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart130
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 130
+      ReadFlag: 1
     StageSymbols: []
   - Id: 40
     StageNo: 4
@@ -873,7 +891,19 @@ MonoBehaviour:
     BackGround: stage4
     BGMId: 1040
     BossBGMId: 2010
-    StageEvents: []
+    StageEvents:
+    - EventKey: 1BeforeTacticsAdvStart140
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 140
+      ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart180
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 180
+      ReadFlag: 1
     StageSymbols: []
   - Id: 50
     StageNo: 5
@@ -887,7 +917,19 @@ MonoBehaviour:
     BackGround: stage5
     BGMId: 1050
     BossBGMId: 2010
-    StageEvents: []
+    StageEvents:
+    - EventKey: 1BeforeTacticsAdvStart190
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 190
+      ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart220
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 220
+      ReadFlag: 1
     StageSymbols: []
   - Id: 60
     StageNo: 6
@@ -901,7 +943,43 @@ MonoBehaviour:
     BackGround: stage6
     BGMId: 1060
     BossBGMId: 2010
-    StageEvents: []
+    StageEvents:
+    - EventKey: 1BeforeTacticsAdvStart230
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 230
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart240
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 240
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart250
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 250
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart260
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 260
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart270
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 270
+      ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart280
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 280
+      ReadFlag: 1
     StageSymbols: []
   - Id: 70
     StageNo: 7
@@ -915,7 +993,19 @@ MonoBehaviour:
     BackGround: stage7
     BGMId: 1070
     BossBGMId: 2010
-    StageEvents: []
+    StageEvents:
+    - EventKey: 1BeforeTacticsAdvStart290
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 290
+      ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart320
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 320
+      ReadFlag: 1
     StageSymbols: []
   - Id: 80
     StageNo: 8
@@ -929,7 +1019,31 @@ MonoBehaviour:
     BackGround: stage8
     BGMId: 1080
     BossBGMId: 2020
-    StageEvents: []
+    StageEvents:
+    - EventKey: 1BeforeTacticsAdvStart330
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 330
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart340
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 340
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart350
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 350
+      ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart370
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 370
+      ReadFlag: 1
     StageSymbols: []
   - Id: 90
     StageNo: 9
@@ -943,7 +1057,31 @@ MonoBehaviour:
     BackGround: stage9
     BGMId: 1090
     BossBGMId: 2020
-    StageEvents: []
+    StageEvents:
+    - EventKey: 1BeforeTacticsAdvStart380
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 380
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart390
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 390
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart400
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 400
+      ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart410
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 410
+      ReadFlag: 1
     StageSymbols: []
   - Id: 100
     StageNo: 10
@@ -957,7 +1095,19 @@ MonoBehaviour:
     BackGround: stage10
     BGMId: 1100
     BossBGMId: 2020
-    StageEvents: []
+    StageEvents:
+    - EventKey: 1BeforeTacticsAdvStart420
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 420
+      ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart450
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 450
+      ReadFlag: 1
     StageSymbols: []
   - Id: 110
     StageNo: 11
@@ -971,7 +1121,43 @@ MonoBehaviour:
     BackGround: stage11
     BGMId: 1110
     BossBGMId: 2020
-    StageEvents: []
+    StageEvents:
+    - EventKey: 1BeforeTacticsAdvStart460
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 460
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart470
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 470
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart480
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 480
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart490
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 490
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart500
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 500
+      ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart530
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 530
+      ReadFlag: 1
     StageSymbols: []
   - Id: 120
     StageNo: 12
@@ -985,7 +1171,31 @@ MonoBehaviour:
     BackGround: stage12
     BGMId: 1120
     BossBGMId: 2020
-    StageEvents: []
+    StageEvents:
+    - EventKey: 1BeforeTacticsAdvStart540
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 540
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart550
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 550
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart560
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 560
+      ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart590
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 590
+      ReadFlag: 1
     StageSymbols: []
   - Id: 130
     StageNo: 13
@@ -999,7 +1209,19 @@ MonoBehaviour:
     BackGround: stage13
     BGMId: 1130
     BossBGMId: 2020
-    StageEvents: []
+    StageEvents:
+    - EventKey: 8StartStrategyAdvStart610
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 610
+      ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart630
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 630
+      ReadFlag: 1
     StageSymbols: []
   - Id: 140
     StageNo: 14
@@ -1013,7 +1235,25 @@ MonoBehaviour:
     BackGround: stage14
     BGMId: 1140
     BossBGMId: 2020
-    StageEvents: []
+    StageEvents:
+    - EventKey: 1BeforeTacticsAdvStart640
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 640
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart650
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 650
+      ReadFlag: 1
+    - EventKey: 8StartStrategyAdvStart660
+      Turns: 8
+      Timing: 2
+      Type: 11
+      Param: 660
+      ReadFlag: 1
     StageSymbols: []
   - Id: 150
     StageNo: 15
@@ -1027,7 +1267,43 @@ MonoBehaviour:
     BackGround: stage15
     BGMId: 1150
     BossBGMId: 1150
-    StageEvents: []
+    StageEvents:
+    - EventKey: 1BeforeTacticsAdvStart670
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 670
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart680
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 680
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart690
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 690
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart700
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 700
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart710
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 710
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart720
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 720
+      ReadFlag: 1
     StageSymbols: []
   SymbolGroupData:
   - GroupId: 201
