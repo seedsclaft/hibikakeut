@@ -375,7 +375,8 @@ namespace Ryneus
             var battleSceneInfo = new BattleSceneInfo
             {
                 ActorInfos = _model.BattleMembers(),
-                EnemyInfos = _model.EnemyInfos()
+                EnemyInfos = _model.EnemyInfos(),
+                GetItemInfos = _model.CurrentSymbolInfo()?.GetItemInfos
             };
             _view.CommandSceneChange(Scene.Battle,battleSceneInfo);
         }

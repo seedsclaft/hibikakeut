@@ -10,12 +10,6 @@ namespace Ryneus
 {
 	public class AdvImporter : AssetPostprocessor 
 	{
-		enum BaseColumn
-		{
-			Id = 0,
-			AdvName,
-			EndJump,
-		}	
 		static readonly string ExcelName = "Adventures.xlsx";
 
 		// アセット更新があると呼ばれる
@@ -62,6 +56,8 @@ namespace Ryneus
 
 					// エクセルシートからセル単位で読み込み
 					ISheet BaseSheet = Book.GetSheetAt(0);
+					var KeyRow = BaseSheet.GetRow(0);
+					AssetPostImporter.SetKeyNames(KeyRow.Cells);
 
 					for (int i = 1; i <= BaseSheet.LastRowNum; i++)
 					{
@@ -69,9 +65,10 @@ namespace Ryneus
 
                         var AdvData = new AdvData
                         {
-                            Id = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.Id),
-                            AdvName = AssetPostImporter.ImportString(BaseRow, (int)BaseColumn.AdvName),
-                            EndJump = (Scene)AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.EndJump)
+                            Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
+                            AdvName = AssetPostImporter.ImportString(BaseRow, "AdvName"),
+                            EndJump = (Scene)AssetPostImporter.ImportNumeric(BaseRow, "EndJump"),
+                            PrizeSetId = AssetPostImporter.ImportNumeric(BaseRow, "PrizeSetId")
                         };
 
                         Data.Data.Add(AdvData);

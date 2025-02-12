@@ -612,69 +612,6 @@ MonoBehaviour:
       Param2: 0
       PrizeSetId: 0
       ClearCount: 0
-    - StageId: 0
-      Seek: 0
-      SeekIndex: 0
-      SymbolType: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 0
-      Seek: 0
-      SeekIndex: 0
-      SymbolType: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 0
-      Seek: 0
-      SeekIndex: 0
-      SymbolType: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 0
-      Seek: 0
-      SeekIndex: 0
-      SymbolType: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 0
-      Seek: 0
-      SeekIndex: 0
-      SymbolType: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 0
-      Seek: 0
-      SeekIndex: 0
-      SymbolType: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 0
-      Seek: 0
-      SeekIndex: 0
-      SymbolType: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
   - Id: 10
     StageNo: 1
     Name: "\u9577\u91DD\u3092\u8FFD\u3044\u304B\u3051\u3066"
@@ -706,14 +643,20 @@ MonoBehaviour:
       Type: 11
       Param: 30
       ReadFlag: 1
-    - EventKey: 7BeforeTacticsAdvStart50
-      Turns: 7
+    - EventKey: 4BeforeTacticsAdvStart40
+      Turns: 4
+      Timing: 11
+      Type: 11
+      Param: 40
+      ReadFlag: 1
+    - EventKey: 6BeforeTacticsAdvStart50
+      Turns: 6
       Timing: 11
       Type: 11
       Param: 50
       ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart60
-      Turns: 8
+    - EventKey: 7StartStrategyAdvStart60
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 60
@@ -753,16 +696,16 @@ MonoBehaviour:
       Rate: 100
       Param1: 1021
       Param2: 0
-      PrizeSetId: 0
+      PrizeSetId: 1021
       ClearCount: 0
     - StageId: 10
       Seek: 3
       SeekIndex: 0
-      SymbolType: 3
+      SymbolType: 1
       Rate: 100
-      Param1: 40
+      Param1: 1031
       Param2: 0
-      PrizeSetId: 1041
+      PrizeSetId: 0
       ClearCount: 0
     - StageId: 10
       Seek: 4
@@ -776,32 +719,23 @@ MonoBehaviour:
     - StageId: 10
       Seek: 5
       SeekIndex: 0
-      SymbolType: 4
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 1021
-      ClearCount: 0
-    - StageId: 10
-      Seek: 6
-      SeekIndex: 0
       SymbolType: 1
       Rate: 100
-      Param1: 1061
+      Param1: 1051
       Param2: 0
       PrizeSetId: 0
       ClearCount: 0
     - StageId: 10
-      Seek: 6
+      Seek: 5
       SeekIndex: 1
       SymbolType: 1
       Rate: 100
-      Param1: 1062
+      Param1: 1052
       Param2: 0
       PrizeSetId: 0
       ClearCount: 1
     - StageId: 10
-      Seek: 7
+      Seek: 6
       SeekIndex: 0
       SymbolType: 2
       Rate: 100
@@ -828,8 +762,14 @@ MonoBehaviour:
       Type: 11
       Param: 70
       ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart90
-      Turns: 8
+    - EventKey: 4BeforeTacticsAdvStart80
+      Turns: 4
+      Timing: 11
+      Type: 11
+      Param: 80
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart90
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 90
@@ -853,6 +793,69 @@ MonoBehaviour:
       Param2: 0
       PrizeSetId: 0
       ClearCount: 0
+    - StageId: 20
+      Seek: 1
+      SeekIndex: 0
+      SymbolType: 1
+      Rate: 100
+      Param1: 1011
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+    - StageId: 20
+      Seek: 2
+      SeekIndex: 0
+      SymbolType: 1
+      Rate: 100
+      Param1: 1021
+      Param2: 0
+      PrizeSetId: 1021
+      ClearCount: 0
+    - StageId: 20
+      Seek: 3
+      SeekIndex: 0
+      SymbolType: 1
+      Rate: 100
+      Param1: 1031
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+    - StageId: 20
+      Seek: 4
+      SeekIndex: 0
+      SymbolType: 1
+      Rate: 100
+      Param1: 1041
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+    - StageId: 20
+      Seek: 5
+      SeekIndex: 0
+      SymbolType: 1
+      Rate: 100
+      Param1: 1051
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+    - StageId: 20
+      Seek: 5
+      SeekIndex: 1
+      SymbolType: 1
+      Rate: 100
+      Param1: 1052
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 1
+    - StageId: 20
+      Seek: 6
+      SeekIndex: 0
+      SymbolType: 2
+      Rate: 100
+      Param1: 1101
+      Param2: 0
+      PrizeSetId: 1101
+      ClearCount: 0
   - Id: 30
     StageNo: 3
     Name: "\u7A93\u306E\u96E8\u3092\u306A\u304C\u3081\u3066"
@@ -872,8 +875,20 @@ MonoBehaviour:
       Type: 11
       Param: 100
       ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart130
-      Turns: 8
+    - EventKey: 3BeforeTacticsAdvStart110
+      Turns: 3
+      Timing: 11
+      Type: 11
+      Param: 110
+      ReadFlag: 1
+    - EventKey: 6BeforeTacticsAdvStart120
+      Turns: 6
+      Timing: 11
+      Type: 11
+      Param: 120
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart130
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 130
@@ -898,8 +913,26 @@ MonoBehaviour:
       Type: 11
       Param: 140
       ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart180
-      Turns: 8
+    - EventKey: 3BeforeTacticsAdvStart150
+      Turns: 3
+      Timing: 11
+      Type: 11
+      Param: 150
+      ReadFlag: 1
+    - EventKey: 5BeforeTacticsAdvStart160
+      Turns: 5
+      Timing: 11
+      Type: 11
+      Param: 160
+      ReadFlag: 1
+    - EventKey: 6BeforeTacticsAdvStart170
+      Turns: 6
+      Timing: 11
+      Type: 11
+      Param: 170
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart180
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 180
@@ -924,8 +957,20 @@ MonoBehaviour:
       Type: 11
       Param: 190
       ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart220
-      Turns: 8
+    - EventKey: 3BeforeTacticsAdvStart200
+      Turns: 3
+      Timing: 11
+      Type: 11
+      Param: 200
+      ReadFlag: 1
+    - EventKey: 6BeforeTacticsAdvStart210
+      Turns: 6
+      Timing: 11
+      Type: 11
+      Param: 210
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart220
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 220
@@ -974,8 +1019,8 @@ MonoBehaviour:
       Type: 11
       Param: 270
       ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart280
-      Turns: 8
+    - EventKey: 7StartStrategyAdvStart280
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 280
@@ -1000,8 +1045,20 @@ MonoBehaviour:
       Type: 11
       Param: 290
       ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart320
-      Turns: 8
+    - EventKey: 3BeforeTacticsAdvStart300
+      Turns: 3
+      Timing: 11
+      Type: 11
+      Param: 300
+      ReadFlag: 1
+    - EventKey: 6BeforeTacticsAdvStart310
+      Turns: 6
+      Timing: 11
+      Type: 11
+      Param: 310
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart320
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 320
@@ -1038,8 +1095,14 @@ MonoBehaviour:
       Type: 11
       Param: 350
       ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart370
-      Turns: 8
+    - EventKey: 4BeforeTacticsAdvStart360
+      Turns: 4
+      Timing: 11
+      Type: 11
+      Param: 360
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart370
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 370
@@ -1076,8 +1139,8 @@ MonoBehaviour:
       Type: 11
       Param: 400
       ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart410
-      Turns: 8
+    - EventKey: 7StartStrategyAdvStart410
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 410
@@ -1102,8 +1165,20 @@ MonoBehaviour:
       Type: 11
       Param: 420
       ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart450
-      Turns: 8
+    - EventKey: 3BeforeTacticsAdvStart430
+      Turns: 3
+      Timing: 11
+      Type: 11
+      Param: 430
+      ReadFlag: 1
+    - EventKey: 6BeforeTacticsAdvStart440
+      Turns: 6
+      Timing: 11
+      Type: 11
+      Param: 440
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart450
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 450
@@ -1152,8 +1227,20 @@ MonoBehaviour:
       Type: 11
       Param: 500
       ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart530
-      Turns: 8
+    - EventKey: 3BeforeTacticsAdvStart510
+      Turns: 3
+      Timing: 11
+      Type: 11
+      Param: 510
+      ReadFlag: 1
+    - EventKey: 6BeforeTacticsAdvStart520
+      Turns: 6
+      Timing: 11
+      Type: 11
+      Param: 520
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart530
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 530
@@ -1190,8 +1277,20 @@ MonoBehaviour:
       Type: 11
       Param: 560
       ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart590
-      Turns: 8
+    - EventKey: 3BeforeTacticsAdvStart570
+      Turns: 3
+      Timing: 11
+      Type: 11
+      Param: 570
+      ReadFlag: 1
+    - EventKey: 6BeforeTacticsAdvStart580
+      Turns: 6
+      Timing: 11
+      Type: 11
+      Param: 580
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart590
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 590
@@ -1210,17 +1309,17 @@ MonoBehaviour:
     BGMId: 1130
     BossBGMId: 2020
     StageEvents:
-    - EventKey: 8StartStrategyAdvStart610
-      Turns: 8
+    - EventKey: 4BeforeTacticsAdvStart600
+      Turns: 4
+      Timing: 11
+      Type: 11
+      Param: 600
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart610
+      Turns: 7
       Timing: 2
       Type: 11
       Param: 610
-      ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart630
-      Turns: 8
-      Timing: 2
-      Type: 11
-      Param: 630
       ReadFlag: 1
     StageSymbols: []
   - Id: 140
@@ -1236,23 +1335,17 @@ MonoBehaviour:
     BGMId: 1140
     BossBGMId: 2020
     StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart640
-      Turns: 1
+    - EventKey: 4BeforeTacticsAdvStart620
+      Turns: 4
       Timing: 11
       Type: 11
-      Param: 640
+      Param: 620
       ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart650
-      Turns: 1
-      Timing: 11
-      Type: 11
-      Param: 650
-      ReadFlag: 1
-    - EventKey: 8StartStrategyAdvStart660
-      Turns: 8
+    - EventKey: 7StartStrategyAdvStart630
+      Turns: 7
       Timing: 2
       Type: 11
-      Param: 660
+      Param: 630
       ReadFlag: 1
     StageSymbols: []
   - Id: 150
@@ -1268,39 +1361,57 @@ MonoBehaviour:
     BGMId: 1150
     BossBGMId: 1150
     StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart670
+    - EventKey: 1BeforeTacticsAdvStart640
       Turns: 1
       Timing: 11
+      Type: 11
+      Param: 640
+      ReadFlag: 1
+    - EventKey: 1BeforeTacticsAdvStart650
+      Turns: 1
+      Timing: 11
+      Type: 11
+      Param: 650
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart660
+      Turns: 7
+      Timing: 2
+      Type: 11
+      Param: 660
+      ReadFlag: 1
+    - EventKey: 7StartStrategyAdvStart670
+      Turns: 7
+      Timing: 2
       Type: 11
       Param: 670
       ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart680
-      Turns: 1
-      Timing: 11
+    - EventKey: 7StartStrategyAdvStart680
+      Turns: 7
+      Timing: 2
       Type: 11
       Param: 680
       ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart690
-      Turns: 1
-      Timing: 11
+    - EventKey: 7StartStrategyAdvStart690
+      Turns: 7
+      Timing: 2
       Type: 11
       Param: 690
       ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart700
-      Turns: 1
-      Timing: 11
+    - EventKey: 7StartStrategyAdvStart700
+      Turns: 7
+      Timing: 2
       Type: 11
       Param: 700
       ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart710
-      Turns: 1
-      Timing: 11
+    - EventKey: 7StartStrategyAdvStart710
+      Turns: 7
+      Timing: 2
       Type: 11
       Param: 710
       ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart720
-      Turns: 1
-      Timing: 11
+    - EventKey: 7StartStrategyAdvStart720
+      Turns: 7
+      Timing: 2
       Type: 11
       Param: 720
       ReadFlag: 1

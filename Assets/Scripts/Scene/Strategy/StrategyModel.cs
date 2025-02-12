@@ -20,10 +20,12 @@ namespace Ryneus
             _battleResultVictory = _sceneParam.BattleResultVictory;
             MakeResult();
         }
+        
         public void ClearSceneParam()
         {
             _sceneParam = null;
         }
+
         private List<StrategyResultViewInfo> _resultInfos = new();
         public List<StrategyResultViewInfo> ResultViewInfos => _resultInfos;
 
@@ -32,14 +34,19 @@ namespace Ryneus
         private List<SkillInfo> _relicData = new();
         public List<SkillInfo> RelicData => _relicData;
 
-        private List<ActorInfo> _levelUpData = new();
-        public List<ActorInfo> LevelUpData => _levelUpData;
+        private List<ActorInfo> _levelUpActorInfos = new();
+        public List<ActorInfo> LevelUpActorInfos => _levelUpActorInfos;
+        private bool _beforeLevelUpAnimation = false;
+        public bool BeforeLevelUpAnimation => _beforeLevelUpAnimation;
+        public void SetBeforeLevelUpAnimation(bool beforeLevelUpAnimation) => _beforeLevelUpAnimation = beforeLevelUpAnimation;
+
+
         private List<LearnSkillInfo> _learnSkillInfo = new();
         public List<LearnSkillInfo> LearnSkillInfo => _learnSkillInfo;
         public List<ListData> LevelUpActorStatus()
         {
             var list = new List<ListData>();
-            var listData = new ListData(_levelUpData[0]);
+            var listData = new ListData(_levelUpActorInfos[0]);
             list.Add(listData);
             list.Add(listData);
             list.Add(listData);
@@ -47,7 +54,6 @@ namespace Ryneus
             list.Add(listData);
             return list;
         }
-
 
         public List<ActorInfo> TacticsActors()
         {
@@ -115,7 +121,11 @@ namespace Ryneus
                     }
                 }
             }
-            _levelUpData = lvUpList;
+            _levelUpActorInfos = lvUpList;
+            if (lvUpList.Count > 0)
+            {
+                _beforeLevelUpAnimation = true;
+            }
 
             // エナジー獲得
             var gainCurrency = 0;
@@ -213,7 +223,7 @@ namespace Ryneus
 
         public void RemoveLevelUpData()
         {
-            _levelUpData.RemoveAt(0);
+            _levelUpActorInfos.RemoveAt(0);
             _learnSkillInfo.RemoveAt(0);
         }
 

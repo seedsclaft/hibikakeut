@@ -49,8 +49,9 @@ namespace Ryneus
             {
                 var advInfo = new AdvCallInfo();
                 advInfo.SetLabel(_model.GetAdvFile(advId));
-                advInfo.SetCallEvent(() => {                
-                    if (endCall != null) endCall();
+                advInfo.SetCallEvent(() => 
+                {                
+                    endCall?.Invoke();
                 });
                 _view.CommandCallAdv(advInfo);
             }

@@ -19,7 +19,24 @@ namespace Ryneus
             SetView(_view);
             _model = new StrategyModel();
             SetModel(_model);
+            if (CheckStageEvent())
+            {
+                return;
+            }
             Initialize();
+        }
+
+        private bool CheckStageEvent()
+        {
+            var isAbort = CheckAdvStageEvent(EventTiming.StartStrategy,() => 
+            {
+                Initialize();
+            },-1);
+            if (isAbort)
+            {
+                _view.gameObject.SetActive(false);
+            }
+            return isAbort;
         }
 
         private async void Initialize()
@@ -115,13 +132,19 @@ namespace Ryneus
         {
             if (_model.InBattleResult)
             {
+                _view.SetTitle(DataSystem.GetText(20010));
+            }
+            NextSeekResult();
+            /*
+            if (_model.InBattleResult)
+            {
                 var battledResultActors = _model.BattleResultActors();
                 _view.SetTitle(DataSystem.GetText(20010));
                 _view.SetResultActorList(_model.MakeListData(battledResultActors));
                 // 勝利時
                 if (_model.BattleResultVictory)
                 {
-                    if (_model.LevelUpData.Count > 0)
+                    if (_model.LevelUpActorInfos.Count > 0)
                     {
                         _view.StartLvUpAnimation();
                         _view.HideResultList();
@@ -134,6 +157,7 @@ namespace Ryneus
             { 
                 CheckTacticsActors();
             }
+            */
         }
 
         private void CheckTacticsActors()
@@ -160,7 +184,7 @@ namespace Ryneus
             {
                 if (_model.BattleResultVictory)
                 {
-                    if (_model.LevelUpData.Count == 0)
+                    if (_model.LevelUpActorInfos.Count == 0)
                     {
                         ShowResultList();
                     }
@@ -172,35 +196,10 @@ namespace Ryneus
             {
                 NextSeekResult();
             }
-            var stageEvents = _model.StageEvents(EventTiming.StartStrategy);
-            foreach (var stageEvent in stageEvents)
-            {
-                if (stageEvent.Type == StageEventType.CommandDisable)
-                {
-                    _model.AddEventReadFlag(stageEvent);
-                }
-                if (stageEvent.Type == StageEventType.NeedUseSp)
-                {
-                    _model.AddEventReadFlag(stageEvent);
-                }
-                if (stageEvent.Type == StageEventType.AdvStart)
-                {
-                    var advInfo = new AdvCallInfo();
-                    advInfo.SetLabel(_model.GetAdvFile(stageEvent.Param));
-                    advInfo.SetCallEvent(() => {   
-                        _busy = false;
-                    });
-                    _view.CommandCallAdv(advInfo);
-                    _model.AddEventReadFlag(stageEvent);
-                    _busy = true;
-                    break;
-                }
-            }
         }
 
         private void CommandEndLvUpAnimation()
         {
-            _view.ShowLvUpActor(_model.LevelUpData[0],_model.LevelUpActorStatus());
         }
 
         private void CommandLvUpNext()
@@ -208,7 +207,7 @@ namespace Ryneus
             var learnSkillInfo = _model.LearnSkillInfo.Count > 0 ? _model.LearnSkillInfo[0] : null;
             if (learnSkillInfo != null && learnSkillInfo.SkillInfo != null)
             {
-                learnSkillInfo.SetToValue(_model.LevelUpData[0].Evaluate());
+                learnSkillInfo.SetToValue(_model.LevelUpActorInfos[0].Evaluate());
                 SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 
                 var popupInfo = new PopupInfo
@@ -231,9 +230,17 @@ namespace Ryneus
 
         private void NextSeekResult()
         {
-            if (_model.LevelUpData.Count > 0)
+            // Lvアップ演出スタート
+            if (_model.BeforeLevelUpAnimation)
             {
-                CommandEndLvUpAnimation();
+                _view.HideResultList();
+                _model.SetBeforeLevelUpAnimation(false);
+                _view.StartLvUpAnimation();
+                return;
+            }
+            if (_model.LevelUpActorInfos.Count > 0)
+            {
+                _view.ShowLvUpActor(_model.LevelUpActorInfos[0],_model.LevelUpActorStatus());
                 return;
             }
             if (_model.RelicData.Count > 0)
@@ -246,6 +253,8 @@ namespace Ryneus
 
         private void ShowResultList()
         {
+            var battledResultActors = _model.BattleResultActors();
+            _view.SetResultActorList(_model.MakeListData(battledResultActors));
             _view.ShowResultList(MakeListData(_model.ResultViewInfos),
                 null,
                 _model.BattleResultTurn(),

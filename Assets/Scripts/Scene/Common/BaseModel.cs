@@ -300,7 +300,31 @@ namespace Ryneus
 
         public string GetAdvFile(int id)
         {
-            return DataSystem.Adventures.Find(a => a.Id == id).AdvName;
+            var adventureFile = DataSystem.Adventures.Find(a => a.Id == id);
+            if (adventureFile.PrizeSetId > 0)
+            {
+                var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == adventureFile.PrizeSetId);
+                foreach (var prizeSet in prizeSets)
+                {
+                    var getItemInfo = new GetItemInfo(prizeSet.GetItem);
+                    AddGetItemInfo(getItemInfo);
+                }
+            }
+            return adventureFile.AdvName;
+        }
+
+        public void AddGetItemInfo(GetItemInfo getItemInfo)
+        {
+            getItemInfo.SetGetFlag(true);
+            switch (getItemInfo.GetItemType)
+            {
+                case GetItemType.Currency:
+                    PartyInfo.AddCurrency(getItemInfo.Param1);
+                    break;
+                default:
+                    PartyInfo.AddGetItemInfo(getItemInfo);
+                    break;
+            }
         }
 
         public void ClearGame()

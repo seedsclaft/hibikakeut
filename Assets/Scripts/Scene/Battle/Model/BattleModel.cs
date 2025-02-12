@@ -2343,15 +2343,21 @@ namespace Ryneus
             {
                 foreach (var actorInfo in BattlerActors())
                 {
-                    var expData = new GetItemData();
-                    expData.Type = GetItemType.Exp;
-                    // 誰に対して
-                    expData.Param1 = actorInfo.ActorInfo.ActorId;
-                    // いくつ
-                    expData.Param2 = 20 + (enemyInfo.Level - actorInfo.Level) * 2;
+                    var expData = new GetItemData
+                    {
+                        Type = GetItemType.Exp,
+                        // 誰に対して
+                        Param1 = actorInfo.ActorInfo.ActorId,
+                        // いくつ
+                        Param2 = 20 + (enemyInfo.Level - actorInfo.Level) * 2
+                    };
                     var expItem = new GetItemInfo(expData);
                     list.Add(expItem);
                 }
+            }
+            if (_sceneParam.GetItemInfos != null)
+            {
+                list.AddRange(_sceneParam.GetItemInfos);
             }
             return list;
         }
@@ -2463,7 +2469,7 @@ namespace Ryneus
             return DataSystem.GetText(textId);
         }
         
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
         public List<TestActionData> testActionDates = new ();
         public int testActionIndex = 0;
         public void MakeTestBattleAction()
@@ -2493,12 +2499,13 @@ namespace Ryneus
         {
             testActionIndex++;
         }
-    #endif
+#endif
     }
 
     public class BattleSceneInfo
     {
         public List<ActorInfo> ActorInfos;
         public List<BattlerInfo> EnemyInfos;
+        public List<GetItemInfo> GetItemInfos;
     }
 }

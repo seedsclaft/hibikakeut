@@ -10,8 +10,7 @@ namespace Ryneus
             var stageInfo = new StageInfo(stageId);
             foreach (var getItemInfo in StageOpeningGetItemInfos(stageId))
             {
-                getItemInfo.SetGetFlag(true);
-                PartyInfo.AddGetItemInfo(getItemInfo);            
+                AddGetItemInfo(getItemInfo);          
             }
             stageInfo.SetSymbolInfos(GetStageSymbolInfos(stageId));
             CurrentGameInfo.SetStageInfo(stageInfo);
@@ -65,20 +64,21 @@ namespace Ryneus
             return listData;
         }
 
+        public SymbolInfo CurrentSymbolInfo()
+        {
+            var symbolInfos = CurrentStage?.SymbolInfos;
+            if (PartyInfo != null && symbolInfos != null)
+            {
+                return symbolInfos.Find(a => a.Master.Seek == PartyInfo.Seek && a.Master.SeekIndex == PartyInfo.SeekIndex);
+            }
+            return null;
+        }
+
         public void EndSymbolInfo(SymbolInfo symbolInfo)
         {
             foreach (var getItemInfo in symbolInfo.GetItemInfos)
             {   
-                getItemInfo.SetGetFlag(true);
-                switch (getItemInfo.GetItemType)
-                {
-                    case GetItemType.Currency:
-                        PartyInfo.AddCurrency(getItemInfo.Param1);
-                        break;
-                    default:
-                        PartyInfo.AddGetItemInfo(getItemInfo);
-                        break;
-                }
+                AddGetItemInfo(getItemInfo);   
             }
         }
 

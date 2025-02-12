@@ -15,5 +15,6 @@ namespace Ryneus
         public int Id;
         public string AdvName;
         public Scene EndJump;
+        public int PrizeSetId;
     }
 }
