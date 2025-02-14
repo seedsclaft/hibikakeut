@@ -97,6 +97,10 @@ namespace Ryneus
 
         private void CommandContinue()
         {
+            if (_model.ExistsLoadFile() == false)
+            {
+                //return;
+            }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var loadSuccess = SaveSystem.LoadPlayerInfo();
             if (loadSuccess == false)
@@ -110,6 +114,23 @@ namespace Ryneus
             // プレイヤーネームを設定しなおし
             _view.CommandDecidePlayerName(GameSystem.CurrentData.PlayerInfo.PlayerName);
             
+            
+            var sceneParam = new FileListSceneInfo
+            {
+                IsLoad = true
+            };
+            var popupInfo = new PopupInfo()
+            {
+                PopupType = PopupType.FileList,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                },
+                template = sceneParam
+            };
+            _view.CommandCallPopup(popupInfo);
+            /*
             var loadStage = SaveSystem.ExistsStageFile();
             if (loadStage)
             {
@@ -120,6 +141,7 @@ namespace Ryneus
                 _model.StartOpeningStage();
             }
             _view.CommandGotoSceneChange(Scene.Tactics);
+            */
         }
 
         private void CommandOption()

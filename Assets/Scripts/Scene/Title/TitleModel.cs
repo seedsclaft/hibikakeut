@@ -20,7 +20,7 @@ namespace Ryneus
 
         public bool ExistsLoadFile()
         {
-            return SaveSystem.ExistsStageFile();
+            return SaveSystem.ExistsStageFile(1);
         }
 
         public string VersionText()

@@ -11,6 +11,7 @@ namespace Ryneus
     public class TacticsView : BaseView ,IInputHandlerEvent
     {
         [SerializeField] private BaseList tacticsCommandList = null;
+        public SystemData.CommandData TacticsCommandData => tacticsCommandList.ListItemData<SystemData.CommandData>();
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent = null;
         [SerializeField] private SymbolList symbolInfoList = null;
@@ -68,20 +69,20 @@ namespace Ryneus
         private void InitializeCommandList()
         {
             tacticsCommandList.Initialize();
-            tacticsCommandList.SetInputHandler(InputKeyType.Decide,() => CallSymbolList());
+            tacticsCommandList.SetInputHandler(InputKeyType.Decide,() => CallTacticsCommand());
             tacticsCommandList.SetInputHandler(InputKeyType.Option1,() => CallStatus());
             tacticsCommandList.SetSelectedHandler(() => UpdateHelpWindow());
             SetInputHandler(tacticsCommandList.gameObject);
             AddViewActives(tacticsCommandList);
         }
 
-        private void CallSymbolList()
+        private void CallTacticsCommand()
         {
             var listData = tacticsCommandList.ListData;
             if (listData != null && listData.Enable)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                CallEvent(CommandType.CallSymbolList);
+                CallEvent(CommandType.CallTacticsCommand);
             }
         }
 

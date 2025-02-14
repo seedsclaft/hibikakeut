@@ -186,8 +186,8 @@ namespace Ryneus
                 case CommandType.OnCancelSymbol:
                     CommandOnCancelSymbol();
                     break;
-                case CommandType.CallSymbolList:
-                    CommandCallSymbolList();
+                case CommandType.CallTacticsCommand:
+                    CommandCallTacticsCommand();
                     break;
                 case CommandType.CallStatus:
                     CommandStatus();
@@ -298,6 +298,27 @@ namespace Ryneus
             _view.CommandRefresh();
             _view.UpdatePartyInfo(_model.PartyInfo);
             _view.SetViewBusy(true);
+        }
+
+        private void CommandSave()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _busy = true;
+            var sceneParam = new FileListSceneInfo
+            {
+                IsLoad = false
+            };
+            var popupInfo = new PopupInfo()
+            {
+                PopupType = PopupType.FileList,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                },
+                template = sceneParam
+            };
+            _view.CommandCallPopup(popupInfo);
         }
 
         private void CommandOnClickSymbol(SymbolInfo symbolInfo)
@@ -414,9 +435,18 @@ namespace Ryneus
             }
         }
 
-        private void CommandCallSymbolList()
+        private void CommandCallTacticsCommand()
         {
-            CommandCallSymbol();
+            var tacticsCommandData = _view.TacticsCommandData;
+            switch (tacticsCommandData.Key)
+            {
+                case "PARADIGM":
+                    CommandCallSymbol();
+                    break;
+                case "SAVE":
+                    CommandSave();
+                    break;
+            }
         }
 
         private void CommandStageSymbol()

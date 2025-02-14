@@ -24,6 +24,19 @@ namespace Ryneus
                 return;
             }
             var stageData = stageInfo.Master;
+            UpdateData(stageData);
+            help?.SetText(stageData.Help.Replace("\\p",GameSystem.CurrentData.PlayerInfo.PlayerName));
+            //turns?.SetText(stageData.Turns.ToString());
+            /*
+            if (clearCount != null){
+                clearCount.text = stageInfo.ClearCount.ToString();
+            }
+            */
+
+        }
+
+        public void UpdateData(StageData stageData)
+        {
             nameText?.SetText(stageData.Name);
             if (achieve != null)
             {
@@ -36,14 +49,6 @@ namespace Ryneus
             {
                 achieveText?.SetText(DataSystem.GetText(31) + DataSystem.GetText(10000));
             }
-            help?.SetText(stageData.Help.Replace("\\p",GameSystem.CurrentData.PlayerInfo.PlayerName));
-            //turns?.SetText(stageData.Turns.ToString());
-            /*
-            if (clearCount != null){
-                clearCount.text = stageInfo.ClearCount.ToString();
-            }
-            */
-
             stageLv?.SetText(stageData.StageLv.ToString());
             stageNoText?.SetText(DataSystem.GetReplaceText(15010,stageData.StageNo.ToString()));
         }

@@ -8,7 +8,7 @@ namespace Ryneus
         public enum CommandType
         {
             None = 0,
-            CallSymbolList,
+            CallTacticsCommand,
             CallStatus,
             CallSymbol,
             OnClickSymbol,
