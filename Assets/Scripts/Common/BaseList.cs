@@ -96,7 +96,7 @@ namespace Ryneus
                 if (ItemPrefabList.Count > i && ItemPrefabList[i] != null)
                 {
                     var listItem = ItemPrefabList[i].GetComponent<ListItem>();
-                    listItem.SetCallHandler(() => CallListInputHandlerDecide());
+                    listItem.SetCallHandler(CallListInputHandlerDecide);
                     listItem.SetSelectHandler((index) => 
                     {
                         UpdateSelectIndex(index);

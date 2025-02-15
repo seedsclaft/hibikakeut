@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 
 namespace Ryneus
@@ -6,6 +6,12 @@ namespace Ryneus
     // セーブデータに保存しないデータ類を管理
     public class TempInfo
     {
+        // プレイ加算時間
+        private float _playingTime = 0;
+        public float PlayingTime => _playingTime;
+        public void SetPlayingTime(float time) => _playingTime = time;
+        public void AddPlayingTime(float time) => _playingTime += time;
+
         private List<ActorInfo> _tempActorInfos = new ();
         // バトル前のアクターデータを設定
         public List<ActorInfo> TempActorInfos => _tempActorInfos;

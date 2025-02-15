@@ -26,7 +26,10 @@ namespace Ryneus
                 actorInfoComponent.UpdateData(DataSystem.FindActor(data.ActorId));
                 stageInfoComponent.UpdateData(DataSystem.FindStage(data.StageNo));
                 saveTime?.SetText(data.SaveTime);
-                playTime?.SetText(data.PlayTime.ToString());
+                var hours = data.PlayTime / 360;
+                var minutes = data.PlayTime / 60;
+                var seconds = data.PlayTime % 60;
+                playTime?.SetText(hours.ToString("00") + ":" + minutes.ToString("00") + ":" + seconds.ToString("00"));
                 //clearData?.SetActive(data.ClearCount > 0);
             }
         }

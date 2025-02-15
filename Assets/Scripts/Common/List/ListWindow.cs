@@ -515,7 +515,7 @@ namespace Ryneus
 
         public void UpdateSelectIndex(int index)
         {
-            Debug.Log(this.name + " " + index);
+            //Debug.Log(this.name + " " + index);
             SelectIndex(index);
             UpdateHelpWindow();
             foreach (var objectList in _objectList)
@@ -541,6 +541,10 @@ namespace Ryneus
         public void SetInputHandler(InputKeyType keyType,Action handler)
         {
             _inputHandler[keyType] = handler;
+            if (keyType == InputKeyType.Cancel)
+            {
+                SetCancelEvent(handler);
+            }
         }
 
         public void SetSelectedHandler(Action selectedHandler)
@@ -556,7 +560,7 @@ namespace Ryneus
             }
             if (_inputHandler.ContainsKey(keyType))
             {
-                _inputHandler[keyType]();
+                _inputHandler[keyType]?.Invoke();
             }
         }
         
@@ -672,10 +676,10 @@ namespace Ryneus
             var space = ItemSpace();
             if (_horizontal)
             {   
-                return (int)Math.Round( (width - listMargin) / (_itemSize.x + space));
+                return (int)Math.Round((width - listMargin) / (_itemSize.x + space));
             } else
             {
-                return (int)Math.Round( (height - listMargin) / (_itemSize.y + space));
+                return (int)Math.Round((height - listMargin) / (_itemSize.y + space));
             }
         }
 

@@ -61,24 +61,21 @@ namespace Ryneus
         private void SaveFile(SaveFileInfo saveFileInfo)
         {
             saveFileInfo.StageNo = CurrentStage.Id;
-            var dt = DateTime.Now;
-            saveFileInfo.SaveTime = dt.ToString("yyyy/MM/dd HH:mm:ss");
-            saveFileInfo.PlayTime = 1;
+            saveFileInfo.SaveTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            saveFileInfo.PlayTime = (int)TempInfo.PlayingTime;
             if (CurrentGameInfo.PartyInfo.ActorInfos != null && CurrentGameInfo.PartyInfo.ActorInfos.Count > 0)
             {
                 saveFileInfo.ActorId = CurrentGameInfo.PartyInfo.ActorInfos[0].ActorId;
             }
-            saveFileInfo.ClearCount = 0;
             CurrentData.PushSaveFile(saveFileInfo);
             SavePlayerData();
             SaveSystem.SaveStageInfo(GameSystem.GameInfo,saveFileInfo.SaveNo);
-            
         }
 
         private void LoadFile(SaveFileInfo saveFileInfo)
         {
-            var no = saveFileInfo.SaveNo;
-            SaveSystem.LoadStageInfo(no);
+            SaveSystem.LoadStageInfo(saveFileInfo.SaveNo);
+            TempInfo.SetPlayingTime(saveFileInfo.PlayTime);
         }
     }
 

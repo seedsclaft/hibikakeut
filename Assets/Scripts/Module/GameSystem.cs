@@ -570,6 +570,11 @@ namespace Ryneus
                 _model.ReadTutorialData(tutorialData);
             }
         }
+
+        private void Update() 
+        {
+            TempData.AddPlayingTime(Time.deltaTime);
+        }
     }
 
 

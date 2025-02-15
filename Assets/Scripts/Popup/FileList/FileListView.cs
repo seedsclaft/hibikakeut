@@ -36,7 +36,7 @@ namespace Ryneus
         private void InitializeFileList()
         {
             fileList.Initialize();
-            fileList.SetInputHandler(InputKeyType.Cancel,BackEvent);
+            fileList.SetInputHandler(InputKeyType.Cancel,() => BackEvent?.Invoke());
             fileList.SetInputHandler(InputKeyType.Decide,CallFileData);
             SetInputHandler(fileList.gameObject);
             AddViewActives(fileList);
@@ -66,7 +66,7 @@ namespace Ryneus
 
         public void CommandEnd()
         {
-            BackEvent();
+            BackEvent?.Invoke();
         }
     }
 }
