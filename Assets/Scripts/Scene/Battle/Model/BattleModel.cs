@@ -2461,11 +2461,7 @@ namespace Ryneus
 
         public string BattleStartText()
         {
-            var textId = 19611;
-            //if (CurrentSelectRecord().SymbolType == SymbolType.Boss)
-            //{
-            //    textId = 19612;
-            //}
+            var textId = _sceneParam.BossBattle ? 19612 : 19611;
             return DataSystem.GetText(textId);
         }
         
@@ -2507,5 +2503,6 @@ namespace Ryneus
         public List<ActorInfo> ActorInfos;
         public List<BattlerInfo> EnemyInfos;
         public List<GetItemInfo> GetItemInfos;
+        public bool BossBattle;
     }
 }

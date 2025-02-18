@@ -57,29 +57,26 @@ namespace Ryneus
             }
         }
 
-        public void MakeEnemyRandomTroopDates(int level)
+        public void MakeEnemyRandomTroopDates(int baseLv,List<StageEnemyRate> stageEnemyRates)
         {
-            var randMax = MathF.Min(3,level / 15);
-            var targetLengthRand = 1 + randMax;
-            while (_battlerInfos.Count <= targetLengthRand)
+            var randMax = MathF.Min(3,baseLv / 15);
+            var weight = 30;
+            while (weight > 0)
             {
-                var targetIdRand = UnityEngine.Random.Range(1,15);
-                var enemyData = DataSystem.Enemies.Find(a => a.Id == targetIdRand);
+                var targetIdRand = UnityEngine.Random.Range(0,stageEnemyRates.Count);
+                var enemyData = DataSystem.Enemies.Find(a => a.Id == stageEnemyRates[targetIdRand].EnemyId);
+                /*
                 var lineRand = UnityEngine.Random.Range(0,1);
                 // 遠隔持っていない場合は前列
                 if (!enemyData.Kinds.Contains(KindType.Air) && lineRand == 1)
                 {
                     lineRand = 0;
                 }
-                var battlerInfo = new BattlerInfo(enemyData,level,_battlerInfos.Count,(LineType)lineRand,_battlerInfos.Count == 0);
+                */
+                var battlerInfo = new BattlerInfo(enemyData,baseLv,_battlerInfos.Count,LineType.Front,_battlerInfos.Count == 0);
                 AddEnemy(battlerInfo);
+                weight -= stageEnemyRates[targetIdRand].Weight;
             }
-            var battleScoreGetItem = new GetItemData
-            {
-                Param1 = 1,
-                Type = GetItemType.BattleScoreBonus
-            };
-            _getItemInfos.Add(new GetItemInfo(battleScoreGetItem));
         }
 
         public void AddEnemy(BattlerInfo battlerInfo)

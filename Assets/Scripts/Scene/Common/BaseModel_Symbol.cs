@@ -7,10 +7,15 @@ namespace Ryneus
 {
     public partial class BaseModel
     {
+        /// <summary>
+        /// ステージデータをマスタから生成
+        /// </summary>
+        /// <param name="stageSymbolDates"></param>
+        /// <returns></returns>
         public List<SymbolInfo> StageSymbolInfos(List<StageSymbolData> stageSymbolDates)
         {
-            var symbolInfos = new List<SymbolInfo>();
             var symbolDates = stageSymbolDates.FindAll(a => a.Seek > 0 && a.ClearCount <= CurrentData.PlayerInfo.ClearCount);
+            var symbolInfos = new List<SymbolInfo>();
             foreach (var symbolMaster in symbolDates)
             {
                 var randFlag = false;
@@ -22,28 +27,13 @@ namespace Ryneus
                 {
                     var groupId = (int)stageSymbolData.SymbolType;
                     var groupDates = DataSystem.SymbolGroups.FindAll(a => a.GroupId == groupId);
-                    stageSymbolData = PickUpSymbolData(groupDates);
-                    stageSymbolData.StageId = symbolMaster.StageId;
-                    stageSymbolData.Seek = symbolMaster.Seek;
-                    stageSymbolData.SeekIndex = symbolMaster.SeekIndex;
+                    stageSymbolData = PickUpSymbolData(groupDates,symbolMaster);
                     symbolInfo = new SymbolInfo(stageSymbolData);
-                    if (stageSymbolData.SymbolType == SymbolType.Battle)
-                    {
-                        symbolInfo.SetTroopInfo(BattleTroop(stageSymbolData));
-                        randFlag = true;
-                    }
                 }
                 if (stageSymbolData.SymbolType == SymbolType.Random)
                 {
-                    stageSymbolData = RandomSymbolData(stageSymbolDates);
-                    stageSymbolData.StageId = symbolMaster.StageId;
-                    stageSymbolData.Seek = symbolMaster.Seek;
-                    stageSymbolData.SeekIndex = symbolMaster.SeekIndex;
+                    stageSymbolData = RandomSymbolData(stageSymbolDates,symbolMaster);
                     symbolInfo = new SymbolInfo(stageSymbolData);
-                    if (stageSymbolData.SymbolType == SymbolType.Battle && stageSymbolData.Param1 == -1)
-                    {
-                        symbolInfo.SetTroopInfo(BattleTroop(stageSymbolData));
-                    }
                 }
                 // 報酬リスト
                 var getItemInfos = new List<GetItemInfo>();
@@ -51,20 +41,17 @@ namespace Ryneus
                 {
                     case SymbolType.Battle:
                     case SymbolType.Boss:
-                        if (stageSymbolData.Param1 > 0)
+                        symbolInfo.SetTroopInfo(BattleTroop(stageSymbolData));
+                        if (randFlag)
                         {
-                            symbolInfo.SetTroopInfo(BattleTroop(stageSymbolData));
-                            if (randFlag)
-                            {
-                                var numinosGetItem = MakeEnemyRandomNuminos(stageSymbolData.StageId,stageSymbolData.Seek);
-                                symbolInfo.TroopInfo.AddGetItemInfo(numinosGetItem);
-                            }                    
+                            var numinosGetItem = MakeEnemyRandomNuminos(stageSymbolData.StageId,stageSymbolData.Seek);
+                            symbolInfo.TroopInfo.AddGetItemInfo(numinosGetItem);                  
                         }
                         
                         if (symbolInfo.TroopInfo != null && symbolInfo.TroopInfo.GetItemInfos.Count > 0)
                         {
                             getItemInfos.AddRange(symbolInfo.TroopInfo.GetItemInfos);
-                        }
+                        }                    
                         break;
                     case SymbolType.Alcana:
                         // アルカナランダムで報酬設定
@@ -92,6 +79,7 @@ namespace Ryneus
                         MakeShopGetItemInfos(getItemInfos,symbolInfo,RankType.PassiveRank2,3);
                         break;
                 }
+                /*
                 if (stageSymbolData.PrizeSetId > 0)
                 {
                     var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == stageSymbolData.PrizeSetId);
@@ -118,6 +106,7 @@ namespace Ryneus
                             };
                             getItemInfos.Add(new GetItemInfo(data));
                             */
+                            /*
                         } else
                         {
                             getItemInfos.Add(getItemInfo);
@@ -125,6 +114,7 @@ namespace Ryneus
                     }
                 }
                 symbolInfo.SetGetItemInfos(getItemInfos);
+                */
                 symbolInfos.Add(symbolInfo);
             }
             return symbolInfos;
@@ -245,7 +235,7 @@ namespace Ryneus
             return getItemInfos;
         }
         
-        private StageSymbolData PickUpSymbolData(List<SymbolGroupData> groupDates)
+        private StageSymbolData PickUpSymbolData(List<SymbolGroupData> groupDates,StageSymbolData symbolMaster)
         {
             int targetRand = Random.Range(0,groupDates.Sum(a => a.Rate));
             int targetIndex = -1;
@@ -257,18 +247,26 @@ namespace Ryneus
                     targetIndex = i;
                 }
             }
-            var StageSymbolData = new StageSymbolData();
-            StageSymbolData.ConvertSymbolGroupData(groupDates[targetIndex]);
-            return StageSymbolData;
+            var stageSymbolData = new StageSymbolData
+            {
+                StageId = symbolMaster.StageId,
+                Seek = symbolMaster.Seek,
+                SeekIndex = symbolMaster.SeekIndex
+            };
+            stageSymbolData.ConvertSymbolGroupData(groupDates[targetIndex]);
+            return stageSymbolData;
         }
 
-        private StageSymbolData RandomSymbolData(List<StageSymbolData> stageSymbolDates)
+        private StageSymbolData RandomSymbolData(List<StageSymbolData> stageSymbolDates,StageSymbolData symbolMaster)
         {
             // 候補を生成
             var stageSymbolList = stageSymbolDates.FindAll(a => a.Seek == 0);
             var stageSymbolData = new StageSymbolData
             {
-                SymbolType = SymbolType.None
+                SymbolType = SymbolType.None,
+                StageId = symbolMaster.StageId,
+                Seek = symbolMaster.Seek,
+                SeekIndex = symbolMaster.SeekIndex
             };
             int targetRand = Random.Range(0,stageSymbolList.Sum(a => a.Rate));
             while (stageSymbolData.SymbolType == SymbolType.None)
@@ -318,13 +316,12 @@ namespace Ryneus
                         {
                             var groupId = (int)symbol.SymbolType;
                             var groupDates = DataSystem.SymbolGroups.FindAll(a => a.GroupId == groupId);
-                            stageSymbolData = PickUpSymbolData(groupDates);
+                            stageSymbolData = PickUpSymbolData(groupDates,symbol);
                             // GroupのBattleはParam2をコンバート前にする
                             if (stageSymbolData.SymbolType == SymbolType.Battle)
                             {
                                 stageSymbolData.Param2 = symbol.Param2;
                             }
-                            
                         } else
                         {
                             stageSymbolData.CopyParamData(symbol);
@@ -339,15 +336,16 @@ namespace Ryneus
         {
             var troopId = stageSymbolData.Param1;
             var plusLv = 0;//PartyInfo.BattleEnemyLv(stageSymbolData.StageId,stageSymbolData.Seek,WorldType.Main);
-            var plusNuminos = 0;//PartyInfo.BattleEnemyLv(stageSymbolData.StageId,stageSymbolData.Seek,WorldType.Main);
+            //var plusNuminos = 0;//PartyInfo.BattleEnemyLv(stageSymbolData.StageId,stageSymbolData.Seek,WorldType.Main);
             var troopInfo = new TroopInfo(troopId);
-            var lv = DataSystem.Stages.Find(a => a.Id == stageSymbolData.StageId).StageLv + plusLv;
+            var stageData = DataSystem.Stages.Find(a => a.Id == stageSymbolData.StageId);
+            var lv = stageData.StageLv + plusLv;
             // ランダム生成
             if (troopInfo.TroopMaster == null)
             {
-                troopInfo.MakeEnemyRandomTroopDates(stageSymbolData.Seek + lv);
-                var numinosGetItem = MakeEnemyRandomNuminos(stageSymbolData.StageId,stageSymbolData.Seek);
-                troopInfo.AddGetItemInfo(numinosGetItem);
+                troopInfo.MakeEnemyRandomTroopDates(stageSymbolData.Seek + lv,stageData.RandomTroopEnemyRates);
+                //var numinosGetItem = MakeEnemyRandomNuminos(stageSymbolData.StageId,stageSymbolData.Seek);
+                //troopInfo.AddGetItemInfo(numinosGetItem);
                 // ランダム報酬データ設定
                 // 70 = Rank1 Passive,
                 // 7 = Rank2 Passive,
@@ -415,15 +413,14 @@ namespace Ryneus
             // 候補なければ再抽選
             if (getItemData == null)
             {
-                return MakeSkillGetItemInfo();
+                //return MakeSkillGetItemInfo();
             }
             return getItemData;
         }
 
         private GetItemData AddSkillGetItemData(RankType rankType)
         {
-            /*
-            var hasSkills = PartyInfo.CurrentAlchemyIdList(CurrentStage.Id,CurrentStage.Seek,CurrentStage.WorldType);
+            var hasSkills = PartyInfo.LearningSkillIds;
             var skillList = new List<SkillData>(DataSystem.Skills.Values);
             var skills = skillList.FindAll(a => a.Rank == rankType && !hasSkills.Contains(a.Id));
             if (skills.Count > 0)
@@ -436,7 +433,6 @@ namespace Ryneus
                 };
                 return getItemData;
             }
-            */
             return null;
         }
 

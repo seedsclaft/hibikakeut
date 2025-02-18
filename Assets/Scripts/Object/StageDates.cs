@@ -21,7 +21,8 @@ namespace Ryneus
         public string Help;
         public int StageLv;
         public List<int> InitMembers;
-        public int RandomTroopCount;
+        public int RandomTroopWeight;
+        public List<StageEnemyRate> RandomTroopEnemyRates;
         public string BackGround;
         public int BGMId;
         public int BossBGMId;
@@ -98,18 +99,25 @@ namespace Ryneus
         public int PrizeSetId;
     }
 
+    [Serializable]
+    public class StageEnemyRate
+    {
+        public int EnemyId;
+        public int Weight;
+    }
+
     public enum SymbolType
     {
         Random = -1,
         None = 0,
-        Battle = 1,
-        Boss = 2,
-        Event = 3,
-        Alcana = 4,
-        Actor = 5,
-        Resource = 6,
-        SelectActor = 8,
-        Shop = 9,
+        Battle = 10,
+        Boss = 11,
+        Event = 20,
+        Alcana = 30,
+        Actor = 40,
+        Resource = 50,
+        SelectActor = 60,
+        Shop = 70,
         Group = 99, // 99以上はグループ指定
     }
 

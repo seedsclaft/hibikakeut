@@ -8,7 +8,6 @@ using Cysharp.Threading.Tasks;
 namespace Ryneus
 {
     using Battle;
-    using Unity.VisualScripting;
 
     public partial class BattleView : BaseView ,IInputHandlerEvent
     {
@@ -302,7 +301,7 @@ namespace Ryneus
 
         public void CreateObject()
         {
-            GameObject prefab = Instantiate(animPrefab);
+            var prefab = Instantiate(animPrefab);
             prefab.transform.SetParent(animRoot.transform, false);
             _battleStartAnim = prefab.GetComponent<BattleStartAnim>();
             _battleStartAnim.gameObject.SetActive(false);

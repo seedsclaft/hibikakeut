@@ -73,7 +73,6 @@ namespace Ryneus
 
         public void InitializeNewGame()
         {
-            InitSaveInfo();
             InitSaveStageInfo();
             MakeStageInfo(DataSystem.System.StartStageId);
         }

@@ -106,28 +106,16 @@ namespace Ryneus
         {
             _view.SetHelpInputInfo("BATTLE");
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.StartBattleStartAnim(_model.BattleStartText());
+            if (_model.SceneParam.BossBattle)
+            {
+                _view.StartBattleStartAnim(_model.BattleStartText());
+            }
             _view.StartUIAnimation();
             _view.SetBattleAutoButton(true);
             //_view.StartBattle(_model.BattlerEnemies().Count);
             await UniTask.WaitUntil(() => _view.StartAnimIsBusy == false);
             _view.SetBattleSkipActive(true);
             _view.UpdateStartActivate();
-            /*
-            var isAbort = CheckAdvStageEvent(EventTiming.StartBattle,() => 
-            {
-                _view.SetBattleBusy(false);
-                _view.SetBattleAutoButton(true);
-                CommandStartBattleAction();
-                _busy = false;
-            });
-            if (isAbort)
-            {
-                _busy = true;
-                _view.SetBattleBusy(true);
-                return;
-            }
-            */
 
             _view.SetBattleBusy(false);
             CommandStartBattleAction();
