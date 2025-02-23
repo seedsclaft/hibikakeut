@@ -62,14 +62,11 @@ namespace Ryneus
             } else{
                 data.Add(_bgmPath + bGMData.FileName + "");
             }
-            AudioClip result1 = null;
             AudioClip result2 = null;
-            result1 = await LoadAssetResources<AudioClip>(data[0]);
-            //result1 = Resources.Load<AudioClip>(data[0]);
+            var result1 = await LoadAssetResources<AudioClip>(data[0]);
             if (bGMData.Loop || (bGMData.CrossFade != null && bGMData.CrossFade != ""))
             {
                 result2 = await LoadAssetResources<AudioClip>(data[1]);
-                //result2 = Resources.Load<AudioClip>(data[1]);
             }
             return new List<AudioClip>()
             {

@@ -64,7 +64,7 @@ namespace Ryneus
             }
         }
 
-        public void SetClip(List<AudioClip> clip,bool isLoop)
+        public void SetClip(List<AudioClip> clips,bool isLoop)
         {
             _introAudioSource.ResetReserveTimestamp();
             _loopAudioSource.ResetReserveTimestamp();
@@ -72,10 +72,10 @@ namespace Ryneus
             {
                 _loopWebGLAudioSource.ResetReserveTimestamp();
             }
-            if (clip.Count == 2)
+            if (clips.Count == 2)
             {
-                _introAudioSource.SetAudioData(clip[0],clip[1] == null ? isLoop : false,false);
-                _loopAudioSource.SetAudioData(clip[1],clip[1] == null ? false : _loopWebGLAudioSource == null,false);
+                _introAudioSource.SetAudioData(clips[0],clips[1] == null ? isLoop : false);
+                _loopAudioSource.SetAudioData(clips[1],clips[1] == null ? false : isLoop);
 
 #if UNITY_WEBGL
                 _loopWebGLAudioSource.SetAudioData(clip[1]);
@@ -87,7 +87,7 @@ namespace Ryneus
 #endif
             } else
             {
-                _introAudioSource.SetAudioData(clip[0],isLoop,false);
+                _introAudioSource.SetAudioData(clips[0],isLoop,false);
                 _loopAudioSource.Stop();
                 _loopAudioSource.SetAudioData(null);
 #if UNITY_WEBGL
@@ -105,7 +105,7 @@ namespace Ryneus
                 //_introAudioSource.Stop();
                 float reserve = _introAudioSource.ReserveTimeSample - _introAudioSource.timeSamples();
                 _nowPlayIndex = 0;
-                _loopAudioSource.PlayDelay((reserve) / 44100);
+                _loopAudioSource.PlayDelay(reserve / 44100);
                 
             }
             // WebGL のためのループ切り替え処理
