@@ -9,18 +9,10 @@ namespace Ryneus
     public class BootView : BaseView ,IInputHandlerEvent
     {
         [SerializeField] private Button logoButton = null;
-        private new System.Action<ViewEvent> _commandData = null;
-        public new void SetEvent(System.Action<ViewEvent> commandData) => _commandData = commandData;
-        public void CallEvent(CommandType bootCommand)
-        {
-            var commandType = new ViewCommandType(ViewCommandSceneType.Boot,bootCommand);
-            var eventData = new ViewEvent(commandType);
-            _commandData(eventData);
-        }
-
         public override void Initialize() 
         {
             base.Initialize();
+            SetViewCommandSceneType(ViewCommandSceneType.Boot);
             new BootPresenter(this);
             if (TestMode == false)
             {
@@ -32,7 +24,7 @@ namespace Ryneus
 
         private void CallLogoClick()
         {
-            CallEvent(CommandType.LogoClick);
+            CallViewEvent(CommandType.LogoClick);
         }
 
         public void InputHandler(InputKeyType keyType, bool pressed)

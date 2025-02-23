@@ -12,18 +12,10 @@ namespace Ryneus
         [SerializeField] private BaseList titleCommandList = null;
         public SystemData.CommandData TitleCommand => titleCommandList.ListItemData<SystemData.CommandData>();
         
-        private new System.Action<ViewEvent> _commandData = null;
-        public new void SetEvent(System.Action<ViewEvent> commandData) => _commandData = commandData;
-        public void CallEvent(CommandType titleCommandType)
-        {
-            var commandType = new ViewCommandType(ViewCommandSceneType.Title,titleCommandType);
-            var eventData = new ViewEvent(commandType);
-            _commandData(eventData);
-        }
-
         public override void Initialize() 
         {
             base.Initialize();
+            SetViewCommandSceneType(ViewCommandSceneType.Title);
             InitializeTitleCommand();
             SideMenuButton.OnClickAddListener(() => 
             {
@@ -52,12 +44,12 @@ namespace Ryneus
 
         private void OnClickTitle()
         {
-            CallEvent(CommandType.SelectTitle);
+            CallViewEvent(CommandType.SelectTitle);
         }
 
         private void CallSideMenu()
         {
-            CallEvent(CommandType.SelectSideMenu);
+            CallViewEvent(CommandType.SelectSideMenu);
         }
 
         public void InputHandler(InputKeyType keyType, bool pressed)

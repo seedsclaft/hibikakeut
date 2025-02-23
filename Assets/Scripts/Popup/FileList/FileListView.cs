@@ -10,24 +10,11 @@ namespace Ryneus
     {
         [SerializeField] private BaseList fileList = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
-        private new Action<ViewEvent> _commandData = null;
-        public new void SetEvent(Action<ViewEvent> commandData)
-        {
-            _commandData = commandData;
-        }
-        public void CallEvent(CommandType battleCommandType,object sendData = null)
-        {
-            var commandType = new ViewCommandType(ViewCommandSceneType.BattleParty,battleCommandType);
-            var eventData = new ViewEvent(commandType)
-            {
-                template = sendData
-            };
-            _commandData(eventData);
-        }
         
         public override void Initialize() 
         {
             base.Initialize();
+            SetViewCommandSceneType(ViewCommandSceneType.FileList);
             SetBaseAnimation(popupAnimation);
             InitializeFileList();
             new FileListPresenter(this);
@@ -60,7 +47,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 var data = (SaveFileInfo)listData.Data;
-                CallEvent(CommandType.DecideFile,data);
+                CallViewEvent(CommandType.DecideFile,data);
             }
         }
 

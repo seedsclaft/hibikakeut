@@ -40,21 +40,10 @@ namespace Ryneus
         public bool AnimationBusy => _animationBusy;
         public int AlcanaListIndex => alcanaSelectList.Index;
 
-
-        private new System.Action<ViewEvent> _commandData = null;
-        public void CallEvent(CommandType strategy,object sendData = null)
-        {
-            var commandType = new ViewCommandType(ViewCommandSceneType.Strategy,strategy);
-            var eventData = new ViewEvent(commandType)
-            {
-                template = sendData
-            };
-            _commandData(eventData);
-        }
-
         public override void Initialize() 
         {
             base.Initialize();
+            SetViewCommandSceneType(ViewCommandSceneType.Strategy);
             InitializeActorList();
             InitializeStatusList();
             InitializeCommandList();
@@ -103,7 +92,7 @@ namespace Ryneus
             lvUpStatusButton.gameObject.SetActive(false);
             actorInfoComponent.gameObject.SetActive(false);
             statusList.gameObject.SetActive(false);
-            CallEvent(CommandType.LvUpNext);
+            CallViewEvent(CommandType.LvUpNext);
         }
 
         public void StartLvUpAnimation()
@@ -180,16 +169,9 @@ namespace Ryneus
             commandList.SetInputHandler(InputKeyType.Decide,() => CallResultCommand());
         }
 
-        public new void SetEvent(System.Action<ViewEvent> commandData)
-        {
-            _commandData = commandData;
-        }
-
-
-
         private void CallEndAnimation()
         {
-            CallEvent(CommandType.EndAnimation);
+            CallViewEvent(CommandType.EndAnimation);
         }
 
         public void ShowResultList(List<ListData> getItemInfos,string saveHuman = null,string battleTurn = null,string battleScore = null,string maxDamage = null,string attackPer = null,string defeatedCount = null)
@@ -220,7 +202,7 @@ namespace Ryneus
             var data = commandList.ListItemData<SystemData.CommandData>();
             if (data != null)
             {
-                CallEvent(CommandType.ResultClose,data);
+                CallViewEvent(CommandType.ResultClose,data);
             }
         }
 
@@ -243,7 +225,7 @@ namespace Ryneus
             if (_battleStartAnim.IsBusy == false)
             {
                 _animationBusy = false;
-                CallEvent(CommandType.EndLvUpAnimation);
+                CallViewEvent(CommandType.EndLvUpAnimation);
             }
         }
 
@@ -270,7 +252,7 @@ namespace Ryneus
             {
                 if (AlcanaSelectSkillInfo() != null)
                 {
-                    CallEvent(CommandType.SelectAlcanaList,AlcanaSelectSkillInfo());
+                    CallViewEvent(CommandType.SelectAlcanaList,AlcanaSelectSkillInfo());
                 }
             });
             alcanaSelectList.Show();

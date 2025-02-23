@@ -60,6 +60,10 @@ namespace Ryneus
             {
                 return;
             }
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Strategy)
+            {
+                return;
+            }
             Debug.Log(viewEvent.commandType);
             switch (viewEvent.ViewCommandType.CommandType)
             {

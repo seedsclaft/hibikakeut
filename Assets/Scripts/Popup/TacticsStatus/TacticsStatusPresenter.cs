@@ -91,7 +91,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var characterListInfo = new CharacterListInfo((a) => 
             {
-                _view.CommandGameSystem(Base.CommandType.ClosePopup);
+                _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 _model.SelectActor(a);
                 CommandRefresh();
                 SetBusy(false);
@@ -241,7 +241,7 @@ namespace Ryneus
             {
                 if (confirmCommandType == ConfirmCommandType.Yes)
                 {
-                    _view.CommandGameSystem(Base.CommandType.CloseStatus);
+                    _view.CallSystemCommand(Base.CommandType.CloseStatus);
 
                     var makeSelectActorInfos = _model.MakeSelectActorInfos();
                     var makeSelectGetItemInfos = _model.MakeSelectGetItemInfos();

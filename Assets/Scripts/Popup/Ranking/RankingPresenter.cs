@@ -48,10 +48,10 @@ namespace Ryneus
         private void CommandRankingOpen(int stageId)
         {
             _busy = true;
-            _view.CommandGameSystem(Base.CommandType.CallLoading);
+            _view.CallSystemCommand(Base.CommandType.CallLoading);
             _model.RankingInfos(stageId,(res) => 
             {
-                _view.CommandGameSystem(Base.CommandType.CloseLoading);
+                _view.CallSystemCommand(Base.CommandType.CloseLoading);
                 _view.SetRankingInfo(res);
                 _busy = false;
             });

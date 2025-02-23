@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,11 +15,11 @@ namespace Ryneus
         private InputSystemModel _inputSystemModel = null;
         private bool _busy = false;
         public bool Busy => _busy;
-        public System.Action<ViewEvent> _commandData = null;
+        public List<Action<ViewEvent>> _commandData = new ();
         [SerializeField] private Button _backCommand = null;
         [SerializeField] private SpriteRenderer _backGround = null;
-        private System.Action _backEvent = null;
-        public System.Action BackEvent => _backEvent;
+        private Action _backEvent = null;
+        public Action BackEvent => _backEvent;
         [SerializeField] private GameObject uiRoot = null;
         public GameObject UiRoot => uiRoot;
         [SerializeField] private OnOffButton sideMenuButton = null;
@@ -28,7 +28,7 @@ namespace Ryneus
         public void SetBaseAnimation(BaseAnimation animation) => baseAnimation = animation;
         public bool AnimationBusy => baseAnimation != null ? baseAnimation.Busy : false;
         private int _wait = 0;
-        public System.Action _waitEndEvent = null;
+        public Action _waitEndEvent = null;
         private List<BaseList> _viewActives = new ();
         public void AddViewActives(BaseList baseList) => _viewActives.Add(baseList);
         public void SetActivate(BaseList baseView)
@@ -43,6 +43,25 @@ namespace Ryneus
                 {
                     viewActives.Deactivate();
                 }
+            }
+        }
+
+        private ViewCommandSceneType _viewCommandSceneType = ViewCommandSceneType.None;
+        public void SetViewCommandSceneType(ViewCommandSceneType viewCommandSceneType) => _viewCommandSceneType = viewCommandSceneType;
+        public void CallViewEvent(object template,object sendData = null)
+        {
+            if (_viewCommandSceneType == ViewCommandSceneType.None)
+            {
+                return;
+            }
+            var commandType = new ViewCommandType(_viewCommandSceneType,template);
+            var eventData = new ViewEvent(commandType)
+            {
+                template = sendData
+            };
+            foreach (var commandData in _commandData)
+            {
+                commandData(eventData);
             }
         }
 
@@ -135,256 +154,182 @@ namespace Ryneus
             _helpWindow.SetHelpText(DataSystem.GetHelp(19700));
         }
 
-        public void SetEvent(System.Action<ViewEvent> commandData)
+        public void SetEvent(Action<ViewEvent> commandData)
         {
-            _commandData = commandData;
+            _commandData.Add(commandData);
         }
 
-        private void CallSceneChangeCommand(ViewEvent eventData)
+        public void CallSystemCommand(object template,object sendData = null)
         {
-            _commandData(eventData);
-        }
-
-        public void CommandGameSystem(Base.CommandType commandType)
-        {
-            var eventData = new ViewEvent(commandType);
-            CallSceneChangeCommand(eventData);
+            var commandType = new ViewCommandType(ViewCommandSceneType.System,template);
+            var eventData = new ViewEvent(commandType)
+            {
+                template = sendData
+            };
+            foreach (var commandData in _commandData)
+            {
+                commandData(eventData);
+            }
         }
 
         public void CommandSceneChange(Scene scene,object sceneParam = null,SceneChangeType sceneChangeType = SceneChangeType.Push)
         {
-            var eventData = new ViewEvent(Base.CommandType.SceneChange);
-            var sceneInfo = new SceneInfo(){ToScene = scene,SceneChangeType = sceneChangeType,SceneParam = sceneParam};
-            eventData.template = sceneInfo;
-            CallSceneChangeCommand(eventData);
+            var sceneInfo = new SceneInfo()
+            {
+                ToScene = scene,
+                SceneChangeType = sceneChangeType,
+                SceneParam = sceneParam
+            };
+            CallSystemCommand(Base.CommandType.SceneChange,sceneInfo);
         }
 
         public void CommandMapChange(MapType mapType)
         {
-            var eventData = new ViewEvent(Base.CommandType.MapChange);
-            eventData.template = mapType;
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.MapChange,mapType);
         }
 
         public void CommandCreateMapObject(GameObject mapObject)
         {
-            var eventData = new ViewEvent(Base.CommandType.CreateMapObject);
-            eventData.template = mapObject;
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CreateMapObject,mapObject);
         }
 
         public void CommandPopSceneChange(object sceneParam = null)
         {
-            var eventData = new ViewEvent(Base.CommandType.SceneChange);
-            var sceneInfo = new SceneInfo(){SceneChangeType = SceneChangeType.Pop,SceneParam = sceneParam};
-            eventData.template = sceneInfo;
-            CallSceneChangeCommand(eventData);
+            var sceneInfo = new SceneInfo()
+            {
+                SceneChangeType = SceneChangeType.Pop,
+                SceneParam = sceneParam
+            };
+            CallSystemCommand(Base.CommandType.SceneChange,sceneInfo);
         }
 
         public void CommandGotoSceneChange(Scene scene,object sceneParam = null)
         {
-            var eventData = new ViewEvent(Base.CommandType.SceneChange);
-            var sceneInfo = new SceneInfo(){ToScene = scene,SceneChangeType = SceneChangeType.Goto,SceneParam = sceneParam};
-            eventData.template = sceneInfo;
-            CallSceneChangeCommand(eventData);
+            var sceneInfo = new SceneInfo()
+            {
+                ToScene = scene,
+                SceneChangeType = SceneChangeType.Goto,
+                SceneParam = sceneParam
+            };
+            CallSystemCommand(Base.CommandType.SceneChange,sceneInfo);
         }
 
         public void CommandCallConfirm(ConfirmInfo popupInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallConfirmView)
-            {
-                template = popupInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallConfirmView,popupInfo);
         }
 
         public void CommandCallSkillDetail(ConfirmInfo popupInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallSkillDetailView)
-            {
-                template = popupInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallSkillDetailView,popupInfo);
         }
 
         public void CommandCallCaution(CautionInfo popupInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallCautionView)
-            {
-                template = popupInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallCautionView,popupInfo);
         }
 
         public void CommandCallPopup(PopupInfo popupInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallPopupView)
-            {
-                template = popupInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
         }
 
-        public void CommandCallOption(System.Action endEvent)
+        public void CommandCallOption(Action endEvent)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallOptionView)
-            {
-                template = endEvent
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallOptionView,endEvent);
         }
 
         public void CommandCallSideMenu(SideMenuViewInfo sideMenuViewInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallSideMenu)
-            {
-                template = sideMenuViewInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallSideMenu,sideMenuViewInfo);
         }
 
         public void CommandCallRanking(RankingViewInfo rankingViewInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallRankingView)
-            {
-                template = rankingViewInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallRankingView,rankingViewInfo);
         }
 
         public void CommandCallCharacterList(CharacterListInfo characterListInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallCharacterListView)
-            {
-                template = characterListInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallCharacterListView,characterListInfo);
         }
 
         public void CommandHelpList(List<ListData> helpTextList)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallHelpView)
-            {
-                template = helpTextList
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallHelpView,helpTextList);
         }
 
         public void CommandCallStatus(StatusViewInfo statusViewInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallStatusView)
-            {
-                template = statusViewInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallStatusView,statusViewInfo);
         }
 
         public void CommandCallEnemyInfo(StatusViewInfo statusViewInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallEnemyInfoView)
-            {
-                template = statusViewInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallEnemyInfoView,statusViewInfo);
         }
 
         public void CommandCallTacticsStatus(StatusViewInfo statusViewInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallTacticsStatusView)
-            {
-                template = statusViewInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallTacticsStatusView,statusViewInfo);
         }
 
         public void CommandCallSkillTrigger(SkillTriggerViewInfo skillTriggerViewInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallSkillTriggerView)
-            {
-                template = skillTriggerViewInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallSkillTriggerView,skillTriggerViewInfo);
         }
 
         public void CommandCallSkillLog(SkillLogViewInfo skillLogViewInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallSkillLogView)
-            {
-                template = skillLogViewInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallSkillLogView,skillLogViewInfo);
         }
 
         public void CommandCallAdv(AdvCallInfo advCallInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CallAdvScene)
-            {
-                template = advCallInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CallAdvScene,advCallInfo);
         }
 
         public void CommandDecidePlayerName(string nameText)
         {
-            var eventData = new ViewEvent(Base.CommandType.DecidePlayerName)
-            {
-                template = nameText
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.DecidePlayerName,nameText);
         }
 
         public void CommandSetRouteSelect()
         {
-            var eventData = new ViewEvent(Base.CommandType.SetRouteSelect);
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand((object)Base.CommandType.SetRouteSelect);
         }
 
-        public void CommandChangeViewToTransition(System.Action<string> endEvent)
+        public void CommandChangeViewToTransition(Action<string> endEvent)
         {
-            var eventData = new ViewEvent(Base.CommandType.ChangeViewToTransition)
-            {
-                template = endEvent
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.ChangeViewToTransition,endEvent);
         }
 
-        public void CommandStartTransition(System.Action endEvent)
+        public void CommandStartTransition(Action endEvent)
         {
-            var eventData = new ViewEvent(Base.CommandType.StartTransition)
-            {
-                template = endEvent
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.StartTransition,endEvent);
         }
 
         public void CommandCheckTutorialState(TutorialViewInfo tutorialViewInfo)
         {
-            var eventData = new ViewEvent(Base.CommandType.CheckTutorialState)
-            {
-                template = tutorialViewInfo
-            };
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand(Base.CommandType.CheckTutorialState,tutorialViewInfo);
         }
 
         public void CommandCloseTutorialFocus()
         {
-            var eventData = new ViewEvent(Base.CommandType.CloseTutorialFocus);
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand((object)Base.CommandType.CloseTutorialFocus);
         }
 
         public void CommandSceneShowUI()
         {
-            var eventData = new ViewEvent(Base.CommandType.SceneShowUI);
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand((object)Base.CommandType.SceneShowUI);
         }
 
         public void CommandSceneHideUI()
         {
-            var eventData = new ViewEvent(Base.CommandType.SceneHideUI);
-            CallSceneChangeCommand(eventData);
+            CallSystemCommand((object)Base.CommandType.SceneHideUI);
         }
 
-        public void SetBackCommand(System.Action callEvent)
+        public void SetBackCommand(Action callEvent)
         {
             if (_backCommand != null)
             {
@@ -398,7 +343,7 @@ namespace Ryneus
             _backEvent = callEvent;
         }
 
-        public void SetBackEvent(System.Action backEvent)
+        public void SetBackEvent(Action backEvent)
         {
             SetBackCommand(() => 
             {

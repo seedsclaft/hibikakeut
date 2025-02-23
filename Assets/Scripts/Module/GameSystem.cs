@@ -106,7 +106,11 @@ namespace Ryneus
             {
                 return;
             }
-            switch (viewEvent.commandType)
+            if (viewEvent == null || viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.System)
+            {
+                return;
+            }
+            switch (viewEvent.ViewCommandType.CommandType)
             {
                 case Base.CommandType.SceneChange:
                     var sceneInfo = (SceneInfo)viewEvent.template; 
@@ -305,7 +309,7 @@ namespace Ryneus
             baseView.Initialize();
             baseView.SetBackEvent(() => 
             {
-                UpdateCommand(new ViewEvent(Base.CommandType.ClosePopup));
+                baseView.CallSystemCommand((object)Base.CommandType.ClosePopup);
                 popupInfo.EndEvent?.Invoke();
             });
             if (popupInfo.PopupType == PopupType.LearnSkill)
@@ -335,8 +339,8 @@ namespace Ryneus
                     SoundManager.Instance.SeMute
                 );
                 SaveSystem.SaveConfigStart(ConfigData);
-                UpdateCommand(new ViewEvent(Base.CommandType.ClosePopup));
-                if (endEvent != null) endEvent();
+                optionView.CallSystemCommand((object)Base.CommandType.ClosePopup);
+                endEvent?.Invoke();
             });
             optionView.SetEvent((type) => UpdateCommand(type));
             SetIsBusyMainAndStatus();
@@ -351,8 +355,8 @@ namespace Ryneus
             skillTriggerView.Initialize();
             skillTriggerView.SetBackEvent(() => 
             {
-                UpdateCommand(new ViewEvent(Base.CommandType.ClosePopup));
-                if (skillTriggerViewInfo.EndEvent != null) skillTriggerViewInfo.EndEvent();
+                skillTriggerView.CallSystemCommand((object)Base.CommandType.ClosePopup);
+                skillTriggerViewInfo.EndEvent?.Invoke();
             });
             SetIsBusyMainAndStatus();
         }
@@ -366,8 +370,8 @@ namespace Ryneus
             skillLogView.SetEvent((type) => UpdateCommand(type));
             skillLogView.SetBackEvent(() => 
             {
-                UpdateCommand(new ViewEvent(Base.CommandType.ClosePopup));
-                if (skillLogViewInfo.EndEvent != null) skillLogViewInfo.EndEvent();
+                skillLogView.CallSystemCommand((object)Base.CommandType.ClosePopup);
+                skillLogViewInfo.EndEvent?.Invoke();
             });
             SetIsBusyMainAndStatus();
         }
@@ -381,7 +385,7 @@ namespace Ryneus
             sideMenuView.SetBackEvent(() => 
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                UpdateCommand(new ViewEvent(Base.CommandType.ClosePopup));
+                sideMenuView.CallSystemCommand((object)Base.CommandType.ClosePopup);
                 sideMenuViewInfo.EndEvent?.Invoke();
             });
             sideMenuView.SetSideMenuViewInfo(sideMenuViewInfo);
@@ -396,7 +400,7 @@ namespace Ryneus
             rankingView.SetRankingViewInfo(rankingViewInfo);
             rankingView.SetBackEvent(() => 
             {
-                UpdateCommand(new ViewEvent(Base.CommandType.ClosePopup));
+                rankingView.CallSystemCommand((object)Base.CommandType.ClosePopup);
                 rankingViewInfo.EndEvent?.Invoke();
             });
             SetIsBusyMainAndStatus();
@@ -410,11 +414,8 @@ namespace Ryneus
             characterListView.SetViewInfo(characterListInfo);
             characterListView.SetBackEvent(() => 
             {
-                if (characterListInfo.BackEvent != null)
-                {
-                    characterListInfo.BackEvent();
-                }
-                UpdateCommand(new ViewEvent(Base.CommandType.ClosePopup));
+                characterListInfo.BackEvent?.Invoke();
+                characterListView.CallSystemCommand((object)Base.CommandType.ClosePopup);
             });
             SetIsBusyMainAndStatus();
         }
@@ -427,7 +428,7 @@ namespace Ryneus
             helpView.SetHelp(helpTextList);
             helpView.SetBackEvent(() => 
             {
-                UpdateCommand(new ViewEvent(Base.CommandType.ClosePopup));
+                helpView.CallSystemCommand((object)Base.CommandType.ClosePopup);
             });
             SetIsBusyMainAndStatus();
         }

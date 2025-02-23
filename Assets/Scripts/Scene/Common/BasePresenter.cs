@@ -97,7 +97,7 @@ namespace Ryneus
         private void SuccessSave(bool isReturnScene)
         {
             // ロード非表示
-            _view.CommandGameSystem(Base.CommandType.CloseLoading);
+            _view.CallSystemCommand(Base.CommandType.CloseLoading);
             _model.GainSaveCount();
             _model.SavePlayerStageData(true);
             // 成功表示
@@ -124,7 +124,7 @@ namespace Ryneus
             var statusViewInfo = new StatusViewInfo(() => 
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                _view.CommandGameSystem(Base.CommandType.CloseStatus);
+                _view.CallSystemCommand(Base.CommandType.CloseStatus);
                 _view.ChangeUIActive(true);
                 closeEvent?.Invoke();
             });
@@ -151,7 +151,7 @@ namespace Ryneus
             var enemyViewInfo = new StatusViewInfo(() => 
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                _view.CommandGameSystem(Base.CommandType.CloseStatus);
+                _view.CallSystemCommand(Base.CommandType.CloseStatus);
                 _view.ChangeUIActive(true);
                 closeEvent?.Invoke();
             });
@@ -170,7 +170,7 @@ namespace Ryneus
             var statusViewInfo = new StatusViewInfo(() => 
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                _view.CommandGameSystem(Base.CommandType.CloseStatus);
+                _view.CallSystemCommand(Base.CommandType.CloseStatus);
                 _view.ChangeUIActive(true);
                 closeEvent?.Invoke();
             });
@@ -203,7 +203,7 @@ namespace Ryneus
 
         public void CloseConfirm()
         {
-            _view.CommandGameSystem(Base.CommandType.CloseConfirm);
+            _view.CallSystemCommand(Base.CommandType.CloseConfirm);
         }
 
         public void CommandCautionInfo(string title,int from = -1,int to = -1)

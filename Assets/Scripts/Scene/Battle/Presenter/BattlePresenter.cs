@@ -61,13 +61,13 @@ namespace Ryneus
                 SoundManager.Instance.PlayBgm(bgm,1.0f,true);
             }
             */
-            _view.CommandGameSystem(Base.CommandType.CloseLoading);
+            _view.CallSystemCommand(Base.CommandType.CloseLoading);
 
             ViewInitialize();
             
             _view.CommandStartTransition(() => 
             {
-                _view.CommandGameSystem(Base.CommandType.ClosePopup);
+                _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 StartBattle();
             });
         }
@@ -174,6 +174,10 @@ namespace Ryneus
         private void UpdateCommand(ViewEvent viewEvent)
         {
             LogOutput.Log(viewEvent.commandType);
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Battle)
+            {
+                return;
+            }
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.ChangeBattleAuto:
@@ -549,7 +553,7 @@ namespace Ryneus
             _view.HideStateOverlay();
             if (_skipBattle)
             {
-                _view.CommandGameSystem(Base.CommandType.CallLoading);
+                _view.CallSystemCommand(Base.CommandType.CallLoading);
             }
             await UniTask.DelayFrame((int)(150f / GameSystem.ConfigData.BattleSpeed));
             //_view.SetBattleBusy(false);
@@ -562,7 +566,7 @@ namespace Ryneus
                 PlayTacticsBgm();
             }
             */
-            _view.CommandGameSystem(Base.CommandType.CloseLoading);
+            _view.CallSystemCommand(Base.CommandType.CloseLoading);
             //_view.CommandChangeViewToTransition(null);
             _view.CommandGotoSceneChange(Scene.Strategy,strategySceneInfo);
         }
@@ -616,7 +620,7 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             _skipBattle = true;
-            _view.CommandGameSystem(Base.CommandType.CallLoading);
+            _view.CallSystemCommand(Base.CommandType.CallLoading);
         }
     }
 }

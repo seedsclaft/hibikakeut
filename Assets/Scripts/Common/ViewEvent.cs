@@ -40,6 +40,7 @@ namespace Ryneus
     public enum ViewCommandSceneType
     {
         None,
+        System,
         Boot,
         Title,
         Tactics,
@@ -47,6 +48,7 @@ namespace Ryneus
         Battle,
         BattleParty,
         Strategy,
+        FileList,
     }
 
     public interface IClickHandlerEvent

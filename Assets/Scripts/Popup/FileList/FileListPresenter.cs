@@ -34,6 +34,10 @@ namespace Ryneus
             {
                 return;
             }
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.FileList)
+            {
+                return;
+            }
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.DecideFile:

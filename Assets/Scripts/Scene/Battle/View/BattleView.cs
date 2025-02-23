@@ -32,20 +32,6 @@ namespace Ryneus
         [SerializeField] private EffekseerEmitter demigodCutinAnimation = null;
         [SerializeField] private BattleAwakenAnimation battleAwakenAnimation = null;
         [SerializeField] private MagicList magicList = null;
-        private new Action<ViewEvent> _commandData = null;
-        public new void SetEvent(Action<ViewEvent> commandData)
-        {
-            _commandData = commandData;
-        }
-        public void CallEvent(CommandType battleCommandType,object sendData = null)
-        {
-            var commandType = new ViewCommandType(ViewCommandSceneType.Battle,battleCommandType);
-            var eventData = new ViewEvent(commandType)
-            {
-                template = sendData
-            };
-            _commandData(eventData);
-        }
         private BattleBackGroundAnimation _backGroundAnimation = null;
         
         private BattleStartAnim _battleStartAnim = null;
@@ -72,6 +58,7 @@ namespace Ryneus
         public override void Initialize() 
         {
             base.Initialize();
+            SetViewCommandSceneType(ViewCommandSceneType.Battle);
             ClearCurrentSkillData();
 
             InitializeSelectCharacter();
@@ -92,7 +79,7 @@ namespace Ryneus
             skillLogButton.OnClickAddListener(() => 
             {
                 if (skillLogButton.gameObject.activeSelf == false) return;
-                CallEvent(CommandType.SkillLog);
+                CallViewEvent(CommandType.SkillLog);
             });
             SetBattleSkipActive(false);
             battleCutinAnimation.Initialize();
@@ -183,7 +170,7 @@ namespace Ryneus
             var listData = magicList.ListItemData<SkillInfo>();
             if (listData != null && listData.Enable)
             {
-                CallEvent(CommandType.OnDecideSkill,listData);
+                CallViewEvent(CommandType.OnDecideSkill,listData);
             }
         }
 
@@ -192,13 +179,13 @@ namespace Ryneus
             var listData = magicList.ListItemData<SkillInfo>();
             if (listData != null && listData.Enable)
             {
-                CallEvent(CommandType.OnSelectSkill,listData);
+                CallViewEvent(CommandType.OnSelectSkill,listData);
             }
         }
 
         private void OnSelectTarget(InputKeyType inputKeyType)
         {
-            CallEvent(CommandType.OnSelectTarget,inputKeyType);
+            CallViewEvent(CommandType.OnSelectTarget,inputKeyType);
         }
 
         public void EndActionSelect()
@@ -290,13 +277,13 @@ namespace Ryneus
         {
             if (battleSkipButton.gameObject.activeSelf == false) return;
             _skipBattle = true;
-            CallEvent(CommandType.SkipBattle);
+            CallViewEvent(CommandType.SkipBattle);
         }
 
         private void CallChangeBattleSpeed(int plus)
         {
             if (battleSpeedButton.gameObject.activeSelf == false) return;
-            CallEvent(CommandType.ChangeBattleSpeed,plus);
+            CallViewEvent(CommandType.ChangeBattleSpeed,plus);
         }
 
         public void CreateObject()
@@ -347,7 +334,7 @@ namespace Ryneus
 
         private void OnClickBack()
         { 
-            CallEvent(CommandType.Back);
+            CallViewEvent(CommandType.Back);
             SetInputFrame(1);
         }
 
@@ -376,7 +363,7 @@ namespace Ryneus
             var battlerInfo = battlerInfos.Find(a => a.Index == selectedIndex);
             if (battlerInfo != null)
             {
-                CallEvent(CommandType.EnemyDetail,selectedIndex);
+                CallViewEvent(CommandType.EnemyDetail,selectedIndex);
             }
         }
 
@@ -606,13 +593,13 @@ namespace Ryneus
         {     
             base.Update();
             if (_battleBusy == true) return;
-            CallEvent(CommandType.UpdateAp);
+            CallViewEvent(CommandType.UpdateAp);
         }
 
 
         private void CallSideMenu()
         {
-            CallEvent(CommandType.SelectSideMenu);
+            CallViewEvent(CommandType.SelectSideMenu);
         }
         
         public void InputHandler(InputKeyType keyType,bool pressed)

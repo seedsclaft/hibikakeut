@@ -56,6 +56,10 @@ namespace Ryneus
             {
                 return;
             }
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Title)
+            {
+                return;
+            }
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.SelectSideMenu:

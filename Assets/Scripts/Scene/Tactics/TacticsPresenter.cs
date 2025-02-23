@@ -173,6 +173,10 @@ namespace Ryneus
             {
                 return;
             }
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Tactics)
+            {
+                return;
+            }
             //_view.UpdateInputKeyActive(viewEvent.ViewCommandType,_model.TacticsCommandType);
             //Debug.Log(viewEvent.commandType);
             switch (viewEvent.ViewCommandType.CommandType)

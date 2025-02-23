@@ -221,7 +221,7 @@ namespace Ryneus
 
         public void ClearMap()
         {
-            CommandGameSystem(Base.CommandType.MapClear);   
+            CallSystemCommand(Base.CommandType.MapClear);   
         }
     }
 }

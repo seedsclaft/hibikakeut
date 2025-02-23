@@ -109,7 +109,7 @@ namespace Ryneus
             if (confirmCommandType == ConfirmCommandType.Yes)
             {
                 _model.SavePlayerStageData(false);
-                _view.CommandGameSystem(Base.CommandType.CloseStatus);
+                _view.CallSystemCommand(Base.CommandType.CloseStatus);
                 _view.CommandGotoSceneChange(Scene.MainMenu);
             } else
             {
@@ -117,7 +117,7 @@ namespace Ryneus
             }
             ClosePopup();
             //_view.ActivateCommandList();
-            _view.CommandGameSystem(Base.CommandType.CloseConfirm);
+            _view.CallSystemCommand(Base.CommandType.CloseConfirm);
         }
         
         private void CommandRule()
@@ -178,13 +178,13 @@ namespace Ryneus
         {
             if (confirmCommandType == ConfirmCommandType.Yes)
             {
-                _view.CommandGameSystem(Base.CommandType.ClosePopup);
+                _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 _model.DeletePlayerData();
-                _view.CommandGameSystem(Base.CommandType.CloseConfirm);
+                _view.CallSystemCommand(Base.CommandType.CloseConfirm);
                 var confirmInfo = new ConfirmInfo(DataSystem.GetText(13310),(a) => 
                 {
                     SoundManager.Instance.StopBgm();
-                    _view.CommandGameSystem(Base.CommandType.CloseStatus);
+                    _view.CallSystemCommand(Base.CommandType.CloseStatus);
                     _view.CommandGotoSceneChange(Scene.Boot);
                 });
                 confirmInfo.SetIsNoChoice(true);
@@ -199,13 +199,13 @@ namespace Ryneus
         {
             if (confirmCommandType == ConfirmCommandType.Yes)
             {
-                _view.CommandGameSystem(Base.CommandType.ClosePopup);
+                _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 _model.DeleteStageData();
-                _view.CommandGameSystem(Base.CommandType.CloseConfirm);
+                _view.CallSystemCommand(Base.CommandType.CloseConfirm);
                 var confirmInfo = new ConfirmInfo(DataSystem.GetText(13310),(a) => 
                 {
                     SoundManager.Instance.StopBgm();
-                    _view.CommandGameSystem(Base.CommandType.CloseStatus);
+                    _view.CallSystemCommand(Base.CommandType.CloseStatus);
                     _view.CommandGotoSceneChange(Scene.Boot);
                 });
                 confirmInfo.SetIsNoChoice(true);
@@ -220,7 +220,7 @@ namespace Ryneus
         {
             if (confirmCommandType == ConfirmCommandType.Yes)
             {
-                _view.CommandGameSystem(Base.CommandType.ClosePopupAll);
+                _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                 _view.CommandGotoSceneChange(Scene.Title);
             }
             ClosePopup();

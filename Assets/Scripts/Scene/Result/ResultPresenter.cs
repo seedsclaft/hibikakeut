@@ -106,12 +106,12 @@ namespace Ryneus
                 if (a == ConfirmCommandType.Yes)
                 {
                     // ランキングに登録
-                    _view.CommandGameSystem(Base.CommandType.CallLoading);
+                    _view.CallSystemCommand(Base.CommandType.CallLoading);
                     _busy = true;
                     _model.CurrentRankingData((a) => 
                     {
                         _view.SetRanking(a);
-                        _view.CommandGameSystem(Base.CommandType.CloseLoading);
+                        _view.CallSystemCommand(Base.CommandType.CloseLoading);
                         _busy = false;
                         _isRankingEnd = true;
                         SaveSystem.DeleteStageData();

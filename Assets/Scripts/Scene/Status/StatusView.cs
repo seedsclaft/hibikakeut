@@ -19,18 +19,6 @@ namespace Ryneus
         [SerializeField] private GameObject topLayer = null;
         [SerializeField] private GameObject statusLayer = null;
 
-        private new Action<ViewEvent> _commandData = null;
-        public void SetStatusEvent(Action<ViewEvent> commandData) => _commandData = commandData;
-        public void CallEvent(CommandType statusCommandType,object sendData = null)
-        {
-            var commandType = new ViewCommandType(ViewCommandSceneType.Status,statusCommandType);
-            var eventData = new ViewEvent(commandType)
-            {
-                template = sendData
-            };
-            _commandData(eventData);
-        }
-
         private StatusViewInfo _statusViewInfo = null; 
 
         private Action _backEvent = null;
@@ -41,6 +29,7 @@ namespace Ryneus
         public void Initialize(List<ActorInfo> actorInfos) 
         {
             base.Initialize();
+            SetViewCommandSceneType(ViewCommandSceneType.Status);
             
             InitializeCommandList();
             InitializeMemberList();
@@ -89,13 +78,13 @@ namespace Ryneus
             var data = memberList.ListItemData<ActorInfo>();
             if (data != null)
             {
-                CallEvent(CommandType.SelectActor,data);
+                CallViewEvent(CommandType.SelectActor,data);
             }
         }
 
         private void OnCancelActor()
         {
-            CallEvent(CommandType.CancelActor);
+            CallViewEvent(CommandType.CancelActor);
         }
 
         private void InitializeEquipSkillList()
@@ -122,13 +111,13 @@ namespace Ryneus
             var data = equipSkillList.ListItemData<SkillInfo>();
             if (data != null)
             {
-                CallEvent(CommandType.SelectEquipSkill,data);
+                CallViewEvent(CommandType.SelectEquipSkill,data);
             }
         }
 
         private void OnCancelEquipSkill()
         {
-            CallEvent(CommandType.CancelEquipSkill);
+            CallViewEvent(CommandType.CancelEquipSkill);
         }
 
         private void InitializeChangeSkillList()
@@ -150,7 +139,7 @@ namespace Ryneus
             var data = changeSkillList.ListItemData<SkillInfo>();
             if (data != null)
             {
-                CallEvent(CommandType.SelectChangeSkill,data);
+                CallViewEvent(CommandType.SelectChangeSkill,data);
             }
         }
 
@@ -208,7 +197,7 @@ namespace Ryneus
             SetBackEvent(statusViewInfo.BackEvent);
             if (statusViewInfo.StartIndex != -1)
             {
-                CallEvent(CommandType.SelectCharacter);
+                CallViewEvent(CommandType.SelectCharacter);
             }
         }
 
@@ -222,7 +211,7 @@ namespace Ryneus
             var data = commandList.ListItemData<SystemData.CommandData>();
             if (data != null)
             {
-                CallEvent(CommandType.SelectCommandList,data);
+                CallViewEvent(CommandType.SelectCommandList,data);
             }
         }
 
@@ -233,12 +222,12 @@ namespace Ryneus
 
         private void OnClickBack()
         {
-            CallEvent(CommandType.Back);
+            CallViewEvent(CommandType.Back);
         }
 
         private void OnClickHelp()
         {
-            CallEvent(CommandType.CallHelp);
+            CallViewEvent(CommandType.CallHelp);
         }
 
         public int SelectedSkillId()
@@ -288,7 +277,7 @@ namespace Ryneus
 
         public new void MouseCancelHandler()
         {
-            CallEvent(CommandType.Back);
+            CallViewEvent(CommandType.Back);
         }
     }
 

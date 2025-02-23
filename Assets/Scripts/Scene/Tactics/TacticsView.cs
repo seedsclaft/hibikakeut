@@ -18,7 +18,6 @@ namespace Ryneus
         public SymbolInfo SelectSymbolInfo => symbolInfoList.SelectSymbolInfo();
         [SerializeField] private MagicList alcanaSelectList = null;
         [SerializeField] private TextMeshProUGUI saveScoreText = null;
-        private new System.Action<ViewEvent> _commandData = null;
         [SerializeField] private TacticsAlcana tacticsAlcana = null;
         [SerializeField] private Button alcanaButton = null;
         [SerializeField] private Button stageHelpButton = null;
@@ -30,21 +29,12 @@ namespace Ryneus
         public void SetViewBusy(bool isBusy)
         {
             _viewBusy = isBusy;
-        }        
-        public void CallEvent(CommandType tacticsCommandType,object sendData = null)
-        {
-            var commandType = new ViewCommandType(ViewCommandSceneType.Tactics,tacticsCommandType);
-            var eventData = new ViewEvent(commandType)
-            {
-                template = sendData
-            };
-            _commandData(eventData);
         }
         
         public override void Initialize()
         {
             base.Initialize();
-
+            SetViewCommandSceneType(ViewCommandSceneType.Tactics);
             InitializeCommandList();
             tacticsAlcana.gameObject.SetActive(false);
             alcanaButton.onClick.AddListener(() => CallAlcanaCheck());
@@ -55,7 +45,7 @@ namespace Ryneus
             });
             stageHelpButton.onClick.AddListener(() => 
             {
-                CallEvent(CommandType.StageHelp);
+                CallViewEvent(CommandType.StageHelp);
             });
             InitializeSymbolInfoList();
 
@@ -82,14 +72,14 @@ namespace Ryneus
             if (listData != null && listData.Enable)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                CallEvent(CommandType.CallTacticsCommand);
+                CallViewEvent(CommandType.CallTacticsCommand);
             }
         }
 
         private void CallStatus()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            CallEvent(CommandType.CallStatus);
+            CallViewEvent(CommandType.CallStatus);
         }
 
         private void InitializeSymbolInfoList()
@@ -126,14 +116,14 @@ namespace Ryneus
             var data = symbolInfoList.SelectSymbolInfo();
             if (data != null)
             {
-                CallEvent(CommandType.OnClickSymbol,data);
+                CallViewEvent(CommandType.OnClickSymbol,data);
             }
         }
 
         private void OnCancelSymbol()
         {
             symbolInfoList.gameObject.SetActive(false);
-            CallEvent(CommandType.OnCancelSymbol);
+            CallViewEvent(CommandType.OnCancelSymbol);
         }
 
         public void UpdatePartyInfo(PartyInfo partyInfo)
@@ -147,7 +137,7 @@ namespace Ryneus
 
         private void CallSideMenu()
         {
-            CallEvent(CommandType.SelectSideMenu);
+            CallViewEvent(CommandType.SelectSideMenu);
         }
 
         public void SetTacticsCommand(List<ListData> menuCommands)
@@ -175,16 +165,11 @@ namespace Ryneus
 
         private void OnClickBack()
         {
-            CallEvent(CommandType.Back);
+            CallViewEvent(CommandType.Back);
         }
 
         public void SetHelpWindow()
         {
-        }
-
-        public new void SetEvent(System.Action<ViewEvent> commandData)
-        {
-            _commandData = commandData;
         }
 
         public void SetStageInfo(StageInfo stageInfo)
@@ -278,7 +263,7 @@ namespace Ryneus
 
         private void OnClickParallel()
         {
-            CallEvent(CommandType.Parallel);
+            CallViewEvent(CommandType.Parallel);
         }
 
 
@@ -304,7 +289,7 @@ namespace Ryneus
 
         private void CallAlcanaCheck()
         {
-            CallEvent(CommandType.AlcanaCheck);
+            CallViewEvent(CommandType.AlcanaCheck);
         }
 
         public void HideAlcanaList()
@@ -321,7 +306,7 @@ namespace Ryneus
                 var skillInfo = AlcanaSelectSkillInfo();
                 if (skillInfo != null && skillInfo.Enable)
                 {
-                    CallEvent(CommandType.SelectAlcanaList,skillInfo);
+                    CallViewEvent(CommandType.SelectAlcanaList,skillInfo);
                 }
             });
             alcanaSelectList.Show();

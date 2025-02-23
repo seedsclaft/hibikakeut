@@ -24,7 +24,7 @@ namespace Ryneus
             _view.SetHelpWindow(_model.HelpText());
             _view.SetCommandList(MakeListData(_model.StatusCommand()));
             _view.SetMemberList(MakeListData(_model.StageMembers()));
-            _view.SetStatusEvent((type) => UpdateCommand(type));
+            _view.SetEvent((type) => UpdateCommand(type));
 
             _view.CommandTopLayer();
             _view.CallCommandList();
@@ -39,6 +39,10 @@ namespace Ryneus
         {
             UnityEngine.Debug.Log(viewEvent.commandType);
             if (_busy /*|| _view.AnimationBusy*/)
+            {
+                return;
+            }
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Status)
             {
                 return;
             }
@@ -186,7 +190,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var characterListInfo = new CharacterListInfo((a) => 
             {
-                _view.CommandGameSystem(Base.CommandType.ClosePopup);
+                _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 _model.SelectActor(a);
                 CommandRefresh();
                 SetBusy(false);
@@ -301,7 +305,7 @@ namespace Ryneus
             {
                 if (confirmCommandType == ConfirmCommandType.Yes)
                 {
-                    _view.CommandGameSystem(Base.CommandType.CloseStatus);
+                    _view.CallSystemCommand(Base.CommandType.CloseStatus);
 
                     var makeSelectActorInfos = _model.MakeSelectActorInfos();
                     var makeSelectGetItemInfos = _model.MakeSelectGetItemInfos();

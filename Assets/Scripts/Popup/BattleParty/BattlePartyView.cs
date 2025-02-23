@@ -24,25 +24,11 @@ namespace Ryneus
         public SkillInfo SelectMagic => battleSelectCharacter.ActionData;
         public AttributeType AttributeType => battleSelectCharacter.AttributeType;
         private bool _isEditMode = false;
-        
-        private new Action<ViewEvent> _commandData = null;
-        public new void SetEvent(Action<ViewEvent> commandData)
-        {
-            _commandData = commandData;
-        }
-        public void CallEvent(CommandType battleCommandType,object sendData = null)
-        {
-            var commandType = new ViewCommandType(ViewCommandSceneType.BattleParty,battleCommandType);
-            var eventData = new ViewEvent(commandType)
-            {
-                template = sendData
-            };
-            _commandData(eventData);
-        }
 
         public override void Initialize() 
         {
             base.Initialize();
+            SetViewCommandSceneType(ViewCommandSceneType.BattleParty);
             //partyMemberList.Initialize();
             //enemyMemberList.Initialize();
             InitializeTacticsMember();
@@ -50,7 +36,7 @@ namespace Ryneus
             battleSelectCharacter.Initialize();
             commandHelpButton.onClick.AddListener(() => 
             {
-                CallEvent(CommandType.CommandHelp);
+                CallViewEvent(CommandType.CommandHelp);
             });
             SetBaseAnimation(trainAnimation);
             InitializeSelectCharacter();
@@ -66,14 +52,14 @@ namespace Ryneus
         {
             tacticsMemberList.Initialize();
             tacticsMemberList.SetInputHandler(InputKeyType.Decide,OnClickDecideActor);
-            tacticsMemberList.SetInputHandler(InputKeyType.Cancel,() => CallEvent(CommandType.CommandEndEdit));
+            tacticsMemberList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.CommandEndEdit));
             tacticsMemberList.SetSelectedHandler(() =>
             {
                 var listData = tacticsMemberList.ListData;
                 if (listData != null)
                 {
                     var data = (ActorInfo)listData.Data;
-                    CallEvent(CommandType.SelectTacticsMember,data);
+                    CallViewEvent(CommandType.SelectTacticsMember,data);
                 }
             });
             SetInputHandler(tacticsMemberList.gameObject);
@@ -97,7 +83,7 @@ namespace Ryneus
         
         private void CallSideMenu()
         {
-            CallEvent(CommandType.SelectSideMenu);
+            CallViewEvent(CommandType.SelectSideMenu);
         }
 
         private void OnClickDecideActor()
@@ -106,7 +92,7 @@ namespace Ryneus
             if (listData != null)
             {
                 var data = (ActorInfo)listData.Data;
-                CallEvent(CommandType.DecideTacticsMember,data);
+                CallViewEvent(CommandType.DecideTacticsMember,data);
             }
         }
 
@@ -123,7 +109,7 @@ namespace Ryneus
             var listData = commandList.ListItemData<SystemData.CommandData>();
             if (listData != null)
             {
-                CallEvent(CommandType.CallCommandList,listData);
+                CallViewEvent(CommandType.CallCommandList,listData);
             }
         }
 
@@ -158,7 +144,7 @@ namespace Ryneus
 
         private void CallChangeLineIndex(ActorInfo actorInfo)
         {
-            CallEvent(CommandType.ChangeLineIndex,actorInfo);
+            CallViewEvent(CommandType.ChangeLineIndex,actorInfo);
         }
 
         public void SetEnemyMembers(List<ListData> enemyInfos)
@@ -187,7 +173,7 @@ namespace Ryneus
             if (listData != null)
             {
                 var data = (AttributeType)listData.Data;
-                CallEvent(CommandType.SelectAttribute,data);
+                CallViewEvent(CommandType.SelectAttribute,data);
             }
         }
 
@@ -238,11 +224,11 @@ namespace Ryneus
             });
             battleSelectCharacter.MagicList.SetInputHandler(InputKeyType.SideLeft1,() => 
             {
-                CallEvent(CommandType.LeftAttribute);
+                CallViewEvent(CommandType.LeftAttribute);
             });
             battleSelectCharacter.MagicList.SetInputHandler(InputKeyType.SideRight1,() => 
             {
-                CallEvent(CommandType.RightAttribute);
+                CallViewEvent(CommandType.RightAttribute);
             });
         }
         
