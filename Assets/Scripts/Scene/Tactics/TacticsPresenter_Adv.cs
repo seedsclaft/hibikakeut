@@ -40,7 +40,7 @@ namespace Ryneus
                     case StageEventType.SetDefineBossIndex:
                         break;
                     case StageEventType.SetRouteSelectParam:
-                        _view.CommandSetRouteSelect();
+                        _view.CallSystemCommand(Base.CommandType.SetRouteSelect);
                         break;
                     case StageEventType.ClearStage:
                         _eventBusy = true;

@@ -18,7 +18,7 @@ namespace Ryneus
             } else
             {
                 // 新規レコード作成
-                foreach (var record in GetStageSymbolInfos(stageId))
+                foreach (var record in GetStageSymbolInfos(stageId,CurrentData.PlayerInfo.ClearCount))
                 {
                     //PartyInfo.SetSymbolResultInfo(record);
                 }

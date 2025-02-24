@@ -102,7 +102,7 @@ namespace Ryneus
                 SetBusy(false);
             });
             characterListInfo.SetActorInfos(_model.ActorInfos);
-            _view.CommandCallCharacterList(characterListInfo);
+            _view.CallSystemCommand(Base.CommandType.CallCharacterListView,characterListInfo);
         }
 
         public void CommandSelectCharacter(int actorId)

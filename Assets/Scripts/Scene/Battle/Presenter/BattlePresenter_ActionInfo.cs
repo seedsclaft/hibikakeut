@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
 
 namespace Ryneus
 {
@@ -24,62 +25,53 @@ namespace Ryneus
             StartAnimation(actionInfo);
         }
 
-        private void StartAnimation(ActionInfo actionInfo)
+        private async void StartAnimation(ActionInfo actionInfo)
         {
-            var isActor = _model.GetBattlerInfo(actionInfo.SubjectIndex).IsActorView;
-            if (actionInfo.FirstAttack() && actionInfo.Master.SkillType == SkillType.Unique && actionInfo.Master.AnimationId > 0)
+            if (actionInfo.FirstAttack() && actionInfo.Master.AnimationId > 0)
             {
-                if (isActor)
+                if (actionInfo.Master.SkillType == SkillType.Unique)
                 {
-                    StartAnimationMessiah(actionInfo);
+                    var isActor = _model.GetBattlerInfo(actionInfo.SubjectIndex).IsActorView;
+                    await StartAnimationMessiah(actionInfo,isActor);
                 } else
+                if (actionInfo.Master.SkillType == SkillType.Awaken)
                 {
-                    StartAnimationMessiahEnemy(actionInfo);
+                    await StartAnimationAwaken(actionInfo);
                 }
-            } else
-            if (actionInfo.FirstAttack() && actionInfo.Master.SkillType == SkillType.Awaken && actionInfo.Master.AnimationId > 0)
-            {
-                StartAnimationAwaken(actionInfo);
-            } else
-            {
-                StartAnimationSkill(actionInfo);
             }
+            StartAnimationSkill(actionInfo);
         }
         
         /// <summary>
         /// 覚醒アニメーション再生してからアニメーション再生
         /// </summary>
-        private async void StartAnimationMessiah(ActionInfo actionInfo)
+        private async UniTask<bool> StartAnimationMessiah(ActionInfo actionInfo,bool isActor)
         {
             var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex);
-            var actorId = subject.ActorInfo != null ? subject.ActorInfo.ActorId : subject.EnemyData.Id - 1000;
-            var sprite = _model.AwakenSprite(actorId);
+            Sprite sprite;
+            if (isActor)
+            {
+                var actorId = subject.ActorInfo != null ? subject.ActorInfo.ActorId : subject.EnemyData.Id - 1000;
+                sprite = _model.AwakenSprite(actorId);
+            } else
+            {
+                sprite = _model.AwakenEnemySprite(subject.EnemyData.Id);
+            }
             await _view.StartAnimationMessiah(subject,sprite);
-            StartAnimationSkill(actionInfo);
+            return true;
         }
 
-        /// <summary>
-        /// 覚醒アニメーション再生してからアニメーション再生
-        /// </summary>
-        private async void StartAnimationMessiahEnemy(ActionInfo actionInfo)
-        {
-            var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex);
-            var sprite = _model.AwakenEnemySprite(subject.EnemyData.Id);
-            await _view.StartAnimationMessiah(subject,sprite);
-            StartAnimationSkill(actionInfo);
-        }
-        
         /// <summary>
         /// カットインアニメーション再生してからアニメーション再生
         /// </summary>
-        private async void StartAnimationAwaken(ActionInfo actionInfo)
+        private async UniTask<bool> StartAnimationAwaken(ActionInfo actionInfo)
         {
             await _view.StartAnimationDemigod(_model.GetBattlerInfo(actionInfo.SubjectIndex),actionInfo.Master);
-            StartAnimationSkill(actionInfo);
+            return true;
         }
 
         private async void StartAnimationSkill(ActionInfo actionInfo)
-        {           
+        {
             _view.ChangeSideMenuButtonActive(false);
             _view.SetBattlerThumbAlpha(true);
             //_view.ShowEnemyStateOverlay();
@@ -90,49 +82,35 @@ namespace Ryneus
                 CommandEndAnimation();
                 return;
             }
+
+            await SelfAnimation(actionInfo);
+
+            await ShowCutinBattleThumb(actionInfo);
             
-            var selfAnimation = ResourceSystem.LoadResourceEffect("MAGICALxSPIRAL/WHead1");
-            _view.StartAnimationBeforeSkill(actionInfo.SubjectIndex,selfAnimation);
-            var speed = GameSystem.ConfigData.BattleSpeed;
-            await UniTask.DelayFrame((int)(24/speed));
-            if (actionInfo.TriggeredSkill && actionInfo.Master.SkillType != SkillType.Unique && actionInfo.Master.SkillType != SkillType.Awaken)
-            {
-                if (actionInfo.Master.IsDisplayBattleSkill() && _model.GetBattlerInfo(actionInfo.SubjectIndex).IsActor)
-                {
-                    _view.ShowCutinBattleThumb(_model.GetBattlerInfo(actionInfo.SubjectIndex));
-                    speed = GameSystem.ConfigData.BattleSpeed;
-                    await UniTask.DelayFrame((int)(16/speed));
-                }
-            }
             if (actionInfo.Master.IsDisplayBattleSkill())
             {
                 _view.SetCurrentSkillData(actionInfo.SkillInfo,_model.GetBattlerInfo(actionInfo.SubjectIndex));
             }
             
+            StartAliveAnimation(actionInfo.ActionResults);
             var animationData = BattleUtility.AnimationData(actionInfo.Master.AnimationId);
             if (animationData != null && animationData.AnimationPath != "" && GameSystem.ConfigData.BattleAnimationSkip == false)
             {
-                var targetIndexList = new List<int>();
-                foreach (var actionResult in actionInfo.ActionResults)
-                {
-                    targetIndexList.Add(actionResult.TargetIndex);
-                }
+                var targetIndexList = actionInfo.ResultTargetIndexes();
                 PlayAnimation(animationData,actionInfo.Master.AnimationType,targetIndexList,false);
-                StartAliveAnimation(actionInfo.ActionResults);
                 await UniTask.DelayFrame((int)(animationData.DamageTiming / GameSystem.ConfigData.BattleSpeed));
                 foreach (var actionResultInfo in actionInfo.ActionResults)
                 {
                     PopupActionResult(actionResultInfo,actionResultInfo.TargetIndex,true,true);
                 }
-                var waitFrame = (int)(48 / GameSystem.ConfigData.BattleSpeed);
+                var waitFrame = _model.WaitFrameTime(48);
                 if (!actionInfo.LastAttack() && waitFrame > 1)
                 {
-                    waitFrame = 8;
+                    waitFrame = 36;
                 }
                 await UniTask.DelayFrame(waitFrame);
             } else
             {
-                StartAliveAnimation(actionInfo.ActionResults);
                 foreach (var actionResultInfo in actionInfo.ActionResults)
                 {
                     PopupActionResult(actionResultInfo,actionResultInfo.TargetIndex,true,true);
@@ -140,13 +118,33 @@ namespace Ryneus
                 var waitFrame = _model.WaitFrameTime(30);
                 if (!actionInfo.LastAttack() && waitFrame > 1)
                 {
-                    waitFrame = 8;
+                    waitFrame = 16;
                 }
                 await UniTask.DelayFrame(waitFrame);
             }
             CommandEndAnimation();
         }
         
+        private async UniTask<bool> SelfAnimation(ActionInfo actionInfo)
+        {
+            var selfAnimation = ResourceSystem.LoadResourceEffect("MAGICALxSPIRAL/WHead1");
+            _view.StartAnimationBeforeSkill(actionInfo.SubjectIndex,selfAnimation);
+            await UniTask.DelayFrame(_model.WaitFrameTime(30));
+            return true;
+        }
+
+        private async UniTask<bool> ShowCutinBattleThumb(ActionInfo actionInfo)
+        {
+            if (actionInfo.TriggeredSkill && actionInfo.Master.SkillType != SkillType.Unique && actionInfo.Master.SkillType != SkillType.Awaken)
+            {
+                if (actionInfo.Master.IsDisplayBattleSkill() && _model.GetBattlerInfo(actionInfo.SubjectIndex).IsActor)
+                {
+                    _view.ShowCutinBattleThumb(_model.GetBattlerInfo(actionInfo.SubjectIndex));
+                    await UniTask.DelayFrame(_model.WaitFrameTime(16));
+                }
+            }
+            return true;
+        }
 
         private async void RepeatAnimationSkill(ActionInfo actionInfo)
         {           
@@ -170,7 +168,7 @@ namespace Ryneus
             {
                 PopupActionResult(actionResultInfo,actionResultInfo.TargetIndex,true,true);
             }
-            await UniTask.DelayFrame(_model.WaitFrameTime(8));
+            await UniTask.DelayFrame(_model.WaitFrameTime(16));
             CommandEndAnimation();
         }
 

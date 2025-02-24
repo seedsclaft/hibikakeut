@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using Effekseer;
-using Effekseer.Internal;
 
 namespace Ryneus
 {
@@ -318,7 +317,9 @@ namespace Ryneus
                     actorInfoComponent.FaceThumb.material = new Material(grayScale);
                 } else
                 {
-                    enemyInfoComponent.MainThumb.material = new Material(grayScale);
+                    deathAnimation.enabled = true;
+                    _deathAnimation = 0.01f;
+                    //enemyInfoComponent.MainThumb.material = new Material(grayScale);
                 }
             }
         }
@@ -422,7 +423,7 @@ namespace Ryneus
             if (_deathAnimation >= 1)
             {
                 _deathAnimation = 0;
-                gameObject.SetActive(false);
+                canvasGroup.alpha = 0;
                 deathAnimation.enabled = false;
                 deathAnimation.Destroyed = 0;
             } 
@@ -483,7 +484,6 @@ namespace Ryneus
             enemyInfoComponent?.Clear();
             actorInfoComponent?.Clear();
             battlePosition?.SetText("");
-            
         }
     }
 }

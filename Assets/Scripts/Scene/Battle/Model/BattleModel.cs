@@ -100,7 +100,7 @@ namespace Ryneus
                         enemy.SetWeakPoint(kind);
                     }
                 }
-                enemy.GainHp(-9999);
+                //enemy.GainHp(-9999);
                 _battlers.Add(enemy);
                 _battleRecords[enemy.Index] = new BattleRecord(enemy.Index);
             }

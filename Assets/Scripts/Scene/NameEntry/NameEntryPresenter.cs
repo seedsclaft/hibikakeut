@@ -78,7 +78,7 @@ namespace Ryneus
             } else
             {
                 _model.SetPlayerName(nameText);
-                _view.CommandDecidePlayerName(nameText);
+                _view.CallSystemCommand(Base.CommandType.DecidePlayerName,nameText);
                 _model.StartOpeningStage();
                 _view.CommandGotoSceneChange(Scene.Tactics);
             }

@@ -30,23 +30,23 @@ namespace Ryneus
             CommandRefresh();
             var bgm = await _model.GetBgmData("TITLE");
             SoundManager.Instance.PlayBgm(bgm,1.0f,true);
-            _busy = false;
-            /*
-            var existPlayerData = SaveSystem.ExistsLoadPlayerFile();
-            if (existPlayerData)
+            if (!SaveSystem.ExistsLoadPlayerFile())
+            {
+                SaveSystem.SavePlayerInfo();
+            } else
             {
                 var loadSuccess = SaveSystem.LoadPlayerInfo();
                 if (loadSuccess == false)
                 {
                     var confirmInfo = new ConfirmInfo(DataSystem.GetText(13330),(a) => UpdatePopup(a));
-                    //SaveSystem.DeletePlayerData();
                     confirmInfo.SetIsNoChoice(true);
                     _view.CommandCallConfirm(confirmInfo);
                     return;
                 }
-                _view.SetPlayerData(_model.PlayerName(),_model.PlayerId());
+                // プレイヤーネームを設定しなおし
+                _view.CallSystemCommand(Base.CommandType.DecidePlayerName,GameSystem.CurrentData.PlayerInfo.PlayerName);
             }
-            */
+            _busy = false;
             _view.SetTitleCommand(_model.TitleCommand());
         }
 
@@ -101,23 +101,7 @@ namespace Ryneus
 
         private void CommandContinue()
         {
-            if (_model.ExistsLoadFile() == false)
-            {
-                //return;
-            }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var loadSuccess = SaveSystem.LoadPlayerInfo();
-            if (loadSuccess == false)
-            {
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(13330),(a) => UpdatePopup(a));
-                //SaveSystem.DeletePlayerData();
-                confirmInfo.SetIsNoChoice(true);
-                _view.CommandCallConfirm(confirmInfo);
-                return;
-            }
-            // プレイヤーネームを設定しなおし
-            _view.CommandDecidePlayerName(GameSystem.CurrentData.PlayerInfo.PlayerName);
-            
             
             var sceneParam = new FileListSceneInfo
             {
@@ -134,18 +118,6 @@ namespace Ryneus
                 template = sceneParam
             };
             _view.CommandCallPopup(popupInfo);
-            /*
-            var loadStage = SaveSystem.ExistsStageFile();
-            if (loadStage)
-            {
-                SaveSystem.LoadStageInfo();
-            } else
-            {
-                _model.InitSaveStageInfo();
-                _model.StartOpeningStage();
-            }
-            _view.CommandGotoSceneChange(Scene.Tactics);
-            */
         }
 
         private void CommandOption()

@@ -138,7 +138,7 @@ namespace Ryneus
             statusViewInfo.SetDisplayLevelResetButton(levelUpObj);
             statusViewInfo.SetDisplayBackButton(backButton);
             statusViewInfo.SetIsRanking(isRanking);
-            _view.CommandCallStatus(statusViewInfo);
+            _view.CallSystemCommand(Base.CommandType.CallStatusView,statusViewInfo);
             _view.ChangeUIActive(false);
         }
 
@@ -156,7 +156,7 @@ namespace Ryneus
                 closeEvent?.Invoke();
             });
             enemyViewInfo.SetEnemyInfos(battlerInfos,inBattle);
-            _view.CommandCallEnemyInfo(enemyViewInfo);
+            _view.CallSystemCommand(Base.CommandType.CallEnemyInfoView,enemyViewInfo);
             _view.ChangeUIActive(false);
         }
 
@@ -184,7 +184,7 @@ namespace Ryneus
             statusViewInfo.SetDisplayLevelResetButton(levelUpObj);
             statusViewInfo.SetDisplayBackButton(backButton);
             statusViewInfo.SetCharaLayerEvent(charaLayerEvent);
-            _view.CommandCallTacticsStatus(statusViewInfo);
+            _view.CallSystemCommand(Base.CommandType.CallTacticsStatusView,statusViewInfo);
             //_view.ChangeUIActive(false);
         }
 
@@ -198,7 +198,7 @@ namespace Ryneus
                 },
                 CommandLists = sideMenuCommands
             };
-            _view.CommandCallSideMenu(sideMenuViewInfo);
+            _view.CallSystemCommand(Base.CommandType.CallSideMenu,sideMenuViewInfo);
         }
 
         public void CloseConfirm()

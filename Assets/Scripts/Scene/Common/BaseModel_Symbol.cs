@@ -12,9 +12,9 @@ namespace Ryneus
         /// </summary>
         /// <param name="stageSymbolDates"></param>
         /// <returns></returns>
-        public List<SymbolInfo> StageSymbolInfos(List<StageSymbolData> stageSymbolDates)
+        public List<SymbolInfo> StageSymbolInfos(List<StageSymbolData> stageSymbolDates,int clearCount = 0)
         {
-            var symbolDates = stageSymbolDates.FindAll(a => a.Seek > 0 && a.ClearCount <= CurrentData.PlayerInfo.ClearCount);
+            var symbolDates = stageSymbolDates.FindAll(a => a.Seek > 0 && a.ClearCount <= clearCount);
             var symbolInfos = new List<SymbolInfo>();
             foreach (var symbolMaster in symbolDates)
             {

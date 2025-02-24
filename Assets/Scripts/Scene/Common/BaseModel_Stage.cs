@@ -5,25 +5,25 @@ namespace Ryneus
 {
     public partial class BaseModel
     {
-        public void MakeStageInfo(int stageId)
+        public void MakeStageInfo(int stageId,int clearCount = 0)
         {
             var stageInfo = new StageInfo(stageId);
-            foreach (var getItemInfo in StageOpeningGetItemInfos(stageId))
+            foreach (var getItemInfo in StageOpeningGetItemInfos(stageId,clearCount))
             {
                 AddGetItemInfo(getItemInfo);          
             }
-            stageInfo.SetSymbolInfos(GetStageSymbolInfos(stageId));
+            stageInfo.SetSymbolInfos(GetStageSymbolInfos(stageId,clearCount));
             CurrentGameInfo.SetStageInfo(stageInfo);
             PartyInfo.SetStageId(stageId);
             PartyInfo.SetSeek(1);
             PartyInfo.SetSeekIndex(0);
         }
         
-        public List<GetItemInfo> StageOpeningGetItemInfos(int stageId)
+        public List<GetItemInfo> StageOpeningGetItemInfos(int stageId,int clearCount)
         {
             var getItemInfos = new List<GetItemInfo>();
             var stageSymbolDates = DataSystem.FindStage(stageId).StageSymbols;
-            stageSymbolDates = stageSymbolDates.FindAll(a => a.Seek == -1 && a.ClearCount <= CurrentData.PlayerInfo.ClearCount);
+            stageSymbolDates = stageSymbolDates.FindAll(a => a.Seek == -1 && a.ClearCount <= clearCount);
             foreach (var stageSymbolData in stageSymbolDates)
             {
                 var symbolInfo = new SymbolInfo(stageSymbolData);
@@ -32,9 +32,9 @@ namespace Ryneus
             return getItemInfos;
         }
 
-        public List<SymbolInfo> GetStageSymbolInfos(int stageId)
+        public List<SymbolInfo> GetStageSymbolInfos(int stageId,int clearCount)
         {
-            return StageSymbolInfos(DataSystem.FindStage(stageId).StageSymbols);
+            return StageSymbolInfos(DataSystem.FindStage(stageId).StageSymbols,clearCount);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Ryneus
                 var next = DataSystem.FindNextStage(CurrentStage.Id);
                 if (next != null)
                 {
-                    MakeStageInfo(next.Id);
+                    MakeStageInfo(next.Id,CurrentData.PlayerInfo.ClearCount);
                 }
             }
         }

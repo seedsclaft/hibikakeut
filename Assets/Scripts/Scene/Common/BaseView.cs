@@ -13,9 +13,20 @@ namespace Ryneus
         public bool TestBattleMode => _testBattleMode;
         private InputSystem _inputSystem;
         private InputSystemModel _inputSystemModel = null;
+
         private bool _busy = false;
         public bool Busy => _busy;
+        public void SetBusy(bool isBusy)
+        {
+            _busy = isBusy;
+        }
+
         public List<Action<ViewEvent>> _commandData = new ();
+        public void SetEvent(Action<ViewEvent> commandData)
+        {
+            _commandData.Add(commandData);
+        }
+    
         [SerializeField] private Button _backCommand = null;
         [SerializeField] private SpriteRenderer _backGround = null;
         private Action _backEvent = null;
@@ -26,7 +37,7 @@ namespace Ryneus
         public OnOffButton SideMenuButton => sideMenuButton;
         private BaseAnimation baseAnimation = null;
         public void SetBaseAnimation(BaseAnimation animation) => baseAnimation = animation;
-        public bool AnimationBusy => baseAnimation != null ? baseAnimation.Busy : false;
+        public bool AnimationBusy => baseAnimation != null && baseAnimation.Busy;
         private int _wait = 0;
         public Action _waitEndEvent = null;
         private List<BaseList> _viewActives = new ();
@@ -118,11 +129,6 @@ namespace Ryneus
             }
         }
 
-        public void SetBusy(bool isBusy)
-        {
-            _busy = isBusy;
-        }
-
         public void LateUpdate() 
         {
             if (_inputSystem != null && _busy == false)
@@ -152,11 +158,6 @@ namespace Ryneus
         {
             _helpWindow.SetInputInfo("SIDEMENU");
             _helpWindow.SetHelpText(DataSystem.GetHelp(19700));
-        }
-
-        public void SetEvent(Action<ViewEvent> commandData)
-        {
-            _commandData.Add(commandData);
         }
 
         public void CallSystemCommand(object template,object sendData = null)
@@ -239,64 +240,14 @@ namespace Ryneus
             CallSystemCommand(Base.CommandType.CallOptionView,endEvent);
         }
 
-        public void CommandCallSideMenu(SideMenuViewInfo sideMenuViewInfo)
-        {
-            CallSystemCommand(Base.CommandType.CallSideMenu,sideMenuViewInfo);
-        }
-
-        public void CommandCallRanking(RankingViewInfo rankingViewInfo)
-        {
-            CallSystemCommand(Base.CommandType.CallRankingView,rankingViewInfo);
-        }
-
-        public void CommandCallCharacterList(CharacterListInfo characterListInfo)
-        {
-            CallSystemCommand(Base.CommandType.CallCharacterListView,characterListInfo);
-        }
-
-        public void CommandHelpList(List<ListData> helpTextList)
-        {
-            CallSystemCommand(Base.CommandType.CallHelpView,helpTextList);
-        }
-
-        public void CommandCallStatus(StatusViewInfo statusViewInfo)
-        {
-            CallSystemCommand(Base.CommandType.CallStatusView,statusViewInfo);
-        }
-
-        public void CommandCallEnemyInfo(StatusViewInfo statusViewInfo)
-        {
-            CallSystemCommand(Base.CommandType.CallEnemyInfoView,statusViewInfo);
-        }
-
-        public void CommandCallTacticsStatus(StatusViewInfo statusViewInfo)
-        {
-            CallSystemCommand(Base.CommandType.CallTacticsStatusView,statusViewInfo);
-        }
-
         public void CommandCallSkillTrigger(SkillTriggerViewInfo skillTriggerViewInfo)
         {
             CallSystemCommand(Base.CommandType.CallSkillTriggerView,skillTriggerViewInfo);
         }
 
-        public void CommandCallSkillLog(SkillLogViewInfo skillLogViewInfo)
-        {
-            CallSystemCommand(Base.CommandType.CallSkillLogView,skillLogViewInfo);
-        }
-
         public void CommandCallAdv(AdvCallInfo advCallInfo)
         {
             CallSystemCommand(Base.CommandType.CallAdvScene,advCallInfo);
-        }
-
-        public void CommandDecidePlayerName(string nameText)
-        {
-            CallSystemCommand(Base.CommandType.DecidePlayerName,nameText);
-        }
-
-        public void CommandSetRouteSelect()
-        {
-            CallSystemCommand((object)Base.CommandType.SetRouteSelect);
         }
 
         public void CommandChangeViewToTransition(Action<string> endEvent)
@@ -316,17 +267,17 @@ namespace Ryneus
 
         public void CommandCloseTutorialFocus()
         {
-            CallSystemCommand((object)Base.CommandType.CloseTutorialFocus);
+            CallSystemCommand(Base.CommandType.CloseTutorialFocus);
         }
 
         public void CommandSceneShowUI()
         {
-            CallSystemCommand((object)Base.CommandType.SceneShowUI);
+            CallSystemCommand(Base.CommandType.SceneShowUI);
         }
 
         public void CommandSceneHideUI()
         {
-            CallSystemCommand((object)Base.CommandType.SceneHideUI);
+            CallSystemCommand(Base.CommandType.SceneHideUI);
         }
 
         public void SetBackCommand(Action callEvent)

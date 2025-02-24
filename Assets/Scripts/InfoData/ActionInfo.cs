@@ -24,8 +24,8 @@ namespace Ryneus
         private ScopeType _scopeType = ScopeType.None;
         public ScopeType ScopeType => _scopeType;
 
-        private List<ActionResultInfo> _actionResult = new ();
-        public List<ActionResultInfo> ActionResults => _actionResult;
+        private List<ActionResultInfo> _actionResults = new ();
+        public List<ActionResultInfo> ActionResults => _actionResults;
 
         private int _mpCost;
         public int MpCost => _mpCost;
@@ -119,7 +119,7 @@ namespace Ryneus
 
         public void SetActionResult(List<ActionResultInfo> actionResult)
         {
-            _actionResult = actionResult;
+            _actionResults = actionResult;
         }
 
         public List<ActionInfo> CheckPlusSkill()
@@ -160,6 +160,19 @@ namespace Ryneus
         public bool IsWait()
         {
             return SkillInfo.FeatureDates.Find(a => a.FeatureType == FeatureType.AddState && (StateType)a.Param1 == StateType.Wait) != null;
+        }
+
+        public List<int> ResultTargetIndexes()
+        {
+            var targetIndexList = new List<int>();
+            if (_actionResults != null)
+            {
+                foreach (var actionResult in _actionResults)
+                {
+                    targetIndexList.Add(actionResult.TargetIndex);
+                }
+            }
+            return targetIndexList;
         }
     }
 }

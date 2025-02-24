@@ -70,7 +70,7 @@ namespace Ryneus
         private void CommandCallHelp()
         {
             var callHelpId = _model.CallHelpId();
-            _view.CommandHelpList(DataSystem.HelpText(callHelpId));
+            _view.CallSystemCommand(Base.CommandType.CallHelpView,DataSystem.HelpText(callHelpId));
         }
 
         private void CommandRefresh()

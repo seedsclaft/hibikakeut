@@ -580,7 +580,7 @@ namespace Ryneus
                 _busy = false;
             });
 
-            _view.CommandCallSkillLog(SkillLogViewInfo);
+            _view.CallSystemCommand(Base.CommandType.CallSkillLogView,SkillLogViewInfo);
         }
 
         private void CommandSelectSideMenu()
