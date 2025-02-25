@@ -139,6 +139,19 @@ namespace Utage
 					break;
 				}
 			}
+			// 別Layerに表示していたら非表示にする
+			foreach ( var layer1 in layers)
+			{
+				if (layer1.Key == layerName)
+				{
+					continue;
+				}
+				var deleteObject = OtherSameActorObject(layer1.Key,name);
+				if (deleteObject != null)
+				{
+					layers[layer1.Key].FadeOut(deleteObject.name,0);
+				}
+			}
 
 			//レイヤー名の指定がある場合、そのレイヤーを探す
 			AdvGraphicLayer layer = FindLayer(layerName);
@@ -258,6 +271,20 @@ namespace Utage
 			{
 				AdvGraphicLayer layer = FindLayer(layerName);
 				return (layer != null && layer.Find(name) != null);
+			}
+		}
+
+		//指定Actor名グラフィックオブジェクトを持つか
+		internal AdvGraphicObject OtherSameActorObject(string layerName, string name)
+		{
+			if (string.IsNullOrEmpty(layerName))
+			{
+				return null;
+			}
+			else
+			{
+				AdvGraphicLayer layer = FindLayer(layerName);
+				return layer != null ? layer.ContainActorName(name) : null;
 			}
 		}
 

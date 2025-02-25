@@ -214,6 +214,11 @@ namespace Ryneus
             _lastPlayAudio = null;
         }
 
+        public void FadeOutBgs()
+        {
+            _bgsTrack.FadeVolume(0,1);
+        }
+
         public async void PlaySe(AudioClip clip, float volume,float pitch = 1f,int delayFrame = 0)
         {
             int audioSourceIndex = -1;

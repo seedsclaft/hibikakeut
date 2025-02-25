@@ -43,7 +43,7 @@ namespace Ryneus
 
         public List<ActorInfo> Actors()
         {
-            return PartyInfo.ActorInfos;
+            return PartyInfo.GetActorInfos();
         }
 
         public void LostActors(List<ActorInfo> lostMembers)
@@ -53,7 +53,7 @@ namespace Ryneus
 
         public List<ActorInfo> StageMembers()
         {
-            return PartyInfo.ActorInfos;
+            return PartyInfo.GetActorInfos();
         }
 
         public List<ActorInfo> BattleMembers()
@@ -65,7 +65,7 @@ namespace Ryneus
         
         public List<ActorInfo> PartyMembers()
         {
-            return PartyInfo.ActorInfos;
+            return PartyInfo.GetActorInfos();
         }
 
         public List<SkillInfo> SortSkillInfos(List<SkillInfo> skillInfos)

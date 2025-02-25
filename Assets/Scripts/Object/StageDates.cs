@@ -20,7 +20,7 @@ namespace Ryneus
         public bool Selectable;
         public string Help;
         public int StageLv;
-        public List<int> InitMembers;
+        public List<int> PartyMemberIds;
         public int RandomTroopWeight;
         public List<StageEnemyRate> RandomTroopEnemyRates;
         public string BackGround;

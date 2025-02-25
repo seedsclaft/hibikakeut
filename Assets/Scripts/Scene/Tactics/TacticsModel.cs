@@ -145,37 +145,6 @@ namespace Ryneus
             return skillInfos;
         }
 
-        public List<ActorInfo> AddActorInfos(int actorId)
-        {
-            return PartyInfo.ActorInfos.FindAll(a => a.ActorId == actorId);
-        }
-
-        public List<ActorInfo> AddSelectActorInfos()
-        {
-            //var pastActorIdList = PartyInfo.CurrentActorIdList(CurrentStage.Id,CurrentStage.Seek,CurrentStage.WorldType);
-            // 違うworldTypeのActorIdも含まない
-            //var worldType = CurrentStage.WorldType == WorldType.Main ? WorldType.Brunch : WorldType.Main;
-            //var anotherActorIdList = PartyInfo.CurrentActorIdList(99,99,worldType);
-
-            //pastActorIdList.AddRange(anotherActorIdList);
-            return PartyInfo.ActorInfos;
-        }
-
-        public List<ActorInfo> AddSelectActorGetItemInfos(List<GetItemInfo> getItemInfos)
-        {
-            var actorInfos = new List<ActorInfo>();
-            foreach (var getItemInfo in getItemInfos)
-            {
-                if (getItemInfo.GetItemType == GetItemType.AddActor)
-                {
-                    var actorInfo = PartyInfo.ActorInfos.Find(a => a.ActorId == getItemInfo.Param1);
-                    actorInfos.Add(actorInfo);
-                }
-            }
-            return actorInfos;
-        }
-
-
         public List<ListData> SideMenu()
         {
             var list = new List<SystemData.CommandData>();

@@ -523,12 +523,12 @@ namespace Ryneus
 
         private void SceneShowUI()
         {
-            sceneAssign.ShowUI();
+            _currentScene?.ChangeUIActive(true);
         }
 
         private void SceneHideUI()
         {
-            sceneAssign.HideUI();
+            _currentScene?.ChangeUIActive(false);
         }
 
         private void CheckTutorialState(TutorialViewInfo tutorialViewInfo)

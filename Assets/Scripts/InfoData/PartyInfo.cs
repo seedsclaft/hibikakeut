@@ -12,19 +12,36 @@ namespace Ryneus
         // 所持アクターリスト
         private List<ActorInfo> _actorInfos = new();
         public List<ActorInfo> ActorInfos => _actorInfos;
+        public List<ActorInfo> GetActorInfos()
+        {
+            // ステージメンバー制限
+            if (_stageId > 0)
+            {
+                var stageMaster = StageMaster;
+                if (stageMaster != null && stageMaster.PartyMemberIds.Count > 0 && stageMaster.PartyMemberIds[0] != 0)
+                {
+                    return _actorInfos.FindAll(a => stageMaster.PartyMemberIds.Contains(a.ActorId));
+                }
+            }
+            return _actorInfos;
+        }
+
         // 現在のステージ場所
+        private StageData StageMaster => DataSystem.FindStage(_stageId);
         private int _stageId = -1;
         public int StageId => _stageId;
         public void SetStageId(int stageId)
         {
             _stageId = stageId;
         }
+
         private int _seek = -1;
         public int Seek => _seek;
         public void SetSeek(int seek)
         {
             _seek = seek;
         }
+
         private int _seekIndex = 0;
         public int SeekIndex => _seekIndex;
         public void SetSeekIndex(int seekIndex)
@@ -44,7 +61,7 @@ namespace Ryneus
             }
         }
 
-        // クリア情報
+        // 所持アイテム情報
         private List<GetItemInfo> _getItemInfos = new ();
         public List<GetItemInfo> GetItemInfos => _getItemInfos;
         public void AddGetItemInfo(GetItemInfo getItemInfo)
@@ -68,7 +85,6 @@ namespace Ryneus
                 }
             }
         }
-
 
         private void CheckAddActor()
         {

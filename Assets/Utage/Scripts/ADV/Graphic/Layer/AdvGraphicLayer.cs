@@ -344,6 +344,16 @@ namespace Utage
 			return false;
 		}
 
+		//デフォルトグラフィックオブジェクトの名前が指定名と同じかチェック
+		internal bool IsEqualDefaultActorGraphicName(string name)
+		{
+			if (DefaultObject!=null)
+			{
+				return DefaultObject.name == name;
+			}
+			return false;
+		}
+
 		//指定名のオブジェクトがあるか
 		internal bool Contains(string name)
 		{
@@ -357,6 +367,21 @@ namespace Utage
 			if(currentGraphics.TryGetValue(name,out obj))
 			{
 				return obj;
+			}
+			return null;
+		}
+
+		//指定名のオブジェクトがあれば返す
+		internal AdvGraphicObject ContainActorName(string name)
+		{
+			var conditionName = name[..7];
+			foreach (var currentGraphic in currentGraphics)
+			{
+				var conditionName2 = currentGraphic.Key[..7];
+				if (conditionName == conditionName2)
+				{
+					return currentGraphic.Value;
+				}
 			}
 			return null;
 		}

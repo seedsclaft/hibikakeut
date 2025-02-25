@@ -83,9 +83,13 @@ namespace Ryneus
                 return;
             }
 
-            await SelfAnimation(actionInfo);
+            if (actionInfo.FirstAttack())
+            {
+                await SelfAnimation(actionInfo);
 
-            await ShowCutinBattleThumb(actionInfo);
+                await ShowCutinBattleThumb(actionInfo);
+            }
+
             
             if (actionInfo.Master.IsDisplayBattleSkill())
             {
@@ -152,10 +156,6 @@ namespace Ryneus
             {
                 CommandEndAnimation();
                 return;
-            }
-            if (actionInfo.FirstAttack())
-            {
-                //StartAnimation(actionInfo);
             }
             
             if (actionInfo.Master.IsDisplayBattleSkill())

@@ -76,13 +76,13 @@ namespace Ryneus
                             Selectable = AssetPostImporter.ImportNumeric(BaseRow, "Selectable") == 1,
                             Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,
                             StageLv = AssetPostImporter.ImportNumeric(BaseRow, "StageLv"),
-                            InitMembers = new List<int>(),
+                            PartyMemberIds = new List<int>(),
 							RandomTroopEnemyRates = new List<StageEnemyRate>(),
                         };
-                        string[] list = AssetPostImporter.ImportString(BaseRow,"InitMembers").Split(',');
+                        string[] list = AssetPostImporter.ImportString(BaseRow,"PartyMemberIds").Split(',');
 						foreach (string item in list)
 						{
-							StageData.InitMembers.Add(int.Parse(item));
+							StageData.PartyMemberIds.Add(int.Parse(item));
 						}
 						StageData.RandomTroopWeight = AssetPostImporter.ImportNumeric(BaseRow,"RandomTroopWeight");
 						StageData.BackGround = AssetPostImporter.ImportString(BaseRow,"BackGround");

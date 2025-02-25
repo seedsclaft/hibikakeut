@@ -47,6 +47,7 @@ namespace Ryneus
             }
             if (isAbort)
             {
+                BeforeStageAdv();
                 var advInfo = new AdvCallInfo();
                 advInfo.SetLabel(_model.GetAdvFile(advId));
                 advInfo.SetCallEvent(() => 
@@ -56,6 +57,14 @@ namespace Ryneus
                 _view.CommandCallAdv(advInfo);
             }
             return isAbort;
+        }
+
+        public void BeforeStageAdv()
+        {
+            _view.CallSystemCommand(Base.CommandType.SceneHideUI);
+            // BGMとBGSのフェードアウト
+            SoundManager.Instance.FadeOutBgm();
+            SoundManager.Instance.FadeOutBgs();
         }
 
         public async void PlayTacticsBgm(float timeStamp = 0)

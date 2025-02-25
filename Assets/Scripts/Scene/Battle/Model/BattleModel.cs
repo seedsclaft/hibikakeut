@@ -12,6 +12,7 @@ namespace Ryneus
             _sceneParam = (BattleSceneInfo)GameSystem.SceneStackManager.LastSceneParam;
             InitializeCheckTrigger();
         }
+
         private BattleSceneInfo _sceneParam;
         public BattleSceneInfo SceneParam => _sceneParam;
         private int _actionIndex = 0;
@@ -19,21 +20,18 @@ namespace Ryneus
         public int TurnCount => _turnCount;
         public void SeekTurnCount(){_turnCount++;}
 
-        private List<SkillLogListInfo> _skillLogs = new ();
-        public List<SkillLogListInfo> SkillLogs => _skillLogs;
+        //private List<SkillLogListInfo> _skillLogs = new ();
+        //public List<SkillLogListInfo> SkillLogs => _skillLogs;
 
-        private SaveBattleInfo _saveBattleInfo = new SaveBattleInfo();
+        //private SaveBattleInfo _saveBattleInfo = new SaveBattleInfo();
 
         private List<BattlerInfo> _battlers = new List<BattlerInfo>();
         public List<BattlerInfo> Battlers => _battlers;
-        private Dictionary<int,BattleRecord> _battleRecords = new ();
-        public Dictionary<int,BattleRecord> BattleRecords => _battleRecords;
 
         private UnitInfo _party = null;
         public int PartyAliveNum => _party.AliveBattlerInfos.Count;
         private UnitInfo _troop = null;
         public int TroopAliveNum => _troop.AliveBattlerInfos.Count;
-
 
         private Dictionary<int,List<ActionInfo>> _turnActionInfos = new ();
 
@@ -100,7 +98,7 @@ namespace Ryneus
                         enemy.SetWeakPoint(kind);
                     }
                 }
-                //enemy.GainHp(-9999);
+                enemy.GainHp(-9999);
                 _battlers.Add(enemy);
                 _battleRecords[enemy.Index] = new BattleRecord(enemy.Index);
             }
@@ -1294,7 +1292,7 @@ namespace Ryneus
                 battlerInfo = GetBattlerInfo(actionInfo.SubjectIndex),
                 skillInfo = actionInfo.SkillInfo
             };
-            _skillLogs.Add(skillLog);
+            //_skillLogs.Add(skillLog);
             PopActionInfo(actionInfo);
             _currentBattler = null;
         }

@@ -24,8 +24,10 @@ namespace Ryneus
             _model = new TacticsModel();
             SetModel(_model);
 
-            if (CheckBeforeTacticsAdvEvent())
+            if (CheckAdvEvent(EventTiming.BeforeTactics,() => { _view.CommandGotoSceneChange(Scene.Tactics);}))
             {
+                // ステージ前イベント
+                BeforeStageAdv();
                 return;
             }
             CheckStageEvent();

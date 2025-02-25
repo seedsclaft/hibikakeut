@@ -573,6 +573,7 @@ namespace Ryneus
 
         private void CommandSkillLog()
         {
+            /*
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var SkillLogViewInfo = new SkillLogViewInfo(_model.SkillLogs,() => 
@@ -581,6 +582,7 @@ namespace Ryneus
             });
 
             _view.CallSystemCommand(Base.CommandType.CallSkillLogView,SkillLogViewInfo);
+            */
         }
 
         private void CommandSelectSideMenu()

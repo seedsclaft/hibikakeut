@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,18 +67,15 @@ namespace Ryneus
         }
 
 
-        private bool CheckBeforeTacticsAdvEvent()
+        private bool CheckAdvEvent(EventTiming eventTiming,Action endEvent)
         {
-            var isAbort = CheckAdvStageEvent(EventTiming.BeforeTactics,() => 
+            var isAbort = CheckAdvStageEvent(eventTiming,() => 
             {
-                _view.CommandGotoSceneChange(Scene.Tactics);
+                endEvent?.Invoke();
             },-1);
-            if (isAbort)
-            {
-                _view.gameObject.SetActive(false);
-            }
             return isAbort;
         }
+
 
     }
 }
