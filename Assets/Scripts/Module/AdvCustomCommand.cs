@@ -194,6 +194,7 @@ namespace Utage
             if (_isInitialized == false)
             {
 			    engine.MessageWindowManager.OnTextChange.AddListener(OnBeginCommand);
+				engine.GraphicManager.CharacterManager.SetBalloonEvent(BalloonEndEvent);
                 _isInitialized = true;
             }
         }
@@ -208,8 +209,13 @@ namespace Utage
             return prefab.GetComponent<AnimationBalloon>();
         }
 
-		private void OnBeginCommand(AdvMessageWindowManager messageWindowManager)
+		private void OnBeginCommand(AdvMessageWindowManager messageWindowManager = null)
 		{
+            BalloonEndEvent();
+		}
+
+        public void BalloonEndEvent()
+        {
             var deleteList = new List<AnimationBalloon>();
             foreach (var animationBalloons in _animationBalloons)
             {
@@ -226,6 +232,6 @@ namespace Utage
                     _animationBalloons.Remove(_animationBalloons[i]);
                 }
             }
-		}
+        }
     }
 }

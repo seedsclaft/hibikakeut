@@ -225,6 +225,8 @@ namespace Utage
 			{
 				keyValue.Value.FadeOutAll(fadeTime);
 			}
+			// バルーンを消す
+			_balloonEndEvent?.Invoke();
 		}
 
 		//指定名のパーティクルを非表示にする
@@ -467,6 +469,12 @@ namespace Utage
 					reader.SkipBuffer();
 				}
 			}
+		}
+
+		private Action _balloonEndEvent = null;
+		public void SetBalloonEvent(Action balloonEndEvent)
+		{
+			_balloonEndEvent = balloonEndEvent;
 		}
 	}
 }

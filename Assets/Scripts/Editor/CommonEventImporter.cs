@@ -126,6 +126,8 @@ namespace Ryneus
                     var codeIdx = 0;
                     foreach (var l in d.list)
                     {
+                        var waitCommand = false;
+                        var fadeOutCommand = false;
                         var csvCol = new List<string>();
                         switch (l.code)
                         {
@@ -169,7 +171,7 @@ namespace Ryneus
                                 }
                                 csvCol.Add("");
                                 csvCol.Add("");
-                                csvCol.Add("");
+                                csvCol.Add("0");
                                 csvCol.Add("");
                                 // 文章
                                 var nextCode = d.list[codeIdx+1];
@@ -247,7 +249,7 @@ namespace Ryneus
                                 break;
                             case 118: // ラベル
                                 // 選択肢前にLayerReset
-                                    csvCol.Add("*" + d.id.ToString() + "_" + l.parameters[0]);
+                                csvCol.Add("*" + d.id.ToString() + "_" + l.parameters[0]);
                                 if (l.parameters[0] == "選択肢前")
                                 {
                                     selection2.Add("LayerReset");
@@ -280,6 +282,7 @@ namespace Ryneus
                                 csvCol.Add(l.parameters[1]);
                             break;
                             case 221: // フェードアウト
+                                fadeOutCommand = true;
                                 csvCol.Add("FadeOut");
                                 csvCol.Add("black");
                                 break;
@@ -298,13 +301,14 @@ namespace Ryneus
                                 csvCol.Add("Camera");
                                 break;
                             case 230: // ウェイト
+                                waitCommand = true;
                                 csvCol.Add("Wait");
                                 csvCol.Add("");
                                 csvCol.Add("");
                                 csvCol.Add("");
                                 csvCol.Add("");
                                 csvCol.Add("");
-                                csvCol.Add("1");
+                                csvCol.Add((int.Parse(l.parameters[0]) / 60f).ToString());
                                 break;
                             case 231: // ピクチャの表示
                                 csvCol.Add("Bg");
@@ -388,7 +392,21 @@ namespace Ryneus
                         }
                         if (csvText != "")
                         {
+                            // waitの前にCharacterOffを挿入
+                            if (waitCommand)
+                            {
+                                var characterOffText = "CharacterOff,";
+                                characterOffText += ",,,,,0,,,,,";
+                                csvStrings.Add(characterOffText);
+                            }
                             csvStrings.Add(csvText);  
+                            // waitの前にCharacterOffを挿入
+                            if (fadeOutCommand)
+                            {
+                                var characterOffText = "CharacterOff,";
+                                characterOffText += ",,,,,0,,,,,";
+                                csvStrings.Add(characterOffText);
+                            }
                         }
                         if (selection2.Count > 0)
                         {
