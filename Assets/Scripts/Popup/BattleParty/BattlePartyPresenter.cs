@@ -231,7 +231,7 @@ namespace Ryneus
             var lastSelectSkill = _view.SelectMagic;
             if (lastSelectSkill != null)
             {
-                lastSelectSkillId = lastSelectSkill.Id;
+                lastSelectSkillId = lastSelectSkill.Id.Value;
             }
             _view.RefreshLeaningList(_model.SelectActorLearningMagicList((int)attributeType,lastSelectSkillId));
             _view.CommandRefresh();
@@ -441,7 +441,7 @@ namespace Ryneus
             var lastSelectSkill = _view.SelectMagic;
             if (lastSelectSkill != null)
             {
-                lastSelectSkillId = lastSelectSkill.Id;
+                lastSelectSkillId = lastSelectSkill.Id.Value;
             }
             _view.ShowLeaningList(_model.SelectActorLearningMagicList(-1,lastSelectSkillId));
             _view.SetLearnMagicButtonActive(true);

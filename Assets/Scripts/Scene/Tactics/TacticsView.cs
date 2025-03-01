@@ -263,7 +263,6 @@ namespace Ryneus
 
         private void OnClickParallel()
         {
-            CallViewEvent(CommandType.Parallel);
         }
 
 
@@ -339,39 +338,6 @@ namespace Ryneus
 
         public void EndStatusCursor()
         {
-        }
-
-        public void UpdateInputKeyActive(ViewCommandType viewEvent,TacticsCommandType currentTacticsCommandType)
-        {
-            /*
-            switch (viewEvent.TacticsCommandType)
-            {
-                case CommandType.SelectTacticsCommand:
-                    var tacticsCommandType = (TacticsCommandType)viewEvent.TacticsCommandType;
-                    switch (tacticsCommandType)
-                    {
-                        case TacticsCommandType.Paradigm:
-                            symbolInfoList.Activate();
-                            tacticsCommandList.Deactivate();
-                            break;
-                        case TacticsCommandType.Train:
-                        case TacticsCommandType.Alchemy:
-                        case TacticsCommandType.Status:
-                            break;
-                    }
-                    break;
-                case CommandType.SelectRecord:
-                    symbolInfoList.Deactivate();
-                    break;
-                case CommandType.CancelRecordList:
-                    symbolInfoList.Activate();
-                    break;
-                case CommandType.CancelSymbolRecord:
-                    tacticsCommandList.Activate();
-                    symbolInfoList.Deactivate();
-                    break;
-            }
-            */
         }
 
         public void InputHandler(InputKeyType keyType, bool pressed)

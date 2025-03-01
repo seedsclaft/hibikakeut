@@ -116,7 +116,7 @@ namespace Ryneus
                 if (tutorialData.Param1 == 1200)
                 {
                     // Activeの魔法を初めて入手するかステージ3の最初
-                    checkFlag = _model.StageMembers().Find(a => a.LearnSkillIds().FindAll(b => DataSystem.FindSkill(b).SkillType == SkillType.Active).Count > 0) != null || _model.CurrentStage.Id == 3;
+                    checkFlag = _model.StageMembers().Find(a => a.LearnSkillIds().FindAll(b => DataSystem.FindSkill(b).SkillType == SkillType.Active).Count > 0) != null || _model.CurrentStage.StageId.Value == 3;
                 }
                 return checkFlag;
             };
@@ -172,7 +172,7 @@ namespace Ryneus
             // 変更する
             if (skillInfo.Enable)
             {
-                _model.ChangeEquipSkill(skillInfo.Id);
+                _model.ChangeEquipSkill(skillInfo.Id.Value);
                 ResetSelectSkill();
             }
         }

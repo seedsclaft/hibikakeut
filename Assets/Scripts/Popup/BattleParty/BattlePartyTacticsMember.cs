@@ -58,10 +58,10 @@ namespace Ryneus
             actorInfoComponent.UpdateInfo(data,null);
             trainCost?.SetText(TacticsUtility.TrainCost(data).ToString() + DataSystem.GetText(1000));
             Disable?.SetActive(!ListData.Enable);
-            inBattle?.SetActive(data.BattleIndex > 0);
-            if (data.BattleIndex >= 0)
+            inBattle?.SetActive(data.BattleIndex.Value > 0);
+            if (data.BattleIndex.Value >= 0)
             {
-                battleIndexText?.SetText(BattleIndexText(data.BattleIndex));
+                battleIndexText?.SetText(BattleIndexText(data.BattleIndex.Value));
             }
         }
         

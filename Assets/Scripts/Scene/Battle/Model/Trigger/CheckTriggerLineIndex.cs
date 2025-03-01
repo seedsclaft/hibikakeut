@@ -66,11 +66,11 @@ namespace Ryneus
                 case TriggerType.FriendBattleIndex:
                     foreach (var friend in checkTriggerInfo.Friends)
                     {
-                        if (friend.IsActor && friend.Index == triggerData.Param1)
+                        if (friend.IsActor && friend.Index.Value == triggerData.Param1)
                         {
                             isTrigger = true;
                         } else
-                        if (!friend.IsActor && friend.Index-100 == triggerData.Param1)
+                        if (!friend.IsActor && friend.Index.Value-100 == triggerData.Param1)
                         {
                             isTrigger = true;
                         }
@@ -79,11 +79,11 @@ namespace Ryneus
                 case TriggerType.OpponentBattleIndex:
                     foreach (var opponent in checkTriggerInfo.Opponents)
                     {
-                        if (opponent.IsActor && opponent.Index == triggerData.Param1)
+                        if (opponent.IsActor && opponent.Index.Value == triggerData.Param1)
                         {
                             isTrigger = true;
                         } else
-                        if (!opponent.IsActor && opponent.Index-99 == triggerData.Param1)
+                        if (!opponent.IsActor && opponent.Index.Value-99 == triggerData.Param1)
                         {
                             isTrigger = true;
                         }
@@ -153,57 +153,57 @@ namespace Ryneus
                 case TriggerType.FriendLineFront:
                     if (IsFriend && targetBattler.LineIndex == LineType.Front)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.FriendLineBack:
                     if (IsFriend && targetBattler.LineIndex == LineType.Back)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.OpponentLineFront:
                     if (!IsFriend && targetBattler.LineIndex == LineType.Front)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.OpponentLineBack:
                     if (!IsFriend && targetBattler.LineIndex == LineType.Back)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.FriendMoreTargetCount:
                     if (IsFriend && checkTriggerInfo.AliveBattlerInfos(IsFriend).FindAll(a => a.LineIndex == targetBattler.LineIndex).Count >= triggerData.Param1)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.OpponentMoreTargetCount:
                     if (!IsFriend && checkTriggerInfo.AliveBattlerInfos(IsFriend).FindAll(a => a.LineIndex == targetBattler.LineIndex).Count >= triggerData.Param1)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.FriendBattleIndex:
-                    if (targetBattler.IsActor && targetBattler.Index == triggerData.Param1)
+                    if (targetBattler.IsActor && targetBattler.Index.Value == triggerData.Param1)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     } else
-                    if (!targetBattler.IsActor && targetBattler.Index-100 == triggerData.Param1)
+                    if (!targetBattler.IsActor && targetBattler.Index.Value-100 == triggerData.Param1)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.OpponentBattleIndex:
-                    if (targetBattler.IsActor && targetBattler.Index == triggerData.Param1)
+                    if (targetBattler.IsActor && targetBattler.Index.Value == triggerData.Param1)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     } else
-                    if (!targetBattler.IsActor && targetBattler.Index-99 == triggerData.Param1)
+                    if (!targetBattler.IsActor && targetBattler.Index.Value-99 == triggerData.Param1)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
             }

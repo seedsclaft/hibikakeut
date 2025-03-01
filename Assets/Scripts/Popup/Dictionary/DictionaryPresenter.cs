@@ -45,7 +45,7 @@ namespace Ryneus
         {
             var skillList = ListData.MakeListData(_model.CategorySkillList(skillType),(a) => 
             { 
-                return _model.CurrentData.PlayerInfo.SkillIds.Contains(a.Id);
+                return _model.CurrentData.PlayerInfo.SkillIds.Contains(a.Id.Value);
             },0);
             _view.SetMagicList(skillList);
         }

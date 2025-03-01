@@ -19,7 +19,6 @@ namespace Ryneus
             CancelSymbolRecord,
             CancelSelectSymbol,
             //SelectActorResource,
-            Parallel,
             DecideRecord,
             CallEnemyInfo,
             CallAddActorInfo,

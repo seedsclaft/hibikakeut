@@ -101,8 +101,8 @@ namespace Ryneus
         public void SetInBattle()
         {
             var actorInfo = _currentActor;
-            var battleIndex = StageMembers().FindAll(a => a.BattleIndex >= 0).Count + 1;
-            if (actorInfo.BattleIndex >= 0)
+            var battleIndex = StageMembers().FindAll(a => a.BattleIndex.Value >= 0).Count + 1;
+            if (actorInfo.BattleIndex.Value >= 0)
             {
                 RemoveBattleActor(actorInfo);
                 return;
@@ -111,16 +111,16 @@ namespace Ryneus
             {
                 return;
             }
-            actorInfo.SetBattleIndex(battleIndex);
+            actorInfo.BattleIndex.SetValue(battleIndex);
         }
         
         private void RemoveBattleActor(ActorInfo actorInfo)
         {
-            actorInfo.SetBattleIndex(-1);
+            actorInfo.BattleIndex.SetValue(-1);
             var battleMembers = BattleMembers();
             for (int i = 0;i < battleMembers.Count;i++)
             {
-                battleMembers[i].SetBattleIndex(i + 1);
+                battleMembers[i].BattleIndex.SetValue(i + 1);
             }
         }
 

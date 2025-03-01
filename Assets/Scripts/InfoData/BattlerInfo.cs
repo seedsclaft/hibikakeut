@@ -17,9 +17,8 @@ namespace Ryneus
             currentStatus.SetParameter(MaxHp,MaxMp,CurrentAtk(isNoEffect),CurrentDef(isNoEffect),CurrentSpd(isNoEffect));
             return currentStatus;
         }
-        private int _index = 0;
-        public int Index => _index;
-        public ParameterInt EnemyIndex;
+        public ParameterInt Index = new();
+        public ParameterInt EnemyIndex = new();
         private bool _isActor = false;
         public bool IsActor => _isActor;
         // 見た目上は味方か
@@ -153,12 +152,12 @@ namespace Ryneus
                 actorInfo.CurrentParameter(StatusParamType.Spd)
             );
             _status = statusInfo;
-            _index = index;
+            Index.SetValue(index);
 
             _skills.Clear();
             foreach (var equipmentSkillId in actorInfo.EquipmentSkillIds)
             {
-                var battleSkill = new SkillInfo(equipmentSkillId);
+                var battleSkill = new SkillInfo(equipmentSkillId.Value);
                 battleSkill.InitCountTurn();
                 _skills.Add(battleSkill);
             }
@@ -167,7 +166,7 @@ namespace Ryneus
             var enhanceSkills = _skills.FindAll(a => a.IsEnhanceSkill());
             foreach (var enhanceSkill in enhanceSkills)
             {
-                var result = new ActionResultInfo(this,this,enhanceSkill.FeatureDates,enhanceSkill.Id);
+                var result = new ActionResultInfo(this,this,enhanceSkill.FeatureDates,enhanceSkill.Id.Value);
             }
             _enhanceSkills = enhanceSkills;
 
@@ -178,14 +177,14 @@ namespace Ryneus
             
             _actorInfo = actorInfo;
             _isActorView = true;
-            _hp = actorInfo.CurrentHp;
-            _mp = actorInfo.CurrentMp;
+            _hp = actorInfo.CurrentHp.Value;
+            _mp = actorInfo.CurrentMp.Value;
             _lineIndex = actorInfo.LineIndex;
 
             LastSelectSkill = new ParameterInt();
             if (actorInfo.LastSelectSkillId == 0)
             {
-                SetLastSelectSkillId(_skills.Find(a => a.Id > 100).Id);
+                SetLastSelectSkillId(_skills.Find(a => a.Id.Value > 100).Id.Value);
             } else
             {
                 SetLastSelectSkillId(actorInfo.LastSelectSkillId);
@@ -203,7 +202,7 @@ namespace Ryneus
             _level = lv;
             _bossFlag = isBoss;
             InitParamInfos(enemyData);
-            _index = index + 100;
+            Index.SetValue(index + 100);
             _isActor = false;
             _isAlcana = false;
             _lineIndex = lineIndex;
@@ -251,14 +250,14 @@ namespace Ryneus
             InitKindTypes(enemyData.Kinds);
             foreach (var enhanceSkill in enhanceSkills)
             {
-                var result = new ActionResultInfo(this,this,enhanceSkill.FeatureDates,enhanceSkill.Id);
+                var result = new ActionResultInfo(this,this,enhanceSkill.FeatureDates,enhanceSkill.Id.Value);
             }
             _enhanceSkills = enhanceSkills;
             _skills.Sort((a,b) => a.Weight > b.Weight ? -1:1);
             _skillTriggerInfos.Clear();
             foreach (var skillInfo in _skills)
             {
-                var skillTriggerData = DataSystem.Enemies.Find(a => a.Id == enemyData.Id).SkillTriggerDates.Find(a => a.SkillId == skillInfo.Id);
+                var skillTriggerData = DataSystem.Enemies.Find(a => a.Id == enemyData.Id).SkillTriggerDates.Find(a => a.SkillId == skillInfo.Id.Value);
                 if (skillTriggerData == null)
                 {
                     continue;
@@ -269,7 +268,7 @@ namespace Ryneus
                 skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>(){SkillTriggerData1,SkillTriggerData2});
                 _skillTriggerInfos.Add(skillTriggerInfo);
             }
-            _skillTriggerInfos = _skillTriggerInfos.FindAll(a => _skills.Find(b => b.Id == a.SkillId) != null);
+            _skillTriggerInfos = _skillTriggerInfos.FindAll(a => _skills.Find(b => b.Id.Value == a.SkillId) != null);
             //_skillTriggerInfos.Sort((a,b) => a.Priority - b.Priority > 0 ? -1 : 1);
             InitSkillCount();
             ResetAp(true);
@@ -285,7 +284,7 @@ namespace Ryneus
         {
             foreach (var skill in _skills)
             {
-                skill.SetUseCount(0);
+                skill.UseCount.SetValue(0);
                 skill.CountTurn.SetValue(0);
             }            
         }
@@ -320,13 +319,13 @@ namespace Ryneus
             );
             _status = statusInfo;
             _hp = 1;
-            _index = index + 1000;
+            Index.SetValue(index + 1000);
             _isActor = isActor;
             _isAlcana = true;
             _skills = skillInfos;
             foreach (var skillInfo in skillInfos)
             {
-                var skillTrigger = new SkillTriggerInfo(_index,skillInfo);
+                var skillTrigger = new SkillTriggerInfo(Index.Value,skillInfo);
                 _skillTriggerInfos.Add(skillTrigger);
             }
             InitSkillCount();
@@ -570,7 +569,7 @@ namespace Ryneus
                         }
                     }
                 }
-                var stateInfo = new StateInfo(StateType.Death,0,0,Index,Index,-1);
+                var stateInfo = new StateInfo(StateType.Death,0,0,Index.Value,Index.Value,-1);
                 AddState(stateInfo,true);
             }
         }
@@ -584,7 +583,7 @@ namespace Ryneus
 
         public void InitCountTurn(int skillId)
         {
-            var skill = _skills.Find(a => a.Id == skillId);
+            var skill = _skills.Find(a => a.Id.Value == skillId);
             skill?.InitCountTurn();
         }
         
@@ -593,7 +592,7 @@ namespace Ryneus
             // その魔法のCtのみを回復
             if (skillId > -1)
             {
-                var find = _skills.Find(a => a.Id == skillId);
+                var find = _skills.Find(a => a.Id.Value == skillId);
                 find?.CountTurn.GainValue(seekCount);
                 return;
             }
@@ -605,8 +604,8 @@ namespace Ryneus
 
         public void GainUseCount(int skillId)
         {
-            var skill = _skills.Find(a => a.Id == skillId);
-            skill?.GainUseCount();
+            var skill = _skills.Find(a => a.Id.Value == skillId);
+            skill?.UseCount.GainValue(1);
         }
 
         public bool IsAlive()

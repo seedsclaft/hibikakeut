@@ -323,7 +323,7 @@ namespace Ryneus
         {
             foreach (var actorInfo in actorInfos)
             {
-                if (actorInfo.BattleIndex >= 0)
+                if (actorInfo.BattleIndex.Value >= 0)
                 {
                     //actorInfo.SetBattleIndex(-1);
                 }
@@ -332,7 +332,7 @@ namespace Ryneus
 
         public List<ActorInfo> LostMembers()
         {
-            return BattleResultActors().FindAll(a => a.BattleIndex >= 0 && a.CurrentHp == 0);
+            return BattleResultActors().FindAll(a => a.BattleIndex.Value >= 0 && a.CurrentHp.Value == 0);
         }
 
         public List<SystemData.CommandData> ResultCommand()
@@ -351,11 +351,7 @@ namespace Ryneus
         
         public void EndStrategy()
         {
-            foreach (var actorInfo in StageMembers())
-            {
-                actorInfo.ChangeTacticsCostRate(1);
-            }
-            CurrentStage.SetSeekIndex(0);
+            CurrentStage.SeekIndex.SetValue(0);
         }
 
         public void SeekStage()

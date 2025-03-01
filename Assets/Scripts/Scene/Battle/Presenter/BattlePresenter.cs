@@ -540,7 +540,7 @@ namespace Ryneus
             if (_model.CheckVictory())
             {
                 _view.StartBattleStartAnim(DataSystem.GetText(16100));
-                _view.BattleVictory(_model.BattlerActors()[0].Index);
+                _view.BattleVictory(_model.BattlerActors()[0].Index.Value);
                 strategySceneInfo.GetItemInfos = _model.MakeBattlerResult();
                 strategySceneInfo.BattleTurn = _model.TurnCount;
                 strategySceneInfo.BattleResultScore = _model.MakeBattleScore(true,strategySceneInfo);

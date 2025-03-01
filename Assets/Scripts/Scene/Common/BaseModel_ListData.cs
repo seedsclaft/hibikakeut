@@ -67,7 +67,7 @@ namespace Ryneus
                 skillInfos.Add(skillInfo);
             }
             */
-            var selectIndex = skillInfos.FindIndex(a => a.Id == selectedSkillId);
+            var selectIndex = skillInfos.FindIndex(a => a.Id.Value == selectedSkillId);
             var listData = MakeListData(skillInfos);
             return listData;
         }

@@ -340,7 +340,7 @@ namespace Ryneus
             {
                 // アルカナ選択
                 var alcanaSelect = _view.AlcanaSelectSkillInfo();
-                _model.MakeSelectRelic(alcanaSelect.Id);
+                _model.MakeSelectRelic(alcanaSelect.Id.Value);
                 _view.HideAlcanaList();
                 NextSeekResult();
             }
@@ -396,7 +396,7 @@ namespace Ryneus
                 var tacticsSceneInfo = new TacticsSceneInfo
                 {
                     ReturnBeforeBattle = true,
-                    SeekIndex = _model.CurrentStage.CurrentSeekIndex
+                    SeekIndex = _model.CurrentStage.SeekIndex.Value
                 };
                 _model.EndStrategy();
                 _view.CommandGotoSceneChange(Scene.Tactics,tacticsSceneInfo);
@@ -407,7 +407,7 @@ namespace Ryneus
                 var tacticsSceneInfo = new TacticsSceneInfo
                 {
                     ReturnNextBattle = true,
-                    SeekIndex = _model.CurrentStage.CurrentSeekIndex
+                    SeekIndex = _model.CurrentStage.SeekIndex.Value
                 };
                 _view.CommandGotoSceneChange(Scene.Tactics,tacticsSceneInfo);
             }

@@ -19,9 +19,9 @@ namespace Ryneus
         {
             if (subject != null && target != null)
             {
-                _subjectIndex = subject.Index;
-                _targetIndex = target.Index;
-                _execStateInfos[subject.Index] = new ();
+                _subjectIndex = subject.Index.Value;
+                _targetIndex = target.Index.Value;
+                _execStateInfos[subject.Index.Value] = new ();
                 _execStateInfos[_targetIndex] = new ();
                 _skillId = skillId;
             }
@@ -52,7 +52,7 @@ namespace Ryneus
                             _hpDamage = target.Hp - 1;
                         } else
                         {
-                            _deadIndexList.Add(target.Index);
+                            _deadIndexList.Add(target.Index.Value);
                         }
                     }
                 }
@@ -62,7 +62,7 @@ namespace Ryneus
                     var deadIndex = _deadIndexList[i];
                     if (!_aliveIndexList.Contains(deadIndex))
                     {
-                        if (target.Index == deadIndex && target.IsState(StateType.Curse))
+                        if (target.Index.Value == deadIndex && target.IsState(StateType.Curse))
                         {
                             _hpDamage = target.Hp - 1;
                             float curseDamage = target.DamagedValue + _hpDamage;
@@ -97,7 +97,7 @@ namespace Ryneus
                             _hpDamage = target.Hp - 1;
                         } else
                         {
-                            _deadIndexList.Add(subject.Index);
+                            _deadIndexList.Add(subject.Index.Value);
                         }
                     }
                 }
@@ -468,7 +468,7 @@ namespace Ryneus
                 var substituteStateInfos = subject.GetStateInfoAll(StateType.Substitute);
                 if (substituteStateInfos.Count > 0)
                 {
-                    if (substituteStateInfos.Find(a => a.BattlerId == target.Index) != null)
+                    if (substituteStateInfos.Find(a => a.BattlerId == target.Index.Value) != null)
                     {
                         // 挑発でダメージカット50%
                         damageCutRate += subject.GetStateEffectAll(StateType.Substitute) * 0.01f;
@@ -789,7 +789,7 @@ namespace Ryneus
                 //_missed = true;
                 return;
             }
-            var stateInfo = new StateInfo((StateType)featureData.Param1,featureData.Param2,featureData.Param3,subject.Index,target.Index,_skillId);
+            var stateInfo = new StateInfo((StateType)featureData.Param1,featureData.Param2,featureData.Param3,subject.Index.Value,target.Index.Value,_skillId);
             if (removeTimingIsNextTurn)
             {
                 stateInfo.SetRemoveTiming(RemovalTiming.NextSelfTurn);
@@ -836,7 +836,7 @@ namespace Ryneus
             }
             if (checkCounter == true && stateInfo.Master.Abnormal && target.IsState(StateType.AntiDote))
             {
-                _execStateInfos[target.Index].Add(target.GetStateInfo(StateType.AntiDote));
+                _execStateInfos[target.Index.Value].Add(target.GetStateInfo(StateType.AntiDote));
                 if (subject.IsState(StateType.NoDamage))
                 {
                     SeekStateCount(subject,StateType.NoDamage);
@@ -859,7 +859,7 @@ namespace Ryneus
         private void MakeRemoveState(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
             // skillId -1のRemoveは強制で解除する
-            var stateInfo = new StateInfo((StateType)featureData.Param1,featureData.Param2,featureData.Param3,subject.Index,target.Index,-1);
+            var stateInfo = new StateInfo((StateType)featureData.Param1,featureData.Param2,featureData.Param3,subject.Index.Value,target.Index.Value,-1);
             bool IsRemoved = target.RemoveState(stateInfo,false);
             if (IsRemoved)
             {
@@ -870,7 +870,7 @@ namespace Ryneus
         private void MakeRemoveAbnormalState(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
             // skillId -1のRemoveは強制で解除する
-            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Abnormal == true && a.BattlerId != target.Index);
+            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Abnormal == true && a.BattlerId != target.Index.Value);
             foreach (var abnormalState in abnormalStates)
             {
                 bool IsRemoved = target.RemoveState(abnormalState,false);
@@ -884,7 +884,7 @@ namespace Ryneus
         private void MakeRemoveBuffState(BattlerInfo subject,BattlerInfo target)
         {
             // skillId -1のRemoveは強制で解除する
-            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Buff == true && a.BattlerId != target.Index);
+            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Buff == true && a.BattlerId != target.Index.Value);
             foreach (var abnormalState in abnormalStates)
             {
                 bool IsRemoved = target.RemoveState(abnormalState,false);
@@ -898,7 +898,7 @@ namespace Ryneus
         private void MakeRemoveDeBuffState(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
             // skillId -1のRemoveは強制で解除する
-            var abnormalStates = target.StateInfos.FindAll(a => a.Master.DeBuff == true && a.BattlerId != target.Index);
+            var abnormalStates = target.StateInfos.FindAll(a => a.Master.DeBuff == true && a.BattlerId != target.Index.Value);
             foreach (var abnormalState in abnormalStates)
             {
                 bool IsRemoved = target.RemoveState(abnormalState,false);
@@ -912,7 +912,7 @@ namespace Ryneus
         private void MakeRemoveStatePassive(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
             // パッシブはそのパッシブスキルのみ解除する
-            var stateInfo = new StateInfo((StateType)featureData.Param1,featureData.Param2,featureData.Param3,subject.Index,target.Index,_skillId);
+            var stateInfo = new StateInfo((StateType)featureData.Param1,featureData.Param2,featureData.Param3,subject.Index.Value,target.Index.Value,_skillId);
             bool IsRemoved = target.RemoveState(stateInfo,false);
             if (IsRemoved)
             {
@@ -996,7 +996,7 @@ namespace Ryneus
         public void MakeChangeFeatureParam(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,int featureParamIndex)
         {
             // 即代入
-            var skillInfo = subject.Skills.Find(a => a.Id == featureData.Param1);
+            var skillInfo = subject.Skills.Find(a => a.Id.Value == featureData.Param1);
             if (skillInfo != null)
             {
                 // featureのIndex
@@ -1022,7 +1022,7 @@ namespace Ryneus
         public void MakeAddFeatureParamStageWinCount(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,int featureParamIndex)
         {
             // 即代入
-            var skillInfo = subject.Skills.Find(a => a.Id == featureData.Param1);
+            var skillInfo = subject.Skills.Find(a => a.Id.Value == featureData.Param1);
             if (skillInfo != null)
             {
                 // featureのIndex
@@ -1049,7 +1049,7 @@ namespace Ryneus
         public void MakeChangeMagicCountTurn(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
             // 即代入
-            var skillInfo = subject.Skills.Find(a => a.Id == featureData.Param1);
+            var skillInfo = subject.Skills.Find(a => a.Id.Value == featureData.Param1);
             if (skillInfo != null)
             {
                 skillInfo.SetMinusCountTurn(featureData.Param3);
@@ -1059,7 +1059,7 @@ namespace Ryneus
         public void MakeChangeFeatureRate(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,int featureParamIndex)
         {
             // 即代入
-            var skillInfo = subject.Skills.Find(a => a.Id == featureData.Param1);
+            var skillInfo = subject.Skills.Find(a => a.Id.Value == featureData.Param1);
             if (skillInfo != null)
             {
                 // featureのIndex
@@ -1074,7 +1074,7 @@ namespace Ryneus
         private void MakeAddSkillPlusSkill(BattlerInfo subject,SkillData.FeatureData featureData)
         {
             // 即代入
-            var skillInfo = subject.Skills.Find(a => a.Id == featureData.Param1);
+            var skillInfo = subject.Skills.Find(a => a.Id.Value == featureData.Param1);
             if (skillInfo != null)
             {
                 var plusSkill = DataSystem.FindSkill(featureData.Param3);
@@ -1153,7 +1153,7 @@ namespace Ryneus
         {
             if (subject.IsState(StateType.Freeze))
             {
-                _execStateInfos[subject.Index].Add(subject.GetStateInfo(StateType.Freeze));
+                _execStateInfos[subject.Index.Value].Add(subject.GetStateInfo(StateType.Freeze));
                 if (subject.IsState(StateType.NoDamage))
                 {
                     SeekStateCount(subject,StateType.NoDamage);
@@ -1218,7 +1218,7 @@ namespace Ryneus
         {
             if (target.IsState(StateType.CounterAura))
             {
-                _execStateInfos[target.Index].Add(target.GetStateInfo(StateType.CounterAura));
+                _execStateInfos[target.Index.Value].Add(target.GetStateInfo(StateType.CounterAura));
                 if (subject.IsState(StateType.NoDamage))
                 {
                     SeekStateCount(subject,StateType.NoDamage);
@@ -1341,9 +1341,9 @@ namespace Ryneus
             var seekState = battlerInfo.GetStateInfo(stateType);
             if (seekState.RemovalTiming == RemovalTiming.UpdateCount)
             {
-                if (!_execStateInfos[battlerInfo.Index].Contains(seekState))
+                if (!_execStateInfos[battlerInfo.Index.Value].Contains(seekState))
                 {
-                    _execStateInfos[battlerInfo.Index].Add(seekState);
+                    _execStateInfos[battlerInfo.Index.Value].Add(seekState);
                     int count = seekState.Turns;
                     if ((count-1) <= 0)
                     {
@@ -1358,8 +1358,8 @@ namespace Ryneus
 
         public int SeekCount(BattlerInfo target,StateType stateType)
         {
-            int removeCount = RemovedStates.FindAll(a => a.Master.StateType == stateType && a.TargetIndex == target.Index).Count;
-            int displayCount = DisplayStates.FindAll(a => a.Master.StateType == stateType && a.TargetIndex == target.Index).Count;
+            int removeCount = RemovedStates.FindAll(a => a.Master.StateType == stateType && a.TargetIndex == target.Index.Value).Count;
+            int displayCount = DisplayStates.FindAll(a => a.Master.StateType == stateType && a.TargetIndex == target.Index.Value).Count;
             return removeCount + displayCount;
         }
 

@@ -48,7 +48,7 @@ namespace Ryneus
             {
                 if (tacticsCommandType == TacticsCommandType.Paradigm)
                 {
-                    checkToggle.SetIsOnWithoutNotify(actorInfo.BattleIndex >= 0);
+                    checkToggle.SetIsOnWithoutNotify(actorInfo.BattleIndex.Value >= 0);
                 } else
                 {
                     checkToggle.SetIsOnWithoutNotify(false);
@@ -77,9 +77,9 @@ namespace Ryneus
 
             if (battleIndex != null)
             {
-                if (actorInfo.BattleIndex >= 0)
+                if (actorInfo.BattleIndex.Value >= 0)
                 {
-                    battleIndex.SetText(BattleIndexText(actorInfo.BattleIndex));
+                    battleIndex.SetText(BattleIndexText(actorInfo.BattleIndex.Value));
                 } else
                 { 
                     battleIndex.SetText("");

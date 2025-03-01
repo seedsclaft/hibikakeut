@@ -61,7 +61,7 @@ namespace Ryneus
             UpdateData(actorData);
             if (mainThumb != null)
             {
-                if (actorInfo.CurrentHp == 0 && actorInfo.BattleIndex >= 0)
+                if (actorInfo.CurrentHp.Value == 0 && actorInfo.BattleIndex.Value >= 0)
                 {
                     UpdateLostMainThumb();
                 }
@@ -78,8 +78,8 @@ namespace Ryneus
             if (statusInfoComponent != null)
             {
                 statusInfoComponent.UpdateInfo(actorInfo.CurrentStatus);
-                statusInfoComponent.UpdateHp(actorInfo.CurrentHp,actorInfo.MaxHp);
-                statusInfoComponent.UpdateMp(actorInfo.CurrentMp,actorInfo.MaxMp);
+                statusInfoComponent.UpdateHp(actorInfo.CurrentHp.Value,actorInfo.MaxHp);
+                statusInfoComponent.UpdateMp(actorInfo.CurrentMp.Value,actorInfo.MaxMp);
             }
             if (needStatusInfoComponent != null)
             {

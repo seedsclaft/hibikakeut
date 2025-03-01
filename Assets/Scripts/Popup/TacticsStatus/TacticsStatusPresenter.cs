@@ -148,7 +148,7 @@ namespace Ryneus
             var lastSelectSkill = _view.SelectMagic;
             if (lastSelectSkill != null)
             {
-                lastSelectSkillId = lastSelectSkill.Id;
+                lastSelectSkillId = lastSelectSkill.Id.Value;
             }
             _view.ShowLeaningList(_model.SelectActorLearningMagicList(lastSelectSkillId));
         }

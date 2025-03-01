@@ -187,7 +187,7 @@ namespace Ryneus
             bool isTriggeredSkill = actionInfo.TriggeredSkill;
             if (_triggerAfterChecked == false && _regenerateChecked == false && isTriggeredSkill == false)
             {
-                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex == _model.FirstActionBattler.Index)
+                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex == _model.FirstActionBattler.Index.Value)
                 {
                     _regenerateChecked = true;
                     if (_model.FirstActionBattler.IsAlive())

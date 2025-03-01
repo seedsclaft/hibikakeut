@@ -48,7 +48,6 @@ namespace Ryneus
 
         public void LostActors(List<ActorInfo> lostMembers)
         {
-            lostMembers.ForEach(a => a.ChangeLost(false));
         }
 
         public List<ActorInfo> StageMembers()
@@ -58,8 +57,8 @@ namespace Ryneus
 
         public List<ActorInfo> BattleMembers()
         {
-            var members = StageMembers().FindAll(a => a.BattleIndex >= 0);
-            members.Sort((a,b) => a.BattleIndex > b.BattleIndex ? 1 : -1);
+            var members = StageMembers().FindAll(a => a.BattleIndex.Value >= 0);
+            members.Sort((a,b) => a.BattleIndex.Value > b.BattleIndex.Value ? 1 : -1);
             return members;
         }
         
@@ -91,7 +90,7 @@ namespace Ryneus
             skillInfos.Clear();
             skillInfos.AddRange(sortList1);
             skillInfos.AddRange(sortList2);
-            sortList3.Sort((a,b) => {return a.LearningLv > b.LearningLv ? 1 : -1;});
+            sortList3.Sort((a,b) => {return a.LearningLv.Value > b.LearningLv.Value ? 1 : -1;});
             skillInfos.AddRange(sortList3);
             return skillInfos;
         }
@@ -101,7 +100,7 @@ namespace Ryneus
             var changeAbleSkills = actorInfo.ChangeAbleSkills();
             foreach (var learnSkillId in PartyInfo.LearningSkillIds)
             {
-                if (actorInfo.EquipmentSkillIds.Contains(learnSkillId))
+                if (actorInfo.EquipmentSkillIds.Find(a => a.Value == learnSkillId) != null)
                 {
                     continue;
                 }
@@ -115,10 +114,10 @@ namespace Ryneus
                 if (changeAbleSkill.Master != null && !changeAbleSkill.IsBattleSpecialSkill())
                 {
                     var cost = TacticsUtility.LearningMagicCost(actorInfo,changeAbleSkill.Attribute,PartyInfo.ActorInfos,changeAbleSkill.Master.Rank);
-                    changeAbleSkill.SetLearningCost(cost);
+                    changeAbleSkill.LearningCost.SetValue(cost);
                     if (changeAbleSkill.Enable)
                     {
-                        changeAbleSkill.SetEnable(cost <= actorInfo.CurrentMp);
+                        changeAbleSkill.SetEnable(cost <= actorInfo.CurrentMp.Value);
                     }
                 }
             }
@@ -131,11 +130,11 @@ namespace Ryneus
             var equipSkillIds = actorInfo.EquipmentSkillIds;
             foreach (var equipSkillId in equipSkillIds)
             {
-                if (equipSkillId < 1000)
+                if (equipSkillId.Value < 1000)
                 {
                     continue;
                 }
-                var skillInfo = new SkillInfo(equipSkillId);
+                var skillInfo = new SkillInfo(equipSkillId.Value);
                 skillInfo.SetLearningState(LearningState.Learned);
                 skillInfo.SetEnable(true);
                 equipSkills.Add(skillInfo);
@@ -549,7 +548,7 @@ namespace Ryneus
             var levelUpInfo = actorInfo.LevelUp(cost,PartyInfo.StageId.Value,PartyInfo.Seek.Value,-1);
             foreach (var skill in skills)
             {
-                actorInfo.AddSkillTriggerSkill(skill.Id);
+                actorInfo.AddSkillTriggerSkill(skill.Id.Value);
             }
         }
 
@@ -579,7 +578,7 @@ namespace Ryneus
         {
             foreach (var skillInfo in Actors().Find(a => a.ActorId.Value == actorId).ChangeAbleSkills())
             {
-                AddPlayerInfoSkillId(skillInfo.Id);
+                AddPlayerInfoSkillId(skillInfo.Id.Value);
             }
         }
 

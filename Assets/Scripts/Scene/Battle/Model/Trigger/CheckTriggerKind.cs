@@ -49,13 +49,13 @@ namespace Ryneus
                 case TriggerType.FriendHasKind:
                 if (IsFriend && targetBattler.Kinds.Contains((KindType)triggerData.Param1))
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.OpponentHasKind:
                 if (!IsFriend && targetBattler.Kinds.Contains((KindType)triggerData.Param1))
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
             }

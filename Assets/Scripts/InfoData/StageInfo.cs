@@ -7,27 +7,15 @@ namespace Ryneus
     [Serializable]
     public class StageInfo
     {
-        public StageData Master => DataSystem.FindStage(_id);
+        public StageData Master => DataSystem.FindStage(StageId.Value);
 
         private List<SymbolInfo> _symbolInfos = new();
         public List<SymbolInfo> SymbolInfos => _symbolInfos;
         public void SetSymbolInfos(List<SymbolInfo> symbolInfos) => _symbolInfos = symbolInfos;
-        private int _id;
-        public int Id => _id;
+        public ParameterInt StageId = new();
         public int EndSeek => _symbolInfos.Max(a => a.Master.Seek);
 
-        private int _currentSeekIndex = -1;
-        public int CurrentSeekIndex => _currentSeekIndex;
-        public void SetSeekIndex(int seekIndex)
-        {
-            _currentSeekIndex = seekIndex;
-        }
-
-
-
-        private EndingType _endingType = EndingType.C;
-        public EndingType EndingType => _endingType;
-        public void SetEndingType(EndingType endingType) => _endingType = endingType;
+        public ParameterInt SeekIndex = new(-1);
 
         private int _loseCount = 0;
         public int LoseCount => _loseCount;
@@ -35,7 +23,7 @@ namespace Ryneus
 
         public StageInfo(int id)
         {
-            _id = id;
+            StageId.SetValue(id);
         }
         
         public TroopInfo TestTroops(int troopId,int troopLv)
@@ -50,7 +38,7 @@ namespace Ryneus
                 var enemy = new BattlerInfo(enemyData,troopDate.TroopEnemies[i].Lv + troopLv - 1,i,troopDate.TroopEnemies[i].Line,isBoss);
                 troopInfo.AddEnemy(enemy);
             }
-            _currentSeekIndex = 0;
+            SeekIndex.SetValue(0);
             return troopInfo;
             
             //_stageSymbolInfos.Add(symbolInfo);

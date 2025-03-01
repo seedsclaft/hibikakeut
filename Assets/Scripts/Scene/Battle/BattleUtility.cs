@@ -89,7 +89,7 @@ namespace Ryneus
                 return targetBattlerIndex;
             }
             // 複数候補は列が近い方を選ぶ
-            var selfIndex = battlerInfo.Index % 100;
+            var selfIndex = battlerInfo.Index.Value % 100;
             if (battlerInfo.IsActor == false)
             {
                 selfIndex += 1;
@@ -120,14 +120,14 @@ namespace Ryneus
         {
             if (targetBattlerInfos.Count == 1)
             {
-                return targetBattlerInfos[0].Index;
+                return targetBattlerInfos[0].Index.Value;
             }
             var targetIndexList = new List<int>();
             foreach (var targetBattlerInfo in targetBattlerInfos)
             {
-                targetIndexList.Add(targetBattlerInfo.Index);
+                targetIndexList.Add(targetBattlerInfo.Index.Value);
             }
-            if (targetBattlerIndex > -1 && targetBattlerInfos.Find(a => a.Index == targetBattlerIndex) != null)
+            if (targetBattlerIndex > -1 && targetBattlerInfos.Find(a => a.Index.Value == targetBattlerIndex) != null)
             {
                 return targetBattlerIndex;
             }

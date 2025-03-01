@@ -13,7 +13,7 @@ namespace Ryneus
                 case TriggerType.SelfAttackActionInfo:
                     if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && checkTriggerInfo.ActionInfo.Master.IsHpDamageFeature())
                     {
-                        if (battlerInfo.Index == checkTriggerInfo.ActionInfo.SubjectIndex)
+                        if (battlerInfo.Index.Value == checkTriggerInfo.ActionInfo.SubjectIndex)
                         {
                             isTrigger = true;
                         }
@@ -71,7 +71,7 @@ namespace Ryneus
             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex);
             if (subject != null && battlerInfo.IsActor == subject.IsActor)
             {
-                if (battlerInfo.Index != actionInfo.SubjectIndex)
+                if (battlerInfo.Index.Value != actionInfo.SubjectIndex)
                 {
                     list.Add(actionInfo.SubjectIndex);
                 }
@@ -98,7 +98,7 @@ namespace Ryneus
             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex);
             if (subject != null && battlerInfo.IsActor != subject.IsActor)
             {
-                if (battlerInfo.Index != actionInfo.SubjectIndex)
+                if (battlerInfo.Index.Value != actionInfo.SubjectIndex)
                 {
                     list.Add(actionInfo.SubjectIndex);
                 }

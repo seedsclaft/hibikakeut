@@ -10,8 +10,6 @@ namespace Ryneus
     {
         public ActorData Master => DataSystem.FindActor(ActorId.Value);
         public ParameterInt ActorId = new();
-        public int MaxHp => CurrentStatus.Hp;
-        public int MaxMp => CurrentStatus.Mp;
 
         public ParameterInt Exp = new();
         public int NextExp => 100 - Exp.Value % 100;
@@ -21,22 +19,29 @@ namespace Ryneus
             Exp.SetValue((level-1) * 100);
         }
 
-        private List<int> _equipmentSkillIds = new ();
-        public List<int> EquipmentSkillIds => _equipmentSkillIds;
+        [SerializeField] private List<ParameterInt> _equipmentSkillIds = new ();
+        public List<ParameterInt> EquipmentSkillIds => _equipmentSkillIds;
         public void ChangeEquipSkill(int changeSkillId,int removeSkillId)
         {
-            var findIndex = _equipmentSkillIds.FindIndex(a => a == removeSkillId);
+            var findIndex = _equipmentSkillIds.FindIndex(a => a.Value == removeSkillId);
             if (findIndex > -1)
             {
                 _equipmentSkillIds.RemoveAt(findIndex);
             }
             var insertIndex = findIndex > -1 ? findIndex : _equipmentSkillIds.Count;
-            if (!_equipmentSkillIds.Contains(changeSkillId))
+            if (_equipmentSkillIds.Find(a => a.Value == changeSkillId) == null)
             {
-                _equipmentSkillIds.Insert(insertIndex,changeSkillId);
+                var insert = new ParameterInt(changeSkillId);
+                _equipmentSkillIds.Insert(insertIndex,insert);
             }
         }
+
         public StatusInfo CurrentStatus => LevelUpStatus(Level);
+        public int MaxHp => CurrentStatus.Hp;
+        public int MaxMp => CurrentStatus.Mp;
+        public ParameterInt CurrentHp = new();
+        public ParameterInt CurrentMp = new();
+
         public List<AttributeRank> GetAttributeRank()
         {
             var list = new List<AttributeRank>();
@@ -67,59 +72,21 @@ namespace Ryneus
             _lineIndex = lineIndex;
         }
 
-        private int _currentHp;
-        public int CurrentHp => _currentHp;
-        private int _currentMp;
-        public int CurrentMp => _currentMp;
         // バトル勝利数
         public int DemigodParam => 0;
 
-    // Tactics
-        private int _tacticsCost = 0;
-        public int TacticsCost => _tacticsCost;
-        private int _tacticsCostRate = 1;
-        public int TacticsCostRate => _tacticsCostRate;
-
-        private int _battleIndex = -1;
-        public int BattleIndex => _battleIndex;
-        public void SetBattleIndex(int battleIndex) 
-        { 
-            _battleIndex = battleIndex;
-        }
+        public ParameterInt BattleIndex = new();
         private StatusInfo _plusStatus = new();
 
         public ActorInfo(ActorData actorData)
         {
             ActorId.SetValue(actorData.Id);
             SetInitialParameter(actorData);
-            _currentHp = Master.InitStatus.Hp;
-            _currentMp = Master.InitStatus.Mp;
+            CurrentHp.SetValue(Master.InitStatus.Hp);
+            CurrentMp.SetValue(Master.InitStatus.Mp);
             InitSkillInfo();
             InitSkillTriggerInfos();
         }
-
-#if UNITY_ANDROID
-        public ActorInfo(RankingActorData rankingActorData)
-        {
-            ActorId.SetValue(rankingActorData.ActorId);
-            _attribute = Master.Attribute;
-            _sp = 0;
-            _upperRate = Master.NeedStatus;
-            SetInitialParameter(Master);
-            _currentHp = Master.InitStatus.Hp;
-            _currentMp = Master.InitStatus.Mp;
-            _demigodParam = rankingActorData.DemigodParam;
-            InitSkillInfo();
-            
-            _plusStatus.SetParameter(
-                rankingActorData.Hp - Master.InitStatus.Hp,
-                rankingActorData.Mp - Master.InitStatus.Mp,
-                rankingActorData.Atk - Master.InitStatus.Atk,
-                rankingActorData.Def - Master.InitStatus.Def,
-                rankingActorData.Spd - Master.InitStatus.Spd
-            );
-        }
-#endif
 
         public void CopyData(ActorInfo baseActorInfo)
         {
@@ -131,11 +98,9 @@ namespace Ryneus
                 baseActorInfo._plusStatus.GetParameter(StatusParamType.Spd)
             );
             _lastSelectSkillId = baseActorInfo.LastSelectSkillId;
-            _currentHp = baseActorInfo.CurrentHp;
-            _currentMp = baseActorInfo.CurrentMp;
-            _tacticsCost = baseActorInfo.TacticsCost;
-            _tacticsCostRate = baseActorInfo.TacticsCostRate;
-            _battleIndex = baseActorInfo.BattleIndex;
+            CurrentHp.SetValue(baseActorInfo.CurrentHp.Value);
+            CurrentMp.SetValue(baseActorInfo.CurrentMp.Value);
+            BattleIndex.SetValue(baseActorInfo.BattleIndex.Value);
             _lineIndex = baseActorInfo._lineIndex;
             _skillTriggerInfos = baseActorInfo._skillTriggerInfos;
         }
@@ -148,54 +113,52 @@ namespace Ryneus
         private void InitSkillInfo()
         {
             _lastSelectSkillId = 0;
-            var selectSkill = LearningSkillInfos().Find(a => a.Id >= 1000);
-            if (selectSkill != null)
-            {
-                _lastSelectSkillId = selectSkill.Id;
-            }
+            SkillInfo selectSkill = null;
             foreach (var skillInfo in LearningSkillInfos())
             {
+                if (selectSkill != null && skillInfo.Id.Value > 1000)
+                {
+                    _lastSelectSkillId = selectSkill.Id.Value;
+                }
                 if (skillInfo.LearningState == LearningState.Learned)
                 {
-                    _equipmentSkillIds.Add(skillInfo.Id);
+                    var learned = new ParameterInt(skillInfo.Id.Value);
+                    _equipmentSkillIds.Add(learned);
                 }
             }
         }
 
         public List<SkillInfo> ChangeAbleSkills()
         {
-            return LearningSkillInfos().FindAll(a => !_equipmentSkillIds.Contains(a.Id));
+            return LearningSkillInfos().FindAll(a => _equipmentSkillIds.Find(b => b.Value == a.Id.Value) == null);
         }
 
+        /// <summary>
+        /// Lvアップで習得する魔法リスト
+        /// </summary>
+        /// <returns></returns>
         public List<SkillInfo> LearningSkillInfos()
         {
             var list = new List<SkillInfo>();
-            foreach (var _learningData in Master.LearningSkills)
+            foreach (var learningData in Master.LearningSkills)
             {
-                if (_learningData.SkillId < 1000) continue;
-                if (list.Find(a => a.Id == _learningData.SkillId) != null) continue;
-                if (LearnSkillIds().Contains(_learningData.SkillId)) continue;
-                var skillInfo = new SkillInfo(_learningData.SkillId);
-                if (Level >= _learningData.Level)
+                if (learningData.SkillId < 1000) continue;
+                if (list.Find(a => a.Id.Value == learningData.SkillId) != null) continue;
+                if (LearnSkillIds().Contains(learningData.SkillId)) continue;
+                var skillInfo = new SkillInfo(learningData.SkillId);
+                if (Level >= learningData.Level)
                 {
                     skillInfo.SetLearningState(LearningState.Learned);
                     skillInfo.SetEnable(true);
                 } else
                 {
-                    skillInfo.SetLearningLv(_learningData.Level);
+                    skillInfo.LearningLv.SetValue(learningData.Level);
                     skillInfo.SetLearningState(LearningState.NotLearn);
                     skillInfo.SetEnable(false);
                 }
                 list.Add(skillInfo);
             }
             return list;
-        }
-
-        public void ResetData()
-        {
-            ChangeLost(false);
-            ChangeHp(9999);
-            ChangeMp(9999);
         }
 
         public LevelUpInfo LevelUp(int useCost,int stageId,int seek,int seekIndex)
@@ -239,13 +202,13 @@ namespace Ryneus
 
         public List<SkillInfo> LearningSkills(int plusLv = 0)
         {
-            return LearningSkillInfos().FindAll(a => a.LearningState == LearningState.NotLearn && a.LearningLv <= (Level+plusLv));
+            return LearningSkillInfos().FindAll(a => a.LearningState == LearningState.NotLearn && a.LearningLv.Value <= (Level+plusLv));
         }
 
         public bool IsLearnedSkill(int skillId)
         {
             var learnedSkill = LearningSkillInfos().FindAll(a => a.LearningState == LearningState.Learned);
-            return LearnSkillIds().Contains(skillId) || learnedSkill.Find(a => a.Id == skillId) != null;
+            return LearnSkillIds().Contains(skillId) || learnedSkill.Find(a => a.Id.Value == skillId) != null;
         }
 
         public LevelUpInfo LearnSkill(int skillId,int cost,int stageId,int seek,int seekIndex = -1)
@@ -255,11 +218,6 @@ namespace Ryneus
             return skillLevelUpInfo;
         }
 
-        public void ChangeTacticsCostRate(int tacticsCostRate)
-        {
-            _tacticsCostRate = tacticsCostRate;
-        }
-
         public int CurrentParameter(StatusParamType statusParamType)
         {
             return LevelUpStatus(Level).GetParameter(statusParamType);
@@ -267,16 +225,12 @@ namespace Ryneus
 
         public void ChangeHp(int hp)
         {
-            _currentHp = Math.Min(hp,CurrentParameter(StatusParamType.Hp));
+            CurrentHp.SetValue(Math.Min(hp,CurrentParameter(StatusParamType.Hp)));
         }
 
         public void ChangeMp(int mp)
         {
-            _currentMp = Math.Min(mp,CurrentParameter(StatusParamType.Mp));
-        }
-        
-        public void ChangeLost(bool isLost)
-        {
+            CurrentMp.SetValue(Math.Min(mp,CurrentParameter(StatusParamType.Mp)));
         }
 
         public List<AttributeRank> AttributeRanks(List<ActorInfo> actorInfos)
@@ -501,18 +455,18 @@ namespace Ryneus
         {
             foreach (var learnSkill in skillInfos)
             {
-                if (_skillTriggerInfos.Find(a => a.SkillId == learnSkill.Id) == null)
+                if (_skillTriggerInfos.Find(a => a.SkillId == learnSkill.Id.Value) == null)
                 {
-                    var skillTriggerInfo = new SkillTriggerInfo(ActorId.Value,new SkillInfo(learnSkill.Id));
+                    var skillTriggerInfo = new SkillTriggerInfo(ActorId.Value,new SkillInfo(learnSkill.Id.Value));
                     var skillTriggerData1 = DataSystem.SkillTriggers.Find(a => a.Id == 0);
                     var skillTriggerData2 = DataSystem.SkillTriggers.Find(a => a.Id == 0);
                     // 敵データに同じスキルがあればコピーする
 
-                    var enemyDates = DataSystem.Enemies.FindAll(a => a.SkillTriggerDates.Find(b => b.SkillId == learnSkill.Id) != null);
+                    var enemyDates = DataSystem.Enemies.FindAll(a => a.SkillTriggerDates.Find(b => b.SkillId == learnSkill.Id.Value) != null);
                     if (enemyDates.Count > 0)
                     {
                         var enemyData = enemyDates[enemyDates.Count-1];
-                        var skillTriggerData = enemyData.SkillTriggerDates.Find(a => a.SkillId == learnSkill.Id);
+                        var skillTriggerData = enemyData.SkillTriggerDates.Find(a => a.SkillId == learnSkill.Id.Value);
                         skillTriggerData1 = DataSystem.SkillTriggers.Find(a => a.Id == skillTriggerData.Trigger1);
                         skillTriggerData2 = DataSystem.SkillTriggers.Find(a => a.Id == skillTriggerData.Trigger2);
                     }
@@ -551,10 +505,10 @@ namespace Ryneus
             _skillTriggerInfos.Clear();
             // 初期設定に戻す
             InitSkillTriggerInfos();
-            var addActive = LearningSkillInfos().FindAll(a => a.Master.SkillType == SkillType.Active && a.Id > 1000 && a.LearningState == LearningState.Learned);
+            var addActive = LearningSkillInfos().FindAll(a => a.Master.SkillType == SkillType.Active && a.Id.Value > 1000 && a.LearningState == LearningState.Learned);
             // 新たに追加したアクティブをアクティブの下に入れる
             InsertSkillTriggerSkills(addActive,false);
-            var addPassive = LearningSkillInfos().FindAll(a => a.Master.SkillType == SkillType.Passive && a.Id > 1000 && a.LearningState == LearningState.Learned);
+            var addPassive = LearningSkillInfos().FindAll(a => a.Master.SkillType == SkillType.Passive && a.Id.Value > 1000 && a.LearningState == LearningState.Learned);
             
             // その他のパッシブを加える
             InsertSkillTriggerSkills(addPassive,true);
@@ -563,7 +517,6 @@ namespace Ryneus
             {
                 _skillTriggerInfos[i].SetPriority(i);
             }
-            
         }
     }
     

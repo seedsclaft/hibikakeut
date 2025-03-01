@@ -24,7 +24,7 @@ namespace Ryneus
             var stageMembers = StageMembers();
             if (stageMembers.Count > 0)
             {
-                var firstBattler = stageMembers.Find(a => a.BattleIndex == 1);
+                var firstBattler = stageMembers.Find(a => a.BattleIndex.Value == 1);
                 if (firstBattler != null)
                 {
                     SetSelectActorId(firstBattler.ActorId.Value);
@@ -92,7 +92,7 @@ namespace Ryneus
 
         public void SetStageSeekIndex(int seekIndex)
         {
-            CurrentStage.SetSeekIndex(seekIndex);
+            CurrentStage.SeekIndex.SetValue(seekIndex);
         }
 
         public List<SkillInfo> AlcanaMagicSkillInfos(List<GetItemInfo> getItemInfos)
@@ -304,13 +304,13 @@ namespace Ryneus
                 //var getItemInfo = CurrentSelectRecord().SymbolInfo.GetItemInfos.Find(a => a.Param1 == skillInfo.Id);
                 //getItemInfo?.SetResultParam(cost);
                 //getItemInfo.SetGetFlag(true);
-                _shopSelectIndexes.Add(skillInfo.Id);
+                _shopSelectIndexes.Add(skillInfo.Id.Value);
             }
         }
 
         public bool IsSelectedShopMagic(SkillInfo skillInfo)
         {
-            return _shopSelectIndexes.Contains(skillInfo.Id);
+            return _shopSelectIndexes.Contains(skillInfo.Id.Value);
         }
 
         public void CancelShopCurrency(SkillInfo skillInfo)
@@ -320,7 +320,7 @@ namespace Ryneus
                 //var getItemInfo = CurrentSelectRecord().SymbolInfo.GetItemInfos.Find(a => a.Param1 == skillInfo.Id);
                 //getItemInfo?.SetResultParam(0);
                 //getItemInfo.SetGetFlag(false);
-                _shopSelectIndexes.Remove(skillInfo.Id);
+                _shopSelectIndexes.Remove(skillInfo.Id.Value);
             }
         }
 

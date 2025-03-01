@@ -89,7 +89,7 @@ namespace Ryneus
                 // 優先指定の判定
                 if (selectSkillId > -1 && selectTargetIndex == -1)
                 {
-                    var targetIndexList = GetSkillTargetIndexList(selectSkillId,battlerInfo.Index,true,counterSubjectIndex,actionInfo,actionResultInfos);
+                    var targetIndexList = GetSkillTargetIndexList(selectSkillId,battlerInfo.Index.Value,true,counterSubjectIndex,actionInfo,actionResultInfos);
                     if (targetIndexList.Count == 0)
                     {
                         var triggeredSkill = DataSystem.FindSkill(selectSkillId);
@@ -145,11 +145,11 @@ namespace Ryneus
             {
                 if (skillData.IsHpDamageFeature())
                 {
-                    targeBattlerIndex = _targetBattler != null ? _targetBattler.Index : -1;
+                    targeBattlerIndex = _targetBattler != null ? _targetBattler.Index.Value : -1;
                 } else
                 if (skillData.IsHpHealFeature())
                 {
-                    targeBattlerIndex = _targetBattler != null ? _targetBattler.Index : -1;
+                    targeBattlerIndex = _targetBattler != null ? _targetBattler.Index.Value : -1;
                 }
             }
             // 条件なし

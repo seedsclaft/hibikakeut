@@ -31,9 +31,9 @@ namespace Ryneus
 
         public BattlerInfo GetBattlerInfo(int index)
         {
-            var battlerInfo = Friends.Find(a => a.Index == index);
+            var battlerInfo = Friends.Find(a => a.Index.Value == index);
             if (battlerInfo == null)
-            battlerInfo = Opponents.Find(a => a.Index == index);
+            battlerInfo = Opponents.Find(a => a.Index.Value == index);
             return battlerInfo;
         }
 

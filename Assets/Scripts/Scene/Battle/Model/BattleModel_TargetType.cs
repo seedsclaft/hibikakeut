@@ -30,11 +30,11 @@ namespace Ryneus
             var targetIndexList = new List<int>();
             foreach (var battlerInfo in _party.BattlerInfos)
             {
-                targetIndexList.Add(battlerInfo.Index);
+                targetIndexList.Add(battlerInfo.Index.Value);
             }
             foreach (var battlerInfo in _troop.BattlerInfos)
             {
-                targetIndexList.Add(battlerInfo.Index);
+                targetIndexList.Add(battlerInfo.Index.Value);
             }
             return targetIndexList;
         }
@@ -45,7 +45,7 @@ namespace Ryneus
             var targetIndexList = new List<int>();
             foreach (var battlerInfo in GetBattlerInfos(isActor,false))
             {
-                targetIndexList.Add(battlerInfo.Index);
+                targetIndexList.Add(battlerInfo.Index.Value);
             }
             return targetIndexList;
         }
@@ -55,7 +55,7 @@ namespace Ryneus
             var targetIndexList = new List<int>();
             foreach (var battlerInfo in GetBattlerInfos(isActor,true))
             {
-                targetIndexList.Add(battlerInfo.Index);
+                targetIndexList.Add(battlerInfo.Index.Value);
             }
             return targetIndexList;
         }
@@ -68,14 +68,14 @@ namespace Ryneus
             var friendUnit = isActor ? _party : _troop;
             foreach (var friend in friendUnit.BattlerInfos)
             {
-                targetIndexList.Add(friend.Index);
+                targetIndexList.Add(friend.Index.Value);
             }
 
             if (skillRangeType == RangeType.L)
             {
                 foreach (var opponent in targetUnit.BattlerInfos)
                 {
-                    targetIndexList.Add(opponent.Index);
+                    targetIndexList.Add(opponent.Index.Value);
                 }
                 return targetIndexList;
             }
@@ -112,7 +112,7 @@ namespace Ryneus
                     }
                     if (opponentIsFront)
                     {
-                        targetIndexList.Add(opponent.Index);
+                        targetIndexList.Add(opponent.Index.Value);
                     }
                 }
             }
@@ -139,11 +139,11 @@ namespace Ryneus
                     targetIndexList.AddRange(TargetIndexFriend(subject.IsActor));
                     if (skillData.Scope == ScopeType.WithoutSelfOne || skillData.Scope == ScopeType.WithoutSelfLine || skillData.Scope == ScopeType.WithoutSelfAll)
                     {
-                        targetIndexList.Remove(subject.Index);
+                        targetIndexList.Remove(subject.Index.Value);
                     }
                     break;
                 case TargetType.Self:
-                    targetIndexList.Add(subject.Index);
+                    targetIndexList.Add(subject.Index.Value);
                     // 自分のいる列
                     if (skillData.Scope == ScopeType.Line)
                     {

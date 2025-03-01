@@ -70,13 +70,13 @@ namespace Ryneus
                     {
                         if (CheckMpRateUnder(targetBattler,triggerData.Param1))
                         {
-                            targetIndexList.Add(targetIndex);
+                            targetIndexList.Add(targetIndex.Value);
                         }
                     } else
                     {
                         if (CheckMpRateUnderMore(targetBattler,triggerData.Param1))
                         {
-                            targetIndexList.Add(targetIndex);
+                            targetIndexList.Add(targetIndex.Value);
                         }
                     }
                 }
@@ -84,7 +84,7 @@ namespace Ryneus
                 case TriggerType.FriendMpUpper:
                 if (IsFriend && CheckMpRateUpperMore(targetBattler,triggerData.Param1))
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.OpponentMpUnder:
@@ -94,13 +94,13 @@ namespace Ryneus
                     {
                         if (CheckMpRateUnder(targetBattler,triggerData.Param1))
                         {
-                            targetIndexList.Add(targetIndex);
+                            targetIndexList.Add(targetIndex.Value);
                         }
                     } else
                     {
                         if (CheckMpRateUnderMore(targetBattler,triggerData.Param1))
                         {
-                            targetIndexList.Add(targetIndex);
+                            targetIndexList.Add(targetIndex.Value);
                         }
                     }
                 }
@@ -108,7 +108,7 @@ namespace Ryneus
                 case TriggerType.OpponentMpUpper:
                 if (!IsFriend && CheckMpRateUpperMore(targetBattler,triggerData.Param1))
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
             }

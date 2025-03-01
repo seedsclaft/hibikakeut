@@ -18,7 +18,7 @@ namespace Ryneus
         private BattlerInfo _battlerInfo;
         private bool _isFront = false;
 
-        public int EnemyIndex => _battlerInfo.Index;
+        public int EnemyIndex => _battlerInfo.Index.Value;
 
         public void SetData(BattlerInfo battlerInfo,int index,bool isFront)
         {
@@ -43,19 +43,19 @@ namespace Ryneus
         public void SetCallHandler(System.Action<int> handler)
         {
             if (_battlerInfo == null) return;
-            clickButton.onClick.AddListener(() => handler(_battlerInfo.Index));
+            clickButton.onClick.AddListener(() => handler(_battlerInfo.Index.Value));
         }
         
         public new void SetSelectHandler(System.Action<int> handler)
         {
             var enterListener = clickButton.gameObject.AddComponent<ContentEnterListener>();
-            enterListener.SetEnterEvent(() => handler(_battlerInfo.Index));
+            enterListener.SetEnterEvent(() => handler(_battlerInfo.Index.Value));
         }
 
         public void SetPressHandler(System.Action<int> handler)
         {
             var pressListener = clickButton.gameObject.AddComponent<ContentPressListener>();
-            pressListener.SetPressEvent(() => handler(_battlerInfo.Index));
+            pressListener.SetPressEvent(() => handler(_battlerInfo.Index.Value));
         }
         
         public void SetSelect(EffekseerEffectAsset effekseerEffectAsset)

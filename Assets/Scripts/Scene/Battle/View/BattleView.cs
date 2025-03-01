@@ -112,7 +112,7 @@ namespace Ryneus
             foreach (var battlerInfo in battlerInfos)
             {
                 var data = (BattlerInfo)battlerInfo.Data;
-                _battlerComps[data.Index] = battleActorList.GetBattlerInfoComp(data.Index);
+                _battlerComps[data.Index.Value] = battleActorList.GetBattlerInfoComp(data.Index.Value);
             }
         }
 
@@ -133,7 +133,7 @@ namespace Ryneus
             foreach (var battlerInfo in battlerInfos)
             {
                 var data = (BattlerInfo)battlerInfo.Data;
-                _battlerComps[data.Index] = battleEnemyLayer.GetBattlerInfoComp(data.Index);
+                _battlerComps[data.Index.Value] = battleEnemyLayer.GetBattlerInfoComp(data.Index.Value);
             }
         }
 
@@ -360,7 +360,7 @@ namespace Ryneus
         {
             if (_animationBusy) return;
             var selectedIndex = battleEnemyLayer.SelectedIndex;
-            var battlerInfo = battlerInfos.Find(a => a.Index == selectedIndex);
+            var battlerInfo = battlerInfos.Find(a => a.Index.Value == selectedIndex);
             if (battlerInfo != null)
             {
                 CallViewEvent(CommandType.EnemyDetail,selectedIndex);
@@ -406,7 +406,7 @@ namespace Ryneus
             battleActorList.SetTargetListData(battlerInfos);
             foreach (var item in _battlerComps)
             {
-                var battlerInfo = battlerInfos.Find(a => item.Key == ((BattlerInfo)a.Data).Index);
+                var battlerInfo = battlerInfos.Find(a => item.Key == ((BattlerInfo)a.Data).Index.Value);
                 if (battlerInfo != null)
                 {
                     var selectable = battlerInfo.Enable;
@@ -420,7 +420,7 @@ namespace Ryneus
             battleEnemyLayer.SetTargetListData(battlerInfos);
             foreach (var item in _battlerComps)
             {
-                var battlerInfo = battlerInfos.Find(a => item.Key == ((BattlerInfo)a.Data).Index);
+                var battlerInfo = battlerInfos.Find(a => item.Key == ((BattlerInfo)a.Data).Index.Value);
                 if (battlerInfo != null)
                 {
                     var selectable = battlerInfo.Enable;

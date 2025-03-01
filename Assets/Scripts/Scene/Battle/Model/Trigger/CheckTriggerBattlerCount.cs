@@ -13,10 +13,10 @@ namespace Ryneus
                 case TriggerType.SkillUsedCount:
                 if (battlerInfo.IsAlive())
                 {
-                    var skill = battlerInfo.Skills.Find(a => a.Id == triggerData.Param3);
+                    var skill = battlerInfo.Skills.Find(a => a.Id.Value == triggerData.Param3);
                     if (skill != null)
                     {
-                        if (skill.UseCount >= triggerData.Param1)
+                        if (skill.UseCount.Value >= triggerData.Param1)
                         {
                             isTrigger = true;
                         }

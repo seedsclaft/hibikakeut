@@ -19,7 +19,7 @@ namespace Ryneus
             {
                 if (ListData == null) return;
                 var data = (StageInfo)ListData.Data;
-                callEvent(data.Id);
+                callEvent(data.StageId.Value);
             });
             IsInit = true;
         }

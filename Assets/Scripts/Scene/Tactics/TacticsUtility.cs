@@ -8,7 +8,7 @@ namespace Ryneus
     {
         private static int TacticsCostRate(ActorInfo actorInfo)
         {
-            return actorInfo.TacticsCostRate;
+            return 1;
         }
 
         public static int TrainCost(ActorInfo actorInfo)
@@ -85,8 +85,8 @@ namespace Ryneus
 
         public static int RemainRecoveryCost(ActorInfo actorInfo,bool checkAlcana = false)
         {
-            int hpCost = (int)Mathf.Ceil((actorInfo.MaxHp - actorInfo.CurrentHp) * 0.1f) * TacticsCostRate(actorInfo);
-            int mpCost = (int)Mathf.Ceil((actorInfo.MaxMp - actorInfo.CurrentMp) * 0.1f) * TacticsCostRate(actorInfo);
+            int hpCost = (int)Mathf.Ceil((actorInfo.MaxHp - actorInfo.CurrentHp.Value) * 0.1f) * TacticsCostRate(actorInfo);
+            int mpCost = (int)Mathf.Ceil((actorInfo.MaxMp - actorInfo.CurrentMp.Value) * 0.1f) * TacticsCostRate(actorInfo);
             return hpCost > mpCost ? hpCost : mpCost;
         }
 

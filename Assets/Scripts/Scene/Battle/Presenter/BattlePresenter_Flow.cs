@@ -66,7 +66,7 @@ namespace Ryneus
             int selectIndex = 0;
             if (resetScrollRect)
             {
-                selectIndex = skillInfos.FindIndex(a => a.Id == currentBattler.LastSelectSkillId);
+                selectIndex = skillInfos.FindIndex(a => a.Id.Value == currentBattler.LastSelectSkillId);
             }
             _view.ShowMagicList(MakeListData(skillInfos),resetScrollRect,selectIndex);
         }
@@ -87,14 +87,14 @@ namespace Ryneus
             // 選択中のActionInfoを上書き
             _model.SetSelectActionInfo(actionInfo);
             // 選択対象を決定
-            var targetIndexes = _model.GetSkillTargetIndexList(skillInfo.Id,currentBattler.Index,false);
+            var targetIndexes = _model.GetSkillTargetIndexList(skillInfo.Id.Value,currentBattler.Index.Value,false);
             actionInfo.SetCandidateTargetIndexList(targetIndexes);
             if (targetIndexes.Count > 0)
             {
                 _model.SetTargetBattler(_model.GetBattlerInfo(targetIndexes[0]));
             }
             //_view.UpdateSelectCursor(targetIndexes);
-            var selectTargetIndexes = _model.MakeAutoSelectIndex(_model.SelectActionInfo,_model.TargetBattler.Index);
+            var selectTargetIndexes = _model.MakeAutoSelectIndex(_model.SelectActionInfo,_model.TargetBattler.Index.Value);
             _view.UpdateSelectCursor(selectTargetIndexes);
         }
 
@@ -109,7 +109,7 @@ namespace Ryneus
             {
                 return;
             }
-            var findIndex = candidateTargetIndexes.FindIndex(a => a == _model.TargetBattler.Index);
+            var findIndex = candidateTargetIndexes.FindIndex(a => a == _model.TargetBattler.Index.Value);
             if (findIndex == -1)
             {
                 return;
@@ -125,7 +125,7 @@ namespace Ryneus
                 var nextIndex = (findIndex-1) < 0 ? candidateTargetIndexes.Count : findIndex-1;
                 _model.SetTargetBattler(_model.GetBattlerInfo(candidateTargetIndexes[nextIndex]));
             }
-            var selectTargetIndexes = _model.MakeAutoSelectIndex(_model.SelectActionInfo,_model.TargetBattler.Index);
+            var selectTargetIndexes = _model.MakeAutoSelectIndex(_model.SelectActionInfo,_model.TargetBattler.Index.Value);
             _view.UpdateSelectCursor(selectTargetIndexes);
         }
 
@@ -134,7 +134,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             // ActionInfoを設定する
             var actionInfo = _model.SelectActionInfo;
-            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index);
+            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
             _model.SetActiveActionInfo(actionInfo);
             MakeResultInfoStartAction(actionInfo,targetIndexes);
 
@@ -161,7 +161,7 @@ namespace Ryneus
             // battlerInfoを選択した時の範囲対象を表示
             if (battlerInfo != null)
             {
-                var targetIndexes = _model.MakeAutoSelectIndex(_model.SelectActionInfo,battlerInfo.Index);
+                var targetIndexes = _model.MakeAutoSelectIndex(_model.SelectActionInfo,battlerInfo.Index.Value);
                 _view.UpdateSelectCursor(targetIndexes);
             }
         }
@@ -178,7 +178,7 @@ namespace Ryneus
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 // ActionInfoを設定する
                 var actionInfo = _model.SelectActionInfo;
-                var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,battlerInfo.Index);
+                var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,battlerInfo.Index.Value);
                 _model.SetActiveActionInfo(actionInfo);
                 MakeResultInfoStartAction(actionInfo,targetIndexes);
 
@@ -427,7 +427,7 @@ namespace Ryneus
             bool isTriggeredSkill = actionInfo.TriggeredSkill;
             if (_triggerAfterChecked == false && _slipDamageChecked == false && isTriggeredSkill == false)
             {
-                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex == _model.FirstActionBattler.Index)
+                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex == _model.FirstActionBattler.Index.Value)
                 {
                     _slipDamageChecked = true;
                     var slipResult = _model.CheckSlipDamage();
@@ -446,7 +446,7 @@ namespace Ryneus
             // regenerate
             if (_triggerAfterChecked == false && _regenerateChecked == false && isTriggeredSkill == false)
             {
-                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex == _model.FirstActionBattler.Index)
+                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex == _model.FirstActionBattler.Index.Value)
                 {
                     _regenerateChecked = true;
                     if (_model.FirstActionBattler.IsAlive())
@@ -509,7 +509,7 @@ namespace Ryneus
                 {
                     if (_skipBattle == false)
                     {
-                        _view.StartHeal(_model.FirstActionBattler.Index,DamageType.MpHeal,gainAp); 
+                        _view.StartHeal(_model.FirstActionBattler.Index.Value,DamageType.MpHeal,gainAp); 
                         await UniTask.DelayFrame(_model.WaitFrameTime(16));           
                     }
                     _model.ActionAfterGainAp(gainAp);
@@ -544,13 +544,13 @@ namespace Ryneus
             var aliveEnemies = _model.PreservedAliveEnemies();
             foreach (var aliveEnemy in aliveEnemies)
             {
-                _view.StartAliveAnimation(aliveEnemy.Index);                
+                _view.StartAliveAnimation(aliveEnemy.Index.Value);                
             }
             // Hp0以上の戦闘不能を回復
             var notDeadMembers = _model.NotDeadMembers();
             foreach (var notDeadMember in notDeadMembers)
             {
-                _view.StartAliveAnimation(notDeadMember.Index);                
+                _view.StartAliveAnimation(notDeadMember.Index.Value);                
             }
             // 戦闘不能に聖棺がいたら他の対象に移す
             var changeHolyCoffinStates = _model.EndHolyCoffinState();

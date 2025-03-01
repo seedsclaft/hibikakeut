@@ -200,109 +200,109 @@ namespace Ryneus
                 case TriggerType.FriendIsState:
                 if (IsFriend && targetBattler.IsState((StateType)triggerData.Param1))
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.OpponentIsState:
                 if (!IsFriend && targetBattler.IsState((StateType)triggerData.Param1))
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.FriendIsNotState:
                 if (IsFriend && !targetBattler.IsState((StateType)triggerData.Param1))
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.OpponentIsNotState:
                 if (!IsFriend && !targetBattler.IsState((StateType)triggerData.Param1))
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.FriendIsAbnormalState:
                 if (IsFriend && targetBattler.StateInfos.Find(a => a.Master.Abnormal == true) != null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.OpponentIsAbnormalState:
                 if (!IsFriend && targetBattler.StateInfos.Find(a => a.Master.Abnormal == true) != null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.FriendIsNotAbnormalState:
                 if (IsFriend && targetBattler.StateInfos.Find(a => a.Master.Abnormal == true) == null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.OpponentIsNotAbnormalState:
                 if (!IsFriend && targetBattler.StateInfos.Find(a => a.Master.Abnormal == true) == null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.IsBuffState:
                 if (checkTriggerInfo.BattlerInfo.Index == targetIndex && targetBattler.StateInfos.Find(a => a.Master.Buff == true) != null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.FriendIsBuffState:
                 if (IsFriend && targetBattler.StateInfos.Find(a => a.Master.Buff == true) != null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.OpponentIsBuffState:
                 if (!IsFriend && targetBattler.StateInfos.Find(a => a.Master.Buff == true) != null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.FriendIsNotBuffState:
                 if (IsFriend && targetBattler.StateInfos.Find(a => a.Master.Buff == true) == null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.OpponentIsNotBuffState:
                 if (!IsFriend && targetBattler.StateInfos.Find(a => a.Master.Buff == true) == null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.IsDeBuffState:
                 if (checkTriggerInfo.BattlerInfo.Index == targetIndex && targetBattler.StateInfos.Find(a => a.Master.DeBuff == true) != null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.FriendIsDeBuffState:
                 if (IsFriend && targetBattler.StateInfos.Find(a => a.Master.DeBuff == true) != null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.OpponentIsDeBuffState:
                 if (!IsFriend && targetBattler.StateInfos.Find(a => a.Master.DeBuff == true) != null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.FriendIsNotDeBuffState:
                 if (IsFriend && targetBattler.StateInfos.Find(a => a.Master.DeBuff == true) == null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.OpponentIsNotDeBuffState:
                 if (!IsFriend && targetBattler.StateInfos.Find(a => a.Master.DeBuff == true) == null)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
             }

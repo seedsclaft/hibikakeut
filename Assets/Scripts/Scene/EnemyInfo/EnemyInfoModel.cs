@@ -24,7 +24,7 @@ namespace Ryneus
             var list = new List<int>();
             foreach (var enemy in _enemyBattlerInfos)
             {
-                list.Add(enemy.Index);
+                list.Add(enemy.Index.Value);
             }
             return list;
         }
@@ -44,7 +44,7 @@ namespace Ryneus
                 skillInfos = CurrentEnemy.Skills;
             }
             skillInfos.ForEach(a => a.SetEnable(true));
-            skillInfos.Sort((a,b) => {return a.Id - b.Id;});
+            skillInfos.Sort((a,b) => {return a.Id.Value - b.Id.Value;});
             return skillInfos;
         }
 
@@ -69,7 +69,7 @@ namespace Ryneus
             var skillTriggerInfos = new List<SkillTriggerInfo>();
             foreach (var skillInfo in skillInfos)
             {
-                var skillTriggerData = DataSystem.Enemies.Find(a => a.Id == CurrentEnemy.EnemyData.Id).SkillTriggerDates.Find(a => a.SkillId == skillInfo.Id);
+                var skillTriggerData = DataSystem.Enemies.Find(a => a.Id == CurrentEnemy.EnemyData.Id).SkillTriggerDates.Find(a => a.SkillId == skillInfo.Id.Value);
                 if (skillTriggerData == null)
                 {
                     continue;
@@ -80,7 +80,7 @@ namespace Ryneus
                 skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>(){SkillTriggerData1,SkillTriggerData2});
                 skillTriggerInfos.Add(skillTriggerInfo);
             }
-            skillTriggerInfos = skillTriggerInfos.FindAll(a => skillInfos.Find(b => b.Id == a.SkillId) != null);
+            skillTriggerInfos = skillTriggerInfos.FindAll(a => skillInfos.Find(b => b.Id.Value == a.SkillId) != null);
             return skillTriggerInfos;
         }
     }

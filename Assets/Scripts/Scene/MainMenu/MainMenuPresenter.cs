@@ -60,7 +60,7 @@ namespace Ryneus
             {
                 case CommandType.NextStage:
                     SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                    _model.StartSelectStage(_model.NextStage().Id);
+                    _model.StartSelectStage(_model.NextStage().StageId.Value);
                     _view.CommandGotoSceneChange(Scene.Tactics);
                     break;
             }

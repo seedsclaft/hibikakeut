@@ -20,7 +20,7 @@ namespace Ryneus
 
         public void ChangeEquipSkill(int changeSkillId)
         {
-            CurrentActor.ChangeEquipSkill(changeSkillId,_selectSkillInfo.Id);
+            CurrentActor.ChangeEquipSkill(changeSkillId,_selectSkillInfo.Id.Value);
         }
 
         public void UpdateActorRemainMp()
@@ -28,7 +28,7 @@ namespace Ryneus
             var costMp = 0;
             foreach (var slotSkill in EquipSkills())
             {
-                costMp += slotSkill.LearningCost;
+                costMp += slotSkill.LearningCost.Value;
             }
             CurrentActor.ChangeMp(CurrentActor.MaxMp - costMp);
         }

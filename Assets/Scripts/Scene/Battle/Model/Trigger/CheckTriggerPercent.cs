@@ -12,7 +12,7 @@ namespace Ryneus
             switch (triggerData.TriggerType)
             {
                 case TriggerType.AttackState:
-                if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && checkTriggerInfo.ActionInfo.SubjectIndex == battlerInfo.Index && checkTriggerInfo.ActionInfo.ActionResults.Find(a => a.HpDamage > 0) != null)
+                if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && checkTriggerInfo.ActionInfo.SubjectIndex == battlerInfo.Index.Value && checkTriggerInfo.ActionInfo.ActionResults.Find(a => a.HpDamage > 0) != null)
                 {
                     if (triggerData.Param1 > Random.Range(0,100))
                     {
@@ -28,7 +28,7 @@ namespace Ryneus
                 }
                 break;
                 case TriggerType.AttackStateNoFreeze:
-                if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && checkTriggerInfo.ActionInfo.SubjectIndex == battlerInfo.Index && checkTriggerInfo.ActionInfo.ActionResults.Find(a => a.HpDamage > 0) != null)
+                if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && checkTriggerInfo.ActionInfo.SubjectIndex == battlerInfo.Index.Value && checkTriggerInfo.ActionInfo.ActionResults.Find(a => a.HpDamage > 0) != null)
                 {
                     if (checkTriggerInfo.ActionInfo.ActionResults.Count > 0)
                     {

@@ -103,7 +103,7 @@ namespace Ryneus
         public ActionInfo MakeActionInfo(BattlerInfo subject,SkillInfo skillInfo,bool IsInterrupt,bool IsTrigger)
         {
             var skillData = skillInfo.Master;
-            var targetIndexList = GetSkillTargetIndexList(skillInfo.Id,subject.Index,true);
+            var targetIndexList = GetSkillTargetIndexList(skillInfo.Id.Value,subject.Index.Value,true);
             if (subject.IsState(StateType.Substitute))
             {
                 int substituteId = subject.GetStateInfo(StateType.Substitute).BattlerId;
@@ -113,7 +113,7 @@ namespace Ryneus
                     targetIndexList.Add(substituteId);
                 } else
                 {
-                    var tempIndexList = GetSkillTargetIndexList(skillInfo.Id,subject.Index,false);
+                    var tempIndexList = GetSkillTargetIndexList(skillInfo.Id.Value,subject.Index.Value,false);
                     if (tempIndexList.Contains(substituteId))
                     {
                         targetIndexList.Clear();
@@ -127,25 +127,25 @@ namespace Ryneus
                 lastTargetIndex = subject.LastTargetIndex();
                 if (skillData.TargetType == TargetType.Opponent)
                 {
-                    var targetBattler = _troop.AliveBattlerInfos.Find(a => a.Index == lastTargetIndex && targetIndexList.Contains(lastTargetIndex));
+                    var targetBattler = _troop.AliveBattlerInfos.Find(a => a.Index.Value == lastTargetIndex && targetIndexList.Contains(lastTargetIndex));
                     if (targetBattler == null && _troop.BattlerInfos.Count > 0)
                     {
-                        var containsOpponent = _troop.AliveBattlerInfos.Find(a => targetIndexList.Contains(a.Index));
+                        var containsOpponent = _troop.AliveBattlerInfos.Find(a => targetIndexList.Contains(a.Index.Value));
                         if (containsOpponent != null)
                         {
-                            lastTargetIndex = containsOpponent.Index;
+                            lastTargetIndex = containsOpponent.Index.Value;
                         }
                     }
                 } else
                 {
-                    lastTargetIndex = subject.Index;
+                    lastTargetIndex = subject.Index.Value;
                     if (targetIndexList.Count > 0)
                     {
                         lastTargetIndex = targetIndexList[0];
                     }
                 }
             }
-            var actionInfo = new ActionInfo(skillInfo,_actionIndex,subject.Index,lastTargetIndex,targetIndexList);
+            var actionInfo = new ActionInfo(skillInfo,_actionIndex,subject.Index.Value,lastTargetIndex,targetIndexList);
             _actionIndex++;
             actionInfo.SetRangeType(CalcRangeType(actionInfo.Master,subject));
             var actionScopeType = CalcScopeType(subject,actionInfo);

@@ -36,7 +36,7 @@ namespace Ryneus
                 Clear();
                 return;
             }
-            UpdateData(skillInfo.Id);
+            UpdateData(skillInfo.Id.Value);
             if (description != null)
             {
                 var convertHelpText = skillInfo.ConvertHelpText();
@@ -56,7 +56,7 @@ namespace Ryneus
             }
             if (learningCost != null)
             {
-                learningCost.gameObject.SetActive(skillInfo.LearningCost > 0);
+                learningCost.gameObject.SetActive(skillInfo.LearningCost.Value > 0);
                 learningCost.SetText(skillInfo.LearningCost.ToString());// + DataSystem.System.GetTextData(1000).Text;
             }
             if (learningText != null)

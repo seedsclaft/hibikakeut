@@ -31,7 +31,7 @@ namespace Ryneus
 
         public void UpdateBattlerInfo(BattlerInfo battlerInfo)
         {
-            _battlers[battlerInfo.Index].UpdateInfo(battlerInfo);
+            _battlers[battlerInfo.Index.Value].UpdateInfo(battlerInfo);
         }
 
         public void RefreshStatus()

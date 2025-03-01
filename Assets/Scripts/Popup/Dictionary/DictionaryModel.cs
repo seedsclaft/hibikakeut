@@ -21,7 +21,7 @@ namespace Ryneus
                     continue;
                 }
                 max++;
-                if (CurrentData.PlayerInfo.SkillIds.Contains(skillInfo.Id))
+                if (CurrentData.PlayerInfo.SkillIds.Contains(skillInfo.Id.Value))
                 {
                     count++;
                 }

@@ -62,12 +62,12 @@ namespace Ryneus
                     var count = 0;
                     foreach (var opponent in checkTriggerInfo.AliveBattlerInfos(false))
                     {
-                        var over = opponent.Skills.FindAll(a => a.Master.SkillType == SkillType.Awaken && a.UseCount > 0);
+                        var over = opponent.Skills.FindAll(a => a.Master.SkillType == SkillType.Awaken && a.UseCount.Value > 0);
                         count += over.Count;
                     }
                     foreach (var opponent in checkTriggerInfo.AliveBattlerInfos(true))
                     {
-                        var over = opponent.Skills.FindAll(a => a.Master.SkillType == SkillType.Awaken && a.UseCount > 0);
+                        var over = opponent.Skills.FindAll(a => a.Master.SkillType == SkillType.Awaken && a.UseCount.Value > 0);
                         count += over.Count;
                     }
                     isTrigger = count >= triggerData.Param2;
@@ -91,41 +91,41 @@ namespace Ryneus
                 case TriggerType.IsNotAwaken:
                     if (checkTriggerInfo.BattlerInfo.Index == targetIndex && !targetBattler.IsAwaken)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.IsAwaken:
                     if (checkTriggerInfo.BattlerInfo.Index == targetIndex && targetBattler.IsAwaken)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.FriendIsNotAwaken:
                     if (IsFriend && !targetBattler.IsAwaken)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.FriendIsAwaken:
                     if (IsFriend && targetBattler.IsAwaken)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.OpponentIsNotAwaken:
                     if (!IsFriend && !targetBattler.IsAwaken)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.OpponentIsAwaken:
                     if (!IsFriend && targetBattler.IsAwaken)
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.AwakenCountOver:
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                     break;
             }
         }
@@ -149,7 +149,7 @@ namespace Ryneus
                 {
                     if (targetBattler.IsAwaken)
                     {
-                        list.Add(targetBattler.Index);
+                        list.Add(targetBattler.Index.Value);
                     }
                 }
             }

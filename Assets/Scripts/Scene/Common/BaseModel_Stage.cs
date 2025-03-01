@@ -93,7 +93,7 @@ namespace Ryneus
             // ステージ終了していたら次のステージへ
             if (PartyInfo.Seek.Value > CurrentStage.EndSeek)
             {
-                var next = DataSystem.FindNextStage(CurrentStage.Id);
+                var next = DataSystem.FindNextStage(CurrentStage.StageId.Value);
                 if (next != null)
                 {
                     MakeStageInfo(next.Id,CurrentData.PlayerInfo.ClearCount);

@@ -71,12 +71,12 @@ namespace Ryneus
                 return list;
             }
             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex);
-            if (subject != null && battlerInfo.IsActor != subject.IsActor && battlerInfo.Index != actionInfo.SubjectIndex)
+            if (subject != null && battlerInfo.IsActor != subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex)
             {
-                var targetActionResultInfos = actionResultInfos.FindAll(a => a.TargetIndex == battlerInfo.Index);
+                var targetActionResultInfos = actionResultInfos.FindAll(a => a.TargetIndex == battlerInfo.Index.Value);
                 if (targetActionResultInfos.Count > 0 && actionInfo.ScopeType == (ScopeType)triggerData.Param1)
                 {
-                    list.Add(battlerInfo.Index);
+                    list.Add(battlerInfo.Index.Value);
                 }
             }
             return list;
@@ -104,12 +104,12 @@ namespace Ryneus
                 return list;
             }
             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex);
-            if (subject != null && battlerInfo.IsActor != subject.IsActor && battlerInfo.Index != actionInfo.SubjectIndex)
+            if (subject != null && battlerInfo.IsActor != subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex)
             {
-                var targetActionResultInfos = actionResultInfos.FindAll(a => a.TargetIndex == battlerInfo.Index);
+                var targetActionResultInfos = actionResultInfos.FindAll(a => a.TargetIndex == battlerInfo.Index.Value);
                 if (targetActionResultInfos.Count > 0 && subject.Kinds.Contains((KindType)triggerData.Param1))
                 {
-                    list.Add(battlerInfo.Index);
+                    list.Add(battlerInfo.Index.Value);
                 }
             }
             return list;
@@ -137,14 +137,14 @@ namespace Ryneus
                 return list;
             }
             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex);
-            if (subject != null && battlerInfo.IsActor != subject.IsActor && battlerInfo.Index != actionInfo.SubjectIndex)
+            if (subject != null && battlerInfo.IsActor != subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex)
             {
-                var targetActionResultInfos = actionResultInfos.FindAll(a => a.TargetIndex == battlerInfo.Index);
+                var targetActionResultInfos = actionResultInfos.FindAll(a => a.TargetIndex == battlerInfo.Index.Value);
                 foreach (var targetActionResultInfo in targetActionResultInfos)
                 {
                     if (checkTriggerInfo.GetBattlerInfo(targetActionResultInfo.TargetIndex).IsState((StateType)triggerData.Param1))
                     {
-                        list.Add(battlerInfo.Index);
+                        list.Add(battlerInfo.Index.Value);
                     }
                 }
             }

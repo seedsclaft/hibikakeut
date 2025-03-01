@@ -41,25 +41,25 @@ namespace Ryneus
                 case TriggerType.FriendMembersMoreCount:
                 if (checkTriggerInfo.AliveBattlerInfos(IsFriend).Count >= triggerData.Param1)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.FriendMembersLessCount:
                 if (checkTriggerInfo.AliveBattlerInfos(IsFriend).Count <= triggerData.Param1)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.OpponentMembersMoreCount:
                 if (checkTriggerInfo.AliveBattlerInfos(!IsFriend).Count >= triggerData.Param1)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.OpponentMembersLessCount:
                 if (checkTriggerInfo.AliveBattlerInfos(!IsFriend).Count <= triggerData.Param1)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
             }

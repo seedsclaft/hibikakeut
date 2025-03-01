@@ -24,7 +24,7 @@ namespace Ryneus
             _model = new TacticsModel();
             SetModel(_model);
 
-            if (CheckAdvEvent(EventTiming.BeforeTactics,() => { /*_view.CommandGotoSceneChange(Scene.Tactics);*/}))
+            if (CheckAdvEvent(EventTiming.BeforeTactics,() => { _view.CommandGotoSceneChange(Scene.Tactics);}))
             {
                 return;
             }
@@ -169,7 +169,6 @@ namespace Ryneus
             {
                 return;
             }
-            //_view.UpdateInputKeyActive(viewEvent.ViewCommandType,_model.TacticsCommandType);
             //Debug.Log(viewEvent.commandType);
             switch (viewEvent.ViewCommandType.CommandType)
             {
@@ -219,9 +218,6 @@ namespace Ryneus
                     break;
                 case CommandType.DecideRecord:
                     CommandDecideRecord();
-                    break;
-                case CommandType.Parallel:
-                    CommandParallel();
                     break;
                 case CommandType.SelectAlcanaList:
                     CommandSelectAlcanaList((SkillInfo)viewEvent.template);

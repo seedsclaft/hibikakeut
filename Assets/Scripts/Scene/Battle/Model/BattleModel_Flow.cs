@@ -48,7 +48,7 @@ namespace Ryneus
         /// <returns></returns>
         public (ActionInfo,List<int>) GetActionInfoTargetIndexes(BattlerInfo battlerInfo,int skillId,int oneTargetIndex = -1)
         {
-            var skillInfo = battlerInfo.Skills.Find(a => a.Id == skillId);
+            var skillInfo = battlerInfo.Skills.Find(a => a.Id.Value == skillId);
             if (skillInfo == null)
             {
                 skillInfo = new SkillInfo(skillId);

@@ -131,13 +131,13 @@ namespace Ryneus
                 case TriggerType.SelfHpRateUnder:
                     if (CheckHpRateUnderMore(checkTriggerInfo.BattlerInfo,triggerData.Param1))
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 case TriggerType.SelfHpRateUpper:
                     if ( CheckHpRateUpperMore(checkTriggerInfo.BattlerInfo,triggerData.Param1))
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                     break;
                 // ターゲットに含めるか判定
@@ -147,9 +147,9 @@ namespace Ryneus
                 {
                     // この時点で有効なtargetIndexesが判定されているので人数で判定
                     var lineTargets = LineTargetBattlers(skillData.Scope,targetBattler,checkTriggerInfo.AliveBattlerInfos(IsFriend));
-                    if (lineTargets.All(a => targetIndexes.Contains(a.Index)))
+                    if (lineTargets.All(a => targetIndexes.Contains(a.Index.Value)))
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                 } else
                 {
@@ -158,13 +158,13 @@ namespace Ryneus
                     {
                         if (IsFriend && CheckHpRateUnder(targetBattler,triggerData.Param1))
                         {
-                            targetIndexList.Add(targetIndex);
+                            targetIndexList.Add(targetIndex.Value);
                         }
                     } else
                     {
                         if (IsFriend && CheckHpRateUnderMore(targetBattler,triggerData.Param1))
                         {
-                            targetIndexList.Add(targetIndex);
+                            targetIndexList.Add(targetIndex.Value);
                         }
                     }
                 }
@@ -175,15 +175,15 @@ namespace Ryneus
                 {
                     // この時点で有効なtargetIndexesが判定されているので人数で判定
                     var lineTargets = LineTargetBattlers(skillData.Scope,targetBattler,checkTriggerInfo.AliveBattlerInfos(IsFriend));
-                    if (lineTargets.All(a => targetIndexes.Contains(a.Index)))
+                    if (lineTargets.All(a => targetIndexes.Contains(a.Index.Value)))
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                 } else
                 {
                     if (IsFriend && CheckHpRateUpperMore(targetBattler,triggerData.Param1))
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                 }
                 break;
@@ -193,9 +193,9 @@ namespace Ryneus
                 {
                     // この時点で有効なtargetIndexesが判定されているので人数で判定
                     var lineTargets = LineTargetBattlers(skillData.Scope,targetBattler,checkTriggerInfo.AliveBattlerInfos(!IsFriend));
-                    if (lineTargets.All(a => targetIndexes.Contains(a.Index)))
+                    if (lineTargets.All(a => targetIndexes.Contains(a.Index.Value)))
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                 } else
                 {
@@ -203,13 +203,13 @@ namespace Ryneus
                     {
                         if (!IsFriend && CheckHpRateUnder(targetBattler,triggerData.Param1))
                         {
-                            targetIndexList.Add(targetIndex);
+                            targetIndexList.Add(targetIndex.Value);
                         }
                     } else
                     {
                         if (!IsFriend && CheckHpRateUnderMore(targetBattler,triggerData.Param1))
                         {
-                            targetIndexList.Add(targetIndex);
+                            targetIndexList.Add(targetIndex.Value);
                         }
                     }
                 }
@@ -220,15 +220,15 @@ namespace Ryneus
                 {
                     // この時点で有効なtargetIndexesが判定されているので人数で判定
                     var lineTargets = LineTargetBattlers(skillData.Scope,targetBattler,checkTriggerInfo.AliveBattlerInfos(!IsFriend));
-                    if (lineTargets.All(a => targetIndexes.Contains(a.Index)))
+                    if (lineTargets.All(a => targetIndexes.Contains(a.Index.Value)))
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                 } else
                 {
                     if (!IsFriend && CheckHpRateUpperMore(targetBattler,triggerData.Param1))
                     {
-                        targetIndexList.Add(targetIndex);
+                        targetIndexList.Add(targetIndex.Value);
                     }
                 }
                 break;

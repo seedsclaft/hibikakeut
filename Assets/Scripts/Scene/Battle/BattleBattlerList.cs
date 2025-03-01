@@ -36,7 +36,7 @@ namespace Ryneus
                 var battlerInfo = (BattlerInfo)listDates[i].Data;
                 if (battleBattler != null && battlerInfo != null)
                 {
-                    _battleBattler[battlerInfo.Index] = battleBattler;
+                    _battleBattler[battlerInfo.Index.Value] = battleBattler;
                     battleBattler.SetDamageRoot(damageRoots[i]);
                 }
             }
@@ -61,7 +61,7 @@ namespace Ryneus
                 if (listItem == null) continue;
                 if (listItem.ListData == null) continue;
                 var battler = (BattlerInfo)listItem.ListData.Data;
-                if (indexes.Contains(battler.Index))
+                if (indexes.Contains(battler.Index.Value))
                 {
                     listItem.SetSelect();
                 } else

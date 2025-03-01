@@ -295,7 +295,7 @@ namespace Ryneus
             if (confirmCommandType == ConfirmCommandType.Yes)
             {
                 var from = actorInfo.Evaluate();
-                _model.ActorLearnMagic(actorInfo,skillInfo.Id);
+                _model.ActorLearnMagic(actorInfo,skillInfo.Id.Value);
                 var to = actorInfo.Evaluate();
 
                 var learnSkillInfo = new LearnSkillInfo(from,to,skillInfo);

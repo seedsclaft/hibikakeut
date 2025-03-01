@@ -83,25 +83,25 @@ namespace Ryneus
                 case TriggerType.TurnNum:
                 if (checkTriggerInfo.BattlerInfo.TurnCount == triggerData.Param1)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.TurnNumPer:
                 if ((checkTriggerInfo.BattlerInfo.TurnCount % triggerData.Param1) - triggerData.Param2 == 0)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.SelfTargetOnly:
                 if (checkTriggerInfo.BattlerInfo.Index == targetIndex)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.SelfTargetNotOnly:
                 if (checkTriggerInfo.BattlerInfo.Index != targetIndex)
                 {
-                    targetIndexList.Add(targetIndex);
+                    targetIndexList.Add(targetIndex.Value);
                 }
                 break;
             }

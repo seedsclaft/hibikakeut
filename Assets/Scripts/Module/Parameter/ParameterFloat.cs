@@ -1,27 +1,29 @@
+using UnityEngine;
+
 namespace Ryneus
 {
     [System.Serializable]
-    public class ParameterInt
+    public class ParameterFloat
     {
-        [UnityEngine.SerializeField] private int _value = 0;
-        public int Value => _value;
+        [SerializeField] private float _value = 0;
+        public float Value => _value;
 
-        public ParameterInt(int value = 0)
+        public ParameterFloat(float value = 0)
         {
             _value = value;
         }
 
-        public void SetValue(int value) 
+        public void SetValue(float value) 
         {
             _value = value;
         }
 
-        public void GainValue(int value)
+        public void GainValue(float value)
         {
             _value += value;
         }
 
-        public void GainValue(int value,int minValue)
+        public void GainValue(float value,float minValue)
         {
             _value += value;
             if (_value < minValue)
@@ -30,7 +32,7 @@ namespace Ryneus
             }
         }
 
-        public void GainValue(int value,int minValue,int maxValue)
+        public void GainValue(float value,float minValue,float maxValue)
         {
             _value += value;
             if (_value < minValue)

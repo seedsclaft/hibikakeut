@@ -60,7 +60,7 @@ namespace Ryneus
 
         private void SaveFile(SaveFileInfo saveFileInfo)
         {
-            saveFileInfo.StageNo = CurrentStage.Id;
+            saveFileInfo.StageNo = CurrentStage.StageId.Value;
             saveFileInfo.SaveTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             saveFileInfo.PlayTime = (int)TempInfo.PlayingTime;
             if (CurrentGameInfo.PartyInfo.ActorInfos != null && CurrentGameInfo.PartyInfo.ActorInfos.Count > 0)

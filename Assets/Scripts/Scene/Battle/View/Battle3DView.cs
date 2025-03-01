@@ -44,25 +44,25 @@ namespace Ryneus
                     if (prefab != null)
                     {
                         prefab.transform.SetParent(partyPositions[idx].transform,false);
-                        _virtualModelControls[battlerInfo.Index] = prefab.GetComponent<VirtualModelController>();
+                        _virtualModelControls[battlerInfo.Index.Value] = prefab.GetComponent<VirtualModelController>();
                     }
-                    _virtualModelControls[battlerInfo.Index].StartAnimation(AnimationState.Ready);
+                    _virtualModelControls[battlerInfo.Index.Value].StartAnimation(AnimationState.Ready);
                 } else
                 {
                     var prefab = Instantiate(ResourceSystem.LoadEnemy3DModel(battlerInfo.EnemyData.ImagePath));
                     if (prefab != null)
                     {
                         prefab.transform.SetParent(troopPositions[idx].transform,false);
-                        _virtualModelControls[battlerInfo.Index] = prefab.GetComponent<VirtualModelController>();
+                        _virtualModelControls[battlerInfo.Index.Value] = prefab.GetComponent<VirtualModelController>();
                         var cursorObject = Instantiate(cursorPrefab);
-                        _virtualModelControls[battlerInfo.Index].SetStatusPrefab(cursorObject);
+                        _virtualModelControls[battlerInfo.Index.Value].SetStatusPrefab(cursorObject);
                         var battlerInfoComponent = cursorObject.GetComponent<BattlerInfoComponent>();
-                        _selectCursor[battlerInfo.Index] = cursorObject;
+                        _selectCursor[battlerInfo.Index.Value] = cursorObject;
                         //_battlers[battlerInfo.Index].UpdateInfo(battlerInfo);
                     }
                 }                        
-                _virtualModelControls[battlerInfo.Index].Initialize(battlerInfo.IsActor);
-                _virtualModelControls[battlerInfo.Index].CameraOff();
+                _virtualModelControls[battlerInfo.Index.Value].Initialize(battlerInfo.IsActor);
+                _virtualModelControls[battlerInfo.Index.Value].CameraOff();
                 idx++;
             }
             HideSelectCursor();
@@ -282,10 +282,10 @@ namespace Ryneus
             foreach (var target in targets)
             {
                 var battlerInfo = (BattlerInfo)target.Data;
-                _virtualModelControls[battlerInfo.Index].StartAnimation(AnimationState.Idle);
+                _virtualModelControls[battlerInfo.Index.Value].StartAnimation(AnimationState.Idle);
                 if (targetIndex == -1)
                 {
-                    targetIndex = battlerInfo.Index;
+                    targetIndex = battlerInfo.Index.Value;
                 }
             }
             ResetCameraPosition();

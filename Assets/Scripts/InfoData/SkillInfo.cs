@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Unity.Mathematics.Geometry;
 using UnityEngine;
 
 namespace Ryneus
@@ -9,9 +8,8 @@ namespace Ryneus
     [Serializable]
     public class SkillInfo 
     {
-        public SkillData Master => DataSystem.FindSkill(_id);
-        private int _id;
-        public int Id => _id;
+        public SkillData Master => DataSystem.FindSkill(Id.Value);
+        public ParameterInt Id = new();
 
         private bool _enable;
         public bool Enable => _enable;
@@ -28,19 +26,8 @@ namespace Ryneus
             _learningState = learningState;
         }
 
-        private int _learningCost = 0;
-        public int LearningCost => _learningCost;
-        public void SetLearningCost(int cost)
-        {
-            _learningCost = cost;
-        }
-
-        private int _learningLv = 0;
-        public int LearningLv => _learningLv;
-        public void SetLearningLv(int learningLv)
-        {
-            _learningLv = learningLv;
-        }
+        public ParameterInt LearningCost = new();
+        public ParameterInt LearningLv = new();
 
         private List<SkillData.FeatureData> _featureDates = new();
         public List<SkillData.FeatureData> FeatureDates => _featureDates;
@@ -55,16 +42,7 @@ namespace Ryneus
             _weight = weight;
         }
 
-        private int _useCount = 0;
-        public int UseCount => _useCount;
-        public void SetUseCount(int useCount)
-        {
-            _useCount = useCount;
-        }
-        public void GainUseCount()
-        {
-            _useCount++;
-        }
+        public ParameterInt UseCount = new();
 
         private int _minusCountTurn = 0;
         public void SetMinusCountTurn(int countTurn)
@@ -78,11 +56,11 @@ namespace Ryneus
             CountTurn.SetValue(count);
         }
 
-        public ParameterInt CountTurn;
+        public ParameterInt CountTurn = new();
 
         public SkillInfo(int id)
         {
-            _id = id;
+            Id.SetValue(id);
             _learningState = LearningState.None;
             if (Master != null && Master.FeatureDates != null)
             {
@@ -93,7 +71,6 @@ namespace Ryneus
                 }
                 _featureDates = list;
             }
-            CountTurn = new ParameterInt();
         }
         
         public void SetTriggerDates(List<SkillData.TriggerData> triggerDates)
