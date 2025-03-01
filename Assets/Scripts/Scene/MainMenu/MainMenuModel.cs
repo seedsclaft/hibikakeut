@@ -14,7 +14,7 @@ namespace Ryneus
         {
             if (SelectedStage(stageId))
             {
-                PartyInfo.SetSeek(SelectedStageCurrentTurn(stageId));
+                PartyInfo.Seek.SetValue(SelectedStageCurrentTurn(stageId));
             } else
             {
                 // 新規レコード作成

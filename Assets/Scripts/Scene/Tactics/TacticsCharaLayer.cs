@@ -39,7 +39,7 @@ namespace Ryneus
                 _tacticsCharacters[i].Initialize(gameObject,rectTransform.localPosition.x,rectTransform.localPosition.y,rectTransform.localScale.x);
                 _tacticsCharacters[i].SetData(actorInfos[i]);
                 _tacticsCharacters[i].OnClickAddListener(clickEvent);
-                _tacticsCharacters[i].SetIndex(actorInfos[i].ActorId);
+                _tacticsCharacters[i].SetIndex(actorInfos[i].ActorId.Value);
                 _tacticsCharacters[i].SetSelectHandler((a) => 
                 {
                     SelectedEvent(a);
@@ -53,14 +53,14 @@ namespace Ryneus
             {
                 if (tacticsChara.ActorInfo != null)
                 {
-                    tacticsChara.SetSelectCursor(actorId == tacticsChara.ActorInfo.ActorId);
+                    tacticsChara.SetSelectCursor(actorId == tacticsChara.ActorInfo.ActorId.Value);
                 }
             }
         }
 
         public TacticsChara ZoomActor(int actorId)
         {
-            var find = _tacticsCharacters.Find(a => a.ActorInfo?.ActorId == actorId);
+            var find = _tacticsCharacters.Find(a => a.ActorInfo?.ActorId.Value == actorId);
             if (find != null)
             {
                 find.ZoomActor();
@@ -108,7 +108,7 @@ namespace Ryneus
         {
             foreach (var tacticsChara in _tacticsCharacters)
             {
-                if (tacticsChara.ActorInfo != null && withOutActorId != tacticsChara.ActorInfo.ActorId)
+                if (tacticsChara.ActorInfo != null && withOutActorId != tacticsChara.ActorInfo.ActorId.Value)
                 {
                     tacticsChara.HideActor();
                 }

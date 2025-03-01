@@ -44,7 +44,7 @@ namespace Ryneus
                     return;
                 }
                 // プレイヤーネームを設定しなおし
-                _view.CallSystemCommand(Base.CommandType.DecidePlayerName,GameSystem.CurrentData.PlayerInfo.PlayerName);
+                _view.CallSystemCommand(Base.CommandType.DecidePlayerName,GameSystem.CurrentData.PlayerInfo.PlayerName.Value);
             }
             _busy = false;
             _view.SetTitleCommand(_model.TitleCommand());

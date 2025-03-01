@@ -30,6 +30,10 @@ namespace Ryneus
             var stageEvents = _model.StageEvents(eventTiming);
             foreach (var stageEvent in stageEvents)
             {
+                if (isAbort)
+                {
+                    break;
+                }
                 if (stageEvent.Type == StageEventType.AdvStart)
                 {
                     advId = stageEvent.Param;

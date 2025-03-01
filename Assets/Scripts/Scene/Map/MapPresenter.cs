@@ -92,7 +92,7 @@ namespace Ryneus
         private void CommandCallSymbol()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex,_model.PartyInfo.Seek);
+            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex.Value,_model.PartyInfo.Seek.Value);
             _view.UpdatePartyInfo(_model.PartyInfo);
             _view.SetViewBusy(true);
         }
@@ -123,7 +123,7 @@ namespace Ryneus
         private void CommandNextSeek()
         {
             _model.SeekNext();
-            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex,_model.PartyInfo.Seek);
+            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex.Value,_model.PartyInfo.Seek.Value);
             _view.UpdatePartyInfo(_model.PartyInfo);
         }
     }

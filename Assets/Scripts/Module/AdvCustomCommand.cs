@@ -156,7 +156,7 @@ namespace Utage
             if (GameSystem.GameInfo == null) return;
             //if (Ryneus.GameSystem.CurrentStageData.CurrentStage == null) return;
             if (GameSystem.GameInfo.PartyInfo.ActorInfos.Count == 0) return;
-            int actorId = GameSystem.GameInfo.PartyInfo.ActorInfos[0].ActorId;
+            int actorId = GameSystem.GameInfo.PartyInfo.ActorInfos[0].ActorId.Value;
             var actorData = DataSystem.FindActor(actorId);
             if (actorData != null)
             {

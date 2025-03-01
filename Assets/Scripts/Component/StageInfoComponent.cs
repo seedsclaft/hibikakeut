@@ -25,7 +25,7 @@ namespace Ryneus
             }
             var stageData = stageInfo.Master;
             UpdateData(stageData);
-            help?.SetText(stageData.Help.Replace("\\p",GameSystem.CurrentData.PlayerInfo.PlayerName));
+            help?.SetText(stageData.Help.Replace("\\p",GameSystem.CurrentData.PlayerInfo.PlayerName.Value));
             //turns?.SetText(stageData.Turns.ToString());
             /*
             if (clearCount != null){

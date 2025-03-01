@@ -9,7 +9,6 @@ namespace Ryneus
 {
     public class GameSystem : MonoBehaviour
     {
-        [SerializeField] private string version = "";
         [SerializeField] private bool testMode = false;
         [SerializeField] private SceneAssign sceneAssign = null;
         [SerializeField] private MapAssign mapAssign = null;
@@ -69,7 +68,7 @@ namespace Ryneus
             UiCanvas = uiCanvas;
             TempData = new TempInfo();
             _model = new BaseModel();
-            Version = version;
+            Version = Application.version;
     #if UNITY_EDITOR
             DebugBattleData = debugBattleData;
     #endif
@@ -82,22 +81,12 @@ namespace Ryneus
 
         private BaseView CreateStatus(StatusType statusType,StatusViewInfo statusViewInfo)
         {
+            _sceneStackManager.PushStatusViewInfo(statusViewInfo);
             var prefab = statusAssign.CreatePopup(statusType,helpWindow);
-            if (statusType == StatusType.Status)
-            {
-                prefab.GetComponent<StatusView>().SetEvent((type) => UpdateCommand(type));
-                prefab.GetComponent<StatusView>().Initialize(statusViewInfo.ActorInfos);
-            } else
-            if (statusType == StatusType.EnemyDetail)
-            {
-                prefab.GetComponent<EnemyInfoView>().SetEvent((type) => UpdateCommand(type));
-                prefab.GetComponent<EnemyInfoView>().Initialize(statusViewInfo.EnemyInfos,statusViewInfo.IsBattle);
-            } else
-            {
-                prefab.GetComponent<TacticsStatusView>().SetEvent((type) => UpdateCommand(type));
-                prefab.GetComponent<TacticsStatusView>().Initialize(statusViewInfo.ActorInfos);
-            }
-            return prefab.GetComponent<BaseView>();
+            var baseView = prefab.GetComponent<BaseView>();
+            baseView.SetEvent((type) => UpdateCommand(type));
+            baseView.Initialize();
+            return baseView;
         }
 
         private void UpdateCommand(ViewEvent viewEvent)
@@ -188,7 +177,6 @@ namespace Ryneus
                 case Base.CommandType.CallStatusView:
                     var statusViewInfo = (StatusViewInfo)viewEvent.template;
                     var statusView = CreateStatus(StatusType.Status,statusViewInfo) as StatusView;
-                    statusView.SetEvent((type) => UpdateCommand(type));
                     statusView.SetViewInfo(statusViewInfo);
                     _currentScene.SetBusy(true);
                     break;
@@ -199,14 +187,12 @@ namespace Ryneus
                 case Base.CommandType.CallEnemyInfoView:
                     var enemyStatusInfo = (StatusViewInfo)viewEvent.template;
                     var enemyInfoView = CreateStatus(StatusType.EnemyDetail,enemyStatusInfo) as EnemyInfoView;
-                    enemyInfoView.SetEvent((type) => UpdateCommand(type));
                     enemyInfoView.SetBackEvent(enemyStatusInfo.BackEvent);
                     _currentScene.SetBusy(true);
                     break;
                 case Base.CommandType.CallTacticsStatusView:
                     var tacticsStatusInfo = (StatusViewInfo)viewEvent.template;
                     var tacticsStatusInfoView = CreateStatus(StatusType.TacticsStatus,tacticsStatusInfo) as TacticsStatusView;
-                    tacticsStatusInfoView.SetEvent((type) => UpdateCommand(type));
                     tacticsStatusInfoView.SetViewInfo(tacticsStatusInfo);
                     tacticsStatusInfoView.SetBackEvent(tacticsStatusInfo.BackEvent);
                     _currentScene.SetBusy(true);

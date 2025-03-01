@@ -11,24 +11,19 @@ namespace Ryneus
         {
         }
 
-        private int _userId = -1;
-        public int UserId => _userId;
+        public ParameterInt UserId = new();
         public void SetUserId()
         {
-            if (_userId == -1)
+            if (UserId.Value == 0)
             {
-                int strong = 100;
-                int sec = (int)DateTime.Now.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-                _userId = sec + (strong*UnityEngine.Random.Range(0,strong));
+                return;
             }
+            int strong = 100;
+            int sec = (int)DateTime.Now.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            UserId.SetValue(sec + (strong*UnityEngine.Random.Range(0,strong)));
         }
 
-        private string _playerName = "";
-        public string PlayerName => _playerName;
-        public void SetPlayerName(string name)
-        {
-            _playerName = name;
-        }
+        public ParameterString PlayerName = new();
 
         private int _clearCount = 0;
         public int ClearCount => _clearCount;

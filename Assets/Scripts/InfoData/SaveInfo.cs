@@ -33,7 +33,7 @@ namespace Ryneus
 
 		public void SetPlayerName(string name)
 		{
-			_playerInfo.SetPlayerName(name);
+			_playerInfo.PlayerName.SetValue(name);
 			_playerInfo.SetUserId();
 		}
 	}

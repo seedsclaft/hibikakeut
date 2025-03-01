@@ -268,7 +268,7 @@ namespace Ryneus
         private void CommandStatusInfo()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            CommandStatusInfo(_model.BattlePartyMembers(),false,true,true,false,_model.CurrentActor.ActorId,() => 
+            CommandStatusInfo(_model.BattlePartyMembers(),false,true,true,false,_model.CurrentActor.ActorId.Value,() => 
             {
                 _view.CommandRefresh();
             });
@@ -470,7 +470,7 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
-            var skillTriggerViewInfo = new SkillTriggerViewInfo(_model.CurrentActor.ActorId,() => 
+            var skillTriggerViewInfo = new SkillTriggerViewInfo(_model.CurrentActor.ActorId.Value,() => 
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 _busy = false;

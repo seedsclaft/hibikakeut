@@ -15,12 +15,10 @@ namespace Ryneus
 
         public int EnemyListIndex => battleEnemyLayer.Index;
 
-        private bool _isBattle = false;
 
-        public void Initialize(List<BattlerInfo> battlerInfos,bool isBattle)
+        public override void Initialize()
         {
             base.Initialize();
-            _isBattle = isBattle;
             battleEnemyLayer.Initialize();
             battleEnemyLayer.SetSelectedHandler(() => 
             {
@@ -31,7 +29,7 @@ namespace Ryneus
             selectCharacter.Initialize();
             SetInputHandler(selectCharacter.gameObject);
             InitializeSelectCharacter();
-            new EnemyInfoPresenter(this,battlerInfos);
+            new EnemyInfoPresenter(this);
             SetInputHandler(gameObject);
         }
 
@@ -87,7 +85,7 @@ namespace Ryneus
         public void SetHelpWindow()
         {
             HelpWindow.SetHelpText(DataSystem.GetHelp(809));
-            if (_isBattle)
+            if (true)
             {
                 HelpWindow.SetInputInfo("ENEMYINFO_BATTLE");
             } else
@@ -126,7 +124,7 @@ namespace Ryneus
         {
             if (keyType == InputKeyType.SideLeft1)
             {
-                if (_isBattle)
+                if (true)
                 {
                 } else
                 {
@@ -134,7 +132,7 @@ namespace Ryneus
             }
             if (keyType == InputKeyType.SideRight1)
             {
-                if (_isBattle)
+                if (true)
                 {
                 } else
                 {

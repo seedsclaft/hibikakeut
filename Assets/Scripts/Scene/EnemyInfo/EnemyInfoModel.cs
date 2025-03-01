@@ -5,9 +5,12 @@ namespace Ryneus
 {
     public class EnemyInfoModel : BaseModel
     {
-        public EnemyInfoModel(List<BattlerInfo> enemyInfos)
+        private StatusViewInfo _sceneParam;
+        public StatusViewInfo SceneParam => _sceneParam;
+        public EnemyInfoModel()
         {
-            _enemyBattlerInfos = enemyInfos;
+            _sceneParam = (StatusViewInfo)GameSystem.SceneStackManager.LastStatusViewInfo;
+            _enemyBattlerInfos = _sceneParam.EnemyInfos;
         }
         
         private List<BattlerInfo> _enemyBattlerInfos = new();

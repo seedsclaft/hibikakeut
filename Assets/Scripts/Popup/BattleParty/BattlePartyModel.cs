@@ -88,7 +88,7 @@ namespace Ryneus
             var idList = new List<int>();
             foreach (var battleMember in BattleMembers())
             {
-                idList.Add(battleMember.ActorId);
+                idList.Add(battleMember.ActorId.Value);
             }
             //PartyInfo.SetLastBattlerIdList(idList);
         }

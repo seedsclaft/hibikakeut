@@ -5,11 +5,14 @@ namespace Ryneus
 {
     public class TacticsStatusModel : BaseModel
     {
+        private StatusViewInfo _sceneParam;
+        public StatusViewInfo SceneParam => _sceneParam;
         private List<ActorInfo> _actorInfos = null;
         public List<ActorInfo> ActorInfos => _actorInfos;
-        public TacticsStatusModel(List<ActorInfo> actorInfos)
+        public TacticsStatusModel()
         {
-            _actorInfos = actorInfos;
+            _sceneParam = (StatusViewInfo)GameSystem.SceneStackManager.LastStatusViewInfo;
+            _actorInfos = _sceneParam.ActorInfos;
         }
 
         public string HelpText()
@@ -20,7 +23,7 @@ namespace Ryneus
         private int _currentIndex = 0;
         public void SelectActor(int actorId)
         {
-            var index = _actorInfos.FindIndex(a => a.ActorId == actorId);
+            var index = _actorInfos.FindIndex(a => a.ActorId.Value == actorId);
             _currentIndex = index;
         }
 

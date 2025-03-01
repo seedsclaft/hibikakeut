@@ -24,10 +24,8 @@ namespace Ryneus
             _model = new TacticsModel();
             SetModel(_model);
 
-            if (CheckAdvEvent(EventTiming.BeforeTactics,() => { _view.CommandGotoSceneChange(Scene.Tactics);}))
+            if (CheckAdvEvent(EventTiming.BeforeTactics,() => { /*_view.CommandGotoSceneChange(Scene.Tactics);*/}))
             {
-                // ステージ前イベント
-                BeforeStageAdv();
                 return;
             }
             CheckStageEvent();
@@ -41,14 +39,6 @@ namespace Ryneus
         private void Initialize()
         {
             InitializeView();
-            var isAbort = CheckAdvStageEvent(EventTiming.StartTactics,() => 
-            {
-                _view.CommandGotoSceneChange(Scene.Tactics);
-            },_model.CurrentStage.SelectActorIdsClassId(0));
-            if (isAbort)
-            {
-                return;
-            }
             _busy = false;
         }
 
@@ -297,7 +287,7 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _view.ShowSymbolRecord();
-            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex,_model.PartyInfo.Seek);
+            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex.Value,_model.PartyInfo.Seek.Value);
             _view.HideRecordList();
             _view.ChangeBackCommandActive(true);
             _view.EndStatusCursor();
@@ -403,7 +393,7 @@ namespace Ryneus
         private void CommandNextSeek()
         {
             _model.SeekNext();
-            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex,_model.PartyInfo.Seek);
+            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex.Value,_model.PartyInfo.Seek.Value);
             _view.UpdatePartyInfo(_model.PartyInfo);
         }
 
@@ -458,7 +448,7 @@ namespace Ryneus
         private void CommandStageSymbol()
         {
             _view.ShowSymbolRecord();
-            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex,_model.PartyInfo.Seek);
+            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex.Value,_model.PartyInfo.Seek.Value);
             _view.HideRecordList();
             _view.ChangeBackCommandActive(true);
             _view.EndStatusCursor();
@@ -475,7 +465,7 @@ namespace Ryneus
                 var actor = _model.TacticsActor();
                 if (actor != null)
                 {
-                    actorId = actor.ActorId;
+                    actorId = actor.ActorId.Value;
                 }
             }
 
@@ -491,12 +481,12 @@ namespace Ryneus
         {
             var currentTurn = _model.PartyInfo.Seek;
             var currentStage = _model.PartyInfo.StageId;
-            if (recordInfo.Seek == currentTurn && recordInfo.StageId == currentStage)
+            if (recordInfo.Seek == currentTurn.Value && recordInfo.StageId == currentStage.Value)
             {
                 // 現在
                 CommandCurrentSelectRecord(recordInfo);
             } else
-            if (recordInfo.Seek > currentTurn && recordInfo.StageId == currentStage)
+            if (recordInfo.Seek > currentTurn.Value && recordInfo.StageId == currentStage.Value)
             {
                 // 未来
                 CommandCautionInfo(DataSystem.GetText(19340));

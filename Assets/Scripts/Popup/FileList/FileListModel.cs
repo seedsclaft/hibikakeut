@@ -65,7 +65,7 @@ namespace Ryneus
             saveFileInfo.PlayTime = (int)TempInfo.PlayingTime;
             if (CurrentGameInfo.PartyInfo.ActorInfos != null && CurrentGameInfo.PartyInfo.ActorInfos.Count > 0)
             {
-                saveFileInfo.ActorId = CurrentGameInfo.PartyInfo.ActorInfos[0].ActorId;
+                saveFileInfo.ActorId = CurrentGameInfo.PartyInfo.ActorInfos[0].ActorId.Value;
             }
             CurrentData.PushSaveFile(saveFileInfo);
             SavePlayerData();

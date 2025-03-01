@@ -35,7 +35,7 @@ namespace Ryneus
         private string _helpText;
         private bool _isDisplayLevelObj => _statusViewInfo != null && _statusViewInfo.DisplayLvResetButton;
         private bool _isDisplayBack => _statusViewInfo != null && _statusViewInfo.DisplayBackButton;
-        public void Initialize(List<ActorInfo> actorInfos) 
+        public override void Initialize() 
         {
             base.Initialize();
             InitializeSelectCharacter();
@@ -49,7 +49,7 @@ namespace Ryneus
             statusLevelUp.Initialize();
             
             SetBaseAnimation(statusAnimation);
-            new TacticsStatusPresenter(this,actorInfos);
+            new TacticsStatusPresenter(this);
         }
 
         public void OpenAnimation()
@@ -269,7 +269,7 @@ namespace Ryneus
             ShowSkillActionList();
             magicList.SetData(skillInfos);
             actorInfoComponent.UpdateInfo(actorInfo,party);
-            _statusViewInfo?.CharaLayerEvent?.Invoke(actorInfo.ActorId);
+            _statusViewInfo?.CharaLayerEvent?.Invoke(actorInfo.ActorId.Value);
         }
 
         public void ShowLeaningList(List<ListData> learnMagicList)

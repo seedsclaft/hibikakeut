@@ -14,9 +14,9 @@ namespace Ryneus
             }
             stageInfo.SetSymbolInfos(GetStageSymbolInfos(stageId,clearCount));
             CurrentGameInfo.SetStageInfo(stageInfo);
-            PartyInfo.SetStageId(stageId);
-            PartyInfo.SetSeek(1);
-            PartyInfo.SetSeekIndex(0);
+            PartyInfo.StageId.SetValue(stageId);
+            PartyInfo.Seek.SetValue(1);
+            PartyInfo.SeekIndex.SetValue(0);
         }
         
         public List<GetItemInfo> StageOpeningGetItemInfos(int stageId,int clearCount)
@@ -69,7 +69,7 @@ namespace Ryneus
             var symbolInfos = CurrentStage?.SymbolInfos;
             if (PartyInfo != null && symbolInfos != null)
             {
-                return symbolInfos.Find(a => a.Master.Seek == PartyInfo.Seek && a.Master.SeekIndex == PartyInfo.SeekIndex);
+                return symbolInfos.Find(a => a.Master.Seek == PartyInfo.Seek.Value && a.Master.SeekIndex == PartyInfo.SeekIndex.Value);
             }
             return null;
         }
@@ -88,10 +88,10 @@ namespace Ryneus
             {
                 actorInfo.ChangeHp(actorInfo.MaxHp);
             }
-            PartyInfo.SetSeek(PartyInfo.Seek + 1);
-            PartyInfo.SetSeekIndex(0);
+            PartyInfo.Seek.SetValue(PartyInfo.Seek.Value + 1);
+            PartyInfo.SeekIndex.SetValue(0);
             // ステージ終了していたら次のステージへ
-            if (PartyInfo.Seek > CurrentStage.EndSeek)
+            if (PartyInfo.Seek.Value > CurrentStage.EndSeek)
             {
                 var next = DataSystem.FindNextStage(CurrentStage.Id);
                 if (next != null)

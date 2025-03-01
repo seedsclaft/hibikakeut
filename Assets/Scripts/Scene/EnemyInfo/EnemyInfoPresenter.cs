@@ -10,10 +10,10 @@ namespace Ryneus
         EnemyInfoView _view = null;
 
         private bool _busy = true;
-        public EnemyInfoPresenter(EnemyInfoView view,List<BattlerInfo> enemyInfos)
+        public EnemyInfoPresenter(EnemyInfoView view)
         {
             _view = view;
-            _model = new EnemyInfoModel(enemyInfos);
+            _model = new EnemyInfoModel();
 
             SetView(_view);
             SetModel(_model);

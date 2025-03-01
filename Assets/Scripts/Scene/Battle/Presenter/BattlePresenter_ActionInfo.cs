@@ -51,7 +51,7 @@ namespace Ryneus
             Sprite sprite;
             if (isActor)
             {
-                var actorId = subject.ActorInfo != null ? subject.ActorInfo.ActorId : subject.EnemyData.Id - 1000;
+                var actorId = subject.ActorInfo != null ? subject.ActorInfo.ActorId.Value : subject.EnemyData.Id - 1000;
                 sprite = _model.AwakenSprite(actorId);
             } else
             {

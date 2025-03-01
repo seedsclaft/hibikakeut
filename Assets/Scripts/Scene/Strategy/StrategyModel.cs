@@ -95,7 +95,7 @@ namespace Ryneus
             foreach (var expGetItemInfo in expGetItemInfos)
             {
                 expGetItemInfo.SetGetFlag(true);
-                var target = _sceneParam.ActorInfos.Find(a => a.ActorId == expGetItemInfo.Param1);
+                var target = _sceneParam.ActorInfos.Find(a => a.ActorId.Value == expGetItemInfo.Param1);
                 if (target != null)
                 {
                     var beforeLv = target.Level;
@@ -134,7 +134,7 @@ namespace Ryneus
             {
                 currencyGetItemInfo.SetGetFlag(true);
                 var gain = currencyGetItemInfo.Param1;
-                PartyInfo.AddCurrency(gain);
+                PartyInfo.Currency.GainValue(gain,0);
                 gainCurrency += gain;
             }
 

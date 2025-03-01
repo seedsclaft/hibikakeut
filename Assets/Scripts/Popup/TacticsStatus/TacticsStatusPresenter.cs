@@ -8,11 +8,11 @@ namespace Ryneus
         private TacticsStatusView _view = null;
         private TacticsStatus.CommandType _popupCommandType = TacticsStatus.CommandType.None;
         private bool _busy = false;
-        public TacticsStatusPresenter(TacticsStatusView view,List<ActorInfo> actorInfos)
+        public TacticsStatusPresenter(TacticsStatusView view)
         {
             _view = view;
             SetView(_view);
-            _model = new TacticsStatusModel(actorInfos);
+            _model = new TacticsStatusModel();
             SetModel(_model);
             Initialize();
         }
@@ -198,7 +198,7 @@ namespace Ryneus
             } else
             if (commandData.Key == "SKILL_TRIGGER")
             {
-                CommandSelectSkillTrigger(_model.CurrentActor.ActorId);
+                CommandSelectSkillTrigger(_model.CurrentActor.ActorId.Value);
             }
         }
 

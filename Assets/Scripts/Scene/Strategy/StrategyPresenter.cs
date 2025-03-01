@@ -172,7 +172,7 @@ namespace Ryneus
                 var bonusList = new List<bool>();
                 foreach (var item in tacticsActors)
                 {
-                    bonusList.Add(_model.IsBonusTactics(item.ActorId));
+                    bonusList.Add(_model.IsBonusTactics(item.ActorId.Value));
                 }
                 _view.SetTitle(DataSystem.GetText(20040));
                 _view.SetResultActorList(_model.MakeListData(tacticsActors));

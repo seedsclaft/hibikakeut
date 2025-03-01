@@ -50,7 +50,7 @@ namespace Ryneus
             {
                 Ryneus.SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 var data = (ActorInfo)listData.Data;
-                _callEvent(data.ActorId);
+                _callEvent(data.ActorId.Value);
             }
         }
     }

@@ -142,7 +142,7 @@ namespace Ryneus
         public BattlerInfo(ActorInfo actorInfo,int index)
         {
             _skillTriggerInfos = actorInfo.SkillTriggerInfos;
-            _charaId = actorInfo.ActorId;
+            _charaId = actorInfo.ActorId.Value;
             _level = actorInfo.Level;
             var statusInfo = new StatusInfo();
             statusInfo.SetParameter(

@@ -10,11 +10,11 @@ namespace Ryneus
         private StatusView _view = null;
         private CommandType _popupCommandType = CommandType.None;
         private bool _busy = false;
-        public StatusPresenter(StatusView view,List<ActorInfo> actorInfos)
+        public StatusPresenter(StatusView view)
         {
             _view = view;
             SetView(_view);
-            _model = new StatusModel(actorInfos);
+            _model = new StatusModel();
             SetModel(_model);
             Initialize();
         }
@@ -279,7 +279,7 @@ namespace Ryneus
         private void CommandSelectActor(ActorInfo actorInfo)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            _model.SelectActor(actorInfo.ActorId);
+            _model.SelectActor(actorInfo.ActorId.Value);
             _view.CallEquipSkillList();
             CommandRefreshMagicList();
             _view.CommandStatusLayer();

@@ -2345,7 +2345,7 @@ namespace Ryneus
                     {
                         Type = GetItemType.Exp,
                         // 誰に対して
-                        Param1 = actorInfo.ActorInfo.ActorId,
+                        Param1 = actorInfo.ActorInfo.ActorId.Value,
                         // いくつ
                         Param2 = 20 + (enemyInfo.Level - actorInfo.Level) * 2
                     };
@@ -2380,7 +2380,7 @@ namespace Ryneus
             {
                 foreach (var battler in _party.BattlerInfos)
                 {
-                    var actorInfo = _sceneParam.ActorInfos.Find(a => a.ActorId == battler.CharaId);
+                    var actorInfo = _sceneParam.ActorInfos.Find(a => a.ActorId.Value == battler.CharaId);
                     actorInfo.ChangeHp(battler.MaxHp);
                     actorInfo.ChangeMp(battler.MaxMp);
                 }

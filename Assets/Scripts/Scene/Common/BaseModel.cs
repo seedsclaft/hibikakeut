@@ -166,7 +166,7 @@ namespace Ryneus
 
         public string PlayerName()
         {
-            return CurrentData.PlayerInfo?.PlayerName;
+            return CurrentData.PlayerInfo?.PlayerName.Value;
         }
 
         public string PlayerId()
@@ -179,7 +179,7 @@ namespace Ryneus
         public List<StageEventData> StageEvents(EventTiming eventTiming)
         {
             var eventKeys = CurrentGameInfo.ReadEventKeys;
-            return StageEventDates.FindAll(a => a.Timing == eventTiming && a.Turns == PartyInfo.Seek && !eventKeys.Contains(a.EventKey));
+            return StageEventDates.FindAll(a => a.Timing == eventTiming && a.Turns == PartyInfo.Seek.Value && !eventKeys.Contains(a.EventKey));
         }
         
 
@@ -319,7 +319,7 @@ namespace Ryneus
             switch (getItemInfo.GetItemType)
             {
                 case GetItemType.Currency:
-                    PartyInfo.AddCurrency(getItemInfo.Param1);
+                    PartyInfo.Currency.GainValue(getItemInfo.Param1,0);
                     break;
                 default:
                     PartyInfo.AddGetItemInfo(getItemInfo);
@@ -534,9 +534,9 @@ namespace Ryneus
             var stageKey = new System.Text.StringBuilder();
             if (PartyInfo != null)
             {
-                stageKey.Append(string.Format(PartyInfo.StageId.ToString("00")));
-                stageKey.Append(string.Format(PartyInfo.Seek.ToString("00")));
-                stageKey.Append(string.Format(PartyInfo.SeekIndex.ToString("00")));
+                stageKey.Append(string.Format(PartyInfo.StageId.Value.ToString("00")));
+                stageKey.Append(string.Format(PartyInfo.Seek.Value.ToString("00")));
+                stageKey.Append(string.Format(PartyInfo.SeekIndex.Value.ToString("00")));
             }
             return stageKey.ToString();
         }
@@ -546,7 +546,7 @@ namespace Ryneus
             var cost = ActorLevelUpCost(actorInfo);
             // 新規魔法取得があるか
             var skills = actorInfo.LearningSkills(1);
-            var levelUpInfo = actorInfo.LevelUp(cost,PartyInfo.StageId,PartyInfo.Seek,-1);
+            var levelUpInfo = actorInfo.LevelUp(cost,PartyInfo.StageId.Value,PartyInfo.Seek.Value,-1);
             foreach (var skill in skills)
             {
                 actorInfo.AddSkillTriggerSkill(skill.Id);
@@ -577,7 +577,7 @@ namespace Ryneus
 
         public void AddPlayerInfoActorSkillId(int actorId)
         {
-            foreach (var skillInfo in Actors().Find(a => a.ActorId == actorId).ChangeAbleSkills())
+            foreach (var skillInfo in Actors().Find(a => a.ActorId.Value == actorId).ChangeAbleSkills())
             {
                 AddPlayerInfoSkillId(skillInfo.Id);
             }

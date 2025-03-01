@@ -60,7 +60,7 @@ namespace Ryneus
         private void CommandDetail(List<ActorInfo> actorInfos)
         {
             _busy = true;
-            CommandStatusInfo(actorInfos,false,true,false,false,actorInfos[0].ActorId,() => 
+            CommandStatusInfo(actorInfos,false,true,false,false,actorInfos[0].ActorId.Value,() => 
             {
                 _busy = false;
             },true);

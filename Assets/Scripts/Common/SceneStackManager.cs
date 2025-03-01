@@ -35,6 +35,15 @@ namespace Ryneus
             _popupInfo.Clear();
             _popupInfo.Add(popupInfo);
         }
+
+        private List<StatusViewInfo> _statusViewInfo = new ();
+        public object LastStatusViewInfo => _statusViewInfo.Count > 0 ? _statusViewInfo[_statusViewInfo.Count-1] : null;
+        
+        public void PushStatusViewInfo(StatusViewInfo statusViewInfo)
+        {
+            _statusViewInfo.Clear();
+            _statusViewInfo.Add(statusViewInfo);
+        }
     }
 
     public class SceneInfo

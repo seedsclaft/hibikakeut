@@ -26,7 +26,7 @@ namespace Ryneus
         public bool DisplayDecide => _isDisplayDecide;
         private string _helpText;
         public bool IsRanking => _statusViewInfo != null && _statusViewInfo.IsRanking;
-        public void Initialize(List<ActorInfo> actorInfos) 
+        public override void Initialize() 
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Status);
@@ -36,7 +36,7 @@ namespace Ryneus
             InitializeEquipSkillList();
             InitializeChangeSkillList();
 
-            new StatusPresenter(this,actorInfos);
+            new StatusPresenter(this);
         }
 
         private void InitializeCommandList()

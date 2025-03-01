@@ -13,9 +13,9 @@ namespace Ryneus
         [SerializeField] private GameObject sideMenuPrefab = null;
         [SerializeField] private GameObject tacticsStatusPrefab = null;
         private BaseView _statusView;
-        public GameObject CreatePopup(StatusType popupType,HelpWindow helpWindow)
+        public GameObject CreatePopup(StatusType statusType,HelpWindow helpWindow)
         {
-            var prefab = Instantiate(GetStatusObject(popupType));
+            var prefab = Instantiate(GetStatusObject(statusType));
             prefab.transform.SetParent(statusRoot.transform, false);
             statusRoot.SetActive(true);
             _statusView = prefab.GetComponent<BaseView>();
@@ -23,9 +23,9 @@ namespace Ryneus
             return prefab;
         }
 
-        private GameObject GetStatusObject(StatusType popupType)
+        private GameObject GetStatusObject(StatusType statusType)
         {
-            return popupType switch
+            return statusType switch
             {
                 StatusType.Status => statusPrefab,
                 StatusType.EnemyDetail => enemyDetailPrefab,

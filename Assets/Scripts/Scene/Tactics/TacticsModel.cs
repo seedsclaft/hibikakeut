@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
-using System.Linq;
 
 namespace Ryneus
 {
@@ -17,7 +16,7 @@ namespace Ryneus
         
         public bool IsCurrentSeekSymbolInfo(SymbolInfo symbolInfo)
         {
-            return symbolInfo?.Master.Seek == PartyInfo.Seek;
+            return symbolInfo?.Master.Seek == PartyInfo.Seek.Value;
         }
 
         public void SetFirstBattleActorId()
@@ -28,10 +27,10 @@ namespace Ryneus
                 var firstBattler = stageMembers.Find(a => a.BattleIndex == 1);
                 if (firstBattler != null)
                 {
-                    SetSelectActorId(firstBattler.ActorId);
+                    SetSelectActorId(firstBattler.ActorId.Value);
                 } else
                 {
-                    SetSelectActorId(stageMembers[0].ActorId);
+                    SetSelectActorId(stageMembers[0].ActorId.Value);
                 }
             }
         }
@@ -43,7 +42,7 @@ namespace Ryneus
         }    
         public ActorInfo TacticsActor()
         {
-            return StageMembers().Find(a => a.ActorId == _selectActorId);
+            return StageMembers().Find(a => a.ActorId.Value == _selectActorId);
         }
 
         private int _firstRecordIndex = -1;

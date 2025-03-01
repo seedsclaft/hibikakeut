@@ -8,20 +8,18 @@ namespace Ryneus
     [Serializable]
     public class ActorInfo
     {
-        public ActorData Master => DataSystem.FindActor(_actorId);
-        private int _actorId = -1;
-        public int ActorId => _actorId;
+        public ActorData Master => DataSystem.FindActor(ActorId.Value);
+        public ParameterInt ActorId = new();
         public int MaxHp => CurrentStatus.Hp;
         public int MaxMp => CurrentStatus.Mp;
 
-        public ParameterInt Exp;
+        public ParameterInt Exp = new();
         public int NextExp => 100 - Exp.Value % 100;
         public int Level => (Exp.Value / 100) + 1;
         public void SetLevel(int level)
         {
             Exp.SetValue((level-1) * 100);
         }
-
 
         private List<int> _equipmentSkillIds = new ();
         public List<int> EquipmentSkillIds => _equipmentSkillIds;
@@ -42,16 +40,13 @@ namespace Ryneus
         public List<AttributeRank> GetAttributeRank()
         {
             var list = new List<AttributeRank>();
-            var idx = 0;
             foreach (var attribute in Master.Attribute)
             {
                 list.Add(attribute);
-                idx++;
             }
             return list;
         }
 
-    
         public List<int> LearnSkillIds()
         {
             var list = new List<int>();
@@ -91,12 +86,11 @@ namespace Ryneus
         { 
             _battleIndex = battleIndex;
         }
-        private StatusInfo _plusStatus = new StatusInfo();
+        private StatusInfo _plusStatus = new();
 
         public ActorInfo(ActorData actorData)
         {
-            Exp = new ParameterInt();
-            _actorId = actorData.Id;
+            ActorId.SetValue(actorData.Id);
             SetInitialParameter(actorData);
             _currentHp = Master.InitStatus.Hp;
             _currentMp = Master.InitStatus.Mp;
@@ -107,7 +101,7 @@ namespace Ryneus
 #if UNITY_ANDROID
         public ActorInfo(RankingActorData rankingActorData)
         {
-            _actorId = rankingActorData.ActorId;
+            ActorId.SetValue(rankingActorData.ActorId);
             _attribute = Master.Attribute;
             _sp = 0;
             _upperRate = Master.NeedStatus;
@@ -208,7 +202,7 @@ namespace Ryneus
         {
             var levelUpInfo = new LevelUpInfo
             (
-                _actorId,useCost,stageId,seek,seekIndex
+                ActorId.Value,useCost,stageId,seek,seekIndex
             );
             levelUpInfo.SetLevel(Level);
             ChangeHp(CurrentParameter(StatusParamType.Hp));
@@ -256,7 +250,7 @@ namespace Ryneus
 
         public LevelUpInfo LearnSkill(int skillId,int cost,int stageId,int seek,int seekIndex = -1)
         {
-            var skillLevelUpInfo = new LevelUpInfo(_actorId,cost,stageId,seek,seekIndex);
+            var skillLevelUpInfo = new LevelUpInfo(ActorId.Value,cost,stageId,seek,seekIndex);
             skillLevelUpInfo.SetSkillId(skillId);
             return skillLevelUpInfo;
         }
@@ -410,7 +404,7 @@ namespace Ryneus
             for (int i = 0;i < skillTriggerDates.Count;i++)
             {
                 var skillTriggerData = skillTriggerDates[i];
-                var skillTriggerInfo = new SkillTriggerInfo(_actorId,new SkillInfo(skillTriggerData.SkillId));
+                var skillTriggerInfo = new SkillTriggerInfo(ActorId.Value,new SkillInfo(skillTriggerData.SkillId));
                 skillTriggerInfo.SetPriority(i);
                 var skillTriggerData1 = DataSystem.SkillTriggers.Find(a => a.Id == skillTriggerData.Trigger1);
                 var skillTriggerData2 = DataSystem.SkillTriggers.Find(a => a.Id == skillTriggerData.Trigger2);
@@ -509,7 +503,7 @@ namespace Ryneus
             {
                 if (_skillTriggerInfos.Find(a => a.SkillId == learnSkill.Id) == null)
                 {
-                    var skillTriggerInfo = new SkillTriggerInfo(_actorId,new SkillInfo(learnSkill.Id));
+                    var skillTriggerInfo = new SkillTriggerInfo(ActorId.Value,new SkillInfo(learnSkill.Id));
                     var skillTriggerData1 = DataSystem.SkillTriggers.Find(a => a.Id == 0);
                     var skillTriggerData2 = DataSystem.SkillTriggers.Find(a => a.Id == 0);
                     // 敵データに同じスキルがあればコピーする
