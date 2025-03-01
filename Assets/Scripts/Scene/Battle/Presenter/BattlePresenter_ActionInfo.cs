@@ -31,7 +31,7 @@ namespace Ryneus
             {
                 if (actionInfo.Master.SkillType == SkillType.Unique)
                 {
-                    var isActor = _model.GetBattlerInfo(actionInfo.SubjectIndex).IsActorView;
+                    var isActor = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value).IsActorView;
                     await StartAnimationMessiah(actionInfo,isActor);
                 } else
                 if (actionInfo.Master.SkillType == SkillType.Awaken)
@@ -47,7 +47,7 @@ namespace Ryneus
         /// </summary>
         private async UniTask<bool> StartAnimationMessiah(ActionInfo actionInfo,bool isActor)
         {
-            var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex);
+            var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
             Sprite sprite;
             if (isActor)
             {
@@ -66,7 +66,7 @@ namespace Ryneus
         /// </summary>
         private async UniTask<bool> StartAnimationAwaken(ActionInfo actionInfo)
         {
-            await _view.StartAnimationDemigod(_model.GetBattlerInfo(actionInfo.SubjectIndex),actionInfo.Master);
+            await _view.StartAnimationDemigod(_model.GetBattlerInfo(actionInfo.SubjectIndex.Value),actionInfo.Master);
             return true;
         }
 
@@ -93,7 +93,7 @@ namespace Ryneus
             
             if (actionInfo.Master.IsDisplayBattleSkill())
             {
-                _view.SetCurrentSkillData(actionInfo.SkillInfo,_model.GetBattlerInfo(actionInfo.SubjectIndex));
+                _view.SetCurrentSkillData(actionInfo.SkillInfo,_model.GetBattlerInfo(actionInfo.SubjectIndex.Value));
             }
             
             StartAliveAnimation(actionInfo.ActionResults);
@@ -105,7 +105,7 @@ namespace Ryneus
                 await UniTask.DelayFrame((int)(animationData.DamageTiming / GameSystem.ConfigData.BattleSpeed));
                 foreach (var actionResultInfo in actionInfo.ActionResults)
                 {
-                    PopupActionResult(actionResultInfo,actionResultInfo.TargetIndex,true,true);
+                    PopupActionResult(actionResultInfo,actionResultInfo.TargetIndex.Value,true,true);
                 }
                 var waitFrame = _model.WaitFrameTime(48);
                 if (!actionInfo.LastAttack() && waitFrame > 1)
@@ -117,7 +117,7 @@ namespace Ryneus
             {
                 foreach (var actionResultInfo in actionInfo.ActionResults)
                 {
-                    PopupActionResult(actionResultInfo,actionResultInfo.TargetIndex,true,true);
+                    PopupActionResult(actionResultInfo,actionResultInfo.TargetIndex.Value,true,true);
                 }
                 var waitFrame = _model.WaitFrameTime(30);
                 if (!actionInfo.LastAttack() && waitFrame > 1)
@@ -132,7 +132,7 @@ namespace Ryneus
         private async UniTask<bool> SelfAnimation(ActionInfo actionInfo)
         {
             var selfAnimation = ResourceSystem.LoadResourceEffect("MAGICALxSPIRAL/WHead1");
-            _view.StartAnimationBeforeSkill(actionInfo.SubjectIndex,selfAnimation);
+            _view.StartAnimationBeforeSkill(actionInfo.SubjectIndex.Value,selfAnimation);
             await UniTask.DelayFrame(_model.WaitFrameTime(30));
             return true;
         }
@@ -141,9 +141,9 @@ namespace Ryneus
         {
             if (actionInfo.TriggeredSkill && actionInfo.Master.SkillType != SkillType.Unique && actionInfo.Master.SkillType != SkillType.Awaken)
             {
-                if (actionInfo.Master.IsDisplayBattleSkill() && _model.GetBattlerInfo(actionInfo.SubjectIndex).IsActor)
+                if (actionInfo.Master.IsDisplayBattleSkill() && _model.GetBattlerInfo(actionInfo.SubjectIndex.Value).IsActor)
                 {
-                    _view.ShowCutinBattleThumb(_model.GetBattlerInfo(actionInfo.SubjectIndex));
+                    _view.ShowCutinBattleThumb(_model.GetBattlerInfo(actionInfo.SubjectIndex.Value));
                     await UniTask.DelayFrame(_model.WaitFrameTime(16));
                 }
             }
@@ -160,13 +160,13 @@ namespace Ryneus
             
             if (actionInfo.Master.IsDisplayBattleSkill())
             {
-                _view.SetCurrentSkillData(actionInfo.SkillInfo,_model.GetBattlerInfo(actionInfo.SubjectIndex));
+                _view.SetCurrentSkillData(actionInfo.SkillInfo,_model.GetBattlerInfo(actionInfo.SubjectIndex.Value));
             }
 
             StartAliveAnimation(actionInfo.ActionResults);
             foreach (var actionResultInfo in actionInfo.ActionResults)
             {
-                PopupActionResult(actionResultInfo,actionResultInfo.TargetIndex,true,true);
+                PopupActionResult(actionResultInfo,actionResultInfo.TargetIndex.Value,true,true);
             }
             await UniTask.DelayFrame(_model.WaitFrameTime(16));
             CommandEndAnimation();
@@ -187,7 +187,7 @@ namespace Ryneus
             bool isTriggeredSkill = actionInfo.TriggeredSkill;
             if (_triggerAfterChecked == false && _regenerateChecked == false && isTriggeredSkill == false)
             {
-                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex == _model.FirstActionBattler.Index.Value)
+                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex.Value == _model.FirstActionBattler.Index.Value)
                 {
                     _regenerateChecked = true;
                     if (_model.FirstActionBattler.IsAlive())

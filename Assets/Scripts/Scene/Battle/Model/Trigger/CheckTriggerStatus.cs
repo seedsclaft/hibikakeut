@@ -16,7 +16,7 @@ namespace Ryneus
                 case TriggerType.OpponentStatusUnder:
                     return true;
                 case TriggerType.LvUpper:
-                    return triggerData.Param1 <= battlerInfo.Level;
+                    return triggerData.Param1 <= battlerInfo.Level.Value;
             }
             return isTrigger;
         }

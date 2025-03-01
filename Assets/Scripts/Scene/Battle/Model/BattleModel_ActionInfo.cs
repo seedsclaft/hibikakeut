@@ -106,7 +106,7 @@ namespace Ryneus
             var targetIndexList = GetSkillTargetIndexList(skillInfo.Id.Value,subject.Index.Value,true);
             if (subject.IsState(StateType.Substitute))
             {
-                int substituteId = subject.GetStateInfo(StateType.Substitute).BattlerId;
+                int substituteId = subject.GetStateInfo(StateType.Substitute).BattlerId.Value;
                 if (targetIndexList.Contains(substituteId))
                 {
                     targetIndexList.Clear();

@@ -42,7 +42,7 @@ namespace Ryneus
                 case TriggerType.OpponentHpRateUpper:
                     return checkTriggerInfo.Opponents.Find(a => CheckHpRateUpperMore(a,triggerData.Param1)) != null;
                 case TriggerType.HpUnder:
-                    return battlerInfo.Hp <= triggerData.Param1;
+                    return battlerInfo.Hp.Value <= triggerData.Param1;
             }
             return false;
         }
@@ -91,7 +91,7 @@ namespace Ryneus
                     targetBattlers = targetBattlers.FindAll(a => a.HpRate == hpRate);
                 } else
                 {
-                    targetBattlers.Sort((a,b) => a.Hp < b.Hp ? -1: 1);
+                    targetBattlers.Sort((a,b) => a.Hp.Value < b.Hp.Value ? -1: 1);
                     var hp = targetBattlers[0].Hp;
                     targetBattlers = targetBattlers.FindAll(a => a.Hp == hp);
                 }
@@ -112,7 +112,7 @@ namespace Ryneus
                     targetBattlers = targetBattlers.FindAll(a => a.HpRate == hpRate);
                 } else
                 {
-                    targetBattlers.Sort((a,b) => a.Hp > b.Hp ? -1: 1);
+                    targetBattlers.Sort((a,b) => a.Hp.Value > b.Hp.Value ? -1: 1);
                     var hp = targetBattlers[0].Hp;
                     targetBattlers = targetBattlers.FindAll(a => a.Hp == hp);
                 }

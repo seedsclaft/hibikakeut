@@ -8,22 +8,18 @@ namespace Ryneus
     [Serializable]
     public class ActionResultInfo 
     {
-        private int _subjectIndex = 0;
-        public int SubjectIndex => _subjectIndex;
-        private int _targetIndex = 0;
-        public int TargetIndex => _targetIndex;
-
-        private int _skillId = -1;
-        public int SkillId => _skillId;
+        public ParameterInt SubjectIndex = new();
+        public ParameterInt TargetIndex = new();
+        public ParameterInt SkillId = new(-1);
         public ActionResultInfo(BattlerInfo subject,BattlerInfo target,List<SkillData.FeatureData> featureDates,int skillId,bool isOneTarget = false,SkillInfo skillInfo = null)
         {
             if (subject != null && target != null)
             {
-                _subjectIndex = subject.Index.Value;
-                _targetIndex = target.Index.Value;
+                SubjectIndex.SetValue(subject.Index.Value);
+                TargetIndex.SetValue(target.Index.Value);
                 _execStateInfos[subject.Index.Value] = new ();
-                _execStateInfos[_targetIndex] = new ();
-                _skillId = skillId;
+                _execStateInfos[TargetIndex.Value] = new ();
+                SkillId.SetValue(skillId);
             }
             foreach (var featureData in featureDates)
             {
@@ -31,7 +27,7 @@ namespace Ryneus
             }
             if (subject != null && target != null)
             {
-                if (_hpDamage >= (target.Hp + _hpHeal) && target.IsAlive())
+                if (HpDamage.Value >= (target.Hp.Value + HpHeal.Value) && target.IsAlive())
                 {
                     if (target.IsState(StateType.Undead) && featureDates.Find(a => a.FeatureType == FeatureType.BreakUndead) == null)
                     {
@@ -41,15 +37,15 @@ namespace Ryneus
                             Param1 = (int)StateType.Undead
                         };
                         MakeRemoveState(target,target,undeadFeature);
-                        _overkillHpDamage = _hpDamage;
-                        _hpDamage = target.Hp - 1;
+                        OverkillHpDamage.SetValue(HpDamage.Value);
+                        HpDamage.SetValue(target.Hp.Value - 1);
                     } else
                     {
                         if (target.IsState(StateType.Reraise))
                         {
                             SeekStateCount(target,StateType.Reraise);
-                            _overkillHpDamage = _hpDamage;
-                            _hpDamage = target.Hp - 1;
+                            OverkillHpDamage.SetValue(HpDamage.Value);
+                            HpDamage.SetValue(target.Hp.Value - 1);
                         } else
                         {
                             _deadIndexList.Add(target.Index.Value);
@@ -64,19 +60,19 @@ namespace Ryneus
                     {
                         if (target.Index.Value == deadIndex && target.IsState(StateType.Curse))
                         {
-                            _hpDamage = target.Hp - 1;
-                            float curseDamage = target.DamagedValue + _hpDamage;
+                            HpDamage.SetValue(target.Hp.Value - 1);
+                            float curseDamage = target.DamagedValue.Value + HpDamage.Value;
                             curseDamage *= target.GetStateEffectAll(StateType.Curse) * 0.01f;
-                            _curseDamage += (int)curseDamage;
-                            target.SetDamagedValue(0);
+                            CurseDamage.GainValue((int)curseDamage);
+                            target.DamagedValue.SetValue(0);
                             _deadIndexList.RemoveAt(i);
                             SeekStateCount(target,StateType.Curse);
                         }
                     }
                 }
-                int reduceHp = subject.MaxHp - subject.Hp;
-                int recoveryHp = Mathf.Min(_reHeal,reduceHp);
-                if ((_reDamage+_curseDamage - recoveryHp) >= subject.Hp && subject.IsAlive())
+                int reduceHp = subject.MaxHp - subject.Hp.Value;
+                int recoveryHp = Mathf.Min(ReHeal.Value,reduceHp);
+                if ((ReDamage.Value+CurseDamage.Value - recoveryHp) >= subject.Hp.Value && subject.IsAlive())
                 {
                     if (subject.IsState(StateType.Undead) && featureDates.Find(a => a.FeatureType == FeatureType.BreakUndead) == null)
                     {
@@ -86,15 +82,15 @@ namespace Ryneus
                             Param1 = (int)StateType.Undead
                         };
                         MakeRemoveState(subject,subject,undeadFeature);
-                        _reDamage = subject.Hp - 1;
-                        _curseDamage = 0;
+                        ReDamage.SetValue(subject.Hp.Value - 1);
+                        CurseDamage.SetValue(0);
                     } else
                     {
                         if (target.IsState(StateType.Reraise))
                         {
                             SeekStateCount(target,StateType.Reraise);
-                            _overkillHpDamage = _hpDamage;
-                            _hpDamage = target.Hp - 1;
+                            OverkillHpDamage.SetValue(HpDamage.Value);
+                            HpDamage.SetValue(target.Hp.Value - 1);
                         } else
                         {
                             _deadIndexList.Add(subject.Index.Value);
@@ -105,11 +101,11 @@ namespace Ryneus
                 {
                     if (removeState.StateType == StateType.Death)
                     {
-                        _aliveIndexList.Add(removeState.TargetIndex);
+                        _aliveIndexList.Add(removeState.TargetIndex.Value);
                     }
                 }
                 // 攻撃を受けたら外れるステートを解除
-                if (_hpDamage > 0)
+                if (HpDamage.Value > 0)
                 {
                     var allStateInfos = target.StateInfos;
                     foreach (var stateInfo in allStateInfos)
@@ -123,47 +119,20 @@ namespace Ryneus
             }
         }
 
-        private int _hpDamage = 0;
-        public int HpDamage => _hpDamage;
-        private int _overkillHpDamage = 0;
-        public int OverkillHpDamage => _overkillHpDamage;
+        public ParameterInt HpDamage = new();
+        public ParameterInt OverkillHpDamage = new();
         private bool _weakPoint = false;
         public bool WeakPoint => _weakPoint;
-        private int _hpHeal = 0;
-        public int HpHeal => _hpHeal;
-        public void SetHpHeal(int hpHeal)
-        {
-            _hpHeal = hpHeal;
-        }
-        private int _ctDamage = 0;
-        public int CtDamage => _ctDamage;
-        private int _ctHealSkillId = -1;
-        public int CtHealSkillId => _ctHealSkillId;
-        private int _ctHeal = 0;
-        public int CtHeal => _ctHeal;
-        private int _apDamage = 0;
-        public int ApDamage => _apDamage;
+        public ParameterInt HpHeal = new();
+        public ParameterInt CtDamage = new();
+        public ParameterInt CtHealSkillId = new(-1);
+        public ParameterInt CtHeal = new();
+        public ParameterInt ApDamage = new();
 
-        private int _apHeal = 0;
-        public int ApHeal => _apHeal;
-        private int _reDamage = 0;
-        public int ReDamage => _reDamage;
-        public void SetReDamage(int reDamage)
-        {
-            _reDamage = reDamage;
-        }
-        private int _curseDamage = 0;
-        public int CurseDamage => _curseDamage;
-        public void SetCurseDamage(int curseDamage)
-        {
-            _curseDamage = curseDamage;
-        }
-        private int _reHeal = 0;
-        public int ReHeal => _reHeal;
-        public void SetReHeal(int reHeal)
-        {
-            _reHeal = reHeal;
-        }
+        public ParameterInt ApHeal = new();
+        public ParameterInt ReDamage = new();
+        public ParameterInt CurseDamage = new();
+        public ParameterInt ReHeal = new();
         private List<int> _deadIndexList = new ();
         public List<int> DeadIndexList => _deadIndexList;
         private List<int> _aliveIndexList = new ();
@@ -188,9 +157,7 @@ namespace Ryneus
         public bool CursedDamage => _cursedDamage;
         public void SetCursedDamage(bool cursedDamage) {_cursedDamage = cursedDamage;}
 
-        private int _turnCount;
-        public int TurnCount => _turnCount;
-        public void SetTurnCount(int turnCount) {_turnCount = turnCount;}
+        public ParameterInt TurnCount = new ();
 
         private bool _startDash;
         public bool StartDash => _startDash;
@@ -362,7 +329,7 @@ namespace Ryneus
 
         private bool CheckIsHit(BattlerInfo subject,BattlerInfo target,bool isOneTarget,int range)
         {
-            var skillData = DataSystem.FindSkill(_skillId);
+            var skillData = DataSystem.FindSkill(SkillId.Value);
             if (skillData != null && skillData.IsBattleSpecialSkill())
             {
                 //return true;
@@ -468,7 +435,7 @@ namespace Ryneus
                 var substituteStateInfos = subject.GetStateInfoAll(StateType.Substitute);
                 if (substituteStateInfos.Count > 0)
                 {
-                    if (substituteStateInfos.Find(a => a.BattlerId == target.Index.Value) != null)
+                    if (substituteStateInfos.Find(a => a.BattlerId.Value == target.Index.Value) != null)
                     {
                         // 挑発でダメージカット50%
                         damageCutRate += subject.GetStateEffectAll(StateType.Substitute) * 0.01f;
@@ -540,7 +507,7 @@ namespace Ryneus
             float hpDamage = CalcDamageValue(subject,target,DamageValue,isNoEffect);
 
             // 有利属性なら1.5倍
-            var skillData = DataSystem.FindSkill(_skillId);
+            var skillData = DataSystem.FindSkill(SkillId.Value);
             if (target.Kinds.Contains((KindType)skillData.Attribute))
             {
                 hpDamage *= DataSystem.System.WeakPointRate * 0.01f;
@@ -563,34 +530,34 @@ namespace Ryneus
             // 攻撃ダメージ
             float AtkValue = CurrentAttack(subject,isNoEffect) * 0.5f;
             var hpDamage = CalcHpDamage(AtkValue,subject,target,featureData.Param1,isNoEffect,isOneTarget);
-            _hpDamage += (int)hpDamage;
+            HpDamage.GainValue((int)hpDamage);
         }
 
         private void MakeHpPerDamage(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,bool isNoEffect,bool isOneTarget,int range)
         {
             var hpDamage = target.MaxHp * 0.01f * featureData.Param1;
             hpDamage = CalcDamageShield(subject,target,hpDamage);
-            _hpDamage += (int)hpDamage;
+            HpDamage.GainValue((int)hpDamage);
         }
 
         private void MakeHpAddDamage(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,bool isNoEffect,bool isOneTarget,int range)
         {
-            var hpDamage = _hpDamage * 0.01f * featureData.Param1;
+            var hpDamage = HpDamage.Value * 0.01f * featureData.Param1;
             hpDamage = CalcDamageShield(subject,target,hpDamage);
-            _hpDamage += (int)hpDamage;
+            HpDamage.GainValue((int)hpDamage);
             // 追加ダメージで戦闘不能にならない
-            if (_hpDamage > target.Hp)
+            if (HpDamage.Value > target.Hp.Value)
             {
-                _hpDamage = target.Hp - 1;
+                HpDamage.SetValue(target.Hp.Value - 1);
             }
         }
 
         private void MakeRevengeHpDamage(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,bool isNoEffect,bool isOneTarget,int range)
         {
             // 攻撃ダメージ
-            float AtkValue = subject.DamagedValue;
+            float AtkValue = subject.DamagedValue.Value;
             var hpDamage = CalcHpDamage(AtkValue,subject,target,featureData.Param1,isNoEffect,isOneTarget);
-            _hpDamage += (int)hpDamage; 
+            HpDamage.GainValue((int)hpDamage); 
         }
 
         private void MakePenetrateHpDamage(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,bool isNoEffect,bool isOneTarget,int range)
@@ -608,7 +575,7 @@ namespace Ryneus
 
             // 効果補正
             hpDamage = CalcDamageEffect(hpDamage,subject,target,isNoEffect);
-            _hpDamage += (int)hpDamage; 
+            HpDamage.GainValue((int)hpDamage); 
         }
 
         private void MakeHpParamHpDamage(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,bool isNoEffect,bool isOneTarget,int range)
@@ -628,7 +595,7 @@ namespace Ryneus
 
             // 効果補正
             hpDamage = CalcDamageEffect(hpDamage,subject,target,isNoEffect);
-            _hpDamage += (int)hpDamage;
+            HpDamage.GainValue((int)hpDamage); 
         }
 
         private float CalcDamageEffect(float hpDamage,BattlerInfo subject,BattlerInfo target,bool isNoEffect)
@@ -652,17 +619,17 @@ namespace Ryneus
                 // 対象がボスの場合は残りHpの50%ダメージ
                 if (target.Kinds.Contains(KindType.Boss))
                 {
-                    hpDamage = Math.Max(target.Hp / 2,hpDamage);
+                    hpDamage = Math.Max(target.Hp.Value / 2,hpDamage);
                 } else
                 {
-                    hpDamage = target.Hp;
+                    hpDamage = target.Hp.Value;
                 }
             }
             if (!isNoEffect)
             {
                 CalcCounterDamage(subject,target,hpDamage);
             }
-            _reHeal += CalcDrainValue(subject,hpDamage);
+            ReHeal.GainValue(CalcDrainValue(subject,hpDamage));
             return CalcDamageShield(subject,target,hpDamage);
         }
 
@@ -687,12 +654,12 @@ namespace Ryneus
                 _displayStates.Add(target.GetStateInfo(StateType.NotHeal));
                 healValue = 0;
             }
-            _hpHeal += healValue;
+            HpHeal.GainValue(healValue);
             if (subject != target)
             {
                 if (subject.IsState(StateType.HealActionSelfHeal))
                 {
-                    _reHeal += healValue;
+                    ReHeal.GainValue(healValue);
                 }
             }
         }
@@ -712,13 +679,13 @@ namespace Ryneus
                 _displayStates.Add(target.GetStateInfo(StateType.NotHeal));
                 healValue = 0;
             }
-            _hpHeal += healValue;
-            _reDamage += healValue;
+            HpHeal.GainValue(healValue);
+            ReDamage.GainValue(healValue);
             if (subject != target)
             {
                 if (subject.IsState(StateType.HealActionSelfHeal))
                 {
-                    _reHeal += healValue;
+                    ReHeal.GainValue(healValue);
                 }
             }
         }
@@ -726,7 +693,7 @@ namespace Ryneus
         private void MakeHpDrain(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,bool isOneTarget,int range)
         {
             MakeHpDamage(subject,target,featureData,false,isOneTarget,range);
-            _reHeal = (int)Mathf.Floor(HpDamage * featureData.Param3 * 0.01f);
+            ReHeal.SetValue((int)Mathf.Floor(HpDamage.Value * featureData.Param3 * 0.01f));
         }
 
         // スリップダメージ計算
@@ -734,7 +701,7 @@ namespace Ryneus
         {
             var hpDamage = featureData.Param1;
             hpDamage = Mathf.Max(1,hpDamage);
-            _hpDamage += hpDamage;
+            HpDamage.GainValue((int)hpDamage); 
         }
 
         private void MakeHpStateDamage(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,bool isNoEffect,bool isOneTarget)
@@ -746,7 +713,7 @@ namespace Ryneus
                 DamageRate = featureData.Param1;
             }
             var hpDamage = CalcHpDamage(atkValue,subject,target,DamageRate,isNoEffect,isOneTarget);
-            _hpDamage += (int)hpDamage;
+            HpDamage.GainValue((int)hpDamage); 
         }
 
         // 呪いダメージ計算
@@ -754,32 +721,32 @@ namespace Ryneus
         {
             float atkValue = featureData.Param1 * 0.5f;
             var hpDamage = CalcHpDamage(atkValue,subject,target,100,isNoEffect,isOneTarget);
-            _hpDamage += (int)hpDamage;
+            HpDamage.GainValue((int)hpDamage); 
         }
 
         private void MakeCtDamage(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
-            _ctDamage = featureData.Param1;
+            CtDamage.SetValue(featureData.Param1);
         }
 
         private void MakeCtDrain(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
-            var mpDamage = Math.Min(featureData.Param1,target.Mp);
-            _ctDamage = mpDamage;
-            _ctHeal = mpDamage;
+            var mpDamage = Math.Min(featureData.Param1,target.Mp.Value);
+            CtDamage.SetValue(mpDamage);
+            CtHeal.SetValue(mpDamage);
         }
 
         private void MakeCtHeal(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
             float HealValue = featureData.Param1;
-            _ctHeal = (int)Mathf.Round(HealValue);
+            CtHeal.SetValue((int)Mathf.Round(HealValue));
         }
 
         private void MakeActiveCtHeal(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
-            _ctHealSkillId = subject.LastSelectSkillId;
+            CtHealSkillId.SetValue(subject.LastSelectSkill.Value);
             float HealValue = featureData.Param1;
-            _ctHeal = (int)Mathf.Round(HealValue);
+            CtHeal.SetValue((int)Mathf.Round(HealValue));
         }
 
         private void MakeAddState(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,bool checkCounter = false,bool isOneTarget = false,bool removeTimingIsNextTurn = false,int range = 0)
@@ -789,7 +756,7 @@ namespace Ryneus
                 //_missed = true;
                 return;
             }
-            var stateInfo = new StateInfo((StateType)featureData.Param1,featureData.Param2,featureData.Param3,subject.Index.Value,target.Index.Value,_skillId);
+            var stateInfo = new StateInfo((StateType)featureData.Param1,featureData.Param2,featureData.Param3,subject.Index.Value,target.Index.Value,SkillId.Value);
             if (removeTimingIsNextTurn)
             {
                 stateInfo.SetRemoveTiming(RemovalTiming.NextSelfTurn);
@@ -803,7 +770,7 @@ namespace Ryneus
             }
             if (stateInfo.Master.StateType == StateType.Death)
             {
-                _hpDamage = target.Hp;
+                HpDamage.SetValue(target.Hp.Value);
             }
             bool IsAdded = target.AddState(stateInfo,false);
             if (IsAdded)
@@ -842,7 +809,7 @@ namespace Ryneus
                     SeekStateCount(subject,StateType.NoDamage);
                 } else
                 {
-                    _reDamage += AntiDoteDamageValue(target);
+                    ReDamage.GainValue(AntiDoteDamageValue(target));
                 }
                 var counterAddState = new SkillData.FeatureData
                 {
@@ -870,7 +837,7 @@ namespace Ryneus
         private void MakeRemoveAbnormalState(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
             // skillId -1のRemoveは強制で解除する
-            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Abnormal == true && a.BattlerId != target.Index.Value);
+            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Abnormal == true && a.BattlerId.Value != target.Index.Value);
             foreach (var abnormalState in abnormalStates)
             {
                 bool IsRemoved = target.RemoveState(abnormalState,false);
@@ -884,7 +851,7 @@ namespace Ryneus
         private void MakeRemoveBuffState(BattlerInfo subject,BattlerInfo target)
         {
             // skillId -1のRemoveは強制で解除する
-            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Buff == true && a.BattlerId != target.Index.Value);
+            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Buff == true && a.BattlerId.Value != target.Index.Value);
             foreach (var abnormalState in abnormalStates)
             {
                 bool IsRemoved = target.RemoveState(abnormalState,false);
@@ -898,7 +865,7 @@ namespace Ryneus
         private void MakeRemoveDeBuffState(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
             // skillId -1のRemoveは強制で解除する
-            var abnormalStates = target.StateInfos.FindAll(a => a.Master.DeBuff == true && a.BattlerId != target.Index.Value);
+            var abnormalStates = target.StateInfos.FindAll(a => a.Master.DeBuff == true && a.BattlerId.Value != target.Index.Value);
             foreach (var abnormalState in abnormalStates)
             {
                 bool IsRemoved = target.RemoveState(abnormalState,false);
@@ -912,7 +879,7 @@ namespace Ryneus
         private void MakeRemoveStatePassive(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
             // パッシブはそのパッシブスキルのみ解除する
-            var stateInfo = new StateInfo((StateType)featureData.Param1,featureData.Param2,featureData.Param3,subject.Index.Value,target.Index.Value,_skillId);
+            var stateInfo = new StateInfo((StateType)featureData.Param1,featureData.Param2,featureData.Param3,subject.Index.Value,target.Index.Value,SkillId.Value);
             bool IsRemoved = target.RemoveState(stateInfo,false);
             if (IsRemoved)
             {
@@ -926,13 +893,13 @@ namespace Ryneus
             var stateInfos = target.GetStateInfoAll((StateType)featureData.Param1);
             foreach (var stateInfo in stateInfos)
             {
-                if (featureData.Param2 > stateInfo.Turns)
+                if (featureData.Param2 > stateInfo.Turns.Value)
                 {
-                    stateInfo.SetTurn(featureData.Param2);
+                    stateInfo.Turns.SetValue(featureData.Param2);
                 }
-                if (featureData.Param3 > stateInfo.Effect)
+                if (featureData.Param3 > stateInfo.Effect.Value)
                 {
-                    stateInfo.SetEffect(featureData.Param3);
+                    stateInfo.Effect.SetValue(featureData.Param3);
                 }
             }
             if (stateInfos.Count > 0)
@@ -943,7 +910,7 @@ namespace Ryneus
 
         private void MakeRemainHpOne(BattlerInfo subject)
         {
-            _reDamage = subject.Hp - 1;
+            ReDamage.SetValue(subject.Hp.Value - 1);
         }
 
         private void MakeHpOne(BattlerInfo battlerInfo)
@@ -960,13 +927,13 @@ namespace Ryneus
         private void MakeApHeal(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
             float HealValue = featureData.Param1;
-            _apHeal = (int)Mathf.Round(HealValue);
+            ApHeal.SetValue((int)Mathf.Round(HealValue));
         }
 
         private void MakeApDamage(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
         {
             float HealValue = featureData.Param1;
-            _apDamage = (int)Mathf.Round(HealValue);
+            ApHeal.SetValue((int)Mathf.Round(HealValue));
         }
 
         private void MakeStartDash(BattlerInfo target)
@@ -979,8 +946,8 @@ namespace Ryneus
         {
             if (target.IsState(StateType.Undead) || (target.EnemyData != null && target.EnemyData.Kinds.Contains(KindType.Undead)))
             {
-                _hpDamage = (int)Mathf.Floor( _hpHeal * featureData.Param3 * 0.01f);
-                _hpHeal = 0;
+                HpDamage.SetValue((int)Mathf.Floor(HpHeal.Value * featureData.Param3 * 0.01f));
+                HpHeal.SetValue(0);
             }
         }
 
@@ -988,8 +955,8 @@ namespace Ryneus
         {
             if (target.Kinds.IndexOf((KindType)featureData.Param1) != -1)
             {
-                _hpDamage = (int)Mathf.Floor( _hpDamage * featureData.Param3 * 0.01f);
-                _hpHeal = 0;
+                HpDamage.SetValue((int)Mathf.Floor(HpDamage.Value * featureData.Param3 * 0.01f));
+                HpHeal.SetValue(0);
             }
         }
 
@@ -1099,8 +1066,8 @@ namespace Ryneus
                 {
                     FeatureType = FeatureType.AddState,
                     Param1 = (int)lastAbnormal.Master.StateType,
-                    Param2 = lastAbnormal.Turns,
-                    Param3 = lastAbnormal.Effect,
+                    Param2 = lastAbnormal.Turns.Value,
+                    Param3 = lastAbnormal.Effect.Value,
                     Rate = 100
                 };
                 MakeAddState(subject,target,abnormalFeature);
@@ -1118,8 +1085,8 @@ namespace Ryneus
                     {
                         FeatureType = FeatureType.AddState,
                         Param1 = (int)buffState.Master.StateType,
-                        Param2 = buffState.Turns,
-                        Param3 = buffState.Effect,
+                        Param2 = buffState.Turns.Value,
+                        Param3 = buffState.Effect.Value,
                         Rate = 100
                     };
                     MakeAddState(subject,subject,buffFeature);
@@ -1159,7 +1126,7 @@ namespace Ryneus
                     SeekStateCount(subject,StateType.NoDamage);
                 } else
                 {
-                    _reDamage += FreezeDamageValue(subject,skillDamage);
+                    ReDamage.GainValue(FreezeDamageValue(subject,skillDamage));
                 }
             }
         }
@@ -1224,7 +1191,7 @@ namespace Ryneus
                     SeekStateCount(subject,StateType.NoDamage);
                 } else
                 {                
-                    _reDamage += CounterDamageValue(target,hpDamage);
+                    ReDamage.GainValue(CounterDamageValue(target,hpDamage));
                 }
             }
         }
@@ -1273,15 +1240,15 @@ namespace Ryneus
             var addDamage = 0f;
             if (subject.IsState(StateType.MpCostZeroAddDamage))
             {
-                if (DataSystem.FindSkill(_skillId).CountTurn == 0)
+                if (DataSystem.FindSkill(SkillId.Value).CountTurn == 0)
                 {
                     addDamage = hpDamage * 0.01f * subject.StateEffectAll(StateType.MpCostZeroAddDamage);
                 }
-                if (hpDamage < target.Hp)
+                if (hpDamage < target.Hp.Value)
                 {
-                    if ((addDamage + hpDamage) >= target.Hp)
+                    if ((addDamage + hpDamage) >= target.Hp.Value)
                     {
-                        return target.Hp - 1;
+                        return target.Hp.Value - 1;
                     }
                 }
             } else
@@ -1293,14 +1260,14 @@ namespace Ryneus
 
         private void CalcAddState(BattlerInfo subject,BattlerInfo target)
         {
-            if (subject.IsState(StateType.MpCostZeroAddState) && _skillId > 0)
+            if (subject.IsState(StateType.MpCostZeroAddState) && SkillId.Value > 0)
             {
-                if (DataSystem.FindSkill(_skillId).CountTurn == 0)
+                if (DataSystem.FindSkill(SkillId.Value).CountTurn == 0)
                 {
                     var stateInfos = subject.GetStateInfoAll(StateType.MpCostZeroAddState);
                     foreach (var stateInfo in stateInfos)
                     {
-                        var skillData = DataSystem.FindSkill(stateInfo.Effect);
+                        var skillData = DataSystem.FindSkill(stateInfo.Effect.Value);
                         if (skillData != null)
                         {
                             foreach (var featureData in skillData.FeatureDates)
@@ -1344,7 +1311,7 @@ namespace Ryneus
                 if (!_execStateInfos[battlerInfo.Index.Value].Contains(seekState))
                 {
                     _execStateInfos[battlerInfo.Index.Value].Add(seekState);
-                    int count = seekState.Turns;
+                    int count = seekState.Turns.Value;
                     if ((count-1) <= 0)
                     {
                         _removedStates.Add(battlerInfo.GetStateInfo(stateType));
@@ -1358,19 +1325,19 @@ namespace Ryneus
 
         public int SeekCount(BattlerInfo target,StateType stateType)
         {
-            int removeCount = RemovedStates.FindAll(a => a.Master.StateType == stateType && a.TargetIndex == target.Index.Value).Count;
-            int displayCount = DisplayStates.FindAll(a => a.Master.StateType == stateType && a.TargetIndex == target.Index.Value).Count;
+            int removeCount = RemovedStates.FindAll(a => a.Master.StateType == stateType && a.TargetIndex.Value == target.Index.Value).Count;
+            int displayCount = DisplayStates.FindAll(a => a.Master.StateType == stateType && a.TargetIndex.Value == target.Index.Value).Count;
             return removeCount + displayCount;
         }
 
         // 拘束と祝福を解除できるか
         public bool RemoveAttackStateDamage()
         {
-            return HpDamage > 0 
+            return HpDamage.Value > 0 
                     || AddedStates.Find(a => a.Master.StateType == StateType.Stun) != null
                     //|| AddedStates.Find(a => a.Master.StateType == StateType.Chain) != null
                     || AddedStates.Find(a => a.Master.StateType == StateType.Death) != null
-                    || DeadIndexList.Contains(TargetIndex);
+                    || DeadIndexList.Contains(TargetIndex.Value);
         }
 
         public static List<int> ConvertIndexes(List<ActionResultInfo> actionResultInfos)
@@ -1378,7 +1345,7 @@ namespace Ryneus
             var targetIndexes = new List<int>();
             foreach (var actionResultInfo in actionResultInfos)
             {
-                var targetIndex = actionResultInfo.TargetIndex;
+                var targetIndex = actionResultInfo.TargetIndex.Value;
                 targetIndexes.Add(targetIndex);
             }
             return targetIndexes;

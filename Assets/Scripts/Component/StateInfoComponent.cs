@@ -24,7 +24,7 @@ namespace Ryneus
             {
                 string effectText = stateInfo.Master.Help.Replace("\\d",stateInfo.Effect.ToString());
                 description.text = effectText;
-                var skill = DataSystem.FindSkill(stateInfo.SkillId);
+                var skill = DataSystem.FindSkill(stateInfo.SkillId.Value);
                 if (skill != null)
                 {
                     description.text = description.text + "(" + skill.Name + ")";
@@ -36,7 +36,7 @@ namespace Ryneus
                 var removalTiming = stateInfo.RemovalTiming;
                 if (removalTiming == RemovalTiming.UpdateTurn)
                 {
-                    if (stateInfo.Turns > 900)
+                    if (stateInfo.Turns.Value > 900)
                     {
                         turns.text = DataSystem.GetText(403);
                     } else
@@ -50,7 +50,7 @@ namespace Ryneus
                 } else
                 if (removalTiming == RemovalTiming.UpdateAp)
                 {
-                    if (stateInfo.Turns > 900)
+                    if (stateInfo.Turns.Value > 900)
                     {
                         turns.text = DataSystem.GetText(403);
                     } else

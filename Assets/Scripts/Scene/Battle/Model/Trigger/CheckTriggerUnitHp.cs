@@ -11,7 +11,7 @@ namespace Ryneus
             switch (triggerData.TriggerType)
             {
                 case TriggerType.PartyHpRateUnder:
-                var filter = checkTriggerInfo.Friends.Find(a => (a.Hp / (float)a.MaxHp) < triggerData.Param1 * 0.01f);
+                var filter = checkTriggerInfo.Friends.Find(a => (a.Hp.Value / (float)a.MaxHp) < triggerData.Param1 * 0.01f);
                 isTrigger = filter != null;
                 break;
             }

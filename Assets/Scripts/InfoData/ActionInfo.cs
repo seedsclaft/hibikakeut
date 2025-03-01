@@ -7,9 +7,7 @@ namespace Ryneus
     public class ActionInfo 
     {
         private int _index;
-        
-        private int _subjectIndex = 0;
-        public int SubjectIndex => _subjectIndex;
+        public ParameterInt SubjectIndex = new();
 
         private int _lastTargetIndex = 0;
         public int LastTargetIndex => _lastTargetIndex;
@@ -27,31 +25,24 @@ namespace Ryneus
         private List<ActionResultInfo> _actionResults = new ();
         public List<ActionResultInfo> ActionResults => _actionResults;
 
-        private int _mpCost;
-        public int MpCost => _mpCost;
-        private int _hpCost;
-        public int HpCost => _hpCost;
-        private int _baseRepeatTime;
-        public void SetBaseRepeatTime(int repeatTime)
-        {
-            _baseRepeatTime = repeatTime;
-        }
-        private int _repeatTime;
-        public int RepeatTime => _repeatTime;
+        public ParameterInt MpCost = new();
+        public ParameterInt HpCost = new();
+        public ParameterInt BaseRepeatTime = new();
+        public ParameterInt RepeatTime = new();
         public void SetRepeatTime(int repeatTime)
         {
-            if (_actionedRepeatTimes.Count > 0 && !_actionedRepeatTimes.Contains(_repeatTime))
+            if (_actionedRepeatTimes.Count > 0 && !_actionedRepeatTimes.Contains(RepeatTime.Value))
             {
                 // 実際に行動した回数分減らす
-                _repeatTime = repeatTime - _actionedRepeatTimes.Count;
+                RepeatTime.SetValue(repeatTime - _actionedRepeatTimes.Count);
                 return;
             }
-            _repeatTime = repeatTime;
+            RepeatTime.SetValue(repeatTime);
         }
 
         public void SeekRepeatTime()
         {
-            _repeatTime--;
+            RepeatTime.GainValue(-1);
         }
 
         private bool _isSettingParameter = false;
@@ -60,12 +51,12 @@ namespace Ryneus
 
         public bool FirstAttack()
         {
-            return (_baseRepeatTime-1) == _repeatTime;
+            return (BaseRepeatTime.Value-1) == RepeatTime.Value;
         }
 
         public bool LastAttack()
         {
-            return _repeatTime == 1;
+            return RepeatTime.Value == 1;
         }
 
         private List<int> _actionedRepeatTimes = new ();
@@ -92,7 +83,7 @@ namespace Ryneus
             _scopeType = Master.Scope;
             _rangeType = Master.Range;
             _targetType = Master.TargetType;
-            _subjectIndex = subjectIndex;
+            SubjectIndex.SetValue(subjectIndex);
             _lastTargetIndex = lastTargetIndex;
             _candidateTargetIndexList = targetIndexList;
         }
@@ -105,16 +96,6 @@ namespace Ryneus
         public void SetScopeType(ScopeType scopeType)
         {
             _scopeType = scopeType;
-        }
-
-        public void SetHpCost(int hpCost)
-        {
-            _hpCost = hpCost;
-        }
-
-        public void SetMpCost(int mpCost)
-        {
-            _mpCost = mpCost;
         }
 
         public void SetActionResult(List<ActionResultInfo> actionResult)
@@ -132,7 +113,7 @@ namespace Ryneus
             for (var i = 0;i < PlusSkill.Count;i++)
             {
                 var skillInfo = new SkillInfo(PlusSkill[i].Param1);
-                var actionInfo = new ActionInfo(skillInfo,_index,SubjectIndex,-1,null);
+                var actionInfo = new ActionInfo(skillInfo,_index,SubjectIndex.Value,-1,null);
                 actionInfo.SetTriggerSkill(true);
                 actionInfos.Add(actionInfo);
             }
@@ -169,7 +150,7 @@ namespace Ryneus
             {
                 foreach (var actionResult in _actionResults)
                 {
-                    targetIndexList.Add(actionResult.TargetIndex);
+                    targetIndexList.Add(actionResult.TargetIndex.Value);
                 }
             }
             return targetIndexList;

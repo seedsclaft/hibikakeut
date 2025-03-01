@@ -7,30 +7,12 @@ namespace Ryneus
         public StateData Master => DataSystem.States.Find(a => a.StateType == _stateType);
         private StateType _stateType = 0;
         public StateType StateType => _stateType;
-        private int _turns = 0;
-        public int Turns => _turns;
-        public void SetTurn(int turns)
-        {
-            _turns = turns;
-        }
-        private int _baseTurns = 0;
-        public int BaseTurns => _baseTurns;
-        private int _effect = 0;
-        public int Effect => _effect;
-        public void SetEffect(int effect)
-        {
-            _effect = effect;
-        }
-        private int _battlerId = 0;
-        public int BattlerId => _battlerId;
-        private int _targetIndex = 0;
-        public int TargetIndex => _targetIndex;
-        public void SetTargetIndex(int targetIndex)
-        {
-            _targetIndex = targetIndex;
-        }
-        private int _skillId = 0;
-        public int SkillId => _skillId;
+        public ParameterInt Turns = new();
+        public ParameterInt BaseTurns = new();
+        public ParameterInt Effect = new();
+        public ParameterInt BattlerId = new();
+        public ParameterInt TargetIndex = new();
+        public ParameterInt SkillId = new();
         private RemovalTiming _removeTiming = 0;
         public RemovalTiming RemovalTiming => _removeTiming;
         public void SetRemoveTiming(RemovalTiming removalTiming)
@@ -40,7 +22,7 @@ namespace Ryneus
 
         public bool IsStartPassive()
         {
-            var skillData = DataSystem.FindSkill(_skillId);
+            var skillData = DataSystem.FindSkill(SkillId.Value);
             if (skillData != null)
             {
                 return skillData.FeatureDates.Find(a => a.FeatureType == FeatureType.AddState) != null && skillData.SkillType == SkillType.Passive;
@@ -51,12 +33,12 @@ namespace Ryneus
         public StateInfo(StateType stateType,int turns,int effect,int battlerId,int targetIndex,int skillId)
         {
             _stateType = stateType;
-            _turns = turns;
-            _baseTurns = turns;
-            _effect = effect;
-            _battlerId = battlerId;
-            _targetIndex = targetIndex;
-            _skillId = skillId;
+            Turns.SetValue(turns);
+            BaseTurns.SetValue(turns);
+            Effect.SetValue(effect);
+            BattlerId.SetValue(battlerId);
+            TargetIndex.SetValue(targetIndex);
+            SkillId.SetValue(skillId);
             _removeTiming = Master.RemovalTiming;
         }
 
@@ -74,15 +56,15 @@ namespace Ryneus
             }
             if (stateInfo.Master.OverWrite)
             {
-                return (stateInfo.StateType == _stateType) && (stateInfo._skillId == _skillId);
+                return (stateInfo.StateType == _stateType) && (stateInfo.SkillId.Value == SkillId.Value);
             }
             return stateInfo.StateType == _stateType;
         }
 
         public bool UpdateTurn()
         {
-            _turns--;
-            if (_turns <= 0)
+            Turns.GainValue(-1);
+            if (Turns.Value <= 0)
             {
                 return true;
             }
@@ -91,12 +73,12 @@ namespace Ryneus
 
         public void ResetTurns()
         {
-            _turns = _baseTurns;
+            Turns.SetValue(BaseTurns.Value);
         }
 
         public bool CheckSameStateType(StateInfo otherStateInfo)
         {
-            return _stateType == otherStateInfo.StateType && _skillId == otherStateInfo.SkillId && _targetIndex == otherStateInfo.TargetIndex;
+            return _stateType == otherStateInfo.StateType && SkillId.Value == otherStateInfo.SkillId.Value && TargetIndex.Value == otherStateInfo.TargetIndex.Value;
         }
 
         public bool IsBuff()

@@ -66,7 +66,7 @@ namespace Ryneus
             int selectIndex = 0;
             if (resetScrollRect)
             {
-                selectIndex = skillInfos.FindIndex(a => a.Id.Value == currentBattler.LastSelectSkillId);
+                selectIndex = skillInfos.FindIndex(a => a.Id.Value == currentBattler.LastSelectSkill.Value);
             }
             _view.ShowMagicList(MakeListData(skillInfos),resetScrollRect,selectIndex);
         }
@@ -201,7 +201,7 @@ namespace Ryneus
                 var removed =_model.UpdateNextSelfTurn(currentBattler);
                 foreach (var removedState in removed)
                 {
-                    _view.StartStatePopup(removedState.TargetIndex,DamageType.State,"-" + removedState.Master.Name);
+                    _view.StartStatePopup(removedState.TargetIndex.Value,DamageType.State,"-" + removedState.Master.Name);
                 }
                 // Passive解除
                 await RemovePassiveInfos();
@@ -373,7 +373,7 @@ namespace Ryneus
                 StartDeathAnimation(actionInfo.ActionResults);
                 StartAliveAnimation(actionInfo.ActionResults);
                 // 繰り返しがある場合
-                if (actionInfo.RepeatTime > 0)
+                if (actionInfo.RepeatTime.Value > 0)
                 {
                     RepeatActionInfo(actionInfo);
                     return;
@@ -427,7 +427,7 @@ namespace Ryneus
             bool isTriggeredSkill = actionInfo.TriggeredSkill;
             if (_triggerAfterChecked == false && _slipDamageChecked == false && isTriggeredSkill == false)
             {
-                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex == _model.FirstActionBattler.Index.Value)
+                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex.Value == _model.FirstActionBattler.Index.Value)
                 {
                     _slipDamageChecked = true;
                     var slipResult = _model.CheckSlipDamage();
@@ -446,7 +446,7 @@ namespace Ryneus
             // regenerate
             if (_triggerAfterChecked == false && _regenerateChecked == false && isTriggeredSkill == false)
             {
-                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex == _model.FirstActionBattler.Index.Value)
+                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex.Value == _model.FirstActionBattler.Index.Value)
                 {
                     _regenerateChecked = true;
                     if (_model.FirstActionBattler.IsAlive())
@@ -495,7 +495,7 @@ namespace Ryneus
                 var removed =_model.UpdateTurn();
                 foreach (var removedState in removed)
                 {
-                    _view.StartStatePopup(removedState.TargetIndex,DamageType.State,"-" + removedState.Master.Name);
+                    _view.StartStatePopup(removedState.TargetIndex.Value,DamageType.State,"-" + removedState.Master.Name);
                 }
                 // Passive付与
                 _model.CheckTriggerPassiveInfos(BattleUtility.AfterTriggerTimings(),null,null);
@@ -556,19 +556,19 @@ namespace Ryneus
             var changeHolyCoffinStates = _model.EndHolyCoffinState();
             foreach (var addState in changeHolyCoffinStates)
             {
-                _view.StartStatePopup(addState.TargetIndex,DamageType.State,"+" + addState.Master.Name);
+                _view.StartStatePopup(addState.TargetIndex.Value,DamageType.State,"+" + addState.Master.Name);
             }
             // 透明が外れるケースを適用
             var removeShadowStates = _model.EndRemoveShadowState();
             foreach (var removeShadowState in removeShadowStates)
             {
-                _view.StartStatePopup(removeShadowState.TargetIndex,DamageType.State,"-" + removeShadowState.Master.Name);
+                _view.StartStatePopup(removeShadowState.TargetIndex.Value,DamageType.State,"-" + removeShadowState.Master.Name);
             };
             // 戦闘不能の拘束ステートを解除する
             var removeChainStates = _model.EndRemoveState();
             foreach (var removeChainState in removeChainStates)
             {
-                _view.StartStatePopup(removeChainState.TargetIndex,DamageType.State,"-" + removeChainState.Master.Name);
+                _view.StartStatePopup(removeChainState.TargetIndex.Value,DamageType.State,"-" + removeChainState.Master.Name);
             };
 
             // 待機できなくなった場合は待機状態をはずす

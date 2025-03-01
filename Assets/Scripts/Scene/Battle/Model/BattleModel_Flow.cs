@@ -34,8 +34,8 @@ namespace Ryneus
         public BattlerInfo CheckApCurrentBattler()
         {
             var battlerInfos = FieldBattlerInfos().FindAll(a => a.IsAlive());
-            battlerInfos.Sort((a,b) => (int)a.Ap - (int)b.Ap);
-            _currentBattler = battlerInfos.Find(a => a.Ap <= 0);
+            battlerInfos.Sort((a,b) => (int)a.Ap.Value - (int)b.Ap.Value);
+            _currentBattler = battlerInfos.Find(a => a.Ap.Value <= 0);
             return _currentBattler;
         }
 
@@ -70,17 +70,17 @@ namespace Ryneus
             {
                 return;
             }
-            var subject = GetBattlerInfo(actionInfo.SubjectIndex);
+            var subject = GetBattlerInfo(actionInfo.SubjectIndex.Value);
             //int MpCost = CalcMpCost(subject,actionInfo.Master.CountTurn);
             //actionInfo.SetMpCost(MpCost);
             int hpCost = CalcHpCost(actionInfo);
-            actionInfo.SetHpCost(hpCost);
+            actionInfo.HpCost.SetValue(hpCost);
 
             //var isPrism = PrismRepeatTime(subject,actionInfo) > 0;
             var repeatTime = CalcRepeatTime(subject,actionInfo);
             //repeatTime += PrismRepeatTime(subject,actionInfo);
             actionInfo.SetRepeatTime(repeatTime);
-            actionInfo.SetBaseRepeatTime(repeatTime);
+            actionInfo.BaseRepeatTime.SetValue(repeatTime);
             actionInfo.SetIsSettingParameter(true);
         }
     }

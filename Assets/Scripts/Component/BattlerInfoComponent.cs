@@ -174,8 +174,8 @@ namespace Ryneus
                     //actorInfoComponent?.Clear();
                 }
             }
-            ChangeHp(_battlerInfo.Hp);
-            ChangeMp(_battlerInfo.Mp);
+            ChangeHp(_battlerInfo.Hp.Value);
+            ChangeMp(_battlerInfo.Mp.Value);
             ChangeAtk(_battlerInfo.CurrentAtk(false));
             ChangeDef(_battlerInfo.CurrentDef(false));
             ChangeSpd(_battlerInfo.CurrentSpd(false));
@@ -243,11 +243,11 @@ namespace Ryneus
             _battleDamages.Add(battleDamage);
             if (damageType == DamageType.HpDamage || damageType == DamageType.HpCritical)
             {
-                ChangeHpAnimation(_battlerInfo.Hp,value * -1 + _battlerInfo.Hp);
+                ChangeHpAnimation(_battlerInfo.Hp.Value,value * -1 + _battlerInfo.Hp.Value);
             }
             if (damageType == DamageType.MpDamage)
             {
-                ChangeMpAnimation(_battlerInfo.Mp,value * -1 + _battlerInfo.Mp);
+                ChangeMpAnimation(_battlerInfo.Mp.Value,value * -1 + _battlerInfo.Mp.Value);
             }
         }
 
@@ -283,11 +283,11 @@ namespace Ryneus
             _battleDamages.Add(battleDamage);
             if (damageType == DamageType.HpHeal)
             {
-                ChangeHpAnimation(_battlerInfo.Hp,value + _battlerInfo.Hp);
+                ChangeHpAnimation(_battlerInfo.Hp.Value,value + _battlerInfo.Hp.Value);
             } else
             if (damageType == DamageType.MpHeal)
             {
-                ChangeMpAnimation(_battlerInfo.Mp,value + _battlerInfo.Mp);
+                ChangeMpAnimation(_battlerInfo.Mp.Value,value + _battlerInfo.Mp.Value);
             }
         }
 

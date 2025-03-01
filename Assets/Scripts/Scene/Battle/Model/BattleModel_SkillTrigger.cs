@@ -63,7 +63,7 @@ namespace Ryneus
         {
             var selectSkillId = -1;
             var selectTargetIndex = -1;
-            var counterSubjectIndex = actionInfo != null ? actionInfo.SubjectIndex : -1;
+            var counterSubjectIndex = actionInfo != null ? actionInfo.SubjectIndex.Value : -1;
             foreach (var skillTriggerInfo in skillTriggerInfos)
             {
                 // 条件

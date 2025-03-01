@@ -11,16 +11,16 @@ namespace Ryneus
             switch (triggerData.TriggerType)
             {
                 case TriggerType.TurnNumUnder:
-                    return battlerInfo.TurnCount < triggerData.Param1;
+                    return battlerInfo.TurnCount.Value < triggerData.Param1;
                 case TriggerType.TurnNum:
-                    return battlerInfo.TurnCount == triggerData.Param1;
+                    return battlerInfo.TurnCount.Value == triggerData.Param1;
                 case TriggerType.TurnNumPer:
                     if (triggerData.Param1 == 0)
                     {
-                        return battlerInfo.TurnCount - triggerData.Param2 == 0;
+                        return battlerInfo.TurnCount.Value - triggerData.Param2 == 0;
                     } else
                     {
-                        return (battlerInfo.TurnCount % triggerData.Param1) - triggerData.Param2 == 0;
+                        return (battlerInfo.TurnCount.Value % triggerData.Param1) - triggerData.Param2 == 0;
                     }
                 case TriggerType.ActionCountPer:
                     var turns = checkTriggerInfo.Turns;
@@ -48,16 +48,16 @@ namespace Ryneus
                 case TriggerType.ActionInfoTurnNumPer:
                     if (checkTriggerInfo.ActionInfo != null)
                     {
-                        var actionBattlerInfo = checkTriggerInfo.GetBattlerInfo(checkTriggerInfo.ActionInfo.SubjectIndex);
+                        var actionBattlerInfo = checkTriggerInfo.GetBattlerInfo(checkTriggerInfo.ActionInfo.SubjectIndex.Value);
                         if (triggerData.Param1 == 0)
                         {
-                            if (actionBattlerInfo != null && actionBattlerInfo.TurnCount - triggerData.Param2 == 0)
+                            if (actionBattlerInfo != null && actionBattlerInfo.TurnCount.Value - triggerData.Param2 == 0)
                             {
                                 isTrigger = true;
                             }
                         } else
                         {
-                            if ((actionBattlerInfo.TurnCount % triggerData.Param1) - triggerData.Param2 == 0)
+                            if ((actionBattlerInfo.TurnCount.Value % triggerData.Param1) - triggerData.Param2 == 0)
                             {
                                 isTrigger = true;
                             }
@@ -81,13 +81,13 @@ namespace Ryneus
             switch (triggerData.TriggerType)
             {
                 case TriggerType.TurnNum:
-                if (checkTriggerInfo.BattlerInfo.TurnCount == triggerData.Param1)
+                if (checkTriggerInfo.BattlerInfo.TurnCount.Value == triggerData.Param1)
                 {
                     targetIndexList.Add(targetIndex.Value);
                 }
                 break;
                 case TriggerType.TurnNumPer:
-                if ((checkTriggerInfo.BattlerInfo.TurnCount % triggerData.Param1) - triggerData.Param2 == 0)
+                if ((checkTriggerInfo.BattlerInfo.TurnCount.Value % triggerData.Param1) - triggerData.Param2 == 0)
                 {
                     targetIndexList.Add(targetIndex.Value);
                 }

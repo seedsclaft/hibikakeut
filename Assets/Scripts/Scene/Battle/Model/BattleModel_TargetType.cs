@@ -161,9 +161,9 @@ namespace Ryneus
                     {
                         foreach (var actionResultInfo in actionResultInfos)
                         {
-                            if (!targetIndexList.Contains(actionResultInfo.TargetIndex))
+                            if (!targetIndexList.Contains(actionResultInfo.TargetIndex.Value))
                             {
-                                targetIndexList.Add(actionResultInfo.TargetIndex);     
+                                targetIndexList.Add(actionResultInfo.TargetIndex.Value);     
                             }               
                         }
                     }

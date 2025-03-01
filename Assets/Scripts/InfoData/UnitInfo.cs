@@ -54,7 +54,7 @@ namespace Ryneus
                     battlerInfos.Add(copyBattlerInfo);
                 } else
                 {
-                    var copyBattlerInfo = new BattlerInfo(battlerInfo.EnemyData,battlerInfo.Level,idx,battlerInfo.LineIndex,battlerInfo.BossFlag);
+                    var copyBattlerInfo = new BattlerInfo(battlerInfo.EnemyData,battlerInfo.Level.Value,idx,battlerInfo.LineIndex,battlerInfo.BossFlag);
                     battlerInfos.Add(copyBattlerInfo);
                 }
                 idx++;

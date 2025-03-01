@@ -33,8 +33,8 @@ namespace Ryneus
             {
                 HideActorOnly();
                 statusInfoComponent.UpdateInfo(battlerInfo.Status);
-                statusInfoComponent.UpdateHp(battlerInfo.Hp,battlerInfo.MaxHp);
-                statusInfoComponent.UpdateMp(battlerInfo.Mp,battlerInfo.MaxMp);
+                statusInfoComponent.UpdateHp(battlerInfo.Hp.Value,battlerInfo.MaxHp);
+                statusInfoComponent.UpdateMp(battlerInfo.Mp.Value,battlerInfo.MaxMp);
             }
             if (needStatusInfoComponent != null)
             {

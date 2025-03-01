@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Ryneus
@@ -26,21 +25,16 @@ namespace Ryneus
         public bool IsActorView => _isActorView;
         private bool _isAlcana = false;
         public bool isAlcana => _isAlcana;
-        private int _charaId;
-        public int CharaId => _charaId;
-        private int _level;
-        public int Level => _level;
+        public ParameterInt CharaId = new();
+        public ParameterInt Level = new();
         public int MaxHp => _status.GetParameter(StatusParamType.Hp) + StateEffectAll(StateType.MaxHpUp);
         public int MaxMp => _status.GetParameter(StatusParamType.Mp) + StateEffectAll(StateType.MaxMpUp);
-        private int _hp;
-        public int Hp => _hp;
-        public float HpRate => _hp > 0 ? _hp / (float)MaxHp : 0;
-        private int _mp;
-        public int Mp => _mp;
-        public float MpRate => _mp > 0 ? _mp / (float)MaxMp : 0;
-        private float _ap;
+        public ParameterInt Hp = new();
+        public float HpRate => Hp.Value > 0 ? Hp.Value / (float)MaxHp : 0;
+        public ParameterInt Mp = new();
+        public float MpRate => Mp.Value > 0 ? Mp.Value / (float)MaxMp : 0;
         private float _preserveMinusAp = 0;
-        public float Ap => _ap;
+        public ParameterFloat Ap = new();
         
         private List<SkillInfo> _skills = new ();
         public List<SkillInfo> Skills => _skills;
@@ -49,18 +43,13 @@ namespace Ryneus
         private List<int> _passiveActiveSkillIds = new ();
         private ActorInfo _actorInfo;
         public ActorInfo ActorInfo => _actorInfo;
-        private int _enemyId;
-        public EnemyData EnemyData => DataSystem.Enemies.Find(a => a.Id == _enemyId);
+        private ParameterInt EnemyId = new();
+        public EnemyData EnemyData => DataSystem.Enemies.Find(a => a.Id == EnemyId.Value);
         private List<KindType> _kinds = new ();
         public List<KindType> Kinds => _kinds;
         private List<KindType> _weakPoints = new ();
         public List<KindType> WeakPoints => _weakPoints;
-        private ParameterInt LastSelectSkill;
-        public int LastSelectSkillId => LastSelectSkill.Value;
-        public void SetLastSelectSkillId(int selectSkillId)
-        {
-            LastSelectSkill?.SetValue(selectSkillId);
-        }
+        public ParameterInt LastSelectSkill = new();
         private List<StateInfo> _stateInfos = new ();
         public List<StateInfo> StateInfos => _stateInfos;
 
@@ -73,31 +62,14 @@ namespace Ryneus
         private bool _bossFlag = false;
         public bool BossFlag => _bossFlag;
         
-        private int _chainSuccessCount = 0;
-        public int ChainSuccessCount =>  _chainSuccessCount;
-        private int _payBattleMp = 0;
-        public int PayBattleMp => _payBattleMp;
-        private int _attackedCount = 0;
-        public int AttackedCount => _attackedCount;
-        private int _maxDamage = 0;
-        public int MaxDamage => _maxDamage;
-        private int _dodgeCount = 0;
-        public int DodgeCount => _dodgeCount;
-        private int _healCount = 0;
-        public int HealCount => _healCount;
-        private int _beCriticalCount = 0;
-        public int BeCriticalCount => _beCriticalCount;
-        private int _damagedValue = 0;
-        public int DamagedValue => _damagedValue;
-
-        public void SetDamagedValue(int damagedValue)
-        {
-            _damagedValue = damagedValue;
-        }
-        public void GainDamagedValue(int damagedValue)
-        {
-            _damagedValue += damagedValue;
-        }
+        public ParameterInt ChainSuccessCount = new();
+        public ParameterInt PayBattleMp = new();
+        public ParameterInt AttackedCount = new();
+        public ParameterInt MaxDamage = new();
+        public ParameterInt DodgeCount = new();
+        public ParameterInt HealCount = new();
+        public ParameterInt BeCriticalCount = new();
+        public ParameterInt DamagedValue = new();
         
         private int _lastTargetIndex = 0;
         public void SetLastTargetIndex(int index)
@@ -105,8 +77,7 @@ namespace Ryneus
             _lastTargetIndex = index;
         }
 
-        private int _turnCount = 1;
-        public int TurnCount => _turnCount;
+        public ParameterInt TurnCount = new();
         private int _demigodParam = 0;
         public int DemigodParam => _demigodParam;
 
@@ -141,8 +112,8 @@ namespace Ryneus
         public BattlerInfo(ActorInfo actorInfo,int index)
         {
             _skillTriggerInfos = actorInfo.SkillTriggerInfos;
-            _charaId = actorInfo.ActorId.Value;
-            _level = actorInfo.Level;
+            CharaId.SetValue(actorInfo.ActorId.Value);
+            Level.SetValue(actorInfo.Level);
             var statusInfo = new StatusInfo();
             statusInfo.SetParameter(
                 actorInfo.CurrentParameter(StatusParamType.Hp),
@@ -177,17 +148,16 @@ namespace Ryneus
             
             _actorInfo = actorInfo;
             _isActorView = true;
-            _hp = actorInfo.CurrentHp.Value;
-            _mp = actorInfo.CurrentMp.Value;
+            Hp.SetValue(actorInfo.CurrentHp.Value);
+            Mp.SetValue(actorInfo.CurrentMp.Value);
             _lineIndex = actorInfo.LineIndex;
 
-            LastSelectSkill = new ParameterInt();
             if (actorInfo.LastSelectSkillId == 0)
             {
-                SetLastSelectSkillId(_skills.Find(a => a.Id.Value > 100).Id.Value);
+                LastSelectSkill.SetValue(_skills.Find(a => a.Id.Value > 100).Id.Value);
             } else
             {
-                SetLastSelectSkillId(actorInfo.LastSelectSkillId);
+                LastSelectSkill.SetValue(actorInfo.LastSelectSkillId);
             }
             InitKindTypes(actorInfo.Master.Kinds);
             InitSkillCount();
@@ -197,9 +167,9 @@ namespace Ryneus
         public BattlerInfo(EnemyData enemyData,int lv,int index,LineType lineIndex,bool isBoss)
         {
             EnemyIndex = new ParameterInt();
-            _enemyId = enemyData.Id;
-            _charaId = enemyData.Id;
-            _level = lv;
+            EnemyId.SetValue(enemyData.Id);
+            CharaId.SetValue(enemyData.Id);
+            Level.SetValue(lv);
             _bossFlag = isBoss;
             InitParamInfos(enemyData);
             Index.SetValue(index + 100);
@@ -218,22 +188,22 @@ namespace Ryneus
             var statusInfo = new StatusInfo();
             int plusHpParam = _bossFlag == true ? 50 : 0;
             statusInfo.SetParameter(
-                (int)(enemyData.BaseStatus.Hp + (plusHpParam + _level * enemyData.HpGrowth * 0.01f)),
-                Math.Min(50, (int)(enemyData.BaseStatus.Mp + (_level * enemyData.MpGrowth * 0.01f))),
-                (int)(enemyData.BaseStatus.Atk + (_level * enemyData.AtkGrowth * 0.01f)),
-                (int)(enemyData.BaseStatus.Def + (_level * enemyData.DefGrowth * 0.01f)),
-                Math.Min(100, (int)(enemyData.BaseStatus.Spd + (_level * enemyData.SpdGrowth * 0.01f)))
+                (int)(enemyData.BaseStatus.Hp + (plusHpParam + Level.Value * enemyData.HpGrowth * 0.01f)),
+                Math.Min(50, (int)(enemyData.BaseStatus.Mp + (Level.Value * enemyData.MpGrowth * 0.01f))),
+                (int)(enemyData.BaseStatus.Atk + (Level.Value * enemyData.AtkGrowth * 0.01f)),
+                (int)(enemyData.BaseStatus.Def + (Level.Value * enemyData.DefGrowth * 0.01f)),
+                Math.Min(100, (int)(enemyData.BaseStatus.Spd + (Level.Value * enemyData.SpdGrowth * 0.01f)))
             );
-            _demigodParam = _level / 2;
+            _demigodParam = Level.Value / 2;
             _status = statusInfo;
-            _hp = _status.Hp;
-            _mp = _status.Mp;
+            Hp.SetValue(_status.Hp);
+            Mp.SetValue(_status.Mp);
 
             _skills.Clear();
             var enhanceSkills = new List<SkillInfo>();
             for (int i = 0;i < enemyData.LearningSkills.Count;i++)
             {
-                if (_level >= enemyData.LearningSkills[i].Level)
+                if (Level.Value >= enemyData.LearningSkills[i].Level)
                 {
                     var skillInfo = new SkillInfo(enemyData.LearningSkills[i].SkillId);
                     if (skillInfo.IsEnhanceSkill())
@@ -308,7 +278,7 @@ namespace Ryneus
 
         public BattlerInfo(List<SkillInfo> skillInfos,bool isActor,int index)
         {
-            _charaId = index + 1000;
+            CharaId.SetValue(index + 1000);
             var statusInfo = new StatusInfo();
             statusInfo.SetParameter(
                 1,
@@ -318,7 +288,7 @@ namespace Ryneus
                 0
             );
             _status = statusInfo;
-            _hp = 1;
+            Hp.SetValue(1);
             Index.SetValue(index + 1000);
             _isActor = isActor;
             _isAlcana = true;
@@ -334,20 +304,20 @@ namespace Ryneus
 
         public void ResetData(int level)
         {
-            _level = level;
+            Level.SetValue(level);
             _stateInfos.Clear();
             GainHp(_status.Hp);
             //GainMp(_status.Mp);
             _isAwaken = false;
             _preserveAlive = false;
-            _chainSuccessCount = 0;
-            _payBattleMp = 0;
-            _attackedCount = 0;
-            _healCount = 0;
-            _beCriticalCount = 0;
-            _dodgeCount = 0;
-            _damagedValue = 0;
-            _turnCount = 0;
+            ChainSuccessCount.SetValue(0);
+            PayBattleMp.SetValue(0);
+            AttackedCount.SetValue(0);
+            HealCount.SetValue(0);
+            BeCriticalCount.SetValue(0);
+            DodgeCount.SetValue(0);
+            DamagedValue.SetValue(0);
+            TurnCount.SetValue(0);
             ResetAp(true);
             _passiveSkillIds = new ();
         }
@@ -393,10 +363,10 @@ namespace Ryneus
             }
             var speed = CurrentSpd(false);
             var baseSpeed = new List<int>{50,75,100,150};
-            _ap = 1000 + rand;
+            Ap.SetValue(1000 + rand);
             if (_preserveMinusAp > 0)
             {
-                _ap -= _preserveMinusAp;
+                Ap.GainValue(_preserveMinusAp);
                 _preserveMinusAp = 0;
             }
             var speedCount = -1;
@@ -413,22 +383,22 @@ namespace Ryneus
                 {
                     if (i == 0)
                     {
-                        _ap -= baseSpeed[i] * (8/(i+1));
+                        Ap.GainValue(baseSpeed[i] * (8/(i+1)));
                     } else
                     {
-                        _ap -= (baseSpeed[i] - baseSpeed[i-1]) * (8/(i+1));
+                        Ap.GainValue((baseSpeed[i] - baseSpeed[i-1]) * (8/(i+1)));
                     }
                 }
                 var over = speed - baseSpeed[speedCount];
                 if (over > 0)
                 {
-                    _ap -= over * (8/(speedCount+2));
+                    Ap.GainValue(over * (8/(speedCount+2)));
                 }
             } else
             {
-                _ap -= speed * 8;
+                Ap.GainValue(speed * 8);
             }
-            _ap = Math.Max(_ap,200);
+            Ap.SetValue(Math.Max(Ap.Value,200));
         }
 
         public int ResetApFrame()
@@ -470,7 +440,7 @@ namespace Ryneus
 
         public void UpdateAp()
         {
-            _ap += UpdateApValue();
+            Ap.GainValue(UpdateApValue());
         }
 
         public int UpdateApValue()
@@ -484,7 +454,7 @@ namespace Ryneus
 
         public float WaitFrame(int turn)
         {
-            var wait = _ap;
+            var wait = Ap.Value;
             if (turn > 0)
             {
                 wait += ResetApFrame() * turn;
@@ -522,20 +492,17 @@ namespace Ryneus
 
         public void ChangeAp(float value)
         {
-            _ap += value;
-            if (_ap < 0)
+            Ap.GainValue(value);
+            if (Ap.Value < 0)
             {
-                _preserveMinusAp = _ap * -1;
+                _preserveMinusAp = Ap.Value * -1;
             }
         }
 
         public void SetAp(int value)
         {
-            _ap = value;
-            if (_ap < 0)
-            {
-                _ap = 0;
-            }
+            Ap.SetValue(value);
+            Ap.GainValue(0,0);
         }
 
         public int LastTargetIndex()
@@ -549,15 +516,13 @@ namespace Ryneus
         
         public void SetHp(int value)
         {
-            _hp = value;
+            Hp.SetValue(value);
         }
 
         public void GainHp(int value)
         {
-            _hp += value;
-            _hp = Math.Max(0,_hp);
-            _hp = Math.Min(_hp,MaxHp);
-            if (_hp <= 0)
+            Hp.GainValue(value,0,MaxHp);
+            if (Hp.Value <= 0)
             {
                 for (var i = _stateInfos.Count-1;i >= 0;i--)
                 {
@@ -576,9 +541,7 @@ namespace Ryneus
 
         public void GainMp(int value)
         {
-            _mp += value;
-            _mp = Math.Max(0,_mp);
-            _mp = Math.Min(_mp,MaxMp);
+            Mp.GainValue(value,0,MaxMp);
         }
 
         public void InitCountTurn(int skillId)
@@ -610,7 +573,7 @@ namespace Ryneus
 
         public bool IsAlive()
         {
-            return _hp > 0;
+            return Hp.Value > 0;
         }
 
         public bool CanMove()
@@ -656,7 +619,7 @@ namespace Ryneus
             var effect = 0;
             foreach (var stateInfo in GetStateInfoAll(stateType))
             {
-                effect += stateInfo.Effect;
+                effect += stateInfo.Effect.Value;
             }
             return effect;
         }
@@ -677,7 +640,7 @@ namespace Ryneus
             int turns = 0;
             if (IsState(stateType))
             {
-                turns += _stateInfos.Find(a => a.StateType == stateType).Turns;
+                turns += _stateInfos.Find(a => a.StateType == stateType).Turns.Value;
             }
             return turns;
         }
@@ -687,7 +650,7 @@ namespace Ryneus
             int effect = 0;
             if (IsState(stateType))
             {
-                effect += _stateInfos.Find(a => a.StateType == stateType).Effect;
+                effect += _stateInfos.Find(a => a.StateType == stateType).Effect.Value;
             }
             return effect;
         }
@@ -698,7 +661,7 @@ namespace Ryneus
             if (IsState(stateType))
             {
                 var stateInfos = GetStateInfoAll(stateType);
-                effect = stateInfos.Sum(a => a.Effect);
+                effect = stateInfos.Sum(a => a.Effect.Value);
             }
             return effect;
         }
@@ -728,7 +691,7 @@ namespace Ryneus
                     _stateInfos.Add(stateInfo);
                     if (stateInfo.Master.StateType == StateType.MaxHpUp)
                     {
-                        GainHp(stateInfo.Effect);
+                        GainHp(stateInfo.Effect.Value);
                     }
                     if (stateInfo.Master.StateType == StateType.MaxMpUp)
                     {
@@ -743,12 +706,12 @@ namespace Ryneus
         public bool RemoveState(StateInfo stateInfo,bool doRemove)
         {
             bool IsRemoved = false;
-            int RemoveIndex = _stateInfos.FindIndex(a => a.StateType == stateInfo.StateType && (a.SkillId == stateInfo.SkillId || stateInfo.SkillId == -1));
+            int RemoveIndex = _stateInfos.FindIndex(a => a.StateType == stateInfo.StateType && (a.SkillId == stateInfo.SkillId || stateInfo.SkillId.Value == -1));
             if (RemoveIndex > -1)
             {
                 if (doRemove)
                 {
-                    if (stateInfo.SkillId == -1)
+                    if (stateInfo.SkillId.Value == -1)
                     {
                         // 効果による解除は全て複数効果あっても全部解除する
                         for (int i = _stateInfos.Count-1;0 <= i;i--)
@@ -825,7 +788,7 @@ namespace Ryneus
             var mpCost = 1f;
             foreach (var mpCostStateInfo in GetStateInfoAll(StateType.MpCostRate))
             {
-                mpCost += mpCostStateInfo.Effect * -0.01f;
+                mpCost += mpCostStateInfo.Effect.Value * -0.01f;
             }
             return mpCost;
         }
@@ -978,52 +941,22 @@ namespace Ryneus
             _isAwaken = true;
         }
 
-        public void GainChainCount(int value)
-        {
-            _chainSuccessCount += value;
-        }
-
-        public void GainPayBattleMp(int value)
-        {
-            _payBattleMp += value;
-        }
-
-        public void GainAttackedCount(int value)
-        {
-            _attackedCount += value;
-        }
-
         public void GainMaxDamage(int value)
         {
-            if (value > _maxDamage)
+            if (value > MaxDamage.Value)
             {
-                _maxDamage = value;
+                MaxDamage.SetValue(value);
             }
-        }
-
-        public void GainDodgeCount(int value)
-        {
-            _dodgeCount += value;
-        }
-
-        public void GainBeCriticalCount(int value)
-        {
-            _beCriticalCount += value;
-        }
-
-        public void GainHealCount(int value)
-        {
-            _healCount += value;
         }
 
         public void TurnEnd()
         {
-            _turnCount += 1;
+            TurnCount.GainValue(1);
             // アクセル
             if (IsState(StateType.Accel))
             {
                 var stateInfo = GetStateInfo(StateType.Accel);
-                stateInfo.SetTurn(stateInfo.Turns + 1);
+                stateInfo.Turns.SetValue(stateInfo.Turns.Value + 1);
             }
         }
 
