@@ -22,6 +22,10 @@ namespace Ryneus
             //battlerInfoComponent.SetSelectable(ListData.Enable);
             battlerInfoComponent.UpdateInfo(battlerInfo);
             battlerInfoComponent.RefreshStatus();
+            if (battlerInfo.IsActorView == false)
+            {
+                battlerInfoComponent.UpdateEnemyImageNativeSize();
+            }
             //UpdateLocalPosition(battlerInfo);
             if (Disable != null)
             {

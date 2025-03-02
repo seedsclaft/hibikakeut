@@ -33,6 +33,11 @@ namespace Ryneus
             return ListData.MakeListData(dataList,selected);
         }
 
+        public List<ListData> MakeListData<T>(List<T> dataList,Func<T,bool> enable,Func<T,bool> selectFunc)
+        {
+            return ListData.MakeListData(dataList,enable,selectFunc);
+        }
+
         public bool CheckAdvStageEvent(EventTiming eventTiming,Action endCall,int selectActorId = 0)
         {
             var isAbort = false;

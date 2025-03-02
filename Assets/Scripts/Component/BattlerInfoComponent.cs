@@ -478,6 +478,11 @@ namespace Ryneus
             }
         }
 
+        public void UpdateEnemyImageNativeSize()
+        {
+            enemyInfoComponent.UpdateNativeSize();
+        }
+
         public void Clear()
         {
             _battlerInfo = null;

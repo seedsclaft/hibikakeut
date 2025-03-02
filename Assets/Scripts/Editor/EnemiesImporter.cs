@@ -68,7 +68,8 @@ namespace Ryneus
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
-                            ImagePath = AssetPostImporter.ImportString(BaseRow, "ImagePath")
+                            ImagePath = AssetPostImporter.ImportString(BaseRow, "ImagePath"),
+                            ImageScale = AssetPostImporter.ImportFloat(BaseRow, "ImageScale"),
                         };
 
                         int Hp = AssetPostImporter.ImportNumeric(BaseRow,"Hp");

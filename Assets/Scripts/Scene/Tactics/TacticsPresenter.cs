@@ -56,7 +56,7 @@ namespace Ryneus
             //_view.SetSymbols(ListData.MakeListData(_model.TacticsSymbols()));
             _view.SetUIButton();
             _view.SetBackGround(_model.CurrentStage.Master.BackGround);
-            _view.SetBattleMemberList(MakeListData(_model.BattleMembers()));
+            _view.SetBattleMemberList(MakeListData(_model.EditMembers()));
             //_view.SetNuminous(_model.Currency);
             CommandRefresh();
             PlayTacticsBgm();
@@ -391,8 +391,12 @@ namespace Ryneus
                 _model.SwapActorInfo(actorInfo);
                 _model.SetSwapFromActorInfo(null);
             }
-            
-            _view.RefreshBattleMemberList(MakeListData(_model.BattleMembers(),_model.SwapFromActor));
+
+            bool select(ActorInfo a)
+            {
+                return _model.SwapFromActor != null &&_model.SwapFromActor.BattleIndex.Value == a.BattleIndex.Value;
+            }
+            _view.RefreshBattleMemberList(MakeListData(_model.EditMembers(),(a) => {return true;},select));
             CommandRefresh();
         }
 
@@ -400,7 +404,7 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.SetSwapFromActorInfo(null);
-            _view.RefreshBattleMemberList(MakeListData(_model.BattleMembers(),_model.SwapFromActor));
+            _view.RefreshBattleMemberList(MakeListData(_model.EditMembers()));
             CommandRefresh();
             _view.DeactivateBattleMemberList();
         }

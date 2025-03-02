@@ -61,6 +61,23 @@ namespace Ryneus
             members.Sort((a,b) => a.BattleIndex.Value > b.BattleIndex.Value ? 1 : -1);
             return members;
         }
+
+        public List<ActorInfo> EditMembers()
+        {
+            var members = StageMembers().FindAll(a => a.BattleIndex.Value >= 0);
+            // 最大6人で空いた枠に空データを入れる
+            for (int i = 1;i <= 6;i++)
+            {
+                if (members.Find(a => a.BattleIndex.Value == i) == null)
+                {
+                    var temp = new ActorInfo(null);
+                    temp.BattleIndex.SetValue(i);
+                    members.Add(temp);
+                }
+            }
+            members.Sort((a,b) => a.BattleIndex.Value > b.BattleIndex.Value ? 1 : -1);
+            return members;
+        }
         
         public void SaveTempBattleMembers()
         {

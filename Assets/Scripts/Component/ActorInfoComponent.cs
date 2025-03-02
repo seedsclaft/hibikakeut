@@ -54,6 +54,7 @@ namespace Ryneus
         {
             if (actorInfo == null)
             {
+                Clear();
                 return;
             }
             var actorData = actorInfo.Master;
@@ -75,8 +76,9 @@ namespace Ryneus
             }
             if (sp != null){
             }
-            if (statusInfoComponent != null)
+            if (statusInfoComponent != null && actorInfo.Master != null)
             {
+                statusInfoComponent.gameObject.SetActive(true);
                 statusInfoComponent.UpdateInfo(actorInfo.CurrentStatus);
                 statusInfoComponent.UpdateHp(actorInfo.CurrentHp.Value,actorInfo.MaxHp);
                 statusInfoComponent.UpdateMp(actorInfo.CurrentMp.Value,actorInfo.MaxMp);
@@ -139,6 +141,11 @@ namespace Ryneus
 
         public void UpdateData(ActorData actorData)
         {
+            if (actorData == null)
+            {
+                Clear();
+                return;
+            }
             UpdateMainThumb(actorData.ImagePath,actorData.X,actorData.Y,actorData.Scale);
             UpdateAwakenThumb(actorData.ImagePath,actorData.AwakenX,actorData.AwakenY,actorData.AwakenScale);
             UpdateClipThumb(actorData.ImagePath);
@@ -233,25 +240,26 @@ namespace Ryneus
 
         public void Clear()
         {
+            var sprite = ResourceSystem.LoadResource<Sprite>(ResourceSystem.SystemTexturePath + "Dummy");
             if (mainThumb != null)
             {
-                mainThumb.sprite = null;
-                //mainThumb.gameObject.SetActive(false);
+                mainThumb.sprite = sprite;
             }
             if (awakenThumb != null)
             {
-                awakenThumb.sprite = null;
-                //awakenThumb.gameObject.SetActive(false);
+                awakenThumb.sprite = sprite;
             }
             if (faceThumb != null)
             {
-                faceThumb.sprite = null;
-                //faceThumb.gameObject.SetActive(false);
+                faceThumb.sprite = sprite;
             }
             if (awakenFaceThumb != null)
             {
-                awakenFaceThumb.sprite = null;
-                //awakenFaceThumb.gameObject.SetActive(false);
+                awakenFaceThumb.sprite = sprite;
+            }
+            if (statusInfoComponent != null)
+            {
+                statusInfoComponent.gameObject.SetActive(false);
             }
         }
 

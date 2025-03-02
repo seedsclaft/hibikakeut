@@ -80,6 +80,10 @@ namespace Ryneus
 
         public ActorInfo(ActorData actorData)
         {
+            if (actorData == null)
+            {
+                return;
+            }
             ActorId.SetValue(actorData.Id);
             SetInitialParameter(actorData);
             CurrentHp.SetValue(Master.InitStatus.Hp);
@@ -181,17 +185,20 @@ namespace Ryneus
         private StatusInfo LevelUpStatusInfo(int level)
         {
             var statusInfo = new StatusInfo();
-            statusInfo.AddParameter(StatusParamType.Hp,Master.InitStatus.Hp);
-            statusInfo.AddParameter(StatusParamType.Mp,Master.InitStatus.Mp);
-            statusInfo.AddParameter(StatusParamType.Atk,Master.InitStatus.Atk);
-            statusInfo.AddParameter(StatusParamType.Def,Master.InitStatus.Def);
-            statusInfo.AddParameter(StatusParamType.Spd,Master.InitStatus.Spd);
-        
-            statusInfo.AddParameter(StatusParamType.Hp,LevelGrowthRate(StatusParamType.Hp,level)); 
-            statusInfo.AddParameter(StatusParamType.Mp,LevelGrowthRate(StatusParamType.Mp,level));  
-            statusInfo.AddParameter(StatusParamType.Atk,LevelGrowthRate(StatusParamType.Atk,level));  
-            statusInfo.AddParameter(StatusParamType.Def,LevelGrowthRate(StatusParamType.Def,level));  
-            statusInfo.AddParameter(StatusParamType.Spd,LevelGrowthRate(StatusParamType.Spd,level));     
+            if (Master != null)
+            {
+                statusInfo.AddParameter(StatusParamType.Hp,Master.InitStatus.Hp);
+                statusInfo.AddParameter(StatusParamType.Mp,Master.InitStatus.Mp);
+                statusInfo.AddParameter(StatusParamType.Atk,Master.InitStatus.Atk);
+                statusInfo.AddParameter(StatusParamType.Def,Master.InitStatus.Def);
+                statusInfo.AddParameter(StatusParamType.Spd,Master.InitStatus.Spd);
+            
+                statusInfo.AddParameter(StatusParamType.Hp,LevelGrowthRate(StatusParamType.Hp,level)); 
+                statusInfo.AddParameter(StatusParamType.Mp,LevelGrowthRate(StatusParamType.Mp,level));  
+                statusInfo.AddParameter(StatusParamType.Atk,LevelGrowthRate(StatusParamType.Atk,level));  
+                statusInfo.AddParameter(StatusParamType.Def,LevelGrowthRate(StatusParamType.Def,level));  
+                statusInfo.AddParameter(StatusParamType.Spd,LevelGrowthRate(StatusParamType.Spd,level));     
+            }
             return statusInfo;
         }
 

@@ -63,7 +63,7 @@ namespace Ryneus
                 image.sprite = handle;
                 if (nativeSize)
                 {
-                    image.SetNativeSize();
+                    UpdateNativeSize();
                 }
             }
         }
@@ -78,6 +78,7 @@ namespace Ryneus
             if (mainThumb != null)
             {
                 UpdateMainThumb(mainThumb,enemyData.ImagePath,0,0,1.0f,false);
+                mainThumb.gameObject.GetComponent<RectTransform>().localScale = new Vector2(enemyData.ImageScale,enemyData.ImageScale);
             }
             if (gridThumb != null)
             {
@@ -104,6 +105,14 @@ namespace Ryneus
                 weakPoints[i].SetListData(new ListData(kindTypes[i]),i);
                 weakPoints[i].UpdateViewItem();
                 weakPoints[i].SetUnSelect();
+            }
+        }
+        
+        public void UpdateNativeSize()
+        {
+            if (mainThumb != null)
+            {
+                mainThumb.SetNativeSize();
             }
         }
 
