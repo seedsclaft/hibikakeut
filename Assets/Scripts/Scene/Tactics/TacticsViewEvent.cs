@@ -22,6 +22,8 @@ namespace Ryneus
             DecideRecord,
             CallEnemyInfo,
             CallAddActorInfo,
+            CallBattleMemberSelect,
+            CallBattleMemberSelectEnd,
             Back,
             SelectSideMenu,
             StageHelp,

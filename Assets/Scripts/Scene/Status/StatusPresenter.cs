@@ -251,6 +251,7 @@ namespace Ryneus
                     CallMemberList();
                     break;
                 case "PARTY_EDIT":
+                    CallMemberList();
                     break;
                 case "RECORD":
                     break;
@@ -280,9 +281,20 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.SelectActor(actorInfo.ActorId.Value);
-            _view.CallEquipSkillList();
-            CommandRefreshMagicList();
-            _view.CommandStatusLayer();
+            switch (_view.SelectCommand.Key)
+            {
+                case "STATUS":
+                    _view.CallEquipSkillList();
+                    CommandRefreshMagicList();
+                    _view.CommandStatusLayer();
+                    break;
+                case "PARTY_EDIT":
+                    break;
+                case "RECORD":
+                    break;
+                case "SYSTEM":
+                    break;
+            }
         }
 
         private void CommandCancelActor()

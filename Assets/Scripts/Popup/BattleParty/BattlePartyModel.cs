@@ -12,6 +12,25 @@ namespace Ryneus
         public ActorInfo CurrentActor => _currentActor;
         public void SetCurrentActorInfo(ActorInfo actorInfo) => _currentActor = actorInfo; 
         
+        private ActorInfo _swapFromActor = null;
+        public ActorInfo SwapFromActor => _swapFromActor;
+        public void SetSwapFromActorInfo(ActorInfo actorInfo) => _swapFromActor = actorInfo; 
+        public void SwapActorInfo(ActorInfo actorInfo)
+        {
+            if (_swapFromActor == null)
+            {
+                return;
+            }
+            if (_swapFromActor == actorInfo)
+            {
+                return;
+            }
+            var fromIndex = _swapFromActor.BattleIndex;
+            var toIndex = actorInfo.BattleIndex;
+            _swapFromActor.BattleIndex = toIndex;
+            actorInfo.BattleIndex = fromIndex;
+        }
+
         public BattlePartyModel()
         {
             SceneParam = (BattlePartySceneInfo)GameSystem.SceneStackManager.LastTemplate;
@@ -56,6 +75,7 @@ namespace Ryneus
 
         public List<ActorInfo> BattlePartyMembers()
         {
+            /*
             var list = new List<ActorInfo>();
             var battleMembers = BattleMembers();
             foreach (var battleMember in battleMembers)
@@ -70,7 +90,8 @@ namespace Ryneus
                     list.Add(stageMember);
                 }
             }
-            return list;
+            */
+            return BattleMembers();
         }
 
         public List<ListData> SelectActorLearningMagicList(int selectAttribute,int selectedSkillId = -1)
@@ -78,10 +99,6 @@ namespace Ryneus
             return ActorLearningMagicList(CurrentActor,selectAttribute,selectedSkillId);
         }
         
-        public void SaveTempBattleMembers()
-        {
-            TempInfo.CashBattleActors(BattleMembers());
-        }
 
         public void SetPartyBattlerIdList()
         {

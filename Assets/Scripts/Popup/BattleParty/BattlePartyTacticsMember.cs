@@ -17,6 +17,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI disableText;
         [SerializeField] private GameObject inBattle;
         [SerializeField] private TextMeshProUGUI battleIndexText;
+        [SerializeField] private GameObject swapSelect;
 
         private bool _levelUpHandler = false;
         private bool _learnMagicHandler = false;        
@@ -63,6 +64,7 @@ namespace Ryneus
             {
                 battleIndexText?.SetText(BattleIndexText(data.BattleIndex.Value));
             }
+            swapSelect?.SetActive(ListData.Selected);
         }
         
         private string BattleIndexText(int battleIndex)

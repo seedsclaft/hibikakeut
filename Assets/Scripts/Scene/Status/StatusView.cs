@@ -12,6 +12,7 @@ namespace Ryneus
     {
         [SerializeField] private Button helpButton = null;
         [SerializeField] private BaseList commandList = null;
+        public SystemData.CommandData SelectCommand => commandList.ListItemData<SystemData.CommandData>();
         [SerializeField] private BaseList memberList = null;
         [SerializeField] private MagicList equipSkillList = null;
         [SerializeField] private MagicList changeSkillList = null;

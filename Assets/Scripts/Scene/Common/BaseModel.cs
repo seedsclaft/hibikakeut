@@ -62,6 +62,11 @@ namespace Ryneus
             return members;
         }
         
+        public void SaveTempBattleMembers()
+        {
+            TempInfo.CashBattleActors(BattleMembers());
+        }
+        
         public List<ActorInfo> PartyMembers()
         {
             return PartyInfo.GetActorInfos();

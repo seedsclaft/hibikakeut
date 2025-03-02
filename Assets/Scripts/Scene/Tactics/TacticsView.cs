@@ -12,6 +12,8 @@ namespace Ryneus
     {
         [SerializeField] private BaseList tacticsCommandList = null;
         public SystemData.CommandData TacticsCommandData => tacticsCommandList.ListItemData<SystemData.CommandData>();
+        [SerializeField] private BaseList battleMemberList = null;
+        public ActorInfo SelectBattleMember => battleMemberList.ListItemData<ActorInfo>();
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent = null;
         [SerializeField] private SymbolList symbolInfoList = null;
@@ -36,6 +38,7 @@ namespace Ryneus
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Tactics);
             InitializeCommandList();
+            InitializeBattleMemberList();
             tacticsAlcana.gameObject.SetActive(false);
             alcanaButton.onClick.AddListener(() => CallAlcanaCheck());
 
@@ -80,6 +83,39 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CallViewEvent(CommandType.CallStatus);
+        }
+
+        private void InitializeBattleMemberList()
+        {
+            battleMemberList.Initialize();
+            battleMemberList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.CallBattleMemberSelect));
+            battleMemberList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.CallBattleMemberSelectEnd));
+            battleMemberList.SetSelectedHandler(() => UpdateHelpWindow());
+            SetInputHandler(battleMemberList.gameObject);
+            AddViewActives(battleMemberList);
+        }
+
+        public void ActivateBattleMemberList()
+        {
+            SetActivate(battleMemberList);
+            battleMemberList.UpdateSelectIndex(0);
+            battleMemberList.Refresh();
+        }
+
+        public void DeactivateBattleMemberList()
+        {
+            battleMemberList.UpdateSelectIndex(-1);
+            SetActivate(tacticsCommandList);
+        }
+
+        public void SetBattleMemberList(List<ListData> memberList)
+        {
+            battleMemberList.SetData(memberList);
+        }
+
+        public void RefreshBattleMemberList(List<ListData> memberList)
+        {
+            battleMemberList.RefreshListData(memberList);
         }
 
         private void InitializeSymbolInfoList()

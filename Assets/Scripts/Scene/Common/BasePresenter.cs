@@ -23,6 +23,16 @@ namespace Ryneus
             return ListData.MakeListData(dataList);
         }
 
+        public List<ListData> MakeListData<T>(List<T> dataList,T selected)
+        {
+            return ListData.MakeListData(dataList,selected);
+        }
+
+        public List<ListData> MakeListData<T>(List<T> dataList,List<T> selected)
+        {
+            return ListData.MakeListData(dataList,selected);
+        }
+
         public bool CheckAdvStageEvent(EventTiming eventTiming,Action endCall,int selectActorId = 0)
         {
             var isAbort = false;

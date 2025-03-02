@@ -212,10 +212,20 @@ namespace Ryneus
         
         private void CommandDecideTacticsMember(ActorInfo actorInfo)
         {
-            _model.SetCurrentActorInfo(actorInfo);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            _model.SetInBattle();
-            _view.RefreshTacticsMembers(MakeListData(_model.BattlePartyMembers()));
+            if (_model.SwapFromActor == null)
+            {
+                // 選択する
+                _model.SetSwapFromActorInfo(actorInfo);
+            } else
+            {
+                // 交換する
+                _model.SwapActorInfo(actorInfo);
+                _model.SetSwapFromActorInfo(null);
+            }
+            
+            //_model.SetInBattle();
+            _view.RefreshTacticsMembers(MakeListData(_model.BattlePartyMembers(),_model.SwapFromActor));
             CommandRefresh();
         }
 

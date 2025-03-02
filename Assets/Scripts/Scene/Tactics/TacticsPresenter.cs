@@ -56,6 +56,7 @@ namespace Ryneus
             //_view.SetSymbols(ListData.MakeListData(_model.TacticsSymbols()));
             _view.SetUIButton();
             _view.SetBackGround(_model.CurrentStage.Master.BackGround);
+            _view.SetBattleMemberList(MakeListData(_model.BattleMembers()));
             //_view.SetNuminous(_model.Currency);
             CommandRefresh();
             PlayTacticsBgm();
@@ -213,6 +214,12 @@ namespace Ryneus
                 case CommandType.CancelSelectSymbol:
                     CommandCancelSelectSymbol();
                     break;
+                case CommandType.CallBattleMemberSelect:
+                    CommandBattleMemberSelect();
+                    break;
+                case CommandType.CallBattleMemberSelectEnd:
+                    CommandBattleMemberSelectEnd();
+                    break;
                 case CommandType.Back:
                     CommandBack();
                     break;
@@ -277,6 +284,74 @@ namespace Ryneus
 
         private void CommandBattleStart()
         {
+            var battleMembers = _model.BattleMembers();
+            if (battleMembers.Count > 0)
+            {
+                var stageMembers = _model.StageMembers();
+                // バトル人数が最大でないのでチェック
+                if (battleMembers.Count < 5 && battleMembers.Count < stageMembers.Count)
+                {
+                    CheckBattleLessMember();
+                } else
+                {
+                    BattleStart(); 
+                }
+            } else
+            {
+                CheckBattleMember();
+            }
+        }
+
+        private void CheckBattleMember()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Deny);
+            CommandCautionInfo(DataSystem.GetText(19400));
+        }
+
+        private void CheckBattleLessMember()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Deny);
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(19401),(a) => 
+            {
+                if (a == ConfirmCommandType.Yes)
+                {
+                    BattleStart();
+                }
+            });
+            _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void BattleStart()
+        {
+            var currentSymbol = _view.SelectSymbolInfo;
+
+            _model.SaveTempBattleMembers();
+            _view.CommandChangeViewToTransition(null);
+            _view.ChangeUIActive(false);
+            // ボス戦なら
+            if (currentSymbol.Master.SymbolType == SymbolType.Boss)
+            {
+                PlayBossBgm();
+            } else
+            {
+                var bgmData = _model.TacticsBgmData();
+                if (bgmData.CrossFade != "" && SoundManager.Instance.CrossFadeMode)
+                {
+                    SoundManager.Instance.ChangeCrossFade();
+                } else
+                {
+                    PlayTacticsBgm();
+                }
+            }
+            SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
+            var battleSceneInfo = new BattleSceneInfo
+            {
+                ActorInfos = _model.BattleMembers(),
+                EnemyInfos = currentSymbol.BattlerInfos(),
+                GetItemInfos = _model.CurrentSymbolInfo()?.GetItemInfos,
+                BossBattle = _model.CurrentSymbolInfo().SymbolType == SymbolType.Boss,
+            };
+            _view.CommandSceneChange(Scene.Battle,battleSceneInfo);
         }
 
         private void CommandCallSymbol()
@@ -290,6 +365,44 @@ namespace Ryneus
             _view.CommandRefresh();
             _view.UpdatePartyInfo(_model.PartyInfo);
             _view.SetViewBusy(true);
+        }
+
+        private void CommandCallEdit()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _view.ActivateBattleMemberList();
+        }
+
+        private void CommandBattleMemberSelect()
+        {
+            var actorInfo = _view.SelectBattleMember;
+            if (actorInfo == null)
+            {
+                return;
+            }
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            if (_model.SwapFromActor == null)
+            {
+                // 選択する
+                _model.SetSwapFromActorInfo(actorInfo);
+            } else
+            {
+                // 交換する
+                _model.SwapActorInfo(actorInfo);
+                _model.SetSwapFromActorInfo(null);
+            }
+            
+            _view.RefreshBattleMemberList(MakeListData(_model.BattleMembers(),_model.SwapFromActor));
+            CommandRefresh();
+        }
+
+        private void CommandBattleMemberSelectEnd()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _model.SetSwapFromActorInfo(null);
+            _view.RefreshBattleMemberList(MakeListData(_model.BattleMembers(),_model.SwapFromActor));
+            CommandRefresh();
+            _view.DeactivateBattleMemberList();
         }
 
         private void CommandSave()
@@ -321,7 +434,8 @@ namespace Ryneus
                 {
                     case SymbolType.Battle:
                     case SymbolType.Boss:
-                        CommandCheckBattleStart();
+                        CommandBattleStart();
+                        //CommandCheckBattleStart();
                         return;
                     case SymbolType.Alcana:
                         // 獲得スキルが1つなら
@@ -434,6 +548,9 @@ namespace Ryneus
             {
                 case "PARADIGM":
                     CommandCallSymbol();
+                    break;
+                case "EDIT":
+                    CommandCallEdit();
                     break;
                 case "SAVE":
                     CommandSave();

@@ -14,6 +14,25 @@ namespace Ryneus
             SetFirstBattleActorId();
         }
         
+        private ActorInfo _swapFromActor = null;
+        public ActorInfo SwapFromActor => _swapFromActor;
+        public void SetSwapFromActorInfo(ActorInfo actorInfo) => _swapFromActor = actorInfo; 
+        public void SwapActorInfo(ActorInfo actorInfo)
+        {
+            if (_swapFromActor == null)
+            {
+                return;
+            }
+            if (_swapFromActor == actorInfo)
+            {
+                return;
+            }
+            var fromIndex = _swapFromActor.BattleIndex;
+            var toIndex = actorInfo.BattleIndex;
+            _swapFromActor.BattleIndex = toIndex;
+            actorInfo.BattleIndex = fromIndex;
+        }
+
         public bool IsCurrentSeekSymbolInfo(SymbolInfo symbolInfo)
         {
             return symbolInfo?.Master.Seek == PartyInfo.Seek.Value;
