@@ -40,7 +40,7 @@ namespace Ryneus
             subText.SetText(text);
         }
 
-        public void StartAnim(bool inBattle)
+        public void StartAnim(bool inBattle,float delay = 0)
         {
             _busy = true;
             Reset();
@@ -48,7 +48,7 @@ namespace Ryneus
             var duration = 0.1f / speedRate;
             mainText.transform.DOScaleY(0.95f,0);
             var main = DOTween.Sequence()
-                .SetDelay(duration)
+                .SetDelay(duration + delay)
                 .Append(mainText.DOFade(1f,0f))
                 .Append(mainText.transform.DOScale(0.95f,duration * 4))
                 .AppendInterval(duration * 12)
@@ -58,7 +58,7 @@ namespace Ryneus
         
             subText.transform.DOScaleY(0.95f,0);
             var sub = DOTween.Sequence()
-                .SetDelay(duration)
+                .SetDelay(duration + delay)
                 .Append(subText.DOFade(1f,0f))
                 .Append(subText.transform.DOScale(1.25f,duration * 8))
                 .Join(subText.DOFade(0, duration * 8))
@@ -70,13 +70,14 @@ namespace Ryneus
 
             lineWhite.transform.DOScaleY(0.95f,0);
             var white = DOTween.Sequence()
+                .SetDelay(delay)
                 .Append(lineWhite.transform.DOScaleY(1f,duration / 5))
                 .Append(lineWhite.transform.DOScaleY(0.08f,duration))
                 .Join(lineWhite.DOFade(0f, duration * 16))
                 .SetEase(Ease.InOutQuad);
 
             var black = DOTween.Sequence()
-                .SetDelay(duration)
+                .SetDelay(duration + delay)
                 .Append(backBlack.DOFade(1f, duration))
                 .Join(backBlack.transform.DOScaleY(1f,duration))
                 .AppendInterval(duration * 16)

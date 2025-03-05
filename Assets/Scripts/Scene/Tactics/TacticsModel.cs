@@ -33,6 +33,20 @@ namespace Ryneus
             actorInfo.BattleIndex = fromIndex;
         }
 
+        public bool StageStart()
+        {
+            if (PartyInfo != null)
+            {
+                return PartyInfo.StartStage.Value == false;
+            }
+            return false;
+        }
+
+        public Effekseer.EffekseerEffectAsset StartStageAnimation()
+        {
+            return ResourceSystem.LoadResourceEffect("IceOne1");
+        }
+
         public bool IsCurrentSeekSymbolInfo(SymbolInfo symbolInfo)
         {
             return symbolInfo?.Master.Seek == PartyInfo.Seek.Value;
@@ -64,12 +78,7 @@ namespace Ryneus
             return StageMembers().Find(a => a.ActorId.Value == _selectActorId);
         }
 
-        private int _firstRecordIndex = -1;
-        public int FirstRecordIndex => _firstRecordIndex;
-
         private List<int> _shopSelectIndexes = new ();
-
-
 
         public List<SystemData.CommandData> TacticsCommand()
         {

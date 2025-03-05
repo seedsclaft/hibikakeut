@@ -17,6 +17,7 @@ namespace Ryneus
             PartyInfo.StageId.SetValue(stageId);
             PartyInfo.Seek.SetValue(1);
             PartyInfo.SeekIndex.SetValue(0);
+            PartyInfo.StartStage.SetValue(false);
         }
         
         public List<GetItemInfo> StageOpeningGetItemInfos(int stageId,int clearCount)

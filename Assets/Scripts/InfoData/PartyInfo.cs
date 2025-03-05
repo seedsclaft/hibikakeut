@@ -31,6 +31,8 @@ namespace Ryneus
         public ParameterInt StageId = new();
         public ParameterInt Seek = new();
         public ParameterInt SeekIndex = new();
+        public ParameterBool StartStage = new ();
+
 
         // 所持金
         public ParameterInt Currency = new();

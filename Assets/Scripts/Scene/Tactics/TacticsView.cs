@@ -26,6 +26,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI numinousText = null;
         [SerializeField] private _2dxFX_NoiseAnimated _2DxFX_NoiseAnimated = null;
         [SerializeField] private TextMeshProUGUI pastText = null;
+        [SerializeField] private BattleStartAnim battleStartAnim = null;
+        [SerializeField] private Effekseer.EffekseerEmitter effekseerEmitter = null;
 
         private bool _viewBusy = false;
         public void SetViewBusy(bool isBusy)
@@ -55,6 +57,7 @@ namespace Ryneus
             alcanaSelectList.Initialize();
             HideSymbolRecord();
             alcanaSelectList.Hide();
+            battleStartAnim.Reset();
             var presenter = new TacticsPresenter(this);
             presenter.CommandReturnStrategy();
         }
@@ -167,8 +170,20 @@ namespace Ryneus
             symbolInfoList.UpdatePartyInfo(partyInfo);
         }
 
+        public void StartStageAnimation(Effekseer.EffekseerEffectAsset effekseerEffect)
+        {
+            if (effekseerEmitter == null)
+            {
+                return;
+            }
+            effekseerEmitter.Play(effekseerEffect);
+            StartAnimation();
+        }
+
         public void StartAnimation()
         {
+            battleStartAnim.SetText("Ready!");
+            battleStartAnim.StartAnim(false,0.5f);
         }
 
         private void CallSideMenu()

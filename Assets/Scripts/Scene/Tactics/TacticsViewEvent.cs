@@ -10,7 +10,6 @@ namespace Ryneus
             None = 0,
             CallTacticsCommand,
             CallStatus,
-            CallSymbol,
             OnClickSymbol,
             OnCancelSymbol,
             SelectSymbol,

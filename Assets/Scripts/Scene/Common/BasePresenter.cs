@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -86,11 +87,17 @@ namespace Ryneus
             SoundManager.Instance.FadeOutBgs();
         }
 
-        public async void PlayTacticsBgm(float timeStamp = 0)
+        public async UniTask PlayTacticsBgm(float timeStamp = 0)
         {
             var bgmData = _model.TacticsBgmData();
-            var bgm = await _model.GetBgmData(bgmData.Key);
-            SoundManager.Instance.PlayBgm(bgm,bgmData.Volume,bgmData.Loop,timeStamp);
+            if (bgmData != null)
+            {
+                var bgm = await _model.GetBgmData(bgmData.Key);
+                SoundManager.Instance.PlayBgm(bgm,bgmData.Volume,bgmData.Loop,timeStamp);
+            } else
+            {
+                SoundManager.Instance.FadeOutBgm();
+            }
         }
 
         public async void PlayBossBgm()

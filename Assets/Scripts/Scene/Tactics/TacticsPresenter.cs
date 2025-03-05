@@ -61,7 +61,6 @@ namespace Ryneus
             CommandRefresh();
             PlayTacticsBgm();
             _view.ChangeUIActive(true);
-            _view.StartAnimation();
             // チュートリアル確認
             //CheckTutorialState();
         }
@@ -173,17 +172,14 @@ namespace Ryneus
             //Debug.Log(viewEvent.commandType);
             switch (viewEvent.ViewCommandType.CommandType)
             {
-                case CommandType.CallSymbol:
-                    CommandCallSymbol();
+                case CommandType.CallTacticsCommand:
+                    CommandCallTacticsCommand();
                     break;
                 case CommandType.OnClickSymbol:
                     CommandOnClickSymbol((SymbolInfo)viewEvent.template);
                     break;
                 case CommandType.OnCancelSymbol:
                     CommandOnCancelSymbol();
-                    break;
-                case CommandType.CallTacticsCommand:
-                    CommandCallTacticsCommand();
                     break;
                 case CommandType.CallStatus:
                     CommandStatus();
@@ -282,6 +278,20 @@ namespace Ryneus
             _view.CommandCallPopup(popupInfo);
         }
 
+        private void CommandStartStage()
+        {
+            // 演出
+            SoundManager.Instance.StopBgm();
+            _model.PartyInfo.StartStage.SetValue(true);
+            PlayStartBattleBgm();
+            var animation = _model.StartStageAnimation();
+            _view.StartStageAnimation(animation);
+            _view.WaitFrame(120,() => 
+            {
+                BattleStart();
+            });
+        }
+
         private void CommandBattleStart()
         {
             var battleMembers = _model.BattleMembers();
@@ -294,7 +304,14 @@ namespace Ryneus
                     CheckBattleLessMember();
                 } else
                 {
-                    BattleStart(); 
+                    if (_model.PartyInfo.StartStage.Value == false)
+                    {
+                        CommandStartStage();
+                    } else
+                    {
+                        PlayStartBattleBgm();
+                        BattleStart(); 
+                    }
                 }
             } else
             {
@@ -315,6 +332,7 @@ namespace Ryneus
             {
                 if (a == ConfirmCommandType.Yes)
                 {
+                    PlayStartBattleBgm();
                     BattleStart();
                 }
             });
@@ -328,6 +346,19 @@ namespace Ryneus
             _model.SaveTempBattleMembers();
             _view.CommandChangeViewToTransition(null);
             _view.ChangeUIActive(false);
+            var battleSceneInfo = new BattleSceneInfo
+            {
+                ActorInfos = _model.BattleMembers(),
+                EnemyInfos = currentSymbol.BattlerInfos(),
+                GetItemInfos = _model.CurrentSymbolInfo()?.GetItemInfos,
+                BossBattle = _model.CurrentSymbolInfo().SymbolType == SymbolType.Boss,
+            };
+            _view.CommandSceneChange(Scene.Battle,battleSceneInfo);
+        }
+
+        private async void PlayStartBattleBgm()
+        {
+            var currentSymbol = _view.SelectSymbolInfo;
             // ボス戦なら
             if (currentSymbol.Master.SymbolType == SymbolType.Boss)
             {
@@ -340,23 +371,14 @@ namespace Ryneus
                     SoundManager.Instance.ChangeCrossFade();
                 } else
                 {
-                    PlayTacticsBgm();
+                    await PlayTacticsBgm();
                 }
             }
             SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
-            var battleSceneInfo = new BattleSceneInfo
-            {
-                ActorInfos = _model.BattleMembers(),
-                EnemyInfos = currentSymbol.BattlerInfos(),
-                GetItemInfos = _model.CurrentSymbolInfo()?.GetItemInfos,
-                BossBattle = _model.CurrentSymbolInfo().SymbolType == SymbolType.Boss,
-            };
-            _view.CommandSceneChange(Scene.Battle,battleSceneInfo);
         }
 
         private void CommandCallSymbol()
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _view.ShowSymbolRecord();
             _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex.Value,_model.PartyInfo.Seek.Value);
             _view.HideRecordList();
@@ -547,10 +569,12 @@ namespace Ryneus
 
         private void CommandCallTacticsCommand()
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var tacticsCommandData = _view.TacticsCommandData;
             switch (tacticsCommandData.Key)
             {
                 case "PARADIGM":
+                    // 初回演出
                     CommandCallSymbol();
                     break;
                 case "EDIT":

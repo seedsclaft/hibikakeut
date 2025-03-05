@@ -177,10 +177,21 @@ namespace Ryneus
 
         public BGMData TacticsBgmData()
         {
-            if (CurrentStage != null)
+            if (CurrentStage != null && PartyInfo != null)
             {
-                var bgmData = DataSystem.Data.GetBGM(CurrentStage.Master.BGMId);
-                return bgmData;
+                if (CurrentStage.EndSeek == PartyInfo.Seek.Value)
+                {
+                    return null;
+                }
+                int bgmId;
+                if (PartyInfo.StartStage.Value == false)
+                {
+                    bgmId = CurrentStage.Master.MenuBGMId;
+                } else
+                {
+                    bgmId = CurrentStage.Master.BGMId;
+                }
+                return DataSystem.Data.GetBGM(bgmId);
             }
             return null;
         }

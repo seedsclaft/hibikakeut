@@ -26,6 +26,7 @@ namespace Ryneus
         public string BackGround;
         public int BGMId;
         public int BossBGMId;
+        public int MenuBGMId;
         public List<StageEventData> StageEvents;
         public List<StageSymbolData> StageSymbols;
     }

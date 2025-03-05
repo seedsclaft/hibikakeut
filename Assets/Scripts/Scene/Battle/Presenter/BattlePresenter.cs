@@ -534,7 +534,7 @@ namespace Ryneus
                 strategySceneInfo.GetItemInfos = new List<GetItemInfo>();  
                 strategySceneInfo.BattleTurn = -1; 
                 strategySceneInfo.BattleResultScore = _model.MakeBattleScore(false,strategySceneInfo);
-                strategySceneInfo.BattleResultVictory = false;
+                strategySceneInfo.BattleResultVictory = false; 
                 _model.CurrentStage.GainLoseCount();
             } else
             if (_model.CheckVictory())

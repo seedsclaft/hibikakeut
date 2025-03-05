@@ -5,6 +5,8 @@ using System;
 namespace Ryneus
 {
     using Strategy;
+    using Utage;
+
     public class StrategyPresenter : BasePresenter
     {
         StrategyModel _model = null;
@@ -39,15 +41,17 @@ namespace Ryneus
             return isAbort;
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             _busy = true;
             _view.SetHelpWindow();
 
             _view.InitResultList(MakeListData(_model.ResultCommand()));
             _view.SetBackGround(_model.CurrentStage.Master.BackGround);
-            //var bgm = await _model.GetBgmData(_model.TacticsBgmKey());
-            //SoundManager.Instance.PlayBgm(bgm,1.0f,true);
+            if (_model.StageEnd())
+            {
+                SoundManager.Instance.FadeOutBgm();
+            }
             _view.SetEvent((type) => UpdateCommand(type));
 
             CommandStartStrategy();

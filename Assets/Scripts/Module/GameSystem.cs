@@ -260,12 +260,13 @@ namespace Ryneus
         {
             var prefab = confirmAssign.CreateConfirm(confirmInfo.ConfirmType,helpWindow);
             var confirmView = prefab.GetComponent<ConfirmView>();
+            confirmView.SetEvent((type) => UpdateCommand(type));
             confirmView.Initialize();
             confirmView.SetViewInfo(confirmInfo);
             confirmView.SetBackEvent(() => 
             {
+                confirmView.CallSystemCommand(Base.CommandType.CloseConfirm);
                 confirmInfo.BackEvent?.Invoke();
-                UpdateCommand(new ViewEvent(Base.CommandType.CloseConfirm));
             });
             SetIsBusyMainAndStatus();
         }
@@ -274,6 +275,7 @@ namespace Ryneus
         {
             var prefab = confirmAssign.CreateConfirm(ConfirmType.Caution,helpWindow);
             var confirmView = prefab.GetComponent<CautionView>();
+            confirmView.SetEvent((type) => UpdateCommand(type));
             confirmView.Initialize();
             if (confirmInfo.Title != null)
             {
@@ -295,7 +297,7 @@ namespace Ryneus
             baseView.Initialize();
             baseView.SetBackEvent(() => 
             {
-                baseView.CallSystemCommand((object)Base.CommandType.ClosePopup);
+                baseView.CallSystemCommand(Base.CommandType.ClosePopup);
                 popupInfo.EndEvent?.Invoke();
             });
             if (popupInfo.PopupType == PopupType.LearnSkill)
@@ -315,6 +317,7 @@ namespace Ryneus
         {
             var prefab = popupAssign.CreatePopup(PopupType.Option,helpWindow);
             var optionView = prefab.GetComponent<OptionView>();
+            optionView.SetEvent((type) => UpdateCommand(type));
             optionView.Initialize();
             optionView.SetBackEvent(() => 
             {
@@ -341,7 +344,7 @@ namespace Ryneus
             skillTriggerView.Initialize();
             skillTriggerView.SetBackEvent(() => 
             {
-                skillTriggerView.CallSystemCommand((object)Base.CommandType.ClosePopup);
+                skillTriggerView.CallSystemCommand(Base.CommandType.ClosePopup);
                 skillTriggerViewInfo.EndEvent?.Invoke();
             });
             SetIsBusyMainAndStatus();
@@ -351,9 +354,9 @@ namespace Ryneus
         {
             var prefab = popupAssign.CreatePopup(PopupType.SkillLog,helpWindow);
             var skillLogView = prefab.GetComponent<SkillLogView>();
+            skillLogView.SetEvent((type) => UpdateCommand(type));
             skillLogView.Initialize();
             skillLogView.SetSkillLogViewInfo(skillLogViewInfo.SkillLogListInfos);
-            skillLogView.SetEvent((type) => UpdateCommand(type));
             skillLogView.SetBackEvent(() => 
             {
                 skillLogView.CallSystemCommand((object)Base.CommandType.ClosePopup);
@@ -366,8 +369,8 @@ namespace Ryneus
         {
             var prefab = popupAssign.CreatePopup(PopupType.SideMenu,helpWindow);
             var sideMenuView = prefab.GetComponent<SideMenuView>();
-            sideMenuView.Initialize();
             sideMenuView.SetEvent((type) => UpdateCommand(type));
+            sideMenuView.Initialize();
             sideMenuView.SetBackEvent(() => 
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
@@ -381,8 +384,8 @@ namespace Ryneus
         {
             var prefab = popupAssign.CreatePopup(PopupType.Ranking,helpWindow);
             var rankingView = prefab.GetComponent<RankingView>();
-            rankingView.Initialize();
             rankingView.SetEvent((type) => UpdateCommand(type));
+            rankingView.Initialize();
             rankingView.SetRankingViewInfo(rankingViewInfo);
             rankingView.SetBackEvent(() => 
             {
@@ -396,6 +399,7 @@ namespace Ryneus
         {
             var prefab = popupAssign.CreatePopup(PopupType.CharacterList,helpWindow);
             var characterListView = prefab.GetComponent<CharacterListView>();
+            characterListView.SetEvent((type) => UpdateCommand(type));
             characterListView.Initialize(characterListInfo.ActorInfos);
             characterListView.SetViewInfo(characterListInfo);
             characterListView.SetBackEvent(() => 
@@ -410,6 +414,7 @@ namespace Ryneus
         {
             var prefab = popupAssign.CreatePopup(PopupType.Help,helpWindow);
             var helpView = prefab.GetComponent<HelpView>();
+            helpView.SetEvent((type) => UpdateCommand(type));
             helpView.Initialize();
             helpView.SetHelp(helpTextList);
             helpView.SetBackEvent(() => 

@@ -26,10 +26,19 @@ namespace Ryneus
             _sceneParam = null;
         }
 
+        public bool StageEnd()
+        {
+            if (CurrentStage != null && PartyInfo != null)
+            {
+                return CurrentStage.EndSeek == PartyInfo.Seek.Value && _inBattleResult;
+            }
+            return false;
+        }
+
         private List<StrategyResultViewInfo> _resultInfos = new();
         public List<StrategyResultViewInfo> ResultViewInfos => _resultInfos;
 
-        private string _saveHumanText = "";
+
         
         private List<SkillInfo> _relicData = new();
         public List<SkillInfo> RelicData => _relicData;
@@ -57,9 +66,9 @@ namespace Ryneus
 
         public List<ActorInfo> TacticsActors()
         {
-            if (SceneParam != null)
+            if (_sceneParam != null)
             {
-                return SceneParam.ActorInfos;
+                return _sceneParam.ActorInfos;
             }
             return null;
         }
@@ -87,7 +96,7 @@ namespace Ryneus
 
         public void MakeResult()
         {
-            var getItemInfos = SceneParam.GetItemInfos;
+            var getItemInfos = _sceneParam.GetItemInfos;
             
             var lvUpList = new List<ActorInfo>();
             // Expを付与する,結果非表示
@@ -202,7 +211,7 @@ namespace Ryneus
 
         public void MakeSelectRelic(int skillId)
         {
-            var getItemInfos = SceneParam.GetItemInfos;
+            var getItemInfos = _sceneParam.GetItemInfos;
             var selectRelicInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Skill);
             // 魔法取得
             var selectRelic = selectRelicInfos.Find(a => a.Param1 == skillId);
@@ -227,26 +236,13 @@ namespace Ryneus
             _learnSkillInfo.RemoveAt(0);
         }
 
-        public string BattleSaveHumanResultInfo()
-        {
-            if (!_inBattleResult)
-            {
-                return null;
-            }
-            if (_saveHumanText != "")
-            {
-                return _saveHumanText;
-            }
-            return null;
-        }
-
         public string BattleResultTurn()
         {
             if (!_inBattleResult)
             {
                 return null;
             }
-            var turn = SceneParam.BattleTurn;
+            var turn = _sceneParam.BattleTurn;
             if (turn > 0)
             {
                 return turn.ToString() + "ターン";
@@ -260,7 +256,7 @@ namespace Ryneus
             {
                 return null;
             }
-            var recordScore = SceneParam.BattleResultScore;
+            var recordScore = _sceneParam.BattleResultScore;
             if (recordScore >= 0)
             {
                 return "+" + (recordScore*0.01f).ToString("F2") + "%";
@@ -274,7 +270,7 @@ namespace Ryneus
             {
                 return null;
             }
-            var remainHpPercent = SceneParam.BattleRemainHpPercent;
+            var remainHpPercent = _sceneParam.BattleRemainHpPercent;
             if (remainHpPercent > 0)
             {
                 return remainHpPercent.ToString() + "%";
@@ -288,7 +284,7 @@ namespace Ryneus
             {
                 return null;
             }
-            var maxDamage = SceneParam.BattleMaxDamage;
+            var maxDamage = _sceneParam.BattleMaxDamage;
             if (maxDamage > 0)
             {
                 return maxDamage.ToString();
@@ -306,7 +302,7 @@ namespace Ryneus
             {
                 return null;
             }
-            var defeatedCount = SceneParam.BattleDefeatedCount;
+            var defeatedCount = _sceneParam.BattleDefeatedCount;
             if (defeatedCount >= 0)
             {
                 return defeatedCount.ToString();
@@ -316,7 +312,7 @@ namespace Ryneus
 
         public List<ActorInfo> BattleResultActors()
         {
-            return SceneParam.ActorInfos;
+            return _sceneParam.ActorInfos;
         }
 
         public void ClearBattleData(List<ActorInfo> actorInfos)

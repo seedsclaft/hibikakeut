@@ -88,6 +88,7 @@ namespace Ryneus
 						StageData.BackGround = AssetPostImporter.ImportString(BaseRow,"BackGround");
 						StageData.BGMId = AssetPostImporter.ImportNumeric(BaseRow,"BGMId");
 						StageData.BossBGMId = AssetPostImporter.ImportNumeric(BaseRow,"BossBGMId");
+						StageData.MenuBGMId = AssetPostImporter.ImportNumeric(BaseRow,"MenuBGMId");
 						
 						StageData.StageEvents = new List<StageEventData>();
 						
