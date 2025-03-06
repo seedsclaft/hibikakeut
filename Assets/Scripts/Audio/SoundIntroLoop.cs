@@ -26,19 +26,38 @@ namespace Ryneus
             {
                 return -1;
             }
-            var timeSamples = _introAudioSource.timeSamples();
-            if (timeSamples > 0)
+            if (_introAudioSource.IsLoopEnded(_reservedTime))
             {
-                return timeSamples / _introAudioSource.Clip.length;
+                var timeSamples = _loopAudioSource.timeSamples();
+                if (timeSamples > 0)
+                {
+                    return timeSamples / _loopAudioSource.Clip.length;
+                }
+            } else
+            {
+                var timeSamples = _introAudioSource.timeSamples();
+                if (timeSamples > 0)
+                {
+                    return timeSamples / _introAudioSource.Clip.length;
+                }
             }
             return -1;
         }
 
         public float TimeStampPer(float per)
         {
-            if (_introAudioSource != null)
+            if (_introAudioSource.IsLoopEnded(_reservedTime))
             {
-                return _introAudioSource.Clip.length * per;
+                if (_loopAudioSource != null)
+                {
+                    return _loopAudioSource.Clip.length * per;
+                }
+            } else
+            {
+                if (_introAudioSource != null)
+                {
+                    return _introAudioSource.Clip.length * per;
+                }
             }
             return 0;
         }
@@ -101,8 +120,6 @@ namespace Ryneus
         {
             if (_nowPlayIndex == 2 && _introAudioSource.IsLoopEnded(_reservedTime))
             {
-                //_loopAudioSource.Play(0);
-                //_introAudioSource.Stop();
                 float reserve = _introAudioSource.ReserveTimeSample - _introAudioSource.timeSamples();
                 _nowPlayIndex = 0;
                 _loopAudioSource.PlayDelay(reserve / 44100);
@@ -182,8 +199,16 @@ namespace Ryneus
                 if (_introAudioSource.Clip != null)
                 {
                     _introAudioSource.SetReserveTimestamp();
-                    _introAudioSource.Play((int)timeStamp);
-                    _nowPlayIndex = 2;
+                    if (_introAudioSource.IsLoopEnded(_reservedTime))
+                    {
+                        float reserve = _introAudioSource.ReserveTimeSample - _introAudioSource.timeSamples();
+                        _nowPlayIndex = 0;
+                        _loopAudioSource.Play((int)timeStamp);
+                    } else
+                    {
+                        _introAudioSource.Play((int)timeStamp);
+                        _nowPlayIndex = 2;
+                    }
                     //_loopAudioSource.PlayScheduled(AudioSettings.dspTime + _introAudioSource.clip.length);
                 } else
                 {
@@ -231,10 +256,16 @@ namespace Ryneus
             if (_introAudioSource.isPlaying())
             {
                 _introAudioSource.FadeVolume(targetVolume,duration);
+            } else
+            {
+                _introAudioSource.ChangeVolume(targetVolume);
             }
             if (_loopAudioSource.isPlaying())
             {
                 _loopAudioSource.FadeVolume(targetVolume,duration);
+            } else
+            {   
+                _loopAudioSource.ChangeVolume(targetVolume);
             }
         }
     }

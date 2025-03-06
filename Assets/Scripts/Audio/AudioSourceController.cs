@@ -47,6 +47,13 @@ namespace Ryneus
         public void Stop()
         {
             if (_audioSource == null) return;
+            //_audioSource.volume = 0;
+            if (_toFadeSequence != null)
+            {
+                _toFadeSequence.Kill();
+                _toFadeSequence = null;
+                return;
+            }
             _audioSource.Stop();
             _isPlay = false;
         }
@@ -58,8 +65,6 @@ namespace Ryneus
             {
                 _toFadeSequence.Kill();
                 _toFadeSequence = null;
-                _audioSource.volume = _toFadeVolume;
-                return;
             }
             _audioSource.volume = volume;
         }
@@ -93,9 +98,9 @@ namespace Ryneus
             return _audioSource.timeSamples;
         }
 
-        public bool IsLoopEnded(float _reservedTime)
+        public bool IsLoopEnded(float reservedTime)
         {
-            if (timeSamples() >= (ReserveTimeSample - _reservedTime))
+            if (timeSamples() >= (ReserveTimeSample - reservedTime))
             {
                 return true;
             }

@@ -13,10 +13,6 @@ namespace Ryneus
             var stageEvents = _model.StageEvents(EventTiming.StartTactics);
             foreach (var stageEvent in stageEvents)
             {
-                if (_eventBusy)
-                {
-                    continue;
-                }
                 switch (stageEvent.Type)
                 {
                     case StageEventType.CommandDisable:
@@ -33,7 +29,6 @@ namespace Ryneus
                         
                         break;
                     case StageEventType.SaveCommand:
-                        _eventBusy = true;
                         _model.AddEventReadFlag(stageEvent);
                         CommandSave(true);
                         break;
@@ -43,12 +38,10 @@ namespace Ryneus
                         _view.CallSystemCommand(Base.CommandType.SetRouteSelect);
                         break;
                     case StageEventType.ClearStage:
-                        _eventBusy = true;
                         _model.AddEventReadFlag(stageEvent);
                         _view.CommandGotoSceneChange(Scene.MainMenu);
                         break;
                     case StageEventType.ChangeRouteSelectStage:
-                        _eventBusy = true;
                         _model.AddEventReadFlag(stageEvent);
                         _view.CommandGotoSceneChange(Scene.Tactics);
                         break;
@@ -66,13 +59,9 @@ namespace Ryneus
         }
 
 
-        private bool CheckAdvEvent(EventTiming eventTiming,Action endEvent)
+        private AdvCallInfo CheckAdvEvent(EventTiming eventTiming)
         {
-            var isAbort = CheckAdvStageEvent(eventTiming,() => 
-            {
-                endEvent?.Invoke();
-            },-1);
-            return isAbort;
+            return CheckAdvStageEvent(eventTiming);
         }
 
 

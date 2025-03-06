@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 namespace Ryneus
 {
@@ -37,6 +38,15 @@ namespace Ryneus
                 }
             }
             return saveFileInfos;
+        }
+
+        public int SaveFileLastIndex()
+        {
+            if (CurrentData.LastSaveIndex != null)
+            {
+                return CurrentData.LastSaveIndex.Value;
+            }
+            return 0;
         }
 
         public bool DecideFile(SaveFileInfo saveFileInfo)

@@ -123,6 +123,12 @@ namespace Ryneus
             CurrentStage.SeekIndex.SetValue(seekIndex);
         }
 
+        public SymbolInfo SelectedSymbol()
+        {
+            int seekIndex = CurrentStage.SeekIndex.Value;
+            return CurrentStage.SymbolInfos.Find(a => a.Master.Seek == PartyInfo.Seek.Value && a.Master.SeekIndex == seekIndex);
+        }
+
         public List<SkillInfo> AlcanaMagicSkillInfos(List<GetItemInfo> getItemInfos)
         {
             var skillInfos = new List<SkillInfo>();

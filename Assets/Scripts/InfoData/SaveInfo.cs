@@ -18,6 +18,7 @@ namespace Ryneus
 			{
 				_saveFileInfos.RemoveAt(findIndex);
 				_saveFileInfos.Insert(findIndex,saveFileInfo);
+				LastSaveIndex.SetValue(findIndex);
 			} else
 			{
 				_saveFileInfos.Add(saveFileInfo);
@@ -25,10 +26,13 @@ namespace Ryneus
 			_saveFileInfos.Sort((a,b) => a.SaveNo - b.SaveNo > 0 ? 1 : -1);
 		}
 
+        public ParameterInt LastSaveIndex = new();
+
 		public SaveInfo()
 		{
 			_playerInfo = new PlayerInfo();
 			_saveFileInfos.Add(new SaveFileInfo());
+			LastSaveIndex.SetValue(1);
 		}
 
 		public void SetPlayerName(string name)

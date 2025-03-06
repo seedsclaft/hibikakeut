@@ -26,7 +26,7 @@ namespace Ryneus
         
         private bool _crossFadeMode = false;
         public bool CrossFadeMode => _crossFadeMode;
-        private bool _mainTrack = true;
+        private bool _playingIsMain = true;
 
         private string _lastPlayAudio = "";
         private float _lastBgmVolume = 0f;
@@ -94,8 +94,8 @@ namespace Ryneus
                 playingTrack.ChangeVolume(0);
             } else
             {
-                var volume = _bgmVolume * _lastBgmVolume;
-                playingTrack.ChangeVolume(volume);
+                //var volume = _bgmVolume * _lastBgmVolume;
+                //playingTrack.ChangeVolume(volume);
             }
         }
 
@@ -125,18 +125,18 @@ namespace Ryneus
             _lastBgmVolume = volume;
             _lastPlayAudio = clips[0].name;
             // これから再生するTrackを停止して再生
-            var playTrack = _mainTrack ? _bgmSub : _bgmMain;
+            var playTrack = _playingIsMain ? _bgmSub : _bgmMain;
             playTrack.Stop();
             playTrack.SetClip(clips,loop);
             playTrack.Play(timeStamp);
             playTrack.FadeVolume(volume * _bgmVolume,1);
             
             // 再生中の方をフェードアウト
-            var playingTrack = _mainTrack ? _bgmMain : _bgmSub;
+            var playingTrack = _playingIsMain ? _bgmMain : _bgmSub;
             playingTrack.FadeVolume(0,1);
-            UpdateBgmVolume();
+            //UpdateBgmVolume();
             _crossFadeMode = false;
-            _mainTrack = !_mainTrack;
+            _playingIsMain = !_playingIsMain;
         }
 
         public void PlayBgs(AudioClip clip, float volume = 1.0f, bool loop = true)
@@ -149,26 +149,10 @@ namespace Ryneus
             _bgsTrack.FadeVolume(volume * _bgmVolume,1);
         }
 
-        public void PlayCrossFadeBgm(List<AudioClip> clip, float volume = 1.0f)
-        {
-            if (clip.Count < 2) return;
-            if (clip[0].name == _lastPlayAudio) return;
-            _bgmMain.Stop();
-            _bgmMain.SetSoloClip(clip[0]);
-            _lastBgmVolume = volume;
-            _lastPlayAudio = clip[0].name;
-
-            UpdateBgmVolume();
-            _bgmMain.Play();
-            _bgmSub.Stop();
-            _bgmSub.SetSoloClip(clip[1]);
-            _mainTrack = true;
-            _crossFadeMode = true;
-        }
-
         public void ChangeCrossFade(float volume = 1.0f)
         {
             if (_crossFadeMode == false) return;
+            /*
             var playingTrack = _bgmMain;
             var resumeTrack = _bgmSub;
 
@@ -176,7 +160,7 @@ namespace Ryneus
             var timeStamp = resumeTrack.TimeStampPer(playingPer);
             _lastBgmVolume = volume;
 
-            _mainTrack = !_mainTrack;
+            _playingIsMain = !_playingIsMain;
             playingTrack.FadeVolume(0,1);
             UpdateBgmVolume();
             resumeTrack.Play(timeStamp);
@@ -186,6 +170,7 @@ namespace Ryneus
                 playVolume = 0;
             }
             resumeTrack.FadeVolume(playVolume,1);
+            */
         }
 
         public void StopBgm()
@@ -202,14 +187,14 @@ namespace Ryneus
 
         public float CurrentTimeStamp()
         {
-            var playingTrack = _mainTrack ? _bgmMain : _bgmSub;
+            var playingTrack = _playingIsMain ? _bgmMain : _bgmSub;
             var playingPer = playingTrack.PlayingPer();
             return playingTrack.TimeStampPer(playingPer);
         }
 
         public void FadeOutBgm()
         {
-            var playingTrack = _mainTrack ? _bgmMain : _bgmSub;
+            var playingTrack = _playingIsMain ? _bgmMain : _bgmSub;
             playingTrack.FadeVolume(0,1);
             _lastPlayAudio = null;
         }

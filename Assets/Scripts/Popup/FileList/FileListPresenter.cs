@@ -24,7 +24,7 @@ namespace Ryneus
         private void Initialize()
         {
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetFileList(MakeListData(_model.SaveFileInfos()));
+            _view.SetFileList(MakeListData(_model.SaveFileInfos(),_model.SaveFileLastIndex()));
             _view.OpenAnimation();
         }
 

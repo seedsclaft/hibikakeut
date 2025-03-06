@@ -17,7 +17,6 @@ namespace Ryneus
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent = null;
         [SerializeField] private SymbolList symbolInfoList = null;
-        public SymbolInfo SelectSymbolInfo => symbolInfoList.SelectSymbolInfo();
         [SerializeField] private MagicList alcanaSelectList = null;
         [SerializeField] private TextMeshProUGUI saveScoreText = null;
         [SerializeField] private TacticsAlcana tacticsAlcana = null;

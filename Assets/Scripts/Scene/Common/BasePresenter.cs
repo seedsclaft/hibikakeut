@@ -24,6 +24,11 @@ namespace Ryneus
             return ListData.MakeListData(dataList);
         }
 
+        public List<ListData> MakeListData<T>(List<T> dataList,int selectIndex)
+        {
+            return ListData.MakeListData(dataList,selectIndex);
+        }
+
         public List<ListData> MakeListData<T>(List<T> dataList,T selected)
         {
             return ListData.MakeListData(dataList,selected);
@@ -39,7 +44,7 @@ namespace Ryneus
             return ListData.MakeListData(dataList,enable,selectFunc);
         }
 
-        public bool CheckAdvStageEvent(EventTiming eventTiming,Action endCall,int selectActorId = 0)
+        public AdvCallInfo CheckAdvStageEvent(EventTiming eventTiming,int selectActorId = 0)
         {
             var isAbort = false;
             var advId = -1;
@@ -67,16 +72,23 @@ namespace Ryneus
             }
             if (isAbort)
             {
-                BeforeStageAdv();
                 var advInfo = new AdvCallInfo();
                 advInfo.SetLabel(_model.GetAdvFile(advId));
-                advInfo.SetCallEvent(() => 
-                {                
-                    endCall?.Invoke();
-                });
-                _view.CommandCallAdv(advInfo);
+                return advInfo;
             }
-            return isAbort;
+            return null;
+        }
+
+        public int CheckForceBattleEvent(EventTiming eventTiming)
+        {
+            var seekIndex = -1;
+            var stageEvents = _model.StageEvents(eventTiming);
+            var forceBattle = stageEvents.Find(a => a.Type == StageEventType.ForceBattle);
+            if (forceBattle != null)
+            {
+                seekIndex = forceBattle.Param;
+            }
+            return seekIndex;
         }
 
         public void BeforeStageAdv()

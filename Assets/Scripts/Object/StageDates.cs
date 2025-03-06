@@ -145,7 +145,6 @@ namespace Ryneus
         SaveCommand = 7, // セーブを行う,
         SetDefineBossIndex = 8, // ボスの選択番号を設定する
         NeedUseSp = 9, // SPを消費しないと進まない
-        AdvStart = 11, // ADV再生
         SelectActorAdvStart = 12, // IDにActorIDを加算してADV再生
         RouteSelectEvent = 13, // ルート分岐イベント
         SetRouteSelectParam = 14, // ルート分岐パラメータを保存
@@ -158,6 +157,8 @@ namespace Ryneus
         MoveStage = 51, // ステージ移動
         SetDefineBoss = 61, // 中ボスを設定する
         SetLastBoss = 62, // 上位者ボスを設定する
+        AdvStart = 100, // ADV再生
+        ForceBattle = 110, // 今のステージシンボルの〇SeekIndexのバトルを開始
         SurvivalMode = 201, // サバイバルモードにする
     }
 

@@ -12,7 +12,6 @@ namespace Ryneus
         TacticsView _view = null;
 
         private bool _busy = true;
-        private bool _eventBusy = false;
         private bool _alcanaSelectBusy = false;
         private bool _shopSelectBusy = false;
 
@@ -24,26 +23,52 @@ namespace Ryneus
             _model = new TacticsModel();
             SetModel(_model);
 
-            if (CheckAdvEvent(EventTiming.BeforeTactics,() => { _view.CommandGotoSceneChange(Scene.Tactics);}))
+            if (CheckEvent())
             {
                 return;
             }
-            CheckStageEvent();
-            if (_eventBusy)
-            {
-                return;
-            }
-            Initialize();
-        }
-
-        private void Initialize()
-        {
             InitializeView();
-            _busy = false;
         }
 
-        private void InitializeView()
+        private bool CheckEvent()
         {
+            var advInfo = CheckAdvEvent(EventTiming.BeforeTactics);
+            if (advInfo != null)
+            {
+                BeforeStageAdv();
+                _view.WaitFrame(60,() => 
+                {
+                    // TimeStampを取得してBgmをフェードアウト
+                    var timeStamp = SoundManager.Instance.CurrentTimeStamp();
+                    advInfo.SetCallEvent(() => 
+                    {
+                        if (CheckEvent())
+                        {
+
+                        } else
+                        {
+                            _view.gameObject.SetActive(true);
+                            InitializeView(timeStamp);
+                        }
+                    });
+                    _view.CommandCallAdv(advInfo);
+                });
+                return true;
+            }
+            var forceBattleSeekIndex = CheckForceBattleEvent(EventTiming.BeforeTactics);
+            if (forceBattleSeekIndex >= 0)
+            {
+                _view.SetBackGround(_model.CurrentStage?.Master?.BackGround);
+                _model.SetStageSeekIndex(forceBattleSeekIndex);
+                CommandStartStage();
+                return true;
+            }
+            return false;
+        }
+
+        private async void InitializeView(float timeStamp = 0)
+        {
+            _busy = false;
             _view.ChangeUIActive(false);
             //_model.AssignBattlerIndex();
             _view.SetHelpWindow();
@@ -59,7 +84,7 @@ namespace Ryneus
             _view.SetBattleMemberList(MakeListData(_model.EditMembers()));
             //_view.SetNuminous(_model.Currency);
             CommandRefresh();
-            PlayTacticsBgm();
+            await PlayTacticsBgm(timeStamp);
             _view.ChangeUIActive(true);
             // チュートリアル確認
             //CheckTutorialState();
@@ -254,30 +279,6 @@ namespace Ryneus
             CheckTutorialState(viewEvent.ViewCommandType.CommandType);
         }
 
-        private void CommandCheckBattleStart()
-        {
-            _busy = true;
-            var currentSymbol = _view.SelectSymbolInfo;
-            var sceneParam = new BattlePartySceneInfo
-            {
-                EnemyInfos = currentSymbol.BattlerInfos(),
-                ActorInfos = _model.StageMembers(),
-                IsBoss = currentSymbol.Master.SymbolType == SymbolType.Boss
-            };
-            var popupInfo = new PopupInfo
-            {
-                PopupType = PopupType.BattleParty,
-                EndEvent = () =>
-                {
-                    _busy = false;
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                    CommandCancelSelectSymbol();
-                },
-                template = sceneParam
-            };
-            _view.CommandCallPopup(popupInfo);
-        }
-
         private void CommandStartStage()
         {
             // 演出
@@ -341,7 +342,7 @@ namespace Ryneus
 
         private void BattleStart()
         {
-            var currentSymbol = _view.SelectSymbolInfo;
+            var currentSymbol = _model.SelectedSymbol();
 
             _model.SaveTempBattleMembers();
             _view.CommandChangeViewToTransition(null);
@@ -358,7 +359,7 @@ namespace Ryneus
 
         private async void PlayStartBattleBgm()
         {
-            var currentSymbol = _view.SelectSymbolInfo;
+            var currentSymbol = _model.SelectedSymbol();
             // ボス戦なら
             if (currentSymbol.Master.SymbolType == SymbolType.Boss)
             {
@@ -456,6 +457,7 @@ namespace Ryneus
         {
             if (symbolInfo != null && _model.IsCurrentSeekSymbolInfo(symbolInfo))
             {
+                _model.SetStageSeekIndex(symbolInfo.Master.SeekIndex);
                 switch (symbolInfo.Master.SymbolType)
                 {
                     case SymbolType.Battle:

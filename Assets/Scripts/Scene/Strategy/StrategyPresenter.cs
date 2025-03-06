@@ -30,6 +30,7 @@ namespace Ryneus
 
         private bool CheckStageEvent()
         {
+            /*
             var isAbort = CheckAdvStageEvent(EventTiming.StartStrategy,() => 
             {
                 Initialize();
@@ -38,7 +39,8 @@ namespace Ryneus
             {
                 _view.gameObject.SetActive(false);
             }
-            return isAbort;
+            */
+            return false;
         }
 
         private void Initialize()
