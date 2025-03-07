@@ -9,6 +9,7 @@ namespace Ryneus
         
         private void CheckStageEvent()
         {
+            /*
             // イベントチェック
             var stageEvents = _model.StageEvents(EventTiming.StartTactics);
             foreach (var stageEvent in stageEvents)
@@ -56,13 +57,10 @@ namespace Ryneus
                         break;
                 }
             }
+            */
         }
 
 
-        private AdvCallInfo CheckAdvEvent(EventTiming eventTiming)
-        {
-            return CheckAdvStageEvent(eventTiming);
-        }
 
 
     }

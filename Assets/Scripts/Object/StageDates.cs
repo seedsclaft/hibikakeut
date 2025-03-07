@@ -125,12 +125,8 @@ namespace Ryneus
     public enum EventTiming
     {
         None = 0,
-        StartTactics = 1,
-        StartStrategy = 2,
-        StartBattle = 3,
-        TurnedBattle = 4,
-        AfterDemigod = 5,
-        BeforeTactics = 11,
+        BeforeTactics = 110,
+        BattleVictory = 210,
     }
 
     public enum StageEventType

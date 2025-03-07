@@ -21,25 +21,33 @@ namespace Ryneus
             SetView(_view);
             _model = new StrategyModel();
             SetModel(_model);
-            if (CheckStageEvent())
+
+            // イベント取得
+            if (_model.BattleResultVictory && CheckEventData())
             {
                 return;
             }
             Initialize();
         }
 
-        private bool CheckStageEvent()
+        private bool CheckEventData(Action endEvent = null)
         {
-            /*
-            var isAbort = CheckAdvStageEvent(EventTiming.StartStrategy,() => 
+            var stageEvent = GetStageEventData(EventTiming.BattleVictory);
+            if (stageEvent != null)
             {
-                Initialize();
-            },-1);
-            if (isAbort)
-            {
-                _view.gameObject.SetActive(false);
+                switch (stageEvent.Type)
+                {
+                    case StageEventType.AdvStart:
+                        // TimeStampを取得してBgmをフェードアウト
+                        var timeStamp = SoundManager.Instance.CurrentTimeStamp();
+                        if (CheckAdvEvent(EventTiming.BattleVictory,timeStamp,() => CheckEventData(() => Initialize())))
+                        {
+                            return true;
+                        }
+                        return true;
+                }
             }
-            */
+            endEvent?.Invoke();
             return false;
         }
 
@@ -56,6 +64,7 @@ namespace Ryneus
             }
             _view.SetEvent((type) => UpdateCommand(type));
 
+            _view.ChangeUIActive(true);
             CommandStartStrategy();
             _busy = false;
         }

@@ -23,46 +23,42 @@ namespace Ryneus
             _model = new TacticsModel();
             SetModel(_model);
 
-            if (CheckEvent())
+            // イベント取得
+            if (CheckEventData())
             {
                 return;
             }
             InitializeView();
         }
 
-        private bool CheckEvent()
+        private bool CheckEventData(Action endEvent = null)
         {
-            var advInfo = CheckAdvEvent(EventTiming.BeforeTactics);
-            if (advInfo != null)
+            var stageEvent = GetStageEventData(EventTiming.BeforeTactics);
+            if (stageEvent != null)
             {
-                BeforeStageAdv();
-                _view.WaitFrame(60,() => 
+                switch (stageEvent.Type)
                 {
-                    // TimeStampを取得してBgmをフェードアウト
-                    var timeStamp = SoundManager.Instance.CurrentTimeStamp();
-                    advInfo.SetCallEvent(() => 
-                    {
-                        if (CheckEvent())
+                    case StageEventType.AdvStart:
+                        // TimeStampを取得してBgmをフェードアウト
+                        var timeStamp = SoundManager.Instance.CurrentTimeStamp();
+                        if (CheckAdvEvent(EventTiming.BeforeTactics,timeStamp,() => CheckEventData(() => InitializeView(timeStamp))))
                         {
-
-                        } else
-                        {
-                            _view.gameObject.SetActive(true);
-                            InitializeView(timeStamp);
+                            return true;
                         }
-                    });
-                    _view.CommandCallAdv(advInfo);
-                });
-                return true;
+                        return true;
+                    case StageEventType.ForceBattle:
+                        var forceBattleSeekIndex = CheckForceBattleEvent(EventTiming.BeforeTactics);
+                        if (forceBattleSeekIndex >= 0)
+                        {
+                            _view.SetBackGround(_model.CurrentStage?.Master?.BackGround);
+                            _model.SetStageSeekIndex(forceBattleSeekIndex);
+                            CommandStartStage();
+                            return true;
+                        }
+                        return true;
+                }
             }
-            var forceBattleSeekIndex = CheckForceBattleEvent(EventTiming.BeforeTactics);
-            if (forceBattleSeekIndex >= 0)
-            {
-                _view.SetBackGround(_model.CurrentStage?.Master?.BackGround);
-                _model.SetStageSeekIndex(forceBattleSeekIndex);
-                CommandStartStage();
-                return true;
-            }
+            endEvent?.Invoke();
             return false;
         }
 

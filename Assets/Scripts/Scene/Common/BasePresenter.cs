@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 
 namespace Ryneus
@@ -44,34 +45,55 @@ namespace Ryneus
             return ListData.MakeListData(dataList,enable,selectFunc);
         }
 
-        public AdvCallInfo CheckAdvStageEvent(EventTiming eventTiming,int selectActorId = 0)
+        public StageEventData GetStageEventData(EventTiming eventTiming)
         {
-            var isAbort = false;
-            var advId = -1;
-            var stageEvents = _model.StageEvents(eventTiming);
-            foreach (var stageEvent in stageEvents)
+            var timingEvents = _model.StageEvents(eventTiming);
+            if (timingEvents.Count > 0)
             {
-                if (isAbort)
-                {
-                    break;
-                }
-                if (stageEvent.Type == StageEventType.AdvStart)
-                {
-                    advId = stageEvent.Param;
-                    _model.AddEventReadFlag(stageEvent);
-                    isAbort = true;
-                    break;
-                }
-                if (stageEvent.Type == StageEventType.SelectActorAdvStart)
-                {
-                    advId = stageEvent.Param + selectActorId;
-                    _model.AddEventReadFlag(stageEvent);
-                    isAbort = true;
-                    break;
-                }
+                return timingEvents.First();
             }
-            if (isAbort)
+            return null;
+        }
+
+        public bool CheckAdvEvent(EventTiming eventTiming,float timeStamp = 0,Action endEvent = null)
+        {
+            if (CheckEvent(eventTiming,(a) => CheckAdvEvent(eventTiming,timeStamp,endEvent)))
             {
+                return true;
+            } else
+            {
+                endEvent?.Invoke();
+            }
+            return false;
+        }
+
+        private bool CheckEvent(EventTiming eventTiming,Action<bool> callEvent = null)
+        {
+            var advInfo = CheckAdvStageEvent(eventTiming);
+            if (advInfo != null)
+            {
+                BeforeStageAdv();
+                _view.WaitFrame(60,() => 
+                {
+                    advInfo.SetCallEvent(() => 
+                    {
+                        callEvent?.Invoke(true);
+                    });
+                    _view.CommandCallAdv(advInfo);
+                });
+                return true;
+            }
+            return false;
+        }
+
+        private AdvCallInfo CheckAdvStageEvent(EventTiming eventTiming,int selectActorId = 0)
+        {
+            var stageEvents = _model.StageEvents(eventTiming);
+            var find = stageEvents.Find(a => a.Type == StageEventType.AdvStart);
+            if (find != null)
+            {
+                var advId = find.Param;
+                _model.AddEventReadFlag(find);
                 var advInfo = new AdvCallInfo();
                 advInfo.SetLabel(_model.GetAdvFile(advId));
                 return advInfo;

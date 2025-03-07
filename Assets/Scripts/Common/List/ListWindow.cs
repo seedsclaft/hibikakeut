@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Ryneus
 {
-    abstract public partial class ListWindow : MonoBehaviour
+    abstract public class ListWindow : MonoBehaviour
     {
         private bool _active = true;
         public bool Active => _active;
@@ -43,6 +43,7 @@ namespace Ryneus
         public List<GameObject> ItemPrefabList => _itemPrefabList;
         private GameObject _prevPrefab = null;
         private GameObject _prefabPool = null;
+        private GameObject _basePrefab = null;
         private List<ListData> _listDates = new ();
         public List<ListData> ListDates => _listDates;
         public int DataCount => _listDates.Count;
@@ -88,11 +89,13 @@ namespace Ryneus
 
         public void InitializeListView()
         {
-            _prefabPool = Instantiate(new GameObject());
+            _basePrefab = new GameObject();
+            _prefabPool = Instantiate(_basePrefab);
+            _prefabPool.name = "prefab pool";
             _prefabPool.transform.SetParent(gameObject.transform,false);
             _scrollRect = GetComponentInChildren<ScrollRect>();
             DestroyListChildren();
-            _objectList = new List<GameObject>();
+            _objectList = new();
             SetValueChangedEvent();
             SetItemSize();
             _inputCallHandler = null;
@@ -155,6 +158,7 @@ namespace Ryneus
             _blankObject = new GameObject("blank");
             _blankObject.AddComponent<RectTransform>();
             _blankObject.transform.SetParent(_scrollRect.content, false);
+            _blankObject.name = "blank";
             _objectList.Add(_blankObject);
             var rect = _blankObject.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector3(_itemSize.x,_itemSize.y,0);
@@ -164,6 +168,7 @@ namespace Ryneus
             {
                 var prefab = Instantiate(_blankObject);
                 prefab.transform.SetParent(_scrollRect.content, false);
+                prefab.name = "blank Object";
                 _objectList.Add(prefab);
             }
             if (reverse)
@@ -178,7 +183,7 @@ namespace Ryneus
             for (var i = 0; i < (listCount+1);i++)
             {
                 var prefab = Instantiate(itemPrefab);
-                prefab.name = i.ToString();
+                //prefab.name = i.ToString();
                 _itemPrefabList.Add(prefab);
                 var view = prefab.GetComponent<IListViewItem>();
                 if (view != null)
@@ -187,6 +192,7 @@ namespace Ryneus
                 }
             }
             _prevPrefab = Instantiate(itemPrefab);
+            _prevPrefab.name = "prev Object";
             var prevView = _prevPrefab.GetComponent<IListViewItem>();
             if (prevView != null)
             {
@@ -258,6 +264,7 @@ namespace Ryneus
             for (var i = 0; i < createCount;i++)
             {
                 var prefab = Instantiate(_blankObject);
+                prefab.name = "blank Object";
                 prefab.transform.SetParent(_scrollRect.content, false);
                 _objectList.Add(prefab);
             }
@@ -772,6 +779,18 @@ namespace Ryneus
             for (int i = _objectList.Count-1;0 <= i;i--)
             {
                 Destroy(_objectList[i]);
+            }
+            if (_prefabPool != null)
+            {
+                Destroy(_prefabPool);
+            }
+            if (_blankObject != null)
+            {
+                Destroy(_blankObject);
+            }
+            if (_basePrefab != null)
+            {
+                Destroy(_basePrefab);
             }
         }
     }

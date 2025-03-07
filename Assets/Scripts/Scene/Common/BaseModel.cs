@@ -225,10 +225,11 @@ namespace Ryneus
 
         public void AddEventReadFlag(StageEventData stageEventDates)
         {
-            if (stageEventDates.ReadFlag)
+            if (!stageEventDates.ReadFlag)
             {
-                CurrentGameInfo.AddEventReadFlag(stageEventDates.EventKey);
+                return;
             }
+            CurrentGameInfo.AddEventReadFlag(stageEventDates.EventKey);
         }
 
         public async UniTask<List<AudioClip>> GetBgmData(string bgmKey)
