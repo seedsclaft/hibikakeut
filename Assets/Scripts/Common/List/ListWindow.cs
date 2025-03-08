@@ -43,7 +43,6 @@ namespace Ryneus
         public List<GameObject> ItemPrefabList => _itemPrefabList;
         private GameObject _prevPrefab = null;
         private GameObject _prefabPool = null;
-        private GameObject _basePrefab = null;
         private List<ListData> _listDates = new ();
         public List<ListData> ListDates => _listDates;
         public int DataCount => _listDates.Count;
@@ -89,8 +88,9 @@ namespace Ryneus
 
         public void InitializeListView()
         {
-            _basePrefab = new GameObject();
+            var _basePrefab = new GameObject();
             _prefabPool = Instantiate(_basePrefab);
+            Destroy(_basePrefab);
             _prefabPool.name = "prefab pool";
             _prefabPool.transform.SetParent(gameObject.transform,false);
             _scrollRect = GetComponentInChildren<ScrollRect>();
@@ -787,10 +787,6 @@ namespace Ryneus
             if (_blankObject != null)
             {
                 Destroy(_blankObject);
-            }
-            if (_basePrefab != null)
-            {
-                Destroy(_basePrefab);
             }
         }
     }

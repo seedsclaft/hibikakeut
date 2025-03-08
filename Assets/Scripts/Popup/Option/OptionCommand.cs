@@ -12,6 +12,10 @@ namespace Ryneus
         [SerializeField] private OptionVolume optionVolume;
         [SerializeField] private List<Toggle> optionToggles;
         [SerializeField] private List<TextMeshProUGUI> optionTexts;
+        [SerializeField] private Button minusButton;
+        [SerializeField] private Button plusButton;
+        [SerializeField] private TextMeshProUGUI resolution;
+
 
         private bool _isInitEvent = false;
 
@@ -20,10 +24,16 @@ namespace Ryneus
             if (ListData == null) return;
             var optionInfo = ListItemData<OptionInfo>();
             var data = optionInfo.OptionCommand;
-            optionName.text = data.Name;
-            optionHelp.text = data.Help;
+            optionName.SetText(data.Name);
+            optionHelp.SetText(data.Help);
+            SetResolutionText();
+            
             optionVolume.gameObject.SetActive(data.ButtonType == OptionButtonType.Slider);
             optionToggles.ForEach(a => a.gameObject.SetActive(data.ButtonType == OptionButtonType.Toggle));
+            minusButton.gameObject.SetActive(data.ButtonType == OptionButtonType.Resolution);
+            plusButton.gameObject.SetActive(data.ButtonType == OptionButtonType.Resolution);
+            resolution.gameObject.SetActive(data.ButtonType == OptionButtonType.Resolution);
+            
             if (data.ToggleText1 > 0)
             {
                 optionTexts[0].text = DataSystem.GetText(data.ToggleText1);
@@ -68,6 +78,17 @@ namespace Ryneus
                         toggleIndex++;
                     }
                 }
+                if (optionInfo.PlusMinusEvent != null)
+                {
+                    minusButton.onClick.AddListener(() => 
+                    {
+                        optionInfo.PlusMinusEvent(-1);
+                    });
+                    plusButton.onClick.AddListener(() => 
+                    {
+                        optionInfo.PlusMinusEvent(1);
+                    });
+                }
                 _isInitEvent = true;
             }
         }
@@ -76,6 +97,15 @@ namespace Ryneus
         {
             switch (optionCommand.Key)
             {
+                case "SCREEN_MODE":
+                    for (int i = 0;i < optionToggles.Count;i++)
+                    {
+                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.ConfigData.ScreenMode == false ? 0 : 1));
+                    }
+                    return;
+                case "SCREEN_SIZE":
+                    SetResolutionText();
+                    return;
                 case "BGM_VOLUME":
                     optionVolume.UpdateValue(SoundManager.Instance.BgmVolume,SoundManager.Instance.BGMMute);
                     return;
@@ -138,6 +168,11 @@ namespace Ryneus
                     }
                     return;
             }
+        }
+
+        private void SetResolutionText()
+        {
+            resolution.SetText(GameSystem.ConfigData.ScreenWidth.ToString() + " x " + GameSystem.ConfigData.ScreenHeight.ToString());
         }
     }
 }

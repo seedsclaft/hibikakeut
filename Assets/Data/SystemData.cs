@@ -67,6 +67,7 @@ namespace Ryneus
 			public int ToggleText1;
 			public int ToggleText2;
 			public int ToggleText3;
+			public bool ExistWindows;
 			public bool ExistAndroid;
 		}
 

@@ -11,7 +11,7 @@ namespace Ryneus
 
         }
 
-        public List<OptionInfo> OptionCommandData(int categoryIndex,System.Action<float> sliderEvent,System.Action<bool> muteEvent,System.Action<int> toggleEvent)
+        public List<OptionInfo> OptionCommandData(int categoryIndex,System.Action<float> sliderEvent,System.Action<bool> muteEvent,System.Action<int> toggleEvent,System.Action<int> plusMinusEvent)
         {
             var list = new List<OptionInfo>();
             foreach (var optionCommand in DataSystem.OptionCommand)
@@ -20,18 +20,25 @@ namespace Ryneus
                 {
                     continue;
                 }
-    //#if UNITY_ANDROID
+#if UNITY_ANDROID
                 if (optionCommand.ExistAndroid == false)
                 {
                     continue;
                 }
-                //#endif
+#endif
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
+                if (optionCommand.ExistWindows == false)
+                {
+                    continue;
+                }
+#endif
                 var optionInfo = new OptionInfo
                 {
                     OptionCommand = optionCommand,
                     SliderEvent = sliderEvent,
                     MuteEvent = muteEvent,
-                    ToggleEvent = toggleEvent
+                    ToggleEvent = toggleEvent,
+                    PlusMinusEvent = plusMinusEvent,
                 };
                 list.Add(optionInfo);
             }
@@ -82,19 +89,23 @@ namespace Ryneus
         public System.Action<float> SliderEvent;
         public System.Action<bool> MuteEvent;
         public System.Action<int> ToggleEvent;
+        public System.Action<int> PlusMinusEvent;
     }
 
-    public enum OptionCategory{
+    public enum OptionCategory
+    {
         System = 0,
         Tactics,
         Battle,
         Data
     }
 
-    public enum OptionButtonType{
+    public enum OptionButtonType
+    {
         None = 0,
         Slider,
         Toggle,
-        Button
+        Button,
+        Resolution,
     }
 }

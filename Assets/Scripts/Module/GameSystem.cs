@@ -28,7 +28,6 @@ namespace Ryneus
         [SerializeField] private DebugBattleData debugBattleData = null;
         [SerializeField] private HelpWindow helpWindow = null;
         [SerializeField] private HelpWindow advHelpWindow = null;
-        [SerializeField] private EventSystem eventSystem = null;
         
         private BaseView _currentScene = null;
 
@@ -71,7 +70,7 @@ namespace Ryneus
             Version = Application.version;
     #if UNITY_EDITOR
             DebugBattleData = debugBattleData;
-    #endif
+    #endif 
     #if UNITY_ANDROID
             AdMobController.Instance.Initialize(() => {CommandSceneChange(Scene.Boot);});
     #else
@@ -200,7 +199,7 @@ namespace Ryneus
                 case Base.CommandType.CallAdvScene:
                     SetIsBusyMainAndStatus();
                     var advCallInfo = (AdvCallInfo)viewEvent.template;
-                    StartCoroutine(JumpScenarioAsync(advCallInfo.Label,advCallInfo.CallEvent));
+                    StartCoroutine(JumpScenarioAsync(advCallInfo.Label.Value,advCallInfo.CallEvent));
                     break;
                 case Base.CommandType.DecidePlayerName:
                     string playerName = (string)advEngine.Param.GetParameter("PlayerName");
@@ -328,7 +327,7 @@ namespace Ryneus
                     SoundManager.Instance.SeMute
                 );
                 SaveSystem.SaveConfigStart(ConfigData);
-                optionView.CallSystemCommand((object)Base.CommandType.ClosePopup);
+                optionView.CallSystemCommand(Base.CommandType.ClosePopup);
                 endEvent?.Invoke();
             });
             optionView.SetEvent((type) => UpdateCommand(type));
@@ -359,7 +358,7 @@ namespace Ryneus
             skillLogView.SetSkillLogViewInfo(skillLogViewInfo.SkillLogListInfos);
             skillLogView.SetBackEvent(() => 
             {
-                skillLogView.CallSystemCommand((object)Base.CommandType.ClosePopup);
+                skillLogView.CallSystemCommand(Base.CommandType.ClosePopup);
                 skillLogViewInfo.EndEvent?.Invoke();
             });
             SetIsBusyMainAndStatus();
@@ -374,7 +373,7 @@ namespace Ryneus
             sideMenuView.SetBackEvent(() => 
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                sideMenuView.CallSystemCommand((object)Base.CommandType.ClosePopup);
+                sideMenuView.CallSystemCommand(Base.CommandType.ClosePopup);
                 sideMenuViewInfo.EndEvent?.Invoke();
             });
             sideMenuView.SetSideMenuViewInfo(sideMenuViewInfo);
@@ -389,7 +388,7 @@ namespace Ryneus
             rankingView.SetRankingViewInfo(rankingViewInfo);
             rankingView.SetBackEvent(() => 
             {
-                rankingView.CallSystemCommand((object)Base.CommandType.ClosePopup);
+                rankingView.CallSystemCommand(Base.CommandType.ClosePopup);
                 rankingViewInfo.EndEvent?.Invoke();
             });
             SetIsBusyMainAndStatus();
@@ -405,7 +404,7 @@ namespace Ryneus
             characterListView.SetBackEvent(() => 
             {
                 characterListInfo.BackEvent?.Invoke();
-                characterListView.CallSystemCommand((object)Base.CommandType.ClosePopup);
+                characterListView.CallSystemCommand(Base.CommandType.ClosePopup);
             });
             SetIsBusyMainAndStatus();
         }
@@ -419,7 +418,7 @@ namespace Ryneus
             helpView.SetHelp(helpTextList);
             helpView.SetBackEvent(() => 
             {
-                helpView.CallSystemCommand((object)Base.CommandType.ClosePopup);
+                helpView.CallSystemCommand(Base.CommandType.ClosePopup);
             });
             SetIsBusyMainAndStatus();
         }
@@ -443,7 +442,6 @@ namespace Ryneus
             advController.EndAdv();
             advHelpWindow.SetInputInfo("");
             
-            //_currentScene.SetActiveUi(true);
             _busy = false;
             onComplete?.Invoke();
         }
@@ -572,12 +570,7 @@ namespace Ryneus
 
     public class AdvCallInfo
     {
-        private string _label;
-        public string Label => _label;
-        public void SetLabel(string label)
-        {
-            _label = label;
-        }
+        public ParameterString Label => new();
         private Action _callEvent;
         public Action CallEvent => _callEvent;
         public void SetCallEvent(Action callEvent)

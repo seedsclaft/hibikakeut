@@ -504,7 +504,7 @@ namespace Ryneus
         private void CommandEvent(SymbolInfo symbolInfo)
         {
             var advInfo = new AdvCallInfo();
-            advInfo.SetLabel(_model.GetAdvFile(symbolInfo.Master.Param1));
+            advInfo.Label.SetValue(_model.GetAdvFile(symbolInfo.Master.Param1));
             _view.gameObject.SetActive(false);
             // TimeStampを取得してBgmをフェードアウト
             var timeStamp = SoundManager.Instance.CurrentTimeStamp();

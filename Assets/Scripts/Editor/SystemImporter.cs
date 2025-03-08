@@ -14,12 +14,6 @@ namespace Ryneus
 			Id = 0,
 			Key,
 			NameTextId,
-			Category,
-			ButtonType,
-			ToggleText1,
-			ToggleText2,
-			ToggleText3,
-			ExistAndroid,
 		}
 
 		enum BaseDefineColumn
@@ -129,6 +123,8 @@ namespace Ryneus
 					}
 
 					BaseSheet = Book.GetSheetAt(3);
+					var KeyRow = BaseSheet.GetRow(0);
+					AssetPostImporter.SetKeyNames(KeyRow.Cells);
 
 					for (int i = 1; i <= BaseSheet.LastRowNum; i++)
 					{
@@ -136,17 +132,19 @@ namespace Ryneus
 
                         var OptionCommand = new SystemData.OptionCommand
                         {
-                            Id = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.Id),
-                            Key = AssetPostImporter.ImportString(BaseRow, (int)BaseColumn.Key),
-                            Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.NameTextId)).Text,
-                            Category = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.Category),
-                            Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.NameTextId)).Help,
-                            ButtonType = (OptionButtonType)AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.ButtonType),
-                            ToggleText1 = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.ToggleText1),
-                            ToggleText2 = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.ToggleText2),
-                            ToggleText3 = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.ToggleText3),
-                            ExistAndroid = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.ExistAndroid) == 1
-                        };
+                            Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
+                            Key = AssetPostImporter.ImportString(BaseRow, "Key"),
+                            Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameTextId")).Text,
+                            Category = AssetPostImporter.ImportNumeric(BaseRow, "Category"),
+                            Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameTextId")).Help,
+                            ButtonType = (OptionButtonType)AssetPostImporter.ImportNumeric(BaseRow, "ButtonType"),
+                            ToggleText1 = AssetPostImporter.ImportNumeric(BaseRow, "ToggleText1"),
+                            ToggleText2 = AssetPostImporter.ImportNumeric(BaseRow, "ToggleText2"),
+                            ToggleText3 = AssetPostImporter.ImportNumeric(BaseRow, "ToggleText3"),
+                            
+							ExistWindows = AssetPostImporter.ImportNumeric(BaseRow, "ExistWindows") == 1,
+							ExistAndroid = AssetPostImporter.ImportNumeric(BaseRow, "ExistAndroid") == 1
+						};
                         Data.OptionCommandData.Add(OptionCommand);
 					}
 					

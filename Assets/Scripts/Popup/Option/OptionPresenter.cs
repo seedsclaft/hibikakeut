@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Option;
-using System;
 
 namespace Ryneus
 {
+    using Option;
     public class OptionPresenter : BasePresenter
     {
         OptionView _view = null;
@@ -21,6 +20,7 @@ namespace Ryneus
             SetView(_view);
             SetModel(_model);
             Initialize();
+            _busy = false;
         }
 
         private void Initialize()
@@ -30,34 +30,35 @@ namespace Ryneus
             _view.SetHelpWindow();
             CommandSelectCategory();
             _view.OpenAnimation();
-            _busy = false;
         }
         
-        private void UpdateCommand(OptionViewEvent viewEvent)
+        private void UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
             {
                 return;
             }
-            if (viewEvent.commandType == CommandType.ChangeOptionValue)
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Option)
             {
-                CommandOptionValue((OptionInfo)viewEvent.template);
+                return;
             }
-            if (viewEvent.commandType == CommandType.SelectCategory)
+            switch (viewEvent.ViewCommandType.CommandType)
             {
-                CommandSelectCategory();
-            }
-            if (viewEvent.commandType == CommandType.SelectOptionList)
-            {
-                CommandSelectOptionList();
-            }
-            if (viewEvent.commandType == CommandType.CancelOptionList)
-            {
-                CommandCancelOptionList();
-            }
-            if (viewEvent.commandType == CommandType.DecideCategory)
-            {
-                CommandDecideCategory();
+                case CommandType.ChangeOptionValue:
+                    CommandOptionValue((OptionInfo)viewEvent.template);
+                    break;
+                case CommandType.SelectCategory:
+                    CommandSelectCategory();
+                    break;
+                case CommandType.SelectOptionList:
+                    CommandSelectOptionList();
+                    break;
+                case CommandType.CancelOptionList:
+                    CommandCancelOptionList();
+                    break;
+                case CommandType.DecideCategory:
+                    CommandDecideCategory();
+                    break;
             }
         }
 
@@ -66,15 +67,35 @@ namespace Ryneus
             var inputKeyType = data.keyType;
             switch (data.OptionCommand.Key)
             {
+                case "SCREEN_MODE":
+                    if (inputKeyType == InputKeyType.Right)
+                    {
+                        ConfigUtility.ChangeScreenMode(true);
+                    } else
+                    if (inputKeyType == InputKeyType.Left)
+                    {
+                        ConfigUtility.ChangeScreenMode(false);
+                    }
+                    break;
+                case "SCREEN_SIZE":
+                    if (inputKeyType == InputKeyType.Right)
+                    {
+                        ConfigUtility.ChangeScreenSize(true);
+                    } else
+                    if (inputKeyType == InputKeyType.Left)
+                    {
+                        ConfigUtility.ChangeScreenSize(false);
+                    }
+                    break;
                 case "BGM_VOLUME":
                     if (inputKeyType == InputKeyType.Right)
                     {
                         ConfigUtility.ChangeBGMValue(Mathf.Min(1, SoundManager.Instance.BgmVolume + 0.05f));
-                    }
+                    } else
                     if (inputKeyType == InputKeyType.Left)
                     {
                         ConfigUtility.ChangeBGMValue(Mathf.Max(0, SoundManager.Instance.BgmVolume - 0.05f));
-                    }
+                    } else
                     if (inputKeyType == InputKeyType.Option1)
                     {
                         ConfigUtility.ChangeBGMMute(!SoundManager.Instance.BGMMute);
@@ -84,11 +105,11 @@ namespace Ryneus
                     if (inputKeyType == InputKeyType.Right)
                     {
                         ConfigUtility.ChangeSEValue(Mathf.Min(1, SoundManager.Instance.SeVolume + 0.05f));
-                    }
+                    } else
                     if (inputKeyType == InputKeyType.Left)
                     {
                         ConfigUtility.ChangeSEValue(Mathf.Max(0, SoundManager.Instance.SeVolume - 0.05f));
-                    }
+                    } else
                     if (inputKeyType == InputKeyType.Option1)
                     {
                         ConfigUtility.ChangeSEMute(!SoundManager.Instance.SeMute);
@@ -236,6 +257,27 @@ namespace Ryneus
             }
         }
 
+        private void CommandPlusMinus(int plusValue)
+        {
+            var data = _view.OptionCommandInfo;
+            if (data != null)
+            {
+                switch (data.OptionCommand.Key)
+                {
+                    case "SCREEN_SIZE":
+                        if (plusValue > 0)
+                        {
+                            ConfigUtility.ChangeScreenSize(true);
+                        } else
+                        {
+                            ConfigUtility.ChangeScreenSize(false);
+                        }
+                        break;
+                }
+                CommandRefresh();
+            }
+        }
+
         private void CommandRefresh()
         {
             _view.CommandRefresh();
@@ -250,7 +292,8 @@ namespace Ryneus
                     categoryIndex,
                     (a) => CommandVolumeSlider(a),
                     (a) => CommandVolumeMute(a),
-                    (a) => CommandChangeToggle(a)
+                    (a) => CommandChangeToggle(a),
+                    (a) => CommandPlusMinus(a)
                 )));
                 _view.CommandRefresh();
             }

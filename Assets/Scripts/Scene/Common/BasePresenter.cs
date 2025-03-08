@@ -95,7 +95,7 @@ namespace Ryneus
                 var advId = find.Param;
                 _model.AddEventReadFlag(find);
                 var advInfo = new AdvCallInfo();
-                advInfo.SetLabel(_model.GetAdvFile(advId));
+                advInfo.Label.SetValue(_model.GetAdvFile(advId));
                 return advInfo;
             }
             return null;

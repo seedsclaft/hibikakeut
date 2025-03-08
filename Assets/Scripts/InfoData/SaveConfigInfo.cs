@@ -10,6 +10,9 @@ namespace Ryneus
 		public bool BgmMute;
 		public float SeVolume;
 		public bool SeMute;
+		public bool ScreenMode;
+		public int ScreenWidth;
+		public int ScreenHeight;
 		public int GraphicIndex;
 		public bool EventSkipIndex;
 		public bool CommandEndCheck;
@@ -30,6 +33,9 @@ namespace Ryneus
 			BgmMute = false;
 			SeVolume = 1.0f;
 			SeMute = false;
+			ScreenMode = false;
+			ScreenWidth = 1280;
+			ScreenHeight = 720;
 			GraphicIndex = 2;
 			EventSkipIndex = false;
 			CommandEndCheck = true;

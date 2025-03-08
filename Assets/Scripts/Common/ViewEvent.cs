@@ -49,6 +49,7 @@ namespace Ryneus
         BattleParty,
         Strategy,
         FileList,
+        Option,
     }
 
     public interface IClickHandlerEvent

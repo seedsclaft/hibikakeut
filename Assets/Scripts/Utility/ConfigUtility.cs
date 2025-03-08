@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Ryneus
@@ -13,6 +14,8 @@ namespace Ryneus
             {
                 ChangeBGMValue(saveConfigInfo.BgmVolume);
                 ChangeSEValue(saveConfigInfo.SeVolume);
+                ChangeScreenMode(saveConfigInfo.ScreenMode);
+                SetResolution(saveConfigInfo.ScreenWidth,saveConfigInfo.ScreenHeight);
                 ChangeGraphicIndex(saveConfigInfo.GraphicIndex);
                 ChangeEventSkipIndex(saveConfigInfo.EventSkipIndex);
                 ChangeCommandEndCheck(saveConfigInfo.CommandEndCheck);
@@ -23,6 +26,42 @@ namespace Ryneus
                 SetBattleSpeed(saveConfigInfo.BattleSpeed);
                 ChangeTutorialCheck(saveConfigInfo.TutorialCheck);
             }
+        }
+
+        public static void ChangeScreenMode(bool isFullScreen)
+        {
+            GameSystem.ConfigData.ScreenMode = isFullScreen;
+            Screen.fullScreen = isFullScreen;
+        }
+
+        private static List<Resolution> _resolutions = new();
+        public static void ChangeScreenSize(bool plus)
+        {
+            if (_resolutions.Count == 0)
+            {
+                _resolutions = Screen.resolutions.ToList();
+            }
+            var findIndex = _resolutions.FindIndex(a => a.width == GameSystem.ConfigData.ScreenWidth && a.height == GameSystem.ConfigData.ScreenHeight);
+            if (findIndex > -1)
+            {
+                var targetResolutionIndex = plus ? findIndex + 1 : findIndex - 1;
+                if (targetResolutionIndex >= _resolutions.Count)
+                {
+                    return;
+                } else
+                if (targetResolutionIndex < 0)
+                {
+                    return;
+                }
+                SetResolution(_resolutions[targetResolutionIndex].width,_resolutions[targetResolutionIndex].height);
+            }
+        }
+
+        public static void SetResolution(int width,int height)
+        {
+            Screen.SetResolution(width,height,Screen.fullScreen);
+            GameSystem.ConfigData.ScreenWidth = width;
+            GameSystem.ConfigData.ScreenHeight = height;
         }
 
         public static void ChangeBGMValue(float bgmVolume)
