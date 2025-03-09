@@ -10,15 +10,6 @@ namespace Ryneus
         public Base.CommandType commandType;
         public object template;
         public ViewCommandType ViewCommandType;
-
-        public ViewEvent()
-        {
-        }
-
-        public ViewEvent(Base.CommandType type)
-        {
-            commandType = type;
-        }        
         
         public ViewEvent(ViewCommandType viewCommandType)
         {
@@ -50,6 +41,7 @@ namespace Ryneus
         Strategy,
         FileList,
         Option,
+        Confirm,
     }
 
     public interface IClickHandlerEvent

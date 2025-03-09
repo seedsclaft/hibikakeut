@@ -13,17 +13,34 @@ namespace Ryneus
         [SerializeField] private BaseList skillInfoList = null;
         [SerializeField] private ConfirmAnimation confirmAnimation = null;
         private System.Action<ConfirmCommandType> _confirmEvent = null;
-        private new System.Action<ConfirmViewEvent> _commandData = null;
         private ConfirmInfo _confirmInfo = null;
 
         public override void Initialize() 
         {
             base.Initialize();
-            commandList.Initialize();
+            SetViewCommandSceneType(ViewCommandSceneType.Confirm);
+            InitializeCommandList();
             skillInfoList.Initialize();
             SetBaseAnimation(confirmAnimation);
             new ConfirmPresenter(this);
             SetHelpInputInfo("CONFIRM");
+        }
+
+        private void InitializeCommandList()
+        {
+            commandList.Initialize();
+            commandList.SetInputHandler(InputKeyType.Decide,() => CallConfirmCommand());
+            SetInputHandler(commandList.GetComponent<IInputHandlerEvent>());
+        }
+
+        public void SetSelectIndex(int selectIndex)
+        {
+            commandList.Refresh(selectIndex);
+        }
+
+        public void SetConfirmCommand(List<ListData> menuCommands)
+        {
+            commandList.SetData(menuCommands);
         }
 
         public void OpenAnimation()
@@ -45,25 +62,15 @@ namespace Ryneus
         public void SetIsNoChoice(bool isNoChoice)
         {
             var commandType = isNoChoice ? CommandType.IsNoChoice : CommandType.IsChoice;
-            var eventData = new ConfirmViewEvent(commandType);
-            _commandData(eventData);
+            CallViewEvent(commandType);
         }
 
         public void SetDisableIds(List<int> disableIds)
         {
             if (disableIds.Count > 0)
             {
-                var eventData = new ConfirmViewEvent(CommandType.DisableIds)
-                {
-                    template = disableIds
-                };
-                _commandData(eventData);
+                CallViewEvent(CommandType.DisableIds,disableIds);
             }
-        }
-
-        public void SetSelectIndex(int selectIndex)
-        {
-            commandList.Refresh(selectIndex);
         }
 
         public void SetConfirmEvent(System.Action<ConfirmCommandType> commandData)
@@ -80,18 +87,6 @@ namespace Ryneus
             SetSkillInfo(confirmInfo.SkillInfos());
             SetConfirmEvent(confirmInfo.CallEvent);
             SetDisableIds(confirmInfo.DisableIds);
-        }
-
-        public void SetEvent(System.Action<ConfirmViewEvent> commandData)
-        {
-            _commandData = commandData;
-        }
-
-        public void SetConfirmCommand(List<ListData> menuCommands)
-        {
-            commandList.SetData(menuCommands);
-            commandList.SetInputHandler(InputKeyType.Decide,() => CallConfirmCommand());
-            SetInputHandler(commandList.GetComponent<IInputHandlerEvent>());
         }
 
         public void CommandDisableIds(List<int> disableIds)
@@ -143,16 +138,5 @@ namespace Confirm
         IsChoice = 100,
         IsNoChoice = 101,
         DisableIds = 102,
-    }
-}
-
-public class ConfirmViewEvent
-{
-    public CommandType commandType;
-    public object template;
-
-    public ConfirmViewEvent(CommandType type)
-    {
-        commandType = type;
     }
 }

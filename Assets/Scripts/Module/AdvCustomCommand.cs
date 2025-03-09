@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using Ryneus;
 using UnityEngine;
-using DG.Tweening;
 
 namespace Utage
 {
@@ -12,7 +10,7 @@ namespace Utage
     {
         public override void OnBootInit()
         {
-            Utage.AdvCommandParser.OnCreateCustomCommandFromID+= CreateCustomCommand;
+            AdvCommandParser.OnCreateCustomCommandFromID+= CreateCustomCommand;
         }
  
         //AdvEnginのクリア処理のときに呼ばれる

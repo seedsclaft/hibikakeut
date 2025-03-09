@@ -570,9 +570,12 @@ namespace Ryneus
 
     public class AdvCallInfo
     {
-        public ParameterString Label => new();
+        public ParameterString Label = new();
         private Action _callEvent;
         public Action CallEvent => _callEvent;
+        public AdvCallInfo()
+        {
+        }
         public void SetCallEvent(Action callEvent)
         {
             _callEvent = callEvent;

@@ -16,19 +16,40 @@ namespace Ryneus
         private bool _advPlaying = false;
 
         private string _lastKey = "";
+        private List<OnOffButton> _onOffButtons = new();
+        private int _selectIndex = -1;
         public override void Initialize() 
         {
             base.Initialize();
             advInputButton.onClick.AddListener(() => {advUguiManager.OnInput();});
-            autoButtonList.ForEach(a => a.SetCallHandler(() => {
+            autoButtonList.ForEach(a => a.SetCallHandler(() => 
+            {
                 OnClickAuto();
             }));
             UpdateAutoButton();
-            skipButtonList.ForEach(a => a.SetCallHandler(() => {
+            skipButtonList.ForEach(a => a.SetCallHandler(() => 
+            {
                 OnClickSkip();
             }));
             UpdateSkipButton();
+            advUguiManager.Engine.SelectionManager.OnBeginWaitInput.AddListener(OnBeginShow);
         }
+
+		public virtual void OnBeginShow( AdvSelectionManager manager )
+		{
+            _onOffButtons.Clear();
+            var onOffButton = advUguiManager.CurrentSelection.ListView.Content.GetComponentsInChildren<OnOffButton>();
+            foreach (var item in onOffButton)
+            {
+                _onOffButtons.Add(item);
+            }
+            if (_onOffButtons.Count > 1)
+            {
+                _onOffButtons[1].SetUnSelect();
+                _onOffButtons[0].SetSelect();
+                _selectIndex = 0;
+            }
+		}
 
         public void StartAdv()
         {
@@ -40,6 +61,8 @@ namespace Ryneus
         public void EndAdv()
         {
             _advPlaying = false;
+            _selectIndex = -1;
+            _onOffButtons.Clear();
             SaveSystem.SaveConfigStart(GameSystem.ConfigData);
             advInputButton.gameObject.SetActive(false);
         }
@@ -49,27 +72,40 @@ namespace Ryneus
             if (_advPlaying == false) return;
             if (keyTypes.Contains(InputKeyType.Decide) || keyTypes.Contains(InputKeyType.Cancel))
             {
-                advUguiManager.OnInput();
+                if (_selectIndex > -1)
+                {
+                    advUguiManager.Engine.SelectionManager.Select(_selectIndex);
+                    SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                    _selectIndex = -1;
+                } else
+                {
+                    advUguiManager.OnInput();
+                }
             }
             if (keyTypes.Contains(InputKeyType.Option1))
             {
                 advUguiManager.Engine.Config.ToggleSkip();        
                 GameSystem.ConfigData.EventSkipIndex = advUguiManager.Engine.Config.IsSkip;
             }
-            if (keyTypes.Contains(InputKeyType.SideLeft1))
+            // 選択肢操作
+            if (keyTypes.Contains(InputKeyType.Down))
             {
-                if (advUguiManager.Engine.SelectionManager.TotalCount > 0)
+                if (_onOffButtons.Count > 1)
                 {
-                    advUguiManager.Engine.SelectionManager.Select(0);
-                    Ryneus.SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                    _onOffButtons[0].SetUnSelect();
+                    _onOffButtons[1].SetSelect();
+                    SoundManager.Instance.PlayStaticSe(SEType.Cursor);
+                    _selectIndex = 1;
                 }
-            }
-            if (keyTypes.Contains(InputKeyType.SideRight1))
+            } else
+            if (keyTypes.Contains(InputKeyType.Up))
             {
-                if (advUguiManager.Engine.SelectionManager.TotalCount > 1)
+                if (_onOffButtons.Count > 0)
                 {
-                    advUguiManager.Engine.SelectionManager.Select(1);
-                    Ryneus.SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                    _onOffButtons[1].SetUnSelect();
+                    _onOffButtons[0].SetSelect();
+                    SoundManager.Instance.PlayStaticSe(SEType.Cursor);
+                    _selectIndex = 0;
                 }
             }
         }
@@ -100,7 +136,7 @@ namespace Ryneus
         private void OnClickAuto()
         {
             advUguiManager.Engine.Config.ToggleAuto();
-            Ryneus.SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             UpdateAutoButton();
         }
 
@@ -115,7 +151,7 @@ namespace Ryneus
         private void OnClickSkip()
         {
             advUguiManager.Engine.Config.ToggleSkip();
-            Ryneus.SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             UpdateSkipButton();
         }
 

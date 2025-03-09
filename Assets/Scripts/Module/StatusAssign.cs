@@ -33,7 +33,6 @@ namespace Ryneus
                 StatusType.TacticsStatus => tacticsStatusPrefab,
                 _ => null,
             };
-
         }    
         
         public void CloseStatus()

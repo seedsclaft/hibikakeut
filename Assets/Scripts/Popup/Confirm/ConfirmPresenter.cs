@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Confirm;
 
 namespace Ryneus
 {
-    public class ConfirmPresenter 
+    using Confirm;
+    public class ConfirmPresenter : BasePresenter
     {
         private ConfirmView _view = null;
         private ConfirmModel _model = null;
@@ -15,6 +14,8 @@ namespace Ryneus
             _view = view;
             _model = new ConfirmModel();
 
+            SetView(_view);
+            SetModel(_model);
             Initialize();
         }
 
@@ -24,25 +25,27 @@ namespace Ryneus
             _view.OpenAnimation();
             _busy = false;
         }
-
-        
-        private void UpdateCommand(ConfirmViewEvent viewEvent)
+        private void UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
             {
                 return;
             }
-            if (viewEvent.commandType == CommandType.IsNoChoice)
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Confirm)
             {
-                CommandIsNoChoice();
+                return;
             }
-            if (viewEvent.commandType == CommandType.IsChoice)
+            switch (viewEvent.ViewCommandType.CommandType)
             {
-                CommandIsChoice();
-            }
-            if (viewEvent.commandType == CommandType.DisableIds)
-            {
-                CommandDisableIds((List<int>)viewEvent.template);
+                case CommandType.IsNoChoice:
+                    CommandIsNoChoice();
+                    break;
+                case CommandType.IsChoice:
+                    CommandIsChoice();
+                    break;
+                case CommandType.DisableIds:
+                    CommandDisableIds((List<int>)viewEvent.template);
+                    break;
             }
         }
 

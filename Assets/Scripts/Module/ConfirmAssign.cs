@@ -26,17 +26,13 @@ namespace Ryneus
 
         private GameObject GetConfirmObject(ConfirmType popupType)
         {
-            switch (popupType)
+            return popupType switch
             {
-                case ConfirmType.Confirm:
-                return confirmPrefab;
-                case ConfirmType.Caution:
-                return cautionPrefab;
-                case ConfirmType.SkillDetail:
-                return skillDetailPrefab;
-
-            }
-            return null;
+                ConfirmType.Confirm => confirmPrefab,
+                ConfirmType.Caution => cautionPrefab,
+                ConfirmType.SkillDetail => skillDetailPrefab,
+                _ => null,
+            };
         }
 
         public void CloseConfirm()
@@ -54,7 +50,8 @@ namespace Ryneus
         }
     }
 
-    public enum ConfirmType{
+    public enum ConfirmType
+    {
         None,
         Confirm,
         Caution,

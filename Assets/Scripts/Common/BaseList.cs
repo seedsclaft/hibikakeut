@@ -80,7 +80,7 @@ namespace Ryneus
             SetListData(listData);
             Refresh(Index);
         }
-
+/*
         private void InitializeRefresh(int selectIndex)
         {
             UpdateItemPrefab(selectIndex);
@@ -88,7 +88,7 @@ namespace Ryneus
             UpdateSelectIndex(selectIndex);
             _beforeSelectIndex = selectIndex;
         }
-
+*/
         private void SetListCallHandler()
         {
             for (int i = 0; i < ItemPrefabList.Count;i++)
@@ -126,7 +126,8 @@ namespace Ryneus
     #endif
             CallListInputHandler(InputKeyType.Decide);
         }
-        
+
+/*
         public void RefreshListData(ListData listData)
         {
             var findIndex = ListDates.FindIndex(a => a.Index == listData.Index);
@@ -135,6 +136,7 @@ namespace Ryneus
                 ListDates[findIndex] = listData;
             }
         }
+*/
 
         public void SetDisableIds(List<int> disableIds)
         {

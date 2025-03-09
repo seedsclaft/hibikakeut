@@ -1576,7 +1576,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -9.999946}
+  m_AnchoredPosition: {x: 0, y: 0.000015258789}
   m_SizeDelta: {x: 600, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &232438917
@@ -1594,9 +1594,9 @@ MonoBehaviour:
   checkTransformChanged: 1
   isAutoResize: 1
   repositionZeroContent: 1
-  space: 10
-  paddingTop: 0
-  paddingBottom: 0
+  space: 20
+  paddingTop: 120
+  paddingBottom: 120
   direction: 0
 --- !u!1 &238339858
 GameObject:
@@ -19647,7 +19647,6 @@ MonoBehaviour:
   debugBattleData: {fileID: 1631066105}
   helpWindow: {fileID: 1488024012}
   advHelpWindow: {fileID: 1438665401}
-  eventSystem: {fileID: 364343666}
 --- !u!114 &1631066105
 MonoBehaviour:
   m_ObjectHideFlags: 0

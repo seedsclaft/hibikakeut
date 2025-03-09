@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using Cysharp.Threading.Tasks;
@@ -99,14 +97,9 @@ namespace Ryneus
         public static string SystemTexturePath => "Texture/System/";
         public static string PrefabPath => "Prefabs/";
 
-        private static AudioClip LoadResourceAudioClip(string path)
-        {
-            return LoadResource<AudioClip>(path);
-        } 
-
         public static AudioClip LoadSeAudio(string path)
         {
-            return LoadResourceAudioClip("Audios/SE/" + path);
+            return LoadResource<AudioClip>("Audios/SE/" + path);
         } 
 
         public static T LoadResource<T>(string path) where T : Object
@@ -118,70 +111,60 @@ namespace Ryneus
         {
             return Resources.LoadAll<T>(path);
         } 
-
-        private static Sprite LoadResourceSprite(string path)
-        {
-            return LoadResource<Sprite>(path);
-        } 
-
-        private static GameObject LoadResourcePrefab(string path)
-        {
-            return LoadResource<GameObject>(path);
-        } 
         
         public static Sprite LoadActorMainSprite(string path)
         {
-            return LoadResourceSprite(ActorTexturePath + path + "/Main");
+            return LoadResource<Sprite>(ActorTexturePath + path + "/Main");
         }
 
         public static Sprite LoadActorMainFaceSprite(string path)
         {
-            return LoadResourceSprite(ActorTexturePath + path + "/MainFace");
+            return LoadResource<Sprite>(ActorTexturePath + path + "/MainFace");
         }
 
         public static Sprite LoadActorCutinSprite(string path)
         {
-            return LoadResourceSprite(ActorTexturePath + path + "/Cutin");
+            return LoadResource<Sprite>(ActorTexturePath + path + "/Cutin");
         }
 
         public static Sprite LoadActorAwakenSprite(string path)
         {
-            return LoadResourceSprite(ActorTexturePath + path + "/Awaken");
+            return LoadResource<Sprite>(ActorTexturePath + path + "/Awaken");
         }
 
         public static Sprite LoadActorAwakenFaceSprite(string path)
         {
-            return LoadResourceSprite(ActorTexturePath + path + "/AwakenFace");
+            return LoadResource<Sprite>(ActorTexturePath + path + "/AwakenFace");
         }
 
         public static Sprite LoadActorClipSprite(string path)
         {
-            return LoadResourceSprite(ActorTexturePath + path + "/Clip");
+            return LoadResource<Sprite>(ActorTexturePath + path + "/Clip");
         }
 
         public static GameObject LoadActor3DModel(string path)
         {
-            return LoadResourcePrefab("3DModels/" + path + "/" + path);
+            return LoadResource<GameObject>("3DModels/" + path + "/" + path);
         }
 
         public static GameObject LoadEnemy3DModel(string path)
         {
-            return LoadResourcePrefab("3DModels/Enemy/" + path);
+            return LoadResource<GameObject>("3DModels/Enemy/" + path);
         }
 
         public static Sprite LoadEnemySprite(string enemyImage)
         {
-            return LoadResourceSprite("Texture/Character/Enemies/" + enemyImage);
+            return LoadResource<Sprite>("Texture/Character/Enemies/" + enemyImage);
         }
 
         public static Sprite LoadBackGround(string fileName)
         {
-            return  LoadResourceSprite("Texture/BG/" + fileName);
+            return  LoadResource<Sprite>("Texture/BG/" + fileName);
         }
-        
+
         public static GameObject LoadBattleBackGround(string fileName)
         {
-            return  LoadResourcePrefab("Prefabs/BG/" + fileName);
+            return  LoadResource<GameObject>("Prefabs/BG/" + fileName);
         }
 
         public static EffekseerEffectAsset LoadResourceEffect(string path)
@@ -189,34 +172,29 @@ namespace Ryneus
             return LoadResource<EffekseerEffectAsset>("Animations/" + path);
         } 
 
-        private static SpriteAtlas LoadResourceSpriteAtlas(string path)
-        {
-            return LoadResource<SpriteAtlas>(path);
-        } 
-
         public static SpriteAtlas LoadSpellIcons()
         {
-            return LoadResourceSpriteAtlas("Texture/SpellIcons");
+            return LoadResource<SpriteAtlas>("Texture/SpellIcons");
         }
 
         public static SpriteAtlas LoadUnitTypeIcons()
         {
-            return LoadResourceSpriteAtlas("Texture/UnitType");
+            return LoadResource<SpriteAtlas>("Texture/UnitType");
         }
 
         public static SpriteAtlas LoadUnitTypeBackIcons()
         {
-            return LoadResourceSpriteAtlas("Texture/UnitTypeBack");
+            return LoadResource<SpriteAtlas>("Texture/UnitTypeBack");
         }
 
         public static SpriteAtlas LoadIcons()
         {
-            return LoadResourceSpriteAtlas("Texture/Icons");
+            return LoadResource<SpriteAtlas>("Texture/Icons");
         } 
 
         public static Sprite LoadGuideSprite(string path)
         {
-            return LoadResourceSprite("Texture/Guide/" + path);
+            return LoadResource<Sprite>("Texture/Guide/" + path);
         }
     }
 

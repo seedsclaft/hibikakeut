@@ -12,7 +12,7 @@ namespace Ryneus
         private System.Action _exitHandler = null;
         public void SetText(string text)
         {
-            commandName.text = text;
+            commandName.SetText(text);
         }
 
         public void OnClickAddListener(System.Action handler,System.Action exitHandler = null)
