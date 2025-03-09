@@ -15,10 +15,6 @@ namespace Ryneus
         private List<ActorInfo> _tempActorInfos = new ();
         // バトル前のアクターデータを設定
         public List<ActorInfo> TempActorInfos => _tempActorInfos;
-        private Dictionary<int,List<RankingInfo>> _tempRankingData = new ();
-        public Dictionary<int,List<RankingInfo>> TempRankingData => _tempRankingData;
-        private InputType _tempInputType = InputType.All;
-        public InputType TempInputType => _tempInputType;
         public void CashBattleActors(List<ActorInfo> actorInfos)
         {
             ClearBattleActors();
@@ -34,7 +30,9 @@ namespace Ryneus
         {
             _tempActorInfos.Clear();
         }
-        
+
+        private Dictionary<int,List<RankingInfo>> _tempRankingData = new ();
+        public Dictionary<int,List<RankingInfo>> TempRankingData => _tempRankingData;
         public void SetRankingInfo(int stageId,List<RankingInfo> rankingInfos)
         {
             _tempRankingData[stageId] = rankingInfos;
@@ -44,6 +42,9 @@ namespace Ryneus
         {
             _tempRankingData.Clear();
         }
+
+        private InputType _tempInputType = InputType.All;
+        public InputType TempInputType => _tempInputType;
         
         public void SetInputType(InputType inputType)
         {

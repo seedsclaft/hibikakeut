@@ -11,8 +11,6 @@ namespace Ryneus
 {
     abstract public class DataSystem 
     {
-        private static DataManager _data;
-        public static DataManager Data => _data;
         public static Dictionary<int,ActorData> Actors = new ();
         public static List<AdvData> Adventures = new ();
         public static List<EnemyData> Enemies = new ();
@@ -30,6 +28,8 @@ namespace Ryneus
         public static List<TutorialData> TutorialDates = new ();
         public static SystemData System;
 
+        public static List<SoundData> BGM = new ();
+        public static List<SoundData> SE =  new ();
 
 
         public static List<SystemData.CommandData> TacticsCommand => System.TacticsCommandData;
@@ -66,7 +66,8 @@ namespace Ryneus
             SkillTriggers = Resources.Load<SkillTriggerDates>("Data/SkillTrigger").Data;
             //DataSystem._alcana = Resources.Load<AlcanaData>("Data/Alcana");
             TutorialDates = Resources.Load<TutorialDates>("Data/Tutorial").Data;
-            _data = Resources.Load<DataManager>("Data/MainData");
+            BGM = Resources.Load<SoundDates>("Data/BGM").Data;
+            SE = Resources.Load<SoundDates>("Data/SE").Data;
         }
 
         public static ActorData FindActor(int id)
@@ -153,6 +154,33 @@ namespace Ryneus
                 text += character;
             }
             return text;
+        }
+
+        public SoundData GetBGMByKey(string key)
+        {
+            var bGMData = BGM.Find(a => a.Key == key);
+            if (bGMData != null)
+            {
+                return bGMData;
+            }
+            return null;
+        }
+    
+        public static SoundData GetBGM(int bgmId)
+        {
+            var bGMData = BGM.Find(a => a.Id == bgmId);
+            if (bGMData != null)
+            {
+                return bGMData;
+            }
+            return null;
+        }
+
+        public static async UniTask<AudioClip> GetSE(string fileName)
+        {
+            string sePath = "Assets/Audios/SE/" + fileName + ".ogg";
+            var result = await Ryneus.ResourceSystem.LoadAsset<AudioClip>(sePath);
+            return result;
         }
 
         public static List<ListData> HelpText(string key)

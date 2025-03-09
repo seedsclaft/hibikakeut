@@ -7,42 +7,22 @@ using NPOI.SS.UserModel;
 
 namespace Ryneus
 {
-	public class SeImporter : AssetPostprocessor {
-		enum BaseColumn
-		{
-			Id = 0,
-			Key,
-			FileName,
-			Volume,
-			Pitch,
-			Loop,
-		}
+	public class SeImporter : AssetPostprocessor 
+	{
 		//static readonly string ExcelPath = "Assets/Resources/Data";
 		static readonly string ExcelName = "SE.xlsx";
 
 		// アセット更新があると呼ばれる
-		static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) {
-			foreach (string asset in importedAssets) {
-
-				string ext = Path.GetExtension(asset);
-				if (ext != ".xls" && ext != ".xlsx" && ext != ".xlsm") continue;
-
-				// エクセルを開いているデータはスキップ
-				string fileName = Path.GetFileName(asset);
-				if (fileName.StartsWith("~$")) continue;
-
-				// 同じパスのみ
-				string filePath = Path.GetDirectoryName(asset);
-				filePath = filePath.Replace("\\", "/");
-				//if (filePath != ExcelPath) { continue; }
-
-				// 同じファイルのみ
-				if (fileName != ExcelName) { continue; }
-
-				CreateInfo(asset);
-
-				AssetDatabase.SaveAssets();
-				return;
+		static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) 
+		{
+			foreach (string asset in importedAssets) 
+			{
+				if (AssetPostImporter.CheckOnPostprocessAllAssets(asset,ExcelName))
+				{
+					CreateInfo(asset);
+					AssetDatabase.SaveAssets();
+					return;
+				}
 			}
 		}
 
@@ -52,16 +32,17 @@ namespace Ryneus
 			string FileName = Path.GetFileNameWithoutExtension(asset);
 
 			// ディレクトリ情報とファイル名の文字列を結合してアセット名を指定
-			string ExportPath = $"Assets\\Resources\\Data\\MainData.asset";
+			string ExportPath = $"{Path.Combine(AssetPostImporter.ExportExcelPath, FileName)}.asset";
 
-			DataManager Data = AssetDatabase.LoadAssetAtPath<DataManager>(ExportPath);
+			SoundDates Data = AssetDatabase.LoadAssetAtPath<SoundDates>(ExportPath);
 			if (!Data)
 			{
 				// データがなければ作成
-				Data = ScriptableObject.CreateInstance<DataManager>();
+				Data = ScriptableObject.CreateInstance<SoundDates>();
 				AssetDatabase.CreateAsset(Data, ExportPath);
-				Data.hideFlags = HideFlags.NotEditable;
+				//Data.hideFlags = HideFlags.NotEditable;
 			}
+			Data.hideFlags = HideFlags.None;
 
 			try
 			{
@@ -72,22 +53,27 @@ namespace Ryneus
 					AssetPostImporter.CreateBook(asset, Mainstream, out IWorkbook Book);
 
 					// 情報の初期化
-					Data.SE.Clear();
+					Data.Data.Clear();
 
 					// エクセルシートからセル単位で読み込み
 					ISheet BaseSheet = Book.GetSheetAt(0);
+					var KeyRow = BaseSheet.GetRow(0);
+					AssetPostImporter.SetKeyNames(KeyRow.Cells);
 
 					for (int i = 1; i <= BaseSheet.LastRowNum; i++)
 					{
 						IRow BaseRow = BaseSheet.GetRow(i);
 
-						var SE = new SEData();
-						SE.Id = AssetPostImporter.ImportNumeric(BaseRow,(int)BaseColumn.Id);
-						SE.Key = AssetPostImporter.ImportString(BaseRow,(int)BaseColumn.Key);
-						SE.FileName = AssetPostImporter.ImportString(BaseRow,(int)BaseColumn.FileName);
-						SE.Volume = (float)AssetPostImporter.ImportFloat(BaseRow,(int)BaseColumn.Volume);
-						SE.Pitch = (float)AssetPostImporter.ImportFloat(BaseRow,(int)BaseColumn.Pitch);
-						Data.SE.Add(SE);
+                        var BGM = new SoundData
+                        {
+                            Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
+                            Key = AssetPostImporter.ImportString(BaseRow, "Key"),
+                            FileName = AssetPostImporter.ImportString(BaseRow, "FileName"),
+                            Volume = AssetPostImporter.ImportFloat(BaseRow, "Volume"),
+                            //Loop = AssetPostImporter.ImportBool(BaseRow, "Loop"),
+                            //CrossFade = AssetPostImporter.ImportString(BaseRow, "CrossFade")
+                        };
+                        Data.Data.Add(BGM);
 					}
 
 				}

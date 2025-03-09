@@ -15,27 +15,14 @@ namespace Ryneus
 		// アセット更新があると呼ばれる
 		static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) 
 		{
-			foreach (string asset in importedAssets) {
-
-				string ext = Path.GetExtension(asset);
-				if (ext != ".xls" && ext != ".xlsx" && ext != ".xlsm") continue;
-
-				// エクセルを開いているデータはスキップ
-				string fileName = Path.GetFileName(asset);
-				if (fileName.StartsWith("~$")) continue;
-
-				// 同じパスのみ
-				string filePath = Path.GetDirectoryName(asset);
-				filePath = filePath.Replace("\\", "/");
-				//if (filePath != ExcelPath) { continue; }
-
-				// 同じファイルのみ
-				if (fileName != ExcelName) { continue; }
-
-				CreateInfo(asset);
-
-				AssetDatabase.SaveAssets();
-				return;
+			foreach (string asset in importedAssets) 
+			{
+				if (AssetPostImporter.CheckOnPostprocessAllAssets(asset,ExcelName))
+				{
+					CreateInfo(asset);
+					AssetDatabase.SaveAssets();
+					return;
+				}
 			}
 		}
 
@@ -45,16 +32,17 @@ namespace Ryneus
 			string FileName = Path.GetFileNameWithoutExtension(asset);
 
 			// ディレクトリ情報とファイル名の文字列を結合してアセット名を指定
-			string ExportPath = $"Assets\\Resources\\Data\\MainData.asset";
+			string ExportPath = $"{Path.Combine(AssetPostImporter.ExportExcelPath, FileName)}.asset";
 
-			DataManager Data = AssetDatabase.LoadAssetAtPath<DataManager>(ExportPath);
+			SoundDates Data = AssetDatabase.LoadAssetAtPath<SoundDates>(ExportPath);
 			if (!Data)
 			{
 				// データがなければ作成
-				Data = ScriptableObject.CreateInstance<DataManager>();
+				Data = ScriptableObject.CreateInstance<SoundDates>();
 				AssetDatabase.CreateAsset(Data, ExportPath);
-				Data.hideFlags = HideFlags.NotEditable;
+				//Data.hideFlags = HideFlags.NotEditable;
 			}
+			Data.hideFlags = HideFlags.None;
 
 			try
 			{
@@ -65,7 +53,7 @@ namespace Ryneus
 					AssetPostImporter.CreateBook(asset, Mainstream, out IWorkbook Book);
 
 					// 情報の初期化
-					Data.BGM.Clear();
+					Data.Data.Clear();
 
 					// エクセルシートからセル単位で読み込み
 					ISheet BaseSheet = Book.GetSheetAt(0);
@@ -76,7 +64,7 @@ namespace Ryneus
 					{
 						IRow BaseRow = BaseSheet.GetRow(i);
 
-                        var BGM = new BGMData
+                        var BGM = new SoundData
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             Key = AssetPostImporter.ImportString(BaseRow, "Key"),
@@ -85,7 +73,7 @@ namespace Ryneus
                             Loop = AssetPostImporter.ImportBool(BaseRow, "Loop"),
                             CrossFade = AssetPostImporter.ImportString(BaseRow, "CrossFade")
                         };
-                        Data.BGM.Add(BGM);
+                        Data.Data.Add(BGM);
 					}
 
 				}

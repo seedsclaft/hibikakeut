@@ -18,7 +18,7 @@ namespace Ryneus
         private List<AudioSource> _playingSe = new ();
         private int _seAudioSourceNum = 16;
         private List<AudioSource> _staticSe;
-        private List<SEData> _seMaster;
+        private List<SoundData> _seMaster;
         
         [SerializeField] private SoundIntroLoop _bgmMain;
         [SerializeField] private SoundIntroLoop _bgmSub;
@@ -47,7 +47,7 @@ namespace Ryneus
         void LoadDefaultSound()
         {
             _staticSe = new List<AudioSource>();
-            _seMaster = DataSystem.Data.SE.FindAll(a => a != null);
+            _seMaster = DataSystem.SE.FindAll(a => a != null);
             for (int i = 0;i < _seMaster.Count;i++)
             {
                 var audioSource = gameObject.AddComponent<AudioSource>();
@@ -234,7 +234,7 @@ namespace Ryneus
         {
             //Debug.Log(sEType);
             if (SeMute) return;
-            var seIndex = DataSystem.Data.SE.FindIndex(a => a.Id == (int)sEType);
+            var seIndex = DataSystem.SE.FindIndex(a => a.Id == (int)sEType);
             if (seIndex > -1)
             {
                 _staticSe[seIndex].Play();

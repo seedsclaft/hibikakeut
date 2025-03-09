@@ -175,7 +175,7 @@ namespace Ryneus
         }
         
 
-        public BGMData TacticsBgmData()
+        public SoundData TacticsBgmData()
         {
             if (CurrentStage != null && PartyInfo != null)
             {
@@ -191,7 +191,7 @@ namespace Ryneus
                 {
                     bgmId = CurrentStage.Master.BGMId;
                 }
-                return DataSystem.Data.GetBGM(bgmId);
+                return DataSystem.BGM.Find(a => a.Id == bgmId);
             }
             return null;
         }

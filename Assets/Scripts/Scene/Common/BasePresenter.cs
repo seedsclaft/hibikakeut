@@ -136,7 +136,7 @@ namespace Ryneus
 
         public async void PlayBossBgm()
         {
-            var bgmData = DataSystem.Data.GetBGM(_model.CurrentStage.Master.BossBGMId);
+            var bgmData = DataSystem.BGM.Find(a => a.Id == _model.CurrentStage.Master.BossBGMId);
             var bgm = await _model.GetBgmData(bgmData.Key);
             SoundManager.Instance.PlayBgm(bgm,bgmData.Volume);
         }
