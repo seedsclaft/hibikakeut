@@ -95,7 +95,7 @@ namespace Ryneus
         {
         }
 
-        public void InputHandler(InputKeyType keyType, bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
             if (_viewBusy == true)
             {
@@ -186,18 +186,18 @@ namespace Ryneus
             {
                 _virtualModelController?.LeftCamera();
             }
-            switch (keyType)
+
+            if (keyTypes.Contains(InputKeyType.Cancel))
             {
-                case InputKeyType.None:
-                    _virtualModelController?.Stop();
-                    return;
-                case InputKeyType.Cancel:
-                    CallEvent(CommandType.CallStatus);
-                    return;
-                case InputKeyType.Option1:
-                    CallEvent(CommandType.CallSymbol);
-                    symbolInfoList.gameObject.SetActive(true);
-                    return;
+                CallEvent(CommandType.CallStatus);
+            } else
+            if (keyTypes.Contains(InputKeyType.Option1))
+            {
+                CallEvent(CommandType.CallSymbol);
+                symbolInfoList.gameObject.SetActive(true);
+            } else
+            {
+                _virtualModelController?.Stop();
             }
         }
 

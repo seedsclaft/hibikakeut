@@ -30,14 +30,14 @@ namespace Ryneus
             _commandData = commandData;
         }
 
-        public void InputHandler(InputKeyType keyType,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
-            if (keyType == InputKeyType.Cancel)
+            if (keyTypes.Contains(InputKeyType.Cancel))
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 BackEvent();
-            }
-            if (keyType == InputKeyType.Down)
+            } else
+            if (keyTypes.Contains(InputKeyType.Down))
             {
                 var value = scrollRect.normalizedPosition.y - 0.1f;
                 scrollRect.normalizedPosition = new Vector2(0,value);
@@ -45,8 +45,8 @@ namespace Ryneus
                 {
                     scrollRect.normalizedPosition = new Vector2(0,0);
                 }
-            }
-            if (keyType == InputKeyType.Up)
+            } else
+            if (keyTypes.Contains(InputKeyType.Up))
             {
                 var value = scrollRect.normalizedPosition.y + 0.1f;
                 scrollRect.normalizedPosition = new Vector2(0,value);

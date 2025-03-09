@@ -65,7 +65,7 @@ namespace Ryneus
 
     public interface IInputHandlerEvent
     {
-        void InputHandler(InputKeyType keyType,bool pressed);
+        void InputHandler(List<InputKeyType> keyType,bool pressed);
         void MouseCancelHandler();
         void MouseMoveHandler(Vector3 position);
         void MouseWheelHandler(Vector2 position);

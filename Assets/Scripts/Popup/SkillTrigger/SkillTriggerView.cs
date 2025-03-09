@@ -286,15 +286,8 @@ namespace Ryneus
             }
         }
 
-        public void InputHandler(InputKeyType keyType,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
-            switch (keyType)
-            {
-                case InputKeyType.Right:
-                    break;
-                case InputKeyType.Left:
-                    break;
-            }
         }
     }
 

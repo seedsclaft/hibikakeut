@@ -44,19 +44,19 @@ namespace Ryneus
             advInputButton.gameObject.SetActive(false);
         }
         
-        public void InputHandler(InputKeyType keyType,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
             if (_advPlaying == false) return;
-            if (keyType == InputKeyType.Decide || keyType == InputKeyType.Cancel)
+            if (keyTypes.Contains(InputKeyType.Decide) || keyTypes.Contains(InputKeyType.Cancel))
             {
                 advUguiManager.OnInput();
             }
-            if (keyType == InputKeyType.Option1)
+            if (keyTypes.Contains(InputKeyType.Option1))
             {
                 advUguiManager.Engine.Config.ToggleSkip();        
                 GameSystem.ConfigData.EventSkipIndex = advUguiManager.Engine.Config.IsSkip;
             }
-            if (keyType == InputKeyType.SideLeft1)
+            if (keyTypes.Contains(InputKeyType.SideLeft1))
             {
                 if (advUguiManager.Engine.SelectionManager.TotalCount > 0)
                 {
@@ -64,7 +64,7 @@ namespace Ryneus
                     Ryneus.SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 }
             }
-            if (keyType == InputKeyType.SideRight1)
+            if (keyTypes.Contains(InputKeyType.SideRight1))
             {
                 if (advUguiManager.Engine.SelectionManager.TotalCount > 1)
                 {
@@ -74,7 +74,8 @@ namespace Ryneus
             }
         }
 
-        private new void Update() {
+        private new void Update() 
+        {
             base.Update();
             if (advUguiManager.Engine.SelectionManager.IsWaitInput == true && (HelpWindow.LastKey != "ADV_SELECTING" || HelpWindow.LastKey != "ADV_SELECTING_ONE"))
             {

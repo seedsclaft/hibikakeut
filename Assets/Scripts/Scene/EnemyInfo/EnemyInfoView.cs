@@ -120,24 +120,8 @@ namespace Ryneus
             _backEvent?.Invoke();
         }
 
-        public void InputHandler(InputKeyType keyType,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
-            if (keyType == InputKeyType.SideLeft1)
-            {
-                if (true)
-                {
-                } else
-                {
-                }
-            }
-            if (keyType == InputKeyType.SideRight1)
-            {
-                if (true)
-                {
-                } else
-                {
-                }
-            }
         }
 
 

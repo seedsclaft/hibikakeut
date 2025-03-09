@@ -19,16 +19,11 @@ namespace Ryneus
         {
             _selectIndexes = selectIndexes;
         }
-        private int _defaultInputFrame = 0;
 
-        private int _listMoveInputFrameFirst = 12;
+        private int _listMoveInputFrameFirst = 8;
         private int _listMoveGamePadFrameFirst = 39;
         private int _listMoveInputFrame = 4;
         private int _listMoveGamePadFrame = 9;
-        public void SetInputFrame(int frame)
-        {
-            _defaultInputFrame = frame;
-        }
         private int _inputBusyFrame = 0;
 
         //[SerializeField] private bool isScrollList = true; // 表示数が初期プレハブ数より多くなるか
@@ -52,7 +47,7 @@ namespace Ryneus
         private List<GameObject> _objectList = new ();
         public List<GameObject> ObjectList => _objectList;
 
-        private Action<InputKeyType> _inputCallHandler = null;
+        private Action<List<InputKeyType>> _inputCallHandler = null;
         private Dictionary<InputKeyType, Action> _inputHandler = new ();
 
         private Action _selectedHandler = null;
@@ -69,7 +64,7 @@ namespace Ryneus
 
         public void Activate()
         {
-            ResetInputOneFrame();
+            ResetInputFrame(1);
             _active = true;
         }
         
@@ -128,8 +123,10 @@ namespace Ryneus
         private bool EnableValueChanged()
         {
             int startIndex = GetStartIndex();
-            if (startIndex < 0) return false;    
-            if (_lastStartIndex == startIndex) return false;
+            if (startIndex < 0 || _lastStartIndex == startIndex) 
+            {
+                return false;
+            }    
             return true;
         }
 
@@ -140,7 +137,10 @@ namespace Ryneus
 
         public void CreateList()
         {
-            if (_itemPrefabList.Count > 0) return;
+            if (_itemPrefabList.Count > 0) 
+            {
+                return;
+            }
             CreateObjectPrefab();
             CreateListItemPrefab();
         }
@@ -299,9 +299,10 @@ namespace Ryneus
             return (_horizontal == true) ? InputKeyType.Up : InputKeyType.Left;
         }
 
-        public bool InputDir4(InputKeyType keyType)
+        public bool InputDir4(List<InputKeyType> keyTypes)
         {   
-            return keyType == InputKeyType.Up || keyType == InputKeyType.Down || keyType == InputKeyType.Left || keyType == InputKeyType.Right;
+            var findAll = keyTypes.FindAll(a => a == InputKeyType.Up || a == InputKeyType.Down || a == InputKeyType.Left || a == InputKeyType.Right);
+            return findAll.Count > 0;
         }
 
         private float GetViewPortWidth()
@@ -433,22 +434,20 @@ namespace Ryneus
 
         public bool IsInputEnable()
         {
-            if (this == null) return false;
-            if (_inputBusyFrame > 0) return false;
-            if (_active == false) return false;
-            if (!gameObject) return false;
-            if (gameObject.activeSelf == false) return false;
+            if (this == null) 
+            {
+                return false;
+            }
+            if (_inputBusyFrame > 0 || _active == false || !gameObject || gameObject.activeSelf == false)
+            {
+                return false;
+            }
             return true;
         }
 
         public void ResetInputFrame(int plusValue)
         {
-            _inputBusyFrame = _defaultInputFrame + plusValue;
-        }
-        
-        public void ResetInputOneFrame()
-        {
-            _inputBusyFrame = 1;
+            _inputBusyFrame = plusValue;
         }
         
         public void SetHelpWindow(HelpWindow helpWindow)
@@ -456,9 +455,9 @@ namespace Ryneus
             _helpWindow = helpWindow;
         }
 
-        public void InputHandler(InputKeyType keyType,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
-            if (keyType == InputKeyType.None)
+            if (keyTypes == null)
             {
                 //ResetInputOneFrame();
             }
@@ -466,13 +465,13 @@ namespace Ryneus
             {
                 return;
             }
-            if (InputDir4(keyType))
+            if (InputDir4(keyTypes))
             {
-                InputSelectIndex(keyType);
+                InputSelectIndex(keyTypes);
             }
-            InputCallEvent(keyType);
+            InputCallEvent(keyTypes);
             int plusValue = 0;
-            if (InputDir4(keyType))
+            if (InputDir4(keyTypes))
             {
                 if (InputSystem.IsGamePad)
                 {
@@ -485,7 +484,7 @@ namespace Ryneus
             ResetInputFrame(plusValue);
         }
 
-        public void InputSelectIndex(InputKeyType keyType)
+        public void InputSelectIndex(List<InputKeyType> keyTypes)
         {
             var currentIndex = Index;
             var selectIndex = Index;
@@ -494,11 +493,11 @@ namespace Ryneus
             var pageUpKey = GetPageUpKey();
             var pageDownKey = GetPageDownKey();
             var nextIndex = Index;
-            if (keyType == plusKey || keyType == minusKey)
+            if (keyTypes.Contains(plusKey) || keyTypes.Contains(minusKey))
             {
                 for (int i = 0;i < _listDates.Count;i++)
                 {
-                    if (keyType == plusKey)
+                    if (keyTypes.Contains(plusKey))
                     {
                         nextIndex = Index + i + 1;
                         if (nextIndex >= _listDates.Count)
@@ -506,7 +505,7 @@ namespace Ryneus
                             nextIndex -= _listDates.Count;
                         }
                     } else
-                    if (keyType == minusKey)
+                    if (keyTypes.Contains(minusKey))
                     {
                         nextIndex = Index - i - 1;
                         if (nextIndex < 0)
@@ -525,7 +524,7 @@ namespace Ryneus
                     }
                 }
             } else
-            if (keyType == pageUpKey || keyType == pageDownKey)
+            if (keyTypes.Contains(pageUpKey) || keyTypes.Contains(pageDownKey))
             {
                 // 列移動
                 var lines = _horizontal ? Rows() : Cols();
@@ -533,11 +532,11 @@ namespace Ryneus
                 {
                     for (int i = 0;i < lines;i++)
                     {
-                        if (keyType == pageUpKey)
+                        if (keyTypes.Contains(pageUpKey))
                         {
                             nextIndex = Index + (i+1) * lines;
                         } else
-                        if (keyType == pageDownKey)
+                        if (keyTypes.Contains(pageDownKey))
                         {
                             nextIndex = Index + (i+1) * -1 * lines;
                         }
@@ -599,7 +598,7 @@ namespace Ryneus
             }
         }
 
-        public void SetInputCallHandler(Action<InputKeyType> callHandler)
+        public void SetInputCallHandler(Action<List<InputKeyType>> callHandler)
         {
             _inputCallHandler = callHandler;
         }
@@ -630,14 +629,17 @@ namespace Ryneus
             }
         }
         
-        private void InputCallEvent(InputKeyType keyType)
+        private void InputCallEvent(List<InputKeyType> keyTypes)
         {
             if (!IsInputEnable())
             {
                 return;
             }
-            _inputCallHandler?.Invoke(keyType);
-            CallListInputHandler(keyType);
+            _inputCallHandler?.Invoke(keyTypes);
+            foreach (var keyType in keyTypes)
+            {
+                CallListInputHandler(keyType);
+            }
         }
 
         public void MouseCancelHandler()
@@ -663,15 +665,15 @@ namespace Ryneus
         {
         }
         
-        public void CallSelectHandler(InputKeyType keyType)
+        public void CallSelectHandler(List<InputKeyType> keyTypes)
         {
-            if (InputDir4(keyType))
+            if (InputDir4(keyTypes))
             {
-                UpdateScrollRect(keyType);
+                UpdateScrollRect(keyTypes);
             }
         }
 
-        private void UpdateScrollRect(InputKeyType keyType)
+        private void UpdateScrollRect(List<InputKeyType> keyTypes)
         {
             if (_index < 0) return;
             var listCount = ListItemCount();
@@ -679,7 +681,7 @@ namespace Ryneus
             var _displayDownCount = Index - GetStartIndex();
             var plusKey = GetPlusKey();
             var minusKey = GetMinusKey();
-            if (keyType == plusKey)
+            if (keyTypes.Contains(plusKey))
             {
                 _displayDownCount--;
                 if (Index == 0)
@@ -692,7 +694,7 @@ namespace Ryneus
                     ScrollRect.normalizedPosition = new Vector2(0,1.0f - (num * (Index - (listCount-1))));
                 }
             } else
-            if (keyType == minusKey)
+            if (keyTypes.Contains(minusKey))
             {
                 _displayDownCount++;
                 if (Index == (_listDates.Count-1))

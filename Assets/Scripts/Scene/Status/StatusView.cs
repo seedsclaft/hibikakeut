@@ -255,25 +255,8 @@ namespace Ryneus
             }
         }
 
-        public void InputHandler(InputKeyType keyType,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
-            switch (keyType)
-            {
-                case InputKeyType.Cancel:
-                    break;
-                case InputKeyType.Option1:
-                    break;
-                case InputKeyType.Option2:
-                    break;
-                case InputKeyType.Start:
-                    break;
-                case InputKeyType.SideLeft1:
-                    break;
-                case InputKeyType.SideLeft2:
-                    break;
-                case InputKeyType.SideRight1:
-                    break;
-            }
         }
 
         public new void MouseCancelHandler()

@@ -212,16 +212,16 @@ namespace Ryneus
             gameObject.SetActive(false);
         }
 
-        public void InputHandler(InputKeyType keyType,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
             if (attributeList != null && !attributeList.gameObject.activeSelf)
             {
                 // タブ選択操作
-                if (keyType == InputKeyType.SideLeft2)
+                if (keyTypes.Contains(InputKeyType.SideLeft2))
                 {
                     toggleSelect.SelectPrev();
                 } else
-                if (keyType == InputKeyType.SideRight2)
+                if (keyTypes.Contains(InputKeyType.SideRight2))
                 {
                     toggleSelect.SelectNext();
                 }

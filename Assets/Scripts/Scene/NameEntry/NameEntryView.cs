@@ -62,11 +62,11 @@ namespace Ryneus
             HelpWindow.SetInputInfo("NAMEENTRY");
         }
 
-        public void InputHandler(InputKeyType keyType,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
             if (inputField.gameObject.activeSelf == true && inputField.IsActive())
             {
-                if (keyType == InputKeyType.Start)
+                if (keyTypes.Contains(InputKeyType.Start))
                 {
                     OnClickDecide();
                 }

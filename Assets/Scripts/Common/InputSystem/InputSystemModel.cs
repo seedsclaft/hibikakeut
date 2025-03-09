@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Numerics;
 
 namespace Ryneus
@@ -9,7 +10,7 @@ namespace Ryneus
     {
         private List<IInputHandlerEvent> _inputHandler = new ();
         private int _inputBusyFrame = 0;
-        private InputKeyType _lastInputKey = InputKeyType.None;
+        private List<InputKeyType> _lastInputKeys = new();
         private int _pressedFrame = 0;
         readonly int _pressFrame = 30;
         private bool _busy = false;
@@ -24,13 +25,13 @@ namespace Ryneus
             _inputBusyFrame = frame;
         }
 
-        private void InputHandler(InputKeyType keyType,bool pressed)
+        private void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
             if (_inputBusyFrame >= 0) return;
             foreach (var handler in _inputHandler)
             {
                 //LogOutput.Log(keyType);
-                handler?.InputHandler(keyType,pressed);
+                handler?.InputHandler(keyTypes,pressed);
             }
         }
 
@@ -61,20 +62,18 @@ namespace Ryneus
             }
         }
 
-        public void UpdateInputKeyType(InputKeyType keyType)
+        public void UpdateInputKeyType(List<InputKeyType> keyTypes)
         {
-            if (_lastInputKey != keyType)
+            var sequenceEqual = _lastInputKeys.SequenceEqual(keyTypes);
+            if (sequenceEqual)
             {
-                _lastInputKey = keyType;
-                _pressedFrame = 0;
+                _pressedFrame += 1;
             } else
             {
-                if (_lastInputKey == keyType)
-                {
-                    _pressedFrame += 1;
-                }
+                _lastInputKeys = keyTypes;
+                _pressedFrame = 0;
             }
-            InputHandler(keyType,_pressedFrame > _pressFrame);
+            InputHandler(keyTypes,_pressedFrame > _pressFrame);
             if (InputSystem.IsMouseRightButtonDown())
             {
                 CallMouseCancel();

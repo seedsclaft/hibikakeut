@@ -63,7 +63,7 @@ namespace Ryneus
     #endif
         }
 
-        private void CallCharacterInputHandler(InputKeyType keyType)
+        private void CallCharacterInputHandler(List<InputKeyType> keyTypes)
         {
             return;
         }

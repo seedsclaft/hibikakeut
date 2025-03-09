@@ -33,9 +33,9 @@ namespace Ryneus
             skillInfoComponent.UpdateInfo(learnSkillInfo.SkillInfo);
         }
         
-        public void InputHandler(InputKeyType keyType, bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            if (keyType != InputKeyType.None)
+            if (keyTypes.Count > 0)
             {
                 BackEvent?.Invoke();
             }
