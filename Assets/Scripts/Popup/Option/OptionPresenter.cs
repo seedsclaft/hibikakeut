@@ -15,7 +15,7 @@ namespace Ryneus
         {
             _view = view;
             _model = new OptionModel();
-            _model.ChangeTempInputType(GameSystem.ConfigData.InputType);
+            _model.ChangeTempInputType(GameSystem.OptionData.InputType);
 
             SetView(_view);
             SetModel(_model);
@@ -70,72 +70,72 @@ namespace Ryneus
                 case "SCREEN_MODE":
                     if (inputKeyType == InputKeyType.Right)
                     {
-                        ConfigUtility.ChangeScreenMode(true);
+                        OptionUtility.ChangeScreenMode(true);
                     } else
                     if (inputKeyType == InputKeyType.Left)
                     {
-                        ConfigUtility.ChangeScreenMode(false);
+                        OptionUtility.ChangeScreenMode(false);
                     }
                     break;
                 case "SCREEN_SIZE":
                     if (inputKeyType == InputKeyType.Right)
                     {
-                        ConfigUtility.ChangeScreenSize(true);
+                        OptionUtility.ChangeScreenSize(true);
                     } else
                     if (inputKeyType == InputKeyType.Left)
                     {
-                        ConfigUtility.ChangeScreenSize(false);
+                        OptionUtility.ChangeScreenSize(false);
                     }
                     break;
                 case "BGM_VOLUME":
                     if (inputKeyType == InputKeyType.Right)
                     {
-                        ConfigUtility.ChangeBGMValue(Mathf.Min(1, SoundManager.Instance.BgmVolume + 0.05f));
+                        OptionUtility.ChangeBGMValue(Mathf.Min(1, SoundManager.Instance.BgmVolume + 0.05f));
                     } else
                     if (inputKeyType == InputKeyType.Left)
                     {
-                        ConfigUtility.ChangeBGMValue(Mathf.Max(0, SoundManager.Instance.BgmVolume - 0.05f));
+                        OptionUtility.ChangeBGMValue(Mathf.Max(0, SoundManager.Instance.BgmVolume - 0.05f));
                     } else
                     if (inputKeyType == InputKeyType.Option1)
                     {
-                        ConfigUtility.ChangeBGMMute(!SoundManager.Instance.BGMMute);
+                        OptionUtility.ChangeBGMMute(!SoundManager.Instance.BGMMute);
                     }
                     break;
                 case "SE_VOLUME":
                     if (inputKeyType == InputKeyType.Right)
                     {
-                        ConfigUtility.ChangeSEValue(Mathf.Min(1, SoundManager.Instance.SeVolume + 0.05f));
+                        OptionUtility.ChangeSEValue(Mathf.Min(1, SoundManager.Instance.SeVolume + 0.05f));
                     } else
                     if (inputKeyType == InputKeyType.Left)
                     {
-                        ConfigUtility.ChangeSEValue(Mathf.Max(0, SoundManager.Instance.SeVolume - 0.05f));
+                        OptionUtility.ChangeSEValue(Mathf.Max(0, SoundManager.Instance.SeVolume - 0.05f));
                     } else
                     if (inputKeyType == InputKeyType.Option1)
                     {
-                        ConfigUtility.ChangeSEMute(!SoundManager.Instance.SeMute);
+                        OptionUtility.ChangeSEMute(!SoundManager.Instance.SeMute);
                     }
                     break;
                 case "GRAPHIC_QUALITY":
                     if (inputKeyType == InputKeyType.Right)
                     {
-                        ConfigUtility.ChangeGraphicIndex(1);
+                        OptionUtility.ChangeGraphicIndex(1);
                     }
                     if (inputKeyType == InputKeyType.Left)
                     {
-                        ConfigUtility.ChangeGraphicIndex(2);
+                        OptionUtility.ChangeGraphicIndex(2);
                     };
                     break;
                 case "EVENT_SKIP":
-                    ConfigUtility.ChangeEventSkipIndex(inputKeyType == InputKeyType.Right);
+                    OptionUtility.ChangeEventSkipIndex(inputKeyType == InputKeyType.Right);
                     break;
                 case "COMMAND_END_CHECK":
-                    ConfigUtility.ChangeCommandEndCheck(inputKeyType == InputKeyType.Left);
+                    OptionUtility.ChangeCommandEndCheck(inputKeyType == InputKeyType.Left);
                     break;
                 case "BATTLE_WAIT":
-                    ConfigUtility.ChangeBattleWait(inputKeyType == InputKeyType.Left);
+                    OptionUtility.ChangeBattleWait(inputKeyType == InputKeyType.Left);
                     break;
                 case "BATTLE_ANIMATION":
-                    ConfigUtility.ChangeBattleAnimation(inputKeyType == InputKeyType.Right);
+                    OptionUtility.ChangeBattleAnimation(inputKeyType == InputKeyType.Right);
                     break;
                 case "INPUT_TYPE":
                     var inputTypeIndex = (int)GameSystem.TempData.TempInputType;
@@ -158,20 +158,20 @@ namespace Ryneus
                     _model.ChangeTempInputType((InputType)inputTypeIndex);
                     break;
                 case "BATTLE_AUTO":
-                    ConfigUtility.ChangeBattleAuto(inputKeyType == InputKeyType.Right);
+                    OptionUtility.ChangeBattleAuto(inputKeyType == InputKeyType.Right);
                     break;
                 case "BATTLE_SPEED":
                     if (inputKeyType == InputKeyType.Right)
                     {                    
-                        ConfigUtility.ChangeBattleSpeed(1);
+                        OptionUtility.ChangeBattleSpeed(1);
                     }
                     if (inputKeyType == InputKeyType.Left)
                     {
-                        ConfigUtility.ChangeBattleSpeed(-1);
+                        OptionUtility.ChangeBattleSpeed(-1);
                     }
                     break;
                 case "TUTORIAL_CHECK":
-                    ConfigUtility.ChangeTutorialCheck(inputKeyType == InputKeyType.Left);
+                    OptionUtility.ChangeTutorialCheck(inputKeyType == InputKeyType.Left);
                     break;
             }
             CommandRefresh();
@@ -184,11 +184,11 @@ namespace Ryneus
             {
                 if (data.OptionCommand.Key == "BGM_VOLUME")
                 {
-                    ConfigUtility.ChangeBGMValue(volume);
+                    OptionUtility.ChangeBGMValue(volume);
                 } else
                 if (data.OptionCommand.Key == "SE_VOLUME")
                 {
-                    ConfigUtility.ChangeSEValue(volume);
+                    OptionUtility.ChangeSEValue(volume);
                 }
                 CommandRefresh();
             }
@@ -201,11 +201,11 @@ namespace Ryneus
             {
                 if (data.OptionCommand.Key == "BGM_VOLUME")
                 {
-                    ConfigUtility.ChangeBGMMute(isMute);
+                    OptionUtility.ChangeBGMMute(isMute);
                 } else
                 if (data.OptionCommand.Key == "SE_VOLUME")
                 {
-                    ConfigUtility.ChangeSEMute(isMute);
+                    OptionUtility.ChangeSEMute(isMute);
                 }
                 CommandRefresh();
             }
@@ -221,36 +221,36 @@ namespace Ryneus
                     case "GRAPHIC_QUALITY":
                         if (toggleIndex == 1)
                         {
-                            ConfigUtility.ChangeGraphicIndex(1);
+                            OptionUtility.ChangeGraphicIndex(1);
                         }
                         if (toggleIndex == 0)
                         {
-                            ConfigUtility.ChangeGraphicIndex(2);
+                            OptionUtility.ChangeGraphicIndex(2);
                         };
                         break;
                     case "EVENT_SKIP":
-                        ConfigUtility.ChangeEventSkipIndex(toggleIndex == 1);
+                        OptionUtility.ChangeEventSkipIndex(toggleIndex == 1);
                         break;
                     case "COMMAND_END_CHECK":
-                        ConfigUtility.ChangeCommandEndCheck(toggleIndex == 0);
+                        OptionUtility.ChangeCommandEndCheck(toggleIndex == 0);
                         break;
                     case "BATTLE_WAIT":
-                        ConfigUtility.ChangeBattleWait(toggleIndex == 0);
+                        OptionUtility.ChangeBattleWait(toggleIndex == 0);
                         break;
                     case "BATTLE_ANIMATION":
-                        ConfigUtility.ChangeBattleAnimation(toggleIndex == 1);
+                        OptionUtility.ChangeBattleAnimation(toggleIndex == 1);
                         break;
                     case "INPUT_TYPE":
                         _model.ChangeTempInputType((InputType)toggleIndex);
                         break;
                     case "BATTLE_AUTO":
-                        ConfigUtility.ChangeBattleAuto(toggleIndex == 1);
+                        OptionUtility.ChangeBattleAuto(toggleIndex == 1);
                         break;
                     case "BATTLE_SPEED":
-                        ConfigUtility.SetBattleSpeed(ConfigUtility.SpeedList[toggleIndex+1]);
+                        OptionUtility.SetBattleSpeed(OptionUtility.SpeedList[toggleIndex+1]);
                         break;
                     case "TUTORIAL_CHECK":
-                        ConfigUtility.ChangeTutorialCheck(toggleIndex == 0);
+                        OptionUtility.ChangeTutorialCheck(toggleIndex == 0);
                         break;
                 }
                 CommandRefresh();
@@ -267,10 +267,10 @@ namespace Ryneus
                     case "SCREEN_SIZE":
                         if (plusValue > 0)
                         {
-                            ConfigUtility.ChangeScreenSize(true);
+                            OptionUtility.ChangeScreenSize(true);
                         } else
                         {
-                            ConfigUtility.ChangeScreenSize(false);
+                            OptionUtility.ChangeScreenSize(false);
                         }
                         break;
                 }

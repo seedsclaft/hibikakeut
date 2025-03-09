@@ -37,12 +37,12 @@ namespace Ryneus
             {
                 InputSystem.IsGamePad = true;
             }
-            if (SaveSystem.ExistsConfigFile())
+            if (SaveSystem.ExistsOptionFile())
             {
-                SaveSystem.LoadConfigStart();
+                SaveSystem.LoadOptionStart();
             } else
             {
-                _model.InitConfigInfo();
+                _model.InitOptionInfo();
             }
             if (_view.TestMode)
             {

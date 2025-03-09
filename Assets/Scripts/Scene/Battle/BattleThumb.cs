@@ -62,7 +62,7 @@ namespace Ryneus
             gameObject.GetComponent<RectTransform>().localPosition = new Vector3(20,0,0);
             canvasGroup.alpha = 1;
             _animationBusy = true;
-            var waitFrame = 0.6f / GameSystem.ConfigData.BattleSpeed;
+            var waitFrame = 0.6f / GameSystem.OptionData.BattleSpeed;
             MoveAndFade(gameObject.GetComponent<RectTransform>(),0,0,waitFrame,() => 
             {
                 _animationBusy = false;

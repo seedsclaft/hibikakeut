@@ -35,7 +35,7 @@ namespace Ryneus
         
         public static SaveInfo CurrentData = null;
         public static SaveGameInfo GameInfo = null;
-        public static SaveConfigInfo ConfigData = null;
+        public static SaveOptionInfo OptionData = null;
         public static TempInfo TempData = null;
         private static TutorialData _lastTutorialData = null;
 
@@ -320,13 +320,13 @@ namespace Ryneus
             optionView.Initialize();
             optionView.SetBackEvent(() => 
             {
-                ConfigData.UpdateSoundParameter(
+                OptionData.UpdateSoundParameter(
                     SoundManager.Instance.BgmVolume,
                     SoundManager.Instance.BGMMute,
                     SoundManager.Instance.SeVolume,
                     SoundManager.Instance.SeMute
                 );
-                SaveSystem.SaveConfigStart(ConfigData);
+                SaveSystem.SaveOptionStart(OptionData);
                 optionView.CallSystemCommand(Base.CommandType.ClosePopup);
                 endEvent?.Invoke();
             });
@@ -432,7 +432,7 @@ namespace Ryneus
             advEngine.Param.SetParameterBoolean("SelectionParam_0",false);
             advEngine.Param.SetParameterBoolean("SelectionParam_1",false);
             advEngine.JumpScenario(label);
-            advEngine.Config.IsSkip = ConfigData.EventSkipIndex;
+            advEngine.Config.IsSkip = OptionData.EventSkipIndex;
             advController.StartAdv();
             while (!advEngine.IsEndOrPauseScenario)
             {
@@ -522,7 +522,7 @@ namespace Ryneus
 
         private void CheckTutorialState(TutorialViewInfo tutorialViewInfo)
         {
-            if (ConfigData.TutorialCheck == false)
+            if (OptionData.TutorialCheck == false)
             {
                 return;
             }

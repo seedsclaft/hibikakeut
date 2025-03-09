@@ -478,22 +478,22 @@ namespace Ryneus
         public void StartAnimation(int targetIndex,EffekseerEffectAsset effekseerEffectAsset,int animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
         {
             magicList.gameObject.SetActive(false);
-            if (GameSystem.ConfigData.BattleAnimationSkip == true) 
+            if (GameSystem.OptionData.BattleAnimationSkip == true) 
             {
                 return;
             }
-            animationSpeed *= GameSystem.ConfigData.BattleSpeed;
+            animationSpeed *= GameSystem.OptionData.BattleSpeed;
             _battlerComps[targetIndex].StartAnimation(effekseerEffectAsset,animationPosition,animationScale,animationSpeed);
         }
 
         public void StartAnimationAll(EffekseerEffectAsset effekseerEffectAsset,int animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
         {
             magicList.gameObject.SetActive(false);
-            if (GameSystem.ConfigData.BattleAnimationSkip == true) 
+            if (GameSystem.OptionData.BattleAnimationSkip == true) 
             {
                 return;
             }
-            animationSpeed *= GameSystem.ConfigData.BattleSpeed;
+            animationSpeed *= GameSystem.OptionData.BattleSpeed;
         
             effekseerEmitter.transform.localScale = new Vector3(animationScale,animationScale,animationScale);
             if (effekseerEffectAsset == null)
@@ -514,8 +514,8 @@ namespace Ryneus
 
         public async UniTask StartAnimationMessiah(BattlerInfo battlerInfo,Sprite actorSprite)
         {
-            var speed = GameSystem.ConfigData.BattleSpeed;
-            if (GameSystem.ConfigData.BattleAnimationSkip == false)
+            var speed = GameSystem.OptionData.BattleSpeed;
+            if (GameSystem.OptionData.BattleAnimationSkip == false)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Demigod);
                 battleAwakenAnimation.StartAnimation(battlerInfo,actorSprite,speed);
@@ -621,8 +621,8 @@ namespace Ryneus
 
         public async UniTask StartAnimationDemigod(BattlerInfo battlerInfo,SkillData skillData)
         {
-            var speed = GameSystem.ConfigData.BattleSpeed;
-            if (GameSystem.ConfigData.BattleAnimationSkip == false)
+            var speed = GameSystem.OptionData.BattleSpeed;
+            if (GameSystem.OptionData.BattleAnimationSkip == false)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Demigod);
                 StartAnimationDemigod(battlerInfo,skillData,speed);

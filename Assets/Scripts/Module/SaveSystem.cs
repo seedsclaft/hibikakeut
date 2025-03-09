@@ -149,20 +149,20 @@ namespace Ryneus
 			return ExistsLoadFile(PlayerStageDataKey(fileId));
 		}
 
-		public static void SaveConfigStart(SaveConfigInfo userSaveInfo)
+		public static void SaveOptionStart(SaveOptionInfo userSaveInfo)
 		{
 			SaveFile(_optionDataKey,userSaveInfo);
 		}
 
-		public static void LoadConfigStart()
+		public static void LoadOptionStart()
 		{
-			var playerInfo = LoadFile<SaveConfigInfo>(_optionDataKey,(a) => 
+			var playerInfo = LoadFile<SaveOptionInfo>(_optionDataKey,(a) => 
 			{
-				GameSystem.ConfigData = a;
+				GameSystem.OptionData = a;
 			});
 		}
 
-		public static bool ExistsConfigFile()
+		public static bool ExistsOptionFile()
 		{
 			return ExistsLoadFile(_optionDataKey);
 		}
@@ -171,7 +171,7 @@ namespace Ryneus
 		{
 			DeletePlayerData();
 			DeleteStageData(fileId);
-			DeleteConfigData();
+			DeleteOptionData();
 	}
 
 		public static void DeletePlayerData()
@@ -184,7 +184,7 @@ namespace Ryneus
 			ES3.DeleteFile(PlayerStageDataKey(fileId));
 		}
 
-		public static void DeleteConfigData()
+		public static void DeleteOptionData()
 		{
 			ES3.DeleteFile(_optionDataKey);
 		}

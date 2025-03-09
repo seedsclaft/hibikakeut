@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Ryneus
 {
 	[Serializable]
-	public class SaveConfigInfo
+	public class SaveOptionInfo
 	{
 		public float BgmVolume;
 		public bool BgmMute;
@@ -22,16 +22,16 @@ namespace Ryneus
 		public bool BattleAuto;
 		public float BattleSpeed = 1f;
 		public bool TutorialCheck;
-		public SaveConfigInfo()
+		public SaveOptionInfo()
 		{
 			InitParameter();
 		}
 
 		public void InitParameter()
 		{
-			BgmVolume = 1.0f;
+			BgmVolume = 0.7f;
 			BgmMute = false;
-			SeVolume = 1.0f;
+			SeVolume = 0.6f;
 			SeMute = false;
 			ScreenMode = false;
 			ScreenWidth = 1280;

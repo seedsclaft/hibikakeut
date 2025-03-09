@@ -98,11 +98,11 @@ namespace Ryneus
             
             StartAliveAnimation(actionInfo.ActionResults);
             var animationData = BattleUtility.AnimationData(actionInfo.Master.AnimationId);
-            if (animationData != null && animationData.AnimationPath != "" && GameSystem.ConfigData.BattleAnimationSkip == false)
+            if (animationData != null && animationData.AnimationPath != "" && GameSystem.OptionData.BattleAnimationSkip == false)
             {
                 var targetIndexList = actionInfo.ResultTargetIndexes();
                 PlayAnimation(animationData,actionInfo.Master.AnimationType,targetIndexList,false);
-                await UniTask.DelayFrame((int)(animationData.DamageTiming / GameSystem.ConfigData.BattleSpeed));
+                await UniTask.DelayFrame((int)(animationData.DamageTiming / GameSystem.OptionData.BattleSpeed));
                 foreach (var actionResultInfo in actionInfo.ActionResults)
                 {
                     PopupActionResult(actionResultInfo,actionResultInfo.TargetIndex.Value,true,true);

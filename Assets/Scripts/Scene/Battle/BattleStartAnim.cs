@@ -44,7 +44,7 @@ namespace Ryneus
         {
             _busy = true;
             Reset();
-            var speedRate = inBattle ? GameSystem.ConfigData.BattleSpeed : 1;
+            var speedRate = inBattle ? GameSystem.OptionData.BattleSpeed : 1;
             var duration = 0.1f / speedRate;
             mainText.transform.DOScaleY(0.95f,0);
             var main = DOTween.Sequence()

@@ -96,8 +96,8 @@ namespace Ryneus
             SetBackCommand(() => 
             {    
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                GameSystem.ConfigData.InputType = GameSystem.TempData.TempInputType;
-                if (GameSystem.ConfigData.InputType == InputType.MouseOnly)
+                GameSystem.OptionData.InputType = GameSystem.TempData.TempInputType;
+                if (GameSystem.OptionData.InputType == InputType.MouseOnly)
                 {
                     SetHelpInputInfo("");
                 }

@@ -63,7 +63,7 @@ namespace Ryneus
             _advPlaying = false;
             _selectIndex = -1;
             _onOffButtons.Clear();
-            SaveSystem.SaveConfigStart(GameSystem.ConfigData);
+            SaveSystem.SaveOptionStart(GameSystem.OptionData);
             advInputButton.gameObject.SetActive(false);
         }
         
@@ -85,7 +85,7 @@ namespace Ryneus
             if (keyTypes.Contains(InputKeyType.Option1))
             {
                 advUguiManager.Engine.Config.ToggleSkip();        
-                GameSystem.ConfigData.EventSkipIndex = advUguiManager.Engine.Config.IsSkip;
+                GameSystem.OptionData.EventSkipIndex = advUguiManager.Engine.Config.IsSkip;
             }
             // 選択肢操作
             if (keyTypes.Contains(InputKeyType.Down))
@@ -161,9 +161,9 @@ namespace Ryneus
             skipButtonList.ForEach(a => 
                 a.Cursor.SetActive(skip)
             );
-            if (GameSystem.ConfigData != null)
+            if (GameSystem.OptionData != null)
             {
-                GameSystem.ConfigData.EventSkipIndex = skip;
+                GameSystem.OptionData.EventSkipIndex = skip;
             }
         }
     }

@@ -100,7 +100,7 @@ namespace Ryneus
                 case "SCREEN_MODE":
                     for (int i = 0;i < optionToggles.Count;i++)
                     {
-                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.ConfigData.ScreenMode == false ? 0 : 1));
+                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.ScreenMode == false ? 0 : 1));
                     }
                     return;
                 case "SCREEN_SIZE":
@@ -115,32 +115,32 @@ namespace Ryneus
                 case "GRAPHIC_QUALITY":
                     for (int i = 0;i < optionToggles.Count;i++)
                     {
-                        var notify = (i == 0 && GameSystem.ConfigData.GraphicIndex == 2) || (i == 1 && GameSystem.ConfigData.GraphicIndex == 1);
+                        var notify = (i == 0 && GameSystem.OptionData.GraphicIndex == 2) || (i == 1 && GameSystem.OptionData.GraphicIndex == 1);
                         optionToggles[i].SetIsOnWithoutNotify(notify);
                     }
                     return;
                 case "EVENT_SKIP":
                     for (int i = 0;i < optionToggles.Count;i++)
                     {
-                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.ConfigData.EventSkipIndex == true ? 1 : 0));
+                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.EventSkipIndex == true ? 1 : 0));
                     }
                     return;
                 case "COMMAND_END_CHECK":
                     for (int i = 0;i < optionToggles.Count;i++)
                     {
-                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.ConfigData.CommandEndCheck == true ? 0 : 1));
+                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.CommandEndCheck == true ? 0 : 1));
                     }
                     return;
                 case "BATTLE_WAIT":
                     for (int i = 0;i < optionToggles.Count;i++)
                     {
-                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.ConfigData.BattleWait == true ? 0 : 1));
+                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.BattleWait == true ? 0 : 1));
                     }
                     return;
                 case "BATTLE_ANIMATION":
                     for (int i = 0;i < optionToggles.Count;i++)
                     {
-                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.ConfigData.BattleAnimationSkip == true ? 1 : 0));
+                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.BattleAnimationSkip == true ? 1 : 0));
                     }
                     return;
                 case "INPUT_TYPE":
@@ -152,19 +152,19 @@ namespace Ryneus
                 case "BATTLE_AUTO":
                     for (int i = 0;i < optionToggles.Count;i++)
                     {
-                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.ConfigData.BattleAuto == true ? 1 : 0));
+                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.BattleAuto == true ? 1 : 0));
                     }
                     return;
                 case "BATTLE_SPEED":
                     for (int i = 0;i < optionToggles.Count;i++)
                     {
-                        optionToggles[i].SetIsOnWithoutNotify(ConfigUtility.SpeedList[i+1] == GameSystem.ConfigData.BattleSpeed);
+                        optionToggles[i].SetIsOnWithoutNotify(OptionUtility.SpeedList[i+1] == GameSystem.OptionData.BattleSpeed);
                     }
                     return;
                 case "TUTORIAL_CHECK":
                     for (int i = 0;i < optionToggles.Count;i++)
                     {
-                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.ConfigData.TutorialCheck == true ? 0 : 1));
+                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.TutorialCheck == true ? 0 : 1));
                     }
                     return;
             }
@@ -172,7 +172,7 @@ namespace Ryneus
 
         private void SetResolutionText()
         {
-            resolution.SetText(GameSystem.ConfigData.ScreenWidth.ToString() + " x " + GameSystem.ConfigData.ScreenHeight.ToString());
+            resolution.SetText(GameSystem.OptionData.ScreenWidth.ToString() + " x " + GameSystem.OptionData.ScreenHeight.ToString());
         }
     }
 }

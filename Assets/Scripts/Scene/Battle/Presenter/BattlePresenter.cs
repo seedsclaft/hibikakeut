@@ -79,10 +79,10 @@ namespace Ryneus
             _view.ClearCurrentSkillData();
             _view.CreateObject();
             _view.RefreshTurn(_model.TurnCount);
-            _view.SetBattleAutoButton(_model.BattleAutoButton(),GameSystem.ConfigData.BattleAuto == true);
+            _view.SetBattleAutoButton(_model.BattleAutoButton(),GameSystem.OptionData.BattleAuto == true);
             _view.ChangeBackCommandActive(false);
             _view.SetBattleAutoButton(false);
-            _view.SetBattleSpeedButton(ConfigUtility.CurrentBattleSpeedText());
+            _view.SetBattleSpeedButton(OptionUtility.CurrentBattleSpeedText());
             _view.SetBattleSkipButton(DataSystem.GetText(16010));
             _view.SetSkillLogButton(DataSystem.GetText(16020));
             _view.SetActors(MakeListData(_model.BattlerActors()));
@@ -487,7 +487,7 @@ namespace Ryneus
                         {
                             animationData = BattleUtility.AnimationData(61);
                         }
-                        if (animationData != null && animationData.AnimationPath != "" && GameSystem.ConfigData.BattleAnimationSkip == false)
+                        if (animationData != null && animationData.AnimationPath != "" && GameSystem.OptionData.BattleAnimationSkip == false)
                         {
                             PlayAnimation(animationData,skillData.AnimationType,new List<int>(){resultInfo.TargetIndex.Value});
                             await UniTask.DelayFrame(_model.WaitFrameTime(animationData.DamageTiming));
@@ -555,7 +555,7 @@ namespace Ryneus
             {
                 _view.CallSystemCommand(Base.CommandType.CallLoading);
             }
-            await UniTask.DelayFrame((int)(150f / GameSystem.ConfigData.BattleSpeed));
+            await UniTask.DelayFrame((int)(150f / GameSystem.OptionData.BattleSpeed));
             //_view.SetBattleBusy(false);
             /*
             if (SoundManager.Instance.CrossFadeMode)
@@ -614,8 +614,8 @@ namespace Ryneus
         private void CommandChangeBattleSpeed(int plus)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-            ConfigUtility.ChangeBattleSpeed(plus);
-            _view.SetBattleSpeedButton(ConfigUtility.CurrentBattleSpeedText());
+            OptionUtility.ChangeBattleSpeed(plus);
+            _view.SetBattleSpeedButton(OptionUtility.CurrentBattleSpeedText());
         }
 
         private void CommandSkipBattle()

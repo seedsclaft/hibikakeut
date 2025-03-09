@@ -2400,7 +2400,7 @@ namespace Ryneus
                 }
                 */
             }
-            SaveSystem.SaveConfigStart(GameSystem.ConfigData);
+            SaveSystem.SaveOptionStart(GameSystem.OptionData);
         }
 
         public void AddEnemyInfoSkillId()
@@ -2443,7 +2443,7 @@ namespace Ryneus
 
         public void ChangeBattleAuto()
         {
-            ConfigUtility.ChangeBattleAuto(!GameSystem.ConfigData.BattleAuto);
+            OptionUtility.ChangeBattleAuto(!GameSystem.OptionData.BattleAuto);
         }
 
         public List<StateInfo> SelectCharacterConditions()
@@ -2453,8 +2453,8 @@ namespace Ryneus
 
         public int WaitFrameTime(int time)
         {
-            var waitFrame = GameSystem.ConfigData.BattleAnimationSkip ? 1 : time;
-            return (int)(waitFrame / GameSystem.ConfigData.BattleSpeed);
+            var waitFrame = GameSystem.OptionData.BattleAnimationSkip ? 1 : time;
+            return (int)(waitFrame / GameSystem.OptionData.BattleSpeed);
         }
 
         public string BattleStartText()

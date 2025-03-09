@@ -36,9 +36,9 @@ namespace Ryneus
             GameSystem.GameInfo = saveGameInfo;
         }
 
-        public void InitConfigInfo()
+        public void InitOptionInfo()
         {
-            GameSystem.ConfigData = new SaveConfigInfo();
+            GameSystem.OptionData = new SaveOptionInfo();
         }
 
         public List<ActorInfo> Actors()

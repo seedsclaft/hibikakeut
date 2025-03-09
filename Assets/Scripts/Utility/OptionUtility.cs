@@ -5,32 +5,32 @@ using UnityEngine;
 
 namespace Ryneus
 {
-    public class ConfigUtility
+    public class OptionUtility
     {
-        public static void ApplyConfigData()
+        public static void ApplyOptionData()
         {
-            var saveConfigInfo = GameSystem.ConfigData;
-            if (saveConfigInfo != null)
+            var saveOptionInfo = GameSystem.OptionData;
+            if (saveOptionInfo != null)
             {
-                ChangeBGMValue(saveConfigInfo.BgmVolume);
-                ChangeSEValue(saveConfigInfo.SeVolume);
-                ChangeScreenMode(saveConfigInfo.ScreenMode);
-                SetResolution(saveConfigInfo.ScreenWidth,saveConfigInfo.ScreenHeight);
-                ChangeGraphicIndex(saveConfigInfo.GraphicIndex);
-                ChangeEventSkipIndex(saveConfigInfo.EventSkipIndex);
-                ChangeCommandEndCheck(saveConfigInfo.CommandEndCheck);
-                ChangeBattleWait(saveConfigInfo.BattleWait);
-                ChangeBattleAnimation(saveConfigInfo.BattleAnimationSkip);
-                ChangeInputType(saveConfigInfo.InputType);
-                ChangeBattleAuto(saveConfigInfo.BattleAuto);
-                SetBattleSpeed(saveConfigInfo.BattleSpeed);
-                ChangeTutorialCheck(saveConfigInfo.TutorialCheck);
+                ChangeBGMValue(saveOptionInfo.BgmVolume);
+                ChangeSEValue(saveOptionInfo.SeVolume);
+                ChangeScreenMode(saveOptionInfo.ScreenMode);
+                SetResolution(saveOptionInfo.ScreenWidth,saveOptionInfo.ScreenHeight);
+                ChangeGraphicIndex(saveOptionInfo.GraphicIndex);
+                ChangeEventSkipIndex(saveOptionInfo.EventSkipIndex);
+                ChangeCommandEndCheck(saveOptionInfo.CommandEndCheck);
+                ChangeBattleWait(saveOptionInfo.BattleWait);
+                ChangeBattleAnimation(saveOptionInfo.BattleAnimationSkip);
+                ChangeInputType(saveOptionInfo.InputType);
+                ChangeBattleAuto(saveOptionInfo.BattleAuto);
+                SetBattleSpeed(saveOptionInfo.BattleSpeed);
+                ChangeTutorialCheck(saveOptionInfo.TutorialCheck);
             }
         }
 
         public static void ChangeScreenMode(bool isFullScreen)
         {
-            GameSystem.ConfigData.ScreenMode = isFullScreen;
+            GameSystem.OptionData.ScreenMode = isFullScreen;
             Screen.fullScreen = isFullScreen;
         }
 
@@ -41,7 +41,7 @@ namespace Ryneus
             {
                 _resolutions = Screen.resolutions.ToList();
             }
-            var findIndex = _resolutions.FindIndex(a => a.width == GameSystem.ConfigData.ScreenWidth && a.height == GameSystem.ConfigData.ScreenHeight);
+            var findIndex = _resolutions.FindIndex(a => a.width == GameSystem.OptionData.ScreenWidth && a.height == GameSystem.OptionData.ScreenHeight);
             if (findIndex > -1)
             {
                 var targetResolutionIndex = plus ? findIndex + 1 : findIndex - 1;
@@ -60,8 +60,8 @@ namespace Ryneus
         public static void SetResolution(int width,int height)
         {
             Screen.SetResolution(width,height,Screen.fullScreen);
-            GameSystem.ConfigData.ScreenWidth = width;
-            GameSystem.ConfigData.ScreenHeight = height;
+            GameSystem.OptionData.ScreenWidth = width;
+            GameSystem.OptionData.ScreenHeight = height;
         }
 
         public static void ChangeBGMValue(float bgmVolume)
@@ -106,65 +106,65 @@ namespace Ryneus
 
         public static void ChangeGraphicIndex(int graphicIndex)
         {
-            GameSystem.ConfigData.GraphicIndex = graphicIndex;
+            GameSystem.OptionData.GraphicIndex = graphicIndex;
             QualitySettings.SetQualityLevel(graphicIndex);
         }
 
         public static void ChangeEventSkipIndex(bool eventSkipIndex)
         {
-            GameSystem.ConfigData.EventSkipIndex = eventSkipIndex;
+            GameSystem.OptionData.EventSkipIndex = eventSkipIndex;
         }
 
         public static void ChangeCommandEndCheck(bool commandEndCheck)
         {
-            GameSystem.ConfigData.CommandEndCheck = commandEndCheck;
+            GameSystem.OptionData.CommandEndCheck = commandEndCheck;
         }
 
         public static void ChangeBattleWait(bool battleWait)
         {
-            GameSystem.ConfigData.BattleWait = battleWait;
+            GameSystem.OptionData.BattleWait = battleWait;
         }
 
         public static void ChangeBattleAnimation(bool battleAnimation)
         {
-            GameSystem.ConfigData.BattleAnimationSkip = battleAnimation;
+            GameSystem.OptionData.BattleAnimationSkip = battleAnimation;
         }
 
         public static void ChangeInputType(InputType inputType)
         {
-            GameSystem.ConfigData.InputType = inputType;
+            GameSystem.OptionData.InputType = inputType;
         }
         
         public static void ChangeBattleAuto(bool battleAuto)
         {
-            GameSystem.ConfigData.BattleAuto = battleAuto;
+            GameSystem.OptionData.BattleAuto = battleAuto;
         }
 
         public static List<float> SpeedList = new List<float>(){0,1f,2f,3f};
         public static void SetBattleSpeed(float battleSpeed)
         {
-            GameSystem.ConfigData.BattleSpeed = battleSpeed;
+            GameSystem.OptionData.BattleSpeed = battleSpeed;
         }
         public static void ChangeBattleSpeed(int plus)
         {
-            var current = SpeedList.FindIndex(a => a == GameSystem.ConfigData.BattleSpeed);
+            var current = SpeedList.FindIndex(a => a == GameSystem.OptionData.BattleSpeed);
             var next = current + plus;
             if (next < 0)
             {
-                GameSystem.ConfigData.BattleSpeed = SpeedList[SpeedList.Count-1];
+                GameSystem.OptionData.BattleSpeed = SpeedList[SpeedList.Count-1];
             } else
             if (next > SpeedList.Count-1)
             {
-                GameSystem.ConfigData.BattleSpeed = SpeedList[1];
+                GameSystem.OptionData.BattleSpeed = SpeedList[1];
             } else
             {
-                GameSystem.ConfigData.BattleSpeed = SpeedList[next];
+                GameSystem.OptionData.BattleSpeed = SpeedList[next];
             }
         }
 
         public static string CurrentBattleSpeedText()
         {
-            var current = SpeedList.FindIndex(a => a == GameSystem.ConfigData.BattleSpeed);
+            var current = SpeedList.FindIndex(a => a == GameSystem.OptionData.BattleSpeed);
             var option = DataSystem.System.OptionCommandData.Find(a => a.Key == "BATTLE_SPEED");
             switch (current)
             {
@@ -180,7 +180,7 @@ namespace Ryneus
 
         public static void ChangeTutorialCheck(bool tutorialCheck)
         {
-            GameSystem.ConfigData.TutorialCheck = tutorialCheck;
+            GameSystem.OptionData.TutorialCheck = tutorialCheck;
         }
     }
 }

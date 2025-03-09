@@ -32,7 +32,7 @@ namespace Ryneus
 #if UNITY_ANDROID
             return;
 #endif
-            if (GameSystem.ConfigData.InputType == InputType.MouseOnly) 
+            if (GameSystem.OptionData.InputType == InputType.MouseOnly) 
             {
                 foreach(var prefab in _inputPrefabs)
                 {
