@@ -57,7 +57,7 @@ namespace Ryneus
             if (learningCost != null)
             {
                 learningCost.gameObject.SetActive(skillInfo.LearningCost.Value > 0);
-                learningCost.SetText(skillInfo.LearningCost.ToString());// + DataSystem.System.GetTextData(1000).Text;
+                learningCost.SetText(skillInfo.LearningCost.Value.ToString());// + DataSystem.System.GetTextData(1000).Text;
             }
             if (learningText != null)
             {
@@ -69,7 +69,7 @@ namespace Ryneus
                 if (skillInfo.LearningState == LearningState.NotLearn)
                 {
                     learningText.transform.parent.gameObject.SetActive(skillInfo.LearningState == LearningState.NotLearn);
-                    learningText.SetText(DataSystem.GetReplaceText(380,skillInfo.LearningLv.ToString()));
+                    learningText.SetText(DataSystem.GetReplaceText(380,skillInfo.LearningLv.Value.ToString()));
                 } else
                 {
                     learningText.transform.parent.gameObject.SetActive(false);

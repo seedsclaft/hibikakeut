@@ -101,6 +101,7 @@ namespace Ryneus
         Reraise = 2450,
         HealValueUp = 2460,
         Curse = 2470,
+        NoApRecover = 9999
     }
 
     public enum RemovalTiming

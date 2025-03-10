@@ -24,31 +24,31 @@ namespace Ryneus
                 }
                 break;
                 case TriggerType.AttackedCount:
-                if (battlerInfo.IsAlive() && battlerInfo.AttackedCount.Value >= triggerData.Param1)
+                if (battlerInfo.IsAlive() && battlerInfo.Examine.AttackedCount.Value >= triggerData.Param1)
                 {
                     isTrigger = true;
                 }
                 break;
                 case TriggerType.BeCriticalCount:
-                if (battlerInfo.IsAlive() && battlerInfo.BeCriticalCount.Value >= triggerData.Param1)
+                if (battlerInfo.IsAlive() && battlerInfo.Examine.BeCriticalCount.Value >= triggerData.Param1)
                 {
                     isTrigger = true;
                 }
                 break;
                 case TriggerType.DodgeCountOver:
-                if (battlerInfo.IsAlive() && battlerInfo.DodgeCount.Value >= triggerData.Param1)
+                if (battlerInfo.IsAlive() && battlerInfo.Examine.DodgeCount.Value >= triggerData.Param1)
                 {
                     isTrigger = true;
                 }
                 break;
                 case TriggerType.HpHealCountOver:
-                if (battlerInfo.IsAlive() && battlerInfo.HealCount.Value >= triggerData.Param1)
+                if (battlerInfo.IsAlive() && battlerInfo.Examine.HealCount.Value >= triggerData.Param1)
                 {
                     isTrigger = true;
                 }
                 break;
                 case TriggerType.ChainCount:
-                if (battlerInfo.ChainSuccessCount.Value >= triggerData.Param1)
+                if (battlerInfo.Examine.ChainSuccessCount.Value >= triggerData.Param1)
                 {
                     isTrigger = true;
                 }

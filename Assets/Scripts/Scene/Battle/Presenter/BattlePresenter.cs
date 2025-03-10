@@ -64,6 +64,7 @@ namespace Ryneus
             _view.CallSystemCommand(Base.CommandType.CloseLoading);
 
             ViewInitialize();
+            BattleChecker.Instance.SetModel(_model,_view);
             
             _view.CommandStartTransition(() => 
             {
@@ -188,6 +189,12 @@ namespace Ryneus
                     break;
                 case CommandType.SkipBattle:
                     CommandSkipBattle();
+                    break;
+                case CommandType.ForceVictory:
+                    CommandForceVictory();
+                    break;
+                case CommandType.StopApCount:
+                    CommandStopApCount((bool)viewEvent.template);
                     break;
             }
             if (_busy)
@@ -566,6 +573,8 @@ namespace Ryneus
                 PlayTacticsBgm();
             }
             */
+            
+            BattleChecker.Instance.SetModel(null,null);
             _view.CallSystemCommand(Base.CommandType.CloseLoading);
             //_view.CommandChangeViewToTransition(null);
             _view.CommandGotoSceneChange(Scene.Strategy,strategySceneInfo);
@@ -593,7 +602,17 @@ namespace Ryneus
             {
                 _busy = false;
             });
-        }    
+        }
+
+        private void CommandForceVictory()
+        {
+            _model.ForceVictory();
+        }
+
+        private void CommandStopApCount(bool isStop)
+        {
+            _model.StopApCount(isStop);
+        }
         /*
         private void CommandChangeBattleAuto()
         {

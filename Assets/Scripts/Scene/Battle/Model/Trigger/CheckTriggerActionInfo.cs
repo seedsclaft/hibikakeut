@@ -38,7 +38,7 @@ namespace Ryneus
                     }
                     break;
                 case TriggerType.OneAttackOverDamage:
-                    if (battlerInfo.IsAlive() && battlerInfo.MaxDamage.Value >= triggerData.Param1)
+                    if (battlerInfo.IsAlive() && battlerInfo.Examine.MaxDamage.Value >= triggerData.Param1)
                     {
                         isTrigger = true;
                     }

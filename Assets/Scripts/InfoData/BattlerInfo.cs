@@ -25,7 +25,6 @@ namespace Ryneus
         public bool IsActorView => _isActorView;
         private bool _isAlcana = false;
         public bool isAlcana => _isAlcana;
-        public ParameterInt CharaId = new();
         public ParameterInt Level = new();
         public int MaxHp => _status.GetParameter(StatusParamType.Hp) + StateEffectAll(StateType.MaxHpUp);
         public int MaxMp => _status.GetParameter(StatusParamType.Mp) + StateEffectAll(StateType.MaxMpUp);
@@ -61,15 +60,7 @@ namespace Ryneus
 
         private bool _bossFlag = false;
         public bool BossFlag => _bossFlag;
-        
-        public ParameterInt ChainSuccessCount = new();
-        public ParameterInt PayBattleMp = new();
-        public ParameterInt AttackedCount = new();
-        public ParameterInt MaxDamage = new();
-        public ParameterInt DodgeCount = new();
-        public ParameterInt HealCount = new();
-        public ParameterInt BeCriticalCount = new();
-        public ParameterInt DamagedValue = new();
+        public BattleExamine Examine = new();
         
         private int _lastTargetIndex = 0;
         public void SetLastTargetIndex(int index)
@@ -112,7 +103,6 @@ namespace Ryneus
         public BattlerInfo(ActorInfo actorInfo,int index)
         {
             _skillTriggerInfos = actorInfo.SkillTriggerInfos;
-            CharaId.SetValue(actorInfo.ActorId.Value);
             Level.SetValue(actorInfo.Level);
             var statusInfo = new StatusInfo();
             statusInfo.SetParameter(
@@ -168,7 +158,6 @@ namespace Ryneus
         {
             EnemyIndex = new ParameterInt();
             EnemyId.SetValue(enemyData.Id);
-            CharaId.SetValue(enemyData.Id);
             Level.SetValue(lv);
             _bossFlag = isBoss;
             InitParamInfos(enemyData);
@@ -278,7 +267,6 @@ namespace Ryneus
 
         public BattlerInfo(List<SkillInfo> skillInfos,bool isActor,int index)
         {
-            CharaId.SetValue(index + 1000);
             var statusInfo = new StatusInfo();
             statusInfo.SetParameter(
                 1,
@@ -310,13 +298,6 @@ namespace Ryneus
             //GainMp(_status.Mp);
             _isAwaken = false;
             _preserveAlive = false;
-            ChainSuccessCount.SetValue(0);
-            PayBattleMp.SetValue(0);
-            AttackedCount.SetValue(0);
-            HealCount.SetValue(0);
-            BeCriticalCount.SetValue(0);
-            DodgeCount.SetValue(0);
-            DamagedValue.SetValue(0);
             TurnCount.SetValue(0);
             ResetAp(true);
             _passiveSkillIds = new ();
@@ -445,7 +426,7 @@ namespace Ryneus
 
         public int UpdateApValue()
         {
-            if (IsState(StateType.Death) || IsState(StateType.Stun) || IsState(StateType.Wait))
+            if (IsState(StateType.Death) || IsState(StateType.Stun) || IsState(StateType.Wait) || IsState(StateType.NoApRecover))
             {
                 return 0;
             }
@@ -943,10 +924,7 @@ namespace Ryneus
 
         public void GainMaxDamage(int value)
         {
-            if (value > MaxDamage.Value)
-            {
-                MaxDamage.SetValue(value);
-            }
+            Examine.GainMaxDamage(value);
         }
 
         public void TurnEnd()

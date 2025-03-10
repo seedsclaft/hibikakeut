@@ -61,10 +61,10 @@ namespace Ryneus
                         if (target.Index.Value == deadIndex && target.IsState(StateType.Curse))
                         {
                             HpDamage.SetValue(target.Hp.Value - 1);
-                            float curseDamage = target.DamagedValue.Value + HpDamage.Value;
+                            float curseDamage = target.Examine.DamagedValue.Value + HpDamage.Value;
                             curseDamage *= target.GetStateEffectAll(StateType.Curse) * 0.01f;
                             CurseDamage.GainValue((int)curseDamage);
-                            target.DamagedValue.SetValue(0);
+                            target.Examine.DamagedValue.SetValue(0);
                             _deadIndexList.RemoveAt(i);
                             SeekStateCount(target,StateType.Curse);
                         }
@@ -555,7 +555,7 @@ namespace Ryneus
         private void MakeRevengeHpDamage(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,bool isNoEffect,bool isOneTarget,int range)
         {
             // 攻撃ダメージ
-            float AtkValue = subject.DamagedValue.Value;
+            float AtkValue = subject.Examine.DamagedValue.Value;
             var hpDamage = CalcHpDamage(AtkValue,subject,target,featureData.Param1,isNoEffect,isOneTarget);
             HpDamage.GainValue((int)hpDamage); 
         }

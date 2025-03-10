@@ -19,6 +19,8 @@ namespace Ryneus
             ChangeBattleAuto,
             ChangeBattleSpeed,
             SkipBattle,
+            ForceVictory,
+            StopApCount,
         }
     }
 }

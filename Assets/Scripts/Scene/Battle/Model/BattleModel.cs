@@ -98,7 +98,6 @@ namespace Ryneus
                         enemy.SetWeakPoint(kind);
                     }
                 }
-                enemy.GainHp(-9999);
                 _battlers.Add(enemy);
                 _battleRecords[enemy.Index.Value] = new BattleRecord(enemy.Index.Value);
             }
@@ -946,7 +945,7 @@ namespace Ryneus
                 }
                 if (actionInfo.Master.IsHpHealFeature())
                 {
-                    subject.HealCount.GainValue(1);
+                    subject.Examine.HealCount.GainValue(1);
                 }
                 /*
                 if (addSaveData)
@@ -959,7 +958,7 @@ namespace Ryneus
                 if (actionInfo.Master.IsRevengeHpDamageFeature())
                 {
                     // 受けたダメージをリセット
-                    subject.DamagedValue.SetValue(0);
+                    subject.Examine.DamagedValue.SetValue(0);
                 }
                 // 行動回数を減らす
                 actionInfo.SeekRepeatTime();
@@ -1098,7 +1097,7 @@ namespace Ryneus
             {
                 var hpDamage = actionResultInfo.HpDamage.Value;
                 target.GainHp(-1 * hpDamage);
-                target.DamagedValue.GainValue(hpDamage);
+                target.Examine.DamagedValue.GainValue(hpDamage);
                 _battleRecords[subject.Index.Value].GainAttackValue(hpDamage);
                 _battleRecords[target.Index.Value].GainDamagedValue(hpDamage);
             }
@@ -1143,7 +1142,7 @@ namespace Ryneus
             }
             if (actionResultInfo.Missed == true)
             {
-                target.DodgeCount.GainValue(1);
+                target.Examine.DodgeCount.GainValue(1);
             }
             foreach (var targetIndex in actionResultInfo.ExecStateInfos)
             {
@@ -2255,12 +2254,12 @@ namespace Ryneus
 
         public void GainAttackedCount(int targetIndex)
         {
-            GetBattlerInfo(targetIndex).AttackedCount.GainValue(1);
+            GetBattlerInfo(targetIndex).Examine.AttackedCount.GainValue(1);
         }
 
         public void GainBeCriticalCount(int targetIndex)
         {
-            GetBattlerInfo(targetIndex).BeCriticalCount.GainValue(1);
+            GetBattlerInfo(targetIndex).Examine.BeCriticalCount.GainValue(1);
         }
 
         public void GainMaxDamage(int targetIndex,int damage)
@@ -2380,7 +2379,7 @@ namespace Ryneus
             {
                 foreach (var battler in _party.BattlerInfos)
                 {
-                    var actorInfo = _sceneParam.ActorInfos.Find(a => a.ActorId.Value == battler.CharaId.Value);
+                    var actorInfo = _sceneParam.ActorInfos.Find(a => a.ActorId.Value == battler.ActorInfo.ActorId.Value);
                     actorInfo.ChangeHp(battler.MaxHp);
                     actorInfo.ChangeMp(battler.MaxMp);
                 }
@@ -2463,6 +2462,32 @@ namespace Ryneus
             return DataSystem.GetText(textId);
         }
         
+        public void ForceVictory()
+        {
+            foreach (var enemy in BattlerEnemies())
+            {
+                enemy.GainHp(-9999);
+            }
+        }
+
+        public void StopApCount(bool isStop)
+        {
+            var state = new StateInfo(StateType.NoApRecover,9999,9999,0,0,-1);
+            if (isStop)
+            {
+                foreach (var battler in Battlers)
+                {
+                    battler.AddState(state,true);
+                }
+            } else
+            {
+                foreach (var battler in Battlers)
+                {
+                    battler.RemoveState(state,true);
+                }
+            }
+        }
+
 #if UNITY_EDITOR
         public List<TestActionData> testActionDates = new ();
         public int testActionIndex = 0;

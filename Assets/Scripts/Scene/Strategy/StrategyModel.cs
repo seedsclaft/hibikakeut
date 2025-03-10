@@ -153,6 +153,7 @@ namespace Ryneus
             {
                 skillGetItemInfo.SetGetFlag(true);
                 AddPlayerInfoSkillId(skillGetItemInfo.Param1);
+                AddGetItemInfo(skillGetItemInfo);
             }
 
             // 獲得エナジー、魔法情報を生成
