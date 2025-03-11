@@ -126,8 +126,8 @@ namespace Ryneus
             SetInputHandler(symbolInfoList.gameObject);
             symbolInfoList.SetInputHandler(InputKeyType.Decide,OnClickSymbol);
             symbolInfoList.SetInputHandler(InputKeyType.Cancel,OnCancelSymbol);
-            //symbolInfoList.SetSelectedHandler(OnSelectListSymbolList);
-            //symbolInfoList.SetInputHandler(InputKeyType.Cancel,OnCancelActor);
+            symbolInfoList.SetSymbolDetailInfoEvent(SymbolDetailInfo);
+            symbolInfoList.SetInputHandler(InputKeyType.Option1,SymbolDetailInfo);
             AddViewActives(symbolInfoList);
             symbolInfoList.gameObject.SetActive(false);
         }
@@ -162,6 +162,11 @@ namespace Ryneus
         {
             symbolInfoList.gameObject.SetActive(false);
             CallViewEvent(CommandType.OnCancelSymbol);
+        }
+
+        private void SymbolDetailInfo()
+        {
+            CallViewEvent(CommandType.SymbolDetailInfo,symbolInfoList.SelectSymbolInfo());
         }
 
         public void UpdatePartyInfo(PartyInfo partyInfo)

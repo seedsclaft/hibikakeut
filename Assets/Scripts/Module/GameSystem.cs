@@ -2,12 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Utage;
 
 namespace Ryneus
 {
-    public class GameSystem : MonoBehaviour
+    public class GameSystem : SingletonMonoBehaviour<GameSystem>
     {
         [SerializeField] private bool testMode = false;
         [SerializeField] private SceneAssign sceneAssign = null;

@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using EnemyInfo;
 
 namespace Ryneus
 {
+    using EnemyInfo;
     public class EnemyInfoPresenter : BasePresenter
     {
         EnemyInfoModel _model = null;
@@ -24,24 +24,30 @@ namespace Ryneus
         {
             _view.SetHelpWindow();
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetEnemies(MakeListData(_model.EnemyBattlerInfos));
+            _view.SetEnemies(MakeListData(_model.EnemyBattlerInfos,0));
             CommandRefresh();
             _busy = false;
         }
 
-        private void UpdateCommand(EnemyInfoViewEvent viewEvent)
+        private void UpdateCommand(ViewEvent viewEvent)
         {
-            if (_busy || _view.AnimationBusy)
+            if (_busy /*|| _view.AnimationBusy*/)
             {
                 return;
             }
-            if (viewEvent.commandType == CommandType.SelectEnemy)
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Status)
             {
-                CommandSelectEnemy();
+                return;
             }
-            if (viewEvent.commandType == CommandType.Back)
+            UnityEngine.Debug.Log(viewEvent.commandType);
+            switch (viewEvent.ViewCommandType.CommandType)
             {
-                CommandBack();
+                case CommandType.SelectEnemy:
+                    CommandSelectEnemy();
+                    break;
+                case CommandType.Back:
+                    CommandBack();
+                    break;
             }
         }
 

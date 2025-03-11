@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TerrainTools;
 using UnityEngine.UI;
 
 namespace Ryneus
@@ -23,9 +22,6 @@ namespace Ryneus
         public bool Selectable => _selectable;
 
         private bool _getItemInit = false;
-        private PartyInfo partyInfo => GameSystem.GameInfo.PartyInfo;
-        //private StageInfo currentStageInfo => GameSystem.CurrentStageData.CurrentStage;
-        
         public void SetSelectable(bool selectable)
         {
             _selectable = selectable;

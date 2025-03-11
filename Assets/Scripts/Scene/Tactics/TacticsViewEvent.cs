@@ -13,6 +13,7 @@ namespace Ryneus
             OnClickSymbol,
             OnCancelSymbol,
             SelectSymbol,
+            SymbolDetailInfo,
             PopupSkillInfo,
             SelectRecord,
             CancelSymbolRecord,

@@ -202,6 +202,9 @@ namespace Ryneus
                 case CommandType.OnCancelSymbol:
                     CommandOnCancelSymbol();
                     break;
+                case CommandType.SymbolDetailInfo:
+                    CommandSymbolDetailInfo((SymbolInfo)viewEvent.template);
+                    break;
                 case CommandType.CallStatus:
                     CommandStatus();
                     break;
@@ -522,6 +525,24 @@ namespace Ryneus
         {
             _view.SetViewBusy(false);
             _view.ActivateCommandList();
+        }
+
+        private void CommandSymbolDetailInfo(SymbolInfo symbolInfo)
+        {
+            if (symbolInfo == null)
+            {
+                return;
+            }
+            if (symbolInfo.IsBattleSymbol())
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                CommandEnemyInfo(symbolInfo.TroopInfo.BattlerInfos,false,() => 
+                {
+                    _view.ChangeUIActive(true);
+                    _busy = false;
+                });
+                _busy = true;
+            }
         }
 
         private void CommandNextSeek()

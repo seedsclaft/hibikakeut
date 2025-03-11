@@ -203,6 +203,7 @@ MonoBehaviour:
   beforeSelect: 1
   partyInfoComponent: {fileID: 3708814340196182447}
   symbolComponent: {fileID: 2582517073107264150}
+  detailButton: {fileID: 2010760560147005740}
 --- !u!114 &3708814340196182447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,7 +570,7 @@ PrefabInstance:
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
@@ -579,7 +580,7 @@ PrefabInstance:
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
@@ -634,7 +635,7 @@ PrefabInstance:
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -24
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
@@ -788,7 +789,7 @@ PrefabInstance:
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
@@ -798,7 +799,7 @@ PrefabInstance:
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
@@ -853,7 +854,7 @@ PrefabInstance:
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -392
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
@@ -1433,7 +1434,7 @@ PrefabInstance:
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
@@ -1443,7 +1444,7 @@ PrefabInstance:
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
@@ -1498,7 +1499,7 @@ PrefabInstance:
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -208
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7358651271432399425, guid: c3dfc355811263f46b10955391917333,
         type: 3}
@@ -1724,6 +1725,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27896730fd785e249ada78535bce309e, type: 3}
+--- !u!114 &2010760560147005740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7374994888609725107, guid: 27896730fd785e249ada78535bce309e,
+    type: 3}
+  m_PrefabInstance: {fileID: 9060845344707509151}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2582517073107264150 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6802800820925126921, guid: 27896730fd785e249ada78535bce309e,

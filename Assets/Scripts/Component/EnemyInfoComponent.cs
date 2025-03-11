@@ -9,7 +9,9 @@ namespace Ryneus
     public class EnemyInfoComponent : MonoBehaviour
     {
         [SerializeField] private Image mainThumb;
+        [SerializeField] private Image faceThumb;
         [SerializeField] private Image gridThumb;
+        [SerializeField] private EnemySpriteSize enemySpriteSize;
         public Image MainThumb => mainThumb;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI lv;
@@ -28,7 +30,7 @@ namespace Ryneus
             }
             var enemyData = battlerInfo.EnemyData;
             UpdateData(enemyData);
-            lv?.SetText(battlerInfo.Level.ToString());
+            lv?.SetText(battlerInfo.Level.Value.ToString());
             if (statusInfoComponent != null)
             {
                 HideActorOnly();
@@ -67,7 +69,25 @@ namespace Ryneus
                 }
             }
         }
-        
+
+        private void UpdateFaceThumb(Image image,string imagePath,int x,int y,float scale,bool nativeSize)
+        {
+            //var handle = await ResourceSystem.LoadAsset<Sprite>("Enemies/" + imagePath);
+            var handle = ResourceSystem.LoadEnemySprite(imagePath);
+            if (image != null)
+            {
+                image.gameObject.SetActive(true);
+                var rect = image.GetComponent<RectTransform>();
+                rect.localPosition = new Vector3(x, y, 0);
+                rect.localScale = new Vector3(scale, scale, 1);
+                image.sprite = handle;
+                if (nativeSize)
+                {
+                    UpdateNativeSize();
+                }
+            }
+        }
+
         public void UpdateData(EnemyData enemyData)
         {
             if (enemyData == null)
@@ -80,9 +100,17 @@ namespace Ryneus
                 UpdateMainThumb(mainThumb,enemyData.ImagePath,0,0,1.0f,false);
                 mainThumb.gameObject.GetComponent<RectTransform>().localScale = new Vector2(enemyData.ImageScale,enemyData.ImageScale);
             }
+            if (faceThumb != null)
+            {
+                UpdateFaceThumb(faceThumb,enemyData.ImagePath,0,0,1.0f,true);
+            }
             if (gridThumb != null)
             {
                 UpdateMainThumb(gridThumb,enemyData.ImagePath,0,0,1.0f,true);
+            }
+            if (enemySpriteSize != null)
+            {
+                enemySpriteSize.UpdateEnemy();
             }
             nameText?.SetText(enemyData.Name);
         }

@@ -8,16 +8,20 @@ namespace Ryneus
     public class EnemySpriteSize : MonoBehaviour
     {
         [SerializeField] private Image enemySprite;
+        [SerializeField] private bool autoResize = false;
         private float _width = -1;
         private float _height = -1;
         private string _textureName = null;
 
         private void Update() 
         {
-            UpdateEnemy();
+            if (autoResize)
+            {
+                UpdateEnemy();
+            }
         }
 
-        private void UpdateEnemy() 
+        public void UpdateEnemy() 
         {
             if (enemySprite != null && enemySprite.mainTexture != null && _textureName != enemySprite.mainTexture.name)
             {

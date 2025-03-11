@@ -91,7 +91,7 @@ namespace Ryneus
             }
             if (_symbolInfo.SymbolType == SymbolType.Group) return;
             if (_symbolInfo.SymbolType == SymbolType.Random) return;
-            if (_symbolInfo.SymbolType == SymbolType.Battle || _symbolInfo.SymbolType == SymbolType.Boss)
+            if (_symbolInfo.IsBattleSymbol())
             {
                 symbolImage.gameObject.SetActive(false);
                 enemyImage.gameObject.SetActive(true);

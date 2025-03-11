@@ -1,5 +1,7 @@
-using UnityEngine;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ryneus
 {
@@ -7,6 +9,7 @@ namespace Ryneus
     {
         [SerializeField] private PartyInfoComponent partyInfoComponent;
         [SerializeField] private SymbolComponent symbolComponent;
+        [SerializeField] private Button detailButton;
 
         public SymbolInfo SelectSymbolInfo()
         {
@@ -32,6 +35,11 @@ namespace Ryneus
             SetInputHandler(InputKeyType.Right,() => OnSelectSymbolIndex(1));
             SetInputHandler(InputKeyType.Left,() => OnSelectSymbolIndex(-1));
             SetSelectedHandler(UpdateSelectSeekIndex);
+        }
+
+        public void SetSymbolDetailInfoEvent(Action detailEvent)
+        {
+            detailButton.onClick.AddListener(() => detailEvent?.Invoke());
         }
 
         public List<SymbolInfo> SelectSymbolInfos()

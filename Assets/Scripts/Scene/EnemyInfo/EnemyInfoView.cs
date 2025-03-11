@@ -10,7 +10,6 @@ namespace Ryneus
         [SerializeField] private BattleBattlerList battleEnemyLayer = null;
         [SerializeField] private BattleSelectCharacter selectCharacter = null;
         [SerializeField] private EnemyInfoComponent enemyInfoComponent = null;
-        private new System.Action<EnemyInfoViewEvent> _commandData = null;
         private System.Action _backEvent = null;
 
         public int EnemyListIndex => battleEnemyLayer.Index;
@@ -19,18 +18,20 @@ namespace Ryneus
         public override void Initialize()
         {
             base.Initialize();
-            battleEnemyLayer.Initialize();
-            battleEnemyLayer.SetSelectedHandler(() => 
-            {
-                var eventData = new EnemyInfoViewEvent(CommandType.SelectEnemy);
-                _commandData(eventData);
-            });
-            
+            SetViewCommandSceneType(ViewCommandSceneType.Status);
+            InitializeEnemyList();
             selectCharacter.Initialize();
             SetInputHandler(selectCharacter.gameObject);
             InitializeSelectCharacter();
             new EnemyInfoPresenter(this);
             SetInputHandler(gameObject);
+        }
+
+        private void InitializeEnemyList()
+        {
+            battleEnemyLayer.Initialize();
+            battleEnemyLayer.SetSelectedHandler(() => CallViewEvent(CommandType.SelectEnemy));
+            SetInputHandler(battleEnemyLayer.gameObject);
         }
 
         public void SetEnemies(List<ListData> battlerInfos)
@@ -78,8 +79,7 @@ namespace Ryneus
 
         private void OnClickBack()
         {
-            var eventData = new EnemyInfoViewEvent(CommandType.Back);
-            _commandData(eventData);
+            CallViewEvent(CommandType.Back);
         }
 
         public void SetHelpWindow()
@@ -94,11 +94,6 @@ namespace Ryneus
             }
         }
 
-        public void SetEvent(System.Action<EnemyInfoViewEvent> commandData)
-        {
-            _commandData = commandData;
-        }
-
         public void SetCondition(List<ListData> skillInfos)
         {
             selectCharacter.SetConditionList(skillInfos);
@@ -107,11 +102,7 @@ namespace Ryneus
         public new void SetBackEvent(System.Action backEvent)
         {
             _backEvent = backEvent;
-            SetBackCommand(() => 
-            {    
-                var eventData = new EnemyInfoViewEvent(CommandType.Back);
-                _commandData(eventData);
-            });
+            //CallViewEvent(CommandType.Back);
             ChangeBackCommandActive(true);
         }
 
@@ -141,15 +132,5 @@ namespace EnemyInfo
         LeftEnemy,
         RightEnemy,
         SelectEnemy,
-    }
-}
-public class EnemyInfoViewEvent
-{
-    public CommandType commandType;
-    public object template;
-
-    public EnemyInfoViewEvent(CommandType type)
-    {
-        commandType = type;
     }
 }

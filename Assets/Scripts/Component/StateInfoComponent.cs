@@ -81,7 +81,7 @@ namespace Ryneus
             }
             if (nameText != null)
             {
-                nameText.text = stateData.Name;
+                nameText.SetText(stateData.Name);
             }
         }
 
