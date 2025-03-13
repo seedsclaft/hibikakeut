@@ -110,7 +110,7 @@ namespace Ryneus
                 var waitFrame = _model.WaitFrameTime(48);
                 if (!actionInfo.LastAttack() && waitFrame > 1)
                 {
-                    waitFrame = 36;
+                    waitFrame = 24;
                 }
                 await UniTask.DelayFrame(waitFrame);
             } else

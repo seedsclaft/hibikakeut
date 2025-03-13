@@ -20,8 +20,6 @@ namespace Ryneus
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Status);
             InitializeEnemyList();
-            selectCharacter.Initialize();
-            SetInputHandler(selectCharacter.gameObject);
             InitializeSelectCharacter();
             new EnemyInfoPresenter(this);
             SetInputHandler(gameObject);
@@ -44,8 +42,7 @@ namespace Ryneus
 
         private void InitializeSelectCharacter()
         {
-            selectCharacter.SetInputHandlerAction(InputKeyType.Decide,() => {});
-            selectCharacter.SetInputHandlerAction(InputKeyType.Cancel,() => OnClickBack());
+            selectCharacter.Initialize();
             selectCharacter.SetInputHandlerAction(InputKeyType.SideLeft1,() => 
             {
                 selectCharacter.SelectCharacterTabSmooth(-1);
@@ -54,10 +51,11 @@ namespace Ryneus
             {
                 selectCharacter.SelectCharacterTabSmooth(1);
             });
-            SetInputHandler(selectCharacter.MagicList.GetComponent<IInputHandlerEvent>());
+            SetInputHandler(selectCharacter.gameObject);
+            SetInputHandler(selectCharacter.MagicList.gameObject);
             selectCharacter.HideActionList();
             selectCharacter.SelectCharacterTab(0,false);
-            selectCharacter.SetActiveTab(SelectCharacterTabType.Magic,false);
+            selectCharacter.SetActiveTab(SelectCharacterTabType.SkillTrigger,false);
             selectCharacter.SetActiveTab(SelectCharacterTabType.Condition,false);
         }
 
@@ -65,7 +63,7 @@ namespace Ryneus
         {
             selectCharacter.ShowActionList();
             selectCharacter.SetEnemyBattlerInfo(battlerInfo);
-            //selectCharacter.SetSkillInfos(skillInfos);
+            selectCharacter.SetSkillInfos(skillInfos);
             selectCharacter.SetSkillTriggerList(skillTriggerInfos);
             selectCharacter.RefreshAction(lastSelectIndex);
             enemyInfoComponent.Clear();

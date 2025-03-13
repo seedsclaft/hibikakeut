@@ -347,14 +347,29 @@ namespace Ryneus
             } 
             var image = BattleImage();
             if (image == null) return;
+            var imageRect = image.gameObject.GetComponent<RectTransform>();
             var effectRect = effekseerEmitter.gameObject.GetComponent<RectTransform>();
-            if (animationPosition == 0)
+            var y = 0;
+            if (_battlerInfo.IsActorView)
             {
-                effectRect.localPosition = new Vector2(0,0);
+                if (animationPosition == 0)
+                {
+                    effectRect.localPosition = new Vector2(0,0);
+                } else
+                if (animationPosition == 1)
+                {
+                    effectRect.localPosition = new Vector2(0,0);
+                }
             } else
-            if (animationPosition == 1)
             {
-                effectRect.localPosition = new Vector2(0,-48);
+                if (animationPosition == 0)
+                {
+                    effectRect.localPosition = new Vector2(0,imageRect.sizeDelta.y / 2);
+                } else
+                if (animationPosition == 1)
+                {
+                    effectRect.localPosition = new Vector2(0,imageRect.sizeDelta.y / 2 - 48);
+                }
             }
             effectRect.localScale = new Vector3(animationScale,animationScale,animationScale);
             effekseerEmitter.enabled = true;

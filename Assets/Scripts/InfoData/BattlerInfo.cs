@@ -344,7 +344,7 @@ namespace Ryneus
             }
             var speed = CurrentSpd(false);
             var baseSpeed = new List<int>{50,75,100,150};
-            Ap.SetValue(1000 + rand);
+            Ap.SetValue(600 + rand);
             if (_preserveMinusAp > 0)
             {
                 Ap.GainValue(_preserveMinusAp);

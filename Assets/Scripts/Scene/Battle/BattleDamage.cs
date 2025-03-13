@@ -66,9 +66,9 @@ namespace Ryneus
             {   
                 var textMeshProUGUI = _damageList[i].GetComponent<TextMeshProUGUI>();
                 textMeshProUGUI.alpha = 0;
-                int delay = i + delayCount * 8;
+                int delay = i + delayCount * 2;
                 var sequence = DOTween.Sequence()
-                    .SetDelay(delay * 0.04f)
+                    .SetDelay(delay * 0.02f)
                     .Append(textMeshProUGUI.DOFade(1.0f, 0.1f))
                     .Append(textMeshProUGUI.gameObject.transform.DOLocalMoveY(16, 0.1f))
                     .Append(textMeshProUGUI.gameObject.transform.DOLocalMoveY(0, 0.2f))

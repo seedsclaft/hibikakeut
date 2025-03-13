@@ -159,6 +159,8 @@ namespace Ryneus
                 var skillInfo = new SkillInfo(equipSkillId.Value);
                 skillInfo.SetLearningState(LearningState.Learned);
                 skillInfo.SetEnable(true);
+                var cost = TacticsUtility.LearningMagicCost(actorInfo,skillInfo.Attribute,PartyInfo.ActorInfos,skillInfo.Master.Rank);
+                skillInfo.LearningCost.SetValue(cost);
                 equipSkills.Add(skillInfo);
             }            
             if (equipSkills.Count < 8)

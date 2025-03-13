@@ -143,15 +143,18 @@ namespace Ryneus
 
 						int ActorId = AssetPostImporter.ImportNumeric(BaseRow,"ActorId");
 						ActorData Actor = Data.Data.Find(a => a.Id == ActorId);
-						string[] list = AssetPostImporter.ImportString(BaseRow,"SkillId").Split(',');
-						foreach (string item in list)
+						if (Actor != null)
 						{
-                            var LearningData = new LearningData
-                            {
-                                SkillId = int.Parse(item),
-                                Level = AssetPostImporter.ImportNumeric(BaseRow, "Level")
-                            };
-                            Actor.LearningSkills.Add(LearningData);
+							string[] list = AssetPostImporter.ImportString(BaseRow,"SkillId").Split(',');
+							foreach (string item in list)
+							{
+								var LearningData = new LearningData
+								{
+									SkillId = int.Parse(item),
+									Level = AssetPostImporter.ImportNumeric(BaseRow, "Level")
+								};
+								Actor.LearningSkills.Add(LearningData);
+							}
 						}
 					}
 					// トリガースキル情報設定

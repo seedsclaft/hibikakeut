@@ -16,6 +16,8 @@ namespace Ryneus
 
         private int _selectTabIndex = -1;
         public int SelectTabIndex => _selectTabIndex;
+        private int _busyFrame = -1;
+
         public void SetSelectTabIndex(int selectIndex,bool needSe = true)
         {
             if (_selectTabIndex != selectIndex)
@@ -26,6 +28,7 @@ namespace Ryneus
                 }
                 _selectTabIndex = selectIndex;
                 UpdateTabs();
+                _busyFrame = 8;
             }
         }
 
@@ -77,6 +80,10 @@ namespace Ryneus
 
         public void SelectCharacterTabSmooth(int index)
         {
+            if (_busyFrame > -1)
+            {
+                return;
+            }
             var nextIndex = _selectTabIndex + index;
             var displayTabs = _selectTabs.FindAll(a => a.gameObject.activeSelf);
             if (nextIndex < 0)
@@ -141,6 +148,14 @@ namespace Ryneus
             {
                 _selectTabCanvasGroup[i].alpha = _selectTabIndex == i ? 1 : 0.75f;
             }
+        }
+
+        private void Update() 
+        {
+            if (_busyFrame > -1)
+            {
+                _busyFrame--;
+            }    
         }
     }
 }

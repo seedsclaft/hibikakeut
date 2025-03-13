@@ -44,7 +44,7 @@ namespace Ryneus
         {
             if (CurrentData.LastSaveIndex != null)
             {
-                return CurrentData.LastSaveIndex.Value;
+                return CurrentData.LastSaveIndex.Value - 1;
             }
             return 0;
         }
