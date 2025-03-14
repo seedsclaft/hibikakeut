@@ -139,7 +139,7 @@ namespace Effekseer.Internal
 			lock (Instance)
 			{
 				//Instance.events.Add(() => { Instance.PlaySound(tag, data, volume, pan, pitch, mode3D, x, y, z, distance); });
-				Instance.events.Add(() => { Instance.PlaySound(tag, data, volume * SeVolume, pan, pitch, mode3D, 0, 0, z, distance); });
+				Instance.events.Add(() => { Instance.PlaySound(tag, data, volume * SeVolume, pan, pitch, false, 0, 0, 0, 0); });
 			}
 		}
 		[AOT.MonoPInvokeCallback(typeof(Plugin.EffekseerSoundPlayerStopTag))]

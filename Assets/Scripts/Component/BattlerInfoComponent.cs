@@ -383,6 +383,10 @@ namespace Ryneus
             var image = BattleImage();
             if (image == null) return;
             float alpha = isSelectable == true ? 1 : 0.25f;
+            if (!_battlerInfo.IsAlive())
+            {
+                alpha = 0;
+            }
             canvasGroup.alpha = alpha;
             //image.color = new Color(255,255,255,alpha);
             //effekseerEmitter.enabled = isSelectable;

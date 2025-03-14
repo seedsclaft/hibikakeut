@@ -37,7 +37,11 @@ MonoBehaviour:
     LearningSkills:
     - SkillId: 3010
       Level: 1
-      Weight: 50
+      Weight: 30
+      TriggerDates: []
+    - SkillId: 3110
+      Level: 1
+      Weight: 80
       TriggerDates: []
     - SkillId: 3060
       Level: 11
@@ -57,6 +61,9 @@ MonoBehaviour:
       TriggerDates: []
     SkillTriggerDates:
     - SkillId: 3010
+      Trigger1: 14215
+      Trigger2: 0
+    - SkillId: 3110
       Trigger1: 14215
       Trigger2: 0
     - SkillId: 3060

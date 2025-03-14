@@ -142,6 +142,10 @@ namespace Ryneus
             {
                 mainThumb.SetNativeSize();
             }
+            if (gridThumb != null)
+            {
+                gridThumb.SetNativeSize();
+            }
         }
 
         public void Clear()
