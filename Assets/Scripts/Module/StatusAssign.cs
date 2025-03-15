@@ -42,7 +42,7 @@ namespace Ryneus
     public enum StatusType
     {
         Status,
-        EnemyDetail,
+        EnemyInfo,
         TacticsStatus,
     }
 }

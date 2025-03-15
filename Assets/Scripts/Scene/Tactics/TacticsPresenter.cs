@@ -593,8 +593,10 @@ namespace Ryneus
             switch (tacticsCommandData.Key)
             {
                 case "PARADIGM":
-                    // 初回演出
                     CommandCallSymbol();
+                    break;
+                case "MENU":
+                    CommandStatus();
                     break;
                 case "EDIT":
                     CommandCallEdit();

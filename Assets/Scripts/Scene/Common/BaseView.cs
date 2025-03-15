@@ -56,6 +56,7 @@ namespace Ryneus
                 }
             }
         }
+        public BaseList ActivateView => _viewActives.Find(a => a.Active);
 
         private ViewCommandSceneType _viewCommandSceneType = ViewCommandSceneType.None;
         public void SetViewCommandSceneType(ViewCommandSceneType viewCommandSceneType) => _viewCommandSceneType = viewCommandSceneType;

@@ -184,7 +184,7 @@ namespace Ryneus
                     break;
                 case Base.CommandType.CallEnemyInfoView:
                     var enemyStatusInfo = (StatusViewInfo)viewEvent.template;
-                    var enemyInfoView = CreateStatus(StatusType.EnemyDetail,enemyStatusInfo) as EnemyInfoView;
+                    var enemyInfoView = CreateStatus(StatusType.EnemyInfo,enemyStatusInfo) as EnemyInfoView;
                     enemyInfoView.SetBackEvent(enemyStatusInfo.BackEvent);
                     _currentScene.SetBusy(true);
                     break;

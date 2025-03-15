@@ -19,6 +19,8 @@ namespace Ryneus
         [SerializeField] private ActorInfoComponent selectingActorInfoComponent = null;
         [SerializeField] private GameObject topLayer = null;
         [SerializeField] private GameObject statusLayer = null;
+        [SerializeField] private Button leftArrowButton = null;
+        [SerializeField] private Button rightArrowButton = null;
 
         private StatusViewInfo _statusViewInfo = null; 
 
@@ -37,6 +39,14 @@ namespace Ryneus
             InitializeEquipSkillList();
             InitializeChangeSkillList();
 
+            if (leftArrowButton != null)
+            {
+                leftArrowButton.onClick.AddListener(() => CallViewEvent(CommandType.LeftActor));
+            }
+            if (rightArrowButton != null)
+            {
+                rightArrowButton.onClick.AddListener(() => CallViewEvent(CommandType.RightActor));
+            }
             new StatusPresenter(this);
         }
 
@@ -126,6 +136,8 @@ namespace Ryneus
             changeSkillList.Initialize();
             changeSkillList.SetInputHandler(InputKeyType.Decide,OnSelectChangeSkill);
             changeSkillList.SetInputHandler(InputKeyType.Cancel,OnCancelEquipSkill);
+            changeSkillList.SetInputHandler(InputKeyType.SideLeft1,() => CallViewEvent(CommandType.LeftActor));
+            changeSkillList.SetInputHandler(InputKeyType.SideRight1,() => CallViewEvent(CommandType.RightActor));
             SetInputHandler(changeSkillList.gameObject);
             AddViewActives(changeSkillList);
         }
@@ -142,6 +154,12 @@ namespace Ryneus
             {
                 CallViewEvent(CommandType.SelectChangeSkill,data);
             }
+        }
+
+        public void SetActiveArrows(bool isActive)
+        {
+            leftArrowButton.gameObject.SetActive(isActive);
+            rightArrowButton.gameObject.SetActive(isActive);
         }
 
         public void CommandTopLayer()
@@ -261,7 +279,10 @@ namespace Ryneus
 
         public new void MouseCancelHandler()
         {
-            CallViewEvent(CommandType.Back);
+            if (ActivateView == commandList)
+            {
+                CallViewEvent(CommandType.Back);
+            }
         }
     }
 

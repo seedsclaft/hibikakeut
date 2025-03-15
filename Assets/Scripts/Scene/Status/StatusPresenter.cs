@@ -28,6 +28,7 @@ namespace Ryneus
 
             _view.CommandTopLayer();
             _view.CallCommandList();
+            _view.SetActiveArrows(_model.StageMembers().Count > 1);
             CommandRefresh();
             _view.OpenAnimation(() => 
             {
@@ -37,7 +38,6 @@ namespace Ryneus
 
         private void UpdateCommand(ViewEvent viewEvent)
         {
-            UnityEngine.Debug.Log(viewEvent.commandType);
             if (_busy /*|| _view.AnimationBusy*/)
             {
                 return;
@@ -341,6 +341,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             SaveSelectedSkillId();
             _model.ChangeActorIndex(-1);
+            CommandRefreshMagicList();
             CommandRefresh();
         }
 
@@ -349,6 +350,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             SaveSelectedSkillId();
             _model.ChangeActorIndex(1);
+            CommandRefreshMagicList();
             CommandRefresh();
         }
 
