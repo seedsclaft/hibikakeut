@@ -117,7 +117,7 @@ namespace Ryneus
             return skillInfos;
         }
 
-        public List<SkillInfo> ChangeAbleSkills(ActorInfo actorInfo)
+        public List<SkillInfo> ChangeAbleSkills(ActorInfo actorInfo,int minusSp = 0)
         {
             var changeAbleSkills = actorInfo.ChangeAbleSkills();
             foreach (var learnSkillId in PartyInfo.LearningSkillIds)
@@ -139,7 +139,7 @@ namespace Ryneus
                     changeAbleSkill.LearningCost.SetValue(cost);
                     if (changeAbleSkill.Enable)
                     {
-                        changeAbleSkill.SetEnable(cost <= actorInfo.CurrentMp.Value);
+                        changeAbleSkill.SetEnable((cost-minusSp) <= actorInfo.CurrentMp.Value);
                     }
                 }
             }

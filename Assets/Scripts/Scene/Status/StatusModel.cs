@@ -40,7 +40,14 @@ namespace Ryneus
 
         public List<SkillInfo> ChangeAbleSkills()
         {
-            return ChangeAbleSkills(CurrentActor);
+            // マイナスSP計算
+            var cost = _selectSkillInfo != null ? TacticsUtility.LearningMagicCost(CurrentActor,_selectSkillInfo.Attribute,PartyInfo.ActorInfos,_selectSkillInfo.Master.Rank) : 0;
+            var changeAbleSkills = ChangeAbleSkills(CurrentActor,cost);
+            // はずすを挿入
+            var removeSkill = new SkillInfo(1);
+            removeSkill.SetEnable(true);
+            changeAbleSkills.Insert(0,removeSkill);
+            return changeAbleSkills;
         }
 
         public string HelpText()
