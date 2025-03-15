@@ -7,9 +7,6 @@ namespace Ryneus
     public class ConfirmAssign : MonoBehaviour
     {
         [SerializeField] private GameObject confirmRoot = null;
-        [SerializeField] private GameObject confirmPrefab = null;
-        [SerializeField] private GameObject cautionPrefab = null;
-        [SerializeField] private GameObject skillDetailPrefab = null;
         public GameObject CreateConfirm(ConfirmType popupType,HelpWindow helpWindow)
         {
             if (confirmRoot.transform.childCount > 0)
@@ -26,13 +23,7 @@ namespace Ryneus
 
         private GameObject GetConfirmObject(ConfirmType popupType)
         {
-            return popupType switch
-            {
-                ConfirmType.Confirm => confirmPrefab,
-                ConfirmType.Caution => cautionPrefab,
-                ConfirmType.SkillDetail => skillDetailPrefab,
-                _ => null,
-            };
+            return ResourceSystem.LoadResource<GameObject>("Popups/Popup" + popupType);
         }
 
         public void CloseConfirm()

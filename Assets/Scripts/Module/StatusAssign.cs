@@ -8,10 +8,6 @@ namespace Ryneus
     {
         [SerializeField] private GameObject statusRoot = null;
         public GameObject StatusRoot => statusRoot;
-        [SerializeField] private GameObject statusPrefab = null;
-        [SerializeField] private GameObject enemyDetailPrefab = null;
-        [SerializeField] private GameObject sideMenuPrefab = null;
-        [SerializeField] private GameObject tacticsStatusPrefab = null;
         private BaseView _statusView;
         public GameObject CreatePopup(StatusType statusType,HelpWindow helpWindow)
         {
@@ -25,14 +21,7 @@ namespace Ryneus
 
         private GameObject GetStatusObject(StatusType statusType)
         {
-            return statusType switch
-            {
-                StatusType.Status => statusPrefab,
-                StatusType.EnemyDetail => enemyDetailPrefab,
-                StatusType.SideMenu => sideMenuPrefab,
-                StatusType.TacticsStatus => tacticsStatusPrefab,
-                _ => null,
-            };
+            return ResourceSystem.LoadResource<GameObject>("Scenes/" + statusType + "Scene");
         }    
         
         public void CloseStatus()
@@ -54,7 +43,6 @@ namespace Ryneus
     {
         Status,
         EnemyDetail,
-        SideMenu,
         TacticsStatus,
     }
 }
