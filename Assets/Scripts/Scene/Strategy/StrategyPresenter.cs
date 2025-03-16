@@ -311,28 +311,15 @@ namespace Ryneus
                 {
                     _model.ReturnTempBattleMembers(); 
                     _view.CommandChangeViewToTransition(null);  
-                    // ボス戦なら
-                    //if (_model.CurrentSelectRecord().SymbolType == SymbolType.Boss)
-                    //{
-                        //SoundManager.Instance.FadeOutBgm();
-                    //    PlayBossBgm();
-                    //} else
-                    {
-                        var bgmData = _model.TacticsBgmData();
-                        if (bgmData.CrossFade != "" && SoundManager.Instance.CrossFadeMode)
-                        {
-                            SoundManager.Instance.ChangeCrossFade();
-                        } else
-                        {
-                            PlayTacticsBgm();
-                        }
-                    }
-                    SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
+                    PlayStartBattleBgm();
                     var battleSceneInfo = new BattleSceneInfo
                     {
                         ActorInfos = _model.BattleMembers(),
-                        //EnemyInfos = _model.CurrentTroopInfo().BattlerInfos
+                        EnemyInfos = _model.CurrentSymbolInfo().TroopInfo.BattlerInfos,
+                        GetItemInfos = _model.CurrentSymbolInfo()?.GetItemInfos,
+                        BossBattle = _model.CurrentSymbolInfo().SymbolType == SymbolType.Boss,
                     };
+                    SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
                     _view.CommandGotoSceneChange(Scene.Battle,battleSceneInfo);
                 } else
                 {
@@ -340,6 +327,27 @@ namespace Ryneus
                 }
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
+        }
+
+        private async void PlayStartBattleBgm()
+        {
+            var currentSymbol = _model.CurrentSymbolInfo();
+            // ボス戦なら
+            if (currentSymbol.Master.SymbolType == SymbolType.Boss)
+            {
+                PlayBossBgm();
+            } else
+            {
+                var bgmData = _model.TacticsBgmData();
+                if (bgmData.CrossFade != "" && SoundManager.Instance.CrossFadeMode)
+                {
+                    SoundManager.Instance.ChangeCrossFade();
+                } else
+                {
+                    await PlayTacticsBgm();
+                }
+            }
+            SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
         }
 
         private void CommandSelectAlcanaList(SkillInfo skillInfo)

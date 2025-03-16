@@ -89,17 +89,17 @@ namespace Ryneus
             var enemies = _sceneParam.EnemyInfos;
             foreach (var enemy in enemies)
             {
-                enemy.ResetData(enemy.Level.Value);
-                enemy.InitParamInfos(enemy.EnemyData);
-                foreach (var kind in enemy.Kinds)
+                // 最新データに同期
+                var battlerInfo = new BattlerInfo(enemy.EnemyData,enemy.Level.Value,enemy.Index.Value,enemy.LineIndex,enemy.BossFlag);
+                foreach (var kind in battlerInfo.Kinds)
                 {
-                    if (CurrentData.PlayerInfo.CheckEnemyWeakPointDict(enemy.EnemyData.Id,kind))
+                    if (CurrentData.PlayerInfo.CheckEnemyWeakPointDict(battlerInfo.EnemyData.Id,kind))
                     {
-                        enemy.SetWeakPoint(kind);
+                        battlerInfo.SetWeakPoint(kind);
                     }
                 }
-                _battlers.Add(enemy);
-                _battleRecords[enemy.Index.Value] = new BattleRecord(enemy.Index.Value);
+                _battlers.Add(battlerInfo);
+                _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
             }
             // アルカナ
             /*
@@ -715,7 +715,6 @@ namespace Ryneus
             {
                 return;
             }
-
             // かばう判定
             /*
             var newIndexList = new List<int>();

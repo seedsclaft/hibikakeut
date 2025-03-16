@@ -383,7 +383,7 @@ namespace Ryneus
             var image = BattleImage();
             if (image == null) return;
             float alpha = isSelectable == true ? 1 : 0.25f;
-            if (!_battlerInfo.IsAlive())
+            if (!_battlerInfo.IsAlive() && !_battlerInfo.IsActor)
             {
                 alpha = 0;
             }

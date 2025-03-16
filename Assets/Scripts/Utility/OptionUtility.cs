@@ -19,7 +19,7 @@ namespace Ryneus
                 ChangeGraphicIndex(saveOptionInfo.GraphicIndex);
                 ChangeEventSkipIndex(saveOptionInfo.EventSkipIndex);
                 ChangeCommandEndCheck(saveOptionInfo.CommandEndCheck);
-                ChangeBattleWait(saveOptionInfo.BattleWait);
+                ChangeBattleTurnSkip(saveOptionInfo.BattleTurnSkip);
                 ChangeBattleAnimation(saveOptionInfo.BattleAnimationSkip);
                 ChangeInputType(saveOptionInfo.InputType);
                 ChangeBattleAuto(saveOptionInfo.BattleAuto);
@@ -120,9 +120,9 @@ namespace Ryneus
             GameSystem.OptionData.CommandEndCheck = commandEndCheck;
         }
 
-        public static void ChangeBattleWait(bool battleWait)
+        public static void ChangeBattleTurnSkip(bool battleTurnSkip)
         {
-            GameSystem.OptionData.BattleWait = battleWait;
+            GameSystem.OptionData.BattleTurnSkip = battleTurnSkip;
         }
 
         public static void ChangeBattleAnimation(bool battleAnimation)

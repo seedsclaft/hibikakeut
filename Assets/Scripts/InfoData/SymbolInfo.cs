@@ -6,18 +6,18 @@ namespace Ryneus
     [Serializable]
     public class SymbolInfo
     {
-        private StageSymbolData _stageSymbolData;
+        [UnityEngine.SerializeField] private StageSymbolData _stageSymbolData;
         public StageSymbolData Master => _stageSymbolData;
         public SymbolType SymbolType => Master.SymbolType;
 
-        private TroopInfo _troopInfo = null;
+        [UnityEngine.SerializeField] private TroopInfo _troopInfo = null;
         public TroopInfo TroopInfo => _troopInfo;
         public void SetTroopInfo(TroopInfo troopInfo)
         {
             _troopInfo = troopInfo;
         }
 
-        private List<GetItemInfo> _getItemInfos = new();
+        [UnityEngine.SerializeField] private List<GetItemInfo> _getItemInfos = new();
         public List<GetItemInfo> GetItemInfos => _getItemInfos;
         public void SetGetItemInfos(List<GetItemInfo> getItemInfos)
         {

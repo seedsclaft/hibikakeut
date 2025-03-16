@@ -46,7 +46,7 @@ namespace Ryneus
         {
             var symbolListDict = new Dictionary<int,List<SymbolInfo>>();
             var symbolInfos = CurrentStage.SymbolInfos;
-
+            SymbolListChecker.Instance.SetModel(symbolInfos);
             foreach (var symbolInfo in symbolInfos)
             {
                 if (!symbolListDict.ContainsKey(symbolInfo.Master.Seek))

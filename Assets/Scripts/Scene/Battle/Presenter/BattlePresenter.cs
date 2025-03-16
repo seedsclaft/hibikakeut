@@ -204,7 +204,14 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.UpdateAp:
-                    CommandUpdateAp();
+                    // ターンスキップあり
+                    if (GameSystem.OptionData.BattleTurnSkip)
+                    {
+                        CommandTurnSkip();
+                    } else
+                    {
+                        CommandUpdateAp();
+                    }
                     break;
                 case CommandType.OnDecideSkill:
                     CommandDecideSkill();
@@ -309,6 +316,31 @@ namespace Ryneus
             {
                 CommandStartSelect();
             }
+        }
+
+        private async void CommandTurnSkip()
+        {
+            while (CheckApCurrentBattler() == null)
+            {
+                if (IsBattleEnd())
+                {
+                    BattleEnd();
+                    return;
+                }
+                var removeStateList = _model.UpdateAp();
+                if (removeStateList.Count > 0)
+                {
+                    _view.ClearDamagePopup();
+                    foreach (var removeState in removeStateList)
+                    {
+                        _view.StartStatePopup(removeState.TargetIndex.Value,DamageType.State,"-" + removeState.Master.Name);
+                    }
+                    // Passive解除
+                    await RemovePassiveInfos();
+                }
+                _view.UpdateGridLayer();
+            }
+            CommandStartSelect();
         }
 
         private void StartWaitCommand(ActionInfo actionInfo)

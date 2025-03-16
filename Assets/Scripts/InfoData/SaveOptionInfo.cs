@@ -16,7 +16,7 @@ namespace Ryneus
 		public int GraphicIndex;
 		public bool EventSkipIndex;
 		public bool CommandEndCheck;
-		public bool BattleWait;
+		public bool BattleTurnSkip;
 		public bool BattleAnimationSkip;
 		public InputType InputType;
 		public bool BattleAuto;
@@ -39,7 +39,7 @@ namespace Ryneus
 			GraphicIndex = 2;
 			EventSkipIndex = false;
 			CommandEndCheck = true;
-			BattleWait = true;
+			BattleTurnSkip = true;
 			BattleAnimationSkip = false;
 			InputType = InputType.All;
 			BattleAuto = false;

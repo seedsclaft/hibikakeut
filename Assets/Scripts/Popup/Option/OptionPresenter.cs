@@ -132,7 +132,7 @@ namespace Ryneus
                     OptionUtility.ChangeCommandEndCheck(inputKeyType == InputKeyType.Left);
                     break;
                 case "BATTLE_WAIT":
-                    OptionUtility.ChangeBattleWait(inputKeyType == InputKeyType.Left);
+                    OptionUtility.ChangeBattleTurnSkip(inputKeyType == InputKeyType.Right);
                     break;
                 case "BATTLE_ANIMATION":
                     OptionUtility.ChangeBattleAnimation(inputKeyType == InputKeyType.Right);
@@ -235,7 +235,7 @@ namespace Ryneus
                         OptionUtility.ChangeCommandEndCheck(toggleIndex == 0);
                         break;
                     case "BATTLE_WAIT":
-                        OptionUtility.ChangeBattleWait(toggleIndex == 0);
+                        OptionUtility.ChangeBattleTurnSkip(toggleIndex == 1);
                         break;
                     case "BATTLE_ANIMATION":
                         OptionUtility.ChangeBattleAnimation(toggleIndex == 1);

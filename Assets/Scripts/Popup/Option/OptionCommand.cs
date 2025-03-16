@@ -134,7 +134,7 @@ namespace Ryneus
                 case "BATTLE_WAIT":
                     for (int i = 0;i < optionToggles.Count;i++)
                     {
-                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.BattleWait == true ? 0 : 1));
+                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.BattleTurnSkip == true ? 1 : 0));
                     }
                     return;
                 case "BATTLE_ANIMATION":
