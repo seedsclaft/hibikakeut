@@ -27,10 +27,10 @@ namespace Ryneus
             {
                 return;
             }
-            var fromIndex = _swapFromActor.BattleIndex;
-            var toIndex = actorInfo.BattleIndex;
-            _swapFromActor.BattleIndex = toIndex;
-            actorInfo.BattleIndex = fromIndex;
+            var fromIndex = _swapFromActor.BattleIndex.Value;
+            var toIndex = actorInfo.BattleIndex.Value;
+            _swapFromActor.BattleIndex.SetValue(toIndex);
+            actorInfo.BattleIndex.SetValue(fromIndex);
         }
 
         public bool StageStart()

@@ -796,6 +796,7 @@ namespace Ryneus
                         Param1 = (int)hpHeal
                     };
                     var actionResultInfo = new ActionResultInfo(subject,GetBattlerInfo(friend.Index.Value),new List<SkillData.FeatureData>(){featureData},-1);
+                    actionResultInfo.NoAnimation.SetValue(true);
                     actionResultInfos.Add(actionResultInfo);
                 }
             }

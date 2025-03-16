@@ -161,6 +161,8 @@ namespace Ryneus
 
         private bool _startDash;
         public bool StartDash => _startDash;
+        // アニメーションの対象にならない
+        public ParameterBool NoAnimation = new();
 
         private void MakeFeature(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData,int skillId,bool isOneTarget = false)
         {

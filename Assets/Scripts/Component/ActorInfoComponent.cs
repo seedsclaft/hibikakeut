@@ -111,12 +111,12 @@ namespace Ryneus
             {
                 UpdateAttributeRank(element6,actorInfo,AttributeType.Dark,actorInfos);
             }
-            element1Cost?.SetText(TacticsUtility.LearningMagicCost(actorInfo,AttributeType.Fire,actorInfos).ToString());
-            element2Cost?.SetText(TacticsUtility.LearningMagicCost(actorInfo,AttributeType.Thunder,actorInfos).ToString());
-            element3Cost?.SetText(TacticsUtility.LearningMagicCost(actorInfo,AttributeType.Ice,actorInfos).ToString());
-            element4Cost?.SetText(TacticsUtility.LearningMagicCost(actorInfo,AttributeType.Shine,actorInfos).ToString());
-            element5Cost?.SetText(TacticsUtility.LearningMagicCost(actorInfo,AttributeType.Dark,actorInfos).ToString());
-            element6Cost?.SetText(TacticsUtility.LearningMagicCost(actorInfo,AttributeType.Void,actorInfos).ToString());
+            element1Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Fire,actorInfos).ToString());
+            element2Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Thunder,actorInfos).ToString());
+            element3Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Ice,actorInfos).ToString());
+            element4Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Shine,actorInfos).ToString());
+            element5Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Dark,actorInfos).ToString());
+            element6Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Void,actorInfos).ToString());
             
             recoveryCost?.SetText(TacticsUtility.RemainRecoveryCost(actorInfo,true).ToString());
             resourceGain?.SetText(TacticsUtility.ResourceGain(actorInfo).ToString());

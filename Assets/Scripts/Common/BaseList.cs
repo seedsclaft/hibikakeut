@@ -99,7 +99,10 @@ namespace Ryneus
                     listItem.SetCallHandler(CallListInputHandlerDecide);
                     listItem.SetSelectHandler((index) => 
                     {
-                        UpdateSelectIndex(index);
+                        if (Active)
+                        {
+                            UpdateSelectIndex(index);
+                        }
                     });
                     listItem.SetAddListenHandler(true);
                 }

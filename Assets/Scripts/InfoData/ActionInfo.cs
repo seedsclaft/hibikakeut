@@ -146,9 +146,13 @@ namespace Ryneus
         public List<int> ResultTargetIndexes()
         {
             var targetIndexList = new List<int>();
-            if (_actionResults != null)
+            if (_actionResults == null)
             {
-                foreach (var actionResult in _actionResults)
+                return targetIndexList;
+            }
+            foreach (var actionResult in _actionResults)
+            {
+                if (actionResult.NoAnimation.Value == false)
                 {
                     targetIndexList.Add(actionResult.TargetIndex.Value);
                 }

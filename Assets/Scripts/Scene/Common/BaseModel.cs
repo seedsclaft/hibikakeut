@@ -135,7 +135,7 @@ namespace Ryneus
             {
                 if (changeAbleSkill.Master != null && !changeAbleSkill.IsBattleSpecialSkill())
                 {
-                    var cost = TacticsUtility.LearningMagicCost(actorInfo,changeAbleSkill.Attribute,PartyInfo.ActorInfos,changeAbleSkill.Master.Rank);
+                    var cost = actorInfo.LearningMagicCost(changeAbleSkill.Attribute,PartyInfo.ActorInfos,changeAbleSkill.Master.Rank);
                     changeAbleSkill.LearningCost.SetValue(cost);
                     if (changeAbleSkill.Enable)
                     {
@@ -159,7 +159,7 @@ namespace Ryneus
                 var skillInfo = new SkillInfo(equipSkillId.Value);
                 skillInfo.SetLearningState(LearningState.Learned);
                 skillInfo.SetEnable(true);
-                var cost = TacticsUtility.LearningMagicCost(actorInfo,skillInfo.Attribute,PartyInfo.ActorInfos,skillInfo.Master.Rank);
+                var cost = actorInfo.LearningMagicCost(skillInfo.Attribute,PartyInfo.ActorInfos,skillInfo.Master.Rank);
                 skillInfo.LearningCost.SetValue(cost);
                 equipSkills.Add(skillInfo);
             }            
@@ -606,7 +606,7 @@ namespace Ryneus
         public void ActorLearnMagic(ActorInfo actorInfo,int skillId)
         {
             var skillInfo = new SkillInfo(skillId);
-            var learningCost = TacticsUtility.LearningMagicCost(actorInfo,skillInfo.Attribute,StageMembers(),skillInfo.Master.Rank);
+            var learningCost = actorInfo.LearningMagicCost(skillInfo.Attribute,StageMembers(),skillInfo.Master.Rank);
             actorInfo.AddSkillTriggerSkill(skillId);
         }
 
