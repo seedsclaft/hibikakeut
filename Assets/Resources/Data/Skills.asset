@@ -1346,7 +1346,7 @@ MonoBehaviour:
     Scope: 1
     SkillType: 1
     TargetType: 1
-    Help: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u547D\u4E2D\u7387/f[f,0,3]%\u30C0\u30A6\u30F3\u3092\u4ED8\u4E0E"
+    Help: "\\s\u306B/f[f,0,1]\u56DE\u6709\u52B9\u306A\u6697\u95C7\u4ED8\u4E0E\n/s"
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1354,9 +1354,9 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 5060
       FeatureType: 3010
-      Param1: 1082
-      Param2: 5
-      Param3: 25
+      Param1: 2020
+      Param2: 1
+      Param3: 100
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -2831,7 +2831,7 @@ MonoBehaviour:
   - Id: 14110
     Name: "\u30EA\u30D5\u30EC\u30C3\u30B7\u30E5"
     IconIndex: 6
-    AnimationId: 701
+    AnimationId: 702
     AnimationType: 1
     CountTurn: 3
     Rank: 10

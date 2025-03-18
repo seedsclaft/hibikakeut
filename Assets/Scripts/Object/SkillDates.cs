@@ -379,6 +379,7 @@ namespace Ryneus
         OneAttackOverDamage = 12050, // 1回の攻撃で〇ダメージ以上受ける
         FriendAttackedAction = 12060, // 味方が攻撃を受ける
         SelfAbnormalAction = 12063, // 自身が状態異常を受ける
+        FriendAbnormalAction = 12064, // 味方が状態異常を受ける
         SelfPassiveAction = 12066, // 自身がパッシブを受ける
         FriendAction = 12070, // 味方が行動を成功する
         FriendAttackAction = 12071, // 味方が攻撃を成功する

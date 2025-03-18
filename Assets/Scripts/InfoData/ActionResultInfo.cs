@@ -365,6 +365,14 @@ namespace Ryneus
             {
                 return true;
             }
+            if (subject.IsActor != target.IsActor)
+            {
+                if (subject.IsState(StateType.Darkness))
+                {
+                    SeekStateCount(subject,StateType.Darkness);
+                    return false;
+                }
+            }
             /*
             if (isOneTarget && target.IsState(StateType.RevengeAct))
             {

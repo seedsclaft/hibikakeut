@@ -62,6 +62,7 @@ namespace Ryneus
         DamageCut = 1101,
         BurnDamage = 2010, // 火傷(ダメージ固定)
         BurnDamagePer = 2011, // 火傷(ダメージ割合)
+        Darkness = 2020, // 暗闇
         CounterAura = 2030, // CA
         CounterAuraDamage = 2031,
         CounterAuraShell = 2032,

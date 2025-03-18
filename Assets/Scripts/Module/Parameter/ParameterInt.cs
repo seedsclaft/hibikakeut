@@ -1,3 +1,5 @@
+using System;
+
 namespace Ryneus
 {
     [System.Serializable]
@@ -33,10 +35,7 @@ namespace Ryneus
         public void GainValue(int value,int minValue,int maxValue)
         {
             _value += value;
-            if (_value < minValue)
-            {
-                _value = minValue;
-            }
+            _value = Math.Min(Math.Max(_value,minValue),maxValue);
         }
     }
 }

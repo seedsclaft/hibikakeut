@@ -60,6 +60,9 @@ namespace Ryneus
                         }
                     }
                     break;
+                case TriggerType.FriendAbnormalAction:
+                    isTrigger = CheckFriendAbnormalAction(triggerData,battlerInfo,checkTriggerInfo).Count > 0;
+                    break;
                 case TriggerType.SelfPassiveAction:
                     if (battlerInfo.IsAlive())
                     {
@@ -291,6 +294,53 @@ namespace Ryneus
                 return list;
             }
             if (!actionInfo.Master.IsHpDamageFeature())
+            {
+                return list;
+            }
+            var results = actionInfo.ActionResults.FindAll(a => checkTriggerInfo.Friends.Find(b => b.Index.Value == a.TargetIndex.Value) != null);
+            foreach (var result in results)
+            {
+                var targetBattlerInfo = checkTriggerInfo.GetBattlerInfo(result.TargetIndex.Value);
+                if (targetBattlerInfo != null && !targetBattlerInfo.IsActor == battlerInfo.IsActor)
+                {
+                    continue;
+                }
+                // Param2で対象を指定
+                if ((ScopeType)triggerData.Param2 == ScopeType.Self)
+                {
+                    if (result.TargetIndex.Value == battlerInfo.Index.Value)
+                    {
+                        list.Add(result.TargetIndex.Value);
+                    }
+                } else
+                if ((ScopeType)triggerData.Param2 == ScopeType.WithoutSelfAll)
+                {
+                    if (result.TargetIndex.Value != battlerInfo.Index.Value)
+                    {
+                        list.Add(result.TargetIndex.Value);
+                    }
+                } else
+                {
+                    list.Add(result.TargetIndex.Value);
+                }
+            }
+            return list;
+        }
+
+        private List<int> CheckFriendAbnormalAction(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        {
+            var list = new List<int>();
+            var actionInfo = checkTriggerInfo.ActionInfo;
+            var actionResultInfos = checkTriggerInfo.ActionResultInfos;
+            if (!battlerInfo.IsAlive())
+            {
+                return list;
+            }
+            if (actionInfo == null || actionInfo.ActionResults == null)
+            {
+                return list;
+            }
+            if (!actionInfo.Master.IsAddAbnormalFeature())
             {
                 return list;
             }
