@@ -36,8 +36,8 @@ namespace Ryneus
 
         public void SetFileList(List<ListData> fileDataList)
         {
-            fileList.SetData(fileDataList);
             SetActivate(fileList);
+            fileList.SetData(fileDataList);
         }
 
         private void CallFileData()

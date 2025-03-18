@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -40,7 +41,7 @@ namespace Ryneus
             _isInit = true;
         }
 
-        public void SetData(List<ListData> listData,bool resetScrollRect = true,Action initializeAfterEvent = null,bool unselect = false)
+        public async void SetData(List<ListData> listData,bool resetScrollRect = true,Action initializeAfterEvent = null,bool unselect = false)
         {
             if (resetScrollRect && listData != ListDates)
             {
@@ -53,7 +54,8 @@ namespace Ryneus
                 AddCreateList(ListDates.Count-ObjectList.Count);
             }
             UpdateObjectList();
-            //await UniTask.DelayFrame(1);
+
+            await UniTask.DelayFrame(1);
             SetListCallHandler();
             var selectIndex = -1;
             if (resetScrollRect == false)

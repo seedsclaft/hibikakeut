@@ -245,9 +245,11 @@ namespace Ryneus
 
         public void Refresh(int selectIndex = 0)
         {
-            UpdateItemPrefab();
+            UpdateItemPrefab(selectIndex);
             UpdateAllItems();
-            UpdateSelectIndex(selectIndex);
+            
+            LayoutRebuilder.ForceRebuildLayoutImmediate(ScrollRect.content);
+            UpdateScrollRect(selectIndex);
         }
 
         public void AddCreateList(int count)
@@ -701,7 +703,7 @@ namespace Ryneus
                 {
                     ScrollRect.normalizedPosition = new Vector2(0,0);
                 } else
-                if (Index < (dataCount-listCount) && _displayDownCount <= (listCount-1))
+                if (Index < (dataCount-listCount) && _displayDownCount < (listCount-1))
                 {
                     var num = 1.0f / (dataCount - listCount);
                     ScrollRect.normalizedPosition = new Vector2(0,1.0f - (num * Index));
@@ -712,18 +714,21 @@ namespace Ryneus
         public void UpdateScrollRect(int selectIndex)
         {
             if (_index < 0) return;
+            UpdateSelectIndex(selectIndex);
             var listCount = ListItemCount();
             var dataCount = _listDates.Count;
-            var listIndex = selectIndex - (listCount - 1);
-            // 下まで表示できる場合は
-            if (selectIndex <= listCount)
+            // 表示可能な最下部
+            var lastIndex = listCount - 1;
+            var listIndex = 0;
+            if (dataCount > listCount && selectIndex > lastIndex)
             {
-                listIndex = listCount - 1;
+                // 下に移動する
+                listIndex = selectIndex - lastIndex;
             }
             if (listIndex > 0)
             {
-                var num = 1.0f / (dataCount - listCount);
-                var normalizedPosition = 1.0f - (num * (listIndex - (listCount-1)));
+                var per = (float)1 / (dataCount - listCount);
+                var normalizedPosition = 1 - per * (selectIndex - listCount + 1);
                 if (_horizontal)
                 {
                     ScrollRect.normalizedPosition = new Vector2(normalizedPosition,0);
@@ -732,8 +737,6 @@ namespace Ryneus
                     ScrollRect.normalizedPosition = new Vector2(0,normalizedPosition);
                 }
             }
-            UpdateListItem();
-            UpdateSelectIndex(Index);
         }
 
         private int ListItemCount()
