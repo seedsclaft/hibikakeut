@@ -10,17 +10,6 @@ namespace Ryneus
 {
 	public class AnimationImporter : AssetPostprocessor 
 	{
-		enum BaseColumn
-		{
-			Id = 0,
-			AnimationPath,
-			MakerEffect,
-			Position,
-			Scale,
-			Speed,
-			DamageTiming,
-			Enable,
-		}
 		static readonly string ExcelName = "Animations.xlsx";
 
 		// アセット更新があると呼ばれる
@@ -67,6 +56,8 @@ namespace Ryneus
 
 					// エクセルシートからセル単位で読み込み
 					ISheet BaseSheet = Book.GetSheetAt(0);
+					var KeyRow = BaseSheet.GetRow(0);
+					AssetPostImporter.SetKeyNames(KeyRow.Cells);
 
 					for (int i = 1; i <= BaseSheet.LastRowNum; i++)
 					{
@@ -74,13 +65,13 @@ namespace Ryneus
 
                         var AnimationData = new AnimationData
                         {
-                            Id = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.Id),
-                            AnimationPath = AssetPostImporter.ImportString(BaseRow, (int)BaseColumn.AnimationPath),
-                            MakerEffect = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.MakerEffect) == 1,
-                            Position = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.Position),
-                            Scale = AssetPostImporter.ImportFloat(BaseRow, (int)BaseColumn.Scale),
-                            Speed = AssetPostImporter.ImportFloat(BaseRow, (int)BaseColumn.Speed),
-                            DamageTiming = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.DamageTiming)
+                            Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
+                            AnimationPath = AssetPostImporter.ImportString(BaseRow, "AnimationPath"),
+                            MakerEffect = AssetPostImporter.ImportNumeric(BaseRow, "MakerEffect") == 1,
+                            Position = (AnimationPosition)AssetPostImporter.ImportNumeric(BaseRow, "Position"),
+                            Scale = AssetPostImporter.ImportFloat(BaseRow, "Scale"),
+                            Speed = AssetPostImporter.ImportFloat(BaseRow, "Speed"),
+                            DamageTiming = AssetPostImporter.ImportNumeric(BaseRow, "DamageTiming")
                         };
 
                         Data.Data.Add(AnimationData);

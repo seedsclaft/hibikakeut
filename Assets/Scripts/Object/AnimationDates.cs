@@ -16,12 +16,15 @@ namespace Ryneus
         public int Id;
         public string AnimationPath;
         public bool MakerEffect;
-        public int Position;
+        public AnimationPosition Position;
         public float Scale;
         public float Speed;
         public int DamageTiming;
+    }
 
-        private static string _resourcesPath = "Assets/Resources/Animations/";
-        private static string _backupPath = "Assets/Resources_bak/Animations/";
+    public enum AnimationPosition
+    {
+        Center = 0,
+        Down = 1
     }
 }

@@ -39,7 +39,6 @@ namespace Ryneus
         public List<SkillInfo> Skills => _skills;
         private List<SkillInfo> _enhanceSkills = new ();
         public List<SkillInfo> EnhanceSkills => _enhanceSkills;
-        private List<int> _passiveActiveSkillIds = new ();
         private ActorInfo _actorInfo;
         public ActorInfo ActorInfo => _actorInfo;
         private ParameterInt EnemyId = new();
@@ -78,15 +77,16 @@ namespace Ryneus
         private List<SkillTriggerInfo> _skillTriggerInfos = new ();
         public List<SkillTriggerInfo> SkillTriggerInfos => _skillTriggerInfos;
 
+        // バトル中のパッシブスキル付与・解除管理
         private List<int> _passiveSkillIds = new ();
         public List<int> PassiveSkillIds => _passiveSkillIds;
-        public bool CheckPassiveSkillId(int skillId)
+        public bool ContainsPassiveSkillId(int skillId)
         {
-            return _passiveActiveSkillIds.Contains(skillId);
+            return _passiveSkillIds.Contains(skillId);
         }
         public void AddPassiveSkillId(int skillId)
         {
-            if (_passiveSkillIds.Contains(skillId))
+            if (ContainsPassiveSkillId(skillId))
             {
                 return;
             }
@@ -94,7 +94,7 @@ namespace Ryneus
         }
         public void RemovePassiveSkillId(int skillId)
         {
-            if (_passiveSkillIds.Contains(skillId))
+            if (ContainsPassiveSkillId(skillId))
             {
                 _passiveSkillIds.Remove(skillId);
             }

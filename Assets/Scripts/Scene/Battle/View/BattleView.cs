@@ -475,7 +475,7 @@ namespace Ryneus
             skillInfoComponent.Clear();
         }
 
-        public void StartAnimation(int targetIndex,EffekseerEffectAsset effekseerEffectAsset,int animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
+        public void StartAnimation(int targetIndex,EffekseerEffectAsset effekseerEffectAsset,AnimationPosition animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
         {
             magicList.gameObject.SetActive(false);
             if (GameSystem.OptionData.BattleAnimationSkip == true) 
@@ -486,7 +486,7 @@ namespace Ryneus
             _battlerComps[targetIndex].StartAnimation(effekseerEffectAsset,animationPosition,animationScale,animationSpeed);
         }
 
-        public void StartAnimationAll(EffekseerEffectAsset effekseerEffectAsset,int animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
+        public void StartAnimationAll(EffekseerEffectAsset effekseerEffectAsset,AnimationPosition animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
         {
             magicList.gameObject.SetActive(false);
             if (GameSystem.OptionData.BattleAnimationSkip == true) 

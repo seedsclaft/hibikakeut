@@ -625,7 +625,7 @@ namespace Ryneus
                         break;
                     default:
                         IsEnable = true;
-                    break;
+                        break;
                 }
             }
             return IsEnable;
@@ -1309,7 +1309,7 @@ namespace Ryneus
                 {
                     if (plusActionInfo.Master.SkillType == SkillType.Passive)
                     {
-                        if (!GetBattlerInfo(actionInfo.SubjectIndex.Value).CheckPassiveSkillId(plusActionInfo.Master.Id))
+                        if (!GetBattlerInfo(actionInfo.SubjectIndex.Value).ContainsPassiveSkillId(plusActionInfo.Master.Id))
                         {
                             GetBattlerInfo(actionInfo.SubjectIndex.Value).AddPassiveSkillId(plusActionInfo.Master.Id);
                         }
@@ -1330,7 +1330,7 @@ namespace Ryneus
                     {
                         if (skillInfo.Master.SkillType == SkillType.Passive)
                         {
-                            if (!GetBattlerInfo(actionInfo.SubjectIndex.Value).CheckPassiveSkillId(skillInfo.Master.Id))
+                            if (!GetBattlerInfo(actionInfo.SubjectIndex.Value).ContainsPassiveSkillId(skillInfo.Master.Id))
                             {
                                 GetBattlerInfo(actionInfo.SubjectIndex.Value).AddPassiveSkillId(skillInfo.Master.Id);
                             }
@@ -1526,7 +1526,7 @@ namespace Ryneus
             return madeActionInfos;
         }
 
-        public void CheckTriggerPassiveInfos(List<TriggerTiming> triggerTimings,ActionInfo actionInfo = null, List<ActionResultInfo> actionResultInfos = null)
+        public void CheckTriggerPassiveInfos(List<TriggerTiming> triggerTimings,ActionInfo actionInfo = null,List<ActionResultInfo> actionResultInfos = null)
         {
             // 同時発動制限管理
             var checkedSkillIds = new List<int>();
@@ -1538,101 +1538,118 @@ namespace Ryneus
                 }
                 foreach (var passiveInfo in battlerInfo.PassiveSkills())
                 {
+                    if (CheckCanPassiveSkill(battlerInfo,passiveInfo,triggerTimings) == false)
+                    {
+                        continue;
+                    }
                     var triggerDates = passiveInfo.Master.TriggerDates.FindAll(a => triggerTimings.Contains(a.TriggerTiming));
                     
-                    // バトル中〇回以下使用
-                    var inBattleUseCountUnder = triggerDates.Find(a => a.TriggerType == TriggerType.InBattleUseCountUnder);
-                    if (inBattleUseCountUnder != null)
-                    {
-                        if (inBattleUseCountUnder.Param1 <= passiveInfo.UseCount.Value)
-                        {
-                            continue;
-                        }
-                    }
-                    // ターン中〇回以下使用
-                    var inTurnUseCountUnder = triggerDates.Find(a => a.TriggerType == TriggerType.InTurnUseCountUnder);
-                    if (inTurnUseCountUnder != null)
-                    {
-                        if (inTurnUseCountUnder.Param1 < UsedSameTurnActionInfo(passiveInfo))
-                        {
-                            continue;
-                        }
-                    }
-                    if (battlerInfo.CheckPassiveSkillId(passiveInfo.Id.Value))
+                    if (IsTriggeredSkillInfo(battlerInfo,triggerDates,actionInfo,actionResultInfos) == false)
                     {
                         continue;
                     }
-                    if (passiveInfo.CountTurn.Value > 0)
+                    //bool usable = CanUsePassiveCount(battlerInfo,passiveInfo.Id,triggerDates);
+                    // 元の条件が成立
+                    // 作戦で可否判定
+                    var selectSkill = -1;
+                    var selectTarget = -1;
+                    var skillTriggerInfos = battlerInfo.SkillTriggerInfos;
+                    var sameSkillTriggerInfo = skillTriggerInfos.Find(a => a.SkillId == passiveInfo.Id.Value);
+                    if (sameSkillTriggerInfo != null)
                     {
-                        continue;
-                    }
-                    if (passiveInfo.Master.TimingOnlyCount > 0)
+                        (selectSkill,selectTarget) = SelectSkillTargetBySkillTriggerDates(battlerInfo,new List<SkillTriggerInfo>(){sameSkillTriggerInfo},actionInfo,actionResultInfos);
+                        if (selectSkill != passiveInfo.Id.Value)
+                        {
+                            continue;
+                        }
+                        if (selectTarget == -1)
+                        {
+                            continue;
+                        }
+                    } else
                     {
-                        if (passiveInfo.Master.TimingOnlyCount <= UsedSameTurnActionInfo(passiveInfo))
+                        // 制限なしトリガー
+                        var skillTriggerInfo = new SkillTriggerInfo(battlerInfo.Index.Value,passiveInfo);
+                        skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>());
+                        // 作戦に縛りがなければ使える
+                        (selectSkill,selectTarget) = SelectSkillTargetBySkillTriggerDates(battlerInfo,new List<SkillTriggerInfo>(){skillTriggerInfo},actionInfo,actionResultInfos);
+                        if (selectSkill != passiveInfo.Id.Value)
+                        {
+                            continue;
+                        }
+                        if (selectTarget == -1)
                         {
                             continue;
                         }
                     }
-                    if (IsTriggeredSkillInfo(battlerInfo,triggerDates,actionInfo,actionResultInfos))
+                    var IsInterrupt = triggerDates[0].TriggerTiming == TriggerTiming.Interrupt || triggerDates[0].TriggerTiming == TriggerTiming.BeforeSelfUse || triggerDates[0].TriggerTiming == TriggerTiming.BeforeOpponentUse || triggerDates[0].TriggerTiming == TriggerTiming.BeforeFriendUse || triggerDates[0].TriggerTiming == TriggerTiming.PrimaryInterrupt;
+                    var result = MakePassiveSkillActionResults(battlerInfo,passiveInfo,IsInterrupt,selectTarget,actionInfo,actionResultInfos,triggerDates[0]);
+                    if (result != null && result.ActionResults.Count > 0)
                     {
-                        //bool usable = CanUsePassiveCount(battlerInfo,passiveInfo.Id,triggerDates);
-                        // 元の条件が成立
-                        // 作戦で可否判定
-                        var selectSkill = -1;
-                        var selectTarget = -1;
-                        var skillTriggerInfos = battlerInfo.SkillTriggerInfos;
-                        var sameSkillTriggerInfo = skillTriggerInfos.Find(a => a.SkillId == passiveInfo.Id.Value);
-                        if (sameSkillTriggerInfo != null)
+                        checkedSkillIds.Add(passiveInfo.Id.Value);
+                        // 継続パッシブは保存
+                        var addPassive = passiveInfo.FeatureDates.Find(a => a.FeatureType == FeatureType.AddState);
+                        if (addPassive != null && addPassive.Param2 == 999 && passiveInfo.Master.SkillType == SkillType.Passive)
                         {
-                            (selectSkill,selectTarget) = SelectSkillTargetBySkillTriggerDates(battlerInfo,new List<SkillTriggerInfo>(){sameSkillTriggerInfo},actionInfo,actionResultInfos);
-                            if (selectSkill != passiveInfo.Id.Value)
-                            {
-                                continue;
-                            }
-                            if (selectTarget == -1)
-                            {
-                                continue;
-                            }
-                        } else
-                        {
-                            // 制限なしトリガー
-                            var skillTriggerInfo = new SkillTriggerInfo(battlerInfo.Index.Value,passiveInfo);
-                            skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>());
-                            // 作戦に縛りがなければ使える
-                            (selectSkill,selectTarget) = SelectSkillTargetBySkillTriggerDates(battlerInfo,new List<SkillTriggerInfo>(){skillTriggerInfo},actionInfo,actionResultInfos);
-                            if (selectSkill != passiveInfo.Id.Value)
-                            {
-                                continue;
-                            }
-                            if (selectTarget == -1)
-                            {
-                                continue;
-                            }
-                        }
-                        var IsInterrupt = triggerDates[0].TriggerTiming == TriggerTiming.Interrupt || triggerDates[0].TriggerTiming == TriggerTiming.BeforeSelfUse || triggerDates[0].TriggerTiming == TriggerTiming.BeforeOpponentUse || triggerDates[0].TriggerTiming == TriggerTiming.BeforeFriendUse || triggerDates[0].TriggerTiming == TriggerTiming.PrimaryInterrupt;
-                        var result = MakePassiveSkillActionResults(battlerInfo,passiveInfo,IsInterrupt,selectTarget,actionInfo,actionResultInfos,triggerDates[0]);
-                        if (result != null && result.ActionResults.Count > 0)
-                        {
-                            checkedSkillIds.Add(passiveInfo.Id.Value);
-                            // 継続パッシブは保存
-                            var addPassive = passiveInfo.FeatureDates.Find(a => a.FeatureType == FeatureType.AddState);
-                            if (addPassive != null && addPassive.Param2 == 999)
-                            {
-                                var stateData = DataSystem.FindState(addPassive.Param1);
-                                if (stateData.OverLap == 0)
-                                {
-                                    battlerInfo.AddPassiveSkillId(passiveInfo.Id.Value);
-                                } else
-                                {
-                                    var overLapCount = battlerInfo.GetStateInfoAll(stateData.StateType).Count;
-                                    if (stateData.OverLap-1 <= overLapCount)
-                                    {
-                                        battlerInfo.AddPassiveSkillId(passiveInfo.Id.Value);
-                                    }
-                                }
-                            }
+                            AddPassiveSkillId(battlerInfo,addPassive.Param1,passiveInfo.Id.Value);
                         }
                     }
+                }
+            }
+        }
+
+        private bool CheckCanPassiveSkill(BattlerInfo battlerInfo,SkillInfo passiveInfo,List<TriggerTiming> triggerTimings)
+        {
+            var triggerDates = passiveInfo.Master.TriggerDates.FindAll(a => triggerTimings.Contains(a.TriggerTiming));
+                    
+            // バトル中〇回以下使用
+            var inBattleUseCountUnder = triggerDates.Find(a => a.TriggerType == TriggerType.InBattleUseCountUnder);
+            if (inBattleUseCountUnder != null)
+            {
+                if (inBattleUseCountUnder.Param1 <= passiveInfo.UseCount.Value)
+                {
+                    return false;
+                }
+            }
+            // ターン中〇回以下使用
+            var inTurnUseCountUnder = triggerDates.Find(a => a.TriggerType == TriggerType.InTurnUseCountUnder);
+            if (inTurnUseCountUnder != null)
+            {
+                if (inTurnUseCountUnder.Param1 < UsedSameTurnActionInfo(passiveInfo))
+                {
+                    return false;
+                }
+            }
+            if (battlerInfo.ContainsPassiveSkillId(passiveInfo.Id.Value))
+            {
+                return false;
+            }
+            if (passiveInfo.CountTurn.Value > 0)
+            {
+                return false;
+            }
+            if (passiveInfo.Master.TimingOnlyCount > 0)
+            {
+                if (passiveInfo.Master.TimingOnlyCount <= UsedSameTurnActionInfo(passiveInfo))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void AddPassiveSkillId(BattlerInfo battlerInfo,int stateId,int passiveSkillId)
+        {
+            var stateData = DataSystem.FindState(stateId);
+            if (stateData.OverLap == 0)
+            {
+                battlerInfo.AddPassiveSkillId(passiveSkillId);
+            } else
+            {
+                var overLapCount = battlerInfo.GetStateInfoAll(stateData.StateType).Count;
+                if (stateData.OverLap-1 <= overLapCount)
+                {
+                    battlerInfo.AddPassiveSkillId(passiveSkillId);
                 }
             }
         }
@@ -1680,67 +1697,66 @@ namespace Ryneus
             foreach (var battlerInfo in _battlers)
             {
                 var passiveSkillIds = battlerInfo.PassiveSkillIds;
-                for (int i = 0;i < passiveSkillIds?.Count;i++)
+                for (int i = passiveSkillIds.Count-1;i >= 0;i--)
                 {
                     var passiveSkillData = DataSystem.FindSkill(passiveSkillIds[i]);
                     bool IsRemove = false;
-                    
-                    foreach (var feature in passiveSkillData.FeatureDates)
+                    var featureDates = passiveSkillData.FeatureDates.FindAll(a => a.FeatureType == FeatureType.AddState);
+                    foreach (var feature in featureDates)
                     {
-                        if (feature.FeatureType == FeatureType.AddState)
+                        var triggerDates = passiveSkillData.TriggerDates.FindAll(a => a.TriggerTiming == TriggerTiming.After || a.TriggerTiming == TriggerTiming.StartBattle || a.TriggerTiming == TriggerTiming.AfterAndStartBattle);
+                        if (IsRemove == false && triggerDates.Count > 0 && !IsTriggeredSkillInfo(battlerInfo,triggerDates,null,new List<ActionResultInfo>()))
                         {
-                            var triggerDates = passiveSkillData.TriggerDates.FindAll(a => a.TriggerTiming == TriggerTiming.After || a.TriggerTiming == TriggerTiming.StartBattle || a.TriggerTiming == TriggerTiming.AfterAndStartBattle);
-                            if (IsRemove == false && triggerDates.Count > 0 && !IsTriggeredSkillInfo(battlerInfo,triggerDates,null,new List<ActionResultInfo>()))
+                            IsRemove = true;
+                            var featureData = new SkillData.FeatureData
                             {
-                                IsRemove = true;
-                                var featureData = new SkillData.FeatureData
+                                FeatureType = FeatureType.RemoveStatePassive,
+                                Param1 = feature.Param1
+                            };
+                            if (passiveSkillData.Scope == ScopeType.Self)
+                            {
+                                var actionResultInfo = new ActionResultInfo(battlerInfo,battlerInfo,new List<SkillData.FeatureData>(){featureData},passiveSkillData.Id);
+                                if (actionResultInfos.Find(a => a.RemovedStates.Find(b => b.Master.StateType == (StateType)featureData.FeatureType) != null) != null)
                                 {
-                                    FeatureType = FeatureType.RemoveStatePassive,
-                                    Param1 = feature.Param1
-                                };
-                                if (passiveSkillData.Scope == ScopeType.Self)
+                                    
+                                } else
                                 {
-                                    var actionResultInfo = new ActionResultInfo(battlerInfo,battlerInfo,new List<SkillData.FeatureData>(){featureData},passiveSkillData.Id);
+                                    var stateInfos = battlerInfo.GetStateInfoAll((StateType)feature.Param1);
+                                    if (battlerInfo.IsAlive() && stateInfos.Find(a => a.SkillId.Value == passiveSkillData.Id) != null)
+                                    {
+                                        actionResultInfos.Add(actionResultInfo);
+                                        battlerInfo.RemovePassiveSkillId(passiveSkillIds[i]);
+                                    }
+                                }
+                            } else
+                            if (passiveSkillData.Scope == ScopeType.All)
+                            {
+                                var partyMember = battlerInfo.IsActor ? BattlerActors() : BattlerEnemies();
+                                
+                                switch (passiveSkillData.AliveType)
+                                {
+                                    case AliveType.DeathOnly:
+                                        partyMember = partyMember.FindAll(a => !a.IsAlive());
+                                        break;
+                                    case AliveType.AliveOnly:                        
+                                        partyMember = partyMember.FindAll(a => a.IsAlive());
+                                        break;
+                                    case AliveType.All:
+                                        break;
+                                }
+                                foreach (var member in partyMember)
+                                {
+                                    var actionResultInfo = new ActionResultInfo(battlerInfo,member,new List<SkillData.FeatureData>(){featureData},passiveSkillData.Id);
                                     if (actionResultInfos.Find(a => a.RemovedStates.Find(b => b.Master.StateType == (StateType)featureData.FeatureType) != null) != null)
                                     {
                                         
                                     } else
                                     {
                                         var stateInfos = battlerInfo.GetStateInfoAll((StateType)feature.Param1);
-                                        if (battlerInfo.IsAlive() && stateInfos.Find(a => a.SkillId.Value == passiveSkillData.Id) != null)
+                                        if (member.IsAlive() && stateInfos.Find(a => a.SkillId.Value == passiveSkillData.Id) != null)
                                         {
                                             actionResultInfos.Add(actionResultInfo);
-                                        }
-                                    }
-                                } else
-                                if (passiveSkillData.Scope == ScopeType.All)
-                                {
-                                    var partyMember = battlerInfo.IsActor ? BattlerActors() : BattlerEnemies();
-                                    
-                                    switch (passiveSkillData.AliveType)
-                                    {
-                                        case AliveType.DeathOnly:
-                                            partyMember = partyMember.FindAll(a => !a.IsAlive());
-                                            break;
-                                        case AliveType.AliveOnly:                        
-                                            partyMember = partyMember.FindAll(a => a.IsAlive());
-                                            break;
-                                        case AliveType.All:
-                                            break;
-                                    }
-                                    foreach (var member in partyMember)
-                                    {
-                                        var actionResultInfo = new ActionResultInfo(battlerInfo,member,new List<SkillData.FeatureData>(){featureData},passiveSkillData.Id);
-                                        if (actionResultInfos.Find(a => a.RemovedStates.Find(b => b.Master.StateType == (StateType)featureData.FeatureType) != null) != null)
-                                        {
-                                            
-                                        } else
-                                        {
-                                            var stateInfos = battlerInfo.GetStateInfoAll((StateType)feature.Param1);
-                                            if (member.IsAlive() && stateInfos.Find(a => a.SkillId.Value == passiveSkillData.Id) != null)
-                                            {
-                                                actionResultInfos.Add(actionResultInfo);
-                                            }
+                                            member.RemovePassiveSkillId(passiveSkillIds[i]);
                                         }
                                     }
                                 }

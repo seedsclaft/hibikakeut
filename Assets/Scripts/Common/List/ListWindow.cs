@@ -245,10 +245,9 @@ namespace Ryneus
 
         public void Refresh(int selectIndex = 0)
         {
-            UpdateItemPrefab(selectIndex);
+            UpdateItemPrefab();
             UpdateAllItems();
             
-            LayoutRebuilder.ForceRebuildLayoutImmediate(ScrollRect.content);
             UpdateScrollRect(selectIndex);
         }
 
@@ -677,43 +676,50 @@ namespace Ryneus
 
         private void UpdateScrollRect(List<InputKeyType> keyTypes)
         {
-            if (_index < 0) return;
+            if (_index < 0) 
+            {
+                return;
+            }
             var listCount = ListItemCount();
             var dataCount = _listDates.Count;
-            var _displayDownCount = Index - GetStartIndex();
+            var _displayDownCount = _index - GetStartIndex();
             var plusKey = GetPlusKey();
             var minusKey = GetMinusKey();
             if (keyTypes.Contains(plusKey))
             {
                 _displayDownCount--;
-                if (Index == 0)
+                if (_index == 0)
                 {
                     ScrollRect.normalizedPosition = new Vector2(0,1);
                 } else
-                if (Index > (listCount-1) && _displayDownCount >= (listCount-1))
+                if (_index > (listCount-1) && _displayDownCount >= (listCount-1))
                 {
                     var num = 1.0f / (dataCount - listCount);
-                    ScrollRect.normalizedPosition = new Vector2(0,1.0f - (num * (Index - (listCount-1))));
+                    ScrollRect.normalizedPosition = new Vector2(0,1.0f - (num * (_index - (listCount-1))));
                 }
             } else
             if (keyTypes.Contains(minusKey))
             {
                 _displayDownCount++;
-                if (Index == (_listDates.Count-1))
+                if (_index == (_listDates.Count-1))
                 {
                     ScrollRect.normalizedPosition = new Vector2(0,0);
                 } else
-                if (Index < (dataCount-listCount) && _displayDownCount < (listCount-1))
+                if (_index < (dataCount-listCount) && _displayDownCount < (listCount-1))
                 {
                     var num = 1.0f / (dataCount - listCount);
-                    ScrollRect.normalizedPosition = new Vector2(0,1.0f - (num * Index));
+                    ScrollRect.normalizedPosition = new Vector2(0,1.0f - (num * _index));
                 }
             }
         }
 
         public void UpdateScrollRect(int selectIndex)
         {
-            if (_index < 0) return;
+            if (_index < 0) 
+            {
+                return;
+            }
+            LayoutRebuilder.ForceRebuildLayoutImmediate(ScrollRect.content);
             UpdateSelectIndex(selectIndex);
             var listCount = ListItemCount();
             var dataCount = _listDates.Count;
@@ -722,7 +728,7 @@ namespace Ryneus
             var listIndex = 0;
             if (dataCount > listCount && selectIndex > lastIndex)
             {
-                // 下に移動する
+                // 移動する数
                 listIndex = selectIndex - lastIndex;
             }
             if (listIndex > 0)

@@ -60,6 +60,7 @@ namespace Ryneus
             foreach (var symbolList in symbolListDict)
             {
                 var list = new ListData(symbolList.Value);
+                list.SetSelected(symbolList.Value[0].Master.Seek == PartyInfo.Seek.Value);
                 listData.Add(list);
             }
             return listData;

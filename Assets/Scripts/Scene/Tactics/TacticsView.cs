@@ -135,16 +135,7 @@ namespace Ryneus
         public void SetSymbolList(List<ListData> symbolList,int seekIndex,int seek)
         {
             symbolInfoList.SetSeekIndex(seekIndex);
-            symbolInfoList.SetData(symbolList,true,() => 
-            {
-                var selectIndex = symbolInfoList.DataCount - seek;
-                if (selectIndex < 0)
-                {
-                    selectIndex = 0;
-                }
-                symbolInfoList.UpdateSelectIndex(selectIndex);
-                symbolInfoList.UpdateScrollRect(selectIndex + 2);
-            });
+            symbolInfoList.SetData(symbolList,true);
             SetActivate(symbolInfoList);
         }
 

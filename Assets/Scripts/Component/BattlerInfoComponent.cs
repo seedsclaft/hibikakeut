@@ -32,20 +32,12 @@ namespace Ryneus
         public void UpdateInfo(BattlerInfo battlerInfo)
         {
             _battlerInfo = battlerInfo;
-            if (battlerInfo.IsActor)
+            if (battlerInfo.IsActor || battlerInfo.IsActorView)
             {
                 actorInfoComponent.UpdateInfo(battlerInfo.ActorInfo,null);
             } else
             {
                 enemyInfoComponent.UpdateInfo(battlerInfo);
-                if (battlerInfo.IsActorView)
-                {
-                    actorInfoComponent?.UpdateData(battlerInfo.ActorInfo.Master);
-                    enemyInfoComponent?.Clear();
-                } else
-                {
-                    //actorInfoComponent?.Clear();
-                }
             }
             if (evaluate != null)
             {
@@ -158,21 +150,13 @@ namespace Ryneus
             {
                 return;
             }
-            if (_battlerInfo.IsActor)
+            if (_battlerInfo.IsActor || _battlerInfo.IsActorView)
             {
                 actorInfoComponent.UpdateInfo(_battlerInfo.ActorInfo,null);
                 actorInfoComponent.SetAwakeMode(_battlerInfo.IsState(StateType.Demigod));
             } else
             {
                 enemyInfoComponent.UpdateInfo(_battlerInfo);
-                if (_battlerInfo.IsActorView)
-                {                
-                    actorInfoComponent?.UpdateData(_battlerInfo.ActorInfo.Master);
-                    enemyInfoComponent?.Clear();
-                } else
-                {
-                    //actorInfoComponent?.Clear();
-                }
             }
             ChangeHp(_battlerInfo.Hp.Value);
             ChangeMp(_battlerInfo.Mp.Value);
@@ -184,7 +168,10 @@ namespace Ryneus
                 var textId = _battlerInfo.LineIndex == LineType.Front ? 2012 : 2013;
                 battlePosition.text = DataSystem.GetText(textId);
             }
-            if (battleStateOverlay != null) battleStateOverlay.SetStates(_battlerInfo.IconStateInfos());
+            if (battleStateOverlay != null) 
+            {
+                battleStateOverlay.SetStates(_battlerInfo.IconStateInfos());
+            }
         }
         
         public void ShowStatus()
@@ -338,7 +325,7 @@ namespace Ryneus
             }
         }
         
-        public void StartAnimation(EffekseerEffectAsset effectAsset,int animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
+        public void StartAnimation(EffekseerEffectAsset effectAsset,AnimationPosition animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
         {
             if (effectAsset == null)
             { 
@@ -352,21 +339,21 @@ namespace Ryneus
             var y = 0;
             if (_battlerInfo.IsActorView)
             {
-                if (animationPosition == 0)
+                if (animationPosition == AnimationPosition.Center)
                 {
                     effectRect.localPosition = new Vector2(0,0);
                 } else
-                if (animationPosition == 1)
+                if (animationPosition == AnimationPosition.Down)
                 {
-                    effectRect.localPosition = new Vector2(0,0);
+                    effectRect.localPosition = new Vector2(0,-imageRect.sizeDelta.y);
                 }
             } else
             {
-                if (animationPosition == 0)
+                if (animationPosition == AnimationPosition.Center)
                 {
                     effectRect.localPosition = new Vector2(0,imageRect.sizeDelta.y / 2);
                 } else
-                if (animationPosition == 1)
+                if (animationPosition == AnimationPosition.Down)
                 {
                     effectRect.localPosition = new Vector2(0,imageRect.sizeDelta.y / 2 - 48);
                 }

@@ -607,6 +607,7 @@ namespace Ryneus
             }
         }
 
+/*
         private void CommandStageSymbol()
         {
             _view.ShowSymbolRecord();
@@ -617,6 +618,7 @@ namespace Ryneus
             _view.CommandRefresh();
             _backCommand = CommandType.CancelSymbolRecord;
         }
+*/
 
         private void CommandStatus(int startIndex = -1)
         {

@@ -80,7 +80,9 @@ namespace Ryneus
             var symbolInfo = SelectSymbolInfo();
             foreach (var symbolItem in symbolInfos1)
             {
+                symbolItem.SetClickHandler(symbolInfo?.Master.Seek,(a) => CallListInputHandler(InputKeyType.Decide));
                 symbolItem.SetSelectedHandler(symbolInfo?.Master.Seek,(a) => OnSelectSetSymbolIndex(a));
+                symbolItem.SetScrollEvent(ScrollRect);
             }
         }
 
