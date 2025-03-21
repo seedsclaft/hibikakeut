@@ -55,8 +55,6 @@ namespace Ryneus
             }
             UpdateObjectList();
 
-            await UniTask.DelayFrame(1);
-            SetListCallHandler();
             var selectIndex = -1;
             if (resetScrollRect == false)
             {
@@ -69,6 +67,11 @@ namespace Ryneus
                     selectIndex = 0;
                 }
             }
+            if (selectIndex > 0 || initializeAfterEvent != null)
+            {
+                await UniTask.DelayFrame(1);
+            }
+            SetListCallHandler();
             Refresh(selectIndex);
             initializeAfterEvent?.Invoke();
         }

@@ -281,6 +281,7 @@ namespace Ryneus
         private void CommandStartStage()
         {
             // 演出
+            _busy = true;
             SoundManager.Instance.StopBgm();
             _model.PartyInfo.StartStage.SetValue(true);
             PlayStartBattleBgm();
@@ -309,6 +310,7 @@ namespace Ryneus
                         CommandStartStage();
                     } else
                     {
+                        _busy = true;
                         PlayStartBattleBgm();
                         BattleStart(); 
                     }

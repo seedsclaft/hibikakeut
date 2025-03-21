@@ -377,7 +377,7 @@ namespace Ryneus
         TargetAbnormal = 12042, // 攻撃を受けた対象がAbnormalになった
         TargetBuff = 12043, // 攻撃を受けた対象がバフ状態になった
         OneAttackOverDamage = 12050, // 1回の攻撃で〇ダメージ以上受ける
-        FriendAttackedAction = 12060, // 味方が攻撃を受ける
+        FriendAttackedAction = 12060, // 攻撃を受ける
         SelfAbnormalAction = 12063, // 自身が状態異常を受ける
         FriendAbnormalAction = 12064, // 味方が状態異常を受ける
         SelfPassiveAction = 12066, // 自身がパッシブを受ける
@@ -493,6 +493,7 @@ namespace Ryneus
         AddSkillPlusSkill = 6310,
         PlusSkill = 7010,
         PlusSkillTrigger = 7020,
+        LearnSkill = 7030,
         KindHeal = 8010,
         BreakUndead = 8020,
         ActionAfterGainAp = 10010, // 行動後にAp+

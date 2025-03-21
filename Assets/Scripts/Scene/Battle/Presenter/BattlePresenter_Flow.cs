@@ -476,11 +476,6 @@ namespace Ryneus
             // Passive解除
             await RemovePassiveInfos();
 
-            bool isDemigodActor = false;
-            if (_model.CurrentActionBattler != null)
-            {
-                isDemigodActor = _model.CurrentActionBattler.IsState(StateType.Demigod);
-            }
             // 行動者のActionInfoか
             bool isTriggeredSkill = actionInfo.TriggeredSkill;
             // TriggerAfterがある
@@ -585,21 +580,6 @@ namespace Ryneus
                 return;
             }
 
-            if (isDemigodActor == true)
-            {
-                /*
-                var isAbort = CheckAdvStageEvent(EventTiming.AfterDemigod,() => 
-                { 
-                    _view.SetBattleBusy(false);
-                    _busy = false;
-                });
-                if (isAbort)
-                {
-                    _busy = true;
-                    return;
-                }
-                */
-            }
             // 行動を全て終了する
             _model.SeekTurnCount();
             _view.RefreshTurn(_model.TurnCount);

@@ -161,6 +161,9 @@ namespace Ryneus
 
         private bool _startDash;
         public bool StartDash => _startDash;
+        // 行動時にスキル習得
+        private List<int> _learnSkillIds = new ();
+        public List<int> LearnSkillIds => _learnSkillIds;
         // アニメーションの対象にならない
         public ParameterBool NoAnimation = new();
 
@@ -286,6 +289,9 @@ namespace Ryneus
                     return;
                 case FeatureType.ApDamage:
                     MakeApDamage(subject,target,featureData);
+                    return;
+                case FeatureType.LearnSkill:
+                    MakeLearnSkill(subject,target,featureData);
                     return;
                 case FeatureType.KindHeal:
                     MakeKindHeal(subject,target,featureData);
@@ -944,6 +950,14 @@ namespace Ryneus
         {
             float HealValue = featureData.Param1;
             ApHeal.SetValue((int)Mathf.Round(HealValue));
+        }
+
+        private void MakeLearnSkill(BattlerInfo subject,BattlerInfo target,SkillData.FeatureData featureData)
+        {
+            if (target.Skills.Find(a => a.Id.Value == featureData.Param1) == null)
+            {
+                _learnSkillIds.Add(featureData.Param1);
+            }
         }
 
         private void MakeStartDash(BattlerInfo target)

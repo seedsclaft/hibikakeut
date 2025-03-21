@@ -37,6 +37,23 @@ namespace Ryneus
             SetSelectedHandler(UpdateSelectSeekIndex);
         }
 
+        public new void SetData(List<ListData> listData,bool resetScrollRect = true,Action initializeAfterEvent = null,bool unselect = false)
+        {
+            base.SetData(listData,resetScrollRect,SetSymbolListEvent,unselect);
+        }
+
+        private void SetSymbolListEvent()
+        {
+            var symbolInfos = GetComponentsInChildren<SymbolItem>();
+            var symbolInfo = SelectSymbolInfo();
+            foreach (var symbolItem in symbolInfos)
+            {
+                symbolItem.SetClickHandler(symbolInfo?.Master.Seek,(a) => CallListInputHandler(InputKeyType.Decide));
+                symbolItem.SetSelectedHandler(symbolInfo?.Master.Seek,(a) => OnSelectSetSymbolIndex(a));
+                symbolItem.SetScrollEvent(ScrollRect);
+            }
+        }
+
         public void SetSymbolDetailInfoEvent(Action detailEvent)
         {
             detailButton.onClick.AddListener(() => detailEvent?.Invoke());
@@ -76,14 +93,6 @@ namespace Ryneus
             }
             UpdateSymbolInfo();
             UpdateChild();
-            var symbolInfos1 = GetComponentsInChildren<SymbolItem>();
-            var symbolInfo = SelectSymbolInfo();
-            foreach (var symbolItem in symbolInfos1)
-            {
-                symbolItem.SetClickHandler(symbolInfo?.Master.Seek,(a) => CallListInputHandler(InputKeyType.Decide));
-                symbolItem.SetSelectedHandler(symbolInfo?.Master.Seek,(a) => OnSelectSetSymbolIndex(a));
-                symbolItem.SetScrollEvent(ScrollRect);
-            }
         }
 
         private void GainSeekIndex(int gain)

@@ -1156,6 +1156,14 @@ namespace Ryneus
                 }
             }
             
+            foreach (var learnSkillId in actionResultInfo.LearnSkillIds)
+            {
+                if (target.Skills.Find(a => a.Id.Value == learnSkillId) == null)
+                {
+                    target.Skills.Add(new SkillInfo(learnSkillId));
+                }
+            }
+            
             actionResultInfo.TurnCount.SetValue(_turnCount);
             /*
             if (addSaveData)

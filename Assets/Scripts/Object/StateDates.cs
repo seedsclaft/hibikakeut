@@ -70,6 +70,7 @@ namespace Ryneus
         NoDamage = 2050,
         Drain  = 2060,
         AntiDote = 2070,
+        Counter = 2080, // 実際の反撃行動はスキル習得で管理
         NoPassive = 2090,
         DeBuffUpper  = 2120,
         Substitute = 2130,
