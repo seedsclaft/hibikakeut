@@ -151,7 +151,7 @@ namespace Ryneus
             }
             InitKindTypes(actorInfo.Master.Kinds);
             InitSkillCount();
-            ResetAp(true);
+            ResetAp();
         }
 
         public BattlerInfo(EnemyData enemyData,int lv,int index,LineType lineIndex,bool isBoss)
@@ -230,7 +230,7 @@ namespace Ryneus
             _skillTriggerInfos = _skillTriggerInfos.FindAll(a => _skills.Find(b => b.Id.Value == a.SkillId) != null);
             //_skillTriggerInfos.Sort((a,b) => a.Priority - b.Priority > 0 ? -1 : 1);
             InitSkillCount();
-            ResetAp(true);
+            ResetAp();
         }
 
         private void InitKindTypes(List<KindType> kindTypes)
@@ -287,7 +287,7 @@ namespace Ryneus
                 _skillTriggerInfos.Add(skillTrigger);
             }
             InitSkillCount();
-            ResetAp(true);
+            ResetAp();
         }
 
         public void ResetData(int level)
@@ -299,7 +299,7 @@ namespace Ryneus
             _isAwaken = false;
             _preserveAlive = false;
             TurnCount.SetValue(0);
-            ResetAp(true);
+            ResetAp();
             _passiveSkillIds = new ();
         }
 
@@ -335,19 +335,17 @@ namespace Ryneus
             */
         }
 
-        public void ResetAp(bool IsBattleStart)
+        public void ResetAp()
         {
             int rand = 0;
-            if (IsBattleStart == true)
-            {
-                //rand = new Random().Next(-50, 50);
-            }
             var speed = CurrentSpd(false);
             var baseSpeed = new List<int>{50,75,100,150};
-            Ap.SetValue(600 + rand);
+            var setAp = 600f + rand;
+            //Ap.SetValue(600 + rand);
             if (_preserveMinusAp > 0)
             {
-                Ap.GainValue(_preserveMinusAp);
+                setAp += _preserveMinusAp;
+                //Ap.GainValue(_preserveMinusAp);
                 _preserveMinusAp = 0;
             }
             var speedCount = -1;
@@ -364,22 +362,26 @@ namespace Ryneus
                 {
                     if (i == 0)
                     {
-                        Ap.GainValue(baseSpeed[i] * (8/(i+1)));
+                        setAp -= baseSpeed[i] * (8/(i+1));
+                        //Ap.GainValue(baseSpeed[i] * (8/(i+1)));
                     } else
                     {
-                        Ap.GainValue((baseSpeed[i] - baseSpeed[i-1]) * (8/(i+1)));
+                        setAp -= (baseSpeed[i] - baseSpeed[i-1]) * (8/(i+1));
+                        //Ap.GainValue((baseSpeed[i] - baseSpeed[i-1]) * (8/(i+1)));
                     }
                 }
                 var over = speed - baseSpeed[speedCount];
                 if (over > 0)
                 {
-                    Ap.GainValue(over * (8/(speedCount+2)));
+                    setAp -= over * (8/(speedCount+2));
+                    //Ap.GainValue(over * (8/(speedCount+2)));
                 }
             } else
             {
-                Ap.GainValue(speed * 8);
+                setAp -= speed * 8;
+                //Ap.GainValue(speed * -8);
             }
-            Ap.SetValue(Math.Max(Ap.Value,200));
+            Ap.SetValue(Math.Max(setAp,200));
         }
 
         public int ResetApFrame()

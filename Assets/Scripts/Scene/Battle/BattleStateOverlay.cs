@@ -65,7 +65,10 @@ namespace Ryneus
         {
             foreach (var stateIconImage in _stateIconImages)
             {
-                SetActiveStateIcon(stateIconImage,false);
+                if (stateIconImage != null)
+                {
+                    SetActiveStateIcon(stateIconImage,false);
+                }
             }
         }
 

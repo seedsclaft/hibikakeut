@@ -174,7 +174,7 @@ namespace Ryneus
                     var key = (int)triggerDate.TriggerType / 1000;
                     if (_checkTriggerDict.ContainsKey(key))
                     {                
-                        var checkTriggerInfo2 = new CheckTriggerInfo(_turnCount,battlerInfo,BattlerActors(),BattlerEnemies());
+                        var checkTriggerInfo2 = new CheckTriggerInfo(_turnCount,battlerInfo,BattlerActors(),BattlerEnemies(),_reserveBattlers);
                         _checkTriggerDict[key].AddTargetIndexList(targetIndexList,targetIndexes,targetBattler,triggerDate,skillData,checkTriggerInfo2);
                     } else
                     {
@@ -229,7 +229,7 @@ namespace Ryneus
                     opponentTargets.Add(bindBattlerInfo);
                 }
             }
-            var checkTriggerInfo = new CheckTriggerInfo(_turnCount,battlerInfo,friendTargets,opponentTargets);
+            var checkTriggerInfo = new CheckTriggerInfo(_turnCount,battlerInfo,friendTargets,opponentTargets,_reserveBattlers);
             for (int i = 0;i < triggerDates.Count;i++)
             {
                 var triggerDate = triggerDates[i];

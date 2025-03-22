@@ -89,6 +89,9 @@ namespace Ryneus
                         }
                     }
                     break;
+                case TriggerType.LinkageAble:
+                    var linkage = checkTriggerInfo.ReserveMembers.Find(a => a.Index.Value == battlerInfo.Index.Value+3);
+                    return linkage != null && linkage.IsAlive();
             }
             return isTrigger;
         }

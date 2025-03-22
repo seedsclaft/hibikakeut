@@ -133,7 +133,8 @@ namespace Ryneus
                         };
 
                         var SkillData = Data.Data.Find(a => a.Id == TriggerData.SkillId);
-						if (SkillData != null){
+						if (SkillData != null)
+						{
 							SkillData.TriggerDates ??= new List<SkillData.TriggerData>();
 							SkillData.TriggerDates.Add(TriggerData);
 						}

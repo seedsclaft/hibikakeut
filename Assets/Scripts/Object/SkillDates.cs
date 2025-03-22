@@ -30,9 +30,9 @@ namespace Ryneus
         public int TimingOnlyCount; // 同じタイミングで発動できる回数
         //public int TurnCount;
 
-        public List<FeatureData> FeatureDates;
-        public List<TriggerData> TriggerDates;
-        public List<TriggerData> ScopeTriggers;
+        public List<FeatureData> FeatureDates = new();
+        public List<TriggerData> TriggerDates = new();
+        public List<TriggerData> ScopeTriggers = new();
         public bool IsHpDamageFeature()
         {
             return FeatureDates.Find(a => a.FeatureType == FeatureType.HpDamage || a.FeatureType == FeatureType.HpConsumeDamage || a.FeatureType == FeatureType.RevengeHpDamage || a.FeatureType == FeatureType.HpStateDamage) != null;
@@ -325,6 +325,7 @@ namespace Ryneus
         OpponentMoreTargetCount = 5120, // 〇人以上いる列の敵限定
         FriendBattleIndex = 5130, // 〇番目の味方限定
         OpponentBattleIndex = 5140, // 〇番目の敵限定
+        LinkageAble = 5150, // 生存した後衛がいる
         IsState = 6010, // StateId状態になっている
         IsNotState = 6020, // StateId状態になっていない
         FriendIsState = 6030, // StateId状態になっている味方

@@ -579,6 +579,12 @@ namespace Ryneus
                 MakeResultInfoStartAction(receiveActionInfo,receiveActionInfo.CandidateTargetIndexList);
                 return;
             }
+            var linkage = _model.CheckLinkageBattlerInfo();
+            if (linkage)
+            {
+                _view.SetActors(MakeListData(_model.BattlerActors()));
+                _view.UpdateGridLayer();
+            }
 
             // 行動を全て終了する
             _model.SeekTurnCount();

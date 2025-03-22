@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Ryneus
@@ -26,12 +25,12 @@ namespace Ryneus
         //private SaveBattleInfo _saveBattleInfo = new SaveBattleInfo();
 
         private List<BattlerInfo> _battlers = new List<BattlerInfo>();
-        public List<BattlerInfo> Battlers => _battlers;
+        public List<BattlerInfo> Battlers => _battlers;        
+        private List<BattlerInfo> _reserveBattlers = new List<BattlerInfo>();
+        public List<BattlerInfo> ReserveBattlers => _reserveBattlers;
 
         private UnitInfo _party = null;
-        public int PartyAliveNum => _party.AliveBattlerInfos.Count;
         private UnitInfo _troop = null;
-        public int TroopAliveNum => _troop.AliveBattlerInfos.Count;
 
         private Dictionary<int,List<ActionInfo>> _turnActionInfos = new ();
 
@@ -68,24 +67,32 @@ namespace Ryneus
             return 0; 
         }
 
-
-        public UniTask<List<AudioClip>> GetBattleBgm()
-        {
-            return GetBgmData("TACTICS2");
-        }
-
         public void CreateBattleData()
         {
             _actionIndex = 0;
             _battlers.Clear();
+            _reserveBattlers.Clear();
             _battleRecords.Clear();
             var actorInfos = _sceneParam.ActorInfos;
             foreach (var actorInfo in actorInfos)
             {
                 var battlerInfo = new BattlerInfo(actorInfo,actorInfo.BattleIndex.Value);
-                _battlers.Add(battlerInfo);
+                if (actorInfo.BattleIndex.Value <= 3)
+                {
+                    _battlers.Add(battlerInfo);
+                } else
+                {
+                    _reserveBattlers.Add(battlerInfo);
+                }
                 _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
+                // 味方が4人以上ならリンケージをプラス
+                if (actorInfos.Count > 3)
+                {
+                    var linkage = new SkillInfo(7010);
+                    battlerInfo.Skills.Add(linkage);
+                }
             }
+            
             var enemies = _sceneParam.EnemyInfos;
             foreach (var enemy in enemies)
             {
@@ -163,17 +170,6 @@ namespace Ryneus
 
         public void AssignWaitBattler()
         {
-            /*
-            if (_firstActionBattler != null && _firstActionBattler.IsActor)
-            {
-                var waitBattlerIndex = _party.AliveBattlerInfos.FindIndex(a => a.IsState(StateType.Wait));
-                if (waitBattlerIndex > -1)
-                {
-                    _party.AliveBattlerInfos[waitBattlerIndex].SetAp(0);
-                    _party.AliveBattlerInfos[waitBattlerIndex].EraseStateInfo(StateType.Wait);
-                }
-            }
-            */
         }
 
         public void RemoveOneMemberWaitBattlers()
@@ -193,16 +189,6 @@ namespace Ryneus
                 {
                     battlerInfo.EraseStateInfo(StateType.Wait);
                 }
-            }
-        }
-
-
-        public void SetActionBattler(int targetIndex)
-        {
-            var battlerInfo = GetBattlerInfo(targetIndex);
-            if (battlerInfo != null)
-            {
-                _currentBattler = battlerInfo;
             }
         }
 
@@ -557,6 +543,12 @@ namespace Ryneus
                         {
                             IsEnable = true;
                         }
+                    } else 
+                    if ((StateType)featureData.Param1 == StateType.Linkage)
+                    {
+                        // 後列がいれば有効
+                        var linkage = _reserveBattlers.Find(a => a.Index.Value == subject.Index.Value+3);
+                        IsEnable = linkage != null && linkage.IsAlive();
                     }
                     else
                     {
@@ -1160,7 +1152,8 @@ namespace Ryneus
             {
                 if (target.Skills.Find(a => a.Id.Value == learnSkillId) == null)
                 {
-                    target.Skills.Add(new SkillInfo(learnSkillId));
+                    var learnSkill = new SkillInfo(learnSkillId);
+                    target.Skills.Add(learnSkill);
                 }
             }
             
@@ -1247,6 +1240,33 @@ namespace Ryneus
             return false;
         }
 
+        public bool CheckLinkageBattlerInfo()
+        {
+            if (_firstActionBattler != null && _firstActionBattler.IsState(StateType.Linkage))
+            {
+                _firstActionBattler.RemoveState(_firstActionBattler.GetStateInfo(StateType.Linkage),true);
+                var battlerIndex = _firstActionBattler.Index.Value;
+                var changeBattler = _reserveBattlers.Find(a => a.Index.Value == battlerIndex+3);
+                if (changeBattler != null)
+                {
+                    changeBattler.Index.SetValue(battlerIndex);
+                    _firstActionBattler.Index.SetValue(battlerIndex+3);
+                    changeBattler.SetAp(0);
+                    
+                    _reserveBattlers.Remove(changeBattler);
+                    _battlers.Remove(_firstActionBattler);
+                    _party.BattlerInfos.Remove(_firstActionBattler);
+
+                    _reserveBattlers.Add(_firstActionBattler);
+                    _battlers.Add(changeBattler);
+                    _party.BattlerInfos.Add(changeBattler);
+                    _battlers.Sort((a,b) => a.Index.Value - b.Index.Value > 0 ? 1 : -1);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool CheckReaction(ActionInfo actionInfo)
         {
             var reAction = false;
@@ -1259,7 +1279,7 @@ namespace Ryneus
                     reAction = true;
                 } else
                 {
-                    subject.ResetAp(false);
+                    subject.ResetAp();
                 }
             }
             return reAction;
@@ -1274,7 +1294,7 @@ namespace Ryneus
                 var afterApHalf = actionInfo.SkillInfo.FeatureDates.Find(a => a.FeatureType == FeatureType.SetAfterApHalf);
                 if (afterApHalf != null)
                 {
-                    subject.ResetAp(false);
+                    subject.ResetAp();
                     subject.SetAp((int)(subject.Ap.Value * afterApHalf.Param1 * 0.01f));
                 }
                 var afterAp = actionInfo.SkillInfo.FeatureDates.Find(a => a.FeatureType == FeatureType.SetAfterAp);
@@ -1781,7 +1801,7 @@ namespace Ryneus
             var friends = battlerInfo.IsActor ? _party : _troop;            
             var opponents = battlerInfo.IsActor ? _troop : _party;
             bool IsTriggered = false;
-            var checkTriggerInfo = new CheckTriggerInfo(_turnCount,battlerInfo,BattlerActors(),BattlerEnemies(),actionInfo,actionResultInfos);
+            var checkTriggerInfo = new CheckTriggerInfo(_turnCount,battlerInfo,BattlerActors(),BattlerEnemies(),_reserveBattlers,actionInfo,actionResultInfos);
             if (triggerDates.Count > 0)
             {
                 foreach (var triggerData in triggerDates)
@@ -2023,7 +2043,7 @@ namespace Ryneus
             var key = (int)triggerData.TriggerType / 1000;
             if (_checkTriggerDict.ContainsKey(key))
             {
-                var checkTriggerInfo = new CheckTriggerInfo(_turnCount,battlerInfo,BattlerActors(),BattlerEnemies(),actionInfo,actionResultInfos);
+                var checkTriggerInfo = new CheckTriggerInfo(_turnCount,battlerInfo,BattlerActors(),BattlerEnemies(),_reserveBattlers,actionInfo,actionResultInfos);
                 var checkTrigger = _checkTriggerDict[key];
                 checkTrigger.AddTriggerTargetList(list,triggerData,battlerInfo,checkTriggerInfo);
             }
@@ -2319,6 +2339,10 @@ namespace Ryneus
                     if (battleRecord.Key < 10)
                     {
                         var actorInfo = GetBattlerInfo(battleRecord.Key);
+                        if (actorInfo == null)
+                        {
+                            actorInfo = _reserveBattlers.Find(a => a.Index.Value == battleRecord.Key);
+                        }
                         var actorMaxHp = actorInfo.MaxHp;
                         remainHpPercent += 1f - (float)(actorMaxHp - actorInfo.Hp.Value) / actorMaxHp;
                         actorCount++;
@@ -2326,7 +2350,7 @@ namespace Ryneus
                         {
                             maxDamage = battleRecord.Value.MaxDamage;
                         }
-                        if (!GetBattlerInfo(battleRecord.Key).IsAlive())
+                        if (!actorInfo.IsAlive())
                         {
                             defeated += 1;
                         }

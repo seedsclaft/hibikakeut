@@ -34,6 +34,10 @@ namespace Ryneus
 
         private List<SkillData.TriggerData> _triggerDates = new();
         public List<SkillData.TriggerData> TriggerDates => _triggerDates;
+        public void SetTriggerDates(List<SkillData.TriggerData> triggerDates)
+        {
+            _triggerDates = triggerDates;
+        }
 
         private int _weight = 100;
         public int Weight => _weight;
@@ -73,10 +77,6 @@ namespace Ryneus
             }
         }
         
-        public void SetTriggerDates(List<SkillData.TriggerData> triggerDates)
-        {
-            _triggerDates = triggerDates;
-        }
 
         public bool IsUnison()
         {

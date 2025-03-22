@@ -103,6 +103,7 @@ namespace Ryneus
         Reraise = 2450,
         HealValueUp = 2460,
         Curse = 2470,
+        Linkage  = 3020,
         NoApRecover = 9999
     }
 

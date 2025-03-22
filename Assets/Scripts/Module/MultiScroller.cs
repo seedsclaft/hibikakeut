@@ -58,14 +58,5 @@ namespace Ryneus
                 dr.OnEndDrag(ped);
             }
         }
-
-        private void Update() {
-            
-            if (parentBeginDragHandlers == null)
-            {
-                return;
-            }
-            Debug.Log(parentBeginDragHandlers.Count());
-        }
     }
 }
