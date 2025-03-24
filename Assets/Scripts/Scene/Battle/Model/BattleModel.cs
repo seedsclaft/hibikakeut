@@ -86,11 +86,13 @@ namespace Ryneus
                 }
                 _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
                 // 味方が4人以上ならリンケージをプラス
+                /*
                 if (actorInfos.Count > 3)
                 {
                     var linkage = new SkillInfo(7010);
                     battlerInfo.Skills.Add(linkage);
                 }
+                */
             }
             
             var enemies = _sceneParam.EnemyInfos;
@@ -2394,7 +2396,7 @@ namespace Ryneus
                         // 誰に対して
                         Param1 = actorInfo.ActorInfo.ActorId.Value,
                         // いくつ
-                        Param2 = 20 + (enemyInfo.Level.Value - actorInfo.Level.Value) * 2
+                        Param2 = 30 + (enemyInfo.Level.Value - actorInfo.Level.Value) * 2
                     };
                     var expItem = new GetItemInfo(expData);
                     list.Add(expItem);

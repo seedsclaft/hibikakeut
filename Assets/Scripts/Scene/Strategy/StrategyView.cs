@@ -239,26 +239,26 @@ namespace Ryneus
             backgroundImage.DOFade(0,0.4f);
         }
 
-        public void HideAlcanaList()
+        public void HideLearnSkillList()
         {
             alcanaSelectList.Hide();
         }
 
-        public void SetAlcanaSelectInfos(List<ListData> skillInfos)
+        public void SetLearnSkillInfos(List<ListData> skillInfos)
         {
             SetBackEvent(() => {});
             alcanaSelectList.SetData(skillInfos);
             alcanaSelectList.SetInputHandler(InputKeyType.Decide,() => 
             {
-                if (AlcanaSelectSkillInfo() != null)
+                if (LearnSelectSkillInfo() != null)
                 {
-                    CallViewEvent(CommandType.SelectAlcanaList,AlcanaSelectSkillInfo());
+                    CallViewEvent(CommandType.SelectLearnSkillList,LearnSelectSkillInfo());
                 }
             });
             alcanaSelectList.Show();
         }
 
-        public SkillInfo AlcanaSelectSkillInfo() 
+        public SkillInfo LearnSelectSkillInfo() 
         {
             var data = alcanaSelectList.ListItemData<SkillInfo>();
             if (data != null)
@@ -298,7 +298,7 @@ namespace Ryneus
             CallEnemyInfo = 4,
             ResultClose = 5,
             LvUpNext = 7,
-            SelectAlcanaList = 8,
+            SelectLearnSkillList = 8,
             EndLvUpAnimation = 9,
         }
     }

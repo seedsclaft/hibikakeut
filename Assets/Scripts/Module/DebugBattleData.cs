@@ -108,7 +108,7 @@ namespace Ryneus
                         getItemInfos.Add(getItemInfo);
                     }
                 }
-                symbolInfo.SetGetItemInfos(getItemInfos);
+                symbolInfo.AddGetItemInfos(getItemInfos);
                 //symbolInfo.SetSelected(true);
                 symbol.SeekIndex = actorId;
                 //var record = new SymbolResultInfo(symbolInfo);
@@ -135,7 +135,7 @@ namespace Ryneus
                         getItemInfos.Add(getItemInfo);
                     }
                 }
-                symbolInfo.SetGetItemInfos(getItemInfos);
+                symbolInfo.AddGetItemInfos(getItemInfos);
                 //symbolInfo.SetSelected(true);
                 symbol.SeekIndex = skillId;
                 //var record = new SymbolResultInfo(symbolInfo);

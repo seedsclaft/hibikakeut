@@ -19,9 +19,9 @@ namespace Ryneus
 
         [UnityEngine.SerializeField] private List<GetItemInfo> _getItemInfos = new();
         public List<GetItemInfo> GetItemInfos => _getItemInfos;
-        public void SetGetItemInfos(List<GetItemInfo> getItemInfos)
+        public void AddGetItemInfos(List<GetItemInfo> getItemInfos)
         {
-            _getItemInfos = getItemInfos;
+            _getItemInfos.AddRange(getItemInfos);
         }
 
         private bool _selected;
@@ -52,27 +52,6 @@ namespace Ryneus
             }
         }
 
-        public void CopyData(SymbolInfo symbolInfo)
-        {
-            _troopInfo = symbolInfo._troopInfo;
-            _getItemInfos = new List<GetItemInfo>();
-            foreach (var getItemInfo in symbolInfo.GetItemInfos)
-            {
-                var getItem = new GetItemInfo(getItemInfo.Master);
-                getItem.CopyData(getItemInfo);
-                _getItemInfos.Add(getItem);
-            }
-        }
-
-        public void ResetParamData()
-        {
-            foreach (var getItemInfo in GetItemInfos)
-            {
-                getItemInfo.SetResultParam(0);
-                getItemInfo.SetGetFlag(false);
-            }
-        }
-
         public List<BattlerInfo> BattlerInfos()
         {
             return _troopInfo.BattlerInfos;
@@ -90,19 +69,6 @@ namespace Ryneus
                 return evaluate;
             }
             return 0;
-        }
-
-        public int ScoreMax()
-        {
-            var scoreMax = 0;
-            foreach (var getItemInfo in GetItemInfos)
-            {
-                if (getItemInfo.GetItemType == GetItemType.BattleScoreBonus)
-                {
-                    scoreMax += getItemInfo.ResultParam * getItemInfo.Param1;
-                }
-            }
-            return scoreMax;
         }
 
         public bool IsActorSymbol()

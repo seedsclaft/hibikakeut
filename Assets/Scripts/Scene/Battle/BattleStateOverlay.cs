@@ -43,14 +43,11 @@ namespace Ryneus
             for (int i = 0;i < _stateInfos.Count ;i++)
             {
                 var stateInfo = _stateInfos[i];
-                if (_stateIconImages.Count <= i)
-                {
-                    var prefab = Instantiate(iconPrefab);
-                    prefab.transform.SetParent(iconRoot.transform,false);
-                    _stateIconImages.Add(prefab.GetComponent<BattleStateIcon>());
-                }
-                var stateIconImage = _stateIconImages[i];
+                var prefab = Instantiate(iconPrefab);
+                prefab.transform.SetParent(iconRoot.transform,false);
+                var stateIconImage = prefab.GetComponent<BattleStateIcon>();
                 SetActiveStateIcon(stateIconImage,true);
+                _stateIconImages.Add(stateIconImage);
                 var spriteAtlas = Resources.Load<SpriteAtlas>("Texture/Icons");
                 stateIconImage?.SetStateImage(spriteAtlas.GetSprite(stateInfo.Master.IconPath));
             }
@@ -58,7 +55,10 @@ namespace Ryneus
 
         private void SetActiveStateIcon(BattleStateIcon stateIconImage ,bool isActive)
         {
-            stateIconImage.gameObject.SetActive(isActive);
+            if (stateIconImage != null)
+            {
+                stateIconImage.gameObject.SetActive(isActive);
+            }
         }
 
         private void HideStateIcons()

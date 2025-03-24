@@ -54,12 +54,14 @@ namespace Ryneus
                         }                    
                         break;
                     case SymbolType.Alcana:
+                        /*
                         // アルカナランダムで報酬設定
                         if (stageSymbolData.Param1 == -1)
                         {
                             var relicInfos = MakeSelectRelicGetItemInfos((RankType)stageSymbolData.Param2);
                             getItemInfos.AddRange(relicInfos);
                         }
+                        */
                         break;
                     case SymbolType.Resource:
                         // 報酬設定
@@ -113,8 +115,17 @@ namespace Ryneus
                         }
                     }
                 }
-                symbolInfo.SetGetItemInfos(getItemInfos);
                 */
+                foreach (var getItemInfo in symbolInfo.GetItemInfos)
+                {
+                    switch (getItemInfo.GetItemType)
+                    {
+                        case GetItemType.SelectRelic:
+                            getItemInfos.AddRange(MakeSelectRelicGetItemInfos((RankType)getItemInfo.Param2,(AttributeType)getItemInfo.Param1));
+                            break;
+                    }
+                }
+                symbolInfo.AddGetItemInfos(getItemInfos);
                 symbolInfos.Add(symbolInfo);
             }
             return symbolInfos;
@@ -195,43 +206,45 @@ namespace Ryneus
             return getItemInfos;
         }
 
-        private List<GetItemInfo> MakeSelectRelicGetItemInfos(RankType rankType)
+        private List<GetItemInfo> MakeSelectRelicGetItemInfos(RankType rankType,AttributeType attributeType = AttributeType.None)
         {
             var getItemInfos = new List<GetItemInfo>
             {
                 // タイトル表示用
                 MakeGetItemInfo(GetItemType.SelectRelic, -1)
             };
-            /*
-            var alcanaRank = rankType;
-            var alcanaIds = PartyInfo.CurrentAlcanaIdList(CurrentStage.Id,CurrentStage.Seek,CurrentStage.WorldType);
-            var alcanaSkills = DataSystem.Skills.Where(a => a.Value.Rank == alcanaRank && a.Value.Id % 10 == 0 && !alcanaIds.Contains(a.Value.Id)).ToList();
-            var count = 3;
-            if (alcanaSkills.Count < count)
+            var rank = rankType;
+            var learningSkillIds = PartyInfo.LearningSkillIds;
+            var skills = DataSystem.Skills.Where(a => a.Value.Rank == rank && a.Value.Id % 10 == 0 && !learningSkillIds.Contains(a.Value.Id)).ToList();
+            if (attributeType != AttributeType.None)
             {
-                count = alcanaSkills.Count;
+                skills = skills.FindAll(a => a.Value.Attribute == attributeType);
+            }
+            var count = 3;
+            if (skills.Count < count)
+            {
+                count = skills.Count;
             }
             if (count == 0)
             {
                 // 報酬設定
-                getItemInfos.Add(MakeGetItemInfo(GetItemType.Numinous,20));
+                //getItemInfos.Add(MakeGetItemInfo(GetItemType.Numinous,20));
             } else
             {
                 while (getItemInfos.Count <= count)
                 {
-                    var rand = Random.Range(0,alcanaSkills.Count);
-                    if (getItemInfos.Find(a => a.Param1 == alcanaSkills[rand].Value.Id) == null)
+                    var rand = Random.Range(0,skills.Count);
+                    if (getItemInfos.Find(a => a.Param1 == skills[rand].Value.Id) == null)
                     {
                         // 報酬設定
-                        var getItemInfo = MakeGetItemInfo(GetItemType.Skill,alcanaSkills[rand].Value.Id);
-                        if (getItemInfos.Find(a => a.Param1 == alcanaSkills[rand].Value.Id) == null)
+                        var getItemInfo = MakeGetItemInfo(GetItemType.SelectRelic,skills[rand].Value.Id);
+                        if (getItemInfos.Find(a => a.Param1 == skills[rand].Value.Id) == null)
                         {
                             getItemInfos.Add(getItemInfo);
                         }
                     }
                 }
             }
-            */
             return getItemInfos;
         }
         

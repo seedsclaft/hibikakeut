@@ -40,8 +40,8 @@ namespace Ryneus
 
 
         
-        private List<SkillInfo> _relicData = new();
-        public List<SkillInfo> RelicData => _relicData;
+        private List<SkillInfo> _selectLearnSkills = new();
+        public List<SkillInfo> SelectLearnSkills => _selectLearnSkills;
 
         private List<ActorInfo> _levelUpActorInfos = new();
         public List<ActorInfo> LevelUpActorInfos => _levelUpActorInfos;
@@ -201,7 +201,10 @@ namespace Ryneus
                         _resultInfos.Add(resultInfo);
                         break;
                     case GetItemType.SelectRelic:
-                        // アルカナ選択の時は既にFlagを変えておく
+                        if (getItemInfo.Param1 > 1000)
+                        {
+                            _selectLearnSkills.Add(new SkillInfo(getItemInfo.Param1));
+                        }
                         break;
                     case GetItemType.Ending:
                         getItemInfo.SetGetFlag(true);
@@ -210,25 +213,27 @@ namespace Ryneus
             }
         }
 
-        public void MakeSelectRelic(int skillId)
+        public void MakeSelectLearnSkill(int skillId)
         {
             var getItemInfos = _sceneParam.GetItemInfos;
-            var selectRelicInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Skill);
+            var selectRelicInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.SelectRelic);
             // 魔法取得
-            var selectRelic = selectRelicInfos.Find(a => a.Param1 == skillId);
+            var selectRelic = _selectLearnSkills.Find(a => a.Id.Value == skillId);
             foreach (var selectRelicInfo in selectRelicInfos)
             {
                 selectRelicInfo.SetGetFlag(false);
                 var remove =_resultInfos.Find(a => a.SkillId == selectRelicInfo.Param1);
                 _resultInfos.Remove(remove);
             }
-            selectRelic.SetGetFlag(true);
+            var learnGetItemInfo = getItemInfos.Find(a => a.GetItemType == GetItemType.SelectRelic && skillId == a.Param1);
+            learnGetItemInfo.SetGetFlag(true);
             AddPlayerInfoSkillId(skillId);
+            AddGetItemInfo(learnGetItemInfo);
             var resultInfo = new StrategyResultViewInfo();
             resultInfo.SetSkillId(skillId);
             resultInfo.SetTitle(DataSystem.FindSkill(skillId).Name);
             _resultInfos.Add(resultInfo);
-            _relicData.Clear();
+            _selectLearnSkills.Clear();
         }
 
         public void RemoveLevelUpData()

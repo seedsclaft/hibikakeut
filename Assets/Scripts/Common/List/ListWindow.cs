@@ -528,7 +528,7 @@ namespace Ryneus
             if (keyTypes.Contains(pageUpKey) || keyTypes.Contains(pageDownKey))
             {
                 // 列移動
-                var lines = _horizontal ? Rows() : Cols();
+                var lines = _horizontal ? Cols() : Rows();
                 if (lines > 1)
                 {
                     for (int i = 0;i < lines;i++)

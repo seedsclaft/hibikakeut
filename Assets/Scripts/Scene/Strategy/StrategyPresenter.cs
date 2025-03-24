@@ -103,8 +103,8 @@ namespace Ryneus
                 case CommandType.LvUpNext:
                     CommandLvUpNext();
                     break;
-                case CommandType.SelectAlcanaList:
-                    CommandSelectAlcanaList((SkillInfo)viewEvent.template);
+                case CommandType.SelectLearnSkillList:
+                    CommandSelectLearnSkillList((SkillInfo)viewEvent.template);
                     break;
             }
             // チュートリアル確認
@@ -262,9 +262,9 @@ namespace Ryneus
                 _view.ShowLvUpActor(_model.LevelUpActorInfos[0],_model.LevelUpActorStatus());
                 return;
             }
-            if (_model.RelicData.Count > 0)
+            if (_model.SelectLearnSkills.Count > 0)
             {
-                _view.SetAlcanaSelectInfos(ListData.MakeListData(_model.RelicData));
+                _view.SetLearnSkillInfos(ListData.MakeListData(_model.SelectLearnSkills));
                 return;
             }
             ShowResultList();
@@ -350,9 +350,9 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
         }
 
-        private void CommandSelectAlcanaList(SkillInfo skillInfo)
+        private void CommandSelectLearnSkillList(SkillInfo skillInfo)
         {
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(19200),(a) => UpdateSelectAlcana((ConfirmCommandType)a),ConfirmType.SkillDetail);
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(19200),(a) => UpdateSelectAlcana(a),ConfirmType.SkillDetail);
             confirmInfo.SetSkillInfo(new List<SkillInfo>(){skillInfo});
             _view.CommandCallConfirm(confirmInfo);
         }
@@ -362,9 +362,9 @@ namespace Ryneus
             if (confirmCommandType == ConfirmCommandType.Yes)
             {
                 // アルカナ選択
-                var alcanaSelect = _view.AlcanaSelectSkillInfo();
-                _model.MakeSelectRelic(alcanaSelect.Id.Value);
-                _view.HideAlcanaList();
+                var selectLearnSkill = _view.LearnSelectSkillInfo();
+                _model.MakeSelectLearnSkill(selectLearnSkill.Id.Value);
+                _view.HideLearnSkillList();
                 NextSeekResult();
             }
         }

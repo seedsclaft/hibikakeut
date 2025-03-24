@@ -175,7 +175,7 @@ namespace Ryneus
         public void InitParamInfos(EnemyData enemyData)
         {
             var statusInfo = new StatusInfo();
-            int plusHpParam = _bossFlag == true ? 50 : 0;
+            int plusHpParam = _bossFlag == true ? Level.Value * 4 : 0;
             statusInfo.SetParameter(
                 (int)(enemyData.BaseStatus.Hp + (plusHpParam + Level.Value * enemyData.HpGrowth * 0.01f)),
                 Math.Min(50, (int)(enemyData.BaseStatus.Mp + (Level.Value * enemyData.MpGrowth * 0.01f))),
