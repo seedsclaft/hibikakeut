@@ -129,7 +129,7 @@ namespace Ryneus
             symbolInfoList.SetSymbolDetailInfoEvent(SymbolDetailInfo);
             symbolInfoList.SetInputHandler(InputKeyType.Option1,SymbolDetailInfo);
             AddViewActives(symbolInfoList);
-            symbolInfoList.gameObject.SetActive(false);
+            //symbolInfoList.gameObject.SetActive(false);
         }
 
         public void SetSymbolList(List<ListData> symbolList,int seekIndex,int seek)

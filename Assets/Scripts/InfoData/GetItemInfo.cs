@@ -62,8 +62,8 @@ namespace Ryneus
                     return DataSystem.GetReplaceText(20230,_resultParam.ToString());
                 case GetItemType.ReBirth:
                     break;
-                case GetItemType.LearnSkill:
-                    return DataSystem.FindSkill(Param2).Name;
+                //case GetItemType.LearnSkill:
+                    //return DataSystem.FindSkill(Param2).Name;
                 case GetItemType.AddActor:
                     return DataSystem.FindActor(Param1).Name + DataSystem.GetText(20201);
                 case GetItemType.SelectAddActor:
@@ -75,7 +75,12 @@ namespace Ryneus
                 case GetItemType.BattleEnemyLvUp:
                     return DataSystem.GetReplaceText(20290,Param1.ToString());
                 case GetItemType.SelectRelic:
-                    return DataSystem.GetText(20250);
+                    if (Param1 < 1000)
+                    {
+                        return DataSystem.GetText(20250);
+                    }
+                    return DataSystem.FindSkill(Param1).Name;
+
                 //case GetItemType.RemakeHistory:
                 //case GetItemType.ParallelHistory:
                 //case GetItemType.Multiverse:
@@ -87,7 +92,7 @@ namespace Ryneus
         
         public bool IsSkill()
         {
-            return _getItemType == GetItemType.Skill;
+            return _getItemType == GetItemType.Skill || (_getItemType == GetItemType.SelectRelic && Param1 > 1000);
         }
 
         public bool IsAttributeSkill()

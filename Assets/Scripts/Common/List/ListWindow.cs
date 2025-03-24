@@ -139,6 +139,12 @@ namespace Ryneus
         {
             if (_itemPrefabList.Count > 0) 
             {
+                var listCount = ListItemCount();
+                if (_itemPrefabList.Count < listCount)
+                {
+                    var createCount = listCount - _itemPrefabList.Count;
+                    CreateListPrefab(createCount);
+                }
                 return;
             }
             CreateObjectPrefab();
@@ -180,7 +186,13 @@ namespace Ryneus
         private void CreateListItemPrefab()
         {
             var listCount = ListItemCount();
-            for (var i = 0; i < (listCount+1);i++)
+            CreateListPrefab(listCount+1);
+            CreatePrevPrefab();
+        }
+
+        private void CreateListPrefab(int createCount)
+        {
+            for (var i = 0; i < createCount;i++)
             {
                 var prefab = Instantiate(itemPrefab);
                 //prefab.name = i.ToString();
@@ -191,6 +203,10 @@ namespace Ryneus
                     _itemList.AddLast(view);
                 }
             }
+        }
+
+        private void CreatePrevPrefab()
+        {
             _prevPrefab = Instantiate(itemPrefab);
             _prevPrefab.name = "prev Object";
             var prevView = _prevPrefab.GetComponent<IListViewItem>();

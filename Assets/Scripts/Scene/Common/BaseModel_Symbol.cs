@@ -123,6 +123,9 @@ namespace Ryneus
                         case GetItemType.SelectRelic:
                             getItemInfos.AddRange(MakeSelectRelicGetItemInfos((RankType)getItemInfo.Param2,(AttributeType)getItemInfo.Param1));
                             break;
+                        case GetItemType.SelectSkill:
+                            getItemInfos.AddRange(MakeSelectSkillGetItemInfos((RankType)getItemInfo.Param2,(AttributeType)getItemInfo.Param1));
+                            break;
                     }
                 }
                 symbolInfo.AddGetItemInfos(getItemInfos);
@@ -237,7 +240,45 @@ namespace Ryneus
                     if (getItemInfos.Find(a => a.Param1 == skills[rand].Value.Id) == null)
                     {
                         // 報酬設定
-                        var getItemInfo = MakeGetItemInfo(GetItemType.SelectRelic,skills[rand].Value.Id);
+                        var getItemInfo = MakeGetItemInfo(GetItemType.Skill,skills[rand].Value.Id);
+                        if (getItemInfos.Find(a => a.Param1 == skills[rand].Value.Id) == null)
+                        {
+                            getItemInfos.Add(getItemInfo);
+                        }
+                    }
+                }
+            }
+            return getItemInfos;
+        }
+        
+        private List<GetItemInfo> MakeSelectSkillGetItemInfos(RankType rankType,AttributeType attributeType = AttributeType.None)
+        {
+            var getItemInfos = new List<GetItemInfo>{};
+            var rank = rankType;
+            var learningSkillIds = PartyInfo.LearningSkillIds;
+            var skills = DataSystem.Skills.Where(a => a.Value.Rank == rank && a.Value.Id % 10 == 0 && !learningSkillIds.Contains(a.Value.Id)).ToList();
+            if (attributeType != AttributeType.None)
+            {
+                skills = skills.FindAll(a => a.Value.Attribute == attributeType);
+            }
+            var count = 1;
+            if (skills.Count < count)
+            {
+                count = skills.Count;
+            }
+            if (count == 0)
+            {
+                // 報酬設定
+                //getItemInfos.Add(MakeGetItemInfo(GetItemType.Numinous,20));
+            } else
+            {
+                while (getItemInfos.Count < count)
+                {
+                    var rand = Random.Range(0,skills.Count);
+                    if (getItemInfos.Find(a => a.Param1 == skills[rand].Value.Id) == null)
+                    {
+                        // 報酬設定
+                        var getItemInfo = MakeGetItemInfo(GetItemType.Skill,skills[rand].Value.Id);
                         if (getItemInfos.Find(a => a.Param1 == skills[rand].Value.Id) == null)
                         {
                             getItemInfos.Add(getItemInfo);

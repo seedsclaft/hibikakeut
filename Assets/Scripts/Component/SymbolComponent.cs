@@ -135,6 +135,14 @@ namespace Ryneus
                 {
                     continue;
                 }
+                if (getItemInfo.GetItemType == GetItemType.SelectRelic && getItemInfo.Param1 < 0)
+                {
+                    continue;
+                }
+                if (getItemInfo.GetItemType == GetItemType.SelectSkill)
+                {
+                    continue;
+                }
                 var data = new ListData(getItemInfo);
                 //data.SetEnable(symbolInfo.Cleared != true || getItemInfo.GetItemType != GetItemType.Numinous);
                 if (getItemInfo.GetItemType == GetItemType.Skill)

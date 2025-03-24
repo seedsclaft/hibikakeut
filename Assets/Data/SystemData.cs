@@ -120,7 +120,6 @@ namespace Ryneus
 	public enum GetItemType
 	{
 		None = 0,
-		Skill = 1,
 		Currency = 2,
 		Demigod = 3,
 		ReBirth = 4,
@@ -129,12 +128,14 @@ namespace Ryneus
 		LevelUp = 21,
 		StatusUp = 22,
 		Regeneration = 31,
-		LearnSkill = 41,
+		//LearnSkill = 41,
 		SelectAddActor = 52,
 		BattleScoreBonus = 61,
 		BattleNuminosBonus = 62,
 		BattleEnemyLvUp = 63,
+		Skill = 100,
 		SelectRelic = 101,
+		SelectSkill = 102,
 		//ParallelHistory = 102,
 		//Multiverse = 103,
 		LvLink = 104,
