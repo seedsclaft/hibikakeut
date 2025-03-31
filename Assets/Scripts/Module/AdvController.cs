@@ -85,7 +85,7 @@ namespace Ryneus
             if (keyTypes.Contains(InputKeyType.Option1))
             {
                 advUguiManager.Engine.Config.ToggleSkip();        
-                GameSystem.OptionData.EventSkipIndex = advUguiManager.Engine.Config.IsSkip;
+                GameSystem.OptionData.EventTextSkipIndex = advUguiManager.Engine.Config.IsSkip;
             }
             // 選択肢操作
             if (keyTypes.Contains(InputKeyType.Down))
@@ -163,7 +163,7 @@ namespace Ryneus
             );
             if (GameSystem.OptionData != null)
             {
-                GameSystem.OptionData.EventSkipIndex = skip;
+                GameSystem.OptionData.EventTextSkipIndex = skip;
             }
         }
     }

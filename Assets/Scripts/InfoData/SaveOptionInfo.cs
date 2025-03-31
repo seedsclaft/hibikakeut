@@ -14,6 +14,7 @@ namespace Ryneus
 		public int ScreenWidth;
 		public int ScreenHeight;
 		public int GraphicIndex;
+		public bool EventTextSkipIndex;
 		public bool EventSkipIndex;
 		public bool CommandEndCheck;
 		public bool BattleTurnSkip;
@@ -38,6 +39,7 @@ namespace Ryneus
 			ScreenHeight = 720;
 			GraphicIndex = 2;
 			EventSkipIndex = false;
+			EventTextSkipIndex = false;
 			CommandEndCheck = true;
 			BattleTurnSkip = true;
 			BattleAnimationSkip = false;

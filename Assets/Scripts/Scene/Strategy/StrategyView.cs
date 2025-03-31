@@ -47,6 +47,7 @@ namespace Ryneus
             InitializeActorList();
             InitializeStatusList();
             InitializeCommandList();
+            InitializeLearnSkillList();
 
             
             GameObject prefab = Instantiate(animPrefab);
@@ -67,8 +68,6 @@ namespace Ryneus
             battleMaxDamageObj?.SetActive(false);
             battleAttackPerObj?.SetActive(false);
             battleDefeatedCountObj?.SetActive(false);
-            alcanaSelectList.Initialize();
-            alcanaSelectList.Hide();
             new StrategyPresenter(this);
         }
 
@@ -137,6 +136,21 @@ namespace Ryneus
             SetInputHandler(commandList.gameObject);
             AddViewActives(commandList);
             commandList.gameObject.SetActive(false);
+        }
+
+        private void InitializeLearnSkillList()
+        {
+            alcanaSelectList.Initialize();
+            alcanaSelectList.SetInputHandler(InputKeyType.Decide,() => 
+            {
+                if (LearnSelectSkillInfo() != null)
+                {
+                    CallViewEvent(CommandType.SelectLearnSkillList,LearnSelectSkillInfo());
+                }
+            });
+            SetInputHandler(alcanaSelectList.gameObject);
+            AddViewActives(alcanaSelectList);
+            alcanaSelectList.Hide();
         }
 
         public void SetTitle(string text)
@@ -248,14 +262,8 @@ namespace Ryneus
         {
             SetBackEvent(() => {});
             alcanaSelectList.SetData(skillInfos);
-            alcanaSelectList.SetInputHandler(InputKeyType.Decide,() => 
-            {
-                if (LearnSelectSkillInfo() != null)
-                {
-                    CallViewEvent(CommandType.SelectLearnSkillList,LearnSelectSkillInfo());
-                }
-            });
             alcanaSelectList.Show();
+            SetActivate(alcanaSelectList);
         }
 
         public SkillInfo LearnSelectSkillInfo() 

@@ -128,6 +128,9 @@ namespace Ryneus
                 case "EVENT_SKIP":
                     OptionUtility.ChangeEventSkipIndex(inputKeyType == InputKeyType.Right);
                     break;
+                case "EVENT_TEXT_SKIP":
+                    OptionUtility.ChangeEventTextSkipIndex(inputKeyType == InputKeyType.Right);
+                    break;
                 case "COMMAND_END_CHECK":
                     OptionUtility.ChangeCommandEndCheck(inputKeyType == InputKeyType.Left);
                     break;
@@ -230,6 +233,9 @@ namespace Ryneus
                         break;
                     case "EVENT_SKIP":
                         OptionUtility.ChangeEventSkipIndex(toggleIndex == 1);
+                        break;
+                    case "EVENT_TEXT_SKIP":
+                        OptionUtility.ChangeEventTextSkipIndex(toggleIndex == 1);
                         break;
                     case "COMMAND_END_CHECK":
                         OptionUtility.ChangeCommandEndCheck(toggleIndex == 0);

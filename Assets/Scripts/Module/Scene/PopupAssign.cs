@@ -5,8 +5,6 @@ namespace Ryneus
 {
     public class PopupAssign : MonoBehaviour
     {
-        [SerializeField] private GameObject confirmRoot = null;
-
         private List<BaseView> _stackPopupView = new ();
         public List<BaseView> StackPopupView => _stackPopupView;
         public BaseView LastPopupView => _stackPopupView.Count > 0 ? _stackPopupView[_stackPopupView.Count-1] : null;
@@ -14,8 +12,8 @@ namespace Ryneus
         public GameObject CreatePopup(PopupType popupType,HelpWindow helpWindow)
         {
             var prefab = Instantiate(GetPopupObject(popupType));
-            prefab.transform.SetParent(confirmRoot.transform, false);
-            confirmRoot.SetActive(true);
+            prefab.transform.SetParent(transform, false);
+            gameObject.SetActive(true);
             var view = prefab.GetComponent<BaseView>();
             view?.SetHelpWindow(helpWindow);
             _stackPopupView.Add(view);
@@ -37,7 +35,7 @@ namespace Ryneus
             }
             if (_stackPopupView.Count == 0)
             {
-                confirmRoot.SetActive(false);
+                gameObject.SetActive(false);
             }
         }
 
@@ -45,10 +43,10 @@ namespace Ryneus
         {
             if (_stackPopupView.Count > 0)
             {
-                confirmRoot.transform.DetachChildren();
+                transform.DetachChildren();
                 _stackPopupView.Clear();
             }
-            confirmRoot.SetActive(false);
+            gameObject.SetActive(false);
         }
 
         public void CloseTutorialPopup()
@@ -65,7 +63,7 @@ namespace Ryneus
             }
             if (_stackPopupView.Count == 0)
             {
-                confirmRoot.SetActive(false);
+                gameObject.SetActive(false);
             }
         }
     }

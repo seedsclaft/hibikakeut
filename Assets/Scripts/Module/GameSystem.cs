@@ -426,16 +426,19 @@ namespace Ryneus
         {
             _busy = true;
             advHelpWindow.SetInputInfo("ADV_READING");
-            while (advEngine.IsWaitBootLoading) yield return null;
-            while (advEngine.IsLoading) yield return null;
-            advEngine.Param.SetParameterBoolean("SelectionParam_0",false);
-            advEngine.Param.SetParameterBoolean("SelectionParam_1",false);
-            advEngine.JumpScenario(label);
-            advEngine.Config.IsSkip = OptionData.EventSkipIndex;
-            advController.StartAdv();
-            while (!advEngine.IsEndOrPauseScenario)
+            if (!OptionData.EventSkipIndex)
             {
-                yield return null;
+                while (advEngine.IsWaitBootLoading) yield return null;
+                while (advEngine.IsLoading) yield return null;
+                advEngine.Param.SetParameterBoolean("SelectionParam_0",false);
+                advEngine.Param.SetParameterBoolean("SelectionParam_1",false);
+                advEngine.JumpScenario(label);
+                advEngine.Config.IsSkip = OptionData.EventTextSkipIndex;
+                advController.StartAdv();
+                while (!advEngine.IsEndOrPauseScenario)
+                {
+                    yield return null;
+                }
             }
             SetIsNotBusyMainAndStatus();
             advController.EndAdv();

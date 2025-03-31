@@ -6,16 +6,15 @@ namespace Ryneus
 {
     public class ConfirmAssign : MonoBehaviour
     {
-        [SerializeField] private GameObject confirmRoot = null;
         public GameObject CreateConfirm(ConfirmType popupType,HelpWindow helpWindow)
         {
-            if (confirmRoot.transform.childCount > 0)
+            if (transform.childCount > 0)
             {
                 CloseConfirm();
             }
             var prefab = Instantiate(GetConfirmObject(popupType));
-            prefab.transform.SetParent(confirmRoot.transform, false);
-            confirmRoot.gameObject.SetActive(true);
+            prefab.transform.SetParent(transform, false);
+            gameObject.SetActive(true);
             var view = prefab.GetComponent<BaseView>();
             view?.SetHelpWindow(helpWindow);
             return prefab;
@@ -28,16 +27,16 @@ namespace Ryneus
 
         public void CloseConfirm()
         {
-            foreach(Transform child in confirmRoot.transform)
+            foreach(Transform child in transform)
             {
                 Destroy(child.gameObject);
             }
-            confirmRoot.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
 
         public void HideConfirm()
         {
-            confirmRoot.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 

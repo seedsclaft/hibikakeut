@@ -125,6 +125,12 @@ namespace Ryneus
                         optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.EventSkipIndex == true ? 1 : 0));
                     }
                     return;
+                case "EVENT_TEXT_SKIP":
+                    for (int i = 0;i < optionToggles.Count;i++)
+                    {
+                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.EventTextSkipIndex == true ? 1 : 0));
+                    }
+                    return;
                 case "COMMAND_END_CHECK":
                     for (int i = 0;i < optionToggles.Count;i++)
                     {

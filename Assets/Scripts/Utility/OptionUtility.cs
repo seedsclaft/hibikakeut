@@ -18,6 +18,7 @@ namespace Ryneus
                 SetResolution(saveOptionInfo.ScreenWidth,saveOptionInfo.ScreenHeight);
                 ChangeGraphicIndex(saveOptionInfo.GraphicIndex);
                 ChangeEventSkipIndex(saveOptionInfo.EventSkipIndex);
+                ChangeEventTextSkipIndex(saveOptionInfo.EventTextSkipIndex);
                 ChangeCommandEndCheck(saveOptionInfo.CommandEndCheck);
                 ChangeBattleTurnSkip(saveOptionInfo.BattleTurnSkip);
                 ChangeBattleAnimation(saveOptionInfo.BattleAnimationSkip);
@@ -113,6 +114,11 @@ namespace Ryneus
         public static void ChangeEventSkipIndex(bool eventSkipIndex)
         {
             GameSystem.OptionData.EventSkipIndex = eventSkipIndex;
+        }
+
+        public static void ChangeEventTextSkipIndex(bool eventTextSkipIndex)
+        {
+            GameSystem.OptionData.EventTextSkipIndex = eventTextSkipIndex;
         }
 
         public static void ChangeCommandEndCheck(bool commandEndCheck)

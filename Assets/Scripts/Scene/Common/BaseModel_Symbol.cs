@@ -134,7 +134,7 @@ namespace Ryneus
             return symbolInfos;
         }
 
-        private GetItemInfo MakeGetItemInfo(GetItemType getItemType,int param1)
+        public GetItemInfo MakeGetItemInfo(GetItemType getItemType,int param1)
         {
             var getItemData = new GetItemData
             {
@@ -240,7 +240,7 @@ namespace Ryneus
                     if (getItemInfos.Find(a => a.Param1 == skills[rand].Value.Id) == null)
                     {
                         // 報酬設定
-                        var getItemInfo = MakeGetItemInfo(GetItemType.Skill,skills[rand].Value.Id);
+                        var getItemInfo = MakeGetItemInfo(GetItemType.SelectRelic,skills[rand].Value.Id);
                         if (getItemInfos.Find(a => a.Param1 == skills[rand].Value.Id) == null)
                         {
                             getItemInfos.Add(getItemInfo);

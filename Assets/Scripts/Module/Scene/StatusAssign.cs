@@ -6,14 +6,13 @@ namespace Ryneus
 {
     public class StatusAssign : MonoBehaviour
     {
-        [SerializeField] private GameObject statusRoot = null;
-        public GameObject StatusRoot => statusRoot;
+        public GameObject StatusRoot => gameObject;
         private BaseView _statusView;
         public GameObject CreatePopup(StatusType statusType,HelpWindow helpWindow)
         {
             var prefab = Instantiate(GetStatusObject(statusType));
-            prefab.transform.SetParent(statusRoot.transform, false);
-            statusRoot.SetActive(true);
+            prefab.transform.SetParent(transform, false);
+            gameObject.SetActive(true);
             _statusView = prefab.GetComponent<BaseView>();
             _statusView?.SetHelpWindow(helpWindow);
             return prefab;
@@ -26,11 +25,11 @@ namespace Ryneus
         
         public void CloseStatus()
         {
-            foreach(Transform child in statusRoot.transform)
+            foreach(Transform child in transform)
             {
                 Destroy(child.gameObject);
             }
-            statusRoot.SetActive(false);
+            gameObject.SetActive(false);
         }
 
         public void SetBusy(bool isBusy)

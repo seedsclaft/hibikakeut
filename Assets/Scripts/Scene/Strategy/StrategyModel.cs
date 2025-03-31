@@ -151,7 +151,6 @@ namespace Ryneus
             var skillGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Skill);
             foreach (var skillGetItemInfo in skillGetItemInfos)
             {
-                skillGetItemInfo.SetGetFlag(true);
                 AddPlayerInfoSkillId(skillGetItemInfo.Param1);
                 AddGetItemInfo(skillGetItemInfo);
             }
@@ -203,7 +202,9 @@ namespace Ryneus
                     case GetItemType.SelectRelic:
                         if (getItemInfo.Param1 > 1000)
                         {
-                            _selectLearnSkills.Add(new SkillInfo(getItemInfo.Param1));
+                            var skillInfo = new SkillInfo(getItemInfo.Param1);
+                            skillInfo.SetEnable(true);
+                            _selectLearnSkills.Add(skillInfo);
                         }
                         break;
                     case GetItemType.Ending:
@@ -226,9 +227,10 @@ namespace Ryneus
                 _resultInfos.Remove(remove);
             }
             var learnGetItemInfo = getItemInfos.Find(a => a.GetItemType == GetItemType.SelectRelic && skillId == a.Param1);
-            learnGetItemInfo.SetGetFlag(true);
+            
+            var getItemInfo = MakeGetItemInfo(GetItemType.Skill,skillId);
             AddPlayerInfoSkillId(skillId);
-            AddGetItemInfo(learnGetItemInfo);
+            AddGetItemInfo(getItemInfo);
             var resultInfo = new StrategyResultViewInfo();
             resultInfo.SetSkillId(skillId);
             resultInfo.SetTitle(DataSystem.FindSkill(skillId).Name);
