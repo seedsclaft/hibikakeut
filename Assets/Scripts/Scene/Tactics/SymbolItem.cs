@@ -27,7 +27,7 @@ namespace Ryneus
             {
                 if (ListData == null) return;
                 var data = ListItemData<SymbolInfo>();
-                handler(data.Master.SeekIndex);
+                handler(data.Master.InitY);
             });
         }
 
@@ -43,7 +43,7 @@ namespace Ryneus
             {
                 if (ListData == null) return;
                 var data = ListItemData<SymbolInfo>();
-                handler(data.Master.SeekIndex);
+                handler(data.Master.InitY);
             });
         }
 

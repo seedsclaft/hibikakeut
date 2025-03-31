@@ -12,8 +12,14 @@ namespace Ryneus
         private List<SymbolInfo> _symbolInfos = new();
         public List<SymbolInfo> SymbolInfos => _symbolInfos;
         public void SetSymbolInfos(List<SymbolInfo> symbolInfos) => _symbolInfos = symbolInfos;
+        
+        private List<HexUnitInfo> _hexUnitList = new();
+        public List<HexUnitInfo> HexUnitList => _hexUnitList;
+        public void SetHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList = hexUnitList;
+        
+        
         public ParameterInt StageId = new();
-        public int EndSeek => _symbolInfos.Max(a => a.Master.Seek);
+        public int EndSeek => 10;//_symbolInfos.Max(a => a.Master.InitX);
 
         public ParameterInt SeekIndex = new(-1);
 

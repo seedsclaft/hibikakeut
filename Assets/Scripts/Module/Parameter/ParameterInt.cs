@@ -26,10 +26,7 @@ namespace Ryneus
         public void GainValue(int value,int minValue)
         {
             _value += value;
-            if (_value < minValue)
-            {
-                _value = minValue;
-            }
+            _value = Math.Max(_value,minValue);
         }
 
         public void GainValue(int value,int minValue,int maxValue)

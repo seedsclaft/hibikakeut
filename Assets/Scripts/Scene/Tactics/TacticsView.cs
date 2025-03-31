@@ -10,6 +10,7 @@ namespace Ryneus
     using Tactics;
     public class TacticsView : BaseView ,IInputHandlerEvent
     {
+        [SerializeField] private HexTiles hexTiles = null;
         [SerializeField] private BaseList tacticsCommandList = null;
         public SystemData.CommandData TacticsCommandData => tacticsCommandList.ListItemData<SystemData.CommandData>();
         [SerializeField] private BaseList battleMemberList = null;
@@ -40,6 +41,7 @@ namespace Ryneus
             SetViewCommandSceneType(ViewCommandSceneType.Tactics);
             InitializeCommandList();
             InitializeBattleMemberList();
+            InitializeHexTileList();
             tacticsAlcana.gameObject.SetActive(false);
             alcanaButton.onClick.AddListener(() => CallAlcanaCheck());
 
@@ -118,6 +120,31 @@ namespace Ryneus
         public void RefreshBattleMemberList(List<ListData> memberList)
         {
             battleMemberList.RefreshListData(memberList);
+        }
+
+        private void InitializeHexTileList()
+        {
+            hexTiles.Initialize();
+            hexTiles.SetInputHandler(InputKeyType.Up,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Up));
+            hexTiles.SetInputHandler(InputKeyType.Down,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Down));
+            hexTiles.SetInputHandler(InputKeyType.Right,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Right));
+            hexTiles.SetInputHandler(InputKeyType.Left,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Left));
+            SetInputHandler(hexTiles.gameObject);
+            AddViewActives(hexTiles);
+        }
+
+        public void SetHexTileList(List<ListData> hexInfos)
+        {
+            hexTiles.SetData(hexInfos,true,() => 
+            {
+                UpdateHexIndex(0,0);
+            });
+            SetActivate(hexTiles);
+        }
+
+        public void UpdateHexIndex(int x,int y)
+        {
+            hexTiles.SetLine(x,y);
         }
 
         private void InitializeSymbolInfoList()

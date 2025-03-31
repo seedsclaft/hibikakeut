@@ -78,6 +78,7 @@ namespace Ryneus
             _view.SetUIButton();
             _view.SetBackGround(_model.CurrentStage.Master.BackGround);
             _view.SetBattleMemberList(MakeListData(_model.EditMembers()));
+            _view.SetHexTileList(MakeListData(_model.HexTiles()));
             //_view.SetNuminous(_model.Currency);
             CommandRefresh();
             await PlayTacticsBgm(timeStamp);
@@ -273,6 +274,9 @@ namespace Ryneus
                 case CommandType.SelectCharaLayer:
                     CommandSelectCharaLayer((int)viewEvent.template);
                     break;
+                case CommandType.MoveHexMap:
+                    CommandMoveHexMap((InputKeyType)viewEvent.template);
+                    break;
             }
             // チュートリアル確認
             CheckTutorialState(viewEvent.ViewCommandType.CommandType);
@@ -458,7 +462,7 @@ namespace Ryneus
         {
             if (symbolInfo != null && _model.IsCurrentSeekSymbolInfo(symbolInfo))
             {
-                _model.SetStageSeekIndex(symbolInfo.Master.SeekIndex);
+                _model.SetStageSeekIndex(symbolInfo.Master.InitY);
                 switch (symbolInfo.Master.SymbolType)
                 {
                     case SymbolType.Battle:
@@ -1135,6 +1139,26 @@ namespace Ryneus
             {
                 _view.CommandSelectCharaLayer(a);
             });
+        }
+
+        private void CommandMoveHexMap(InputKeyType inputKeyType)
+        {
+            switch (inputKeyType)
+            {
+                case InputKeyType.Up:
+                    _model.MoveLine(0,-1);
+                    break;
+                case InputKeyType.Down:
+                    _model.MoveLine(0,1);
+                    break;
+                case InputKeyType.Right:
+                    _model.MoveLine(1,0);
+                    break;
+                case InputKeyType.Left:
+                    _model.MoveLine(-1,0);
+                    break;
+            }
+            _view.UpdateHexIndex(_model.LineX.Value,_model.LineY.Value);
         }
     }
 }

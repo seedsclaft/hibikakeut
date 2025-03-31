@@ -77,6 +77,10 @@ namespace Ryneus
                             Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,
                             StageLv = AssetPostImporter.ImportNumeric(BaseRow, "StageLv"),
                             PartyMemberIds = new List<int>(),
+							Width = AssetPostImporter.ImportNumeric(BaseRow, "Width"),
+							Height = AssetPostImporter.ImportNumeric(BaseRow, "Height"),
+							InitX = AssetPostImporter.ImportNumeric(BaseRow, "InitX"),
+							InitY = AssetPostImporter.ImportNumeric(BaseRow, "InitY"),
 							RandomTroopEnemyRates = new List<StageEnemyRate>(),
                         };
                         string[] list = AssetPostImporter.ImportString(BaseRow,"PartyMemberIds").Split(',');
@@ -125,9 +129,10 @@ namespace Ryneus
 							if (StageId == StageData.Id)
 							{
 								SymbolData.StageId = AssetPostImporter.ImportNumeric(SymbolRow, "Id");
-								SymbolData.Seek = AssetPostImporter.ImportNumeric(SymbolRow, "Seek");
-								SymbolData.SeekIndex = AssetPostImporter.ImportNumeric(SymbolRow, "SeekIndex");
+								SymbolData.InitX = AssetPostImporter.ImportNumeric(SymbolRow, "InitX");
+								SymbolData.InitY = AssetPostImporter.ImportNumeric(SymbolRow, "InitY");
 								SymbolData.SymbolType = (SymbolType)AssetPostImporter.ImportNumeric(SymbolRow, "SymbolType");
+								SymbolData.UnitType = (HexUnitType)AssetPostImporter.ImportNumeric(SymbolRow, "UnitType");
 								SymbolData.Rate = AssetPostImporter.ImportNumeric(SymbolRow, "Rate");
 								SymbolData.Param1 = AssetPostImporter.ImportNumeric(SymbolRow, "Param1");
 								SymbolData.Param2 = AssetPostImporter.ImportNumeric(SymbolRow, "Param2");

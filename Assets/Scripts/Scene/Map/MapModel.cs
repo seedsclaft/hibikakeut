@@ -12,7 +12,7 @@ namespace Ryneus
 
         public bool IsCurrentSeekSymbolInfo(SymbolInfo symbolInfo)
         {
-            return symbolInfo?.Master.Seek == PartyInfo.Seek.Value;
+            return symbolInfo?.Master.InitX == PartyInfo.Seek.Value;
         }
     }
 }

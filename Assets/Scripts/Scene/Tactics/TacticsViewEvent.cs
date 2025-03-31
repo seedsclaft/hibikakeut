@@ -34,6 +34,7 @@ namespace Ryneus
             HideAlcanaList,
             EndShopSelect,
             SelectCharaLayer,
+            MoveHexMap,
         }
     }
 

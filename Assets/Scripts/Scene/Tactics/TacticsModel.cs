@@ -49,7 +49,7 @@ namespace Ryneus
 
         public bool IsCurrentSeekSymbolInfo(SymbolInfo symbolInfo)
         {
-            return symbolInfo?.Master.Seek == PartyInfo.Seek.Value;
+            return symbolInfo?.Master.InitX == PartyInfo.Seek.Value;
         }
 
         public void SetFirstBattleActorId()
@@ -126,7 +126,7 @@ namespace Ryneus
         public SymbolInfo SelectedSymbol()
         {
             int seekIndex = CurrentStage.SeekIndex.Value;
-            return CurrentStage.SymbolInfos.Find(a => a.Master.Seek == PartyInfo.Seek.Value && a.Master.SeekIndex == seekIndex);
+            return CurrentStage.SymbolInfos.Find(a => a.Master.InitX == PartyInfo.Seek.Value && a.Master.InitY == seekIndex);
         }
 
         public List<SkillInfo> AlcanaMagicSkillInfos(List<GetItemInfo> getItemInfos)
@@ -392,6 +392,28 @@ namespace Ryneus
             return cost;
         }
 
+        public ParameterInt LineX = new();
+        public ParameterInt LineY = new();
+        public void SetInitPosition()
+        {
+        }
+        public void MoveLine(int x,int y)
+        {
+            var stageData = PartyInfo.StageMaster;
+            LineX.GainValue(x,0,stageData.Width-1);
+            LineY.GainValue(y,0,stageData.Height-1);
+        }
+
+        public List<int> HexTiles()
+        {
+            var stageData = PartyInfo.StageMaster;
+            var list = new List<int>();
+            for (int i = 0;i < stageData.Width;i++)
+            {
+                list.Add(i);
+            }
+            return list;
+        }
     }
 
     public class TacticsSceneInfo

@@ -14,7 +14,7 @@ namespace Ryneus
         /// <returns></returns>
         public List<SymbolInfo> StageSymbolInfos(List<StageSymbolData> stageSymbolDates,int clearCount = 0)
         {
-            var symbolDates = stageSymbolDates.FindAll(a => a.Seek > 0 && a.ClearCount <= clearCount);
+            var symbolDates = stageSymbolDates.FindAll(a => a.InitX > 0 && a.ClearCount <= clearCount);
             var symbolInfos = new List<SymbolInfo>();
             foreach (var symbolMaster in symbolDates)
             {
@@ -44,7 +44,7 @@ namespace Ryneus
                         symbolInfo.SetTroopInfo(BattleTroop(stageSymbolData));
                         if (randFlag)
                         {
-                            var numinosGetItem = MakeEnemyRandomNuminos(stageSymbolData.StageId,stageSymbolData.Seek);
+                            var numinosGetItem = MakeEnemyRandomNuminos(stageSymbolData.StageId,stageSymbolData.InitX);
                             symbolInfo.TroopInfo.AddGetItemInfo(numinosGetItem);                  
                         }
                         
@@ -81,41 +81,6 @@ namespace Ryneus
                         MakeShopGetItemInfos(getItemInfos,symbolInfo,RankType.PassiveRank2,3);
                         break;
                 }
-                /*
-                if (stageSymbolData.PrizeSetId > 0)
-                {
-                    var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == stageSymbolData.PrizeSetId);
-                    foreach (var prizeSet in prizeSets)
-                    {
-                        var getItemInfo = new GetItemInfo(prizeSet.GetItem);
-                        if (prizeSet.GetItem.Type == GetItemType.SelectRelic)
-                        {
-                            getItemInfos.AddRange(MakeSelectRelicGetItemInfos((RankType)getItemInfo.Param2));
-                        } else
-                        if (prizeSet.GetItem.Type == GetItemType.SelectAddActor)
-                        {
-                            //getItemInfos.AddRange(MakeSelectActorGetItemInfos(getItemInfo.Param2 == 0));
-                        } else
-                        if (prizeSet.GetItem.Type == GetItemType.Currency)
-                        {
-                            /*
-                            var numinosBonus = PartyInfo.BattleNuminosBonus(stageSymbolData.StageId,stageSymbolData.Seek,WorldType.Main);
-                            var data = new GetItemData
-                            {
-                                Param1 = getItemInfo.Param1 + numinosBonus,
-                                Param2 = getItemInfo.Param2,
-                                Type = GetItemType.Numinous
-                            };
-                            getItemInfos.Add(new GetItemInfo(data));
-                            */
-                            /*
-                        } else
-                        {
-                            getItemInfos.Add(getItemInfo);
-                        }
-                    }
-                }
-                */
                 foreach (var getItemInfo in symbolInfo.GetItemInfos)
                 {
                     switch (getItemInfo.GetItemType)
@@ -132,6 +97,94 @@ namespace Ryneus
                 symbolInfos.Add(symbolInfo);
             }
             return symbolInfos;
+        }
+
+        public List<HexUnitInfo> StageHexUnitInfos(List<StageSymbolData> stageSymbolDates,int clearCount = 0)
+        {
+            var symbolDates = stageSymbolDates.FindAll(a => a.InitX > 0 && a.ClearCount <= clearCount);
+            var hexUnitInfos = new List<HexUnitInfo>();
+            for (int i = 0;i < symbolDates.Count;i++)
+            {
+                var symbolMaster = symbolDates[i];
+                var hexUnitInfo = new HexUnitInfo(i,symbolMaster);
+                var randFlag = false;
+                var stageSymbolData = new StageSymbolData();
+                stageSymbolData.CopyData(symbolMaster);
+                // グループ指定
+                if (stageSymbolData.IsGroupSymbol())
+                {
+                    var groupId = (int)stageSymbolData.SymbolType;
+                    var groupDates = DataSystem.SymbolGroups.FindAll(a => a.GroupId == groupId);
+                    stageSymbolData = PickUpSymbolData(groupDates,symbolMaster);
+                    hexUnitInfo = new HexUnitInfo(i,stageSymbolData);
+                }
+                if (stageSymbolData.SymbolType == SymbolType.Random)
+                {
+                    stageSymbolData = RandomSymbolData(stageSymbolDates,symbolMaster);
+                    hexUnitInfo = new HexUnitInfo(i,stageSymbolData);
+                }
+                // 報酬リスト
+                var getItemInfos = new List<GetItemInfo>();
+                switch (stageSymbolData.SymbolType)
+                {
+                    case SymbolType.Battle:
+                    case SymbolType.Boss:
+                        hexUnitInfo.SetTroopInfo(BattleTroop(stageSymbolData));
+                        if (randFlag)
+                        {
+                            var numinosGetItem = MakeEnemyRandomNuminos(stageSymbolData.StageId,stageSymbolData.InitX);
+                            hexUnitInfo.TroopInfo.AddGetItemInfo(numinosGetItem);                  
+                        }
+                        
+                        if (hexUnitInfo.TroopInfo != null && hexUnitInfo.TroopInfo.GetItemInfos.Count > 0)
+                        {
+                            getItemInfos.AddRange(hexUnitInfo.TroopInfo.GetItemInfos);
+                        }       
+                        break;
+                    case SymbolType.Alcana:
+                        /*
+                        // アルカナランダムで報酬設定
+                        if (stageSymbolData.Param1 == -1)
+                        {
+                            var relicInfos = MakeSelectRelicGetItemInfos((RankType)stageSymbolData.Param2);
+                            getItemInfos.AddRange(relicInfos);
+                        }
+                        */
+                        break;
+                    case SymbolType.Resource:
+                        // 報酬設定
+                        getItemInfos.Add(MakeGetItemInfo(GetItemType.Currency,stageSymbolData.Param1));
+                        break;
+                    case SymbolType.Actor:
+                        // 表示用に報酬設定
+                        getItemInfos.Add(MakeGetItemInfo(GetItemType.AddActor,stageSymbolData.Param1));
+                        break;
+                    case SymbolType.SelectActor:
+                        getItemInfos.AddRange(MakeSelectActorGetItemInfos(stageSymbolData.Param2 == 0));
+                        break;
+                    case SymbolType.Shop:
+                        // Rank1,2からランダム設定
+                        //MakeShopGetItemInfos(getItemInfos,hexUnitInfo,RankType.ActiveRank2,1);
+                        //MakeShopGetItemInfos(getItemInfos,hexUnitInfo,RankType.PassiveRank1,2);
+                        //MakeShopGetItemInfos(getItemInfos,hexUnitInfo,RankType.PassiveRank2,3);
+                        break;
+                }
+                foreach (var getItemInfo in hexUnitInfo.GetItemInfos)
+                {
+                    switch (getItemInfo.GetItemType)
+                    {
+                        case GetItemType.SelectRelic:
+                            getItemInfos.AddRange(MakeSelectRelicGetItemInfos((RankType)getItemInfo.Param2,(AttributeType)getItemInfo.Param1));
+                            break;
+                        case GetItemType.SelectSkill:
+                            getItemInfos.AddRange(MakeSelectSkillGetItemInfos((RankType)getItemInfo.Param2,(AttributeType)getItemInfo.Param1));
+                            break;
+                    }
+                }
+                hexUnitInfo.AddGetItemInfos(getItemInfos);
+                hexUnitInfos.Add(hexUnitInfo);
+            }
+            return hexUnitInfos;
         }
 
         public GetItemInfo MakeGetItemInfo(GetItemType getItemType,int param1)
@@ -304,8 +357,8 @@ namespace Ryneus
             var stageSymbolData = new StageSymbolData
             {
                 StageId = symbolMaster.StageId,
-                Seek = symbolMaster.Seek,
-                SeekIndex = symbolMaster.SeekIndex
+                InitX = symbolMaster.InitX,
+                InitY = symbolMaster.InitY
             };
             stageSymbolData.ConvertSymbolGroupData(groupDates[targetIndex]);
             return stageSymbolData;
@@ -314,13 +367,13 @@ namespace Ryneus
         private StageSymbolData RandomSymbolData(List<StageSymbolData> stageSymbolDates,StageSymbolData symbolMaster)
         {
             // 候補を生成
-            var stageSymbolList = stageSymbolDates.FindAll(a => a.Seek == 0);
+            var stageSymbolList = stageSymbolDates.FindAll(a => a.InitX == 0);
             var stageSymbolData = new StageSymbolData
             {
                 SymbolType = SymbolType.None,
                 StageId = symbolMaster.StageId,
-                Seek = symbolMaster.Seek,
-                SeekIndex = symbolMaster.SeekIndex
+                InitX = symbolMaster.InitX,
+                InitY = symbolMaster.InitY
             };
             int targetRand = Random.Range(0,stageSymbolList.Sum(a => a.Rate));
             while (stageSymbolData.SymbolType == SymbolType.None)
@@ -397,7 +450,7 @@ namespace Ryneus
             // ランダム生成
             if (troopInfo.TroopMaster == null)
             {
-                troopInfo.MakeEnemyRandomTroopDates(stageSymbolData.Seek + lv,stageData.RandomTroopEnemyRates);
+                troopInfo.MakeEnemyRandomTroopDates(stageSymbolData.InitX + lv,stageData.RandomTroopEnemyRates);
                 //var numinosGetItem = MakeEnemyRandomNuminos(stageSymbolData.StageId,stageSymbolData.Seek);
                 //troopInfo.AddGetItemInfo(numinosGetItem);
                 // ランダム報酬データ設定

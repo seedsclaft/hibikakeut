@@ -21,6 +21,10 @@ namespace Ryneus
         public string Help;
         public int StageLv;
         public List<int> PartyMemberIds;
+        public int Width;
+        public int Height;
+        public int InitX;
+        public int InitY;
         public int RandomTroopWeight;
         public List<StageEnemyRate> RandomTroopEnemyRates;
         public string BackGround;
@@ -48,9 +52,10 @@ namespace Ryneus
     public class StageSymbolData
     {
         public int StageId;
-        public int Seek;
-        public int SeekIndex;
+        public int InitX;
+        public int InitY;
         public SymbolType SymbolType;
+        public HexUnitType UnitType;
         public int Rate;
         public int Param1;
         public int Param2;
@@ -70,8 +75,8 @@ namespace Ryneus
         {
             CopyParamData(stageSymbolData);
             StageId = stageSymbolData.StageId;
-            Seek = stageSymbolData.Seek;
-            SeekIndex = stageSymbolData.SeekIndex;
+            InitX = stageSymbolData.InitX;
+            InitY = stageSymbolData.InitY;
         }
 
         public void CopyParamData(StageSymbolData stageSymbolData)

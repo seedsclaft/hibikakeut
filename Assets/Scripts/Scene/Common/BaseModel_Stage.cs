@@ -13,6 +13,7 @@ namespace Ryneus
                 AddGetItemInfo(getItemInfo);          
             }
             stageInfo.SetSymbolInfos(GetStageSymbolInfos(stageId,clearCount));
+            stageInfo.SetHexUnitInfos(GetStageHexUnitInfos(stageId,clearCount));
             CurrentGameInfo.SetStageInfo(stageInfo);
             PartyInfo.StageId.SetValue(stageId);
             PartyInfo.Seek.SetValue(1);
@@ -24,7 +25,7 @@ namespace Ryneus
         {
             var getItemInfos = new List<GetItemInfo>();
             var stageSymbolDates = DataSystem.FindStage(stageId).StageSymbols;
-            stageSymbolDates = stageSymbolDates.FindAll(a => a.Seek == -1 && a.ClearCount <= clearCount);
+            stageSymbolDates = stageSymbolDates.FindAll(a => a.InitX == -1 && a.ClearCount <= clearCount);
             foreach (var stageSymbolData in stageSymbolDates)
             {
                 var symbolInfo = new SymbolInfo(stageSymbolData);
@@ -38,6 +39,11 @@ namespace Ryneus
             return StageSymbolInfos(DataSystem.FindStage(stageId).StageSymbols,clearCount);
         }
 
+        public List<HexUnitInfo> GetStageHexUnitInfos(int stageId,int clearCount)
+        {
+            return StageHexUnitInfos(DataSystem.FindStage(stageId).StageSymbols,clearCount);
+        }
+
         /// <summary>
         /// 表示するステージデータ
         /// </summary>
@@ -49,18 +55,18 @@ namespace Ryneus
             SymbolListChecker.Instance.SetModel(symbolInfos);
             foreach (var symbolInfo in symbolInfos)
             {
-                if (!symbolListDict.ContainsKey(symbolInfo.Master.Seek))
+                if (!symbolListDict.ContainsKey(symbolInfo.Master.InitX))
                 {
-                    symbolListDict[symbolInfo.Master.Seek] = new List<SymbolInfo>();
+                    symbolListDict[symbolInfo.Master.InitX] = new List<SymbolInfo>();
                 }
-                symbolListDict[symbolInfo.Master.Seek].Add(symbolInfo);
+                symbolListDict[symbolInfo.Master.InitX].Add(symbolInfo);
             }
 
             var listData = new List<ListData>();
             foreach (var symbolList in symbolListDict)
             {
                 var list = new ListData(symbolList.Value);
-                list.SetSelected(symbolList.Value[0].Master.Seek == PartyInfo.Seek.Value);
+                list.SetSelected(symbolList.Value[0].Master.InitX == PartyInfo.Seek.Value);
                 listData.Add(list);
             }
             return listData;
@@ -71,7 +77,7 @@ namespace Ryneus
             var symbolInfos = CurrentStage?.SymbolInfos;
             if (PartyInfo != null && symbolInfos != null)
             {
-                return symbolInfos.Find(a => a.Master.Seek == PartyInfo.Seek.Value && a.Master.SeekIndex == PartyInfo.SeekIndex.Value);
+                return symbolInfos.Find(a => a.Master.InitX == PartyInfo.Seek.Value && a.Master.InitY == PartyInfo.SeekIndex.Value);
             }
             return null;
         }

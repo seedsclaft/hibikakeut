@@ -35,7 +35,7 @@ namespace Ryneus
                 } else
                 {
                     var stageData = DataSystem.FindStage(dates[0].Master.StageId);
-                    stageDataText?.SetText(stageData.StageNo + "-" + dates[0].Master.Seek.ToString());
+                    stageDataText?.SetText(stageData.StageNo + "-" + dates[0].Master.InitX.ToString());
                 }
             }
         }

@@ -20,7 +20,7 @@ namespace Ryneus
         public BaseList GetItemList => getItemList;
         private SymbolInfo _symbolInfo = null;
         public SymbolInfo SymbolInfo => _symbolInfo;
-        public int Seek => _symbolInfo != null ? _symbolInfo.Master.Seek : -1;
+        public int Seek => _symbolInfo != null ? _symbolInfo.Master.InitX : -1;
 
         private bool _animationInit = false;
 

@@ -27,7 +27,7 @@ namespace Ryneus
         }
 
         // 現在のステージ場所
-        private StageData StageMaster => DataSystem.FindStage(StageId.Value);
+        public StageData StageMaster => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
         public ParameterInt Seek = new();
         public ParameterInt SeekIndex = new();

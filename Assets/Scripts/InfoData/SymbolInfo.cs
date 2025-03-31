@@ -8,7 +8,7 @@ namespace Ryneus
     {
         [UnityEngine.SerializeField] private StageSymbolData _stageSymbolData;
         public StageSymbolData Master => _stageSymbolData;
-        public SymbolType SymbolType => Master.SymbolType;
+        public SymbolType SymbolType => SymbolType.None;
 
         [UnityEngine.SerializeField] private TroopInfo _troopInfo = null;
         public TroopInfo TroopInfo => _troopInfo;
