@@ -44,6 +44,11 @@ namespace Ryneus
         public void SetSelectIndex(int selectIndex)
         {
             hexList.UpdateSelectIndex(selectIndex);
+        }        
+        
+        public void Refresh()
+        {
+            hexList.Refresh();
         }
     }
 }

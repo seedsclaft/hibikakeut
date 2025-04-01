@@ -40,6 +40,7 @@ namespace Ryneus
         BattleParty,
         Strategy,
         FileList,
+        CharacterList,
         Option,
         Confirm,
     }

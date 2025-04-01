@@ -15,6 +15,8 @@ namespace Ryneus
         
         private List<HexUnitInfo> _hexUnitList = new();
         public List<HexUnitInfo> HexUnitList => _hexUnitList;
+        public void AddHexUnitInfo(HexUnitInfo hexUnit) => _hexUnitList.Add(hexUnit);
+        public void AddHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList.AddRange(hexUnitList);
         public void SetHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList = hexUnitList;
         
         

@@ -9,10 +9,10 @@ namespace Ryneus
         CharacterListView _view = null;
 
         private bool _busy = true;
-        public CharacterListPresenter(CharacterListView view,List<ActorInfo> actorInfos)
+        public CharacterListPresenter(CharacterListView view)
         {
             _view = view;
-            _model = new CharacterListModel(actorInfos);
+            _model = new CharacterListModel();
 
             SetView(_view);
             SetModel(_model);
@@ -25,34 +25,31 @@ namespace Ryneus
             _view.SetHelpInputInfo("CHARACTER_LIST");
             _view.SetCharacterList(MakeListData(_model.ActorInfos));
             _view.OpenAnimation();
+            _busy = false;
         }
 
-        private void UpdateCommand(CharacterListViewEvent viewEvent)
+        private void UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
             {
                 return;
             }
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.CharacterList)
+            {
+                return;
+            }
+            switch (viewEvent.ViewCommandType.CommandType)
+            {
+                case CharacterList.CommandType.DecideActor:
+                    CommandDecideActor((ActorInfo)viewEvent.template);
+                    break;
+            }
         }
-    }
 
-    public class CharacterListInfo
-    {
-        private System.Action<int> _callEvent;
-        public System.Action<int> CallEvent => _callEvent;
-        public CharacterListInfo(System.Action<int> callEvent,System.Action backEvent)
+        private void CommandDecideActor(ActorInfo actorInfo)
         {
-            _callEvent = callEvent;
-            _backEvent = backEvent;
-        }
-        private System.Action _backEvent;
-        public System.Action BackEvent => _backEvent;
-        
-        private List<ActorInfo> _actorInfos;
-        public List<ActorInfo> ActorInfos => _actorInfos;
-        public void SetActorInfos(List<ActorInfo> actorInfos)
-        {
-            _actorInfos = actorInfos;
+            _view.BackEvent();
+            _model.CallDecideEvent(actorInfo);
         }
     }
 }

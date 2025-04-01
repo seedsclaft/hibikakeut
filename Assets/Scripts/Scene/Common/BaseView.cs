@@ -375,7 +375,6 @@ namespace Ryneus
             CallOptionView,
             CallSideMenu,
             CallRankingView,
-            CallCharacterListView,
             CallHelpView,
             CallSlotSaveView,
             CallStatusView,

@@ -9,10 +9,11 @@ namespace Ryneus
         {
             None = 0,
             CallTacticsCommand,
+            CancellTacticsCommand,
             CallStatus,
             OnClickSymbol,
             OnCancelSymbol,
-            SelectSymbol,
+            SelectHexUnit,
             SymbolDetailInfo,
             PopupSkillInfo,
             SelectRecord,

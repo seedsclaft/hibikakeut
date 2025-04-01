@@ -13,10 +13,10 @@ namespace Ryneus
         {
             if (ListData == null) return;
             var hexPosition = ListItemData<(int,int)>();
-            var hexData = GameSystem.GameInfo.StageInfo.HexUnitList.Find(a => a.PositionX.Value == hexPosition.Item1 && a.PositionY.Value == hexPosition.Item2);
-            if (hexData != null)
+            var hexUnit = GameSystem.GameInfo.StageInfo.HexUnitList.Find(a => a.HexField.X == hexPosition.Item1 && a.HexField.Y == hexPosition.Item2);
+            if (hexUnit != null)
             {
-                hexUnitComponent.UpdateInfo(hexData);
+                hexUnitComponent.UpdateInfo(hexUnit);
             } else
             {
                 hexUnitComponent.Clear();

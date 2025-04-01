@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Ryneus
 {
     using Tactics;
+    using UnityEngine.U2D;
 
     public partial class TacticsPresenter : BasePresenter
     {
@@ -73,7 +74,7 @@ namespace Ryneus
             _view.SetBackGround(_model.CurrentStage?.Master?.BackGround);
             
             _view.SetStageInfo(_model.CurrentStage);
-            _view.SetTacticsCommand(MakeListData(_model.TacticsCommand()));
+            //_view.SetTacticsCommand(MakeListData(_model.TacticsCommand()));
             //_view.SetSymbols(ListData.MakeListData(_model.TacticsSymbols()));
             _view.SetUIButton();
             _view.SetBackGround(_model.CurrentStage.Master.BackGround);
@@ -197,6 +198,9 @@ namespace Ryneus
                 case CommandType.CallTacticsCommand:
                     CommandCallTacticsCommand();
                     break;
+                case CommandType.CancellTacticsCommand:
+                    CommandCancellTacticsCommand();
+                    break;
                 case CommandType.OnClickSymbol:
                     CommandOnClickSymbol((SymbolInfo)viewEvent.template);
                     break;
@@ -209,8 +213,8 @@ namespace Ryneus
                 case CommandType.CallStatus:
                     CommandStatus();
                     break;
-                case CommandType.SelectSymbol:
-                    CommandSelectRecord((SymbolResultInfo)viewEvent.template);
+                case CommandType.SelectHexUnit:
+                    CommandSelectHexUnit();
                     break;
                 case CommandType.CallEnemyInfo:
                     //if (_model.CurrentStageTutorialDates.Count > 0) return;
@@ -598,6 +602,9 @@ namespace Ryneus
             var tacticsCommandData = _view.TacticsCommandData;
             switch (tacticsCommandData.Key)
             {
+                case "Departure":
+                    CommandCallDeparture();
+                    break;
                 case "PARADIGM":
                     CommandCallSymbol();
                     break;
@@ -611,6 +618,48 @@ namespace Ryneus
                     CommandSave();
                     break;
             }
+        }
+
+        private void CommandCancellTacticsCommand()
+        {
+            _view.EndTacticsCommand();
+        }
+
+        private void CommandCallDeparture()
+        {
+            _busy = true;
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var characterListInfo = new CharacterListInfo((a) => 
+            {
+                _view.EndTacticsCommand();
+                _view.CallSystemCommand(Base.CommandType.ClosePopup);
+                CommandDepartureHex();
+                CommandRefresh();
+                _busy = false;
+            },
+            () => 
+            {
+                CommandRefresh();
+                _busy = false;
+            });
+            characterListInfo.SetActorInfos(_model.StageMembers());
+            
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.CharacterList,
+                template = characterListInfo,
+                EndEvent = () =>
+                {
+                    CommandRefresh();
+                    _busy = false;
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
+        }
+
+        private void CommandDepartureHex()
+        {
+            _model.MakeDepartureHex();
         }
 
 /*
@@ -647,20 +696,26 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 
-        private void CommandSelectRecord(SymbolResultInfo recordInfo)
+        private void CommandSelectHexUnit()
         {
-            var currentTurn = _model.PartyInfo.Seek;
-            var currentStage = _model.PartyInfo.StageId;
-            if (recordInfo.Seek == currentTurn.Value && recordInfo.StageId == currentStage.Value)
+            var hexUnit = _model.HexUnit();
+            if (hexUnit == null)
             {
-                // 現在
-                CommandCurrentSelectRecord(recordInfo);
-            } else
-            if (recordInfo.Seek > currentTurn.Value && recordInfo.StageId == currentStage.Value)
-            {
-                // 未来
-                CommandCautionInfo(DataSystem.GetText(19340));
+                return;
             }
+            switch (hexUnit.HexUnitType)
+            {
+                case HexUnitType.Battler:
+                    break;
+                case HexUnitType.Basement:
+                    CommandSelectBasement();
+                    break;
+            }
+        }
+
+        private void CommandSelectBasement()
+        {
+            _view.SetTacticsCommand(_model.BasementCommand());
         }
 
         private void CommandCurrentSelectRecord(SymbolResultInfo recordInfo)
@@ -967,6 +1022,7 @@ namespace Ryneus
 
         private void CommandRefresh()
         {
+            _view.RefreshTiles();
             //_view.SetSaveScore(_model.TotalScore);
             _view.SetStageInfo(_model.CurrentStage);
             //_view.SetAlcanaInfo(_model.AlcanaSkillInfos());

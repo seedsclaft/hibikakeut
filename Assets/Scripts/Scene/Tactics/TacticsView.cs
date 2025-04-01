@@ -67,10 +67,25 @@ namespace Ryneus
         {
             tacticsCommandList.Initialize();
             tacticsCommandList.SetInputHandler(InputKeyType.Decide,() => CallTacticsCommand());
-            tacticsCommandList.SetInputHandler(InputKeyType.Option1,() => CallStatus());
+            tacticsCommandList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.CancellTacticsCommand));
+            //tacticsCommandList.SetInputHandler(InputKeyType.Option1,() => CallStatus());
             tacticsCommandList.SetSelectedHandler(() => UpdateHelpWindow());
             SetInputHandler(tacticsCommandList.gameObject);
             AddViewActives(tacticsCommandList);
+        }
+
+        public void SetTacticsCommand(List<ListData> menuCommands)
+        {
+            tacticsCommandList.gameObject.SetActive(true);
+            SetActivate(tacticsCommandList);
+            tacticsCommandList.SetData(menuCommands);
+            UpdateHelpWindow();
+        }
+
+        public void EndTacticsCommand()
+        {
+            tacticsCommandList.gameObject.SetActive(false);
+            SetActivate(hexTiles);
         }
 
         private void CallTacticsCommand()
@@ -125,6 +140,7 @@ namespace Ryneus
         private void InitializeHexTileList()
         {
             hexTiles.Initialize();
+            hexTiles.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.SelectHexUnit));
             hexTiles.SetInputHandler(InputKeyType.Up,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Up));
             hexTiles.SetInputHandler(InputKeyType.Down,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Down));
             hexTiles.SetInputHandler(InputKeyType.Right,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Right));
@@ -145,6 +161,11 @@ namespace Ryneus
         public void UpdateHexIndex(int x,int y)
         {
             hexTiles.SetLine(x,y);
+        }
+
+        public void RefreshTiles()
+        {
+            hexTiles.Refresh();
         }
 
         private void InitializeSymbolInfoList()
@@ -213,12 +234,6 @@ namespace Ryneus
             CallViewEvent(CommandType.SelectSideMenu);
         }
 
-        public void SetTacticsCommand(List<ListData> menuCommands)
-        {
-            tacticsCommandList.SetData(menuCommands);
-            UpdateHelpWindow();
-            SetActivate(tacticsCommandList);
-        }
         
 
         private void UpdateHelpWindow()

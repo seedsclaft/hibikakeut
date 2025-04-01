@@ -8,33 +8,27 @@ namespace Ryneus
     {
         [SerializeField] private BaseList characterList = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
-        private new System.Action<CharacterListViewEvent> _commandData = null;
-        private System.Action<int> _callEvent = null;
         
-        public void Initialize(List<ActorInfo> actorInfos) 
+        public override void Initialize() 
         {
             base.Initialize();
-            characterList.Initialize();
+            SetViewCommandSceneType(ViewCommandSceneType.CharacterList);
+            InitializeCharacterList();
             SetBaseAnimation(popupAnimation);
-            new CharacterListPresenter(this,actorInfos);
-            characterList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
-            characterList.SetInputHandler(InputKeyType.Decide,() => CallDecideActor());
-            SetInputHandler(characterList.GetComponent<IInputHandlerEvent>());
+            new CharacterListPresenter(this);
         }
 
         public void OpenAnimation()
         {
             popupAnimation.OpenAnimation(UiRoot.transform,null);
         }
-        
-        public void SetViewInfo(CharacterListInfo characterListInfo)
+
+        private void InitializeCharacterList()
         {
-            _callEvent = characterListInfo.CallEvent;
-        }
-        
-        public void SetEvent(System.Action<CharacterListViewEvent> commandData)
-        {
-            _commandData = commandData;
+            characterList.Initialize();
+            characterList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
+            characterList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CharacterList.CommandType.DecideActor,characterList.ListItemData<ActorInfo>()));
+            SetInputHandler(characterList.gameObject);
         }
 
         public void SetCharacterList(List<ListData> characterLists)
@@ -42,35 +36,14 @@ namespace Ryneus
             characterList.SetData(characterLists);
             characterList.Activate();
         }
+    }
 
-        private void CallDecideActor()
+    namespace CharacterList
+    {
+        public enum CommandType
         {
-            var listData = characterList.ListData;
-            if (listData != null)
-            {
-                Ryneus.SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                var data = (ActorInfo)listData.Data;
-                _callEvent(data.ActorId.Value);
-            }
+            None = 0,
+            DecideActor = 1,
         }
-    }
-}
-namespace CharacterList
-{
-    public enum CommandType
-    {
-        None = 0,
-        DecideActor = 0,
-    }
-}
-
-public class CharacterListViewEvent
-{
-    public CharacterList.CommandType commandType;
-    public object template;
-
-    public CharacterListViewEvent(CharacterList.CommandType type)
-    {
-        commandType = type;
     }
 }

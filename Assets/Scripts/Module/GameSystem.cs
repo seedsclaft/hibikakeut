@@ -158,9 +158,6 @@ namespace Ryneus
                 case Base.CommandType.CallRankingView:
                     CommandRankingView((RankingViewInfo)viewEvent.template);
                     break;
-                case Base.CommandType.CallCharacterListView:
-                    CommandCharacterListView((CharacterListInfo)viewEvent.template);
-                    break;
                 case Base.CommandType.CallHelpView:
                     CommandHelpView((List<ListData>)viewEvent.template);
                     break;
@@ -389,21 +386,6 @@ namespace Ryneus
             {
                 rankingView.CallSystemCommand(Base.CommandType.ClosePopup);
                 rankingViewInfo.EndEvent?.Invoke();
-            });
-            SetIsBusyMainAndStatus();
-        }
-
-        private void CommandCharacterListView(CharacterListInfo characterListInfo)
-        {
-            var prefab = popupAssign.CreatePopup(PopupType.CharacterList,helpWindow);
-            var characterListView = prefab.GetComponent<CharacterListView>();
-            characterListView.SetEvent((type) => UpdateCommand(type));
-            characterListView.Initialize(characterListInfo.ActorInfos);
-            characterListView.SetViewInfo(characterListInfo);
-            characterListView.SetBackEvent(() => 
-            {
-                characterListInfo.BackEvent?.Invoke();
-                characterListView.CallSystemCommand(Base.CommandType.ClosePopup);
             });
             SetIsBusyMainAndStatus();
         }

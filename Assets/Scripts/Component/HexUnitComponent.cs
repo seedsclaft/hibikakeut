@@ -10,6 +10,7 @@ namespace Ryneus
     {
         [SerializeField] private Image symbolImage;
         [SerializeField] private Image enemyImage;
+        [SerializeField] private GameObject selectArea;
         [SerializeField] private List<Sprite> symbolSprites;
         [SerializeField] private GameObject evaluateRoot;
         [SerializeField] private TextMeshProUGUI evaluate;
@@ -26,13 +27,14 @@ namespace Ryneus
             getItemList?.Initialize();
         }
 
-        public void UpdateInfo(HexUnitInfo  symbolInfo)
+        public void UpdateInfo(HexUnitInfo symbolInfo)
         {
             _hexUnitInfo = symbolInfo;
             if (_hexUnitInfo == null)
             {
                 return;
             }
+            selectArea?.SetActive(_hexUnitInfo.IsSelectArea);
             UpdateSymbolImage();
             UpdateEvaluate();
             if (getItemList != null)
@@ -50,6 +52,7 @@ namespace Ryneus
                 return;
             }
             if (_hexUnitInfo.HexUnitType == HexUnitType.Group) return;
+            if (_hexUnitInfo.HexUnitType == HexUnitType.Reach) return;
             //if (_hexUnitInfo.HexUnitType == HexUnitType.Random) return;
             if (_hexUnitInfo.IsBattleSymbol())
             {

@@ -11,18 +11,19 @@ namespace Ryneus
             SetHexUnitType(stageSymbolData.UnitType);
             SetPosition(stageSymbolData.InitX,stageSymbolData.InitY);
         }
-        public ParameterInt Index = new();
 
-        public ParameterInt PositionX = new();
-        public ParameterInt PositionY = new();
+        private HexField _hexField = new();
+        public HexField HexField => _hexField;        
+        
+        public ParameterInt Index = new();
         public void SetPosition(int x,int y)
         {
-            PositionX.SetValue(x);
-            PositionY.SetValue(y);
+            _hexField.X = x;
+            _hexField.Y = y;
         }
 
-        public ParameterInt TeamIndex = new();
-
+        public bool IsUnit => _hexUnitType == HexUnitType.Battler;
+        public bool IsSelectArea => _hexUnitType == HexUnitType.Reach;
         private HexUnitType _hexUnitType = HexUnitType.None;
         public HexUnitType HexUnitType => _hexUnitType;
         public void SetHexUnitType(HexUnitType hexUnitType) => _hexUnitType = hexUnitType;
@@ -66,12 +67,14 @@ namespace Ryneus
         None = 0,
         Battler = 10,
         Boss = 11,
-        Event = 20,
+        Basement = 20,
+        Departure = 21, // 出撃する場所
         Alcana = 30,
         Actor = 40,
         Resource = 50,
         SelectActor = 60,
         Shop = 70,
         Group = 99, // 99以上はグループ指定
+        Reach = 1000,
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Ryneus
@@ -26,6 +27,15 @@ namespace Ryneus
                 _hexTileLists[x].SetSelectIndex(y);
                 _lineX = x;
                 _lineY = y;
+            }
+        }
+
+        public void Refresh()
+        {
+            base.Refresh();
+            foreach (var hexTileList in _hexTileLists)
+            {
+                hexTileList.Refresh();
             }
         }
     }

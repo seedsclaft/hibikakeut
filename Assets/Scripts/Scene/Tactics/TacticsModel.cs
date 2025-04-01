@@ -12,6 +12,11 @@ namespace Ryneus
         {
             _sceneParam = (TacticsSceneInfo)GameSystem.SceneStackManager.LastSceneParam;
             SetFirstBattleActorId();
+            var stageData = CurrentGameInfo.StageInfo?.Master;
+            if (stageData != null)
+            {
+                _hexRoute = new HexRoute(stageData.Width,stageData.Height,CurrentGameInfo.StageInfo.HexUnitList);
+            }
         }
         
         private ActorInfo _swapFromActor = null;
@@ -394,9 +399,7 @@ namespace Ryneus
 
         public ParameterInt LineX = new();
         public ParameterInt LineY = new();
-        public void SetInitPosition()
-        {
-        }
+        private HexRoute _hexRoute;
         public void MoveLine(int x,int y)
         {
             var stageData = PartyInfo.StageMaster;
@@ -413,6 +416,48 @@ namespace Ryneus
                 list.Add(i);
             }
             return list;
+        }        
+        
+        public HexUnitInfo HexUnit()
+        {
+            var hexUnit = CurrentGameInfo.StageInfo.HexUnitList.Find(a => a.HexField.X == LineX.Value && a.HexField.Y == LineY.Value);
+            return hexUnit;
+        }
+
+        public void MakeDepartureHex()
+        {
+            var hexUnit = CurrentGameInfo.StageInfo.HexUnitList.Find(a => a.HexField.X == LineX.Value && a.HexField.Y == LineY.Value);
+            var pathes = _hexRoute.GetReachableArea(MoveType.Normal,hexUnit.HexField,2);
+            var depaterIndex = 1000;
+            foreach (var path in pathes)
+            {
+                var unitData = new StageSymbolData
+                {
+                    InitX = path.X,
+                    InitY = path.Y,
+                    UnitType = HexUnitType.Reach
+                };
+                var depaterUnit = new HexUnitInfo(depaterIndex,unitData);
+                CurrentGameInfo.StageInfo.AddHexUnitInfo(depaterUnit);
+                depaterIndex++;
+            }
+        }
+
+        public List<ListData> BasementCommand()
+        {
+            var list = new List<SystemData.CommandData>();
+            var departure = new SystemData.CommandData
+            {
+                Id = 1,
+                Name = "Departure",
+                Key = "Departure"
+            };
+            list.Add(departure);
+            Func<SystemData.CommandData,bool> enable = (a) => 
+            {
+                return true;
+            };
+            return MakeListData(list,enable);
         }
     }
 
