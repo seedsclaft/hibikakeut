@@ -400,8 +400,24 @@ namespace Ryneus
         public ParameterInt LineX = new();
         public ParameterInt LineY = new();
         private HexRoute _hexRoute;
+        private List<HexField> _reachPathes = new();
+        private string _commandKey = "";
+        public string CommandKey =>_commandKey;
+        public void SetCommandKey(string key) => _commandKey = key;
+        private ParameterInt SelectingHexUnitId = new();
+        private int _departureActorId = -1;
+        public void SetDepatureActorId(int departureActorId) => _departureActorId = departureActorId;
         public void MoveLine(int x,int y)
         {
+            if (_reachPathes.Count > 0)
+            {
+                var nextX = LineX.Value + x;
+                var nextY = LineY.Value + y;
+                if (_reachPathes.Find(a => a.X == nextX && a.Y == nextY) == null)
+                {
+                    return;
+                }
+            }
             var stageData = PartyInfo.StageMaster;
             LineX.GainValue(x,0,stageData.Width-1);
             LineY.GainValue(y,0,stageData.Height-1);
@@ -427,9 +443,9 @@ namespace Ryneus
         public void MakeDepartureHex()
         {
             var hexUnit = CurrentGameInfo.StageInfo.HexUnitList.Find(a => a.HexField.X == LineX.Value && a.HexField.Y == LineY.Value);
-            var pathes = _hexRoute.GetReachableArea(MoveType.Normal,hexUnit.HexField,2);
+            _reachPathes = _hexRoute.GetReachableArea(MoveType.Normal,hexUnit.HexField,1);
             var depaterIndex = 1000;
-            foreach (var path in pathes)
+            foreach (var path in _reachPathes)
             {
                 var unitData = new StageSymbolData
                 {
@@ -443,13 +459,104 @@ namespace Ryneus
             }
         }
 
+        public void MakeMoveBattlerHex()
+        {
+            var hexUnit = CurrentGameInfo.StageInfo.HexUnitList.Find(a => a.HexField.X == LineX.Value && a.HexField.Y == LineY.Value);
+            SelectingHexUnitId.SetValue(hexUnit.Index.Value);
+            _reachPathes = _hexRoute.GetReachableArea(MoveType.Normal,hexUnit.HexField,2);
+            var moveBattlerIndex = 1000;
+            foreach (var path in _reachPathes)
+            {
+                var unitData = new StageSymbolData
+                {
+                    InitX = path.X,
+                    InitY = path.Y,
+                    UnitType = HexUnitType.Reach
+                };
+                var moveBattlerUnit = new HexUnitInfo(moveBattlerIndex,unitData);
+                CurrentGameInfo.StageInfo.AddHexUnitInfo(moveBattlerUnit);
+                moveBattlerIndex++;
+            }
+        }
+
+        public void SelectDeparture()
+        {
+            // 出撃する
+            var depaterActorIndex = CurrentGameInfo.StageInfo.HexUnitList.FindAll(a => a.HexUnitType == HexUnitType.Battler).Count + 1;
+            
+            var unitData = new StageSymbolData
+            {
+                InitX = LineX.Value,
+                InitY = LineY.Value,
+                UnitType = HexUnitType.Battler,
+            };
+            var depaterActor = new HexUnitInfo(depaterActorIndex,unitData);
+            depaterActor.SetActorInfos(new List<ActorInfo>(){StageMembers().Find(a => a.ActorId.Value == _departureActorId)});
+            CurrentGameInfo.StageInfo.AddHexUnitInfo(depaterActor);
+
+            // Reachを消去
+            CurrentGameInfo.StageInfo.RemoveReachUnitInfo();
+            _reachPathes.Clear();
+            _selectActorId = -1;
+        }
+        
+        public (List<Action>,HexUnitInfo) SelectMoveBattler()
+        {
+            var moveActions = new List<Action>();
+            var pathes = new List<HexPath>();
+            // 移動する
+            var moveBattler = CurrentGameInfo.StageInfo.HexUnitList.Find(a => a.Index.Value == SelectingHexUnitId.Value);
+            if (moveBattler != null)
+            {
+                var endHexUnit = new HexField
+                {
+                    X = LineX.Value,
+                    Y = LineY.Value
+                };
+                // 移動ルート作成
+                _hexRoute.FindRoute(MoveType.Normal,moveBattler.HexField,endHexUnit);
+                pathes = _hexRoute.Pathlist;
+                pathes.Reverse();
+                foreach (var path in pathes)
+                {
+                    void action()
+                    {
+                        moveBattler.HexField.X = path.X;
+                        moveBattler.HexField.Y = path.Y;
+                    }
+                    moveActions.Add(action);
+                }
+            }
+            // Reachを消去
+            CurrentGameInfo.StageInfo.RemoveReachUnitInfo();
+            _reachPathes.Clear();
+            return (moveActions,moveBattler);
+        }
+
+        public List<ListData> BattlerCommand()
+        {
+            var list = new List<SystemData.CommandData>();
+            var move = new SystemData.CommandData
+            {
+                Id = 1,
+                Name = "移動",
+                Key = "MoveBattler"
+            };
+            list.Add(move);
+            Func<SystemData.CommandData,bool> enable = (a) => 
+            {
+                return true;
+            };
+            return MakeListData(list,enable);
+        }
+
         public List<ListData> BasementCommand()
         {
             var list = new List<SystemData.CommandData>();
             var departure = new SystemData.CommandData
             {
                 Id = 1,
-                Name = "Departure",
+                Name = "出撃",
                 Key = "Departure"
             };
             list.Add(departure);

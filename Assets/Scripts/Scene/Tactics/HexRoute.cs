@@ -12,17 +12,19 @@ namespace Ryneus
         private HexField GetField(int x,int y) => _fields.Find(a => a.X == x && a.Y == y);
         private List<HexField> _openList = new();
         private List<HexField> _closedList = new();
-        private int width;
-        private int height;
+        private int _width;
+        private int _height;
         private List<HexUnitInfo> _hexUnitInfos;
         private int _goalColX = 0;
         private int _goalRowY = 0;
         private int _moveCost = 0;
+        private List<HexPath> _pathlist = new();
+        public List<HexPath> Pathlist => _pathlist;
 
         public HexRoute(int mapX,int mapY,List<HexUnitInfo> hexUnitInfos)
         {
-            width = mapX;
-            height = mapY;
+            _width = mapX;
+            _height = mapY;
             MakeFields(mapX,mapY);
             _hexUnitInfos = hexUnitInfos;
             UpdateIsUnit();
@@ -83,7 +85,7 @@ namespace Ryneus
             {
                 return false;
             }
-            if (colX >= width || rowY >= height) 
+            if (colX >= _width || rowY >= _height) 
             {
                 return false;
             }
@@ -104,7 +106,7 @@ namespace Ryneus
 
             // 地形と移動タイプから実コストを計算
             var aCost = parent.ACost + 1/*mapData[colX][rowY].Terrain.cost[_moveType]*/;
-            if (aCost > 1/*moveCost*/) 
+            if (aCost > _moveCost) 
             { 
                 // 移動コストより大きい場合、オープンしない
                 return false;
@@ -209,7 +211,7 @@ namespace Ryneus
             }
 
             // 偶数のときは、X座標−１と隣接している
-            if (rowY % 2 == 0) 
+            if (colX % 2 == 0) 
             {
                 if (CheckIsNodeValid(colX + 1, rowY - 1, currentNode)) 
                 {
@@ -231,7 +233,7 @@ namespace Ryneus
             }
 
             // 偶数のときは、X座標−１と隣接している
-            if (rowY % 2 == 0) 
+            if (colX % 2 == 0) 
             {
                 if (CheckIsNodeValid(colX - 1, rowY - 1, currentNode)) 
                 {
@@ -239,9 +241,9 @@ namespace Ryneus
                 }
             } else 
             {
-                if (CheckIsNodeValid(colX - 1, rowY - 1, currentNode)) 
+                if (CheckIsNodeValid(colX + 1, rowY + 1, currentNode)) 
                 {
-                    OpenNode(colX - 1, rowY - 1, currentNode);
+                    OpenNode(colX + 1, rowY + 1, currentNode);
                 }
             }
 
@@ -259,13 +261,13 @@ namespace Ryneus
         
         public HexPath GetPath(HexField node)
         {
-            var pathlist = new List<HexPath>();
+            _pathlist = new();
 
             var path = new HexPath();
             path.X = node.X;
             path.Y = node.Y;
             path.Obj = null;
-            pathlist.Add(path);
+            _pathlist.Add(path);
             while (true) 
             {
                 if (node.Parent.Parent == null) 
@@ -278,7 +280,7 @@ namespace Ryneus
                 path.X = node.X;
                 path.Y = node.Y;
                 path.Obj = null;
-                pathlist.Add(path);
+                _pathlist.Add(path);
             }
         }
 
@@ -309,7 +311,7 @@ namespace Ryneus
 
             _moveType = moveType;
 
-            RefreshField(width,height); // リフレッシュする
+            RefreshField(_width,_height); // リフレッシュする
 
             // ゴールの登録
             _goalColX = goalHex.X;
@@ -351,7 +353,7 @@ namespace Ryneus
             _moveType = moveType; // 移動タイプ
             _moveCost = moveCost; // 移動コスト
 
-            RefreshField(width,height); // リフレッシュする
+            RefreshField(_width,_height); // リフレッシュする
 
             // スタートのノードを追加
             OpenStartNode(startHex.X, startHex.Y);

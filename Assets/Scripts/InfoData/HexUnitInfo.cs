@@ -42,6 +42,13 @@ namespace Ryneus
             _troopInfo = troopInfo;
         }
 
+        [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = null;
+        public List<ActorInfo> ActorInfos => _actorInfos;
+        public void SetActorInfos(List<ActorInfo> actorInfos)
+        {
+            _actorInfos = actorInfos;
+        }
+
         public int BattleEvaluate()
         {
             if (_troopInfo != null)

@@ -32,6 +32,7 @@ namespace Ryneus
             _hexUnitInfo = symbolInfo;
             if (_hexUnitInfo == null)
             {
+                Clear();
                 return;
             }
             selectArea?.SetActive(_hexUnitInfo.IsSelectArea);
@@ -58,7 +59,14 @@ namespace Ryneus
             {
                 symbolImage.gameObject.SetActive(false);
                 enemyImage.gameObject.SetActive(true);
-                enemyImage.sprite = ResourceSystem.LoadEnemySprite(_hexUnitInfo.TroopInfo.BossEnemy.EnemyData.ImagePath);
+                if (_hexUnitInfo.TroopInfo != null)
+                {
+                    enemyImage.sprite = ResourceSystem.LoadEnemySprite(_hexUnitInfo.TroopInfo.BossEnemy.EnemyData.ImagePath);
+                }
+                if (_hexUnitInfo.ActorInfos != null)
+                {
+                    enemyImage.sprite = ResourceSystem.LoadActorMainFaceSprite(_hexUnitInfo.ActorInfos[0].Master.ImagePath);
+                }
             } else
             {
                 if (symbolImage != null && symbolSprites != null)
@@ -142,6 +150,7 @@ namespace Ryneus
         {
             symbolImage.gameObject.SetActive(false);
             enemyImage.gameObject.SetActive(false);
+            selectArea?.SetActive(false);
         }
     }
 }

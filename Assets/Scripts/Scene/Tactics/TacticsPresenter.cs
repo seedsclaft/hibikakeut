@@ -192,7 +192,7 @@ namespace Ryneus
             {
                 return;
             }
-            //Debug.Log(viewEvent.commandType);
+            Debug.Log(viewEvent.ViewCommandType.CommandType);
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.CallTacticsCommand:
@@ -600,10 +600,14 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var tacticsCommandData = _view.TacticsCommandData;
+            _model.SetCommandKey(tacticsCommandData.Key);
             switch (tacticsCommandData.Key)
             {
                 case "Departure":
                     CommandCallDeparture();
+                    break;
+                case "MoveBattler":
+                    CommandCallMoveBattler();
                     break;
                 case "PARADIGM":
                     CommandCallSymbol();
@@ -629,8 +633,9 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var characterListInfo = new CharacterListInfo((a) => 
+            var characterListInfo = new CharacterListInfo((int actorId) => 
             {
+                _model.SetDepatureActorId(actorId);
                 _view.EndTacticsCommand();
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 CommandDepartureHex();
@@ -660,8 +665,17 @@ namespace Ryneus
         private void CommandDepartureHex()
         {
             _model.MakeDepartureHex();
+            _view.RefreshTiles();
+            _view.UpdateHexIndex(_model.LineX.Value,_model.LineY.Value);
         }
 
+        private void CommandCallMoveBattler()
+        {
+            _view.EndTacticsCommand();
+            _model.MakeMoveBattlerHex();
+            _view.RefreshTiles();
+            _view.UpdateHexIndex(_model.LineX.Value,_model.LineY.Value);
+        }
 /*
         private void CommandStageSymbol()
         {
@@ -706,16 +720,41 @@ namespace Ryneus
             switch (hexUnit.HexUnitType)
             {
                 case HexUnitType.Battler:
+                    CommandSelectBattler();
                     break;
                 case HexUnitType.Basement:
                     CommandSelectBasement();
                     break;
+                case HexUnitType.Reach:
+                    CommandSelectReach();
+                    break;
             }
+        }
+
+        private void CommandSelectBattler()
+        {
+            _view.SetTacticsCommand(_model.BattlerCommand());
         }
 
         private void CommandSelectBasement()
         {
             _view.SetTacticsCommand(_model.BasementCommand());
+        }
+
+        private void CommandSelectReach()
+        {
+            switch (_model.CommandKey)
+            {
+                case "Departure":
+                    _model.SelectDeparture();
+                    _view.RefreshTiles();
+                    _view.UpdateHexIndex(_model.LineX.Value,_model.LineY.Value);
+                    break;
+                case "MoveBattler":
+                    var (actions,moveBattler) = _model.SelectMoveBattler();
+                    _view.SelectMoveBattler(actions,moveBattler);
+                    break;
+            }
         }
 
         private void CommandCurrentSelectRecord(SymbolResultInfo recordInfo)
@@ -765,6 +804,7 @@ namespace Ryneus
             }
             */
         }
+
 
         private void CommandCancelSelectSymbol()
         {
@@ -1022,7 +1062,6 @@ namespace Ryneus
 
         private void CommandRefresh()
         {
-            _view.RefreshTiles();
             //_view.SetSaveScore(_model.TotalScore);
             _view.SetStageInfo(_model.CurrentStage);
             //_view.SetAlcanaInfo(_model.AlcanaSkillInfos());

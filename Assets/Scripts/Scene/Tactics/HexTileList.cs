@@ -46,9 +46,9 @@ namespace Ryneus
             hexList.UpdateSelectIndex(selectIndex);
         }        
         
-        public void Refresh()
+        public void UpdateAllItems()
         {
-            hexList.Refresh();
+            hexList.UpdateAllItems();
         }
     }
 }

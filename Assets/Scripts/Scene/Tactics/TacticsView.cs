@@ -7,6 +7,8 @@ using DG.Tweening;
 
 namespace Ryneus
 {
+    using System;
+    using Cysharp.Threading.Tasks;
     using Tactics;
     public class TacticsView : BaseView ,IInputHandlerEvent
     {
@@ -166,6 +168,30 @@ namespace Ryneus
         public void RefreshTiles()
         {
             hexTiles.Refresh();
+        }
+
+        public void SelectMoveBattler(List<Action> actions,HexUnitInfo hexUnitInfo)
+        {
+            MoveAction(actions,hexUnitInfo);
+        }
+
+        private async void MoveAction(List<Action> actions,HexUnitInfo hexUnitInfo)
+        {
+            if (actions.Count == 0)
+            {
+                RefreshTiles();
+                UpdateHexIndex(hexUnitInfo.HexField.X,hexUnitInfo.HexField.Y);
+                return;
+            }
+            actions[0]();
+            RefreshTiles();
+            UpdateHexIndex(hexUnitInfo.HexField.X,hexUnitInfo.HexField.Y);
+            await UniTask.DelayFrame(10);
+            actions.RemoveAt(0);
+            if (actions.Count > 0)
+            {
+                MoveAction(actions,hexUnitInfo);
+            }
         }
 
         private void InitializeSymbolInfoList()

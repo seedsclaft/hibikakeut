@@ -18,7 +18,7 @@ namespace Ryneus
             {
                 _hexTileLists = GetComponentsInChildren<HexTileList>().ToList();
             }
-            if (_lineX != x || _lineY != y)
+            //if (_lineX != x || _lineY != y)
             {
                 foreach (var _hexTileList in _hexTileLists)
                 {
@@ -32,10 +32,10 @@ namespace Ryneus
 
         public void Refresh()
         {
-            base.Refresh();
+            base.UpdateAllItems();
             foreach (var hexTileList in _hexTileLists)
             {
-                hexTileList.Refresh();
+                hexTileList.UpdateAllItems();
             }
         }
     }

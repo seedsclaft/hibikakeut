@@ -19,6 +19,16 @@ namespace Ryneus
         public void AddHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList.AddRange(hexUnitList);
         public void SetHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList = hexUnitList;
         
+        public void RemoveReachUnitInfo()
+        {
+            for (int i= _hexUnitList.Count-1;i >= 0;i--)
+            {
+                if (_hexUnitList[i].HexUnitType == HexUnitType.Reach)
+                {
+                    _hexUnitList.Remove(_hexUnitList[i]);
+                }
+            }
+        }
         
         public ParameterInt StageId = new();
         public int EndSeek => 10;//_symbolInfos.Max(a => a.Master.InitX);
