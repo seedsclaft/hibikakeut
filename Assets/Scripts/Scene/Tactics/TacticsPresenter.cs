@@ -48,14 +48,6 @@ namespace Ryneus
                         }
                         return true;
                     case StageEventType.ForceBattle:
-                        var forceBattleSeekIndex = CheckForceBattleEvent(EventTiming.BeforeTactics);
-                        if (forceBattleSeekIndex >= 0)
-                        {
-                            _view.SetBackGround(_model.CurrentStage?.Master?.BackGround);
-                            _model.SetStageSeekIndex(forceBattleSeekIndex);
-                            CommandStartStage();
-                            return true;
-                        }
                         return true;
                 }
             }
@@ -79,7 +71,7 @@ namespace Ryneus
             _view.SetUIButton();
             _view.SetBackGround(_model.CurrentStage.Master.BackGround);
             _view.SetBattleMemberList(MakeListData(_model.EditMembers()));
-            _view.SetHexTileList(MakeListData(_model.HexTiles()));
+            _view.SetHexTileList(MakeListData(_model.HexFields()));
             //_view.SetNuminous(_model.Currency);
             CommandRefresh();
             await PlayTacticsBgm(timeStamp);
@@ -154,8 +146,6 @@ namespace Ryneus
         {
             if (_model.SceneParam != null && _model.SceneParam.ReturnBeforeBattle)
             {
-                // 敗北して戻ってきたとき
-                _model.SetStageSeekIndex(_model.SceneParam.SeekIndex);
                 /*
                 var currentRecord = _model.CurrentSelectRecord();
                 if (currentRecord != null)
@@ -169,8 +159,6 @@ namespace Ryneus
             } else
             if (_model.SceneParam != null && _model.SceneParam.ReturnNextBattle)
             {
-                // 勝利して戻ってきたとき
-                _model.SetStageSeekIndex(_model.SceneParam.SeekIndex);
                 /*
                 var currentRecord = _model.CurrentSelectRecord();
                 if (currentRecord != null)
@@ -277,13 +265,20 @@ namespace Ryneus
                 case CommandType.EndMoveBattler:
                     CommandEndMoveBattler();
                     break;
+                case CommandType.DecideBattleMemberSelect:
+                    CommandDecideBattleMemberSelect((BattleSceneInfo)viewEvent.template);
+                    break;
+                case CommandType.CancelBattleMemberSelect:
+                    CommandCancelBattleMemberSelect();
+                    break;
+                    
                     
             }
             // チュートリアル確認
             CheckTutorialState(viewEvent.ViewCommandType.CommandType);
         }
 
-        private void CommandStartStage()
+        private void CommandStartStage(BattleSceneInfo battleSceneInfo)
         {
             // 演出
             _busy = true;
@@ -294,71 +289,15 @@ namespace Ryneus
             _view.StartStageAnimation(animation);
             _view.WaitFrame(120,() => 
             {
-                BattleStart();
+                BattleStart(battleSceneInfo);
             });
         }
 
-        private void CommandBattleStart()
+        private void BattleStart(BattleSceneInfo battleSceneInfo)
         {
-            var battleMembers = _model.BattleMembers();
-            if (battleMembers.Count > 0)
-            {
-                var stageMembers = _model.StageMembers();
-                // バトル人数が最大でないのでチェック
-                if (battleMembers.Count < 5 && battleMembers.Count < stageMembers.Count)
-                {
-                    CheckBattleLessMember();
-                } else
-                {
-                    if (_model.PartyInfo.StartStage.Value == false)
-                    {
-                        CommandStartStage();
-                    } else
-                    {
-                        _busy = true;
-                        PlayStartBattleBgm();
-                        BattleStart(); 
-                    }
-                }
-            } else
-            {
-                CheckBattleMember();
-            }
-        }
-
-        private void CheckBattleMember()
-        {
-            SoundManager.Instance.PlayStaticSe(SEType.Deny);
-            CommandCautionInfo(DataSystem.GetText(19400));
-        }
-
-        private void CheckBattleLessMember()
-        {
-            SoundManager.Instance.PlayStaticSe(SEType.Deny);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(19401),(a) => 
-            {
-                if (a == ConfirmCommandType.Yes)
-                {
-                    PlayStartBattleBgm();
-                    BattleStart();
-                }
-            });
-            _view.CommandCallConfirm(confirmInfo);
-        }
-
-        private void BattleStart()
-        {
-
             _model.SaveTempBattleMembers();
             _view.CommandChangeViewToTransition(null);
             _view.ChangeUIActive(false);
-            var battleSceneInfo = new BattleSceneInfo
-            {
-                ActorInfos = _model.BattleMembers(),
-                //EnemyInfos = currentSymbol.BattlerInfos(),
-                //GetItemInfos = _model.CurrentSymbolInfo()?.GetItemInfos,
-                BossBattle = false//_model.CurrentSymbolInfo().SymbolType == SymbolType.Boss,
-            };
             _view.CommandSceneChange(Scene.Battle,battleSceneInfo);
         }
 
@@ -379,7 +318,7 @@ namespace Ryneus
                     SoundManager.Instance.ChangeCrossFade();
                 } else
                 {
-                    await PlayTacticsBgm();
+                    PlayBattleBgm();
                 }
             }
             SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
@@ -584,7 +523,18 @@ namespace Ryneus
 
         private void CommandCallBattle()
         {
-            _view.EndTacticsCommand();
+            var battleSceneInfos = _model.BattleSceneInfos();
+            _view.BattleMemberSelect(MakeListData(battleSceneInfos));
+        }
+
+        private void CommandDecideBattleMemberSelect(BattleSceneInfo battleSceneInfo)
+        {
+            CommandStartStage(battleSceneInfo);
+        }
+
+        private void CommandCancelBattleMemberSelect()
+        {
+            _view.CancelBattleMemberSelect();
         }
 
         private void CommandStatus(int startIndex = -1)

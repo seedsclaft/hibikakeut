@@ -18,6 +18,7 @@ namespace Ryneus
         public SystemData.CommandData TacticsCommandData => tacticsCommandList.ListItemData<SystemData.CommandData>();
         [SerializeField] private BaseList battleMemberList = null;
         public ActorInfo SelectBattleMember => battleMemberList.ListItemData<ActorInfo>();
+        [SerializeField] private BaseList battleMemberSelectList = null;
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent = null;
         [SerializeField] private MagicList alcanaSelectList = null;
@@ -44,6 +45,7 @@ namespace Ryneus
             InitializeCommandList();
             //InitializeBattleMemberList();
             InitializeHexTileList();
+            InitializeBattleMemberSelect();
             tacticsAlcana.gameObject.SetActive(false);
             alcanaButton.onClick.AddListener(() => CallAlcanaCheck());
 
@@ -194,6 +196,30 @@ namespace Ryneus
             {
                 CallViewEvent(CommandType.EndMoveBattler);
             }
+        }
+
+        private void InitializeBattleMemberSelect()
+        {
+            battleMemberSelectList.Initialize();
+            battleMemberSelectList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.DecideBattleMemberSelect,battleMemberSelectList.ListItemData<BattleSceneInfo>()));
+            battleMemberSelectList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.CancelBattleMemberSelect));
+            battleMemberSelectList.SetSelectedHandler(() => UpdateHelpWindow());
+            SetInputHandler(battleMemberSelectList.gameObject);
+            AddViewActives(battleMemberSelectList);
+            battleMemberSelectList.gameObject.SetActive(false);
+        }
+
+        public void BattleMemberSelect(List<ListData> battleSceneInfos)
+        {
+            battleMemberSelectList.gameObject.SetActive(true);
+            SetActivate(battleMemberSelectList);
+            battleMemberSelectList.SetData(battleSceneInfos);
+        }
+
+        public void CancelBattleMemberSelect()
+        {
+            battleMemberSelectList.gameObject.SetActive(false);
+            SetActivate(tacticsCommandList);
         }
 
         public void StartStageAnimation(Effekseer.EffekseerEffectAsset effekseerEffect)

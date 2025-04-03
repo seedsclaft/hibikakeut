@@ -18,6 +18,8 @@ namespace Ryneus
             CancelSymbolRecord,
             CancelSelectSymbol,
             //SelectActorResource,
+            DecideBattleMemberSelect,
+            CancelBattleMemberSelect,
             DecideRecord,
             CallEnemyInfo,
             CallAddActorInfo,

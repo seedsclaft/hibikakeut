@@ -421,7 +421,6 @@ namespace Ryneus
                 var tacticsSceneInfo = new TacticsSceneInfo
                 {
                     ReturnBeforeBattle = true,
-                    SeekIndex = _model.CurrentStage.SeekIndex.Value
                 };
                 _model.EndStrategy();
                 _view.CommandGotoSceneChange(Scene.Tactics,tacticsSceneInfo);
@@ -432,7 +431,6 @@ namespace Ryneus
                 var tacticsSceneInfo = new TacticsSceneInfo
                 {
                     ReturnNextBattle = true,
-                    SeekIndex = _model.CurrentStage.SeekIndex.Value
                 };
                 _view.CommandGotoSceneChange(Scene.Tactics,tacticsSceneInfo);
             }

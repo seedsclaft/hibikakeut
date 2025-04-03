@@ -134,6 +134,16 @@ namespace Ryneus
             }
         }
 
+        public async void PlayBattleBgm()
+        {
+            var bgmData = DataSystem.BGM.Find(a => a.Key == "Battle1");
+            if (bgmData != null)
+            {
+                var bgm = await _model.GetBgmData("Battle1");
+                SoundManager.Instance.PlayBgm(bgm,bgmData.Volume,bgmData.Loop);
+            }
+        }
+
         public async void PlayBossBgm()
         {
             var bgmData = DataSystem.BGM.Find(a => a.Id == _model.CurrentStage.Master.BossBGMId);

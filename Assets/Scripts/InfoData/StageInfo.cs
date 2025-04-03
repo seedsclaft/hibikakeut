@@ -29,7 +29,6 @@ namespace Ryneus
         public ParameterInt StageId = new();
         public int EndSeek => 10;//_symbolInfos.Max(a => a.Master.InitX);
 
-        public ParameterInt SeekIndex = new(-1);
 
         private int _loseCount = 0;
         public int LoseCount => _loseCount;
@@ -52,7 +51,6 @@ namespace Ryneus
                 var enemy = new BattlerInfo(enemyData,troopDate.TroopEnemies[i].Lv + troopLv - 1,i,troopDate.TroopEnemies[i].Line,isBoss);
                 troopInfo.AddEnemy(enemy);
             }
-            SeekIndex.SetValue(0);
             return troopInfo;
             
             //_stageSymbolInfos.Add(symbolInfo);

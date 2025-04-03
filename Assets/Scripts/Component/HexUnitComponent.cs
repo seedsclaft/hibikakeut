@@ -54,7 +54,6 @@ namespace Ryneus
                 gameObject.SetActive(false);
                 return;
             }
-            if (_hexUnitInfo.HexUnitType == HexUnitType.Group) return;
             if (_hexUnitInfo.HexUnitType == HexUnitType.Reach) return;
             //if (_hexUnitInfo.HexUnitType == HexUnitType.Random) return;
             gameObject.SetActive(true);
@@ -76,13 +75,7 @@ namespace Ryneus
                 {
                     symbolImage?.gameObject.SetActive(true);
                     enemyImage?.gameObject.SetActive(false);
-                    if (_hexUnitInfo.HexUnitType == HexUnitType.SelectActor)
-                    {
-                        symbolImage.sprite = symbolSprites[(int)HexUnitType.Actor];
-                    } else
-                    {
-                        symbolImage.sprite = symbolSprites[(int)_hexUnitInfo.HexUnitType / 10];
-                    }
+                    symbolImage.sprite = symbolSprites[(int)_hexUnitInfo.HexUnitType / 10];
                 }
             }
         }
@@ -91,7 +84,7 @@ namespace Ryneus
         {
             if (evaluateRoot != null)
             {
-                evaluateRoot.SetActive(_hexUnitInfo.HexUnitType == HexUnitType.Battler || _hexUnitInfo.HexUnitType == HexUnitType.Boss);
+                evaluateRoot.SetActive(_hexUnitInfo.HexUnitType == HexUnitType.Battler);
             }
             if (evaluate != null)
             {

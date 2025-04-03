@@ -76,22 +76,16 @@ namespace Ryneus
         
         public bool IsBattleSymbol()
         {
-            return _hexUnitType == HexUnitType.Battler || _hexUnitType == HexUnitType.Boss;
+            return _hexUnitType == HexUnitType.Battler;
         }
     }
 
+    [Serializable]
     public enum HexUnitType
     {
         None = 0, // 存在のないマス
-        Wall = 10, 
-        Boss = 11,
         Basement = 20,
-        Alcana = 30,
-        Actor = 40,
-        Resource = 50,
-        SelectActor = 60,
-        Shop = 70,
-        Group = 99, // 99以上はグループ指定
+        SelectActor = 70,
         Battler = 1000,
         Reach = 2000,
     }

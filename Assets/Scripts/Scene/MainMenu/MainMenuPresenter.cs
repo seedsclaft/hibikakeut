@@ -44,7 +44,7 @@ namespace Ryneus
                 _view.SetBackGround(_model.NextStage().Master.BackGround);
                 _view.SetStageData(_model.NextStage());
 
-                var bgm = await _model.GetBgmData("MAINMENU");
+                var bgm = await _model.GetBgmData("Mainmenu");
                 SoundManager.Instance.PlayBgm(bgm,1.0f,true);
             }
             _busy = false;

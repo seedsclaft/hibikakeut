@@ -36,7 +36,7 @@ namespace Ryneus
                 */
                 // 報酬リスト
                 var getItemInfos = new List<GetItemInfo>();
-                switch (stageSymbolData.UnitType)
+                switch (symbolMaster.UnitType)
                 {
                     case HexUnitType.Battler:
                         hexUnitInfo.SetTroopInfo(BattleTroop(stageSymbolData));

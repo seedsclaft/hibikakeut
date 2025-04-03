@@ -20,6 +20,7 @@ namespace Ryneus
         private int _moveCost = 0;
         private List<HexPath> _pathlist = new();
         public List<HexPath> Pathlist => _pathlist;
+        private bool _searchUnit = false;
 
         public HexRoute(int mapX,int mapY,List<HexUnitInfo> hexUnitInfos)
         {
@@ -98,9 +99,12 @@ namespace Ryneus
             }
 
             // ユニット位置チェック
-            if (_hexUnitInfos.Find(a => a.IsWall && a.HexField.X == colX && a.HexField.Y == rowY) != null) 
+            if (_searchUnit == false)
             {
-                return false;
+                if (_hexUnitInfos.Find(a => a.IsWall && a.HexField.X == colX && a.HexField.Y == rowY) != null) 
+                {
+                    return false;
+                }
             }
 
             // 地形と移動タイプから実コストを計算
@@ -345,12 +349,13 @@ namespace Ryneus
             }
         }
 
-        public List<HexField> GetReachableArea(MoveType moveType,HexField startHex,int moveCost) 
+        public List<HexField> GetReachableArea(MoveType moveType,HexField startHex,int moveCost,bool searchUnit) 
         {
             _hexMode = HexMode.Reach; // 到着探索モードをセット
 
             _moveType = moveType; // 移動タイプ
             _moveCost = moveCost; // 移動コスト
+            _searchUnit = searchUnit;
 
             RefreshField(_width,_height); // リフレッシュする
 

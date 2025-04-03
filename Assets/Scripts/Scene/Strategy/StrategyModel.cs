@@ -351,7 +351,6 @@ namespace Ryneus
         
         public void EndStrategy()
         {
-            CurrentStage.SeekIndex.SetValue(0);
         }
 
         public void SeekStage()

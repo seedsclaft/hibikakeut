@@ -182,17 +182,12 @@ namespace Ryneus
             if (CurrentStage != null && PartyInfo != null)
             {
                 int bgmId;
-                if (PartyInfo.StartStage.Value == false)
-                {
-                    bgmId = CurrentStage.Master.MenuBGMId;
-                } else
-                {
-                    bgmId = CurrentStage.Master.BGMId;
-                }
+                bgmId = CurrentStage.Master.BGMId;
                 return DataSystem.BGM.Find(a => a.Id == bgmId);
             }
             return null;
         }
+
 
         public string PlayerName()
         {
