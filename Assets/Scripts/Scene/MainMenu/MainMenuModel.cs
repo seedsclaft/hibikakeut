@@ -12,17 +12,6 @@ namespace Ryneus
 
         public void StartSelectStage(int stageId)
         {
-            if (SelectedStage(stageId))
-            {
-                PartyInfo.Seek.SetValue(SelectedStageCurrentTurn(stageId));
-            } else
-            {
-                // 新規レコード作成
-                foreach (var record in GetStageSymbolInfos(stageId,CurrentData.PlayerInfo.ClearCount))
-                {
-                    //PartyInfo.SetSymbolResultInfo(record);
-                }
-            }
             SavePlayerStageData(true);
         }
         

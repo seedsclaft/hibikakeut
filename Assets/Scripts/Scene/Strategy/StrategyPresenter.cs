@@ -315,9 +315,9 @@ namespace Ryneus
                     var battleSceneInfo = new BattleSceneInfo
                     {
                         ActorInfos = _model.BattleMembers(),
-                        EnemyInfos = _model.CurrentSymbolInfo().TroopInfo.BattlerInfos,
-                        GetItemInfos = _model.CurrentSymbolInfo()?.GetItemInfos,
-                        BossBattle = _model.CurrentSymbolInfo().SymbolType == SymbolType.Boss,
+                        //EnemyInfos = _model.CurrentSymbolInfo().TroopInfo.BattlerInfos,
+                        //GetItemInfos = _model.CurrentSymbolInfo()?.GetItemInfos,
+                        BossBattle = false,//_model.CurrentSymbolInfo().SymbolType == SymbolType.Boss,
                     };
                     SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
                     _view.CommandGotoSceneChange(Scene.Battle,battleSceneInfo);
@@ -331,12 +331,14 @@ namespace Ryneus
 
         private async void PlayStartBattleBgm()
         {
-            var currentSymbol = _model.CurrentSymbolInfo();
+            //var currentSymbol = _model.CurrentSymbolInfo();
             // ボス戦なら
+            /*
             if (currentSymbol.Master.SymbolType == SymbolType.Boss)
             {
                 PlayBossBgm();
             } else
+            */
             {
                 var bgmData = _model.TacticsBgmData();
                 if (bgmData.CrossFade != "" && SoundManager.Instance.CrossFadeMode)

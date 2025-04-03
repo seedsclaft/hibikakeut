@@ -7,101 +7,10 @@ namespace Ryneus
 {
     public partial class BaseModel
     {
-        /// <summary>
-        /// ステージデータをマスタから生成
-        /// </summary>
-        /// <param name="stageSymbolDates"></param>
-        /// <returns></returns>
-        public List<SymbolInfo> StageSymbolInfos(List<StageSymbolData> stageSymbolDates,int clearCount = 0)
-        {
-            var symbolDates = stageSymbolDates.FindAll(a => a.InitX > 0 && a.ClearCount <= clearCount);
-            var symbolInfos = new List<SymbolInfo>();
-            foreach (var symbolMaster in symbolDates)
-            {
-                var randFlag = false;
-                var symbolInfo = new SymbolInfo(symbolMaster);
-                var stageSymbolData = new StageSymbolData();
-                stageSymbolData.CopyData(symbolMaster);
-                // グループ指定
-                if (stageSymbolData.IsGroupSymbol())
-                {
-                    var groupId = (int)stageSymbolData.SymbolType;
-                    var groupDates = DataSystem.SymbolGroups.FindAll(a => a.GroupId == groupId);
-                    stageSymbolData = PickUpSymbolData(groupDates,symbolMaster);
-                    symbolInfo = new SymbolInfo(stageSymbolData);
-                }
-                if (stageSymbolData.SymbolType == SymbolType.Random)
-                {
-                    stageSymbolData = RandomSymbolData(stageSymbolDates,symbolMaster);
-                    symbolInfo = new SymbolInfo(stageSymbolData);
-                }
-                // 報酬リスト
-                var getItemInfos = new List<GetItemInfo>();
-                switch (stageSymbolData.SymbolType)
-                {
-                    case SymbolType.Battle:
-                    case SymbolType.Boss:
-                        symbolInfo.SetTroopInfo(BattleTroop(stageSymbolData));
-                        if (randFlag)
-                        {
-                            var numinosGetItem = MakeEnemyRandomNuminos(stageSymbolData.StageId,stageSymbolData.InitX);
-                            symbolInfo.TroopInfo.AddGetItemInfo(numinosGetItem);                  
-                        }
-                        
-                        if (symbolInfo.TroopInfo != null && symbolInfo.TroopInfo.GetItemInfos.Count > 0)
-                        {
-                            getItemInfos.AddRange(symbolInfo.TroopInfo.GetItemInfos);
-                        }                    
-                        break;
-                    case SymbolType.Alcana:
-                        /*
-                        // アルカナランダムで報酬設定
-                        if (stageSymbolData.Param1 == -1)
-                        {
-                            var relicInfos = MakeSelectRelicGetItemInfos((RankType)stageSymbolData.Param2);
-                            getItemInfos.AddRange(relicInfos);
-                        }
-                        */
-                        break;
-                    case SymbolType.Resource:
-                        // 報酬設定
-                        getItemInfos.Add(MakeGetItemInfo(GetItemType.Currency,stageSymbolData.Param1));
-                        break;
-                    case SymbolType.Actor:
-                        // 表示用に報酬設定
-                        getItemInfos.Add(MakeGetItemInfo(GetItemType.AddActor,stageSymbolData.Param1));
-                        break;
-                    case SymbolType.SelectActor:
-                        getItemInfos.AddRange(MakeSelectActorGetItemInfos(stageSymbolData.Param2 == 0));
-                        break;
-                    case SymbolType.Shop:
-                        // Rank1,2からランダム設定
-                        MakeShopGetItemInfos(getItemInfos,symbolInfo,RankType.ActiveRank2,1);
-                        MakeShopGetItemInfos(getItemInfos,symbolInfo,RankType.PassiveRank1,2);
-                        MakeShopGetItemInfos(getItemInfos,symbolInfo,RankType.PassiveRank2,3);
-                        break;
-                }
-                foreach (var getItemInfo in symbolInfo.GetItemInfos)
-                {
-                    switch (getItemInfo.GetItemType)
-                    {
-                        case GetItemType.SelectRelic:
-                            getItemInfos.AddRange(MakeSelectRelicGetItemInfos((RankType)getItemInfo.Param2,(AttributeType)getItemInfo.Param1));
-                            break;
-                        case GetItemType.SelectSkill:
-                            getItemInfos.AddRange(MakeSelectSkillGetItemInfos((RankType)getItemInfo.Param2,(AttributeType)getItemInfo.Param1));
-                            break;
-                    }
-                }
-                symbolInfo.AddGetItemInfos(getItemInfos);
-                symbolInfos.Add(symbolInfo);
-            }
-            return symbolInfos;
-        }
 
         public List<HexUnitInfo> StageHexUnitInfos(List<StageSymbolData> stageSymbolDates,int clearCount = 0)
         {
-            var symbolDates = stageSymbolDates.FindAll(a => a.InitX > 0 && a.ClearCount <= clearCount);
+            var symbolDates = stageSymbolDates.FindAll(a => a.InitX >= 0 && a.InitY >= 0 && a.ClearCount <= clearCount);
             var hexUnitInfos = new List<HexUnitInfo>();
             for (int i = 0;i < symbolDates.Count;i++)
             {
@@ -110,6 +19,7 @@ namespace Ryneus
                 var randFlag = false;
                 var stageSymbolData = new StageSymbolData();
                 stageSymbolData.CopyData(symbolMaster);
+                /*
                 // グループ指定
                 if (stageSymbolData.IsGroupSymbol())
                 {
@@ -123,12 +33,12 @@ namespace Ryneus
                     stageSymbolData = RandomSymbolData(stageSymbolDates,symbolMaster);
                     hexUnitInfo = new HexUnitInfo(i,stageSymbolData);
                 }
+                */
                 // 報酬リスト
                 var getItemInfos = new List<GetItemInfo>();
-                switch (stageSymbolData.SymbolType)
+                switch (stageSymbolData.UnitType)
                 {
-                    case SymbolType.Battle:
-                    case SymbolType.Boss:
+                    case HexUnitType.Battler:
                         hexUnitInfo.SetTroopInfo(BattleTroop(stageSymbolData));
                         if (randFlag)
                         {
@@ -140,33 +50,6 @@ namespace Ryneus
                         {
                             getItemInfos.AddRange(hexUnitInfo.TroopInfo.GetItemInfos);
                         }       
-                        break;
-                    case SymbolType.Alcana:
-                        /*
-                        // アルカナランダムで報酬設定
-                        if (stageSymbolData.Param1 == -1)
-                        {
-                            var relicInfos = MakeSelectRelicGetItemInfos((RankType)stageSymbolData.Param2);
-                            getItemInfos.AddRange(relicInfos);
-                        }
-                        */
-                        break;
-                    case SymbolType.Resource:
-                        // 報酬設定
-                        getItemInfos.Add(MakeGetItemInfo(GetItemType.Currency,stageSymbolData.Param1));
-                        break;
-                    case SymbolType.Actor:
-                        // 表示用に報酬設定
-                        getItemInfos.Add(MakeGetItemInfo(GetItemType.AddActor,stageSymbolData.Param1));
-                        break;
-                    case SymbolType.SelectActor:
-                        getItemInfos.AddRange(MakeSelectActorGetItemInfos(stageSymbolData.Param2 == 0));
-                        break;
-                    case SymbolType.Shop:
-                        // Rank1,2からランダム設定
-                        //MakeShopGetItemInfos(getItemInfos,hexUnitInfo,RankType.ActiveRank2,1);
-                        //MakeShopGetItemInfos(getItemInfos,hexUnitInfo,RankType.PassiveRank1,2);
-                        //MakeShopGetItemInfos(getItemInfos,hexUnitInfo,RankType.PassiveRank2,3);
                         break;
                 }
                 foreach (var getItemInfo in hexUnitInfo.GetItemInfos)
@@ -197,28 +80,7 @@ namespace Ryneus
             return new GetItemInfo(getItemData);
         }
 
-        private void MakeShopGetItemInfos(List<GetItemInfo> getItemInfos,SymbolInfo symbolInfo,RankType rankType,int count)
-        {
-            /*
-            var alcanaRank = rankType;
-            var alcanaIds = PartyInfo.CurrentAlcanaIdList(CurrentStage.Id,CurrentStage.Seek,CurrentStage.WorldType);
-            var alcanaSkills = DataSystem.Skills.Where(a => a.Value.Rank == alcanaRank && a.Value.Id % 10 == 0 && !alcanaIds.Contains(a.Value.Id)).ToList();
-            while (getItemInfos.Count <= count)
-            {
-                var rand = Random.Range(0,alcanaSkills.Count);
-                // 報酬設定
-                if (getItemInfos.Find(a => a.Param1 == alcanaSkills[rand].Value.Id) == null)
-                {
-                    var getItemInfo = MakeGetItemInfo(GetItemType.Skill,alcanaSkills[rand].Value.Id);
-                    if (getItemInfos.Find(a => a.Param1 == alcanaSkills[rand].Value.Id) == null)
-                    {
-                        symbolInfo.SetGetItemInfos(new List<GetItemInfo>(){getItemInfo});
-                        getItemInfos.Add(getItemInfo);
-                    }
-                }
-            }
-            */
-        }
+
 
         private List<GetItemInfo> MakeSelectActorGetItemInfos(bool freeSelect)
         {
@@ -370,72 +232,12 @@ namespace Ryneus
             var stageSymbolList = stageSymbolDates.FindAll(a => a.InitX == 0);
             var stageSymbolData = new StageSymbolData
             {
-                SymbolType = SymbolType.None,
+                //SymbolType = SymbolType.None,
                 StageId = symbolMaster.StageId,
                 InitX = symbolMaster.InitX,
                 InitY = symbolMaster.InitY
             };
-            int targetRand = Random.Range(0,stageSymbolList.Sum(a => a.Rate));
-            while (stageSymbolData.SymbolType == SymbolType.None)
-            {
-                int targetIndex = -1;
-                for (int i = 0;i < stageSymbolList.Count;i++)
-                {
-                    targetRand -= stageSymbolList[i].Rate;
-                    if (targetRand <= 0 && targetIndex == -1)
-                    {
-                        targetIndex = i;
-                    }
-                }
-                var symbol = stageSymbolList[targetIndex];
-                switch (symbol.SymbolType)
-                {
-                    case SymbolType.Battle:
-                        stageSymbolData.CopyParamData(symbol);
-                        stageSymbolData.Param1 = -1;
-                        stageSymbolData.PrizeSetId = 0;
-                        break;
-                    case SymbolType.Actor:
-                        // 今まで遭遇していないアクターを選定
-                        var list = new List<int>();
-                        /*
-                        foreach (var actorInfo in PartyInfo.ActorInfos)
-                        {
-                            if (!PartyInfo.PastActorIdList(CurrentStage.Id,CurrentStage.Seek,CurrentStage.WorldType).Contains(actorInfo.ActorId))
-                            {
-                                list.Add(actorInfo.ActorId);
-                            }
-                        }
-                        */
-                        targetRand = Random.Range(0,list.Count);
-                        stageSymbolData.CopyParamData(symbol);
-                        stageSymbolData.Param1 = list[targetRand];
-                        stageSymbolData.Param2 = 0;
-                        break;
-                    case SymbolType.Alcana:
-                        //if (!PartyInfo.CurrentAlchemyIdList(CurrentStage.Id,CurrentStage.Seek,CurrentStage.WorldType).Contains(symbol.Param1))
-                        //{
-                        //    stageSymbolData.CopyParamData(symbol);
-                        //}
-                        break;
-                    default:
-                        if (symbol.IsGroupSymbol())
-                        {
-                            var groupId = (int)symbol.SymbolType;
-                            var groupDates = DataSystem.SymbolGroups.FindAll(a => a.GroupId == groupId);
-                            stageSymbolData = PickUpSymbolData(groupDates,symbol);
-                            // GroupのBattleはParam2をコンバート前にする
-                            if (stageSymbolData.SymbolType == SymbolType.Battle)
-                            {
-                                stageSymbolData.Param2 = symbol.Param2;
-                            }
-                        } else
-                        {
-                            stageSymbolData.CopyParamData(symbol);
-                        }
-                        break;
-                }
-            }
+
             return stageSymbolData;
         }
         

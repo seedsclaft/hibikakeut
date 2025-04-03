@@ -54,7 +54,7 @@ namespace Ryneus
         public int StageId;
         public int InitX;
         public int InitY;
-        public SymbolType SymbolType;
+        //public SymbolType SymbolType;
         public HexUnitType UnitType;
         public int Rate;
         public int Param1;
@@ -64,7 +64,7 @@ namespace Ryneus
 
         public void ConvertSymbolGroupData(SymbolGroupData symbolGroupData)
         {
-            SymbolType = symbolGroupData.SymbolType;
+            //SymbolType = symbolGroupData.SymbolType;
             Param1 = symbolGroupData.Param1;
             Param2 = symbolGroupData.Param2;
             PrizeSetId = symbolGroupData.PrizeSetId;
@@ -81,7 +81,7 @@ namespace Ryneus
 
         public void CopyParamData(StageSymbolData stageSymbolData)
         {
-            SymbolType = stageSymbolData.SymbolType;
+            //SymbolType = stageSymbolData.SymbolType;
             Param1 = stageSymbolData.Param1;
             Param2 = stageSymbolData.Param2;
             PrizeSetId = stageSymbolData.PrizeSetId;
@@ -90,7 +90,7 @@ namespace Ryneus
 
         public bool IsGroupSymbol()
         {
-            return SymbolType > SymbolType.Group;
+            return false;//SymbolType > SymbolType.Group;
         }
     }
 
@@ -98,7 +98,7 @@ namespace Ryneus
     public class SymbolGroupData
     {   
         public int GroupId;
-        public SymbolType SymbolType;
+        //public SymbolType SymbolType;
         public int Rate;
         public int Param1;
         public int Param2;
@@ -111,7 +111,7 @@ namespace Ryneus
         public int EnemyId;
         public int Weight;
     }
-
+/*
     public enum SymbolType
     {
         Random = -1,
@@ -126,6 +126,7 @@ namespace Ryneus
         Shop = 70,
         Group = 99, // 99以上はグループ指定
     }
+*/
 
     public enum EventTiming
     {

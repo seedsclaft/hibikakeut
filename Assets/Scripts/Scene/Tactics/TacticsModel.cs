@@ -52,10 +52,6 @@ namespace Ryneus
             return ResourceSystem.LoadResourceEffect("IceOne1");
         }
 
-        public bool IsCurrentSeekSymbolInfo(SymbolInfo symbolInfo)
-        {
-            return symbolInfo?.Master.InitX == PartyInfo.Seek.Value;
-        }
 
         public void SetFirstBattleActorId()
         {
@@ -128,11 +124,6 @@ namespace Ryneus
             CurrentStage.SeekIndex.SetValue(seekIndex);
         }
 
-        public SymbolInfo SelectedSymbol()
-        {
-            int seekIndex = CurrentStage.SeekIndex.Value;
-            return CurrentStage.SymbolInfos.Find(a => a.Master.InitX == PartyInfo.Seek.Value && a.Master.InitY == seekIndex);
-        }
 
         public List<SkillInfo> AlcanaMagicSkillInfos(List<GetItemInfo> getItemInfos)
         {
@@ -232,94 +223,6 @@ namespace Ryneus
             return MakeListData(list,enable);
         }
 
-        /// <summary>
-        /// 表示するステージデータ
-        /// </summary>
-        /// <returns></returns>
-        public List<ListData> SymbolRecords()
-        {
-            var symbolInfos = new List<SymbolInfo>();
-            var recordList = new Dictionary<int,List<SymbolResultInfo>>();
-            
-            var stageSeekList = new List<int>();
-            /*
-            var selectRecords = PartyInfo.SymbolRecordList.FindAll(a => a.StageId > 0);
-            selectRecords = selectRecords.FindAll(a => a.WorldType == CurrentStage.WorldType);
-            // ブランチは始点と終点を作る
-            if (CurrentStage.WorldType == WorldType.Brunch)
-            {
-                selectRecords = selectRecords.FindAll(a => a.IsBeforeStageSeek(returnSymbol.StageId,returnSymbol.Seek,WorldType.Brunch) && a.IsAfterStageSeek(brunchSymbol.StageId,brunchSymbol.Seek,WorldType.Brunch));
-            }
-            // 現在を挿入
-            var currentSeek = CurrentStage.Seek;
-            foreach (var selectRecord in selectRecords)
-            {
-                var stageKey = (selectRecord.StageId-1)*100 + selectRecord.Seek;
-                if (!stageSeekList.Contains(stageKey))
-                {
-                    stageSeekList.Add(stageKey);
-                }
-            }    
-            stageSeekList.Sort((a,b) => a - b > 0 ? 1 : -1);
-            
-            foreach (var stageSeek in stageSeekList)
-            {
-                var list = new List<SymbolResultInfo>();
-                recordList[stageSeek] = new List<SymbolResultInfo>();
-            }
-            var lastSelectSeek =selectRecords.Select(a => a.Seek).Max();
-            foreach (var selectRecord in selectRecords)
-            {
-                var stageKey = (selectRecord.StageId-1)*100 + selectRecord.Seek;
-                if (recordList.ContainsKey(stageKey))
-                {
-                    recordList[stageKey].Add(selectRecord);
-                }
-            }
-            var currentSymbol = new StageSymbolData
-            {
-                StageId = CurrentStage.Id,
-                Seek = currentSeek,
-                SeekIndex = 0,
-                SymbolType = SymbolType.None
-            };
-            var currentInfo = new SymbolInfo(currentSymbol);
-            var currentResult = new SymbolResultInfo(currentInfo);
-            currentResult.SetWorldType(CurrentStage.WorldType);
-            currentInfo.SetLastSelected(true);
-            var currentList = new List<SymbolResultInfo>(){currentResult};
-    
-            var resultList = new List<List<SymbolResultInfo>>();
-            var result = recordList.OrderBy(a => a.Key).ToList();
-            foreach (var resultData in result)
-            {
-                resultList.Add(resultData.Value);
-            }
-            var currentIndex = resultList.FindIndex(a => a[0].IsSameStageSeek(CurrentStage.Id,currentSeek,CurrentStage.WorldType));
-            if (currentIndex > -1)
-            {
-                resultList.Insert(currentIndex, currentList);
-            } else
-            {
-                resultList.Add(currentList);
-            }
-            */
-            var listData = new List<ListData>();
-            /*
-            foreach (var record in resultList)
-            {
-                var list = new ListData(record);
-                list.SetSelected(false);
-                list.SetEnable(false);
-                if (record.Find(a => a.IsSameStageSeek(CurrentStage.Id,currentSeek,CurrentStage.WorldType)) != null)
-                {
-                    list.SetSelected(true);
-                }
-                listData.Add(list);
-            }
-            */
-            return listData;
-        }
 
         public void ResetBattlerIndex()
         {
@@ -397,8 +300,8 @@ namespace Ryneus
             return cost;
         }
 
-        public ParameterInt LineX = new();
-        public ParameterInt LineY = new();
+        public ParameterInt FieldX = new();
+        public ParameterInt FieldY = new();
         private HexRoute _hexRoute;
         private List<HexField> _reachPathes = new();
         private string _commandKey = "";
@@ -407,42 +310,54 @@ namespace Ryneus
         private ParameterInt SelectingHexUnitId = new();
         private int _departureActorId = -1;
         public void SetDepatureActorId(int departureActorId) => _departureActorId = departureActorId;
-        public void MoveLine(int x,int y)
+        public void MoveFieldXY(int x,int y)
         {
             if (_reachPathes.Count > 0)
             {
-                var nextX = LineX.Value + x;
-                var nextY = LineY.Value + y;
+                var nextX = FieldX.Value + x;
+                var nextY = FieldY.Value + y;
                 if (_reachPathes.Find(a => a.X == nextX && a.Y == nextY) == null)
                 {
                     return;
                 }
             }
             var stageData = PartyInfo.StageMaster;
-            LineX.GainValue(x,0,stageData.Width-1);
-            LineY.GainValue(y,0,stageData.Height-1);
+            FieldX.GainValue(x,0,stageData.Width-1);
+            FieldY.GainValue(y,0,stageData.Height-1);
         }
 
-        public List<int> HexTiles()
+        public List<HexField> HexTiles()
         {
             var stageData = PartyInfo.StageMaster;
-            var list = new List<int>();
-            for (int i = 0;i < stageData.Width;i++)
+            var list = new List<HexField>();
+            for (int j = 0;j < stageData.Height;j++)
             {
-                list.Add(i);
+                for (int i = 0;i < stageData.Width;i++)
+                {
+                    var field = new HexField
+                    {
+                        X = i,
+                        Y = j
+                    };
+                    list.Add(field);
+                }
             }
             return list;
-        }        
+        }
         
         public HexUnitInfo HexUnit()
         {
-            var hexUnit = CurrentGameInfo.StageInfo.HexUnitList.Find(a => a.HexField.X == LineX.Value && a.HexField.Y == LineY.Value);
-            return hexUnit;
+            var hexUnit = CurrentGameInfo.StageInfo.HexUnitList.FindAll(a => a.HexField.X == FieldX.Value && a.HexField.Y == FieldY.Value);
+            if (hexUnit.Count > 1)
+            {
+                hexUnit.Sort((a,b) => a.HexUnitType > b.HexUnitType ? -1 : 1);
+            }
+            return hexUnit.Count > 0 ? hexUnit[0] : null;
         }
 
         public void MakeDepartureHex()
         {
-            var hexUnit = CurrentGameInfo.StageInfo.HexUnitList.Find(a => a.HexField.X == LineX.Value && a.HexField.Y == LineY.Value);
+            var hexUnit = CurrentGameInfo.StageInfo.HexUnitList.Find(a => a.HexField.X == FieldX.Value && a.HexField.Y == FieldY.Value && a.HexUnitType == HexUnitType.Basement);
             _reachPathes = _hexRoute.GetReachableArea(MoveType.Normal,hexUnit.HexField,1);
             var depaterIndex = 1000;
             foreach (var path in _reachPathes)
@@ -461,7 +376,7 @@ namespace Ryneus
 
         public void MakeMoveBattlerHex()
         {
-            var hexUnit = CurrentGameInfo.StageInfo.HexUnitList.Find(a => a.HexField.X == LineX.Value && a.HexField.Y == LineY.Value);
+            var hexUnit = CurrentGameInfo.StageInfo.HexUnitList.Find(a => a.HexField.X == FieldX.Value && a.HexField.Y == FieldY.Value && a.IsUnit);
             SelectingHexUnitId.SetValue(hexUnit.Index.Value);
             _reachPathes = _hexRoute.GetReachableArea(MoveType.Normal,hexUnit.HexField,2);
             var moveBattlerIndex = 1000;
@@ -486,8 +401,8 @@ namespace Ryneus
             
             var unitData = new StageSymbolData
             {
-                InitX = LineX.Value,
-                InitY = LineY.Value,
+                InitX = FieldX.Value,
+                InitY = FieldY.Value,
                 UnitType = HexUnitType.Battler,
             };
             var depaterActor = new HexUnitInfo(depaterActorIndex,unitData);
@@ -505,13 +420,13 @@ namespace Ryneus
             var moveActions = new List<Action>();
             var pathes = new List<HexPath>();
             // 移動する
-            var moveBattler = CurrentGameInfo.StageInfo.HexUnitList.Find(a => a.Index.Value == SelectingHexUnitId.Value);
+            var moveBattler = CurrentGameInfo.StageInfo.HexUnitList.Find(a => a.Index.Value == SelectingHexUnitId.Value && a.IsUnit);
             if (moveBattler != null)
             {
                 var endHexUnit = new HexField
                 {
-                    X = LineX.Value,
-                    Y = LineY.Value
+                    X = FieldX.Value,
+                    Y = FieldY.Value
                 };
                 // 移動ルート作成
                 _hexRoute.FindRoute(MoveType.Normal,moveBattler.HexField,endHexUnit);
@@ -560,6 +475,30 @@ namespace Ryneus
                 Key = "Departure"
             };
             list.Add(departure);
+            Func<SystemData.CommandData,bool> enable = (a) => 
+            {
+                return true;
+            };
+            return MakeListData(list,enable);
+        }        
+        
+        public List<ListData> EndMoveBattlerCommand()
+        {
+            var list = new List<SystemData.CommandData>();
+            var battle = new SystemData.CommandData
+            {
+                Id = 1,
+                Name = "戦闘",
+                Key = "Battle"
+            };
+            list.Add(battle);
+            var wait = new SystemData.CommandData
+            {
+                Id = 2,
+                Name = "待機",
+                Key = "Wait"
+            };
+            list.Add(wait);
             Func<SystemData.CommandData,bool> enable = (a) => 
             {
                 return true;

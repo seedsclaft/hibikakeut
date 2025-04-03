@@ -35,7 +35,10 @@ namespace Ryneus
                 Clear();
                 return;
             }
-            selectArea?.SetActive(_hexUnitInfo.IsSelectArea);
+            if (selectArea != null)
+            {
+                selectArea?.SetActive(_hexUnitInfo.IsSelectArea);
+            }
             UpdateSymbolImage();
             UpdateEvaluate();
             if (getItemList != null)
@@ -48,17 +51,17 @@ namespace Ryneus
         {
             if (_hexUnitInfo.HexUnitType == HexUnitType.None) 
             {
-                symbolImage.gameObject.SetActive(false);
-                enemyImage.gameObject.SetActive(false);
+                gameObject.SetActive(false);
                 return;
             }
             if (_hexUnitInfo.HexUnitType == HexUnitType.Group) return;
             if (_hexUnitInfo.HexUnitType == HexUnitType.Reach) return;
             //if (_hexUnitInfo.HexUnitType == HexUnitType.Random) return;
+            gameObject.SetActive(true);
             if (_hexUnitInfo.IsBattleSymbol())
             {
-                symbolImage.gameObject.SetActive(false);
-                enemyImage.gameObject.SetActive(true);
+                symbolImage?.gameObject.SetActive(false);
+                enemyImage?.gameObject.SetActive(true);
                 if (_hexUnitInfo.TroopInfo != null)
                 {
                     enemyImage.sprite = ResourceSystem.LoadEnemySprite(_hexUnitInfo.TroopInfo.BossEnemy.EnemyData.ImagePath);
@@ -71,8 +74,8 @@ namespace Ryneus
             {
                 if (symbolImage != null && symbolSprites != null)
                 {
-                    symbolImage.gameObject.SetActive(true);
-                    enemyImage.gameObject.SetActive(false);
+                    symbolImage?.gameObject.SetActive(true);
+                    enemyImage?.gameObject.SetActive(false);
                     if (_hexUnitInfo.HexUnitType == HexUnitType.SelectActor)
                     {
                         symbolImage.sprite = symbolSprites[(int)HexUnitType.Actor];
@@ -148,9 +151,12 @@ namespace Ryneus
 
         public void Clear()
         {
-            symbolImage.gameObject.SetActive(false);
-            enemyImage.gameObject.SetActive(false);
-            selectArea?.SetActive(false);
+            symbolImage?.gameObject.SetActive(false);
+            enemyImage?.gameObject.SetActive(false);
+            if (selectArea != null)
+            {
+                selectArea?.SetActive(false);
+            }
         }
     }
 }

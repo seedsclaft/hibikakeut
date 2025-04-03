@@ -28,10 +28,6 @@ namespace Ryneus
 
         public bool StageEnd()
         {
-            if (CurrentStage != null && PartyInfo != null)
-            {
-                return CurrentStage.EndSeek == PartyInfo.Seek.Value && _inBattleResult;
-            }
             return false;
         }
 

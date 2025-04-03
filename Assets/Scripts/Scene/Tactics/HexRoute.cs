@@ -97,12 +97,11 @@ namespace Ryneus
                 return false;
             }
 
-                /*
-                // ユニット位置チェック
-                if (this.Field[rowY][colX].IsUnit === true) {
+            // ユニット位置チェック
+            if (_hexUnitInfos.Find(a => a.IsWall && a.HexField.X == colX && a.HexField.Y == rowY) != null) 
+            {
                 return false;
-                }
-                */
+            }
 
             // 地形と移動タイプから実コストを計算
             var aCost = parent.ACost + 1/*mapData[colX][rowY].Terrain.cost[_moveType]*/;
@@ -375,6 +374,7 @@ namespace Ryneus
         }
     }
 
+    [Serializable]
     public class HexField
     {
         public int X = -1;
@@ -415,11 +415,22 @@ namespace Ryneus
     }
 
     /// <summary>
-    /// 検索ステータス
+    /// 移動タイプ
     /// </summary>
     public enum MoveType
     {
         None = 0,
         Normal = 1, 
+    }
+
+    /// <summary>
+    /// 配置レイヤー
+    /// </summary>
+    public enum HexLayer
+    {
+        None = 0, // 未配置
+        Field = 1, // フィールド
+        Unit = 2, // ユニット
+        Air = 3, // 空
     }
 }

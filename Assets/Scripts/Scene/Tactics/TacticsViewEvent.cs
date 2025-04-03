@@ -11,8 +11,6 @@ namespace Ryneus
             CallTacticsCommand,
             CancellTacticsCommand,
             CallStatus,
-            OnClickSymbol,
-            OnCancelSymbol,
             SelectHexUnit,
             SymbolDetailInfo,
             PopupSkillInfo,
@@ -36,6 +34,7 @@ namespace Ryneus
             EndShopSelect,
             SelectCharaLayer,
             MoveHexMap,
+            EndMoveBattler,
         }
     }
 

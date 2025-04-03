@@ -181,10 +181,6 @@ namespace Ryneus
         {
             if (CurrentStage != null && PartyInfo != null)
             {
-                if (CurrentStage.EndSeek == PartyInfo.Seek.Value)
-                {
-                    return null;
-                }
                 int bgmId;
                 if (PartyInfo.StartStage.Value == false)
                 {
@@ -213,7 +209,7 @@ namespace Ryneus
         public List<StageEventData> StageEvents(EventTiming eventTiming)
         {
             var eventKeys = CurrentGameInfo.ReadEventKeys;
-            return StageEventDates.FindAll(a => a.Timing == eventTiming && a.Turns == PartyInfo.Seek.Value && !eventKeys.Contains(a.EventKey));
+            return StageEventDates.FindAll(a => a.Timing == eventTiming && !eventKeys.Contains(a.EventKey));
         }
         
 
@@ -570,8 +566,6 @@ namespace Ryneus
             if (PartyInfo != null)
             {
                 stageKey.Append(string.Format(PartyInfo.StageId.Value.ToString("00")));
-                stageKey.Append(string.Format(PartyInfo.Seek.Value.ToString("00")));
-                stageKey.Append(string.Format(PartyInfo.SeekIndex.Value.ToString("00")));
             }
             return stageKey.ToString();
         }
@@ -581,7 +575,7 @@ namespace Ryneus
             var cost = ActorLevelUpCost(actorInfo);
             // 新規魔法取得があるか
             var skills = actorInfo.LearningSkills(1);
-            var levelUpInfo = actorInfo.LevelUp(cost,PartyInfo.StageId.Value,PartyInfo.Seek.Value,-1);
+            var levelUpInfo = actorInfo.LevelUp(cost,PartyInfo.StageId.Value);
             foreach (var skill in skills)
             {
                 actorInfo.AddSkillTriggerSkill(skill.Id.Value);

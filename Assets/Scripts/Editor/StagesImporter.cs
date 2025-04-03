@@ -131,7 +131,7 @@ namespace Ryneus
 								SymbolData.StageId = AssetPostImporter.ImportNumeric(SymbolRow, "Id");
 								SymbolData.InitX = AssetPostImporter.ImportNumeric(SymbolRow, "InitX");
 								SymbolData.InitY = AssetPostImporter.ImportNumeric(SymbolRow, "InitY");
-								SymbolData.SymbolType = (SymbolType)AssetPostImporter.ImportNumeric(SymbolRow, "SymbolType");
+								//SymbolData.SymbolType = (SymbolType)AssetPostImporter.ImportNumeric(SymbolRow, "SymbolType");
 								SymbolData.UnitType = (HexUnitType)AssetPostImporter.ImportNumeric(SymbolRow, "UnitType");
 								SymbolData.Rate = AssetPostImporter.ImportNumeric(SymbolRow, "Rate");
 								SymbolData.Param1 = AssetPostImporter.ImportNumeric(SymbolRow, "Param1");
@@ -175,7 +175,7 @@ namespace Ryneus
                         var SymbolGroupData = new SymbolGroupData
                         {
                             GroupId = AssetPostImporter.ImportNumeric(BaseRow, "GroupId"),
-                            SymbolType = (SymbolType)AssetPostImporter.ImportNumeric(BaseRow, "SymbolType"),
+                            //SymbolType = (SymbolType)AssetPostImporter.ImportNumeric(BaseRow, "SymbolType"),
                             Param1 = AssetPostImporter.ImportNumeric(BaseRow, "Param1"),
                             Param2 = AssetPostImporter.ImportNumeric(BaseRow, "Param2"),
                             Rate = AssetPostImporter.ImportNumeric(BaseRow, "Rate"),

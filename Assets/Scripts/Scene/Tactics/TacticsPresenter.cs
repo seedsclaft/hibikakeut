@@ -201,14 +201,7 @@ namespace Ryneus
                 case CommandType.CancellTacticsCommand:
                     CommandCancellTacticsCommand();
                     break;
-                case CommandType.OnClickSymbol:
-                    CommandOnClickSymbol((SymbolInfo)viewEvent.template);
-                    break;
-                case CommandType.OnCancelSymbol:
-                    CommandOnCancelSymbol();
-                    break;
                 case CommandType.SymbolDetailInfo:
-                    CommandSymbolDetailInfo((SymbolInfo)viewEvent.template);
                     break;
                 case CommandType.CallStatus:
                     CommandStatus();
@@ -281,6 +274,10 @@ namespace Ryneus
                 case CommandType.MoveHexMap:
                     CommandMoveHexMap((InputKeyType)viewEvent.template);
                     break;
+                case CommandType.EndMoveBattler:
+                    CommandEndMoveBattler();
+                    break;
+                    
             }
             // チュートリアル確認
             CheckTutorialState(viewEvent.ViewCommandType.CommandType);
@@ -351,7 +348,6 @@ namespace Ryneus
 
         private void BattleStart()
         {
-            var currentSymbol = _model.SelectedSymbol();
 
             _model.SaveTempBattleMembers();
             _view.CommandChangeViewToTransition(null);
@@ -359,21 +355,23 @@ namespace Ryneus
             var battleSceneInfo = new BattleSceneInfo
             {
                 ActorInfos = _model.BattleMembers(),
-                EnemyInfos = currentSymbol.BattlerInfos(),
-                GetItemInfos = _model.CurrentSymbolInfo()?.GetItemInfos,
-                BossBattle = _model.CurrentSymbolInfo().SymbolType == SymbolType.Boss,
+                //EnemyInfos = currentSymbol.BattlerInfos(),
+                //GetItemInfos = _model.CurrentSymbolInfo()?.GetItemInfos,
+                BossBattle = false//_model.CurrentSymbolInfo().SymbolType == SymbolType.Boss,
             };
             _view.CommandSceneChange(Scene.Battle,battleSceneInfo);
         }
 
         private async void PlayStartBattleBgm()
         {
-            var currentSymbol = _model.SelectedSymbol();
+            //var currentSymbol = _model.SelectedSymbol();
             // ボス戦なら
+            /*
             if (currentSymbol.Master.SymbolType == SymbolType.Boss)
             {
                 PlayBossBgm();
             } else
+            */
             {
                 var bgmData = _model.TacticsBgmData();
                 if (bgmData.CrossFade != "" && SoundManager.Instance.CrossFadeMode)
@@ -387,17 +385,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
         }
 
-        private void CommandCallSymbol()
-        {
-            _view.ShowSymbolRecord();
-            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex.Value,_model.PartyInfo.Seek.Value);
-            _view.HideRecordList();
-            _view.ChangeBackCommandActive(true);
-            _view.EndStatusCursor();
-            _view.CommandRefresh();
-            _view.UpdatePartyInfo(_model.PartyInfo);
-            _view.SetViewBusy(true);
-        }
+
 
         private void CommandCallEdit()
         {
@@ -462,105 +450,12 @@ namespace Ryneus
             _view.CommandCallPopup(popupInfo);
         }
 
-        private void CommandOnClickSymbol(SymbolInfo symbolInfo)
-        {
-            if (symbolInfo != null && _model.IsCurrentSeekSymbolInfo(symbolInfo))
-            {
-                _model.SetStageSeekIndex(symbolInfo.Master.InitY);
-                switch (symbolInfo.Master.SymbolType)
-                {
-                    case SymbolType.Battle:
-                    case SymbolType.Boss:
-                        CommandBattleStart();
-                        //CommandCheckBattleStart();
-                        return;
-                    case SymbolType.Alcana:
-                        // 獲得スキルが1つなら
-                        var getItemInfos = symbolInfo.GetItemInfos.FindAll(a => a.GetItemType == GetItemType.Skill);
-                        if (getItemInfos.Count == 1)
-                        {
-                            // 魔法入手表示
-                            var learnSkillInfo = new LearnSkillInfo(0,0,new SkillInfo(getItemInfos[0].Param1));
-                            SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
-
-                            var popupInfo = new PopupInfo
-                            {
-                                PopupType = PopupType.LearnSkill,
-                                EndEvent = () =>
-                                {
-                                    CommandAfterGetItem(symbolInfo);
-                                },
-                                template = learnSkillInfo
-                            };
-                            _view.CommandCallPopup(popupInfo);
-                        } else
-                        {
-                            CommandAfterGetItem(symbolInfo);
-                        }
-                        return;
-                    case SymbolType.Resource:
-                        CommandAfterGetItem(symbolInfo);
-                        return;
-                    case SymbolType.Event:
-                        CommandEvent(symbolInfo);
-                        return;
-                }
-            }
-        }
-
-        private void CommandAfterGetItem(SymbolInfo symbolInfo)
-        {
-            _model.EndSymbolInfo(symbolInfo);
-            CommandNextSeek();
-        }
-
-        private void CommandEvent(SymbolInfo symbolInfo)
-        {
-            var advInfo = new AdvCallInfo();
-            advInfo.Label.SetValue(_model.GetAdvFile(symbolInfo.Master.Param1));
-            _view.gameObject.SetActive(false);
-            // TimeStampを取得してBgmをフェードアウト
-            var timeStamp = SoundManager.Instance.CurrentTimeStamp();
-            SoundManager.Instance.FadeOutBgm();
-            advInfo.SetCallEvent(() => 
-            {                
-                PlayTacticsBgm(timeStamp);
-                _view.gameObject.SetActive(true);
-                CommandAfterGetItem(symbolInfo);
-            });
-            _view.CommandCallAdv(advInfo);
-        }
-
         private void CommandOnCancelSymbol()
         {
             _view.SetViewBusy(false);
             _view.ActivateCommandList();
         }
 
-        private void CommandSymbolDetailInfo(SymbolInfo symbolInfo)
-        {
-            if (symbolInfo == null)
-            {
-                return;
-            }
-            if (symbolInfo.IsBattleSymbol())
-            {
-                SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                CommandEnemyInfo(symbolInfo.TroopInfo.BattlerInfos,false,() => 
-                {
-                    _view.ChangeUIActive(true);
-                    _busy = false;
-                });
-                _busy = true;
-            }
-        }
-
-        private void CommandNextSeek()
-        {
-            _model.SeekNext();
-            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex.Value,_model.PartyInfo.Seek.Value);
-            _view.UpdatePartyInfo(_model.PartyInfo);
-        }
 
         private void CommandSelectRecordSeek(SymbolResultInfo symbolResultInfo)
         {
@@ -609,8 +504,13 @@ namespace Ryneus
                 case "MoveBattler":
                     CommandCallMoveBattler();
                     break;
+                case "Wait":
+                    CommandCallWait();
+                    break;
+                case "Battle":
+                    CommandCallBattle();
+                    break;
                 case "PARADIGM":
-                    CommandCallSymbol();
                     break;
                 case "MENU":
                     CommandStatus();
@@ -666,7 +566,7 @@ namespace Ryneus
         {
             _model.MakeDepartureHex();
             _view.RefreshTiles();
-            _view.UpdateHexIndex(_model.LineX.Value,_model.LineY.Value);
+            UpdateHexIndex();
         }
 
         private void CommandCallMoveBattler()
@@ -674,20 +574,18 @@ namespace Ryneus
             _view.EndTacticsCommand();
             _model.MakeMoveBattlerHex();
             _view.RefreshTiles();
-            _view.UpdateHexIndex(_model.LineX.Value,_model.LineY.Value);
+            UpdateHexIndex();
         }
-/*
-        private void CommandStageSymbol()
+
+        private void CommandCallWait()
         {
-            _view.ShowSymbolRecord();
-            _view.SetSymbolList(_model.StageSymbolInfos(),_model.PartyInfo.SeekIndex.Value,_model.PartyInfo.Seek.Value);
-            _view.HideRecordList();
-            _view.ChangeBackCommandActive(true);
-            _view.EndStatusCursor();
-            _view.CommandRefresh();
-            _backCommand = CommandType.CancelSymbolRecord;
+            _view.EndTacticsCommand();
         }
-*/
+
+        private void CommandCallBattle()
+        {
+            _view.EndTacticsCommand();
+        }
 
         private void CommandStatus(int startIndex = -1)
         {
@@ -741,6 +639,12 @@ namespace Ryneus
             _view.SetTacticsCommand(_model.BasementCommand());
         }
 
+        private void CommandEndMoveBattler()
+        {
+            // 行動
+            _view.SetTacticsCommand(_model.EndMoveBattlerCommand());
+        }
+
         private void CommandSelectReach()
         {
             switch (_model.CommandKey)
@@ -748,61 +652,13 @@ namespace Ryneus
                 case "Departure":
                     _model.SelectDeparture();
                     _view.RefreshTiles();
-                    _view.UpdateHexIndex(_model.LineX.Value,_model.LineY.Value);
+                    UpdateHexIndex();
                     break;
                 case "MoveBattler":
                     var (actions,moveBattler) = _model.SelectMoveBattler();
                     _view.SelectMoveBattler(actions,moveBattler);
                     break;
             }
-        }
-
-        private void CommandCurrentSelectRecord(SymbolResultInfo recordInfo)
-        {
-            _view.HideSymbolRecord();
-            _model.SetStageSeekIndex(recordInfo.SeekIndex);
-            _view.HideRecordList();
-            // 回路解析
-            /*
-            switch (recordInfo.SymbolType)
-            {
-                case SymbolType.Battle:
-                case SymbolType.Boss:
-                    _view.ChangeBackCommandActive(true);
-                    _view.ChangeSymbolBackCommandActive(true);
-                    CommandRefresh();
-                    _busy = true;
-                    var popupInfo = new PopupInfo
-                    {
-                        PopupType = PopupType.BattleParty,
-                        EndEvent = () =>
-                        {
-                            _busy = false;
-                            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                            CommandCancelSelectSymbol();
-                            //_view.SetNuminous(_model.Currency);
-                        }
-                    };
-                    _view.CommandCallPopup(popupInfo);
-                    _backCommand = CommandType.CancelSelectSymbol;
-                    break;
-                case SymbolType.Actor:
-                    //CheckActorSymbol(recordInfo.SymbolInfo.GetItemInfos[0]);
-                    break;
-                case SymbolType.SelectActor:
-                    CheckSelectActorSymbol();
-                    break;
-                case SymbolType.Shop:
-                    CheckShopStageSymbol();
-                    break;
-                case SymbolType.Alcana:
-                    //CheckAlcanaSymbol(recordInfo.SymbolInfo.GetItemInfos);
-                    break;
-                case SymbolType.Resource:
-                    //CheckResourceSymbol(recordInfo.SymbolInfo.GetItemInfos[0]);
-                    break;
-            }
-            */
         }
 
 
@@ -1241,19 +1097,24 @@ namespace Ryneus
             switch (inputKeyType)
             {
                 case InputKeyType.Up:
-                    _model.MoveLine(0,-1);
+                    _model.MoveFieldXY(0,-1);
                     break;
                 case InputKeyType.Down:
-                    _model.MoveLine(0,1);
+                    _model.MoveFieldXY(0,1);
                     break;
                 case InputKeyType.Right:
-                    _model.MoveLine(1,0);
+                    _model.MoveFieldXY(1,0);
                     break;
                 case InputKeyType.Left:
-                    _model.MoveLine(-1,0);
+                    _model.MoveFieldXY(-1,0);
                     break;
             }
-            _view.UpdateHexIndex(_model.LineX.Value,_model.LineY.Value);
+            UpdateHexIndex();
+        }
+
+        private void UpdateHexIndex()
+        {
+            _view.UpdateHexIndex(_model.FieldX.Value,_model.FieldY.Value);
         }
     }
 }

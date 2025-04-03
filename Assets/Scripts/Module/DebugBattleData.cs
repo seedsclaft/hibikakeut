@@ -90,60 +90,6 @@ namespace Ryneus
         }
 
         
-        public List<SymbolResultInfo> OpeningStageSymbolInfos(int actorId)
-        {
-            var symbolInfos = new List<SymbolResultInfo>();
-            var symbols = DataSystem.FindStage(0).StageSymbols;
-            foreach (var symbol in symbols)
-            {
-                var symbolInfo = new SymbolInfo(symbol);
-                var getItemInfos = new List<GetItemInfo>();
-                if (symbol.PrizeSetId > 0)
-                {
-                    var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == symbol.PrizeSetId);
-                    foreach (var prizeSet in prizeSets)
-                    {
-                        prizeSet.GetItem.Param1 = actorId;
-                        var getItemInfo = new GetItemInfo(prizeSet.GetItem);
-                        getItemInfos.Add(getItemInfo);
-                    }
-                }
-                symbolInfo.AddGetItemInfos(getItemInfos);
-                //symbolInfo.SetSelected(true);
-                symbol.InitY = actorId;
-                //var record = new SymbolResultInfo(symbolInfo);
-                //record.SetSelected(true);
-                //symbolInfos.Add(record);
-            }
-            return symbolInfos;
-        }
-        public List<SymbolResultInfo> DebugStageSymbolInfos(int skillId)
-        {
-            var symbolInfos = new List<SymbolResultInfo>();
-            var symbols = DataSystem.FindStage(0).StageSymbols;
-            foreach (var symbol in symbols)
-            {
-                var symbolInfo = new SymbolInfo(symbol);
-                var getItemInfos = new List<GetItemInfo>();
-                if (symbol.PrizeSetId > 0)
-                {
-                    var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == symbol.PrizeSetId);
-                    foreach (var prizeSet in prizeSets)
-                    {
-                        prizeSet.GetItem.Param1 = skillId;
-                        var getItemInfo = new GetItemInfo(prizeSet.GetItem);
-                        getItemInfos.Add(getItemInfo);
-                    }
-                }
-                symbolInfo.AddGetItemInfos(getItemInfos);
-                //symbolInfo.SetSelected(true);
-                symbol.InitY = skillId;
-                //var record = new SymbolResultInfo(symbolInfo);
-                //record.SetSelected(true);
-                //symbolInfos.Add(record);
-            }
-            return symbolInfos;
-        }
     #if UNITY_EDITOR
         private BattleModel _model;
         private BattlePresenter _presenter;

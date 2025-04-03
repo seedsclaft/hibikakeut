@@ -222,11 +222,11 @@ namespace Ryneus
             return 1;
         }
     
-        public LevelUpInfo LevelUp(int useCost,int stageId,int seek,int seekIndex)
+        public LevelUpInfo LevelUp(int useCost,int stageId)
         {
             var levelUpInfo = new LevelUpInfo
             (
-                ActorId.Value,useCost,stageId,seek,seekIndex
+                ActorId.Value,useCost,stageId
             );
             levelUpInfo.SetLevel(Level);
             ChangeHp(CurrentParameter(StatusParamType.Hp));
@@ -275,9 +275,9 @@ namespace Ryneus
             return LearnSkillIds().Contains(skillId) || learnedSkill.Find(a => a.Id.Value == skillId) != null;
         }
 
-        public LevelUpInfo LearnSkill(int skillId,int cost,int stageId,int seek,int seekIndex = -1)
+        public LevelUpInfo LearnSkill(int skillId,int cost,int stageId)
         {
-            var skillLevelUpInfo = new LevelUpInfo(ActorId.Value,cost,stageId,seek,seekIndex);
+            var skillLevelUpInfo = new LevelUpInfo(ActorId.Value,cost,stageId);
             skillLevelUpInfo.SetSkillId(skillId);
             return skillLevelUpInfo;
         }

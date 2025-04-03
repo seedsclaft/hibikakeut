@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Ryneus
 {
+    [Serializable]
     public class HexUnitInfo
     {
         public HexUnitInfo(int index,StageSymbolData stageSymbolData)
@@ -10,10 +11,20 @@ namespace Ryneus
             Index.SetValue(index);
             SetHexUnitType(stageSymbolData.UnitType);
             SetPosition(stageSymbolData.InitX,stageSymbolData.InitY);
+            if (_hexUnitType == HexUnitType.Battler)
+            {
+                _hexLayer = HexLayer.Unit;
+            } else
+            {
+                _hexLayer = HexLayer.Field;
+            }
         }
 
         private HexField _hexField = new();
-        public HexField HexField => _hexField;        
+        public HexField HexField => _hexField;
+
+        private HexLayer _hexLayer = HexLayer.None;
+        public HexLayer HexLayer => _hexLayer;
         
         public ParameterInt Index = new();
         public void SetPosition(int x,int y)
@@ -22,8 +33,8 @@ namespace Ryneus
             _hexField.Y = y;
         }
 
-        public bool IsUnit => _hexUnitType == HexUnitType.Battler;
-        public bool IsSelectArea => _hexUnitType == HexUnitType.Reach;
+        public bool IsUnit => _hexLayer == HexLayer.Unit;
+        public bool IsWall => _hexUnitType == HexUnitType.Battler || _hexUnitType == HexUnitType.None;        public bool IsSelectArea => _hexUnitType == HexUnitType.Reach;
         private HexUnitType _hexUnitType = HexUnitType.None;
         public HexUnitType HexUnitType => _hexUnitType;
         public void SetHexUnitType(HexUnitType hexUnitType) => _hexUnitType = hexUnitType;
@@ -71,17 +82,17 @@ namespace Ryneus
 
     public enum HexUnitType
     {
-        None = 0,
-        Battler = 10,
+        None = 0, // 存在のないマス
+        Wall = 10, 
         Boss = 11,
         Basement = 20,
-        Departure = 21, // 出撃する場所
         Alcana = 30,
         Actor = 40,
         Resource = 50,
         SelectActor = 60,
         Shop = 70,
         Group = 99, // 99以上はグループ指定
-        Reach = 1000,
+        Battler = 1000,
+        Reach = 2000,
     }
 }

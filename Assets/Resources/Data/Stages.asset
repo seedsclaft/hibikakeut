@@ -63,54 +63,11 @@ MonoBehaviour:
     BGMId: 1010
     BossBGMId: 2010
     MenuBGMId: 100
-    StageEvents:
-    - EventKey: 10BeforeTacticsAdvStart10
-      Turns: 10
-      Timing: 110
-      Type: 100
-      Param: 10
-      ReadFlag: 1
-    - EventKey: 10BeforeTacticsAdvStart20
-      Turns: 10
-      Timing: 110
-      Type: 100
-      Param: 20
-      ReadFlag: 1
-    - EventKey: 10BeforeTacticsForceBattle0
-      Turns: 10
-      Timing: 110
-      Type: 110
-      Param: 0
-      ReadFlag: 1
-    - EventKey: 20BeforeTacticsAdvStart30
-      Turns: 20
-      Timing: 110
-      Type: 100
-      Param: 30
-      ReadFlag: 1
-    - EventKey: 30BeforeTacticsAdvStart40
-      Turns: 30
-      Timing: 110
-      Type: 100
-      Param: 40
-      ReadFlag: 1
-    - EventKey: 50BeforeTacticsAdvStart50
-      Turns: 50
-      Timing: 110
-      Type: 100
-      Param: 50
-      ReadFlag: 1
-    - EventKey: 50BattleVictoryAdvStart60
-      Turns: 50
-      Timing: 210
-      Type: 100
-      Param: 60
-      ReadFlag: 1
+    StageEvents: []
     StageSymbols:
     - StageId: 10
       InitX: -1
       InitY: 0
-      SymbolType: 70
       UnitType: 70
       Rate: 100
       Param1: 0
@@ -120,8 +77,7 @@ MonoBehaviour:
     - StageId: 10
       InitX: 6
       InitY: 2
-      SymbolType: 10
-      UnitType: 10
+      UnitType: 1000
       Rate: 100
       Param1: 1011
       Param2: 0
@@ -130,8 +86,43 @@ MonoBehaviour:
     - StageId: 10
       InitX: 2
       InitY: 4
-      SymbolType: 10
       UnitType: 20
+      Rate: 100
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+    - StageId: 10
+      InitX: 2
+      InitY: 3
+      UnitType: 0
+      Rate: 100
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+    - StageId: 10
+      InitX: 2
+      InitY: 5
+      UnitType: 0
+      Rate: 100
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+    - StageId: 10
+      InitX: 4
+      InitY: 4
+      UnitType: 0
+      Rate: 100
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+    - StageId: 10
+      InitX: 4
+      InitY: 5
+      UnitType: 0
       Rate: 100
       Param1: 0
       Param2: 0
@@ -169,116 +160,8 @@ MonoBehaviour:
     BGMId: 1020
     BossBGMId: 2010
     MenuBGMId: 100
-    StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart70
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 70
-      ReadFlag: 1
-    - EventKey: 4BeforeTacticsAdvStart80
-      Turns: 4
-      Timing: 110
-      Type: 100
-      Param: 80
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart90
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 90
-      ReadFlag: 1
-    StageSymbols:
-    - StageId: 20
-      InitX: -1
-      InitY: 0
-      SymbolType: 70
-      UnitType: 70
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 1004
-      ClearCount: 0
-    - StageId: 20
-      InitX: 0
-      InitY: 0
-      SymbolType: 10
-      UnitType: 10
-      Rate: 100
-      Param1: -1
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 20
-      InitX: 1
-      InitY: 0
-      SymbolType: 10
-      UnitType: 10
-      Rate: 100
-      Param1: 2011
-      Param2: 0
-      PrizeSetId: 2011
-      ClearCount: 0
-    - StageId: 20
-      InitX: 2
-      InitY: 0
-      SymbolType: 10
-      UnitType: 10
-      Rate: 100
-      Param1: 2021
-      Param2: 0
-      PrizeSetId: 2021
-      ClearCount: 0
-    - StageId: 20
-      InitX: 2
-      InitY: 1
-      SymbolType: 10
-      UnitType: 10
-      Rate: 100
-      Param1: 2021
-      Param2: 0
-      PrizeSetId: 2022
-      ClearCount: 0
-    - StageId: 20
-      InitX: 3
-      InitY: 0
-      SymbolType: 10
-      UnitType: 10
-      Rate: 100
-      Param1: 2031
-      Param2: 0
-      PrizeSetId: 2031
-      ClearCount: 0
-    - StageId: 20
-      InitX: 4
-      InitY: 0
-      SymbolType: 204
-      UnitType: 204
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 20
-      InitX: 4
-      InitY: 1
-      SymbolType: 205
-      UnitType: 205
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 20
-      InitX: 5
-      InitY: 0
-      SymbolType: 11
-      UnitType: 11
-      Rate: 100
-      Param1: 2101
-      Param2: 0
-      PrizeSetId: 2101
-      ClearCount: 0
+    StageEvents: []
+    StageSymbols: []
   - Id: 30
     StageNo: 3
     Name: "\u7A93\u306E\u96E8\u3092\u306A\u304C\u3081\u3066"
@@ -311,112 +194,8 @@ MonoBehaviour:
     BGMId: 1030
     BossBGMId: 2010
     MenuBGMId: 100
-    StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart100
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 100
-      ReadFlag: 1
-    - EventKey: 3BeforeTacticsAdvStart110
-      Turns: 3
-      Timing: 110
-      Type: 100
-      Param: 110
-      ReadFlag: 1
-    - EventKey: 6BeforeTacticsAdvStart120
-      Turns: 6
-      Timing: 110
-      Type: 100
-      Param: 120
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart130
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 130
-      ReadFlag: 1
-    StageSymbols:
-    - StageId: 30
-      InitX: -1
-      InitY: 0
-      SymbolType: 70
-      UnitType: 70
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 1006
-      ClearCount: 0
-    - StageId: 30
-      InitX: 0
-      InitY: 0
-      SymbolType: 10
-      UnitType: 10
-      Rate: 100
-      Param1: -1
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 30
-      InitX: 1
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 30
-      InitX: 2
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 30
-      InitX: 3
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 30
-      InitX: 4
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 30
-      InitX: 5
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 30
-      InitX: 6
-      InitY: 0
-      SymbolType: 11
-      UnitType: 11
-      Rate: 100
-      Param1: 1101
-      Param2: 0
-      PrizeSetId: 1101
-      ClearCount: 0
+    StageEvents: []
+    StageSymbols: []
   - Id: 40
     StageNo: 4
     Name: "\u685C\u306A\u3054\u308A\u306E\u5B66\u820E"
@@ -447,118 +226,8 @@ MonoBehaviour:
     BGMId: 1040
     BossBGMId: 2010
     MenuBGMId: 100
-    StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart140
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 140
-      ReadFlag: 1
-    - EventKey: 3BeforeTacticsAdvStart150
-      Turns: 3
-      Timing: 110
-      Type: 100
-      Param: 150
-      ReadFlag: 1
-    - EventKey: 5BeforeTacticsAdvStart160
-      Turns: 5
-      Timing: 110
-      Type: 100
-      Param: 160
-      ReadFlag: 1
-    - EventKey: 6BeforeTacticsAdvStart170
-      Turns: 6
-      Timing: 110
-      Type: 100
-      Param: 170
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart180
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 180
-      ReadFlag: 1
-    StageSymbols:
-    - StageId: 40
-      InitX: -1
-      InitY: 0
-      SymbolType: 70
-      UnitType: 70
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 1001
-      ClearCount: 0
-    - StageId: 40
-      InitX: 0
-      InitY: 0
-      SymbolType: 10
-      UnitType: 10
-      Rate: 100
-      Param1: -1
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 40
-      InitX: 1
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 40
-      InitX: 2
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 40
-      InitX: 3
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 40
-      InitX: 4
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 40
-      InitX: 5
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 40
-      InitX: 6
-      InitY: 0
-      SymbolType: 11
-      UnitType: 11
-      Rate: 100
-      Param1: 1101
-      Param2: 0
-      PrizeSetId: 1101
-      ClearCount: 0
+    StageEvents: []
+    StageSymbols: []
   - Id: 50
     StageNo: 5
     Name: "\u82B1\u3073\u3089\u3092\u80F8\u306B\u62B1\u3044\u3066"
@@ -591,102 +260,8 @@ MonoBehaviour:
     BGMId: 1050
     BossBGMId: 2010
     MenuBGMId: 100
-    StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart190
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 190
-      ReadFlag: 1
-    - EventKey: 3BeforeTacticsAdvStart200
-      Turns: 3
-      Timing: 110
-      Type: 100
-      Param: 200
-      ReadFlag: 1
-    - EventKey: 6BeforeTacticsAdvStart210
-      Turns: 6
-      Timing: 110
-      Type: 100
-      Param: 210
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart220
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 220
-      ReadFlag: 1
-    StageSymbols:
-    - StageId: 50
-      InitX: 0
-      InitY: 0
-      SymbolType: 10
-      UnitType: 10
-      Rate: 100
-      Param1: -1
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 50
-      InitX: 1
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 50
-      InitX: 2
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 50
-      InitX: 3
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 50
-      InitX: 4
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 50
-      InitX: 5
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 50
-      InitX: 6
-      InitY: 0
-      SymbolType: 11
-      UnitType: 11
-      Rate: 100
-      Param1: 1101
-      Param2: 0
-      PrizeSetId: 1101
-      ClearCount: 0
+    StageEvents: []
+    StageSymbols: []
   - Id: 60
     StageNo: 6
     Name: "\u30B7\u30F3\u30C7\u30EC\u30E9\u30AC\u30FC\u30EB"
@@ -715,124 +290,8 @@ MonoBehaviour:
     BGMId: 1060
     BossBGMId: 2010
     MenuBGMId: 100
-    StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart230
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 230
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart240
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 240
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart250
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 250
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart260
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 260
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart270
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 270
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart280
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 280
-      ReadFlag: 1
-    StageSymbols:
-    - StageId: 60
-      InitX: -1
-      InitY: 0
-      SymbolType: 70
-      UnitType: 70
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 1002
-      ClearCount: 0
-    - StageId: 60
-      InitX: 0
-      InitY: 0
-      SymbolType: 10
-      UnitType: 10
-      Rate: 100
-      Param1: -1
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 60
-      InitX: 1
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 60
-      InitX: 2
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 60
-      InitX: 3
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 60
-      InitX: 4
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 60
-      InitX: 5
-      InitY: 0
-      SymbolType: -1
-      UnitType: -1
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-    - StageId: 60
-      InitX: 6
-      InitY: 0
-      SymbolType: 11
-      UnitType: 11
-      Rate: 100
-      Param1: 1101
-      Param2: 0
-      PrizeSetId: 1101
-      ClearCount: 0
+    StageEvents: []
+    StageSymbols: []
   - Id: 70
     StageNo: 7
     Name: "\u304B\u3089\u305F\u3061\u306E\u82B1\u305F\u3061"
@@ -865,31 +324,7 @@ MonoBehaviour:
     BGMId: 1070
     BossBGMId: 2010
     MenuBGMId: 110
-    StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart290
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 290
-      ReadFlag: 1
-    - EventKey: 3BeforeTacticsAdvStart300
-      Turns: 3
-      Timing: 110
-      Type: 100
-      Param: 300
-      ReadFlag: 1
-    - EventKey: 6BeforeTacticsAdvStart310
-      Turns: 6
-      Timing: 110
-      Type: 100
-      Param: 310
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart320
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 320
-      ReadFlag: 1
+    StageEvents: []
     StageSymbols: []
   - Id: 80
     StageNo: 8
@@ -921,37 +356,7 @@ MonoBehaviour:
     BGMId: 1080
     BossBGMId: 2020
     MenuBGMId: 110
-    StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart330
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 330
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart340
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 340
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart350
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 350
-      ReadFlag: 1
-    - EventKey: 4BeforeTacticsAdvStart360
-      Turns: 4
-      Timing: 110
-      Type: 100
-      Param: 360
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart370
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 370
-      ReadFlag: 1
+    StageEvents: []
     StageSymbols: []
   - Id: 90
     StageNo: 9
@@ -985,31 +390,7 @@ MonoBehaviour:
     BGMId: 1090
     BossBGMId: 2020
     MenuBGMId: 110
-    StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart380
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 380
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart390
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 390
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart400
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 400
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart410
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 410
-      ReadFlag: 1
+    StageEvents: []
     StageSymbols: []
   - Id: 100
     StageNo: 10
@@ -1049,31 +430,7 @@ MonoBehaviour:
     BGMId: 1100
     BossBGMId: 2020
     MenuBGMId: 110
-    StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart420
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 420
-      ReadFlag: 1
-    - EventKey: 3BeforeTacticsAdvStart430
-      Turns: 3
-      Timing: 110
-      Type: 100
-      Param: 430
-      ReadFlag: 1
-    - EventKey: 6BeforeTacticsAdvStart440
-      Turns: 6
-      Timing: 110
-      Type: 100
-      Param: 440
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart450
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 450
-      ReadFlag: 1
+    StageEvents: []
     StageSymbols: []
   - Id: 110
     StageNo: 11
@@ -1107,55 +464,7 @@ MonoBehaviour:
     BGMId: 1110
     BossBGMId: 2020
     MenuBGMId: 120
-    StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart460
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 460
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart470
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 470
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart480
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 480
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart490
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 490
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart500
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 500
-      ReadFlag: 1
-    - EventKey: 3BeforeTacticsAdvStart510
-      Turns: 3
-      Timing: 110
-      Type: 100
-      Param: 510
-      ReadFlag: 1
-    - EventKey: 6BeforeTacticsAdvStart520
-      Turns: 6
-      Timing: 110
-      Type: 100
-      Param: 520
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart530
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 530
-      ReadFlag: 1
+    StageEvents: []
     StageSymbols: []
   - Id: 120
     StageNo: 12
@@ -1189,43 +498,7 @@ MonoBehaviour:
     BGMId: 1120
     BossBGMId: 2020
     MenuBGMId: 120
-    StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart540
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 540
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart550
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 550
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart560
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 560
-      ReadFlag: 1
-    - EventKey: 3BeforeTacticsAdvStart570
-      Turns: 3
-      Timing: 110
-      Type: 100
-      Param: 570
-      ReadFlag: 1
-    - EventKey: 6BeforeTacticsAdvStart580
-      Turns: 6
-      Timing: 110
-      Type: 100
-      Param: 580
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart590
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 590
-      ReadFlag: 1
+    StageEvents: []
     StageSymbols: []
   - Id: 130
     StageNo: 13
@@ -1257,19 +530,7 @@ MonoBehaviour:
     BGMId: 1130
     BossBGMId: 2020
     MenuBGMId: 120
-    StageEvents:
-    - EventKey: 4BeforeTacticsAdvStart600
-      Turns: 4
-      Timing: 110
-      Type: 100
-      Param: 600
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart610
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 610
-      ReadFlag: 1
+    StageEvents: []
     StageSymbols: []
   - Id: 140
     StageNo: 14
@@ -1289,19 +550,7 @@ MonoBehaviour:
     BGMId: 1140
     BossBGMId: 2020
     MenuBGMId: 120
-    StageEvents:
-    - EventKey: 4BeforeTacticsAdvStart620
-      Turns: 4
-      Timing: 110
-      Type: 100
-      Param: 620
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart630
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 630
-      ReadFlag: 1
+    StageEvents: []
     StageSymbols: []
   - Id: 150
     StageNo: 15
@@ -1321,149 +570,80 @@ MonoBehaviour:
     BGMId: 1150
     BossBGMId: 1150
     MenuBGMId: 120
-    StageEvents:
-    - EventKey: 1BeforeTacticsAdvStart640
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 640
-      ReadFlag: 1
-    - EventKey: 1BeforeTacticsAdvStart650
-      Turns: 1
-      Timing: 110
-      Type: 100
-      Param: 650
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart660
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 660
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart670
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 670
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart680
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 680
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart690
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 690
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart700
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 700
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart710
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 710
-      ReadFlag: 1
-    - EventKey: 6BattleVictoryAdvStart720
-      Turns: 6
-      Timing: 210
-      Type: 100
-      Param: 720
-      ReadFlag: 1
+    StageEvents: []
     StageSymbols: []
   SymbolGroupData:
   - GroupId: 201
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 11020
   - GroupId: 201
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 11030
   - GroupId: 201
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 11040
   - GroupId: 202
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 12020
   - GroupId: 202
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 12030
   - GroupId: 202
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 12040
   - GroupId: 203
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 13020
   - GroupId: 203
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 13030
   - GroupId: 203
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 13040
   - GroupId: 204
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 14010
   - GroupId: 204
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 14020
   - GroupId: 204
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 14030
   - GroupId: 205
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 15020
   - GroupId: 205
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0
     PrizeSetId: 15030
   - GroupId: 205
-    SymbolType: 10
     Rate: 50
     Param1: -1
     Param2: 0

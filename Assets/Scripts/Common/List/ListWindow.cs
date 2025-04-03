@@ -32,8 +32,9 @@ namespace Ryneus
         [SerializeField] private GameObject itemPrefab = null;
 
         private ScrollRect _scrollRect = null; 
-        public ScrollRect ScrollRect => _scrollRect; 
-        private bool _horizontal => _scrollRect.horizontal; 
+        public ScrollRect ScrollRect => _scrollRect;
+        private bool _horizontal => _scrollRect.horizontal;
+        [SerializeField] private bool _grid = false;
         private List<GameObject> _itemPrefabList = new ();
         public List<GameObject> ItemPrefabList => _itemPrefabList;
         private GameObject _prevPrefab = null;
@@ -544,7 +545,7 @@ namespace Ryneus
             if (keyTypes.Contains(pageUpKey) || keyTypes.Contains(pageDownKey))
             {
                 // 列移動
-                var lines = _horizontal ? Cols() : Rows();
+                var lines = _horizontal && !_grid ? Cols() : Rows();
                 if (lines > 1)
                 {
                     for (int i = 0;i < lines;i++)

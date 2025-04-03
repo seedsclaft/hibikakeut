@@ -8,10 +8,6 @@ namespace Ryneus
     public class StageInfo
     {
         public StageData Master => DataSystem.FindStage(StageId.Value);
-
-        private List<SymbolInfo> _symbolInfos = new();
-        public List<SymbolInfo> SymbolInfos => _symbolInfos;
-        public void SetSymbolInfos(List<SymbolInfo> symbolInfos) => _symbolInfos = symbolInfos;
         
         private List<HexUnitInfo> _hexUnitList = new();
         public List<HexUnitInfo> HexUnitList => _hexUnitList;

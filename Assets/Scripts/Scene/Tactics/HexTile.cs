@@ -8,19 +8,23 @@ namespace Ryneus
 {
     public class HexTile : ListItem ,IListViewItem
     {        
-        [SerializeField] private HexUnitComponent hexUnitComponent;
+        [SerializeField] private GameObject blank;
+        [SerializeField] private HexUnitComponent filedHexUnit;
+        [SerializeField] private HexUnitComponent unitHexUnit;
         public void UpdateViewItem()
         {
             if (ListData == null) return;
-            var hexPosition = ListItemData<(int,int)>();
-            var hexUnit = GameSystem.GameInfo.StageInfo.HexUnitList.Find(a => a.HexField.X == hexPosition.Item1 && a.HexField.Y == hexPosition.Item2);
-            if (hexUnit != null)
+            var hexPosition = ListItemData<HexField>();
+            var hexUnits = GameSystem.GameInfo.StageInfo.HexUnitList.FindAll(a => a.HexField.X == hexPosition.X && a.HexField.Y == hexPosition.Y);
+            
+            filedHexUnit.Clear();
+            unitHexUnit.Clear();
+            foreach (var hexUnit in hexUnits)
             {
-                hexUnitComponent.UpdateInfo(hexUnit);
-            } else
-            {
-                hexUnitComponent.Clear();
+                var compnent = hexUnit.IsUnit ? unitHexUnit : filedHexUnit;
+                compnent.UpdateInfo(hexUnit);
             }
+            blank?.SetActive(hexPosition.X % 2 == 1);
         }
     }
 }

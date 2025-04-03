@@ -31,32 +31,18 @@ namespace Ryneus
         public int Currency => _currency;
         private int _stageId = -1;
         public int StageId => _stageId;
-        private int _seek = -1;
-        public int Seek => _seek;
-        private int _seekIndex = -1;
-        public int SeekIndex => _seekIndex;
 
-        public LevelUpInfo(int actorId,int currency,int stageId,int seek,int seekIndex)
+        public LevelUpInfo(int actorId,int currency,int stageId)
         {
             _actorId = actorId;
             _currency = currency;
             _stageId = stageId;
-            _seek = seek;
-            _seekIndex = seekIndex;
         }
 
-        public LevelUpInfo CopyBrunchData()
-        {
-            var newLevelUpInfo = new LevelUpInfo(_actorId,_currency,_stageId,_seek,_seekIndex);
-            newLevelUpInfo.SetLevel(_level);
-            newLevelUpInfo.SetEnable(_enable);
-            newLevelUpInfo.SetSkillId(_skillId);
-            return newLevelUpInfo;
-        }
 
         public bool IsSameLevelUpInfo(LevelUpInfo levelUpInfo)
         {
-            return levelUpInfo.ActorId == _actorId && levelUpInfo.SkillId == _skillId && levelUpInfo.Level == _level && levelUpInfo.StageId == _stageId && levelUpInfo.Seek == _seek && levelUpInfo.SeekIndex == _seekIndex;
+            return levelUpInfo.ActorId == _actorId && levelUpInfo.SkillId == _skillId && levelUpInfo.Level == _level && levelUpInfo.StageId == _stageId;
         }
 
         public bool IsLevelUpData()
@@ -79,9 +65,5 @@ namespace Ryneus
             return IsLevelUpData() && _currency > 0;
         }
 
-        public bool IsEnableStage(int stageId,int seek)
-        {
-            return (_stageId == stageId && _seek <= seek || _stageId < stageId);
-        }
     }
 }

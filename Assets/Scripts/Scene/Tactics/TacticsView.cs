@@ -12,14 +12,14 @@ namespace Ryneus
     using Tactics;
     public class TacticsView : BaseView ,IInputHandlerEvent
     {
-        [SerializeField] private HexTiles hexTiles = null;
+        [SerializeField] private BaseList hexTiles = null;
+        public HexField SelectHexField => hexTiles.ListItemData<HexField>();
         [SerializeField] private BaseList tacticsCommandList = null;
         public SystemData.CommandData TacticsCommandData => tacticsCommandList.ListItemData<SystemData.CommandData>();
         [SerializeField] private BaseList battleMemberList = null;
         public ActorInfo SelectBattleMember => battleMemberList.ListItemData<ActorInfo>();
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent = null;
-        [SerializeField] private SymbolList symbolInfoList = null;
         [SerializeField] private MagicList alcanaSelectList = null;
         [SerializeField] private TextMeshProUGUI saveScoreText = null;
         [SerializeField] private TacticsAlcana tacticsAlcana = null;
@@ -42,7 +42,7 @@ namespace Ryneus
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Tactics);
             InitializeCommandList();
-            InitializeBattleMemberList();
+            //InitializeBattleMemberList();
             InitializeHexTileList();
             tacticsAlcana.gameObject.SetActive(false);
             alcanaButton.onClick.AddListener(() => CallAlcanaCheck());
@@ -55,7 +55,6 @@ namespace Ryneus
             {
                 CallViewEvent(CommandType.StageHelp);
             });
-            InitializeSymbolInfoList();
 
             alcanaSelectList.Initialize();
             HideSymbolRecord();
@@ -162,7 +161,7 @@ namespace Ryneus
 
         public void UpdateHexIndex(int x,int y)
         {
-            hexTiles.SetLine(x,y);
+            hexTiles.UpdateSelectIndex(x + y * 8);
         }
 
         public void RefreshTiles()
@@ -191,52 +190,10 @@ namespace Ryneus
             if (actions.Count > 0)
             {
                 MoveAction(actions,hexUnitInfo);
-            }
-        }
-
-        private void InitializeSymbolInfoList()
-        {
-            symbolInfoList.Initialize();
-            SetInputHandler(symbolInfoList.gameObject);
-            symbolInfoList.SetInputHandler(InputKeyType.Decide,OnClickSymbol);
-            symbolInfoList.SetInputHandler(InputKeyType.Cancel,OnCancelSymbol);
-            symbolInfoList.SetSymbolDetailInfoEvent(SymbolDetailInfo);
-            symbolInfoList.SetInputHandler(InputKeyType.Option1,SymbolDetailInfo);
-            AddViewActives(symbolInfoList);
-            //symbolInfoList.gameObject.SetActive(false);
-        }
-
-        public void SetSymbolList(List<ListData> symbolList,int seekIndex,int seek)
-        {
-            symbolInfoList.SetSeekIndex(seekIndex);
-            symbolInfoList.SetData(symbolList,true);
-            SetActivate(symbolInfoList);
-        }
-
-        private void OnClickSymbol()
-        {
-            if (symbolInfoList.ScrollRect.enabled == false) return;
-            var data = symbolInfoList.SelectSymbolInfo();
-            if (data != null)
+            } else
             {
-                CallViewEvent(CommandType.OnClickSymbol,data);
+                CallViewEvent(CommandType.EndMoveBattler);
             }
-        }
-
-        private void OnCancelSymbol()
-        {
-            symbolInfoList.gameObject.SetActive(false);
-            CallViewEvent(CommandType.OnCancelSymbol);
-        }
-
-        private void SymbolDetailInfo()
-        {
-            CallViewEvent(CommandType.SymbolDetailInfo,symbolInfoList.SelectSymbolInfo());
-        }
-
-        public void UpdatePartyInfo(PartyInfo partyInfo)
-        {
-            symbolInfoList.UpdatePartyInfo(partyInfo);
         }
 
         public void StartStageAnimation(Effekseer.EffekseerEffectAsset effekseerEffect)
@@ -307,12 +264,10 @@ namespace Ryneus
 
         public void ShowSymbolRecord()
         {
-            symbolInfoList.gameObject.SetActive(true);
         }
 
         public void HideSymbolRecord()
         {
-            symbolInfoList.gameObject.SetActive(false);
         }
 
         private void CallBattleEnemy()
@@ -460,13 +415,6 @@ namespace Ryneus
 
         public void CommandRefresh()
         {
-            if (symbolInfoList.gameObject.activeSelf && symbolInfoList.Active)
-            {
-                SetHelpInputInfo("RECORD_LIST");
-            } else
-            {
-                SetHelpInputInfo("TACTICS");
-            }
         }
     }
 

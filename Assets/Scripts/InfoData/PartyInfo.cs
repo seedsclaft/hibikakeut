@@ -14,25 +14,13 @@ namespace Ryneus
         public List<ActorInfo> ActorInfos => _actorInfos;
         public List<ActorInfo> GetActorInfos()
         {
-            // ステージメンバー制限
-            if (StageId.Value > 0)
-            {
-                var stageMaster = StageMaster;
-                if (stageMaster != null && stageMaster.PartyMemberIds.Count > 0 && stageMaster.PartyMemberIds[0] != 0)
-                {
-                    return _actorInfos.FindAll(a => stageMaster.PartyMemberIds.Contains(a.ActorId.Value));
-                }
-            }
             return _actorInfos;
         }
 
         // 現在のステージ場所
         public StageData StageMaster => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
-        public ParameterInt Seek = new();
-        public ParameterInt SeekIndex = new();
         public ParameterBool StartStage = new ();
-
 
         // 所持金
         public ParameterInt Currency = new();
