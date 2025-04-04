@@ -39,6 +39,8 @@ namespace Ryneus
                 switch (symbolMaster.UnitType)
                 {
                     case HexUnitType.Battler:
+                        // 敵ユニット
+                        hexUnitInfo.SetTeamState(TeamState.Away);
                         hexUnitInfo.SetTroopInfo(BattleTroop(stageSymbolData));
                         if (randFlag)
                         {
@@ -49,7 +51,7 @@ namespace Ryneus
                         if (hexUnitInfo.TroopInfo != null && hexUnitInfo.TroopInfo.GetItemInfos.Count > 0)
                         {
                             getItemInfos.AddRange(hexUnitInfo.TroopInfo.GetItemInfos);
-                        }       
+                        }
                         break;
                 }
                 foreach (var getItemInfo in hexUnitInfo.GetItemInfos)

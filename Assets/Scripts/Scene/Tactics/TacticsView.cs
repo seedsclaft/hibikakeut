@@ -109,12 +109,14 @@ namespace Ryneus
 
         private void InitializeBattleMemberList()
         {
+            /*
             battleMemberList.Initialize();
             battleMemberList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.CallBattleMemberSelect));
             battleMemberList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.CallBattleMemberSelectEnd));
             battleMemberList.SetSelectedHandler(() => UpdateHelpWindow());
             SetInputHandler(battleMemberList.gameObject);
             AddViewActives(battleMemberList);
+            */
         }
 
         public void ActivateBattleMemberList()
@@ -444,4 +446,32 @@ namespace Ryneus
         }
     }
 
+    namespace Tactics
+    {
+        public enum CommandType
+        {
+            None = 0,
+            CallTacticsCommand,
+            CancellTacticsCommand,
+            CallStatus,
+            SelectHexUnit,
+            SymbolDetailInfo,
+            PopupSkillInfo,
+            DecideBattleMemberSelect,
+            CancelBattleMemberSelect,
+            CallEnemyInfo,
+            CallAddActorInfo,
+            Back,
+            SelectSideMenu,
+            StageHelp,
+            ScorePrize,
+            AlcanaCheck,
+            SelectAlcanaList,
+            HideAlcanaList,
+            EndShopSelect,
+            SelectCharaLayer,
+            MoveHexMap,
+            EndMoveBattler,
+        }
+    }
 }

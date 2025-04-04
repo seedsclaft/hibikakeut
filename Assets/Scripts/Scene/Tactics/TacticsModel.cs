@@ -17,25 +17,7 @@ namespace Ryneus
                 _hexRoute = new HexRoute(stageData.Width,stageData.Height,CurrentGameInfo.StageInfo.HexUnitList);
             }
         }
-        
-        private ActorInfo _swapFromActor = null;
-        public ActorInfo SwapFromActor => _swapFromActor;
-        public void SetSwapFromActorInfo(ActorInfo actorInfo) => _swapFromActor = actorInfo; 
-        public void SwapActorInfo(ActorInfo actorInfo)
-        {
-            if (_swapFromActor == null)
-            {
-                return;
-            }
-            if (_swapFromActor == actorInfo)
-            {
-                return;
-            }
-            var fromIndex = _swapFromActor.BattleIndex.Value;
-            var toIndex = actorInfo.BattleIndex.Value;
-            _swapFromActor.BattleIndex.SetValue(toIndex);
-            actorInfo.BattleIndex.SetValue(fromIndex);
-        }
+    
 
         public bool StageStart()
         {

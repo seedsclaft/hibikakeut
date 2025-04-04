@@ -17,6 +17,10 @@ namespace Ryneus
         private int _departureActorId = -1;
         public void SetDepatureActorId(int departureActorId) => _departureActorId = departureActorId;
         
+        // 行動選択中のチーム
+        private TeamState _turnTeamState = TeamState.None;
+        public void SetTurnTeamState(TeamState teamState) => _turnTeamState = teamState;
+
         /// <summary>
         /// マップの基礎Fieldデータ
         /// </summary>
@@ -139,7 +143,7 @@ namespace Ryneus
                 InitY = FieldY.Value,
                 UnitType = HexUnitType.Battler,
             };
-            var depaterActor = new HexUnitInfo(depaterActorIndex,unitData);
+            var depaterActor = new HexUnitInfo(depaterActorIndex,unitData,TeamState.Home);
             depaterActor.SetActorInfos(new List<ActorInfo>(){StageMembers().Find(a => a.ActorId.Value == _departureActorId)});
             CurrentGameInfo.StageInfo.AddHexUnitInfo(depaterActor);
 

@@ -6,7 +6,7 @@ namespace Ryneus
     [Serializable]
     public class HexUnitInfo
     {
-        public HexUnitInfo(int index,StageSymbolData stageSymbolData)
+        public HexUnitInfo(int index,StageSymbolData stageSymbolData,TeamState teamState = TeamState.None)
         {
             Index.SetValue(index);
             SetHexUnitType(stageSymbolData.UnitType);
@@ -18,6 +18,7 @@ namespace Ryneus
             {
                 _hexLayer = HexLayer.Field;
             }
+            _teamState = teamState;
         }
 
         private HexField _hexField = new();
@@ -27,6 +28,8 @@ namespace Ryneus
         public HexLayer HexLayer => _hexLayer;
         
         public ParameterInt Index = new();
+        private TeamState _teamState = TeamState.None;
+        public void SetTeamState(TeamState teamState) => _teamState = teamState;
         public void SetPosition(int x,int y)
         {
             _hexField.X = x;
@@ -88,5 +91,14 @@ namespace Ryneus
         SelectActor = 70,
         Battler = 1000,
         Reach = 2000,
+    }
+
+    [Serializable]
+    public enum TeamState
+    {
+        None = 0, // 壁、移動範囲など
+        Home = 1, // 味方
+        Away = 2, // 敵
+        Neutral = 3, // 中立
     }
 }
