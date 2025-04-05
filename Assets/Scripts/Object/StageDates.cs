@@ -51,16 +51,19 @@ namespace Ryneus
     [Serializable]
     public class StageSymbolData
     {
+        public int Id;
         public int StageId;
         public int InitX;
         public int InitY;
-        //public SymbolType SymbolType;
         public HexUnitType UnitType;
+        public TeamIdType InitTeamId;
         public int Rate;
         public int Param1;
         public int Param2;
         public int PrizeSetId;
         public int ClearCount;
+        public HexMoveType MoveType;
+        public int MoveParam;
 
         public void ConvertSymbolGroupData(SymbolGroupData symbolGroupData)
         {
@@ -190,5 +193,31 @@ namespace Ryneus
         None = 0,
         Evaluate = 1,
         Turns = 2
+    }
+
+    [Serializable]
+    public enum HexUnitType
+    {
+        None = 0, // 存在のないマス
+        Basement = 20,
+        SelectActor = 70,
+        Battler = 1000,
+        Reach = 2000,
+    }
+
+    [Serializable]
+    public enum HexMoveType
+    {
+        None = 0, // 移動しない
+        MoveBasement = 1, // 索敵攻撃。相手陣営の本拠地に向かう
+    }
+
+    [Serializable]
+    public enum TeamIdType
+    {
+        None = 0, // 壁、移動範囲など
+        Home = 1, // 味方
+        Away = 2, // 敵
+        Neutral = 3, // 中立
     }
 }

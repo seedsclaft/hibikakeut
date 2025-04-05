@@ -65,69 +65,97 @@ MonoBehaviour:
     MenuBGMId: 100
     StageEvents: []
     StageSymbols:
-    - StageId: 10
+    - Id: 1000
+      StageId: 10
       InitX: -1
       InitY: 0
       UnitType: 70
+      InitTeamId: 0
       Rate: 100
       Param1: 0
       Param2: 0
       PrizeSetId: 1001
       ClearCount: 0
-    - StageId: 10
-      InitX: 6
-      InitY: 2
+      MoveType: 0
+      MoveParam: 0
+    - Id: 1010
+      StageId: 10
+      InitX: 7
+      InitY: 5
       UnitType: 1000
+      InitTeamId: 2
       Rate: 100
       Param1: 1011
       Param2: 0
       PrizeSetId: 1011
       ClearCount: 0
-    - StageId: 10
+      MoveType: 1
+      MoveParam: 0
+    - Id: 1020
+      StageId: 10
       InitX: 2
       InitY: 4
       UnitType: 20
+      InitTeamId: 1
       Rate: 100
       Param1: 0
       Param2: 0
       PrizeSetId: 0
       ClearCount: 0
-    - StageId: 10
+      MoveType: 0
+      MoveParam: 0
+    - Id: 1030
+      StageId: 10
       InitX: 2
       InitY: 3
       UnitType: 0
+      InitTeamId: 0
       Rate: 100
       Param1: 0
       Param2: 0
       PrizeSetId: 0
       ClearCount: 0
-    - StageId: 10
+      MoveType: 0
+      MoveParam: 0
+    - Id: 1040
+      StageId: 10
       InitX: 2
       InitY: 5
       UnitType: 0
+      InitTeamId: 0
       Rate: 100
       Param1: 0
       Param2: 0
       PrizeSetId: 0
       ClearCount: 0
-    - StageId: 10
+      MoveType: 0
+      MoveParam: 0
+    - Id: 1050
+      StageId: 10
       InitX: 4
       InitY: 4
       UnitType: 0
+      InitTeamId: 0
       Rate: 100
       Param1: 0
       Param2: 0
       PrizeSetId: 0
       ClearCount: 0
-    - StageId: 10
+      MoveType: 0
+      MoveParam: 0
+    - Id: 1060
+      StageId: 10
       InitX: 4
       InitY: 5
       UnitType: 0
+      InitTeamId: 0
       Rate: 100
       Param1: 0
       Param2: 0
       PrizeSetId: 0
       ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
   - Id: 20
     StageNo: 2
     Name: "\u964D\u308A\u308B\u5E33\u3068\u5730\u4E0B\u6249"

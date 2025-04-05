@@ -293,14 +293,6 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
         }
 
-
-
-        private void CommandCallEdit()
-        {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            _view.ActivateBattleMemberList();
-        }
-
         private void CommandSave()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
@@ -320,32 +312,6 @@ namespace Ryneus
                 template = sceneParam
             };
             _view.CommandCallPopup(popupInfo);
-        }
-
-        private void CommandOnCancelSymbol()
-        {
-            _view.SetViewBusy(false);
-            _view.ActivateCommandList();
-        }
-
-
-        private void CommandSelectRecordSeek(SymbolResultInfo symbolResultInfo)
-        {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            //Symbolに対応したシンボルを表示
-            _view.SetSymbols(_model.StageResultInfos(symbolResultInfo));
-            _view.ShowRecordList();
-            _view.ShowSymbolRecord();
-            _view.CommandRefresh();
-        }
-
-        private void CommandCancelSymbolRecord()
-        {
-            _view.HideRecordList();
-            _view.HideSymbolRecord();
-            _view.ChangeBackCommandActive(false);
-            _view.CommandRefresh();
-            _backCommand = CommandType.None;
         }
 
         private void CommandBack()
@@ -371,16 +337,22 @@ namespace Ryneus
             switch (tacticsCommandData.Key)
             {
                 case "Departure":
-                    CommandCallDeparture();
+                    CommandDeparture();
                     break;
                 case "MoveBattler":
-                    CommandCallMoveBattler();
+                    CommandMoveBattler();
                     break;
                 case "Wait":
-                    CommandCallWait();
+                    CommandWait();
                     break;
                 case "Battle":
-                    CommandCallBattle();
+                    CommandBattle();
+                    break;
+                case "UnitActEnd":
+                    CommandUnitActEnd();
+                    break;
+                case "TurnEnd":
+                    CommandTurnEnd();
                     break;
                 case "SAVE":
                     CommandSave();
@@ -393,7 +365,7 @@ namespace Ryneus
             _view.EndTacticsCommand();
         }
 
-        private void CommandCallDeparture()
+        private void CommandDeparture()
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
@@ -433,23 +405,55 @@ namespace Ryneus
             UpdateHexIndex();
         }
 
-        private void CommandCallMoveBattler()
+        private void CommandMoveBattler()
         {
             _view.EndTacticsCommand();
             _model.MakeMoveBattlerHex();
             _view.RefreshTiles();
             UpdateHexIndex();
+            // 自動選択
+            if (_model.AutoMode.Value)
+            {
+                // 移動先を設定して選択動作
+                _model.DecideAutoMoveBattlerField();
+                var (actions,moveBattler) = _model.SelectMoveBattler();
+                _view.SelectMoveBattler(actions,moveBattler);
+            }
         }
 
-        private void CommandCallWait()
+        private void CommandWait()
         {
             _view.EndTacticsCommand();
         }
 
-        private void CommandCallBattle()
+        private void CommandBattle()
         {
             var battleSceneInfos = _model.BattleSceneInfos();
             _view.BattleMemberSelect(MakeListData(battleSceneInfos));
+        }
+
+        private void CommandUnitActEnd()
+        {
+            _view.EndTacticsCommand();
+            _model.UnitActEnd();
+            // 操作不可プレイヤー・オート動作なら操作を委託
+            if (_model.IsPlayable == false)
+            {
+                _model.AutoMode.SetValue(true);
+                CommandAutoMode();
+            }
+        }
+
+        private void CommandTurnEnd()
+        {
+            _view.EndTacticsCommand();
+            _model.TurnEnd();
+            // 操作不可プレイヤー・オート動作なら操作を委託
+            if (_model.IsPlayable == false)
+            {
+                _model.AutoMode.SetValue(true);
+                CommandAutoMode();
+            }
         }
 
         private void CommandDecideBattleMemberSelect(BattleSceneInfo battleSceneInfo)
@@ -460,6 +464,29 @@ namespace Ryneus
         private void CommandCancelBattleMemberSelect()
         {
             _view.CancelBattleMemberSelect();
+        }
+
+        private void CommandAutoMode()
+        {
+            // チームの状態から行動を選択
+            var teamState = _model.GetTurnTeamState();
+            switch (teamState)
+            {
+                case TeamState.MoveBattler:
+                    // 選択マスを設定して移動
+                    var isSelectable = _model.SelectAutoMoveBattler();
+                    if (isSelectable)
+                    {
+                        CommandMoveBattler();
+                    } else
+                    {
+                        CommandUnitActEnd();
+                    }
+                    return;
+                case TeamState.TurnEnd:
+                    CommandTurnEnd();
+                    return;
+            }
         }
 
         private void CommandStatus(int startIndex = -1)
@@ -516,8 +543,24 @@ namespace Ryneus
 
         private void CommandEndMoveBattler()
         {
-            // 行動
-            _view.SetTacticsCommand(_model.EndMoveBattlerCommand());
+            // 自動
+            if (_model.IsPlayable == false)
+            {
+                var commandKey =  _model.DecideAutoMoveBattlerEnd();
+                switch (commandKey)
+                {
+                    case "Battle":
+                        CommandBattle();
+                        break;
+                    case "UnitActEnd":
+                        CommandUnitActEnd();
+                        break;
+                }
+            } else
+            {
+                // 手動行動選択
+                _view.SetTacticsCommand(_model.EndMoveBattlerCommand());
+            }
         }
 
         private void CommandSelectReach()
@@ -534,17 +577,6 @@ namespace Ryneus
                     _view.SelectMoveBattler(actions,moveBattler);
                     break;
             }
-        }
-        private void GotoStrategyScene(List<GetItemInfo> getItemInfos,List<ActorInfo> actorInfos)
-        {
-            var strategySceneInfo = new StrategySceneInfo
-            {
-                GetItemInfos = getItemInfos.FindAll(a => !a.GetFlag),
-                ActorInfos = actorInfos,
-                InBattle = false
-            };
-            _model.ResetBattlerIndex();
-            _view.CommandGotoSceneChange(Scene.Strategy,strategySceneInfo);
         }
 
         private void CommandPopupSkillInfo(GetItemInfo getItemInfo)

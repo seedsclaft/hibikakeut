@@ -8,11 +8,30 @@ namespace Ryneus
         public void MakeStageInfo(int stageId,int clearCount = 0)
         {
             var stageInfo = new StageInfo(stageId);
+            // アイテムを獲得
             foreach (var getItemInfo in StageOpeningGetItemInfos(stageId,clearCount))
             {
                 AddGetItemInfo(getItemInfo);          
             }
-            stageInfo.SetHexUnitInfos(GetStageHexUnitInfos(stageId,clearCount));
+            var unitInfos = GetStageHexUnitInfos(stageId,clearCount);
+            stageInfo.SetHexUnitInfos(unitInfos);
+            // 味方チームを作成
+            var mainTeam = new TeamInfo();
+            mainTeam.TeamId.SetValue((int)TeamIdType.Home);
+            stageInfo.AddTeamInfo(mainTeam);
+            // 存在する陣営を作成
+            var awayTeam = new TeamInfo();
+            awayTeam.TeamId.SetValue((int)TeamIdType.Away);
+            foreach (var unitInfo in unitInfos)
+            {
+                if (unitInfo.HexUnitType == HexUnitType.Battler)
+                {
+                    awayTeam.AddUnitInfos(unitInfo);
+                }
+            }
+            stageInfo.AddTeamInfo(awayTeam);
+            
+            
             CurrentGameInfo.SetStageInfo(stageInfo);
             PartyInfo.StageId.SetValue(stageId);
             PartyInfo.StartStage.SetValue(false);

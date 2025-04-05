@@ -5,13 +5,15 @@ namespace Ryneus
 {
     public class PartyInfoComponent : MonoBehaviour
     {
+        [SerializeField] private TextMeshProUGUI actPoint;
+        [SerializeField] private TextMeshProUGUI currentActPoint;
         [SerializeField] private TextMeshProUGUI currency;
 
         public void UpdateInfo(PartyInfo partyInfo)
         {
             if (currency != null)
             {
-                currency.SetText(partyInfo.Currency.ToString());
+                currency.SetText(partyInfo.Currency.Value.ToString());
             }
         }
     }

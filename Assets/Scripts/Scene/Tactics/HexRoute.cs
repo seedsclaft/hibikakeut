@@ -370,7 +370,17 @@ namespace Ryneus
                 // リストが空 = 到達可能エリアの探索終了
                 if (_openList.Count == 0) 
                 {
-                    return _closedList;
+                    var results = new List<HexField>();
+                    foreach (var closedList in _closedList)
+                    {
+                        var hexField = new HexField
+                        {
+                            X = closedList.X,
+                            Y = closedList.Y
+                        };
+                        results.Add(hexField);
+                    }
+                    return results;
                 }
                 currentNode = TakeMinScoreNodeFromOpenList(); // スコア最小ノードの取り出し (そしてクローズ)
 

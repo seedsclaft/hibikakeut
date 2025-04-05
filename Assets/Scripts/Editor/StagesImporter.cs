@@ -124,20 +124,24 @@ namespace Ryneus
 						{
 							IRow SymbolRow = SymbolSheet.GetRow(j);
 							var SymbolData = new StageSymbolData();
-							var StageId = AssetPostImporter.ImportNumeric(SymbolRow,"Id");
+							var StageId = AssetPostImporter.ImportNumeric(SymbolRow,"StageId");
 							
 							if (StageId == StageData.Id)
 							{
-								SymbolData.StageId = AssetPostImporter.ImportNumeric(SymbolRow, "Id");
+								SymbolData.Id = AssetPostImporter.ImportNumeric(SymbolRow, "Id");
+								SymbolData.StageId = AssetPostImporter.ImportNumeric(SymbolRow, "StageId");
 								SymbolData.InitX = AssetPostImporter.ImportNumeric(SymbolRow, "InitX");
 								SymbolData.InitY = AssetPostImporter.ImportNumeric(SymbolRow, "InitY");
 								//SymbolData.SymbolType = (SymbolType)AssetPostImporter.ImportNumeric(SymbolRow, "SymbolType");
 								SymbolData.UnitType = (HexUnitType)AssetPostImporter.ImportNumeric(SymbolRow, "UnitType");
+								SymbolData.InitTeamId = (TeamIdType)AssetPostImporter.ImportNumeric(SymbolRow, "InitTeamId");
 								SymbolData.Rate = AssetPostImporter.ImportNumeric(SymbolRow, "Rate");
 								SymbolData.Param1 = AssetPostImporter.ImportNumeric(SymbolRow, "Param1");
 								SymbolData.Param2 = AssetPostImporter.ImportNumeric(SymbolRow, "Param2");
 								SymbolData.PrizeSetId = AssetPostImporter.ImportNumeric(SymbolRow, "PrizeSetId");
 								SymbolData.ClearCount = AssetPostImporter.ImportNumeric(SymbolRow, "ClearCount");
+								SymbolData.MoveType = (HexMoveType)AssetPostImporter.ImportNumeric(SymbolRow, "MoveType");
+								SymbolData.MoveParam = AssetPostImporter.ImportNumeric(SymbolRow, "MoveParam");
 								
 								StageData.StageSymbols.Add(SymbolData);
 							}

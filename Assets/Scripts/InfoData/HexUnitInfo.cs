@@ -6,10 +6,11 @@ namespace Ryneus
     [Serializable]
     public class HexUnitInfo
     {
-        public HexUnitInfo(int index,StageSymbolData stageSymbolData,TeamState teamState = TeamState.None)
+        public HexUnitInfo(int index,StageSymbolData stageSymbolData,int teamId = 0)
         {
             Index.SetValue(index);
             SetHexUnitType(stageSymbolData.UnitType);
+            SetHexMoveType(stageSymbolData.MoveType,stageSymbolData.MoveParam);
             SetPosition(stageSymbolData.InitX,stageSymbolData.InitY);
             if (_hexUnitType == HexUnitType.Battler)
             {
@@ -18,7 +19,7 @@ namespace Ryneus
             {
                 _hexLayer = HexLayer.Field;
             }
-            _teamState = teamState;
+            TeamId.SetValue(teamId);
         }
 
         private HexField _hexField = new();
@@ -28,8 +29,7 @@ namespace Ryneus
         public HexLayer HexLayer => _hexLayer;
         
         public ParameterInt Index = new();
-        private TeamState _teamState = TeamState.None;
-        public void SetTeamState(TeamState teamState) => _teamState = teamState;
+        public ParameterInt TeamId = new();
         public void SetPosition(int x,int y)
         {
             _hexField.X = x;
@@ -41,6 +41,15 @@ namespace Ryneus
         private HexUnitType _hexUnitType = HexUnitType.None;
         public HexUnitType HexUnitType => _hexUnitType;
         public void SetHexUnitType(HexUnitType hexUnitType) => _hexUnitType = hexUnitType;
+        
+        private HexMoveType _hexMoveType = HexMoveType.None;
+        private int _hexMoveParam = 0;
+        public HexMoveType HexMoveType => _hexMoveType;
+        public void SetHexMoveType(HexMoveType hexMoveType,int param)
+        {
+            _hexMoveType = hexMoveType;
+            _hexMoveParam = param;
+        }
 
         [UnityEngine.SerializeField] private List<GetItemInfo> _getItemInfos = new();
         public List<GetItemInfo> GetItemInfos => _getItemInfos;
@@ -83,22 +92,4 @@ namespace Ryneus
         }
     }
 
-    [Serializable]
-    public enum HexUnitType
-    {
-        None = 0, // 存在のないマス
-        Basement = 20,
-        SelectActor = 70,
-        Battler = 1000,
-        Reach = 2000,
-    }
-
-    [Serializable]
-    public enum TeamState
-    {
-        None = 0, // 壁、移動範囲など
-        Home = 1, // 味方
-        Away = 2, // 敵
-        Neutral = 3, // 中立
-    }
 }

@@ -9,8 +9,28 @@ namespace Ryneus
     {
         public StageData Master => DataSystem.FindStage(StageId.Value);
         
+        private List<TeamInfo> _teamInfos = new();
+        public List<TeamInfo> TeamInfos => _teamInfos;
+        public void AddTeamInfo(TeamInfo teamInfo)
+        {
+            _teamInfos.Add(teamInfo);
+        }
+        public TeamInfo GetTurnTeamInfo()
+        {
+            return _teamInfos.Find(a => a.TeamId.Value == TurnTeamId.Value);
+        }
+        public ParameterInt TurnTeamId = new();
         private List<HexUnitInfo> _hexUnitList = new();
         public List<HexUnitInfo> HexUnitList => _hexUnitList;
+        public List<HexUnitInfo> TurnHexUnitList()
+        {
+            var findTeam = _teamInfos.Find(a => a.TeamId.Value == TurnTeamId.Value);
+            if (findTeam != null)
+            {
+                return findTeam.GetUnitInfos();
+            }
+            return null;
+        }
         public void AddHexUnitInfo(HexUnitInfo hexUnit) => _hexUnitList.Add(hexUnit);
         public void AddHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList.AddRange(hexUnitList);
         public void SetHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList = hexUnitList;
@@ -27,7 +47,6 @@ namespace Ryneus
         }
         
         public ParameterInt StageId = new();
-        public int EndSeek => 10;//_symbolInfos.Max(a => a.Master.InitX);
 
 
         private int _loseCount = 0;
@@ -37,6 +56,7 @@ namespace Ryneus
         public StageInfo(int id)
         {
             StageId.SetValue(id);
+            TurnTeamId.SetValue((int)TeamIdType.Home);
         }
         
         public TroopInfo TestTroops(int troopId,int troopLv)

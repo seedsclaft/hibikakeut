@@ -7,7 +7,6 @@ namespace Ryneus
 {
     public partial class BaseModel
     {
-
         public List<HexUnitInfo> StageHexUnitInfos(List<StageSymbolData> stageSymbolDates,int clearCount = 0)
         {
             var symbolDates = stageSymbolDates.FindAll(a => a.InitX >= 0 && a.InitY >= 0 && a.ClearCount <= clearCount);
@@ -15,7 +14,7 @@ namespace Ryneus
             for (int i = 0;i < symbolDates.Count;i++)
             {
                 var symbolMaster = symbolDates[i];
-                var hexUnitInfo = new HexUnitInfo(i,symbolMaster);
+                var hexUnitInfo = new HexUnitInfo(i,symbolMaster,(int)symbolMaster.InitTeamId);
                 var randFlag = false;
                 var stageSymbolData = new StageSymbolData();
                 stageSymbolData.CopyData(symbolMaster);
@@ -40,7 +39,7 @@ namespace Ryneus
                 {
                     case HexUnitType.Battler:
                         // 敵ユニット
-                        hexUnitInfo.SetTeamState(TeamState.Away);
+                        hexUnitInfo.TeamId.SetValue((int)TeamIdType.Away);
                         hexUnitInfo.SetTroopInfo(BattleTroop(stageSymbolData));
                         if (randFlag)
                         {
