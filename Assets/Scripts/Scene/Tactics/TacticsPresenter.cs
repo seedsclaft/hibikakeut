@@ -800,6 +800,7 @@ namespace Ryneus
 
         private void CommandSelectHexMap(HexField hexField)
         {
+                return;
             if (hexField == null)
             {
                 return;

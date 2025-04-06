@@ -11,6 +11,7 @@ namespace Ryneus
         [SerializeField] private GameObject blank;
         [SerializeField] private HexUnitComponent filedHexUnit;
         [SerializeField] private HexUnitComponent unitHexUnit;
+        [SerializeField] private TextMeshProUGUI position;
         public void UpdateViewItem()
         {
             if (ListData == null) return;
@@ -25,6 +26,7 @@ namespace Ryneus
                 compnent.UpdateInfo(hexUnit);
             }
             blank?.SetActive(hexPosition.X % 2 == 1);
+            position.SetText(hexPosition.X + ":" + hexPosition.Y);
         }
     }
 }

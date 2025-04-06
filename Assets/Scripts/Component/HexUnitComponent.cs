@@ -166,6 +166,7 @@ namespace Ryneus
             {
                 attackableArea?.SetActive(false);
             }
+            gameObject.SetActive(true);
         }
     }
 }

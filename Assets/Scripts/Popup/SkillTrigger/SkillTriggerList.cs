@@ -86,7 +86,7 @@ namespace Ryneus
         public void UpdateListItem(int selectIndex)
         {
             if (_selectItemIndex < 0) return;
-            var startIndex = GetStartIndex();
+            var startIndex = GetStartIndex(true);
             var itemIndex = selectIndex - startIndex;
             if (itemIndex < 0) return;
             if (ItemPrefabList.Count <= itemIndex) return;

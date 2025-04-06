@@ -10,6 +10,8 @@ namespace Ryneus
     using System;
     using Cysharp.Threading.Tasks;
     using Tactics;
+    using Unity.VisualScripting;
+
     public class TacticsView : BaseView ,IInputHandlerEvent
     {
         [SerializeField] private BaseList hexTiles = null;
@@ -192,6 +194,13 @@ namespace Ryneus
         {
             hexTiles.SetData(hexInfos,true,() => 
             {
+                var buttons = hexTiles.GetComponentsInChildren<Button>();
+                foreach (var button in buttons)
+                {
+                    button.AddComponent<MultiScroller>();
+                    var multi = button.GetComponent<MultiScroller>();
+                    multi.SetScrollEvent(hexTiles.GetComponentInChildren<ScrollRect>());
+                }
                 RefreshTiles(0,0);
             });
             SetActivate(hexTiles);
@@ -205,8 +214,8 @@ namespace Ryneus
 
         public void RefreshTiles(int x,int y)
         {
-            hexTiles.Refresh(x + y * 8);
-            hexTiles.UpdateSelectIndex(x + y * 8);
+            hexTiles.Refresh(x + y * hexTiles.GridColumnCount());
+            hexTiles.UpdateSelectIndex(x + y * hexTiles.GridColumnCount());
         }
 
         public void SelectMoveBattler(List<Action> actions,HexUnitInfo hexUnitInfo)
