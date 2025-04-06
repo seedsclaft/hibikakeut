@@ -60,26 +60,22 @@ namespace Ryneus
             _getItemInfos.AddRange(getItemInfos);
         }        
         
-        [UnityEngine.SerializeField] private TroopInfo _troopInfo = null;
-        public TroopInfo TroopInfo => _troopInfo;
-        public void SetTroopInfo(TroopInfo troopInfo)
+        [UnityEngine.SerializeField] private UnitInfo _unitInfo = null;
+        public UnitInfo UnitInfo => _unitInfo;
+        public void SetUnitInfo(UnitInfo unitInfo)
         {
-            _troopInfo = troopInfo;
+            _unitInfo = unitInfo;
         }
 
         [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = null;
         public List<ActorInfo> ActorInfos => _actorInfos;
-        public void SetActorInfos(List<ActorInfo> actorInfos)
-        {
-            _actorInfos = actorInfos;
-        }
 
         public int BattleEvaluate()
         {
-            if (_troopInfo != null)
+            if (_unitInfo != null)
             {
                 var evaluate = 0;
-                foreach (var battlerInfo in _troopInfo.BattlerInfos)
+                foreach (var battlerInfo in _unitInfo.BattlerInfos)
                 {
                     evaluate += battlerInfo.Evaluate();
                 }

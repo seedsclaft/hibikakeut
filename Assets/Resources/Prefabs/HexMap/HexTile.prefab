@@ -225,6 +225,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4753796229250003507}
   - component: {fileID: 3477222225451538490}
+  - component: {fileID: 5797986685489055223}
+  - component: {fileID: 31635562415846083}
+  - component: {fileID: 4085873878169051384}
   m_Layer: 5
   m_Name: Unit
   m_TagString: Untagged
@@ -284,6 +287,100 @@ MonoBehaviour:
   evaluate: {fileID: 0}
   selected: {fileID: 0}
   getItemList: {fileID: 0}
+  battlerInfoComponent: {fileID: 5797986685489055223}
+--- !u!114 &5797986685489055223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3254063468052094062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ea577db469dd949b33ed403e9985eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actorInfoComponent: {fileID: 31635562415846083}
+  enemyInfoComponent: {fileID: 4085873878169051384}
+  statusInfoComponent: {fileID: 0}
+  effekseerEmitter: {fileID: 0}
+  deathAnimation: {fileID: 0}
+  battleDamagePrefab: {fileID: 0}
+  battleStateOverlay: {fileID: 0}
+  canvasGroup: {fileID: 0}
+  battlePosition: {fileID: 0}
+  evaluate: {fileID: 0}
+  additiveFaceThumb: {fileID: 0}
+  grayScale: {fileID: 0}
+--- !u!114 &31635562415846083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3254063468052094062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713db660d05533345972d884c8ee86ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainThumb: {fileID: 0}
+  awakenThumb: {fileID: 0}
+  grayscale: {fileID: 0}
+  faceThumb: {fileID: 5929455119730027935}
+  awakenFaceThumb: {fileID: 0}
+  clipThumb: {fileID: 0}
+  nameText: {fileID: 0}
+  subNameText: {fileID: 0}
+  profileText: {fileID: 0}
+  evaluate: {fileID: 0}
+  demigod: {fileID: 0}
+  lv: {fileID: 0}
+  exp: {fileID: 0}
+  expGauge: {fileID: 0}
+  sp: {fileID: 0}
+  statusInfoComponent: {fileID: 0}
+  needStatusInfoComponent: {fileID: 0}
+  element1: {fileID: 0}
+  element2: {fileID: 0}
+  element3: {fileID: 0}
+  element4: {fileID: 0}
+  element5: {fileID: 0}
+  element6: {fileID: 0}
+  element1Cost: {fileID: 0}
+  element2Cost: {fileID: 0}
+  element3Cost: {fileID: 0}
+  element4Cost: {fileID: 0}
+  element5Cost: {fileID: 0}
+  element6Cost: {fileID: 0}
+  recoveryCost: {fileID: 0}
+  resourceGain: {fileID: 0}
+  battlePosition: {fileID: 0}
+  unitTypeImage: {fileID: 0}
+  unitTypeImageBack: {fileID: 0}
+--- !u!114 &4085873878169051384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3254063468052094062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f904c2d23502c4142a46a850ee1d1e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainThumb: {fileID: 0}
+  faceThumb: {fileID: 5929455119730027935}
+  gridThumb: {fileID: 0}
+  enemySpriteSize: {fileID: 0}
+  nameText: {fileID: 0}
+  lv: {fileID: 0}
+  statusInfoComponent: {fileID: 0}
+  needStatusInfoComponent: {fileID: 0}
+  gridKey: {fileID: 0}
+  actorOnlyGameObjects: []
+  weakPoints: []
 --- !u!1 &3441085366558371310
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,6 +1063,7 @@ MonoBehaviour:
   evaluate: {fileID: 0}
   selected: {fileID: 0}
   getItemList: {fileID: 0}
+  battlerInfoComponent: {fileID: 0}
 --- !u!1 &8685442358964197425
 GameObject:
   m_ObjectHideFlags: 0

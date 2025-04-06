@@ -40,16 +40,16 @@ namespace Ryneus
                     case HexUnitType.Battler:
                         // 敵ユニット
                         hexUnitInfo.TeamId.SetValue((int)TeamIdType.Away);
-                        hexUnitInfo.SetTroopInfo(BattleTroop(stageSymbolData));
+                        hexUnitInfo.SetUnitInfo(BattleTroop(stageSymbolData));
                         if (randFlag)
                         {
                             var numinosGetItem = MakeEnemyRandomNuminos(stageSymbolData.StageId,stageSymbolData.InitX);
-                            hexUnitInfo.TroopInfo.AddGetItemInfo(numinosGetItem);                  
+                            ((TroopInfo)hexUnitInfo.UnitInfo).AddGetItemInfo(numinosGetItem);                  
                         }
                         
-                        if (hexUnitInfo.TroopInfo != null && hexUnitInfo.TroopInfo.GetItemInfos.Count > 0)
+                        if (hexUnitInfo.UnitInfo != null && ((TroopInfo)hexUnitInfo.UnitInfo).GetItemInfos.Count > 0)
                         {
-                            getItemInfos.AddRange(hexUnitInfo.TroopInfo.GetItemInfos);
+                            getItemInfos.AddRange(((TroopInfo)hexUnitInfo.UnitInfo).GetItemInfos);
                         }
                         break;
                 }

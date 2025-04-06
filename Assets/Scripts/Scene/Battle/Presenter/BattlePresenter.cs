@@ -564,7 +564,6 @@ namespace Ryneus
             if (_battleEnded == true) return;
             var strategySceneInfo = new StrategySceneInfo
             {
-                ActorInfos = _model.SceneParam.ActorInfos,
                 BattlerInfos = _model.Battlers,
                 InBattle = true
             };

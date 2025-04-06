@@ -56,26 +56,14 @@ namespace Ryneus
         /// <param name="actorInfo"></param>
         public void UpdateUnitStatus(BattlerInfo battlerInfo)
         {
-            if (battlerInfo.ActorInfo != null)
+            var unit = _unitInfos.Find(a => a.UnitInfo.BattlerInfos.Find(b => b.Index == battlerInfo.Index) != null);
+            if (unit != null)
             {
-                var unit = _unitInfos.Find(a => a.ActorInfos.Find(b => b.ActorId == battlerInfo.ActorInfo.ActorId) != null);
-                if (unit != null)
+                foreach (var enemy in unit.UnitInfo.BattlerInfos)
                 {
-                    var find = unit.ActorInfos.Find(a => a.ActorId == battlerInfo.ActorInfo.ActorId);
-                    find?.ChangeHp(battlerInfo.Hp.Value);
-                }
-            } else
-            if (battlerInfo.EnemyData != null)
-            {
-                var unit = _unitInfos.Find(a => a.TroopInfo.BattlerInfos.Find(b => b.Index == battlerInfo.Index) != null);
-                if (unit != null)
-                {
-                    foreach (var enemy in unit.TroopInfo.BattlerInfos)
+                    if (enemy.Index.Value == battlerInfo.Index.Value)
                     {
-                        if (enemy.Index == battlerInfo.Index)
-                        {
-                            enemy.SetHp(battlerInfo.Hp.Value);
-                        }
+                        enemy.SetHp(battlerInfo.Hp.Value);
                     }
                 }
             }

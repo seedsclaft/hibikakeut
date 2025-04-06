@@ -17,8 +17,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI evaluate;
         [SerializeField] private GameObject selected;
         [SerializeField] private BaseList getItemList = null;
-        [SerializeField] private ActorInfoComponent actorInfoComponent;
-        [SerializeField] private EnemyInfoComponent enemyInfoComponent;
+        [SerializeField] private BattlerInfoComponent battlerInfoComponent;
         public BaseList GetItemList => getItemList;
         private HexUnitInfo _hexUnitInfo  = null;
         public HexUnitInfo HexUnitInfo => _hexUnitInfo;
@@ -47,13 +46,11 @@ namespace Ryneus
                 attackableArea?.SetActive(_hexUnitInfo.IsAttackableArea);
             }
             UpdateSymbolImage();
-            if (actorInfoComponent != null && _hexUnitInfo.ActorInfos != null)
+            if (_hexUnitInfo.UnitInfo != null && _hexUnitInfo.UnitInfo.BattlerInfos != null)
             {
-                actorInfoComponent.UpdateInfo(_hexUnitInfo.ActorInfos[0],null);
-            }
-            if (enemyInfoComponent != null && _hexUnitInfo.TroopInfo != null)
-            {
-                enemyInfoComponent.UpdateInfo(_hexUnitInfo.TroopInfo.BattlerInfos[0]);
+                var battlerInfo = _hexUnitInfo.UnitInfo.BattlerInfos[0];
+                battlerInfoComponent.UpdateInfo(battlerInfo);
+                battlerInfoComponent.RefreshStatus();
             }
             UpdateEvaluate();
             if (getItemList != null)
@@ -77,13 +74,9 @@ namespace Ryneus
                 enemyImage?.gameObject.SetActive(true);
                 if (enemyImage != null)
                 {
-                    if (_hexUnitInfo.TroopInfo != null)
+                    if (_hexUnitInfo.UnitInfo != null && _hexUnitInfo.UnitInfo.BattlerInfos != null)
                     {
-                        enemyImage.sprite = ResourceSystem.LoadEnemySprite(_hexUnitInfo.TroopInfo.BossEnemy.EnemyData.ImagePath);
-                    }
-                    if (_hexUnitInfo.ActorInfos != null)
-                    {
-                        enemyImage.sprite = ResourceSystem.LoadActorMainFaceSprite(_hexUnitInfo.ActorInfos[0].Master.ImagePath);
+                        battlerInfoComponent?.UpdateInfo(_hexUnitInfo.UnitInfo.BattlerInfos[0]);
                     }
                 }
             } else

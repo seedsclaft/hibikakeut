@@ -73,6 +73,7 @@ namespace Ryneus
             _battlers.Clear();
             _reserveBattlers.Clear();
             _battleRecords.Clear();
+            /*
             var actorInfos = _sceneParam.ActorInfos;
             foreach (var actorInfo in actorInfos)
             {
@@ -93,13 +94,22 @@ namespace Ryneus
                     battlerInfo.Skills.Add(linkage);
                 }
                 */
-            }
+            //}
             
+            var actorInfos = _sceneParam.ActorBattlerInfos;
+            foreach (var actorInfo in actorInfos)
+            {
+                var battlerInfo = actorInfo;
+                _battlers.Add(battlerInfo);
+                _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
+            }
+
             var enemies = _sceneParam.EnemyInfos;
             foreach (var enemy in enemies)
             {
                 // 最新データに同期
-                var battlerInfo = new BattlerInfo(enemy.EnemyData,enemy.Level.Value,enemy.Index.Value,enemy.LineIndex,enemy.BossFlag);
+                //var battlerInfo = new BattlerInfo(enemy.EnemyData,enemy.Level.Value,enemy.Index.Value,enemy.LineIndex,enemy.BossFlag);
+                var battlerInfo = enemy;
                 foreach (var kind in battlerInfo.Kinds)
                 {
                     if (CurrentData.PlayerInfo.CheckEnemyWeakPointDict(battlerInfo.EnemyData.Id,kind))
@@ -2429,13 +2439,15 @@ namespace Ryneus
             {
                 foreach (var battler in _party.BattlerInfos)
                 {
+                    /*
                     var actorInfo = _sceneParam.ActorInfos.Find(a => a.ActorId.Value == battler.ActorInfo.ActorId.Value);
                     actorInfo.ChangeHp(battler.MaxHp);
                     actorInfo.ChangeMp(battler.MaxMp);
+                    */
                 }
                 foreach (var battlerInfo in _troop.BattlerInfos)
                 {
-                    battlerInfo.ResetData(battlerInfo.Level.Value);
+                    //battlerInfo.ResetData(battlerInfo.Level.Value);
                 }
                 /*
                 if (CurrentSelectRecord().SaveBattleReplayStage())
@@ -2574,6 +2586,7 @@ namespace Ryneus
     public class BattleSceneInfo
     {
         public List<ActorInfo> ActorInfos;
+        public List<BattlerInfo> ActorBattlerInfos;
         public List<BattlerInfo> EnemyInfos;
         public List<GetItemInfo> GetItemInfos;
         public bool BossBattle;

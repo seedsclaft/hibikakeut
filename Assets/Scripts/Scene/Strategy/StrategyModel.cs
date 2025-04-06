@@ -13,11 +13,18 @@ namespace Ryneus
         private bool _inBattleResult = false;
         public bool InBattleResult => _inBattleResult;
 
+        private List<ActorInfo> _battlResultActorInfos = new();
+
         public StrategyModel()
         {
             _sceneParam = (StrategySceneInfo)GameSystem.SceneStackManager.LastSceneParam;
             _inBattleResult = _sceneParam.InBattle;
             _battleResultVictory = _sceneParam.BattleResultVictory;
+            var actors = _sceneParam.BattlerInfos.FindAll(a => a.ActorInfo != null);
+            foreach (var actor in actors)
+            {
+                _battlResultActorInfos.Add(PartyInfo.ActorInfos.Find(a => a.ActorId == actor.ActorInfo.ActorId));
+            }
             MakeResult();
             // バトル結果をUnitと同期
             foreach (var battlerInfo in _sceneParam.BattlerInfos)
@@ -114,7 +121,7 @@ namespace Ryneus
             foreach (var expGetItemInfo in expGetItemInfos)
             {
                 expGetItemInfo.SetGetFlag(true);
-                var target = _sceneParam.ActorInfos.Find(a => a.ActorId.Value == expGetItemInfo.Param1);
+                var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == expGetItemInfo.Param1);
                 if (target != null)
                 {
                     var beforeLv = target.Level;
@@ -330,12 +337,7 @@ namespace Ryneus
 
         public List<ActorInfo> BattleResultActors()
         {
-            return _sceneParam.ActorInfos;
-        }
-
-        public List<ActorInfo> LostMembers()
-        {
-            return BattleResultActors().FindAll(a => a.BattleIndex.Value >= 0 && a.CurrentHp.Value == 0);
+            return _battlResultActorInfos;
         }
 
         public List<SystemData.CommandData> ResultCommand()

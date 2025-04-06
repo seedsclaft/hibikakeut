@@ -420,6 +420,7 @@ namespace Ryneus
             if (_model.AutoMode.Value)
             {
                 // 移動先を設定して選択動作
+                _view.DeActivateHexTiles();
                 _model.DecideAutoMoveBattlerField();
                 var (actions,moveBattler) = _model.SelectMoveBattler();
                 _view.SelectMoveBattler(actions,moveBattler);
@@ -595,6 +596,7 @@ namespace Ryneus
                     var (actions,moveBattler) = _model.SelectMoveBattler();
                     if (moveBattler != null)
                     {
+                        _view.DeActivateHexTiles();
                         _view.SelectMoveBattler(actions,moveBattler);
                     }
                     break;
@@ -813,6 +815,9 @@ namespace Ryneus
                     // 移動と攻撃範囲を表示
                     var battlerUnit = _model.MakeBattlerActHex();
                     _view.ShowUnitStatus(battlerUnit);
+                } else
+                {
+                    _view.ShowUnitStatus(null);
                 }
                 _view.RefreshTiles(hexField.X,hexField.Y);
             }
@@ -820,6 +825,10 @@ namespace Ryneus
 
         private void CommandMoveHexMap(InputKeyType inputKeyType)
         {
+            if (_view.Busy)
+            {
+                return;
+            }
             switch (inputKeyType)
             {
                 case InputKeyType.Up:

@@ -515,9 +515,10 @@ GameObject:
   - component: {fileID: 5511839700096170237}
   - component: {fileID: 6017221898825428388}
   - component: {fileID: 4497489362422913142}
+  - component: {fileID: 305141203463224393}
   - component: {fileID: 432738040561724890}
-  - component: {fileID: 8963008462228437828}
   - component: {fileID: 9025618025756091347}
+  - component: {fileID: 8963008462228437828}
   m_Layer: 5
   m_Name: TacticsBattleMember
   m_TagString: Untagged
@@ -604,8 +605,31 @@ MonoBehaviour:
   evaluate: {fileID: 0}
   selected: {fileID: 0}
   getItemList: {fileID: 0}
+  battlerInfoComponent: {fileID: 305141203463224393}
+--- !u!114 &305141203463224393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015806657992561321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ea577db469dd949b33ed403e9985eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   actorInfoComponent: {fileID: 432738040561724890}
   enemyInfoComponent: {fileID: 9025618025756091347}
+  statusInfoComponent: {fileID: 7659861610049433608}
+  effekseerEmitter: {fileID: 0}
+  deathAnimation: {fileID: 0}
+  battleDamagePrefab: {fileID: 0}
+  battleStateOverlay: {fileID: 0}
+  canvasGroup: {fileID: 0}
+  battlePosition: {fileID: 0}
+  evaluate: {fileID: 0}
+  additiveFaceThumb: {fileID: 0}
+  grayScale: {fileID: 0}
 --- !u!114 &432738040561724890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,7 +657,7 @@ MonoBehaviour:
   exp: {fileID: 0}
   expGauge: {fileID: 0}
   sp: {fileID: 0}
-  statusInfoComponent: {fileID: 7659861610049433608}
+  statusInfoComponent: {fileID: 0}
   needStatusInfoComponent: {fileID: 0}
   element1: {fileID: 0}
   element2: {fileID: 0}
@@ -652,18 +676,6 @@ MonoBehaviour:
   battlePosition: {fileID: 0}
   unitTypeImage: {fileID: 0}
   unitTypeImageBack: {fileID: 0}
---- !u!225 &8963008462228437828
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6015806657992561321}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &9025618025756091347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,11 +694,23 @@ MonoBehaviour:
   enemySpriteSize: {fileID: 0}
   nameText: {fileID: 0}
   lv: {fileID: 0}
-  statusInfoComponent: {fileID: 7659861610049433608}
+  statusInfoComponent: {fileID: 0}
   needStatusInfoComponent: {fileID: 0}
   gridKey: {fileID: 0}
   actorOnlyGameObjects: []
   weakPoints: []
+--- !u!225 &8963008462228437828
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015806657992561321}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7461192019972160600
 GameObject:
   m_ObjectHideFlags: 0

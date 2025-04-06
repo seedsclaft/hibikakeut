@@ -18,6 +18,7 @@ namespace Ryneus
         public bool Busy => _busy;
         public void SetBusy(bool isBusy)
         {
+            Debug.LogError(isBusy);
             _busy = isBusy;
         }
 

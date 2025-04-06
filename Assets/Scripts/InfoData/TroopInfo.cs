@@ -5,21 +5,19 @@ using System.Collections.Generic;
 namespace Ryneus
 {
     [Serializable]
-    public class TroopInfo 
+    public class TroopInfo : UnitInfo
     {
         public TroopData TroopMaster => DataSystem.Troops.Find(a => a.TroopId == _troopId);
         private int _troopId = 0;
-        private List<BattlerInfo> _battlerInfos = new(); 
-        public List<BattlerInfo> BattlerInfos => _battlerInfos;
         public BattlerInfo BossEnemy 
         {
             get 
             {
-                var boss = _battlerInfos.Find(a => a.BossFlag == true);
+                var boss = BattlerInfos.Find(a => a.BossFlag == true);
                 if (boss != null) return boss;
-                if (_battlerInfos.Count > 0)
+                if (BattlerInfos.Count > 0)
                 {
-                    return _battlerInfos[_battlerInfos.Count-1];
+                    return BattlerInfos[BattlerInfos.Count-1];
                 }
                 return null;
             }
@@ -32,7 +30,6 @@ namespace Ryneus
         public TroopInfo(int troopId)
         {
             _troopId = troopId;
-            _battlerInfos.Clear();
             _getItemInfos.Clear();
         }
 
@@ -45,7 +42,7 @@ namespace Ryneus
                 if (troopEnemies.StageLv <= plusLevel)
                 {
                     var enemyData = DataSystem.Enemies.Find(a => a.Id == troopEnemies.EnemyId);
-                    var battlerInfo = new BattlerInfo(enemyData,troopEnemies.Lv + plusLevel,_battlerInfos.Count,troopEnemies.Line,troopEnemies.BossFlag);
+                    var battlerInfo = new BattlerInfo(enemyData,troopEnemies.Lv + plusLevel,BattlerInfos.Count,troopEnemies.Line,troopEnemies.BossFlag);
                     AddEnemy(battlerInfo);
                     if (!enemyIndexKeys.ContainsKey(enemyData.Id))
                     {
@@ -73,7 +70,7 @@ namespace Ryneus
                     lineRand = 0;
                 }
                 */
-                var battlerInfo = new BattlerInfo(enemyData,baseLv,_battlerInfos.Count,LineType.Front,_battlerInfos.Count == 0);
+                var battlerInfo = new BattlerInfo(enemyData,baseLv,BattlerInfos.Count,LineType.Front,BattlerInfos.Count == 0);
                 AddEnemy(battlerInfo);
                 weight -= stageEnemyRates[targetIdRand].Weight;
             }
@@ -81,7 +78,7 @@ namespace Ryneus
 
         public void AddEnemy(BattlerInfo battlerInfo)
         {
-            _battlerInfos.Add(battlerInfo);
+            BattlerInfos.Add(battlerInfo);
         }
         
         public void AddGetItemInfo(GetItemInfo getItemInfo)

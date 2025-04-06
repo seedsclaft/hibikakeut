@@ -48,6 +48,8 @@ namespace Ryneus
             //InitializeBattleMemberList();
             InitializeHexTileList();
             InitializeBattleMemberSelect();
+            actorUnitInfo.gameObject.SetActive(false);
+            enemyUnitInfo.gameObject.SetActive(false);
             tacticsAlcana.gameObject.SetActive(false);
             alcanaButton.onClick.AddListener(() => CallAlcanaCheck());
 
@@ -111,18 +113,22 @@ namespace Ryneus
 
         public void ShowUnitStatus(HexUnitInfo hexUnitInfo)
         {
-            if (hexUnitInfo == null)
+            if (hexUnitInfo == null || hexUnitInfo.UnitInfo.BattlerInfos.Count == 0)
             {
-                actorUnitInfo.Clear();
-                enemyUnitInfo.Clear();
+                actorUnitInfo.gameObject.SetActive(false);
+                enemyUnitInfo.gameObject.SetActive(false);
                 return;
             }
-            if (hexUnitInfo.ActorInfos != null)
+            if (hexUnitInfo.TeamId.Value == (int)TeamIdType.Home)
             {
+                actorUnitInfo.gameObject.SetActive(true);
+                enemyUnitInfo.gameObject.SetActive(false);
                 actorUnitInfo.UpdateInfo(hexUnitInfo);
-            }
-            if (hexUnitInfo.TroopInfo != null)
+            } else
+            if (hexUnitInfo.TeamId.Value == (int)TeamIdType.Away)
             {
+                enemyUnitInfo.gameObject.SetActive(true);
+                actorUnitInfo.gameObject.SetActive(false);
                 enemyUnitInfo.UpdateInfo(hexUnitInfo);
             }
         }
@@ -172,6 +178,10 @@ namespace Ryneus
             hexTiles.SetInputHandler(InputKeyType.Left,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Left));
             hexTiles.SetSelectedHandler(() => 
             {
+                if (!hexTiles.Active)
+                {
+                    return;
+                }
                 CallViewEvent(CommandType.SelectHexMap,SelectHexField);
             });
             SetInputHandler(hexTiles.gameObject);
@@ -186,6 +196,12 @@ namespace Ryneus
             });
             SetActivate(hexTiles);
         }
+
+        public void DeActivateHexTiles()
+        {
+            SetActivate(null);
+        }
+
 
         public void RefreshTiles(int x,int y)
         {
