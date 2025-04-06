@@ -19,6 +19,20 @@ namespace Ryneus
             _inBattleResult = _sceneParam.InBattle;
             _battleResultVictory = _sceneParam.BattleResultVictory;
             MakeResult();
+            // バトル結果をUnitと同期
+            foreach (var battlerInfo in _sceneParam.BattlerInfos)
+            {
+                if (battlerInfo.ActorInfo != null)
+                {
+                    var team = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Home);
+                    team.UpdateUnitStatus(battlerInfo);
+                } else
+                if (battlerInfo.EnemyData != null)
+                {
+                    var team = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Away);
+                    team.UpdateUnitStatus(battlerInfo);
+                }
+            }
         }
         
         public void ClearSceneParam()
@@ -319,17 +333,6 @@ namespace Ryneus
             return _sceneParam.ActorInfos;
         }
 
-        public void ClearBattleData(List<ActorInfo> actorInfos)
-        {
-            foreach (var actorInfo in actorInfos)
-            {
-                if (actorInfo.BattleIndex.Value >= 0)
-                {
-                    //actorInfo.SetBattleIndex(-1);
-                }
-            }
-        }
-
         public List<ActorInfo> LostMembers()
         {
             return BattleResultActors().FindAll(a => a.BattleIndex.Value >= 0 && a.CurrentHp.Value == 0);
@@ -351,13 +354,10 @@ namespace Ryneus
         
         public void EndStrategy()
         {
-        }
-
-        public void SeekStage()
-        {
-            SeekNext();
+            //UpdateUnitStatus();
             SavePlayerStageData(true);
         }
+
 
 
 
@@ -377,6 +377,7 @@ namespace Ryneus
         public int BattleTurn;
         public List<GetItemInfo> GetItemInfos;
         public List<ActorInfo> ActorInfos;
+        public List<BattlerInfo> BattlerInfos;
         public bool InBattle;
         public int BattleResultScore;
         public int BattleRemainHpPercent;

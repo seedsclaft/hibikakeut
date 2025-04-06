@@ -565,6 +565,7 @@ namespace Ryneus
             var strategySceneInfo = new StrategySceneInfo
             {
                 ActorInfos = _model.SceneParam.ActorInfos,
+                BattlerInfos = _model.Battlers,
                 InBattle = true
             };
             if (_model.CheckDefeat())

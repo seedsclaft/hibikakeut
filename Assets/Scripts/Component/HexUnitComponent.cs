@@ -11,11 +11,14 @@ namespace Ryneus
         [SerializeField] private Image symbolImage;
         [SerializeField] private Image enemyImage;
         [SerializeField] private GameObject selectArea;
+        [SerializeField] private GameObject attackableArea;
         [SerializeField] private List<Sprite> symbolSprites;
         [SerializeField] private GameObject evaluateRoot;
         [SerializeField] private TextMeshProUGUI evaluate;
         [SerializeField] private GameObject selected;
         [SerializeField] private BaseList getItemList = null;
+        [SerializeField] private ActorInfoComponent actorInfoComponent;
+        [SerializeField] private EnemyInfoComponent enemyInfoComponent;
         public BaseList GetItemList => getItemList;
         private HexUnitInfo _hexUnitInfo  = null;
         public HexUnitInfo HexUnitInfo => _hexUnitInfo;
@@ -39,7 +42,19 @@ namespace Ryneus
             {
                 selectArea?.SetActive(_hexUnitInfo.IsSelectArea);
             }
+            if (attackableArea != null)
+            {
+                attackableArea?.SetActive(_hexUnitInfo.IsAttackableArea);
+            }
             UpdateSymbolImage();
+            if (actorInfoComponent != null && _hexUnitInfo.ActorInfos != null)
+            {
+                actorInfoComponent.UpdateInfo(_hexUnitInfo.ActorInfos[0],null);
+            }
+            if (enemyInfoComponent != null && _hexUnitInfo.TroopInfo != null)
+            {
+                enemyInfoComponent.UpdateInfo(_hexUnitInfo.TroopInfo.BattlerInfos[0]);
+            }
             UpdateEvaluate();
             if (getItemList != null)
             {
@@ -54,23 +69,27 @@ namespace Ryneus
                 gameObject.SetActive(false);
                 return;
             }
-            if (_hexUnitInfo.HexUnitType == HexUnitType.Reach) return;
             //if (_hexUnitInfo.HexUnitType == HexUnitType.Random) return;
             gameObject.SetActive(true);
             if (_hexUnitInfo.IsBattleSymbol())
             {
                 symbolImage?.gameObject.SetActive(false);
                 enemyImage?.gameObject.SetActive(true);
-                if (_hexUnitInfo.TroopInfo != null)
+                if (enemyImage != null)
                 {
-                    enemyImage.sprite = ResourceSystem.LoadEnemySprite(_hexUnitInfo.TroopInfo.BossEnemy.EnemyData.ImagePath);
-                }
-                if (_hexUnitInfo.ActorInfos != null)
-                {
-                    enemyImage.sprite = ResourceSystem.LoadActorMainFaceSprite(_hexUnitInfo.ActorInfos[0].Master.ImagePath);
+                    if (_hexUnitInfo.TroopInfo != null)
+                    {
+                        enemyImage.sprite = ResourceSystem.LoadEnemySprite(_hexUnitInfo.TroopInfo.BossEnemy.EnemyData.ImagePath);
+                    }
+                    if (_hexUnitInfo.ActorInfos != null)
+                    {
+                        enemyImage.sprite = ResourceSystem.LoadActorMainFaceSprite(_hexUnitInfo.ActorInfos[0].Master.ImagePath);
+                    }
                 }
             } else
             {
+                if (_hexUnitInfo.HexUnitType == HexUnitType.Reach) return;
+                if (_hexUnitInfo.HexUnitType == HexUnitType.ReachAttack) return;
                 if (symbolImage != null && symbolSprites != null)
                 {
                     symbolImage?.gameObject.SetActive(true);
@@ -149,6 +168,10 @@ namespace Ryneus
             if (selectArea != null)
             {
                 selectArea?.SetActive(false);
+            }
+            if (attackableArea != null)
+            {
+                attackableArea?.SetActive(false);
             }
         }
     }

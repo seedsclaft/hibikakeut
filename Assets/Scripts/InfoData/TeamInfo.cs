@@ -1,13 +1,14 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Ryneus
 {
+    [Serializable]
     public class TeamInfo
     {
         public ParameterInt TeamId = new();
         // 所持ユニット
-        [SerializeField] private List<HexUnitInfo> _unitInfos = new();
+        private List<HexUnitInfo> _unitInfos = new();
         public List<HexUnitInfo> UnitInfos => _unitInfos;
         public List<HexUnitInfo> GetUnitInfos()
         {
@@ -47,6 +48,37 @@ namespace Ryneus
                 return _unitInfos[0];
             }
             return null;
+        }
+
+        /// <summary>
+        /// バトル結果と同期
+        /// </summary>
+        /// <param name="actorInfo"></param>
+        public void UpdateUnitStatus(BattlerInfo battlerInfo)
+        {
+            if (battlerInfo.ActorInfo != null)
+            {
+                var unit = _unitInfos.Find(a => a.ActorInfos.Find(b => b.ActorId == battlerInfo.ActorInfo.ActorId) != null);
+                if (unit != null)
+                {
+                    var find = unit.ActorInfos.Find(a => a.ActorId == battlerInfo.ActorInfo.ActorId);
+                    find?.ChangeHp(battlerInfo.Hp.Value);
+                }
+            } else
+            if (battlerInfo.EnemyData != null)
+            {
+                var unit = _unitInfos.Find(a => a.TroopInfo.BattlerInfos.Find(b => b.Index == battlerInfo.Index) != null);
+                if (unit != null)
+                {
+                    foreach (var enemy in unit.TroopInfo.BattlerInfos)
+                    {
+                        if (enemy.Index == battlerInfo.Index)
+                        {
+                            enemy.SetHp(battlerInfo.Hp.Value);
+                        }
+                    }
+                }
+            }
         }
     }
 

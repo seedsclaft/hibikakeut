@@ -64,7 +64,7 @@ namespace Ryneus
 
 
 
-        public void SeekNext()
+        public void UpdateUnitStatus()
         {
             foreach (var actorInfo in PartyInfo.ActorInfos)
             {

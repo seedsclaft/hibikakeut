@@ -292,7 +292,6 @@ namespace Ryneus
                     var battledMembers = _model.BattleResultActors();
                     if (battledMembers != null && battledMembers.Count > 0)
                     {
-                        _model.ClearBattleData(battledMembers);
                         _model.ClearSceneParam();
                     }
                 } else
@@ -300,7 +299,6 @@ namespace Ryneus
                     var tacticsActors = _model.TacticsActors();
                     if (tacticsActors != null && tacticsActors.Count > 0)
                     {
-                        _model.ClearBattleData(tacticsActors);
                         _model.ClearSceneParam();
                     }
                 }
@@ -414,26 +412,14 @@ namespace Ryneus
         private void EndStrategy()
         {
             _view.EndShinyEffect();
-            if (_model.InBattleResult && _model.BattleResultVictory == false)
+            // 敗北して戻る
+            //_model.ReturnTempBattleMembers();
+            var tacticsSceneInfo = new TacticsSceneInfo
             {
-                // 敗北して戻る
-                _model.ReturnTempBattleMembers();
-                var tacticsSceneInfo = new TacticsSceneInfo
-                {
-                    ReturnBeforeBattle = true,
-                };
-                _model.EndStrategy();
-                _view.CommandGotoSceneChange(Scene.Tactics,tacticsSceneInfo);
-            } else
-            {
-                _model.EndStrategy();
-                _model.SeekStage();
-                var tacticsSceneInfo = new TacticsSceneInfo
-                {
-                    ReturnNextBattle = true,
-                };
-                _view.CommandGotoSceneChange(Scene.Tactics,tacticsSceneInfo);
-            }
+                ReturnBeforeBattle = true,
+            };
+            _model.EndStrategy();
+            _view.CommandGotoSceneChange(Scene.Tactics,tacticsSceneInfo);
         }
     }
 }

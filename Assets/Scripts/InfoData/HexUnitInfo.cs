@@ -37,7 +37,9 @@ namespace Ryneus
         }
 
         public bool IsUnit => _hexLayer == HexLayer.Unit;
-        public bool IsWall => _hexUnitType == HexUnitType.Battler || _hexUnitType == HexUnitType.None;        public bool IsSelectArea => _hexUnitType == HexUnitType.Reach;
+        public bool IsWall => _hexUnitType == HexUnitType.Battler || _hexUnitType == HexUnitType.None;        
+        public bool IsSelectArea => _hexUnitType == HexUnitType.Reach;
+        public bool IsAttackableArea => _hexUnitType == HexUnitType.ReachAttack;
         private HexUnitType _hexUnitType = HexUnitType.None;
         public HexUnitType HexUnitType => _hexUnitType;
         public void SetHexUnitType(HexUnitType hexUnitType) => _hexUnitType = hexUnitType;

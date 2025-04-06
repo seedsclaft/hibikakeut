@@ -203,6 +203,7 @@ namespace Ryneus
         SelectActor = 70,
         Battler = 1000,
         Reach = 2000,
+        ReachAttack = 2010,
     }
 
     [Serializable]

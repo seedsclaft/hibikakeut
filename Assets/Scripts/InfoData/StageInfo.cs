@@ -31,17 +31,29 @@ namespace Ryneus
             }
             return null;
         }
+        public List<HexUnitInfo> BattleHexUnitList()
+        {
+            var findTeam = _teamInfos.Find(a => a.TeamId.Value != TurnTeamId.Value);
+            if (findTeam != null)
+            {
+                return findTeam.GetUnitInfos();
+            }
+            return null;
+        }
         public void AddHexUnitInfo(HexUnitInfo hexUnit) => _hexUnitList.Add(hexUnit);
         public void AddHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList.AddRange(hexUnitList);
         public void SetHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList = hexUnitList;
-        
-        public void RemoveReachUnitInfo()
+
+        public void RemoveReachUnitInfo(List<HexField> hexFields)
         {
             for (int i= _hexUnitList.Count-1;i >= 0;i--)
             {
-                if (_hexUnitList[i].HexUnitType == HexUnitType.Reach)
+                if (_hexUnitList[i].HexUnitType == HexUnitType.Reach || _hexUnitList[i].HexUnitType == HexUnitType.ReachAttack)
                 {
-                    _hexUnitList.Remove(_hexUnitList[i]);
+                    if (hexFields.Find(a => a.X == _hexUnitList[i].HexField.X && a.Y == _hexUnitList[i].HexField.Y) != null)
+                    {
+                        _hexUnitList.Remove(_hexUnitList[i]);
+                    }
                 }
             }
         }

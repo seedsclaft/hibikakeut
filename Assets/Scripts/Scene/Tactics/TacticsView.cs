@@ -19,6 +19,8 @@ namespace Ryneus
         [SerializeField] private BaseList battleMemberList = null;
         public ActorInfo SelectBattleMember => battleMemberList.ListItemData<ActorInfo>();
         [SerializeField] private BaseList battleMemberSelectList = null;
+        [SerializeField] private HexUnitComponent actorUnitInfo = null;
+        [SerializeField] private HexUnitComponent enemyUnitInfo = null;
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent = null;
         [SerializeField] private MagicList alcanaSelectList = null;
@@ -107,6 +109,24 @@ namespace Ryneus
             CallViewEvent(CommandType.CallStatus);
         }
 
+        public void ShowUnitStatus(HexUnitInfo hexUnitInfo)
+        {
+            if (hexUnitInfo == null)
+            {
+                actorUnitInfo.Clear();
+                enemyUnitInfo.Clear();
+                return;
+            }
+            if (hexUnitInfo.ActorInfos != null)
+            {
+                actorUnitInfo.UpdateInfo(hexUnitInfo);
+            }
+            if (hexUnitInfo.TroopInfo != null)
+            {
+                enemyUnitInfo.UpdateInfo(hexUnitInfo);
+            }
+        }
+
         private void InitializeBattleMemberList()
         {
             /*
@@ -150,6 +170,10 @@ namespace Ryneus
             hexTiles.SetInputHandler(InputKeyType.Down,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Down));
             hexTiles.SetInputHandler(InputKeyType.Right,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Right));
             hexTiles.SetInputHandler(InputKeyType.Left,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Left));
+            hexTiles.SetSelectedHandler(() => 
+            {
+                CallViewEvent(CommandType.SelectHexMap,SelectHexField);
+            });
             SetInputHandler(hexTiles.gameObject);
             AddViewActives(hexTiles);
         }
@@ -158,19 +182,15 @@ namespace Ryneus
         {
             hexTiles.SetData(hexInfos,true,() => 
             {
-                UpdateHexIndex(0,0);
+                RefreshTiles(0,0);
             });
             SetActivate(hexTiles);
         }
 
-        public void UpdateHexIndex(int x,int y)
+        public void RefreshTiles(int x,int y)
         {
+            hexTiles.Refresh(x + y * 8);
             hexTiles.UpdateSelectIndex(x + y * 8);
-        }
-
-        public void RefreshTiles()
-        {
-            hexTiles.Refresh();
         }
 
         public void SelectMoveBattler(List<Action> actions,HexUnitInfo hexUnitInfo)
@@ -182,13 +202,11 @@ namespace Ryneus
         {
             if (actions.Count == 0)
             {
-                RefreshTiles();
-                UpdateHexIndex(hexUnitInfo.HexField.X,hexUnitInfo.HexField.Y);
+                RefreshTiles(hexUnitInfo.HexField.X,hexUnitInfo.HexField.Y);
                 return;
             }
             actions[0]();
-            RefreshTiles();
-            UpdateHexIndex(hexUnitInfo.HexField.X,hexUnitInfo.HexField.Y);
+            RefreshTiles(hexUnitInfo.HexField.X,hexUnitInfo.HexField.Y);
             await UniTask.DelayFrame(10);
             actions.RemoveAt(0);
             if (actions.Count > 0)
@@ -470,6 +488,7 @@ namespace Ryneus
             HideAlcanaList,
             EndShopSelect,
             SelectCharaLayer,
+            SelectHexMap,
             MoveHexMap,
             EndMoveBattler,
         }
