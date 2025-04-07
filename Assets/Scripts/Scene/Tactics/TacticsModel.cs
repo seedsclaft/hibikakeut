@@ -286,6 +286,8 @@ namespace Ryneus
         // バトル直前に戻る
         public bool ReturnBeforeBattle;
         public bool ReturnNextBattle;
+        // 消滅予定のユニット
+        public List<HexUnitInfo> LostUnitInfos = new();
     }
 
     public class TacticsActorInfo

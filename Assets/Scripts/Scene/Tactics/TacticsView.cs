@@ -8,6 +8,7 @@ using DG.Tweening;
 namespace Ryneus
 {
     using System;
+    using System.Linq;
     using Cysharp.Threading.Tasks;
     using Tactics;
     using Unity.VisualScripting;
@@ -69,7 +70,7 @@ namespace Ryneus
             alcanaSelectList.Hide();
             battleStartAnim.Reset();
             var presenter = new TacticsPresenter(this);
-            presenter.CommandReturnStrategy();
+            //presenter.CommandReturnStrategy();
         }
 
         private void InitializeCommandList()
@@ -188,6 +189,7 @@ namespace Ryneus
             });
             SetInputHandler(hexTiles.gameObject);
             AddViewActives(hexTiles);
+            hexTiles.SetGridColumnCount(30);
         }
 
         public void SetHexTileList(List<ListData> hexInfos)
@@ -195,11 +197,16 @@ namespace Ryneus
             hexTiles.SetData(hexInfos,true,() => 
             {
                 var buttons = hexTiles.GetComponentsInChildren<Button>();
+                var scrollRect = hexTiles.GetComponentInChildren<ScrollRect>();
                 foreach (var button in buttons)
                 {
-                    button.AddComponent<MultiScroller>();
                     var multi = button.GetComponent<MultiScroller>();
-                    multi.SetScrollEvent(hexTiles.GetComponentInChildren<ScrollRect>());
+                    if (multi == null)
+                    {
+                        button.AddComponent<MultiScroller>();
+                        multi = button.GetComponent<MultiScroller>();
+                    }
+                    multi.SetScrollEvent(scrollRect);
                 }
                 RefreshTiles(0,0);
             });
@@ -240,6 +247,38 @@ namespace Ryneus
             } else
             {
                 CallViewEvent(CommandType.EndMoveBattler);
+            }
+        }
+        
+        public void LostBattlerUnit(List<HexUnitInfo> hexUnitInfos)
+        {
+            LostAction(hexUnitInfos);
+        }
+
+        private async void LostAction(List<HexUnitInfo> hexUnitInfos)
+        {
+            if (hexUnitInfos.Count == 0)
+            {
+                //RefreshTiles(hexUnitInfo.HexField.X,hexUnitInfo.HexField.Y);
+                return;
+            }
+            // マスを探す
+            await UniTask.DelayFrame(30);
+            var listItems = hexTiles.GetComponentsInChildren<ListItem>().ToList();
+            var lost = listItems.Find(a => a.Index == (hexUnitInfos[0].HexField.X + hexUnitInfos[0].HexField.Y * hexTiles.GridColumnCount()));
+            if (lost != null)
+            {
+                var tile = lost.gameObject.GetComponent<HexTile>();
+                tile.LostUnit();
+            }
+            await UniTask.DelayFrame(30);
+            hexUnitInfos.RemoveAt(0);
+            if (hexUnitInfos.Count > 0)
+            {
+                LostAction(hexUnitInfos);
+            } else
+            {
+                CallViewEvent(CommandType.EndLostBattler);
             }
         }
 
@@ -516,6 +555,7 @@ namespace Ryneus
             SelectHexMap,
             MoveHexMap,
             EndMoveBattler,
+            EndLostBattler,
         }
     }
 }

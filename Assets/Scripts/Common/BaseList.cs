@@ -104,6 +104,7 @@ namespace Ryneus
                     listItem.SetCallHandler(CallListInputHandlerDecide);
                     listItem.SetSelectHandler((index) => 
                     {
+                        Debug.Log(index);
                         if (Active)
                         {
                             UpdateSelectIndex(index);

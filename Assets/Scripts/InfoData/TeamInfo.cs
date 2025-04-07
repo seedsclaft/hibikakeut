@@ -18,6 +18,13 @@ namespace Ryneus
         {
             _unitInfos.Add(unitInfo);
         }
+        public void RemoveUnitInfos(HexUnitInfo unitInfo)
+        {
+            if (_unitInfos.Contains(unitInfo))
+            {
+                _unitInfos.Remove(unitInfo);
+            }
+        }
 
         // 行動可能回数
         public ParameterInt ActPoint = new(1);

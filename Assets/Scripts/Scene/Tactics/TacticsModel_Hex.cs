@@ -517,6 +517,18 @@ namespace Ryneus
             return list;
         }
 
+        public List<HexUnitInfo> LostUnitInfos()
+        {
+            var list = CurrentStage.HexUnitList.FindAll(a => a.IsLostUnit());
+            return list;
+        }
+
+        public void EndLostActions()
+        {
+            var list = CurrentStage.HexUnitList.FindAll(a => a.IsLostUnit());
+            CurrentStage.LostUnitInfos(list);
+        }
+
         public List<ListData> BattlerCommand()
         {
             var list = new List<SystemData.CommandData>();

@@ -76,6 +76,7 @@ namespace Ryneus
             CommandRefresh();
             await PlayTacticsBgm(timeStamp);
             _view.ChangeUIActive(true);
+            CommandReturnStrategy();
             // チュートリアル確認
             //CheckTutorialState();
         }
@@ -144,30 +145,12 @@ namespace Ryneus
 
         public void CommandReturnStrategy()
         {
-            if (_model.SceneParam != null && _model.SceneParam.ReturnBeforeBattle)
+            // Hp0のユニットを消滅する
+            var lostUnitInfos = _model.LostUnitInfos();
+            if (lostUnitInfos.Count > 0)
             {
-                /*
-                var currentRecord = _model.CurrentSelectRecord();
-                if (currentRecord != null)
-                {
-                    CommandSelectTacticsCommand(TacticsCommandType.Paradigm);
-                    CommandStageSymbol();
-                    CommandSelectRecordSeek(currentRecord);
-                    CommandSelectRecord(currentRecord);
-                }
-                */
-            } else
-            if (_model.SceneParam != null && _model.SceneParam.ReturnNextBattle)
-            {
-                /*
-                var currentRecord = _model.CurrentSelectRecord();
-                if (currentRecord != null)
-                {
-                    CommandSelectTacticsCommand(TacticsCommandType.Paradigm);
-                }
-                */
+                _view.LostBattlerUnit(lostUnitInfos);
             }
-            CheckTutorialState();
         }
 
         private void UpdateCommand(ViewEvent viewEvent)
@@ -236,6 +219,9 @@ namespace Ryneus
                     break;
                 case CommandType.EndMoveBattler:
                     CommandEndMoveBattler();
+                    break;
+                case CommandType.EndLostBattler:
+                    CommandEndLostBattler();
                     break;
                 case CommandType.DecideBattleMemberSelect:
                     CommandDecideBattleMemberSelect((BattleSceneInfo)viewEvent.template);
@@ -581,6 +567,12 @@ namespace Ryneus
             }
         }
 
+        private void CommandEndLostBattler()
+        {
+            _model.EndLostActions();
+            _view.RefreshTiles(_model.FieldX.Value,_model.FieldY.Value);
+        }
+
         private void CommandSelectReach()
         {
             switch (_model.CommandKey)
@@ -800,7 +792,6 @@ namespace Ryneus
 
         private void CommandSelectHexMap(HexField hexField)
         {
-                return;
             if (hexField == null)
             {
                 return;

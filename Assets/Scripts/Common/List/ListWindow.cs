@@ -36,6 +36,11 @@ namespace Ryneus
         private bool _horizontal => _scrollRect.horizontal;
         [SerializeField] private bool _grid = false;
         private int _gridColumnCount = 1;
+        public void SetGridColumnCount(int columnCount)
+        {
+            _gridColumnCount = columnCount;
+            GetComponentInChildren<GridLayoutGroup>().constraintCount = columnCount;
+        }
         public int GridColumnCount()
         {
             if (_grid)
@@ -106,10 +111,6 @@ namespace Ryneus
             SetItemSize();
             _inputCallHandler = null;
             _scrollRect.scrollSensitivity = 10;
-            if (_grid)
-            {
-                _gridColumnCount = GetComponentInChildren<GridLayoutGroup>().constraintCount;
-            }
         }
 
         public void SetListData(List<ListData> listData)
@@ -258,7 +259,6 @@ namespace Ryneus
             for (int i = 0;i < _itemPrefabList.Count;i++)
             {
                 var itemPrefab = _itemPrefabList[i];
-                itemPrefab.SetActive(false);
                 var itemIndex = i+startIndex;
                 if (_grid)
                 {
@@ -275,6 +275,7 @@ namespace Ryneus
                 var listItem = itemPrefab.GetComponent<ListItem>();
                 if (_listDates.Count <= itemIndex || _objectList.Count <= itemIndex || itemIndex < 0)
                 {
+                    itemPrefab.SetActive(false);
                     listItem.SetListData(null,-1);
                     listItem.SetUnSelect();
                     continue;
@@ -285,19 +286,30 @@ namespace Ryneus
             }
             if (startIndex > 0 && _objectList.Count > startIndex)
             {   
+                var prevIndex = 0;
                 foreach (var prevPrefab in _prevPrefabs)
                 {
-                    if (_objectList[startIndex-1].transform.childCount == 0)
+                    var objectIndex = (startIndex-1) + prevIndex * _gridColumnCount;
+                    prevIndex++;
+                    if (_objectList.Count <= objectIndex)
+                    {
+                        continue;
+                    }
+                    if (_objectList[objectIndex].transform.childCount == 0)
                     {
                         prevPrefab.SetActive(true);
-                        prevPrefab.transform.SetParent(_objectList[startIndex-1].transform,false);
+                        prevPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
+                        var listItem = prevPrefab.GetComponent<ListItem>();
+                        listItem.SetListData(_listDates[objectIndex],objectIndex);
                     } else
                     {
-                        prevPrefab.SetActive(false);
-                        var childObject = _objectList[startIndex-1].transform.GetChild(0).gameObject;
+                        var childObject = _objectList[objectIndex].transform.GetChild(0).gameObject;
                         if (childObject.activeSelf == false)
                         {
                             childObject.SetActive(true);
+                        } else
+                        {                        
+                            prevPrefab.SetActive(false);
                         }
                         prevPrefab.transform.SetParent(_prefabPool.transform,false);
                     }
@@ -502,10 +514,6 @@ namespace Ryneus
         public void Update()
         {
             UpdateInputFrame();
-            if (_scrollRect && _grid)
-            {
-                //Debug.Log(ScrollRect.normalizedPosition);
-            }
         }
 
         private void UpdateInputFrame()
@@ -883,7 +891,7 @@ namespace Ryneus
             var verticalCount = (int)Math.Round((height - listMargin) / (_itemSize.y + space));
             if (_grid)
             {
-                return horizontalCount * verticalCount;
+                return (horizontalCount+1) * (verticalCount+1);
             } else
             if (_horizontal)
             {   

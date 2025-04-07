@@ -5,7 +5,6 @@ using System;
 namespace Ryneus
 {
     using Strategy;
-    using Utage;
 
     public class StrategyPresenter : BasePresenter
     {

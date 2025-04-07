@@ -57,6 +57,24 @@ namespace Ryneus
                 }
             }
         }
+
+        public void LostUnitInfos(List<HexUnitInfo> unitInfos)
+        {
+            for (int i= _hexUnitList.Count-1;i >= 0;i--)
+            {
+                if (unitInfos.Contains(_hexUnitList[i]))
+                {
+                    _hexUnitList.Remove(_hexUnitList[i]);
+                }
+            }
+            foreach (var unitInfo in unitInfos)
+            {
+                foreach (var teamInfo in _teamInfos)
+                {
+                    teamInfo.RemoveUnitInfos(unitInfo);
+                }
+            }
+        }
         
         public ParameterInt StageId = new();
 

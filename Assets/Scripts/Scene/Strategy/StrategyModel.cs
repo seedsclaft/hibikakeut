@@ -14,6 +14,7 @@ namespace Ryneus
         public bool InBattleResult => _inBattleResult;
 
         private List<ActorInfo> _battlResultActorInfos = new();
+        private List<HexUnitInfo> _lostUnitInfos = new();
 
         public StrategyModel()
         {

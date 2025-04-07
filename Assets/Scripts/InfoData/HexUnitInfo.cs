@@ -67,8 +67,18 @@ namespace Ryneus
             _unitInfo = unitInfo;
         }
 
-        [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = null;
-        public List<ActorInfo> ActorInfos => _actorInfos;
+        public bool IsLostUnit()
+        {
+            if (_hexUnitType != HexUnitType.Battler)
+            {
+                return false;
+            }
+            if (_unitInfo.BattlerInfos.Find(a => a.Hp.Value > 0) == null)
+            {
+                return true;
+            }
+            return false;
+        }
 
         public int BattleEvaluate()
         {
