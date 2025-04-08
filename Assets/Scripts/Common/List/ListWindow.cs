@@ -578,6 +578,10 @@ namespace Ryneus
 
         public void InputSelectIndex(List<InputKeyType> keyTypes)
         {
+            if (_grid)
+            {
+                return;
+            }
             var currentIndex = Index;
             var selectIndex = Index;
             var plusKey = GetPlusKey();
@@ -619,7 +623,7 @@ namespace Ryneus
             if (keyTypes.Contains(pageUpKey) || keyTypes.Contains(pageDownKey))
             {
                 // 列移動
-                var lines = _horizontal && !_grid ? Cols() : Rows();
+                var lines = _horizontal ? Cols() : Rows();
                 if (lines > 1)
                 {
                     for (int i = 0;i < lines;i++)
@@ -811,37 +815,147 @@ namespace Ryneus
 
         private void UpdateGridScrollRect(List<InputKeyType> keyTypes)
         {
-            var listCount = ListItemCount(false);
-            var dataCount = _listDates.Count;
-            var _displayDownCount = _index - GetStartIndex(false);
-            var plusKey = GetPlusKey();
-            var minusKey = GetMinusKey();
             if (keyTypes.Contains(InputKeyType.Down))
             {
-                _displayDownCount--;
-                if (_index == 0)
-                {
-                    ScrollRect.normalizedPosition = new Vector2(0,1);
-                } else
-                if (_index > (listCount-1) && _displayDownCount >= (listCount-1))
-                {
-                    var num = 1.0f / (dataCount/_gridColumnCount - listCount/_gridColumnCount);
-                    var position = 1.0f - (num * (_index/_gridColumnCount - (listCount/_gridColumnCount-1)));
-                    ScrollRect.verticalNormalizedPosition = position;
-                }
+                UpdateGridDown();
             } else
             if (keyTypes.Contains(InputKeyType.Up))
             {
-                _displayDownCount++;
-                if (_index == (_listDates.Count-1))
+                UpdateGridUp();
+            }
+            if (keyTypes.Contains(InputKeyType.Right))
+            {
+                UpdateGridRight();
+            } else
+            if (keyTypes.Contains(InputKeyType.Left))
+            {
+                UpdateGridLeft();
+            }
+        }
+
+        private void UpdateGridDown()
+        {
+            if (_objectList.Count <= _index + _gridColumnCount)
+            {
+                return;
+            }
+            var selectItem = _objectList[_index + _gridColumnCount];
+            var corners = new Vector3[4];
+            selectItem.GetComponent<RectTransform>().GetWorldCorners(corners);
+            corners[0] = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[0]);
+            var col = (_index/_gridColumnCount) +2f;
+            if (_index % 2 == 1)
+            {
+                col += 0.5f;
+            }
+            if (corners[0].y < 0)
+            {
+                var height = GetViewPortHeight();
+                var listMargin = ListMargin();
+                var space = ItemSpace();
+                float verticalCount = (int)Math.Round((height - listMargin) / (_itemSize.y + space));
+                if (col != verticalCount)
                 {
-                    ScrollRect.normalizedPosition = new Vector2(0,0);
-                } else
-                if (_index < (dataCount-listCount) && _displayDownCount < (listCount-1))
-                {
-                    var num = 1.0f / (dataCount/_gridColumnCount - listCount/_gridColumnCount);
-                    ScrollRect.normalizedPosition = new Vector2(0,1.0f - (num * _index/_gridColumnCount));
+                    var c = col-verticalCount;
+                    var p = (_objectList.Count/_gridColumnCount)-verticalCount;
+                    var per = 1f - (c / p);
+
+                    ScrollRect.verticalNormalizedPosition = Math.Max(per,0);
                 }
+            }
+        }
+
+        private void UpdateGridUp()
+        {
+            if (0 > _index - _gridColumnCount)
+            {
+                return;
+            }
+            var selectItem = _objectList[_index - _gridColumnCount];
+            var corners = new Vector3[4];
+            selectItem.GetComponent<RectTransform>().GetWorldCorners(corners);
+            corners[0] = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[0]);
+            var col = (_index/_gridColumnCount) -2f;
+            if (_index % 2 == 1)
+            {
+                col += 0.5f;
+            }
+            if (corners[0].y > (720-_itemSize.y))
+            {
+                var height = GetViewPortHeight();
+                var listMargin = ListMargin();
+                var space = ItemSpace();
+                float verticalCount = (int)Math.Round((height - listMargin) / (_itemSize.y + space));
+
+                var c = (_objectList.Count/_gridColumnCount)-verticalCount-col;
+                var p = (_objectList.Count/_gridColumnCount)-verticalCount;
+                var per = (c / p);
+
+                ScrollRect.verticalNormalizedPosition = Math.Min(1,per);
+            }
+        }
+
+        private void UpdateGridRight()
+        {
+            var row = _index % _gridColumnCount;
+            var width = GetViewPortWidth();
+            var height = GetViewPortHeight();
+            var listMargin = ListMargin();
+            var space = ItemSpace();
+            var horizontalCount = (int)Math.Round((width - listMargin) / (_itemSize.x + space));
+            
+            if (row+2 < horizontalCount)
+            {
+                return;
+            }
+            var nextRow = _index + 1;
+            if (nextRow%_gridColumnCount < _index%_gridColumnCount)
+            {
+                return;
+            }
+            var selectItem = _objectList[nextRow];
+            var corners = new Vector3[4];
+            selectItem.GetComponent<RectTransform>().GetWorldCorners(corners);
+            corners[2] = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[2]);
+
+            if (corners[2].x > width)
+            {
+                float c = (row+2) - horizontalCount;
+                float p = _gridColumnCount - horizontalCount;
+                var per = (c / p);
+
+                ScrollRect.horizontalNormalizedPosition = Math.Max(per,0);
+            }
+        }
+
+        private void UpdateGridLeft()
+        {
+            var nextRow = _index - 1;
+            if (nextRow%_gridColumnCount > _index%_gridColumnCount)
+            {
+                return;
+            }
+            if (nextRow < 0)
+            {
+                return;
+            }
+            var selectItem = _objectList[nextRow];
+            var corners = new Vector3[4];
+            selectItem.GetComponent<RectTransform>().GetWorldCorners(corners);
+            corners[2] = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[2]);
+            var row = (_index%_gridColumnCount) -2f;
+            if (corners[2].x < _itemSize.x)
+            {
+                var width = GetViewPortWidth();
+                var listMargin = ListMargin();
+                var space = ItemSpace();
+                float horizontalCount = (int)Math.Round((width - listMargin) / (_itemSize.x + space));
+            
+                float c = _gridColumnCount-horizontalCount-row;
+                float p = _gridColumnCount - horizontalCount;
+                var per = 1f - (c / p);
+
+                ScrollRect.horizontalNormalizedPosition = Math.Max(0,per);
             }
         }
 

@@ -163,7 +163,7 @@ namespace Ryneus
             {
                 return;
             }
-            Debug.Log(viewEvent.ViewCommandType.CommandType);
+            //Debug.Log(viewEvent.ViewCommandType.CommandType);
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.CallTacticsCommand:
