@@ -208,7 +208,7 @@ namespace Ryneus
                     }
                     multi.SetScrollEvent(scrollRect);
                 }
-                RefreshTiles(0,0);
+                RefreshTiles(29,0);
             });
             SetActivate(hexTiles);
         }

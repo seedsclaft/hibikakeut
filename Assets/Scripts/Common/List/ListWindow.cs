@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Ryneus
 {
-    abstract public class ListWindow : MonoBehaviour
+    abstract public partial class ListWindow : MonoBehaviour
     {
         private bool _active = true;
         public bool Active => _active;
@@ -34,21 +34,6 @@ namespace Ryneus
         private ScrollRect _scrollRect = null; 
         public ScrollRect ScrollRect => _scrollRect;
         private bool _horizontal => _scrollRect.horizontal;
-        [SerializeField] private bool _grid = false;
-        private int _gridColumnCount = 1;
-        public void SetGridColumnCount(int columnCount)
-        {
-            _gridColumnCount = columnCount;
-            GetComponentInChildren<GridLayoutGroup>().constraintCount = columnCount;
-        }
-        public int GridColumnCount()
-        {
-            if (_grid)
-            {
-                return _gridColumnCount;
-            }
-            return 1;
-        }
         private List<GameObject> _itemPrefabList = new ();
         public List<GameObject> ItemPrefabList => _itemPrefabList;
         private List<GameObject> _prevPrefabs = new();
@@ -247,12 +232,8 @@ namespace Ryneus
 
         public void UpdateItemPrefab(int selectIndex = -1)
         {
-            var width = GetViewPortWidth();
-            var height = GetViewPortHeight();
-            var listMargin = ListMargin();
-            var space = ItemSpace();
-            var horizontalCount = (int)Math.Round((width - listMargin) / (_itemSize.x + space));
-            var verticalCount = (int)Math.Round((height - listMargin) / (_itemSize.y + space));
+            var horizontalCount = GetHorizonalCount();
+            var verticalCount = GetVerticalCount();
             horizontalCount += 1;
             var startIndex = selectIndex == -1 ? GetStartIndex(_horizontal): selectIndex;
             var gridIndex = selectIndex == -1 ? GetStartIndex(!_horizontal): selectIndex;
@@ -289,7 +270,7 @@ namespace Ryneus
                 var prevIndex = 0;
                 foreach (var prevPrefab in _prevPrefabs)
                 {
-                    var objectIndex = (startIndex-1) + prevIndex * _gridColumnCount;
+                    var objectIndex = startIndex-1 + prevIndex * _gridColumnCount;
                     prevIndex++;
                     if (_objectList.Count <= objectIndex)
                     {
@@ -417,9 +398,9 @@ namespace Ryneus
             return (int)Math.Round(GetViewPortWidth() / _itemSize.x);
         }
 
-        private float ItemSpace()
+        private float ItemSpace(bool isHorizontal)
         {
-            if (_horizontal)
+            if (isHorizontal)
             {
                 var horizontal = GetComponentInChildren<HorizontalLayoutGroup>();
                 if (horizontal != null)
@@ -437,9 +418,9 @@ namespace Ryneus
             return 0;
         }
 
-        private float ListMargin()
+        private float ListMargin(bool isHorizontal)
         {
-            if (_horizontal)
+            if (isHorizontal)
             {
                 var horizontal = GetComponentInChildren<HorizontalLayoutGroup>();
                 if (horizontal != null)
@@ -463,8 +444,8 @@ namespace Ryneus
         /// <returns></returns>
         public int GetStartIndex(bool horizontal)
         {
-            var itemSpace = ItemSpace();
-            var listMargin = ListMargin();
+            var itemSpace = ItemSpace(horizontal);
+            var listMargin = ListMargin(horizontal);
             var itemSize = horizontal ? _itemSize.x : _itemSize.y;
             var rectSize = horizontal ? GetScrolledWidth() : Math.Max(0,GetScrolledHeight());
             var index = (int)Math.Floor( (rectSize - itemSpace - listMargin + 4) / (itemSize + itemSpace) );
@@ -813,152 +794,6 @@ namespace Ryneus
             }
         }
 
-        private void UpdateGridScrollRect(List<InputKeyType> keyTypes)
-        {
-            if (keyTypes.Contains(InputKeyType.Down))
-            {
-                UpdateGridDown();
-            } else
-            if (keyTypes.Contains(InputKeyType.Up))
-            {
-                UpdateGridUp();
-            }
-            if (keyTypes.Contains(InputKeyType.Right))
-            {
-                UpdateGridRight();
-            } else
-            if (keyTypes.Contains(InputKeyType.Left))
-            {
-                UpdateGridLeft();
-            }
-        }
-
-        private void UpdateGridDown()
-        {
-            if (_objectList.Count <= _index + _gridColumnCount)
-            {
-                return;
-            }
-            var selectItem = _objectList[_index + _gridColumnCount];
-            var corners = new Vector3[4];
-            selectItem.GetComponent<RectTransform>().GetWorldCorners(corners);
-            corners[0] = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[0]);
-            var col = (_index/_gridColumnCount) +2f;
-            if (_index % 2 == 1)
-            {
-                col += 0.5f;
-            }
-            if (corners[0].y < 0)
-            {
-                var height = GetViewPortHeight();
-                var listMargin = ListMargin();
-                var space = ItemSpace();
-                float verticalCount = (int)Math.Round((height - listMargin) / (_itemSize.y + space));
-                if (col != verticalCount)
-                {
-                    var c = col-verticalCount;
-                    var p = (_objectList.Count/_gridColumnCount)-verticalCount;
-                    var per = 1f - (c / p);
-
-                    ScrollRect.verticalNormalizedPosition = Math.Max(per,0);
-                }
-            }
-        }
-
-        private void UpdateGridUp()
-        {
-            if (0 > _index - _gridColumnCount)
-            {
-                return;
-            }
-            var selectItem = _objectList[_index - _gridColumnCount];
-            var corners = new Vector3[4];
-            selectItem.GetComponent<RectTransform>().GetWorldCorners(corners);
-            corners[0] = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[0]);
-            var col = (_index/_gridColumnCount) -2f;
-            if (_index % 2 == 1)
-            {
-                col += 0.5f;
-            }
-            if (corners[0].y > (720-_itemSize.y))
-            {
-                var height = GetViewPortHeight();
-                var listMargin = ListMargin();
-                var space = ItemSpace();
-                float verticalCount = (int)Math.Round((height - listMargin) / (_itemSize.y + space));
-
-                var c = (_objectList.Count/_gridColumnCount)-verticalCount-col;
-                var p = (_objectList.Count/_gridColumnCount)-verticalCount;
-                var per = (c / p);
-
-                ScrollRect.verticalNormalizedPosition = Math.Min(1,per);
-            }
-        }
-
-        private void UpdateGridRight()
-        {
-            var row = _index % _gridColumnCount;
-            var width = GetViewPortWidth();
-            var height = GetViewPortHeight();
-            var listMargin = ListMargin();
-            var space = ItemSpace();
-            var horizontalCount = (int)Math.Round((width - listMargin) / (_itemSize.x + space));
-            
-            if (row+2 < horizontalCount)
-            {
-                return;
-            }
-            var nextRow = _index + 1;
-            if (nextRow%_gridColumnCount < _index%_gridColumnCount)
-            {
-                return;
-            }
-            var selectItem = _objectList[nextRow];
-            var corners = new Vector3[4];
-            selectItem.GetComponent<RectTransform>().GetWorldCorners(corners);
-            corners[2] = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[2]);
-
-            if (corners[2].x > width)
-            {
-                float c = (row+2) - horizontalCount;
-                float p = _gridColumnCount - horizontalCount;
-                var per = (c / p);
-
-                ScrollRect.horizontalNormalizedPosition = Math.Max(per,0);
-            }
-        }
-
-        private void UpdateGridLeft()
-        {
-            var nextRow = _index - 1;
-            if (nextRow%_gridColumnCount > _index%_gridColumnCount)
-            {
-                return;
-            }
-            if (nextRow < 0)
-            {
-                return;
-            }
-            var selectItem = _objectList[nextRow];
-            var corners = new Vector3[4];
-            selectItem.GetComponent<RectTransform>().GetWorldCorners(corners);
-            corners[2] = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[2]);
-            var row = (_index%_gridColumnCount) -2f;
-            if (corners[2].x < _itemSize.x)
-            {
-                var width = GetViewPortWidth();
-                var listMargin = ListMargin();
-                var space = ItemSpace();
-                float horizontalCount = (int)Math.Round((width - listMargin) / (_itemSize.x + space));
-            
-                float c = _gridColumnCount-horizontalCount-row;
-                float p = _gridColumnCount - horizontalCount;
-                var per = 1f - (c / p);
-
-                ScrollRect.horizontalNormalizedPosition = Math.Max(0,per);
-            }
-        }
-
         public void UpdateScrollRect(int selectIndex)
         {
             if (_index < 0) 
@@ -967,6 +802,7 @@ namespace Ryneus
             }
             if (_grid)
             {
+                UpdateGridScrollRect(selectIndex);
                 return;
             }
             LayoutRebuilder.ForceRebuildLayoutImmediate(ScrollRect.content);
@@ -997,12 +833,8 @@ namespace Ryneus
 
         private int ListItemCount()
         {
-            var width = GetViewPortWidth();
-            var height = GetViewPortHeight();
-            var listMargin = ListMargin();
-            var space = ItemSpace();
-            var horizontalCount = (int)Math.Round((width - listMargin) / (_itemSize.x + space));
-            var verticalCount = (int)Math.Round((height - listMargin) / (_itemSize.y + space));
+            var horizontalCount = GetHorizonalCount();
+            var verticalCount = GetVerticalCount();
             if (_grid)
             {
                 return (horizontalCount+1) * (verticalCount+1);
@@ -1018,8 +850,8 @@ namespace Ryneus
         {
             var width = GetViewPortWidth();
             var height = GetViewPortHeight();
-            var listMargin = ListMargin();
-            var space = ItemSpace();
+            var listMargin = ListMargin(horizontal);
+            var space = ItemSpace(horizontal);
             if (horizontal)
             {   
                 return ((int)Math.Round((width - listMargin) / (_itemSize.x + space))) * Cols();
