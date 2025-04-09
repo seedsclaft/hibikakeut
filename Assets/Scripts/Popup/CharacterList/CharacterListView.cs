@@ -20,7 +20,7 @@ namespace Ryneus
 
         public void OpenAnimation()
         {
-            popupAnimation.OpenAnimation(UiRoot.transform,null);
+            popupAnimation.OpenAnimation(UiRoot.transform,() => CallViewEvent(CharacterList.CommandType.EndOpenAnimation));
         }
 
         private void InitializeCharacterList()
@@ -44,6 +44,7 @@ namespace Ryneus
         {
             None = 0,
             DecideActor = 1,
+            EndOpenAnimation = 2,
         }
     }
 }

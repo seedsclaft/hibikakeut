@@ -8,6 +8,7 @@ namespace Ryneus
     public class StageInfo
     {
         public StageData Master => DataSystem.FindStage(StageId.Value);
+        public ParameterInt TurnCount = new(1);
         
         private List<TeamInfo> _teamInfos = new();
         public List<TeamInfo> TeamInfos => _teamInfos;

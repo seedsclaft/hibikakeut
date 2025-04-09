@@ -91,10 +91,30 @@ namespace Ryneus
                     // ゲームの手引きを表示
                     checkFlag = true;
                 }
-                if (tutorialData.Param1 == 100)
+                if (tutorialData.Param1 == 100 && commandType != null)
+                {
+                    // 出撃コマンドを選択前
+                    checkFlag = (CommandType)commandType == CommandType.SelectHexUnit && _view.TacticsCommandData.Key == "Departure";
+                }
+                if (tutorialData.Param1 == 300)
+                {
+                    // 出撃前
+                    checkFlag = _model.DepartureActorId > -1;
+                }
+                if (tutorialData.Param1 == 400)
                 {
                     // 出撃を終える
                     checkFlag = _model.GetTurnTeamState() == TeamState.TurnEnd;
+                }
+                if (tutorialData.Param1 == 500 && commandType != null)
+                {
+                    // 2ターン目開始
+                    checkFlag = _model.CurrentStage.TurnCount.Value == 3 && (CommandType)commandType == CommandType.CallTacticsCommand;
+                }
+                if (tutorialData.Param1 == 600 && commandType != null)
+                {
+                    // 出撃コマンドを選択前
+                    checkFlag = (CommandType)commandType == CommandType.SelectHexUnit && _view.TacticsCommandData.Key == "MoveBattler";
                 }
                 /*
                 if (tutorialData.Param1 == 300)
@@ -126,14 +146,23 @@ namespace Ryneus
                 if (checkFlag)
                 {
                     var stageEvent = GetStageEventData(EventTiming.StartTutorial);
-                    switch (stageEvent.Type)
+                    if (stageEvent != null)
                     {
-                        case StageEventType.TurnEndCommandEnable:
-                            _model.SetTurnEndCommandEnable(stageEvent.Param == 1);
-                            break;
+                        if (stageEvent.Param == tutorialData.Param1)
+                        {
+                            switch (stageEvent.Type)
+                            {
+                                case StageEventType.TurnEndCommandEnable:
+                                    _model.SetTurnEndCommandEnable(true);
+                                    break;
+                                case StageEventType.TurnEndCommandDisable:
+                                    _model.SetTurnEndCommandEnable(false);
+                                    break;
+                            }
+                            _model.AddEventReadFlag(stageEvent);
+                        }
+                        
                     }
-                    
-                    _model.AddEventReadFlag(stageEvent);
                     _model.SetTutorial(tutorialData);
                 }
                 return checkFlag;

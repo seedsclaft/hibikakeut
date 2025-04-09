@@ -35,6 +35,10 @@ namespace Ryneus
             _popupInfo.Clear();
             _popupInfo.Add(popupInfo);
         }
+        public void ClearPopupInfo()
+        {
+            _popupInfo.Clear();
+        }
 
         private List<StatusViewInfo> _statusViewInfo = new ();
         public object LastStatusViewInfo => _statusViewInfo.Count > 0 ? _statusViewInfo[_statusViewInfo.Count-1] : null;

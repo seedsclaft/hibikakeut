@@ -2412,7 +2412,7 @@ MonoBehaviour:
     MinX: 5
     MaxX: 12
     Height: 8
-    MinY: 2
+    MinY: 3
     MaxY: 6
     InitX: 4
     InitY: 4
@@ -2423,17 +2423,29 @@ MonoBehaviour:
     BossBGMId: 2010
     MenuBGMId: 100
     StageEvents:
-    - EventKey: 1StartTutorialTurnEndCommandEnable0
+    - EventKey: 1StartTutorialTurnEndCommandDisable0
       Turns: 1
       Timing: 1010
-      Type: 1010
+      Type: 1011
       Param: 0
       ReadFlag: 1
-    - EventKey: 1StartTutorialTurnEndCommandEnable1
+    - EventKey: 1StartTutorialTurnEndCommandEnable400
       Turns: 1
       Timing: 1010
       Type: 1010
-      Param: 1
+      Param: 400
+      ReadFlag: 1
+    - EventKey: 1StartTutorialTurnEndCommandDisable500
+      Turns: 1
+      Timing: 1010
+      Type: 1011
+      Param: 500
+      ReadFlag: 1
+    - EventKey: 1StartTutorialTurnEndCommandEnable600
+      Turns: 1
+      Timing: 1010
+      Type: 1010
+      Param: 600
       ReadFlag: 1
     StageSymbols:
     - Id: 10000
@@ -2451,8 +2463,8 @@ MonoBehaviour:
       MoveParam: 0
     - Id: 10010
       StageId: 1010
-      InitX: 11
-      InitY: 5
+      InitX: 10
+      InitY: 4
       UnitType: 1000
       InitTeamId: 2
       Rate: 100
@@ -2475,6 +2487,71 @@ MonoBehaviour:
       ClearCount: 0
       MoveType: 0
       MoveParam: 0
+    - Id: 10030
+      StageId: 1010
+      InitX: 10
+      InitY: 4
+      UnitType: 20
+      InitTeamId: 2
+      Rate: 100
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 10040
+      StageId: 1010
+      InitX: 5
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 100
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 10050
+      StageId: 1010
+      InitX: 7
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 100
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 10060
+      StageId: 1010
+      InitX: 9
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 100
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 10070
+      StageId: 1010
+      InitX: 11
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 100
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
     - Id: 0
       StageId: 1010
       InitX: 0
@@ -3439,6 +3516,19 @@ MonoBehaviour:
       MoveParam: 0
     - Id: 0
       StageId: 1010
+      InitX: 0
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
       InitX: 1
       InitY: 0
       UnitType: 0
@@ -3454,6 +3544,19 @@ MonoBehaviour:
       StageId: 1010
       InitX: 1
       InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
+      InitX: 1
+      InitY: 2
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3491,6 +3594,19 @@ MonoBehaviour:
       MoveParam: 0
     - Id: 0
       StageId: 1010
+      InitX: 2
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
       InitX: 3
       InitY: 0
       UnitType: 0
@@ -3517,6 +3633,19 @@ MonoBehaviour:
       MoveParam: 0
     - Id: 0
       StageId: 1010
+      InitX: 3
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
       InitX: 4
       InitY: 0
       UnitType: 0
@@ -3532,6 +3661,19 @@ MonoBehaviour:
       StageId: 1010
       InitX: 4
       InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
+      InitX: 4
+      InitY: 2
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3569,6 +3711,19 @@ MonoBehaviour:
       MoveParam: 0
     - Id: 0
       StageId: 1010
+      InitX: 5
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
       InitX: 6
       InitY: 0
       UnitType: 0
@@ -3584,6 +3739,19 @@ MonoBehaviour:
       StageId: 1010
       InitX: 6
       InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
+      InitX: 6
+      InitY: 2
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3621,6 +3789,19 @@ MonoBehaviour:
       MoveParam: 0
     - Id: 0
       StageId: 1010
+      InitX: 7
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
       InitX: 8
       InitY: 0
       UnitType: 0
@@ -3636,6 +3817,19 @@ MonoBehaviour:
       StageId: 1010
       InitX: 8
       InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
+      InitX: 8
+      InitY: 2
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3673,6 +3867,19 @@ MonoBehaviour:
       MoveParam: 0
     - Id: 0
       StageId: 1010
+      InitX: 9
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
       InitX: 10
       InitY: 0
       UnitType: 0
@@ -3688,6 +3895,19 @@ MonoBehaviour:
       StageId: 1010
       InitX: 10
       InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
+      InitX: 10
+      InitY: 2
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3725,6 +3945,19 @@ MonoBehaviour:
       MoveParam: 0
     - Id: 0
       StageId: 1010
+      InitX: 11
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
       InitX: 12
       InitY: 0
       UnitType: 0
@@ -3740,6 +3973,19 @@ MonoBehaviour:
       StageId: 1010
       InitX: 12
       InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
+      InitX: 12
+      InitY: 2
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3777,6 +4023,19 @@ MonoBehaviour:
       MoveParam: 0
     - Id: 0
       StageId: 1010
+      InitX: 13
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
       InitX: 14
       InitY: 0
       UnitType: 0
@@ -3803,6 +4062,19 @@ MonoBehaviour:
       MoveParam: 0
     - Id: 0
       StageId: 1010
+      InitX: 14
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
       InitX: 15
       InitY: 0
       UnitType: 0
@@ -3818,6 +4090,19 @@ MonoBehaviour:
       StageId: 1010
       InitX: 15
       InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveParam: 0
+    - Id: 0
+      StageId: 1010
+      InitX: 15
+      InitY: 2
       UnitType: 0
       InitTeamId: 0
       Rate: 0

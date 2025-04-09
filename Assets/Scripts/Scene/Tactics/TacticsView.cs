@@ -239,6 +239,7 @@ namespace Ryneus
             if (actions.Count == 0)
             {
                 RefreshTiles(hexUnitInfo.HexField.X,hexUnitInfo.HexField.Y);
+                CallViewEvent(CommandType.EndMoveBattler);
                 return;
             }
             actions[0]();

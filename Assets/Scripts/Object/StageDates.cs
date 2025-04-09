@@ -171,6 +171,7 @@ namespace Ryneus
         ForceBattle = 110, // 今のステージシンボルの〇SeekIndexのバトルを開始
         SurvivalMode = 201, // サバイバルモードにする
         TurnEndCommandEnable = 1010, // ターン終了コマンド操作
+        TurnEndCommandDisable = 1011, // ターン終了コマンド操作
     }
 
     public enum TutorialType

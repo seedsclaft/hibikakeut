@@ -20,6 +20,7 @@ namespace Ryneus
         public void SetCommandKey(string key) => _commandKey = key;
         private ParameterInt _selectingHexUnitId = new();
         private int _departureActorId = -1;
+        public int DepartureActorId => _departureActorId;
         public void SetDepatureActorId(int departureActorId) => _departureActorId = departureActorId;
         
         // 行動選択中のチーム
@@ -53,9 +54,10 @@ namespace Ryneus
                 nextId = (int)TeamIdType.Home;
             }
             // 行動ポイントを初期化
+            CurrentStage.TurnTeamId.SetValue(nextId);
             var term = CurrentStage.GetTurnTeamInfo();
             term.CurrentActPoint.SetValue(term.ActPoint.Value);
-            CurrentStage.TurnTeamId.SetValue(nextId);
+            CurrentStage.TurnCount.GainValue(1);
         }
 
         public TeamState GetTurnTeamState()
@@ -351,7 +353,6 @@ namespace Ryneus
                             return;
                         // 何もしない
                         case HexMoveType.None:
-                            
                             return;
                     }
                 }
@@ -457,6 +458,14 @@ namespace Ryneus
                     X = FieldX.Value,
                     Y = FieldY.Value
                 };
+                // 待機
+                if (endHexUnit.X == moveBattler.HexField.X && endHexUnit.Y == moveBattler.HexField.Y)
+                {
+                    // Reachを消去
+                    CurrentStage.RemoveReachUnitInfo(_reachAreas);
+                    _reachAreas.Clear();
+                    return (moveActions,moveBattler);
+                }
                 // 移動ルート作成
                 _hexRoute.FindRoute(MoveType.Normal,moveBattler.HexField,endHexUnit);
                 pathes = _hexRoute.Pathlist;

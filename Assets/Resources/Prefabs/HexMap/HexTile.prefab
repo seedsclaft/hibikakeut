@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 3429823430182797361}
   - component: {fileID: 5929455119730027935}
   - component: {fileID: 7903546906707973509}
+  - component: {fileID: 2740260727770822809}
   m_Layer: 5
   m_Name: EnemyImage
   m_TagString: Untagged
@@ -153,6 +154,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySprite: {fileID: 5929455119730027935}
   autoResize: 1
+--- !u!114 &2740260727770822809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687136333599389942}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d453a206e2a154495150809124168f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ForceMaterial: {fileID: 0}
+  ActiveChange: 1
+  _Alpha: 1
+  Seed: 1
+  Destroyed: 0.5
+  ShaderChange: 0
+  ActiveUpdate: 1
 --- !u!1 &1732825954671357883
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +298,7 @@ MonoBehaviour:
   enemyInfoComponent: {fileID: 4085873878169051384}
   statusInfoComponent: {fileID: 0}
   effekseerEmitter: {fileID: 0}
-  deathAnimation: {fileID: 0}
+  deathAnimation: {fileID: 2740260727770822809}
   battleDamagePrefab: {fileID: 0}
   battleStateOverlay: {fileID: 0}
   canvasGroup: {fileID: 0}

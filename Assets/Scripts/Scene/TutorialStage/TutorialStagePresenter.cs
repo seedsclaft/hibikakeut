@@ -58,8 +58,8 @@ namespace Ryneus
                 if (a == ConfirmCommandType.Yes)
                 {
                     _model.StartTutorial(stageInfo.StageId.Value);
-                    _view.CommandGotoSceneChange(Scene.Tactics);
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
+                    _view.CommandGotoSceneChange(Scene.Tactics);
                 }
             });
             //confirmInfo.SetIsNoChoice(true);

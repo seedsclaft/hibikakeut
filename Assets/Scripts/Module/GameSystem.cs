@@ -140,6 +140,7 @@ namespace Ryneus
                     SetIsNotBusyMainAndStatus();
                     break;
                 case Base.CommandType.ClosePopupAll:
+                    _sceneStackManager.ClearPopupInfo();
                     popupAssign.ClosePopupAll();
                     SetIsNotBusyMainAndStatus();
                     break;

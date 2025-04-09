@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UtageExtensions;
 
 namespace Ryneus
 {
@@ -43,9 +44,9 @@ namespace Ryneus
         {
             if (_stackPopupView.Count > 0)
             {
-                transform.DetachChildren();
-                _stackPopupView.Clear();
+                transform.DestroyChildren();
             }
+            _stackPopupView.Clear();
             gameObject.SetActive(false);
         }
 

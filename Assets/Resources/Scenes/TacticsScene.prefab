@@ -663,7 +663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7693768841389585030
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1654,7 +1654,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 92, y: 0}
+  m_AnchoredPosition: {x: 240, y: 0}
   m_SizeDelta: {x: 440, y: 32}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1996035068407045387
@@ -1793,8 +1793,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 464, y: 48}
+  m_AnchoredPosition: {x: -240, y: 0}
+  m_SizeDelta: {x: 720, y: 56}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &6855410511705774390
 CanvasRenderer:
@@ -1824,8 +1824,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 466960324, guid: 2d54313fb5a787b40a183a5bd54821cc, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c0499c8e84901c043a63f2671f92495f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2448,7 +2448,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -440, y: 248}
+  m_AnchoredPosition: {x: -440, y: 280}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5415795589977840047
@@ -3614,7 +3614,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -154, y: 52}
+  m_AnchoredPosition: {x: -154, y: 48}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3955606266762595333
@@ -4856,6 +4856,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HelpButton
       objectReference: {fileID: 0}
+    - target: {fileID: 3118680582847115307, guid: 23f4dc300c75b61418a4c955f7b1e680,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3652987770166541026, guid: 23f4dc300c75b61418a4c955f7b1e680,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4934,12 +4939,12 @@ PrefabInstance:
     - target: {fileID: 3652987770166541026, guid: 23f4dc300c75b61418a4c955f7b1e680,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -24
+      value: -480
       objectReference: {fileID: 0}
     - target: {fileID: 3652987770166541026, guid: 23f4dc300c75b61418a4c955f7b1e680,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 244
+      value: 276
       objectReference: {fileID: 0}
     - target: {fileID: 3652987770166541026, guid: 23f4dc300c75b61418a4c955f7b1e680,
         type: 3}
