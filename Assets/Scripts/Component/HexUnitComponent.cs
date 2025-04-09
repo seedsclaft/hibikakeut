@@ -168,5 +168,13 @@ namespace Ryneus
             }
             gameObject.SetActive(true);
         }
+
+        public void LostUnit()
+        {
+            if (battlerInfoComponent != null)
+            {
+                battlerInfoComponent.StartDeathAnimation();
+            }
+        }
     }
 }

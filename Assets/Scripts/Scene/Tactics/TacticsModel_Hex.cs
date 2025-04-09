@@ -9,6 +9,8 @@ namespace Ryneus
         public ParameterInt FieldY = new();
         public List<HexUnitInfo> SelectableUnitInfos => CurrentStage.TurnHexUnitList()?.FindAll(a => a.HexField.X == FieldX.Value && a.HexField.Y == FieldY.Value);
         public List<HexUnitInfo> HexUnitInfos => CurrentStage.HexUnitList?.FindAll(a => a.HexField.X == FieldX.Value && a.HexField.Y == FieldY.Value);
+        public List<HexUnitInfo> SerachHexUnitInfos(int x,int y) => CurrentStage.HexUnitList?.FindAll(a => a.HexField.X == x && a.HexField.Y == y);
+
         private HexRoute _hexRoute;
         private List<HexField> _reachAreas = new();
         private List<HexField> _movableAreas = new();

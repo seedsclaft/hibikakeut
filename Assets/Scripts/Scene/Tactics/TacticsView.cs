@@ -208,7 +208,6 @@ namespace Ryneus
                     }
                     multi.SetScrollEvent(scrollRect);
                 }
-                RefreshTiles(29,0);
             });
             SetActivate(hexTiles);
         }
@@ -218,11 +217,16 @@ namespace Ryneus
             SetActivate(null);
         }
 
-
         public void RefreshTiles(int x,int y)
         {
-            hexTiles.Refresh(x + y * hexTiles.GridColumnCount());
+            Debug.Log(x+":"+y);
             hexTiles.UpdateSelectIndex(x + y * hexTiles.GridColumnCount());
+            hexTiles.Refresh(x + y * hexTiles.GridColumnCount());
+        }
+
+        public void UpdateTileItems()
+        {
+            hexTiles.UpdateAllItems();
         }
 
         public void SelectMoveBattler(List<Action> actions,HexUnitInfo hexUnitInfo)
@@ -262,8 +266,9 @@ namespace Ryneus
                 //RefreshTiles(hexUnitInfo.HexField.X,hexUnitInfo.HexField.Y);
                 return;
             }
+            RefreshTiles(hexUnitInfos[0].HexField.X,hexUnitInfos[0].HexField.Y);
+            await UniTask.DelayFrame(10);
             // マスを探す
-            await UniTask.DelayFrame(30);
             var listItems = hexTiles.GetComponentsInChildren<ListItem>().ToList();
             var lost = listItems.Find(a => a.Index == (hexUnitInfos[0].HexField.X + hexUnitInfos[0].HexField.Y * hexTiles.GridColumnCount()));
             if (lost != null)

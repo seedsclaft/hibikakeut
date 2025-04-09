@@ -800,12 +800,12 @@ namespace Ryneus
             {
                 return;
             }
+            LayoutRebuilder.ForceRebuildLayoutImmediate(ScrollRect.content);
             if (_grid)
             {
                 UpdateGridScrollRect(selectIndex);
                 return;
             }
-            LayoutRebuilder.ForceRebuildLayoutImmediate(ScrollRect.content);
             UpdateSelectIndex(selectIndex);
             var listCount = ListItemCount();
             var dataCount = _listDates.Count;

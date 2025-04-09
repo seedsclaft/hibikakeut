@@ -297,17 +297,10 @@ namespace Ryneus
 
         public void StartDeathAnimation()
         {
-            if (grayScale != null)
+            if (deathAnimation != null)
             {
-                if (_battlerInfo.IsActorView)
-                {
-                    actorInfoComponent.FaceThumb.material = new Material(grayScale);
-                } else
-                {
-                    deathAnimation.enabled = true;
-                    _deathAnimation = 0.01f;
-                    //enemyInfoComponent.MainThumb.material = new Material(grayScale);
-                }
+                deathAnimation.enabled = true;
+                _deathAnimation = 0.01f;
             }
         }
 

@@ -145,6 +145,8 @@ namespace Ryneus
 
         public void CommandReturnStrategy()
         {
+            // マップ表示初期位置を設定
+            _view.RefreshTiles(0,0);
             // Hp0のユニットを消滅する
             var lostUnitInfos = _model.LostUnitInfos();
             if (lostUnitInfos.Count > 0)
@@ -800,8 +802,8 @@ namespace Ryneus
             var lastY = _model.FieldY.Value;
             if (hexField.X != lastX || hexField.Y != lastY)
             {
-                _model.SetFieldXY(hexField.X,hexField.Y);
                 _model.ClearMoveReachAreas();
+                _model.SetFieldXY(hexField.X,hexField.Y);
                 if (_model.HexUnitInfos.Count > 0)
                 {
                     // 移動と攻撃範囲を表示
@@ -811,7 +813,7 @@ namespace Ryneus
                 {
                     _view.ShowUnitStatus(null);
                 }
-                _view.RefreshTiles(hexField.X,hexField.Y);
+                _view.UpdateTileItems();
             }
         }
 
