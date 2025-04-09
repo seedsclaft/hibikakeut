@@ -182,15 +182,19 @@ MonoBehaviour:
   TitleCommandData:
   - Id: 1
     Key: NEWGAME
-    Name: NewGame
+    Name: "\u65B0\u3057\u304F\u30B2\u30FC\u30E0\u3092\u59CB\u3081\u308B"
     Help: '""'
   - Id: 2
     Key: CONTINUE
-    Name: Continue
+    Name: "\u4EE5\u524D\u306E\u7D9A\u304D\u304B\u3089\u30D7\u30EC\u30A4\u3059\u308B"
     Help: '""'
   - Id: 3
+    Key: TUTORIAL
+    Name: "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u3092\u30D7\u30EC\u30A4\u3059\u308B"
+    Help: '""'
+  - Id: 4
     Key: OPTION
-    Name: Option
+    Name: "\u30AA\u30D7\u30B7\u30E7\u30F3\u3092\u8A2D\u5B9A\u3059\u308B"
     Help: '""'
   InitCurrency: 0
   TrainCount: 5
@@ -868,7 +872,7 @@ MonoBehaviour:
     Help: '""'
     Feature: Boot
   - Id: 13010
-    Text: "\u3072\u3073\u304B\u3051\u8272\u306E\u30AD\u30BB\u30AD"
+    Text: Norm
     Help: '""'
     Feature: Title
   - Id: 13020
@@ -892,15 +896,19 @@ MonoBehaviour:
     Help: '""'
     Feature: 
   - Id: 13210
-    Text: NewGame
+    Text: "\u65B0\u3057\u304F\u30B2\u30FC\u30E0\u3092\u59CB\u3081\u308B"
     Help: '""'
     Feature: 
   - Id: 13220
-    Text: Continue
+    Text: "\u4EE5\u524D\u306E\u7D9A\u304D\u304B\u3089\u30D7\u30EC\u30A4\u3059\u308B"
     Help: '""'
     Feature: 
   - Id: 13230
-    Text: Option
+    Text: "\u30AA\u30D7\u30B7\u30E7\u30F3\u3092\u8A2D\u5B9A\u3059\u308B"
+    Help: '""'
+    Feature: 
+  - Id: 13240
+    Text: "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u3092\u30D7\u30EC\u30A4\u3059\u308B"
     Help: '""'
     Feature: 
   - Id: 13300

@@ -59,8 +59,11 @@ namespace Ryneus
 
         public List<HexUnitInfo> GetStageHexUnitInfos(int stageId,int clearCount)
         {
-            return StageHexUnitInfos(DataSystem.FindStage(stageId).StageSymbols,clearCount);
+            var stageData = DataSystem.FindStage(stageId);
+            var stageSymbols = stageData.StageSymbols;
+            return StageHexUnitInfos(stageSymbols,clearCount);
         }
+
 
 
 

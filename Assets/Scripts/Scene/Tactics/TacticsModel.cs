@@ -17,6 +17,12 @@ namespace Ryneus
                 _hexRoute = new HexRoute(stageData.Width,stageData.Height,CurrentGameInfo.StageInfo.HexUnitList);
             }
         }
+
+        private TutorialData _tutorialData;
+        public void SetTutorial(TutorialData tutorialData)
+        {
+            _tutorialData = tutorialData;
+        }
     
 
         public bool StageStart()

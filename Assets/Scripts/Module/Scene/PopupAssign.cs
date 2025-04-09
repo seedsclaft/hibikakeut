@@ -91,6 +91,6 @@ namespace Ryneus
         SideMenu,
         Dictionary,
         FileList,
-        Tutorial,
+        TutorialStage,
     }
 }

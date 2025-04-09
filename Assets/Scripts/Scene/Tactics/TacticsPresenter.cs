@@ -71,14 +71,14 @@ namespace Ryneus
             _view.SetUIButton();
             _view.SetBackGround(_model.CurrentStage.Master.BackGround);
             //_view.SetBattleMemberList(MakeListData(_model.EditMembers()));
-            _view.SetHexTileList(MakeListData(_model.HexFields()));
+            _view.SetHexTileList(MakeListData(_model.HexFields()),_model.CurrentStage.Master.Width);
             //_view.SetNuminous(_model.Currency);
             CommandRefresh();
             await PlayTacticsBgm(timeStamp);
             _view.ChangeUIActive(true);
             CommandReturnStrategy();
             // チュートリアル確認
-            //CheckTutorialState();
+            CheckTutorialState();
         }
 
         private void CheckTutorialState(object commandType = null)
@@ -86,17 +86,17 @@ namespace Ryneus
             Func<TutorialData,bool> enable = (tutorialData) => 
             {
                 var checkFlag = false;
-                /*
+                if (tutorialData.Param1 == 0)
+                {
+                    // ゲームの手引きを表示
+                    checkFlag = true;
+                }
                 if (tutorialData.Param1 == 100)
                 {
-                    // マス一覧を初めて開く
-                    checkFlag = _view.SymbolRecordListActive;
+                    // 出撃を終える
+                    checkFlag = _model.GetTurnTeamState() == TeamState.TurnEnd;
                 }
-                if (tutorialData.Param1 == 200)
-                {
-                    // 編成を初めて開く
-                    checkFlag = commandType == CommandType.SelectSymbol;
-                }
+                /*
                 if (tutorialData.Param1 == 300)
                 {
                     // トレジャーのマスを初めて開く
@@ -123,6 +123,19 @@ namespace Ryneus
                     checkFlag = _model.StageMembers().Find(a => a.LearnSkillIds().FindAll(b => DataSystem.FindSkill(b).SkillType == SkillType.Active).Count > 0) != null || _model.CurrentStage.Id == 3;
                 }
                 */
+                if (checkFlag)
+                {
+                    var stageEvent = GetStageEventData(EventTiming.StartTutorial);
+                    switch (stageEvent.Type)
+                    {
+                        case StageEventType.TurnEndCommandEnable:
+                            _model.SetTurnEndCommandEnable(stageEvent.Param == 1);
+                            break;
+                    }
+                    
+                    _model.AddEventReadFlag(stageEvent);
+                    _model.SetTutorial(tutorialData);
+                }
                 return checkFlag;
             };
             Func<TutorialData,bool> checkEnd = (tutorialData) => 
@@ -584,6 +597,16 @@ namespace Ryneus
                     if (selectDeparture != null)
                     {
                         _view.RefreshTiles(selectDeparture.HexField.X,selectDeparture.HexField.Y);
+                        
+                        // 操作不可プレイヤー・オート動作なら操作を委託
+                        if (_model.IsPlayable == false)
+                        {
+                            _model.AutoMode.SetValue(true);
+                            CommandAutoMode();
+                        } else
+                        {
+                            _model.AutoMode.SetValue(false);
+                        }
                     }
                     break;
                 case "MoveBattler":

@@ -66,6 +66,7 @@ namespace Ryneus
             UiCanvas = uiCanvas;
             TempData = new TempInfo();
             _model = new BaseModel();
+            _lastTutorialData = null;
             Version = Application.version;
     #if UNITY_EDITOR
             DebugBattleData = debugBattleData;

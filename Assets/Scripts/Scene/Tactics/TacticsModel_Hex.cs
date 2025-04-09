@@ -28,7 +28,7 @@ namespace Ryneus
         {
             _selectingHexUnitId.SetValue(0);
             // 行動ポイントを減らす
-            var term = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == CurrentStage.TurnTeamId.Value);
+            var term = CurrentStage.GetTurnTeamInfo();
             term.CurrentActPoint.GainValue(-1,0,term.ActPoint.Value);
             // 行動ポイントがなければ次へ
             if (term.CurrentActPoint.Value == 0)
@@ -53,7 +53,7 @@ namespace Ryneus
                 nextId = (int)TeamIdType.Home;
             }
             // 行動ポイントを初期化
-            var term = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == CurrentStage.TurnTeamId.Value);
+            var term = CurrentStage.GetTurnTeamInfo();
             term.CurrentActPoint.SetValue(term.ActPoint.Value);
             CurrentStage.TurnTeamId.SetValue(nextId);
         }
@@ -320,6 +320,15 @@ namespace Ryneus
             CurrentStage.RemoveReachUnitInfo(_reachAreas);
             _reachAreas.Clear();
             _departureActorId = -1;
+
+            // 行動ポイントを減らす
+            var term = CurrentStage.GetTurnTeamInfo();
+            term.CurrentActPoint.GainValue(-1,0,term.ActPoint.Value);
+            // 行動ポイントがなければ次へ
+            if (term.CurrentActPoint.Value == 0)
+            {
+                //TurnEnd();
+            }
             return depaterActor;
         }
         
@@ -531,6 +540,8 @@ namespace Ryneus
             CurrentStage.LostUnitInfos(list);
         }
 
+        private bool _turnEndCommandEnable = true;
+        public void SetTurnEndCommandEnable(bool isEnable) => _turnEndCommandEnable = isEnable;
         public List<ListData> BattlerCommand()
         {
             var list = new List<SystemData.CommandData>();
@@ -543,7 +554,7 @@ namespace Ryneus
             list.Add(move);
             Func<SystemData.CommandData,bool> enable = (a) => 
             {
-                return true;
+                return CurrentStage.GetTurnTeamInfo().CurrentActPoint.Value > 0;
             };
             return MakeListData(list,enable);
         }
@@ -567,6 +578,14 @@ namespace Ryneus
             list.Add(turnEnd);
             Func<SystemData.CommandData,bool> enable = (a) => 
             {
+                if (a.Key == "Departure")
+                {
+                    return CurrentStage.GetTurnTeamInfo().CurrentActPoint.Value > 0;
+                }
+                if (a.Key == "TurnEnd")
+                {
+                    return _turnEndCommandEnable;
+                }
                 return true;
             };
             return MakeListData(list,enable);
@@ -615,6 +634,10 @@ namespace Ryneus
             list.Add(turnEnd);
             Func<SystemData.CommandData,bool> enable = (a) => 
             {
+                if (a.Key == "TurnEnd")
+                {
+                    return _turnEndCommandEnable;
+                }
                 return true;
             };
             return MakeListData(list,enable);

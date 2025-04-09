@@ -10,7 +10,7 @@ namespace Ryneus
 {
 	public class SaveSystem : MonoBehaviour
 	{
-		private static string _gameKey = "hibikake";
+		private static string _gameKey = "norm_m";
 
 #if !UNITY_WEBGL
 		private static FileStream TempFileStream = null;
@@ -62,8 +62,7 @@ namespace Ryneus
 			}
 			return default;
 		}
-
-		private static async UniTask<SaveBattleInfo> LoadFileAsync(string key)
+		private static async UniTask<T> LoadFileAsync<T>(string key)
 		{
 			try
 			{
@@ -71,13 +70,13 @@ namespace Ryneus
 				var bytes = Convert.FromBase64String(data);
 				var	TempBinaryFormatter = new BinaryFormatter();
 				var memoryStream = new MemoryStream(bytes);
-				var saveData = (SaveBattleInfo)TempBinaryFormatter.Deserialize(memoryStream);
+				var saveData = (T)TempBinaryFormatter.Deserialize(memoryStream);
 				await UniTask.WaitUntil(() => saveData != null);
 				return saveData;
 			} catch(Exception e)
 			{
 				Debug.LogException(e);
-				return null;
+				return default;
 			} finally 
 			{
 			}
@@ -94,29 +93,14 @@ namespace Ryneus
 		}
 
 			
-		public static bool LoadPlayerInfo()
+		public static async UniTask<bool> LoadPlayerInfo()
 		{
-			var playerInfo = LoadFile<SaveInfo>(_playerDataKey,(a) => 
+			var playerInfo = await LoadFileAsync<SaveInfo>(_playerDataKey);
+			if (playerInfo != null)
 			{
-				GameSystem.CurrentData = a;
-			});
+				GameSystem.CurrentData = playerInfo;
+			}
 			return playerInfo != null;
-		}
-
-		public static void SaveReplay(string stageKey,SaveBattleInfo userSaveInfo = null)
-		{
-			SaveFile(ReplayDataKey(stageKey),userSaveInfo);
-		}
-			
-		public static async UniTask<SaveBattleInfo> LoadReplay(string stageKey)
-		{
-			var playerInfo = await LoadFileAsync(ReplayDataKey(stageKey));
-			return playerInfo;
-		}
-
-		public static bool ExistReplay(string stageKey)
-		{
-			return ES3.FileExists(ReplayDataKey(stageKey));
 		}
 
 		private static bool ExistsLoadFile(string key)
@@ -134,14 +118,14 @@ namespace Ryneus
 			SaveFile(PlayerStageDataKey(fileId),userSaveInfo);
 		}
 
-		public static bool LoadStageInfo(int fileId = 0)
+		public static async UniTask<bool> LoadStageInfo(int fileId = 0)
 		{
-			var playerInfo = LoadFile<SaveGameInfo>(PlayerStageDataKey(fileId),(a) => 
+			var gameInfo = await LoadFileAsync<SaveGameInfo>(PlayerStageDataKey(fileId));
+			if (gameInfo != null)
 			{
-				GameSystem.GameInfo = a;
-				//GameSystem.CurrentStageData.Party.InitScorePrizeInfos();
-			});
-			return playerInfo != null;
+				GameSystem.GameInfo = gameInfo;
+			}
+			return gameInfo != null;
 		}
 
 		public static bool ExistsStageFile(int fileId = 0)
@@ -154,12 +138,9 @@ namespace Ryneus
 			SaveFile(_optionDataKey,userSaveInfo);
 		}
 
-		public static void LoadOptionStart()
+		public static async void LoadOptionStart()
 		{
-			var playerInfo = LoadFile<SaveOptionInfo>(_optionDataKey,(a) => 
-			{
-				GameSystem.OptionData = a;
-			});
+			GameSystem.OptionData = await LoadFileAsync<SaveOptionInfo>(_optionDataKey);
 		}
 
 		public static bool ExistsOptionFile()

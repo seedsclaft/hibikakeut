@@ -22,7 +22,11 @@ namespace Ryneus
         public int StageLv;
         public List<int> PartyMemberIds;
         public int Width;
+        public int MinX;
+        public int MaxX;
         public int Height;
+        public int MinY;
+        public int MaxY;
         public int InitX;
         public int InitY;
         public int RandomTroopWeight;
@@ -136,6 +140,7 @@ namespace Ryneus
         None = 0,
         BeforeTactics = 110,
         BattleVictory = 210,
+        StartTutorial = 1010,
     }
 
     public enum StageEventType
@@ -165,6 +170,7 @@ namespace Ryneus
         AdvStart = 100, // ADV再生
         ForceBattle = 110, // 今のステージシンボルの〇SeekIndexのバトルを開始
         SurvivalMode = 201, // サバイバルモードにする
+        TurnEndCommandEnable = 1010, // ターン終了コマンド操作
     }
 
     public enum TutorialType

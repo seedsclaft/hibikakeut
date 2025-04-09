@@ -189,11 +189,11 @@ namespace Ryneus
             });
             SetInputHandler(hexTiles.gameObject);
             AddViewActives(hexTiles);
-            hexTiles.SetGridColumnCount(30);
         }
 
-        public void SetHexTileList(List<ListData> hexInfos)
+        public void SetHexTileList(List<ListData> hexInfos,int columnCount)
         {
+            hexTiles.SetGridColumnCount(columnCount);
             hexTiles.SetData(hexInfos,true,() => 
             {
                 var buttons = hexTiles.GetComponentsInChildren<Button>();

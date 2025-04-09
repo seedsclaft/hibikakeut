@@ -36,7 +36,7 @@ namespace Ryneus
                 SaveSystem.SavePlayerInfo();
             } else
             {
-                var loadSuccess = SaveSystem.LoadPlayerInfo();
+                var loadSuccess = await SaveSystem.LoadPlayerInfo();
                 if (loadSuccess == false)
                 {
                     var confirmInfo = new ConfirmInfo(DataSystem.GetText(13330),(a) => UpdatePopup(a));
@@ -86,6 +86,9 @@ namespace Ryneus
                 case "OPTION":
                     CommandOption();
                     return;
+                case "TUTORIAL":
+                    CommandTutorial();
+                    return;
             }
         }
 
@@ -130,6 +133,22 @@ namespace Ryneus
                 _busy = false;
                 CommandRefresh();
             });
+        }
+
+        private void CommandTutorial()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            
+            var popupInfo = new PopupInfo()
+            {
+                PopupType = PopupType.TutorialStage,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                },
+            };
+            _view.CommandCallPopup(popupInfo);
         }
 
         private void CommandRefresh()

@@ -78,7 +78,11 @@ namespace Ryneus
                             StageLv = AssetPostImporter.ImportNumeric(BaseRow, "StageLv"),
                             PartyMemberIds = new List<int>(),
 							Width = AssetPostImporter.ImportNumeric(BaseRow, "Width"),
+							MinX = AssetPostImporter.ImportNumeric(BaseRow, "MinX"),
+							MaxX = AssetPostImporter.ImportNumeric(BaseRow, "MaxX"),
 							Height = AssetPostImporter.ImportNumeric(BaseRow, "Height"),
+							MinY = AssetPostImporter.ImportNumeric(BaseRow, "MinY"),
+							MaxY = AssetPostImporter.ImportNumeric(BaseRow, "MaxY"),
 							InitX = AssetPostImporter.ImportNumeric(BaseRow, "InitX"),
 							InitY = AssetPostImporter.ImportNumeric(BaseRow, "InitY"),
 							RandomTroopEnemyRates = new List<StageEnemyRate>(),
@@ -110,7 +114,7 @@ namespace Ryneus
 								EventData.Timing = (EventTiming)AssetPostImporter.ImportNumeric(EventRow,"Timing");
 								EventData.Type = (StageEventType)AssetPostImporter.ImportNumeric(EventRow,"Type");
 								EventData.Param = AssetPostImporter.ImportNumeric(EventRow,"Param");
-								EventData.ReadFlag = AssetPostImporter.ImportNumeric(EventRow,"ReadFlag") == 1;
+								EventData.ReadFlag = AssetPostImporter.ImportBool(EventRow,"ReadFlag");
 								
 								EventData.EventKey = EventData.Turns.ToString() + EventData.Timing.ToString() + EventData.Type.ToString() + EventData.Param.ToString();
 
@@ -146,6 +150,77 @@ namespace Ryneus
 								StageData.StageSymbols.Add(SymbolData);
 							}
 						}
+						
+						// 存在しないマスを生成
+						if (StageData.MinX > 0)
+						{
+							for (int j = 0;j < StageData.Height;j++)
+							{
+								for (int k = 0;k < StageData.MinX;k++)
+								{
+									var stageSymbolData = new StageSymbolData
+									{
+										StageId = StageData.Id,
+										InitX = k,
+										InitY = j,
+										UnitType = HexUnitType.None
+									};
+									StageData.StageSymbols.Add(stageSymbolData);
+								}
+							}
+						}
+						if (StageData.MaxX < StageData.Width)
+						{
+							for (int j = 0;j < StageData.Height;j++)
+							{
+								for (int k = StageData.Width-1;k >= StageData.MaxX;k--)
+								{
+									var stageSymbolData = new StageSymbolData
+									{
+										StageId = StageData.Id,
+										InitX = k,
+										InitY = j,
+										UnitType = HexUnitType.None
+									};
+									StageData.StageSymbols.Add(stageSymbolData);
+								}
+							}
+						}
+						if (StageData.MinY > 0)
+						{
+							for (int j = 0;j < StageData.Width;j++)
+							{
+								for (int k = 0;k < StageData.MinY;k++)
+								{
+									var stageSymbolData = new StageSymbolData
+									{
+										StageId = StageData.Id,
+										InitX = j,
+										InitY = k,
+										UnitType = HexUnitType.None
+									};
+									StageData.StageSymbols.Add(stageSymbolData);
+								}
+							}
+						}
+						if (StageData.MaxY < StageData.Height)
+						{
+							for (int j = 0;j < StageData.Width;j++)
+							{
+								for (int k = StageData.Height-1;k >= StageData.MaxY;k--)
+								{
+									var stageSymbolData = new StageSymbolData
+									{
+										StageId = StageData.Id,
+										InitX = j,
+										InitY = k,
+										UnitType = HexUnitType.None
+									};
+									StageData.StageSymbols.Add(stageSymbolData);
+								}
+							}
+						}
+
 						KeyRow = EnemyRateSheet.GetRow(0);
 						AssetPostImporter.SetKeyNames(KeyRow.Cells);
 						for (int j = 1; j <= EnemyRateSheet.LastRowNum; j++)
