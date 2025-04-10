@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Ryneus
 {
     using Tactics;
-    using UnityEngine.U2D;
 
     public partial class TacticsPresenter : BasePresenter
     {
@@ -65,7 +64,7 @@ namespace Ryneus
             _view.SetEvent((type) => UpdateCommand(type));
             _view.SetBackGround(_model.CurrentStage?.Master?.BackGround);
             
-            _view.SetStageInfo(_model.CurrentStage);
+            _view.UpdateStageInfo(_model.CurrentStage);
             //_view.SetTacticsCommand(MakeListData(_model.TacticsCommand()));
             //_view.SetSymbols(ListData.MakeListData(_model.TacticsSymbols()));
             _view.SetUIButton();
@@ -79,6 +78,11 @@ namespace Ryneus
             CommandReturnStrategy();
             // チュートリアル確認
             CheckTutorialState();
+            // ステージ開始時
+            if (_model.CurrentStage.TurnCount.Value == 1)
+            {
+                TurnStartAnimation();
+            }
         }
 
         private void CheckTutorialState(object commandType = null)
@@ -94,7 +98,7 @@ namespace Ryneus
                 if (tutorialData.Param1 == 100 && commandType != null)
                 {
                     // 出撃コマンドを選択前
-                    checkFlag = (CommandType)commandType == CommandType.SelectHexUnit && _view.TacticsCommandData.Key == "Departure";
+                    checkFlag = (CommandType)commandType == CommandType.SelectHexUnit && _view.TacticsCommandData.Key == _model.DepartureCommand.Key;
                 }
                 if (tutorialData.Param1 == 300)
                 {
@@ -114,7 +118,7 @@ namespace Ryneus
                 if (tutorialData.Param1 == 600 && commandType != null)
                 {
                     // 出撃コマンドを選択前
-                    checkFlag = (CommandType)commandType == CommandType.SelectHexUnit && _model.CommandKey == "MoveBattler";
+                    checkFlag = (CommandType)commandType == CommandType.SelectHexUnit && _model.CommandKey == _model.MoveBattlerCommand.Key;
                 }
                 /*
                 if (tutorialData.Param1 == 300)
@@ -223,6 +227,9 @@ namespace Ryneus
                     break;
                 case CommandType.SelectHexUnit:
                     CommandSelectHexUnit();
+                    break;
+                case CommandType.CancelHexUnit:
+                    CommandCancelHexUnit();
                     break;
                 case CommandType.CallEnemyInfo:
                     //if (_model.CurrentStageTutorialDates.Count > 0) return;
@@ -362,6 +369,26 @@ namespace Ryneus
             }
         }
 
+        private void CommandEndAnimation()
+        {
+            // 操作不可プレイヤー・オート動作なら操作を委託
+            if (_model.IsPlayable == false)
+            {
+                _model.AutoMode.SetValue(true);
+                CommandAutoMode();
+            } else
+            {
+                // 座標をチームの最終選択に戻す
+                var lastHexX = _model.CurrentStage.GetTurnTeamInfo().LastSelectHexX.Value;
+                var lastHexY = _model.CurrentStage.GetTurnTeamInfo().LastSelectHexY.Value;
+                if (lastHexX != 0 && lastHexY != 0)
+                {
+                    _view.RefreshTiles(lastHexX,lastHexY);
+                }
+                _model.AutoMode.SetValue(false);
+            }
+        }
+
         private void CommandCallTacticsCommand()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
@@ -387,7 +414,7 @@ namespace Ryneus
                 case "TurnEnd":
                     CommandTurnEnd();
                     break;
-                case "Unit":
+                case "Units":
                     CommandUnits();
                     break;
                 case "SAVE":
@@ -398,6 +425,18 @@ namespace Ryneus
 
         private void CommandCancellTacticsCommand()
         {
+            switch (_model.CommandKey)
+            {
+                //case "Departure":
+                case "MoveBattler":
+                    //_model.SetCommandKey("");
+                    //_model.ClearReachAreas();
+                    // 移動前に戻す
+                    _model.SetCommandKey("");
+                    _model.BeforeMoveBattler();
+                    _view.UpdateTileItems();
+                    break;
+            }
             _view.EndTacticsCommand();
         }
 
@@ -460,6 +499,8 @@ namespace Ryneus
         private void CommandWait()
         {
             _view.EndTacticsCommand();
+            _model.UnitActEnd();
+            CommandRefresh();
         }
 
         private void CommandBattle()
@@ -472,14 +513,14 @@ namespace Ryneus
         {
             _view.EndTacticsCommand();
             _model.UnitActEnd();
-            // 操作不可プレイヤー・オート動作なら操作を委託
-            if (_model.IsPlayable == false)
+            CommandRefresh();
+            _model.SetLastSelectHex();
+            _model.SetCommandKey("");
+            if (_model.GetTurnTeam().CurrentActPoint.Value == 0)
             {
-                _model.AutoMode.SetValue(true);
-                CommandAutoMode();
-            } else
-            {
-                _model.AutoMode.SetValue(false);
+                _model.TurnEnd();
+                CommandRefresh();
+                TurnStartAnimation();
             }
         }
 
@@ -487,12 +528,19 @@ namespace Ryneus
         {
             _view.EndTacticsCommand();
             _model.TurnEnd();
-            // 操作不可プレイヤー・オート動作なら操作を委託
-            if (_model.IsPlayable == false)
+            CommandRefresh();
+            TurnStartAnimation();
+        }
+
+        private void TurnStartAnimation()
+        {
+            var text = _model.GetTurnTeam().TeamId.Value == (int)TeamIdType.Home ? "Player Turn" : "Enemy Turn";
+            _view.StartAnimation(text,() => 
             {
-                _model.AutoMode.SetValue(true);
-                CommandAutoMode();
-            }
+                _busy = false;
+                CommandEndAnimation();
+            });
+            _busy = true;
         }
 
         private void CommandUnits()
@@ -557,6 +605,13 @@ namespace Ryneus
         private void CommandSelectHexUnit()
         {
             var hexUnit = _model.HexUnit();
+            if (_model.CommandKey == _model.DepartureCommand.Key || _model.CommandKey == _model.MoveBattlerCommand.Key)
+            {
+                if (hexUnit == null || hexUnit.HexUnitType != HexUnitType.Reach)
+                {
+                    return;
+                }
+            }
             if (hexUnit == null)
             {
                 CommandSelectDefault();
@@ -579,11 +634,24 @@ namespace Ryneus
             }
         }
 
+        private void CommandCancelHexUnit()
+        {
+            switch (_model.CommandKey)
+            {
+                case "Departure":
+                case "MoveBattler":
+                    _model.SetCommandKey("");
+                    _model.ClearReachAreas();
+                    _view.UpdateTileItems();
+                    break;
+            }
+        }
+
         private void CommandSelectBattler()
         {
             if (_model.CanMoveBattler)
             {
-                _model.SetCommandKey("MoveBattler");
+                _model.SetCommandKey(_model.MoveBattlerCommand.Key);
                 _view.EndTacticsCommand();
                 CommandMoveBattler();
             }
@@ -632,16 +700,8 @@ namespace Ryneus
                     if (selectDeparture != null)
                     {
                         _view.RefreshTiles(selectDeparture.HexField.X,selectDeparture.HexField.Y);
-                        
-                        // 操作不可プレイヤー・オート動作なら操作を委託
-                        if (_model.IsPlayable == false)
-                        {
-                            _model.AutoMode.SetValue(true);
-                            CommandAutoMode();
-                        } else
-                        {
-                            _model.AutoMode.SetValue(false);
-                        }
+                        _model.SetLastSelectHex();
+                        _model.SetCommandKey("");
                     }
                     break;
                 case "MoveBattler":
@@ -653,6 +713,7 @@ namespace Ryneus
                     }
                     break;
             }
+            CommandRefresh();
         }
 
         private void CommandSelectDefault()
@@ -678,9 +739,9 @@ namespace Ryneus
         private void CommandRefresh()
         {
             //_view.SetSaveScore(_model.TotalScore);
-            _view.SetStageInfo(_model.CurrentStage);
+            _view.UpdateStageInfo(_model.CurrentStage);
             //_view.SetAlcanaInfo(_model.AlcanaSkillInfos());
-            _view.SetTacticsCharaLayer(_model.StageMembers());
+            //_view.SetTacticsCharaLayer(_model.StageMembers());
             _view.CommandRefresh();
         }
 

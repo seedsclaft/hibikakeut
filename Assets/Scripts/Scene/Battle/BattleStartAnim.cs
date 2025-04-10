@@ -40,7 +40,7 @@ namespace Ryneus
             subText.SetText(text);
         }
 
-        public void StartAnim(bool inBattle,float delay = 0)
+        public void StartAnim(bool inBattle,float delay = 0,System.Action endEvent = null)
         {
             _busy = true;
             Reset();
@@ -85,6 +85,7 @@ namespace Ryneus
                 .Join(backBlack.transform.DOScaleY(0f, duration))
                 .OnComplete(() => 
                 {
+                    endEvent?.Invoke();
                     _busy = false;
                 });
         }

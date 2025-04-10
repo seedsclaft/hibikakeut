@@ -37,11 +37,6 @@ namespace Ryneus
         [SerializeField] private BattleStartAnim battleStartAnim = null;
         [SerializeField] private Effekseer.EffekseerEmitter effekseerEmitter = null;
 
-        private bool _viewBusy = false;
-        public void SetViewBusy(bool isBusy)
-        {
-            _viewBusy = isBusy;
-        }
         
         public override void Initialize()
         {
@@ -175,6 +170,7 @@ namespace Ryneus
         {
             hexTiles.Initialize();
             hexTiles.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.SelectHexUnit));
+            hexTiles.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.CancelHexUnit));
             hexTiles.SetInputHandler(InputKeyType.Up,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Up));
             hexTiles.SetInputHandler(InputKeyType.Down,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Down));
             hexTiles.SetInputHandler(InputKeyType.Right,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Right));
@@ -317,13 +313,19 @@ namespace Ryneus
                 return;
             }
             effekseerEmitter.Play(effekseerEffect);
-            StartAnimation();
+            StartReadyAnimation();
         }
 
-        public void StartAnimation()
+        public void StartReadyAnimation()
         {
             battleStartAnim.SetText("Ready!");
-            battleStartAnim.StartAnim(false,0.5f);
+            battleStartAnim.StartAnim(false,0.0f);
+        }
+
+        public void StartAnimation(string text,Action endEvent = null)
+        {
+            battleStartAnim.SetText(text);
+            battleStartAnim.StartAnim(false,0.0f,endEvent);
         }
 
         private void CallSideMenu()
@@ -355,11 +357,6 @@ namespace Ryneus
 
         public void SetHelpWindow()
         {
-        }
-
-        public void SetStageInfo(StageInfo stageInfo)
-        {
-            stageInfoComponent.UpdateInfo(stageInfo);
         }
 
         public void SetAlcanaInfo(List<SkillInfo> skillInfos)
@@ -529,6 +526,12 @@ namespace Ryneus
 
         public void CommandRefresh()
         {
+
+        }
+
+        public void UpdateStageInfo(StageInfo stageInfo)
+        {
+            stageInfoComponent.UpdateInfo(stageInfo);
         }
     }
 
@@ -541,6 +544,7 @@ namespace Ryneus
             CancellTacticsCommand,
             CallStatus,
             SelectHexUnit,
+            CancelHexUnit,
             SymbolDetailInfo,
             PopupSkillInfo,
             DecideBattleMemberSelect,
@@ -560,6 +564,7 @@ namespace Ryneus
             MoveHexMap,
             EndMoveBattler,
             EndLostBattler,
+            EndAnimation
         }
     }
 }

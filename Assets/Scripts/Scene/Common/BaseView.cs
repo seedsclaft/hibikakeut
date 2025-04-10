@@ -339,7 +339,7 @@ namespace Ryneus
 
         }
 
-        public void WaitFrame(int frame,System.Action waitEndEvent)
+        public void WaitFrame(int frame,Action waitEndEvent)
         {
             _wait = frame;
             _waitEndEvent = waitEndEvent;

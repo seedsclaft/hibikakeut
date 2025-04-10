@@ -100,7 +100,7 @@ namespace Ryneus
 						int Element3 = AssetPostImporter.ImportNumeric(BaseRow,"Element3");
 						int Element4 = AssetPostImporter.ImportNumeric(BaseRow,"Element4");
 						int Element5 = AssetPostImporter.ImportNumeric(BaseRow,"Element5");
-						int Element6 = AssetPostImporter.ImportNumeric(BaseRow,"Element6");
+						//int Element6 = AssetPostImporter.ImportNumeric(BaseRow,"Element6");
 						ActorData.Attribute = new List<AttributeRank>
                         {
                             (AttributeRank)Element1,
@@ -108,7 +108,7 @@ namespace Ryneus
                             (AttributeRank)Element3,
                             (AttributeRank)Element4,
                             (AttributeRank)Element5,
-                            (AttributeRank)Element6,
+                            //(AttributeRank)Element6,
                         };
 
 						int X = AssetPostImporter.ImportNumeric(BaseRow,"X");

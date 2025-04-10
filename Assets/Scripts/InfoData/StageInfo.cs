@@ -21,6 +21,8 @@ namespace Ryneus
             return _teamInfos.Find(a => a.TeamId.Value == TurnTeamId.Value);
         }
         public ParameterInt TurnTeamId = new();
+        public TeamInfo HomeTeamInfo => _teamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Home);
+        public TeamInfo AwayTeamInfo => _teamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Away);
         private List<HexUnitInfo> _hexUnitList = new();
         public List<HexUnitInfo> HexUnitList => _hexUnitList;
         public List<HexUnitInfo> TurnHexUnitList()

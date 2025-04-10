@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Ryneus
 {
@@ -30,6 +31,14 @@ namespace Ryneus
         public ParameterInt ActPoint = new(1);
         // 残り行動回数
         public ParameterInt CurrentActPoint = new(1);
+        // 最後に選択していたマス
+        public ParameterInt LastSelectHexX = new(0);
+        public ParameterInt LastSelectHexY = new(0);
+        public void SetLastSelectHex(int x,int y)
+        {
+            LastSelectHexX.SetValue(x);
+            LastSelectHexY.SetValue(y);
+        }
 
         /// <summary>
         /// オート行動状態を取得
