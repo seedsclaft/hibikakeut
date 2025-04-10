@@ -25,6 +25,7 @@ namespace Ryneus
         
         // 行動選択中のチーム
         public bool IsPlayable => CurrentStage.TurnTeamId.Value == (int)TeamIdType.Home;
+        public bool CanMoveBattler => IsPlayable && CurrentStage.GetTurnTeamInfo().CurrentActPoint.Value > 0;
         public void UnitActEnd()
         {
             _selectingHexUnitId.SetValue(0);
@@ -233,6 +234,11 @@ namespace Ryneus
             if (moveBattlerHex == null)
             {
                 return null;
+            }
+            // 味方の行動範囲は表示しない
+            if (moveBattlerHex.IsPlayableUnit())
+            {
+                return moveBattlerHex;
             }
             _movableAreas = _hexRoute.GetReachableArea(MoveType.Normal,moveBattlerHex.HexField,2,false);
             _attackAreas = _hexRoute.GetReachableArea(MoveType.Normal,moveBattlerHex.HexField,3,false);

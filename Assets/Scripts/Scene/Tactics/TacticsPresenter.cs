@@ -114,7 +114,7 @@ namespace Ryneus
                 if (tutorialData.Param1 == 600 && commandType != null)
                 {
                     // 出撃コマンドを選択前
-                    checkFlag = (CommandType)commandType == CommandType.SelectHexUnit && _view.TacticsCommandData.Key == "MoveBattler";
+                    checkFlag = (CommandType)commandType == CommandType.SelectHexUnit && _model.CommandKey == "MoveBattler";
                 }
                 /*
                 if (tutorialData.Param1 == 300)
@@ -207,7 +207,7 @@ namespace Ryneus
             {
                 return;
             }
-            //Debug.Log(viewEvent.ViewCommandType.CommandType);
+            Debug.Log(viewEvent.ViewCommandType.CommandType);
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.CallTacticsCommand:
@@ -581,7 +581,13 @@ namespace Ryneus
 
         private void CommandSelectBattler()
         {
-            _view.SetTacticsCommand(_model.BattlerCommand());
+            if (_model.CanMoveBattler)
+            {
+                _model.SetCommandKey("MoveBattler");
+                _view.EndTacticsCommand();
+                CommandMoveBattler();
+            }
+            //_view.SetTacticsCommand(_model.BattlerCommand());
         }
 
         private void CommandSelectBasement()

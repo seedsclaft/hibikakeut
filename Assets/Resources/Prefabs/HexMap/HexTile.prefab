@@ -301,7 +301,7 @@ MonoBehaviour:
   deathAnimation: {fileID: 2740260727770822809}
   battleDamagePrefab: {fileID: 0}
   battleStateOverlay: {fileID: 0}
-  canvasGroup: {fileID: 0}
+  canvasGroup: {fileID: 9043441052060805158}
   battlePosition: {fileID: 0}
   evaluate: {fileID: 0}
   additiveFaceThumb: {fileID: 0}
@@ -1173,6 +1173,7 @@ GameObject:
   - component: {fileID: 1200134462013495642}
   - component: {fileID: 8066898801358347190}
   - component: {fileID: 1776852732939035235}
+  - component: {fileID: 9043441052060805158}
   m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
@@ -1251,3 +1252,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!225 &9043441052060805158
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8685442358964197425}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

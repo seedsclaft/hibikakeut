@@ -52,5 +52,10 @@ namespace Ryneus
             filedHexUnit.Clear();
             unitHexUnit.LostUnit();
         }
+
+        public void InitLost()
+        {
+            unitHexUnit.InitUnit();
+        }
     }
 }

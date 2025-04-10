@@ -176,5 +176,13 @@ namespace Ryneus
                 battlerInfoComponent.StartDeathAnimation();
             }
         }
+
+        public void InitUnit()
+        {
+            if (battlerInfoComponent != null)
+            {
+                battlerInfoComponent.EndDeathAnimation();
+            }
+        }
     }
 }

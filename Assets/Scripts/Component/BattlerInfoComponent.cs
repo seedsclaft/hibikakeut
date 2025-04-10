@@ -304,16 +304,31 @@ namespace Ryneus
             }
         }
 
+        public void EndDeathAnimation()
+        {
+            if (deathAnimation != null)
+            {
+                deathAnimation.enabled = false;
+                StartAliveAnimation();
+                _deathAnimation = 0;
+                canvasGroup.alpha = 1;
+            }
+        }
+
         public void StartAliveAnimation()
         {
-            if (grayScale != null)
+            if (_battlerInfo.IsActorView)
             {
-                if (_battlerInfo.IsActorView)
-                {
-                    actorInfoComponent.FaceThumb.material = null;
-                } else
+                actorInfoComponent.FaceThumb.material = null;
+            } else
+            {
+                if (enemyInfoComponent.MainThumb != null)
                 {
                     enemyInfoComponent.MainThumb.material = null;
+                }
+                if (enemyInfoComponent.FaceThumb != null)
+                {
+                    enemyInfoComponent.FaceThumb.material = null;
                 }
             }
         }

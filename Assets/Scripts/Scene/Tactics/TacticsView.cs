@@ -272,13 +272,11 @@ namespace Ryneus
             // マスを探す
             var listItems = hexTiles.GetComponentsInChildren<ListItem>().ToList();
             var lost = listItems.Find(a => a.Index == (hexUnitInfos[0].HexField.X + hexUnitInfos[0].HexField.Y * hexTiles.GridColumnCount()));
-            if (lost != null)
-            {
-                var tile = lost.gameObject.GetComponent<HexTile>();
-                tile.LostUnit();
-            }
+            var tile = lost.gameObject.GetComponent<HexTile>();
+            tile.LostUnit();
             await UniTask.DelayFrame(30);
             hexUnitInfos.RemoveAt(0);
+            tile.InitLost();
             if (hexUnitInfos.Count > 0)
             {
                 LostAction(hexUnitInfos);

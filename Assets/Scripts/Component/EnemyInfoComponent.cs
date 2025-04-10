@@ -10,6 +10,7 @@ namespace Ryneus
     {
         [SerializeField] private Image mainThumb;
         [SerializeField] private Image faceThumb;
+        public Image FaceThumb => faceThumb;
         [SerializeField] private Image gridThumb;
         [SerializeField] private EnemySpriteSize enemySpriteSize;
         public Image MainThumb => mainThumb;

@@ -30,6 +30,10 @@ namespace Ryneus
         
         public ParameterInt Index = new();
         public ParameterInt TeamId = new();
+        public bool IsPlayableUnit()
+        {
+            return TeamId.Value == (int)TeamIdType.Home;
+        }
         public void SetPosition(int x,int y)
         {
             _hexField.X = x;
