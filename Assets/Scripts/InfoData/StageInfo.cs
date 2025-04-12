@@ -34,6 +34,7 @@ namespace Ryneus
             }
             return null;
         }
+
         public List<HexUnitInfo> BattleHexUnitList()
         {
             var findTeam = _teamInfos.Find(a => a.TeamId.Value != TurnTeamId.Value);

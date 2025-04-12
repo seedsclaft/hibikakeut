@@ -417,7 +417,7 @@ namespace Ryneus
                 case "Units":
                     CommandUnits();
                     break;
-                case "SAVE":
+                case "Save":
                     CommandSave();
                     break;
             }
@@ -501,6 +501,7 @@ namespace Ryneus
             _view.EndTacticsCommand();
             _model.UnitActEnd();
             CommandRefresh();
+            _model.SetLastSelectHex();
         }
 
         private void CommandBattle()
@@ -620,7 +621,13 @@ namespace Ryneus
             switch (hexUnit.HexUnitType)
             {
                 case HexUnitType.Battler:
-                    CommandSelectBattler();
+                    if (_model.CanMoveBattler)
+                    {
+                        CommandSelectBattler();
+                    } else
+                    {
+                        CommandSelectDefault();
+                    }
                     break;
                 case HexUnitType.Basement:
                     CommandSelectBasement();
@@ -649,13 +656,9 @@ namespace Ryneus
 
         private void CommandSelectBattler()
         {
-            if (_model.CanMoveBattler)
-            {
-                _model.SetCommandKey(_model.MoveBattlerCommand.Key);
-                _view.EndTacticsCommand();
-                CommandMoveBattler();
-            }
-            //_view.SetTacticsCommand(_model.BattlerCommand());
+            _model.SetCommandKey(_model.MoveBattlerCommand.Key);
+            _view.EndTacticsCommand();
+            CommandMoveBattler();
         }
 
         private void CommandSelectBasement()

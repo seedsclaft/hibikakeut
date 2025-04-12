@@ -6,9 +6,9 @@ namespace Ryneus
     {
         public void SelectAnimation(float duration = 0.6f)
         {
-            BaseCanvas.alpha = 1;
+            BaseCanvas.alpha = 0.75f;
             DOTween.Sequence()
-                .Append(BaseCanvas.DOFade(0.5f,duration)
+                .Append(BaseCanvas.DOFade(0.25f,duration)
                 .SetEase(Ease.InOutQuad))
                 .SetLoops(-1,LoopType.Yoyo);
         }

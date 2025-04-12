@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Numerics;
 
 namespace Ryneus
@@ -513,10 +512,7 @@ namespace Ryneus
         public void BeforeMoveBattler()
         {
             var moveBattler = CurrentStage.TurnHexUnitList()?.Find(a => a.Index.Value == _selectingHexUnitId.Value && a.IsUnit);
-            if (moveBattler != null)
-            {
-                moveBattler.SetPosition((int)_moveBeforeHexPosition.X,(int)_moveBeforeHexPosition.Y);
-            }
+            moveBattler?.SetPosition((int)_moveBeforeHexPosition.X,(int)_moveBeforeHexPosition.Y);
         }
 
         public string DecideAutoMoveBattlerEnd()
@@ -586,24 +582,26 @@ namespace Ryneus
         public void SetTurnEndCommandEnable(bool isEnable) => _turnEndCommandEnable = isEnable;
         public List<ListData> BattlerCommand()
         {
-            var list = new List<SystemData.CommandData>();
-            var move = MoveBattlerCommand;
-            list.Add(move);
-            Func<SystemData.CommandData,bool> enable = (a) => 
+            var list = new List<SystemData.CommandData>
+            {
+                MoveBattlerCommand
+            };
+            bool enable(SystemData.CommandData a)
             {
                 return CurrentStage.GetTurnTeamInfo().CurrentActPoint.Value > 0;
-            };
-            return MakeListData(list,enable);
+            }
+            return MakeListData(list, enable);
         }
 
         public List<ListData> BasementCommand()
         {
-            var list = new List<SystemData.CommandData>();
-            var departure = DepartureCommand;
-            list.Add(departure);
-            var turnEnd = TurnEndCommand;
-            list.Add(turnEnd);
-            Func<SystemData.CommandData,bool> enable = (a) => 
+            var list = new List<SystemData.CommandData>
+            {
+                DepartureCommand,
+                SaveCommand,
+                TurnEndCommand
+            };
+            bool enable(SystemData.CommandData a)
             {
                 if (a.Key == DepartureCommand.Key)
                 {
@@ -614,40 +612,58 @@ namespace Ryneus
                     return _turnEndCommandEnable;
                 }
                 return true;
-            };
-            return MakeListData(list,enable);
-        }        
-        
+            }
+            return MakeListData(list, enable);
+        }
+
         public List<ListData> EndMoveBattlerCommand()
         {
-            var list = new List<SystemData.CommandData>();
-            var battle = BattleCommand;
-            list.Add(battle);
-            var wait = WaitCommand;
-            list.Add(wait);
-            Func<SystemData.CommandData,bool> enable = (a) => 
+            var list = new List<SystemData.CommandData>
             {
-                return true;
+                BattleCommand,
+                WaitCommand
             };
-            return MakeListData(list,enable);
+            // 敵拠点の上にいる場合は制圧
+            var battler = HexUnits().Find(a => a.HexUnitType == HexUnitType.Battler);
+            var hexUnits = HexUnitInfos;
+            if (hexUnits.Find(a => a.HexUnitType == HexUnitType.Basement && a.TeamId.Value != battler.TeamId.Value) != null)
+            {
+                list.Insert(0,ConquerCommand);
+            }
+            bool enable(SystemData.CommandData a)
+            {
+                if (a == BattleCommand)
+                {
+                    // 隣接している
+                    var hexUnits = HexUnits();
+                    var battler = hexUnits.Find(a => a.HexUnitType == HexUnitType.Battler);
+                    var reachAreas = _hexRoute.GetReachableArea(MoveType.Normal,battler.HexField,1,true);
+                    var battlerUnits = CurrentStage.BattleHexUnitList()?.FindAll(a => a.HexUnitType == HexUnitType.Battler && reachAreas.Find(b => b.X == a.HexField.X && b.Y == a.HexField.Y) != null);
+                    var enemyInfos = battlerUnits.FindAll(a => a.UnitInfo != null);
+                    return enemyInfos.Count > 0;
+                }
+                return true;
+            }
+            return MakeListData(list, enable);
         }
 
         public List<ListData> DefaultCommand()
         {
-            var list = new List<SystemData.CommandData>();
-            var unit = UnitsCommand;
-            list.Add(unit);
-            var turnEnd = TurnEndCommand;
-            list.Add(turnEnd);
-            Func<SystemData.CommandData,bool> enable = (a) => 
+            var list = new List<SystemData.CommandData>
+            {
+                UnitsCommand,
+                SaveCommand,
+                TurnEndCommand
+            };
+            bool enable(SystemData.CommandData a)
             {
                 if (a.Key == TurnEndCommand.Key)
                 {
                     return _turnEndCommandEnable;
                 }
                 return true;
-            };
-            return MakeListData(list,enable);
+            }
+            return MakeListData(list, enable);
         }
     
         public SystemData.CommandData DepartureCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Departure");
@@ -657,6 +673,8 @@ namespace Ryneus
         public SystemData.CommandData UnitActEndCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "UnitActEnd");
         public SystemData.CommandData BattleCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Battle");
         public SystemData.CommandData UnitsCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Units");
+        public SystemData.CommandData SaveCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Save");
+        public SystemData.CommandData ConquerCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Conquer");
 
     }
 
