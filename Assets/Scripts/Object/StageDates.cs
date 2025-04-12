@@ -16,7 +16,9 @@ namespace Ryneus
         public int Id;
         public int StageNo;
         public string Name;
+        public AchieveType AchieveType;
         public string AchieveText;
+        public int EnemyBasementId;
         public bool Selectable;
         public string Help;
         public int StageLv;
@@ -134,6 +136,10 @@ namespace Ryneus
         Group = 99, // 99以上はグループ指定
     }
 */
+    public enum AchieveType
+    {
+        ConquerEnemyBasement = 1
+    }
 
     public enum EventTiming
     {

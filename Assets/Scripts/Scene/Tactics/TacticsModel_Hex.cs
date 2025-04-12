@@ -6,12 +6,9 @@ namespace Ryneus
 {
     public partial class TacticsModel : BaseModel
     {
-        public ParameterInt FieldX = new();
-        public ParameterInt FieldY = new();
-        public List<HexUnitInfo> SelectableUnitInfos => CurrentStage.TurnHexUnitList()?.FindAll(a => a.HexField.X == FieldX.Value && a.HexField.Y == FieldY.Value);
-        public List<HexUnitInfo> HexUnitInfos => CurrentStage.HexUnitList?.FindAll(a => a.HexField.X == FieldX.Value && a.HexField.Y == FieldY.Value);
-        public List<HexUnitInfo> SerachHexUnitInfos(int x,int y) => CurrentStage.HexUnitList?.FindAll(a => a.HexField.X == x && a.HexField.Y == y);
-
+        public List<HexUnitInfo> SelectableUnitInfos => CurrentStage.TurnHexUnitList();
+        public List<HexUnitInfo> HexUnitInfos => CurrentStage.OnFieldUnitInfos;
+        
         private HexRoute _hexRoute;
         private List<HexField> _reachAreas = new();
         private List<HexField> _movableAreas = new();
@@ -64,7 +61,7 @@ namespace Ryneus
         public void SetLastSelectHex()
         {
             var thisTeam = CurrentStage.GetTurnTeamInfo();
-            thisTeam.SetLastSelectHex(FieldX.Value,FieldY.Value);
+            thisTeam.SetLastSelectHex(CurrentStage.FieldX.Value,CurrentStage.FieldY.Value);
         }
 
         public TeamInfo GetTurnTeam()
@@ -87,8 +84,8 @@ namespace Ryneus
             var moveBattler = teamInfo.GetMoveBattlerUnit();
             if (moveBattler != null)
             {
-                FieldX.SetValue(moveBattler.HexField.X);
-                FieldY.SetValue(moveBattler.HexField.Y);
+                CurrentStage.FieldX.SetValue(moveBattler.HexField.X);
+                CurrentStage.FieldY.SetValue(moveBattler.HexField.Y);
                 return true;
             }
             return false;
@@ -131,25 +128,25 @@ namespace Ryneus
                 }
             }
             var stageData = PartyInfo.StageMaster;
-            FieldX.SetValue(x,0,stageData.Width-1);
-            FieldY.SetValue(y,0,stageData.Height-1);
-            UnityEngine.Debug.Log(FieldX.Value+":"+FieldY.Value);
+            CurrentStage.FieldX.SetValue(x,0,stageData.Width-1);
+            CurrentStage.FieldY.SetValue(y,0,stageData.Height-1);
+            UnityEngine.Debug.Log(CurrentStage.FieldX.Value+":"+CurrentStage.FieldY.Value);
         }
 
         public void MoveFieldXY(int x,int y)
         {
             if (_reachAreas.Count > 0)
             {
-                var nextX = FieldX.Value + x;
-                var nextY = FieldY.Value + y;
+                var nextX = CurrentStage.FieldX.Value + x;
+                var nextY = CurrentStage.FieldY.Value + y;
                 if (_reachAreas.Find(a => a.X == nextX && a.Y == nextY) == null)
                 {
                     return;
                 }
             }
             var stageData = PartyInfo.StageMaster;
-            FieldX.GainValue(x,0,stageData.Width-1);
-            FieldY.GainValue(y,0,stageData.Height-1);
+            CurrentStage.FieldX.GainValue(x,0,stageData.Width-1);
+            CurrentStage.FieldY.GainValue(y,0,stageData.Height-1);
         }
 
         
@@ -325,8 +322,8 @@ namespace Ryneus
             
             var unitData = new StageSymbolData
             {
-                InitX = FieldX.Value,
-                InitY = FieldY.Value,
+                InitX = CurrentStage.FieldX.Value,
+                InitY = CurrentStage.FieldY.Value,
                 UnitType = HexUnitType.Battler,
             };
             var depaterActor = new HexUnitInfo(depaterActorIndex,unitData,(int)TeamIdType.Home);
@@ -386,7 +383,7 @@ namespace Ryneus
         /// </summary>
         private void AutoMoveBasement(HexUnitInfo moveBattler)
         {
-            var basement = CurrentStage.HexUnitList.Find(a => a.HexUnitType == HexUnitType.Basement && a.TeamId.Value != CurrentStage.TurnTeamId.Value);
+            var basement = CurrentStage.OnFieldUnitInfos.Find(a => a.HexUnitType == HexUnitType.Basement && a.TeamId.Value != CurrentStage.TurnTeamId.Value);
             if (basement != null)
             {
                 var decide = false;
@@ -402,8 +399,8 @@ namespace Ryneus
                 if (findReach != null)
                 {
                     decide = true;
-                    FieldX.SetValue(findReach.X);
-                    FieldY.SetValue(findReach.Y);
+                    CurrentStage.FieldX.SetValue(findReach.X);
+                    CurrentStage.FieldY.SetValue(findReach.Y);
                     return;
                 }
                 
@@ -418,8 +415,8 @@ namespace Ryneus
                     if (findReach != null)
                     {
                         decide = true;
-                        FieldX.SetValue(findReach.X);
-                        FieldY.SetValue(findReach.Y);
+                        CurrentStage.FieldX.SetValue(findReach.X);
+                        CurrentStage.FieldY.SetValue(findReach.Y);
                     } else
                     {
                         isBaseMent = !isBaseMent;
@@ -456,7 +453,7 @@ namespace Ryneus
                     var reachPathes = _hexRoute.GetReachableArea(MoveType.Normal,moveBattler.HexField,reach,true);
                     foreach (var reachPath in reachPathes)
                     {
-                        var findBattler = CurrentStage.HexUnitList.Find(a => a.HexField.X == reachPath.X && a.HexField.Y == reachPath.Y && a.TeamId.Value != CurrentStage.TurnTeamId.Value && a.HexUnitType == HexUnitType.Battler);
+                        var findBattler = CurrentStage.OnFieldUnitInfos.Find(a => a.HexField.X == reachPath.X && a.HexField.Y == reachPath.Y && a.TeamId.Value != CurrentStage.TurnTeamId.Value && a.HexUnitType == HexUnitType.Battler);
                         if (findBattler != null)
                         {
                             return BattleCommand.Key;
@@ -467,19 +464,19 @@ namespace Ryneus
             return UnitActEndCommand.Key;
         }
 
-        public (List<Action>,HexUnitInfo) SelectMoveBattler()
+        public (List<Action>,HexUnitInfo) SelectMoveBattler(int x,int y)
         {
             var moveActions = new List<Action>();
             var pathes = new List<HexPath>();
             // 移動する
-            var moveBattler = CurrentStage.TurnHexUnitList()?.Find(a => a.Index.Value == _selectingHexUnitId.Value && a.IsUnit);
+            var moveBattler = CurrentStage.HexUnitList.Find(a => a.Index.Value == _selectingHexUnitId.Value && a.IsUnit);
             if (moveBattler != null)
             {
                 _moveBeforeHexPosition = new Vector2(moveBattler.HexField.X,moveBattler.HexField.Y);
                 var endHexUnit = new HexField
                 {
-                    X = FieldX.Value,
-                    Y = FieldY.Value
+                    X = x,
+                    Y = y
                 };
                 // 待機
                 if (endHexUnit.X == moveBattler.HexField.X && endHexUnit.Y == moveBattler.HexField.Y)
@@ -578,6 +575,23 @@ namespace Ryneus
             CurrentStage.LostUnitInfos(list);
         }
 
+        public void ConquerBasement()
+        {
+            var basement = CurrentStage.OnFieldUnitInfos.Find(a => a.HexUnitType == HexUnitType.Basement);
+            if (basement != null)
+            {
+                var term = CurrentStage.GetTurnTeamInfo();
+                basement.Conquer(term.TeamId.Value);
+                // 行動ポイントを減らす
+                term.CurrentActPoint.GainValue(-1,0,term.ActPoint.Value);
+            }
+        }
+
+        public void StageClear()
+        {
+            
+        }
+
         private bool _turnEndCommandEnable = true;
         public void SetTurnEndCommandEnable(bool isEnable) => _turnEndCommandEnable = isEnable;
         public List<ListData> BattlerCommand()
@@ -638,7 +652,7 @@ namespace Ryneus
                     var hexUnits = HexUnits();
                     var battler = hexUnits.Find(a => a.HexUnitType == HexUnitType.Battler);
                     var reachAreas = _hexRoute.GetReachableArea(MoveType.Normal,battler.HexField,1,true);
-                    var battlerUnits = CurrentStage.BattleHexUnitList()?.FindAll(a => a.HexUnitType == HexUnitType.Battler && reachAreas.Find(b => b.X == a.HexField.X && b.Y == a.HexField.Y) != null);
+                    var battlerUnits = CurrentStage.BattleHexUnitList()?.FindAll(a => a.HexUnitType == HexUnitType.Battler && reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
                     var enemyInfos = battlerUnits.FindAll(a => a.UnitInfo != null);
                     return enemyInfos.Count > 0;
                 }

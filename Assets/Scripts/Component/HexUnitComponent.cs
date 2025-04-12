@@ -16,6 +16,8 @@ namespace Ryneus
         [SerializeField] private GameObject evaluateRoot;
         [SerializeField] private TextMeshProUGUI evaluate;
         [SerializeField] private GameObject selected;
+        [SerializeField] private GameObject homeTeamColor;
+        [SerializeField] private GameObject awayTeamColor;
         [SerializeField] private BaseList getItemList = null;
         [SerializeField] private BattlerInfoComponent battlerInfoComponent;
         public BaseList GetItemList => getItemList;
@@ -88,6 +90,17 @@ namespace Ryneus
                     symbolImage?.gameObject.SetActive(true);
                     enemyImage?.gameObject.SetActive(false);
                     symbolImage.sprite = symbolSprites[(int)_hexUnitInfo.HexUnitType / 10];
+                }
+                if (_hexUnitInfo.HexUnitType == HexUnitType.Basement)
+                {
+                    if (homeTeamColor != null)
+                    {
+                        homeTeamColor.SetActive(_hexUnitInfo.TeamId.Value == (int)TeamIdType.Home);
+                    }
+                    if (awayTeamColor != null)
+                    {
+                        awayTeamColor.SetActive(_hexUnitInfo.TeamId.Value == (int)TeamIdType.Away);
+                    }
                 }
             }
         }

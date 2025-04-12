@@ -19,7 +19,7 @@ namespace Ryneus
         {
             if (ListData == null) return;
             var hexPosition = ListItemData<HexField>();
-            var hexUnits = GameSystem.GameInfo.StageInfo.HexUnitList.FindAll(a => a.HexField.X == hexPosition.X && a.HexField.Y == hexPosition.Y);
+            var hexUnits = GameSystem.GameInfo.StageInfo.FindUnitInfos(hexPosition.X,hexPosition.Y);
             var halfsize = hexPosition.X % 2 == 1 ? -48 : 0;
             layoutRect.localPosition = new Vector2(0,halfsize);
             //position.SetText(hexPosition.X + ":" + hexPosition.Y);

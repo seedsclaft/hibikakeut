@@ -8,6 +8,9 @@ namespace Ryneus
     public class StageInfo
     {
         public StageData Master => DataSystem.FindStage(StageId.Value);
+        public ParameterInt StageId = new();
+        public ParameterInt FieldX = new();
+        public ParameterInt FieldY = new();
         public ParameterInt TurnCount = new(1);
         
         private List<TeamInfo> _teamInfos = new();
@@ -25,12 +28,14 @@ namespace Ryneus
         public TeamInfo AwayTeamInfo => _teamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Away);
         private List<HexUnitInfo> _hexUnitList = new();
         public List<HexUnitInfo> HexUnitList => _hexUnitList;
+        public List<HexUnitInfo> FindUnitInfos(int x,int y) => _hexUnitList.FindAll(a => a.OnField(x,y));
+        public List<HexUnitInfo> OnFieldUnitInfos => FindUnitInfos(FieldX.Value,FieldY.Value);
         public List<HexUnitInfo> TurnHexUnitList()
         {
             var findTeam = _teamInfos.Find(a => a.TeamId.Value == TurnTeamId.Value);
             if (findTeam != null)
             {
-                return findTeam.GetUnitInfos();
+                return findTeam.GetOnFieldUnitInfos(FieldX.Value,FieldY.Value);
             }
             return null;
         }
@@ -40,7 +45,7 @@ namespace Ryneus
             var findTeam = _teamInfos.Find(a => a.TeamId.Value != TurnTeamId.Value);
             if (findTeam != null)
             {
-                return findTeam.GetUnitInfos();
+                return findTeam.UnitInfos;
             }
             return null;
         }
@@ -79,9 +84,6 @@ namespace Ryneus
                 }
             }
         }
-        
-        public ParameterInt StageId = new();
-
 
         private int _loseCount = 0;
         public int LoseCount => _loseCount;
@@ -91,29 +93,20 @@ namespace Ryneus
         {
             StageId.SetValue(id);
             TurnTeamId.SetValue((int)TeamIdType.Home);
+            FieldX.SetValue(Master.InitX);
+            FieldY.SetValue(Master.InitY);
         }
-        
-        public TroopInfo TestTroops(int troopId,int troopLv)
+
+        public bool CheckVictory()
         {
-            var troopDate = DataSystem.Troops.Find(a => a.TroopId == troopId);
-            
-            var troopInfo = new TroopInfo(troopDate.TroopId);
-            for (int i = 0;i < troopDate.TroopEnemies.Count;i++)
+            var achieveType = Master.AchieveType;
+            switch (achieveType)
             {
-                var enemyData = DataSystem.Enemies.Find(a => a.Id == troopDate.TroopEnemies[i].EnemyId);
-                bool isBoss = troopDate.TroopEnemies[i].BossFlag;
-                var enemy = new BattlerInfo(enemyData,troopDate.TroopEnemies[i].Lv + troopLv - 1,i,troopDate.TroopEnemies[i].Line,isBoss);
-                troopInfo.AddEnemy(enemy);
+                case AchieveType.ConquerEnemyBasement:
+                    var basement = _hexUnitList.Find(a => a.Id.Value == Master.EnemyBasementId);
+                    return basement?.TeamId.Value != (int)TeamIdType.Away;
             }
-            return troopInfo;
-            
-            //_stageSymbolInfos.Add(symbolInfo);
-        }
-
-
-        public int SelectActorIdsClassId(int selectIndex)
-        {
-            return 0;
+            return false;
         }
     }
 }

@@ -420,6 +420,9 @@ namespace Ryneus
                 case "Save":
                     CommandSave();
                     break;
+                case "Conquer":
+                    CommandConquer();
+                    break;
             }
         }
 
@@ -476,7 +479,7 @@ namespace Ryneus
         private void CommandDepartureHex()
         {
             _model.MakeDepartureHex();
-            _view.RefreshTiles(_model.FieldX.Value,_model.FieldY.Value);
+            _view.RefreshTiles(_model.CurrentStage.FieldX.Value,_model.CurrentStage.FieldY.Value);
         }
 
         private void CommandMoveBattler()
@@ -484,14 +487,14 @@ namespace Ryneus
             _view.EndTacticsCommand();
             _model.ClearMoveReachAreas();
             _model.MakeMoveBattlerHex();
-            _view.RefreshTiles(_model.FieldX.Value,_model.FieldY.Value);
+            _view.RefreshTiles(_model.CurrentStage.FieldX.Value,_model.CurrentStage.FieldY.Value);
             // 自動選択
             if (_model.AutoMode.Value)
             {
                 // 移動先を設定して選択動作
                 _view.DeActivateHexTiles();
                 _model.DecideAutoMoveBattlerField();
-                var (actions,moveBattler) = _model.SelectMoveBattler();
+                var (actions,moveBattler) = _model.SelectMoveBattler(_model.CurrentStage.FieldX.Value,_model.CurrentStage.FieldY.Value);
                 _view.SelectMoveBattler(actions,moveBattler);
             }
         }
@@ -508,6 +511,22 @@ namespace Ryneus
         {
             var battleSceneInfos = _model.BattleSceneInfos();
             _view.BattleMemberSelect(MakeListData(battleSceneInfos));
+        }
+
+        private void CommandConquer()
+        {
+            _model.ConquerBasement();
+            CommandRefresh();
+            _view.UpdateTileItems();
+            _model.SetLastSelectHex();
+            CheckVictory();
+            _model.SetCommandKey("");
+            if (_model.GetTurnTeam().CurrentActPoint.Value == 0)
+            {
+                _model.TurnEnd();
+                CommandRefresh();
+                TurnStartAnimation();
+            }
         }
 
         private void CommandUnitActEnd()
@@ -547,6 +566,20 @@ namespace Ryneus
         private void CommandUnits()
         {
             
+        }
+
+        public void CheckVictory()
+        {
+            if (_model.CurrentStage.CheckVictory())
+            {
+                _busy = true;
+                _view.StartAnimation("Victory!",() => 
+                {
+                    _busy = false;
+                    _model.StageClear();
+                    _view.CommandSceneChange(Scene.Title);
+                });
+            }
         }
 
         private void CommandDecideBattleMemberSelect(BattleSceneInfo battleSceneInfo)
@@ -633,7 +666,7 @@ namespace Ryneus
                     CommandSelectBasement();
                     break;
                 case HexUnitType.Reach:
-                    CommandSelectReach();
+                    CommandSelectReach(hexUnit.HexField.X,hexUnit.HexField.Y);
                     break;
                 default:
                     CommandSelectDefault();
@@ -691,10 +724,10 @@ namespace Ryneus
         private void CommandEndLostBattler()
         {
             _model.EndLostActions();
-            _view.RefreshTiles(_model.FieldX.Value,_model.FieldY.Value);
+            _view.RefreshTiles(_model.CurrentStage.FieldX.Value,_model.CurrentStage.FieldY.Value);
         }
 
-        private void CommandSelectReach()
+        private void CommandSelectReach(int x,int y)
         {
             switch (_model.CommandKey)
             {
@@ -708,7 +741,7 @@ namespace Ryneus
                     }
                     break;
                 case "MoveBattler":
-                    var (actions,moveBattler) = _model.SelectMoveBattler();
+                    var (actions,moveBattler) = _model.SelectMoveBattler(x,y);
                     if (moveBattler != null)
                     {
                         _view.DeActivateHexTiles();
@@ -920,8 +953,8 @@ namespace Ryneus
             {
                 return;
             }
-            var lastX = _model.FieldX.Value;
-            var lastY = _model.FieldY.Value;
+            var lastX = _model.CurrentStage.FieldX.Value;
+            var lastY = _model.CurrentStage.FieldY.Value;
             if (hexField.X != lastX || hexField.Y != lastY)
             {
                 _model.ClearMoveReachAreas();
@@ -960,7 +993,7 @@ namespace Ryneus
                     _model.MoveFieldXY(-1,0);
                     break;
             }
-            _view.RefreshTiles(_model.FieldX.Value,_model.FieldY.Value);
+            _view.RefreshTiles(_model.CurrentStage.FieldX.Value,_model.CurrentStage.FieldY.Value);
         }
 
     }

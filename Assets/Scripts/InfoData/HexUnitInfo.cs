@@ -8,6 +8,7 @@ namespace Ryneus
     {
         public HexUnitInfo(int index,StageSymbolData stageSymbolData,int teamId = 0)
         {
+            Id.SetValue(stageSymbolData.Id);
             Index.SetValue(index);
             SetHexUnitType(stageSymbolData.UnitType);
             SetHexMoveType(stageSymbolData.MoveType,stageSymbolData.MoveParam);
@@ -21,9 +22,14 @@ namespace Ryneus
             }
             TeamId.SetValue(teamId);
         }
+        public ParameterInt Id = new();
 
         private HexField _hexField = new();
         public HexField HexField => _hexField;
+        public bool OnField(int x,int y)
+        {
+            return _hexField.X == x && _hexField.Y == y;
+        }
 
         private HexLayer _hexLayer = HexLayer.None;
         public HexLayer HexLayer => _hexLayer;
@@ -82,6 +88,11 @@ namespace Ryneus
                 return true;
             }
             return false;
+        }
+
+        public void Conquer(int teamIdType)
+        {
+            TeamId.SetValue(teamIdType);
         }
 
         public int BattleEvaluate()

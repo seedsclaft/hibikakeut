@@ -11,9 +11,9 @@ namespace Ryneus
         // 所持ユニット
         private List<HexUnitInfo> _unitInfos = new();
         public List<HexUnitInfo> UnitInfos => _unitInfos;
-        public List<HexUnitInfo> GetUnitInfos()
+        public List<HexUnitInfo> GetOnFieldUnitInfos(int x,int y)
         {
-            return _unitInfos;
+            return _unitInfos.FindAll(a => a.OnField(x,y));
         }
         public void AddUnitInfos(HexUnitInfo unitInfo)
         {
