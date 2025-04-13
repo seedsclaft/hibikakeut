@@ -292,7 +292,6 @@ namespace Ryneus
             // 演出
             _busy = true;
             SoundManager.Instance.StopBgm();
-            _model.PartyInfo.StartStage.SetValue(true);
             PlayStartBattleBgm();
             var animation = _model.StartStageAnimation();
             _view.StartStageAnimation(animation);
@@ -520,8 +519,12 @@ namespace Ryneus
             CommandRefresh();
             _view.UpdateTileItems();
             _model.SetLastSelectHex();
-            CheckVictory();
             _model.SetCommandKey("");
+            var victory = CheckVictory();
+            if (victory)
+            {
+                return;
+            }
             if (_model.GetTurnTeam().CurrentActPoint.Value == 0)
             {
                 _model.TurnEnd();
@@ -569,7 +572,7 @@ namespace Ryneus
             
         }
 
-        public void CheckVictory()
+        public bool CheckVictory()
         {
             if (_model.CurrentStage.CheckVictory())
             {
@@ -580,11 +583,14 @@ namespace Ryneus
                     _model.StageClear();
                     _view.CommandSceneChange(Scene.Title);
                 });
+                return true;
             }
+            return false;
         }
 
         private void CommandDecideBattleMemberSelect(BattleSceneInfo battleSceneInfo)
         {
+            _model.UseActPoint();
             CommandStartStage(battleSceneInfo);
         }
 

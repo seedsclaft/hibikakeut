@@ -27,12 +27,18 @@ namespace Ryneus
         // 行動選択中のチーム
         public bool IsPlayable => CurrentStage.TurnTeamId.Value == (int)TeamIdType.Home;
         public bool CanMoveBattler => IsPlayable && CurrentStage.GetTurnTeamInfo().CurrentActPoint.Value > 0;
+        
+        public void UseActPoint()
+        {
+            var term = CurrentStage.GetTurnTeamInfo();
+            term.CurrentActPoint.GainValue(-1,0,term.ActPoint.Value);
+        }
+
         public void UnitActEnd()
         {
             _selectingHexUnitId.SetValue(0);
             // 行動ポイントを減らす
-            var term = CurrentStage.GetTurnTeamInfo();
-            term.CurrentActPoint.GainValue(-1,0,term.ActPoint.Value);
+            UseActPoint();
         }
 
         public void TurnEnd()
@@ -336,13 +342,7 @@ namespace Ryneus
             _departureActorId = -1;
 
             // 行動ポイントを減らす
-            var term = CurrentStage.GetTurnTeamInfo();
-            term.CurrentActPoint.GainValue(-1,0,term.ActPoint.Value);
-            // 行動ポイントがなければ次へ
-            if (term.CurrentActPoint.Value == 0)
-            {
-                //TurnEnd();
-            }
+            UseActPoint();
             return depaterActor;
         }
         
@@ -599,7 +599,7 @@ namespace Ryneus
                 var term = CurrentStage.GetTurnTeamInfo();
                 basement.Conquer(term.TeamId.Value);
                 // 行動ポイントを減らす
-                term.CurrentActPoint.GainValue(-1,0,term.ActPoint.Value);
+                UseActPoint();
             }
         }
 

@@ -898,6 +898,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 2311948054828756635, guid: c7cc220b6ff2d2c4abeb22862ffbd0a3,
     type: 3}
   _helpWindow: {fileID: 0}
+  _grid: 0
   beforeSelect: 1
   damageRoots:
   - {fileID: 7357160416466283532}
@@ -1805,7 +1806,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -64, y: 0}
+  m_AnchoredPosition: {x: -84, y: 0}
   m_SizeDelta: {x: 840, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1604206612632737195
@@ -5676,7 +5677,7 @@ PrefabInstance:
     - target: {fileID: 852326605236538880, guid: d5599006df18b854da9c26a6320968f7,
         type: 3}
       propertyPath: m_Size
-      value: 0.60714287
+      value: 0.6071428
       objectReference: {fileID: 0}
     - target: {fileID: 1134636643076581721, guid: d5599006df18b854da9c26a6320968f7,
         type: 3}
@@ -6121,12 +6122,12 @@ PrefabInstance:
     - target: {fileID: 7187095086115161012, guid: d5599006df18b854da9c26a6320968f7,
         type: 3}
       propertyPath: m_Size
-      value: 0.9999999
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7187095086115161012, guid: d5599006df18b854da9c26a6320968f7,
         type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7352431210279228070, guid: d5599006df18b854da9c26a6320968f7,
         type: 3}

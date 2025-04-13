@@ -65,8 +65,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battlerInfoComponent: {fileID: 2522359617540979795}
-  actorInfoComponent: {fileID: 8854605350616589065}
-  enemyInfoComponent: {fileID: 506359888175323411}
   canvasGroup: {fileID: 6701179663144910056}
 --- !u!114 &2522359617540979795
 MonoBehaviour:
@@ -163,12 +161,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainThumb: {fileID: 7831040812183204337}
+  faceThumb: {fileID: 0}
+  gridThumb: {fileID: 0}
+  enemySpriteSize: {fileID: 0}
   nameText: {fileID: 0}
   lv: {fileID: 0}
   statusInfoComponent: {fileID: 0}
   needStatusInfoComponent: {fileID: 0}
   gridKey: {fileID: 8262640878661542679}
   actorOnlyGameObjects: []
+  weakPoints: []
 --- !u!1 &6491590324197183158
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +552,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 280, y: 200}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2263619915808841391
 CanvasRenderer:
