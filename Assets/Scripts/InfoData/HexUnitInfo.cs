@@ -36,6 +36,10 @@ namespace Ryneus
         
         public ParameterInt Index = new();
         public ParameterInt TeamId = new();
+        public bool IsFriend(int teamId)
+        {
+            return TeamId.Value == teamId;
+        }
         public bool IsPlayableUnit()
         {
             return TeamId.Value == (int)TeamIdType.Home;
@@ -75,6 +79,38 @@ namespace Ryneus
         public void SetUnitInfo(UnitInfo unitInfo)
         {
             _unitInfo = unitInfo;
+        }
+
+        public void SetBattlerIndex(int index)
+        {
+            if (_unitInfo.BattlerInfos == null)
+            {
+                return;
+            }
+            var battleIndex = index;
+            if (TeamId.Value == (int)TeamIdType.Away)
+            {
+                battleIndex += 100;
+            }
+            
+            if (_unitInfo.BattlerInfos.Count > 0)
+            {
+                _unitInfo.BattlerInfos[0].Index.SetValue(battleIndex);
+            }
+            if (_unitInfo.BattlerInfos.Count > 1)
+            {
+                _unitInfo.BattlerInfos[1].Index.SetValue(battleIndex+3);
+            }
+        }
+
+        public bool IsBasementUnit()
+        {
+            return _hexUnitType == HexUnitType.Basement;
+        }
+
+        public bool IsBattlerUnit()
+        {
+            return _hexUnitType == HexUnitType.Battler;
         }
 
         public bool IsLostUnit()

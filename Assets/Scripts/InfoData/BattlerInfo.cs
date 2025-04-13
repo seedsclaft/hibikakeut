@@ -1,4 +1,5 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace Ryneus
         private List<KindType> _weakPoints = new ();
         public List<KindType> WeakPoints => _weakPoints;
         public ParameterInt LastSelectSkill = new();
-        private List<StateInfo> _stateInfos = new ();
+        [SerializeField] private List<StateInfo> _stateInfos = new ();
         public List<StateInfo> StateInfos => _stateInfos;
 
         private bool _isAwaken = false;

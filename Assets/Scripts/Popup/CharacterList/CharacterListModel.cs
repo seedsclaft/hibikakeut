@@ -5,13 +5,27 @@ namespace Ryneus
 {
     public class CharacterListModel : BaseModel
     {
-        CharacterListInfo _sceneParam;
+        private CharacterListInfo _sceneParam;
         private List<ActorInfo> _actorInfos = null;
-        public List<ActorInfo> ActorInfos => _actorInfos;
         public CharacterListModel()
         {
             _sceneParam = (CharacterListInfo)GameSystem.SceneStackManager.LastTemplate;
             _actorInfos = _sceneParam.ActorInfos;
+        }
+
+        public List<ActorInfo> GetActorInfos()
+        {
+            var battlerUnits = CurrentStage.HexUnitList.FindAll(a => a.IsBattlerUnit() && !a.IsLostUnit());
+            var actorInfos = new List<ActorInfo>();
+            foreach (var actorInfo in _actorInfos)
+            {
+                if (battlerUnits.Find(a => a.UnitInfo.BattlerInfos.Find(b => b.ActorInfo != null && b.ActorInfo.ActorId == actorInfo.ActorId) != null) != null)
+                {
+                    continue;
+                }
+                actorInfos.Add(actorInfo);
+            }
+            return actorInfos;
         }
 
         public void CallDecideEvent(ActorInfo actorInfo)
@@ -22,8 +36,8 @@ namespace Ryneus
             }
             _sceneParam.CallEvent(actorInfo.ActorId.Value);
         }
-    }    
-    
+    }
+
     public class CharacterListInfo
     {
         private System.Action<int> _callEvent;

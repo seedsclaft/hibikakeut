@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Ryneus
 {
+    using System.Threading.Tasks;
     using FileList;
     public class FileListPresenter :BasePresenter
     {
@@ -46,9 +47,9 @@ namespace Ryneus
             }
         }
 
-        private void CommandDecideFile(SaveFileInfo saveFileInfo)
+        private async Task CommandDecideFile(SaveFileInfo saveFileInfo)
         {
-            var success = _model.DecideFile(saveFileInfo);
+            var success = await _model.DecideFile(saveFileInfo);
             var isLoad = _model.IsLoad;
             if (success)
             {

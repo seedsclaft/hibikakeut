@@ -432,6 +432,7 @@ namespace Ryneus
             {
                 //case "Departure":
                 case "MoveBattler":
+                case "Battle":
                     //_model.SetCommandKey("");
                     //_model.ClearReachAreas();
                     // 移動前に戻す
@@ -638,6 +639,8 @@ namespace Ryneus
 
         private void CommandSelectHexUnit()
         {
+            var tile = _view.SelectHexField;
+            _model.SetFieldXY(tile.X,tile.Y);
             var hexUnit = _model.HexUnit();
             if (_model.CommandKey == _model.DepartureCommand.Key || _model.CommandKey == _model.MoveBattlerCommand.Key)
             {

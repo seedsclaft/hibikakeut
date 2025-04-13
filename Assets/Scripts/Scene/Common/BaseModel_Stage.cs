@@ -18,7 +18,12 @@ namespace Ryneus
             // 味方チームを作成
             var mainTeam = new TeamInfo();
             mainTeam.TeamId.SetValue((int)TeamIdType.Home);
+            // 拠点数
+            var actPoint = unitInfos.FindAll(a => a.IsBasementUnit() && a.IsFriend(mainTeam.TeamId.Value));
+            mainTeam.ActPoint.SetValue(actPoint.Count);
+            mainTeam.CurrentActPoint.SetValue(actPoint.Count);
             stageInfo.AddTeamInfo(mainTeam);
+
             // 存在する陣営を作成
             var awayTeam = new TeamInfo();
             awayTeam.TeamId.SetValue((int)TeamIdType.Away);
@@ -29,6 +34,9 @@ namespace Ryneus
                     awayTeam.AddUnitInfos(unitInfo);
                 }
             }
+            var awayActPoint = unitInfos.FindAll(a => a.IsBasementUnit() && a.IsFriend(awayTeam.TeamId.Value));
+            awayTeam.ActPoint.SetValue(awayActPoint.Count);
+            awayTeam.CurrentActPoint.SetValue(awayActPoint.Count);
             stageInfo.AddTeamInfo(awayTeam);
             
             

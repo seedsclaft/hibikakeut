@@ -40,7 +40,17 @@ namespace Ryneus
             return null;
         }
 
-        public List<HexUnitInfo> BattleHexUnitList()
+        public List<HexUnitInfo> FriendBattlerUnitList()
+        {
+            var findTeam = _teamInfos.Find(a => a.TeamId.Value == TurnTeamId.Value);
+            if (findTeam != null)
+            {
+                return findTeam.UnitInfos;
+            }
+            return null;
+        }
+
+        public List<HexUnitInfo> OpponentBattlerUnitList()
         {
             var findTeam = _teamInfos.Find(a => a.TeamId.Value != TurnTeamId.Value);
             if (findTeam != null)
@@ -49,6 +59,7 @@ namespace Ryneus
             }
             return null;
         }
+
         public void AddHexUnitInfo(HexUnitInfo hexUnit) => _hexUnitList.Add(hexUnit);
         public void AddHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList.AddRange(hexUnitList);
         public void SetHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList = hexUnitList;

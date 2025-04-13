@@ -54,6 +54,9 @@ namespace Ryneus
             CurrentStage.TurnTeamId.SetValue(nextId);
             // 行動ポイントを初期化
             var nextTeam = CurrentStage.GetTurnTeamInfo();
+            // 拠点数
+            var actPoint = CurrentStage.HexUnitList.FindAll(a => a.IsBasementUnit() && a.IsFriend(nextTeam.TeamId.Value));
+            nextTeam.ActPoint.SetValue(actPoint.Count);
             nextTeam.CurrentActPoint.SetValue(nextTeam.ActPoint.Value);
             CurrentStage.TurnCount.GainValue(1);
         }
@@ -158,12 +161,7 @@ namespace Ryneus
 
         public List<HexUnitInfo> HexUnits()
         {
-            var hexUnits = SelectableUnitInfos;
-            if (hexUnits.Count == 0)
-            {
-                // フィールド
-                hexUnits = HexUnitInfos;
-            }
+            var hexUnits = HexUnitInfos;
             if (hexUnits.Count > 1)
             {
                 hexUnits.Sort((a,b) => a.HexUnitType > b.HexUnitType ? -1 : 1);
@@ -312,12 +310,7 @@ namespace Ryneus
                 return null;
             }
             // 出撃する
-            var hexUnits = HexUnits();
-            if (hexUnits.Count == 0)
-            {
-                return null;
-            }
-            hexUnits = hexUnits.FindAll(a => a.HexUnitType == HexUnitType.Battler);
+            var hexUnits = CurrentStage.HexUnitList.FindAll(a => a.HexUnitType == HexUnitType.Battler);
             var depaterActorIndex = hexUnits.Count + 1;
             
             var unitData = new StageSymbolData
@@ -538,26 +531,49 @@ namespace Ryneus
         public List<BattleSceneInfo> BattleSceneInfos()
         {
             var list = new List<BattleSceneInfo>();
-            // バトルを行う組み合わせ
-            var hexUnits = HexUnits();
-            if (hexUnits.Count == 0)
+            var battlerUnits = CurrentStage.HexUnitList.FindAll(a => a.IsBattlerUnit() && !a.IsLostUnit());
+            if (battlerUnits.Count == 0)
             {
                 return list;
             }
-            var mainParty = hexUnits.Find(a => a.HexUnitType == HexUnitType.Battler);
+            // バトルを行う組み合わせ
+            var mainParty = CurrentStage.OnFieldUnitInfos.Find(a => a.IsBattlerUnit() && a.IsFriend(CurrentStage.GetTurnTeamInfo().TeamId.Value));
             _reachAreas = _hexRoute.GetReachableArea(MoveType.Normal,mainParty.HexField,1,true);
             // 隣接候補
-            var battlerUnits = CurrentStage.BattleHexUnitList()?.FindAll(a => a.HexUnitType == HexUnitType.Battler && _reachAreas.Find(b => b.X == a.HexField.X && b.Y == a.HexField.Y) != null);
-            var enemyInfos = battlerUnits.FindAll(a => a.UnitInfo != null);
-            // メインのみ
-            if (mainParty != null && enemyInfos.Count > 0)
+            var opponentUnits = battlerUnits.FindAll(a => a.UnitInfo != null && !a.IsFriend(mainParty.TeamId.Value) && _reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+            if (mainParty != null && opponentUnits.Count > 0)
             {
-                var m1 = new BattleSceneInfo
+                // インデックスの割り振り 中央
+                mainParty.SetBattlerIndex(1);
+                foreach (var battlerUnit in opponentUnits)
                 {
-                    ActorBattlerInfos = mainParty.UnitInfo.BattlerInfos,
-                    EnemyInfos = new List<BattlerInfo>() { enemyInfos[0].UnitInfo.BattlerInfos[0] }
-                };
-                list.Add(m1);
+                    // インデックスの割り振り 中央
+                    battlerUnit.SetBattlerIndex(1);
+                    // メインのみ
+                    var m1 = new BattleSceneInfo
+                    {
+                        ActorBattlerInfos = mainParty.UnitInfo.BattlerInfos,
+                        EnemyInfos = battlerUnit.UnitInfo.BattlerInfos
+                    };
+                    list.Add(m1);
+                    var enemyReach = _hexRoute.GetReachableArea(MoveType.Normal,battlerUnit.HexField,1,true);
+                    // メインと隣接あり
+                    var nearFriends = battlerUnits.FindAll(a => a != mainParty && a.IsFriend(mainParty.TeamId.Value) && enemyReach.Find(b => a.OnField(b.X,b.Y)) != null && _reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+                    foreach (var nearFriend in nearFriends)
+                    {
+                        // インデックスの割り振り 左右
+                        nearFriend.SetBattlerIndex(2);
+                        var battlerInfos = new List<BattlerInfo>();
+                        battlerInfos.AddRange(mainParty.UnitInfo.BattlerInfos);
+                        battlerInfos.AddRange(nearFriend.UnitInfo.BattlerInfos);
+                        var m2 = new BattleSceneInfo
+                        {
+                            ActorBattlerInfos = battlerInfos,
+                            EnemyInfos = battlerUnit.UnitInfo.BattlerInfos
+                        };
+                        list.Insert(0,m2);
+                    }
+                }
             }
             
             return list;
@@ -652,7 +668,7 @@ namespace Ryneus
                     var hexUnits = HexUnits();
                     var battler = hexUnits.Find(a => a.HexUnitType == HexUnitType.Battler);
                     var reachAreas = _hexRoute.GetReachableArea(MoveType.Normal,battler.HexField,1,true);
-                    var battlerUnits = CurrentStage.BattleHexUnitList()?.FindAll(a => a.HexUnitType == HexUnitType.Battler && reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+                    var battlerUnits = CurrentStage.OpponentBattlerUnitList()?.FindAll(a => a.HexUnitType == HexUnitType.Battler && reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
                     var enemyInfos = battlerUnits.FindAll(a => a.UnitInfo != null);
                     return enemyInfos.Count > 0;
                 }

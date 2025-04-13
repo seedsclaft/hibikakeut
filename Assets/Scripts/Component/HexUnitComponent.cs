@@ -179,6 +179,14 @@ namespace Ryneus
             {
                 attackableArea?.SetActive(false);
             }
+            if (homeTeamColor != null)
+            {
+                homeTeamColor?.SetActive(false);
+            }
+            if (awayTeamColor != null)
+            {
+                awayTeamColor?.SetActive(false);
+            }
             gameObject.SetActive(true);
         }
 

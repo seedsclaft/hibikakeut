@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 
 namespace Ryneus
@@ -49,14 +50,14 @@ namespace Ryneus
             return 0;
         }
 
-        public bool DecideFile(SaveFileInfo saveFileInfo)
+        public async Task<bool> DecideFile(SaveFileInfo saveFileInfo)
         {
             if (_isLoad)
             {
                 if (saveFileInfo != null)
                 {
                     // ロード
-                    LoadFile(saveFileInfo);
+                    await LoadFile(saveFileInfo);
                     return true;
                 }
             } else
@@ -82,14 +83,13 @@ namespace Ryneus
             SaveSystem.SaveStageInfo(GameSystem.GameInfo,saveFileInfo.SaveNo);
         }
 
-        private void LoadFile(SaveFileInfo saveFileInfo)
+        private async Task LoadFile(SaveFileInfo saveFileInfo)
         {
-            SaveSystem.LoadStageInfo(saveFileInfo.SaveNo);
+            _ = await SaveSystem.LoadStageInfo(saveFileInfo.SaveNo);
             TempInfo.SetPlayingTime(saveFileInfo.PlayTime);
         }
     }
 
-    
     public class FileListSceneInfo
     {
         public FileListSceneInfo()
