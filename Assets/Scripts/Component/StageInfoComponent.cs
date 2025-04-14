@@ -13,7 +13,7 @@ namespace Ryneus
         [SerializeField] private GameObject achieve;
         [SerializeField] private TextMeshProUGUI achieveText;
         [SerializeField] private TextMeshProUGUI help;
-        [SerializeField] private TextMeshProUGUI turns;
+        [SerializeField] private TextMeshProUGUI turnCount;
         [SerializeField] private TextMeshProUGUI clearCount;
         [SerializeField] private TextMeshProUGUI stageLv;
         [SerializeField] private TeamInfoComponent homeTeamInfoComponent;
@@ -28,7 +28,7 @@ namespace Ryneus
             var stageData = stageInfo.Master;
             UpdateData(stageData);
             help?.SetText(stageData.Help.Replace("\\p",GameSystem.CurrentData.PlayerInfo.PlayerName.Value));
-            turns?.SetText(stageInfo.TurnCount.Value.ToString());
+            turnCount?.SetText(stageInfo.TurnCount.Value.ToString());
             if (homeTeamInfoComponent != null)
             {
                 homeTeamInfoComponent.UpdateInfo(stageInfo.HomeTeamInfo);

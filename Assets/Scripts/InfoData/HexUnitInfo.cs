@@ -131,6 +131,15 @@ namespace Ryneus
             TeamId.SetValue(teamIdType);
         }
 
+        public string FieldText()
+        {
+            switch (_hexUnitType)
+            {
+                case HexUnitType.Basement:
+                return "拠点：\nターン開始時に回復";
+            }
+            return "";
+        }
         public int BattleEvaluate()
         {
             if (_unitInfo != null)

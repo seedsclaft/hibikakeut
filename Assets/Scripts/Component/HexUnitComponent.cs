@@ -18,13 +18,13 @@ namespace Ryneus
         [SerializeField] private GameObject selected;
         [SerializeField] private GameObject homeTeamColor;
         [SerializeField] private GameObject awayTeamColor;
+        [SerializeField] private TextMeshProUGUI fieldText;
         [SerializeField] private BaseList getItemList = null;
         [SerializeField] private BattlerInfoComponent battlerInfoComponent;
         public BaseList GetItemList => getItemList;
         private HexUnitInfo _hexUnitInfo  = null;
         public HexUnitInfo HexUnitInfo => _hexUnitInfo;
 
-        private bool _animationInit = false;
 
         public void Initialize()
         {
@@ -54,6 +54,7 @@ namespace Ryneus
                 battlerInfoComponent.UpdateInfo(battlerInfo);
                 battlerInfoComponent.RefreshStatus();
             }
+            UpdateFieldText();
             UpdateEvaluate();
             if (getItemList != null)
             {
@@ -103,6 +104,11 @@ namespace Ryneus
                     }
                 }
             }
+        }
+
+        private void UpdateFieldText()
+        {
+            fieldText?.SetText(_hexUnitInfo.FieldText());
         }
 
         private void UpdateEvaluate()

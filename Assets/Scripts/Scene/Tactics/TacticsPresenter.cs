@@ -197,6 +197,7 @@ namespace Ryneus
             var lostUnitInfos = _model.LostUnitInfos();
             if (lostUnitInfos.Count > 0)
             {
+                _model.ClearMoveReachAreas();
                 _view.LostBattlerUnit(lostUnitInfos);
             }
         }
@@ -438,6 +439,7 @@ namespace Ryneus
                     _model.SetCommandKey("");
                     _model.BeforeMoveBattler();
                     _view.UpdateTileItems();
+                    _model.SelectingHexUnitId.SetValue(0);
                     break;
             }
             _view.EndTacticsCommand();
@@ -977,7 +979,8 @@ namespace Ryneus
                 {
                     _view.ShowUnitStatus(null);
                 }
-                _view.UpdateTileItems();
+                var fieldUnit = _model.CurrentStage.OnFieldUnitInfos.Find(a => !a.IsUnit);
+                _view.ShowFieldStatus(fieldUnit);
             }
         }
 

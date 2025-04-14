@@ -17,7 +17,7 @@ namespace Ryneus
         public string CommandKey =>_commandKey;
         public void SetCommandKey(string key) => _commandKey = key;
         // 移動管理
-        private ParameterInt _selectingHexUnitId = new();
+        public ParameterInt SelectingHexUnitId = new();
         private Vector2 _moveBeforeHexPosition = new Vector2();
         // 出撃管理
         private int _departureActorId = -1;
@@ -36,7 +36,7 @@ namespace Ryneus
 
         public void UnitActEnd()
         {
-            _selectingHexUnitId.SetValue(0);
+            SelectingHexUnitId.SetValue(0);
             // 行動ポイントを減らす
             UseActPoint();
         }
@@ -211,7 +211,7 @@ namespace Ryneus
             {
                 return;
             }
-            _selectingHexUnitId.SetValue(moveBattlerHex.Index.Value);
+            SelectingHexUnitId.SetValue(moveBattlerHex.Index.Value);
             _reachAreas = _hexRoute.GetReachableArea(MoveType.Normal,moveBattlerHex.HexField,2,false);
             var moveBattlerIndex = 1000;
             foreach (var path in _reachAreas)
@@ -233,7 +233,7 @@ namespace Ryneus
         /// </summary>
         public HexUnitInfo MakeBattlerActHex()
         {
-            if (_selectingHexUnitId.Value != 0)
+            if (SelectingHexUnitId.Value != 0)
             {
                 return null;
             }
@@ -351,7 +351,7 @@ namespace Ryneus
         /// </summary>
         public void DecideAutoMoveBattlerField()
         {
-            var moveBattler = CurrentStage.TurnHexUnitList()?.Find(a => a.Index.Value == _selectingHexUnitId.Value && a.IsUnit);
+            var moveBattler = CurrentStage.TurnHexUnitList()?.Find(a => a.Index.Value == SelectingHexUnitId.Value && a.IsUnit);
             if (moveBattler != null)
             {
                 // AIは単体の思考ルーチンに従う
@@ -436,7 +436,7 @@ namespace Ryneus
         /// </summary>
         private string EndAutoMoveBasement(int x,int y)
         {
-            var moveBattler = CurrentStage.TurnHexUnitList()?.Find(a => a.Index.Value == _selectingHexUnitId.Value && a.IsUnit);
+            var moveBattler = CurrentStage.TurnHexUnitList()?.Find(a => a.Index.Value == SelectingHexUnitId.Value && a.IsUnit);
             if (moveBattler != null)
             {
                 // 攻撃範囲
@@ -462,7 +462,7 @@ namespace Ryneus
             var moveActions = new List<Action>();
             var pathes = new List<HexPath>();
             // 移動する
-            var moveBattler = CurrentStage.HexUnitList.Find(a => a.Index.Value == _selectingHexUnitId.Value && a.IsUnit);
+            var moveBattler = CurrentStage.HexUnitList.Find(a => a.Index.Value == SelectingHexUnitId.Value && a.IsUnit);
             if (moveBattler != null)
             {
                 _moveBeforeHexPosition = new Vector2(moveBattler.HexField.X,moveBattler.HexField.Y);
@@ -501,13 +501,13 @@ namespace Ryneus
 
         public void BeforeMoveBattler()
         {
-            var moveBattler = CurrentStage.TurnHexUnitList()?.Find(a => a.Index.Value == _selectingHexUnitId.Value && a.IsUnit);
+            var moveBattler = CurrentStage.TurnHexUnitList()?.Find(a => a.Index.Value == SelectingHexUnitId.Value && a.IsUnit);
             moveBattler?.SetPosition((int)_moveBeforeHexPosition.X,(int)_moveBeforeHexPosition.Y);
         }
 
         public string DecideAutoMoveBattlerEnd()
         {
-            var moveBattler = CurrentStage.TurnHexUnitList()?.Find(a => a.Index.Value == _selectingHexUnitId.Value && a.IsUnit);
+            var moveBattler = CurrentStage.TurnHexUnitList()?.Find(a => a.Index.Value == SelectingHexUnitId.Value && a.IsUnit);
             if (moveBattler != null)
             {
                 // AIは単体の思考ルーチンに従う

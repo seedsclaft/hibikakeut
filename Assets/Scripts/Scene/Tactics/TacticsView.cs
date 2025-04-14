@@ -19,11 +19,10 @@ namespace Ryneus
         public HexField SelectHexField => hexTiles.ListItemData<HexField>();
         [SerializeField] private BaseList tacticsCommandList = null;
         public SystemData.CommandData TacticsCommandData => tacticsCommandList.ListItemData<SystemData.CommandData>();
-        [SerializeField] private BaseList battleMemberList = null;
-        public ActorInfo SelectBattleMember => battleMemberList.ListItemData<ActorInfo>();
         [SerializeField] private BaseList battleMemberSelectList = null;
         [SerializeField] private HexUnitComponent actorUnitInfo = null;
         [SerializeField] private HexUnitComponent enemyUnitInfo = null;
+        [SerializeField] private HexUnitComponent fieldUnitInfo = null;
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent = null;
         [SerializeField] private MagicList alcanaSelectList = null;
@@ -32,8 +31,6 @@ namespace Ryneus
         [SerializeField] private Button alcanaButton = null;
         [SerializeField] private Button stageHelpButton = null;
         [SerializeField] private TextMeshProUGUI numinousText = null;
-        [SerializeField] private _2dxFX_NoiseAnimated _2DxFX_NoiseAnimated = null;
-        [SerializeField] private TextMeshProUGUI pastText = null;
         [SerializeField] private BattleStartAnim battleStartAnim = null;
         [SerializeField] private Effekseer.EffekseerEmitter effekseerEmitter = null;
 
@@ -43,11 +40,11 @@ namespace Ryneus
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Tactics);
             InitializeCommandList();
-            //InitializeBattleMemberList();
             InitializeHexTileList();
             InitializeBattleMemberSelect();
             actorUnitInfo.gameObject.SetActive(false);
             enemyUnitInfo.gameObject.SetActive(false);
+            fieldUnitInfo.gameObject.SetActive(false);
             tacticsAlcana.gameObject.SetActive(false);
             alcanaButton.onClick.AddListener(() => CallAlcanaCheck());
 
@@ -61,7 +58,6 @@ namespace Ryneus
             });
 
             alcanaSelectList.Initialize();
-            HideSymbolRecord();
             alcanaSelectList.Hide();
             battleStartAnim.Reset();
             var presenter = new TacticsPresenter(this);
@@ -131,39 +127,15 @@ namespace Ryneus
             }
         }
 
-        private void InitializeBattleMemberList()
+        public void ShowFieldStatus(HexUnitInfo hexUnitInfo)
         {
-            /*
-            battleMemberList.Initialize();
-            battleMemberList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.CallBattleMemberSelect));
-            battleMemberList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.CallBattleMemberSelectEnd));
-            battleMemberList.SetSelectedHandler(() => UpdateHelpWindow());
-            SetInputHandler(battleMemberList.gameObject);
-            AddViewActives(battleMemberList);
-            */
-        }
-
-        public void ActivateBattleMemberList()
-        {
-            SetActivate(battleMemberList);
-            battleMemberList.UpdateSelectIndex(0);
-            battleMemberList.Refresh();
-        }
-
-        public void DeactivateBattleMemberList()
-        {
-            battleMemberList.UpdateSelectIndex(-1);
-            SetActivate(tacticsCommandList);
-        }
-
-        public void SetBattleMemberList(List<ListData> memberList)
-        {
-            battleMemberList.SetData(memberList);
-        }
-
-        public void RefreshBattleMemberList(List<ListData> memberList)
-        {
-            battleMemberList.RefreshListData(memberList);
+            if (hexUnitInfo == null || hexUnitInfo.FieldText() == "")
+            {
+                fieldUnitInfo.gameObject.SetActive(false);
+                return;
+            }
+            fieldUnitInfo.gameObject.SetActive(true);
+            fieldUnitInfo.UpdateInfo(hexUnitInfo);
         }
 
         private void InitializeHexTileList()
@@ -368,19 +340,6 @@ namespace Ryneus
         {
         }
 
-        public void SetSymbols(List<ListData> symbolInfos)
-        {
-            HideRecordList();
-        }
-
-        public void ShowSymbolRecord()
-        {
-        }
-
-        public void HideSymbolRecord()
-        {
-        }
-
         private void CallBattleEnemy()
         {
             /*
@@ -499,12 +458,6 @@ namespace Ryneus
         public void SetNuminous(int numinous)
         {
             //numinousText?.SetText(numinous.ToString());
-        }
-
-        public void SetPastMode(bool pastMode)
-        {
-            pastText?.gameObject.SetActive(pastMode);
-            _2DxFX_NoiseAnimated.enabled = pastMode;
         }
 
         public void CommandSelectCharaLayer(int actorId)
