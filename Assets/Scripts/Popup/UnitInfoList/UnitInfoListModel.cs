@@ -21,13 +21,28 @@ namespace Ryneus
             BattlerInfo fromBattler = _selectingBattlerInfo;
             bool fromMain = false;
 
-            BattlerInfo toBattler;
-            if (actorId > 0)
+            UnitInfo toUnitInfo = null;
+            BattlerInfo toBattler = null;
+            bool toMain = false;
+            foreach (var unitInfo in _unitInfos)
             {
-                toBattler = new BattlerInfo(StageMembers().Find(a => a.ActorId.Value == actorId),1);
-            } else
+                var to = unitInfo.BattlerInfos.FindIndex(a => a.ActorInfo != null && a.ActorInfo.ActorId.Value == actorId);
+                if (to > -1)
+                {
+                    toBattler = unitInfo.BattlerInfos[to];
+                    toUnitInfo = unitInfo;
+                    toMain = to == 0;
+                }
+            }
+            if (toBattler == null)
             {
-                toBattler = new BattlerInfo();
+                if (actorId > 0)
+                {
+                    toBattler = new BattlerInfo(StageMembers().Find(a => a.ActorId.Value == actorId),1);
+                } else
+                {
+                    toBattler = new BattlerInfo();
+                }
             }
             foreach (var unitInfo in _unitInfos)
             {
@@ -46,6 +61,17 @@ namespace Ryneus
             } else
             {
                 fromUnitInfo.BattlerInfos.Add(toBattler);
+            }
+            if (toUnitInfo != null)
+            {
+                toUnitInfo.BattlerInfos.Remove(toBattler);
+                if (toMain)
+                {
+                    toUnitInfo.BattlerInfos.Insert(0,fromBattler);
+                } else
+                {
+                    toUnitInfo.BattlerInfos.Add(fromBattler);
+                }
             }
             CurrentStage.GetTurnTeamInfo().SetDepatuerInfos(_unitInfos);
         }
@@ -67,6 +93,7 @@ namespace Ryneus
             if (_sceneParam.IsUnitEdit.Value)
             {
                 var unitInfo = new UnitInfo();
+                unitInfo.Index.SetValue(_unitInfos.Count+1);
                 unitInfo.SetBattlers(new List<BattlerInfo>(){new BattlerInfo(),new BattlerInfo()});
                 _unitInfos.Add(unitInfo);
             }

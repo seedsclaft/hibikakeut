@@ -79,6 +79,7 @@ namespace Ryneus
         Credit,
         CharacterList,
         UnitInfoList,
+        DepatureList,
         Help,
         AlcanaList,
         SlotSave,

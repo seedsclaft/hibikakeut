@@ -155,6 +155,10 @@ namespace Ryneus
             {
                 return;
             }
+            if (statusInfoComponent != null)
+            {
+                statusInfoComponent.gameObject.SetActive(true);
+            }
             if (_battlerInfo.IsActor || _battlerInfo.IsActorView)
             {
                 actorInfoComponent.UpdateInfo(_battlerInfo.ActorInfo,null);
@@ -412,6 +416,10 @@ namespace Ryneus
 
         public void HideEnemyStateOverlay()
         {
+            if (_battlerInfo == null || _battlerInfo.Index.Value == 0)
+            {
+                return;
+            }
             if (!_battlerInfo.IsActor)
             {
                 battleStateOverlay?.HideStateOverlay();

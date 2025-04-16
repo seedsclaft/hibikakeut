@@ -86,7 +86,7 @@ namespace Ryneus
             _view.SetBattleSpeedButton(OptionUtility.CurrentBattleSpeedText());
             _view.SetBattleSkipButton(DataSystem.GetText(16010));
             _view.SetSkillLogButton(DataSystem.GetText(16020));
-            _view.SetActors(MakeListData(_model.BattlerActors()));
+            _view.SetActors(MakeListData(_model.ViewBattlerActors()));
             _view.SetEnemies(MakeListData(_model.BattlerEnemies()));
             _view.SetGridMembers(_model.Battlers);
             _view.BattlerBattleClearSelect();

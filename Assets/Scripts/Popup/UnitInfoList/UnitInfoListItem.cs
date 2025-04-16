@@ -68,6 +68,11 @@ namespace Ryneus
             battlerList.UpdateSelectIndex(selectIndex);
         }
 
+        public void SetBattlerSelectIndex(BattlerInfo battlerInfo)
+        {
+            battlerList.UpdateSelectIndex(battlerList.ListDates.FindIndex(a => a.Data != null && a.Data == battlerInfo));
+        }
+
         public void UnselectAll()
         {
             battlerList.UnselectAll();

@@ -52,6 +52,7 @@ namespace Ryneus
             {
                 return;
             }
+            _view.DeactivateStageList();
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var confirmInfo = new ConfirmInfo("開始しますか？",(a) => 
             {
@@ -60,10 +61,11 @@ namespace Ryneus
                     _model.StartTutorial(stageInfo.StageId.Value);
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                     _view.CommandGotoSceneChange(Scene.Tactics);
+                } else
+                {
+                    _view.ActivateStageList();
                 }
             });
-            //confirmInfo.SetIsNoChoice(true);
-            //confirmInfo.SetBackEvent(() => UpdatePopup(ConfirmCommandType.Yes));
             _view.CommandCallConfirm(confirmInfo);
         }
     }

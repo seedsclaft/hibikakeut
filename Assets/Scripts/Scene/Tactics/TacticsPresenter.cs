@@ -79,7 +79,7 @@ namespace Ryneus
             // チュートリアル確認
             CheckTutorialState();
             // ステージ開始時
-            if (_model.CurrentStage.TurnCount.Value == 1)
+            if (_model.CurrentStage.TurnCount.Value == 1 && _model.GetTurnTeam().ActPoint.Value == _model.GetTurnTeam().CurrentActPoint.Value)
             {
                 TurnStartAnimation();
             }
@@ -192,7 +192,7 @@ namespace Ryneus
         public void CommandReturnStrategy()
         {
             // マップ表示初期位置を設定
-            _view.RefreshTiles(0,0);
+            _view.RefreshTiles(_model.CurrentStage.FieldX.Value,_model.CurrentStage.FieldY.Value);
             // Hp0のユニットを消滅する
             var lostUnitInfos = _model.LostUnitInfos();
             if (lostUnitInfos.Count > 0)
@@ -470,7 +470,7 @@ namespace Ryneus
             
             var popupInfo = new PopupInfo
             {
-                PopupType = PopupType.UnitInfoList,
+                PopupType = PopupType.DepatureList,
                 template = unitInfoListInfo,
                 EndEvent = () =>
                 {

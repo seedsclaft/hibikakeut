@@ -40,6 +40,16 @@ namespace Ryneus
             stageList.SetData(stageDataList);
         }
 
+        public void ActivateStageList()
+        {
+            SetActivate(stageList);
+        }
+
+        public void DeactivateStageList()
+        {
+            SetActivate(null);
+        }
+
         private void CallStageData()
         {
             var listData = stageList.ListItemData<StageInfo>();

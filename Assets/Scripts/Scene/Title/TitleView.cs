@@ -34,7 +34,17 @@ namespace Ryneus
         public void SetTitleCommand(List<ListData> titleCommand)
         {
             titleCommandList.SetData(titleCommand);
+            ActivateTitleCommand();
+        }
+
+        public void ActivateTitleCommand()
+        {
             titleCommandList.Activate();
+        }
+
+        public void DeactivateTitleCommand()
+        {
+            titleCommandList.Deactivate();
         }
 
         public void SetVersion(string text)

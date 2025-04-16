@@ -549,7 +549,7 @@ namespace Ryneus
 
         private void Update() 
         {
-            TempData.AddPlayingTime(Time.deltaTime);
+            TempData?.AddPlayingTime(Time.deltaTime);
         }
     }
 

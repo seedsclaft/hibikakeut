@@ -45,18 +45,23 @@ namespace Ryneus
         public UnitInfo CopyData()
         {
             var copyData = new UnitInfo();
+            copyData.Index.SetValue(Index.Value);
             var battlerInfos = new List<BattlerInfo>();
             var idx = 0;
             foreach (var battlerInfo in _battlerInfos)
             {
-                if (battlerInfo.IsActor)
+                if (battlerInfo.ActorInfo != null)
                 {
                     var copyBattlerInfo = new BattlerInfo(battlerInfo.ActorInfo,idx+1);
                     battlerInfos.Add(copyBattlerInfo);
                 } else
+                if (battlerInfo.EnemyData != null)
                 {
                     var copyBattlerInfo = new BattlerInfo(battlerInfo.EnemyData,battlerInfo.Level.Value,idx,battlerInfo.LineIndex,battlerInfo.BossFlag);
                     battlerInfos.Add(copyBattlerInfo);
+                } else
+                {
+                    battlerInfos.Add(battlerInfo);
                 }
                 idx++;
             }

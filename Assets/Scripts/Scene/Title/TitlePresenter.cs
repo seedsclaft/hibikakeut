@@ -137,7 +137,9 @@ namespace Ryneus
 
         private void CommandTutorial()
         {
+            _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _view.DeactivateTitleCommand();
             
             var popupInfo = new PopupInfo()
             {
@@ -145,6 +147,7 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     _busy = false;
+                    _view.ActivateTitleCommand();
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 },
             };

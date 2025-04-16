@@ -45,7 +45,7 @@ namespace Ryneus
             unitInfoList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
             unitInfoList.SetInputHandler(InputKeyType.Right,() => CallViewEvent(CommandType.SelectSubBattler));
             unitInfoList.SetInputHandler(InputKeyType.Left,() => CallViewEvent(CommandType.SelectMainBattler));
-            unitInfoList.SetSelectedHandler(() => CallViewEvent(CommandType.SelectUnitInfo));
+            unitInfoList.SetSelectedHandler(() => CallViewEvent(CommandType.InputSelectUnitInfo));
             //unitInfoList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(UnitInfoList.CommandType.DecideUnit,unitInfoList.ListItemData<UnitInfo>()));
             SetInputHandler(unitInfoList.gameObject);
         }
@@ -89,7 +89,39 @@ namespace Ryneus
             {
                 unitInfoItem.UnselectAll();
             }
+        }        
+        
+        public void CommandSelectMainBattler()
+        {
+            var unitInfoItems = unitInfoList.GetComponentsInChildren<UnitInfoListItem>();
+            foreach (var unitInfoItem in unitInfoItems)
+            {
+                unitInfoItem.SetBattlerSelectIndex(-1);
+            }
+            unitInfoItems[unitInfoList.Index].SetBattlerSelectIndex(0);
         }
+
+        public void CommandSelectSubBattler()
+        {
+            var unitInfoItems = unitInfoList.GetComponentsInChildren<UnitInfoListItem>();
+            foreach (var unitInfoItem in unitInfoItems)
+            {
+                unitInfoItem.SetBattlerSelectIndex(-1);
+            }
+            unitInfoItems[unitInfoList.Index].SetBattlerSelectIndex(1);
+        }        
+        
+        
+        public void CommandInputSelectUnitInfo(BattlerInfo battlerInfo)
+        {
+            var unitInfoItems = unitInfoList.GetComponentsInChildren<UnitInfoListItem>();
+            foreach (var unitInfoItem in unitInfoItems)
+            {
+                unitInfoItem.SetBattlerSelectIndex(-1);
+            }
+            unitInfoItems[unitInfoList.Index].SetBattlerSelectIndex(battlerInfo);
+        }
+
     }
 
     namespace UnitInfoList
@@ -103,6 +135,7 @@ namespace Ryneus
             SelectUnitInfo = 4,
             SelectMainBattler = 5,
             SelectSubBattler = 6,
+            InputSelectUnitInfo = 7,
         }
     }
 }

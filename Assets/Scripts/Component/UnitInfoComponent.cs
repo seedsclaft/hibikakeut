@@ -9,7 +9,7 @@ namespace Ryneus
 
         public void UpdateInfo(UnitInfo unitInfo)
         {
-            noText?.SetText(unitInfo.Index.Value.ToString());
+            noText?.SetText("部隊"+unitInfo.Index.Value.ToString());
         }
     }
 }

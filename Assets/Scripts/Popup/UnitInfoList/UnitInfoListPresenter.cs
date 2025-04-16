@@ -67,10 +67,13 @@ namespace Ryneus
                     CommandSelectUnitInfo();
                     break;
                 case UnitInfoList.CommandType.SelectMainBattler:
-                    //CommandSelectMainBattler();
+                    CommandSelectMainBattler();
                     break;
                 case UnitInfoList.CommandType.SelectSubBattler:
-                    //CommandSelectSubBattler();
+                    CommandSelectSubBattler();
+                    break;
+                case UnitInfoList.CommandType.InputSelectUnitInfo:
+                    CommandInputSelectUnitInfo();
                     break;
             }
         }
@@ -120,20 +123,27 @@ namespace Ryneus
             var selectBattlerInfo = _view.SelectBattlerInfo();
             _model.SetSelectingBattlerInfo(selectBattlerInfo);
             _view.UnselectAll();
-            //var battlerSelectIndex = _model.SelectMain.Value ? 0 : 1;
-            //_view.SetBattlerSelectIndex(battlerSelectIndex);
         }
 
         private void CommandSelectMainBattler()
         {
+            _view.CommandSelectMainBattler();
         }
 
         private void CommandSelectSubBattler()
         {
+            _view.CommandSelectSubBattler();
+        }
+
+        private void CommandInputSelectUnitInfo()
+        {
+            var selectBattlerInfo = _view.SelectBattlerInfo();
+            _view.CommandInputSelectUnitInfo(selectBattlerInfo);
         }
 
         private void CheckTutorialState(object commandType = null)
         {
+            
         }
     }
 }

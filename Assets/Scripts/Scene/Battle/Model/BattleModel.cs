@@ -204,6 +204,31 @@ namespace Ryneus
             }
         }
 
+        public List<BattlerInfo> ViewBattlerActors()
+        {
+            var list = new List<BattlerInfo>();
+            var battlerInfos = _battlers.FindAll(a => a.isAlcana == false && a.IsActor == true);
+            for (int i = 1;i <= 6;i++)
+            {
+                var find = battlerInfos.Find(a => a.Index.Value == i);
+                if (find != null)
+                {
+                    list.Add(find);
+                } else
+                {
+                    var newBattlerInfo = new BattlerInfo();
+                    newBattlerInfo.Index.SetValue(0);
+                    list.Add(newBattlerInfo);
+                }
+            }
+            return list;
+        }
+
+        public List<BattlerInfo> UnitBattlerActors()
+        {
+            return _battlers.FindAll(a => a.isAlcana == false && a.IsActor == true);;
+        }
+
         public List<BattlerInfo> BattlerActors()
         {
             return FieldBattlerInfos().FindAll(a => a.IsActor == true);
@@ -2398,7 +2423,7 @@ namespace Ryneus
             // 経験値アイテムを作る
             foreach (var enemyInfo in enemyInfos)
             {
-                foreach (var actorInfo in BattlerActors())
+                foreach (var actorInfo in UnitBattlerActors())
                 {
                     var expData = new GetItemData
                     {

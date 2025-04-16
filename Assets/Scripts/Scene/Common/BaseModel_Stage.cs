@@ -19,7 +19,9 @@ namespace Ryneus
             var mainTeam = new TeamInfo();
             mainTeam.TeamId.SetValue((int)TeamIdType.Home);
 
+            // 初期編成を作成
             var depaterUnitInfo = new UnitInfo();
+            depaterUnitInfo.Index.SetValue(1);
             var actorInfo = PartyInfo.ActorInfos[0];
             var battlerInfo = new BattlerInfo(actorInfo,1);
             depaterUnitInfo.SetBattlers(new List<BattlerInfo>(){battlerInfo,new BattlerInfo()});

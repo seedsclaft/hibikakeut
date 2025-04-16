@@ -725,9 +725,6 @@ namespace Ryneus
         public SystemData.CommandData SaveCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Save");
         public SystemData.CommandData ConquerCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Conquer");
         public SystemData.CommandData UnitEditCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "UnitEdit");
-        public SystemData.CommandData ChangeMainCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "ChangeMain");
-        public SystemData.CommandData DetachCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Detach");
-
     }
 
 }
