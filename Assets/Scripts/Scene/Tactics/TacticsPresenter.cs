@@ -103,7 +103,7 @@ namespace Ryneus
                 if (tutorialData.Param1 == 300)
                 {
                     // 出撃前
-                    checkFlag = _model.DepartureActorId > -1;
+                    checkFlag = _model.DepartureUnitInfo != null;
                 }
                 if (tutorialData.Param1 == 400)
                 {
@@ -197,7 +197,6 @@ namespace Ryneus
             var lostUnitInfos = _model.LostUnitInfos();
             if (lostUnitInfos.Count > 0)
             {
-                _model.ClearMoveReachAreas();
                 _view.LostBattlerUnit(lostUnitInfos);
             }
         }
@@ -423,6 +422,9 @@ namespace Ryneus
                 case "Conquer":
                     CommandConquer();
                     break;
+                case "UnitEdit":
+                    CommandUnitEdit();
+                    break;
             }
         }
 
@@ -449,12 +451,12 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var characterListInfo = new CharacterListInfo((int actorId) => 
+            var unitInfoListInfo = new UnitInfoListInfo((unitInfo) => 
             {
-                _model.SetDepatureActorId(actorId);
+                _model.SetDepatureUnitInfo(unitInfo);
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
-                CommandDepartureHex();
                 CommandRefresh();
+                CommandDepartureHex();
                 _view.EndTacticsCommand();
                 _busy = false;
             },
@@ -463,12 +465,13 @@ namespace Ryneus
                 CommandRefresh();
                 _busy = false;
             });
-            characterListInfo.SetActorInfos(_model.StageMembers());
+            unitInfoListInfo.SetUnitInfos(_model.DepatureUnitInfos());
+            unitInfoListInfo.IsUnitEdit.SetValue(false);
             
             var popupInfo = new PopupInfo
             {
-                PopupType = PopupType.CharacterList,
-                template = characterListInfo,
+                PopupType = PopupType.UnitInfoList,
+                template = unitInfoListInfo,
                 EndEvent = () =>
                 {
                     CommandRefresh();
@@ -535,6 +538,38 @@ namespace Ryneus
             }
         }
 
+        private void CommandUnitEdit()
+        {
+            _busy = true;
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var unitInfoListInfo = new UnitInfoListInfo((unitInfo) => 
+            {
+                _view.CallSystemCommand(Base.CommandType.ClosePopup);
+                CommandRefresh();
+                _view.EndTacticsCommand();
+                _busy = false;
+            },
+            () => 
+            {
+                CommandRefresh();
+                _busy = false;
+            });
+            unitInfoListInfo.SetUnitInfos(_model.DepatureUnitInfos());
+            unitInfoListInfo.IsUnitEdit.SetValue(true);
+            
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.UnitInfoList,
+                template = unitInfoListInfo,
+                EndEvent = () =>
+                {
+                    CommandRefresh();
+                    _busy = false;
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
+        }
+
         private void CommandUnitActEnd()
         {
             _view.EndTacticsCommand();
@@ -571,7 +606,33 @@ namespace Ryneus
 
         private void CommandUnits()
         {
+            _busy = true;
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var unitInfoListInfo = new UnitInfoListInfo((unitInfo) => 
+            {
+                _view.CallSystemCommand(Base.CommandType.ClosePopup);
+                CommandRefresh();
+                _view.EndTacticsCommand();
+                _busy = false;
+            },
+            () => 
+            {
+                CommandRefresh();
+                _busy = false;
+            });
+            unitInfoListInfo.SetUnitInfos(_model.FieldUnitInfos());
             
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.UnitInfoList,
+                template = unitInfoListInfo,
+                EndEvent = () =>
+                {
+                    CommandRefresh();
+                    _busy = false;
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
         }
 
         public bool CheckVictory()

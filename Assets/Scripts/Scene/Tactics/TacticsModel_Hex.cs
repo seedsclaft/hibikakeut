@@ -20,9 +20,9 @@ namespace Ryneus
         public ParameterInt SelectingHexUnitId = new();
         private Vector2 _moveBeforeHexPosition = new Vector2();
         // 出撃管理
-        private int _departureActorId = -1;
-        public int DepartureActorId => _departureActorId;
-        public void SetDepatureActorId(int departureActorId) => _departureActorId = departureActorId;
+        private UnitInfo _departureUnitInfo = null;
+        public UnitInfo DepartureUnitInfo => _departureUnitInfo;
+        public void SetDepatureUnitInfo(UnitInfo departureUnitInfo) => _departureUnitInfo = departureUnitInfo;
         
         // 行動選択中のチーム
         public bool IsPlayable => CurrentStage.TurnTeamId.Value == (int)TeamIdType.Home;
@@ -242,7 +242,7 @@ namespace Ryneus
             {
                 return null;
             }
-            var moveBattlerHex = hexUnits.Find(a => a.HexUnitType == HexUnitType.Battler);
+            var moveBattlerHex = hexUnits.Find(a => a.HexUnitType == HexUnitType.Battler && !a.IsLostUnit());
             if (moveBattlerHex == null)
             {
                 return null;
@@ -311,7 +311,7 @@ namespace Ryneus
 
         public HexUnitInfo SelectDeparture()
         {
-            if (_departureActorId == -1)
+            if (_departureUnitInfo == null)
             {
                 return null;
             }
@@ -326,11 +326,7 @@ namespace Ryneus
                 UnitType = HexUnitType.Battler,
             };
             var depaterActor = new HexUnitInfo(depaterActorIndex,unitData,(int)TeamIdType.Home);
-            var unitInfo = new UnitInfo();
-            var actorInfo = StageMembers().Find(a => a.ActorId.Value == _departureActorId);
-            var battlerInfo = new BattlerInfo(actorInfo,1);
-            unitInfo.SetBattlers(new List<BattlerInfo>(){battlerInfo});
-            depaterActor.SetUnitInfo(unitInfo);
+            depaterActor.SetUnitInfo(_departureUnitInfo);
             CurrentStage.AddHexUnitInfo(depaterActor);
             // Teamに設定
             var teamInfo = CurrentStage.GetTurnTeamInfo();
@@ -339,7 +335,7 @@ namespace Ryneus
             // Reachを消去
             CurrentStage.RemoveReachUnitInfo(_reachAreas);
             _reachAreas.Clear();
-            _departureActorId = -1;
+            _departureUnitInfo = null;
 
             // 行動ポイントを減らす
             UseActPoint();
@@ -603,6 +599,28 @@ namespace Ryneus
             }
         }
 
+        public List<UnitInfo> DepatureUnitInfos()
+        {
+            var list = new List<UnitInfo>();
+            var hexUnitInfos = CurrentStage.GetTurnTeamInfo().DepatuerInfos;
+            foreach (var hexUnitInfo in hexUnitInfos)
+            {
+                list.Add(hexUnitInfo.UnitInfo);
+            }
+            return list;
+        }
+
+        public List<UnitInfo> FieldUnitInfos()
+        {
+            var list = new List<UnitInfo>();
+            var hexUnitInfos = CurrentStage.FriendBattlerUnitList().FindAll(a => a.IsUnit);
+            foreach (var hexUnitInfo in hexUnitInfos)
+            {
+                list.Add(hexUnitInfo.UnitInfo);
+            }
+            return list;
+        }
+
         public void StageClear()
         {
             
@@ -628,6 +646,7 @@ namespace Ryneus
             var list = new List<SystemData.CommandData>
             {
                 DepartureCommand,
+                UnitEditCommand,
                 SaveCommand,
                 TurnEndCommand
             };
@@ -705,6 +724,9 @@ namespace Ryneus
         public SystemData.CommandData UnitsCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Units");
         public SystemData.CommandData SaveCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Save");
         public SystemData.CommandData ConquerCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Conquer");
+        public SystemData.CommandData UnitEditCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "UnitEdit");
+        public SystemData.CommandData ChangeMainCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "ChangeMain");
+        public SystemData.CommandData DetachCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Detach");
 
     }
 

@@ -6,6 +6,7 @@ namespace Ryneus
     [System.Serializable]
     public class UnitInfo 
     {
+        public ParameterInt Index = new();
         private List<BattlerInfo> _battlerInfos = new();
         public List<BattlerInfo> BattlerInfos => _battlerInfos;
         public List<BattlerInfo> AliveBattlerInfos => _battlerInfos.FindAll(a => a.IsAlive());
@@ -41,7 +42,6 @@ namespace Ryneus
             return evaluate;
         }
 
-/*
         public UnitInfo CopyData()
         {
             var copyData = new UnitInfo();
@@ -63,6 +63,5 @@ namespace Ryneus
             copyData.SetBattlers(battlerInfos);
             return copyData;
         }
-*/
     }
 }

@@ -18,6 +18,13 @@ namespace Ryneus
             // 味方チームを作成
             var mainTeam = new TeamInfo();
             mainTeam.TeamId.SetValue((int)TeamIdType.Home);
+
+            var depaterUnitInfo = new UnitInfo();
+            var actorInfo = PartyInfo.ActorInfos[0];
+            var battlerInfo = new BattlerInfo(actorInfo,1);
+            depaterUnitInfo.SetBattlers(new List<BattlerInfo>(){battlerInfo,new BattlerInfo()});
+            mainTeam.SetDepatuerInfos(new List<UnitInfo>(){depaterUnitInfo});
+
             // 拠点数
             var actPoint = unitInfos.FindAll(a => a.IsBasementUnit() && a.IsFriend(mainTeam.TeamId.Value));
             mainTeam.ActPoint.SetValue(actPoint.Count);

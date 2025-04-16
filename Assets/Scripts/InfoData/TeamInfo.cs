@@ -11,6 +11,26 @@ namespace Ryneus
         // 所持ユニット
         private List<HexUnitInfo> _unitInfos = new();
         public List<HexUnitInfo> UnitInfos => _unitInfos;
+        // 出撃前ユニット
+        private List<HexUnitInfo> _depatuerInfos = new();
+        public List<HexUnitInfo> DepatuerInfos => _depatuerInfos;
+        public void SetDepatuerInfos(List<UnitInfo> unitInfos)
+        {
+            var depatuerInfos = new List<HexUnitInfo>();
+            foreach (var unitInfo in unitInfos)
+            {
+                var unitData = new StageSymbolData
+                {
+                    InitX = -1,
+                    InitY = -1,
+                    UnitType = HexUnitType.Battler,
+                };
+                var depaterActor = new HexUnitInfo(1000,unitData,TeamId.Value);
+                depaterActor.SetUnitInfo(unitInfo);
+                depatuerInfos.Add(depaterActor);
+            }
+            _depatuerInfos = depatuerInfos;
+        }
         public List<HexUnitInfo> GetOnFieldUnitInfos(int x,int y)
         {
             return _unitInfos.FindAll(a => a.OnField(x,y));

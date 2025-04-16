@@ -261,6 +261,7 @@ namespace Ryneus
             {
                 statusInfoComponent.gameObject.SetActive(false);
             }
+            nameText?.SetText("");
         }
 
         private void UpdateUnitType(UnitType unitType)

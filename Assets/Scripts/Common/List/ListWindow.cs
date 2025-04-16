@@ -674,6 +674,19 @@ namespace Ryneus
                 }
             }
         }
+        
+        public void UnselectAll()
+        {
+            foreach (var objectList in _objectList)
+            {
+                if (objectList == null) continue;
+                var listItem = objectList.GetComponentInChildren<ListItem>();
+                if (listItem == null) continue;
+                listItem.SetUnSelect();
+            }
+            
+            _index = -1;
+        }
 
         public void SetInputCallHandler(Action<List<InputKeyType>> callHandler)
         {

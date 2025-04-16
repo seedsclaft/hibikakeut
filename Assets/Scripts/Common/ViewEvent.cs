@@ -41,6 +41,7 @@ namespace Ryneus
         Strategy,
         FileList,
         CharacterList,
+        UnitInfoList,
         Option,
         TutorialStage,
         Confirm,

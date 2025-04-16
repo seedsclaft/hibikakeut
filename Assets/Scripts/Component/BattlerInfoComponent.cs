@@ -32,6 +32,11 @@ namespace Ryneus
         public void UpdateInfo(BattlerInfo battlerInfo)
         {
             _battlerInfo = battlerInfo;
+            if (_battlerInfo == null || _battlerInfo.Index.Value == 0)
+            {
+                Clear();
+                return;
+            }
             if (battlerInfo.IsActor || battlerInfo.IsActorView)
             {
                 actorInfoComponent.UpdateInfo(battlerInfo.ActorInfo,null);
@@ -503,6 +508,10 @@ namespace Ryneus
             enemyInfoComponent?.Clear();
             actorInfoComponent?.Clear();
             battlePosition?.SetText("");
+            if (statusInfoComponent != null)
+            {
+                statusInfoComponent.gameObject.SetActive(false);
+            }
         }
     }
 }

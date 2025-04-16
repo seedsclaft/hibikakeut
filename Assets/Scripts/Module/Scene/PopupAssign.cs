@@ -78,6 +78,7 @@ namespace Ryneus
         Ranking,
         Credit,
         CharacterList,
+        UnitInfoList,
         Help,
         AlcanaList,
         SlotSave,

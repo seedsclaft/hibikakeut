@@ -101,6 +101,10 @@ namespace Ryneus
             }
         }
 
+        public BattlerInfo()
+        {
+        }
+
         public BattlerInfo(ActorInfo actorInfo,int index)
         {
             _skillTriggerInfos = actorInfo.SkillTriggerInfos;
