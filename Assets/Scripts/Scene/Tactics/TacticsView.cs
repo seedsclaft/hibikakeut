@@ -20,8 +20,8 @@ namespace Ryneus
         [SerializeField] private BaseList tacticsCommandList = null;
         public SystemData.CommandData TacticsCommandData => tacticsCommandList.ListItemData<SystemData.CommandData>();
         [SerializeField] private BaseList battleMemberSelectList = null;
-        [SerializeField] private HexUnitComponent actorUnitInfo = null;
-        [SerializeField] private HexUnitComponent enemyUnitInfo = null;
+        [SerializeField] private UnitInfoComponent actorUnitInfo = null;
+        [SerializeField] private UnitInfoComponent enemyUnitInfo = null;
         [SerializeField] private HexUnitComponent fieldUnitInfo = null;
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent = null;
@@ -117,13 +117,13 @@ namespace Ryneus
             {
                 actorUnitInfo.gameObject.SetActive(true);
                 enemyUnitInfo.gameObject.SetActive(false);
-                actorUnitInfo.UpdateInfo(hexUnitInfo);
+                actorUnitInfo.UpdateInfo(hexUnitInfo.UnitInfo);
             } else
             if (hexUnitInfo.TeamId.Value == (int)TeamIdType.Away)
             {
                 enemyUnitInfo.gameObject.SetActive(true);
                 actorUnitInfo.gameObject.SetActive(false);
-                enemyUnitInfo.UpdateInfo(hexUnitInfo);
+                enemyUnitInfo.UpdateInfo(hexUnitInfo.UnitInfo);
             }
         }
 
@@ -222,7 +222,52 @@ namespace Ryneus
                 CallViewEvent(CommandType.EndMoveBattler);
             }
         }
+
+        public void HealUnits(List<HexUnitInfo> healUnits,List<List<int>> hpHeals)
+        {
+            HealUnit(healUnits,hpHeals);
+        }
         
+        public async void HealUnit(List<HexUnitInfo> healUnits,List<List<int>> hpHeals)
+        {
+            if (healUnits.Count == 0)
+            {
+                enemyUnitInfo.gameObject.SetActive(false);
+                actorUnitInfo.gameObject.SetActive(false);
+                CallViewEvent(CommandType.EndHealUnits);
+                return;
+            }
+            var hexUnitInfo = healUnits[0];
+            var hpHeal = hpHeals[0];
+            RefreshTiles(hexUnitInfo.HexField.X,hexUnitInfo.HexField.Y);
+            await UniTask.DelayFrame(60);
+            if (hexUnitInfo.TeamId.Value == (int)TeamIdType.Home)
+            {
+                actorUnitInfo.gameObject.SetActive(true);
+                enemyUnitInfo.gameObject.SetActive(false);
+                actorUnitInfo.HealAnimation(hexUnitInfo.UnitInfo,hpHeal);
+            } else
+            if (hexUnitInfo.TeamId.Value == (int)TeamIdType.Away)
+            {
+                enemyUnitInfo.gameObject.SetActive(true);
+                actorUnitInfo.gameObject.SetActive(false);
+                enemyUnitInfo.HealAnimation(hexUnitInfo.UnitInfo,hpHeal);
+            }
+
+
+            healUnits.RemoveAt(0);
+            hpHeals.RemoveAt(0);
+            if (healUnits.Count > 0)
+            {
+                HealUnit(healUnits,hpHeals);
+            } else
+            {
+                enemyUnitInfo.gameObject.SetActive(false);
+                actorUnitInfo.gameObject.SetActive(false);
+                CallViewEvent(CommandType.EndHealUnits);
+            }
+        }
+
         public void LostBattlerUnit(List<HexUnitInfo> hexUnitInfos)
         {
             LostAction(hexUnitInfos);
@@ -517,6 +562,7 @@ namespace Ryneus
             MoveHexMap,
             EndMoveBattler,
             EndLostBattler,
+            EndHealUnits,
             EndAnimation
         }
     }

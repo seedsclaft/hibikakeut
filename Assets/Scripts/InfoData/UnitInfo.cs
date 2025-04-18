@@ -68,5 +68,32 @@ namespace Ryneus
             copyData.SetBattlers(battlerInfos);
             return copyData;
         }
+
+        // 戦略用
+        public BattlerInfo FrontBattlerInfo()
+        {
+            if (_battlerInfos.Count == 0)
+            {
+                return null;
+            }
+            if (_battlerInfos[0].Index.Value == 0)
+            {
+                return null;
+            }
+            return _battlerInfos[0];
+        }
+
+        public BattlerInfo BackBattlerInfo()
+        {
+            if (_battlerInfos.Count == 1)
+            {
+                return null;
+            }
+            if (_battlerInfos[1].Index.Value == 0)
+            {
+                return null;
+            }
+            return _battlerInfos[1];
+        }
     }
 }

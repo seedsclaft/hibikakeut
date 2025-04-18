@@ -57,5 +57,13 @@ namespace Ryneus
         {
             unitHexUnit.InitUnit();
         }
+
+        public void HealAnimation(int hpheal)
+        {
+            if (unitHexUnit != null)
+            {
+                unitHexUnit.HealAnimation(hpheal);
+            }
+        }
     }
 }

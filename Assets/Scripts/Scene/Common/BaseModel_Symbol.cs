@@ -37,9 +37,13 @@ namespace Ryneus
                 var getItemInfos = new List<GetItemInfo>();
                 switch (symbolMaster.UnitType)
                 {
+                    case HexUnitType.Basement:
+                        // 敵ユニット
+                        hexUnitInfo.TeamId.SetValue((int)symbolMaster.InitTeamId);
+                        break;
                     case HexUnitType.Battler:
                         // 敵ユニット
-                        hexUnitInfo.TeamId.SetValue((int)TeamIdType.Away);
+                        hexUnitInfo.TeamId.SetValue((int)symbolMaster.InitTeamId);
                         hexUnitInfo.SetUnitInfo(BattleTroop(stageSymbolData));
                         if (randFlag)
                         {

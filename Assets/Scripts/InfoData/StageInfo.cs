@@ -12,6 +12,7 @@ namespace Ryneus
         public ParameterInt FieldX = new();
         public ParameterInt FieldY = new();
         public ParameterInt TurnCount = new(1);
+        public ParameterBool CheckedTurnStart = new();
         
         private List<TeamInfo> _teamInfos = new();
         public List<TeamInfo> TeamInfos => _teamInfos;
@@ -40,7 +41,7 @@ namespace Ryneus
             return null;
         }
 
-        public List<HexUnitInfo> FriendBattlerUnitList()
+        public List<HexUnitInfo> FriendUnitInfos()
         {
             var findTeam = _teamInfos.Find(a => a.TeamId.Value == TurnTeamId.Value);
             if (findTeam != null)
@@ -50,7 +51,7 @@ namespace Ryneus
             return null;
         }
 
-        public List<HexUnitInfo> OpponentBattlerUnitList()
+        public List<HexUnitInfo> OpponentUnitInfos()
         {
             var findTeam = _teamInfos.Find(a => a.TeamId.Value != TurnTeamId.Value);
             if (findTeam != null)
@@ -63,6 +64,7 @@ namespace Ryneus
         public void AddHexUnitInfo(HexUnitInfo hexUnit) => _hexUnitList.Add(hexUnit);
         public void AddHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList.AddRange(hexUnitList);
         public void SetHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList = hexUnitList;
+        public void RemoveHexUnitInfo(HexUnitInfo hexUnit) => _hexUnitList.Remove(hexUnit);
 
         public void RemoveReachUnitInfo(List<HexField> hexFields)
         {
@@ -118,6 +120,20 @@ namespace Ryneus
                     return basement?.TeamId.Value != (int)TeamIdType.Away;
             }
             return false;
+        }    
+        
+        public bool CheckGameOver()
+        {
+            // 拠点が0で部隊が0
+            var basement = _hexUnitList.Find(a => a.HexUnitType == HexUnitType.Basement && a.TeamId.Value == (int)TeamIdType.Home);
+            var fieldUnit = HomeTeamInfo.UnitInfos.Find(a => a.IsUnit);
+            if (basement == null)
+            {
+                return fieldUnit == null;
+            }
+            // 拠点が1で部隊と出撃可能が0
+            var depatureUnit = FriendUnitInfos().FindAll(a => !a.IsLostUnit());
+            return (depatureUnit.Count == 0) && fieldUnit == null;
         }
     }
 }

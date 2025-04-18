@@ -62,6 +62,7 @@ namespace Ryneus
                     UpdateMainThumb(battlerInfo.EnemyData.ImagePath,0,0,1.0f);
                 }
             }
+            RefreshStatus();
         }
 
         private void UpdateMainThumb(string imagePath,int x,int y,float scale)

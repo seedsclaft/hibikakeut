@@ -211,5 +211,14 @@ namespace Ryneus
                 battlerInfoComponent.EndDeathAnimation();
             }
         }
+
+        public void HealAnimation(int heHeal)
+        {
+            if (battlerInfoComponent != null)
+            {
+                battlerInfoComponent.SetDamageRoot(gameObject);
+                battlerInfoComponent.StartHeal(DamageType.HpHeal,heHeal,false);
+            }
+        }
     }
 }

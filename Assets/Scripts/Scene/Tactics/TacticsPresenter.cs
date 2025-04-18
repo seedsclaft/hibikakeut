@@ -274,6 +274,9 @@ namespace Ryneus
                 case CommandType.EndLostBattler:
                     CommandEndLostBattler();
                     break;
+                case CommandType.EndHealUnits:
+                    CommandEndAnimation();
+                    break;
                 case CommandType.DecideBattleMemberSelect:
                     CommandDecideBattleMemberSelect((BattleSceneInfo)viewEvent.template);
                     break;
@@ -368,6 +371,19 @@ namespace Ryneus
             }
         }
 
+        private void CheckHealUnit()
+        {
+            // 拠点回復確認
+            if (_model.CurrentStage.CheckedTurnStart.Value == false)
+            {
+                _model.CurrentStage.CheckedTurnStart.SetValue(true);
+                var healHexUnits = _model.CheckHealUnits();
+                _view.HealUnits(healHexUnits.Item1,healHexUnits.Item2);
+                return;
+            }
+            CommandEndAnimation();
+        }
+
         private void CommandEndAnimation()
         {
             // 操作不可プレイヤー・オート動作なら操作を委託
@@ -424,6 +440,9 @@ namespace Ryneus
                     break;
                 case "UnitEdit":
                     CommandUnitEdit();
+                    break;
+                case "Return":
+                    CommandReturn();
                     break;
             }
         }
@@ -530,6 +549,11 @@ namespace Ryneus
             {
                 return;
             }
+            var gameOver = CheckGameOver();
+            if (gameOver)
+            {
+                return;
+            }
             if (_model.GetTurnTeam().CurrentActPoint.Value == 0)
             {
                 _model.TurnEnd();
@@ -570,6 +594,16 @@ namespace Ryneus
             _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
         }
 
+        private void CommandReturn()
+        {
+            _view.EndTacticsCommand();
+            _model.ReturnBasement();
+            CommandRefresh();
+            _view.UpdateTileItems();
+            _model.SetLastSelectHex();
+            _model.SetCommandKey("");
+        }
+
         private void CommandUnitActEnd()
         {
             _view.EndTacticsCommand();
@@ -595,11 +629,12 @@ namespace Ryneus
 
         private void TurnStartAnimation()
         {
+            _model.CurrentStage.CheckedTurnStart.SetValue(false);
             var text = _model.GetTurnTeam().TeamId.Value == (int)TeamIdType.Home ? "Player Turn" : "Enemy Turn";
             _view.StartAnimation(text,() => 
             {
                 _busy = false;
-                CommandEndAnimation();
+                CheckHealUnit();
             });
             _busy = true;
         }
@@ -644,6 +679,22 @@ namespace Ryneus
                 {
                     _busy = false;
                     _model.StageClear();
+                    _view.CommandSceneChange(Scene.Title);
+                });
+                return true;
+            }
+            return false;
+        }
+
+        public bool CheckGameOver()
+        {
+            if (_model.CurrentStage.CheckGameOver())
+            {
+                _busy = true;
+                _view.StartAnimation("Failed...",() => 
+                {
+                    _busy = false;
+                    //_model.StageClear();
                     _view.CommandSceneChange(Scene.Title);
                 });
                 return true;
@@ -761,9 +812,10 @@ namespace Ryneus
 
         private void CommandSelectBattler()
         {
-            _model.SetCommandKey(_model.MoveBattlerCommand.Key);
-            _view.EndTacticsCommand();
-            CommandMoveBattler();
+            _view.SetTacticsCommand(_model.BattlerCommand());
+            //_model.SetCommandKey(_model.MoveBattlerCommand.Key);
+            //_view.EndTacticsCommand();
+            //CommandMoveBattler();
         }
 
         private void CommandSelectBasement()
@@ -797,6 +849,12 @@ namespace Ryneus
         {
             _model.EndLostActions();
             _view.RefreshTiles(_model.CurrentStage.FieldX.Value,_model.CurrentStage.FieldY.Value);
+            
+            var gameOver = CheckGameOver();
+            if (gameOver)
+            {
+                return;
+            }
         }
 
         private void CommandSelectReach(int x,int y)
@@ -1031,7 +1089,7 @@ namespace Ryneus
             {
                 _model.ClearMoveReachAreas();
                 _model.SetFieldXY(hexField.X,hexField.Y);
-                if (_model.HexUnitInfos.Count > 0)
+                if (_model.OnFieldUnitInfos.Count > 0)
                 {
                     // 移動と攻撃範囲を表示
                     var battlerUnit = _model.MakeBattlerActHex();
@@ -1040,7 +1098,7 @@ namespace Ryneus
                 {
                     _view.ShowUnitStatus(null);
                 }
-                var fieldUnit = _model.CurrentStage.OnFieldUnitInfos.Find(a => !a.IsUnit);
+                var fieldUnit = _model.OnFieldUnitInfos.Find(a => !a.IsUnit);
                 _view.ShowFieldStatus(fieldUnit);
             }
         }
