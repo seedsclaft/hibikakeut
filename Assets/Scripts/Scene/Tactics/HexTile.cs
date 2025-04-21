@@ -19,17 +19,17 @@ namespace Ryneus
         {
             if (ListData == null) return;
             var hexPosition = ListItemData<HexField>();
-            var hexUnits = GameSystem.GameInfo.StageInfo.FindUnitInfos(hexPosition.X,hexPosition.Y);
             var halfsize = hexPosition.X % 2 == 1 ? -48 : 0;
             layoutRect.localPosition = new Vector2(0,halfsize);
             //position.SetText(hexPosition.X + ":" + hexPosition.Y);
+            var fieldUnitInfos = GameSystem.GameInfo.StageInfo.FindFieldUnitInfos(hexPosition.X,hexPosition.Y);
             // マス更新がない
-            if (_lastHexUnitInfos.Count == 0 && hexUnits.Count == 0)
+            if (_lastHexUnitInfos.Count == 0 && fieldUnitInfos.Count == 0)
             {
                 return;
             }
-            _lastHexUnitInfos = hexUnits;
-            if (hexUnits.Find(a => a.HexUnitType == HexUnitType.None) != null)
+            _lastHexUnitInfos = fieldUnitInfos;
+            if (fieldUnitInfos.Find(a => a.HexUnitType == HexUnitType.None) != null)
             {
                 // 存在しないマス
                 baseObj?.SetActive(false);
@@ -40,7 +40,7 @@ namespace Ryneus
             baseObj?.SetActive(true);
             filedHexUnit.Clear();
             unitHexUnit.Clear();
-            foreach (var hexUnit in hexUnits)
+            foreach (var hexUnit in fieldUnitInfos)
             {
                 var compnent = hexUnit.IsUnit ? unitHexUnit : filedHexUnit;
                 compnent.UpdateInfo(hexUnit);

@@ -128,7 +128,7 @@ namespace Ryneus
                 if (tutorialData.Param1 == 800)
                 {
                     // 2回目の敗北する
-                    checkFlag = _model.InBattleResult && _model.BattleResultVictory == false && _model.CurrentStage.LoseCount == 2;
+                    //checkFlag = _model.InBattleResult && _model.BattleResultVictory == false && _model.CurrentStage.LoseCount == 2;
                 }
                 return checkFlag;
             };

@@ -1089,7 +1089,7 @@ namespace Ryneus
             {
                 _model.ClearMoveReachAreas();
                 _model.SetFieldXY(hexField.X,hexField.Y);
-                if (_model.OnFieldUnitInfos.Count > 0)
+                if (_model.OnFieldInfos.Count > 0)
                 {
                     // 移動と攻撃範囲を表示
                     var battlerUnit = _model.MakeBattlerActHex();
@@ -1098,7 +1098,7 @@ namespace Ryneus
                 {
                     _view.ShowUnitStatus(null);
                 }
-                var fieldUnit = _model.OnFieldUnitInfos.Find(a => !a.IsUnit);
+                var fieldUnit = _model.OnFieldInfos.Find(a => !a.IsUnit);
                 _view.ShowFieldStatus(fieldUnit);
             }
         }

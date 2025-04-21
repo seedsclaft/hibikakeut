@@ -14,7 +14,8 @@ namespace Ryneus
                 AddGetItemInfo(getItemInfo);          
             }
             var unitInfos = GetStageHexUnitInfos(stageId,clearCount);
-            stageInfo.SetHexUnitInfos(unitInfos);
+            // Fieldをセット
+            stageInfo.SetHexUnitInfos(unitInfos.FindAll(a => !a.IsUnit));
             // 味方チームを作成
             var mainTeam = new TeamInfo();
             mainTeam.TeamId.SetValue((int)TeamIdType.Home);

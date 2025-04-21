@@ -1,9 +1,8 @@
 using System;
-using System.Diagnostics;
 
 namespace Ryneus
 {
-    [System.Serializable]
+    [Serializable]
     public class ParameterInt
     {
         [UnityEngine.SerializeField] private int _value = 0;

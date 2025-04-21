@@ -74,6 +74,7 @@ namespace Ryneus
 
         // バトル勝利数
         public int DemigodParam => 0;
+        public ParameterBool Lost = new(false);
 
         public ParameterInt BattleIndex = new();
         private StatusInfo _plusStatus = new();
@@ -146,9 +147,19 @@ namespace Ryneus
             var list = new List<SkillInfo>();
             foreach (var learningData in Master.LearningSkills)
             {
-                if (learningData.SkillId < 1000) continue;
-                if (list.Find(a => a.Id.Value == learningData.SkillId) != null) continue;
-                if (LearnSkillIds().Contains(learningData.SkillId)) continue;
+                if (learningData.SkillId < 1000)
+                {
+                    continue;
+                }
+                if (list.Find(a => a.Id.Value == learningData.SkillId) != null)
+                {
+                    continue;
+                }
+                if (LearnSkillIds().Contains(learningData.SkillId))
+                {
+                    continue;
+                }
+
                 var skillInfo = new SkillInfo(learningData.SkillId);
                 if (Level >= learningData.Level)
                 {

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace Ryneus
 {
@@ -45,6 +44,21 @@ namespace Ryneus
             {
                 _unitInfos.Remove(unitInfo);
             }
+        }
+
+        
+        public List<HexUnitInfo> LostUnitInfos()
+        {
+            var list = new List<HexUnitInfo>();
+            foreach (var _unitInfo in _unitInfos)
+            {
+                var lost = _unitInfo.UnitInfo.BattlerInfos.Find(a => a.IsAlive()) == null;
+                if (lost)
+                {
+                    list.Add(_unitInfo);
+                }
+            }
+            return list;
         }
 
         // 行動可能回数

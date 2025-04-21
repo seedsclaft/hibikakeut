@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 
 namespace Ryneus
 {
@@ -27,11 +28,19 @@ namespace Ryneus
         public ParameterInt TurnTeamId = new();
         public TeamInfo HomeTeamInfo => _teamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Home);
         public TeamInfo AwayTeamInfo => _teamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Away);
-        private List<HexUnitInfo> _hexUnitList = new();
-        public List<HexUnitInfo> HexUnitList => _hexUnitList;
-        public List<HexUnitInfo> FindUnitInfos(int x,int y) => _hexUnitList.FindAll(a => a.OnField(x,y));
-        public List<HexUnitInfo> OnFieldUnitInfos => FindUnitInfos(FieldX.Value,FieldY.Value);
-        public List<HexUnitInfo> TurnHexUnitList()
+        private List<HexUnitInfo> _fieldHexList = new();
+        public List<HexUnitInfo> FieldHexList => _fieldHexList;
+        public List<HexUnitInfo> FindFieldInfos(int x,int y) => _fieldHexList.FindAll(a => a.OnField(x,y));
+        public List<HexUnitInfo> FindFieldUnitInfos(int x,int y)
+        {
+            var list = new List<HexUnitInfo>();
+            list.AddRange(_fieldHexList.FindAll(a => a.OnField(x,y)));
+            list.AddRange(AllUnitInfos(true));
+            return list;
+        }
+
+        public List<HexUnitInfo> OnFieldInfos => FindFieldInfos(FieldX.Value,FieldY.Value);
+        public List<HexUnitInfo> OnFieldTurnUnitInfos()
         {
             var findTeam = _teamInfos.Find(a => a.TeamId.Value == TurnTeamId.Value);
             if (findTeam != null)
@@ -39,6 +48,22 @@ namespace Ryneus
                 return findTeam.GetOnFieldUnitInfos(FieldX.Value,FieldY.Value);
             }
             return null;
+        }
+
+        public List<HexUnitInfo> AllUnitInfos(bool onFieldOnly = false)
+        {
+            var list = new List<HexUnitInfo>();
+            foreach (var teamInfos in _teamInfos)
+            {
+                if (onFieldOnly)
+                {
+                    list.AddRange(teamInfos.GetOnFieldUnitInfos(FieldX.Value,FieldY.Value));
+                } else
+                {
+                    list.AddRange(teamInfos.UnitInfos);
+                }
+            }
+            return list;
         }
 
         public List<HexUnitInfo> FriendUnitInfos()
@@ -61,34 +86,37 @@ namespace Ryneus
             return null;
         }
 
-        public void AddHexUnitInfo(HexUnitInfo hexUnit) => _hexUnitList.Add(hexUnit);
-        public void AddHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList.AddRange(hexUnitList);
-        public void SetHexUnitInfos(List<HexUnitInfo> hexUnitList) => _hexUnitList = hexUnitList;
-        public void RemoveHexUnitInfo(HexUnitInfo hexUnit) => _hexUnitList.Remove(hexUnit);
+        public void AddHexUnitInfo(HexUnitInfo hexUnit) => _fieldHexList.Add(hexUnit);
+        public void AddHexUnitInfos(List<HexUnitInfo> hexUnitList) => _fieldHexList.AddRange(hexUnitList);
+        public void SetHexUnitInfos(List<HexUnitInfo> hexUnitList) => _fieldHexList = hexUnitList;
+        public void RemoveHexUnitInfo(HexUnitInfo hexUnit) => _fieldHexList.Remove(hexUnit);
 
         public void RemoveReachUnitInfo(List<HexField> hexFields)
         {
-            for (int i= _hexUnitList.Count-1;i >= 0;i--)
+            for (int i= _fieldHexList.Count-1;i >= 0;i--)
             {
-                if (_hexUnitList[i].HexUnitType == HexUnitType.Reach || _hexUnitList[i].HexUnitType == HexUnitType.ReachAttack)
+                if (_fieldHexList[i].HexUnitType == HexUnitType.Reach || _fieldHexList[i].HexUnitType == HexUnitType.ReachAttack)
                 {
-                    if (hexFields.Find(a => a.X == _hexUnitList[i].HexField.X && a.Y == _hexUnitList[i].HexField.Y) != null)
+                    if (hexFields.Find(a => a.X == _fieldHexList[i].HexField.X && a.Y == _fieldHexList[i].HexField.Y) != null)
                     {
-                        _hexUnitList.Remove(_hexUnitList[i]);
+                        _fieldHexList.Remove(_fieldHexList[i]);
                     }
                 }
             }
         }
 
-        public void LostUnitInfos(List<HexUnitInfo> unitInfos)
+        public List<HexUnitInfo> LostUnitInfos()
         {
-            for (int i= _hexUnitList.Count-1;i >= 0;i--)
+            var list = new List<HexUnitInfo>();
+            foreach (var teamInfo in _teamInfos)
             {
-                if (unitInfos.Contains(_hexUnitList[i]))
-                {
-                    _hexUnitList.Remove(_hexUnitList[i]);
-                }
+                list.AddRange(teamInfo.LostUnitInfos());
             }
+            return list;
+        }
+
+        public void RemoveLostUnitInfos(List<HexUnitInfo> unitInfos)
+        {
             foreach (var unitInfo in unitInfos)
             {
                 foreach (var teamInfo in _teamInfos)
@@ -97,10 +125,6 @@ namespace Ryneus
                 }
             }
         }
-
-        private int _loseCount = 0;
-        public int LoseCount => _loseCount;
-        public void GainLoseCount(){ _loseCount++;}
 
         public StageInfo(int id)
         {
@@ -116,7 +140,7 @@ namespace Ryneus
             switch (achieveType)
             {
                 case AchieveType.ConquerEnemyBasement:
-                    var basement = _hexUnitList.Find(a => a.Id.Value == Master.EnemyBasementId);
+                    var basement = _fieldHexList.Find(a => a.Id.Value == Master.EnemyBasementId);
                     return basement?.TeamId.Value != (int)TeamIdType.Away;
             }
             return false;
@@ -125,15 +149,15 @@ namespace Ryneus
         public bool CheckGameOver()
         {
             // 拠点が0で部隊が0
-            var basement = _hexUnitList.Find(a => a.HexUnitType == HexUnitType.Basement && a.TeamId.Value == (int)TeamIdType.Home);
-            var fieldUnit = HomeTeamInfo.UnitInfos.Find(a => a.IsUnit);
+            var basement = _fieldHexList.Find(a => a.HexUnitType == HexUnitType.Basement && a.TeamId.Value == (int)TeamIdType.Home);
+            var fieldUnit = HomeTeamInfo.UnitInfos.Find(a => a.IsUnit && !a.IsLostUnit());
             if (basement == null)
             {
                 return fieldUnit == null;
             }
             // 拠点が1で部隊と出撃可能が0
-            var depatureUnit = FriendUnitInfos().FindAll(a => !a.IsLostUnit());
-            return (depatureUnit.Count == 0) && fieldUnit == null;
+            var depatureActorInfos = GameSystem.GameInfo.PartyInfo.ActorInfos.FindAll(a => !a.Lost.Value);
+            return (depatureActorInfos.Count == 0) && fieldUnit == null;
         }
     }
 }
