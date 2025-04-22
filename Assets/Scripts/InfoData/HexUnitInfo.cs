@@ -113,9 +113,20 @@ namespace Ryneus
             return _hexUnitType == HexUnitType.Battler;
         }
 
+        public bool IsAlcanaUnit()
+        {
+            return _hexUnitType == HexUnitType.Alcana;
+        }
+
+
+        public bool IsReachUnit()
+        {
+            return _hexUnitType == HexUnitType.Reach || _hexUnitType == HexUnitType.ReachAttack;
+        }
+
         public bool IsLostUnit()
         {
-            if (_hexUnitType != HexUnitType.Battler)
+            if (!IsBattlerUnit())
             {
                 return false;
             }
@@ -137,6 +148,8 @@ namespace Ryneus
             {
                 case HexUnitType.Basement:
                 return "拠点：\nターン開始時に回復";
+                case HexUnitType.Alcana:
+                return "？？？：\nランダムなイベントが発生";
             }
             return "";
         }
@@ -152,11 +165,6 @@ namespace Ryneus
                 return evaluate;
             }
             return 0;
-        }
-        
-        public bool IsBattleSymbol()
-        {
-            return _hexUnitType == HexUnitType.Battler;
         }
     }
 

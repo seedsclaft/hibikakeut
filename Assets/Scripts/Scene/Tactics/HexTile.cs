@@ -7,7 +7,7 @@ using TMPro;
 namespace Ryneus
 {
     public class HexTile : ListItem ,IListViewItem
-    {        
+    {
         [SerializeField] private RectTransform layoutRect;
         [SerializeField] private GameObject baseObj;
         [SerializeField] private HexUnitComponent filedHexUnit;
@@ -29,17 +29,15 @@ namespace Ryneus
                 return;
             }
             _lastHexUnitInfos = fieldUnitInfos;
+            filedHexUnit.Clear();
+            unitHexUnit.Clear();
             if (fieldUnitInfos.Find(a => a.HexUnitType == HexUnitType.None) != null)
             {
                 // 存在しないマス
                 baseObj?.SetActive(false);
-                filedHexUnit.Clear();
-                unitHexUnit.Clear();
                 return;
             }
             baseObj?.SetActive(true);
-            filedHexUnit.Clear();
-            unitHexUnit.Clear();
             foreach (var hexUnit in fieldUnitInfos)
             {
                 var compnent = hexUnit.IsUnit ? unitHexUnit : filedHexUnit;

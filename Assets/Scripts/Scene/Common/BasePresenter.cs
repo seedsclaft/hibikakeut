@@ -239,7 +239,6 @@ namespace Ryneus
             _view.ChangeUIActive(false);
         }
 
-        
         /// <summary>
         /// ステータス詳細を表示
         /// </summary>
@@ -303,11 +302,9 @@ namespace Ryneus
                 SoundManager.Instance.PlayStaticSe(SEType.LevelUp);
                 // 新規魔法取得があるか
                 var skills = actorInfo.LearningSkills(1);
-                
                 var from = actorInfo.Evaluate();
                 _model.ActorLevelUp(actorInfo);
                 var to = actorInfo.Evaluate();
-                
                 if (skills.Count > 0)
                 {
                     //_busy = true;
@@ -339,8 +336,8 @@ namespace Ryneus
                 endEvent?.Invoke();
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
             }
-        }        
-        
+        }
+
         public void CommandLevelUp(ActorInfo actorInfo,System.Action endEvent = null)
         {
             CommandActorLevelUp(actorInfo,() => 

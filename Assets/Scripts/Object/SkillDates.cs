@@ -73,7 +73,7 @@ namespace Ryneus
             {
                 return false;
             }
-            return Id >= 100 || Id == 31 || Id == 33;
+            return Id is >= 100 or 31 or 33;
         }
 
         public bool IsDisplayStartBattle()
@@ -83,12 +83,12 @@ namespace Ryneus
 
         public bool IsBattleSpecialSkill()
         {
-            return SkillType == SkillType.Unique || SkillType == SkillType.Awaken;
+            return SkillType is SkillType.Unique or SkillType.Awaken;
         }
 
         [Serializable]
         public class SkillAttributeInfo
-        {   
+        {
             public AttributeType AttributeType;
             public string ValueText;
             public int LearningCost;
@@ -100,17 +100,17 @@ namespace Ryneus
             switch (TargetType)
             {
                 case TargetType.Friend:
-                return DataSystem.GetText(600);
+                    return DataSystem.GetText(600);
                 case TargetType.Opponent:
-                return DataSystem.GetText(601);
+                    return DataSystem.GetText(601);
                 case TargetType.Self:
-                return DataSystem.GetText(602);
+                    return DataSystem.GetText(602);
                 case TargetType.All:
-                return DataSystem.GetText(603);
+                    return DataSystem.GetText(603);
                 case TargetType.Counter:
-                return DataSystem.GetText(606);
+                    return DataSystem.GetText(606);
                 case TargetType.IsTriggerTarget:
-                return DataSystem.GetText(611);
+                    return DataSystem.GetText(611);
             }
             return "";
         }
@@ -120,26 +120,26 @@ namespace Ryneus
             switch (Scope)
             {
                 case ScopeType.All:
-                if (TargetType == TargetType.Opponent)
-                {
-                    return DataSystem.GetText(620);
-                }
-                return DataSystem.GetText(621);
+                    if (TargetType == TargetType.Opponent)
+                    {
+                        return DataSystem.GetText(620);
+                    }
+                    return DataSystem.GetText(621);
                 case ScopeType.Line:
-                return DataSystem.GetText(622);
+                    return DataSystem.GetText(622);
                 case ScopeType.One:
-                if (TargetType == TargetType.Opponent){
-                    return DataSystem.GetText(623);
-                }
-                return DataSystem.GetText(624);
+                    if (TargetType == TargetType.Opponent){
+                        return DataSystem.GetText(623);
+                    }
+                    return DataSystem.GetText(624);
                 case ScopeType.Self:
-                return "";
+                    return "";
                 case ScopeType.FrontLine:
-                return DataSystem.GetText(625);
+                    return DataSystem.GetText(625);
                 case ScopeType.OneAndNeighbor:
-                return DataSystem.GetText(651);
+                    return DataSystem.GetText(651);
                 case ScopeType.Neighbor:
-                return DataSystem.GetText(652);
+                    return DataSystem.GetText(652);
             }
             return "";
         }
@@ -153,7 +153,7 @@ namespace Ryneus
 
         [Serializable]
         public class FeatureData
-        {   
+        {
             public int SkillId;
             public FeatureType FeatureType;
             public int Param1;
@@ -174,10 +174,10 @@ namespace Ryneus
                 return feature;
             }
         }
-        
+
         [Serializable]
         public class TriggerData
-        {   
+        {
             public int SkillId;
             public TriggerType TriggerType;
             public TriggerTiming TriggerTiming;

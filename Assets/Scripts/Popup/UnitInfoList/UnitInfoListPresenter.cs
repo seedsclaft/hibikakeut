@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Ryneus
 {
@@ -75,6 +74,9 @@ namespace Ryneus
                 case UnitInfoList.CommandType.InputSelectUnitInfo:
                     CommandInputSelectUnitInfo();
                     break;
+                case UnitInfoList.CommandType.CallStatus:
+                    CommandCallStatus((List<BattlerInfo>)viewEvent.template);
+                    break;
             }
         }
 
@@ -139,6 +141,20 @@ namespace Ryneus
         {
             var selectBattlerInfo = _view.SelectBattlerInfo();
             _view.CommandInputSelectUnitInfo(selectBattlerInfo);
+        }
+
+        private void CommandCallStatus(List<BattlerInfo> battlerInfos)
+        {
+            if (battlerInfos == null)
+            {
+                return;
+            }
+            _view.ChangeUIActive(false);
+            var actorInfos = _model.StageActorInfos(battlerInfos);
+            CommandStatusInfo(actorInfos,false,true,false,false,actorInfos[0].ActorId.Value,() => 
+            {
+                _view.ChangeUIActive(true);
+            });
         }
 
         private void CheckTutorialState(object commandType = null)

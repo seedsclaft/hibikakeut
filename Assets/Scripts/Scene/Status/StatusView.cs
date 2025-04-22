@@ -11,14 +11,9 @@ namespace Ryneus
     public class StatusView : BaseView ,IInputHandlerEvent
     {
         [SerializeField] private Button helpButton = null;
-        [SerializeField] private BaseList commandList = null;
-        public SystemData.CommandData SelectCommand => commandList.ListItemData<SystemData.CommandData>();
-        [SerializeField] private BaseList memberList = null;
         [SerializeField] private MagicList equipSkillList = null;
         [SerializeField] private MagicList changeSkillList = null;
         [SerializeField] private ActorInfoComponent selectingActorInfoComponent = null;
-        [SerializeField] private GameObject topLayer = null;
-        [SerializeField] private GameObject statusLayer = null;
         [SerializeField] private Button leftArrowButton = null;
         [SerializeField] private Button rightArrowButton = null;
 
@@ -34,8 +29,6 @@ namespace Ryneus
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Status);
             
-            InitializeCommandList();
-            InitializeMemberList();
             InitializeEquipSkillList();
             InitializeChangeSkillList();
 
@@ -48,54 +41,6 @@ namespace Ryneus
                 rightArrowButton.onClick.AddListener(() => CallViewEvent(CommandType.RightActor));
             }
             new StatusPresenter(this);
-        }
-
-        private void InitializeCommandList()
-        {
-            commandList.Initialize();
-            SetInputHandler(commandList.gameObject);
-            commandList.SetInputHandler(InputKeyType.Decide,OnClickCommand);
-            commandList.SetInputHandler(InputKeyType.Cancel,OnClickBack);
-            commandList.SetInputHandler(InputKeyType.Option1,() => 
-            {
-            });
-            commandList.SetInputHandler(InputKeyType.Option2,() => 
-            {
-            });
-            AddViewActives(commandList);
-        }
-
-        public void SetCommandList(List<ListData> commandListData)
-        {
-            commandList.SetData(commandListData);
-        }
-
-        private void InitializeMemberList()
-        {
-            memberList.Initialize();
-            SetInputHandler(memberList.gameObject);
-            memberList.SetInputHandler(InputKeyType.Decide,OnSelectActor);
-            memberList.SetInputHandler(InputKeyType.Cancel,OnCancelActor);
-            AddViewActives(memberList);
-        }
-
-        public void SetMemberList(List<ListData> commandListData)
-        {
-            memberList.SetData(commandListData);
-        }
-
-        private void OnSelectActor()
-        {
-            var data = memberList.ListItemData<ActorInfo>();
-            if (data != null)
-            {
-                CallViewEvent(CommandType.SelectActor,data);
-            }
-        }
-
-        private void OnCancelActor()
-        {
-            CallViewEvent(CommandType.CancelActor);
         }
 
         private void InitializeEquipSkillList()
@@ -162,30 +107,6 @@ namespace Ryneus
             rightArrowButton.gameObject.SetActive(isActive);
         }
 
-        public void CommandTopLayer()
-        {
-            statusLayer.SetActive(false);
-            topLayer.SetActive(true);
-        }
-
-        public void CommandStatusLayer()
-        {
-            statusLayer.SetActive(true);
-            topLayer.SetActive(false);
-        }
-
-        public void CallCommandList()
-        {
-            memberList.UpdateSelectIndex(-1);
-            SetActivate(commandList);
-        }
-
-        public void CallMemberList(int lastMemberIndex)
-        {
-            SetActivate(memberList);
-            memberList.UpdateSelectIndex(lastMemberIndex);
-        }
-        
         public void CallEquipSkillList()
         {
             SetActivate(equipSkillList);
@@ -216,22 +137,13 @@ namespace Ryneus
             SetBackEvent(statusViewInfo.BackEvent);
             if (statusViewInfo.StartIndex != -1)
             {
-                CallViewEvent(CommandType.SelectCharacter);
+                CallViewEvent(CommandType.SelectCharacter,statusViewInfo.StartIndex);
             }
         }
 
         public void CommandBack()
         {
             _backEvent?.Invoke();
-        }
-
-        private void OnClickCommand()
-        {
-            var data = commandList.ListItemData<SystemData.CommandData>();
-            if (data != null)
-            {
-                CallViewEvent(CommandType.SelectCommandList,data);
-            }
         }
 
         public new void SetBusy(bool busy)
@@ -262,14 +174,8 @@ namespace Ryneus
                 SetHelpInputInfo("SELECT_HEROINE");
             } else
             {
-                if (commandList.Active == false)
-                {
-                    SetHelpInputInfo("LEARN_MAGIC");
-                } else
-                {
-                    SetHelpText(DataSystem.GetHelp(202));
-                    SetHelpInputInfo("STATUS");
-                }
+                SetHelpText(DataSystem.GetHelp(202));
+                SetHelpInputInfo("STATUS");
             }
         }
 
@@ -279,10 +185,6 @@ namespace Ryneus
 
         public new void MouseCancelHandler()
         {
-            if (ActivateView == commandList)
-            {
-                CallViewEvent(CommandType.Back);
-            }
         }
     }
 

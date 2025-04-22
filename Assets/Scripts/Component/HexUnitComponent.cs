@@ -71,7 +71,7 @@ namespace Ryneus
             }
             //if (_hexUnitInfo.HexUnitType == HexUnitType.Random) return;
             gameObject.SetActive(true);
-            if (_hexUnitInfo.IsBattleSymbol())
+            if (_hexUnitInfo.IsBattlerUnit())
             {
                 symbolImage?.gameObject.SetActive(false);
                 enemyImage?.gameObject.SetActive(true);
@@ -115,7 +115,7 @@ namespace Ryneus
         {
             if (evaluateRoot != null)
             {
-                evaluateRoot.SetActive(_hexUnitInfo.HexUnitType == HexUnitType.Battler);
+                evaluateRoot.SetActive(_hexUnitInfo.IsBattlerUnit());
             }
             if (evaluate != null)
             {

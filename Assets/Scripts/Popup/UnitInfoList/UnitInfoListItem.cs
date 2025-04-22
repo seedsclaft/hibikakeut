@@ -1,30 +1,38 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ryneus
 {
-    public class UnitInfoListItem : ListItem ,IListViewItem  
-    {   
+    public class UnitInfoListItem : ListItem ,IListViewItem
+    {
         [SerializeField] private UnitInfoComponent component;
+        [SerializeField] private Button detailButton;
         [SerializeField] private BaseList battlerList;
+        private UnitInfo _data = null;
+        public List<BattlerInfo> BattlerInfos => _data?.BattlerInfos;
+        private bool _isInit = false;
         public BattlerInfo SelectBattlerInfo()
         {
             return battlerList.ListItemData<BattlerInfo>();
         }
-        private bool _isInit = false;
 
         public void UpdateViewItem()
         {
-            if (ListData == null) return;
+            if (ListData == null)
+            {
+                return;
+            }
             var data = ListItemData<UnitInfo>();
+            _data = data;
             component.UpdateInfo(data);
             battlerList.Initialize();
             battlerList.SetData(ListData.MakeListData(data.BattlerInfos));
             battlerList.Activate();
         }
 
-        public void SetDecideBattlerEvent(Action decideEvent,Action rightEvent)
+        public void SetDecideBattlerEvent(Action decideEvent,Action rightEvent,Action statusEvent)
         {
             if (_isInit)
             {
@@ -41,6 +49,10 @@ namespace Ryneus
                 {
                     rightEvent?.Invoke();
                 }
+            });
+            detailButton.onClick.AddListener(() => 
+            {
+                statusEvent?.Invoke();
             });
             _isInit = true;
         }

@@ -78,12 +78,12 @@ namespace Ryneus
             members.Sort((a,b) => a.BattleIndex.Value > b.BattleIndex.Value ? 1 : -1);
             return members;
         }
-        
+
         public void SaveTempBattleMembers()
         {
             TempInfo.CashBattleActors(BattleMembers());
         }
-        
+
         public List<ActorInfo> PartyMembers()
         {
             return PartyInfo.GetActorInfos();
@@ -159,10 +159,13 @@ namespace Ryneus
                 var skillInfo = new SkillInfo(equipSkillId.Value);
                 skillInfo.SetLearningState(LearningState.Learned);
                 skillInfo.SetEnable(true);
-                var cost = actorInfo.LearningMagicCost(skillInfo.Attribute,PartyInfo.ActorInfos,skillInfo.Master.Rank);
-                skillInfo.LearningCost.SetValue(cost);
+                if (!skillInfo.IsBattleSpecialSkill())
+                {
+                    var cost = actorInfo.LearningMagicCost(skillInfo.Attribute,PartyInfo.ActorInfos,skillInfo.Master.Rank);
+                    skillInfo.LearningCost.SetValue(cost);
+                }
                 equipSkills.Add(skillInfo);
-            }            
+            }
             if (equipSkills.Count < 8)
             {
                 var count = 8 - equipSkills.Count;
@@ -175,7 +178,6 @@ namespace Ryneus
             }
             return equipSkills;
         }
-        
 
         public SoundData TacticsBgmData()
         {

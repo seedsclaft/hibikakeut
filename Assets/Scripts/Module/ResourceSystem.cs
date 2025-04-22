@@ -44,8 +44,8 @@ namespace Ryneus
             _lastLoadAssets.Clear();
         }
 
-        public async static UniTask<List<AudioClip>>LoadBGMAsset(string bgmKey)
-        {    
+        public static async UniTask<List<AudioClip>>LoadBGMAsset(string bgmKey)
+        {
             var bGMData = DataSystem.BGM.Find(a => a.Key == bgmKey);
             var data = new List<string>();
             if (bGMData.CrossFade != null && bGMData.CrossFade != "")
@@ -72,15 +72,15 @@ namespace Ryneus
             };
         }
 
-        public async static UniTask<AudioClip>LoadBGSAsset(string fileName)
-        {    
+        public static async UniTask<AudioClip>LoadBGSAsset(string fileName)
+        {
             var data = _bgsPath + fileName;
             AudioClip result = await LoadAssetResources<AudioClip>(data);
             return result;
         }
 
-        public async static UniTask<AudioClip>LoadSeAsset(string fileName)
-        {    
+        public static async UniTask<AudioClip>LoadSeAsset(string fileName)
+        {
             var data = _sePath + fileName;
             AudioClip result = await LoadAssetResources<AudioClip>(data);
             return result;
@@ -100,18 +100,18 @@ namespace Ryneus
         public static AudioClip LoadSeAudio(string path)
         {
             return LoadResource<AudioClip>("Audios/SE/" + path);
-        } 
+        }
 
         public static T LoadResource<T>(string path) where T : Object
         {
             return Resources.Load<T>(path);
-        } 
+        }
 
         public static T[] LoadResources<T>(string path) where T : Object
         {
             return Resources.LoadAll<T>(path);
-        } 
-        
+        }
+
         public static Sprite LoadActorMainSprite(string path)
         {
             return LoadResource<Sprite>(ActorTexturePath + path + "/Main");
@@ -170,7 +170,7 @@ namespace Ryneus
         public static EffekseerEffectAsset LoadResourceEffect(string path)
         {
             return LoadResource<EffekseerEffectAsset>("Animations/" + path);
-        } 
+        }
 
         public static SpriteAtlas LoadSpellIcons()
         {
@@ -190,7 +190,7 @@ namespace Ryneus
         public static SpriteAtlas LoadIcons()
         {
             return LoadResource<SpriteAtlas>("Texture/Icons");
-        } 
+        }
 
         public static Sprite LoadGuideSprite(string path)
         {

@@ -35,7 +35,7 @@ namespace Ryneus
         {
             var list = new List<HexUnitInfo>();
             list.AddRange(_fieldHexList.FindAll(a => a.OnField(x,y)));
-            list.AddRange(AllUnitInfos(true));
+            list.AddRange(AllUnitInfos().FindAll(a => a.OnField(x,y)));
             return list;
         }
 
@@ -48,6 +48,14 @@ namespace Ryneus
                 return findTeam.GetOnFieldUnitInfos(FieldX.Value,FieldY.Value);
             }
             return null;
+        }
+
+        public List<HexUnitInfo> AllFieldUnitInfos()
+        {
+            var list = new List<HexUnitInfo>();
+            list.AddRange(_fieldHexList.FindAll(a => a.OnField(FieldX.Value,FieldY.Value)));
+            list.AddRange(AllUnitInfos().FindAll(a => a.OnField(FieldX.Value,FieldY.Value)));
+            return list;
         }
 
         public List<HexUnitInfo> AllUnitInfos(bool onFieldOnly = false)
@@ -93,14 +101,12 @@ namespace Ryneus
 
         public void RemoveReachUnitInfo(List<HexField> hexFields)
         {
-            for (int i= _fieldHexList.Count-1;i >= 0;i--)
+            foreach (var hexField in hexFields)
             {
-                if (_fieldHexList[i].HexUnitType == HexUnitType.Reach || _fieldHexList[i].HexUnitType == HexUnitType.ReachAttack)
+                var findAll = _fieldHexList.FindAll(a => a.IsReachUnit() && a.HexField.X == hexField.X && a.HexField.Y == hexField.Y);
+                for (int i = findAll.Count-1;i >= 0;i--)
                 {
-                    if (hexFields.Find(a => a.X == _fieldHexList[i].HexField.X && a.Y == _fieldHexList[i].HexField.Y) != null)
-                    {
-                        _fieldHexList.Remove(_fieldHexList[i]);
-                    }
+                    _fieldHexList.Remove(findAll[i]);
                 }
             }
         }
@@ -149,7 +155,7 @@ namespace Ryneus
         public bool CheckGameOver()
         {
             // 拠点が0で部隊が0
-            var basement = _fieldHexList.Find(a => a.HexUnitType == HexUnitType.Basement && a.TeamId.Value == (int)TeamIdType.Home);
+            var basement = _fieldHexList.Find(a => a.IsBasementUnit() && a.TeamId.Value == (int)TeamIdType.Home);
             var fieldUnit = HomeTeamInfo.UnitInfos.Find(a => a.IsUnit && !a.IsLostUnit());
             if (basement == null)
             {

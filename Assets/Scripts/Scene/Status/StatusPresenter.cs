@@ -22,14 +22,11 @@ namespace Ryneus
         private void Initialize()
         { 
             _view.SetHelpWindow(_model.HelpText());
-            _view.SetCommandList(MakeListData(_model.StatusCommand()));
-            _view.SetMemberList(MakeListData(_model.StageMembers()));
             _view.SetEvent((type) => UpdateCommand(type));
 
-            _view.CommandTopLayer();
-            _view.CallCommandList();
-            _view.SetActiveArrows(_model.StageMembers().Count > 1);
+            _view.SetActiveArrows(_model.ActorInfos.Count > 1);
             CommandRefresh();
+            ResetSelectSkill();
             _view.OpenAnimation(() => 
             {
                 CheckTutorialState();
@@ -62,7 +59,6 @@ namespace Ryneus
                     CommandSelectActor((ActorInfo)viewEvent.template);
                     return;
                 case CommandType.CancelActor:
-                    CommandCancelActor();
                     return;
                 case CommandType.SelectEquipSkill:
                     CommandSelectEquipSkill((SkillInfo)viewEvent.template);
@@ -94,7 +90,6 @@ namespace Ryneus
                     CommandHideLearnMagic();
                     return;
                 case CommandType.SelectCommandList:
-                    CommandSelectCommandList((SystemData.CommandData)viewEvent.template);
                     return;
                 case CommandType.CallHelp:
                     CommandCallHelp();
@@ -162,8 +157,6 @@ namespace Ryneus
                 ResetSelectSkill();
                 return;
             }
-            _view.CommandTopLayer();
-            CallMemberList();
         }
 
         private void CommandSelectChangeSkill(SkillInfo skillInfo)
@@ -243,28 +236,6 @@ namespace Ryneus
             CommandRefresh();
         }
 
-        private void CommandSelectCommandList(SystemData.CommandData commandData)
-        {
-            switch (commandData.Key)
-            {
-                case "STATUS":
-                    CallMemberList();
-                    break;
-                case "PARTY_EDIT":
-                    CallMemberList();
-                    break;
-                case "RECORD":
-                    break;
-                case "SYSTEM":
-                    break;
-            }
-        }
-
-        private void CallMemberList()
-        {
-            _view.CallMemberList(_model.CurrentIndex);
-        }
-
         private void CommandSelectSkillTrigger(int actorId)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
@@ -281,25 +252,6 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.SelectActor(actorInfo.ActorId.Value);
-            switch (_view.SelectCommand.Key)
-            {
-                case "STATUS":
-                    _view.CallEquipSkillList();
-                    CommandRefreshMagicList();
-                    _view.CommandStatusLayer();
-                    break;
-                case "PARTY_EDIT":
-                    break;
-                case "RECORD":
-                    break;
-                case "SYSTEM":
-                    break;
-            }
-        }
-
-        private void CommandCancelActor()
-        {
-            _view.CallCommandList();
         }
 
         private void UpdatePopup(ConfirmCommandType confirmCommandType)
@@ -335,7 +287,7 @@ namespace Ryneus
                 }
             }
         }
-        
+
         private void CommandLeftActor()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);

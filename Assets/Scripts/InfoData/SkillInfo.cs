@@ -76,7 +76,6 @@ namespace Ryneus
                 _featureDates = list;
             }
         }
-        
 
         public bool IsUnison()
         {
@@ -103,12 +102,12 @@ namespace Ryneus
 
         public bool IsBattleActiveSkill()
         {
-            return Master.SkillType == SkillType.Active || Master.SkillType == SkillType.Awaken;
+            return Master.SkillType is SkillType.Active or SkillType.Awaken;
         }
 
         public bool IsBattlePassiveSkill()
         {
-            return Master.SkillType == SkillType.Passive || Master.SkillType == SkillType.Unique;
+            return Master.SkillType is SkillType.Passive or SkillType.Unique;
         }
 
         public bool IsBattleSpecialSkill()
@@ -127,14 +126,12 @@ namespace Ryneus
                 {
                     var paramText = "";
                     var array = split.ToString().Substring(1,5).Split(",");
-                    
                     var p1 = array[0];
                     var p2 = int.Parse(array[1]);
                     var p3 = int.Parse(array[2]);
                     if (p1 == "f")
                     {
                         var targetFeature = FeatureDates[p2];
-                        
                         if (p3 == 1)
                         {
                             paramText = targetFeature.Param1.ToString();

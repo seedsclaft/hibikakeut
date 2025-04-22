@@ -55,29 +55,20 @@ namespace Ryneus
             return DataSystem.GetText(18010);
         }
 
-        private int _currentIndex = 0;
-        public int CurrentIndex => _currentIndex;
+        public ParameterInt CurrentIndex = new();
         public void SelectActor(int actorId)
         {
             var index = _actorInfos.FindIndex(a => a.ActorId.Value == actorId);
-            _currentIndex = index;
+            CurrentIndex.SetValue(index);
         }
 
-        public ActorInfo CurrentActor => _actorInfos[_currentIndex];
+        public ActorInfo CurrentActor => _actorInfos[CurrentIndex.Value];
 
         public void ChangeActorIndex(int value)
         {
-            _currentIndex += value;
-            if (_currentIndex > _actorInfos.Count-1)
-            {
-                _currentIndex = 0;
-            } else
-            if (_currentIndex < 0)
-            {
-                _currentIndex = _actorInfos.Count-1;
-            }
+            CurrentIndex.GainValue(value,0,_actorInfos.Count-1);
         }
-        
+
         public void SetActorLastSkillId(int selectSkillId)
         {
             CurrentActor.SetLastSelectSkillId(selectSkillId);

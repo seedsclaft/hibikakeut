@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
 
 namespace Ryneus
 {
@@ -111,6 +110,19 @@ namespace Ryneus
                 return;
             }
             _sceneParam.CallEvent(unitInfo);
+        }
+
+        public List<ActorInfo> StageActorInfos(List<BattlerInfo> battlerInfos)
+        {
+            var list = new List<ActorInfo>();
+            foreach (var battlerInfo in battlerInfos)
+            {
+                if (battlerInfo.ActorInfo != null)
+                {
+                    list.Add(StageMembers().Find(a => a.ActorId == battlerInfo.ActorInfo.ActorId));
+                }
+            }
+            return list;
         }
     }
 

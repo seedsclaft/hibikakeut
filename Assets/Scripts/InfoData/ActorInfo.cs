@@ -19,7 +19,7 @@ namespace Ryneus
             Exp.SetValue((level-1) * 100);
         }
 
-        [SerializeField] private List<ParameterInt> _equipmentSkillIds = new ();
+        [SerializeField] private List<ParameterInt> _equipmentSkillIds = new();
         public List<ParameterInt> EquipmentSkillIds => _equipmentSkillIds;
         public void ChangeEquipSkill(int changeSkillId,int removeSkillId)
         {
@@ -260,7 +260,7 @@ namespace Ryneus
                 statusInfo.AddParameter(StatusParamType.Atk,Master.InitStatus.Atk);
                 statusInfo.AddParameter(StatusParamType.Def,Master.InitStatus.Def);
                 statusInfo.AddParameter(StatusParamType.Spd,Master.InitStatus.Spd);
-            
+
                 statusInfo.AddParameter(StatusParamType.Hp,LevelGrowthRate(StatusParamType.Hp,level)); 
                 statusInfo.AddParameter(StatusParamType.Mp,LevelGrowthRate(StatusParamType.Mp,level));  
                 statusInfo.AddParameter(StatusParamType.Atk,LevelGrowthRate(StatusParamType.Atk,level));  
@@ -423,8 +423,8 @@ namespace Ryneus
             int total = statusValue + (int)magicValue + DemigodParam * 10;
             return total;
         }
-    
-        private List<SkillTriggerInfo> _skillTriggerInfos = new ();
+
+        private List<SkillTriggerInfo> _skillTriggerInfos = new();
         public List<SkillTriggerInfo> SkillTriggerInfos => _skillTriggerInfos;
 
         public void InitSkillTriggerInfos()
@@ -459,7 +459,7 @@ namespace Ryneus
                 }
             }
         }
-    
+
         public void SetSkillTriggerSkill(int index,SkillInfo skillInfo)
         {
             if (_skillTriggerInfos.Count > index)
@@ -467,7 +467,7 @@ namespace Ryneus
                 _skillTriggerInfos[index].SetSkillInfo(skillInfo);
             }
         }
-        
+
         public void SetSkillTriggerTrigger(int index,int triggerIndex,SkillTriggerData triggerType)
         {
             if (_skillTriggerInfos.Count > index)
@@ -546,7 +546,7 @@ namespace Ryneus
                         skillTriggerData2 = DataSystem.SkillTriggers.Find(a => a.Id == skillTriggerData.Trigger2);
                     }
                     skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>(){skillTriggerData1,skillTriggerData2});
-            
+
                     var findIndex = _skillTriggerInfos.FindIndex(a => DataSystem.Skills[a.SkillId].SkillType == SkillType.Active);
                     if (findIndex == -1)
                     {
@@ -574,7 +574,7 @@ namespace Ryneus
                 }
             }
         }
-        
+
         public void RecommendActiveSkill()
         {
             _skillTriggerInfos.Clear();
@@ -584,7 +584,7 @@ namespace Ryneus
             // 新たに追加したアクティブをアクティブの下に入れる
             InsertSkillTriggerSkills(addActive,false);
             var addPassive = LearningSkillInfos().FindAll(a => a.Master.SkillType == SkillType.Passive && a.Id.Value > 1000 && a.LearningState == LearningState.Learned);
-            
+
             // その他のパッシブを加える
             InsertSkillTriggerSkills(addPassive,true);
 
@@ -594,8 +594,8 @@ namespace Ryneus
             }
         }
     }
-    
-    public enum AttributeRank 
+
+    public enum AttributeRank
     {
         S = 0,
         A = 1,
@@ -606,5 +606,5 @@ namespace Ryneus
         F = 6,
         G = 7
     }
-}    
+}
 

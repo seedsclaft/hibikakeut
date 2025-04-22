@@ -387,12 +387,13 @@ namespace Ryneus
         private void CommandEndAnimation()
         {
             // 操作不可プレイヤー・オート動作なら操作を委託
-            if (_model.IsPlayable == false)
+            if (!_model.IsPlayable)
             {
                 _model.AutoMode.SetValue(true);
                 CommandAutoMode();
             } else
             {
+                _view.EndTacticsCommand();
                 // 座標をチームの最終選択に戻す
                 var lastHexX = _model.CurrentStage.GetTurnTeamInfo().LastSelectHexX.Value;
                 var lastHexY = _model.CurrentStage.GetTurnTeamInfo().LastSelectHexY.Value;
@@ -443,6 +444,9 @@ namespace Ryneus
                     break;
                 case "Return":
                     CommandReturn();
+                    break;
+                case "Event":
+                    CommandEvent();
                     break;
             }
         }
@@ -519,6 +523,7 @@ namespace Ryneus
                 _view.DeActivateHexTiles();
                 _model.DecideAutoMoveBattlerField();
                 var (actions,moveBattler) = _model.SelectMoveBattler(_model.CurrentStage.FieldX.Value,_model.CurrentStage.FieldY.Value);
+                _view.UpdateTileItems();
                 _view.SelectMoveBattler(actions,moveBattler);
             }
         }
@@ -604,6 +609,21 @@ namespace Ryneus
             _model.SetCommandKey("");
         }
 
+        private void CommandEvent()
+        {
+            _view.EndTacticsCommand();
+            var results = _model.AlcanaOpen();
+            if (results != null)
+            {
+                CommandPopupSkillInfo(results);
+                return;
+            }
+            CommandRefresh();
+            _view.UpdateTileItems();
+            _model.SetLastSelectHex();
+            _model.SetCommandKey("");
+        }
+
         private void CommandUnitActEnd()
         {
             _view.EndTacticsCommand();
@@ -631,6 +651,7 @@ namespace Ryneus
         {
             _model.CurrentStage.CheckedTurnStart.SetValue(false);
             var text = _model.GetTurnTeam().TeamId.Value == (int)TeamIdType.Home ? "Player Turn" : "Enemy Turn";
+            _view.DeActivateHexTiles();
             _view.StartAnimation(text,() => 
             {
                 _busy = false;
@@ -761,7 +782,7 @@ namespace Ryneus
         {
             var tile = _view.SelectHexField;
             _model.SetFieldXY(tile.X,tile.Y);
-            var hexUnit = _model.HexUnit();
+            var hexUnit = _model.SortedHexUnit();
             if (_model.CommandKey == _model.DepartureCommand.Key || _model.CommandKey == _model.MoveBattlerCommand.Key)
             {
                 if (hexUnit == null || hexUnit.HexUnitType != HexUnitType.Reach)
@@ -803,6 +824,7 @@ namespace Ryneus
             {
                 case "Departure":
                 case "MoveBattler":
+                case "Event":
                     _model.SetCommandKey("");
                     _model.ClearReachAreas();
                     _view.UpdateTileItems();
@@ -996,6 +1018,10 @@ namespace Ryneus
             {
                 CloseConfirm();
                 _view.CommandRefresh();
+                CommandRefresh();
+                _view.UpdateTileItems();
+                _model.SetLastSelectHex();
+                _model.SetCommandKey("");
             },ConfirmType.SkillDetail);
             confirmInfo.SetSkillInfo(skillInfos);
             confirmInfo.SetIsNoChoice(true);

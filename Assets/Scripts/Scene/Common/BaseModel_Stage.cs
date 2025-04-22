@@ -39,7 +39,7 @@ namespace Ryneus
             awayTeam.TeamId.SetValue((int)TeamIdType.Away);
             foreach (var unitInfo in unitInfos)
             {
-                if (unitInfo.HexUnitType == HexUnitType.Battler)
+                if (unitInfo.IsBattlerUnit())
                 {
                     awayTeam.AddUnitInfos(unitInfo);
                 }

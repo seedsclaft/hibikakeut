@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ryneus.UnitInfoList;
 
 namespace Ryneus
 {
-    using UnitInfoList;
     public class UnitInfoListView : BaseView
     {
         [SerializeField] private BaseList unitInfoList = null;
@@ -43,6 +43,7 @@ namespace Ryneus
             unitInfoList.Initialize();
             unitInfoList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.DecideBattlerInfo,unitInfoList.ListItemData<UnitInfo>()));
             unitInfoList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
+            unitInfoList.SetInputHandler(InputKeyType.Option1,CallStatus);
             unitInfoList.SetInputHandler(InputKeyType.Right,() => CallViewEvent(CommandType.SelectSubBattler));
             unitInfoList.SetInputHandler(InputKeyType.Left,() => CallViewEvent(CommandType.SelectMainBattler));
             unitInfoList.SetSelectedHandler(() => CallViewEvent(CommandType.InputSelectUnitInfo));
@@ -59,7 +60,8 @@ namespace Ryneus
                 {
                     unitInfoItem.SetDecideBattlerEvent(
                         () => CallViewEvent(CommandType.DecideBattlerInfo,unitInfoList.ListItemData<UnitInfo>()),
-                        () => CallViewEvent(CommandType.SelectUnitInfo)
+                        () => CallViewEvent(CommandType.SelectUnitInfo),
+                        CallStatus
                     );
                     unitInfoItem.SetBattlerSelectIndex(-1);
                 }
@@ -77,6 +79,11 @@ namespace Ryneus
                 {
                     unitInfoItem.UnselectAll();
                     unitInfoItem.ListDeactivate();
+                    unitInfoItem.SetDecideBattlerEvent(
+                        () => {},
+                        () => {},
+                        CallStatus
+                    );
                 }
             });
             unitInfoList.Activate();
@@ -89,8 +96,8 @@ namespace Ryneus
             {
                 unitInfoItem.UnselectAll();
             }
-        }        
-        
+        }
+
         public void CommandSelectMainBattler()
         {
             var unitInfoItems = unitInfoList.GetComponentsInChildren<UnitInfoListItem>();
@@ -109,9 +116,8 @@ namespace Ryneus
                 unitInfoItem.SetBattlerSelectIndex(-1);
             }
             unitInfoItems[unitInfoList.Index].SetBattlerSelectIndex(1);
-        }        
-        
-        
+        }
+
         public void CommandInputSelectUnitInfo(BattlerInfo battlerInfo)
         {
             var unitInfoItems = unitInfoList.GetComponentsInChildren<UnitInfoListItem>();
@@ -120,6 +126,15 @@ namespace Ryneus
                 unitInfoItem.SetBattlerSelectIndex(-1);
             }
             unitInfoItems[unitInfoList.Index].SetBattlerSelectIndex(battlerInfo);
+        }
+
+        public void CallStatus()
+        {
+            var unitInfo = unitInfoList.ListItemData<UnitInfo>();
+            if (unitInfo != null)
+            {
+                CallViewEvent(CommandType.CallStatus,unitInfo.BattlerInfos);
+            }
         }
 
     }
@@ -136,6 +151,7 @@ namespace Ryneus
             SelectMainBattler = 5,
             SelectSubBattler = 6,
             InputSelectUnitInfo = 7,
+            CallStatus = 8,
         }
     }
 }

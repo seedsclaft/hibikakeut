@@ -69,6 +69,12 @@ namespace Ryneus
                             break;
                     }
                 }
+                var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == stageSymbolData.PrizeSetId);
+                foreach (var prizeSet in prizeSets)
+                {
+                    var getItemInfo = new GetItemInfo(prizeSet.GetItem);
+                    getItemInfos.Add(getItemInfo);
+                }
                 hexUnitInfo.AddGetItemInfos(getItemInfos);
                 hexUnitInfos.Add(hexUnitInfo);
             }
