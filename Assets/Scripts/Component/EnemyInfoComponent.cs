@@ -136,7 +136,7 @@ namespace Ryneus
                 weakPoints[i].SetUnSelect();
             }
         }
-        
+
         public void UpdateNativeSize()
         {
             if (mainThumb != null)
@@ -178,7 +178,8 @@ namespace Ryneus
                     battlerInfo.EnemyData.MpGrowth,
                     battlerInfo.EnemyData.AtkGrowth,
                     battlerInfo.EnemyData.DefGrowth,
-                    battlerInfo.EnemyData.SpdGrowth
+                    battlerInfo.EnemyData.SpdGrowth,
+                    battlerInfo.EnemyData.MovGrouth
                     );
                 needStatusInfoComponent.UpdateInfo(NeedStatus);
             }

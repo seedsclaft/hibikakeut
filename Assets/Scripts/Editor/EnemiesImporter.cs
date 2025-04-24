@@ -77,6 +77,7 @@ namespace Ryneus
 						int Atk = AssetPostImporter.ImportNumeric(BaseRow,"Atk");
 						int Def = AssetPostImporter.ImportNumeric(BaseRow,"Def");
 						int Spd = AssetPostImporter.ImportNumeric(BaseRow,"Spd");
+						int Mov = AssetPostImporter.ImportNumeric(BaseRow,"Mov");
 						EnemyData.Kinds = new List<KindType>();
 						KindType Kind1 = (KindType)AssetPostImporter.ImportNumeric(BaseRow,"Kind1");
 						if (Kind1 != 0) EnemyData.Kinds.Add(Kind1);
@@ -85,7 +86,7 @@ namespace Ryneus
 						KindType Kind3 = (KindType)AssetPostImporter.ImportNumeric(BaseRow,"Kind3");
 						if (Kind3 != 0) EnemyData.Kinds.Add(Kind3);
 						EnemyData.BaseStatus = new StatusInfo();
-						EnemyData.BaseStatus.SetParameter(Hp,Mp,Atk,Def,Spd);
+						EnemyData.BaseStatus.SetParameter(Hp,Mp,Atk,Def,Spd,Mov);
 						EnemyData.HpGrowth = AssetPostImporter.ImportNumeric(BaseRow,"HpGrowth");
 						EnemyData.MpGrowth = AssetPostImporter.ImportNumeric(BaseRow,"MpGrowth");
 						EnemyData.AtkGrowth = AssetPostImporter.ImportNumeric(BaseRow,"AtkGrowth");

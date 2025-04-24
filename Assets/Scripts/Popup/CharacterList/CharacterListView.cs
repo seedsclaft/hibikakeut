@@ -9,7 +9,7 @@ namespace Ryneus
         [SerializeField] private BaseList characterList = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
         
-        public override void Initialize() 
+        public override void Initialize()
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.CharacterList);

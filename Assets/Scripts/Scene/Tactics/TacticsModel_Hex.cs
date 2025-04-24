@@ -55,14 +55,24 @@ namespace Ryneus
             {
                 nextId = (int)TeamIdType.Home;
             }
+            CurrentStage.GetTurnTeamInfo().ClearMoveEndUnitIds();
             // ターンチームを変更
             CurrentStage.TurnTeamId.SetValue(nextId);
             // 行動ポイントを初期化
             var nextTeam = CurrentStage.GetTurnTeamInfo();
-            // 拠点数
-            var actPoint = CurrentStage.FieldHexList.FindAll(a => a.IsBasementUnit() && a.IsFriend(nextTeam.TeamId.Value));
-            nextTeam.ActPoint.SetValue(actPoint.Count);
-            nextTeam.CurrentActPoint.SetValue(nextTeam.ActPoint.Value);
+            if (nextTeam.TeamId.Value == (int)TeamIdType.Home)
+            {
+                // 拠点数
+                var actPoint = CurrentStage.FieldHexList.FindAll(a => a.IsBasementUnit() && a.IsFriend(nextTeam.TeamId.Value));
+                nextTeam.ActPoint.SetValue(actPoint.Count);
+                nextTeam.CurrentActPoint.SetValue(nextTeam.ActPoint.Value);
+            } else
+            {
+                // 敵部隊数
+                var actPoint = nextTeam.UnitInfos.FindAll(a => a.IsUnit && a.IsFriend(nextTeam.TeamId.Value) && !a.IsLostUnit());
+                nextTeam.ActPoint.SetValue(actPoint.Count);
+                nextTeam.CurrentActPoint.SetValue(nextTeam.ActPoint.Value);
+            }
             CurrentStage.TurnCount.GainValue(1);
         }
 
@@ -177,7 +187,8 @@ namespace Ryneus
                 return;
             }
             var departureHex = hexUnits.Find(a => a.IsBasementUnit());
-            _reachAreas = _hexRoute.GetReachableArea(MoveType.Normal,departureHex.HexField,1,false);
+            var move = _departureUnitInfo.BattlerInfos[0].CurrentMov();
+            _reachAreas = _hexRoute.GetReachableArea(MoveType.Normal,departureHex.HexField,move,false);
             var depaterIndex = 1000;
             foreach (var path in _reachAreas)
             {
@@ -206,7 +217,7 @@ namespace Ryneus
                 return;
             }
             SelectingHexUnitId.SetValue(moveBattlerHex.Index.Value);
-            _reachAreas = _hexRoute.GetReachableArea(MoveType.Normal,moveBattlerHex.HexField,2,false);
+            _reachAreas = _hexRoute.GetReachableArea(MoveType.Normal,moveBattlerHex.HexField,moveBattlerHex.UnitInfo.BattlerInfos[0].CurrentMov(),false);
             var moveBattlerIndex = 1000;
             foreach (var path in _reachAreas)
             {
@@ -343,6 +354,7 @@ namespace Ryneus
             var moveBattler = CurrentStage.OnFieldTurnUnitInfos()?.Find(a => a.Index.Value == SelectingHexUnitId.Value && a.IsUnit);
             if (moveBattler != null)
             {
+                CurrentStage.GetTurnTeamInfo().AddMoveEndUnitId(moveBattler.Id.Value);
                 // AIは単体の思考ルーチンに従う
                 if (CurrentStage.TurnTeamId.Value != (int)TeamIdType.Home)
                 {

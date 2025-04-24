@@ -44,7 +44,8 @@ namespace Ryneus
                     awayTeam.AddUnitInfos(unitInfo);
                 }
             }
-            var awayActPoint = unitInfos.FindAll(a => a.IsBasementUnit() && a.IsFriend(awayTeam.TeamId.Value));
+            // 敵は敵部隊数分1回ずつ行動可能
+            var awayActPoint = unitInfos.FindAll(a => a.IsUnit && a.IsFriend(awayTeam.TeamId.Value));
             awayTeam.ActPoint.SetValue(awayActPoint.Count);
             awayTeam.CurrentActPoint.SetValue(awayActPoint.Count);
             stageInfo.AddTeamInfo(awayTeam);

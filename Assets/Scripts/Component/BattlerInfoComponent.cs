@@ -24,7 +24,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI evaluate;
         [SerializeField] private Image additiveFaceThumb;
         [SerializeField] private Material grayScale;
-        
+
         private BattlerInfo _battlerInfo = null;
 
         private List<BattleDamage> _battleDamages = new ();

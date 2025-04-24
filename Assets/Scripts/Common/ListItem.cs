@@ -50,8 +50,8 @@ namespace Ryneus
             {
                 cursorRectAnimation.SelectAnimation();
             }
-        }        
-        
+        } 
+
         public T ListItemData<T>()
         {
             return (T)ListData.Data;
@@ -59,8 +59,12 @@ namespace Ryneus
 
         public void SetSelect()
         {
-            if (cursor == null) return;
+            if (cursor == null)
+            {
+                return;
+            }
             //if (disable != null && disable.activeSelf) return;
+
             cursor.SetActive(true);
             foreach (var text in textUguiList)
             {
@@ -71,7 +75,7 @@ namespace Ryneus
                 image.color = selectColor;
             }
         }
-        
+
         public void SetUnSelect()
         {
             if (cursor == null) return;
@@ -85,7 +89,7 @@ namespace Ryneus
                 image.color = unSelectColor;
             }
         }
-        
+
         public void SetSelectHandler(Action<int> handler,Action exitAction = null)
         {
             if (clickButton == null || _addListenHandler)
@@ -107,7 +111,7 @@ namespace Ryneus
         }
 
         public void SetCallHandler(Action handler)
-        {        
+        {
             if (clickButton == null || _addListenHandler)
             {
                 return;

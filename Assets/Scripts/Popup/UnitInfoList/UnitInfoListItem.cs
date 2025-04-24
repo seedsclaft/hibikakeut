@@ -29,7 +29,14 @@ namespace Ryneus
             component.UpdateInfo(data);
             battlerList.Initialize();
             battlerList.SetData(ListData.MakeListData(data.BattlerInfos));
-            battlerList.Activate();
+            if (detailButton != null)
+            {
+                detailButton.gameObject.SetActive(data.BattlerInfos.Find(a => a.ActorInfo != null) != null);
+            }
+            if (Disable != null)
+            {
+                Disable.SetActive(!ListData.Enable);
+            }
         }
 
         public void SetDecideBattlerEvent(Action decideEvent,Action rightEvent,Action statusEvent)
@@ -76,9 +83,15 @@ namespace Ryneus
             battlerList.UnselectAll();
         }
 
-        public void ListDeactivate()
+        public void SetBattlerListActivate(bool activate)
         {
-            battlerList.Deactivate();
+            if (activate)
+            {
+                battlerList.Activate();
+            } else
+            {
+                battlerList.Deactivate();
+            }
         }
     }
 }

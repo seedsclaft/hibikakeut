@@ -84,16 +84,18 @@ namespace Ryneus
 						int InitAtk = AssetPostImporter.ImportNumeric(BaseRow,"InitAtk");
 						int InitSpd = AssetPostImporter.ImportNumeric(BaseRow,"InitSpd");
 						int InitDef = AssetPostImporter.ImportNumeric(BaseRow,"InitDef");
+						int InitMov = AssetPostImporter.ImportNumeric(BaseRow,"InitMov");
 						ActorData.InitStatus = new StatusInfo();
-						ActorData.InitStatus.SetParameter(InitHp,InitMp,InitAtk,InitDef,InitSpd);
+						ActorData.InitStatus.SetParameter(InitHp,InitMp,InitAtk,InitDef,InitSpd,InitMov);
 
 						int NeedHp = AssetPostImporter.ImportNumeric(BaseRow,"GrowthHp");
 						int NeedMp = AssetPostImporter.ImportNumeric(BaseRow,"GrowthMp");
 						int NeedAtk = AssetPostImporter.ImportNumeric(BaseRow,"GrowthAtk");
 						int NeedSpd = AssetPostImporter.ImportNumeric(BaseRow,"GrowthSpd");
 						int NeedDef = AssetPostImporter.ImportNumeric(BaseRow,"GrowthDef");
+						int NeedMov = AssetPostImporter.ImportNumeric(BaseRow,"GrowthMov");
 						ActorData.NeedStatus = new StatusInfo();
-						ActorData.NeedStatus.SetParameter(NeedHp,NeedMp,NeedAtk,NeedDef,NeedSpd);
+						ActorData.NeedStatus.SetParameter(NeedHp,NeedMp,NeedAtk,NeedDef,NeedSpd,NeedMov);
 
 						int Element1 = AssetPostImporter.ImportNumeric(BaseRow,"Element1");
 						int Element2 = AssetPostImporter.ImportNumeric(BaseRow,"Element2");

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 
 namespace Ryneus
 {
@@ -12,6 +13,33 @@ namespace Ryneus
         public void SetSelectingBattlerInfo(BattlerInfo selectingBattlerInfo)
         {
             _selectingBattlerInfo = selectingBattlerInfo;
+        }
+        public bool CheckSelectingBattlerInfo()
+        {
+            var busyIndexes = new List<int>();
+            foreach (var unitInfo in CurrentStage.GetTurnTeamInfo().UnitInfos)
+            {
+                busyIndexes.Add(unitInfo.Index.Value);
+            }
+            var selectUnit = _unitInfos.Find(a => a.BattlerInfos.Contains(_selectingBattlerInfo));
+            return busyIndexes.Contains(selectUnit.Index.Value);
+        }
+
+        public List<ActorInfo> EditEnableActorInfos()
+        {
+            var list = new List<ActorInfo>();
+            var busyActorIndexes = new List<int>();
+            foreach (var unitInfo in CurrentStage.GetTurnTeamInfo().UnitInfos)
+            {
+                foreach (var battlerInfo in unitInfo.UnitInfo.BattlerInfos)
+                {
+                    if (battlerInfo.Index.Value > 0)
+                    {
+                        busyActorIndexes.Add(battlerInfo.ActorInfo.ActorId.Value);
+                    }
+                }
+            }
+            return StageMembers().FindAll(a => !busyActorIndexes.Contains(a.ActorId.Value));
         }
 
         public void SwapUnitInfos(int actorId)

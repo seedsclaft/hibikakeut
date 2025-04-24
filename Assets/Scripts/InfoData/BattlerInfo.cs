@@ -14,7 +14,7 @@ namespace Ryneus
         public StatusInfo CurrentStatus(bool isNoEffect)
         {
             var currentStatus = new StatusInfo();
-            currentStatus.SetParameter(MaxHp,MaxMp,CurrentAtk(isNoEffect),CurrentDef(isNoEffect),CurrentSpd(isNoEffect));
+            currentStatus.SetParameter(MaxHp,MaxMp,CurrentAtk(isNoEffect),CurrentDef(isNoEffect),CurrentSpd(isNoEffect),CurrentMov(isNoEffect));
             return currentStatus;
         }
         public ParameterInt Index = new();
@@ -115,7 +115,8 @@ namespace Ryneus
                 actorInfo.CurrentParameter(StatusParamType.Mp),
                 actorInfo.CurrentParameter(StatusParamType.Atk),
                 actorInfo.CurrentParameter(StatusParamType.Def),
-                actorInfo.CurrentParameter(StatusParamType.Spd)
+                actorInfo.CurrentParameter(StatusParamType.Spd),
+                actorInfo.CurrentParameter(StatusParamType.Mov)
             );
             _status = statusInfo;
             Index.SetValue(index);
@@ -186,7 +187,8 @@ namespace Ryneus
                 Math.Min(50, (int)(enemyData.BaseStatus.Mp + (Level.Value * enemyData.MpGrowth * 0.01f))),
                 (int)(enemyData.BaseStatus.Atk + (Level.Value * enemyData.AtkGrowth * 0.01f)),
                 (int)(enemyData.BaseStatus.Def + (Level.Value * enemyData.DefGrowth * 0.01f)),
-                Math.Min(100, (int)(enemyData.BaseStatus.Spd + (Level.Value * enemyData.SpdGrowth * 0.01f)))
+                Math.Min(100, (int)(enemyData.BaseStatus.Spd + (Level.Value * enemyData.SpdGrowth * 0.01f))),
+                enemyData.MovGrouth
             );
             _demigodParam = Level.Value / 2;
             _status = statusInfo;
@@ -275,6 +277,7 @@ namespace Ryneus
             var statusInfo = new StatusInfo();
             statusInfo.SetParameter(
                 1,
+                0,
                 0,
                 0,
                 0,
@@ -876,6 +879,11 @@ namespace Ryneus
                 }
             }
             return spd;
+        }
+
+        public int CurrentMov(bool isNoEffect = false)
+        {
+            return Status.Mov;
         }
 
         public int CurrentHit()

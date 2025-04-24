@@ -51,9 +51,9 @@ namespace Ryneus
             SetInputHandler(unitInfoList.gameObject);
         }
 
-        public void SetUnitInfoList(List<ListData> unitInfoLists)
+        public void SetUnitInfoList(List<ListData> unitInfoLists,bool battlerListActivate)
         {
-            unitInfoList.SetData(unitInfoLists,false,() => 
+            unitInfoList.SetData(unitInfoLists,false,() =>
             {
                 var unitInfoItems = unitInfoList.GetComponentsInChildren<UnitInfoListItem>();
                 foreach (var unitInfoItem in unitInfoItems)
@@ -63,22 +63,23 @@ namespace Ryneus
                         () => CallViewEvent(CommandType.SelectUnitInfo),
                         CallStatus
                     );
+                    unitInfoItem.SetBattlerListActivate(battlerListActivate);
                     unitInfoItem.SetBattlerSelectIndex(-1);
                 }
-                unitInfoItems[0].SetBattlerSelectIndex(0);
+                //unitInfoItems[0].SetBattlerSelectIndex(0);
             });
-            unitInfoList.Activate();
+            //unitInfoList.Activate();
         }
 
         public void SetDepatureUnitInfoList(List<ListData> unitInfoLists)
         {
-            unitInfoList.SetData(unitInfoLists,false,() => 
+            unitInfoList.SetData(unitInfoLists,false,() =>
             {
                 var unitInfoItems = unitInfoList.GetComponentsInChildren<UnitInfoListItem>();
                 foreach (var unitInfoItem in unitInfoItems)
                 {
                     unitInfoItem.UnselectAll();
-                    unitInfoItem.ListDeactivate();
+                    unitInfoItem.SetBattlerListActivate(false);
                     unitInfoItem.SetDecideBattlerEvent(
                         () => {},
                         () => {},
@@ -86,7 +87,16 @@ namespace Ryneus
                     );
                 }
             });
-            unitInfoList.Activate();
+            //unitInfoList.Activate();
+        }
+
+        public void SetActiveUnitInfoList()
+        {
+            var unitInfoItems = unitInfoList.GetComponentsInChildren<UnitInfoListItem>();
+            foreach (var unitInfoItem in unitInfoItems)
+            {
+                unitInfoItem.SetBattlerListActivate(true);
+            }
         }
 
         public void UnselectAll()

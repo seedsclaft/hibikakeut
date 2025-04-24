@@ -100,7 +100,8 @@ namespace Ryneus
                 baseActorInfo._plusStatus.GetParameter(StatusParamType.Mp),
                 baseActorInfo._plusStatus.GetParameter(StatusParamType.Atk),
                 baseActorInfo._plusStatus.GetParameter(StatusParamType.Def),
-                baseActorInfo._plusStatus.GetParameter(StatusParamType.Spd)
+                baseActorInfo._plusStatus.GetParameter(StatusParamType.Spd),
+                baseActorInfo._plusStatus.GetParameter(StatusParamType.Mov)
             );
             _lastSelectSkillId = baseActorInfo.LastSelectSkillId;
             CurrentHp.SetValue(baseActorInfo.CurrentHp.Value);
@@ -112,7 +113,7 @@ namespace Ryneus
 
         private void SetInitialParameter(ActorData actorData)
         {
-            _plusStatus.SetParameter(actorData.PlusStatus.Hp,actorData.PlusStatus.Mp,actorData.PlusStatus.Atk,actorData.PlusStatus.Def,actorData.PlusStatus.Spd);
+            _plusStatus.SetParameter(actorData.PlusStatus.Hp,actorData.PlusStatus.Mp,actorData.PlusStatus.Atk,actorData.PlusStatus.Def,actorData.PlusStatus.Spd,actorData.PlusStatus.Mov);
         }
 
         private void InitSkillInfo()
@@ -260,12 +261,14 @@ namespace Ryneus
                 statusInfo.AddParameter(StatusParamType.Atk,Master.InitStatus.Atk);
                 statusInfo.AddParameter(StatusParamType.Def,Master.InitStatus.Def);
                 statusInfo.AddParameter(StatusParamType.Spd,Master.InitStatus.Spd);
+                statusInfo.AddParameter(StatusParamType.Mov,Master.InitStatus.Mov);
 
                 statusInfo.AddParameter(StatusParamType.Hp,LevelGrowthRate(StatusParamType.Hp,level)); 
                 statusInfo.AddParameter(StatusParamType.Mp,LevelGrowthRate(StatusParamType.Mp,level));  
                 statusInfo.AddParameter(StatusParamType.Atk,LevelGrowthRate(StatusParamType.Atk,level));  
                 statusInfo.AddParameter(StatusParamType.Def,LevelGrowthRate(StatusParamType.Def,level));  
                 statusInfo.AddParameter(StatusParamType.Spd,LevelGrowthRate(StatusParamType.Spd,level));     
+                statusInfo.AddParameter(StatusParamType.Mov,LevelGrowthRate(StatusParamType.Mov,level));     
             }
             return statusInfo;
         }

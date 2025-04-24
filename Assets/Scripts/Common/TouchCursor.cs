@@ -12,7 +12,7 @@ namespace Ryneus
         [SerializeField] private ParticleSystem particle = null;
         [SerializeField] private Image circle = null;
 
-        private void Update() 
+        private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -26,7 +26,7 @@ namespace Ryneus
             Vector3 target = Camera.main.ScreenToWorldPoint(pos);
             pos.x = target.x;
             pos.y = target.y;
-            pos.z = 10f; 
+            pos.z = 10f;
                 
             touchCursorRect.transform.position = pos;
             gameObject.SetActive(false);

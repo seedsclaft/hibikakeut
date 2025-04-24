@@ -13,6 +13,17 @@ namespace Ryneus
         // 出撃前ユニット
         private List<HexUnitInfo> _depatuerInfos = new();
         public List<HexUnitInfo> DepatuerInfos => _depatuerInfos;
+        // ターン内で行動したユニットId
+        private List<int> _moveEndUnitIds = new();
+        public void AddMoveEndUnitId(int id)
+        {
+            _moveEndUnitIds.Add(id);
+        }
+        public void ClearMoveEndUnitIds()
+        {
+            _moveEndUnitIds.Clear();
+        }
+
         public void SetDepatuerInfos(List<UnitInfo> unitInfos)
         {
             var depatuerInfos = new List<HexUnitInfo>();
@@ -30,14 +41,17 @@ namespace Ryneus
             }
             _depatuerInfos = depatuerInfos;
         }
+
         public List<HexUnitInfo> GetOnFieldUnitInfos(int x,int y)
         {
             return _unitInfos.FindAll(a => a.OnField(x,y));
         }
+
         public void AddUnitInfos(HexUnitInfo unitInfo)
         {
             _unitInfos.Add(unitInfo);
         }
+
         public void RemoveUnitInfos(HexUnitInfo unitInfo)
         {
             if (_unitInfos.Contains(unitInfo))
@@ -46,7 +60,6 @@ namespace Ryneus
             }
         }
 
-        
         public List<HexUnitInfo> LostUnitInfos()
         {
             var list = new List<HexUnitInfo>();
@@ -93,9 +106,19 @@ namespace Ryneus
         /// <returns></returns>
         public HexUnitInfo GetMoveBattlerUnit()
         {
-            if (_unitInfos.Count > 0)
+            if (TeamId.Value != (int)TeamIdType.Home)
             {
-                return _unitInfos[0];
+                var list = _unitInfos.FindAll(a => !_moveEndUnitIds.Contains(a.Id.Value));
+                if (list.Count > 0)
+                {
+                    return list[0];
+                }
+            } else
+            {
+                if (_unitInfos.Count > 0)
+                {
+                    return _unitInfos[0];
+                }
             }
             return null;
         }

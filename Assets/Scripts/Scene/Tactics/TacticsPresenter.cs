@@ -394,6 +394,7 @@ namespace Ryneus
             } else
             {
                 _view.EndTacticsCommand();
+                _view.RefreshCurrentMouseSelect();
                 // 座標をチームの最終選択に戻す
                 var lastHexX = _model.CurrentStage.GetTurnTeamInfo().LastSelectHexX.Value;
                 var lastHexY = _model.CurrentStage.GetTurnTeamInfo().LastSelectHexY.Value;
@@ -468,6 +469,7 @@ namespace Ryneus
                     break;
             }
             _view.EndTacticsCommand();
+            _view.RefreshCurrentMouseSelect();
         }
 
         private void CommandDeparture()
@@ -512,7 +514,6 @@ namespace Ryneus
 
         private void CommandMoveBattler()
         {
-            _view.EndTacticsCommand();
             _model.ClearMoveReachAreas();
             _model.MakeMoveBattlerHex();
             _view.RefreshTiles(_model.CurrentStage.FieldX.Value,_model.CurrentStage.FieldY.Value);
@@ -526,6 +527,7 @@ namespace Ryneus
                 _view.UpdateTileItems();
                 _view.SelectMoveBattler(actions,moveBattler);
             }
+            _view.EndTacticsCommand();
         }
 
         private void CommandWait()
@@ -1115,7 +1117,7 @@ namespace Ryneus
             {
                 _model.ClearMoveReachAreas();
                 _model.SetFieldXY(hexField.X,hexField.Y);
-                if (_model.OnFieldInfos.Count > 0)
+                if (_model.CurrentStage.AllUnitInfos(false).FindAll(a => a.IsUnit && !a.IsLostUnit()).Count > 0)
                 {
                     // 移動と攻撃範囲を表示
                     var battlerUnit = _model.MakeBattlerActHex();
@@ -1126,6 +1128,7 @@ namespace Ryneus
                 }
                 var fieldUnit = _model.OnFieldInfos.Find(a => !a.IsUnit);
                 _view.ShowFieldStatus(fieldUnit);
+                _view.UpdateTileItems();
             }
         }
 

@@ -7,21 +7,24 @@ namespace Ryneus
     {
         public ParameterFloat _hp = new();
         public int Hp => (int)Math.Ceiling(_hp.Value);
-        public ParameterFloat _mp= new();
+        public ParameterFloat _mp = new();
         public int Mp => (int)Math.Ceiling(_mp.Value);
-        public ParameterFloat _atk= new();
+        public ParameterFloat _atk = new();
         public int Atk => (int)Math.Ceiling(_atk.Value);
-        public ParameterFloat _def= new();
+        public ParameterFloat _def = new();
         public int Def => (int)Math.Ceiling(_def.Value);
         public ParameterFloat _spd = new();
         public int Spd => (int)Math.Ceiling(_spd.Value);
-        public void SetParameter(int hp,int mp,int atk,int def,int spd)
+        public ParameterFloat _mov = new();
+        public int Mov => (int)Math.Ceiling(_mov.Value);
+        public void SetParameter(int hp,int mp,int atk,int def,int spd,int mov)
         {
             _hp.SetValue(hp);
             _mp.SetValue(mp);
             _atk.SetValue(atk);
             _def.SetValue(def);
             _spd.SetValue(spd);
+            _mov.SetValue(mov);
         }
 
         public int GetParameter(StatusParamType paramType)
@@ -33,10 +36,11 @@ namespace Ryneus
                 StatusParamType.Atk => Atk,
                 StatusParamType.Def => Def,
                 StatusParamType.Spd => Spd,
+                StatusParamType.Mov => Mov,
                 _ => 0,
             };
         }
-        
+
         public void AddParameter(StatusParamType paramType,float param)
         {
             switch (paramType)
@@ -46,6 +50,7 @@ namespace Ryneus
                 case StatusParamType.Atk: _atk.GainValue(param); break;
                 case StatusParamType.Def: _def.GainValue(param); break;
                 case StatusParamType.Spd: _spd.GainValue(param); break;
+                case StatusParamType.Mov: _mov.GainValue(param); break;
             }
         }
 
@@ -56,11 +61,12 @@ namespace Ryneus
             _atk.SetValue(param);
             _def.SetValue(param);
             _spd.SetValue(param);
+            _mov.SetValue(param);
         }
 
         public void Clear()
         {
-            SetParameter(0,0,0,0,0);
+            SetParameter(0,0,0,0,0,0);
         }
     }
 
@@ -71,5 +77,6 @@ namespace Ryneus
         Atk,
         Def,
         Spd,
+        Mov
     }
 }

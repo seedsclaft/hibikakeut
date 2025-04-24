@@ -23,6 +23,7 @@ namespace Ryneus
         public int AtkGrowth;
         public int DefGrowth;
         public int SpdGrowth;
+        public int MovGrouth;
         public List<LearningData> LearningSkills = new();
         public List<SkillTriggerActorData> SkillTriggerDates = new();
         

@@ -9,13 +9,13 @@ namespace Ryneus
 {
     public class BaseList : ListWindow , IInputHandlerEvent
     {
-        [SerializeField] private bool beforeSelect = true; 
+        [SerializeField] private bool beforeSelect = true;
         private bool _isInit = false;
         public bool IsInit => _isInit;
         private int _beforeSelectIndex = -1;
-        public ListData ListData 
-        { 
-            get 
+        public ListData ListData
+        {
+            get
             {
                 if (Index > -1 && ListDates.Count > Index)
                 {
@@ -86,7 +86,8 @@ namespace Ryneus
             SetListData(listData);
             Refresh(Index);
         }
-/*
+
+        /*
         private void InitializeRefresh(int selectIndex)
         {
             UpdateItemPrefab(selectIndex);
@@ -94,7 +95,8 @@ namespace Ryneus
             UpdateSelectIndex(selectIndex);
             _beforeSelectIndex = selectIndex;
         }
-*/
+        */
+
         private void SetListCallHandler()
         {
             for (int i = 0; i < ItemPrefabList.Count;i++)
@@ -103,7 +105,7 @@ namespace Ryneus
                 {
                     var listItem = ItemPrefabList[i].GetComponent<ListItem>();
                     listItem.SetCallHandler(CallListInputHandlerDecide);
-                    listItem.SetSelectHandler((index) => 
+                    listItem.SetSelectHandler((index) =>
                     {
                         if (Active)
                         {
@@ -123,7 +125,7 @@ namespace Ryneus
 
         private void CallListInputHandlerDecide()
         {
-    #if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
             if (beforeSelect)
             {
                 if (Index != _beforeSelectIndex)
@@ -132,11 +134,11 @@ namespace Ryneus
                     return;
                 }
             }
-    #endif
+#endif
             CallListInputHandler(InputKeyType.Decide);
         }
 
-/*
+        /*
         public void RefreshListData(ListData listData)
         {
             var findIndex = ListDates.FindIndex(a => a.Index == listData.Index);
@@ -145,7 +147,7 @@ namespace Ryneus
                 ListDates[findIndex] = listData;
             }
         }
-*/
+        */
 
         public void SetDisableIds(List<int> disableIds)
         {

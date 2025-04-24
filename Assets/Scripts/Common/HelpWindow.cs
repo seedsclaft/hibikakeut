@@ -17,7 +17,7 @@ namespace Ryneus
         [SerializeField] private GameObject inputRoot;
         [SerializeField] private CanvasGroup inputCanvasGroup;
 
-        private List<GameObject> _inputPrefabs = new ();
+        private List<GameObject> _inputPrefabs = new();
         private CancellationTokenSource _cancellationTokenSource;
 
         private string _lastKey = "";

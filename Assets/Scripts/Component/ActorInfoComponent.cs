@@ -29,7 +29,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI sp;
         [SerializeField] private StatusInfoComponent statusInfoComponent;
         [SerializeField] private StatusInfoComponent needStatusInfoComponent;
-        
+
         [SerializeField] private TextMeshProUGUI element1;
         [SerializeField] private TextMeshProUGUI element2;
         [SerializeField] private TextMeshProUGUI element3;
@@ -58,7 +58,7 @@ namespace Ryneus
                 return;
             }
             var actorData = actorInfo.Master;
-            
+
             UpdateData(actorData);
             if (mainThumb != null)
             {
@@ -117,7 +117,7 @@ namespace Ryneus
             element4Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Shine,actorInfos).ToString());
             element5Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Dark,actorInfos).ToString());
             element6Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Void,actorInfos).ToString());
-            
+
             recoveryCost?.SetText(TacticsUtility.RemainRecoveryCost(actorInfo,true).ToString());
             resourceGain?.SetText(TacticsUtility.ResourceGain(actorInfo).ToString());
             evaluate?.SetText(actorInfo.Evaluate().ToString());
@@ -196,7 +196,7 @@ namespace Ryneus
         }
 
         private void UpdateMainFaceThumb(string imagePath)
-        {   
+        {
             if (faceThumb == null)
             {
                 return;
@@ -220,7 +220,7 @@ namespace Ryneus
             var textId = 2000 + (int)param;
             textMeshProUGUI?.SetText(DataSystem.GetText(textId));
         }
-        
+
         public void SetAwakeMode(bool IsAwaken)
         {
             if (faceThumb != null && awakenFaceThumb != null)

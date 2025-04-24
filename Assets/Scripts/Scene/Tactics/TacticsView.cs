@@ -87,6 +87,10 @@ namespace Ryneus
         {
             tacticsCommandList.gameObject.SetActive(false);
             SetActivate(hexTiles);
+        }
+
+        public void RefreshCurrentMouseSelect()
+        {
             hexTiles.RefreshCurrentMouseSelect();
         }
 

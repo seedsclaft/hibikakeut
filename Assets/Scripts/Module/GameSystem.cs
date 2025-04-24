@@ -294,8 +294,13 @@ namespace Ryneus
             baseView.Initialize();
             baseView.SetBackEvent(() =>
             {
+                var endPopupInfo = _sceneStackManager.LastPopupInfo;
                 baseView.CallSystemCommand(Base.CommandType.ClosePopup);
-                popupInfo.EndEvent?.Invoke();
+                if (endPopupInfo != null)
+                {
+                    endPopupInfo.EndEvent?.Invoke();
+                    _sceneStackManager.RemovePopupInfo(endPopupInfo);
+                }
             });
             if (popupInfo.PopupType == PopupType.LearnSkill)
             {

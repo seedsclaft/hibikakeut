@@ -50,6 +50,21 @@ namespace Ryneus
             return MakeListData(dataList,new List<int>(){selectIndex});
         }
 
+        public static List<ListData> MakeListData<T>(List<T> dataList,int selectIndex,Func<T,bool> enable)
+        {
+            var list = new List<ListData>();
+            var idx = 0;
+            foreach (var data in dataList)
+            {
+                var listData = new ListData(data,idx);
+                listData.SetEnable(enable(data));
+                listData.SetSelected(selectIndex == idx);
+                list.Add(listData);
+                idx++;
+            }
+            return list;
+        }
+        
         public static List<ListData> MakeListData<T>(List<T> dataList,List<int> selectIndex)
         {
             var list = new List<ListData>();

@@ -30,6 +30,11 @@ namespace Ryneus
             return ListData.MakeListData(dataList,selectIndex);
         }
 
+        public List<ListData> MakeListDataFunc<T>(List<T> dataList,int selectIndex,Func<T,bool> enableFunc)
+        {
+            return ListData.MakeListData(dataList,selectIndex,enableFunc);
+        }
+
         public List<ListData> MakeListData<T>(List<T> dataList,T selected)
         {
             return ListData.MakeListData(dataList,selected);

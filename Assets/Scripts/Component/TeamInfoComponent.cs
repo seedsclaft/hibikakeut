@@ -4,7 +4,7 @@ using TMPro;
 namespace Ryneus
 {
     public class TeamInfoComponent : MonoBehaviour
-    {        
+    {
         [SerializeField] private TextMeshProUGUI actPointTotal;
         [SerializeField] private TextMeshProUGUI actPoint;
         public void UpdateInfo(TeamInfo teamInfo)

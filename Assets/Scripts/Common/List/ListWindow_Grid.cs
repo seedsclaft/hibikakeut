@@ -15,13 +15,10 @@ namespace Ryneus
             _gridColumnCount = columnCount;
             GetComponentInChildren<GridLayoutGroup>().constraintCount = columnCount;
         }
+
         public int GridColumnCount()
         {
-            if (_grid)
-            {
-                return _gridColumnCount;
-            }
-            return 1;
+            return _grid ? _gridColumnCount : 1;
         }
 
         public int GetVerticalCount()
@@ -44,7 +41,7 @@ namespace Ryneus
         {
             return _objectList.Count / _gridColumnCount;
         }
-        
+
         private void UpdateGridScrollRect(List<InputKeyType> keyTypes)
         {
             if (keyTypes.Contains(InputKeyType.Down))

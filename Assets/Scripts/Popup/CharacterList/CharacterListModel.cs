@@ -28,6 +28,22 @@ namespace Ryneus
             return actorInfos;
         }
 
+        public List<int> NoDepatureActorIds()
+        {
+            var busyActorIndexes = new List<int>();
+            foreach (var unitInfo in CurrentStage.GetTurnTeamInfo().UnitInfos)
+            {
+                foreach (var battlerInfo in unitInfo.UnitInfo.BattlerInfos)
+                {
+                    if (battlerInfo.Index.Value > 0)
+                    {
+                        busyActorIndexes.Add(battlerInfo.ActorInfo.ActorId.Value);
+                    }
+                }
+            }
+            return busyActorIndexes;
+        }
+
         public void CallDecideEvent(ActorInfo actorInfo)
         {
             if (actorInfo == null)

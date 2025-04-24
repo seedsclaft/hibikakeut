@@ -41,11 +41,11 @@ namespace Ryneus
             }
             if (selectArea != null)
             {
-                selectArea?.SetActive(_hexUnitInfo.IsSelectArea);
+                selectArea.SetActive(_hexUnitInfo.IsSelectArea);
             }
             if (attackableArea != null)
             {
-                attackableArea?.SetActive(_hexUnitInfo.IsAttackableArea);
+                attackableArea.SetActive(_hexUnitInfo.IsAttackableArea);
             }
             UpdateSymbolImage();
             if (_hexUnitInfo.UnitInfo != null && _hexUnitInfo.UnitInfo.BattlerInfos != null)

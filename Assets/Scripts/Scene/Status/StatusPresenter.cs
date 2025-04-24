@@ -27,7 +27,7 @@ namespace Ryneus
             _view.SetActiveArrows(_model.ActorInfos.Count > 1);
             CommandRefresh();
             ResetSelectSkill();
-            _view.OpenAnimation(() => 
+            _view.OpenAnimation(() =>
             {
                 CheckTutorialState();
             });
@@ -223,7 +223,7 @@ namespace Ryneus
 
         private void CommandLearnMagic(SkillInfo skillInfo)
         {
-            CommandLearnMagic(_model.CurrentActor,skillInfo,() => 
+            CommandLearnMagic(_model.CurrentActor,skillInfo,() =>
             {
                 _view.CommandRefresh();
                 CommandShowLearnMagic();

@@ -15,6 +15,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI atk;
         [SerializeField] private TextMeshProUGUI def;
         [SerializeField] private TextMeshProUGUI spd;
+        [SerializeField] private TextMeshProUGUI mov;
 
         [SerializeField] private StatusGaugeAnimation hpGaugeAnimation;
         [SerializeField] private StatusGaugeAnimation mpGaugeAnimation;
@@ -59,6 +60,14 @@ namespace Ryneus
                 if (baseStatus != null)
                 {
                     ChangeTextColor(spd,statusInfo.Spd,baseStatus.Spd);
+                }
+            }
+            if (mov != null)
+            {
+                mov?.SetText(statusInfo.Mov.ToString());
+                if (baseStatus != null)
+                {
+                    ChangeTextColor(mov,statusInfo.Mov,baseStatus.Mov);
                 }
             }
             if (hpCaption != null)

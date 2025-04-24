@@ -17,7 +17,10 @@ namespace Ryneus
         private List<HexUnitInfo> _lastHexUnitInfos = new();
         public void UpdateViewItem()
         {
-            if (ListData == null) return;
+            if (ListData == null)
+            {
+                return;
+            }
             var hexPosition = ListItemData<HexField>();
             var halfsize = hexPosition.X % 2 == 1 ? -48 : 0;
             layoutRect.localPosition = new Vector2(0,halfsize);

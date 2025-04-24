@@ -23,20 +23,31 @@ namespace Ryneus
         private void Initialize()
         {
             _view.SetEvent((type) => UpdateCommand(type));
-            //_view.SetHelpInputInfo("CHARACTER_LIST");
+            UpdateUnitInfoList(false);
+            _view.OpenAnimation();
+        }
+
+        private void UpdateUnitInfoList(bool battlerListActivate)
+        {
+            Func<UnitInfo,bool> enable = (unitInfo) =>
+            {
+                // 既に出撃中か
+                return _model.CurrentStage.GetTurnTeamInfo().UnitInfos.Find(a => a.UnitInfo.Index.Value == unitInfo.Index.Value) == null;
+            };
+            var list = MakeListDataFunc<UnitInfo>(_model.GetUnitInfos(),0,enable);
             if (_model.IsEdit)
             {
-                _view.SetUnitInfoList(MakeListData(_model.GetUnitInfos(),0));
+                _view.SetUnitInfoList(list,battlerListActivate);
             } else
             {
-                _view.SetDepatureUnitInfoList(MakeListData(_model.GetUnitInfos(),0));
+                _view.SetDepatureUnitInfoList(list);
             }
-            _view.OpenAnimation();
         }
 
         private void CommandEndOpenAnimation()
         {
             CheckTutorialState();
+            _view.SetActiveUnitInfoList();
             _busy = false;
         }
 
@@ -84,21 +95,28 @@ namespace Ryneus
         {
             if (_model.IsEdit)
             {
+                // 既に出撃中であれば
+                if (_model.CheckSelectingBattlerInfo())
+                {
+                    SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                    CommandCautionInfo("既に出撃中の部隊です");
+                    return;
+                }
                 _busy = true;
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                var characterListInfo = new CharacterListInfo((int actorId) => 
-                {    
+                var characterListInfo = new CharacterListInfo((int actorId) =>
+                {
                     _model.SwapUnitInfos(actorId);
-                    _view.SetUnitInfoList(MakeListData(_model.GetUnitInfos(),0));
-            
+                    UpdateUnitInfoList(true);
+
                     _busy = false;
                 },
-                () => 
+                () =>
                 {
                     _busy = false;
                 });
                 characterListInfo.SetActorInfos(_model.StageMembers());
-                
+
                 var popupInfo = new PopupInfo
                 {
                     PopupType = PopupType.CharacterList,
@@ -112,6 +130,13 @@ namespace Ryneus
             } else
             {
                 var select = _view.SelectUnitInfoList;
+                // 既に出撃中であれば
+                if (_model.CurrentStage.GetTurnTeamInfo().UnitInfos.Find(a => a.UnitInfo.Index.Value == select.Index.Value) != null)
+                {
+                    SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                    CommandCautionInfo("既に出撃中の部隊です");
+                    return;
+                }
                 if (select != null)
                 {
                     _model.CallDecideEvent(select);

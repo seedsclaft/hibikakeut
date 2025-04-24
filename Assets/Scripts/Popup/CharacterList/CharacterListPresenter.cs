@@ -24,7 +24,12 @@ namespace Ryneus
         {
             _view.SetEvent((type) => UpdateCommand(type));
             _view.SetHelpInputInfo("CHARACTER_LIST");
-            _view.SetCharacterList(MakeListData(_model.GetActorInfos()));
+            Func<ActorInfo,bool> enable = (actorInfo) =>
+            {
+                // 既に出撃中か
+                return !_model.NoDepatureActorIds().Contains(actorInfo.ActorId.Value);
+            };
+            _view.SetCharacterList(MakeListDataFunc<ActorInfo>(_model.GetActorInfos(),0,enable));
             _view.OpenAnimation();
         }
 
@@ -60,6 +65,13 @@ namespace Ryneus
 
         private void CommandDecideActor(ActorInfo actorInfo)
         {
+            // 既に出撃中であれば
+            if (_model.NoDepatureActorIds().Contains(actorInfo.ActorId.Value))
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                CommandCautionInfo("出撃中の仲間は編成できません");
+                return;
+            }
             _view.BackEvent();
             _model.CallDecideEvent(actorInfo);
         }

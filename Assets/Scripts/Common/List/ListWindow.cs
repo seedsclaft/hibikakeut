@@ -13,7 +13,7 @@ namespace Ryneus
 
         private int _index = 0;
         public int Index => _index;
-        private List<int> _selectIndexes = new ();
+        private List<int> _selectIndexes = new();
         public List<int> SelectIndexes => _selectIndexes;
         public void SetSelectIndexes(List<int> selectIndexes)
         {
@@ -45,11 +45,11 @@ namespace Ryneus
         private int _lastStartIndexX = -1;
         private int _lastStartIndexY = -1;
         private LinkedList<IListViewItem> _itemList = new();
-        private List<GameObject> _objectList = new ();
+        private List<GameObject> _objectList = new();
         public List<GameObject> ObjectList => _objectList;
 
         private Action<List<InputKeyType>> _inputCallHandler = null;
-        private Dictionary<InputKeyType, Action> _inputHandler = new ();
+        private Dictionary<InputKeyType, Action> _inputHandler = new();
 
         private Action _selectedHandler = null;
 
@@ -68,7 +68,7 @@ namespace Ryneus
             ResetInputFrame(1);
             _active = true;
         }
-        
+
         public void Deactivate()
         {
             _active = false;
@@ -266,7 +266,7 @@ namespace Ryneus
                 itemPrefab.SetActive(true);
             }
             if (startIndex > 0 && _objectList.Count > startIndex)
-            {   
+            {
                 var prevIndex = 0;
                 foreach (var prevPrefab in _prevPrefabs)
                 {
@@ -309,7 +309,7 @@ namespace Ryneus
         {
             UpdateItemPrefab();
             UpdateAllItems();
-            
+
             UpdateScrollRect(selectIndex);
         }
 
@@ -343,28 +343,28 @@ namespace Ryneus
         }
 
         public InputKeyType GetPlusKey()
-        {   
-            return (_horizontal == true) ? InputKeyType.Right : InputKeyType.Down;
+        {
+            return _horizontal ? InputKeyType.Right : InputKeyType.Down;
         }
-        
+
         public InputKeyType GetMinusKey()
-        {   
-            return (_horizontal == true) ? InputKeyType.Left : InputKeyType.Up;
+        {
+            return _horizontal ? InputKeyType.Left : InputKeyType.Up;
         }
-        
+
         public InputKeyType GetPageUpKey()
-        {   
-            return (_horizontal == true) ? InputKeyType.Down : InputKeyType.Right;
+        {
+            return _horizontal ? InputKeyType.Down : InputKeyType.Right;
         }
 
         public InputKeyType GetPageDownKey()
-        {   
-            return (_horizontal == true) ? InputKeyType.Up : InputKeyType.Left;
+        {
+            return _horizontal ? InputKeyType.Up : InputKeyType.Left;
         }
 
         public bool InputDir4(List<InputKeyType> keyTypes)
-        {   
-            var findAll = keyTypes.FindAll(a => a == InputKeyType.Up || a == InputKeyType.Down || a == InputKeyType.Left || a == InputKeyType.Right);
+        {
+            var findAll = keyTypes.FindAll(a => a is InputKeyType.Up or InputKeyType.Down or InputKeyType.Left or InputKeyType.Right);
             return findAll.Count > 0;
         }
 
@@ -507,7 +507,7 @@ namespace Ryneus
 
         public bool IsInputEnable()
         {
-            if (this == null) 
+            if (this == null)
             {
                 return false;
             }
@@ -522,7 +522,7 @@ namespace Ryneus
         {
             _inputBusyFrame = plusValue;
         }
-        
+
         public void SetHelpWindow(HelpWindow helpWindow)
         {
             _helpWindow = helpWindow;
@@ -634,10 +634,10 @@ namespace Ryneus
                     }
                 }
             }
-            
+
             selectIndex = nextIndex;
             if (warpMode)
-            {   
+            {
                 if (selectIndex >= _listDates.Count)
                 {
                     selectIndex = 0;
@@ -662,9 +662,15 @@ namespace Ryneus
             UpdateHelpWindow();
             foreach (var objectList in _objectList)
             {
-                if (objectList == null) continue;
+                if (objectList == null) 
+                {
+                    continue;
+                }
                 var listItem = objectList.GetComponentInChildren<ListItem>();
-                if (listItem == null) continue;
+                if (listItem == null)
+                {
+                    continue;
+                }
                 if (_active && (index == listItem.Index || _selectIndexes.Contains(listItem.Index)))
                 {
                     listItem.SetSelect();
@@ -679,12 +685,18 @@ namespace Ryneus
         {
             foreach (var objectList in _objectList)
             {
-                if (objectList == null) continue;
+                if (objectList == null)
+                {
+                    continue;
+                }
                 var listItem = objectList.GetComponentInChildren<ListItem>();
-                if (listItem == null) continue;
+                if (listItem == null)
+                {
+                    continue;
+                }
                 listItem.SetUnSelect();
             }
-            
+
             _index = -1;
         }
 
@@ -692,7 +704,7 @@ namespace Ryneus
         {
             _inputCallHandler = callHandler;
         }
-        
+
         public void SetInputHandler(InputKeyType keyType,Action handler)
         {
             _inputHandler[keyType] = handler;
@@ -718,7 +730,7 @@ namespace Ryneus
                 _inputHandler[keyType]?.Invoke();
             }
         }
-        
+
         private void InputCallEvent(List<InputKeyType> keyTypes)
         {
             if (!IsInputEnable())
@@ -754,7 +766,7 @@ namespace Ryneus
         public virtual void UpdateHelpWindow()
         {
         }
-        
+
         public void CallSelectHandler(List<InputKeyType> keyTypes)
         {
             if (InputDir4(keyTypes))
@@ -765,7 +777,7 @@ namespace Ryneus
 
         private void UpdateScrollRect(List<InputKeyType> keyTypes)
         {
-            if (_index < 0) 
+            if (_index < 0)
             {
                 return;
             }
@@ -809,7 +821,7 @@ namespace Ryneus
 
         public void UpdateScrollRect(int selectIndex)
         {
-            if (_index < 0) 
+            if (_index < 0)
             {
                 return;
             }
@@ -853,7 +865,7 @@ namespace Ryneus
                 return (horizontalCount+1) * (verticalCount+1);
             } else
             if (_horizontal)
-            {   
+            {
                 return horizontalCount * Cols();
             }
             return verticalCount * Rows();
@@ -866,7 +878,7 @@ namespace Ryneus
             var listMargin = ListMargin(horizontal);
             var space = ItemSpace(horizontal);
             if (horizontal)
-            {   
+            {
                 return ((int)Math.Round((width - listMargin) / (_itemSize.x + space))) * Cols();
             } else
             {
@@ -877,7 +889,7 @@ namespace Ryneus
         public void ResetScrollRect()
         {
             if (_horizontal)
-            {   
+            {
                 ScrollRect.normalizedPosition = new Vector2(1,0);
             } else
             {

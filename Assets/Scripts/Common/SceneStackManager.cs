@@ -27,20 +27,26 @@ namespace Ryneus
             }
         }
         
-        private List<PopupInfo> _popupInfo = new ();
+        private List<PopupInfo> _popupInfo = new();
+        public PopupInfo LastPopupInfo => _popupInfo.Count > 0 ? _popupInfo[_popupInfo.Count-1] : null;
         public object LastTemplate => _popupInfo.Count > 0 ? _popupInfo[_popupInfo.Count-1].template : null;
         
         public void PushPopupInfo(PopupInfo popupInfo)
         {
-            _popupInfo.Clear();
             _popupInfo.Add(popupInfo);
         }
+
+        public void RemovePopupInfo(PopupInfo popupInfo)
+        {
+            _popupInfo.Remove(popupInfo);
+        }
+
         public void ClearPopupInfo()
         {
             _popupInfo.Clear();
         }
 
-        private List<StatusViewInfo> _statusViewInfo = new ();
+        private List<StatusViewInfo> _statusViewInfo = new();
         public object LastStatusViewInfo => _statusViewInfo.Count > 0 ? _statusViewInfo[_statusViewInfo.Count-1] : null;
         
         public void PushStatusViewInfo(StatusViewInfo statusViewInfo)
