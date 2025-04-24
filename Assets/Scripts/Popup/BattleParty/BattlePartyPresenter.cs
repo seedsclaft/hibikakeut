@@ -100,7 +100,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.CallCommandList:
-                    CommandCallCommandList((SystemData.CommandData)viewEvent.template);
+                    CommandCallCommandList((SystemData.CommandData)viewEvent.Template);
                     break;
                 case CommandType.CommandEndEdit:
                     CommandEndEdit();
@@ -109,13 +109,13 @@ namespace Ryneus
                     CommandSelectSideMenu();
                     break;
                 case CommandType.DecideTacticsMember:
-                    CommandDecideTacticsMember((ActorInfo)viewEvent.template);
+                    CommandDecideTacticsMember((ActorInfo)viewEvent.Template);
                     break;
                 case CommandType.SelectTacticsMember:
-                    CommandSelectTacticsMember((ActorInfo)viewEvent.template);
+                    CommandSelectTacticsMember((ActorInfo)viewEvent.Template);
                     break;
                 case CommandType.SelectAttribute:
-                    CommandSelectAttribute((AttributeType)viewEvent.template);
+                    CommandSelectAttribute((AttributeType)viewEvent.Template);
                     break;
                 case CommandType.LeftAttribute:
                     CommandLeftAttribute();
@@ -136,7 +136,7 @@ namespace Ryneus
                     CommandGuide();
                     break;
                 case CommandType.ChangeLineIndex:
-                    CommandChangeLineIndex((ActorInfo)viewEvent.template);
+                    CommandChangeLineIndex((ActorInfo)viewEvent.Template);
                     break;
             }
             CheckTutorialState((CommandType)viewEvent.ViewCommandType.CommandType);
@@ -157,7 +157,7 @@ namespace Ryneus
                     CommandShowLearnMagic();
                     return;
                 case Status.CommandType.LearnMagic:
-                    CommandLearnMagic((SkillInfo)statusViewEvent.template);
+                    CommandLearnMagic((SkillInfo)statusViewEvent.Template);
                     return;
                 case Status.CommandType.HideLearnMagic:
                     CommandHideLearnMagic();

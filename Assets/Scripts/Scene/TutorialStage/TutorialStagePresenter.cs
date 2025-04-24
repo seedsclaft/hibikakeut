@@ -41,7 +41,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.DecideStage:
-                    CommandDecideStage((StageInfo)viewEvent.template);
+                    CommandDecideStage((StageInfo)viewEvent.Template);
                     break;
             }
         }

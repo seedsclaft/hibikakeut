@@ -39,7 +39,7 @@ namespace Ryneus
                 return;
             }
             battlerList.SetInputHandler(InputKeyType.Decide,() => decideEvent?.Invoke());
-            battlerList.SetSelectedHandler(() => 
+            battlerList.SetSelectedHandler(() =>
             {
                 if (battlerList.Index == 0)
                 {
@@ -50,10 +50,13 @@ namespace Ryneus
                     rightEvent?.Invoke();
                 }
             });
-            detailButton.onClick.AddListener(() => 
+            if (detailButton != null)
             {
-                statusEvent?.Invoke();
-            });
+                detailButton.onClick.AddListener(() =>
+                {
+                    statusEvent?.Invoke();
+                });
+            }
             _isInit = true;
         }
 

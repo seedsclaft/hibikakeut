@@ -44,7 +44,7 @@ namespace Ryneus
                     CommandIsChoice();
                     break;
                 case CommandType.DisableIds:
-                    CommandDisableIds((List<int>)viewEvent.template);
+                    CommandDisableIds((List<int>)viewEvent.Template);
                     break;
             }
         }

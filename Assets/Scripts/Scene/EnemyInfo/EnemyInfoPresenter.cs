@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using EnemyInfo;
 
 namespace Ryneus
 {
-    using EnemyInfo;
     public class EnemyInfoPresenter : BasePresenter
     {
         EnemyInfoModel _model = null;
@@ -39,7 +39,6 @@ namespace Ryneus
             {
                 return;
             }
-            UnityEngine.Debug.Log(viewEvent.commandType);
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.SelectEnemy:

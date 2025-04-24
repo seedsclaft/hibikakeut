@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Ryneus.Status;
 
 namespace Ryneus
 {
-    using Status;
     public class StatusPresenter : BasePresenter
     {
         private StatusModel _model = null;
@@ -43,7 +43,7 @@ namespace Ryneus
             {
                 return;
             }
-            UnityEngine.Debug.Log(viewEvent.commandType);
+            UnityEngine.Debug.Log(viewEvent.ViewCommandType.CommandType);
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.LeftActor:
@@ -56,24 +56,24 @@ namespace Ryneus
                     CommandBack();
                     return;
                 case CommandType.SelectActor:
-                    CommandSelectActor((ActorInfo)viewEvent.template);
+                    CommandSelectActor((ActorInfo)viewEvent.Template);
                     return;
                 case CommandType.CancelActor:
                     return;
                 case CommandType.SelectEquipSkill:
-                    CommandSelectEquipSkill((SkillInfo)viewEvent.template);
+                    CommandSelectEquipSkill((SkillInfo)viewEvent.Template);
                     return;
                 case CommandType.CancelEquipSkill:
                     CommandCancelSkill();
                     return;
                 case CommandType.SelectChangeSkill:
-                    CommandSelectChangeSkill((SkillInfo)viewEvent.template);
+                    CommandSelectChangeSkill((SkillInfo)viewEvent.Template);
                     return;
                 case CommandType.CharacterList:
                     CommandCharacterList();
                     return;
                 case CommandType.SelectCharacter:
-                    CommandSelectCharacter((int)viewEvent.template);
+                    CommandSelectCharacter((int)viewEvent.Template);
                     return;
                 case CommandType.LvReset:
                     return;
@@ -84,7 +84,7 @@ namespace Ryneus
                     CommandShowLearnMagic();
                     return;
                 case CommandType.LearnMagic:
-                    CommandLearnMagic((SkillInfo)viewEvent.template);
+                    CommandLearnMagic((SkillInfo)viewEvent.Template);
                     return;
                 case CommandType.HideLearnMagic:
                     CommandHideLearnMagic();
@@ -150,9 +150,9 @@ namespace Ryneus
 
         private void CommandCancelSkill()
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             if (_model.SelectSkillInfo != null)
             {
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 // 選択魔法のキャンセル
                 ResetSelectSkill();
                 return;
@@ -161,10 +161,10 @@ namespace Ryneus
 
         private void CommandSelectChangeSkill(SkillInfo skillInfo)
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             // 変更する
             if (skillInfo.Enable)
             {
+                SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 _model.ChangeEquipSkill(skillInfo.Id.Value);
                 ResetSelectSkill();
             }

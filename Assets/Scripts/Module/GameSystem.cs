@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Utage;
 
 namespace Ryneus
@@ -20,18 +21,17 @@ namespace Ryneus
         [SerializeField] private GameObject transitionRoot = null;
         [SerializeField] private Fade transitionFade = null;
         [SerializeField] private LoadingView loadingView = null;
-        [SerializeField] private TutorialView tutorialView = null;
-        [SerializeField] private AdvEngine advEngine = null;
+        [SerializeField] private TutorialView tutorialView = null;        [SerializeField] private AdvEngine advEngine = null;
         [SerializeField] private AdvController advController = null;
 
         [SerializeField] private DebugBattleData debugBattleData = null;
         [SerializeField] private HelpWindow helpWindow = null;
         [SerializeField] private HelpWindow advHelpWindow = null;
-        
+
         private BaseView _currentScene = null;
 
         private BaseModel _model = null;
-        
+
         public static SaveInfo CurrentData = null;
         public static SaveGameInfo GameInfo = null;
         public static SaveOptionInfo OptionData = null;
@@ -50,9 +50,9 @@ namespace Ryneus
 
         private void Awake() 
         {
-    #if UNITY_WEBGL || UNITY_ANDROID || UNITY_STANDALONE_WIN// && !UNITY_EDITOR
+#if UNITY_WEBGL || UNITY_ANDROID || UNITY_STANDALONE_WIN// && !UNITY_EDITOR
             //FirebaseController.Instance.Initialize();
-    #endif
+#endif
             Application.targetFrameRate = 60;
             advController.Initialize();
             advController.SetHelpWindow(advHelpWindow);
@@ -68,14 +68,14 @@ namespace Ryneus
             _model = new BaseModel();
             _lastTutorialData = null;
             Version = Application.version;
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
             DebugBattleData = debugBattleData;
-    #endif 
-    #if UNITY_ANDROID
+#endif 
+#if UNITY_ANDROID
             AdMobController.Instance.Initialize(() => {CommandSceneChange(Scene.Boot);});
-    #else
+#else
             CommandSceneChange(new SceneInfo(){ToScene = Scene.Boot});
-    #endif
+#endif
         }
 
         private BaseView CreateStatus(StatusType statusType,StatusViewInfo statusViewInfo)
@@ -101,7 +101,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case Base.CommandType.SceneChange:
-                    var sceneInfo = (SceneInfo)viewEvent.template; 
+                    var sceneInfo = (SceneInfo)viewEvent.Template; 
                     if (testMode && sceneInfo.ToScene == Scene.Battle)
                     {
                         if (debugBattleData.AdvName != "")
@@ -118,22 +118,22 @@ namespace Ryneus
                     }
                     break;
                 case Base.CommandType.MapChange:
-                    var mapType = (MapType)viewEvent.template; 
+                    var mapType = (MapType)viewEvent.Template; 
                     CommandMapChange(mapType);
                     break;
                 case Base.CommandType.MapClear:
                     CommandMapClear();
                     break;
                 case Base.CommandType.CreateMapObject:
-                    var mapObject = (GameObject)viewEvent.template; 
+                    var mapObject = (GameObject)viewEvent.Template; 
                     CommandCreateMapObject(mapObject);
                     break;
                 case Base.CommandType.CallConfirmView:
                 case Base.CommandType.CallSkillDetailView:
-                    CommandConfirmView((ConfirmInfo)viewEvent.template);
+                    CommandConfirmView((ConfirmInfo)viewEvent.Template);
                     break;
                 case Base.CommandType.CallCautionView:
-                    CommandCautionView((CautionInfo)viewEvent.template);
+                    CommandCautionView((CautionInfo)viewEvent.Template);
                     break;
                 case Base.CommandType.ClosePopup:
                     popupAssign.ClosePopup();
@@ -149,30 +149,30 @@ namespace Ryneus
                     SetIsNotBusyMainAndStatus();
                     break;
                 case Base.CommandType.CallPopupView:
-                    CommandPopupView((PopupInfo)viewEvent.template);
+                    CommandPopupView((PopupInfo)viewEvent.Template);
                     break;
                 case Base.CommandType.CallOptionView:
-                    CommandOptionView((System.Action)viewEvent.template);
+                    CommandOptionView((System.Action)viewEvent.Template);
                     break;
                 case Base.CommandType.CallSideMenu:
-                    CommandSideMenu((SideMenuViewInfo)viewEvent.template);
+                    CommandSideMenu((SideMenuViewInfo)viewEvent.Template);
                     break;
                 case Base.CommandType.CallRankingView:
-                    CommandRankingView((RankingViewInfo)viewEvent.template);
+                    CommandRankingView((RankingViewInfo)viewEvent.Template);
                     break;
                 case Base.CommandType.CallHelpView:
-                    CommandHelpView((List<ListData>)viewEvent.template);
+                    CommandHelpView((List<ListData>)viewEvent.Template);
                     break;
                 case Base.CommandType.CallSlotSaveView:
                     break;
                 case Base.CommandType.CallSkillTriggerView:
-                    CommandSkillTriggerView((SkillTriggerViewInfo)viewEvent.template);
+                    CommandSkillTriggerView((SkillTriggerViewInfo)viewEvent.Template);
                     break;
                 case Base.CommandType.CallSkillLogView:
-                    CommandCallSkillLogView((SkillLogViewInfo)viewEvent.template);
+                    CommandCallSkillLogView((SkillLogViewInfo)viewEvent.Template);
                     break;
                 case Base.CommandType.CallStatusView:
-                    var statusViewInfo = (StatusViewInfo)viewEvent.template;
+                    var statusViewInfo = (StatusViewInfo)viewEvent.Template;
                     var statusView = CreateStatus(StatusType.Status,statusViewInfo) as StatusView;
                     statusView.SetViewInfo(statusViewInfo);
                     _currentScene.SetBusy(true);
@@ -182,13 +182,13 @@ namespace Ryneus
                     _currentScene.SetBusy(false);
                     break;
                 case Base.CommandType.CallEnemyInfoView:
-                    var enemyStatusInfo = (StatusViewInfo)viewEvent.template;
+                    var enemyStatusInfo = (StatusViewInfo)viewEvent.Template;
                     var enemyInfoView = CreateStatus(StatusType.EnemyInfo,enemyStatusInfo) as EnemyInfoView;
                     enemyInfoView.SetBackEvent(enemyStatusInfo.BackEvent);
                     _currentScene.SetBusy(true);
                     break;
                 case Base.CommandType.CallTacticsStatusView:
-                    var tacticsStatusInfo = (StatusViewInfo)viewEvent.template;
+                    var tacticsStatusInfo = (StatusViewInfo)viewEvent.Template;
                     var tacticsStatusInfoView = CreateStatus(StatusType.TacticsStatus,tacticsStatusInfo) as TacticsStatusView;
                     tacticsStatusInfoView.SetViewInfo(tacticsStatusInfo);
                     tacticsStatusInfoView.SetBackEvent(tacticsStatusInfo.BackEvent);
@@ -196,12 +196,12 @@ namespace Ryneus
                     break;
                 case Base.CommandType.CallAdvScene:
                     SetIsBusyMainAndStatus();
-                    var advCallInfo = (AdvCallInfo)viewEvent.template;
+                    var advCallInfo = (AdvCallInfo)viewEvent.Template;
                     StartCoroutine(JumpScenarioAsync(advCallInfo.Label.Value,advCallInfo.CallEvent));
                     break;
                 case Base.CommandType.DecidePlayerName:
                     string playerName = (string)advEngine.Param.GetParameter("PlayerName");
-                    advEngine.Param.SetParameterString("PlayerName",(string)viewEvent.template);
+                    advEngine.Param.SetParameterString("PlayerName",(string)viewEvent.Template);
                     break;
                 case Base.CommandType.CallLoading:
                     loadingView.gameObject.SetActive(true);
@@ -222,8 +222,8 @@ namespace Ryneus
                 case Base.CommandType.StartTransition:
                     transitionFade.FadeIn(0.8f,() => {
                         foreach(Transform child in transitionRoot.transform){
-                            var endEvent = (Action)viewEvent.template;
-                            if ((Action)viewEvent.template != null) endEvent();
+                            var endEvent = (Action)viewEvent.Template;
+                            if ((Action)viewEvent.Template != null) endEvent();
                             Destroy(child.gameObject);
                             transitionFade.FadeOut(0);
                             transitionRoot.SetActive(false);
@@ -242,7 +242,7 @@ namespace Ryneus
                     }
                     break;
                 case Base.CommandType.CheckTutorialState:
-                    CheckTutorialState((TutorialViewInfo)viewEvent.template);
+                    CheckTutorialState((TutorialViewInfo)viewEvent.Template);
                     break;
                 case Base.CommandType.SceneHideUI:
                     SceneHideUI();
@@ -292,7 +292,7 @@ namespace Ryneus
             var baseView = prefab.GetComponent<BaseView>();
             baseView.SetEvent((type) => UpdateCommand(type));
             baseView.Initialize();
-            baseView.SetBackEvent(() => 
+            baseView.SetBackEvent(() =>
             {
                 baseView.CallSystemCommand(Base.CommandType.ClosePopup);
                 popupInfo.EndEvent?.Invoke();

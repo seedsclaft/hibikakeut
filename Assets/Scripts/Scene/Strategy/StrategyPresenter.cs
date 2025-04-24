@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using UnityEngine;
 using System;
+using Ryneus.Strategy;
 
 namespace Ryneus
 {
-    using Strategy;
-
     public class StrategyPresenter : BasePresenter
     {
         StrategyModel _model = null;
@@ -78,7 +76,6 @@ namespace Ryneus
             {
                 return;
             }
-            Debug.Log(viewEvent.commandType);
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.StartStrategy:
@@ -91,10 +88,10 @@ namespace Ryneus
                     CommandCallEnemyInfo();
                     break;
                 case CommandType.PopupSkillInfo:
-                    CommandPopupSkillInfo((GetItemInfo)viewEvent.template);
+                    CommandPopupSkillInfo((GetItemInfo)viewEvent.Template);
                     break;
                 case CommandType.ResultClose:
-                    CommandResultClose((SystemData.CommandData)viewEvent.template);
+                    CommandResultClose((SystemData.CommandData)viewEvent.Template);
                     break;
                 case CommandType.EndLvUpAnimation:
                     NextSeekResult();
@@ -103,7 +100,7 @@ namespace Ryneus
                     CommandLvUpNext();
                     break;
                 case CommandType.SelectLearnSkillList:
-                    CommandSelectLearnSkillList((SkillInfo)viewEvent.template);
+                    CommandSelectLearnSkillList((SkillInfo)viewEvent.Template);
                     break;
             }
             // チュートリアル確認

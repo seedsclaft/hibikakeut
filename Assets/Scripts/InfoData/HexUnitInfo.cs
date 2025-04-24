@@ -72,7 +72,7 @@ namespace Ryneus
         public void AddGetItemInfos(List<GetItemInfo> getItemInfos)
         {
             _getItemInfos.AddRange(getItemInfos);
-        }        
+        }
         
         [UnityEngine.SerializeField] private UnitInfo _unitInfo = null;
         public UnitInfo UnitInfo => _unitInfo;

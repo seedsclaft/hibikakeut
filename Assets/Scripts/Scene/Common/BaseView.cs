@@ -21,12 +21,12 @@ namespace Ryneus
             _busy = isBusy;
         }
 
-        public List<Action<ViewEvent>> _commandData = new ();
+        public List<Action<ViewEvent>> _commandData = new();
         public void SetEvent(Action<ViewEvent> commandData)
         {
             _commandData.Add(commandData);
         }
-    
+
         [SerializeField] private Button _backCommand = null;
         [SerializeField] private SpriteRenderer _backGround = null;
         private Action _backEvent = null;
@@ -69,7 +69,7 @@ namespace Ryneus
             var commandType = new ViewCommandType(_viewCommandSceneType,template);
             var eventData = new ViewEvent(commandType)
             {
-                template = sendData
+                Template = sendData
             };
             foreach (var commandData in _commandData)
             {
@@ -166,7 +166,7 @@ namespace Ryneus
             var commandType = new ViewCommandType(ViewCommandSceneType.System,template);
             var eventData = new ViewEvent(commandType)
             {
-                template = sendData
+                Template = sendData
             };
             foreach (var commandData in _commandData)
             {
@@ -299,7 +299,10 @@ namespace Ryneus
         {
             SetBackCommand(() => 
             {
-                backEvent?.Invoke();
+                if (uiRoot.activeSelf)
+                {
+                    backEvent?.Invoke();
+                }
             });
             ChangeBackCommandActive(true);
         }
@@ -311,7 +314,10 @@ namespace Ryneus
 
         public void ChangeUIActive(bool IsActive)
         {
-            uiRoot.SetActive(IsActive);
+            if (uiRoot != null)
+            {
+                uiRoot.SetActive(IsActive);
+            }
         }
 
         public void SetTestMode(bool isTest)

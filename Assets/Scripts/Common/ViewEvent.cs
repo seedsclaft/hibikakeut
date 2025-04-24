@@ -7,18 +7,17 @@ namespace Ryneus
 {
     public class ViewEvent
     {
-        public Base.CommandType commandType;
-        public object template;
+        public object Template;
         public ViewCommandType ViewCommandType;
-        
+
         public ViewEvent(ViewCommandType viewCommandType)
         {
             ViewCommandType = viewCommandType;
         }
-    }    
-    
+    }
+
     public class ViewCommandType
-    {        
+    {
         public ViewCommandSceneType ViewCommandSceneType;
         public object CommandType;
         public ViewCommandType(ViewCommandSceneType viewCommandSceneType,object template)
@@ -54,7 +53,7 @@ namespace Ryneus
 
     public interface IListViewItem
     {
-        void UpdateViewItem();  
+        void UpdateViewItem();
         public T ListItemData<T>();
     }
 

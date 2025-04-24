@@ -46,7 +46,7 @@ namespace Ryneus
             commandList.Initialize();
             SetInputHandler(commandList.gameObject);
 
-            statusLevelUp.Initialize();
+            //statusLevelUp.Initialize();
             
             SetBaseAnimation(statusAnimation);
             new TacticsStatusPresenter(this);

@@ -7,7 +7,7 @@ namespace Ryneus
     public partial class TacticsModel : BaseModel
     {
         public List<HexUnitInfo> OnFieldInfos => CurrentStage.OnFieldInfos;
-        
+
         private HexRoute _hexRoute;
         private List<HexField> _reachAreas = new();
         private List<HexField> _movableAreas = new();
@@ -94,6 +94,7 @@ namespace Ryneus
             {
                 CurrentStage.FieldX.SetValue(moveBattler.HexField.X);
                 CurrentStage.FieldY.SetValue(moveBattler.HexField.Y);
+                UnityEngine.Debug.Log(CurrentStage.FieldX.Value+":"+CurrentStage.FieldY.Value);
                 return true;
             }
             return false;
@@ -382,6 +383,7 @@ namespace Ryneus
                     decide = true;
                     CurrentStage.FieldX.SetValue(findReach.X);
                     CurrentStage.FieldY.SetValue(findReach.Y);
+                    UnityEngine.Debug.Log(CurrentStage.FieldX.Value+":"+CurrentStage.FieldY.Value);
                     return;
                 }
                 
@@ -398,6 +400,7 @@ namespace Ryneus
                         decide = true;
                         CurrentStage.FieldX.SetValue(findReach.X);
                         CurrentStage.FieldY.SetValue(findReach.Y);
+                        UnityEngine.Debug.Log(CurrentStage.FieldX.Value+":"+CurrentStage.FieldY.Value);
                     } else
                     {
                         isBaseMent = !isBaseMent;
@@ -691,6 +694,7 @@ namespace Ryneus
             var list = new List<SystemData.CommandData>
             {
                 MoveBattlerCommand,
+                UnitsCommand,
             };
             // 同時に拠点がある場合
             var basement = OnFieldInfos.Find(a => a.IsBasementUnit() && a.TeamId.Value == GetTurnTeam().TeamId.Value);
@@ -774,7 +778,7 @@ namespace Ryneus
                 list.Insert(0,ReturnCommand);
             }
             // イベントの上
-            if (hexUnits.Find(a => a.IsAlcanaUnit() && a.TeamId.Value == battler.TeamId.Value) != null)
+            if (hexUnits.Find(a => a.IsAlcanaUnit()) != null)
             {
                 list.Insert(0,EventCommand);
             }

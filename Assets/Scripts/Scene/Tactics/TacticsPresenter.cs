@@ -233,13 +233,13 @@ namespace Ryneus
                     break;
                 case CommandType.CallEnemyInfo:
                     //if (_model.CurrentStageTutorialDates.Count > 0) return;
-                    CommandCallEnemyInfo((SymbolResultInfo)viewEvent.template);
+                    CommandCallEnemyInfo((SymbolResultInfo)viewEvent.Template);
                     break;
                 case CommandType.CallAddActorInfo:
-                    CommandCallAddActorInfo((SymbolResultInfo)viewEvent.template,false);
+                    CommandCallAddActorInfo((SymbolResultInfo)viewEvent.Template,false);
                     break;
                 case CommandType.PopupSkillInfo:
-                    CommandPopupSkillInfo((List<GetItemInfo>)viewEvent.template);
+                    CommandPopupSkillInfo((List<GetItemInfo>)viewEvent.Template);
                     break;
                 case CommandType.Back:
                     CommandBack();
@@ -260,13 +260,13 @@ namespace Ryneus
                     CommandAlcanaCheck();
                     break;
                 case CommandType.SelectCharaLayer:
-                    CommandSelectCharaLayer((int)viewEvent.template);
+                    CommandSelectCharaLayer((int)viewEvent.Template);
                     break;
                 case CommandType.SelectHexMap:
-                    CommandSelectHexMap((HexField)viewEvent.template);
+                    CommandSelectHexMap((HexField)viewEvent.Template);
                     break;
                 case CommandType.MoveHexMap:
-                    CommandMoveHexMap((InputKeyType)viewEvent.template);
+                    CommandMoveHexMap((InputKeyType)viewEvent.Template);
                     break;
                 case CommandType.EndMoveBattler:
                     CommandEndMoveBattler();
@@ -278,7 +278,7 @@ namespace Ryneus
                     CommandEndAnimation();
                     break;
                 case CommandType.DecideBattleMemberSelect:
-                    CommandDecideBattleMemberSelect((BattleSceneInfo)viewEvent.template);
+                    CommandDecideBattleMemberSelect((BattleSceneInfo)viewEvent.Template);
                     break;
                 case CommandType.CancelBattleMemberSelect:
                     CommandCancelBattleMemberSelect();
@@ -611,8 +611,8 @@ namespace Ryneus
 
         private void CommandEvent()
         {
-            _view.EndTacticsCommand();
             var results = _model.AlcanaOpen();
+            _view.EndTacticsCommand();
             if (results != null)
             {
                 CommandPopupSkillInfo(results);

@@ -53,7 +53,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CharacterList.CommandType.DecideActor:
-                    CommandDecideActor((ActorInfo)viewEvent.template);
+                    CommandDecideActor((ActorInfo)viewEvent.Template);
                     break;
             }
         }

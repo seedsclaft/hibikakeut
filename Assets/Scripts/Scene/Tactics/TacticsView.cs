@@ -13,7 +13,7 @@ namespace Ryneus
     using Tactics;
     using Unity.VisualScripting;
 
-    public class TacticsView : BaseView ,IInputHandlerEvent
+    public class TacticsView : BaseView,IInputHandlerEvent
     {
         [SerializeField] private BaseList hexTiles = null;
         public HexField SelectHexField => hexTiles.ListItemData<HexField>();
@@ -87,6 +87,7 @@ namespace Ryneus
         {
             tacticsCommandList.gameObject.SetActive(false);
             SetActivate(hexTiles);
+            hexTiles.RefreshCurrentMouseSelect();
         }
 
         private void CallTacticsCommand()

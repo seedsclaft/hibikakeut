@@ -42,7 +42,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.DecideFile:
-                    CommandDecideFile((SaveFileInfo)viewEvent.template);
+                    CommandDecideFile((SaveFileInfo)viewEvent.Template);
                     break;
             }
         }

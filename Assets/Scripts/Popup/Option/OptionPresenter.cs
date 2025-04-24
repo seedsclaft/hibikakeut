@@ -45,7 +45,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.ChangeOptionValue:
-                    CommandOptionValue((OptionInfo)viewEvent.template);
+                    CommandOptionValue((OptionInfo)viewEvent.Template);
                     break;
                 case CommandType.SelectCategory:
                     CommandSelectCategory();

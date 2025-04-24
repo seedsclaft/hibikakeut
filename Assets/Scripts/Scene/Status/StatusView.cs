@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System;
+using Ryneus.Status;
 
 namespace Ryneus
 {
-    using Status;
     public class StatusView : BaseView ,IInputHandlerEvent
     {
         [SerializeField] private Button helpButton = null;
         [SerializeField] private MagicList equipSkillList = null;
         [SerializeField] private MagicList changeSkillList = null;
+        [SerializeField] private StatusLevelUp statusLevelUp = null;
         [SerializeField] private ActorInfoComponent selectingActorInfoComponent = null;
         [SerializeField] private Button leftArrowButton = null;
         [SerializeField] private Button rightArrowButton = null;
@@ -31,6 +32,10 @@ namespace Ryneus
             
             InitializeEquipSkillList();
             InitializeChangeSkillList();
+            if (statusLevelUp != null)
+            {
+                statusLevelUp.Initialize(() => CallViewEvent(CommandType.LevelUp));
+            }
 
             if (leftArrowButton != null)
             {

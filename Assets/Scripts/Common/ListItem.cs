@@ -93,14 +93,14 @@ namespace Ryneus
                 return;
             }
             var enterListener = clickButton.gameObject.AddComponent<ContentEnterListener>();
-            enterListener.SetEnterEvent(() => 
+            enterListener.SetEnterEvent(() =>
             {
                 if (_index != -1)
                 {
                     handler(_index);
                 }
             });
-            enterListener.SetExitEvent(() => 
+            enterListener.SetExitEvent(() =>
             {
                 exitAction?.Invoke();
             });

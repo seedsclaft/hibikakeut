@@ -12,14 +12,14 @@ namespace Ryneus
 
         private bool _busy = true;
         private bool _skipBattle = false;
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
         private bool _debug = false;
         public void SetDebug(bool busy)
         {
             _debug = busy;
         }
         private bool _testBattle = false;
-    #endif
+#endif
         private bool _triggerAfterChecked = false;
         /*
         private bool _triggerInterruptChecked = false;
@@ -37,12 +37,12 @@ namespace Ryneus
             _model = new BattleModel();
             SetModel(_model);
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
             _view.gameObject.AddComponent<DebugBattleData>();
             var debugger = _view.gameObject.GetComponent<DebugBattleData>();
             debugger.SetDebugger(_model,this,_view);
             debugger.consoleInputField = GameSystem.DebugBattleData.consoleInputField;
-    #endif
+#endif
             _view.SetHelpText("");
             Initialize();
         }
@@ -65,7 +65,7 @@ namespace Ryneus
 
             ViewInitialize();
             BattleChecker.Instance.SetModel(_model,_view);
-            
+
             _view.CommandStartTransition(() => 
             {
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
@@ -174,7 +174,6 @@ namespace Ryneus
 
         private void UpdateCommand(ViewEvent viewEvent)
         {
-            LogOutput.Log(viewEvent.commandType);
             if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Battle)
             {
                 return;
@@ -185,7 +184,7 @@ namespace Ryneus
                     //CommandChangeBattleAuto();
                     break;
                 case CommandType.ChangeBattleSpeed:
-                    CommandChangeBattleSpeed((int)viewEvent.template);
+                    CommandChangeBattleSpeed((int)viewEvent.Template);
                     break;
                 case CommandType.SkipBattle:
                     CommandSkipBattle();
@@ -194,7 +193,7 @@ namespace Ryneus
                     CommandForceVictory();
                     break;
                 case CommandType.StopApCount:
-                    CommandStopApCount((bool)viewEvent.template);
+                    CommandStopApCount((bool)viewEvent.Template);
                     break;
             }
             if (_busy)
@@ -217,10 +216,10 @@ namespace Ryneus
                     CommandDecideSkill();
                     break;
                 case CommandType.OnSelectSkill:
-                    CommandOnSelectSkill((SkillInfo)viewEvent.template);
+                    CommandOnSelectSkill((SkillInfo)viewEvent.Template);
                     break;
                 case CommandType.OnSelectTarget:
-                    CommandOnSelectTarget((InputKeyType)viewEvent.template);
+                    CommandOnSelectTarget((InputKeyType)viewEvent.Template);
                     break;
                 case CommandType.AttributeType:
                     //RefreshSkillInfos();
@@ -235,7 +234,7 @@ namespace Ryneus
                     CommandEscape();
                     break;
                 case CommandType.EnemyDetail:
-                    CommandEnemyDetail((int)viewEvent.template);
+                    CommandEnemyDetail((int)viewEvent.Template);
                     break;
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu();

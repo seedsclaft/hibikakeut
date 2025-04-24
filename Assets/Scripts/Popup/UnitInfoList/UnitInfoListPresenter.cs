@@ -75,7 +75,7 @@ namespace Ryneus
                     CommandInputSelectUnitInfo();
                     break;
                 case UnitInfoList.CommandType.CallStatus:
-                    CommandCallStatus((List<BattlerInfo>)viewEvent.template);
+                    CommandCallStatus((List<BattlerInfo>)viewEvent.Template);
                     break;
             }
         }

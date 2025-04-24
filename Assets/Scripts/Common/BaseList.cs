@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using UnityEngine.EventSystems;
 
 namespace Ryneus
 {
@@ -112,8 +113,8 @@ namespace Ryneus
                     listItem.SetAddListenHandler(true);
                 }
             }
-        }    
-        
+        }
+
         public new void Refresh(int selectIndex = 0)
         {
             base.Refresh(selectIndex);
@@ -153,6 +154,23 @@ namespace Ryneus
                 if (disableIds.Contains(i))
                 {
                     ListDates[i].SetEnable(false);
+                }
+            }
+        }
+
+        public void RefreshCurrentMouseSelect()
+        {
+            var rayResults = new List<RaycastResult>();
+            var currentPointData = new PointerEventData(EventSystem.current);
+            currentPointData.position = Input.mousePosition;
+            EventSystem.current.RaycastAll(currentPointData,rayResults);
+            if (rayResults.Count > 0)
+            {
+                var listItem = rayResults[0].gameObject.GetComponent<ListItem>();
+                if (listItem != null)
+                {
+                    UpdateSelectIndex(listItem.Index);
+                    Refresh(listItem.Index);
                 }
             }
         }
