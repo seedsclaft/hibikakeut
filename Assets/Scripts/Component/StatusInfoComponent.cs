@@ -24,6 +24,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI atkCaption;
         [SerializeField] private TextMeshProUGUI defCaption;
         [SerializeField] private TextMeshProUGUI spdCaption;
+        [SerializeField] private TextMeshProUGUI movCaption;
         [SerializeField] private Color normalColor;
         [SerializeField] private Color upperColor;
         [SerializeField] private Color downColor;
@@ -89,6 +90,10 @@ namespace Ryneus
             if (spdCaption != null)
             {
                 UpdateCaption(StatusParamType.Spd,spdCaption);
+            }
+            if (movCaption != null)
+            {
+                UpdateCaption(StatusParamType.Mov,movCaption);
             }
         }
 

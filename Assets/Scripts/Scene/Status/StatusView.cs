@@ -156,6 +156,11 @@ namespace Ryneus
             base.SetBusy(busy);
         }
 
+        public void SetLvUpInfo(int cost,int currency)
+        {
+            statusLevelUp.SetLvUpInfo(cost,currency);
+        }
+
         private void OnClickBack()
         {
             CallViewEvent(CommandType.Back);

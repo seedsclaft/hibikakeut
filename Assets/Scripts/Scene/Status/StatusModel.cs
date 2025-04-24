@@ -116,6 +116,9 @@ namespace Ryneus
             return ActorLearningMagicList(CurrentActor,-1,selectedSkillId);
         }
 
-
+        public int LevelUpCost()
+        {
+            return ActorLevelUpCost(CurrentActor);
+        }
     }
 }

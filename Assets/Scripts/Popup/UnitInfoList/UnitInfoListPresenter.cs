@@ -31,8 +31,12 @@ namespace Ryneus
         {
             Func<UnitInfo,bool> enable = (unitInfo) =>
             {
-                // 既に出撃中か
-                return _model.CurrentStage.GetTurnTeamInfo().UnitInfos.Find(a => a.UnitInfo.Index.Value == unitInfo.Index.Value) == null;
+                if (_model.IsDepature || _model.IsEdit)
+                {
+                    // 既に出撃中か
+                    return _model.CurrentStage.GetTurnTeamInfo().UnitInfos.Find(a => a.UnitInfo.Index.Value == unitInfo.Index.Value) == null;
+                }
+                return true;
             };
             var list = MakeListDataFunc<UnitInfo>(_model.GetUnitInfos(),0,enable);
             if (_model.IsEdit)

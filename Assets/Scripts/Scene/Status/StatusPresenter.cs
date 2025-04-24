@@ -141,6 +141,11 @@ namespace Ryneus
 
         private void CommandSelectEquipSkill(SkillInfo skillInfo)
         {
+            if (skillInfo.IsBattleSpecialSkill())
+            {
+                CommandCautionInfo("固有スキルははずすことができません");
+                return;
+            }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.SetSelectSkillInfo(skillInfo);
             // 選択する
@@ -308,6 +313,7 @@ namespace Ryneus
 
         private void CommandRefresh()
         {
+            _view.SetLvUpInfo(_model.LevelUpCost(),_model.Currency);
             _model.UpdateActorRemainMp();
             _view.CommandRefresh();
         }

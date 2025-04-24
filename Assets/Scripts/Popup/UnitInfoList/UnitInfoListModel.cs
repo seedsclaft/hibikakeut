@@ -9,6 +9,7 @@ namespace Ryneus
         private UnitInfoListInfo _sceneParam;
         private List<UnitInfo> _unitInfos = new();
         public bool IsEdit => _sceneParam.IsUnitEdit.Value;
+        public bool IsDepature => _sceneParam.IsDepatureEdit.Value;
         private BattlerInfo _selectingBattlerInfo = null;
         public void SetSelectingBattlerInfo(BattlerInfo selectingBattlerInfo)
         {
@@ -174,5 +175,6 @@ namespace Ryneus
         }
 
         public ParameterBool IsUnitEdit = new();
+        public ParameterBool IsDepatureEdit = new();
     }
 }

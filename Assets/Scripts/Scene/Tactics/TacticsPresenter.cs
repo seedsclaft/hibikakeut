@@ -491,8 +491,8 @@ namespace Ryneus
                 _busy = false;
             });
             unitInfoListInfo.SetUnitInfos(_model.DepatureUnitInfos());
-            unitInfoListInfo.IsUnitEdit.SetValue(false);
-            
+            unitInfoListInfo.IsDepatureEdit.SetValue(true);
+
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.DepatureList,
