@@ -214,6 +214,7 @@ namespace Ryneus
         None = 0, // 存在のないマス
         Basement = 20,
         Alcana = 30,
+        GetItem = 40,
         SelectActor = 70,
         Battler = 1000,
         Reach = 2000,

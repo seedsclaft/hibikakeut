@@ -18,7 +18,7 @@ namespace Ryneus
 
         public PartyInfo PartyInfo => CurrentGameInfo.PartyInfo;
 
-        public int Currency => 0;
+        public int Currency => PartyInfo != null ? PartyInfo.Currency.Value : 0;
         //public float TotalScore => PartyInfo.TotalScore(CurrentStage.WorldType);
 
         //public int RemainTurns => CurrentStage.Master.StageSymbols.Max(a => a.Seek) - CurrentStage.Seek + 1;
@@ -570,6 +570,7 @@ namespace Ryneus
         public void ActorLevelUp(ActorInfo actorInfo)
         {
             var cost = ActorLevelUpCost(actorInfo);
+            PartyInfo.Currency.GainValue(-cost);
             // 新規魔法取得があるか
             var skills = actorInfo.LearningSkills(1);
             var levelUpInfo = actorInfo.LevelUp(cost,PartyInfo.StageId.Value);
@@ -577,13 +578,28 @@ namespace Ryneus
             {
                 actorInfo.AddSkillTriggerSkill(skill.Id.Value);
             }
+            // ユニットに情報を反映
+            foreach (var unitInfo in CurrentStage.HomeTeamInfo.UnitInfos)
+            {
+                for (int i = unitInfo.UnitInfo.BattlerInfos.Count-1;i >= 0;i--)
+                {
+                    if (unitInfo.UnitInfo.BattlerInfos[i].ActorInfo == null)
+                    {
+                        continue;
+                    }
+                    if (actorInfo.ActorId.Value == unitInfo.UnitInfo.BattlerInfos[i].ActorInfo.ActorId.Value)
+                    {
+                        unitInfo.UnitInfo.BattlerInfos[i] = new BattlerInfo(actorInfo,unitInfo.UnitInfo.BattlerInfos[i].Index.Value);
+                    }
+                }
+            }
         }
 
         public int ActorLevelUpCost(ActorInfo actorInfo)
         {
             return TacticsUtility.TrainCost(actorInfo);
         }
-        
+
         public bool EnableActorLevelUp(ActorInfo actorInfo)
         {
             return Currency >= ActorLevelUpCost(actorInfo);

@@ -83,6 +83,7 @@ namespace Ryneus
             {
                 TurnStartAnimation();
             }
+            TacticsChecker.Instance.SetModel(_model.CurrentStage);
         }
 
         private void CheckTutorialState(object commandType = null)
@@ -449,6 +450,9 @@ namespace Ryneus
                 case "Event":
                     CommandEvent();
                     break;
+                case "GetItem":
+                    CommandGetItem();
+                    break;
             }
         }
 
@@ -580,14 +584,14 @@ namespace Ryneus
                 _view.EndTacticsCommand();
                 _busy = false;
             },
-            () => 
+            () =>
             {
                 CommandRefresh();
                 _busy = false;
             });
             unitInfoListInfo.SetUnitInfos(_model.DepatureUnitInfos());
             unitInfoListInfo.IsUnitEdit.SetValue(true);
-            
+
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.UnitInfoList,
@@ -595,6 +599,8 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     CommandRefresh();
+                    var battlerUnit = _model.MakeBattlerActHex();
+                    _view.ShowUnitStatus(battlerUnit);
                     _busy = false;
                 }
             };
@@ -617,8 +623,24 @@ namespace Ryneus
             _view.EndTacticsCommand();
             if (results != null)
             {
-                CommandPopupSkillInfo(results);
+                SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+                CommandPopupSkillInfo(results,"新たな魔法を入手しました！");
                 return;
+            }
+            CommandRefresh();
+            _view.UpdateTileItems();
+            _model.SetLastSelectHex();
+            _model.SetCommandKey("");
+        }
+
+        private void CommandGetItem()
+        {
+            var results = _model.GetItemOpen();
+            _view.EndTacticsCommand();
+            if (results != null)
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+                CommandCautionInfo(DataSystem.GetReplaceText(14110,results[0].Master.Param1.ToString()));
             }
             CommandRefresh();
             _view.UpdateTileItems();
@@ -654,7 +676,7 @@ namespace Ryneus
             _model.CurrentStage.CheckedTurnStart.SetValue(false);
             var text = _model.GetTurnTeam().TeamId.Value == (int)TeamIdType.Home ? "Player Turn" : "Enemy Turn";
             _view.DeActivateHexTiles();
-            _view.StartAnimation(text,() => 
+            _view.StartAnimation(text,() =>
             {
                 _busy = false;
                 CheckHealUnit();
@@ -666,20 +688,20 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var unitInfoListInfo = new UnitInfoListInfo((unitInfo) => 
+            var unitInfoListInfo = new UnitInfoListInfo((unitInfo) =>
             {
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 CommandRefresh();
                 _view.EndTacticsCommand();
                 _busy = false;
             },
-            () => 
+            () =>
             {
                 CommandRefresh();
                 _busy = false;
             });
             unitInfoListInfo.SetUnitInfos(_model.FieldUnitInfos());
-            
+
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.UnitInfoList,
@@ -687,6 +709,8 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     CommandRefresh();
+                    var battlerUnit = _model.MakeBattlerActHex();
+                    _view.ShowUnitStatus(battlerUnit);
                     _busy = false;
                 }
             };
@@ -827,6 +851,7 @@ namespace Ryneus
                 case "Departure":
                 case "MoveBattler":
                 case "Event":
+                case "GetItem":
                     _model.SetCommandKey("");
                     _model.ClearReachAreas();
                     _view.UpdateTileItems();
@@ -837,9 +862,6 @@ namespace Ryneus
         private void CommandSelectBattler()
         {
             _view.SetTacticsCommand(_model.BattlerCommand());
-            //_model.SetCommandKey(_model.MoveBattlerCommand.Key);
-            //_view.EndTacticsCommand();
-            //CommandMoveBattler();
         }
 
         private void CommandSelectBasement()
@@ -850,7 +872,7 @@ namespace Ryneus
         private void CommandEndMoveBattler()
         {
             // 自動
-            if (_model.IsPlayable == false)
+            if (!_model.IsPlayable)
             {
                 var commandKey =  _model.DecideAutoMoveBattlerEnd();
                 switch (commandKey)
@@ -873,7 +895,7 @@ namespace Ryneus
         {
             _model.EndLostActions();
             _view.RefreshTiles(_model.CurrentStage.FieldX.Value,_model.CurrentStage.FieldY.Value);
-            
+
             var gameOver = CheckGameOver();
             if (gameOver)
             {
@@ -892,6 +914,7 @@ namespace Ryneus
                         _view.RefreshTiles(selectDeparture.HexField.X,selectDeparture.HexField.Y);
                         _model.SetLastSelectHex();
                         _model.SetCommandKey("");
+                        CommandEndMoveBattler();
                     }
                     break;
                 case "MoveBattler":
@@ -911,15 +934,11 @@ namespace Ryneus
             _view.SetTacticsCommand(_model.DefaultCommand());
         }
 
-        private void CommandPopupSkillInfo(GetItemInfo getItemInfo)
-        {
-        }
-
-        private void CommandPopupSkillInfo(List<GetItemInfo> getItemInfos)
+        private void CommandPopupSkillInfo(List<GetItemInfo> getItemInfos,string title = "")
         {
             if (getItemInfos.Count == 1)
             {
-                CallPopupSkillDetail("",_model.BasicSkillInfos(getItemInfos[0]));
+                CallPopupSkillDetail(title,_model.BasicSkillInfos(getItemInfos[0]));
             } else
             {
                 CallPopupSkillDetail(DataSystem.GetText(19200),_model.BasicSkillGetItemInfos(getItemInfos));

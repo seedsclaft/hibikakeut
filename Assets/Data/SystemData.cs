@@ -38,9 +38,10 @@ namespace Ryneus
 		public string GetReplaceText(int id,string replace)
 		{
 			var textData = SystemTextData.Find(a => a.Id == id);
-			if (textData != null) 
+			if (textData != null)
 			{
-				return textData.Text.Replace("\\d",replace);
+				var text = textData.Text.Replace("\\c",GetTextData(1000).Text);
+				return text.Replace("\\d",replace);
 			}
 			return "";
 		}

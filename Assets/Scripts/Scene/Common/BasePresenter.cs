@@ -205,7 +205,7 @@ namespace Ryneus
         /// <param name="actorInfos"></param>
         public void CommandStatusInfo(List<ActorInfo> actorInfos,bool inBattle,bool backButton = true,bool levelUpObj = true,bool addActor = false,int startIndex = -1,Action closeEvent = null,bool isRanking = false)
         {
-            var statusViewInfo = new StatusViewInfo(() => 
+            var statusViewInfo = new StatusViewInfo(() =>
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 _view.CallSystemCommand(Base.CommandType.CloseStatus);
@@ -300,7 +300,7 @@ namespace Ryneus
             _view.CommandCallCaution(cautionInfo);
         }
 
-        public void CommandActorLevelUp(ActorInfo actorInfo,System.Action endEvent = null)
+        public void CommandActorLevelUp(ActorInfo actorInfo,Action endEvent = null)
         {
             if (_model.EnableActorLevelUp(actorInfo))
             {
@@ -343,15 +343,15 @@ namespace Ryneus
             }
         }
 
-        public void CommandLevelUp(ActorInfo actorInfo,System.Action endEvent = null)
+        public void CommandLevelUp(ActorInfo actorInfo,Action endEvent = null)
         {
-            CommandActorLevelUp(actorInfo,() => 
+            CommandActorLevelUp(actorInfo,() =>
             {
                 endEvent?.Invoke();
             });
         }
 
-        public void CommandLearnMagic(ActorInfo actorInfo,SkillInfo skillInfo,System.Action endEvent = null)
+        public void CommandLearnMagic(ActorInfo actorInfo,SkillInfo skillInfo,Action endEvent = null)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(19510,skillInfo.LearningCost.Value.ToString()) + DataSystem.GetReplaceText(19520,skillInfo.Master.Name),(a) => UpdatePopupLearnSkill(a,actorInfo,skillInfo,endEvent));

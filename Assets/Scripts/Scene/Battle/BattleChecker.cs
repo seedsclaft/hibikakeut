@@ -28,7 +28,7 @@ namespace Ryneus
             }
         }
 
-        private void Update() 
+        private void Update()
         {
             if (_view != null)
             {
@@ -47,7 +47,7 @@ namespace Ryneus
                     restartApCount = false;
                     _view.CallViewEvent(Battle.CommandType.StopApCount,false);
                 }
-            }    
+            }
         }
     }
 }

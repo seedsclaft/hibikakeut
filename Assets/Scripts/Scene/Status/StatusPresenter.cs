@@ -143,6 +143,7 @@ namespace Ryneus
         {
             if (skillInfo.IsBattleSpecialSkill())
             {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 CommandCautionInfo("固有スキルははずすことができません");
                 return;
             }
@@ -213,7 +214,7 @@ namespace Ryneus
         {
             _busy = true;
             _view.SetBusy(true);
-            CommandLevelUp(_model.CurrentActor,() => 
+            CommandLevelUp(_model.CurrentActor,() =>
             {
                 _busy = false;
                 _view.SetBusy(false);
@@ -313,8 +314,9 @@ namespace Ryneus
 
         private void CommandRefresh()
         {
-            _view.SetLvUpInfo(_model.LevelUpCost(),_model.Currency);
             _model.UpdateActorRemainMp();
+            _view.SetActorInfo(_model.CurrentActor,_model.ActorInfos);
+            _view.SetLvUpInfo(_model.LevelUpCost(),_model.Currency);
             _view.CommandRefresh();
         }
 
@@ -322,7 +324,6 @@ namespace Ryneus
         {
             CommandRefresh();
             _view.SetEquipSkillList(MakeListData(_model.EquipSkills()));
-            _view.SetActorInfo(_model.CurrentActor,_model.ActorInfos);
         }
 
         private void SaveSelectedSkillId()

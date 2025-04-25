@@ -29,7 +29,7 @@ namespace Ryneus
             mainTeam.SetDepatuerInfos(new List<UnitInfo>(){depaterUnitInfo});
 
             // 拠点数
-            var actPoint = unitInfos.FindAll(a => a.IsBasementUnit() && a.IsFriend(mainTeam.TeamId.Value));
+            var actPoint = unitInfos.FindAll(a => a.IsBasementUnit && a.IsFriend(mainTeam.TeamId.Value));
             mainTeam.ActPoint.SetValue(actPoint.Count);
             mainTeam.CurrentActPoint.SetValue(actPoint.Count);
             stageInfo.AddTeamInfo(mainTeam);
@@ -39,7 +39,7 @@ namespace Ryneus
             awayTeam.TeamId.SetValue((int)TeamIdType.Away);
             foreach (var unitInfo in unitInfos)
             {
-                if (unitInfo.IsBattlerUnit())
+                if (unitInfo.IsBattlerUnit)
                 {
                     awayTeam.AddUnitInfos(unitInfo);
                 }

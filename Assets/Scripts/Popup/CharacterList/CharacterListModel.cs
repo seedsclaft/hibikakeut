@@ -15,7 +15,7 @@ namespace Ryneus
 
         public List<ActorInfo> GetActorInfos()
         {
-            var battlerUnits = CurrentStage.FieldHexList.FindAll(a => a.IsBattlerUnit() && !a.IsLostUnit());
+            var battlerUnits = CurrentStage.FieldHexList.FindAll(a => a.IsBattlerUnit && !a.IsLostUnit());
             var actorInfos = new List<ActorInfo>();
             foreach (var actorInfo in _actorInfos)
             {

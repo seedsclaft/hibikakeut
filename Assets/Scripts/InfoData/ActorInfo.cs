@@ -240,6 +240,8 @@ namespace Ryneus
             (
                 ActorId.Value,useCost,stageId
             );
+            // 次のLvに必要なExpを加算
+            Exp.GainValue(NextExp);
             levelUpInfo.SetLevel(Level);
             ChangeHp(CurrentParameter(StatusParamType.Hp));
             ChangeMp(CurrentParameter(StatusParamType.Mp));

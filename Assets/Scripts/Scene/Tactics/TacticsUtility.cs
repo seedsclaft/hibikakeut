@@ -1,5 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using Unity.Mathematics.Geometry;
 using UnityEngine;
 
 namespace Ryneus
@@ -13,7 +15,10 @@ namespace Ryneus
 
         public static int TrainCost(ActorInfo actorInfo)
         {
-            return TacticsCostRate(actorInfo);
+            var rate = TacticsCostRate(actorInfo);
+            float remainPer = 1f - (actorInfo.Exp.Value % 100 * 0.01f);
+            var needPoint = ((actorInfo.Level - 1) * 0.5f) + 10;
+            return (int)MathF.Floor(needPoint * remainPer * rate);
         }
 
         public static int TrainCost(int level,ActorInfo actorInfo)

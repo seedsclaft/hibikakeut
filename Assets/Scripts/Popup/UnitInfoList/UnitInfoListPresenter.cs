@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Ryneus
 {
-    public class UnitInfoListPresenter :BasePresenter
+    public class UnitInfoListPresenter : BasePresenter
     {
         UnitInfoListModel _model = null;
         UnitInfoListView _view = null;
@@ -183,6 +183,7 @@ namespace Ryneus
             CommandStatusInfo(actorInfos,false,true,false,false,actorInfos[0].ActorId.Value,() => 
             {
                 _view.ChangeUIActive(true);
+                UpdateUnitInfoList(true);
             });
         }
 

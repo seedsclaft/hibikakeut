@@ -192,6 +192,11 @@ namespace Ryneus
             return LoadResource<SpriteAtlas>("Texture/Icons");
         }
 
+        public static SpriteAtlas LoadUnitIcons()
+        {
+            return LoadResource<SpriteAtlas>("Texture/UnitIcons");
+        }
+
         public static Sprite LoadGuideSprite(string path)
         {
             return LoadResource<Sprite>("Texture/Guide/" + path);

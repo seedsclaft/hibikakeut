@@ -63,7 +63,7 @@ namespace Ryneus
             if (nextTeam.TeamId.Value == (int)TeamIdType.Home)
             {
                 // 拠点数
-                var actPoint = CurrentStage.FieldHexList.FindAll(a => a.IsBasementUnit() && a.IsFriend(nextTeam.TeamId.Value));
+                var actPoint = CurrentStage.FieldHexList.FindAll(a => a.IsBasementUnit && a.IsFriend(nextTeam.TeamId.Value));
                 nextTeam.ActPoint.SetValue(actPoint.Count);
                 nextTeam.CurrentActPoint.SetValue(nextTeam.ActPoint.Value);
             } else
@@ -186,7 +186,7 @@ namespace Ryneus
             {
                 return;
             }
-            var departureHex = hexUnits.Find(a => a.IsBasementUnit());
+            var departureHex = hexUnits.Find(a => a.IsBasementUnit);
             var move = _departureUnitInfo.BattlerInfos[0].CurrentMov();
             _reachAreas = _hexRoute.GetReachableArea(MoveType.Normal,departureHex.HexField,move,false);
             var depaterIndex = 1000;
@@ -211,7 +211,7 @@ namespace Ryneus
             {
                 return;
             }
-            var moveBattlerHex = hexUnits.Find(a => a.IsBattlerUnit());
+            var moveBattlerHex = hexUnits.Find(a => a.IsBattlerUnit);
             if (moveBattlerHex == null)
             {
                 return;
@@ -247,13 +247,13 @@ namespace Ryneus
             {
                 return null;
             }
-            var moveBattlerHex = hexUnits.Find(a => a.IsBattlerUnit() && !a.IsLostUnit());
+            var moveBattlerHex = hexUnits.Find(a => a.IsBattlerUnit && !a.IsLostUnit());
             if (moveBattlerHex == null)
             {
                 return null;
             }
             // 味方の行動範囲は表示しない
-            if (moveBattlerHex.IsPlayableUnit())
+            if (moveBattlerHex.IsHomeUnit())
             {
                 return moveBattlerHex;
             }
@@ -321,7 +321,7 @@ namespace Ryneus
                 return null;
             }
             // 出撃する
-            var hexUnits = CurrentStage.FieldHexList.FindAll(a => a.IsBattlerUnit());
+            var hexUnits = CurrentStage.FieldHexList.FindAll(a => a.IsBattlerUnit);
             var depaterActorIndex = hexUnits.Count + 1;
             
             var unitData = new StageSymbolData
@@ -377,7 +377,7 @@ namespace Ryneus
         /// </summary>
         private void AutoMoveBasement(HexUnitInfo moveBattler)
         {
-            var basement = OnFieldInfos.Find(a => a.IsBasementUnit() && a.TeamId.Value != CurrentStage.TurnTeamId.Value);
+            var basement = OnFieldInfos.Find(a => a.IsBasementUnit && a.TeamId.Value != CurrentStage.TurnTeamId.Value);
             if (basement != null)
             {
                 var decide = false;
@@ -449,7 +449,7 @@ namespace Ryneus
                     var reachPathes = _hexRoute.GetReachableArea(MoveType.Normal,moveBattler.HexField,reach,true);
                     foreach (var reachPath in reachPathes)
                     {
-                        var findBattler = OnFieldInfos.Find(a => a.HexField.X == reachPath.X && a.HexField.Y == reachPath.Y && a.TeamId.Value != CurrentStage.TurnTeamId.Value && a.IsBattlerUnit());
+                        var findBattler = OnFieldInfos.Find(a => a.HexField.X == reachPath.X && a.HexField.Y == reachPath.Y && a.TeamId.Value != CurrentStage.TurnTeamId.Value && a.IsBattlerUnit);
                         if (findBattler != null)
                         {
                             return BattleCommand.Key;
@@ -532,13 +532,13 @@ namespace Ryneus
         public List<BattleSceneInfo> BattleSceneInfos()
         {
             var list = new List<BattleSceneInfo>();
-            var battlerUnits = CurrentStage.AllUnitInfos().FindAll(a => a.IsBattlerUnit() && !a.IsLostUnit());
+            var battlerUnits = CurrentStage.AllUnitInfos().FindAll(a => a.IsBattlerUnit && !a.IsLostUnit());
             if (battlerUnits.Count == 0)
             {
                 return list;
             }
             // バトルを行う組み合わせ
-            var mainParty = CurrentStage.OnFieldTurnUnitInfos().Find(a => a.IsBattlerUnit() && !a.IsLostUnit());
+            var mainParty = CurrentStage.OnFieldTurnUnitInfos().Find(a => a.IsBattlerUnit && !a.IsLostUnit());
             _reachAreas = _hexRoute.GetReachableArea(MoveType.Normal,mainParty.HexField,1,true);
             // 隣接候補
             var opponentUnits = battlerUnits.FindAll(a => a.UnitInfo != null && !a.IsFriend(mainParty.TeamId.Value) && _reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
@@ -594,7 +594,7 @@ namespace Ryneus
 
         public void ConquerBasement()
         {
-            var basement = OnFieldInfos.Find(a => a.IsBasementUnit());
+            var basement = OnFieldInfos.Find(a => a.IsBasementUnit);
             if (basement != null)
             {
                 var term = CurrentStage.GetTurnTeamInfo();
@@ -620,7 +620,7 @@ namespace Ryneus
         public List<GetItemInfo> AlcanaOpen()
         {
             UnitActEnd();
-            var alcana = OnFieldInfos.Find(a => a.IsAlcanaUnit());
+            var alcana = OnFieldInfos.Find(a => a.IsAlcanaUnit);
             if (alcana != null)
             {
                 foreach (var getItemInfo in alcana.GetItemInfos)
@@ -630,6 +630,23 @@ namespace Ryneus
                 // 消失
                 CurrentStage.RemoveHexUnitInfo(alcana);
                 return alcana.GetItemInfos;
+            }
+            return null;
+        }
+
+        public List<GetItemInfo> GetItemOpen()
+        {
+            UnitActEnd();
+            var getItem = OnFieldInfos.Find(a => a.IsGetItemUnit);
+            if (getItem != null)
+            {
+                foreach (var getItemInfo in getItem.GetItemInfos)
+                {
+                    AddGetItemInfo(getItemInfo);
+                }
+                // 消失
+                CurrentStage.RemoveHexUnitInfo(getItem);
+                return getItem.GetItemInfos;
             }
             return null;
         }
@@ -662,7 +679,7 @@ namespace Ryneus
             var hpHeals = new List<int>();
             var list = new List<HexUnitInfo>();
             // 拠点回復確認
-            var basements = CurrentStage.FieldHexList.FindAll(a => a.IsBasementUnit() && a.TeamId.Value == GetTurnTeam().TeamId.Value);
+            var basements = CurrentStage.FieldHexList.FindAll(a => a.IsBasementUnit && a.TeamId.Value == GetTurnTeam().TeamId.Value);
             var battlerUnitInfos = CurrentStage.FriendUnitInfos();
             foreach (var battlerUnitInfo in battlerUnitInfos)
             {
@@ -709,7 +726,7 @@ namespace Ryneus
                 UnitsCommand,
             };
             // 同時に拠点がある場合
-            var basement = OnFieldInfos.Find(a => a.IsBasementUnit() && a.TeamId.Value == GetTurnTeam().TeamId.Value);
+            var basement = OnFieldInfos.Find(a => a.IsBasementUnit && a.TeamId.Value == GetTurnTeam().TeamId.Value);
             if (basement != null)
             {
                 var BasementCommand = new List<SystemData.CommandData>
@@ -720,7 +737,7 @@ namespace Ryneus
                 list.AddRange(BasementCommand);
             }
             // 同時に敵拠点がある場合
-            var conq = OnFieldInfos.Find(a => a.IsBasementUnit() && a.TeamId.Value != GetTurnTeam().TeamId.Value);
+            var conq = OnFieldInfos.Find(a => a.IsBasementUnit && a.TeamId.Value != GetTurnTeam().TeamId.Value);
             if (conq != null)
             {
                 list.Insert(0,ConquerCommand);
@@ -778,19 +795,24 @@ namespace Ryneus
                 WaitCommand
             };
             // 敵拠点の上にいる場合は制圧
-            var battler = CurrentStage.OnFieldTurnUnitInfos().Find(a => a.IsBattlerUnit());
+            var battler = CurrentStage.OnFieldTurnUnitInfos().Find(a => a.IsBattlerUnit);
             var hexUnits = OnFieldInfos;
-            if (hexUnits.Find(a => a.IsBasementUnit() && a.TeamId.Value != battler.TeamId.Value) != null)
+            if (hexUnits.Find(a => a.IsBasementUnit && a.TeamId.Value != battler.TeamId.Value) != null)
             {
                 list.Insert(0,ConquerCommand);
             } else
             // 味方拠点の上であれば帰還
-            if (hexUnits.Find(a => a.IsBasementUnit() && a.TeamId.Value == battler.TeamId.Value) != null)
+            if (hexUnits.Find(a => a.IsBasementUnit && a.TeamId.Value == battler.TeamId.Value) != null)
             {
                 list.Insert(0,ReturnCommand);
             }
+            // 宝箱の上
+            if (hexUnits.Find(a => a.IsGetItemUnit) != null)
+            {
+                list.Insert(0,GetItemCommand);
+            }
             // イベントの上
-            if (hexUnits.Find(a => a.IsAlcanaUnit()) != null)
+            if (hexUnits.Find(a => a.IsAlcanaUnit) != null)
             {
                 list.Insert(0,EventCommand);
             }
@@ -800,9 +822,9 @@ namespace Ryneus
                 {
                     // 隣接している
                     var hexUnits = CurrentStage.AllUnitInfos();
-                    var battler = hexUnits.Find(a => a.IsBattlerUnit());
+                    var battler = hexUnits.Find(a => a.IsBattlerUnit);
                     var reachAreas = _hexRoute.GetReachableArea(MoveType.Normal,battler.HexField,1,true);
-                    var battlerUnits = CurrentStage.OpponentUnitInfos()?.FindAll(a => a.IsBattlerUnit() && reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+                    var battlerUnits = CurrentStage.OpponentUnitInfos()?.FindAll(a => a.IsBattlerUnit && reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
                     var enemyInfos = battlerUnits.FindAll(a => a.UnitInfo != null);
                     return enemyInfos.Count > 0;
                 }
@@ -842,6 +864,7 @@ namespace Ryneus
         public SystemData.CommandData UnitEditCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "UnitEdit");
         public SystemData.CommandData ReturnCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Return");
         public SystemData.CommandData EventCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Event");
+        public SystemData.CommandData GetItemCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "GetItem");
     }
 
 }

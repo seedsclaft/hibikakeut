@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
 
 namespace Ryneus
 {
@@ -26,21 +25,10 @@ namespace Ryneus
             return busyIndexes.Contains(selectUnit.Index.Value);
         }
 
-        public List<ActorInfo> EditEnableActorInfos()
+        public UnitInfoListModel()
         {
-            var list = new List<ActorInfo>();
-            var busyActorIndexes = new List<int>();
-            foreach (var unitInfo in CurrentStage.GetTurnTeamInfo().UnitInfos)
-            {
-                foreach (var battlerInfo in unitInfo.UnitInfo.BattlerInfos)
-                {
-                    if (battlerInfo.Index.Value > 0)
-                    {
-                        busyActorIndexes.Add(battlerInfo.ActorInfo.ActorId.Value);
-                    }
-                }
-            }
-            return StageMembers().FindAll(a => !busyActorIndexes.Contains(a.ActorId.Value));
+            _sceneParam = (UnitInfoListInfo)GameSystem.SceneStackManager.LastTemplate;
+            _unitInfos = _sceneParam.UnitInfos;
         }
 
         public void SwapUnitInfos(int actorId)
@@ -104,29 +92,6 @@ namespace Ryneus
             CurrentStage.GetTurnTeamInfo().SetDepatuerInfos(_unitInfos);
         }
 
-        
-        public UnitInfoListModel()
-        {
-            _sceneParam = (UnitInfoListInfo)GameSystem.SceneStackManager.LastTemplate;
-            foreach (var unitInfo in _sceneParam.UnitInfos)
-            {
-                var copy = unitInfo.CopyData();
-                if (copy.BattlerInfos.Count == 1)
-                {
-                    copy.BattlerInfos.Add(new BattlerInfo());
-                }
-                _unitInfos.Add(copy);
-            }
-            // 編成の場合新規作成用に１枠作る
-            if (_sceneParam.IsUnitEdit.Value)
-            {
-                var unitInfo = new UnitInfo();
-                unitInfo.Index.SetValue(_unitInfos.Count+1);
-                unitInfo.SetBattlers(new List<BattlerInfo>(){new BattlerInfo(),new BattlerInfo()});
-                _unitInfos.Add(unitInfo);
-            }
-        }
-
         public List<UnitInfo> GetUnitInfos()
         {
             return _unitInfos;
@@ -166,7 +131,7 @@ namespace Ryneus
         }
         private System.Action _backEvent;
         public System.Action BackEvent => _backEvent;
-        
+
         private List<UnitInfo> _unitInfos;
         public List<UnitInfo> UnitInfos => _unitInfos;
         public void SetUnitInfos(List<UnitInfo> unitInfos)

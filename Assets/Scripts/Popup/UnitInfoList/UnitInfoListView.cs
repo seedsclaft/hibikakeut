@@ -24,13 +24,13 @@ namespace Ryneus
         }
         [SerializeField] private PopupAnimation popupAnimation = null;
         
-        public override void Initialize() 
+        public override void Initialize()
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.UnitInfoList);
             InitializeUnitInfoList();
             SetBaseAnimation(popupAnimation);
-            new UnitInfoListPresenter(this);
+            _ = new UnitInfoListPresenter(this);
         }
 
         public void OpenAnimation()

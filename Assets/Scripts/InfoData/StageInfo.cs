@@ -103,7 +103,7 @@ namespace Ryneus
         {
             foreach (var hexField in hexFields)
             {
-                var findAll = _fieldHexList.FindAll(a => a.IsReachUnit() && a.HexField.X == hexField.X && a.HexField.Y == hexField.Y);
+                var findAll = _fieldHexList.FindAll(a => a.IsReachUnit && a.HexField.X == hexField.X && a.HexField.Y == hexField.Y);
                 for (int i = findAll.Count-1;i >= 0;i--)
                 {
                     _fieldHexList.Remove(findAll[i]);
@@ -155,7 +155,7 @@ namespace Ryneus
         public bool CheckGameOver()
         {
             // 拠点が0で部隊が0
-            var basement = _fieldHexList.Find(a => a.IsBasementUnit() && a.TeamId.Value == (int)TeamIdType.Home);
+            var basement = _fieldHexList.Find(a => a.IsBasementUnit && a.TeamId.Value == (int)TeamIdType.Home);
             var fieldUnit = HomeTeamInfo.UnitInfos.Find(a => a.IsUnit && !a.IsLostUnit());
             if (basement == null)
             {

@@ -7,10 +7,10 @@ namespace Ryneus
     public class UnitInfo 
     {
         public ParameterInt Index = new();
-        private List<BattlerInfo> _battlerInfos = new();
+        [UnityEngine.SerializeField] private List<BattlerInfo> _battlerInfos = new();
         public List<BattlerInfo> BattlerInfos => _battlerInfos;
         public List<BattlerInfo> AliveBattlerInfos => _battlerInfos.FindAll(a => a.IsAlive());
-        
+
         public void SetBattlers(List<BattlerInfo> battlerInfos)
         {
             _battlerInfos = battlerInfos;
