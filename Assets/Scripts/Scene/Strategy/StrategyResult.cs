@@ -8,15 +8,15 @@ namespace Ryneus
     public class StrategyResult : ListItem ,IListViewItem 
     {   
         [SerializeField] private SkillInfoComponent skillInfoComponent;
-        [SerializeField] private TextMeshProUGUI titleName;     
+        [SerializeField] private TextMeshProUGUI titleName;
         public void UpdateViewItem()
         {
-            if (ListData == null) 
+            if (ListData == null)
             {
                 return;
             }
             var data = ListItemData<StrategyResultViewInfo>();
-            if (data == null) 
+            if (data == null)
             {
                 return;
             }

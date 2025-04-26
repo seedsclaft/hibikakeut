@@ -6,13 +6,16 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class StatusCondition : ListItem ,IListViewItem 
+    public class StatusCondition : ListItem,IListViewItem
     {
         [SerializeField] private StateInfoComponent stateInfoComponent;
 
         public void UpdateViewItem()
         {
-            if (ListData == null) return;
+            if (ListData == null)
+            {
+                return;
+            }
             var data = ListItemData<StateInfo>();
             stateInfoComponent.UpdateInfo(data);
         }

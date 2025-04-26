@@ -5,14 +5,14 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class GetItem : ListItem ,IListViewItem  
+    public class GetItem : ListItem,IListViewItem
     {
         [SerializeField] private SkillInfoComponent skillInfoComponent;
         [SerializeField] private TextMeshProUGUI titleName;
 
         public void UpdateViewItem()
         {
-            if (ListData == null) 
+            if (ListData == null)
             {
                 return;
             }

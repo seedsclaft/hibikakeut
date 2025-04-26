@@ -6,7 +6,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class StatusKind : ListItem ,IListViewItem 
+    public class StatusKind : ListItem,IListViewItem
     {
         [SerializeField] private TextMeshProUGUI kindName;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Ryneus
 {
-    public class StatusAnimation : BaseAnimation , IBaseAnimation
+    public class StatusAnimation : BaseAnimation, IBaseAnimation
     {
         private bool _busy;
         public void OpenAnimation(Transform transform,System.Action endEvent,float duration = 0.2f)
@@ -30,7 +30,7 @@ namespace Ryneus
             transform.DOLocalMoveX(-640,duration);
             DOTween.Sequence()
                 .Append(transform.DOLocalMoveX(0,duration))
-                .OnComplete(() => 
+                .OnComplete(() =>
                 {
                     _busy = false;
                     endEvent?.Invoke();
@@ -44,7 +44,7 @@ namespace Ryneus
             transform.DOLocalMoveX(640,duration);
             DOTween.Sequence()
                 .Append(transform.DOLocalMoveX(0,duration))
-                .OnComplete(() => 
+                .OnComplete(() =>
                 {
                     _busy = false;
                     endEvent?.Invoke();

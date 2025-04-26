@@ -107,7 +107,7 @@ namespace Ryneus
         }
 
         public void InitializeInput()
-        {    
+        {
             _inputSystem = new InputSystem();
         }
 
@@ -286,7 +286,7 @@ namespace Ryneus
             if (_backCommand != null)
             {
                 _backCommand.onClick.RemoveAllListeners();
-                _backCommand.onClick.AddListener(() => 
+                _backCommand.onClick.AddListener(() =>
                 {
                     if (!_backCommand.gameObject.activeSelf) return;
                     callEvent();
@@ -297,7 +297,7 @@ namespace Ryneus
 
         public void SetBackEvent(Action backEvent)
         {
-            SetBackCommand(() => 
+            SetBackCommand(() =>
             {
                 if (uiRoot.activeSelf)
                 {
@@ -306,7 +306,7 @@ namespace Ryneus
             });
             ChangeBackCommandActive(true);
         }
-        
+
         public void ChangeBackCommandActive(bool IsActive)
         {
             _backCommand?.gameObject.SetActive(IsActive);

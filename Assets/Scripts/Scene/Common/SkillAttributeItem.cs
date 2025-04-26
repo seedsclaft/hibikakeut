@@ -6,7 +6,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class SkillAttributeItem : ListItem ,IListViewItem  
+    public class SkillAttributeItem : ListItem,IListViewItem
     {
 
         [SerializeField] private Image icon;
@@ -14,9 +14,13 @@ namespace Ryneus
 
         public void UpdateViewItem()
         {
-            if (ListData == null) return;
+            if (ListData == null)
+            {
+                return;
+            }
+
             var data = ListItemData<AttributeType>();
-            
+
             icon.gameObject.SetActive(true);
             var spriteAtlas = iconSprites[(int)data];
             if (icon != null)

@@ -51,7 +51,7 @@ namespace Ryneus
                 var sequence = DOTween.Sequence()
                     .Append(gaugeAnimation.DOFillAmount(gaugeAmount,_waitDuration)
                     .SetDelay(_delayDuration)
-                    .OnComplete(() => 
+                    .OnComplete(() =>
                         {
                             _animation = null;
                             gaugeAnimation.fillAmount = gauge.fillAmount;

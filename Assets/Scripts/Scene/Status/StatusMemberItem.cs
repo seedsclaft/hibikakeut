@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Ryneus
 {
-    public class StatusMemberItem : ListItem ,IListViewItem  
+    public class StatusMemberItem : ListItem,IListViewItem
     {
         [SerializeField] private GameObject innerObj;
         [SerializeField] private ActorInfoComponent actorInfoComponent;
@@ -10,7 +10,11 @@ namespace Ryneus
 
         public void UpdateViewItem()
         {
-            if (ListData == null) return;
+            if (ListData == null)
+            {
+                return;
+            }
+
             var data = ListItemData<ActorInfo>();
             actorInfoComponent.Clear();
             actorInfoComponent.UpdateInfo(data,null);

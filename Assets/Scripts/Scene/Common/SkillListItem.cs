@@ -6,13 +6,17 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class SkillListItem : ListItem ,IListViewItem  
+    public class SkillListItem : ListItem,IListViewItem
     {
         [SerializeField] private SkillInfoComponent skillInfoComponent1;
 
         public void UpdateViewItem()
         {
-            if (ListData == null) return;
+            if (ListData == null)
+            {
+                return;
+            }
+
             var data = ListItemData<SkillInfo>();
             skillInfoComponent1.UpdateInfo(data);
         }

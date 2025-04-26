@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Ryneus
 {
     public class StrategyActorList : BaseList
-    {   
+    {
         public void StartResultAnimation(int actorCount,List<bool> isBonusList,System.Action callEvent)
         {
             for (int i = 0; i < ItemPrefabList.Count;i++)

@@ -26,8 +26,8 @@ namespace Ryneus
             if (_setToggleHandler) return;
             _setToggleHandler = true;
             checkToggle.onValueChanged.AddListener((a) => handler());
-        }    
-        
+        }
+
         public void SetBattleFrontToggleHandler(System.Action handler)
         {
             if (_setBattleFrontToggleHandler) return;

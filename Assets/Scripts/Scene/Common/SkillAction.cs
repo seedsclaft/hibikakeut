@@ -6,7 +6,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class SkillAction : ListItem ,IListViewItem  
+    public class SkillAction : ListItem,IListViewItem
     {
         [SerializeField] private SkillInfoComponent skillInfoComponent;
         [SerializeField] private GameObject BgObj;
@@ -16,7 +16,11 @@ namespace Ryneus
 
         public void UpdateViewItem()
         {
-            if (ListData == null) return;
+            if (ListData == null)
+            {
+                return;
+            }
+
             var data = ListItemData<SkillInfo>();
             skillInfoComponent.UpdateInfo(data);
             AwakenObj?.SetActive(data != null && data.Master.SkillType == SkillType.Awaken);

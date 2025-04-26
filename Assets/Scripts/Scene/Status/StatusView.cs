@@ -18,7 +18,7 @@ namespace Ryneus
         [SerializeField] private Button leftArrowButton = null;
         [SerializeField] private Button rightArrowButton = null;
 
-        private StatusViewInfo _statusViewInfo = null; 
+        private StatusViewInfo _statusViewInfo = null;
 
         private Action _backEvent = null;
         private bool _isDisplayDecide => _statusViewInfo != null && _statusViewInfo.DisplayDecideButton;
@@ -29,7 +29,7 @@ namespace Ryneus
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Status);
-            
+
             InitializeEquipSkillList();
             InitializeChangeSkillList();
             if (statusLevelUp != null)
@@ -222,7 +222,7 @@ namespace Ryneus
         public int StartIndex => _startIndex;
         private Action<int> _charaLayerEvent = null;
         public Action<int> CharaLayerEvent => _charaLayerEvent;
-        
+
         public StatusViewInfo(Action backEvent)
         {
             _backEvent = backEvent;
@@ -232,12 +232,12 @@ namespace Ryneus
         {
             _displayDecideButton = isDisplay;
         }
-        
+
         public void SetDisplayBackButton(bool isDisplay)
         {
             _displayBackButton = isDisplay;
         }
-        
+
         public void SetDisplayCharacterList(bool isDisplay)
         {
             _displayCharacterList = isDisplay;
@@ -263,7 +263,7 @@ namespace Ryneus
         public void SetStartIndex(int actorIndex)
         {
             _startIndex = actorIndex;
-        }        
+        }
         
         public void SetCharaLayerEvent(System.Action<int> charaLayerEvent)
         {
@@ -273,9 +273,9 @@ namespace Ryneus
         public void SetIsRanking(bool isRanking)
         {
             _isRanking = isRanking;
-        }        
+        }
     }
-    
+
     namespace Status
     {
         public enum CommandType

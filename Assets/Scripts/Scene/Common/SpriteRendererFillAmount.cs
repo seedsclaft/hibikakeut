@@ -5,7 +5,7 @@ public class SpriteRendererFillAmount : MonoBehaviour
 {
     [SerializeField, HideInInspector]
     private SpriteRenderer _spriteRenderer;
- 
+
     [SerializeField, Range(0f, 1f)]
     private float _fillAmount = 1f;
     public float FillAmount
@@ -28,16 +28,16 @@ public class SpriteRendererFillAmount : MonoBehaviour
     {
         FillAmount = _fillAmount;
     }
- 
+
     private static readonly int PropertyId = Shader.PropertyToID("_FillAmount");
  
     private Material _material;
- 
+
     private void Reset()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
- 
+
     private void Awake()
     {
         var shader = Shader.Find("Hidden/SpriteRendererFillAmount");

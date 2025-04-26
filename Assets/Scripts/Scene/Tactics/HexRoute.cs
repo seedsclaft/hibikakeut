@@ -144,7 +144,7 @@ namespace Ryneus
             _openList.Add(node);
         }
 
-        public void OpenStartNode(int colX,int rowY) 
+        public void OpenStartNode(int colX,int rowY)
         {
             var node = GetField(colX,rowY);
 

@@ -42,7 +42,7 @@ namespace Ryneus
                 }
             }
         }
-        
+
         public void ClearSceneParam()
         {
             _sceneParam = null;
@@ -56,8 +56,6 @@ namespace Ryneus
         private List<StrategyResultViewInfo> _resultInfos = new();
         public List<StrategyResultViewInfo> ResultViewInfos => _resultInfos;
 
-
-        
         private List<SkillInfo> _selectLearnSkills = new();
         public List<SkillInfo> SelectLearnSkills => _selectLearnSkills;
 
@@ -115,7 +113,7 @@ namespace Ryneus
         public void MakeResult()
         {
             var getItemInfos = _sceneParam.GetItemInfos;
-            
+
             var lvUpList = new List<ActorInfo>();
             // Expを付与する,結果非表示
             var expGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Exp);
@@ -245,7 +243,7 @@ namespace Ryneus
                 _resultInfos.Remove(remove);
             }
             var learnGetItemInfo = getItemInfos.Find(a => a.GetItemType == GetItemType.SelectRelic && skillId == a.Param1);
-            
+
             var getItemInfo = MakeGetItemInfo(GetItemType.Skill,skillId);
             AddPlayerInfoSkillId(skillId);
             AddGetItemInfo(getItemInfo);
@@ -354,7 +352,7 @@ namespace Ryneus
         {
             return false;
         }
-        
+
         public void EndStrategy()
         {
             //UpdateUnitStatus();

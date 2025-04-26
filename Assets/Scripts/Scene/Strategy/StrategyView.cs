@@ -12,35 +12,35 @@ namespace Ryneus
         [SerializeField] private Image backgroundImage = null; 
         [SerializeField] private StrategyActorList strategyActorList = null; 
         [SerializeField] private CanvasGroup strategyResultCanvasGroup = null;
-        [SerializeField] private BaseList strategyResultList = null; 
-        public bool StrategyResultListActive => strategyResultList.gameObject.activeSelf; 
-        [SerializeField] private BaseList commandList = null; 
-        [SerializeField] private BaseList statusList = null; 
+        [SerializeField] private BaseList strategyResultList = null;
+        public bool StrategyResultListActive => strategyResultList.gameObject.activeSelf;
+        [SerializeField] private BaseList commandList = null;
+        [SerializeField] private BaseList statusList = null;
         [SerializeField] private MagicList alcanaSelectList = null;
-        [SerializeField] private TextMeshProUGUI title = null; 
+        [SerializeField] private TextMeshProUGUI title = null;
         [SerializeField] private ActorInfoComponent actorInfoComponent = null;
         [SerializeField] private Button lvUpStatusButton = null;
         [SerializeField] private GameObject animRoot = null;
         [SerializeField] private GameObject animPrefab = null;
         [SerializeField] private GameObject saveHumanObj = null;
-        [SerializeField] private TextMeshProUGUI saveHumanText = null; 
+        [SerializeField] private TextMeshProUGUI saveHumanText = null;
         [SerializeField] private GameObject battleTurnObj = null;
-        [SerializeField] private TextMeshProUGUI battleTurnText = null; 
+        [SerializeField] private TextMeshProUGUI battleTurnText = null;
         [SerializeField] private GameObject battleScoreObj = null;
-        [SerializeField] private TextMeshProUGUI battleScoreText = null; 
+        [SerializeField] private TextMeshProUGUI battleScoreText = null;
         [SerializeField] private GameObject battleMaxDamageObj = null;
-        [SerializeField] private TextMeshProUGUI battleMaxDamageText = null; 
+        [SerializeField] private TextMeshProUGUI battleMaxDamageText = null;
         [SerializeField] private GameObject battleAttackPerObj = null;
-        [SerializeField] private TextMeshProUGUI battleAttackPerText = null; 
+        [SerializeField] private TextMeshProUGUI battleAttackPerText = null;
         [SerializeField] private GameObject battleDefeatedCountObj = null;
-        [SerializeField] private TextMeshProUGUI battleDefeatedCountText = null; 
+        [SerializeField] private TextMeshProUGUI battleDefeatedCountText = null;
 
         private BattleStartAnim _battleStartAnim = null;
         private bool _animationBusy = false;
         public bool AnimationBusy => _animationBusy;
         public int AlcanaListIndex => alcanaSelectList.Index;
 
-        public override void Initialize() 
+        public override void Initialize()
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Strategy);
@@ -102,11 +102,10 @@ namespace Ryneus
             _animationBusy = true;
         }
 
-
         private void InitializeStatusList()
         {
             statusList.Initialize();
-            statusList.SetInputHandler(InputKeyType.Decide,() => CallLvUpNext());
+            statusList.SetInputHandler(InputKeyType.Decide,CallLvUpNext);
             SetInputHandler(statusList.gameObject);
             AddViewActives(strategyActorList);
         }
@@ -117,11 +116,11 @@ namespace Ryneus
             actorInfoComponent.gameObject.SetActive(true);
             actorInfoComponent.Clear();
             actorInfoComponent.UpdateInfo(actorInfo,null);
-            
+
             var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
             rect.localPosition = new Vector3(0,0,0);
             actorInfoComponent.MainThumb.DOFade(0,0);
-            
+
             BaseAnimation.MoveAndFade(rect,actorInfoComponent.MainThumb,24,1);
 
             HelpWindow.SetInputInfo("LEVELUP");
@@ -141,7 +140,7 @@ namespace Ryneus
         private void InitializeLearnSkillList()
         {
             alcanaSelectList.Initialize();
-            alcanaSelectList.SetInputHandler(InputKeyType.Decide,() => 
+            alcanaSelectList.SetInputHandler(InputKeyType.Decide,() =>
             {
                 if (LearnSelectSkillInfo() != null)
                 {
@@ -175,7 +174,7 @@ namespace Ryneus
             AddViewActives(strategyResultList);
             strategyResultList.gameObject.SetActive(false);
             strategyResultCanvasGroup.alpha = 0;
-            
+
             commandList.SetData(confirmCommands,true,() =>
             {
                 commandList.UpdateSelectIndex(1);
@@ -226,7 +225,7 @@ namespace Ryneus
 
         private new void Update() 
         {
-            if (_animationBusy == true)
+            if (_animationBusy)
             {
                 CheckAnimationBusy();
                 return;
@@ -236,7 +235,7 @@ namespace Ryneus
 
         private void CheckAnimationBusy()
         {
-            if (_battleStartAnim.IsBusy == false)
+            if (!_battleStartAnim.IsBusy)
             {
                 _animationBusy = false;
                 CallViewEvent(CommandType.EndLvUpAnimation);
@@ -266,7 +265,7 @@ namespace Ryneus
             SetActivate(alcanaSelectList);
         }
 
-        public SkillInfo LearnSelectSkillInfo() 
+        public SkillInfo LearnSelectSkillInfo()
         {
             var data = alcanaSelectList.ListItemData<SkillInfo>();
             if (data != null)

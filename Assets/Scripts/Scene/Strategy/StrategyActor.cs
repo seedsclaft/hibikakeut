@@ -4,8 +4,8 @@ using DG.Tweening;
 
 namespace Ryneus
 {
-    public class StrategyActor : ListItem ,IListViewItem  
-    {   
+    public class StrategyActor : ListItem,IListViewItem
+    {
         [SerializeField] private ActorInfoComponent component;
         [SerializeField] private Image bonusImage;
 

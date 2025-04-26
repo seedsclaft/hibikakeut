@@ -3,7 +3,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class BaseCommand : ListItem ,IListViewItem 
+    public class BaseCommand : ListItem,IListViewItem
     {
         [SerializeField] private TextMeshProUGUI commandName;
 

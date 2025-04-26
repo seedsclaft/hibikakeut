@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Ryneus
 {
-    public partial class BaseModel 
+    public partial class BaseModel
     {
         public List<ListData> MakeListData<T>(List<T> dataList)
         {
@@ -29,7 +29,7 @@ namespace Ryneus
         }
 
         public List<SkillInfo> SkillActionList(ActorInfo actorInfo)
-        {            
+        {
             return new List<SkillInfo>();
             /*
             if (actorInfo == null)
@@ -71,7 +71,7 @@ namespace Ryneus
             var listData = MakeListData(skillInfos);
             return listData;
         }
-        
+
         public List<AttributeType> AttributeTabList()
         {
             var list = new List<AttributeType>();
