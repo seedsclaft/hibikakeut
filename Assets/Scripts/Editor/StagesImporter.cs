@@ -50,7 +50,7 @@ namespace Ryneus
 				{
 					// エクセルブックを作成
 					AssetPostImporter.CreateBook(asset, Mainstream, out IWorkbook Book);
-					var textData = AssetPostImporter.CreateText(Book.GetSheetAt(6));
+					var textData = AssetPostImporter.CreateText(Book.GetSheetAt(7));
 
 					// 情報の初期化
 					Data.Data.Clear();
@@ -60,7 +60,8 @@ namespace Ryneus
 					ISheet EventSheet = Book.GetSheetAt(1);
 					ISheet SymbolSheet = Book.GetSheetAt(2);
 					ISheet EnemyRateSheet = Book.GetSheetAt(3);
-					ISheet TutorialSheet = Book.GetSheetAt(5);
+					ISheet MoveTypeParamSheet = Book.GetSheetAt(5);
+					ISheet TutorialSheet = Book.GetSheetAt(6);
 					for (int i = 1; i <= BaseSheet.LastRowNum; i++)
 					{
 						var KeyRow = BaseSheet.GetRow(0);
@@ -123,7 +124,7 @@ namespace Ryneus
 								StageData.StageEvents.Add(EventData);
 							}
 						}
-						StageData.StageSymbols = new ();
+						StageData.StageSymbols = new();
 						KeyRow = SymbolSheet.GetRow(0);
 						AssetPostImporter.SetKeyNames(KeyRow.Cells);
 						for (int j = 1; j <= SymbolSheet.LastRowNum; j++)
@@ -147,9 +148,29 @@ namespace Ryneus
 								SymbolData.PrizeSetId = AssetPostImporter.ImportNumeric(SymbolRow, "PrizeSetId");
 								SymbolData.ClearCount = AssetPostImporter.ImportNumeric(SymbolRow, "ClearCount");
 								SymbolData.MoveType = (UnitMoveType)AssetPostImporter.ImportNumeric(SymbolRow, "MoveType");
-								SymbolData.MoveParam = AssetPostImporter.ImportNumeric(SymbolRow, "MoveParam");
+								//SymbolData.MoveTypeParam = (MoveTypeParam)AssetPostImporter.ImportNumeric(SymbolRow, "MoveParam");
 								
 								StageData.StageSymbols.Add(SymbolData);
+							}
+						}
+
+						KeyRow = MoveTypeParamSheet.GetRow(0);
+						AssetPostImporter.SetKeyNames(KeyRow.Cells);
+						for (int j = 1; j <= MoveTypeParamSheet.LastRowNum; j++)
+						{
+							IRow MoveTypeParam = MoveTypeParamSheet.GetRow(j);
+
+							var SymbolId = AssetPostImporter.ImportNumeric(MoveTypeParam,"SymbolId");
+							var symbols = StageData.StageSymbols.FindAll(a => a.Id == SymbolId);
+							foreach (var symbol in symbols)
+							{
+								symbol.MoveTypeParam = new MoveTypeParam()
+								{
+									Param1 = AssetPostImporter.ImportNumeric(MoveTypeParam,"Param1"),
+									Param2 = AssetPostImporter.ImportNumeric(MoveTypeParam,"Param2"),
+									Param3 = AssetPostImporter.ImportNumeric(MoveTypeParam,"Param3"),
+									Param4 = AssetPostImporter.ImportNumeric(MoveTypeParam,"Param4"),
+								};
 							}
 						}
 						

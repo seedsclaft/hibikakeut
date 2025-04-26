@@ -345,8 +345,6 @@ namespace Ryneus
             UseActPoint();
             return depaterUnit;
         }
-        
-
 
         public (List<Action>,HexUnitInfo) SelectMoveBattler(int x,int y)
         {

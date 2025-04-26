@@ -69,7 +69,7 @@ namespace Ryneus
         public int PrizeSetId;
         public int ClearCount;
         public UnitMoveType MoveType;
-        public int MoveParam;
+        public MoveTypeParam MoveTypeParam;
 
         public void ConvertSymbolGroupData(SymbolGroupData symbolGroupData)
         {
@@ -105,7 +105,7 @@ namespace Ryneus
 
     [Serializable]
     public class SymbolGroupData
-    {   
+    {
         public int GroupId;
         //public SymbolType SymbolType;
         public int Rate;
@@ -120,7 +120,19 @@ namespace Ryneus
         public int EnemyId;
         public int Weight;
     }
-/*
+
+    [Serializable]
+    public class MoveTypeParam
+    {
+        public int SymbolId;
+        public int Param1;
+        public int Param2;
+        public int Param3;
+        public int Param4;
+        public bool Flag = false; // 動作管理用
+    }
+
+    /*
     public enum SymbolType
     {
         Random = -1,
@@ -135,7 +147,8 @@ namespace Ryneus
         Shop = 70,
         Group = 99, // 99以上はグループ指定
     }
-*/
+    */
+
     public enum AchieveType
     {
         ConquerEnemyBasement = 1
@@ -228,7 +241,12 @@ namespace Ryneus
         MoveBasement = 1, // 索敵攻撃。相手陣営の本拠地に向かう
         MoveAttackNearest = 10, // 近くにいる敵に向かって移動し、射程に捉えれば攻撃してくる。
         InMoveAttackOrWait = 20, // 射程内に攻撃可能な敵がいれば攻撃、いなければその場で待機。
-        InMoveAttackOrEscape = 30 // 射程内に攻撃可能な敵がいれば攻撃、いない場合は敵の射程に入っていれば射程外へ逃げる、入っていなければその場で待機。
+        InMoveAttackOrEscape = 30, // 射程内に攻撃可能な敵がいれば攻撃、いない場合は敵の射程に入っていれば射程外へ逃げる、入っていなければその場で待機。
+        MoveRandom = 40, // ランダムに移動。
+        InMoveAttackSeekRoute = 50, // 射程内に攻撃可能な敵がいれば攻撃、いなければ一定のルートを移動。
+        InWaitAttackWait = 60, // その場を動かない。その場から攻撃可能なら攻撃する。隣接など攻撃可能でないと挑発は出来ない。
+        MovePoint = 70, // 特定の目標に向かって移動。攻撃してこない。
+        Retreat = 80, // 離脱ポイントへ向かう。攻撃してこない。
     }
 
     [Serializable]

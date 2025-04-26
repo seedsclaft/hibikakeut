@@ -29,12 +29,17 @@ namespace Ryneus
         public void SetHexUnitType(HexUnitType hexUnitType) => _hexUnitType = hexUnitType;
 
         private UnitMoveType _hexMoveType = UnitMoveType.None;
-        private int _hexMoveParam = 0;
         public UnitMoveType HexMoveType => _hexMoveType;
-        public void SetHexMoveType(UnitMoveType hexMoveType,int param)
+        private MoveTypeParam _hexMoveParam = null;
+        public MoveTypeParam HexMoveParam => _hexMoveParam;
+        public void SetHexMoveType(UnitMoveType hexMoveType,MoveTypeParam param)
         {
             _hexMoveType = hexMoveType;
             _hexMoveParam = param;
+        }
+        public void FilpMoveParamFlag()
+        {
+            _hexMoveParam.Flag = !_hexMoveParam.Flag;
         }
 
         [UnityEngine.SerializeField] private List<GetItemInfo> _getItemInfos = new();
@@ -56,7 +61,7 @@ namespace Ryneus
             Id.SetValue(stageSymbolData.Id);
             Index.SetValue(index);
             SetHexUnitType(stageSymbolData.UnitType);
-            SetHexMoveType(stageSymbolData.MoveType,stageSymbolData.MoveParam);
+            SetHexMoveType(stageSymbolData.MoveType,stageSymbolData.MoveTypeParam);
             SetPosition(stageSymbolData.InitX,stageSymbolData.InitY);
             TeamId.SetValue(teamId);
         }
@@ -80,6 +85,15 @@ namespace Ryneus
         {
             _hexField.X = x;
             _hexField.Y = y;
+        }
+
+        public int GetUnitMov()
+        {
+            if (IsBattlerUnit && UnitInfo.BattlerInfos.Count > 0 && UnitInfo.BattlerInfos[0].Index.Value != 0)
+            {
+                return UnitInfo.BattlerInfos[0].CurrentMov();
+            }
+            return 0;
         }
 
         public void SetBattlerIndex(int index)

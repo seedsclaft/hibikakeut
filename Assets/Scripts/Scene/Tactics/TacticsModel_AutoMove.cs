@@ -42,6 +42,20 @@ namespace Ryneus
                             // 射程内に攻撃可能な敵がいれば攻撃、いない場合は敵の射程に入っていれば射程外へ逃げる、入っていなければその場で待機。
                             AutoInMoveAttackOrEscape(moveBattler);
                             return;
+                        case UnitMoveType.MoveRandom:
+                            // ランダムに移動。
+                            AutoMoveRandom(moveBattler);
+                            return;
+                        case UnitMoveType.InMoveAttackSeekRoute:
+                            // 射程内に攻撃可能な敵がいれば攻撃、いなければ一定のルートを移動。
+                            AutoInMoveAttackSeekRoute(moveBattler);
+                            return;
+                        case UnitMoveType.MovePoint:
+                        case UnitMoveType.Retreat:
+                            // 特定の目標に向かって移動。攻撃してこない。
+                            AutoMovePoint(moveBattler);
+                            return;
+                        case UnitMoveType.InWaitAttackWait:
                         case UnitMoveType.None:
                             // 何もしない
                             return;
@@ -75,19 +89,8 @@ namespace Ryneus
             var opponents = CurrentStage.OpponentUnitInfos();
             if (opponents != null && opponents.Count > 0)
             {
-                HexUnitInfo opponent = null;
-                var moveBattlerReach = 0;
                 // 1番近い敵を捕捉
-                while (opponent == null)
-                {
-                    var nearReaches = GetHexReach(moveBattler.HexField,moveBattlerReach,true);
-                    // 重なりを検知
-                    opponent = opponents.Find(a => nearReaches.Find(b => a.HexField.X == b.X && a.HexField.Y == b.Y) != null);
-                    if (opponent == null)
-                    {
-                        moveBattlerReach++;
-                    }
-                }
+                HexUnitInfo opponent = SearchNearestTarget(moveBattler,opponents);
                 // 移動先を確定
                 var inMoveAreaTarget = InMoveAreaTarget(moveBattler,opponent);
                 if (inMoveAreaTarget)
@@ -106,19 +109,8 @@ namespace Ryneus
             var opponents = CurrentStage.OpponentUnitInfos();
             if (opponents != null && opponents.Count > 0)
             {
-                HexUnitInfo opponent = null;
-                var moveBattlerReach = 0;
                 // 1番近い敵を捕捉
-                while (opponent == null)
-                {
-                    var nearReaches = GetHexReach(moveBattler.HexField,moveBattlerReach,true);
-                    // 重なりを検知
-                    opponent = opponents.Find(a => nearReaches.Find(b => a.HexField.X == b.X && a.HexField.Y == b.Y) != null);
-                    if (opponent == null)
-                    {
-                        moveBattlerReach++;
-                    }
-                }
+                HexUnitInfo opponent = SearchNearestTarget(moveBattler,opponents);
                 // 移動先を確定
                 var inMoveAreaTarget = InMoveAreaTarget(moveBattler,opponent);
                 if (inMoveAreaTarget)
@@ -136,19 +128,8 @@ namespace Ryneus
             var opponents = CurrentStage.OpponentUnitInfos();
             if (opponents != null && opponents.Count > 0)
             {
-                HexUnitInfo opponent = null;
-                var moveBattlerReach = 0;
                 // 1番近い敵を捕捉
-                while (opponent == null)
-                {
-                    var nearReaches = GetHexReach(moveBattler.HexField,moveBattlerReach,true);
-                    // 重なりを検知
-                    opponent = opponents.Find(a => nearReaches.Find(b => a.HexField.X == b.X && a.HexField.Y == b.Y) != null);
-                    if (opponent == null)
-                    {
-                        moveBattlerReach++;
-                    }
-                }
+                HexUnitInfo opponent = SearchNearestTarget(moveBattler,opponents);
                 // 移動先を確定
                 var inMoveAreaTarget = InMoveAreaTarget(moveBattler,opponent);
                 if (inMoveAreaTarget)
@@ -179,6 +160,81 @@ namespace Ryneus
                             targetHex = reachArea;
                         }
                     }
+                    CurrentStage.SetFieldPosition(targetHex);
+                }
+            }
+        }
+
+        private void AutoMoveRandom(HexUnitInfo moveBattler)
+        {
+            var reaches = GetHexReach(moveBattler.HexField,moveBattler.UnitInfo.BattlerInfos[0].CurrentMov());
+            var pick = Random.Range(0,reaches.Count);
+            CurrentStage.SetFieldPosition(reaches[pick]);
+        }
+
+        private void AutoInMoveAttackSeekRoute(HexUnitInfo moveBattler)
+        {
+            var opponents = CurrentStage.OpponentUnitInfos();
+            if (opponents != null && opponents.Count > 0)
+            {
+                // 1番近い敵を捕捉
+                HexUnitInfo opponent = SearchNearestTarget(moveBattler,opponents);
+                // 移動先を確定
+                var inMoveAreaTarget = InMoveAreaTarget(moveBattler,opponent);
+                if (inMoveAreaTarget)
+                {
+                    return;
+                }
+            }
+            // ルート目的地点に移動
+            var moveParam = moveBattler.HexMoveParam;
+            if (moveParam != null)
+            {
+                // FlagがFalseならParam1,2
+                var targetHex = new HexField()
+                {
+                    X = moveParam.Flag ? moveParam.Param3 : moveParam.Param1,
+                    Y = moveParam.Flag ? moveParam.Param4 : moveParam.Param2,
+                };
+                _hexRoute.FindRoute(MoveType.Normal,moveBattler.HexField,targetHex,true);
+                var targetRoutePath = _hexRoute.Pathlist;
+                targetRoutePath.Reverse();
+                if (targetRoutePath.Count > 0)
+                {
+                    var mov = moveBattler.GetUnitMov();
+                    var moveTarget = targetRoutePath.Count >= mov ? targetRoutePath[mov-1] : targetRoutePath[0];
+                    if (targetHex.X == moveTarget.X && targetHex.Y == moveTarget.Y)
+                    {
+                        // 到着したらFlagを反転
+                        moveBattler.FilpMoveParamFlag();
+                    }
+                    targetHex.X = moveTarget.X;
+                    targetHex.Y = moveTarget.Y;
+                    CurrentStage.SetFieldPosition(targetHex);
+                }
+            }
+        }
+
+        private void AutoMovePoint(HexUnitInfo moveBattler)
+        {
+            // ルート目的地点に移動
+            var moveParam = moveBattler.HexMoveParam;
+            if (moveParam != null)
+            {
+                var targetHex = new HexField()
+                {
+                    X = moveParam.Param1,
+                    Y = moveParam.Param2,
+                };
+                _hexRoute.FindRoute(MoveType.Normal,moveBattler.HexField,targetHex,true);
+                var targetRoutePath = _hexRoute.Pathlist;
+                targetRoutePath.Reverse();
+                if (targetRoutePath.Count > 0)
+                {
+                    var mov = moveBattler.GetUnitMov();
+                    var moveTarget = targetRoutePath.Count >= mov ? targetRoutePath[mov-1] : targetRoutePath[0];
+                    targetHex.X = moveTarget.X;
+                    targetHex.Y = moveTarget.Y;
                     CurrentStage.SetFieldPosition(targetHex);
                 }
             }
@@ -245,6 +301,27 @@ namespace Ryneus
             }
         }
 
+        /// <summary>
+        /// 一番近くにいる対象を取得
+        /// </summary>
+        /// <returns></returns>
+        private HexUnitInfo SearchNearestTarget(HexUnitInfo moveBattler,List<HexUnitInfo> targets)
+        {
+            HexUnitInfo target = null;
+            var moveBattlerReach = 0;
+            // 1番近い敵を捕捉
+            while (target == null)
+            {
+                var nearReaches = GetHexReach(moveBattler.HexField,moveBattlerReach,true);
+                // 重なりを検知
+                target = targets.Find(a => nearReaches.Find(b => a.HexField.X == b.X && a.HexField.Y == b.Y) != null);
+                if (target == null)
+                {
+                    moveBattlerReach++;
+                }
+            }
+            return target;
+        }
 
         /// <summary>
         /// 移動後の行動を選択
@@ -263,8 +340,13 @@ namespace Ryneus
                         case UnitMoveType.MoveBasement:
                         case UnitMoveType.MoveAttackNearest:
                         case UnitMoveType.InMoveAttackOrWait:
+                        case UnitMoveType.InMoveAttackOrEscape:
+                        case UnitMoveType.InMoveAttackSeekRoute:
+                        case UnitMoveType.InWaitAttackWait:
                             // 攻撃射程に敵がいたらバトル
                             return EndAutoAttack(moveBattler);
+                        case UnitMoveType.MovePoint:
+                        case UnitMoveType.Retreat:
                         case UnitMoveType.None:
                             // 何もしない
                             return UnitActEndCommand.Key;
