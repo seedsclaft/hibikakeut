@@ -15,6 +15,7 @@ namespace Ryneus
         private int _width;
         private int _height;
         private List<HexUnitInfo> _hexUnitInfos;
+        public void SetUnitInfos(List<HexUnitInfo> hexUnitInfos) => _hexUnitInfos = hexUnitInfos;
         private int _goalColX = 0;
         private int _goalRowY = 0;
         private int _moveCost = 0;
@@ -35,7 +36,7 @@ namespace Ryneus
         {
             _fields.Clear();
             for (int i = 0;i < mapX;i++)
-            {   
+            {
                 for (int j = 0;j < mapY;j++)
                 {
                     var field = new HexField
@@ -63,54 +64,63 @@ namespace Ryneus
             }
         }
 
-        public int CalcHeuristic(int colX, int rowY) 
+        public int CalcHeuristic(int colX, int rowY)
         {
             // モードは到着探索
-            if (_hexMode == HexMode.Reach) 
+            if (_hexMode == HexMode.Reach)
             {
                 return 0; // ヒューリスティック計算は常に０を返す
             }
+            return 0; // ヒューリスティック計算は常に０を返す
+            /*
             var distX = Math.Abs(_goalColX - colX);
             var distY = Math.Abs(_goalRowY - rowY);
-            if (distX > distY) 
+            if (distX > distY)
             {
                 return distX;
             }
             return distY;
+            */
         }
 
-        public bool CheckIsNodeValid(int colX,int rowY,HexField parent) 
+        public bool CheckIsNodeValid(int colX,int rowY,HexField parent)
         {
             // フィールド外チェック
-            if (colX < 0 || rowY < 0) 
+            if (colX < 0 || rowY < 0)
             {
                 return false;
             }
-            if (colX >= _width || rowY >= _height) 
+            if (colX >= _width || rowY >= _height)
             {
                 return false;
             }
 
             // 未オープンチェック（同時に壁チェックもしている）
             var field = GetField(colX,rowY);
-            if (field.Stat != HexStat.None) 
+            if (field.Stat != HexStat.None)
             {
                 return false;
             }
 
-            // ユニット位置チェック
-            if (_searchUnit == false)
+            // ユニット位置を結果に含めない
+            if (!_searchUnit)
             {
-                if (_hexUnitInfos.Find(a => a.IsWall && a.HexField.X == colX && a.HexField.Y == rowY) != null) 
+                if (_hexUnitInfos.Find(a => a.IsUnit && a.HexField.X == colX && a.HexField.Y == rowY) != null)
                 {
                     return false;
                 }
             }
 
+            // 壁判定
+            if (_hexUnitInfos.Find(a => a.IsWall && a.HexField.X == colX && a.HexField.Y == rowY) != null)
+            {
+                return false;
+            }
+
             // 地形と移動タイプから実コストを計算
             var aCost = parent.ACost + 1/*mapData[colX][rowY].Terrain.cost[_moveType]*/;
-            if (aCost > _moveCost) 
-            { 
+            if (aCost > _moveCost)
+            {
                 // 移動コストより大きい場合、オープンしない
                 return false;
             }
@@ -162,15 +172,15 @@ namespace Ryneus
             var listMax = _openList.Count;
             HexField node;
 
-            for (int loop = 0; loop < listMax; loop++) 
+            for (int loop = 0; loop < listMax; loop++)
             {
                 node = _openList[loop];
-                if (node.Score > minScore) 
+                if (node.Score > minScore)
                 {
                     // スコアが大きい
                     continue;
                 }
-                if (node.Score == minScore && node.ACost >= minACost) 
+                if (node.Score == minScore && node.ACost >= minACost)
                 {
                     // スコアが同じときは実コストも比較する
                     continue;
@@ -191,13 +201,66 @@ namespace Ryneus
             return minNode;
         }
 
+        public List<HexField> TakeMinScoreNodeFromOpenLists()
+        {
+            // 最小スコアの初期化
+            var minScore = 9999999;
+            // 最小実コストの初期化
+            var minACost = 9999999;
+            // 最小ノードのID(loopの値)
+            int? minNodeID = null;
+
+            var listMax = _openList.Count;
+            HexField node;
+
+            for (int loop = 0; loop < listMax; loop++)
+            {
+                node = _openList[loop];
+                if (node.Score > minScore)
+                {
+                    // スコアが大きい
+                    continue;
+                }
+                if (node.Score == minScore && node.ACost >= minACost)
+                {
+                    // スコアが同じときは実コストも比較する
+                    //continue;
+                }
+
+                // 最小値更新.
+                minScore = node.Score;
+                //minACost = node.ACost;
+                //minNodeID = loop;
+            }
+
+
+            var list = new List<HexField>();
+            for (int loop = 0; loop < listMax; loop++)
+            {
+                node = _openList[loop];
+                if (node.Score == minScore)
+                {
+                    list.Add(node);
+                    node.Stat = HexStat.Cloased;
+                    _closedList.Add(node);
+                }
+            }
+
+            for (int i = list.Count-1; i >= 0; i--)
+            {
+                _openList.Remove(list[i]);
+            }
+
+            return list;
+        }
+
         public bool IsGoal(HexField node)
         {
             var colX = node.X;
             var rowY = node.Y;
 
             // ゴールチェック
-            if (colX == _goalColX && rowY == _goalRowY) 
+            if (colX == _goalColX && rowY == _goalRowY)
             {
                 return true;
             }
@@ -208,60 +271,60 @@ namespace Ryneus
         {
             var colX = currentNode.X;
             var rowY = currentNode.Y;
-            if (CheckIsNodeValid(colX + 1, rowY, currentNode)) 
+            if (CheckIsNodeValid(colX + 1, rowY, currentNode))
             {
                 OpenNode(colX + 1, rowY, currentNode);
             }
 
             // 偶数のときは、X座標−１と隣接している
-            if (colX % 2 == 0) 
+            if (colX % 2 == 0)
             {
-                if (CheckIsNodeValid(colX + 1, rowY - 1, currentNode)) 
+                if (CheckIsNodeValid(colX + 1, rowY - 1, currentNode))
                 {
                     OpenNode(colX + 1, rowY - 1, currentNode);
                 }
             }
-            else 
+            else
             {
-                if (CheckIsNodeValid(colX - 1, rowY + 1, currentNode)) 
+                if (CheckIsNodeValid(colX - 1, rowY + 1, currentNode))
                 {
                     OpenNode(colX - 1, rowY + 1, currentNode);
                 }
             }
 
             // 下のライン
-            if (CheckIsNodeValid(colX - 1, rowY, currentNode)) 
+            if (CheckIsNodeValid(colX - 1, rowY, currentNode))
             {
                 OpenNode(colX - 1, rowY, currentNode);
             }
 
             // 偶数のときは、X座標−１と隣接している
-            if (colX % 2 == 0) 
+            if (colX % 2 == 0)
             {
-                if (CheckIsNodeValid(colX - 1, rowY - 1, currentNode)) 
+                if (CheckIsNodeValid(colX - 1, rowY - 1, currentNode))
                 {
                     OpenNode(colX - 1, rowY - 1, currentNode);
                 }
-            } else 
+            } else
             {
-                if (CheckIsNodeValid(colX + 1, rowY + 1, currentNode)) 
+                if (CheckIsNodeValid(colX + 1, rowY + 1, currentNode))
                 {
                     OpenNode(colX + 1, rowY + 1, currentNode);
                 }
             }
 
             // 縦のライン
-            if (CheckIsNodeValid(colX, rowY - 1, currentNode)) 
+            if (CheckIsNodeValid(colX, rowY - 1, currentNode))
             {
                 OpenNode(colX, rowY - 1, currentNode);
             }
 
-            if (CheckIsNodeValid(colX, rowY + 1, currentNode)) 
+            if (CheckIsNodeValid(colX, rowY + 1, currentNode))
             {
                 OpenNode(colX, rowY + 1, currentNode);
             }
         }
-        
+
         public HexPath GetPath(HexField node)
         {
             _pathlist = new();
@@ -271,10 +334,10 @@ namespace Ryneus
             path.Y = node.Y;
             path.Obj = null;
             _pathlist.Add(path);
-            while (true) 
+            while (true)
             {
-                if (node.Parent.Parent == null) 
-                { 
+                if (node.Parent.Parent == null)
+                {
                     // スタート地点は含まない
                     return path;
                 }
@@ -287,19 +350,19 @@ namespace Ryneus
             }
         }
 
-        public void RefreshField(int mapX,int mapY) 
+        public void RefreshField(int mapX,int mapY)
         {
             // 最初に壁の探索
             HexStat stat;
-            for (int row = 0; row < mapY; row++) 
+            for (int row = 0; row < mapY; row++)
             {
-                for (int col = 0; col < mapX; col++) 
+                for (int col = 0; col < mapX; col++)
                 {
                     stat = GetField(col,row).Stat;
                     // 壁 か 空白 だったら探索領域から外す
-                    if (stat == HexStat.Open || stat == HexStat.Cloased) 
+                    if (stat == HexStat.Open || stat == HexStat.Cloased)
                     {
-                         // すでにOPENやCLOSEDだったら
+                        // すでにOPENやCLOSEDだったら
                         GetField(col,row).Stat = HexStat.None; // ステータスをNULLにする
                     }
                 }
@@ -308,11 +371,12 @@ namespace Ryneus
             _closedList.Clear();
         }
 
-        public HexPath FindRoute(MoveType moveType,HexField startHex,HexField goalHex) 
+        public HexPath FindRoute(MoveType moveType,HexField startHex,HexField goalHex,bool searchUnit)
         {
             _hexMode = HexMode.Route; // ルート探索モードをセット
 
             _moveType = moveType;
+            _searchUnit = searchUnit;
 
             RefreshField(_width,_height); // リフレッシュする
 
@@ -327,29 +391,49 @@ namespace Ryneus
             OpenStartNode(startHex.X, startHex.Y);
 
             // 経路探索のループ;
-            HexField currentNode = null;
-            while (true) 
+            List<HexField> currentNodes = new();
+            while (true)
             {
                 // リストが空 = 経路が見つけられなかった
-                if (_openList.Count == 0) 
+                if (_openList.Count == 0)
                 {
                     return null;
                 }
 
-                currentNode = TakeMinScoreNodeFromOpenList(); // スコア最小ノードの取り出し (そしてクローズ)
+                currentNodes = TakeMinScoreNodeFromOpenLists(); // スコア最小ノードの取り出し (そしてクローズ)
 
                 // ゴールしたかどうかのチェック
-                if (IsGoal(currentNode)) 
+                var pathLength = 9999;
+                var goalNodes = currentNodes.FindAll(a => IsGoal(a));
+                foreach (var goalNode in goalNodes)
                 {
-                    return GetPath(GetField(currentNode.X,currentNode.Y));
+                    GetPath(GetField(goalNode.X,goalNode.Y));
+                    if (_pathlist.Count < pathLength)
+                    {
+                        pathLength = _pathlist.Count;
+                    }
+                }
+                if (pathLength < 9999)
+                {
+                    foreach (var goalNode in goalNodes)
+                    {
+                        var path = GetPath(GetField(goalNode.X,goalNode.Y));
+                        if (_pathlist.Count == pathLength)
+                        {
+                            return path;
+                        }
+                    }
                 }
 
-                // 周囲のノードをオープンする
-                OpenSurroundingNodes(currentNode);
+                foreach (var currentNode in currentNodes)
+                {
+                    // 周囲のノードをオープンする
+                    OpenSurroundingNodes(currentNode);
+                }
             }
         }
 
-        public List<HexField> GetReachableArea(MoveType moveType,HexField startHex,int moveCost,bool searchUnit) 
+        public List<HexField> GetReachableArea(MoveType moveType,HexField startHex,int moveCost,bool searchUnit)
         {
             _hexMode = HexMode.Reach; // 到着探索モードをセット
 
@@ -364,11 +448,10 @@ namespace Ryneus
 
             // 経路探索のループ;
             HexField currentNode = null;
-            while (true) 
+            while (true)
             {
-
                 // リストが空 = 到達可能エリアの探索終了
-                if (_openList.Count == 0) 
+                if (_openList.Count == 0)
                 {
                     var results = new List<HexField>();
                     foreach (var closedList in _closedList)
@@ -435,7 +518,7 @@ namespace Ryneus
     public enum MoveType
     {
         None = 0,
-        Normal = 1, 
+        Normal = 1,
     }
 
     /// <summary>

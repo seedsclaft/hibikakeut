@@ -14,7 +14,7 @@ namespace Ryneus
         public ParameterInt TeamId = new();
 
         public bool IsUnit => _hexUnitType == HexUnitType.Battler;
-        public bool IsWall => _hexUnitType == HexUnitType.Battler || _hexUnitType == HexUnitType.None;        
+        public bool IsWall => _hexUnitType == HexUnitType.None;
         public bool IsSelectArea => _hexUnitType == HexUnitType.Reach;
         public bool IsAttackableArea => _hexUnitType == HexUnitType.ReachAttack;
         public bool IsBasementUnit => _hexUnitType == HexUnitType.Basement;
@@ -28,10 +28,10 @@ namespace Ryneus
         public HexUnitType HexUnitType => _hexUnitType;
         public void SetHexUnitType(HexUnitType hexUnitType) => _hexUnitType = hexUnitType;
 
-        private HexMoveType _hexMoveType = HexMoveType.None;
+        private UnitMoveType _hexMoveType = UnitMoveType.None;
         private int _hexMoveParam = 0;
-        public HexMoveType HexMoveType => _hexMoveType;
-        public void SetHexMoveType(HexMoveType hexMoveType,int param)
+        public UnitMoveType HexMoveType => _hexMoveType;
+        public void SetHexMoveType(UnitMoveType hexMoveType,int param)
         {
             _hexMoveType = hexMoveType;
             _hexMoveParam = param;
@@ -94,11 +94,11 @@ namespace Ryneus
                 battleIndex += 100;
             }
             
-            if (_unitInfo.BattlerInfos.Count > 0)
+            if (_unitInfo.BattlerInfos.Count > 0 && _unitInfo.BattlerInfos[0].Index.Value > 0)
             {
                 _unitInfo.BattlerInfos[0].Index.SetValue(battleIndex);
             }
-            if (_unitInfo.BattlerInfos.Count > 1)
+            if (_unitInfo.BattlerInfos.Count > 1 && _unitInfo.BattlerInfos[1].Index.Value > 0)
             {
                 _unitInfo.BattlerInfos[1].Index.SetValue(battleIndex+3);
             }

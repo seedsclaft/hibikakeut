@@ -95,11 +95,15 @@ namespace Ryneus
                 }
                 */
             //}
-            
+
             var actorInfos = _sceneParam.ActorBattlerInfos;
             foreach (var actorInfo in actorInfos)
             {
                 var battlerInfo = actorInfo;
+                if (battlerInfo.ActorInfo == null)
+                {
+                    continue;
+                }
                 _battlers.Add(battlerInfo);
                 _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
             }
@@ -110,6 +114,10 @@ namespace Ryneus
                 // 最新データに同期
                 //var battlerInfo = new BattlerInfo(enemy.EnemyData,enemy.Level.Value,enemy.Index.Value,enemy.LineIndex,enemy.BossFlag);
                 var battlerInfo = enemy;
+                if (battlerInfo.Index.Value == 0)
+                {
+                    continue;
+                }
                 foreach (var kind in battlerInfo.Kinds)
                 {
                     if (CurrentData.PlayerInfo.CheckEnemyWeakPointDict(battlerInfo.EnemyData.Id,kind))

@@ -146,7 +146,7 @@ namespace Ryneus
 								SymbolData.Param2 = AssetPostImporter.ImportNumeric(SymbolRow, "Param2");
 								SymbolData.PrizeSetId = AssetPostImporter.ImportNumeric(SymbolRow, "PrizeSetId");
 								SymbolData.ClearCount = AssetPostImporter.ImportNumeric(SymbolRow, "ClearCount");
-								SymbolData.MoveType = (HexMoveType)AssetPostImporter.ImportNumeric(SymbolRow, "MoveType");
+								SymbolData.MoveType = (UnitMoveType)AssetPostImporter.ImportNumeric(SymbolRow, "MoveType");
 								SymbolData.MoveParam = AssetPostImporter.ImportNumeric(SymbolRow, "MoveParam");
 								
 								StageData.StageSymbols.Add(SymbolData);

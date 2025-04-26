@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 
 namespace Ryneus
 {
@@ -14,7 +12,7 @@ namespace Ryneus
         public ParameterInt FieldY = new();
         public ParameterInt TurnCount = new(1);
         public ParameterBool CheckedTurnStart = new();
-        
+
         private List<TeamInfo> _teamInfos = new();
         public List<TeamInfo> TeamInfos => _teamInfos;
         public void AddTeamInfo(TeamInfo teamInfo)
@@ -51,6 +49,14 @@ namespace Ryneus
         }
 
         public List<HexUnitInfo> AllFieldUnitInfos()
+        {
+            var list = new List<HexUnitInfo>();
+            list.AddRange(_fieldHexList);
+            list.AddRange(AllUnitInfos());
+            return list;
+        }
+
+        public List<HexUnitInfo> AllOnFieldUnitInfos()
         {
             var list = new List<HexUnitInfo>();
             list.AddRange(_fieldHexList.FindAll(a => a.OnField(FieldX.Value,FieldY.Value)));
@@ -140,6 +146,12 @@ namespace Ryneus
             FieldY.SetValue(Master.InitY);
         }
 
+        public void SetFieldPosition(HexField hexField)
+        {
+            FieldX.SetValue(hexField.X);
+            FieldY.SetValue(hexField.Y);
+        }
+
         public bool CheckVictory()
         {
             var achieveType = Master.AchieveType;
@@ -151,7 +163,7 @@ namespace Ryneus
             }
             return false;
         }    
-        
+
         public bool CheckGameOver()
         {
             // 拠点が0で部隊が0

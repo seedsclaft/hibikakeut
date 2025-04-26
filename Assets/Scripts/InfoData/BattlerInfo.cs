@@ -188,7 +188,7 @@ namespace Ryneus
                 (int)(enemyData.BaseStatus.Atk + (Level.Value * enemyData.AtkGrowth * 0.01f)),
                 (int)(enemyData.BaseStatus.Def + (Level.Value * enemyData.DefGrowth * 0.01f)),
                 Math.Min(100, (int)(enemyData.BaseStatus.Spd + (Level.Value * enemyData.SpdGrowth * 0.01f))),
-                enemyData.MovGrouth
+                enemyData.BaseStatus.Mov
             );
             _demigodParam = Level.Value / 2;
             _status = statusInfo;

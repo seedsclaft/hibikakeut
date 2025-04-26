@@ -307,6 +307,7 @@ namespace Ryneus
 
         private void BattleStart(BattleSceneInfo battleSceneInfo)
         {
+            _model.UnitActEnd();
             _model.SaveTempBattleMembers();
             _view.CommandChangeViewToTransition(null);
             _view.ChangeUIActive(false);
@@ -521,6 +522,8 @@ namespace Ryneus
             _model.ClearMoveReachAreas();
             _model.MakeMoveBattlerHex();
             _view.RefreshTiles(_model.CurrentStage.FieldX.Value,_model.CurrentStage.FieldY.Value);
+
+            _view.EndTacticsCommand();
             // 自動選択
             if (_model.AutoMode.Value)
             {
@@ -531,7 +534,6 @@ namespace Ryneus
                 _view.UpdateTileItems();
                 _view.SelectMoveBattler(actions,moveBattler);
             }
-            _view.EndTacticsCommand();
         }
 
         private void CommandWait()
@@ -874,7 +876,8 @@ namespace Ryneus
             // 自動
             if (!_model.IsPlayable)
             {
-                var commandKey =  _model.DecideAutoMoveBattlerEnd();
+                _view.DeActivateHexTiles();
+                var commandKey = _model.DecideAutoMoveBattlerEnd();
                 switch (commandKey)
                 {
                     case "Battle":
@@ -900,6 +903,17 @@ namespace Ryneus
             if (gameOver)
             {
                 return;
+            }
+            var victory = CheckVictory();
+            if (victory)
+            {
+                return;
+            }
+            if (_model.GetTurnTeam().CurrentActPoint.Value == 0)
+            {
+                _model.TurnEnd();
+                CommandRefresh();
+                TurnStartAnimation();
             }
         }
 

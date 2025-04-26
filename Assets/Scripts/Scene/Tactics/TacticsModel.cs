@@ -14,7 +14,7 @@ namespace Ryneus
             var stageData = CurrentGameInfo.StageInfo?.Master;
             if (stageData != null)
             {
-                _hexRoute = new HexRoute(stageData.Width,stageData.Height,CurrentGameInfo.StageInfo.OnFieldInfos);
+                _hexRoute = new HexRoute(stageData.Width,stageData.Height,CurrentStage.AllUnitInfos());
             }
         }
 

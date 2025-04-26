@@ -16,12 +16,16 @@ namespace Ryneus
             enemyNames.SetText(EnemyName(battleSceneInfo.EnemyInfos));
         }
 
-        private string PartyName(List<BattlerInfo> actorInfos)
+        private string PartyName(List<BattlerInfo> battlerInfos)
         {
             var text = "";
-            for (int i = actorInfos.Count-1;i >= 0;i--)
+            for (int i = battlerInfos.Count-1;i >= 0;i--)
             {
-                text += actorInfos[i].ActorInfo.Master.Name + "隊";
+                if (battlerInfos[i].ActorInfo == null)
+                {
+                    continue;
+                }
+                text += battlerInfos[i].ActorInfo.Master.Name + "隊";
                 if (i != 0)
                 {
                     text += "・";
@@ -35,6 +39,10 @@ namespace Ryneus
             var text = "";
             for (int i = 0;i < enemyInfos.Count;i++)
             {
+                if (enemyInfos[i].EnemyData == null)
+                {
+                    continue;
+                }
                 text += enemyInfos[i].EnemyData.Name + "隊";
                 if (i != 0)
                 {

@@ -68,7 +68,7 @@ namespace Ryneus
         public int Param2;
         public int PrizeSetId;
         public int ClearCount;
-        public HexMoveType MoveType;
+        public UnitMoveType MoveType;
         public int MoveParam;
 
         public void ConvertSymbolGroupData(SymbolGroupData symbolGroupData)
@@ -222,10 +222,13 @@ namespace Ryneus
     }
 
     [Serializable]
-    public enum HexMoveType
+    public enum UnitMoveType
     {
         None = 0, // 移動しない
         MoveBasement = 1, // 索敵攻撃。相手陣営の本拠地に向かう
+        MoveAttackNearest = 10, // 近くにいる敵に向かって移動し、射程に捉えれば攻撃してくる。
+        InMoveAttackOrWait = 20, // 射程内に攻撃可能な敵がいれば攻撃、いなければその場で待機。
+        InMoveAttackOrEscape = 30 // 射程内に攻撃可能な敵がいれば攻撃、いない場合は敵の射程に入っていれば射程外へ逃げる、入っていなければその場で待機。
     }
 
     [Serializable]
