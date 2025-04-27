@@ -13,7 +13,8 @@ namespace Ryneus
         private bool _inBattleResult = false;
         public bool InBattleResult => _inBattleResult;
 
-        private List<ActorInfo> _battlResultActorInfos = new();
+        private List<ActorInfo> _displayActorInfos = new();
+        public List<ActorInfo> DisplayActorInfos => _displayActorInfos;
         private List<HexUnitInfo> _lostUnitInfos = new();
 
         public StrategyModel()
@@ -21,26 +22,32 @@ namespace Ryneus
             _sceneParam = (StrategySceneInfo)GameSystem.SceneStackManager.LastSceneParam;
             _inBattleResult = _sceneParam.InBattle;
             _battleResultVictory = _sceneParam.BattleResultVictory;
-            var actors = _sceneParam.BattlerInfos.FindAll(a => a.ActorInfo != null);
-            foreach (var actor in actors)
+            if (_inBattleResult)
             {
-                _battlResultActorInfos.Add(PartyInfo.ActorInfos.Find(a => a.ActorId == actor.ActorInfo.ActorId));
+                var actors = _sceneParam.BattlerInfos.FindAll(a => a.ActorInfo != null);
+                foreach (var actor in actors)
+                {
+                    _displayActorInfos.Add(PartyInfo.ActorInfos.Find(a => a.ActorId == actor.ActorInfo.ActorId));
+                }
+                // バトル結果をUnitと同期
+                foreach (var battlerInfo in _sceneParam.BattlerInfos)
+                {
+                    if (battlerInfo.ActorInfo != null)
+                    {
+                        var team = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Home);
+                        team.UpdateUnitStatus(battlerInfo);
+                    } else
+                    if (battlerInfo.EnemyData != null)
+                    {
+                        var team = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Away);
+                        team.UpdateUnitStatus(battlerInfo);
+                    }
+                }
+            } else
+            {
+                _displayActorInfos = _sceneParam.ActorInfos;
             }
             MakeResult();
-            // バトル結果をUnitと同期
-            foreach (var battlerInfo in _sceneParam.BattlerInfos)
-            {
-                if (battlerInfo.ActorInfo != null)
-                {
-                    var team = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Home);
-                    team.UpdateUnitStatus(battlerInfo);
-                } else
-                if (battlerInfo.EnemyData != null)
-                {
-                    var team = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Away);
-                    team.UpdateUnitStatus(battlerInfo);
-                }
-            }
         }
 
         public void ClearSceneParam()
@@ -78,15 +85,6 @@ namespace Ryneus
             list.Add(listData);
             list.Add(listData);
             return list;
-        }
-
-        public List<ActorInfo> TacticsActors()
-        {
-            if (_sceneParam != null)
-            {
-                return _sceneParam.ActorInfos;
-            }
-            return null;
         }
 
         public void MakeSelectRelicData()
@@ -157,10 +155,8 @@ namespace Ryneus
             var currencyGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Currency);
             foreach (var currencyGetItemInfo in currencyGetItemInfos)
             {
-                currencyGetItemInfo.SetGetFlag(true);
-                var gain = currencyGetItemInfo.Param1;
-                PartyInfo.Currency.GainValue(gain,0);
-                gainCurrency += gain;
+                AddGetItemInfo(currencyGetItemInfo);
+                gainCurrency += currencyGetItemInfo.Param1;
             }
 
             // 魔法入手
@@ -176,7 +172,7 @@ namespace Ryneus
             if (gainCurrency > 0)
             {
                 var resultInfo = new StrategyResultViewInfo();
-                resultInfo.SetTitle("+" + gainCurrency.ToString() + DataSystem.GetText(1000));
+                resultInfo.SetTitle("+" + gainCurrency.ToString() + DataSystem.GetText(1000) + "を入手！");
                 _resultInfos.Add(resultInfo);
             }
             foreach (var skillGetItemInfo in skillGetItemInfos)
@@ -184,7 +180,7 @@ namespace Ryneus
                 var resultInfo = new StrategyResultViewInfo();
                 var skillData = DataSystem.FindSkill(skillGetItemInfo.Param1);
                 resultInfo.SetSkillId(skillData.Id);
-                resultInfo.SetTitle(skillData.Name);
+                resultInfo.SetTitle(skillData.Name + "を入手！");
                 _resultInfos.Add(resultInfo);
             }
 
@@ -199,8 +195,8 @@ namespace Ryneus
                     case GetItemType.StatusUp:
                         break;
                     case GetItemType.AddActor:
-                        getItemInfo.SetGetFlag(true);
                         getItemInfo.SetResultParam(getItemInfo.Param1);
+                        AddGetItemInfo(getItemInfo);
                         AddPlayerInfoActorSkillId(getItemInfo.Param1);
                         // キャラ加入
                         var actorData = DataSystem.FindActor(getItemInfo.Param1);
@@ -208,7 +204,7 @@ namespace Ryneus
                         _resultInfos.Add(resultInfo);
                         break;
                     case GetItemType.SelectAddActor:
-                        getItemInfo.SetGetFlag(true);
+                        AddGetItemInfo(getItemInfo);
                         AddPlayerInfoActorSkillId(getItemInfo.ResultParam);
                         // キャラ加入
                         var actorData2 = DataSystem.FindActor(getItemInfo.ResultParam);
@@ -334,11 +330,6 @@ namespace Ryneus
             return null;
         }
 
-        public List<ActorInfo> BattleResultActors()
-        {
-            return _battlResultActorInfos;
-        }
-
         public List<SystemData.CommandData> ResultCommand()
         {
             if (_inBattleResult && _battleResultVictory == false)
@@ -355,21 +346,7 @@ namespace Ryneus
 
         public void EndStrategy()
         {
-            //UpdateUnitStatus();
             SavePlayerStageData(true);
-        }
-
-
-
-
-        public void ReturnTempBattleMembers()
-        {
-            foreach (var tempActorInfo in TempInfo.TempActorInfos)
-            {
-                //tempActorInfo.SetBattleIndex(-1);
-                //PartyInfo.UpdateActorInfo(tempActorInfo);
-            }
-            //TempInfo.ClearBattleActors();
         }
     }
 

@@ -21,6 +21,7 @@ namespace Ryneus
         public bool IsBattlerUnit => _hexUnitType == HexUnitType.Battler;
         public bool IsAlcanaUnit => _hexUnitType == HexUnitType.Alcana;
         public bool IsGetItemUnit => _hexUnitType == HexUnitType.GetItem;
+        public bool IsGachaUnit => _hexUnitType == HexUnitType.Gacha;
         public bool IsReachUnit => _hexUnitType == HexUnitType.Reach || _hexUnitType == HexUnitType.ReachAttack;
 
 
@@ -141,11 +142,13 @@ namespace Ryneus
             switch (_hexUnitType)
             {
                 case HexUnitType.Basement:
-                return "拠点：\nターン開始時に回復";
+                    return "拠点：\nターン開始時に回復";
                 case HexUnitType.Alcana:
-                return "？？？：\nランダムなイベントが発生";
+                    return "？？？：\nランダムなイベントが発生";
                 case HexUnitType.GetItem:
-                return "宝箱：\nアイテムを入手";
+                    return "宝箱：\nアイテムを入手";
+                case HexUnitType.Gacha:
+                    return "奇跡：\n様々な恩恵を受ける";
             }
             return "";
         }

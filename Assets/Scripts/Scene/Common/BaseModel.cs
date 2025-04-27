@@ -41,40 +41,18 @@ namespace Ryneus
             GameSystem.OptionData = new SaveOptionInfo();
         }
 
-        public List<ActorInfo> Actors()
-        {
-            return PartyInfo.GetActorInfos();
-        }
-
         public void LostActors(List<ActorInfo> lostMembers)
         {
         }
 
         public List<ActorInfo> StageMembers()
         {
-            return PartyInfo.GetActorInfos();
+            return PartyInfo.ActorInfos;
         }
 
         public List<ActorInfo> BattleMembers()
         {
             var members = StageMembers().FindAll(a => a.BattleIndex.Value >= 0);
-            members.Sort((a,b) => a.BattleIndex.Value > b.BattleIndex.Value ? 1 : -1);
-            return members;
-        }
-
-        public List<ActorInfo> EditMembers()
-        {
-            var members = StageMembers().FindAll(a => a.BattleIndex.Value >= 0);
-            // 最大6人で空いた枠に空データを入れる
-            for (int i = 1;i <= 6;i++)
-            {
-                if (members.Find(a => a.BattleIndex.Value == i) == null)
-                {
-                    var temp = new ActorInfo(null);
-                    temp.BattleIndex.SetValue(i);
-                    members.Add(temp);
-                }
-            }
             members.Sort((a,b) => a.BattleIndex.Value > b.BattleIndex.Value ? 1 : -1);
             return members;
         }
@@ -86,7 +64,7 @@ namespace Ryneus
 
         public List<ActorInfo> PartyMembers()
         {
-            return PartyInfo.GetActorInfos();
+            return PartyInfo.ActorInfos;
         }
 
         public List<SkillInfo> SortSkillInfos(List<SkillInfo> skillInfos)
@@ -619,7 +597,7 @@ namespace Ryneus
 
         public void AddPlayerInfoActorSkillId(int actorId)
         {
-            foreach (var skillInfo in Actors().Find(a => a.ActorId.Value == actorId).ChangeAbleSkills())
+            foreach (var skillInfo in StageMembers().Find(a => a.ActorId.Value == actorId).ChangeAbleSkills())
             {
                 AddPlayerInfoSkillId(skillInfo.Id.Value);
             }

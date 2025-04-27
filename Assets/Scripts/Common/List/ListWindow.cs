@@ -36,7 +36,6 @@ namespace Ryneus
         private bool _horizontal => _scrollRect.horizontal;
         private List<GameObject> _itemPrefabList = new ();
         public List<GameObject> ItemPrefabList => _itemPrefabList;
-        private List<GameObject> _prevPrefabs = new();
         private GameObject _prefabPool = null;
         private List<ListData> _listDates = new ();
         public List<ListData> ListDates => _listDates;
@@ -196,37 +195,22 @@ namespace Ryneus
         {
             var listCount = ListItemCount();
             CreateListPrefab(listCount+_gridColumnCount);
-            CreatePrevPrefab();
         }
 
         private void CreateListPrefab(int createCount)
         {
+            // 上下用に1つ多く作成
+            createCount++;
             for (var i = 0; i < createCount;i++)
             {
                 var prefab = Instantiate(itemPrefab);
-                //prefab.name = i.ToString();
+                prefab.name = i.ToString();
                 _itemPrefabList.Add(prefab);
                 var view = prefab.GetComponent<IListViewItem>();
                 if (view != null)
                 {
                     _itemList.AddLast(view);
                 }
-            }
-        }
-
-        private void CreatePrevPrefab()
-        {
-            for (int i = 0;i < _gridColumnCount;i++)
-            {
-                var prevPrefab = Instantiate(itemPrefab);
-                prevPrefab.name = "prev Object";
-                var prevView = prevPrefab.GetComponent<IListViewItem>();
-                if (prevView != null)
-                {
-                    prevPrefab.name = "-1";
-                    _itemList.AddLast(prevView);
-                }
-                _prevPrefabs.Add(prevPrefab);
             }
         }
 
@@ -264,44 +248,6 @@ namespace Ryneus
                 listItem.SetListData(_listDates[itemIndex],itemIndex);
                 itemPrefab.transform.SetParent(_objectList[itemIndex].transform,false);
                 itemPrefab.SetActive(true);
-            }
-            if (startIndex > 0 && _objectList.Count > startIndex)
-            {
-                var prevIndex = 0;
-                foreach (var prevPrefab in _prevPrefabs)
-                {
-                    var objectIndex = startIndex-1 + prevIndex * _gridColumnCount;
-                    prevIndex++;
-                    if (_objectList.Count <= objectIndex)
-                    {
-                        continue;
-                    }
-                    if (_objectList[objectIndex].transform.childCount == 0)
-                    {
-                        prevPrefab.SetActive(true);
-                        prevPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
-                        var listItem = prevPrefab.GetComponent<ListItem>();
-                        listItem.SetListData(_listDates[objectIndex],objectIndex);
-                    } else
-                    {
-                        var childObject = _objectList[objectIndex].transform.GetChild(0).gameObject;
-                        if (childObject.activeSelf == false)
-                        {
-                            childObject.SetActive(true);
-                        } else
-                        {                        
-                            prevPrefab.SetActive(false);
-                        }
-                        prevPrefab.transform.SetParent(_prefabPool.transform,false);
-                    }
-                }
-            } else
-            {
-                foreach (var prevPrefab in _prevPrefabs)
-                {
-                    prevPrefab?.SetActive(false);
-                    prevPrefab?.transform.SetParent(_prefabPool.transform,false);
-                }
             }
         }
 
@@ -461,16 +407,122 @@ namespace Ryneus
             {
                 if (gridIndex != _lastStartIndexY)
                 {
+                    if (gridIndex-1 == _lastStartIndexY && gridIndex > 0)
+                    {
+                        _lastStartIndexY = gridIndex;
+                        UpdateListDownGrid(startIndex);
+                        _selectedHandler?.Invoke();
+                        return;
+                    } else
+                    if (gridIndex+1 == _lastStartIndexY && gridIndex > 0)
+                    {
+                        _lastStartIndexY = gridIndex;
+                        UpdateListUpGrid(startIndex);
+                        _selectedHandler?.Invoke();
+                        return;
+                    }
                     _lastStartIndexY = gridIndex;
                     update = true;
                 }
             }
             if (startIndex != _lastStartIndexX || update)
             {
+                if (startIndex-1 == _lastStartIndexX && _lastStartIndexX > -1)
+                {
+                    UpdateListDown(startIndex);
+                    _selectedHandler?.Invoke();
+                    return;
+                } else
+                if (startIndex+1 == _lastStartIndexX && _lastStartIndexX > -1)
+                {
+                    UpdateListUp(startIndex);
+                    _selectedHandler?.Invoke();
+                    return;
+                }
                 UpdateItemPrefab();
                 UpdateAllItems();
                 _lastStartIndexX = startIndex;
                 _selectedHandler?.Invoke();
+            }
+        }
+
+        private void UpdateListDown(int startIndex)
+        {
+            _lastStartIndexX = startIndex;
+            var itemIndex = (startIndex-1)%_itemPrefabList.Count;
+            var itemPrefab = _itemPrefabList[itemIndex];
+            var objectIndex = _itemPrefabList.Count+startIndex-1;
+            if (objectIndex > _objectList.Count-1)
+            {
+                return;
+            }
+            itemPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
+            var listItem = itemPrefab.GetComponent<ListItem>();
+            listItem.SetListData(_listDates[objectIndex],objectIndex);
+            var view = itemPrefab.GetComponent<IListViewItem>();
+            view.UpdateViewItem();
+        }
+
+        private void UpdateListUp(int startIndex)
+        {
+            _lastStartIndexX = startIndex;
+            var itemIndex = (startIndex-1)%_itemPrefabList.Count;
+            if (itemIndex < 0)
+            {
+                return;
+            }
+            var itemPrefab = _itemPrefabList[itemIndex];
+            var objectIndex = startIndex-1;
+            if (objectIndex < 0)
+            {
+                return;
+            }
+            itemPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
+            var listItem = itemPrefab.GetComponent<ListItem>();
+            listItem.SetListData(_listDates[objectIndex],objectIndex);
+            var view = itemPrefab.GetComponent<IListViewItem>();
+            view.UpdateViewItem();
+        }
+
+        private void UpdateListDownGrid(int startIndex)
+        {
+            for (int i = 0;i < _gridColumnCount;i++)
+            {
+                var itemIndex = startIndex + i;
+                var itemPrefab = _itemPrefabList[itemIndex];
+                var objectIndex = _itemPrefabList.Count+startIndex-1;
+                if (objectIndex > _objectList.Count-1)
+                {
+                    return;
+                }
+                itemPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
+                var listItem = itemPrefab.GetComponent<ListItem>();
+                listItem.SetListData(_listDates[objectIndex],objectIndex);
+                var view = itemPrefab.GetComponent<IListViewItem>();
+                view.UpdateViewItem();
+            }
+        }
+
+        private void UpdateListUpGrid(int startIndex)
+        {
+            for (int i = 0;i < _gridColumnCount;i++)
+            {
+                var itemIndex = startIndex + i;
+                if (itemIndex < 0)
+                {
+                    return;
+                }
+                var itemPrefab = _itemPrefabList[itemIndex];
+                var objectIndex = startIndex-1;
+                if (objectIndex < 0)
+                {
+                    return;
+                }
+                itemPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
+                var listItem = itemPrefab.GetComponent<ListItem>();
+                listItem.SetListData(_listDates[objectIndex],objectIndex);
+                var view = itemPrefab.GetComponent<IListViewItem>();
+                view.UpdateViewItem();
             }
         }
 
@@ -908,10 +960,6 @@ namespace Ryneus
             for (int i = _itemPrefabList.Count-1;0 <= i;i--)
             {
                 Destroy(_itemPrefabList[i]);
-            }
-            for (int i = _prevPrefabs.Count-1;0 <= i;i--)
-            {
-                Destroy(_prevPrefabs[i]);
             }
             for (int i = _objectList.Count-1;0 <= i;i--)
             {

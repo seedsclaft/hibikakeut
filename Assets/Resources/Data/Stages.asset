@@ -1417,14 +1417,14 @@ MonoBehaviour:
     Help: '""'
     StageLv: 0
     PartyMemberIds: 00000000
-    Width: 30
-    MinX: 1
-    MaxX: 29
-    Height: 20
+    Width: 16
+    MinX: 7
+    MaxX: 10
+    Height: 12
     MinY: 1
-    MaxY: 19
-    InitX: 1
-    InitY: 5
+    MaxY: 10
+    InitX: 8
+    InitY: 11
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
     - EnemyId: 1
@@ -1466,27 +1466,8 @@ MonoBehaviour:
         Flag: 0
     - Id: 1010
       StageId: 10
-      InitX: 11
-      InitY: 5
-      UnitType: 1000
-      InitTeamId: 2
-      Rate: 100
-      Param1: 1011
-      Param2: 0
-      PrizeSetId: 1011
-      ClearCount: 0
-      MoveType: 1
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 1020
-      StageId: 10
-      InitX: 4
-      InitY: 4
+      InitX: 8
+      InitY: 2
       UnitType: 20
       InitTeamId: 1
       Rate: 100
@@ -1502,68 +1483,11 @@ MonoBehaviour:
         Param3: 0
         Param4: 0
         Flag: 0
-    - Id: 1030
+    - Id: 1020
       StageId: 10
-      InitX: 4
-      InitY: 3
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 1040
-      StageId: 10
-      InitX: 4
-      InitY: 5
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 1050
-      StageId: 10
-      InitX: 6
+      InitX: 8
       InitY: 4
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 1060
-      StageId: 10
-      InitX: 6
-      InitY: 5
-      UnitType: 0
+      UnitType: 90
       InitTeamId: 0
       Rate: 100
       Param1: 0
@@ -1581,6 +1505,120 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 0
+      InitY: 0
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 1
+      InitY: 0
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 2
+      InitY: 0
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 3
+      InitY: 0
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 4
+      InitY: 0
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 5
+      InitY: 0
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 6
       InitY: 0
       UnitType: 0
       InitTeamId: 0
@@ -1618,368 +1656,7 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 0
-      InitY: 2
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 3
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 4
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 5
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 6
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 7
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 8
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 9
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 10
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 11
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 12
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 13
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 14
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 15
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 16
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 17
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 18
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 0
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 29
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 29
+      InitX: 1
       InitY: 1
       UnitType: 0
       InitTeamId: 0
@@ -1998,7 +1675,102 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
+      InitX: 2
+      InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 3
+      InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 4
+      InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 5
+      InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 6
+      InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 0
       InitY: 2
       UnitType: 0
       InitTeamId: 0
@@ -2017,7 +1789,121 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
+      InitX: 1
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 2
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 3
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 4
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 5
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 6
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 0
       InitY: 3
       UnitType: 0
       InitTeamId: 0
@@ -2036,7 +1922,121 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
+      InitX: 1
+      InitY: 3
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 2
+      InitY: 3
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 3
+      InitY: 3
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 4
+      InitY: 3
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 5
+      InitY: 3
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 6
+      InitY: 3
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 0
       InitY: 4
       UnitType: 0
       InitTeamId: 0
@@ -2055,7 +2055,121 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
+      InitX: 1
+      InitY: 4
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 2
+      InitY: 4
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 3
+      InitY: 4
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 4
+      InitY: 4
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 5
+      InitY: 4
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 6
+      InitY: 4
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 0
       InitY: 5
       UnitType: 0
       InitTeamId: 0
@@ -2074,7 +2188,121 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
+      InitX: 1
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 2
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 3
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 4
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 5
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 6
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 0
       InitY: 6
       UnitType: 0
       InitTeamId: 0
@@ -2093,7 +2321,121 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
+      InitX: 1
+      InitY: 6
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 2
+      InitY: 6
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 3
+      InitY: 6
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 4
+      InitY: 6
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 5
+      InitY: 6
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 6
+      InitY: 6
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 0
       InitY: 7
       UnitType: 0
       InitTeamId: 0
@@ -2112,7 +2454,121 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
+      InitX: 1
+      InitY: 7
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 2
+      InitY: 7
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 3
+      InitY: 7
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 4
+      InitY: 7
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 5
+      InitY: 7
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 6
+      InitY: 7
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 0
       InitY: 8
       UnitType: 0
       InitTeamId: 0
@@ -2131,7 +2587,121 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
+      InitX: 1
+      InitY: 8
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 2
+      InitY: 8
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 3
+      InitY: 8
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 4
+      InitY: 8
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 5
+      InitY: 8
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 6
+      InitY: 8
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 0
       InitY: 9
       UnitType: 0
       InitTeamId: 0
@@ -2150,7 +2720,121 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
+      InitX: 1
+      InitY: 9
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 2
+      InitY: 9
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 3
+      InitY: 9
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 4
+      InitY: 9
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 5
+      InitY: 9
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 6
+      InitY: 9
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 0
       InitY: 10
       UnitType: 0
       InitTeamId: 0
@@ -2169,7 +2853,121 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
+      InitX: 1
+      InitY: 10
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 2
+      InitY: 10
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 3
+      InitY: 10
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 4
+      InitY: 10
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 5
+      InitY: 10
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 6
+      InitY: 10
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 0
       InitY: 11
       UnitType: 0
       InitTeamId: 0
@@ -2188,8 +2986,8 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
-      InitY: 12
+      InitX: 1
+      InitY: 11
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2207,8 +3005,8 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
-      InitY: 13
+      InitX: 2
+      InitY: 11
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2226,8 +3024,8 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
-      InitY: 14
+      InitX: 3
+      InitY: 11
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2245,8 +3043,8 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
-      InitY: 15
+      InitX: 4
+      InitY: 11
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2264,8 +3062,8 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
-      InitY: 16
+      InitX: 5
+      InitY: 11
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2283,8 +3081,8 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
-      InitY: 17
+      InitX: 6
+      InitY: 11
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2302,8 +3100,8 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
-      InitY: 18
+      InitX: 15
+      InitY: 0
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2321,8 +3119,1338 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 29
-      InitY: 19
+      InitX: 14
+      InitY: 0
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 0
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 0
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 0
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 0
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 15
+      InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 14
+      InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 1
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 15
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 14
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 2
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 15
+      InitY: 3
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 14
+      InitY: 3
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 3
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 3
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 3
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 3
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 15
+      InitY: 4
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 14
+      InitY: 4
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 4
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 4
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 4
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 4
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 15
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 14
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 5
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 15
+      InitY: 6
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 14
+      InitY: 6
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 6
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 6
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 6
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 6
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 15
+      InitY: 7
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 14
+      InitY: 7
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 7
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 7
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 7
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 7
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 15
+      InitY: 8
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 14
+      InitY: 8
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 8
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 8
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 8
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 8
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 15
+      InitY: 9
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 14
+      InitY: 9
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 9
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 9
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 9
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 9
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 15
+      InitY: 10
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 14
+      InitY: 10
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 10
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 10
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 10
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 10
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 15
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 14
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 11
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2644,255 +4772,8 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 16
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 17
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 18
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 19
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 20
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 21
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 22
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 23
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 24
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 25
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 26
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 27
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 28
-      InitY: 0
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 29
-      InitY: 0
+      InitX: 0
+      InitY: 11
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2911,7 +4792,7 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 0
-      InitY: 19
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2930,7 +4811,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 1
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 1
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2949,7 +4849,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 2
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 2
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2968,7 +4887,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 3
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 3
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -2987,7 +4925,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 4
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 4
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3006,7 +4963,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 5
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 5
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3025,7 +5001,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 6
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 6
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3044,7 +5039,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 7
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 7
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3063,7 +5077,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 8
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 8
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3082,7 +5115,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 9
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 9
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3101,7 +5153,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 10
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 10
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3120,7 +5191,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 11
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 11
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3139,7 +5229,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 12
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 12
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3158,7 +5267,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 13
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 13
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3177,7 +5305,26 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 14
-      InitY: 19
+      InitY: 11
+      UnitType: 0
+      InitTeamId: 0
+      Rate: 0
+      Param1: 0
+      Param2: 0
+      PrizeSetId: 0
+      ClearCount: 0
+      MoveType: 0
+      MoveTypeParam:
+        SymbolId: 0
+        Param1: 0
+        Param2: 0
+        Param3: 0
+        Param4: 0
+        Flag: 0
+    - Id: 0
+      StageId: 10
+      InitX: 14
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3196,7 +5343,7 @@ MonoBehaviour:
     - Id: 0
       StageId: 10
       InitX: 15
-      InitY: 19
+      InitY: 11
       UnitType: 0
       InitTeamId: 0
       Rate: 0
@@ -3214,255 +5361,8 @@ MonoBehaviour:
         Flag: 0
     - Id: 0
       StageId: 10
-      InitX: 16
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 17
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 18
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 19
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 20
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 21
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 22
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 23
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 24
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 25
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 26
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 27
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 28
-      InitY: 19
-      UnitType: 0
-      InitTeamId: 0
-      Rate: 0
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 0
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 0
-      StageId: 10
-      InitX: 29
-      InitY: 19
+      InitX: 15
+      InitY: 10
       UnitType: 0
       InitTeamId: 0
       Rate: 0

@@ -229,6 +229,7 @@ namespace Ryneus
         Alcana = 30,
         GetItem = 40,
         SelectActor = 70,
+        Gacha = 90,
         Battler = 1000,
         Reach = 2000,
         ReachAttack = 2010,

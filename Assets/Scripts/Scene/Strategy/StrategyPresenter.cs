@@ -78,9 +78,6 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
-                case CommandType.StartStrategy:
-                    CommandStartStrategy();
-                    break;
                 case CommandType.EndAnimation:
                     CommandEndAnimation();
                     break;
@@ -149,35 +146,20 @@ namespace Ryneus
             {
                 _view.SetTitle(DataSystem.GetText(20010));
             }
-            NextSeekResult();
-            /*
-            if (_model.InBattleResult)
+            // キャラ表示アニメーションを開始
+            var displayActorInfos = _model.DisplayActorInfos;
+            if (displayActorInfos.Count > 0)
             {
-                var battledResultActors = _model.BattleResultActors();
-                _view.SetTitle(DataSystem.GetText(20010));
-                _view.SetResultActorList(_model.MakeListData(battledResultActors));
-                // 勝利時
-                if (_model.BattleResultVictory)
-                {
-                    if (_model.LevelUpActorInfos.Count > 0)
-                    {
-                        _view.StartLvUpAnimation();
-                        _view.HideResultList();
-                    } else
-                    {
-                        NextSeekResult();
-                    }
-                }
+                _view.StartResultAnimation(_model.MakeListData(displayActorInfos));
             } else
-            { 
-                CheckTacticsActors();
+            {
+                NextSeekResult();
             }
-            */
         }
 
         private void CheckTacticsActors()
         {
-            var tacticsActors = _model.TacticsActors();
+            var tacticsActors = _model.DisplayActorInfos;
             if (tacticsActors != null && tacticsActors.Count > 0)
             {
                 var bonusList = new List<bool>();
@@ -186,7 +168,7 @@ namespace Ryneus
                     bonusList.Add(_model.IsBonusTactics(item.ActorId.Value));
                 }
                 _view.SetTitle(DataSystem.GetText(20040));
-                _view.SetResultActorList(_model.MakeListData(tacticsActors));
+                //_view.SetResultActorList(_model.MakeListData(tacticsActors));
             } else
             {
                 EndStrategy();
@@ -195,6 +177,8 @@ namespace Ryneus
 
         private void CommandEndAnimation()
         {
+            NextSeekResult();
+            /*
             if (_model.InBattleResult)
             {
                 if (_model.BattleResultVictory)
@@ -211,6 +195,7 @@ namespace Ryneus
             {
                 NextSeekResult();
             }
+            */
         }
 
         private void CommandEndLvUpAnimation()
@@ -268,8 +253,6 @@ namespace Ryneus
 
         private void ShowResultList()
         {
-            var battledResultActors = _model.BattleResultActors();
-            _view.SetResultActorList(_model.MakeListData(battledResultActors));
             _view.ShowResultList(MakeListData(_model.ResultViewInfos),
                 null,
                 _model.BattleResultTurn(),
@@ -283,67 +266,17 @@ namespace Ryneus
         {
             if (commandData.Key == "Yes")
             {
-                if (_model.InBattleResult)
+                var battledMembers = _model.DisplayActorInfos;
+                if (battledMembers != null && battledMembers.Count > 0)
                 {
-                    var battledMembers = _model.BattleResultActors();
-                    if (battledMembers != null && battledMembers.Count > 0)
-                    {
-                        _model.ClearSceneParam();
-                    }
-                } else
-                {
-                    var tacticsActors = _model.TacticsActors();
-                    if (tacticsActors != null && tacticsActors.Count > 0)
-                    {
-                        _model.ClearSceneParam();
-                    }
+                    _model.ClearSceneParam();
                 }
-                CheckTacticsActors();
+                EndStrategy();
             } else
             {
-                if (_model.InBattleResult && _model.BattleResultVictory == false)
-                {
-                    _model.ReturnTempBattleMembers(); 
-                    _view.CommandChangeViewToTransition(null);  
-                    PlayStartBattleBgm();
-                    var battleSceneInfo = new BattleSceneInfo
-                    {
-                        ActorInfos = _model.BattleMembers(),
-                        //EnemyInfos = _model.CurrentSymbolInfo().TroopInfo.BattlerInfos,
-                        //GetItemInfos = _model.CurrentSymbolInfo()?.GetItemInfos,
-                        BossBattle = false,//_model.CurrentSymbolInfo().SymbolType == SymbolType.Boss,
-                    };
-                    SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
-                    _view.CommandGotoSceneChange(Scene.Battle,battleSceneInfo);
-                } else
-                {
-                    ShowStatus();
-                }
+                ShowStatus();
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-        }
-
-        private async void PlayStartBattleBgm()
-        {
-            //var currentSymbol = _model.CurrentSymbolInfo();
-            // ボス戦なら
-            /*
-            if (currentSymbol.Master.SymbolType == SymbolType.Boss)
-            {
-                PlayBossBgm();
-            } else
-            */
-            {
-                var bgmData = _model.TacticsBgmData();
-                if (bgmData.CrossFade != "" && SoundManager.Instance.CrossFadeMode)
-                {
-                    SoundManager.Instance.ChangeCrossFade();
-                } else
-                {
-                    await PlayTacticsBgm();
-                }
-            }
-            SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
         }
 
         private void CommandSelectLearnSkillList(SkillInfo skillInfo)
@@ -364,7 +297,7 @@ namespace Ryneus
                 NextSeekResult();
             }
         }
-    
+
         private void ShowStatus()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);

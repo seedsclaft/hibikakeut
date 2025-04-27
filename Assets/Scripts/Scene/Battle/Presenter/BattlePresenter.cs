@@ -560,7 +560,10 @@ namespace Ryneus
 
         private async void BattleEnd()
         {
-            if (_battleEnded == true) return;
+            if (_battleEnded)
+            {
+                return;
+            }
             var strategySceneInfo = new StrategySceneInfo
             {
                 BattlerInfos = _model.Battlers,
@@ -585,7 +588,7 @@ namespace Ryneus
                 strategySceneInfo.BattleResultVictory = true;
                 _model.AddEnemyInfoSkillId();
             }
-            
+
             _model.EndBattle();
             _battleEnded = true;
             _view.HideStateOverlay();

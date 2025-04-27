@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace Ryneus
@@ -549,6 +550,72 @@ namespace Ryneus
             return null;
         }
 
+        public StrategySceneInfo GachaOpen()
+        {
+            var list = new List<GetItemInfo>();
+            // 確定で未加入キャラ2名は当選
+            var actorDates = DataSystem.Actors.Where(a => PartyInfo.ActorInfos.Find(b => a.Value.Id == b.ActorId.Value) == null).ToList();
+            var actorInfos = new List<ActorInfo>();
+            while (actorInfos.Count < 2)
+            {
+                var rand = UnityEngine.Random.Range(0,actorDates.Count()-1);
+                if (actorInfos.Find(a => a.ActorId.Value == actorDates[rand].Value.Id) == null)
+                {
+                    actorInfos.Add(new ActorInfo(actorDates[rand].Value));
+                }
+            }
+            foreach (var actorInfo in actorInfos)
+            {
+                var addActorGetItemData = new GetItemData
+                {
+                    Type = GetItemType.AddActor,
+                    Param1 = actorInfo.ActorId.Value
+                };
+                var addActorGetItem = new GetItemInfo(addActorGetItemData);
+                list.Add(addActorGetItem);
+            }
+            // 残り8枠を抽選
+            // キャラ 3% ,魔法 10%, Nu 87%
+            while (list.Count < 10)
+            {
+                var itemRand = UnityEngine.Random.Range(0,100);
+                if (itemRand < 3)
+                {
+                    var rand = UnityEngine.Random.Range(0,actorDates.Count()-1);
+                    if (actorInfos.Find(a => a.ActorId.Value == actorDates[rand].Value.Id) == null)
+                    {
+                        var actorInfo = new ActorInfo(actorDates[rand].Value);
+                        actorInfos.Add(actorInfo);
+                        var addActorGetItemData = new GetItemData
+                        {
+                            Type = GetItemType.AddActor,
+                            Param1 = actorInfo.ActorId.Value
+                        };
+                        var addActorGetItem = new GetItemInfo(addActorGetItemData);
+                        list.Add(addActorGetItem);
+                    }
+                } else
+                if (itemRand >= 3 && itemRand < 13)
+                {
+                    var getItemData = MakeSkillGetItemInfo();
+                    if (getItemData != null && list.Find(a => a.GetItemType == GetItemType.Skill && a.Param1 == getItemData.Param1) == null)
+                    {
+                        list.Add(new GetItemInfo(getItemData));
+                    }
+                } else
+                {
+                    var numinosGetItem = MakeEnemyRandomNuminos(10);
+                    list.Add(numinosGetItem);
+                }
+            }
+            var strategySceneInfo = new StrategySceneInfo
+            {
+                ActorInfos = actorInfos,
+                GetItemInfos = list
+            };
+            return strategySceneInfo;
+        }
+
         public List<UnitInfo> DepatureUnitInfos()
         {
             var list = new List<UnitInfo>();
@@ -714,15 +781,19 @@ namespace Ryneus
             {
                 list.Insert(0,EventCommand);
             }
+            // 奇跡の上
+            if (hexUnits.Find(a => a.IsGachaUnit) != null)
+            {
+                list.Insert(0,GachaCommand);
+            }
             bool enable(SystemData.CommandData a)
             {
                 if (a == BattleCommand)
                 {
                     // 隣接している
-                    var hexUnits = CurrentStage.AllUnitInfos();
-                    var battler = hexUnits.Find(a => a.IsBattlerUnit);
-                    var reachAreas = GetHexReach(battler.HexField,1);
-                    var battlerUnits = CurrentStage.OpponentUnitInfos()?.FindAll(a => a.IsBattlerUnit && reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+                    var battler = CurrentStage.OnFieldTurnUnitInfos().Find(a => a.IsBattlerUnit);
+                    var reachAreas = GetHexReach(battler.HexField,1,true);
+                    var battlerUnits = CurrentStage.OpponentUnitInfos().FindAll(a => reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
                     var enemyInfos = battlerUnits.FindAll(a => a.UnitInfo != null);
                     return enemyInfos.Count > 0;
                 }
@@ -763,6 +834,7 @@ namespace Ryneus
         public SystemData.CommandData ReturnCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Return");
         public SystemData.CommandData EventCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Event");
         public SystemData.CommandData GetItemCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "GetItem");
+        public SystemData.CommandData GachaCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Gacha");
     }
 
 }

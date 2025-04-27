@@ -454,6 +454,9 @@ namespace Ryneus
                 case "GetItem":
                     CommandGetItem();
                     break;
+                case "Gacha":
+                    CommandGacha();
+                    break;
             }
         }
 
@@ -644,6 +647,21 @@ namespace Ryneus
                 SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
                 CommandCautionInfo(DataSystem.GetReplaceText(14110,results[0].Master.Param1.ToString()));
             }
+            CommandRefresh();
+            _view.UpdateTileItems();
+            _model.SetLastSelectHex();
+            _model.SetCommandKey("");
+        }
+
+        private void CommandGacha()
+        {
+            var strategySceneInfo = _model.GachaOpen();
+            if (strategySceneInfo != null)
+            {
+                _view.CommandGotoSceneChange(Scene.Strategy,strategySceneInfo);
+                return;
+            }
+            _view.EndTacticsCommand();
             CommandRefresh();
             _view.UpdateTileItems();
             _model.SetLastSelectHex();
@@ -854,6 +872,7 @@ namespace Ryneus
                 case "MoveBattler":
                 case "Event":
                 case "GetItem":
+                case "Gacha":
                     _model.SetCommandKey("");
                     _model.ClearReachAreas();
                     _view.UpdateTileItems();

@@ -12,21 +12,17 @@ namespace Ryneus
         // 所持アクターリスト
         [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = new();
         public List<ActorInfo> ActorInfos => _actorInfos;
-        public List<ActorInfo> GetActorInfos()
-        {
-            return _actorInfos;
-        }
 
         // 現在のステージ場所
         public StageData StageMaster => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
-        public ParameterBool StartStage = new ();
+        public ParameterBool StartStage = new();
 
         // 所持金
         public ParameterInt Currency = new();
 
         // 所持アイテム情報
-        private List<GetItemInfo> _getItemInfos = new ();
+        private List<GetItemInfo> _getItemInfos = new();
         public List<GetItemInfo> GetItemInfos => _getItemInfos;
         public void AddGetItemInfo(GetItemInfo getItemInfo)
         {

@@ -47,8 +47,8 @@ namespace Ryneus
                         hexUnitInfo.SetUnitInfo(BattleTroop(stageSymbolData));
                         if (randFlag)
                         {
-                            var numinosGetItem = MakeEnemyRandomNuminos(stageSymbolData.StageId,stageSymbolData.InitX);
-                            ((TroopInfo)hexUnitInfo.UnitInfo).AddGetItemInfo(numinosGetItem);                  
+                            var numinosGetItem = MakeEnemyRandomNuminos(10);
+                            ((TroopInfo)hexUnitInfo.UnitInfo).AddGetItemInfo(numinosGetItem);
                         }
                         
                         if (hexUnitInfo.UnitInfo != null && ((TroopInfo)hexUnitInfo.UnitInfo).GetItemInfos.Count > 0)
@@ -290,20 +290,20 @@ namespace Ryneus
             return troopInfo;
         }
 
-        private GetItemInfo MakeEnemyRandomNuminos(int stageId,int seek)
+        public GetItemInfo MakeEnemyRandomNuminos(int plus)
         {
             var numinosBonus = 0;//PartyInfo.BattleNuminosBonus(stageId,seek,WorldType.Main);
             var totalScore = 0;//(int)PartyInfo.TotalScore(WorldType.Main);
             // 確定報酬でNuminos
             var numinosGetItem = new GetItemData
             {
-                Param1 = totalScore + seek + numinosBonus,
+                Param1 = totalScore + numinosBonus + plus,
                 Type = GetItemType.Currency
             };
             return new GetItemInfo(numinosGetItem);
         }
 
-        private GetItemData MakeSkillGetItemInfo()
+        public GetItemData MakeSkillGetItemInfo()
         {
             int rand = Random.Range(0, 100);
             GetItemData getItemData;
@@ -333,7 +333,7 @@ namespace Ryneus
             // 候補なければ再抽選
             if (getItemData == null)
             {
-                //return MakeSkillGetItemInfo();
+                return MakeSkillGetItemInfo();
             }
             return getItemData;
         }
