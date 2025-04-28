@@ -189,6 +189,7 @@ namespace Ryneus
             }
             var departureHex = hexUnits.Find(a => a.IsBasementUnit);
             var move = _departureUnitInfo.BattlerInfos[0].CurrentMov();
+            SelectingHexUnitId.SetValue(_departureUnitInfo.Index.Value);
             _reachAreas = GetHexReach(departureHex.HexField,move);
             var depaterIndex = 1000;
             foreach (var path in _reachAreas)
@@ -220,6 +221,13 @@ namespace Ryneus
             SelectingHexUnitId.SetValue(moveBattlerHex.Index.Value);
             _reachAreas = GetHexReach(moveBattlerHex.HexField,moveBattlerHex.UnitInfo.BattlerInfos[0].CurrentMov());
             var moveBattlerIndex = 1000;
+            // 自身の位置も移動候補に入れる
+            var selfHex = new HexField
+            {
+                X = moveBattlerHex.HexField.X,
+                Y = moveBattlerHex.HexField.Y
+            };
+            _reachAreas.Add(selfHex);
             foreach (var path in _reachAreas)
             {
                 var unitData = new StageSymbolData
@@ -342,8 +350,6 @@ namespace Ryneus
             _reachAreas.Clear();
             _departureUnitInfo = null;
 
-            // 行動ポイントを減らす
-            UseActPoint();
             return depaterUnit;
         }
 
@@ -409,11 +415,11 @@ namespace Ryneus
                 if (CurrentStage.GetTurnTeamInfo().TeamId.Value == (int)TeamIdType.Home)
                 {
                     // インデックスの割り振り 中央
-                    mainParty.SetBattlerIndex(1);
+                    mainParty.SetBattlerIndex(2);
                     foreach (var battlerUnit in opponentUnits)
                     {
                         // インデックスの割り振り 中央
-                        battlerUnit.SetBattlerIndex(1);
+                        battlerUnit.SetBattlerIndex(2);
                         // メインのみ
                         var m1 = new BattleSceneInfo
                         {
@@ -424,10 +430,15 @@ namespace Ryneus
                         var enemyReach = GetHexReach(battlerUnit.HexField,1,true);
                         // メインと隣接あり
                         var nearFriends = friends.FindAll(a => a != mainParty && enemyReach.Find(b => a.OnField(b.X,b.Y)) != null && _reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+                        var battlerIndex = 1;
                         foreach (var nearFriend in nearFriends)
                         {
                             // インデックスの割り振り 左右
-                            nearFriend.SetBattlerIndex(2);
+                            nearFriend.SetBattlerIndex(battlerIndex);
+                            if (nearFriends.Count == 2)
+                            {
+                                battlerIndex = 3;
+                            }
                             var battlerInfos = new List<BattlerInfo>();
                             battlerInfos.AddRange(mainParty.UnitInfo.BattlerInfos);
                             battlerInfos.AddRange(nearFriend.UnitInfo.BattlerInfos);
@@ -438,16 +449,32 @@ namespace Ryneus
                             };
                             list.Insert(0,m2);
                         }
+                        if (nearFriends.Count == 2)
+                        {
+                            nearFriends[0].SetBattlerIndex(1);
+                            nearFriends[1].SetBattlerIndex(3);
+                            var battlerInfos = new List<BattlerInfo>();
+                            battlerInfos.AddRange(mainParty.UnitInfo.BattlerInfos);
+                            battlerInfos.AddRange(nearFriends[0].UnitInfo.BattlerInfos);
+                            battlerInfos.AddRange(nearFriends[1].UnitInfo.BattlerInfos);
+                            // 両サイドどちらも
+                            var m3 = new BattleSceneInfo
+                            {
+                                ActorBattlerInfos = battlerInfos.FindAll(a => a.ActorInfo != null),
+                                EnemyInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.EnemyData != null),
+                            };
+                            list.Insert(0,m3);
+                        }
                     }
                 }
                 else
                 {
                     // インデックスの割り振り 中央
-                    mainParty.SetBattlerIndex(1);
+                    mainParty.SetBattlerIndex(2);
                     foreach (var battlerUnit in opponentUnits)
                     {
                         // インデックスの割り振り 中央
-                        battlerUnit.SetBattlerIndex(1);
+                        battlerUnit.SetBattlerIndex(2);
                         // メインのみ
                         var m1 = new BattleSceneInfo
                         {
@@ -458,10 +485,15 @@ namespace Ryneus
                         var enemyReach = GetHexReach(battlerUnit.HexField,1,true);
                         // メインと隣接あり
                         var nearFriends = friends.FindAll(a => a != mainParty && enemyReach.Find(b => a.OnField(b.X,b.Y)) != null && _reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+                        var battlerIndex = 1;
                         foreach (var nearFriend in nearFriends)
                         {
                             // インデックスの割り振り 左右
-                            nearFriend.SetBattlerIndex(2);
+                            nearFriend.SetBattlerIndex(battlerIndex);
+                            if (nearFriends.Count == 2)
+                            {
+                                battlerIndex = 3;
+                            }
                             var battlerInfos = new List<BattlerInfo>();
                             battlerInfos.AddRange(mainParty.UnitInfo.BattlerInfos);
                             battlerInfos.AddRange(nearFriend.UnitInfo.BattlerInfos);
@@ -471,6 +503,22 @@ namespace Ryneus
                                 ActorBattlerInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.ActorInfo != null)
                             };
                             list.Insert(0,m2);
+                        }
+                        if (nearFriends.Count == 2)
+                        {
+                            nearFriends[0].SetBattlerIndex(1);
+                            nearFriends[1].SetBattlerIndex(3);
+                            var battlerInfos = new List<BattlerInfo>();
+                            battlerInfos.AddRange(mainParty.UnitInfo.BattlerInfos);
+                            battlerInfos.AddRange(nearFriends[0].UnitInfo.BattlerInfos);
+                            battlerInfos.AddRange(nearFriends[1].UnitInfo.BattlerInfos);
+                            // 両サイドどちらも
+                            var m3 = new BattleSceneInfo
+                            {
+                                EnemyInfos = battlerInfos.FindAll(a => a.EnemyData != null),
+                                ActorBattlerInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.ActorInfo != null)
+                            };
+                            list.Insert(0,m3);
                         }
                     }
                 }
@@ -552,6 +600,10 @@ namespace Ryneus
 
         public StrategySceneInfo GachaOpen()
         {
+            var getItem = OnFieldInfos.Find(a => a.IsGachaUnit);
+            // 消失
+            CurrentStage.RemoveHexUnitInfo(getItem);
+
             var list = new List<GetItemInfo>();
             // 確定で未加入キャラ2名は当選
             var actorDates = DataSystem.Actors.Where(a => PartyInfo.ActorInfos.Find(b => a.Value.Id == b.ActorId.Value) == null).ToList();
@@ -608,6 +660,7 @@ namespace Ryneus
                     list.Add(numinosGetItem);
                 }
             }
+            UseActPoint();
             var strategySceneInfo = new StrategySceneInfo
             {
                 ActorInfos = actorInfos,
@@ -623,6 +676,27 @@ namespace Ryneus
             foreach (var hexUnitInfo in hexUnitInfos)
             {
                 list.Add(hexUnitInfo.UnitInfo);
+            }
+            return list;
+        }
+
+        public List<UnitInfo> DepatureEditUnitInfos()
+        {
+            // 最大5部隊まで
+            var list = new List<UnitInfo>();
+            var hexUnitInfos = CurrentStage.GetTurnTeamInfo().DepatuerInfos;
+            for (int i = 0;i < 5;i++)
+            {
+                if (hexUnitInfos.Count > i)
+                {
+                    list.Add(hexUnitInfos[i].UnitInfo);
+                } else
+                {
+                    var temp = new UnitInfo();
+                    temp.SetBattlers(new List<BattlerInfo>(){new BattlerInfo(),new BattlerInfo()});
+                    temp.Index.SetValue(i+1);
+                    list.Add(temp);
+                }
             }
             return list;
         }
@@ -694,12 +768,8 @@ namespace Ryneus
             var basement = OnFieldInfos.Find(a => a.IsBasementUnit && a.TeamId.Value == GetTurnTeam().TeamId.Value);
             if (basement != null)
             {
-                var BasementCommand = new List<SystemData.CommandData>
-                {
-                    DepartureCommand,
-                    UnitEditCommand,
-                };
-                list.AddRange(BasementCommand);
+                list.Insert(1,DepartureCommand);
+                list.Insert(2,UnitEditCommand);
             }
             // 同時に敵拠点がある場合
             var conq = OnFieldInfos.Find(a => a.IsBasementUnit && a.TeamId.Value != GetTurnTeam().TeamId.Value);

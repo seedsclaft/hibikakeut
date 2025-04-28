@@ -407,6 +407,7 @@ namespace Ryneus
             {
                 if (gridIndex != _lastStartIndexY)
                 {
+                    /*
                     if (gridIndex-1 == _lastStartIndexY && gridIndex > 0)
                     {
                         _lastStartIndexY = gridIndex;
@@ -421,12 +422,14 @@ namespace Ryneus
                         _selectedHandler?.Invoke();
                         return;
                     }
+                    */
                     _lastStartIndexY = gridIndex;
                     update = true;
                 }
             }
             if (startIndex != _lastStartIndexX || update)
             {
+                /*
                 if (startIndex-1 == _lastStartIndexX && _lastStartIndexX > -1)
                 {
                     UpdateListDown(startIndex);
@@ -439,6 +442,7 @@ namespace Ryneus
                     _selectedHandler?.Invoke();
                     return;
                 }
+                */
                 UpdateItemPrefab();
                 UpdateAllItems();
                 _lastStartIndexX = startIndex;

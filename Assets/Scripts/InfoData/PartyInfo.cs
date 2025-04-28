@@ -3,7 +3,7 @@
 namespace Ryneus
 {
     [System.Serializable]
-    public class PartyInfo 
+    public class PartyInfo
     {
         public PartyInfo()
         {

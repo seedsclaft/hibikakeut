@@ -79,8 +79,9 @@ namespace Ryneus
             // チュートリアル確認
             CheckTutorialState();
             // ステージ開始時
-            if (_model.CurrentStage.TurnCount.Value == 1 && _model.GetTurnTeam().ActPoint.Value == _model.GetTurnTeam().CurrentActPoint.Value)
+            if (!_model.CurrentStage.CheckedStageStart.Value)
             {
+                _model.CurrentStage.CheckedStageStart.SetValue(true);
                 TurnStartAnimation();
             }
             TacticsChecker.Instance.SetModel(_model.CurrentStage);
@@ -376,7 +377,7 @@ namespace Ryneus
         private void CheckHealUnit()
         {
             // 拠点回復確認
-            if (_model.CurrentStage.CheckedTurnStart.Value == false)
+            if (!_model.CurrentStage.CheckedTurnStart.Value)
             {
                 _model.CurrentStage.CheckedTurnStart.SetValue(true);
                 var healHexUnits = _model.CheckHealUnits();
@@ -570,12 +571,6 @@ namespace Ryneus
             {
                 return;
             }
-            if (_model.GetTurnTeam().CurrentActPoint.Value == 0)
-            {
-                _model.TurnEnd();
-                CommandRefresh();
-                TurnStartAnimation();
-            }
         }
 
         private void CommandUnitEdit()
@@ -594,7 +589,7 @@ namespace Ryneus
                 CommandRefresh();
                 _busy = false;
             });
-            unitInfoListInfo.SetUnitInfos(_model.DepatureUnitInfos());
+            unitInfoListInfo.SetUnitInfos(_model.DepatureEditUnitInfos());
             unitInfoListInfo.IsUnitEdit.SetValue(true);
 
             var popupInfo = new PopupInfo

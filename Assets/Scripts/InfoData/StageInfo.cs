@@ -11,6 +11,7 @@ namespace Ryneus
         public ParameterInt FieldX = new();
         public ParameterInt FieldY = new();
         public ParameterInt TurnCount = new(1);
+        public ParameterBool CheckedStageStart = new();
         public ParameterBool CheckedTurnStart = new();
 
         private List<TeamInfo> _teamInfos = new();
@@ -162,7 +163,7 @@ namespace Ryneus
                     return basement?.TeamId.Value != (int)TeamIdType.Away;
             }
             return false;
-        }    
+        }
 
         public bool CheckGameOver()
         {
