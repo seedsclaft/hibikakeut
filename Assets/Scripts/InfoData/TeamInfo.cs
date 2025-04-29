@@ -74,6 +74,17 @@ namespace Ryneus
             return list;
         }
 
+        public void RemoveLostUnitInfos()
+        {
+            for (int i = _unitInfos.Count-1;i >= 0;i--)
+            {
+                if (_unitInfos[i].IsLostUnit())
+                {
+                    _unitInfos.Remove(_unitInfos[i]);
+                }
+            }
+        }
+
         // 行動可能回数
         public ParameterInt ActPoint = new(1);
         // 残り行動回数

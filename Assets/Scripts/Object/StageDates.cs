@@ -12,7 +12,7 @@ namespace Ryneus
 
     [Serializable]
     public class StageData
-    {   
+    {
         public int Id;
         public int StageNo;
         public string Name;
@@ -24,11 +24,7 @@ namespace Ryneus
         public int StageLv;
         public List<int> PartyMemberIds;
         public int Width;
-        public int MinX;
-        public int MaxX;
         public int Height;
-        public int MinY;
-        public int MaxY;
         public int InitX;
         public int InitY;
         public int RandomTroopWeight;

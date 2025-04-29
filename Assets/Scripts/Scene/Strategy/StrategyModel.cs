@@ -113,6 +113,7 @@ namespace Ryneus
             var getItemInfos = _sceneParam.GetItemInfos;
 
             var lvUpList = new List<ActorInfo>();
+            /*
             // Expを付与する,結果非表示
             var expGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Exp);
             foreach (var expGetItemInfo in expGetItemInfos)
@@ -144,6 +145,7 @@ namespace Ryneus
                     }
                 }
             }
+            */
             _levelUpActorInfos = lvUpList;
             if (lvUpList.Count > 0)
             {

@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
     public partial class BaseModel
     {
-        public void MakeStageInfo(int stageId,bool newGame,int clearCount = 0)
+        public async Task MakeStageInfo(int stageId,bool newGame,int clearCount = 0)
         {
             var stageInfo = new StageInfo(stageId);
             // アイテムを獲得
@@ -57,7 +58,6 @@ namespace Ryneus
             {
                 awayTeam = new TeamInfo();
                 awayTeam.TeamId.SetValue((int)TeamIdType.Away);
-                stageInfo.AddTeamInfo(awayTeam);
             } else
             {
                 if (CurrentStage != null)
@@ -65,6 +65,9 @@ namespace Ryneus
                     awayTeam = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Away);
                 }
             }
+            awayTeam.ClearMoveEndUnitIds();
+            awayTeam.RemoveLostUnitInfos();
+            stageInfo.AddTeamInfo(awayTeam);
 
             foreach (var unitInfo in unitInfos)
             {
@@ -86,7 +89,11 @@ namespace Ryneus
         public List<GetItemInfo> StageOpeningGetItemInfos(int stageId,int clearCount)
         {
             var getItemInfos = new List<GetItemInfo>();
-            var stageSymbolDates = DataSystem.FindStage(stageId).StageSymbols;
+            var stageSymbolDates = DataSystem.FindStageSymbolData(stageId);
+            if (stageSymbolDates == null)
+            {
+                return getItemInfos;
+            }
             stageSymbolDates = stageSymbolDates.FindAll(a => a.InitX == -1 && a.ClearCount <= clearCount);
             foreach (var stageSymbolData in stageSymbolDates)
             {
@@ -105,8 +112,7 @@ namespace Ryneus
 
         public List<HexUnitInfo> GetStageHexUnitInfos(int stageId,int clearCount)
         {
-            var stageData = DataSystem.FindStage(stageId);
-            var stageSymbols = stageData.StageSymbols;
+            var stageSymbols = DataSystem.FindStageSymbolData(stageId);
             return StageHexUnitInfos(stageSymbols,clearCount);
         }
 

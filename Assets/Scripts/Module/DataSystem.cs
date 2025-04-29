@@ -9,35 +9,35 @@ using System.Linq;
 
 namespace Ryneus
 {
-    abstract public class DataSystem 
+    abstract public class DataSystem
     {
-        public static Dictionary<int,ActorData> Actors = new ();
-        public static List<AdvData> Adventures = new ();
-        public static List<EnemyData> Enemies = new ();
-        public static List<RuleData> Rules = new ();
-        public static List<HelpData> Helps = new ();
-        public static Dictionary<int,SkillData> Skills = new ();
-        public static List<StageData> Stages = new ();
-        public static List<SymbolGroupData> SymbolGroups = new ();
-        public static List<StateData> States = new ();
-        public static List<TroopData> Troops = new ();
-        public static List<AnimationData> Animations = new ();
-        public static List<PrizeSetData> PrizeSets = new ();
+        public static Dictionary<int, ActorData> Actors = new();
+        public static List<AdvData> Adventures = new();
+        public static List<EnemyData> Enemies = new();
+        public static List<RuleData> Rules = new();
+        public static List<HelpData> Helps = new();
+        public static Dictionary<int, SkillData> Skills = new();
+        public static List<StageData> Stages = new();
+        public static List<SymbolGroupData> SymbolGroups = new();
+        public static List<StateData> States = new();
+        public static List<TroopData> Troops = new();
+        public static List<AnimationData> Animations = new();
+        public static List<PrizeSetData> PrizeSets = new();
         //public static List<ScorePrizeData> ScorePrizes = new ();
-        public static List<SkillTriggerData> SkillTriggers = new ();
-        public static List<TutorialData> TutorialDates = new ();
+        public static List<SkillTriggerData> SkillTriggers = new();
+        public static List<TutorialData> TutorialDates = new();
         public static SystemData System;
 
-        public static List<SoundData> BGM = new ();
-        public static List<SoundData> SE =  new ();
+        public static List<SoundData> BGM = new();
+        public static List<SoundData> SE = new();
 
 
         public static List<SystemData.CommandData> TacticsCommand => System.TacticsCommandData;
         public static List<SystemData.CommandData> TitleCommand => System.TitleCommandData;
         public static List<SystemData.CommandData> StatusCommand => System.StatusCommandData;
         public static List<SystemData.OptionCommand> OptionCommand => System.OptionCommandData;
-        
-        public static Color PowerUpColor => new(0,128,128);
+
+        public static Color PowerUpColor => new(0, 128, 128);
 
         public static void LoadData()
         {
@@ -87,10 +87,16 @@ namespace Ryneus
             }
             return null;
         }
-        
+
         public static StageData FindStage(int id)
         {
             return Stages.Find(a => a.Id == id);
+        }
+
+        public static List<StageSymbolData> FindStageSymbolData(int id)
+        {
+            var fileName = "Map" + id.ToString("D4");
+            return Resources.Load<MapDates>("Data/" + fileName).Data;
         }
 
         public static StageData FindNextStage(int currentStageId)
@@ -128,9 +134,9 @@ namespace Ryneus
             return "";
         }
 
-        public static string GetReplaceText(int id,string replace)
+        public static string GetReplaceText(int id, string replace)
         {
-            return System.GetReplaceText(id,replace);
+            return System.GetReplaceText(id, replace);
         }
 
         public static string GetReplaceDecimalText(int value)
@@ -138,7 +144,7 @@ namespace Ryneus
             var numText = value.ToString();
             var index = 0;
             var charList = new List<string>();
-            for (int i = numText.Length-1;i >= 0;i--)
+            for (int i = numText.Length - 1; i >= 0; i--)
             {
                 charList.Add(numText[i].ToString());
                 index++;
@@ -165,7 +171,7 @@ namespace Ryneus
             }
             return null;
         }
-    
+
         public static SoundData GetBGM(int bgmId)
         {
             var bGMData = BGM.Find(a => a.Id == bgmId);
@@ -207,7 +213,7 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class TextData 
+    public class TextData
     {
         public int Id;
         public string Text;

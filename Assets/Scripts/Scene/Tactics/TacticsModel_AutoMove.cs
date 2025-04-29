@@ -6,9 +6,27 @@ namespace Ryneus
     public partial class TacticsModel : BaseModel
     {
 
-        public List<HexField> GetHexReach(HexField hexField,int reachCost,bool serachUnit = false)
+        public void GetFindRoute(HexField hexField,HexField endHexUnit,bool serachUnit = false,bool throughSelfTeam = false)
         {
-            _hexRoute.SetUnitInfos(CurrentStage.AllFieldUnitInfos());
+            var unitInfos = CurrentStage.AllFieldUnitInfos();
+            if (throughSelfTeam)
+            {
+                // 障害物から味方ユニットを外す
+                unitInfos = unitInfos.FindAll(a => !a.IsUnit || a.TeamId.Value == GetTurnTeam().TeamId.Value);
+            }
+            _hexRoute.SetUnitInfos(unitInfos);
+            _hexRoute.FindRoute(MoveType.Normal,hexField,endHexUnit,serachUnit);
+        }
+
+        public List<HexField> GetHexReach(HexField hexField,int reachCost,bool serachUnit = false,bool throughSelfTeam = false)
+        {
+            var unitInfos = CurrentStage.AllFieldUnitInfos();
+            if (throughSelfTeam)
+            {
+                // 障害物から味方ユニットを外す
+                unitInfos = unitInfos.FindAll(a => !a.IsUnit || a.TeamId.Value == GetTurnTeam().TeamId.Value);
+            }
+            _hexRoute.SetUnitInfos(unitInfos);
             return _hexRoute.GetReachableArea(MoveType.Normal,hexField,reachCost,serachUnit);
         }
 
@@ -150,9 +168,9 @@ namespace Ryneus
                     HexField targetHex = reachAreas[0];
                     foreach (var reachArea in reachAreas)
                     {
-                        var targetRoute = _hexRoute.FindRoute(MoveType.Normal,opponent.HexField,targetHex,true);
+                        GetFindRoute(opponent.HexField,targetHex,true);
                         var targetRoutePath = _hexRoute.Pathlist;
-                        var route = _hexRoute.FindRoute(MoveType.Normal,opponent.HexField,reachArea,true);
+                        GetFindRoute(opponent.HexField,reachArea,true);
                         var routePath = _hexRoute.Pathlist;
 
                         if (routePath.Count > targetRoutePath.Count)
@@ -196,7 +214,7 @@ namespace Ryneus
                     X = moveParam.Flag ? moveParam.Param3 : moveParam.Param1,
                     Y = moveParam.Flag ? moveParam.Param4 : moveParam.Param2,
                 };
-                _hexRoute.FindRoute(MoveType.Normal,moveBattler.HexField,targetHex,true);
+                GetFindRoute(moveBattler.HexField,targetHex,true);
                 var targetRoutePath = _hexRoute.Pathlist;
                 targetRoutePath.Reverse();
                 if (targetRoutePath.Count > 0)
@@ -226,7 +244,7 @@ namespace Ryneus
                     X = moveParam.Param1,
                     Y = moveParam.Param2,
                 };
-                _hexRoute.FindRoute(MoveType.Normal,moveBattler.HexField,targetHex,true);
+                GetFindRoute(moveBattler.HexField,targetHex,true);
                 var targetRoutePath = _hexRoute.Pathlist;
                 targetRoutePath.Reverse();
                 if (targetRoutePath.Count > 0)
@@ -278,15 +296,17 @@ namespace Ryneus
             // 移動圏外にいる場合
             while (!decide)
             {
-                var targetReaches = GetHexReach(target.HexField,targetCost);
-                var moveBattlerReaches = GetHexReach(moveBattler.HexField,moveBattlerCost);
+                var targetReaches = GetHexReach(target.HexField,targetCost,true);
+                var moveBattlerReaches = GetHexReach(moveBattler.HexField,moveBattlerCost,true);
                 moveBattlerReaches.Reverse();
                 // 重なりを検知
-                var findReach = targetReaches.Find(a => moveBattlerReaches.Find(b => a.X == b.X && a.Y == b.Y) != null);
-                if (findReach != null)
+                var findReaches = targetReaches.FindAll(a => moveBattlerReaches.Find(b => a.X == b.X && a.Y == b.Y) != null);
+                // 移動先が埋まっていなければ
+                findReaches = findReaches.FindAll(a => CurrentStage.AllUnitInfos().Find(b => moveBattler != b && b.HexField.X == a.X && b.HexField.Y == b.HexField.Y) == null);
+                if (findReaches.Count > 0)
                 {
                     decide = true;
-                    CurrentStage.SetFieldPosition(findReach);
+                    CurrentStage.SetFieldPosition(findReaches[0]);
                 } else
                 {
                     isTarget = !isTarget;

@@ -57,6 +57,7 @@ namespace Ryneus
 
         private LineType _lineIndex = 0;
         public LineType LineIndex => _lineIndex;
+        public void SetLineIndex(LineType lineType) => _lineIndex = lineType;
 
         private bool _bossFlag = false;
         public bool BossFlag => _bossFlag;

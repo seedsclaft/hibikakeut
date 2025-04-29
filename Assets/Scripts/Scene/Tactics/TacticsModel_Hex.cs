@@ -121,9 +121,9 @@ namespace Ryneus
         {
             var stageData = PartyInfo.StageMaster;
             var list = new List<HexField>();
-            for (int j = 0;j < stageData.Height;j++)
+            for (int j = 0;j <= stageData.Height;j++)
             {
-                for (int i = 0;i < stageData.Width;i++)
+                for (int i = 0;i <= stageData.Width;i++)
                 {
                     var field = new HexField
                     {
@@ -190,7 +190,7 @@ namespace Ryneus
             var departureHex = hexUnits.Find(a => a.IsBasementUnit);
             var move = _departureUnitInfo.BattlerInfos[0].CurrentMov();
             SelectingHexUnitId.SetValue(_departureUnitInfo.Index.Value);
-            _reachAreas = GetHexReach(departureHex.HexField,move);
+            _reachAreas = GetHexReach(departureHex.HexField,move,false,true);
             var depaterIndex = 1000;
             foreach (var path in _reachAreas)
             {
@@ -208,7 +208,7 @@ namespace Ryneus
 
         public void MakeMoveBattlerHex()
         {
-            var hexUnits = CurrentStage.FriendUnitInfos();
+            var hexUnits = CurrentStage.OnFieldTurnUnitInfos();
             if (hexUnits.Count == 0)
             {
                 return;
@@ -219,7 +219,7 @@ namespace Ryneus
                 return;
             }
             SelectingHexUnitId.SetValue(moveBattlerHex.Index.Value);
-            _reachAreas = GetHexReach(moveBattlerHex.HexField,moveBattlerHex.UnitInfo.BattlerInfos[0].CurrentMov());
+            _reachAreas = GetHexReach(moveBattlerHex.HexField,moveBattlerHex.GetUnitMov(),true,true);
             var moveBattlerIndex = 1000;
             // 自身の位置も移動候補に入れる
             var selfHex = new HexField
@@ -228,8 +228,14 @@ namespace Ryneus
                 Y = moveBattlerHex.HexField.Y
             };
             _reachAreas.Add(selfHex);
+            var friends = CurrentStage.FriendUnitInfos();
             foreach (var path in _reachAreas)
             {
+                // 自陣のユニット配置場所は候補から外す
+                if (friends.Find(a => a.HexField.X == path.X && a.HexField.Y == path.Y) != null)
+                {
+                    continue;
+                }
                 var unitData = new StageSymbolData
                 {
                     InitX = path.X,
@@ -271,8 +277,8 @@ namespace Ryneus
             {
                 return moveBattlerHex;
             }
-            _movableAreas = GetHexReach(moveBattlerHex.HexField,2);
-            _attackAreas = GetHexReach(moveBattlerHex.HexField,3);
+            _movableAreas = GetHexReach(moveBattlerHex.HexField,moveBattlerHex.GetUnitMov(),true,true);
+            _attackAreas = GetHexReach(moveBattlerHex.HexField,moveBattlerHex.GetUnitMov()+1,true,true);
             for (int i = _attackAreas.Count-1;i >= 0;i--)
             {
                 if (_movableAreas.Find(a => a.X == _attackAreas[i].X && a.Y== _attackAreas[i].Y) != null)
@@ -340,14 +346,14 @@ namespace Ryneus
                 UnitType = HexUnitType.Battler,
             };
             var depaterUnit = new HexUnitInfo(depaterActorIndex,unitData,(int)TeamIdType.Home);
+            depaterUnit.Index.SetValue(SelectingHexUnitId.Value);
             depaterUnit.SetUnitInfo(_departureUnitInfo);
             // Teamに設定
             var teamInfo = CurrentStage.GetTurnTeamInfo();
             teamInfo.AddUnitInfos(depaterUnit);
 
             // Reachを消去
-            CurrentStage.RemoveReachUnitInfo(_reachAreas);
-            _reachAreas.Clear();
+            ClearReachAreas();
             _departureUnitInfo = null;
 
             return depaterUnit;
@@ -375,7 +381,7 @@ namespace Ryneus
                     return (moveActions,moveUnitInfo);
                 }
                 // 移動ルート作成
-                _hexRoute.FindRoute(MoveType.Normal,moveUnitInfo.HexField,endHexUnit,false);
+                GetFindRoute(moveUnitInfo.HexField,endHexUnit,true,true);
                 pathes = _hexRoute.Pathlist;
                 pathes.Reverse();
                 foreach (var path in pathes)

@@ -112,10 +112,12 @@ namespace Ryneus
             if (_unitInfo.BattlerInfos.Count > 0 && _unitInfo.BattlerInfos[0].Index.Value > 0)
             {
                 _unitInfo.BattlerInfos[0].Index.SetValue(battleIndex);
+                _unitInfo.BattlerInfos[0].SetLineIndex(LineType.Front);
             }
             if (_unitInfo.BattlerInfos.Count > 1 && _unitInfo.BattlerInfos[1].Index.Value > 0)
             {
                 _unitInfo.BattlerInfos[1].Index.SetValue(battleIndex+3);
+                _unitInfo.BattlerInfos[1].SetLineIndex(LineType.Back);
             }
         }
 

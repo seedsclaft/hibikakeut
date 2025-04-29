@@ -70,7 +70,7 @@ namespace Ryneus
             _view.SetUIButton();
             _view.SetBackGround(_model.CurrentStage.Master.BackGround);
             //_view.SetBattleMemberList(MakeListData(_model.EditMembers()));
-            _view.SetHexTileList(MakeListData(_model.HexFields()),_model.CurrentStage.Master.Width);
+            _view.SetHexTileList(MakeListData(_model.HexFields()),_model.CurrentStage.Master.Width+1);
             //_view.SetNuminous(_model.Currency);
             CommandRefresh();
             await PlayTacticsBgm(timeStamp);
@@ -523,8 +523,10 @@ namespace Ryneus
 
         private void CommandMoveBattler()
         {
+            _model.ClearReachAreas();
             _model.ClearMoveReachAreas();
             _model.MakeMoveBattlerHex();
+            _view.DeActivateHexTiles();
             _view.RefreshTiles(_model.CurrentStage.FieldX.Value,_model.CurrentStage.FieldY.Value);
 
             _view.EndTacticsCommand();
@@ -666,16 +668,23 @@ namespace Ryneus
 
         private void CommandUnitActEnd()
         {
+            _model.ClearReachAreas();
             _view.EndTacticsCommand();
             _model.UnitActEnd();
             CommandRefresh();
             _model.SetLastSelectHex();
             _model.SetCommandKey("");
+            // 操作不可プレイヤー・オート動作なら操作を委託
             if (_model.GetTurnTeam().CurrentActPoint.Value == 0)
             {
                 _model.TurnEnd();
                 CommandRefresh();
                 TurnStartAnimation();
+                return;
+            }
+            if (!_model.IsPlayable)
+            {
+                CommandAutoMode();
             }
         }
 
