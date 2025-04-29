@@ -750,9 +750,19 @@ namespace Ryneus
             return (list,hpHealList);
         }
 
-        public void StageClear()
+        public bool StageClear()
         {
-            
+            // チュートリアル以外はマス情報を引き継ぐ
+            if (CurrentStage.StageId.Value < 1000)
+            {
+                var next = DataSystem.Stages.Find(a => a.Id > CurrentStage.StageId.Value && a.Id < 1000);
+                if (next != null)
+                {
+                    MakeStageInfo(next.Id,false);
+                }
+                return true;
+            }
+            return false;
         }
 
         private bool _turnEndCommandEnable = true;
@@ -880,6 +890,12 @@ namespace Ryneus
                 SaveCommand,
                 TurnEndCommand
             };
+            // 同時に拠点がある場合
+            var basement = OnFieldInfos.Find(a => a.IsBasementUnit && a.TeamId.Value == GetTurnTeam().TeamId.Value);
+            if (basement != null)
+            {
+                list.Insert(0,UnitEditCommand);
+            }
             bool enable(SystemData.CommandData a)
             {
                 if (a.Key == TurnEndCommand.Key)

@@ -23,16 +23,7 @@ namespace Ryneus
         {
             _tutorialData = tutorialData;
         }
-    
 
-        public bool StageStart()
-        {
-            if (PartyInfo != null)
-            {
-                return PartyInfo.StartStage.Value == false;
-            }
-            return false;
-        }
 
         public Effekseer.EffekseerEffectAsset StartStageAnimation()
         {

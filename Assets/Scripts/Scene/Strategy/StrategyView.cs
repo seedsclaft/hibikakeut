@@ -10,7 +10,7 @@ namespace Ryneus
     public class StrategyView : BaseView
     {
         [SerializeField] private Image backgroundImage = null; 
-        [SerializeField] private StrategyActorList strategyActorList = null; 
+        [SerializeField] private StrategyActorList strategyActorList = null;
         [SerializeField] private CanvasGroup strategyResultCanvasGroup = null;
         [SerializeField] private BaseList strategyResultList = null;
         public bool StrategyResultListActive => strategyResultList.gameObject.activeSelf;

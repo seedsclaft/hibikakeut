@@ -330,6 +330,15 @@ namespace Ryneus
             return null;
         }
 
+        public string TitleText()
+        {
+            if (_inBattleResult)
+            {
+                return DataSystem.GetText(20010);
+            }
+            return DataSystem.GetText(20040);
+        }
+
         public List<SystemData.CommandData> ResultCommand()
         {
             if (_inBattleResult && _battleResultVictory == false)

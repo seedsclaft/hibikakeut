@@ -26,7 +26,7 @@ namespace Ryneus
         public void StartTutorial(int stageId)
         {
             InitSaveStageInfo();
-            MakeStageInfo(stageId);
+            MakeStageInfo(stageId,true);
         }
     }
 }

@@ -47,6 +47,10 @@ namespace Ryneus
 
         public void UpdateData(StageData stageData)
         {
+            if (stageData == null)
+            {
+                return;
+            }
             nameText?.SetText(stageData.Name);
             if (achieve != null)
             {

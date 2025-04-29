@@ -16,7 +16,6 @@ namespace Ryneus
         // 現在のステージ場所
         public StageData StageMaster => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
-        public ParameterBool StartStage = new();
 
         // 所持金
         public ParameterInt Currency = new();

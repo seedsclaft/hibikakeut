@@ -5,38 +5,67 @@ namespace Ryneus
 {
     public partial class BaseModel
     {
-        public void MakeStageInfo(int stageId,int clearCount = 0)
+        public void MakeStageInfo(int stageId,bool newGame,int clearCount = 0)
         {
             var stageInfo = new StageInfo(stageId);
             // アイテムを獲得
             foreach (var getItemInfo in StageOpeningGetItemInfos(stageId,clearCount))
             {
-                AddGetItemInfo(getItemInfo);          
+                AddGetItemInfo(getItemInfo);
             }
             var unitInfos = GetStageHexUnitInfos(stageId,clearCount);
             // Fieldをセット
             stageInfo.SetHexUnitInfos(unitInfos.FindAll(a => !a.IsUnit));
-            // 味方チームを作成
-            var mainTeam = new TeamInfo();
-            mainTeam.TeamId.SetValue((int)TeamIdType.Home);
+            if (newGame)
+            {
+                // 味方チームを作成
+                var mainTeam = new TeamInfo();
+                mainTeam.TeamId.SetValue((int)TeamIdType.Home);
 
-            // 初期編成を作成
-            var depaterUnitInfo = new UnitInfo();
-            depaterUnitInfo.Index.SetValue(1);
-            var actorInfo = PartyInfo.ActorInfos[0];
-            var battlerInfo = new BattlerInfo(actorInfo,1);
-            depaterUnitInfo.SetBattlers(new List<BattlerInfo>(){battlerInfo,new BattlerInfo()});
-            mainTeam.SetDepatuerInfos(new List<UnitInfo>(){depaterUnitInfo});
+                // 初期編成を作成
+                var depaterUnitInfo = new UnitInfo();
+                depaterUnitInfo.Index.SetValue(1);
+                var actorInfo = PartyInfo.ActorInfos[0];
+                var battlerInfo = new BattlerInfo(actorInfo,1);
+                depaterUnitInfo.SetBattlers(new List<BattlerInfo>(){battlerInfo,new BattlerInfo()});
+                mainTeam.SetDepatuerInfos(new List<UnitInfo>(){depaterUnitInfo});
 
-            // 拠点数
-            var actPoint = unitInfos.FindAll(a => a.IsBasementUnit && a.IsFriend(mainTeam.TeamId.Value));
-            mainTeam.ActPoint.SetValue(actPoint.Count);
-            mainTeam.CurrentActPoint.SetValue(actPoint.Count);
-            stageInfo.AddTeamInfo(mainTeam);
+                // 拠点数
+                var actPoint = unitInfos.FindAll(a => a.IsBasementUnit && a.IsFriend(mainTeam.TeamId.Value));
+                mainTeam.ActPoint.SetValue(actPoint.Count);
+                mainTeam.CurrentActPoint.SetValue(actPoint.Count);
+                stageInfo.AddTeamInfo(mainTeam);
+            } else
+            {
+                if (CurrentStage != null)
+                {
+                    // Fieldを引継ぎ
+                    foreach (var fieldHex in CurrentStage.FieldHexList)
+                    {
+                        if (fieldHex.HexUnitType == HexUnitType.None)
+                        {
+                            continue;
+                        }
+                        stageInfo.AddHexUnitInfo(fieldHex);
+                    }
+                    stageInfo.AddTeamInfo(CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Home));
+                }
+            }
 
-            // 存在する陣営を作成
-            var awayTeam = new TeamInfo();
-            awayTeam.TeamId.SetValue((int)TeamIdType.Away);
+            TeamInfo awayTeam = null;
+            if (newGame)
+            {
+                awayTeam = new TeamInfo();
+                awayTeam.TeamId.SetValue((int)TeamIdType.Away);
+                stageInfo.AddTeamInfo(awayTeam);
+            } else
+            {
+                if (CurrentStage != null)
+                {
+                    awayTeam = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Away);
+                }
+            }
+
             foreach (var unitInfo in unitInfos)
             {
                 if (unitInfo.IsBattlerUnit)
@@ -44,18 +73,16 @@ namespace Ryneus
                     awayTeam.AddUnitInfos(unitInfo);
                 }
             }
+
             // 敵は敵部隊数分1回ずつ行動可能
             var awayActPoint = unitInfos.FindAll(a => a.IsUnit && a.IsFriend(awayTeam.TeamId.Value));
             awayTeam.ActPoint.SetValue(awayActPoint.Count);
             awayTeam.CurrentActPoint.SetValue(awayActPoint.Count);
-            stageInfo.AddTeamInfo(awayTeam);
-            
-            
+
             CurrentGameInfo.SetStageInfo(stageInfo);
             PartyInfo.StageId.SetValue(stageId);
-            PartyInfo.StartStage.SetValue(false);
         }
-        
+
         public List<GetItemInfo> StageOpeningGetItemInfos(int stageId,int clearCount)
         {
             var getItemInfos = new List<GetItemInfo>();

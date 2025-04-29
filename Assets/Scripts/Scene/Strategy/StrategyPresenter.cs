@@ -142,10 +142,7 @@ namespace Ryneus
 
         private void CommandStartStrategy()
         {
-            if (_model.InBattleResult)
-            {
-                _view.SetTitle(DataSystem.GetText(20010));
-            }
+            _view.SetTitle(_model.TitleText());
             // キャラ表示アニメーションを開始
             var displayActorInfos = _model.DisplayActorInfos;
             if (displayActorInfos.Count > 0)

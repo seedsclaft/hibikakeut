@@ -560,6 +560,7 @@ namespace Ryneus
             CommandRefresh();
             _view.UpdateTileItems();
             _model.SetLastSelectHex();
+            _view.EndTacticsCommand();
             _model.SetCommandKey("");
             var victory = CheckVictory();
             if (victory)
@@ -740,8 +741,14 @@ namespace Ryneus
                 _view.StartAnimation("Victory!",() => 
                 {
                     _busy = false;
-                    _model.StageClear();
-                    _view.CommandSceneChange(Scene.Title);
+                    var nextStage = _model.StageClear();
+                    if (nextStage)
+                    {
+                        _view.CommandSceneChange(Scene.Tactics);
+                    } else
+                    {
+                        _view.CommandSceneChange(Scene.Title);
+                    }
                 });
                 return true;
             }
