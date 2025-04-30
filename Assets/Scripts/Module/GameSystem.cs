@@ -174,7 +174,6 @@ namespace Ryneus
                 case Base.CommandType.CallStatusView:
                     var statusViewInfo = (StatusViewInfo)viewEvent.Template;
                     var statusView = CreateStatus(StatusType.Status,statusViewInfo) as StatusView;
-                    statusView.SetViewInfo(statusViewInfo);
                     _currentScene.SetBusy(true);
                     break;
                 case Base.CommandType.CloseStatus:
@@ -190,7 +189,6 @@ namespace Ryneus
                 case Base.CommandType.CallTacticsStatusView:
                     var tacticsStatusInfo = (StatusViewInfo)viewEvent.Template;
                     var tacticsStatusInfoView = CreateStatus(StatusType.TacticsStatus,tacticsStatusInfo) as TacticsStatusView;
-                    tacticsStatusInfoView.SetViewInfo(tacticsStatusInfo);
                     tacticsStatusInfoView.SetBackEvent(tacticsStatusInfo.BackEvent);
                     _currentScene.SetBusy(true);
                     break;

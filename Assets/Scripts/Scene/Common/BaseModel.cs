@@ -186,7 +186,6 @@ namespace Ryneus
             var eventKeys = CurrentGameInfo.ReadEventKeys;
             return StageEventDates.FindAll(a => a.Timing == eventTiming && !eventKeys.Contains(a.EventKey));
         }
-        
 
         public void AddEventsReadFlag(List<StageEventData> stageEventDates)
         {
@@ -336,15 +335,6 @@ namespace Ryneus
         public void ClearGame()
         {
             CurrentData.PlayerInfo.GainClearCount();
-        }
-
-
-
-
-        public void StartOpeningStage()
-        {
-            InitSaveStageInfo();
-            SavePlayerStageData(true);
         }
 
         public async UniTask LoadBattleResources(List<BattlerInfo> battlers)

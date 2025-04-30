@@ -33,6 +33,7 @@ namespace Ryneus
         System,
         Boot,
         Title,
+        NameEntry,
         Tactics,
         Status,
         Battle,

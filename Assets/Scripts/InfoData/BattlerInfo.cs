@@ -253,7 +253,7 @@ namespace Ryneus
             {
                 skill.UseCount.SetValue(0);
                 skill.CountTurn.SetValue(0);
-            }            
+            }
         }
 
         private void SetKindTypes(List<KindType> kindTypes)
@@ -956,6 +956,11 @@ namespace Ryneus
 
         public void TurnEndSkillSeekCountTurn(List<SkillInfo> skillInfos)
         {
+            foreach (var skillInfo in _skills)
+            {
+                skillInfo.CountTurn.GainValue(-1);
+            }
+            /*
             // 使用しなかった魔法のカウントを進める
             foreach (var skillInfo in _skills)
             {
@@ -964,6 +969,7 @@ namespace Ryneus
                     skillInfo.CountTurn.GainValue(-1);
                 }
             }
+            */
         }
 
         public List<SkillInfo> ActiveSkills()

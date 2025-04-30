@@ -159,8 +159,12 @@ namespace Ryneus
             switch (achieveType)
             {
                 case AchieveType.ConquerEnemyBasement:
-                    var basement = _fieldHexList.Find(a => a.Id.Value == Master.EnemyBasementId);
-                    return basement?.TeamId.Value != (int)TeamIdType.Away;
+                    var basement = OpponentUnitInfos().Find(a => a.Id.Value == Master.EnemyBasementId);
+                    if (basement != null)
+                    {
+                        return basement.TeamId.Value != (int)TeamIdType.Away;
+                    }
+                    return false;
             }
             return false;
         }

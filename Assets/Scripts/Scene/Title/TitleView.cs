@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Ryneus.Title;
 
 namespace Ryneus
 {
-    using Title;
-    public class TitleView : BaseView ,IInputHandlerEvent
+    public class TitleView : BaseView, IInputHandlerEvent
     {
         [SerializeField] private TextMeshProUGUI versionText = null;
         [SerializeField] private BaseList titleCommandList = null;
         public SystemData.CommandData TitleCommand => titleCommandList.ListItemData<SystemData.CommandData>();
-        
-        public override void Initialize() 
+
+        public override void Initialize()
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Title);
             InitializeTitleCommand();
-            SideMenuButton.OnClickAddListener(() => 
+            SideMenuButton.OnClickAddListener(() =>
             {
                 CallSideMenu();
             });
@@ -28,9 +28,9 @@ namespace Ryneus
         {
             titleCommandList.Initialize();
             SetInputHandler(titleCommandList.gameObject);
-            titleCommandList.SetInputHandler(InputKeyType.Decide,OnClickTitle);
-        }        
-        
+            titleCommandList.SetInputHandler(InputKeyType.Decide, OnClickTitle);
+        }
+
         public void SetTitleCommand(List<ListData> titleCommand)
         {
             titleCommandList.SetData(titleCommand);
@@ -68,7 +68,7 @@ namespace Ryneus
     }
 
     namespace Title
-    {    
+    {
         public enum CommandType
         {
             None = 0,

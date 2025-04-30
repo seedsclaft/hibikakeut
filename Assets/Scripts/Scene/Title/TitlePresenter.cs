@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ryneus.Title;
 
 namespace Ryneus
 {
-    using Title;
     public class TitlePresenter : BasePresenter
     {
         TitleModel _model = null;
@@ -100,6 +100,7 @@ namespace Ryneus
             _view.WaitFrame(2,() => 
             {
                 _view.CommandGotoSceneChange(Scene.Tactics);
+                //_view.CommandGotoSceneChange(Scene.NameEntry);
             });
         }
 

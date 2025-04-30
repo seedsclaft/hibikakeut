@@ -6,7 +6,7 @@ namespace Ryneus
 {
     public partial class BaseModel
     {
-        public async Task MakeStageInfo(int stageId,bool newGame,int clearCount = 0)
+        public void MakeStageInfo(int stageId,bool newGame,int clearCount = 0)
         {
             var stageInfo = new StageInfo(stageId);
             // アイテムを獲得
@@ -49,7 +49,12 @@ namespace Ryneus
                         }
                         stageInfo.AddHexUnitInfo(fieldHex);
                     }
-                    stageInfo.AddTeamInfo(CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Home));
+                    var mainTeam = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Home);
+                    // 拠点数
+                    var actPoint = CurrentStage.AllFieldUnitInfos().FindAll(a => a.IsBasementUnit && a.IsFriend(mainTeam.TeamId.Value));
+                    mainTeam.ActPoint.SetValue(actPoint.Count);
+                    mainTeam.CurrentActPoint.SetValue(actPoint.Count);
+                    stageInfo.AddTeamInfo(mainTeam);
                 }
             }
 

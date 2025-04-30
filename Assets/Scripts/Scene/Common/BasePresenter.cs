@@ -217,10 +217,10 @@ namespace Ryneus
             {
                 statusViewInfo.SetStartIndex(startIndex);
             }
-            statusViewInfo.SetDisplayDecideButton(addActor);
-            statusViewInfo.SetDisplayCharacterList(true);
-            statusViewInfo.SetDisplayLevelResetButton(levelUpObj);
-            statusViewInfo.SetDisplayBackButton(backButton);
+            statusViewInfo.DisplayDecideButton.SetValue(addActor);
+            statusViewInfo.DisplayCharacterList.SetValue(true);
+            statusViewInfo.DisplayLvUpInfo.SetValue(levelUpObj);
+            statusViewInfo.DisplayBackButton.SetValue(backButton);
             statusViewInfo.SetIsRanking(isRanking);
             _view.CallSystemCommand(Base.CommandType.CallStatusView,statusViewInfo);
             _view.ChangeUIActive(false);
@@ -262,10 +262,10 @@ namespace Ryneus
             {
                 statusViewInfo.SetStartIndex(startIndex);
             }
-            statusViewInfo.SetDisplayDecideButton(addActor);
-            statusViewInfo.SetDisplayCharacterList(!addActor);
-            statusViewInfo.SetDisplayLevelResetButton(levelUpObj);
-            statusViewInfo.SetDisplayBackButton(backButton);
+            statusViewInfo.DisplayDecideButton.SetValue(addActor);
+            statusViewInfo.DisplayCharacterList.SetValue(!addActor);
+            statusViewInfo.DisplayLvUpInfo.SetValue(levelUpObj);
+            statusViewInfo.DisplayBackButton.SetValue(backButton);
             statusViewInfo.SetCharaLayerEvent(charaLayerEvent);
             _view.CallSystemCommand(Base.CommandType.CallTacticsStatusView,statusViewInfo);
             //_view.ChangeUIActive(false);

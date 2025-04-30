@@ -8,7 +8,7 @@ using Ryneus.Status;
 
 namespace Ryneus
 {
-    public class StatusView : BaseView ,IInputHandlerEvent
+    public class StatusView : BaseView,IInputHandlerEvent
     {
         [SerializeField] private Button helpButton = null;
         [SerializeField] private MagicList equipSkillList = null;
@@ -17,15 +17,12 @@ namespace Ryneus
         [SerializeField] private ActorInfoComponent selectingActorInfoComponent = null;
         [SerializeField] private Button leftArrowButton = null;
         [SerializeField] private Button rightArrowButton = null;
-
-        private StatusViewInfo _statusViewInfo = null;
+        [SerializeField] private Button decideButton = null;
+        [SerializeField] private GameObject decideAnimation = null;
 
         private Action _backEvent = null;
-        private bool _isDisplayDecide => _statusViewInfo != null && _statusViewInfo.DisplayDecideButton;
-        public bool DisplayDecide => _isDisplayDecide;
         private string _helpText;
-        public bool IsRanking => _statusViewInfo != null && _statusViewInfo.IsRanking;
-        public override void Initialize() 
+        public override void Initialize()
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Status);
@@ -44,6 +41,10 @@ namespace Ryneus
             if (rightArrowButton != null)
             {
                 rightArrowButton.onClick.AddListener(() => CallViewEvent(CommandType.RightActor));
+            }
+            if (decideButton != null)
+            {
+                decideButton.onClick.AddListener(() => CallViewEvent(CommandType.DecideActor));
             }
             new StatusPresenter(this);
         }
@@ -135,17 +136,6 @@ namespace Ryneus
             _helpText = helpText;
         }
 
-        public void SetViewInfo(StatusViewInfo statusViewInfo)
-        {
-            _statusViewInfo = statusViewInfo;
-            _backEvent = statusViewInfo.BackEvent;
-            SetBackEvent(statusViewInfo.BackEvent);
-            if (statusViewInfo.StartIndex != -1)
-            {
-                CallViewEvent(CommandType.SelectCharacter,statusViewInfo.StartIndex);
-            }
-        }
-
         public void CommandBack()
         {
             _backEvent?.Invoke();
@@ -156,8 +146,52 @@ namespace Ryneus
             base.SetBusy(busy);
         }
 
+        public void SetActiveDecide(bool isActive)
+        {
+            if (decideButton == null)
+            {
+                return;
+            }
+            decideButton.gameObject.SetActive(isActive);
+            if (isActive)
+            {
+                SetDecideAnimation();
+            }
+        }
+
+        private void SetDecideAnimation()
+        {
+            if (decideAnimation == null)
+            {
+                return;
+            }
+            var rect = decideAnimation.GetComponent<RectTransform>();
+            var canvasGroup = decideAnimation.GetComponent<CanvasGroup>();
+            var duration = 1f;
+            DOTween.Sequence()
+                .Append(rect.DOScaleX(1.25f,duration))
+                .Join(rect.DOScaleY(1.1f,duration))
+                .Join(canvasGroup.DOFade(0,duration))
+                .Append(canvasGroup.DOFade(0,duration)
+                .SetEase(Ease.InOutQuad))
+                .SetLoops(-1);
+        }
+
+        public void SetActiveLvUpInfo(bool isActive)
+        {
+            if (statusLevelUp == null)
+            {
+                return;
+            }
+            statusLevelUp.gameObject.SetActive(isActive);
+        }
+
         public void SetLvUpInfo(int cost,int currency)
         {
+            if (statusLevelUp == null)
+            {
+                return;
+            }
             statusLevelUp.SetLvUpInfo(cost,currency);
         }
 
@@ -178,6 +212,7 @@ namespace Ryneus
 
         public void CommandRefresh()
         {
+            /*
             if (_isDisplayDecide)
             {
                 SetHelpText(_helpText);
@@ -187,6 +222,7 @@ namespace Ryneus
                 SetHelpText(DataSystem.GetHelp(202));
                 SetHelpInputInfo("STATUS");
             }
+            */
         }
 
         public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
@@ -202,24 +238,17 @@ namespace Ryneus
     {
         private Action _backEvent = null;
         public Action BackEvent => _backEvent;
-        private bool _displayDecideButton = false;
-        public bool DisplayDecideButton => _displayDecideButton;
-        private bool _displayBackButton = true;
-        public bool DisplayBackButton => _displayBackButton;
-        private bool _displayCharacterList = true;
-        public bool DisplayCharacterList => _displayCharacterList;
-        private bool _displayLvResetButton = false;
-        public bool DisplayLvResetButton => _displayLvResetButton;
+        public ParameterBool DisplayDecideButton = new();
+        public ParameterBool DisplayBackButton = new(true);
+        public ParameterBool DisplayCharacterList = new();
+        public ParameterBool DisplayLvUpInfo = new();
         private List<ActorInfo> _actorInfos = null;
         public List<ActorInfo> ActorInfos => _actorInfos;
         private List<BattlerInfo> _enemyInfos = null;
         public List<BattlerInfo> EnemyInfos => _enemyInfos;
-        private bool _isBattle = false;
-        public bool IsBattle => _isBattle;
-        private bool _isRanking = false;
-        public bool IsRanking => _isRanking;
-        private int _startIndex = -1;
-        public int StartIndex => _startIndex;
+        public ParameterBool IsBattle = new();
+        public ParameterBool IsRanking = new();
+        public ParameterInt StartIndex = new(-1);
         private Action<int> _charaLayerEvent = null;
         public Action<int> CharaLayerEvent => _charaLayerEvent;
 
@@ -228,51 +257,31 @@ namespace Ryneus
             _backEvent = backEvent;
         }
 
-        public void SetDisplayDecideButton(bool isDisplay)
-        {
-            _displayDecideButton = isDisplay;
-        }
-
-        public void SetDisplayBackButton(bool isDisplay)
-        {
-            _displayBackButton = isDisplay;
-        }
-
-        public void SetDisplayCharacterList(bool isDisplay)
-        {
-            _displayCharacterList = isDisplay;
-        }
-
-        public void SetDisplayLevelResetButton(bool isDisplay)
-        {
-            _displayLvResetButton = isDisplay;
-        }
-
         public void SetEnemyInfos(List<BattlerInfo> enemyInfos,bool isBattle)
         {
             _enemyInfos = enemyInfos;
-            _isBattle = isBattle;
+            IsBattle.SetValue(isBattle);
         }
 
         public void SetActorInfos(List<ActorInfo> actorInfos,bool isBattle)
         {
             _actorInfos = actorInfos;
-            _isBattle = isBattle;
+            IsBattle.SetValue(isBattle);
         }
 
         public void SetStartIndex(int actorIndex)
         {
-            _startIndex = actorIndex;
+            StartIndex.SetValue(actorIndex);
         }
-        
-        public void SetCharaLayerEvent(System.Action<int> charaLayerEvent)
+
+        public void SetCharaLayerEvent(Action<int> charaLayerEvent)
         {
             _charaLayerEvent = charaLayerEvent;
         }
 
         public void SetIsRanking(bool isRanking)
         {
-            _isRanking = isRanking;
+            IsRanking.SetValue(isRanking);
         }
     }
 
@@ -288,6 +297,7 @@ namespace Ryneus
             SelectEquipSkill,
             CancelEquipSkill,
             SelectChangeSkill,
+            DecideActor,
             DecideStage,
             CharacterList,
             SelectCharacter,

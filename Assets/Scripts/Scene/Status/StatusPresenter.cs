@@ -20,11 +20,14 @@ namespace Ryneus
         }
 
         private void Initialize()
-        { 
+        {
             _view.SetHelpWindow(_model.HelpText());
             _view.SetEvent((type) => UpdateCommand(type));
 
             _view.SetActiveArrows(_model.ActorInfos.Count > 1);
+            _view.SetActiveLvUpInfo(_model.SceneParam.DisplayLvUpInfo.Value);
+            _view.SetActiveDecide(_model.SceneParam.DisplayDecideButton.Value);
+            _view.ChangeBackCommandActive(_model.SceneParam.DisplayBackButton.Value);
             CommandRefresh();
             ResetSelectSkill();
             _view.OpenAnimation(() =>
@@ -57,6 +60,9 @@ namespace Ryneus
                     return;
                 case CommandType.SelectActor:
                     CommandSelectActor((ActorInfo)viewEvent.Template);
+                    return;
+                case CommandType.DecideActor:
+                    CommandDecideActor();
                     return;
                 case CommandType.CancelActor:
                     return;
@@ -106,7 +112,7 @@ namespace Ryneus
                 if (tutorialData.Param1 == 1000)
                 {
                     // 初めて仲間加入画面を開く
-                    checkFlag = _view.DisplayDecide;
+                    //checkFlag = _view.DisplayDecide;
                 }
                 if (tutorialData.Param1 == 1200)
                 {
@@ -258,6 +264,26 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.SelectActor(actorInfo.ActorId.Value);
+        }
+
+        private void CommandDecideActor()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _busy = true;
+            // 確認後結果表示
+            var confirmInfo = new ConfirmInfo(_model.CurrentActor.Master.Name +"を仲間にしますか？",(a) =>
+            {
+                if (a == ConfirmCommandType.Yes)
+                {
+                    _view.CallSystemCommand(Base.CommandType.CloseStatus);
+                    var strategySceneInfo = _model.DecideActor();
+                    _view.CommandGotoSceneChange(Scene.Strategy,strategySceneInfo);
+                } else
+                {
+                    _busy = false;
+                }
+            });
+            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void UpdatePopup(ConfirmCommandType confirmCommandType)

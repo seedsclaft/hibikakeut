@@ -24,7 +24,7 @@ namespace Ryneus
             if (throughSelfTeam)
             {
                 // 障害物から味方ユニットを外す
-                unitInfos = unitInfos.FindAll(a => !a.IsUnit || a.TeamId.Value == GetTurnTeam().TeamId.Value);
+                unitInfos = unitInfos.FindAll(a => !a.IsUnit || a.TeamId.Value != GetTurnTeam().TeamId.Value);
             }
             _hexRoute.SetUnitInfos(unitInfos);
             return _hexRoute.GetReachableArea(MoveType.Normal,hexField,reachCost,serachUnit);

@@ -13,11 +13,11 @@ namespace Ryneus
             _value = value;
         }
 
-        public void SetValue(int value) 
+        public void SetValue(int value)
         {
             _value = value;
-        }        
-        
+        }
+
         public void SetValue(int value,int minValue,int maxValue)
         {
             var result = Math.Min(Math.Max(value,minValue),maxValue);

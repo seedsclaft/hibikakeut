@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using NameEntry;
+using Ryneus.NameEntry;
 using TMPro;
 
 namespace Ryneus
@@ -12,17 +12,17 @@ namespace Ryneus
         [SerializeField] private TMP_InputField inputField = null;
         [SerializeField] private Button decideButton = null;
 
-        private new System.Action<NameEntryViewEvent> _commandData = null;
 
         private int _inputLateUpdate = -1;
-        public override void Initialize() 
+        public override void Initialize()
         {
             base.Initialize();
+            SetViewCommandSceneType(ViewCommandSceneType.NameEntry);
             new NameEntryPresenter(this);
             decideButton.onClick.AddListener(() => OnClickDecide());
             inputField.gameObject.SetActive(false);
             decideButton.gameObject.SetActive(false);
-            SetInputHandler(gameObject.GetComponent<IInputHandlerEvent>());
+            SetInputHandler(gameObject);
         }
 
         public void SetHelpWindow()
@@ -31,20 +31,17 @@ namespace Ryneus
             HelpWindow.SetInputInfo("");
         }
 
-        public void SetEvent(System.Action<NameEntryViewEvent> commandData)
-        {
-            _commandData = commandData;
-        }
-        
         private void OnClickDecide()
         {
-            var eventData = new NameEntryViewEvent(CommandType.EntryEnd)
+            CallViewEvent(CommandType.EntryEnd);
+            if (inputField != null)
             {
-                template = inputField.text
-            };
-            _commandData(eventData);
-            if (inputField != null) inputField.gameObject.SetActive(false);
-            if (decideButton != null) decideButton.gameObject.SetActive(false);
+                inputField.gameObject.SetActive(false);
+            }
+            if (decideButton != null)
+            {
+                decideButton.gameObject.SetActive(false);
+            }
         }
 
         public void ShowNameEntry(string defaultName)
@@ -62,9 +59,9 @@ namespace Ryneus
             HelpWindow.SetInputInfo("NAMEENTRY");
         }
 
-        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            if (inputField.gameObject.activeSelf == true && inputField.IsActive())
+            if (inputField.gameObject.activeSelf && inputField.IsActive())
             {
                 if (keyTypes.Contains(InputKeyType.Start))
                 {
@@ -73,7 +70,7 @@ namespace Ryneus
             }
         }
 
-        private new void Update() 
+        private new void Update()
         {
             if (_inputLateUpdate > -1)
             {
@@ -82,30 +79,21 @@ namespace Ryneus
                 {
                     inputField.MoveTextEnd(true);
                 }
-            } else
+            }
+            else
             {
                 base.Update();
             }
         }
     }
-}
 
-namespace NameEntry
-{
-    public enum CommandType
+    namespace NameEntry
     {
-        None = 0,
-        StartEntry = 100,
-        EntryEnd = 101,
-    }
-}
-public class NameEntryViewEvent
-{
-    public CommandType commandType;
-    public object template;
-
-    public NameEntryViewEvent(CommandType type)
-    {
-        commandType = type;
+        public enum CommandType
+        {
+            None = 0,
+            StartEntry = 100,
+            EntryEnd = 101,
+        }
     }
 }

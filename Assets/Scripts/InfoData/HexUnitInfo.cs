@@ -21,6 +21,7 @@ namespace Ryneus
         public bool IsBattlerUnit => _hexUnitType == HexUnitType.Battler;
         public bool IsAlcanaUnit => _hexUnitType == HexUnitType.Alcana;
         public bool IsGetItemUnit => _hexUnitType == HexUnitType.GetItem;
+        public bool IsSelectActorUnit => _hexUnitType == HexUnitType.SelectActor;
         public bool IsGachaUnit => _hexUnitType == HexUnitType.Gacha;
         public bool IsReachUnit => _hexUnitType == HexUnitType.Reach || _hexUnitType == HexUnitType.ReachAttack;
 
@@ -149,6 +150,8 @@ namespace Ryneus
                     return "？？？：\nランダムなイベントが発生";
                 case HexUnitType.GetItem:
                     return "宝箱：\nアイテムを入手";
+                case HexUnitType.SelectActor:
+                    return "召喚：\n仲間を任意選択して加入";
                 case HexUnitType.Gacha:
                     return "奇跡：\n様々な恩恵を受ける";
             }

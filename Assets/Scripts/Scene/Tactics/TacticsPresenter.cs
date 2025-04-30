@@ -238,7 +238,7 @@ namespace Ryneus
                     CommandCallEnemyInfo((SymbolResultInfo)viewEvent.Template);
                     break;
                 case CommandType.CallAddActorInfo:
-                    CommandCallAddActorInfo((SymbolResultInfo)viewEvent.Template,false);
+                    //CommandCallAddActorInfo((SymbolResultInfo)viewEvent.Template,false);
                     break;
                 case CommandType.PopupSkillInfo:
                     CommandPopupSkillInfo((List<GetItemInfo>)viewEvent.Template);
@@ -455,6 +455,9 @@ namespace Ryneus
                 case "GetItem":
                     CommandGetItem();
                     break;
+                case "SelectActor":
+                    CommandSelectActor();
+                    break;
                 case "Gacha":
                     CommandGacha();
                     break;
@@ -649,6 +652,26 @@ namespace Ryneus
             _view.UpdateTileItems();
             _model.SetLastSelectHex();
             _model.SetCommandKey("");
+        }
+
+        private void CommandSelectActor()
+        {
+            var results = _model.GetSelectActor();
+            _view.EndTacticsCommand();
+            if (results)
+            {
+                // 確認後仲間選択
+                var confirmInfo = new ConfirmInfo("加入したい仲間を選択！",(a) =>
+                {
+                    CommandCallAddActorInfo(true,true);
+                });
+                confirmInfo.SetIsNoChoice(true);
+                confirmInfo.SetBackEvent(() => {});
+                _view.CommandCallConfirm(confirmInfo);
+                SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                return;
+            }
+
         }
 
         private void CommandGacha()
@@ -1033,16 +1056,15 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 
-        private void CommandCallAddActorInfo(SymbolResultInfo symbolResultInfo,bool addCommand)
+        private void CommandCallAddActorInfo(bool freeSelect,bool addCommand)
         {
-            List<ActorInfo> actorInfos;
-            /*
-            if (symbolResultInfo.StageSymbolData.Param2 == 0 && symbolResultInfo.SymbolInfo.GetItemInfos.Find(a => a.GetItemType == GetItemType.AddActor) == null)
+            List<ActorInfo> actorInfos = null;
+            if (freeSelect)
             {
                 actorInfos = _model.AddSelectActorInfos();
             } else
             {
-                actorInfos = _model.AddSelectActorGetItemInfos(symbolResultInfo.SymbolInfo.GetItemInfos);
+                //actorInfos = _model.AddSelectActorGetItemInfos(symbolResultInfo.SymbolInfo.GetItemInfos);
             }
             if (addCommand)
             {
@@ -1053,6 +1075,7 @@ namespace Ryneus
                 });
             } else
             {
+                /*
                 var selectActorId = -1;
                 var getItemInfo = _view.SymbolGetItemInfo;
                 if (getItemInfo != null)
@@ -1064,8 +1087,8 @@ namespace Ryneus
                 {
 
                 });
+                */
             }
-            */
         }
 
         private void CommandSelectSideMenu()

@@ -120,5 +120,26 @@ namespace Ryneus
         {
             return ActorLevelUpCost(CurrentActor);
         }
+
+        public StrategySceneInfo DecideActor()
+        {
+            var getItemData = new GetItemData
+            {
+                Type = GetItemType.AddActor,
+                Param1 = CurrentActor.ActorId.Value
+            };
+            var getItemInfo = new GetItemInfo(getItemData);
+            AddGetItemInfo(getItemInfo);
+            var strategySceneInfo = new StrategySceneInfo
+            {
+                ActorInfos = StageMembers().FindAll(a => a.ActorId.Value == CurrentActor.ActorId.Value),
+                InBattle = false
+            };
+            strategySceneInfo.GetItemInfos = new List<GetItemInfo>
+            {
+                getItemInfo
+            };
+            return strategySceneInfo;
+        }
     }
 }

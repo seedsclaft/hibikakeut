@@ -21,7 +21,7 @@ namespace Ryneus
         private GameObject GetStatusObject(StatusType statusType)
         {
             return ResourceSystem.LoadResource<GameObject>("Scenes/" + statusType + "Scene");
-        }    
+        }
         
         public void CloseStatus()
         {

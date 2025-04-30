@@ -1,4 +1,3 @@
-
 namespace Ryneus
 {
     public class NameEntryModel : BaseModel

@@ -219,7 +219,7 @@ namespace Ryneus
                 return;
             }
             SelectingHexUnitId.SetValue(moveBattlerHex.Index.Value);
-            _reachAreas = GetHexReach(moveBattlerHex.HexField,moveBattlerHex.GetUnitMov(),true,true);
+            _reachAreas = GetHexReach(moveBattlerHex.HexField,moveBattlerHex.GetUnitMov(),false,true);
             var moveBattlerIndex = 1000;
             // 自身の位置も移動候補に入れる
             var selfHex = new HexField
@@ -604,6 +604,38 @@ namespace Ryneus
             return null;
         }
 
+        public bool GetSelectActor()
+        {
+            UnitActEnd();
+            var selectActor = OnFieldInfos.Find(a => a.IsSelectActorUnit);
+            if (selectActor != null)
+            {
+                /*
+                foreach (var getItemInfo in selectActor.GetItemInfos)
+                {
+                    AddGetItemInfo(getItemInfo);
+                }
+                */
+                // 消失
+                CurrentStage.RemoveHexUnitInfo(selectActor);
+                return AddSelectActorInfos().Count > 0;
+                //return selectActor.GetItemInfos;
+            }
+            return false;
+        }
+
+        public List<ActorInfo> AddSelectActorInfos()
+        {
+            // 未加入の仲間
+            var actorDates = DataSystem.Actors.Where(a => PartyInfo.ActorInfos.Find(b => a.Value.Id == b.ActorId.Value) == null).ToList();
+            var actorInfos = new List<ActorInfo>();
+            foreach (var actorDate in actorDates)
+            {
+                actorInfos.Add(new ActorInfo(actorDate.Value));
+            }
+            return actorInfos;
+        }
+
         public StrategySceneInfo GachaOpen()
         {
             var getItem = OnFieldInfos.Find(a => a.IsGachaUnit);
@@ -862,6 +894,11 @@ namespace Ryneus
             {
                 list.Insert(0,GetItemCommand);
             }
+            // 召喚の上
+            if (hexUnits.Find(a => a.IsSelectActorUnit) != null)
+            {
+                list.Insert(0,SelectActorCommand);
+            }
             // イベントの上
             if (hexUnits.Find(a => a.IsAlcanaUnit) != null)
             {
@@ -926,6 +963,7 @@ namespace Ryneus
         public SystemData.CommandData ReturnCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Return");
         public SystemData.CommandData EventCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Event");
         public SystemData.CommandData GetItemCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "GetItem");
+        public SystemData.CommandData SelectActorCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "SelectActor");
         public SystemData.CommandData GachaCommand => DataSystem.System.TacticsCommandData.Find(a => a.Key == "Gacha");
     }
 
