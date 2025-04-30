@@ -27,6 +27,7 @@ namespace Ryneus
             _view.SetActiveArrows(_model.ActorInfos.Count > 1);
             _view.SetActiveLvUpInfo(_model.SceneParam.DisplayLvUpInfo.Value);
             _view.SetActiveDecide(_model.SceneParam.DisplayDecideButton.Value);
+            _view.SetActiveCharacterList(_model.SceneParam.DisplayCharacterList.Value);
             _view.ChangeBackCommandActive(_model.SceneParam.DisplayBackButton.Value);
             CommandRefresh();
             ResetSelectSkill();
@@ -191,22 +192,33 @@ namespace Ryneus
 
         private void CommandCharacterList()
         {
-            SetBusy(true);
+            _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var characterListInfo = new CharacterListInfo((a) => 
             {
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 _model.SelectActor(a);
                 CommandRefresh();
-                SetBusy(false);
+                _busy = false;
             },
             () => 
             {
                 CommandRefresh();
-                SetBusy(false);
+                _busy = false;
             });
             characterListInfo.SetActorInfos(_model.ActorInfos);
-            _view.CallSystemCommand(Base.CommandType.CallPopupView,characterListInfo);
+
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.CharacterList,
+                template = characterListInfo,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
             CheckTutorialState();
         }
 

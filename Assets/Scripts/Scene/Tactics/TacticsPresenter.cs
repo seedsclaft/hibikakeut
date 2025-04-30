@@ -839,23 +839,6 @@ namespace Ryneus
 
         private void CommandStatus(int startIndex = -1)
         {
-            int actorId = -1;
-            if (startIndex != -1)
-            {
-                // actorIdに変換
-                var actor = _model.TacticsActor();
-                if (actor != null)
-                {
-                    actorId = actor.ActorId.Value;
-                }
-            }
-
-            CommandStatusInfo(_model.PastActorInfos(),false,true,true,false,actorId,() => 
-            {
-                //_view.SetNuminous(_model.Currency);
-                CommandRefresh();
-            });
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 
         private void CommandSelectHexUnit()
@@ -1072,7 +1055,7 @@ namespace Ryneus
                 CommandStatusInfo(actorInfos,false,false,false,true,-1,() => 
                 {
 
-                });
+                },false,true);
             } else
             {
                 /*
@@ -1173,6 +1156,7 @@ namespace Ryneus
 
         private void CommandSelectCharaLayer(int actorId)
         {
+            /*
             _busy = true;
             _view.CommandSelectCharaLayer(actorId);
             CommandTacticsStatusInfo(_model.StageMembers(),false,true,true,false,actorId,() => 
@@ -1189,6 +1173,7 @@ namespace Ryneus
             {
                 _view.CommandSelectCharaLayer(a);
             });
+            */
         }
 
         private void CommandSelectHexMap(HexField hexField)

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Ryneus.Boot;
 
 namespace Ryneus
 {
-    using Boot;
     public class BootView : BaseView ,IInputHandlerEvent
     {
         [SerializeField] private Button logoButton = null;
@@ -21,7 +21,6 @@ namespace Ryneus
             logoButton.gameObject.SetActive(TestMode == false);
         }
 
-
         private void CallLogoClick()
         {
             CallViewEvent(CommandType.LogoClick);
@@ -36,8 +35,9 @@ namespace Ryneus
         }
 
     }
+
     namespace Boot
-    {    
+    {
         public enum CommandType
         {
             None = 0,

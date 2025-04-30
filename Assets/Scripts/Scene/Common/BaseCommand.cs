@@ -9,10 +9,14 @@ namespace Ryneus
 
         public void UpdateViewItem()
         {
-            if (ListData == null) return;
+            if (ListData == null)
+            {
+                return;
+            }
+
             var data = ListItemData<SystemData.CommandData>();
             commandName.text = data.Name;
-            Disable?.gameObject.SetActive(ListData.Enable == false);
+            Disable?.gameObject.SetActive(!ListData.Enable);
         }
     }
 }

@@ -343,7 +343,7 @@ namespace Ryneus
 
         public List<SystemData.CommandData> ResultCommand()
         {
-            if (_inBattleResult && _battleResultVictory == false)
+            if (_inBattleResult && !_battleResultVictory)
             {
                 return BaseConfirmCommand(3040,3054); // 再戦
             }

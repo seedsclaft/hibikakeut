@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Ryneus.Boot;
 
 namespace Ryneus
 {
-    using Boot;
     public class BootPresenter : BasePresenter
     {
         private BootView _view = null;
@@ -25,12 +25,12 @@ namespace Ryneus
             SoundManager.Instance.Initialize();
             Debug.Log("Boot Success");
             Application.targetFrameRate = 60;
-    #if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
             var width = Screen.width;
             var height = Screen.height;
             var rate = 1280f / (float)width;
             Screen.SetResolution((int)(width * rate), (int)(height * rate), true);
-    #endif
+#endif
             Input.multiTouchEnabled = false;
             var gamePad = Gamepad.current;
             if (gamePad != null)
@@ -55,7 +55,7 @@ namespace Ryneus
             _busy = false;
             //SaveSystem.SaveStart();
         }
-        
+
         private void UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)

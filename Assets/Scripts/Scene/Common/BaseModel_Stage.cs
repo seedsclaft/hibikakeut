@@ -33,8 +33,7 @@ namespace Ryneus
 
                 // 拠点数
                 var actPoint = unitInfos.FindAll(a => a.IsBasementUnit && a.IsFriend(mainTeam.TeamId.Value));
-                mainTeam.ActPoint.SetValue(actPoint.Count);
-                mainTeam.CurrentActPoint.SetValue(actPoint.Count);
+                mainTeam.SetActPoint(actPoint.Count);
                 stageInfo.AddTeamInfo(mainTeam);
             } else
             {
@@ -52,8 +51,7 @@ namespace Ryneus
                     var mainTeam = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Home);
                     // 拠点数
                     var actPoint = CurrentStage.AllFieldUnitInfos().FindAll(a => a.IsBasementUnit && a.IsFriend(mainTeam.TeamId.Value));
-                    mainTeam.ActPoint.SetValue(actPoint.Count);
-                    mainTeam.CurrentActPoint.SetValue(actPoint.Count);
+                    mainTeam.SetActPoint(actPoint.Count);
                     stageInfo.AddTeamInfo(mainTeam);
                 }
             }
@@ -84,8 +82,7 @@ namespace Ryneus
 
             // 敵は敵部隊数分1回ずつ行動可能
             var awayActPoint = unitInfos.FindAll(a => a.IsUnit && a.IsFriend(awayTeam.TeamId.Value));
-            awayTeam.ActPoint.SetValue(awayActPoint.Count);
-            awayTeam.CurrentActPoint.SetValue(awayActPoint.Count);
+            awayTeam.SetActPoint(awayActPoint.Count - 1);
 
             CurrentGameInfo.SetStageInfo(stageInfo);
             PartyInfo.StageId.SetValue(stageId);

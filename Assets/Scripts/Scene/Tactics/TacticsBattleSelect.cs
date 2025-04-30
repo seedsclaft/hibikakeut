@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Ryneus
 {
-    public class TacticsBattleSelect : ListItem ,IListViewItem 
+    public class TacticsBattleSelect : ListItem, IListViewItem
     {
         [SerializeField] private TextMeshProUGUI partyNames;
         [SerializeField] private TextMeshProUGUI enemyNames;

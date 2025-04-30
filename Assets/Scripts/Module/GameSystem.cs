@@ -21,7 +21,8 @@ namespace Ryneus
         [SerializeField] private GameObject transitionRoot = null;
         [SerializeField] private Fade transitionFade = null;
         [SerializeField] private LoadingView loadingView = null;
-        [SerializeField] private TutorialView tutorialView = null;        [SerializeField] private AdvEngine advEngine = null;
+        [SerializeField] private TutorialView tutorialView = null;  
+        [SerializeField] private AdvEngine advEngine = null;
         [SerializeField] private AdvController advController = null;
 
         [SerializeField] private DebugBattleData debugBattleData = null;
@@ -174,6 +175,10 @@ namespace Ryneus
                 case Base.CommandType.CallStatusView:
                     var statusViewInfo = (StatusViewInfo)viewEvent.Template;
                     var statusView = CreateStatus(StatusType.Status,statusViewInfo) as StatusView;
+                    if (statusViewInfo.DisplayBackButton.Value)
+                    {
+                        statusView.SetBackEvent(statusViewInfo.BackEvent);
+                    }
                     _currentScene.SetBusy(true);
                     break;
                 case Base.CommandType.CloseStatus:

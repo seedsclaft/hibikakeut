@@ -53,7 +53,7 @@ namespace Ryneus
         public List<ActorInfo> BattleMembers()
         {
             var members = StageMembers().FindAll(a => a.BattleIndex.Value >= 0);
-            members.Sort((a,b) => a.BattleIndex.Value > b.BattleIndex.Value ? 1 : -1);
+            members.Sort((a, b) => a.BattleIndex.Value > b.BattleIndex.Value ? 1 : -1);
             return members;
         }
 
@@ -72,17 +72,19 @@ namespace Ryneus
             var sortList1 = new List<SkillInfo>();
             var sortList2 = new List<SkillInfo>();
             var sortList3 = new List<SkillInfo>();
-            skillInfos.Sort((a,b) => {return a.Master.Id > b.Master.Id ? 1 : -1;});
+            skillInfos.Sort((a, b) => { return a.Master.Id > b.Master.Id ? 1 : -1; });
             foreach (var skillInfo in skillInfos)
             {
                 if (skillInfo.LearningState == LearningState.Learned && skillInfo.Master.SkillType == SkillType.Active || skillInfo.IsBattleSpecialSkill())
                 {
                     sortList1.Add(skillInfo);
-                } else
+                }
+                else
                 if (skillInfo.LearningState == LearningState.Learned && skillInfo.Master.SkillType == SkillType.Passive)
                 {
                     sortList2.Add(skillInfo);
-                } else
+                }
+                else
                 {
                     sortList3.Add(skillInfo);
                 }
@@ -90,12 +92,12 @@ namespace Ryneus
             skillInfos.Clear();
             skillInfos.AddRange(sortList1);
             skillInfos.AddRange(sortList2);
-            sortList3.Sort((a,b) => {return a.LearningLv.Value > b.LearningLv.Value ? 1 : -1;});
+            sortList3.Sort((a, b) => { return a.LearningLv.Value > b.LearningLv.Value ? 1 : -1; });
             skillInfos.AddRange(sortList3);
             return skillInfos;
         }
 
-        public List<SkillInfo> ChangeAbleSkills(ActorInfo actorInfo,int minusSp = 0)
+        public List<SkillInfo> ChangeAbleSkills(ActorInfo actorInfo, int minusSp = 0)
         {
             var changeAbleSkills = actorInfo.ChangeAbleSkills();
             foreach (var learnSkillId in PartyInfo.LearningSkillIds)
@@ -113,11 +115,11 @@ namespace Ryneus
             {
                 if (changeAbleSkill.Master != null && !changeAbleSkill.IsBattleSpecialSkill())
                 {
-                    var cost = actorInfo.LearningMagicCost(changeAbleSkill.Attribute,PartyInfo.ActorInfos,changeAbleSkill.Master.Rank);
+                    var cost = actorInfo.LearningMagicCost(changeAbleSkill.Attribute, PartyInfo.ActorInfos, changeAbleSkill.Master.Rank);
                     changeAbleSkill.LearningCost.SetValue(cost);
                     if (changeAbleSkill.Enable)
                     {
-                        changeAbleSkill.SetEnable((cost-minusSp) <= actorInfo.CurrentMp.Value);
+                        changeAbleSkill.SetEnable((cost - minusSp) <= actorInfo.CurrentMp.Value);
                     }
                 }
             }
@@ -139,7 +141,7 @@ namespace Ryneus
                 skillInfo.SetEnable(true);
                 if (!skillInfo.IsBattleSpecialSkill())
                 {
-                    var cost = actorInfo.LearningMagicCost(skillInfo.Attribute,PartyInfo.ActorInfos,skillInfo.Master.Rank);
+                    var cost = actorInfo.LearningMagicCost(skillInfo.Attribute, PartyInfo.ActorInfos, skillInfo.Master.Rank);
                     skillInfo.LearningCost.SetValue(cost);
                 }
                 equipSkills.Add(skillInfo);
@@ -147,7 +149,7 @@ namespace Ryneus
             if (equipSkills.Count < 8)
             {
                 var count = 8 - equipSkills.Count;
-                for (int i = 0;i < count;i++)
+                for (int i = 0; i < count; i++)
                 {
                     var skillInfo = new SkillInfo(0);
                     skillInfo.SetEnable(true);
@@ -209,7 +211,7 @@ namespace Ryneus
             return await ResourceSystem.LoadBGMAsset(bgmKey);
         }
 
-        public List<SystemData.CommandData> BaseConfirmCommand(int yesTextId,int noTextId = 0)
+        public List<SystemData.CommandData> BaseConfirmCommand(int yesTextId, int noTextId = 0)
         {
             var menuCommandDates = new List<SystemData.CommandData>();
             var yesCommand = new SystemData.CommandData
@@ -283,7 +285,7 @@ namespace Ryneus
         public string SelectAddActorConfirmText(string actorName)
         {
             int textId = 14180;
-            return DataSystem.GetReplaceText(textId,actorName);
+            return DataSystem.GetReplaceText(textId, actorName);
         }
 
         /// <summary>
@@ -299,7 +301,7 @@ namespace Ryneus
                     stageMembers.Add(actorInfo);
                 }
             }
-            stageMembers.Sort((a,b) => a.Level - b.Level > 0 ? -1 : 1);
+            stageMembers.Sort((a, b) => a.Level - b.Level > 0 ? -1 : 1);
             return stageMembers;
         }
 
@@ -324,7 +326,7 @@ namespace Ryneus
             switch (getItemInfo.GetItemType)
             {
                 case GetItemType.Currency:
-                    PartyInfo.Currency.GainValue(getItemInfo.Param1,0);
+                    PartyInfo.Currency.GainValue(getItemInfo.Param1, 0);
                     break;
                 default:
                     PartyInfo.AddGetItemInfo(getItemInfo);
@@ -344,12 +346,14 @@ namespace Ryneus
             int count = filePaths.Count;
             foreach (var filePath in filePaths)
             {
-                await Resources.LoadAsync<Sprite>( filePath );
+                await Resources.LoadAsync<Sprite>(filePath);
                 count -= 1;
             }
-            try {
-                await UniTask.WaitUntil( () => count == 0 ,PlayerLoopTiming.Update,_cancellationTokenSource.Token);
-            } catch (OperationCanceledException e)
+            try
+            {
+                await UniTask.WaitUntil(() => count == 0, PlayerLoopTiming.Update, _cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException e)
             {
                 Debug.Log(e);
             }
@@ -359,7 +363,7 @@ namespace Ryneus
         {
             //CurrentSaveData.SetResumeStage(resumeStage);
         }
-        
+
         public void SavePlayerData()
         {
             SaveSystem.SavePlayerInfo(GameSystem.CurrentData);
@@ -373,7 +377,7 @@ namespace Ryneus
             SavePlayerData();
         }
 
-    #if UNITY_ANDROID
+#if UNITY_ANDROID
         public List<RankingActorData> RankingActorDates()
         {
             var list = new List<RankingActorData>();
@@ -401,7 +405,7 @@ namespace Ryneus
             }
             return list;
         }
-    #endif
+#endif
 
         public async void CurrentRankingData(Action<string> endEvent)
         {
@@ -512,7 +516,7 @@ namespace Ryneus
 
         public List<int> SaveAdsCommandTextIds()
         {
-            return new List<int>(){3053,3051};
+            return new List<int>() { 3053, 3051 };
         }
 
         public int PartyEvaluate()
@@ -541,7 +545,7 @@ namespace Ryneus
             PartyInfo.Currency.GainValue(-cost);
             // 新規魔法取得があるか
             var skills = actorInfo.LearningSkills(1);
-            var levelUpInfo = actorInfo.LevelUp(cost,PartyInfo.StageId.Value);
+            var levelUpInfo = actorInfo.LevelUp(cost, PartyInfo.StageId.Value);
             foreach (var skill in skills)
             {
                 actorInfo.AddSkillTriggerSkill(skill.Id.Value);
@@ -549,7 +553,7 @@ namespace Ryneus
             // ユニットに情報を反映
             foreach (var unitInfo in CurrentStage.HomeTeamInfo.UnitInfos)
             {
-                for (int i = unitInfo.UnitInfo.BattlerInfos.Count-1;i >= 0;i--)
+                for (int i = unitInfo.UnitInfo.BattlerInfos.Count - 1; i >= 0; i--)
                 {
                     if (unitInfo.UnitInfo.BattlerInfos[i].ActorInfo == null)
                     {
@@ -557,7 +561,7 @@ namespace Ryneus
                     }
                     if (actorInfo.ActorId.Value == unitInfo.UnitInfo.BattlerInfos[i].ActorInfo.ActorId.Value)
                     {
-                        unitInfo.UnitInfo.BattlerInfos[i] = new BattlerInfo(actorInfo,unitInfo.UnitInfo.BattlerInfos[i].Index.Value);
+                        unitInfo.UnitInfo.BattlerInfos[i] = new BattlerInfo(actorInfo, unitInfo.UnitInfo.BattlerInfos[i].Index.Value);
                     }
                 }
             }
@@ -578,10 +582,10 @@ namespace Ryneus
             return false;
         }
 
-        public void ActorLearnMagic(ActorInfo actorInfo,int skillId)
+        public void ActorLearnMagic(ActorInfo actorInfo, int skillId)
         {
             var skillInfo = new SkillInfo(skillId);
-            var learningCost = actorInfo.LearningMagicCost(skillInfo.Attribute,StageMembers(),skillInfo.Master.Rank);
+            var learningCost = actorInfo.LearningMagicCost(skillInfo.Attribute, StageMembers(), skillInfo.Master.Rank);
             actorInfo.AddSkillTriggerSkill(skillId);
         }
 
@@ -607,7 +611,7 @@ namespace Ryneus
         {
             return DataSystem.TutorialDates.FindAll(a => (int)a.SceneType == ((int)popupType + 100) && !CurrentData.PlayerInfo.ReadTutorials.Contains(a.Id));
         }
-        
+
         public List<TutorialData> SceneTutorialDates(StatusType statusType)
         {
             return DataSystem.TutorialDates.FindAll(a => (int)a.SceneType == ((int)statusType + 200) && !CurrentData.PlayerInfo.ReadTutorials.Contains(a.Id));

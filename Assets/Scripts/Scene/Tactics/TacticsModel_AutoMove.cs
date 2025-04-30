@@ -266,7 +266,7 @@ namespace Ryneus
         /// <returns></returns>
         private bool InMoveAreaTarget(HexUnitInfo moveBattler,HexUnitInfo target,bool serachUnit = false)
         {
-            var moveBattlerMax = moveBattler.UnitInfo.BattlerInfos[0].CurrentMov();
+            var moveBattlerMax = moveBattler.GetUnitMov();
             // 移動圏内にいる場合
             var targetReaches = GetHexReach(target.HexField,0);
             var moveBattlerReaches = GetHexReach(moveBattler.HexField,moveBattlerMax,serachUnit);
@@ -290,7 +290,7 @@ namespace Ryneus
         {
             var targetCost = 0;
             var moveBattlerCost = 0;
-            var moveBattlerMax = 2;
+            var moveBattlerMax = moveBattler.GetUnitMov();
             var decide = false;
             var isTarget = true;
             // 移動圏外にいる場合

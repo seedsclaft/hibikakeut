@@ -65,14 +65,12 @@ namespace Ryneus
             {
                 // 拠点数
                 var actPoint = CurrentStage.FieldHexList.FindAll(a => a.IsBasementUnit && a.IsFriend(nextTeam.TeamId.Value));
-                nextTeam.ActPoint.SetValue(actPoint.Count);
-                nextTeam.CurrentActPoint.SetValue(nextTeam.ActPoint.Value);
+                nextTeam.SetActPoint(actPoint.Count);
             } else
             {
                 // 敵部隊数
                 var actPoint = nextTeam.UnitInfos.FindAll(a => a.IsUnit && a.IsFriend(nextTeam.TeamId.Value) && !a.IsLostUnit());
-                nextTeam.ActPoint.SetValue(actPoint.Count);
-                nextTeam.CurrentActPoint.SetValue(nextTeam.ActPoint.Value);
+                nextTeam.SetActPoint(actPoint.Count);
             }
             CurrentStage.TurnCount.GainValue(1);
         }
@@ -192,8 +190,19 @@ namespace Ryneus
             SelectingHexUnitId.SetValue(_departureUnitInfo.Index.Value);
             _reachAreas = GetHexReach(departureHex.HexField,move,false,true);
             var depaterIndex = 1000;
+            var friends = CurrentStage.FriendUnitInfos();
             foreach (var path in _reachAreas)
             {
+                // 自陣のユニット配置場所は候補から外す
+                if (friends.Find(a => a.HexField.X == path.X && a.HexField.Y == path.Y) != null)
+                {
+                    var hexFields = CurrentStage.FindFieldInfos(path.X,path.Y);
+                    // 自陣の拠点は候補に入れる
+                    if (hexFields.Find(a => a.TeamId.Value == departureHex.TeamId.Value && a.IsBasementUnit) == null)
+                    {
+                        continue;
+                    }
+                }
                 var unitData = new StageSymbolData
                 {
                     InitX = path.X,
@@ -234,7 +243,12 @@ namespace Ryneus
                 // 自陣のユニット配置場所は候補から外す
                 if (friends.Find(a => a.HexField.X == path.X && a.HexField.Y == path.Y) != null)
                 {
-                    continue;
+                    var hexFields = CurrentStage.FindFieldInfos(path.X,path.Y);
+                    // 自陣の拠点は候補に入れる
+                    if (hexFields.Find(a => a.TeamId.Value == moveBattlerHex.TeamId.Value && a.IsBasementUnit) == null)
+                    {
+                        continue;
+                    }
                 }
                 var unitData = new StageSymbolData
                 {
@@ -643,12 +657,12 @@ namespace Ryneus
             CurrentStage.RemoveHexUnitInfo(getItem);
 
             var list = new List<GetItemInfo>();
-            // 確定で未加入キャラ2名は当選
+            // 確定で未加入キャラ1名は当選
             var actorDates = DataSystem.Actors.Where(a => PartyInfo.ActorInfos.Find(b => a.Value.Id == b.ActorId.Value) == null).ToList();
             var actorInfos = new List<ActorInfo>();
-            while (actorInfos.Count < 2)
+            while (actorInfos.Count < 1)
             {
-                var rand = UnityEngine.Random.Range(0,actorDates.Count()-1);
+                var rand = UnityEngine.Random.Range(0,actorDates.Count() - 1);
                 if (actorInfos.Find(a => a.ActorId.Value == actorDates[rand].Value.Id) == null)
                 {
                     actorInfos.Add(new ActorInfo(actorDates[rand].Value));
@@ -671,7 +685,7 @@ namespace Ryneus
                 var itemRand = UnityEngine.Random.Range(0,100);
                 if (itemRand < 3)
                 {
-                    var rand = UnityEngine.Random.Range(0,actorDates.Count()-1);
+                    var rand = UnityEngine.Random.Range(0,actorDates.Count() - 1);
                     if (actorInfos.Find(a => a.ActorId.Value == actorDates[rand].Value.Id) == null)
                     {
                         var actorInfo = new ActorInfo(actorDates[rand].Value);
@@ -818,6 +832,7 @@ namespace Ryneus
             {
                 list.Insert(1,DepartureCommand);
                 list.Insert(2,UnitEditCommand);
+                list.Insert(3,ReturnCommand);
             }
             // 同時に敵拠点がある場合
             var conq = OnFieldInfos.Find(a => a.IsBasementUnit && a.TeamId.Value != GetTurnTeam().TeamId.Value);
@@ -825,6 +840,7 @@ namespace Ryneus
             {
                 list.Insert(0,ConquerCommand);
             }
+            list.Add(WaitCommand);
             list.Add(SaveCommand);
             list.Add(TurnEndCommand);
             bool enable(SystemData.CommandData a)
@@ -919,6 +935,14 @@ namespace Ryneus
                     var battlerUnits = CurrentStage.OpponentUnitInfos().FindAll(a => reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
                     var enemyInfos = battlerUnits.FindAll(a => a.UnitInfo != null);
                     return enemyInfos.Count > 0;
+                } else
+                if (a == WaitCommand)
+                {
+                    // 味方が占有している
+                    if (CurrentStage.OnFieldTurnUnitInfos().Find(a => a.Index.Value != SelectingHexUnitId.Value && a.IsBattlerUnit) != null)
+                    {
+                        return false;
+                    }
                 }
                 return true;
             }

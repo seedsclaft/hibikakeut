@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Loading;
 
 namespace Ryneus
 {
-    public class LoadingPresenter 
+    public class LoadingPresenter
     {
         LoadingModel _model = null;
         LoadingView _view = null;
@@ -21,12 +20,12 @@ namespace Ryneus
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
+            _view.SetEvent((type) => UpdateCommand());
             CommandRefresh();
             _busy = false;
         }
 
-        private void UpdateCommand(LoadingViewEvent viewEvent)
+        private void UpdateCommand()
         {
             if (_busy || _view.AnimationBusy)
             {

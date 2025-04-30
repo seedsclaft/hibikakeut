@@ -16,7 +16,7 @@ namespace Ryneus
         {
             return "";
         }
-        
+
         public Sprite TipsImage()
         {
             return null;

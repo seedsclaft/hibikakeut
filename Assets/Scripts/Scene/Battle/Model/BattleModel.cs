@@ -260,6 +260,7 @@ namespace Ryneus
                 skillInfo.SetEnable(CheckCanUse(skillInfo,battlerInfo));
             }
             var noCommandSkill = new SkillInfo(6010);
+            noCommandSkill.SetEnable(true);
             skillInfos.Add(noCommandSkill);
             return skillInfos;
         }

@@ -17,7 +17,11 @@ namespace Ryneus
                 return;
             }
             var data = ListItemData<GetItemInfo>();
-            if (data == null) return;
+            if (data == null)
+            {
+                return;
+            }
+
             if (skillInfoComponent != null)
             {
                 var skillId = 0;
@@ -35,7 +39,7 @@ namespace Ryneus
             }
             if (Disable != null)
             {
-                Disable?.gameObject.SetActive(ListData.Enable == false);
+                Disable?.gameObject.SetActive(!ListData.Enable);
             }
         }
     }

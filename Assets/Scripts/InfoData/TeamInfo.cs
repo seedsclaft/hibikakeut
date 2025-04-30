@@ -89,6 +89,12 @@ namespace Ryneus
         public ParameterInt ActPoint = new(1);
         // 残り行動回数
         public ParameterInt CurrentActPoint = new(1);
+        public void SetActPoint(int actPoint)
+        {
+            ActPoint.SetValue(actPoint + 1);
+            CurrentActPoint.SetValue(actPoint + 1);
+        }
+
         // 最後に選択していたマス
         public ParameterInt LastSelectHexX = new(0);
         public ParameterInt LastSelectHexY = new(0);

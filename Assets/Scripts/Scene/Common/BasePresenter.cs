@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Ryneus
 {
-    public class BasePresenter 
+    public class BasePresenter
     {
         private BaseView _view = null;
         public void SetView(BaseView view)
@@ -78,9 +78,9 @@ namespace Ryneus
             if (advInfo != null)
             {
                 BeforeStageAdv();
-                _view.WaitFrame(60,() => 
+                _view.WaitFrame(60,() =>
                 {
-                    advInfo.SetCallEvent(() => 
+                    advInfo.SetCallEvent(() =>
                     {
                         callEvent?.Invoke(true);
                     });
@@ -155,7 +155,7 @@ namespace Ryneus
             var bgm = await _model.GetBgmData(bgmData.Key);
             SoundManager.Instance.PlayBgm(bgm,bgmData.Volume);
         }
-        
+
         public void CommandSave(bool isReturnScene)
         {
 #if UNITY_ANDROID
@@ -185,13 +185,13 @@ namespace Ryneus
             _model.GainSaveCount();
             _model.SavePlayerStageData(true);
             // 成功表示
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(19500),(a) => 
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(19500),(a) =>
             {
                 if (isReturnScene)
                 {
                     _view.CommandGotoSceneChange(Scene.Tactics);
                 } else
-                {        
+                {
                     _view.ChangeUIActive(true);
                 }
             });
@@ -203,7 +203,7 @@ namespace Ryneus
         /// ステータス詳細を表示
         /// </summary>
         /// <param name="actorInfos"></param>
-        public void CommandStatusInfo(List<ActorInfo> actorInfos,bool inBattle,bool backButton = true,bool levelUpObj = true,bool addActor = false,int startIndex = -1,Action closeEvent = null,bool isRanking = false)
+        public void CommandStatusInfo(List<ActorInfo> actorInfos,bool inBattle,bool backButton = true,bool levelUpObj = true,bool addActor = false,int startIndex = -1,Action closeEvent = null,bool isRanking = false,bool characterList = false)
         {
             var statusViewInfo = new StatusViewInfo(() =>
             {
@@ -215,13 +215,13 @@ namespace Ryneus
             statusViewInfo.SetActorInfos(actorInfos,inBattle);
             if (startIndex > -1)
             {
-                statusViewInfo.SetStartIndex(startIndex);
+                statusViewInfo.StartIndex.SetValue(startIndex);
             }
             statusViewInfo.DisplayDecideButton.SetValue(addActor);
-            statusViewInfo.DisplayCharacterList.SetValue(true);
+            statusViewInfo.DisplayCharacterList.SetValue(characterList);
             statusViewInfo.DisplayLvUpInfo.SetValue(levelUpObj);
             statusViewInfo.DisplayBackButton.SetValue(backButton);
-            statusViewInfo.SetIsRanking(isRanking);
+            statusViewInfo.IsRanking.SetValue(isRanking);
             _view.CallSystemCommand(Base.CommandType.CallStatusView,statusViewInfo);
             _view.ChangeUIActive(false);
         }
@@ -242,33 +242,6 @@ namespace Ryneus
             enemyViewInfo.SetEnemyInfos(battlerInfos,inBattle);
             _view.CallSystemCommand(Base.CommandType.CallEnemyInfoView,enemyViewInfo);
             _view.ChangeUIActive(false);
-        }
-
-        /// <summary>
-        /// ステータス詳細を表示
-        /// </summary>
-        /// <param name="actorInfos"></param>
-        public void CommandTacticsStatusInfo(List<ActorInfo> actorInfos,bool inBattle,bool backButton = true,bool levelUpObj = true,bool addActor = false,int startIndex = -1,System.Action closeEvent = null,System.Action<int> charaLayerEvent = null)
-        {
-            var statusViewInfo = new StatusViewInfo(() => 
-            {
-                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                _view.CallSystemCommand(Base.CommandType.CloseStatus);
-                _view.ChangeUIActive(true);
-                closeEvent?.Invoke();
-            });
-            statusViewInfo.SetActorInfos(actorInfos,inBattle);
-            if (startIndex > -1)
-            {
-                statusViewInfo.SetStartIndex(startIndex);
-            }
-            statusViewInfo.DisplayDecideButton.SetValue(addActor);
-            statusViewInfo.DisplayCharacterList.SetValue(!addActor);
-            statusViewInfo.DisplayLvUpInfo.SetValue(levelUpObj);
-            statusViewInfo.DisplayBackButton.SetValue(backButton);
-            statusViewInfo.SetCharaLayerEvent(charaLayerEvent);
-            _view.CallSystemCommand(Base.CommandType.CallTacticsStatusView,statusViewInfo);
-            //_view.ChangeUIActive(false);
         }
 
         public void CommandCallSideMenu(List<ListData> sideMenuCommands,System.Action closeEvent = null)

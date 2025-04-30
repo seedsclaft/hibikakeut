@@ -15,7 +15,8 @@ namespace Ryneus
         private bool _busy = false;
         public bool IsBusy{ get { return _busy;}}
 
-        private void Awake() {
+        private void Awake()
+        {
             Reset();
         }
 

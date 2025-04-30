@@ -23,7 +23,7 @@ public class SpriteRendererFillAmount : MonoBehaviour
             }
         }
     }
- 
+
     private void OnValidate()
     {
         FillAmount = _fillAmount;

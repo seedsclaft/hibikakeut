@@ -180,7 +180,7 @@ namespace Ryneus
             }
             _view.ChangeUIActive(false);
             var actorInfos = _model.StageActorInfos(battlerInfos);
-            CommandStatusInfo(actorInfos,false,true,false,false,actorInfos[0].ActorId.Value,() => 
+            CommandStatusInfo(actorInfos,false,true,true,false,actorInfos[0].ActorId.Value,() => 
             {
                 _view.ChangeUIActive(true);
                 UpdateUnitInfoList(true);

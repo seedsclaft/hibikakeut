@@ -12,15 +12,9 @@ namespace Ryneus
         [SerializeField] private Image spriteImage = null;
         [SerializeField] private TMP_Text tipsText = null;
         [SerializeField] private TMP_Text loadingText = null;
-        private new System.Action<LoadingViewEvent> _commandData = null;
         public override void Initialize(){
             new LoadingPresenter(this);
             LoadingAnimation();
-        }
-        
-        public void SetEvent(System.Action<LoadingViewEvent> commandData)
-        {
-            _commandData = commandData;
         }
 
         public void SetTips(Sprite tipsSprite,string tips)
@@ -34,24 +28,6 @@ namespace Ryneus
             Sequence main = DOTween.Sequence()
                 .Append(loadingText.DOFade(1f,0.4f))
                 .Append(loadingText.DOFade(0f,0.4f)).SetLoops(-1, LoopType.Yoyo);
-            
         }
-    }
-}
-namespace Loading
-{
-    public enum CommandType
-    {
-        None = 0,
-    }
-}
-public class LoadingViewEvent
-{
-    public Loading.CommandType commandType;
-    public object template;
-
-    public LoadingViewEvent(Loading.CommandType type)
-    {
-        commandType = type;
     }
 }

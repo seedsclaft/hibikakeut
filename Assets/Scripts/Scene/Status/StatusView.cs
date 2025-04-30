@@ -19,6 +19,7 @@ namespace Ryneus
         [SerializeField] private Button rightArrowButton = null;
         [SerializeField] private Button decideButton = null;
         [SerializeField] private GameObject decideAnimation = null;
+        [SerializeField] private OnOffButton characterListButton = null;
 
         private Action _backEvent = null;
         private string _helpText;
@@ -45,6 +46,10 @@ namespace Ryneus
             if (decideButton != null)
             {
                 decideButton.onClick.AddListener(() => CallViewEvent(CommandType.DecideActor));
+            }
+            if (characterListButton != null)
+            {
+                characterListButton.OnClickAddListener(() => CallViewEvent(CommandType.CharacterList));
             }
             new StatusPresenter(this);
         }
@@ -141,11 +146,6 @@ namespace Ryneus
             _backEvent?.Invoke();
         }
 
-        public new void SetBusy(bool busy)
-        {
-            base.SetBusy(busy);
-        }
-
         public void SetActiveDecide(bool isActive)
         {
             if (decideButton == null)
@@ -193,6 +193,15 @@ namespace Ryneus
                 return;
             }
             statusLevelUp.SetLvUpInfo(cost,currency);
+        }
+
+        public void SetActiveCharacterList(bool isActive)
+        {
+            if (characterListButton == null)
+            {
+                return;
+            }
+            characterListButton.gameObject.SetActive(isActive);
         }
 
         private void OnClickBack()
@@ -269,19 +278,9 @@ namespace Ryneus
             IsBattle.SetValue(isBattle);
         }
 
-        public void SetStartIndex(int actorIndex)
-        {
-            StartIndex.SetValue(actorIndex);
-        }
-
         public void SetCharaLayerEvent(Action<int> charaLayerEvent)
         {
             _charaLayerEvent = charaLayerEvent;
-        }
-
-        public void SetIsRanking(bool isRanking)
-        {
-            IsRanking.SetValue(isRanking);
         }
     }
 
