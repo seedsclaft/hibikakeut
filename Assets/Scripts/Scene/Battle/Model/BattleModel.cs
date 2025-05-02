@@ -18,6 +18,7 @@ namespace Ryneus
         private int _turnCount = 1;
         public int TurnCount => _turnCount;
         public void SeekTurnCount(){_turnCount++;}
+        public ParameterInt MaxTurnCount = new();
 
         //private List<SkillLogListInfo> _skillLogs = new ();
         //public List<SkillLogListInfo> SkillLogs => _skillLogs;
@@ -25,7 +26,7 @@ namespace Ryneus
         //private SaveBattleInfo _saveBattleInfo = new SaveBattleInfo();
 
         private List<BattlerInfo> _battlers = new List<BattlerInfo>();
-        public List<BattlerInfo> Battlers => _battlers;        
+        public List<BattlerInfo> Battlers => _battlers;
         private List<BattlerInfo> _reserveBattlers = new List<BattlerInfo>();
         public List<BattlerInfo> ReserveBattlers => _reserveBattlers;
 
@@ -73,28 +74,6 @@ namespace Ryneus
             _battlers.Clear();
             _reserveBattlers.Clear();
             _battleRecords.Clear();
-            /*
-            var actorInfos = _sceneParam.ActorInfos;
-            foreach (var actorInfo in actorInfos)
-            {
-                var battlerInfo = new BattlerInfo(actorInfo,actorInfo.BattleIndex.Value);
-                if (actorInfo.BattleIndex.Value <= 3)
-                {
-                    _battlers.Add(battlerInfo);
-                } else
-                {
-                    _reserveBattlers.Add(battlerInfo);
-                }
-                _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
-                // 味方が4人以上ならリンケージをプラス
-                /*
-                if (actorInfos.Count > 3)
-                {
-                    var linkage = new SkillInfo(7010);
-                    battlerInfo.Skills.Add(linkage);
-                }
-                */
-            //}
 
             var actorInfos = _sceneParam.ActorBattlerInfos;
             foreach (var actorInfo in actorInfos)
@@ -136,16 +115,17 @@ namespace Ryneus
             */
 
             _party = new UnitInfo();
-            _party.SetBattlers(BattlerActors());
+            _party.SetBattlers(_battlers.FindAll(a => a.IsActor));
             _troop = new UnitInfo();
-            _troop.SetBattlers(BattlerEnemies());
+            _troop.SetBattlers(_battlers.FindAll(a => !a.IsActor));
             //_saveBattleInfo.SetParty(_party.CopyData());
             //_saveBattleInfo.SetTroop(_troop.CopyData());
+            MaxTurnCount.SetValue(FieldBattlerInfos().Count * 4);
         }
 
         public List<BattlerInfo> FieldBattlerInfos()
         {
-            return _battlers.FindAll(a => a.isAlcana == false);
+            return _battlers.FindAll(a => a.isAlcana == false && a.LineIndex == LineType.Front);
         }
 
         public List<StateInfo> UpdateAp()
@@ -226,6 +206,27 @@ namespace Ryneus
                 {
                     var newBattlerInfo = new BattlerInfo();
                     newBattlerInfo.Index.SetValue(0);
+                    newBattlerInfo.SetIsActor(true);
+                    list.Add(newBattlerInfo);
+                }
+            }
+            return list;
+        }
+
+        public List<BattlerInfo> ViewBattlerEnemies()
+        {
+            var list = new List<BattlerInfo>();
+            var battlerInfos = _battlers.FindAll(a => a.isAlcana == false && a.IsActor == false);
+            for (int i = 101;i <= 106;i++)
+            {
+                var find = battlerInfos.Find(a => a.Index.Value == i);
+                if (find != null)
+                {
+                    list.Add(find);
+                } else
+                {
+                    var newBattlerInfo = new BattlerInfo();
+                    newBattlerInfo.Index.SetValue(0);
                     list.Add(newBattlerInfo);
                 }
             }
@@ -259,6 +260,9 @@ namespace Ryneus
             {
                 skillInfo.SetEnable(CheckCanUse(skillInfo,battlerInfo));
             }
+            var changeSkill = new SkillInfo(6020);
+            changeSkill.SetEnable(GetBattlerInfo(battlerInfo.Index.Value + 3) != null);
+            skillInfos.Add(changeSkill);
             var noCommandSkill = new SkillInfo(6010);
             noCommandSkill.SetEnable(true);
             skillInfos.Add(noCommandSkill);
@@ -1144,6 +1148,7 @@ namespace Ryneus
             if (actionResultInfo.HpHeal.Value != 0 && (!actionResultInfo.DeadIndexList.Contains(target.Index.Value) || actionResultInfo.AliveIndexList.Contains(target.Index.Value)))
             {
                 target.GainHp(actionResultInfo.HpHeal.Value);
+                _battleRecords[subject.Index.Value].GainHealValue(actionResultInfo.HpHeal.Value);
             }
             if (actionResultInfo.CtDamage.Value != 0)
             {
@@ -1264,6 +1269,47 @@ namespace Ryneus
         {
             var gainAp = actionInfo.SkillInfo.ActionAfterGainAp();
             return gainAp;
+        }
+
+        public bool CheckActionAfterChange(ActionInfo actionInfo)
+        {
+            var chenage = actionInfo.SkillInfo.ActionAfterChange();
+            if (chenage)
+            {
+                var subject = GetBattlerInfo(actionInfo.SubjectIndex.Value);
+                var changeBattler = _battlers.Find(a => a.IsActor == subject.IsActor && a.Index.Value == (subject.Index.Value + 3));
+                if (subject != null && changeBattler != null && changeBattler.IsAlive())
+                {
+                    ChangeUnitLineType(subject,changeBattler);
+                }
+            }
+            return chenage;
+        }
+
+        /// <summary>
+        /// 前衛が戦闘不能で後衛が存在すれば交代する
+        /// </summary>
+        public void ChangeBattlerInfosLineType()
+        {
+            foreach (var fieldBattlerInfo in FieldBattlerInfos())
+            {
+                if (!fieldBattlerInfo.IsAlive())
+                {
+                    var changeBattler = _battlers.Find(a => a.IsActor == fieldBattlerInfo.IsActor && a.Index.Value == (fieldBattlerInfo.Index.Value + 3));
+                    if (changeBattler != null && changeBattler.IsAlive())
+                    {
+                        ChangeUnitLineType(fieldBattlerInfo,changeBattler);
+                    }
+                }
+            }
+        }
+
+        public void ChangeUnitLineType(BattlerInfo subject,BattlerInfo changeBattler)
+        {
+            subject.Index.GainValue(3);
+            changeBattler.Index.GainValue(-3);
+            subject.SetLineIndex(LineType.Back);
+            changeBattler.SetLineIndex(LineType.Front);
         }
 
         public void ActionAfterGainAp(int gainAp)
@@ -2365,14 +2411,20 @@ namespace Ryneus
             return isVictory;
         }
 
+        public bool CheckTurnOver()
+        {
+            bool turnOver = _turnCount >= MaxTurnCount.Value;
+            return turnOver;
+        }
+
         public int MakeBattleScore(bool isVictory,StrategySceneInfo strategySceneInfo)
         {
             if (isVictory)
             {
                 var score = 100f;
                 // ターン数の減点
-                var turns = (5 * _troop.BattlerInfos.Count) - _turnCount;
-                score += turns;
+                //var turns = (5 * _troop.BattlerInfos.Count) - _turnCount;
+                //score += turns;
                 score = Math.Max(0,score);
                 score = Math.Min(100,score);
                 // 与ダメージ - 被ダメージの加算
@@ -2431,6 +2483,7 @@ namespace Ryneus
         {
             var list = new List<GetItemInfo>();
             var enemyInfos = BattlerEnemies().FindAll(a => !a.IsAlive());
+            var exp = CheckVictory() ? 20 : 0;
             // 経験値アイテムを作る
             foreach (var enemyInfo in enemyInfos)
             {
@@ -2442,8 +2495,12 @@ namespace Ryneus
                         // 誰に対して
                         Param1 = actorInfo.ActorInfo.ActorId.Value,
                         // いくつ
-                        Param2 = 30 + (enemyInfo.Level.Value - actorInfo.Level.Value) * 2
+                        Param2 = exp + (actorInfo.Level.Value - enemyInfo.Level.Value) * 3
                     };
+                    if (_battleRecords[actorInfo.Index.Value].MaxDamage > 0 || _battleRecords[actorInfo.Index.Value].HealValue > 0)
+                    {
+                        expData.Param2 += (31 - (actorInfo.Level.Value - enemyInfo.Level.Value)) / 3;
+                    }
                     var expItem = new GetItemInfo(expData);
                     list.Add(expItem);
                 }
@@ -2457,7 +2514,7 @@ namespace Ryneus
 
         public bool CheckDefeat()
         {
-            bool isDefeat = _party.BattlerInfos.Find(a => a.IsAlive()) == null || _turnCount > 150;
+            bool isDefeat = _party.BattlerInfos.Find(a => a.IsAlive()) == null;
             return isDefeat;
         }
 

@@ -34,8 +34,8 @@ namespace Ryneus
         public void GainHealValue(int healValue)
         {
             _healValue += healValue;
-        }        
-        
+        }
+
         public void SetMaxAttack(int attackValue)
         {
             if (attackValue > _maxDamage)

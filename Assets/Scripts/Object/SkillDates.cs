@@ -498,6 +498,7 @@ namespace Ryneus
         KindHeal = 8010,
         BreakUndead = 8020,
         ActionAfterGainAp = 10010, // 行動後にAp+
+        ActionAfterChange = 10020, // 行動後に交代
         AbsoluteHit = 11010,
         ReflectLastAbnormal = 12010, // 最後に受けたAbnormalを相手に移す
         RobBuffState = 13010, // 対象のバフを奪い取る

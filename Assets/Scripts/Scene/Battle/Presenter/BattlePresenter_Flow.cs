@@ -89,6 +89,7 @@ namespace Ryneus
             // 選択対象を決定
             var targetIndexes = _model.GetSkillTargetIndexList(skillInfo.Id.Value,currentBattler.Index.Value,false);
             actionInfo.SetCandidateTargetIndexList(targetIndexes);
+            _view.SetBattlerActiveStatus(targetIndexes);
             if (targetIndexes.Count > 0)
             {
                 _model.SetTargetBattler(_model.GetBattlerInfo(targetIndexes[0]));
@@ -498,11 +499,11 @@ namespace Ryneus
                 // Passive解除
                 await RemovePassiveInfos();
 
-                // 10010行動後にAP+
+                // 行動後にAP+
                 var gainAp = _model.CheckActionAfterGainAp(actionInfo);
                 if (gainAp > 0)
                 {
-                    if (_skipBattle == false)
+                    if (!_skipBattle)
                     {
                         _view.StartHeal(_model.FirstActionBattler.Index.Value,DamageType.MpHeal,gainAp); 
                         await UniTask.DelayFrame(_model.WaitFrameTime(16));           
@@ -510,21 +511,32 @@ namespace Ryneus
                     _model.ActionAfterGainAp(gainAp);
                     _view.RefreshStatus();
                 }
+                // 行動後に交代
+                var change = _model.CheckActionAfterChange(actionInfo);
+                if (change)
+                {
+                    _view.SetActors(MakeListData(_model.ViewBattlerActors()));
+                    _view.UpdateGridLayer();
+                    _view.RefreshStatus();
+                }
 
             }
             var reaction = _model.CheckReaction(actionInfo);
             _model.TurnEnd(actionInfo);
+            _model.ChangeBattlerInfosLineType();
+            _view.SetActors(MakeListData(_model.ViewBattlerActors()));
+            _view.SetEnemies(MakeListData(_model.ViewBattlerEnemies()));
             if (reaction)
             {
                 _view.SetBattleBusy(false);
                 return;
             }
-            if (isTriggeredSkill == false)
+            if (!isTriggeredSkill)
             {
                 _triggerAfterChecked = true;
             }
 
-            // 勝敗判定
+            // 勝敗判定x
             if (IsBattleEnd() && result.Count == 0)
             {
                 BattleEnd();
@@ -582,13 +594,13 @@ namespace Ryneus
             var linkage = _model.CheckLinkageBattlerInfo();
             if (linkage)
             {
-                _view.SetActors(MakeListData(_model.BattlerActors()));
+                _view.SetActors(MakeListData(_model.ViewBattlerActors()));
                 _view.UpdateGridLayer();
             }
 
             // 行動を全て終了する
             _model.SeekTurnCount();
-            _view.RefreshTurn(_model.TurnCount);
+            _view.RefreshTurn(_model.TurnCount,_model.MaxTurnCount.Value);
             _view.ShowStateOverlay();
             _triggerAfterChecked = false;
             _slipDamageChecked = false;
@@ -597,6 +609,7 @@ namespace Ryneus
             _model.AssignWaitBattler();
             _model.SetFirstActionBattler(null);
             _view.SetBattleBusy(false);
+            _view.HideEnemiesStatus();
         }
     }
 }

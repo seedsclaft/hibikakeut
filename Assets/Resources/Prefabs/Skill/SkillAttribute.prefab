@@ -56,6 +56,7 @@ MonoBehaviour:
   clickButton: {fileID: 3694375418275320458}
   cursor: {fileID: 8969887319480949761}
   changeCursorColor: 1
+  cursorRectAnimation: {fileID: 0}
   disable: {fileID: 0}
   selectColor: {r: 0, g: 0, b: 0, a: 0}
   unSelectColor: {r: 0, g: 0, b: 0, a: 0}
@@ -359,9 +360,14 @@ MonoBehaviour:
   type: {fileID: 0}
   value: {fileID: 0}
   description: {fileID: 0}
+  descriptionListObj: {fileID: 0}
+  descriptionListTarget: {fileID: 0}
+  descriptionScrollRect: {fileID: 0}
   range: {fileID: 0}
   learningCost: {fileID: 0}
+  countTurn: {fileID: 0}
   learningText: {fileID: 0}
+  rank: {fileID: 0}
   selectable: {fileID: 0}
   selectedAlcana: {fileID: 0}
   shinyReflect: {fileID: 0}
@@ -416,7 +422,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5287118865692752526
 RectTransform:
   m_ObjectHideFlags: 0

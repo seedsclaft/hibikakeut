@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Unity.VisualScripting;
 
 namespace Ryneus
 {
     public partial class TacticsModel : BaseModel
     {
         public List<HexUnitInfo> OnFieldInfos => CurrentStage.OnFieldInfos;
+        // 選択中のユニット
+        public HexUnitInfo SelectingUnit => CurrentStage.OnFieldTurnUnitInfos().Find(a => a.IsBattlerUnit);
 
         private HexRoute _hexRoute;
         private List<HexField> _reachAreas = new();
@@ -423,7 +426,7 @@ namespace Ryneus
         public List<BattleSceneInfo> BattleSceneInfos()
         {
             var list = new List<BattleSceneInfo>();
-            var mainParty = CurrentStage.FriendUnitInfos().Find(a => a.Index.Value == SelectingHexUnitId.Value && a.IsUnit);
+            var mainParty = SelectingUnit;
             // バトルを行う組み合わせ
             _reachAreas = GetHexReach(mainParty.HexField,1,true);
             // 隣接候補
@@ -834,6 +837,15 @@ namespace Ryneus
                 list.Insert(2,UnitEditCommand);
                 list.Insert(3,ReturnCommand);
             }
+            // 敵と隣接している
+            var battler = SelectingUnit;
+            var reachAreas = GetHexReach(battler.HexField,1,true);
+            var battlerUnits = CurrentStage.OpponentUnitInfos().FindAll(a => reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+            var enemyInfos = battlerUnits.FindAll(a => a.UnitInfo != null);
+            if (enemyInfos.Count > 0)
+            {
+                list.Insert(0,BattleCommand);
+            }
             // 同時に敵拠点がある場合
             var conq = OnFieldInfos.Find(a => a.IsBasementUnit && a.TeamId.Value != GetTurnTeam().TeamId.Value);
             if (conq != null)
@@ -843,6 +855,7 @@ namespace Ryneus
             list.Add(WaitCommand);
             list.Add(SaveCommand);
             list.Add(TurnEndCommand);
+
             bool enable(SystemData.CommandData a)
             {
                 if (a.Key == MoveBattlerCommand.Key)
@@ -930,7 +943,7 @@ namespace Ryneus
                 if (a == BattleCommand)
                 {
                     // 隣接している
-                    var battler = CurrentStage.OnFieldTurnUnitInfos().Find(a => a.IsBattlerUnit);
+                    var battler = SelectingUnit;
                     var reachAreas = GetHexReach(battler.HexField,1,true);
                     var battlerUnits = CurrentStage.OpponentUnitInfos().FindAll(a => reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
                     var enemyInfos = battlerUnits.FindAll(a => a.UnitInfo != null);

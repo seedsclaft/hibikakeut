@@ -7,13 +7,14 @@ namespace Ryneus
     public class BattleBattlerList : BaseList
     {
         [SerializeField] private List<GameObject> damageRoots;
-        private Dictionary<int,BattleBattler> _battleBattler = new ();
+        [SerializeField] private GameObject statusRoot;
+        private Dictionary<int,BattleBattler> _battleBattler = new();
         private int _selectIndex = -1;
         public int SelectedIndex => _selectIndex;
 
         public void SetData(List<ListData> listDates)
         {
-            base.SetData(listDates,true,null,true);
+            SetData(listDates,true,null,true);
             SetBattlerInfoComp(listDates);
         }
 
@@ -38,6 +39,10 @@ namespace Ryneus
                 {
                     _battleBattler[battlerInfo.Index.Value] = battleBattler;
                     battleBattler.SetDamageRoot(damageRoots[i]);
+                    if (statusRoot != null)
+                    {
+                        battleBattler.SetStatusRoot(statusRoot);
+                    }
                 }
             }
         }

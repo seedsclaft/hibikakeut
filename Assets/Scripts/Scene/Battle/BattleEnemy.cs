@@ -27,7 +27,7 @@ namespace Ryneus
             battlerInfoComponent.UpdateInfo(battlerInfo);
             SetIndex(index);
         }
-        
+
         public void SetDamageRoot(GameObject damageRoot)
         {
             battlerInfoComponent.SetDamageRoot(damageRoot);

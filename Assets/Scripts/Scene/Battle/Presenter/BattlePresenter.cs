@@ -79,7 +79,7 @@ namespace Ryneus
 
             _view.ClearCurrentSkillData();
             _view.CreateObject();
-            _view.RefreshTurn(_model.TurnCount);
+            _view.RefreshTurn(_model.TurnCount,_model.MaxTurnCount.Value);
             _view.SetBattleAutoButton(_model.BattleAutoButton(),GameSystem.OptionData.BattleAuto == true);
             _view.ChangeBackCommandActive(false);
             _view.SetBattleAutoButton(false);
@@ -87,12 +87,12 @@ namespace Ryneus
             _view.SetBattleSkipButton(DataSystem.GetText(16010));
             _view.SetSkillLogButton(DataSystem.GetText(16020));
             _view.SetActors(MakeListData(_model.ViewBattlerActors()));
-            _view.SetEnemies(MakeListData(_model.BattlerEnemies()));
+            _view.SetEnemies(MakeListData(_model.ViewBattlerEnemies()));
             _view.SetGridMembers(_model.Battlers);
             _view.BattlerBattleClearSelect();
 
             _view.RefreshStatus();
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
             if (_view.TestMode == true && _view.TestBattleMode)
             {
                 StartBattle();
@@ -100,7 +100,7 @@ namespace Ryneus
                 _testBattle = _model.testActionDates.Count > 0;
                 return;
             }
-    #endif
+#endif
         }
 
         private async void StartBattle()
@@ -555,7 +555,7 @@ namespace Ryneus
 
         private bool IsBattleEnd()
         {
-            return _model.CheckVictory() || _model.CheckDefeat();
+            return _model.CheckVictory() || _model.CheckDefeat() || _model.CheckTurnOver();
         }
 
         private async void BattleEnd()
@@ -579,6 +579,16 @@ namespace Ryneus
                 //_model.CurrentStage.GainLoseCount();
             } else
             if (_model.CheckVictory())
+            {
+                _view.StartBattleStartAnim(DataSystem.GetText(16100));
+                _view.BattleVictory(_model.BattlerActors()[0].Index.Value);
+                strategySceneInfo.GetItemInfos = _model.MakeBattlerResult();
+                strategySceneInfo.BattleTurn = _model.TurnCount;
+                strategySceneInfo.BattleResultScore = _model.MakeBattleScore(true,strategySceneInfo);
+                strategySceneInfo.BattleResultVictory = true;
+                _model.AddEnemyInfoSkillId();
+            } else
+            if (_model.CheckTurnOver())
             {
                 _view.StartBattleStartAnim(DataSystem.GetText(16100));
                 _view.BattleVictory(_model.BattlerActors()[0].Index.Value);

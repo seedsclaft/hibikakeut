@@ -4,19 +4,18 @@ using UnityEngine;
 using Effekseer;
 using TMPro;
 using Cysharp.Threading.Tasks;
+using Ryneus.Battle;
 
 namespace Ryneus
 {
-    using Battle;
-
-    public partial class BattleView : BaseView ,IInputHandlerEvent
+    public partial class BattleView : BaseView, IInputHandlerEvent
     {
         [SerializeField] private BattleBattlerList battleActorList = null;
         [SerializeField] private BattleBattlerList battleEnemyLayer = null;
         [SerializeField] private BattleGridLayer battleGridLayer = null;
         [SerializeField] private BattleThumb battleThumb;
         [SerializeField] private TextMeshProUGUI turns;
-        
+        [SerializeField] private TextMeshProUGUI maxTurns;
 
         [SerializeField] private GameObject animRoot = null;
         [SerializeField] private GameObject animPrefab = null;
@@ -33,7 +32,7 @@ namespace Ryneus
         [SerializeField] private BattleAwakenAnimation battleAwakenAnimation = null;
         [SerializeField] private MagicList magicList = null;
         private BattleBackGroundAnimation _backGroundAnimation = null;
-        
+
         private BattleStartAnim _battleStartAnim = null;
         public bool StartAnimIsBusy => _battleStartAnim.IsBusy;
 
@@ -49,10 +48,10 @@ namespace Ryneus
         {
             _animationBusy = isBusy;
         }
-        
+
         private List<MakerEffectData.SoundTimings> _soundTimings = null;
 
-        private readonly Dictionary<int,BattlerInfoComponent> _battlerComps = new ();
+        private readonly Dictionary<int,BattlerInfoComponent> _battlerComps = new();
 
         private bool _skipBattle = false;
         public override void Initialize() 
@@ -134,6 +133,7 @@ namespace Ryneus
             {
                 var data = (BattlerInfo)battlerInfo.Data;
                 _battlerComps[data.Index.Value] = battleEnemyLayer.GetBattlerInfoComp(data.Index.Value);
+                _battlerComps[data.Index.Value].HideStatus();
             }
         }
 
@@ -494,13 +494,13 @@ namespace Ryneus
                 return;
             }
             animationSpeed *= GameSystem.OptionData.BattleSpeed;
-        
+
             effekseerEmitter.transform.localScale = new Vector3(animationScale,animationScale,animationScale);
             if (effekseerEffectAsset == null)
-            { 
+            {
                 effekseerEmitter.Stop();
                 return;
-            } 
+            }
             effekseerEmitter.Stop();
             effekseerEmitter.speed = animationSpeed;
             effekseerEmitter.Play(effekseerEffectAsset);
@@ -515,7 +515,7 @@ namespace Ryneus
         public async UniTask StartAnimationMessiah(BattlerInfo battlerInfo,Sprite actorSprite)
         {
             var speed = GameSystem.OptionData.BattleSpeed;
-            if (GameSystem.OptionData.BattleAnimationSkip == false)
+            if (!GameSystem.OptionData.BattleAnimationSkip)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Demigod);
                 battleAwakenAnimation.StartAnimation(battlerInfo,actorSprite,speed);
@@ -576,9 +576,10 @@ namespace Ryneus
             }
         }
 
-        public void RefreshTurn(int turn)
+        public void RefreshTurn(int turn,int maxTurn)
         {
             turns?.SetText(turn.ToString());
+            maxTurns?.SetText(maxTurn.ToString());
         }
 
         public void SetBattlerThumbAlpha(bool selectable)
@@ -589,10 +590,26 @@ namespace Ryneus
             }
         }
 
-        private new void Update() 
-        {     
+        public void HideEnemiesStatus()
+        {
+            SetBattlerActiveStatus(new List<int>());
+        }
+
+        public void SetBattlerActiveStatus(List<int> selectableIndexes)
+        {
+            foreach (var item in _battlerComps)
+            {
+                item.Value.SetActiveStatus(selectableIndexes.Contains(item.Key));
+            }
+        }
+
+        private new void Update()
+        {
             base.Update();
-            if (_battleBusy == true) return;
+            if (_battleBusy)
+            {
+                return;
+            }
             CallViewEvent(CommandType.UpdateAp);
         }
 
@@ -601,7 +618,7 @@ namespace Ryneus
         {
             CallViewEvent(CommandType.SelectSideMenu);
         }
-        
+
         public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
         }

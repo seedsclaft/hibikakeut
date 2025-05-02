@@ -41,7 +41,7 @@ namespace Ryneus
             }
             StartAnimationSkill(actionInfo);
         }
-        
+
         /// <summary>
         /// 覚醒アニメーション再生してからアニメーション再生
         /// </summary>
@@ -73,7 +73,7 @@ namespace Ryneus
         private async void StartAnimationSkill(ActionInfo actionInfo)
         {
             _view.ChangeSideMenuButtonActive(false);
-            _view.SetBattlerThumbAlpha(true);
+            _view.SetBattlerActiveStatus(actionInfo.ResultTargetIndexes());
             //_view.ShowEnemyStateOverlay();
             _view.HideStateOverlay();
             _view.SetAnimationBusy(true);

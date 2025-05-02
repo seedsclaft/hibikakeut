@@ -10,7 +10,7 @@ namespace Ryneus
         [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private GameObject actorRoot;
         [SerializeField] private GameObject enemyRoot;
-        private Dictionary<BattlerInfo,BattlerGrid> _battlers = new ();
+        private Dictionary<BattlerInfo,BattlerGrid> _battlers = new();
 
         public void SetGridMembers(List<BattlerInfo> battlerInfos)
         {
@@ -79,7 +79,7 @@ namespace Ryneus
             foreach (var data in _battlers)
             {
                 data.Value.RefreshStatus();
-                data.Value.gameObject.SetActive(data.Key.IsAlive());
+                data.Value.gameObject.SetActive(data.Key.IsAlive() && data.Key.LineIndex == LineType.Front);
             }
         }
     }

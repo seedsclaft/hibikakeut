@@ -13,10 +13,10 @@ namespace Ryneus
         [SerializeField] private ActorInfoComponent actorInfoComponent;
         [SerializeField] private EnemyInfoComponent enemyInfoComponent;
         [SerializeField] private StatusInfoComponent statusInfoComponent;
+        private GameObject _statusRoot;
         [SerializeField] private MakerEffekseerEmitter effekseerEmitter;
         [SerializeField] private _2dxFX_DestroyedFX deathAnimation;
         private GameObject _battleDamageRoot;
-        public GameObject BattleDamageRoot => _battleDamageRoot;
         [SerializeField] private GameObject battleDamagePrefab;
         [SerializeField] private BattleStateOverlay battleStateOverlay;
         [SerializeField] private CanvasGroup canvasGroup;
@@ -82,7 +82,7 @@ namespace Ryneus
         {
             _battleDamageRoot = damageRoot;
             _battleDamageRoot.SetActive(true);
-            if (battleStateOverlay != null) 
+            if (battleStateOverlay != null)
             {
                 battleStateOverlay.Initialize();
             }
@@ -94,7 +94,9 @@ namespace Ryneus
             {
                 return;
             }
-            statusInfoComponent.HideStatus();
+            _statusRoot = statusRoot;
+            statusInfoComponent.gameObject.transform.SetParent(statusRoot.transform,false);
+            //statusInfoComponent.HideStatus();
         }
 
         public void ChangeHp(int value)
@@ -178,12 +180,23 @@ namespace Ryneus
                 var textId = _battlerInfo.LineIndex == LineType.Front ? 2012 : 2013;
                 battlePosition.text = DataSystem.GetText(textId);
             }
-            if (battleStateOverlay != null) 
+            if (battleStateOverlay != null)
             {
                 battleStateOverlay.SetStates(_battlerInfo.IconStateInfos());
             }
+            var image = BattleImage();
+            if (image != null && canvasGroup != null)
+            {
+                if (!_battlerInfo.IsAlive())
+                {
+                    canvasGroup.alpha = 0;
+                } else
+                {
+                    canvasGroup.alpha = _battlerInfo.LineIndex == LineType.Front ? 1 : 0.75f;
+                }
+            }
         }
-        
+
         public void ShowStatus()
         {
             if (statusInfoComponent != null)
@@ -251,7 +264,10 @@ namespace Ryneus
         public void StartBlink()
         {
             var image = BattleImage();
-            if (image == null) return;
+            if (image == null)
+            {
+                return;
+            }
             DOTween.Sequence()
                 .Append(image.DOFade(0f, 0.05f))
                 .Append(image.DOFade(1f, 0.05f))
@@ -262,7 +278,7 @@ namespace Ryneus
         {
             var battleDamage = CreatePrefab();
             int delayCount = _battleDamages.Count;
-            if (needPopupDelay == false)
+            if (!needPopupDelay)
             {
                 delayCount = 0;
             }
@@ -346,12 +362,15 @@ namespace Ryneus
         public void StartAnimation(EffekseerEffectAsset effectAsset,AnimationPosition animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
         {
             if (effectAsset == null)
-            { 
+            {
                 effekseerEmitter.Stop();
                 return;
-            } 
+            }
             var image = BattleImage();
-            if (image == null) return;
+            if (image == null)
+            {
+                return;
+            }
             var imageRect = image.gameObject.GetComponent<RectTransform>();
             var effectRect = effekseerEmitter.gameObject.GetComponent<RectTransform>();
             var y = 0;
@@ -386,8 +405,11 @@ namespace Ryneus
         public void SetThumbAlpha(bool isSelectable)
         {
             var image = BattleImage();
-            if (image == null) return;
-            float alpha = isSelectable == true ? 1 : 0.25f;
+            if (image == null)
+            {
+                return;
+            }
+            float alpha = isSelectable ? 1 : 0.25f;
             if (!_battlerInfo.IsAlive() && !_battlerInfo.IsActor)
             {
                 alpha = 0;
@@ -400,6 +422,10 @@ namespace Ryneus
         public void SetActiveStatus(bool isSelectable)
         {
             if (statusInfoComponent == null)
+            {
+                return;
+            }
+            if (_battlerInfo == null)
             {
                 return;
             }
@@ -460,26 +486,14 @@ namespace Ryneus
                 _deathAnimation += 0.01f;
             }
         }
-        
+
         private Image BattleImage()
         {
-            if (_battlerInfo == null) return null;
-            Image image;
-            if (_battlerInfo.IsActor)
+            if (_battlerInfo == null)
             {
-                if (_battlerInfo.IsAwaken)
-                {
-                    image = actorInfoComponent.FaceThumb;
-                    //image = actorInfoComponent.AwakenFaceThumb;
-                } else
-                {
-                    image = actorInfoComponent.FaceThumb;
-                }
-            } else
-            {
-                image = enemyInfoComponent.MainThumb;
+                return null;
             }
-            return image;
+            return _battlerInfo.IsActor ? actorInfoComponent.FaceThumb : enemyInfoComponent.MainThumb;
         }
 
         public void DisableEmitter()

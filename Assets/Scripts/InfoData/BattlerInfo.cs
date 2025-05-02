@@ -21,6 +21,7 @@ namespace Ryneus
         public ParameterInt EnemyIndex = new();
         private bool _isActor = false;
         public bool IsActor => _isActor;
+        public void SetIsActor(bool isActor) => _isActor = isActor;
         // 見た目上は味方か
         private bool _isActorView = false;
         public bool IsActorView => _isActorView;
