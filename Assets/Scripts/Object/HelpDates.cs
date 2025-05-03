@@ -11,7 +11,8 @@ namespace Ryneus
 
     [Serializable]
     public class HelpData
-    {   
+    {
+
         public int Id;
         public string Key;
         public string GuideImagePath;

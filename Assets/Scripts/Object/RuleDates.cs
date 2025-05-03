@@ -11,7 +11,7 @@ namespace Ryneus
 
     [Serializable]
     public class RuleData
-    {   
+    {
         public int Id;
         public string Name;
         public string Help;

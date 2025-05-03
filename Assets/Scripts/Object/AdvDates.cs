@@ -11,7 +11,7 @@ namespace Ryneus
 
     [Serializable]
     public class AdvData
-    {   
+    {
         public int Id;
         public string AdvName;
         public Scene EndJump;

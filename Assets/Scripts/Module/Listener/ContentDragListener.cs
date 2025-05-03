@@ -4,23 +4,23 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class ContentDragListener : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
-{  
+{
     private Vector2 _startPos;
     private System.Action<int,int> _dragMoveAction;
     private System.Action _dragEndAction;
     private bool _endDrag;
-    public void OnBeginDrag(PointerEventData eventData) 
+    public void OnBeginDrag(PointerEventData eventData)
     {
         _endDrag = false;
         _startPos = eventData.position;
     }
 
-    public void OnDrag(PointerEventData eventData) 
+    public void OnDrag(PointerEventData eventData)
     {
         SendDragPosition(eventData);
     }
 
-    public void OnEndDrag(PointerEventData eventData) 
+    public void OnEndDrag(PointerEventData eventData)
     {
         if (_dragEndAction != null)
         {
@@ -47,7 +47,7 @@ public class ContentDragListener : MonoBehaviour, IBeginDragHandler, IDragHandle
     {
         _dragMoveAction = dragMoveAction;
     }
-    
+
     public void SetDragEndEvent(System.Action dragEndAction)
     {
         _dragEndAction = dragEndAction;

@@ -11,8 +11,9 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class TutorialData 
-    {   
+    public class TutorialData
+    {
+
         public int Id;
         public Scene SceneType;
         public int Type;

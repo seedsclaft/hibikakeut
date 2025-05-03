@@ -57,7 +57,7 @@ namespace Ryneus
             _onDown = false;
             _onPress = false;
             _onLeft = false;
-        }        
+        }
         
         public void SetValue(float value)
         {

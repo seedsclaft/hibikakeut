@@ -9,12 +9,16 @@ namespace Ryneus
     {
         public TroopData TroopMaster => DataSystem.Troops.Find(a => a.TroopId == _troopId);
         private int _troopId = 0;
-        public BattlerInfo BossEnemy 
+        public BattlerInfo BossEnemy
         {
-            get 
+            get
             {
-                var boss = BattlerInfos.Find(a => a.BossFlag == true);
-                if (boss != null) return boss;
+                var boss = BattlerInfos.Find(a => a.BossFlag);
+                if (boss != null)
+                {
+                    return boss;
+                }
+
                 if (BattlerInfos.Count > 0)
                 {
                     return BattlerInfos[BattlerInfos.Count-1];
@@ -22,7 +26,7 @@ namespace Ryneus
                 return null;
             }
         }
-        private List<GetItemInfo> _getItemInfos = new (); 
+        private List<GetItemInfo> _getItemInfos = new ();
         public List<GetItemInfo> GetItemInfos => _getItemInfos;
 
         // リプレイを保存するか
@@ -80,7 +84,7 @@ namespace Ryneus
         {
             BattlerInfos.Add(battlerInfo);
         }
-        
+
         public void AddGetItemInfo(GetItemInfo getItemInfo)
         {
             _getItemInfos.Add(getItemInfo);

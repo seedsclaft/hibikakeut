@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Ryneus
 {
     [System.Serializable]
-    public class UnitInfo 
+    public class UnitInfo
     {
         public ParameterInt Index = new();
         [UnityEngine.SerializeField] private List<BattlerInfo> _battlerInfos = new();

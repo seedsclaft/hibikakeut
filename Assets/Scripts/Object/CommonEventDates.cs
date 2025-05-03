@@ -28,7 +28,8 @@ namespace Ryneus
         public int trigger;
         public string name;
         public int switch_id;
-        
+
+
         public EventCommandDate[] list;
         public int id;
     }
@@ -63,11 +64,13 @@ namespace Ryneus
         public int trigger;
         public string name;
         public int switch_id;
-        
+
+
         public EventCommandSoundDate[] list;
         public int id;
     }
-    
+
+
     [Serializable]
     public class EventCommandSoundDate
     {

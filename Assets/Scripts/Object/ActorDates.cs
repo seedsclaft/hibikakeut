@@ -11,8 +11,8 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class ActorData 
-    {   
+    public class ActorData
+    {
         public int Id;
         public string Name;
         public string SubName;
@@ -49,7 +49,7 @@ namespace Ryneus
 
     [Serializable]
     public class LearningData
-    {   
+    {
         public int SkillId;
         public int Level;
         public int Weight;
@@ -58,7 +58,7 @@ namespace Ryneus
 
     [Serializable]
     public class SkillTriggerActorData
-    {   
+    {
         public int SkillId;
         public int Trigger1;
         public int Trigger2;

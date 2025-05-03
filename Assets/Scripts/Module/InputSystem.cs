@@ -43,21 +43,24 @@ namespace Ryneus
             return UpdateKeyBoard();
         }
 
-        private void UpdateInputKeyData(InputKeyType inputKeyType,UnityEngine.InputSystem.Controls.KeyControl keyControl,Key key)
+        private void UpdateInputKeyData(InputKeyType inputKeyType, UnityEngine.InputSystem.Controls.KeyControl keyControl, Key key)
         {
             var keyData = GetInputDate(inputKeyType);
-            if((keyControl != null && keyControl.wasPressedThisFrame) || Keyboard.current[key].wasPressedThisFrame) 
+            if ((keyControl != null && keyControl.wasPressedThisFrame) || Keyboard.current[key].wasPressedThisFrame)
             {
                 keyData.OnDown();
-            } else
-            if((keyControl != null && keyControl.isPressed) || Keyboard.current[key].isPressed) 
+            }
+            else
+            if ((keyControl != null && keyControl.isPressed) || Keyboard.current[key].isPressed)
             {
                 keyData.OnPress();
-            } else
-            if((keyControl != null && keyControl.wasReleasedThisFrame) || Keyboard.current[key].wasReleasedThisFrame) 
+            }
+            else
+            if ((keyControl != null && keyControl.wasReleasedThisFrame) || Keyboard.current[key].wasReleasedThisFrame)
             {
                 keyData.OnLeft();
-            } else
+            }
+            else
             {
                 keyData.OnLeftEnd();
             }
@@ -65,20 +68,20 @@ namespace Ryneus
 
         private void UpdateKeyBoardData()
         {
-            UpdateInputKeyData(InputKeyType.Up,Keyboard.current.upArrowKey,Key.W);
-            UpdateInputKeyData(InputKeyType.Down,Keyboard.current.downArrowKey,Key.S);
-            UpdateInputKeyData(InputKeyType.Left,Keyboard.current.leftArrowKey,Key.A);
-            UpdateInputKeyData(InputKeyType.Right,Keyboard.current.rightArrowKey,Key.D);
-            UpdateInputKeyData(InputKeyType.Decide,null,Key.Space);
-            UpdateInputKeyData(InputKeyType.Cancel,null,Key.LeftShift);
-            UpdateInputKeyData(InputKeyType.Option1,null,Key.R);
-            UpdateInputKeyData(InputKeyType.Option2,null,Key.T);
-            UpdateInputKeyData(InputKeyType.SideLeft1,null,Key.Q);
-            UpdateInputKeyData(InputKeyType.SideRight1,null,Key.E);
-            UpdateInputKeyData(InputKeyType.SideLeft2,null,Key.PageDown);
-            UpdateInputKeyData(InputKeyType.SideRight2,null,Key.PageUp);
-            UpdateInputKeyData(InputKeyType.Start,null,Key.Enter);
-            UpdateInputKeyData(InputKeyType.Select,null,Key.RightShift);
+            UpdateInputKeyData(InputKeyType.Up, Keyboard.current.upArrowKey, Key.W);
+            UpdateInputKeyData(InputKeyType.Down, Keyboard.current.downArrowKey, Key.S);
+            UpdateInputKeyData(InputKeyType.Left, Keyboard.current.leftArrowKey, Key.A);
+            UpdateInputKeyData(InputKeyType.Right, Keyboard.current.rightArrowKey, Key.D);
+            UpdateInputKeyData(InputKeyType.Decide, null, Key.Space);
+            UpdateInputKeyData(InputKeyType.Cancel, null, Key.LeftShift);
+            UpdateInputKeyData(InputKeyType.Option1, null, Key.R);
+            UpdateInputKeyData(InputKeyType.Option2, null, Key.T);
+            UpdateInputKeyData(InputKeyType.SideLeft1, null, Key.Q);
+            UpdateInputKeyData(InputKeyType.SideRight1, null, Key.E);
+            UpdateInputKeyData(InputKeyType.SideLeft2, null, Key.PageDown);
+            UpdateInputKeyData(InputKeyType.SideRight2, null, Key.PageUp);
+            UpdateInputKeyData(InputKeyType.Start, null, Key.Enter);
+            UpdateInputKeyData(InputKeyType.Select, null, Key.RightShift);
         }
 
         private void UpdateGamePadData()
@@ -88,86 +91,86 @@ namespace Ryneus
             {
                 return;
             }
-            UpdateInputGamePadData(InputKeyType.Up,gamePad.dpad.up,null);
-            UpdateInputGamePadData(InputKeyType.Down,gamePad.dpad.down,null);
-            UpdateInputGamePadData(InputKeyType.Left,gamePad.dpad.left,null);
-            UpdateInputGamePadData(InputKeyType.Right,gamePad.dpad.right,null);
-            UpdateInputGamePadData(InputKeyType.Decide,gamePad.bButton,null);
-            UpdateInputGamePadData(InputKeyType.Cancel,gamePad.aButton,null);
-            UpdateInputGamePadData(InputKeyType.Option1,gamePad.yButton,null);
-            UpdateInputGamePadData(InputKeyType.Option2,gamePad.xButton,null);
-            UpdateInputGamePadData(InputKeyType.SideLeft1,gamePad.leftTrigger,null);
-            UpdateInputGamePadData(InputKeyType.SideRight1,gamePad.rightTrigger,null);
-            UpdateInputGamePadData(InputKeyType.SideLeft2,gamePad.leftShoulder,null);
-            UpdateInputGamePadData(InputKeyType.SideRight2,gamePad.rightShoulder,null);
-            UpdateInputGamePadData(InputKeyType.Start,gamePad.startButton,null);
-            UpdateInputGamePadData(InputKeyType.Select,gamePad.selectButton,null);
-            UpdateInputStickGamePadData(InputKeyType.LeftStickUp,gamePad.leftStick);
-            UpdateInputStickGamePadData(InputKeyType.LeftStickDown,gamePad.leftStick);
-            UpdateInputStickGamePadData(InputKeyType.LeftStickLeft,gamePad.leftStick);
-            UpdateInputStickGamePadData(InputKeyType.LeftStickRight,gamePad.leftStick);
-            UpdateInputStickGamePadData(InputKeyType.RightStickUp,gamePad.rightStick);
-            UpdateInputStickGamePadData(InputKeyType.RightStickDown,gamePad.rightStick);
-            UpdateInputStickGamePadData(InputKeyType.RightStickLeft,gamePad.rightStick);
-            UpdateInputStickGamePadData(InputKeyType.RightStickRight,gamePad.rightStick);
+            UpdateInputGamePadData(InputKeyType.Up, gamePad.dpad.up, null);
+            UpdateInputGamePadData(InputKeyType.Down, gamePad.dpad.down, null);
+            UpdateInputGamePadData(InputKeyType.Left, gamePad.dpad.left, null);
+            UpdateInputGamePadData(InputKeyType.Right, gamePad.dpad.right, null);
+            UpdateInputGamePadData(InputKeyType.Decide, gamePad.bButton, null);
+            UpdateInputGamePadData(InputKeyType.Cancel, gamePad.aButton, null);
+            UpdateInputGamePadData(InputKeyType.Option1, gamePad.yButton, null);
+            UpdateInputGamePadData(InputKeyType.Option2, gamePad.xButton, null);
+            UpdateInputGamePadData(InputKeyType.SideLeft1, gamePad.leftTrigger, null);
+            UpdateInputGamePadData(InputKeyType.SideRight1, gamePad.rightTrigger, null);
+            UpdateInputGamePadData(InputKeyType.SideLeft2, gamePad.leftShoulder, null);
+            UpdateInputGamePadData(InputKeyType.SideRight2, gamePad.rightShoulder, null);
+            UpdateInputGamePadData(InputKeyType.Start, gamePad.startButton, null);
+            UpdateInputGamePadData(InputKeyType.Select, gamePad.selectButton, null);
+            UpdateInputStickGamePadData(InputKeyType.LeftStickUp, gamePad.leftStick);
+            UpdateInputStickGamePadData(InputKeyType.LeftStickDown, gamePad.leftStick);
+            UpdateInputStickGamePadData(InputKeyType.LeftStickLeft, gamePad.leftStick);
+            UpdateInputStickGamePadData(InputKeyType.LeftStickRight, gamePad.leftStick);
+            UpdateInputStickGamePadData(InputKeyType.RightStickUp, gamePad.rightStick);
+            UpdateInputStickGamePadData(InputKeyType.RightStickDown, gamePad.rightStick);
+            UpdateInputStickGamePadData(InputKeyType.RightStickLeft, gamePad.rightStick);
+            UpdateInputStickGamePadData(InputKeyType.RightStickRight, gamePad.rightStick);
         }
 
         private List<InputKeyType> UpdateKeyBoard()
         {
             var keyTypes = new List<InputKeyType>();
-            if(Keyboard.current.upArrowKey.isPressed || Keyboard.current[Key.W].isPressed) 
+            if (Keyboard.current.upArrowKey.isPressed || Keyboard.current[Key.W].isPressed)
             {
                 keyTypes.Add(InputKeyType.Up);
             }
-            if(Keyboard.current.downArrowKey.isPressed || Keyboard.current[Key.S].isPressed) 
+            if (Keyboard.current.downArrowKey.isPressed || Keyboard.current[Key.S].isPressed)
             {
                 keyTypes.Add(InputKeyType.Down);
             }
-            if(Keyboard.current.leftArrowKey.isPressed || Keyboard.current[Key.A].isPressed) 
+            if (Keyboard.current.leftArrowKey.isPressed || Keyboard.current[Key.A].isPressed)
             {
                 keyTypes.Add(InputKeyType.Left);
             }
-            if(Keyboard.current.rightArrowKey.isPressed || Keyboard.current[Key.D].isPressed) 
+            if (Keyboard.current.rightArrowKey.isPressed || Keyboard.current[Key.D].isPressed)
             {
                 keyTypes.Add(InputKeyType.Right);
             }
-            if(Keyboard.current[Key.Space].wasPressedThisFrame) 
+            if (Keyboard.current[Key.Space].wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.Decide);
             }
-            if(Keyboard.current[Key.LeftShift].wasPressedThisFrame || Keyboard.current[Key.Escape].wasPressedThisFrame) 
+            if (Keyboard.current[Key.LeftShift].wasPressedThisFrame || Keyboard.current[Key.Escape].wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.Cancel);
             }
-            if(Keyboard.current[Key.R].wasPressedThisFrame) 
+            if (Keyboard.current[Key.R].wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.Option1);
             }
-            if(Keyboard.current[Key.T].wasPressedThisFrame) 
+            if (Keyboard.current[Key.T].wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.Option2);
             }
-            if(Keyboard.current[Key.Q].isPressed) 
+            if (Keyboard.current[Key.Q].isPressed)
             {
                 keyTypes.Add(InputKeyType.SideLeft1);
             }
-            if(Keyboard.current[Key.E].isPressed) 
+            if (Keyboard.current[Key.E].isPressed)
             {
                 keyTypes.Add(InputKeyType.SideRight1);
             }
-            if(Keyboard.current[Key.PageDown].isPressed) 
+            if (Keyboard.current[Key.PageDown].isPressed)
             {
                 keyTypes.Add(InputKeyType.SideLeft2);
             }
-            if(Keyboard.current[Key.PageUp].isPressed) 
+            if (Keyboard.current[Key.PageUp].isPressed)
             {
                 keyTypes.Add(InputKeyType.SideRight2);
             }
-            if(Keyboard.current[Key.Enter].wasPressedThisFrame) 
+            if (Keyboard.current[Key.Enter].wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.Start);
             }
-            if(Keyboard.current[Key.RightShift].wasPressedThisFrame) 
+            if (Keyboard.current[Key.RightShift].wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.Select);
             }
@@ -178,27 +181,30 @@ namespace Ryneus
             return keyTypes;
         }
 
-        private void UpdateInputGamePadData(InputKeyType inputKeyType,UnityEngine.InputSystem.Controls.ButtonControl keyControl,UnityEngine.InputSystem.Controls.ButtonControl stick)
+        private void UpdateInputGamePadData(InputKeyType inputKeyType, UnityEngine.InputSystem.Controls.ButtonControl keyControl, UnityEngine.InputSystem.Controls.ButtonControl stick)
         {
             var keyData = GetInputDate(inputKeyType);
-            if((keyControl != null && keyControl.wasPressedThisFrame) || (stick != null && stick.wasPressedThisFrame)) 
+            if ((keyControl != null && keyControl.wasPressedThisFrame) || (stick != null && stick.wasPressedThisFrame))
             {
                 keyData.OnDown();
-            } else
-            if((keyControl != null && keyControl.isPressed) || (stick != null && stick.isPressed)) 
+            }
+            else
+            if ((keyControl != null && keyControl.isPressed) || (stick != null && stick.isPressed))
             {
                 keyData.OnPress();
-            } else
-            if((keyControl != null && keyControl.wasReleasedThisFrame) || (stick != null && stick.wasReleasedThisFrame)) 
+            }
+            else
+            if ((keyControl != null && keyControl.wasReleasedThisFrame) || (stick != null && stick.wasReleasedThisFrame))
             {
                 keyData.OnLeft();
-            } else
+            }
+            else
             {
                 keyData.OnLeftEnd();
             }
         }
-        
-        private void UpdateInputStickGamePadData(InputKeyType inputKeyType,UnityEngine.InputSystem.Controls.StickControl stickControl)
+
+        private void UpdateInputStickGamePadData(InputKeyType inputKeyType, UnityEngine.InputSystem.Controls.StickControl stickControl)
         {
             var keyData = GetInputDate(inputKeyType);
             switch (inputKeyType)
@@ -208,7 +214,8 @@ namespace Ryneus
                     if (stickControl.y.value > 0)
                     {
                         keyData.SetValue(stickControl.y.value);
-                    } else
+                    }
+                    else
                     {
                         keyData.SetValue(0);
                     }
@@ -218,7 +225,8 @@ namespace Ryneus
                     if (stickControl.y.value < 0)
                     {
                         keyData.SetValue(stickControl.y.value * -1);
-                    } else
+                    }
+                    else
                     {
                         keyData.SetValue(0);
                     }
@@ -228,7 +236,8 @@ namespace Ryneus
                     if (stickControl.x.value < 0)
                     {
                         keyData.SetValue(stickControl.x.value * -1);
-                    } else
+                    }
+                    else
                     {
                         keyData.SetValue(0);
                     }
@@ -238,7 +247,8 @@ namespace Ryneus
                     if (stickControl.x.value > 0)
                     {
                         keyData.SetValue(stickControl.x.value);
-                    } else
+                    }
+                    else
                     {
                         keyData.SetValue(0);
                     }
@@ -255,24 +265,24 @@ namespace Ryneus
             }
             var keyTypes = new List<InputKeyType>();
             // 十字
-            if (gamePad.dpad.up.isPressed) 
+            if (gamePad.dpad.up.isPressed)
             {
                 keyTypes.Add(InputKeyType.Up);
             }
-            if (gamePad.dpad.down.isPressed) 
+            if (gamePad.dpad.down.isPressed)
             {
                 keyTypes.Add(InputKeyType.Down);
             }
-            if (gamePad.dpad.right.isPressed) 
+            if (gamePad.dpad.right.isPressed)
             {
                 keyTypes.Add(InputKeyType.Right);
             }
-            if (gamePad.dpad.left.isPressed) 
+            if (gamePad.dpad.left.isPressed)
             {
                 keyTypes.Add(InputKeyType.Left);
             }
 
-            if (gamePad.aButton.wasPressedThisFrame || gamePad.crossButton.wasPressedThisFrame) 
+            if (gamePad.aButton.wasPressedThisFrame || gamePad.crossButton.wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.Decide);
             }
@@ -280,7 +290,7 @@ namespace Ryneus
             {
                 keyTypes.Add(InputKeyType.Cancel);
             }
-            if (gamePad.xButton.wasPressedThisFrame || gamePad.buttonWest.wasPressedThisFrame || gamePad.squareButton.wasPressedThisFrame) 
+            if (gamePad.xButton.wasPressedThisFrame || gamePad.buttonWest.wasPressedThisFrame || gamePad.squareButton.wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.Option1);
             }
@@ -290,18 +300,18 @@ namespace Ryneus
             }
 
             // start,select
-            if (gamePad.startButton.wasPressedThisFrame) 
+            if (gamePad.startButton.wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.Start);
             }
-            if (gamePad.selectButton.wasPressedThisFrame) 
+            if (gamePad.selectButton.wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.Select);
             }
 
 
             // L1,R1
-            if (gamePad.leftShoulder.wasPressedThisFrame) 
+            if (gamePad.leftShoulder.wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.SideLeft1);
             }
@@ -342,28 +352,28 @@ namespace Ryneus
         public static bool IsMouseRightButtonDown()
         {
             if (IsPlatformStandAloneOrEditor() || EnableWebGLInput())
-            { 
+            {
                 return Input.GetMouseButtonDown(1);
             }
             return false;
         }
-        
+
         public static Vector3 MouseMovePosition()
         {
             if (IsPlatformStandAloneOrEditor() || EnableWebGLInput())
-            { 
+            {
                 return Input.mousePosition;
             }
-            return new Vector3(0,0,0);
+            return new Vector3(0, 0, 0);
         }
 
         public static Vector2 MouseWheelPosition()
         {
             if (IsPlatformStandAloneOrEditor() || EnableWebGLInput())
-            { 
+            {
                 return Input.mouseScrollDelta;
             }
-            return new Vector2(0,0);
+            return new Vector2(0, 0);
         }
 
         public static bool EnableWebGLInput()

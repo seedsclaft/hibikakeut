@@ -6,7 +6,7 @@ namespace Ryneus
         [UnityEngine.SerializeField] private string _value = "";
         public string Value => _value;
 
-        public void SetValue(string value) 
+        public void SetValue(string value)
         {
             _value = value;
         }

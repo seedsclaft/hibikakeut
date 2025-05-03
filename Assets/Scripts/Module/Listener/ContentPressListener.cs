@@ -6,13 +6,13 @@ public class ContentPressListener : MonoBehaviour, IPointerDownHandler, IPointer
     private System.Action _pressAction = null;
     private bool _pressed = false;
     private int _duration = 0;
-    
-    public void OnPointerDown(PointerEventData eventData) 
+
+    public void OnPointerDown(PointerEventData eventData)
     {
         _pressed = true;
     }
 
-    public void OnPointerUp(PointerEventData eventData) 
+    public void OnPointerUp(PointerEventData eventData)
     {
         _duration = 0;
         _pressed = false;
@@ -22,15 +22,15 @@ public class ContentPressListener : MonoBehaviour, IPointerDownHandler, IPointer
     {
         _pressAction = pressAction;
     }
-    
+
     void Update() {
-        if (_pressed == true) 
+        if (_pressed)
         {
             _duration += 1;
         }
 
         //長押しを判定
-        if (_duration > 30) 
+        if (_duration > 30)
         {
             _pressed = false;
             _pressAction?.Invoke();

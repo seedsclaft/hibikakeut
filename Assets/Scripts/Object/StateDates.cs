@@ -11,7 +11,7 @@ namespace Ryneus
 
     [Serializable]
     public class StateData
-    {   
+    {
         public StateType StateType;
         public string Name;
         public string Help;
@@ -68,11 +68,11 @@ namespace Ryneus
         CounterAuraShell = 2032,
         Regenerate = 2040,
         NoDamage = 2050,
-        Drain  = 2060,
+        Drain = 2060,
         AntiDote = 2070,
         Counter = 2080, // 実際の反撃行動はスキル習得で管理
         NoPassive = 2090,
-        DeBuffUpper  = 2120,
+        DeBuffUpper = 2120,
         Substitute = 2130,
         Freeze = 2140,
         Stun = 2150,
@@ -103,7 +103,7 @@ namespace Ryneus
         Reraise = 2450,
         HealValueUp = 2460,
         Curse = 2470,
-        Linkage  = 3020,
+        Linkage = 3020,
         NoApRecover = 9999
     }
 

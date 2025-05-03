@@ -11,8 +11,9 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class ScorePrizeData 
-    {   
+    public class ScorePrizeData
+    {
+
         public int Id;
         public int PriseSetId;
         public int Score;

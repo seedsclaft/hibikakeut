@@ -11,7 +11,7 @@ namespace Ryneus
 
     [Serializable]
     public class SkillData
-    {   
+    {
         public int Id;
         public string Name;
         public MagicIconType IconIndex;
@@ -128,7 +128,8 @@ namespace Ryneus
                 case ScopeType.Line:
                     return DataSystem.GetText(622);
                 case ScopeType.One:
-                    if (TargetType == TargetType.Opponent){
+                    if (TargetType == TargetType.Opponent)
+                    {
                         return DataSystem.GetText(623);
                     }
                     return DataSystem.GetText(624);
@@ -148,7 +149,7 @@ namespace Ryneus
         {
             var targetText = TargetTypeText();
             var scopeText = ScopeTypeText();
-            return help.Replace("\\s",targetText + scopeText);
+            return help.Replace("\\s", targetText + scopeText);
         }
 
         [Serializable]
@@ -273,7 +274,7 @@ namespace Ryneus
         None = 0,
         HpDamage = 1,
         HpCritical = 2,
-        HpHeal = 3,    
+        HpHeal = 3,
         MpHeal = 4,
         State = 5,
         MpDamage = 6,
@@ -553,7 +554,7 @@ namespace Ryneus
         Demigod = 10, //半神
         Awaken = 11, // 覚醒
         Other = 99, // その他
-        
+
     }
 
     public enum HpHealType

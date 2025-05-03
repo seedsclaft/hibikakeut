@@ -11,7 +11,7 @@ namespace Ryneus
 
     [Serializable]
     public class EnemyData
-    {   
+    {
         public int Id;
         public string Name;
         public string ImagePath;
@@ -26,8 +26,8 @@ namespace Ryneus
         public int MovGrouth;
         public List<LearningData> LearningSkills = new();
         public List<SkillTriggerActorData> SkillTriggerDates = new();
-        
-        public int CurrentParam(StatusParamType growType,int level)
+
+        public int CurrentParam(StatusParamType growType, int level)
         {
             return 0;
         }
@@ -37,11 +37,12 @@ namespace Ryneus
             StatusInfo upStatus = new StatusInfo();
             foreach (StatusParamType growType in Enum.GetValues(typeof(StatusParamType)))
             {
-                int currentParam = CurrentParam(growType,level);
-                int nextParam = CurrentParam(growType,level + 1);
-                if (currentParam < nextParam){
+                int currentParam = CurrentParam(growType, level);
+                int nextParam = CurrentParam(growType, level + 1);
+                if (currentParam < nextParam)
+                {
                     int upParam = nextParam - currentParam;
-                    upStatus.AddParameter(growType,upParam);
+                    upStatus.AddParameter(growType, upParam);
                 }
             }
             return upStatus;

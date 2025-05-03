@@ -11,7 +11,8 @@ namespace Ryneus
 
     [Serializable]
     public class SkillTriggerData
-    {   
+    {
+
         public int Id;
         public string Name;
         public string Help;

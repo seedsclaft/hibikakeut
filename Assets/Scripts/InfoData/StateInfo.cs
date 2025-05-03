@@ -2,7 +2,7 @@
 namespace Ryneus
 {
     [System.Serializable]
-    public class StateInfo 
+    public class StateInfo
     {
         public StateData Master => DataSystem.States.Find(a => a.StateType == _stateType);
         private StateType _stateType = 0;

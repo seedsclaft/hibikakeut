@@ -12,7 +12,7 @@ namespace Ryneus
 
     [Serializable]
     public class TroopData
-    {   
+    {
         public int TroopId;
         public List<TroopEnemyData> TroopEnemies;
         public int StageTurn;
@@ -21,7 +21,7 @@ namespace Ryneus
 
     [Serializable]
     public class TroopEnemyData
-    {   
+    {
         public int Id;
         public int TroopId;
         public int EnemyId;

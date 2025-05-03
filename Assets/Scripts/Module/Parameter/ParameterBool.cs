@@ -11,12 +11,12 @@ namespace Ryneus
             _value = value;
         }
 
-        public void SetValue(bool value) 
+        public void SetValue(bool value)
         {
             _value = value;
         }
 
-        public void FlipValue() 
+        public void FlipValue()
         {
             _value = !_value;
         }

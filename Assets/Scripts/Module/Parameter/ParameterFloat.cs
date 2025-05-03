@@ -13,7 +13,7 @@ namespace Ryneus
             _value = value;
         }
 
-        public void SetValue(float value) 
+        public void SetValue(float value)
         {
             _value = value;
         }

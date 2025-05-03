@@ -6,13 +6,13 @@ public class ContentClickListener : MonoBehaviour, IPointerDownHandler, IPointer
     private System.Action _clickAction = null;
     private bool _clicked = false;
     
-    public void OnPointerDown(PointerEventData eventData) 
+    public void OnPointerDown(PointerEventData eventData)
     {
         _clicked = true;
         _clickAction?.Invoke();
     }
 
-    public void OnPointerUp(PointerEventData eventData) 
+    public void OnPointerUp(PointerEventData eventData)
     {
         _clicked = false;
     }
