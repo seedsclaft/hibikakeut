@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ryneus
 {
-    public class BaseListComponent : ListItem ,IListViewItem 
+    public class BaseListComponent : ListItem, IListViewItem
     {
         [SerializeField] private bool useBattlerInfoComponent = false;
         [SerializeField] private BattlerInfoComponent battlerInfoComponent;

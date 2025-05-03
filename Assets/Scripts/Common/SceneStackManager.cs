@@ -26,7 +26,7 @@ namespace Ryneus
                 _sceneInfo.Add(sceneInfo);
             }
         }
-        
+
         private List<PopupInfo> _popupInfo = new();
         public PopupInfo LastPopupInfo => _popupInfo.Count > 0 ? _popupInfo[_popupInfo.Count-1] : null;
         public object LastTemplate => _popupInfo.Count > 0 ? _popupInfo[_popupInfo.Count-1].template : null;

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Ryneus
 {
     [Serializable]
-    public class SkillInfo 
+    public class SkillInfo
     {
         public SkillData Master => DataSystem.FindSkill(Id.Value);
         public ParameterInt Id = new();

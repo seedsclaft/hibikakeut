@@ -13,7 +13,7 @@ namespace Ryneus
         private float _height = -1;
         private string _textureName = null;
 
-        private void Update() 
+        private void Update()
         {
             if (autoResize)
             {
@@ -21,7 +21,7 @@ namespace Ryneus
             }
         }
 
-        public void UpdateEnemy() 
+        public void UpdateEnemy()
         {
             if (enemySprite != null && enemySprite.mainTexture != null && _textureName != enemySprite.mainTexture.name)
             {

@@ -6,9 +6,7 @@ namespace Ryneus
 {
     [Serializable]
     public class ListData
-    {    
-        private int _index;
-        public int Index => _index;
+    {
         private object _data;
         public object Data => _data;
         private bool _enable = true;
@@ -24,23 +22,20 @@ namespace Ryneus
             _selected = selected;
         }
 
-        public ListData(object data,int index = 0,bool enable = true)
+        public ListData(object data,bool enable = true)
         {
             _data = data;
-            _index = index;
             _enable = enable;
         }
 
         public static List<ListData> MakeListData<T>(List<T> dataList)
         {
             var list = new List<ListData>();
-            var idx = 0;
             foreach (var data in dataList)
             {
-                var listData = new ListData(data,idx);
+                var listData = new ListData(data);
                 listData.SetEnable(true);
                 list.Add(listData);
-                idx++;
             }
             return list;
         }
@@ -56,7 +51,7 @@ namespace Ryneus
             var idx = 0;
             foreach (var data in dataList)
             {
-                var listData = new ListData(data,idx);
+                var listData = new ListData(data);
                 listData.SetEnable(enable(data));
                 listData.SetSelected(selectIndex == idx);
                 list.Add(listData);
@@ -64,14 +59,14 @@ namespace Ryneus
             }
             return list;
         }
-        
+
         public static List<ListData> MakeListData<T>(List<T> dataList,List<int> selectIndex)
         {
             var list = new List<ListData>();
             var idx = 0;
             foreach (var data in dataList)
             {
-                var listData = new ListData(data,idx);
+                var listData = new ListData(data);
                 listData.SetEnable(true);
                 if (selectIndex.Contains(idx))
                 {
@@ -91,17 +86,15 @@ namespace Ryneus
         public static List<ListData> MakeListData<T>(List<T> dataList,List<T> selected)
         {
             var list = new List<ListData>();
-            var idx = 0;
             foreach (var data in dataList)
             {
-                var listData = new ListData(data,idx);
+                var listData = new ListData(data);
                 listData.SetEnable(true);
                 if (selected.Contains(data))
                 {
                     listData.SetSelected(true);
                 }
                 list.Add(listData);
-                idx++;
             }
             return list;
         }
@@ -109,16 +102,14 @@ namespace Ryneus
         public static List<ListData> MakeListData<T>(List<T> dataList,Func<T,bool> enable,Func<T,bool> select)
         {
             var list = new List<ListData>();
-            var idx = 0;
             if (enable != null)
             {
                 foreach (var data in dataList)
                 {
-                    var listData = new ListData(data,idx);
+                    var listData = new ListData(data);
                     listData.SetEnable(enable(data));
                     listData.SetSelected(select(data));
                     list.Add(listData);
-                    idx++;
                 }
             }
             return list;
@@ -127,13 +118,11 @@ namespace Ryneus
         public static List<ListData> MakeListData<T>(List<T> dataList,bool isEnable = true)
         {
             var list = new List<ListData>();
-            var idx = 0;
             foreach (var data in dataList)
             {
-                var listData = new ListData(data,idx);
+                var listData = new ListData(data);
                 listData.SetEnable(isEnable);
                 list.Add(listData);
-                idx++;
             }
             return list;
         }
@@ -141,19 +130,17 @@ namespace Ryneus
         public static List<ListData> MakeListData<T>(List<T> dataList,Func<T,bool> enable = null)
         {
             var list = new List<ListData>();
-            var idx = 0;
             if (enable != null)
             {
                 foreach (var data in dataList)
                 {
-                    var listData = new ListData(data,idx);
+                    var listData = new ListData(data);
                     listData.SetEnable(enable(data));
                     list.Add(listData);
-                    idx++;
                 }
             }
             return list;
-        }        
+        }
         
         public static List<ListData> MakeListData<T>(List<T> dataList,Func<T,bool> enable,int selectIndex = -1)
         {

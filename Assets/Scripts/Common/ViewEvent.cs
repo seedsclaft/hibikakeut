@@ -47,11 +47,6 @@ namespace Ryneus
         Confirm,
     }
 
-    public interface IClickHandlerEvent
-    {
-        void ClickHandler();
-    }
-
     public interface IListViewItem
     {
         void UpdateViewItem();

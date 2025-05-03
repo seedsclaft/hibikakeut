@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ryneus
 {
-    public class TacticsResultInfo 
+    public class TacticsResultInfo
     {
     }
 }

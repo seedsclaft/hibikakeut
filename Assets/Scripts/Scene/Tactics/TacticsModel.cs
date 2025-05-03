@@ -66,35 +66,7 @@ namespace Ryneus
 
         public ListData ChangeEnableCommandData(int index,bool enable)
         {
-            return new ListData(DataSystem.TacticsCommand[index],index,enable);
-        }
-
-        public List<ListData> StageResultInfos(SymbolResultInfo symbolResultInfo)
-        {
-            /*
-            var selectRecords = PartyInfo.SymbolRecordList.FindAll(a => a.IsSameStageSeek(symbolResultInfo.StageId,symbolResultInfo.Seek,symbolResultInfo.WorldType));
-            selectRecords.Sort((a,b) => a.SeekIndex > b.SeekIndex ? 1 : -1);
-            Func<SymbolResultInfo,bool> enable = (a) => 
-            {
-                var enable = false;
-                if (a.StageId == CurrentStage.Id && a.Seek <= CurrentStage.Seek)
-                {
-                    enable = true;
-                }
-                if (a.StageId < CurrentStage.Id)
-                {
-                    enable = true;
-                }
-                return a.Seek == CurrentStage.Seek || enable;
-            };
-            var seekIndex = 0;
-            if (CurrentSelectRecord() != null)
-            {
-                seekIndex = CurrentSelectRecord().SeekIndex;
-            }
-            return MakeListData(selectRecords,enable,seekIndex);
-            */
-            return null;
+            return new ListData(DataSystem.TacticsCommand[index],enable);
         }
 
         public void SetStageSeekIndex(int seekIndex)

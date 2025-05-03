@@ -7,7 +7,7 @@ using TMPro;
 namespace Ryneus
 {
     abstract public class ListItem : MonoBehaviour
-    {    
+    {
         public Button clickButton;
         private int _index = -1;
         public int Index => _index;
@@ -31,8 +31,8 @@ namespace Ryneus
 
         [SerializeField] private Color selectColor;
         [SerializeField] private Color unSelectColor;
-        [SerializeField] private List<TextMeshProUGUI> textUguiList = new ();
-        [SerializeField] private List<Image> imageUguiList = new ();
+        [SerializeField] private List<TextMeshProUGUI> textUguiList = new();
+        [SerializeField] private List<Image> imageUguiList = new();
         
         private bool _addListenHandler = false;
         public void SetAddListenHandler(bool add)
@@ -50,7 +50,7 @@ namespace Ryneus
             {
                 cursorRectAnimation.SelectAnimation();
             }
-        } 
+        }
 
         public T ListItemData<T>()
         {

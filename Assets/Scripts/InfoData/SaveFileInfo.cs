@@ -1,9 +1,8 @@
 using System;
-using UnityEngine;
 
 namespace Ryneus
 {
-	[Serializable]
+    [Serializable]
     public class SaveFileInfo
     {
         public int SaveNo = 0;

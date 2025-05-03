@@ -25,19 +25,17 @@ namespace Ryneus
         private int _listMoveInputFrame = 4;
         private int _listMoveGamePadFrame = 9;
         private int _inputBusyFrame = 0;
-
-        //[SerializeField] private bool isScrollList = true; // 表示数が初期プレハブ数より多くなるか
-        [SerializeField] private bool reverse = false; 
-        [SerializeField] private bool warpMode = true; 
+        [SerializeField] private bool reverse = false;
+        [SerializeField] private bool warpMode = true;
         [SerializeField] private GameObject itemPrefab = null;
 
-        private ScrollRect _scrollRect = null; 
+        private ScrollRect _scrollRect = null;
         public ScrollRect ScrollRect => _scrollRect;
         private bool _horizontal => _scrollRect.horizontal;
-        private List<GameObject> _itemPrefabList = new ();
+        private List<GameObject> _itemPrefabList = new();
         public List<GameObject> ItemPrefabList => _itemPrefabList;
         private GameObject _prefabPool = null;
-        private List<ListData> _listDates = new ();
+        private List<ListData> _listDates = new();
         public List<ListData> ListDates => _listDates;
         public int DataCount => _listDates.Count;
         private Vector2 _itemSize;
@@ -134,7 +132,7 @@ namespace Ryneus
             if (startIndex < 0 || _lastStartIndexX == startIndex) 
             {
                 return false;
-            }    
+            }
             return true;
         }
 
@@ -145,7 +143,7 @@ namespace Ryneus
 
         public void CreateList()
         {
-            if (_itemPrefabList.Count > 0) 
+            if (_itemPrefabList.Count > 0)
             {
                 var listCount = ListItemCount();
                 if (_itemPrefabList.Count < listCount)
@@ -194,7 +192,7 @@ namespace Ryneus
         private void CreateListItemPrefab()
         {
             var listCount = ListItemCount();
-            CreateListPrefab(listCount+_gridColumnCount);
+            CreateListPrefab(listCount + _gridColumnCount);
         }
 
         private void CreateListPrefab(int createCount)
@@ -394,7 +392,7 @@ namespace Ryneus
             var listMargin = ListMargin(horizontal);
             var itemSize = horizontal ? _itemSize.x : _itemSize.y;
             var rectSize = horizontal ? GetScrolledWidth() : Math.Max(0,GetScrolledHeight());
-            var index = (int)Math.Floor( (rectSize - itemSpace - listMargin + 4) / (itemSize + itemSpace) );
+            var index = (int)Math.Floor((rectSize - itemSpace - listMargin + 4) / (itemSize + itemSpace));
             return Math.Max(0,index);
         }
 
@@ -965,18 +963,18 @@ namespace Ryneus
             _lastStartIndexX = -1;
         }
 
-        public void Release() 
+        public void Release()
         {
             OnDestroy();
         }
 
         private void OnDestroy() 
         {
-            for (int i = _itemPrefabList.Count-1;0 <= i;i--)
+            for (int i = _itemPrefabList.Count - 1;0 <= i;i--)
             {
                 Destroy(_itemPrefabList[i]);
             }
-            for (int i = _objectList.Count-1;0 <= i;i--)
+            for (int i = _objectList.Count - 1;0 <= i;i--)
             {
                 Destroy(_objectList[i]);
             }

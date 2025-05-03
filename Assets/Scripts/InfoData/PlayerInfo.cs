@@ -30,9 +30,9 @@ namespace Ryneus
         public void GainClearCount()
         {
             //_clearCount++;
-        }        
-        
-        private List<int> _skillIds = new ();
+        }
+
+        private List<int> _skillIds = new();
         public List<int> SkillIds => _skillIds;
         public void AddSkillId(int skillId)
         {
@@ -42,11 +42,11 @@ namespace Ryneus
             }
         }
 
-        private List<int> _readTutorials = new ();
+        private List<int> _readTutorials = new();
         public List<int> ReadTutorials => _readTutorials;
         public void AddReadTutorials(int id) => _readTutorials.Add(id);
 
-        private Dictionary<int,List<KindType>> _enemyWeakPointDict = new ();
+        private Dictionary<int,List<KindType>> _enemyWeakPointDict = new();
         public Dictionary<int,List<KindType>> EnemyWeakPointDict => _enemyWeakPointDict;
         public void AddEnemyWeakPointDict(int enemyId,KindType kindType)
         {
@@ -60,7 +60,7 @@ namespace Ryneus
             }
             _enemyWeakPointDict[enemyId].Add(kindType);
         }
-        
+
         public bool CheckEnemyWeakPointDict(int enemyId,KindType kindType)
         {
             if (_enemyWeakPointDict.ContainsKey(enemyId))

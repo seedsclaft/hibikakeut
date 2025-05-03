@@ -5,7 +5,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class OnOffButton : ListItem ,IListViewItem 
+    public class OnOffButton : ListItem, IListViewItem
     {
         [SerializeField] private TextMeshProUGUI commandName;
         private System.Action _handler = null;
@@ -23,11 +23,11 @@ namespace Ryneus
             }
             _exitHandler = exitHandler;
             SetSelectHandler(
-                (a) => 
+                (a) =>
                 {
                     SetActiveCursor(true);
                 },
-                () => 
+                () =>
                 {
                     SetActiveCursor(false);
                     _exitHandler?.Invoke();
@@ -35,7 +35,7 @@ namespace Ryneus
             );
             if (_handler == null && handler != null)
             {
-                clickButton.onClick.AddListener(() => 
+                clickButton.onClick.AddListener(() =>
                 {
                     handler();
                 });

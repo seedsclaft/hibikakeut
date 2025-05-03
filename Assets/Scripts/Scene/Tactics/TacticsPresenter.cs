@@ -234,8 +234,6 @@ namespace Ryneus
                     CommandCancelHexUnit();
                     break;
                 case CommandType.CallEnemyInfo:
-                    //if (_model.CurrentStageTutorialDates.Count > 0) return;
-                    CommandCallEnemyInfo((SymbolResultInfo)viewEvent.Template);
                     break;
                 case CommandType.CallAddActorInfo:
                     //CommandCallAddActorInfo((SymbolResultInfo)viewEvent.Template,false);
@@ -1002,41 +1000,6 @@ namespace Ryneus
             //_view.SetAlcanaInfo(_model.AlcanaSkillInfos());
             //_view.SetTacticsCharaLayer(_model.StageMembers());
             _view.CommandRefresh();
-        }
-
-        private void CommandCallEnemyInfo(SymbolResultInfo symbolResultInfo)
-        {
-            /*
-            switch (symbolResultInfo.SymbolType)
-            {
-                case SymbolType.Battle:
-                case SymbolType.Boss:
-                    var enemyInfos = symbolResultInfo.SymbolInfo.BattlerInfos();
-                    _busy = true;
-                    CommandEnemyInfo(enemyInfos,false,() => 
-                    {
-                        _busy = false;
-                        _view.CommandRefresh();
-                    });
-                    break;
-                case SymbolType.Alcana:
-                    CallPopupSkillDetail(DataSystem.GetText(19200),_model.BasicSkillGetItemInfos(symbolResultInfo.SymbolInfo.GetItemInfos));
-                    break;
-                case SymbolType.Actor:
-                    CommandStatusInfo(_model.AddActorInfos(symbolResultInfo.SymbolInfo.GetItemInfos[0].Param1),false,true,false,false,-1,() => 
-                    {
-                        _view.CommandRefresh();
-                    });
-                    break;
-                case SymbolType.SelectActor:
-                    CommandCallAddActorInfo(symbolResultInfo,false);
-                    break;
-                case SymbolType.Shop:
-                    CallPopupSkillDetail(DataSystem.GetText(19240),_model.BasicSkillGetItemInfos(symbolResultInfo.SymbolInfo.GetItemInfos));
-                    break;
-            }
-            */
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 
         private void CommandCallAddActorInfo(bool freeSelect,bool addCommand)

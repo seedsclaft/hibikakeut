@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 namespace Ryneus
 {
-    public class BaseList : ListWindow , IInputHandlerEvent
+    public class BaseList : ListWindow, IInputHandlerEvent
     {
         [SerializeField] private bool beforeSelect = true;
         private bool _isInit = false;
@@ -57,13 +57,13 @@ namespace Ryneus
             UpdateObjectList();
 
             var selectIndex = -1;
-            if (resetScrollRect == false)
+            if (!resetScrollRect)
             {
                 selectIndex = Index;
             } else
             {
                 selectIndex = listData.FindIndex(a => a.Selected);
-                if (selectIndex == -1 && unselect == false)
+                if (selectIndex == -1 && !unselect)
                 {
                     selectIndex = 0;
                 }

@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Numerics;
 
 namespace Ryneus
 {
-    public class InputSystemModel 
+    public class InputSystemModel
     {
-        private List<IInputHandlerEvent> _inputHandler = new ();
+        private List<IInputHandlerEvent> _inputHandler = new();
         private int _inputBusyFrame = 0;
         private List<InputKeyType> _lastInputKeys = new();
         private int _pressedFrame = 0;
@@ -53,7 +51,11 @@ namespace Ryneus
 
         public void CallMouseMove(UnityEngine.Vector3 position)
         {
-            if (_busy) return;
+            if (_busy)
+            {
+                return;
+            }
+
             foreach (var handler in _inputHandler)
             {
                 handler?.MouseMoveHandler(position);
@@ -62,7 +64,11 @@ namespace Ryneus
 
         public void CallMouseWheel(UnityEngine.Vector2 position)
         {
-            if (_busy) return;
+            if (_busy)
+            {
+                return;
+            }
+
             foreach (var handler in _inputHandler)
             {
                 handler?.MouseWheelHandler(position);
