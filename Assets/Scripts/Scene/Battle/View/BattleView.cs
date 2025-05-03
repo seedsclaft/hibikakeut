@@ -96,12 +96,11 @@ namespace Ryneus
         private void InitializeActorList()
         {
             battleActorList.Initialize();
-            //battleActorList.SetInputHandler(InputKeyType.Decide,() => CallOnSelectActor());
-            //battleActorList.SetInputHandler(InputKeyType.Cancel,OnCancelEnemy);
+            battleActorList.SetInputHandler(InputKeyType.Decide,() => OnDecideActor());
+            battleActorList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.OnCancelActor));
             //battleActorList.SetInputHandler(InputKeyType.Cancel,() => OnClickBack());
             //battleActorList.SetInputHandler(InputKeyType.SideLeft1,() => OnClickSelectEnemy());
             //battleActorList.SetSelectedHandler(() => CallSelectActorList());
-            //SetInputHandler(battleActorList.gameObject);
             AddViewActives(battleActorList);
         }
 
@@ -118,10 +117,13 @@ namespace Ryneus
         private void InitializeEnemyLayer()
         {
             battleEnemyLayer.Initialize();
-            //battleEnemyLayer.SetInputHandler(InputKeyType.Decide,OnSelectEnemy);
-            //battleEnemyLayer.SetInputHandler(InputKeyType.Cancel,OnCancelEnemy);
+            battleEnemyLayer.SetInputHandler(InputKeyType.Up,() => OnSelectTarget(InputKeyType.Up));
+            battleEnemyLayer.SetInputHandler(InputKeyType.Down,() => OnSelectTarget(InputKeyType.Down));
+            battleEnemyLayer.SetInputHandler(InputKeyType.Right,() => OnSelectTarget(InputKeyType.Right));
+            battleEnemyLayer.SetInputHandler(InputKeyType.Left,() => OnSelectTarget(InputKeyType.Left));
+            battleEnemyLayer.SetInputHandler(InputKeyType.Decide,OnDecideEnemy);
+            battleEnemyLayer.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.OnCancelEnemy));
             //battleEnemyLayer.SetSelectedHandler(TargetSelectCursor);
-            //SetInputHandler(battleEnemyLayer.gameObject);
             AddViewActives(battleEnemyLayer);
         }
 
@@ -139,15 +141,31 @@ namespace Ryneus
 
         public void UpdateSelectCursor(List<int> targetIndexes)
         {
-            battleActorList.UpdateSelectIndexList(targetIndexes);
-            battleEnemyLayer.UpdateSelectIndexList(targetIndexes);
+            //battleActorList.UpdateSelectIndexList(targetIndexes);
+            //battleEnemyLayer.UpdateSelectIndexList(targetIndexes);
+        }
+
+        public void SelectActorList(int selectIndex)
+        {
+            magicList.gameObject.SetActive(false);
+            battleThumb.HideThumb();
+            SetActivate(battleActorList);
+            battleActorList.UpdateSelectIndex(selectIndex);
+        }
+
+        public void SelectEnemyList(int selectIndex)
+        {
+            magicList.gameObject.SetActive(false);
+            battleThumb.HideThumb();
+            SetActivate(battleEnemyLayer);
+            battleEnemyLayer.UpdateSelectIndex(selectIndex);
         }
 
         public void SetGridMembers(List<BattlerInfo> battlerInfos)
         {
             battleGridLayer.SetGridMembers(battlerInfos);
         }
-        
+
         public void UpdateGridLayer()
         {
             battleGridLayer.UpdatePosition();
@@ -157,11 +175,10 @@ namespace Ryneus
         {
             magicList.Initialize();
             magicList.SetInputHandler(InputKeyType.Decide,OnDecideSkill);
-            magicList.SetInputHandler(InputKeyType.Right,() => OnSelectTarget(InputKeyType.Right));
-            magicList.SetInputHandler(InputKeyType.Left,() => OnSelectTarget(InputKeyType.Left));
+            //magicList.SetInputHandler(InputKeyType.Right,() => OnSelectTarget(InputKeyType.Right));
+            //magicList.SetInputHandler(InputKeyType.Left,() => OnSelectTarget(InputKeyType.Left));
             magicList.gameObject.SetActive(false);
             magicList.SetSelectedHandler(OnSelectMagic);
-            SetInputHandler(magicList.gameObject);
             AddViewActives(magicList);
         }
 
@@ -188,9 +205,28 @@ namespace Ryneus
             CallViewEvent(CommandType.OnSelectTarget,inputKeyType);
         }
 
+        private void OnDecideEnemy()
+        {
+            var listData = battleEnemyLayer.ListItemData<BattlerInfo>();
+            if (listData != null)
+            {
+                CallViewEvent(CommandType.OnDecideEnemy,listData);
+            }
+        }
+
+        private void OnDecideActor()
+        {
+            var listData = battleActorList.ListItemData<BattlerInfo>();
+            if (listData != null)
+            {
+                CallViewEvent(CommandType.OnDecideActor,listData);
+            }
+        }
+
         public void EndActionSelect()
         {
             SetActivate(null);
+            battleThumb.HideThumb();
             magicList.gameObject.SetActive(false);
             battleEnemyLayer.ClearSelect();
             battleActorList.ClearSelect();
@@ -232,7 +268,7 @@ namespace Ryneus
             battleAutoButton.Cursor.SetActive(isAuto);
             */
         }
-        
+
         public void SetBattleAutoButton(bool isActive)
         {
             //battleAutoButton.gameObject.SetActive(isActive);

@@ -94,7 +94,6 @@ namespace Ryneus
             {
                 _model.SetTargetBattler(_model.GetBattlerInfo(targetIndexes[0]));
             }
-            //_view.UpdateSelectCursor(targetIndexes);
             var selectTargetIndexes = _model.MakeAutoSelectIndex(_model.SelectActionInfo,_model.TargetBattler.Index.Value);
             _view.UpdateSelectCursor(selectTargetIndexes);
         }
@@ -104,42 +103,81 @@ namespace Ryneus
         /// </summary>
         /// <param name="inputKeyType"></param>
         private void CommandOnSelectTarget(InputKeyType inputKeyType)
-        {           
+        {
             var candidateTargetIndexes = _model.SelectActionInfo.CandidateTargetIndexList;
             if (candidateTargetIndexes.Count <= 1)
             {
+                SelectSkillSelectTarget();
                 return;
             }
             var findIndex = candidateTargetIndexes.FindIndex(a => a == _model.TargetBattler.Index.Value);
             if (findIndex == -1)
             {
+                SelectSkillSelectTarget();
                 return;
             }
             if (inputKeyType == InputKeyType.Right)
             {
                 var nextIndex = candidateTargetIndexes.Count > (findIndex+1) ? (findIndex+1) : 0;
                 _model.SetTargetBattler(_model.GetBattlerInfo(candidateTargetIndexes[nextIndex]));
-                
             } else
             if (inputKeyType == InputKeyType.Left)
             {
                 var nextIndex = (findIndex-1) < 0 ? candidateTargetIndexes.Count : findIndex-1;
                 _model.SetTargetBattler(_model.GetBattlerInfo(candidateTargetIndexes[nextIndex]));
+            } else
+            if (inputKeyType == InputKeyType.Up)
+            {
+                var nextIndex = candidateTargetIndexes.FindIndex(a => a == findIndex+3) > -1 ? findIndex+3 : findIndex;
+                _model.SetTargetBattler(_model.GetBattlerInfo(candidateTargetIndexes[nextIndex]));
+            } else
+            if (inputKeyType == InputKeyType.Down)
+            {
+                var nextIndex = candidateTargetIndexes.FindIndex(a => a == findIndex-3) > -1 ? findIndex-3 : findIndex;
+                _model.SetTargetBattler(_model.GetBattlerInfo(candidateTargetIndexes[nextIndex]));
             }
-            var selectTargetIndexes = _model.MakeAutoSelectIndex(_model.SelectActionInfo,_model.TargetBattler.Index.Value);
-            _view.UpdateSelectCursor(selectTargetIndexes);
+            SelectSkillSelectTarget();
         }
 
         private void CommandDecideSkill()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            SelectSkillSelectTarget();
             // ActionInfoを設定する
-            var actionInfo = _model.SelectActionInfo;
-            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
+            /*
             _model.SetActiveActionInfo(actionInfo);
             MakeResultInfoStartAction(actionInfo,targetIndexes);
 
             _view.EndActionSelect();
+            */
+        }
+
+        private void SelectSkillSelectTarget()
+        {
+            // 対象選択を行う
+            var actionInfo = _model.SelectActionInfo;
+            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
+            if (targetIndexes[0] < 100)
+            {
+                _view.SelectActorList(targetIndexes[0]-1);
+            } else
+            {
+                _view.SelectEnemyList(targetIndexes[0]-101);
+            }
+        }
+
+        private void CommandOnDecideEnemy(BattlerInfo battlerInfo)
+        {
+            // 対象選択として有効か
+            var actionInfo = _model.SelectActionInfo;
+            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
+            if (targetIndexes.FindIndex(a => a == battlerInfo.Index.Value) > -1)
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                _model.SetActiveActionInfo(actionInfo);
+                MakeResultInfoStartAction(actionInfo,targetIndexes);
+                _view.EndActionSelect();
+            }
         }
 
         /// <summary>
@@ -150,21 +188,34 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             _view.EndActionSelect();
             _model.SetSelectActionInfo(null);
+            _view.SelectedCharacter(_model.CurrentActionBattler);
             ShowMagicList(_model.CurrentBattler,false);
         }
 
-        /// <summary>
-        /// 対象に選択カーソルを表示する
-        /// </summary>
-        /// <param name="battlerInfo"></param>
-        private void CommandTargetSelectCursor(BattlerInfo battlerInfo)
+        private void CommandOnDecideActor(BattlerInfo battlerInfo)
         {
-            // battlerInfoを選択した時の範囲対象を表示
-            if (battlerInfo != null)
+            // 対象選択として有効か
+            var actionInfo = _model.SelectActionInfo;
+            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
+            if (targetIndexes.FindIndex(a => a == battlerInfo.Index.Value) > -1)
             {
-                var targetIndexes = _model.MakeAutoSelectIndex(_model.SelectActionInfo,battlerInfo.Index.Value);
-                _view.UpdateSelectCursor(targetIndexes);
+                SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                _model.SetActiveActionInfo(actionInfo);
+                MakeResultInfoStartAction(actionInfo,targetIndexes);
+                _view.EndActionSelect();
             }
+        }
+
+        /// <summary>
+        /// 対象選択をキャンセル
+        /// </summary>
+        private void CommandOnCancelActor()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            _view.EndActionSelect();
+            _model.SetSelectActionInfo(null);
+            _view.SelectedCharacter(_model.CurrentActionBattler);
+            ShowMagicList(_model.CurrentBattler,false);
         }
 
         /// <summary>

@@ -238,6 +238,12 @@ namespace Ryneus
             }
         }
 
+        public void LvupText()
+        {
+            int lvValue = int.Parse(lv.text) + 1;
+            lv?.SetText(lvValue.ToString());
+        }
+
         public void Clear()
         {
             var sprite = ResourceSystem.LoadResource<Sprite>(ResourceSystem.SystemTexturePath + "Dummy");

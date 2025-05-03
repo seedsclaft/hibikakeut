@@ -59,7 +59,6 @@ namespace Ryneus
             equipSkillList.Initialize();
             equipSkillList.SetInputHandler(InputKeyType.Decide,OnSelectEquipSkill);
             equipSkillList.SetInputHandler(InputKeyType.Cancel,OnCancelEquipSkill);
-            SetInputHandler(equipSkillList.gameObject);
             AddViewActives(equipSkillList);
         }
 
@@ -94,7 +93,6 @@ namespace Ryneus
             changeSkillList.SetInputHandler(InputKeyType.Cancel,OnCancelEquipSkill);
             changeSkillList.SetInputHandler(InputKeyType.SideLeft1,() => CallViewEvent(CommandType.LeftActor));
             changeSkillList.SetInputHandler(InputKeyType.SideRight1,() => CallViewEvent(CommandType.RightActor));
-            SetInputHandler(changeSkillList.gameObject);
             AddViewActives(changeSkillList);
         }
 

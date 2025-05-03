@@ -175,28 +175,6 @@ namespace Ryneus
         private void CommandEndAnimation()
         {
             NextSeekResult();
-            /*
-            if (_model.InBattleResult)
-            {
-                if (_model.BattleResultVictory)
-                {
-                    if (_model.LevelUpActorInfos.Count == 0)
-                    {
-                        ShowResultList();
-                    }
-                } else
-                {
-                    ShowResultList();
-                }
-            } else
-            {
-                NextSeekResult();
-            }
-            */
-        }
-
-        private void CommandEndLvUpAnimation()
-        {
         }
 
         private void CommandLvUpNext()
@@ -227,6 +205,12 @@ namespace Ryneus
 
         private void NextSeekResult()
         {
+            if (_model.DisplayExpDict.Count > 0)
+            {
+                _view.StartGetExpAnimation(_model.DisplayExpDict);
+                _model.ClearExpDict();
+                return;
+            }
             // Lvアップ演出スタート
             if (_model.BeforeLevelUpAnimation)
             {

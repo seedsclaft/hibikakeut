@@ -41,7 +41,11 @@ namespace Ryneus
         private int _wait = 0;
         public Action _waitEndEvent = null;
         private List<BaseList> _viewActives = new ();
-        public void AddViewActives(BaseList baseList) => _viewActives.Add(baseList);
+        public void AddViewActives(BaseList baseList)
+        {
+            SetInputHandler(baseList.gameObject);
+            _viewActives.Add(baseList);
+        }
         public void SetActivate(BaseList baseView)
         {
             var find = _viewActives.Find(a => a == baseView);

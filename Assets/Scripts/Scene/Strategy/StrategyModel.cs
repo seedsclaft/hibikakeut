@@ -15,6 +15,8 @@ namespace Ryneus
 
         private List<ActorInfo> _displayActorInfos = new();
         public List<ActorInfo> DisplayActorInfos => _displayActorInfos;
+        private Dictionary<ActorInfo,(float,float)> _displayExpDict = new();
+        public Dictionary<ActorInfo,(float,float)> DisplayExpDict => _displayExpDict;
         private List<HexUnitInfo> _lostUnitInfos = new();
 
         public StrategyModel()
@@ -113,7 +115,7 @@ namespace Ryneus
             var getItemInfos = _sceneParam.GetItemInfos;
 
             var lvUpList = new List<ActorInfo>();
-            // Expを付与する,結果非表示
+            // Expを付与する
             var expGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Exp);
             foreach (var expGetItemInfo in expGetItemInfos)
             {
@@ -123,7 +125,10 @@ namespace Ryneus
                 {
                     var beforeLv = target.Level;
                     var from = target.Evaluate();
+                    var beforeRate = (target.Exp.Value % 100) * 0.01f;
                     target.Exp.GainValue(expGetItemInfo.Param2);
+                    var afterRate = (target.Exp.Value % 100) * 0.01f;
+                    _displayExpDict[target] = (beforeRate,afterRate);
                     if (beforeLv != target.Level)
                     {
                         // 新規魔法取得があるか
@@ -142,6 +147,7 @@ namespace Ryneus
                         }
                         lvUpList.Add(target);
                     }
+                    target.Exp.GainValue(expGetItemInfo.Param2 * -1);
                 }
             }
 
@@ -255,6 +261,24 @@ namespace Ryneus
         {
             _levelUpActorInfos.RemoveAt(0);
             _learnSkillInfo.RemoveAt(0);
+        }
+
+        public void ClearExpDict()
+        {
+            var getItemInfos = _sceneParam.GetItemInfos;
+
+            // Expを付与する
+            var expGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Exp);
+            foreach (var expGetItemInfo in expGetItemInfos)
+            {
+                expGetItemInfo.SetGetFlag(true);
+                var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == expGetItemInfo.Param1);
+                if (target != null)
+                {
+                    target.Exp.GainValue(expGetItemInfo.Param2);
+                }
+            }
+            _displayExpDict.Clear();
         }
 
         public string BattleResultTurn()

@@ -25,7 +25,6 @@ namespace Ryneus
             fileList.Initialize();
             fileList.SetInputHandler(InputKeyType.Cancel,() => BackEvent?.Invoke());
             fileList.SetInputHandler(InputKeyType.Decide,CallFileData);
-            SetInputHandler(fileList.gameObject);
             AddViewActives(fileList);
         }
 

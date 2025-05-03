@@ -221,6 +221,18 @@ namespace Ryneus
                 case CommandType.OnSelectTarget:
                     CommandOnSelectTarget((InputKeyType)viewEvent.Template);
                     break;
+                case CommandType.OnDecideEnemy:
+                    CommandOnDecideEnemy((BattlerInfo)viewEvent.Template);
+                    break;
+                case CommandType.OnCancelEnemy:
+                    CommandOnCancelEnemy();
+                    break;
+                case CommandType.OnDecideActor:
+                    CommandOnDecideActor((BattlerInfo)viewEvent.Template);
+                    break;
+                case CommandType.OnCancelActor:
+                    CommandOnCancelActor();
+                    break;
                 case CommandType.AttributeType:
                     //RefreshSkillInfos();
                     break;

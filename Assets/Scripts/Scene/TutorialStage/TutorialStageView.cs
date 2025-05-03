@@ -25,7 +25,6 @@ namespace Ryneus
             stageList.Initialize();
             stageList.SetInputHandler(InputKeyType.Cancel,() => BackEvent?.Invoke());
             stageList.SetInputHandler(InputKeyType.Decide,CallStageData);
-            SetInputHandler(stageList.gameObject);
             AddViewActives(stageList);
         }
 

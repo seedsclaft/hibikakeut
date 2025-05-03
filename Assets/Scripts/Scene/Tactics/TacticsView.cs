@@ -71,7 +71,6 @@ namespace Ryneus
             tacticsCommandList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.CancellTacticsCommand));
             //tacticsCommandList.SetInputHandler(InputKeyType.Option1,() => CallStatus());
             tacticsCommandList.SetSelectedHandler(() => UpdateHelpWindow());
-            SetInputHandler(tacticsCommandList.gameObject);
             AddViewActives(tacticsCommandList);
         }
 
@@ -160,7 +159,6 @@ namespace Ryneus
                 }
                 CallViewEvent(CommandType.SelectHexMap,SelectHexField);
             });
-            SetInputHandler(hexTiles.gameObject);
             AddViewActives(hexTiles);
         }
 
@@ -310,7 +308,6 @@ namespace Ryneus
             battleMemberSelectList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.DecideBattleMemberSelect,battleMemberSelectList.ListItemData<BattleSceneInfo>()));
             battleMemberSelectList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.CancelBattleMemberSelect));
             battleMemberSelectList.SetSelectedHandler(() => UpdateHelpWindow());
-            SetInputHandler(battleMemberSelectList.gameObject);
             AddViewActives(battleMemberSelectList);
             battleMemberSelectList.gameObject.SetActive(false);
         }

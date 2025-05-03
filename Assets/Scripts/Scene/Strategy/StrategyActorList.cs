@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 
 namespace Ryneus
 {
     public class StrategyActorList : BaseList
     {
-        public void StartResultAnimation(int actorCount,List<bool> isBonusList,System.Action callEvent)
+        public void StartResultAnimation(int actorCount,List<bool> isBonusList,Action callEvent)
         {
             for (int i = 0; i < ItemPrefabList.Count;i++)
             {
@@ -16,6 +17,22 @@ namespace Ryneus
                     StrategyActor.gameObject.SetActive(true);
                     StrategyActor.StartResultAnimation(i,isBonus);
                     if (i == actorCount-1)
+                    {
+                        StrategyActor.SetEndCallEvent(callEvent);
+                    }
+                }
+            }
+        }
+
+        public void StartGetExpAnimation(Dictionary<ActorInfo,(float,float)> ecpDict,Action callEvent)
+        {
+            for (int i = 0; i < ItemPrefabList.Count;i++)
+            {
+                if (i < ecpDict.Count)
+                {
+                    var StrategyActor = ItemPrefabList[i].GetComponent<StrategyActor>();
+                    StrategyActor.StartGetExpAnimation(ecpDict[(ActorInfo)ListDates[i].Data].Item1,ecpDict[(ActorInfo)ListDates[i].Data].Item2);
+                    if (i == ecpDict.Count-1)
                     {
                         StrategyActor.SetEndCallEvent(callEvent);
                     }

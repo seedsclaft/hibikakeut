@@ -4,13 +4,14 @@ using DG.Tweening;
 
 namespace Ryneus
 {
-    public class StrategyActor : ListItem,IListViewItem
+    public class StrategyActor : ListItem, IListViewItem
     {
         [SerializeField] private GameObject innerObj;
         [SerializeField] private ActorInfoComponent component;
         [SerializeField] private _2dxFX_Shiny_Reflect shinyReflect;
         [SerializeField] private Image bonusImage;
         [SerializeField] private Image shinyClip;
+        [SerializeField] private StatusGaugeAnimation statusGaugeAnimation;
 
         private System.Action _callEvent = null;
 
@@ -61,6 +62,23 @@ namespace Ryneus
                         shinyReflect.enabled = true;
                     });
                 });
+        }
+
+        public void StartGetExpAnimation(float fromRate,float afterRate)
+        {
+            statusGaugeAnimation.UpdateGauge(fromRate);
+            statusGaugeAnimation.SetGaugeAnimation(fromRate);
+            if (fromRate >= afterRate)
+            {
+                // Lvアップ
+                statusGaugeAnimation.UpdateLevelUpGaugeAnimation(afterRate,() => 
+                {
+                    component.LvupText();
+                },_callEvent);
+            } else
+            {
+                statusGaugeAnimation.UpdateExpGaugeAnimation(afterRate,_callEvent);
+            }
         }
 
         public void SetShinyReflect(bool isEnable)

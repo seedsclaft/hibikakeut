@@ -37,7 +37,6 @@ namespace Ryneus
             });
             optionCategoryList.SetInputHandler(InputKeyType.Decide,() => CallDecideCategory());
             optionCategoryList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
-            SetInputHandler(optionCategoryList.gameObject);
             AddViewActives(optionCategoryList);
         }
 
@@ -54,7 +53,6 @@ namespace Ryneus
             optionList.SetInputHandler(InputKeyType.Option1,() => CallChangeOptionValue(InputKeyType.Option1));
             optionList.SetInputHandler(InputKeyType.Decide,() => OnClickOptionList());
             optionList.SetInputHandler(InputKeyType.Cancel,() => CallCancelOptionList());
-            SetInputHandler(optionList.gameObject);
             AddViewActives(optionList);
         }
 

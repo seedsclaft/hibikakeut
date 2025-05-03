@@ -120,7 +120,7 @@ namespace Ryneus
             _troop.SetBattlers(_battlers.FindAll(a => !a.IsActor));
             //_saveBattleInfo.SetParty(_party.CopyData());
             //_saveBattleInfo.SetTroop(_troop.CopyData());
-            MaxTurnCount.SetValue(FieldBattlerInfos().Count * 4);
+            MaxTurnCount.SetValue(FieldBattlerInfos().Count * 3);
         }
 
         public List<BattlerInfo> FieldBattlerInfos()
@@ -2413,7 +2413,7 @@ namespace Ryneus
 
         public bool CheckTurnOver()
         {
-            bool turnOver = _turnCount >= MaxTurnCount.Value;
+            bool turnOver = _turnCount > MaxTurnCount.Value;
             return turnOver;
         }
 
@@ -2495,11 +2495,19 @@ namespace Ryneus
                         // 誰に対して
                         Param1 = actorInfo.ActorInfo.ActorId.Value,
                         // いくつ
-                        Param2 = exp + (actorInfo.Level.Value - enemyInfo.Level.Value) * 3
+                        Param2 = exp + (enemyInfo.Level.Value - actorInfo.Level.Value) * 3
                     };
                     if (_battleRecords[actorInfo.Index.Value].MaxDamage > 0 || _battleRecords[actorInfo.Index.Value].HealValue > 0)
                     {
                         expData.Param2 += (31 - (actorInfo.Level.Value - enemyInfo.Level.Value)) / 3;
+                    }
+                    if (expData.Param2 <= 0)
+                    {
+                        expData.Param2 = 1;
+                    }
+                    if (expData.Param2 > 100)
+                    {
+                        expData.Param2 = 100;
                     }
                     var expItem = new GetItemInfo(expData);
                     list.Add(expItem);

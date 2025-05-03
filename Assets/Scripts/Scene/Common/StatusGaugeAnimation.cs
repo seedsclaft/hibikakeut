@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 namespace Ryneus
 {
@@ -13,9 +14,8 @@ namespace Ryneus
         [SerializeField] private Image gaugeAnimation;
         [SerializeField] private int fillWidth = 100;
         [SerializeField] private int fillMargin = 2;
-
-        private float _waitDuration = 0.8f;
-        private float _delayDuration = 0.25f;
+        [SerializeField] private float waitDuration = 0.8f;
+        [SerializeField] private float delayDuration = 0.25f;
 
         private Sequence _animation = null;
 
@@ -43,19 +43,67 @@ namespace Ryneus
             }
         }
 
-        public void UpdateGaugeAnimation(float gaugeAmount)
+        public void UpdateGaugeAnimation(float gaugeAmount,Action endEvent = null)
         {
             if (gaugeAnimation != null)
             {
                 _animation?.Kill(true);
                 var sequence = DOTween.Sequence()
-                    .Append(gaugeAnimation.DOFillAmount(gaugeAmount,_waitDuration)
-                    .SetDelay(_delayDuration)
+                    .Append(gaugeAnimation.DOFillAmount(gaugeAmount,waitDuration)
+                    .SetDelay(delayDuration)
                     .OnComplete(() =>
                         {
                             _animation = null;
                             gaugeAnimation.fillAmount = gauge.fillAmount;
+                            endEvent?.Invoke();
                         })
+                    );
+                _animation = sequence;
+            }
+        }
+
+        public void UpdateExpGaugeAnimation(float gaugeAmount,Action endEvent = null)
+        {
+            if (gaugeAnimation != null)
+            {
+                _animation?.Kill(true);
+                var sequence = DOTween.Sequence()
+                    .Append(gaugeAnimation.DOFillAmount(gaugeAmount,waitDuration)
+                    .SetDelay(delayDuration)
+                    .OnComplete(() =>
+                        {
+                            _animation = null;
+                            gauge.fillAmount = gaugeAnimation.fillAmount;
+                            endEvent?.Invoke();
+                        })
+                    );
+                _animation = sequence;
+            }
+        }
+
+        public void UpdateLevelUpGaugeAnimation(float gaugeAmount,Action statusUpEvent,Action endEvent = null)
+        {
+            if (gaugeAnimation != null)
+            {
+                _animation?.Kill(true);
+                var sequence = DOTween.Sequence()
+                    .Append(gaugeAnimation.DOFillAmount(1,waitDuration/2))
+                    .SetDelay(delayDuration)
+                    .OnComplete(() =>
+                        {
+                            gaugeAnimation.fillAmount = 0;
+                            gauge.fillAmount = 0;
+                            statusUpEvent?.Invoke();
+                            var sequence = DOTween.Sequence()
+                            .Append(gaugeAnimation.DOFillAmount(gaugeAmount,waitDuration/2)
+                            .OnComplete(() =>
+                                {
+                                    _animation = null;
+                                    gauge.fillAmount = gaugeAnimation.fillAmount;
+                                    endEvent?.Invoke();
+                                })
+                            );
+                        }
                     );
                 _animation = sequence;
             }

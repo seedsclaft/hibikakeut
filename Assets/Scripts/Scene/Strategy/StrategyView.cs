@@ -71,7 +71,6 @@ namespace Ryneus
         private void InitializeActorList()
         {
             strategyActorList.Initialize();
-            SetInputHandler(strategyActorList.gameObject);
             AddViewActives(strategyActorList);
             strategyActorList.gameObject.SetActive(false);
         }
@@ -107,7 +106,6 @@ namespace Ryneus
         {
             statusList.Initialize();
             statusList.SetInputHandler(InputKeyType.Decide,CallLvUpNext);
-            SetInputHandler(statusList.gameObject);
             AddViewActives(strategyActorList);
         }
 
@@ -133,7 +131,6 @@ namespace Ryneus
         private void InitializeCommandList()
         {
             commandList.Initialize();
-            SetInputHandler(commandList.gameObject);
             AddViewActives(commandList);
             commandList.SetInputHandler(InputKeyType.Decide,CallResultCommand);
             commandList.gameObject.SetActive(false);
@@ -149,7 +146,6 @@ namespace Ryneus
                     CallViewEvent(CommandType.SelectLearnSkillList,LearnSelectSkillInfo());
                 }
             });
-            SetInputHandler(alcanaSelectList.gameObject);
             AddViewActives(alcanaSelectList);
             alcanaSelectList.Hide();
         }
@@ -168,7 +164,6 @@ namespace Ryneus
         public void InitResultList(List<ListData> confirmCommands)
         {
             strategyResultList.Initialize();
-            SetInputHandler(strategyResultList.gameObject);
             AddViewActives(strategyResultList);
             strategyResultList.gameObject.SetActive(false);
             strategyResultCanvasGroup.alpha = 0;
@@ -242,6 +237,11 @@ namespace Ryneus
         public void EndShinyEffect()
         {
             strategyActorList.SetShinyReflect(false);
+        }
+
+        public void StartGetExpAnimation(Dictionary<ActorInfo,(float,float)> expDict)
+        {
+            strategyActorList.StartGetExpAnimation(expDict,CallEndAnimation);
         }
 
         public void FadeOut()

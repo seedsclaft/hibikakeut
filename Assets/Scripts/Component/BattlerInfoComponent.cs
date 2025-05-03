@@ -27,7 +27,7 @@ namespace Ryneus
 
         private BattlerInfo _battlerInfo = null;
 
-        private List<BattleDamage> _battleDamages = new ();
+        private List<BattleDamage> _battleDamages = new();
         private float _deathAnimation = 0.0f;
         public void UpdateInfo(BattlerInfo battlerInfo)
         {
