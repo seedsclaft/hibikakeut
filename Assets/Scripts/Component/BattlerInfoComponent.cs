@@ -239,7 +239,7 @@ namespace Ryneus
             {
                 delayCount = 0;
             }
-            battleDamage.StartDamage(damageType,value,() => 
+            battleDamage.StartDamage(damageType,value,() =>
             {
                 if (_battleDamages.Contains(battleDamage))
                 {
@@ -335,13 +335,13 @@ namespace Ryneus
             if (deathAnimation != null)
             {
                 deathAnimation.enabled = false;
-                StartAliveAnimation();
+                ResetDeathMaterial();
                 _deathAnimation = 0;
                 canvasGroup.alpha = 1;
             }
         }
 
-        public void StartAliveAnimation()
+        public void ResetDeathMaterial()
         {
             if (_battlerInfo.IsActorView)
             {
@@ -358,7 +358,7 @@ namespace Ryneus
                 }
             }
         }
-        
+
         public void StartAnimation(EffekseerEffectAsset effectAsset,AnimationPosition animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
         {
             if (effectAsset == null)
@@ -463,15 +463,22 @@ namespace Ryneus
             battleStateOverlay?.HideStateOverlay();
         }
 
-        private void Update() 
+        private void Update()
         {
             UpdateDeathAnimation();
         }
-        
+
         private void UpdateDeathAnimation()
         {
-            if (deathAnimation == null) return;
-            if (_deathAnimation <= 0) return;
+            if (deathAnimation == null)
+            {
+                return;
+            }
+
+            if (_deathAnimation <= 0)
+            {
+                return;
+            }
 
             deathAnimation.Destroyed = _deathAnimation;
             if (_deathAnimation >= 1)
@@ -480,8 +487,8 @@ namespace Ryneus
                 canvasGroup.alpha = 0;
                 deathAnimation.enabled = false;
                 deathAnimation.Destroyed = 0;
-            } 
-            else
+                ResetDeathMaterial();
+            } else
             {
                 _deathAnimation += 0.01f;
             }

@@ -149,13 +149,14 @@ namespace Ryneus
             var unit = _unitInfos.Find(a => a.UnitInfo.BattlerInfos.Find(b => b.Index == battlerInfo.Index) != null);
             if (unit != null)
             {
-                foreach (var enemy in unit.UnitInfo.BattlerInfos)
+                foreach (var battler in unit.UnitInfo.BattlerInfos)
                 {
-                    if (enemy.Index.Value == battlerInfo.Index.Value)
+                    if (battler.Index.Value == battlerInfo.Index.Value)
                     {
-                        enemy.SetHp(battlerInfo.Hp.Value);
+                        battler.SetHp(battlerInfo.Hp.Value);
                     }
                 }
+                unit.UpdateBattlerIndexes();
             }
         }
     }

@@ -27,7 +27,10 @@ namespace Ryneus
 
         private void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
-            if (_inputBusyFrame >= 0) return;
+            if (_inputBusyFrame >= 0)
+            {
+                return;
+            }
             foreach (var handler in _inputHandler)
             {
                 //LogOutput.Log(keyType);
@@ -37,7 +40,11 @@ namespace Ryneus
 
         public void CallMouseCancel()
         {
-            if (_busy) return;
+            if (_busy)
+            {
+                return;
+            }
+
             foreach (var handler in _inputHandler)
             {
                 handler?.MouseCancelHandler();

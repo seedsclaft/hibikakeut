@@ -2536,31 +2536,6 @@ namespace Ryneus
             if (TempInfo.InReplay)
             {
                 TempInfo.SetInReplay(false);
-            } else
-            {
-                foreach (var battler in _party.BattlerInfos)
-                {
-                    /*
-                    var actorInfo = _sceneParam.ActorInfos.Find(a => a.ActorId.Value == battler.ActorInfo.ActorId.Value);
-                    actorInfo.ChangeHp(battler.MaxHp);
-                    actorInfo.ChangeMp(battler.MaxMp);
-                    */
-                }
-                foreach (var battlerInfo in _troop.BattlerInfos)
-                {
-                    //battlerInfo.ResetData(battlerInfo.Level.Value);
-                }
-                /*
-                if (CurrentSelectRecord().SaveBattleReplayStage())
-                {
-                    var stageKey = CurrentStageKey();
-                    var userId = CurrentData.PlayerInfo.UserId;
-                    _saveBattleInfo.SetUserName(CurrentData.PlayerInfo.PlayerName);
-                    _saveBattleInfo.SetVersion(GameSystem.Version);
-                    SaveSystem.SaveReplay(stageKey,_saveBattleInfo);
-                    //FirebaseController.UploadReplayFile(stageKey,userId.ToString(),_saveBattleInfo);
-                }
-                */
             }
             SaveSystem.SaveOptionStart(GameSystem.OptionData);
         }

@@ -596,7 +596,7 @@ namespace Ryneus
 
         public void StartAliveAnimation(int targetIndex)
         {
-            _battlerComps[targetIndex].StartAliveAnimation();
+            _battlerComps[targetIndex].ResetDeathMaterial();
         }
 
         public void BattleVictory(int mvpActorId)

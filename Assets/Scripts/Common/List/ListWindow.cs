@@ -718,7 +718,7 @@ namespace Ryneus
             UpdateHelpWindow();
             foreach (var objectList in _objectList)
             {
-                if (objectList == null) 
+                if (objectList == null)
                 {
                     continue;
                 }
@@ -736,7 +736,7 @@ namespace Ryneus
                 }
             }
         }
-        
+
         public void UnselectAll()
         {
             foreach (var objectList in _objectList)
@@ -842,36 +842,47 @@ namespace Ryneus
                 UpdateGridScrollRect(keyTypes);
                 return;
             }
-            var listCount = ListItemCount();
-            var dataCount = _listDates.Count;
-            var _displayDownCount = _index - GetStartIndex(_horizontal);
             var plusKey = GetPlusKey();
             var minusKey = GetMinusKey();
-            if (keyTypes.Contains(plusKey))
+            var selectItem = _objectList[_index];
+            var itemPosition = GetCornerPosition(selectItem,0,false);
+            float verticalCount = GetVerticalCount();
+            var p = _objectList.Count - verticalCount;
+            var verticalNormalizedPosition = -1f;
+            if (!_horizontal)
             {
-                _displayDownCount--;
-                if (_index == 0)
+                if (keyTypes.Contains(plusKey))
                 {
-                    ScrollRect.normalizedPosition = new Vector2(0,1);
+                    if (itemPosition < 0)
+                    {
+                        var c = _index - verticalCount + 1;
+                        var per = 1f - (c / p);
+
+                        verticalNormalizedPosition = Math.Max(per,0);
+                    } else
+                    if (warpMode && _index == 0)
+                    {
+                        verticalNormalizedPosition = 1;
+                    }
                 } else
-                if (_index > (listCount-1) && _displayDownCount >= (listCount-1))
+                if (keyTypes.Contains(minusKey))
                 {
-                    var num = 1.0f / (dataCount - listCount);
-                    ScrollRect.normalizedPosition = new Vector2(0,1.0f - (num * (_index - (listCount-1))));
+                    if (itemPosition > GetViewPortHeight())
+                    {
+                        var c = _index;
+                        var per = 1f - (c / p);
+
+                        verticalNormalizedPosition = Math.Min(1,per);
+                    } else
+                    if (warpMode && _index == (GetGridRowCount() - 1))
+                    {
+                        verticalNormalizedPosition = 0;
+                    }
                 }
-            } else
-            if (keyTypes.Contains(minusKey))
+            }
+            if (verticalNormalizedPosition >= 0)
             {
-                _displayDownCount++;
-                if (_index == (_listDates.Count-1))
-                {
-                    ScrollRect.normalizedPosition = new Vector2(0,0);
-                } else
-                if (_index < (dataCount-listCount) && _displayDownCount < (listCount-1))
-                {
-                    var num = 1.0f / (dataCount - listCount);
-                    ScrollRect.normalizedPosition = new Vector2(0,1.0f - (num * _index));
-                }
+                ScrollRect.verticalNormalizedPosition = verticalNormalizedPosition;
             }
         }
 

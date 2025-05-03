@@ -122,6 +122,26 @@ namespace Ryneus
             }
         }
 
+        /// <summary>
+        /// バトル終了時の隊列データに変更する
+        /// </summary>
+        public void UpdateBattlerIndexes()
+        {
+            if (_unitInfo.BattlerInfos == null)
+            {
+                return;
+            }
+
+            if (_unitInfo.BattlerInfos.Count > 1)
+            {
+                var frontBattler = _unitInfo.BattlerInfos.Find(a => a.LineIndex == LineType.Front);
+                var backBattler = _unitInfo.BattlerInfos.Find(a => a.LineIndex == LineType.Back);
+                _unitInfo.BattlerInfos.Clear();
+                _unitInfo.BattlerInfos.Add(frontBattler);
+                _unitInfo.BattlerInfos.Add(backBattler);
+            }
+        }
+
         public bool IsLostUnit()
         {
             if (!IsBattlerUnit)

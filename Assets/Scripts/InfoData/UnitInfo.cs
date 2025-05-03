@@ -15,7 +15,7 @@ namespace Ryneus
         {
             _battlerInfos = battlerInfos;
         }
-        
+
         public List<BattlerInfo> FrontBattlers()
         {
             // 最前列は
@@ -25,7 +25,7 @@ namespace Ryneus
             }
             return _battlerInfos;
         }
-        
+
         private bool IsFrontAlive()
         {
             // 最前列は

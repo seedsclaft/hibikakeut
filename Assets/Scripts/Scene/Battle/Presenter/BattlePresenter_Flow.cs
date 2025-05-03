@@ -587,7 +587,7 @@ namespace Ryneus
                 _triggerAfterChecked = true;
             }
 
-            // 勝敗判定x
+            // 勝敗判定
             if (IsBattleEnd() && result.Count == 0)
             {
                 BattleEnd();
