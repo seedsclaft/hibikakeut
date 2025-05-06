@@ -79,6 +79,10 @@ namespace Ryneus
                     {
                         continue;
                     }
+                    if (itemIndex >= _itemPrefabList.Count)
+                    {
+                        continue;
+                    }
                     var itemPrefab = _itemPrefabList[itemIndex];
                     var objectIndex = _gridColumnCount * length + (gridIndex - j) * _gridColumnCount + i + startIndex;
                     if (startIndex > i)
@@ -131,6 +135,10 @@ namespace Ryneus
                     {
                         continue;
                     }
+                    if (objectIndex > _objectList.Count-1)
+                    {
+                        continue;
+                    }
                     Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: "+ objectIndex);
                     itemPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
                     var listItem = itemPrefab.GetComponent<ListItem>();
@@ -147,12 +155,17 @@ namespace Ryneus
             _lastStartIndexX = startIndex;
             int gridIndex = GetStartIndex(!_horizontal);
             var verticalCount = GetVerticalCount();
-            var length = GetHorizonalCount();
+            var horizontalCount = GetHorizonalCount();
+            var perIndex = (startIndex - 1) / horizontalCount;
             for (int j = 0;j < lineIndex;j++)
             {
-                for (int i = 0;i < _gridColumnCount;i++)
+                for (int i = 0;i <= verticalCount;i++)
                 {
-                    var itemIndex = startIndex - 1 - j + i * (length + 1);
+                    var itemIndex = startIndex - 1 - j + i * (horizontalCount + 1);
+                    if (perIndex > 0)
+                    {
+                        itemIndex -= perIndex * (horizontalCount + 1);
+                    }
                     if (itemIndex < 0)
                     {
                         continue;
@@ -162,7 +175,7 @@ namespace Ryneus
                         continue;
                     }
                     var itemPrefab = _itemPrefabList[itemIndex];
-                    var objectIndex = startIndex - j + length + i * _gridColumnCount;// + gridIndex * _gridColumnCount;
+                    var objectIndex = startIndex - j + horizontalCount + i * _gridColumnCount;// + gridIndex * _gridColumnCount;
                     if (gridIndex > i)
                     {
                         objectIndex += _gridColumnCount * (verticalCount + 1);
@@ -187,12 +200,18 @@ namespace Ryneus
             _lastStartIndexX = startIndex;
             int gridIndex = GetStartIndex(!_horizontal);
             var verticalCount = GetVerticalCount();
-            var length = GetHorizonalCount();
+            var horizontalCount = GetHorizonalCount();
+            var perIndex = startIndex / horizontalCount;
+            var verticalPerIndex = startIndex / verticalCount;
             for (int j = 0;j < lineIndex;j++)
             {
-                for (int i = 0;i < _gridColumnCount;i++)
+                for (int i = 0;i <= verticalCount;i++)
                 {
-                    var itemIndex = startIndex + j + i * (length + 1);
+                    var itemIndex = startIndex + j + i * (horizontalCount + 1);
+                    if (perIndex > 0)
+                    {
+                        itemIndex -= perIndex * (horizontalCount + 1);
+                    }
                     if (itemIndex < 0)
                     {
                         continue;
