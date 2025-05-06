@@ -33,7 +33,8 @@ namespace Ryneus
                 {
                     return timeSamples / _loopAudioSource.Clip.length;
                 }
-            } else
+            }
+            else
             {
                 var timeSamples = _introAudioSource.timeSamples();
                 if (timeSamples > 0)
@@ -52,7 +53,8 @@ namespace Ryneus
                 {
                     return _loopAudioSource.Clip.length * per;
                 }
-            } else
+            }
+            else
             {
                 if (_introAudioSource != null)
                 {
@@ -75,26 +77,28 @@ namespace Ryneus
         public void SetSoloClip(AudioClip clip)
         {
             _introAudioSource.ResetReserveTimestamp();
-            _introAudioSource.SetAudioData(clip,true);
-            if (_loopWebGLAudioSource) 
+            _introAudioSource.SetAudioData(clip, true);
+            if (_loopWebGLAudioSource)
+
             {
                 _loopWebGLAudioSource.ResetReserveTimestamp();
-                _loopWebGLAudioSource.SetAudioData(clip,true);
+                _loopWebGLAudioSource.SetAudioData(clip, true);
             }
         }
 
-        public void SetClip(List<AudioClip> clips,bool isLoop)
+        public void SetClip(List<AudioClip> clips, bool isLoop)
         {
             _introAudioSource.ResetReserveTimestamp();
             _loopAudioSource.ResetReserveTimestamp();
-            if (_loopWebGLAudioSource) 
+            if (_loopWebGLAudioSource)
+
             {
                 _loopWebGLAudioSource.ResetReserveTimestamp();
             }
             if (clips.Count == 2)
             {
-                _introAudioSource.SetAudioData(clips[0],clips[1] == null ? isLoop : false);
-                _loopAudioSource.SetAudioData(clips[1],clips[1] == null ? false : isLoop);
+                _introAudioSource.SetAudioData(clips[0], clips[1] == null ? isLoop : false);
+                _loopAudioSource.SetAudioData(clips[1], clips[1] == null ? false : isLoop);
 
 #if UNITY_WEBGL
                 _loopWebGLAudioSource.SetAudioData(clip[1]);
@@ -104,9 +108,10 @@ namespace Ryneus
                     _loopWebGLAudioSource.SetReserveTimestamp();
                 }
 #endif
-            } else
+            }
+            else
             {
-                _introAudioSource.SetAudioData(clips[0],isLoop,false);
+                _introAudioSource.SetAudioData(clips[0], isLoop, false);
                 _loopAudioSource.Stop();
                 _loopAudioSource.SetAudioData(null);
 #if UNITY_WEBGL
@@ -123,7 +128,8 @@ namespace Ryneus
                 float reserve = _introAudioSource.ReserveTimeSample - _introAudioSource.timeSamples();
                 _nowPlayIndex = 0;
                 _loopAudioSource.PlayDelay(reserve / 44100);
-                
+
+
             }
             // WebGL のためのループ切り替え処理
 #if UNITY_WEBGL
@@ -204,13 +210,15 @@ namespace Ryneus
                         float reserve = _introAudioSource.ReserveTimeSample - _introAudioSource.timeSamples();
                         _nowPlayIndex = 0;
                         _loopAudioSource.Play((int)timeStamp);
-                    } else
+                    }
+                    else
                     {
                         _introAudioSource.Play((int)timeStamp);
                         _nowPlayIndex = 2;
                     }
                     //_loopAudioSource.PlayScheduled(AudioSettings.dspTime + _introAudioSource.clip.length);
-                } else
+                }
+                else
                 {
                     _loopAudioSource.Play((int)timeStamp);
                 }
@@ -250,21 +258,24 @@ namespace Ryneus
             if (_loopWebGLAudioSource != null) _loopWebGLAudioSource.ChangeVolume(volume);
         }
 
-        public void FadeVolume(float targetVolume,int duration)
+        public void FadeVolume(float targetVolume, int duration)
         {
             if (_introAudioSource == null || _loopAudioSource == null) return;
             if (_introAudioSource.isPlaying())
             {
-                _introAudioSource.FadeVolume(targetVolume,duration);
-            } else
+                _introAudioSource.FadeVolume(targetVolume, duration);
+            }
+            else
             {
                 _introAudioSource.ChangeVolume(targetVolume);
             }
             if (_loopAudioSource.isPlaying())
             {
-                _loopAudioSource.FadeVolume(targetVolume,duration);
-            } else
-            {   
+                _loopAudioSource.FadeVolume(targetVolume, duration);
+            }
+            else
+            {
+
                 _loopAudioSource.ChangeVolume(targetVolume);
             }
         }

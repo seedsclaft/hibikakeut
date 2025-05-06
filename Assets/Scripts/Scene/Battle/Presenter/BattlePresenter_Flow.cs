@@ -651,7 +651,7 @@ namespace Ryneus
 
             // 行動を全て終了する
             _model.SeekTurnCount();
-            _view.RefreshTurn(_model.TurnCount,_model.MaxTurnCount.Value);
+            _view.RefreshTurn(_model.TurnCount);
             _view.ShowStateOverlay();
             _triggerAfterChecked = false;
             _slipDamageChecked = false;

@@ -352,7 +352,7 @@ namespace Ryneus
 
         private void CommandRefresh()
         {
-            _model.UpdateActorRemainMp();
+            _model.UpdateActorRemainCost();
             _view.SetActorInfo(_model.CurrentActor,_model.ActorInfos);
             _view.SetLvUpInfo(_model.LevelUpCost(),_model.Currency);
             _view.CommandRefresh();

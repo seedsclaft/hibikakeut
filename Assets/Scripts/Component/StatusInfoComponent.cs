@@ -16,6 +16,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI def;
         [SerializeField] private TextMeshProUGUI spd;
         [SerializeField] private TextMeshProUGUI mov;
+        [SerializeField] private TextMeshProUGUI maxCost;
+        [SerializeField] private TextMeshProUGUI cost;
 
         [SerializeField] private StatusGaugeAnimation hpGaugeAnimation;
         [SerializeField] private StatusGaugeAnimation mpGaugeAnimation;
@@ -25,6 +27,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI defCaption;
         [SerializeField] private TextMeshProUGUI spdCaption;
         [SerializeField] private TextMeshProUGUI movCaption;
+        [SerializeField] private TextMeshProUGUI costCaption;
         [SerializeField] private Color normalColor;
         [SerializeField] private Color upperColor;
         [SerializeField] private Color downColor;
@@ -71,6 +74,14 @@ namespace Ryneus
                     ChangeTextColor(mov,statusInfo.Mov,baseStatus.Mov);
                 }
             }
+            if (cost != null)
+            {
+                cost?.SetText(statusInfo.Cost.ToString());
+                if (baseStatus != null)
+                {
+                    ChangeTextColor(cost,statusInfo.Cost,baseStatus.Cost);
+                }
+            }
             if (hpCaption != null)
             {
                 UpdateCaption(StatusParamType.Hp,hpCaption);
@@ -94,6 +105,10 @@ namespace Ryneus
             if (movCaption != null)
             {
                 UpdateCaption(StatusParamType.Mov,movCaption);
+            }
+            if (costCaption != null)
+            {
+                UpdateCaption(StatusParamType.Cost,costCaption);
             }
         }
 
@@ -157,6 +172,20 @@ namespace Ryneus
                 mpGaugeAnimation.SetGaugeAnimation(rate);
                 mpGaugeAnimation.UpdateGauge(rate);
             }
+        }
+
+        public void UpdateCost(int currentCost,int maxStatusCost)
+        {
+            if (currentCost < 0)
+            {
+                currentCost = 0;
+            }
+            if (currentCost > maxStatusCost)
+            {
+                currentCost = maxStatusCost;
+            }
+            cost?.SetText(currentCost.ToString());
+            maxCost?.SetText(maxStatusCost.ToString());
         }
 
         public void UpdateHpAnimation(int fromHp,int currentHp,int maxStatusHp)

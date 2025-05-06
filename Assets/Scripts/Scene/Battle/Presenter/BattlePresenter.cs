@@ -79,7 +79,7 @@ namespace Ryneus
 
             _view.ClearCurrentSkillData();
             _view.CreateObject();
-            _view.RefreshTurn(_model.TurnCount,_model.MaxTurnCount.Value);
+            _view.RefreshTurn(_model.TurnCount);
             _view.SetBattleAutoButton(_model.BattleAutoButton(),GameSystem.OptionData.BattleAuto == true);
             _view.ChangeBackCommandActive(false);
             _view.SetBattleAutoButton(false);
@@ -567,7 +567,7 @@ namespace Ryneus
 
         private bool IsBattleEnd()
         {
-            return _model.CheckVictory() || _model.CheckDefeat() || _model.CheckTurnOver();
+            return _model.CheckVictory() || _model.CheckDefeat() || _model.CheckIsOver();
         }
 
         private async void BattleEnd()
@@ -600,7 +600,7 @@ namespace Ryneus
                 strategySceneInfo.BattleResultVictory = true;
                 _model.AddEnemyInfoSkillId();
             } else
-            if (_model.CheckTurnOver())
+            if (_model.CheckIsOver())
             {
                 _view.StartBattleStartAnim(DataSystem.GetText(16100));
                 _view.BattleVictory(_model.BattlerActors()[0].Index.Value);

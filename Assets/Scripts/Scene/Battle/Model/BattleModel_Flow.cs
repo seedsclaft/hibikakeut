@@ -71,8 +71,8 @@ namespace Ryneus
                 return;
             }
             var subject = GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            //int MpCost = CalcMpCost(subject,actionInfo.Master.CountTurn);
-            //actionInfo.SetMpCost(MpCost);
+            int mpCost = CalcMpCost(subject,actionInfo.Master.MpCost);
+            actionInfo.MpCost.SetValue(mpCost);
             int hpCost = CalcHpCost(actionInfo);
             actionInfo.HpCost.SetValue(hpCost);
 

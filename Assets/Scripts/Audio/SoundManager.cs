@@ -15,15 +15,15 @@ namespace Ryneus
         public bool BGMMute = false;
         public bool SeMute = false;
         private List<AudioSource> _se;
-        private List<AudioSource> _playingSe = new ();
+        private List<AudioSource> _playingSe = new();
         private int _seAudioSourceNum = 16;
         private List<AudioSource> _staticSe;
         private List<SoundData> _seMaster;
-        
+
         [SerializeField] private SoundIntroLoop _bgmMain;
         [SerializeField] private SoundIntroLoop _bgmSub;
         [SerializeField] private SoundIntroLoop _bgsTrack;
-        
+
         private bool _crossFadeMode = false;
         public bool CrossFadeMode => _crossFadeMode;
         private bool _playingIsMain = true;
@@ -37,7 +37,7 @@ namespace Ryneus
             LoadDefaultSound();
             // SeAudioSourceを生成
             _se = new List<AudioSource>();
-            for (int i = 0;i < _seAudioSourceNum;i++)
+            for (int i = 0; i < _seAudioSourceNum; i++)
             {
                 var audioSource = gameObject.AddComponent<AudioSource>();
                 _se.Add(audioSource);
@@ -48,19 +48,19 @@ namespace Ryneus
         {
             _staticSe = new List<AudioSource>();
             _seMaster = DataSystem.SE.FindAll(a => a != null);
-            for (int i = 0;i < _seMaster.Count;i++)
+            for (int i = 0; i < _seMaster.Count; i++)
             {
                 var audioSource = gameObject.AddComponent<AudioSource>();
                 _staticSe.Add(audioSource);
-                SetSeAudio(audioSource,_seMaster[i].FileName,_seMaster[i].Volume,_seMaster[i].Pitch);
+                SetSeAudio(audioSource, _seMaster[i].FileName, _seMaster[i].Volume, _seMaster[i].Pitch);
             }
         }
 
 
-        private void SetSeAudio(AudioSource audioSource,string sePath,float volume,float pitch)
+        private void SetSeAudio(AudioSource audioSource, string sePath, float volume, float pitch)
         {
             var handle = ResourceSystem.LoadSeAudio(sePath);
-            
+
             if (audioSource != null)
             {
                 audioSource.clip = handle;
@@ -92,7 +92,8 @@ namespace Ryneus
             if (BGMMute)
             {
                 playingTrack.ChangeVolume(0);
-            } else
+            }
+            else
             {
                 //var volume = _bgmVolume * _lastBgmVolume;
                 //playingTrack.ChangeVolume(volume);
@@ -113,13 +114,14 @@ namespace Ryneus
         {
             if (SeMute)
             {
-            } else
+            }
+            else
             {
                 UpdateSeMute();
             }
         }
 
-        public void PlayBgm(List<AudioClip> clips, float volume = 1.0f, bool loop = true,float timeStamp = 0)
+        public void PlayBgm(List<AudioClip> clips, float volume = 1.0f, bool loop = true, float timeStamp = 0)
         {
             if (clips[0].name == _lastPlayAudio) return;
             _lastBgmVolume = volume;
@@ -127,13 +129,13 @@ namespace Ryneus
             // これから再生するTrackを停止して再生
             var playTrack = _playingIsMain ? _bgmSub : _bgmMain;
             playTrack.Stop();
-            playTrack.SetClip(clips,loop);
+            playTrack.SetClip(clips, loop);
             playTrack.Play(timeStamp);
-            playTrack.FadeVolume(volume * _bgmVolume,1);
-            
+            playTrack.FadeVolume(volume * _bgmVolume, 1);
+
             // 再生中の方をフェードアウト
             var playingTrack = _playingIsMain ? _bgmMain : _bgmSub;
-            playingTrack.FadeVolume(0,1);
+            playingTrack.FadeVolume(0, 1);
             //UpdateBgmVolume();
             _crossFadeMode = false;
             _playingIsMain = !_playingIsMain;
@@ -142,11 +144,11 @@ namespace Ryneus
         public void PlayBgs(AudioClip clip, float volume = 1.0f, bool loop = true)
         {
             _bgsTrack.Stop();
-            _bgsTrack.SetClip(new List<AudioClip>(){clip},loop);
-            
+            _bgsTrack.SetClip(new List<AudioClip>() { clip }, loop);
+
             UpdateBgmVolume();
             _bgsTrack.Play();
-            _bgsTrack.FadeVolume(volume * _bgmVolume,1);
+            _bgsTrack.FadeVolume(volume * _bgmVolume, 1);
         }
 
         public void ChangeCrossFade(float volume = 1.0f)
@@ -195,19 +197,19 @@ namespace Ryneus
         public void FadeOutBgm()
         {
             var playingTrack = _playingIsMain ? _bgmMain : _bgmSub;
-            playingTrack.FadeVolume(0,1);
+            playingTrack.FadeVolume(0, 1);
             _lastPlayAudio = null;
         }
 
         public void FadeOutBgs()
         {
-            _bgsTrack.FadeVolume(0,1);
+            _bgsTrack.FadeVolume(0, 1);
         }
 
-        public async void PlaySe(AudioClip clip, float volume,float pitch = 1f,int delayFrame = 0)
+        public async void PlaySe(AudioClip clip, float volume, float pitch = 1f, int delayFrame = 0)
         {
             int audioSourceIndex = -1;
-            for (int i = 0;i < _seAudioSourceNum;i++)
+            for (int i = 0; i < _seAudioSourceNum; i++)
             {
                 if (_se[i].isPlaying == false && _playingSe.Contains(_se[i]) == false)
                 {

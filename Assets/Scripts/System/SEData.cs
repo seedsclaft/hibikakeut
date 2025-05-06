@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public enum SEType 
+public enum SEType
 {
     None,
     Decide,

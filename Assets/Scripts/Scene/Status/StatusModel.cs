@@ -23,14 +23,14 @@ namespace Ryneus
             CurrentActor.ChangeEquipSkill(changeSkillId,_selectSkillInfo.Id.Value);
         }
 
-        public void UpdateActorRemainMp()
+        public void UpdateActorRemainCost()
         {
-            var costMp = 0;
+            var cost = 0;
             foreach (var slotSkill in EquipSkills())
             {
-                costMp += slotSkill.LearningCost.Value;
+                cost += slotSkill.LearningCost.Value;
             }
-            CurrentActor.ChangeMp(CurrentActor.MaxMp - costMp);
+            CurrentActor.ChangeCost(CurrentActor.MaxCost - cost);
         }
 
         public List<SkillInfo> EquipSkills()
@@ -41,7 +41,7 @@ namespace Ryneus
         public List<SkillInfo> ChangeAbleSkills()
         {
             // マイナスSP計算
-            var cost = _selectSkillInfo != null ? CurrentActor.LearningMagicCost(_selectSkillInfo.Attribute,PartyInfo.ActorInfos,_selectSkillInfo.Master.Rank) : 0;
+            var cost = _selectSkillInfo != null ? CurrentActor.LearningMagicCost(_selectSkillInfo.Master,PartyInfo.ActorInfos) : 0;
             var changeAbleSkills = ChangeAbleSkills(CurrentActor,cost);
             // はずすを挿入
             var removeSkill = new SkillInfo(1);

@@ -16,12 +16,12 @@ namespace Ryneus
         public int Level => (Exp.Value / 100) + 1;
         public void SetLevel(int level)
         {
-            Exp.SetValue((level-1) * 100);
+            Exp.SetValue((level - 1) * 100);
         }
 
         [SerializeField] private List<ParameterInt> _equipmentSkillIds = new();
         public List<ParameterInt> EquipmentSkillIds => _equipmentSkillIds;
-        public void ChangeEquipSkill(int changeSkillId,int removeSkillId)
+        public void ChangeEquipSkill(int changeSkillId, int removeSkillId)
         {
             var findIndex = _equipmentSkillIds.FindIndex(a => a.Value == removeSkillId);
             if (findIndex > -1)
@@ -32,15 +32,17 @@ namespace Ryneus
             if (_equipmentSkillIds.Find(a => a.Value == changeSkillId) == null)
             {
                 var insert = new ParameterInt(changeSkillId);
-                _equipmentSkillIds.Insert(insertIndex,insert);
+                _equipmentSkillIds.Insert(insertIndex, insert);
             }
         }
 
         public StatusInfo CurrentStatus => LevelUpStatus(Level);
         public int MaxHp => CurrentStatus.Hp;
         public int MaxMp => CurrentStatus.Mp;
+        public int MaxCost => CurrentStatus.Cost;
         public ParameterInt CurrentHp = new();
         public ParameterInt CurrentMp = new();
+        public ParameterInt CurrentCost = new();
 
         public List<AttributeRank> GetAttributeRank()
         {
@@ -89,6 +91,7 @@ namespace Ryneus
             SetInitialParameter(actorData);
             CurrentHp.SetValue(Master.InitStatus.Hp);
             CurrentMp.SetValue(Master.InitStatus.Mp);
+            CurrentCost.SetValue(Master.InitStatus.Cost);
             InitSkillInfo();
             InitSkillTriggerInfos();
         }
@@ -101,11 +104,13 @@ namespace Ryneus
                 baseActorInfo._plusStatus.GetParameter(StatusParamType.Atk),
                 baseActorInfo._plusStatus.GetParameter(StatusParamType.Def),
                 baseActorInfo._plusStatus.GetParameter(StatusParamType.Spd),
-                baseActorInfo._plusStatus.GetParameter(StatusParamType.Mov)
+                baseActorInfo._plusStatus.GetParameter(StatusParamType.Mov),
+                baseActorInfo._plusStatus.GetParameter(StatusParamType.Cost)
             );
             _lastSelectSkillId = baseActorInfo.LastSelectSkillId;
             CurrentHp.SetValue(baseActorInfo.CurrentHp.Value);
             CurrentMp.SetValue(baseActorInfo.CurrentMp.Value);
+            CurrentCost.SetValue(baseActorInfo.CurrentCost.Value);
             BattleIndex.SetValue(baseActorInfo.BattleIndex.Value);
             _lineIndex = baseActorInfo._lineIndex;
             _skillTriggerInfos = baseActorInfo._skillTriggerInfos;
@@ -113,7 +118,7 @@ namespace Ryneus
 
         private void SetInitialParameter(ActorData actorData)
         {
-            _plusStatus.SetParameter(actorData.PlusStatus.Hp,actorData.PlusStatus.Mp,actorData.PlusStatus.Atk,actorData.PlusStatus.Def,actorData.PlusStatus.Spd,actorData.PlusStatus.Mov);
+            _plusStatus.SetParameter(actorData.PlusStatus);
         }
 
         private void InitSkillInfo()
@@ -166,7 +171,8 @@ namespace Ryneus
                 {
                     skillInfo.SetLearningState(LearningState.Learned);
                     skillInfo.SetEnable(true);
-                } else
+                }
+                else
                 {
                     skillInfo.LearningLv.SetValue(learningData.Level);
                     skillInfo.SetLearningState(LearningState.NotLearn);
@@ -177,15 +183,15 @@ namespace Ryneus
             return list;
         }
 
-        public int LearningMagicCost(AttributeType attributeType,List<ActorInfo> stageMembers,RankType rank = RankType.None)
+        public int LearningMagicCost(SkillData skillData, List<ActorInfo> stageMembers)
         {
-            if (attributeType == AttributeType.None)
+            if (skillData.Attribute == AttributeType.None)
             {
                 return 0;
             }
             var cost = 1;
-            var rankCost = ConvertRankCost(rank);
-            var param = AttributeRanks(stageMembers)[(int)attributeType-1];
+            var rankCost = ConvertRankCost(skillData.Rank);
+            var param = AttributeRanks(stageMembers)[(int)skillData.Attribute - 1];
             switch (param)
             {
                 case AttributeRank.S:
@@ -213,7 +219,47 @@ namespace Ryneus
                     cost = 8;
                     break;
             }
-            
+
+            return Mathf.FloorToInt(cost * rankCost);
+        }
+
+        public int LearningMagicCost(AttributeType attributeType, List<ActorInfo> stageMembers, RankType rank = RankType.None)
+        {
+            if (attributeType == AttributeType.None)
+            {
+                return 0;
+            }
+            var cost = 1;
+            var rankCost = ConvertRankCost(rank);
+            var param = AttributeRanks(stageMembers)[(int)attributeType - 1];
+            switch (param)
+            {
+                case AttributeRank.S:
+                    cost = 1;
+                    break;
+                case AttributeRank.A:
+                    cost = 2;
+                    break;
+                case AttributeRank.B:
+                    cost = 3;
+                    break;
+                case AttributeRank.C:
+                    cost = 4;
+                    break;
+                case AttributeRank.D:
+                    cost = 5;
+                    break;
+                case AttributeRank.E:
+                    cost = 6;
+                    break;
+                case AttributeRank.F:
+                    cost = 7;
+                    break;
+                case AttributeRank.G:
+                    cost = 8;
+                    break;
+            }
+
             return Mathf.FloorToInt(cost * rankCost);
         }
 
@@ -233,18 +279,19 @@ namespace Ryneus
             }
             return 1;
         }
-    
-        public LevelUpInfo LevelUp(int useCost,int stageId)
+
+        public LevelUpInfo LevelUp(int useCost, int stageId)
         {
             var levelUpInfo = new LevelUpInfo
             (
-                ActorId.Value,useCost,stageId
+                ActorId.Value, useCost, stageId
             );
             // 次のLvに必要なExpを加算
             Exp.GainValue(NextExp);
             levelUpInfo.SetLevel(Level);
             ChangeHp(CurrentParameter(StatusParamType.Hp));
             ChangeMp(CurrentParameter(StatusParamType.Mp));
+            ChangeCost(CurrentParameter(StatusParamType.Cost));
             return levelUpInfo;
         }
 
@@ -258,31 +305,33 @@ namespace Ryneus
             var statusInfo = new StatusInfo();
             if (Master != null)
             {
-                statusInfo.AddParameter(StatusParamType.Hp,Master.InitStatus.Hp);
-                statusInfo.AddParameter(StatusParamType.Mp,Master.InitStatus.Mp);
-                statusInfo.AddParameter(StatusParamType.Atk,Master.InitStatus.Atk);
-                statusInfo.AddParameter(StatusParamType.Def,Master.InitStatus.Def);
-                statusInfo.AddParameter(StatusParamType.Spd,Master.InitStatus.Spd);
-                statusInfo.AddParameter(StatusParamType.Mov,Master.InitStatus.Mov);
+                statusInfo.AddParameter(StatusParamType.Hp, Master.InitStatus.Hp);
+                statusInfo.AddParameter(StatusParamType.Mp, Master.InitStatus.Mp);
+                statusInfo.AddParameter(StatusParamType.Atk, Master.InitStatus.Atk);
+                statusInfo.AddParameter(StatusParamType.Def, Master.InitStatus.Def);
+                statusInfo.AddParameter(StatusParamType.Spd, Master.InitStatus.Spd);
+                statusInfo.AddParameter(StatusParamType.Mov, Master.InitStatus.Mov);
+                statusInfo.AddParameter(StatusParamType.Cost, Master.InitStatus.Cost);
 
-                statusInfo.AddParameter(StatusParamType.Hp,LevelGrowthRate(StatusParamType.Hp,level)); 
-                statusInfo.AddParameter(StatusParamType.Mp,LevelGrowthRate(StatusParamType.Mp,level));  
-                statusInfo.AddParameter(StatusParamType.Atk,LevelGrowthRate(StatusParamType.Atk,level));  
-                statusInfo.AddParameter(StatusParamType.Def,LevelGrowthRate(StatusParamType.Def,level));  
-                statusInfo.AddParameter(StatusParamType.Spd,LevelGrowthRate(StatusParamType.Spd,level));     
-                statusInfo.AddParameter(StatusParamType.Mov,LevelGrowthRate(StatusParamType.Mov,level));     
+                statusInfo.AddParameter(StatusParamType.Hp, LevelGrowthRate(StatusParamType.Hp, level));
+                statusInfo.AddParameter(StatusParamType.Mp, LevelGrowthRate(StatusParamType.Mp, level));
+                statusInfo.AddParameter(StatusParamType.Atk, LevelGrowthRate(StatusParamType.Atk, level));
+                statusInfo.AddParameter(StatusParamType.Def, LevelGrowthRate(StatusParamType.Def, level));
+                statusInfo.AddParameter(StatusParamType.Spd, LevelGrowthRate(StatusParamType.Spd, level));
+                statusInfo.AddParameter(StatusParamType.Mov, LevelGrowthRate(StatusParamType.Mov, level));
+                statusInfo.AddParameter(StatusParamType.Cost, LevelGrowthRate(StatusParamType.Cost, level));
             }
             return statusInfo;
         }
 
-        public int LevelGrowthRate(StatusParamType statusParamType,int level)
+        public int LevelGrowthRate(StatusParamType statusParamType, int level)
         {
-            return (int)Mathf.Round(Master.NeedStatus.GetParameter(statusParamType) * 0.01f * (level-1));
+            return (int)Mathf.Round(Master.NeedStatus.GetParameter(statusParamType) * 0.01f * (level - 1));
         }
 
         public List<SkillInfo> LearningSkills(int plusLv = 0)
         {
-            return LearningSkillInfos().FindAll(a => a.LearningState == LearningState.NotLearn && a.LearningLv.Value <= (Level+plusLv));
+            return LearningSkillInfos().FindAll(a => a.LearningState == LearningState.NotLearn && a.LearningLv.Value <= (Level + plusLv));
         }
 
         public bool IsLearnedSkill(int skillId)
@@ -291,9 +340,9 @@ namespace Ryneus
             return LearnSkillIds().Contains(skillId) || learnedSkill.Find(a => a.Id.Value == skillId) != null;
         }
 
-        public LevelUpInfo LearnSkill(int skillId,int cost,int stageId)
+        public LevelUpInfo LearnSkill(int skillId, int cost, int stageId)
         {
-            var skillLevelUpInfo = new LevelUpInfo(ActorId.Value,cost,stageId);
+            var skillLevelUpInfo = new LevelUpInfo(ActorId.Value, cost, stageId);
             skillLevelUpInfo.SetSkillId(skillId);
             return skillLevelUpInfo;
         }
@@ -305,12 +354,17 @@ namespace Ryneus
 
         public void ChangeHp(int hp)
         {
-            CurrentHp.SetValue(Math.Min(hp,CurrentParameter(StatusParamType.Hp)));
+            CurrentHp.SetValue(Math.Min(hp, CurrentParameter(StatusParamType.Hp)));
         }
 
         public void ChangeMp(int mp)
         {
-            CurrentMp.SetValue(Math.Min(mp,CurrentParameter(StatusParamType.Mp)));
+            CurrentMp.SetValue(Math.Min(mp, CurrentParameter(StatusParamType.Mp)));
+        }
+
+        public void ChangeCost(int cost)
+        {
+            CurrentCost.SetValue(Math.Min(cost, CurrentParameter(StatusParamType.Cost)));
         }
 
         public List<AttributeRank> AttributeRanks(List<ActorInfo> actorInfos)
@@ -320,7 +374,7 @@ namespace Ryneus
             {
                 foreach (var actorInfo in actorInfos)
                 {
-                    var skillInfos = actorInfo.LearningSkillInfos().FindAll(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.MagicAlchemy)!= null);
+                    var skillInfos = actorInfo.LearningSkillInfos().FindAll(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.MagicAlchemy) != null);
                     foreach (var skillInfo in skillInfos)
                     {
                         foreach (var featureData in skillInfo.Master.FeatureDates)
@@ -370,9 +424,9 @@ namespace Ryneus
         public AttributeType AlchemyAttribute(List<ActorInfo> actorInfos)
         {
             var alchemyAttributeRates = AlchemyAttributeRates(actorInfos);
-            int targetRand = UnityEngine.Random.Range(0,alchemyAttributeRates.Sum(a => a));
+            int targetRand = UnityEngine.Random.Range(0, alchemyAttributeRates.Sum(a => a));
             int targetIndex = -1;
-            for (int i = 0;i < alchemyAttributeRates.Count;i++)
+            for (int i = 0; i < alchemyAttributeRates.Count; i++)
             {
                 targetRand -= alchemyAttributeRates[i];
                 if (targetRand <= 0 && targetIndex == -1)
@@ -380,7 +434,7 @@ namespace Ryneus
                     targetIndex = i;
                 }
             }
-            return (AttributeType)(targetIndex+1);
+            return (AttributeType)(targetIndex + 1);
         }
 
         public int Evaluate()
@@ -398,7 +452,7 @@ namespace Ryneus
                     var rate = 1.0f;
                     if (skillInfo.Attribute != AttributeType.None)
                     {
-                        switch (Master.Attribute[(int)skillInfo.Attribute-1])
+                        switch (Master.Attribute[(int)skillInfo.Attribute - 1])
                         {
                             case AttributeRank.S:
                             case AttributeRank.A:
@@ -435,21 +489,21 @@ namespace Ryneus
         public void InitSkillTriggerInfos()
         {
             var skillTriggerDates = Master.SkillTriggerDates;
-            for (int i = 0;i < skillTriggerDates.Count;i++)
+            for (int i = 0; i < skillTriggerDates.Count; i++)
             {
                 var skillTriggerData = skillTriggerDates[i];
-                var skillTriggerInfo = new SkillTriggerInfo(ActorId.Value,new SkillInfo(skillTriggerData.SkillId));
+                var skillTriggerInfo = new SkillTriggerInfo(ActorId.Value, new SkillInfo(skillTriggerData.SkillId));
                 skillTriggerInfo.SetPriority(i);
                 var skillTriggerData1 = DataSystem.SkillTriggers.Find(a => a.Id == skillTriggerData.Trigger1);
                 var skillTriggerData2 = DataSystem.SkillTriggers.Find(a => a.Id == skillTriggerData.Trigger2);
-                skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>(){skillTriggerData1,skillTriggerData2});
+                skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>() { skillTriggerData1, skillTriggerData2 });
                 _skillTriggerInfos.Add(skillTriggerInfo);
             }
         }
 
         public void AddSkillTriggerSkill(int skillId)
         {
-            for (int i = 0;i < _skillTriggerInfos.Count;i++)
+            for (int i = 0; i < _skillTriggerInfos.Count; i++)
             {
                 var skillTriggerInfo = _skillTriggerInfos[i];
                 if (skillTriggerInfo.SkillId == 0)
@@ -465,7 +519,7 @@ namespace Ryneus
             }
         }
 
-        public void SetSkillTriggerSkill(int index,SkillInfo skillInfo)
+        public void SetSkillTriggerSkill(int index, SkillInfo skillInfo)
         {
             if (_skillTriggerInfos.Count > index)
             {
@@ -473,7 +527,7 @@ namespace Ryneus
             }
         }
 
-        public void SetSkillTriggerTrigger(int index,int triggerIndex,SkillTriggerData triggerType)
+        public void SetSkillTriggerTrigger(int index, int triggerIndex, SkillTriggerData triggerType)
         {
             if (_skillTriggerInfos.Count > index)
             {
@@ -486,12 +540,14 @@ namespace Ryneus
                     {
                         triggerData1 = triggerTypes[1];
                         triggerData2 = triggerType;
-                    } else
+                    }
+                    else
                     {
                         triggerData1 = triggerType;
                         triggerData2 = triggerTypes[1];
                     }
-                } else
+                }
+                else
                 if (triggerIndex == 2)
                 {
                     triggerData1 = triggerTypes[0];
@@ -512,32 +568,32 @@ namespace Ryneus
             {
                 var upTriggerData = _skillTriggerInfos[index];
                 var downTriggerData = _skillTriggerInfos[index - 1];
-                upTriggerData.SetPriority(index-1);
+                upTriggerData.SetPriority(index - 1);
                 downTriggerData.SetPriority(index);
             }
-            _skillTriggerInfos.Sort((a,b) => a.Priority - b.Priority > 0 ? 1 : -1);
+            _skillTriggerInfos.Sort((a, b) => a.Priority - b.Priority > 0 ? 1 : -1);
         }
 
         public void SetTriggerIndexDown(int index)
         {
-            if (index+1 >= _skillTriggerInfos.Count)
+            if (index + 1 >= _skillTriggerInfos.Count)
             {
                 return;
             }
-            var upTriggerData = _skillTriggerInfos[index+1];
+            var upTriggerData = _skillTriggerInfos[index + 1];
             var downTriggerData = _skillTriggerInfos[index];
             upTriggerData.SetPriority(index);
-            downTriggerData.SetPriority(index+1);
-            _skillTriggerInfos.Sort((a,b) => a.Priority - b.Priority > 0 ? 1 : -1);
+            downTriggerData.SetPriority(index + 1);
+            _skillTriggerInfos.Sort((a, b) => a.Priority - b.Priority > 0 ? 1 : -1);
         }
 
-        private void InsertSkillTriggerSkills(List<SkillInfo> skillInfos,bool isOnlyCheckEnemy = true)
+        private void InsertSkillTriggerSkills(List<SkillInfo> skillInfos, bool isOnlyCheckEnemy = true)
         {
             foreach (var learnSkill in skillInfos)
             {
                 if (_skillTriggerInfos.Find(a => a.SkillId == learnSkill.Id.Value) == null)
                 {
-                    var skillTriggerInfo = new SkillTriggerInfo(ActorId.Value,new SkillInfo(learnSkill.Id.Value));
+                    var skillTriggerInfo = new SkillTriggerInfo(ActorId.Value, new SkillInfo(learnSkill.Id.Value));
                     var skillTriggerData1 = DataSystem.SkillTriggers.Find(a => a.Id == 0);
                     var skillTriggerData2 = DataSystem.SkillTriggers.Find(a => a.Id == 0);
                     // 敵データに同じスキルがあればコピーする
@@ -545,12 +601,12 @@ namespace Ryneus
                     var enemyDates = DataSystem.Enemies.FindAll(a => a.SkillTriggerDates.Find(b => b.SkillId == learnSkill.Id.Value) != null);
                     if (enemyDates.Count > 0)
                     {
-                        var enemyData = enemyDates[enemyDates.Count-1];
+                        var enemyData = enemyDates[enemyDates.Count - 1];
                         var skillTriggerData = enemyData.SkillTriggerDates.Find(a => a.SkillId == learnSkill.Id.Value);
                         skillTriggerData1 = DataSystem.SkillTriggers.Find(a => a.Id == skillTriggerData.Trigger1);
                         skillTriggerData2 = DataSystem.SkillTriggers.Find(a => a.Id == skillTriggerData.Trigger2);
                     }
-                    skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>(){skillTriggerData1,skillTriggerData2});
+                    skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>() { skillTriggerData1, skillTriggerData2 });
 
                     var findIndex = _skillTriggerInfos.FindIndex(a => DataSystem.Skills[a.SkillId].SkillType == SkillType.Active);
                     if (findIndex == -1)
@@ -568,12 +624,13 @@ namespace Ryneus
                     }
                     if (isOnlyCheckEnemy == false)
                     {
-                        _skillTriggerInfos.Insert(findIndex,skillTriggerInfo);
-                    } else
+                        _skillTriggerInfos.Insert(findIndex, skillTriggerInfo);
+                    }
+                    else
                     {
                         if (enemyDates.Count > 0)
                         {
-                            _skillTriggerInfos.Insert(findIndex,skillTriggerInfo);
+                            _skillTriggerInfos.Insert(findIndex, skillTriggerInfo);
                         }
                     }
                 }
@@ -587,13 +644,13 @@ namespace Ryneus
             InitSkillTriggerInfos();
             var addActive = LearningSkillInfos().FindAll(a => a.Master.SkillType == SkillType.Active && a.Id.Value > 1000 && a.LearningState == LearningState.Learned);
             // 新たに追加したアクティブをアクティブの下に入れる
-            InsertSkillTriggerSkills(addActive,false);
+            InsertSkillTriggerSkills(addActive, false);
             var addPassive = LearningSkillInfos().FindAll(a => a.Master.SkillType == SkillType.Passive && a.Id.Value > 1000 && a.LearningState == LearningState.Learned);
 
             // その他のパッシブを加える
-            InsertSkillTriggerSkills(addPassive,true);
+            InsertSkillTriggerSkills(addPassive, true);
 
-            for (int i = 0;i < _skillTriggerInfos.Count;i++)
+            for (int i = 0; i < _skillTriggerInfos.Count; i++)
             {
                 _skillTriggerInfos[i].SetPriority(i);
             }

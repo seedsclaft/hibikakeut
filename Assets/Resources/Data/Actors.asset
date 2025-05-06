@@ -25,7 +25,7 @@ MonoBehaviour:
       _hp:
         _value: 39
       _mp:
-        _value: 10
+        _value: 4
       _atk:
         _value: 30
       _def:
@@ -34,6 +34,8 @@ MonoBehaviour:
         _value: 15
       _mov:
         _value: 3
+      _cost:
+        _value: 10
     PlusStatus:
       _hp:
         _value: 0
@@ -46,6 +48,8 @@ MonoBehaviour:
       _spd:
         _value: 0
       _mov:
+        _value: 0
+      _cost:
         _value: 0
     NeedStatus:
       _hp:
@@ -60,10 +64,12 @@ MonoBehaviour:
         _value: 35
       _mov:
         _value: 0
+      _cost:
+        _value: 0
     Attribute: 0100000002000000060000000300000006000000
-    X: -10
-    Y: -54
-    Scale: 0.75
+    X: 0
+    Y: 0
+    Scale: 1
     AwakenX: 0
     AwakenY: 0
     AwakenScale: 1
@@ -152,7 +158,7 @@ MonoBehaviour:
       _hp:
         _value: 29
       _mp:
-        _value: 10
+        _value: 5
       _atk:
         _value: 21
       _def:
@@ -161,6 +167,8 @@ MonoBehaviour:
         _value: 28
       _mov:
         _value: 4
+      _cost:
+        _value: 10
     PlusStatus:
       _hp:
         _value: 0
@@ -173,6 +181,8 @@ MonoBehaviour:
       _spd:
         _value: 0
       _mov:
+        _value: 0
+      _cost:
         _value: 0
     NeedStatus:
       _hp:
@@ -187,10 +197,12 @@ MonoBehaviour:
         _value: 70
       _mov:
         _value: 0
+      _cost:
+        _value: 0
     Attribute: 0200000001000000050000000700000003000000
-    X: -20
-    Y: -52
-    Scale: 0.71
+    X: 0
+    Y: 0
+    Scale: 1
     AwakenX: 0
     AwakenY: 0
     AwakenScale: 1
@@ -279,7 +291,7 @@ MonoBehaviour:
       _hp:
         _value: 35
       _mp:
-        _value: 10
+        _value: 5
       _atk:
         _value: 17
       _def:
@@ -288,6 +300,8 @@ MonoBehaviour:
         _value: 9
       _mov:
         _value: 3
+      _cost:
+        _value: 10
     PlusStatus:
       _hp:
         _value: 0
@@ -301,6 +315,8 @@ MonoBehaviour:
         _value: 0
       _mov:
         _value: 0
+      _cost:
+        _value: 0
     NeedStatus:
       _hp:
         _value: 85
@@ -313,6 +329,8 @@ MonoBehaviour:
       _spd:
         _value: 25
       _mov:
+        _value: 0
+      _cost:
         _value: 0
     Attribute: 0300000006000000010000000200000006000000
     X: -10
@@ -406,7 +424,7 @@ MonoBehaviour:
       _hp:
         _value: 32
       _mp:
-        _value: 10
+        _value: 4
       _atk:
         _value: 15
       _def:
@@ -415,6 +433,8 @@ MonoBehaviour:
         _value: 21
       _mov:
         _value: 3
+      _cost:
+        _value: 10
     PlusStatus:
       _hp:
         _value: 0
@@ -428,6 +448,8 @@ MonoBehaviour:
         _value: 0
       _mov:
         _value: 0
+      _cost:
+        _value: 0
     NeedStatus:
       _hp:
         _value: 85
@@ -440,6 +462,8 @@ MonoBehaviour:
       _spd:
         _value: 30
       _mov:
+        _value: 0
+      _cost:
         _value: 0
     Attribute: 0400000003000000030000000100000007000000
     X: -4
@@ -533,7 +557,7 @@ MonoBehaviour:
       _hp:
         _value: 29
       _mp:
-        _value: 10
+        _value: 4
       _atk:
         _value: 12
       _def:
@@ -542,6 +566,8 @@ MonoBehaviour:
         _value: 12
       _mov:
         _value: 3
+      _cost:
+        _value: 10
     PlusStatus:
       _hp:
         _value: 0
@@ -555,6 +581,8 @@ MonoBehaviour:
         _value: 0
       _mov:
         _value: 0
+      _cost:
+        _value: 0
     NeedStatus:
       _hp:
         _value: 70
@@ -567,6 +595,8 @@ MonoBehaviour:
       _spd:
         _value: 45
       _mov:
+        _value: 0
+      _cost:
         _value: 0
     Attribute: 0400000006000000020000000500000001000000
     X: -8
@@ -660,7 +690,7 @@ MonoBehaviour:
       _hp:
         _value: 30
       _mp:
-        _value: 10
+        _value: 4
       _atk:
         _value: 20
       _def:
@@ -669,6 +699,8 @@ MonoBehaviour:
         _value: 20
       _mov:
         _value: 3
+      _cost:
+        _value: 10
     PlusStatus:
       _hp:
         _value: 0
@@ -682,6 +714,8 @@ MonoBehaviour:
         _value: 0
       _mov:
         _value: 0
+      _cost:
+        _value: 0
     NeedStatus:
       _hp:
         _value: 40
@@ -694,6 +728,8 @@ MonoBehaviour:
       _spd:
         _value: 50
       _mov:
+        _value: 0
+      _cost:
         _value: 0
     Attribute: 0100000006000000020000000600000003000000
     X: 48
@@ -787,7 +823,7 @@ MonoBehaviour:
       _hp:
         _value: 40
       _mp:
-        _value: 10
+        _value: 4
       _atk:
         _value: 22
       _def:
@@ -796,6 +832,8 @@ MonoBehaviour:
         _value: 16
       _mov:
         _value: 4
+      _cost:
+        _value: 10
     PlusStatus:
       _hp:
         _value: 0
@@ -809,6 +847,8 @@ MonoBehaviour:
         _value: 0
       _mov:
         _value: 0
+      _cost:
+        _value: 0
     NeedStatus:
       _hp:
         _value: 65
@@ -821,6 +861,8 @@ MonoBehaviour:
       _spd:
         _value: 30
       _mov:
+        _value: 0
+      _cost:
         _value: 0
     Attribute: 0400000001000000040000000300000004000000
     X: -20
@@ -914,7 +956,7 @@ MonoBehaviour:
       _hp:
         _value: 37
       _mp:
-        _value: 10
+        _value: 4
       _atk:
         _value: 15
       _def:
@@ -923,6 +965,8 @@ MonoBehaviour:
         _value: 16
       _mov:
         _value: 3
+      _cost:
+        _value: 10
     PlusStatus:
       _hp:
         _value: 0
@@ -936,6 +980,8 @@ MonoBehaviour:
         _value: 0
       _mov:
         _value: 0
+      _cost:
+        _value: 0
     NeedStatus:
       _hp:
         _value: 80
@@ -948,6 +994,8 @@ MonoBehaviour:
       _spd:
         _value: 35
       _mov:
+        _value: 0
+      _cost:
         _value: 0
     Attribute: 0600000002000000010000000500000004000000
     X: -52
@@ -1041,7 +1089,7 @@ MonoBehaviour:
       _hp:
         _value: 34
       _mp:
-        _value: 10
+        _value: 4
       _atk:
         _value: 25
       _def:
@@ -1050,6 +1098,8 @@ MonoBehaviour:
         _value: 24
       _mov:
         _value: 3
+      _cost:
+        _value: 10
     PlusStatus:
       _hp:
         _value: 0
@@ -1063,6 +1113,8 @@ MonoBehaviour:
         _value: 0
       _mov:
         _value: 0
+      _cost:
+        _value: 0
     NeedStatus:
       _hp:
         _value: 25
@@ -1075,6 +1127,8 @@ MonoBehaviour:
       _spd:
         _value: 50
       _mov:
+        _value: 0
+      _cost:
         _value: 0
     Attribute: 0100000004000000040000000700000002000000
     X: -16
@@ -1168,7 +1222,7 @@ MonoBehaviour:
       _hp:
         _value: 30
       _mp:
-        _value: 10
+        _value: 4
       _atk:
         _value: 17
       _def:
@@ -1177,6 +1231,8 @@ MonoBehaviour:
         _value: 31
       _mov:
         _value: 4
+      _cost:
+        _value: 10
     PlusStatus:
       _hp:
         _value: 0
@@ -1190,6 +1246,8 @@ MonoBehaviour:
         _value: 0
       _mov:
         _value: 0
+      _cost:
+        _value: 0
     NeedStatus:
       _hp:
         _value: 45
@@ -1202,6 +1260,8 @@ MonoBehaviour:
       _spd:
         _value: 75
       _mov:
+        _value: 0
+      _cost:
         _value: 0
     Attribute: 0400000001000000060000000500000002000000
     X: 12
@@ -1295,7 +1355,7 @@ MonoBehaviour:
       _hp:
         _value: 33
       _mp:
-        _value: 10
+        _value: 4
       _atk:
         _value: 21
       _def:
@@ -1304,6 +1364,8 @@ MonoBehaviour:
         _value: 18
       _mov:
         _value: 3
+      _cost:
+        _value: 10
     PlusStatus:
       _hp:
         _value: 0
@@ -1317,6 +1379,8 @@ MonoBehaviour:
         _value: 0
       _mov:
         _value: 0
+      _cost:
+        _value: 0
     NeedStatus:
       _hp:
         _value: 65
@@ -1329,6 +1393,8 @@ MonoBehaviour:
       _spd:
         _value: 30
       _mov:
+        _value: 0
+      _cost:
         _value: 0
     Attribute: 0600000006000000010000000300000002000000
     X: 0

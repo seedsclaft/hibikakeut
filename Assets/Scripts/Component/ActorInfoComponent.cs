@@ -82,6 +82,7 @@ namespace Ryneus
                 statusInfoComponent.UpdateInfo(actorInfo.CurrentStatus);
                 statusInfoComponent.UpdateHp(actorInfo.CurrentHp.Value,actorInfo.MaxHp);
                 statusInfoComponent.UpdateMp(actorInfo.CurrentMp.Value,actorInfo.MaxMp);
+                statusInfoComponent.UpdateCost(actorInfo.CurrentCost.Value,actorInfo.MaxCost);
             }
             if (needStatusInfoComponent != null)
             {

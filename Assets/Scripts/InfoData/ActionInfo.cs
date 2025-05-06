@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Ryneus
 {
     [System.Serializable]
-    public class ActionInfo 
+    public class ActionInfo
     {
         private int _index;
         public ParameterInt SubjectIndex = new();
@@ -14,7 +14,7 @@ namespace Ryneus
         public SkillData Master => DataSystem.FindSkill(_skillInfo.Id.Value);
         private SkillInfo _skillInfo = null;
         public SkillInfo SkillInfo => _skillInfo;
-        
+
         private RangeType _rangeType = RangeType.None;
         public RangeType RangeType => _rangeType;
         private TargetType _targetType = TargetType.None;
@@ -22,7 +22,7 @@ namespace Ryneus
         private ScopeType _scopeType = ScopeType.None;
         public ScopeType ScopeType => _scopeType;
 
-        private List<ActionResultInfo> _actionResults = new ();
+        private List<ActionResultInfo> _actionResults = new();
         public List<ActionResultInfo> ActionResults => _actionResults;
 
         public ParameterInt MpCost = new();
@@ -51,7 +51,7 @@ namespace Ryneus
 
         public bool FirstAttack()
         {
-            return (BaseRepeatTime.Value-1) == RepeatTime.Value;
+            return (BaseRepeatTime.Value - 1) == RepeatTime.Value;
         }
 
         public bool LastAttack()
@@ -59,12 +59,12 @@ namespace Ryneus
             return RepeatTime.Value == 1;
         }
 
-        private List<int> _actionedRepeatTimes = new ();
+        private List<int> _actionedRepeatTimes = new();
         public void AddActionedRepeatTimes(int repeatTime)
         {
             _actionedRepeatTimes.Add(repeatTime);
         }
-        
+
         // 選択可能な対象情報
         private List<int> _candidateTargetIndexList;
         public List<int> CandidateTargetIndexList => _candidateTargetIndexList;
@@ -76,7 +76,7 @@ namespace Ryneus
         private bool _triggeredSkill = false;
         public bool TriggeredSkill => _triggeredSkill;
 
-        public ActionInfo(SkillInfo skillInfo,int index,int subjectIndex,int lastTargetIndex,List<int> targetIndexList)
+        public ActionInfo(SkillInfo skillInfo, int index, int subjectIndex, int lastTargetIndex, List<int> targetIndexList)
         {
             _index = index;
             _skillInfo = skillInfo;
@@ -108,12 +108,12 @@ namespace Ryneus
             // 行動後スキル
             var featureDates = SkillInfo.FeatureDates;
             var PlusSkill = featureDates.FindAll(a => a.FeatureType == FeatureType.PlusSkill);
-            
+
             var actionInfos = new List<ActionInfo>();
-            for (var i = 0;i < PlusSkill.Count;i++)
+            for (var i = 0; i < PlusSkill.Count; i++)
             {
                 var skillInfo = new SkillInfo(PlusSkill[i].Param1);
-                var actionInfo = new ActionInfo(skillInfo,_index,SubjectIndex.Value,-1,null);
+                var actionInfo = new ActionInfo(skillInfo, _index, SubjectIndex.Value, -1, null);
                 actionInfo.SetTriggerSkill(true);
                 actionInfos.Add(actionInfo);
             }
@@ -125,7 +125,7 @@ namespace Ryneus
             var featureDates = SkillInfo.FeatureDates;
             var skillInfos = new List<SkillInfo>();
             var PlusSkillTrigger = featureDates.FindAll(a => a.FeatureType == FeatureType.PlusSkillTrigger);
-            for (var i = 0;i < PlusSkillTrigger.Count;i++)
+            for (var i = 0; i < PlusSkillTrigger.Count; i++)
             {
                 var skillInfo = new SkillInfo(PlusSkillTrigger[i].Param1);
                 skillInfos.Add(skillInfo);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Ryneus
 {
@@ -18,7 +19,6 @@ namespace Ryneus
         private int _turnCount = 1;
         public int TurnCount => _turnCount;
         public void SeekTurnCount(){_turnCount++;}
-        public ParameterInt MaxTurnCount = new();
 
         //private List<SkillLogListInfo> _skillLogs = new ();
         //public List<SkillLogListInfo> SkillLogs => _skillLogs;
@@ -83,6 +83,13 @@ namespace Ryneus
                 {
                     continue;
                 }
+                var unitMp = battlerInfo.MaxMp;
+                var sub = actorInfos.Find(a => a.Index.Value == battlerInfo.Index.Value + 3);
+                if (sub != null)
+                {
+                    unitMp += sub.MaxMp;
+                }
+                battlerInfo.SetUnitMp(unitMp);
                 _battlers.Add(battlerInfo);
                 _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
             }
@@ -104,6 +111,14 @@ namespace Ryneus
                         battlerInfo.SetWeakPoint(kind);
                     }
                 }
+                battlerInfo.SetEnemyMp();
+                var unitMp = battlerInfo.MaxMp;
+                var sub = actorInfos.Find(a => a.Index.Value == battlerInfo.Index.Value + 3);
+                if (sub != null)
+                {
+                    unitMp += sub.MaxMp;
+                }
+                battlerInfo.SetUnitMp(unitMp);
                 _battlers.Add(battlerInfo);
                 _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
             }
@@ -120,7 +135,6 @@ namespace Ryneus
             _troop.SetBattlers(_battlers.FindAll(a => !a.IsActor));
             //_saveBattleInfo.SetParty(_party.CopyData());
             //_saveBattleInfo.SetTroop(_troop.CopyData());
-            MaxTurnCount.SetValue(FieldBattlerInfos().Count * 3);
         }
 
         public List<BattlerInfo> FieldBattlerInfos()
@@ -286,6 +300,10 @@ namespace Ryneus
         private bool CheckCanUse(SkillInfo skillInfo,BattlerInfo battlerInfo)
         {
             if (skillInfo.CountTurn.Value > 0)
+            {
+                return false;
+            }
+            if (CalcMpCost(battlerInfo,skillInfo.Master.MpCost) > battlerInfo.Mp.Value)
             {
                 return false;
             }
@@ -981,7 +999,7 @@ namespace Ryneus
                     // Hpの支払い
                     subject.GainHp(actionInfo.HpCost.Value * -1);
                     // Mpの支払い
-                    //subject.GainMp(actionInfo.MpCost * -1);
+                    subject.GainMp(actionInfo.MpCost.Value * -1);
                     //subject.GainPayBattleMp(actionInfo.MpCost);
                     subject.InitCountTurn(actionInfo.SkillInfo.Id.Value);
                     subject.LastSelectSkill.SetValue(actionInfo.SkillInfo.Id.Value);
@@ -1310,6 +1328,8 @@ namespace Ryneus
             changeBattler.Index.GainValue(-3);
             subject.SetLineIndex(LineType.Back);
             changeBattler.SetLineIndex(LineType.Front);
+            // Mpを引き継ぐ
+            changeBattler.SetUnitMp(subject.Mp.Value);
         }
 
         public void ActionAfterGainAp(int gainAp)
@@ -1621,7 +1641,7 @@ namespace Ryneus
                         var IsInterrupt = triggerTiming == TriggerTiming.Interrupt || triggerTiming == TriggerTiming.BeforeSelfUse || triggerTiming == TriggerTiming.BeforeOpponentUse || triggerTiming == TriggerTiming.BeforeFriendUse || triggerTiming == TriggerTiming.PrimaryInterrupt;
                         if (triggeredSkill.Master.SkillType == SkillType.Unique && checkBattler.IsAwaken == false)
                         {
-                            checkBattler.SetAwaken();
+                            checkBattler.SetAwaken(true);
                         }
                         var makeActionInfo = MakeActionInfo(checkBattler,triggeredSkill,IsInterrupt,true);
                         if (makeResult)
@@ -1723,7 +1743,7 @@ namespace Ryneus
         private bool CheckCanPassiveSkill(BattlerInfo battlerInfo,SkillInfo passiveInfo,List<TriggerTiming> triggerTimings)
         {
             var triggerDates = passiveInfo.Master.TriggerDates.FindAll(a => triggerTimings.Contains(a.TriggerTiming));
-                    
+
             // バトル中〇回以下使用
             var inBattleUseCountUnder = triggerDates.Find(a => a.TriggerType == TriggerType.InBattleUseCountUnder);
             if (inBattleUseCountUnder != null)
@@ -1805,7 +1825,7 @@ namespace Ryneus
             }                        
             if (makeActionInfo.Master.SkillType == SkillType.Unique && battlerInfo.IsAwaken == false)
             {
-                battlerInfo.SetAwaken();
+                battlerInfo.SetAwaken(true);
             }
             AddReceiveActionInfo(makeActionInfo,ActionInfoTargetIndexes(makeActionInfo,selectIndex,counterSubjectIndex,actionInfo,actionResultInfos),IsInterrupt);
             passiveInfo.UseCount.GainValue(1);
@@ -2411,10 +2431,11 @@ namespace Ryneus
             return isVictory;
         }
 
-        public bool CheckTurnOver()
+        public bool CheckIsOver()
         {
-            bool turnOver = _turnCount > MaxTurnCount.Value;
-            return turnOver;
+            // 全員のMpが0
+            bool over = FieldBattlerInfos().Find(a => SkillActionList(a).Count > 0) == null;
+            return over;
         }
 
         public int MakeBattleScore(bool isVictory,StrategySceneInfo strategySceneInfo)
@@ -2536,6 +2557,11 @@ namespace Ryneus
             if (TempInfo.InReplay)
             {
                 TempInfo.SetInReplay(false);
+            }
+            foreach (var battler in _battlers)
+            {
+                battler.GainMp(battler.MaxMp);
+                battler.SetAwaken(false);
             }
             SaveSystem.SaveOptionStart(GameSystem.OptionData);
         }

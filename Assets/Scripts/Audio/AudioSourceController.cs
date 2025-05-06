@@ -5,16 +5,16 @@ using DG.Tweening;
 
 namespace Ryneus
 {
-    public class AudioSourceController :MonoBehaviour
+    public class AudioSourceController : MonoBehaviour
     {
         private AudioSource _audioSource;
-        
+
         public AudioClip Clip => _audioSource.clip;
 
         private int _reserveTimeSample = -1;
         public int ReserveTimeSample => _reserveTimeSample;
 
-    
+
         private Sequence _toFadeSequence;
         private float _toFadeVolume = 0;
 
@@ -69,7 +69,7 @@ namespace Ryneus
             _audioSource.volume = volume;
         }
 
-        public void SetAudioData(AudioClip clip,bool isLoop = false,bool playOnAwake = false)
+        public void SetAudioData(AudioClip clip, bool isLoop = false, bool playOnAwake = false)
         {
             if (_audioSource == null) return;
             _audioSource.clip = clip;
@@ -111,7 +111,7 @@ namespace Ryneus
             return false;
         }
 
-        public void FadeVolume(float targetVolume,int duration)
+        public void FadeVolume(float targetVolume, int duration)
         {
             if (_audioSource == null) return;
             _toFadeSequence = DOTween.Sequence()

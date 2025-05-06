@@ -17,6 +17,7 @@ namespace Ryneus
         public MagicIconType IconIndex;
         public int AnimationId;
         public AnimationType AnimationType;
+        public int MpCost;
         public int CountTurn;
         public RankType Rank;
         public AttributeType Attribute;
@@ -79,6 +80,11 @@ namespace Ryneus
         public bool IsDisplayStartBattle()
         {
             return TriggerDates.Find(a => a.TriggerTiming == TriggerTiming.StartBattle) != null;
+        }
+
+        public bool IsBattleActiveSkill()
+        {
+            return SkillType is SkillType.Active;
         }
 
         public bool IsBattleSpecialSkill()

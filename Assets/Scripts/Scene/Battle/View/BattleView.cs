@@ -612,10 +612,9 @@ namespace Ryneus
             }
         }
 
-        public void RefreshTurn(int turn,int maxTurn)
+        public void RefreshTurn(int turn)
         {
             turns?.SetText(turn.ToString());
-            maxTurns?.SetText(maxTurn.ToString());
         }
 
         public void SetBattlerThumbAlpha(bool selectable)

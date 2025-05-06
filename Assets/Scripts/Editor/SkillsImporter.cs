@@ -70,6 +70,7 @@ namespace Ryneus
                             IconIndex = (MagicIconType)AssetPostImporter.ImportNumeric(BaseRow, "IconIndex"),
                             AnimationId = AssetPostImporter.ImportNumeric(BaseRow, "AnimationId"),
                             AnimationType = (AnimationType)AssetPostImporter.ImportNumeric(BaseRow, "AnimationType"),
+                            MpCost = AssetPostImporter.ImportNumeric(BaseRow, "MpCost"),
                             CountTurn = AssetPostImporter.ImportNumeric(BaseRow, "CountTurn"),
                             Rank = (RankType)AssetPostImporter.ImportNumeric(BaseRow, "Rank"),
                             Attribute = (AttributeType)AssetPostImporter.ImportNumeric(BaseRow, "Attribute"),

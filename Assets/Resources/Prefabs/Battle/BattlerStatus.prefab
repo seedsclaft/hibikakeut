@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6353885763423545231
 RectTransform:
   m_ObjectHideFlags: 0
@@ -184,15 +184,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -500,15 +502,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -543,7 +547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2573392812196506626
 RectTransform:
   m_ObjectHideFlags: 0
@@ -618,7 +622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5181375432331961377
 RectTransform:
   m_ObjectHideFlags: 0
@@ -693,7 +697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3868299104427844188
 RectTransform:
   m_ObjectHideFlags: 0
@@ -860,15 +864,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -995,15 +1001,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1082,6 +1090,9 @@ MonoBehaviour:
   atk: {fileID: 0}
   def: {fileID: 0}
   spd: {fileID: 0}
+  mov: {fileID: 0}
+  maxCost: {fileID: 0}
+  cost: {fileID: 0}
   hpGaugeAnimation: {fileID: 5248722031855240961}
   mpGaugeAnimation: {fileID: 661038545888140622}
   hpCaption: {fileID: 0}
@@ -1089,10 +1100,13 @@ MonoBehaviour:
   atkCaption: {fileID: 0}
   defCaption: {fileID: 0}
   spdCaption: {fileID: 0}
+  movCaption: {fileID: 0}
+  costCaption: {fileID: 0}
   normalColor: {r: 0, g: 0, b: 0, a: 0}
   upperColor: {r: 0, g: 0, b: 0, a: 0}
   downColor: {r: 0, g: 0, b: 0, a: 0}
   canvasGroup: {fileID: 1589305402219127995}
+  _rectWidth: 80
 --- !u!114 &5248722031855240961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,6 +1122,10 @@ MonoBehaviour:
   gaugeBg: {fileID: 8752751883725132084}
   gauge: {fileID: 6199071286616757914}
   gaugeAnimation: {fileID: 388519148324569558}
+  fillWidth: 100
+  fillMargin: 2
+  waitDuration: 0.8
+  delayDuration: 0.25
 --- !u!114 &661038545888140622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1123,6 +1141,10 @@ MonoBehaviour:
   gaugeBg: {fileID: 4846405566059146748}
   gauge: {fileID: 1571286843965025453}
   gaugeAnimation: {fileID: 464308631909348827}
+  fillWidth: 50
+  fillMargin: 2
+  waitDuration: 0.8
+  delayDuration: 0.25
 --- !u!225 &1589305402219127995
 CanvasGroup:
   m_ObjectHideFlags: 0
