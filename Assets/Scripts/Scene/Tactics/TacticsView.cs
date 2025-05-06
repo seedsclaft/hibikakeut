@@ -165,19 +165,22 @@ namespace Ryneus
         public void SetHexTileList(List<ListData> hexInfos,int columnCount)
         {
             hexTiles.SetGridColumnCount(columnCount);
-            hexTiles.SetData(hexInfos,true,() => 
+            hexTiles.SetData(hexInfos,true,() =>
             {
-                var buttons = hexTiles.GetComponentsInChildren<Button>();
-                var scrollRect = hexTiles.GetComponentInChildren<ScrollRect>();
-                foreach (var button in buttons)
+                foreach (var itemPrefab in hexTiles.ItemPrefabList)
                 {
-                    var multi = button.GetComponent<MultiScroller>();
-                    if (multi == null)
+                    var button = itemPrefab.GetComponent<Button>();
+                    var scrollRect = hexTiles.ScrollRect;
+                    if (button != null)
                     {
-                        button.AddComponent<MultiScroller>();
-                        multi = button.GetComponent<MultiScroller>();
+                        var multi = button.GetComponent<MultiScroller>();
+                        if (multi == null)
+                        {
+                            button.AddComponent<MultiScroller>();
+                            multi = button.GetComponent<MultiScroller>();
+                        }
+                        multi.SetScrollEvent(scrollRect);
                     }
-                    multi.SetScrollEvent(scrollRect);
                 }
             });
             SetActivate(hexTiles);

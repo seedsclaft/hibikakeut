@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Ryneus
 {
-    abstract public partial class ListWindow : MonoBehaviour
+    public abstract partial class ListWindow : MonoBehaviour
     {
         private bool _active = true;
         public bool Active => _active;
@@ -37,10 +37,18 @@ namespace Ryneus
         private GameObject _prefabPool = null;
         private List<ListData> _listDates = new();
         public List<ListData> ListDates => _listDates;
+        public void SetListData(List<ListData> listData)
+        {
+            if (reverse)
+            {
+                listData.Reverse();
+            }
+            _listDates = listData;
+        }
         public int DataCount => _listDates.Count;
         private Vector2 _itemSize;
-        private int _lastStartIndexX = -1;
-        private int _lastStartIndexY = -1;
+        private int _lastStartIndexX = 999;
+        private int _lastStartIndexY = 999;
         private LinkedList<IListViewItem> _itemList = new();
         private List<GameObject> _objectList = new();
         public List<GameObject> ObjectList => _objectList;
@@ -93,15 +101,6 @@ namespace Ryneus
             SetItemSize();
             _inputCallHandler = null;
             _scrollRect.scrollSensitivity = 10;
-        }
-
-        public void SetListData(List<ListData> listData)
-        {
-            if (reverse)
-            {
-                listData.Reverse();
-            }
-            _listDates = listData;
         }
 
         private void SetValueChangedEvent()
@@ -180,7 +179,7 @@ namespace Ryneus
             {
                 var prefab = Instantiate(_blankObject);
                 prefab.transform.SetParent(_scrollRect.content, false);
-                prefab.name = "blank Object";
+                prefab.name = "blank Object : " + i;
                 _objectList.Add(prefab);
             }
             if (reverse)
@@ -192,7 +191,7 @@ namespace Ryneus
         private void CreateListItemPrefab()
         {
             var listCount = ListItemCount();
-            CreateListPrefab(listCount + _gridColumnCount);
+            CreateListPrefab(listCount);
         }
 
         private void CreateListPrefab(int createCount)
@@ -214,6 +213,11 @@ namespace Ryneus
 
         public void UpdateItemPrefab(int selectIndex = -1)
         {
+            if (_grid)
+            {
+                UpdateListItem();
+                return;
+            }
             var horizontalCount = GetHorizonalCount();
             var verticalCount = GetVerticalCount();
             horizontalCount += 1;
@@ -244,6 +248,7 @@ namespace Ryneus
                     continue;
                 }
                 listItem.SetListData(_listDates[itemIndex],itemIndex);
+                Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: "+ itemIndex);
                 itemPrefab.transform.SetParent(_objectList[itemIndex].transform,false);
                 itemPrefab.SetActive(true);
             }
@@ -405,29 +410,36 @@ namespace Ryneus
             {
                 if (gridIndex != _lastStartIndexY)
                 {
-                    /*
-                    if (gridIndex-1 == _lastStartIndexY && gridIndex > 0)
+                    if (gridIndex > _lastStartIndexY && gridIndex > 0)
                     {
-                        _lastStartIndexY = gridIndex;
-                        UpdateListDownGrid(startIndex);
-                        _selectedHandler?.Invoke();
-                        return;
+                        UpdateListDownGrid(gridIndex);
+                        update = true;
                     } else
-                    if (gridIndex+1 == _lastStartIndexY && gridIndex > 0)
+                    if (gridIndex < _lastStartIndexY && gridIndex >= 0)
                     {
-                        _lastStartIndexY = gridIndex;
-                        UpdateListUpGrid(startIndex);
-                        _selectedHandler?.Invoke();
-                        return;
+                        UpdateListUpGrid(gridIndex);
+                        update = true;
                     }
-                    */
-                    _lastStartIndexY = gridIndex;
+                }
+                if (startIndex > _lastStartIndexX)
+                {
+                    UpdateListRightGrid(startIndex);
+                    update = true;
+                } else
+                if (startIndex < _lastStartIndexX)
+                {
+                    UpdateListLeftGrid(startIndex);
                     update = true;
                 }
+                if (update)
+                {
+                    _selectedHandler?.Invoke();
+                    return;
+                }
             }
-            if (startIndex != _lastStartIndexX || update)
+
+            if (startIndex != _lastStartIndexX)
             {
-                /*
                 if (startIndex-1 == _lastStartIndexX && _lastStartIndexX > -1)
                 {
                     UpdateListDown(startIndex);
@@ -440,7 +452,6 @@ namespace Ryneus
                     _selectedHandler?.Invoke();
                     return;
                 }
-                */
                 UpdateItemPrefab();
                 UpdateAllItems();
                 _lastStartIndexX = startIndex;
@@ -458,6 +469,7 @@ namespace Ryneus
             {
                 return;
             }
+            Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: "+ itemIndex);
             itemPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
             var listItem = itemPrefab.GetComponent<ListItem>();
             listItem.SetListData(_listDates[objectIndex],objectIndex);
@@ -479,53 +491,12 @@ namespace Ryneus
             {
                 return;
             }
+            Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: "+ itemIndex);
             itemPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
             var listItem = itemPrefab.GetComponent<ListItem>();
             listItem.SetListData(_listDates[objectIndex],objectIndex);
             var view = itemPrefab.GetComponent<IListViewItem>();
             view.UpdateViewItem();
-        }
-
-        private void UpdateListDownGrid(int startIndex)
-        {
-            for (int i = 0;i < _gridColumnCount;i++)
-            {
-                var itemIndex = startIndex + i;
-                var itemPrefab = _itemPrefabList[itemIndex];
-                var objectIndex = _itemPrefabList.Count+startIndex-1;
-                if (objectIndex > _objectList.Count-1)
-                {
-                    return;
-                }
-                itemPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
-                var listItem = itemPrefab.GetComponent<ListItem>();
-                listItem.SetListData(_listDates[objectIndex],objectIndex);
-                var view = itemPrefab.GetComponent<IListViewItem>();
-                view.UpdateViewItem();
-            }
-        }
-
-        private void UpdateListUpGrid(int startIndex)
-        {
-            for (int i = 0;i < _gridColumnCount;i++)
-            {
-                var itemIndex = startIndex + i;
-                if (itemIndex < 0)
-                {
-                    return;
-                }
-                var itemPrefab = _itemPrefabList[itemIndex];
-                var objectIndex = startIndex-1;
-                if (objectIndex < 0)
-                {
-                    return;
-                }
-                itemPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
-                var listItem = itemPrefab.GetComponent<ListItem>();
-                listItem.SetListData(_listDates[objectIndex],objectIndex);
-                var view = itemPrefab.GetComponent<IListViewItem>();
-                view.UpdateViewItem();
-            }
         }
 
         public void UpdateAllItems()
@@ -927,7 +898,7 @@ namespace Ryneus
             var verticalCount = GetVerticalCount();
             if (_grid)
             {
-                return (horizontalCount+1) * (verticalCount+1);
+                return (horizontalCount) * (verticalCount + 1) + (verticalCount - 1);
             } else
             if (_horizontal)
             {
