@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Ryneus
 {
-    abstract public partial class ListWindow : MonoBehaviour
+    public abstract partial class ListWindow : MonoBehaviour
     {
         [SerializeField] private bool _grid = false;
         private int _gridColumnCount = 1;
@@ -68,13 +68,19 @@ namespace Ryneus
             var lineIndex = gridIndex - _lastStartIndexY;
             _lastStartIndexY = gridIndex;
             int startIndex = GetStartIndex(_horizontal);
-            var length = GetVerticalCount();
+            var verticalCount = GetVerticalCount();
             var horizontalCount = GetHorizonalCount();
+            var itemPerIndex = (gridIndex - 1) / (verticalCount + 1);
+            var objectPerIndex = startIndex / (horizontalCount + 1);
             for (int j = 0;j < lineIndex;j++)
             {
                 for (int i = 0;i <= horizontalCount;i++)
                 {
                     var itemIndex = (gridIndex - 1 - j) * (horizontalCount + 1) + i;
+                    if (itemPerIndex > 0)
+                    {
+                        itemIndex -= itemPerIndex * (verticalCount + 1) * (horizontalCount + 1);
+                    }
                     if (itemIndex < 0)
                     {
                         continue;
@@ -84,13 +90,13 @@ namespace Ryneus
                         continue;
                     }
                     var itemPrefab = _itemPrefabList[itemIndex];
-                    var objectIndex = _gridColumnCount * length + (gridIndex - j) * _gridColumnCount + i + startIndex;
-                    if (startIndex > i)
+                    var objectIndex = _gridColumnCount * verticalCount + (gridIndex - j) * _gridColumnCount + i;
+                    if (startIndex - (objectPerIndex * (horizontalCount + 1)) > i)
                     {
-                        objectIndex += horizontalCount - (startIndex - 1);
+                        objectIndex += (objectPerIndex + 1) * horizontalCount + 1 + objectPerIndex;
                     } else
                     {
-                        objectIndex -= startIndex;
+                        objectIndex += objectPerIndex * (horizontalCount + 1);
                     }
                     if (objectIndex > _objectList.Count-1)
                     {
@@ -111,12 +117,19 @@ namespace Ryneus
             var lineIndex = _lastStartIndexY - gridIndex;
             _lastStartIndexY = gridIndex;
             int startIndex = GetStartIndex(_horizontal);
+            var verticalCount = GetVerticalCount();
             var horizontalCount = GetHorizonalCount();
+            var itemPerIndex = gridIndex / (verticalCount + 1);
+            var objectPerIndex = startIndex / (horizontalCount + 1);
             for (int j = 0;j < lineIndex;j++)
             {
                 for (int i = 0;i <= horizontalCount;i++)
                 {
                     var itemIndex = (gridIndex + j) * (horizontalCount + 1) + i;
+                    if (itemPerIndex > 0)
+                    {
+                        itemIndex -= itemPerIndex * (verticalCount + 1) * (horizontalCount + 1);
+                    }
                     if (itemIndex < 0)
                     {
                         continue;
@@ -127,9 +140,12 @@ namespace Ryneus
                     }
                     var itemPrefab = _itemPrefabList[itemIndex];
                     var objectIndex = (gridIndex + j) * _gridColumnCount + i;
-                    if (startIndex > i)
+                    if (startIndex - (objectPerIndex * (horizontalCount + 1)) > i)
                     {
-                        objectIndex += horizontalCount + 1;
+                        objectIndex += (objectPerIndex + 1) * horizontalCount + 1 + objectPerIndex;
+                    } else
+                    {
+                        objectIndex += objectPerIndex * (horizontalCount + 1);
                     }
                     if (objectIndex < 0)
                     {
@@ -156,15 +172,16 @@ namespace Ryneus
             int gridIndex = GetStartIndex(!_horizontal);
             var verticalCount = GetVerticalCount();
             var horizontalCount = GetHorizonalCount();
-            var perIndex = (startIndex - 1) / horizontalCount;
+            var itemPerIndex = (startIndex - 1) / (horizontalCount + 1);
+            var objectPerIndex = (gridIndex - 1) / (verticalCount + 1);
             for (int j = 0;j < lineIndex;j++)
             {
                 for (int i = 0;i <= verticalCount;i++)
                 {
                     var itemIndex = startIndex - 1 - j + i * (horizontalCount + 1);
-                    if (perIndex > 0)
+                    if (itemPerIndex > 0)
                     {
-                        itemIndex -= perIndex * (horizontalCount + 1);
+                        itemIndex -= itemPerIndex * (horizontalCount + 1);
                     }
                     if (itemIndex < 0)
                     {
@@ -175,8 +192,8 @@ namespace Ryneus
                         continue;
                     }
                     var itemPrefab = _itemPrefabList[itemIndex];
-                    var objectIndex = startIndex - j + horizontalCount + i * _gridColumnCount;// + gridIndex * _gridColumnCount;
-                    if (gridIndex > i)
+                    var objectIndex = startIndex - j + horizontalCount + i * _gridColumnCount + (objectPerIndex * (_gridColumnCount) * (verticalCount + 1));// + gridIndex * _gridColumnCount;
+                    if (gridIndex - (objectPerIndex * (verticalCount + 1)) > i)
                     {
                         objectIndex += _gridColumnCount * (verticalCount + 1);
                     }
@@ -201,16 +218,16 @@ namespace Ryneus
             int gridIndex = GetStartIndex(!_horizontal);
             var verticalCount = GetVerticalCount();
             var horizontalCount = GetHorizonalCount();
-            var perIndex = startIndex / horizontalCount;
-            var verticalPerIndex = startIndex / verticalCount;
+            var itemPerIndex = startIndex / (horizontalCount + 1);
+            var objectPerIndex = (gridIndex - 1) / (verticalCount + 1);
             for (int j = 0;j < lineIndex;j++)
             {
                 for (int i = 0;i <= verticalCount;i++)
                 {
                     var itemIndex = startIndex + j + i * (horizontalCount + 1);
-                    if (perIndex > 0)
+                    if (itemPerIndex > 0)
                     {
-                        itemIndex -= perIndex * (horizontalCount + 1);
+                        itemIndex -= itemPerIndex * (horizontalCount + 1);
                     }
                     if (itemIndex < 0)
                     {
@@ -221,8 +238,8 @@ namespace Ryneus
                         continue;
                     }
                     var itemPrefab = _itemPrefabList[itemIndex];
-                    var objectIndex = startIndex + j + i * _gridColumnCount;
-                    if (gridIndex > i)
+                    var objectIndex = startIndex + j + i * _gridColumnCount + (objectPerIndex * (_gridColumnCount) * (verticalCount + 1));
+                    if (gridIndex - (objectPerIndex * (verticalCount + 1)) > i)
                     {
                         objectIndex += _gridColumnCount * (verticalCount + 1);
                     }
