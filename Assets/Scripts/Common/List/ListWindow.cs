@@ -81,7 +81,7 @@ namespace Ryneus
 
         private void DestroyListChildren()
         {
-            foreach(Transform child in _scrollRect.content.transform)
+            foreach (Transform child in _scrollRect.content.transform)
             {
                 Destroy(child.gameObject);
             }
@@ -93,7 +93,7 @@ namespace Ryneus
             _prefabPool = Instantiate(_basePrefab);
             Destroy(_basePrefab);
             _prefabPool.name = "prefab pool";
-            _prefabPool.transform.SetParent(gameObject.transform,false);
+            _prefabPool.transform.SetParent(gameObject.transform, false);
             _scrollRect = GetComponentInChildren<ScrollRect>();
             DestroyListChildren();
             _objectList = new();
@@ -128,7 +128,7 @@ namespace Ryneus
                     return true;
                 }
             }
-            if (startIndex < 0 || _lastStartIndexX == startIndex) 
+            if (startIndex < 0 || _lastStartIndexX == startIndex)
             {
                 return false;
             }
@@ -158,7 +158,7 @@ namespace Ryneus
 
         public void UpdateObjectList()
         {
-            for (var i = 0; i < _objectList.Count;i++)
+            for (var i = 0; i < _objectList.Count; i++)
             {
                 _objectList[i].SetActive(_listDates.Count > i);
             }
@@ -172,10 +172,10 @@ namespace Ryneus
             _blankObject.name = "blank";
             _objectList.Add(_blankObject);
             var rect = _blankObject.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector3(_itemSize.x,_itemSize.y,0);
-            rect.pivot = new Vector3(0,1,0);
+            rect.sizeDelta = new Vector3(_itemSize.x, _itemSize.y, 0);
+            rect.pivot = new Vector3(0, 1, 0);
             int createCount = _listDates.Count;
-            for (var i = 0; i < createCount-1;i++)
+            for (var i = 0; i < createCount - 1; i++)
             {
                 var prefab = Instantiate(_blankObject);
                 prefab.transform.SetParent(_scrollRect.content, false);
@@ -198,7 +198,7 @@ namespace Ryneus
         {
             // 上下用に1つ多く作成
             createCount++;
-            for (var i = 0; i < createCount;i++)
+            for (var i = 0; i < createCount; i++)
             {
                 var prefab = Instantiate(itemPrefab);
                 prefab.name = i.ToString();
@@ -221,12 +221,12 @@ namespace Ryneus
             var horizontalCount = GetHorizonalCount();
             var verticalCount = GetVerticalCount();
             horizontalCount += 1;
-            var startIndex = selectIndex == -1 ? GetStartIndex(_horizontal): selectIndex;
-            var gridIndex = selectIndex == -1 ? GetStartIndex(!_horizontal): selectIndex;
-            for (int i = 0;i < _itemPrefabList.Count;i++)
+            var startIndex = selectIndex == -1 ? GetStartIndex(_horizontal) : selectIndex;
+            var gridIndex = selectIndex == -1 ? GetStartIndex(!_horizontal) : selectIndex;
+            for (int i = 0; i < _itemPrefabList.Count; i++)
             {
                 var itemPrefab = _itemPrefabList[i];
-                var itemIndex = i+startIndex;
+                var itemIndex = i + startIndex;
                 if (_grid)
                 {
                     if (gridIndex > 0)
@@ -243,13 +243,13 @@ namespace Ryneus
                 if (_listDates.Count <= itemIndex || _objectList.Count <= itemIndex || itemIndex < 0)
                 {
                     itemPrefab.SetActive(false);
-                    listItem.SetListData(null,-1);
+                    listItem.SetListData(null, -1);
                     listItem.SetUnSelect();
                     continue;
                 }
-                listItem.SetListData(_listDates[itemIndex],itemIndex);
-                Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: "+ itemIndex);
-                itemPrefab.transform.SetParent(_objectList[itemIndex].transform,false);
+                listItem.SetListData(_listDates[itemIndex], itemIndex);
+                Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + itemIndex);
+                itemPrefab.transform.SetParent(_objectList[itemIndex].transform, false);
                 itemPrefab.SetActive(true);
             }
         }
@@ -267,13 +267,13 @@ namespace Ryneus
             int createCount = count;
             foreach (var objectList in _objectList)
             {
-                for (int i = 0;i < objectList.transform.childCount;i++)
+                for (int i = 0; i < objectList.transform.childCount; i++)
                 {
                     var child = objectList.transform.GetChild(i);
                     child.transform.SetParent(_scrollRect.content, false);
                 }
             }
-            for (var i = 0; i < createCount;i++)
+            for (var i = 0; i < createCount; i++)
             {
                 var prefab = Instantiate(_blankObject);
                 prefab.name = "blank Object";
@@ -281,13 +281,13 @@ namespace Ryneus
                 _objectList.Add(prefab);
             }
             var startIndex = 0;
-            for (int i = startIndex;i < _itemPrefabList.Count;i++)
+            for (int i = startIndex; i < _itemPrefabList.Count; i++)
             {
                 if (_listDates.Count <= i)
                 {
                     continue;
                 }
-                _itemPrefabList[i].transform.SetParent(_objectList[i].transform,false);
+                _itemPrefabList[i].transform.SetParent(_objectList[i].transform, false);
             }
         }
 
@@ -356,7 +356,8 @@ namespace Ryneus
                 {
                     return horizontal.spacing;
                 }
-            } else
+            }
+            else
             {
                 var vertical = GetComponentInChildren<VerticalLayoutGroup>();
                 if (vertical != null)
@@ -376,7 +377,8 @@ namespace Ryneus
                 {
                     return horizontal.padding.left + horizontal.padding.right;
                 }
-            } else
+            }
+            else
             {
                 var vertical = GetComponentInChildren<VerticalLayoutGroup>();
                 if (vertical != null)
@@ -396,57 +398,34 @@ namespace Ryneus
             var itemSpace = ItemSpace(horizontal);
             var listMargin = ListMargin(horizontal);
             var itemSize = horizontal ? _itemSize.x : _itemSize.y;
-            var rectSize = horizontal ? GetScrolledWidth() : Math.Max(0,GetScrolledHeight());
+            var rectSize = horizontal ? GetScrolledWidth() : Math.Max(0, GetScrolledHeight());
             var index = (int)Math.Floor((rectSize - itemSpace - listMargin + 4) / (itemSize + itemSpace));
-            return Math.Max(0,index);
+            return Math.Max(0, index);
         }
 
         public void UpdateListItem()
         {
-            int startIndex = GetStartIndex(_horizontal);
-            int gridIndex = GetStartIndex(!_horizontal);
-            var update = false;
             if (_grid)
             {
-                if (gridIndex != _lastStartIndexY)
-                {
-                    if (gridIndex > _lastStartIndexY && gridIndex > 0)
-                    {
-                        UpdateListDownGrid(gridIndex);
-                        update = true;
-                    } else
-                    if (gridIndex < _lastStartIndexY && gridIndex >= 0)
-                    {
-                        UpdateListUpGrid(gridIndex);
-                        update = true;
-                    }
-                }
-                if (startIndex > _lastStartIndexX)
-                {
-                    UpdateListRightGrid(startIndex);
-                    update = true;
-                } else
-                if (startIndex < _lastStartIndexX)
-                {
-                    UpdateListLeftGrid(startIndex);
-                    update = true;
-                }
+                var update = UpdateListGrid();
                 if (update)
                 {
-                    _selectedHandler?.Invoke();
                     return;
                 }
             }
+            int startIndex = GetStartIndex(_horizontal);
+            int gridIndex = GetStartIndex(!_horizontal);
 
             if (startIndex != _lastStartIndexX)
             {
-                if (startIndex-1 == _lastStartIndexX && _lastStartIndexX > -1)
+                if (startIndex - 1 == _lastStartIndexX && _lastStartIndexX > -1)
                 {
                     UpdateListDown(startIndex);
                     _selectedHandler?.Invoke();
                     return;
-                } else
-                if (startIndex+1 == _lastStartIndexX && _lastStartIndexX > -1)
+                }
+                else
+                if (startIndex + 1 == _lastStartIndexX && _lastStartIndexX > -1)
                 {
                     UpdateListUp(startIndex);
                     _selectedHandler?.Invoke();
@@ -462,39 +441,39 @@ namespace Ryneus
         private void UpdateListDown(int startIndex)
         {
             _lastStartIndexX = startIndex;
-            var itemIndex = (startIndex-1)%_itemPrefabList.Count;
-            var itemPrefab = _itemPrefabList[itemIndex];
-            var objectIndex = _itemPrefabList.Count+startIndex-1;
-            if (objectIndex > _objectList.Count-1)
+            var itemIndex = (startIndex - 1) % _itemPrefabList.Count;
+            var objectIndex = _itemPrefabList.Count + startIndex - 1;
+            if (objectIndex > _objectList.Count - 1)
             {
                 return;
             }
-            Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: "+ itemIndex);
-            itemPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
-            var listItem = itemPrefab.GetComponent<ListItem>();
-            listItem.SetListData(_listDates[objectIndex],objectIndex);
-            var view = itemPrefab.GetComponent<IListViewItem>();
-            view.UpdateViewItem();
+            Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
+            UpdateListItem(itemIndex, objectIndex);
         }
 
         private void UpdateListUp(int startIndex)
         {
             _lastStartIndexX = startIndex;
-            var itemIndex = (startIndex-1)%_itemPrefabList.Count;
+            var itemIndex = (startIndex - 1) % _itemPrefabList.Count;
             if (itemIndex < 0)
             {
                 return;
             }
-            var itemPrefab = _itemPrefabList[itemIndex];
-            var objectIndex = startIndex-1;
+            var objectIndex = startIndex - 1;
             if (objectIndex < 0)
             {
                 return;
             }
-            Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: "+ itemIndex);
-            itemPrefab.transform.SetParent(_objectList[objectIndex].transform,false);
+            Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
+            UpdateListItem(itemIndex, objectIndex);
+        }
+
+        private void UpdateListItem(int itemIndex, int objectIndex)
+        {
+            var itemPrefab = _itemPrefabList[itemIndex];
+            itemPrefab.transform.SetParent(_objectList[objectIndex].transform, false);
             var listItem = itemPrefab.GetComponent<ListItem>();
-            listItem.SetListData(_listDates[objectIndex],objectIndex);
+            listItem.SetListData(_listDates[objectIndex], objectIndex);
             var view = itemPrefab.GetComponent<IListViewItem>();
             view.UpdateViewItem();
         }
@@ -553,7 +532,7 @@ namespace Ryneus
             _helpWindow = helpWindow;
         }
 
-        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
             if (keyTypes == null)
             {
@@ -574,7 +553,8 @@ namespace Ryneus
                 if (InputSystem.IsGamePad)
                 {
                     plusValue = pressed ? _listMoveGamePadFrame : _listMoveGamePadFrameFirst;
-                } else
+                }
+                else
                 {
                     plusValue = pressed ? _listMoveInputFrame : _listMoveInputFrameFirst;
                 }
@@ -597,7 +577,7 @@ namespace Ryneus
             var nextIndex = Index;
             if (keyTypes.Contains(plusKey) || keyTypes.Contains(minusKey))
             {
-                for (int i = 0;i < _listDates.Count;i++)
+                for (int i = 0; i < _listDates.Count; i++)
                 {
                     if (keyTypes.Contains(plusKey))
                     {
@@ -606,7 +586,8 @@ namespace Ryneus
                         {
                             nextIndex -= _listDates.Count;
                         }
-                    } else
+                    }
+                    else
                     if (keyTypes.Contains(minusKey))
                     {
                         nextIndex = Index - i - 1;
@@ -625,24 +606,26 @@ namespace Ryneus
                         break;
                     }
                 }
-            } else
+            }
+            else
             if (keyTypes.Contains(pageUpKey) || keyTypes.Contains(pageDownKey))
             {
                 // 列移動
                 var lines = _horizontal ? Cols() : Rows();
                 if (lines > 1)
                 {
-                    for (int i = 0;i < lines;i++)
+                    for (int i = 0; i < lines; i++)
                     {
                         if (keyTypes.Contains(pageUpKey))
                         {
-                            nextIndex = Index + (i+1) * lines;
-                        } else
+                            nextIndex = Index + (i + 1) * lines;
+                        }
+                        else
                         if (keyTypes.Contains(pageDownKey))
                         {
-                            nextIndex = Index + (i+1) * -1 * lines;
+                            nextIndex = Index + (i + 1) * -1 * lines;
                         }
-                        if (nextIndex < 0 || nextIndex > _listDates.Count-1)
+                        if (nextIndex < 0 || nextIndex > _listDates.Count - 1)
                         {
                             nextIndex = Index;
                             break;
@@ -666,10 +649,11 @@ namespace Ryneus
                 if (selectIndex >= _listDates.Count)
                 {
                     selectIndex = 0;
-                } else
+                }
+                else
                 if (selectIndex < 0)
                 {
-                    selectIndex = _listDates.Count-1;
+                    selectIndex = _listDates.Count - 1;
                 }
             }
 
@@ -699,7 +683,8 @@ namespace Ryneus
                 if (_active && (index == listItem.Index || _selectIndexes.Contains(listItem.Index)))
                 {
                     listItem.SetSelect();
-                } else
+                }
+                else
                 {
                     listItem.SetUnSelect();
                 }
@@ -730,7 +715,7 @@ namespace Ryneus
             _inputCallHandler = callHandler;
         }
 
-        public void SetInputHandler(InputKeyType keyType,Action handler)
+        public void SetInputHandler(InputKeyType keyType, Action handler)
         {
             _inputHandler[keyType] = handler;
             if (keyType == InputKeyType.Cancel)
@@ -814,7 +799,7 @@ namespace Ryneus
             var plusKey = GetPlusKey();
             var minusKey = GetMinusKey();
             var selectItem = _objectList[_index];
-            var itemPosition = GetCornerPosition(selectItem,0,false);
+            var itemPosition = GetCornerPosition(selectItem, 0, false);
             float verticalCount = GetVerticalCount();
             var p = _objectList.Count - verticalCount;
             var verticalNormalizedPosition = -1f;
@@ -827,13 +812,15 @@ namespace Ryneus
                         var c = _index - verticalCount + 1;
                         var per = 1f - (c / p);
 
-                        verticalNormalizedPosition = Math.Max(per,0);
-                    } else
+                        verticalNormalizedPosition = Math.Max(per, 0);
+                    }
+                    else
                     if (warpMode && _index == 0)
                     {
                         verticalNormalizedPosition = 1;
                     }
-                } else
+                }
+                else
                 if (keyTypes.Contains(minusKey))
                 {
                     if (itemPosition > GetViewPortHeight())
@@ -841,8 +828,9 @@ namespace Ryneus
                         var c = _index;
                         var per = 1f - (c / p);
 
-                        verticalNormalizedPosition = Math.Min(1,per);
-                    } else
+                        verticalNormalizedPosition = Math.Min(1, per);
+                    }
+                    else
                     if (warpMode && _index == (GetGridRowCount() - 1))
                     {
                         verticalNormalizedPosition = 0;
@@ -884,10 +872,11 @@ namespace Ryneus
                 var normalizedPosition = 1 - per * (selectIndex - listCount + 1);
                 if (_horizontal)
                 {
-                    ScrollRect.normalizedPosition = new Vector2(normalizedPosition,0);
-                } else
+                    ScrollRect.normalizedPosition = new Vector2(normalizedPosition, 0);
+                }
+                else
                 {
-                    ScrollRect.normalizedPosition = new Vector2(0,normalizedPosition);
+                    ScrollRect.normalizedPosition = new Vector2(0, normalizedPosition);
                 }
             }
         }
@@ -899,7 +888,8 @@ namespace Ryneus
             if (_grid)
             {
                 return (horizontalCount) * (verticalCount + 1) + (verticalCount - 1);
-            } else
+            }
+            else
             if (_horizontal)
             {
                 return horizontalCount * Cols();
@@ -916,7 +906,8 @@ namespace Ryneus
             if (horizontal)
             {
                 return ((int)Math.Round((width - listMargin) / (_itemSize.x + space))) * Cols();
-            } else
+            }
+            else
             {
                 return ((int)Math.Round((height - listMargin) / (_itemSize.y + space))) * Rows();
             }
@@ -926,10 +917,11 @@ namespace Ryneus
         {
             if (_horizontal)
             {
-                ScrollRect.normalizedPosition = new Vector2(1,0);
-            } else
+                ScrollRect.normalizedPosition = new Vector2(1, 0);
+            }
+            else
             {
-                ScrollRect.normalizedPosition = new Vector2(0,1);
+                ScrollRect.normalizedPosition = new Vector2(0, 1);
             }
             _lastStartIndexX = -1;
         }
@@ -939,13 +931,13 @@ namespace Ryneus
             OnDestroy();
         }
 
-        private void OnDestroy() 
+        private void OnDestroy()
         {
-            for (int i = _itemPrefabList.Count - 1;0 <= i;i--)
+            for (int i = _itemPrefabList.Count - 1; 0 <= i; i--)
             {
                 Destroy(_itemPrefabList[i]);
             }
-            for (int i = _objectList.Count - 1;0 <= i;i--)
+            for (int i = _objectList.Count - 1; 0 <= i; i--)
             {
                 Destroy(_objectList[i]);
             }
