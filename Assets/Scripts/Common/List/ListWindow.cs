@@ -339,12 +339,12 @@ namespace Ryneus
 
         private int Cols()
         {
-            return (int)Math.Round(GetViewPortHeight() / _itemSize.y);
+            return (int)Math.Floor(GetViewPortHeight() / _itemSize.y);
         }
 
         private int Rows()
         {
-            return (int)Math.Round(GetViewPortWidth() / _itemSize.x);
+            return (int)Math.Floor(GetViewPortWidth() / _itemSize.x);
         }
 
         private float ItemSpace(bool isHorizontal)
@@ -850,12 +850,12 @@ namespace Ryneus
                 return;
             }
             LayoutRebuilder.ForceRebuildLayoutImmediate(ScrollRect.content);
+            UpdateSelectIndex(selectIndex);
             if (_grid)
             {
                 UpdateGridScrollRect(selectIndex);
                 return;
             }
-            UpdateSelectIndex(selectIndex);
             var listCount = ListItemCount();
             var dataCount = _listDates.Count;
             // 表示可能な最下部
@@ -887,7 +887,7 @@ namespace Ryneus
             var verticalCount = GetVerticalCount();
             if (_grid)
             {
-                return (horizontalCount) * (verticalCount + 1) + (verticalCount - 1);
+                return horizontalCount * (verticalCount + 1) + verticalCount;
             }
             else
             if (_horizontal)
@@ -897,6 +897,7 @@ namespace Ryneus
             return verticalCount * Rows();
         }
 
+/*
         private int ListItemCount(bool horizontal)
         {
             var width = GetViewPortWidth();
@@ -905,13 +906,14 @@ namespace Ryneus
             var space = ItemSpace(horizontal);
             if (horizontal)
             {
-                return ((int)Math.Round((width - listMargin) / (_itemSize.x + space))) * Cols();
+                return ((int)Math.Floor((width - listMargin) / (_itemSize.x + space))) * Cols();
             }
             else
             {
-                return ((int)Math.Round((height - listMargin) / (_itemSize.y + space))) * Rows();
+                return ((int)Math.Floor((height - listMargin) / (_itemSize.y + space))) * Rows();
             }
         }
+*/
 
         public void ResetScrollRect()
         {
