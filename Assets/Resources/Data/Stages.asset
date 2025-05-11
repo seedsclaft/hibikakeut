@@ -40,7 +40,7 @@ MonoBehaviour:
     Name: "\u30B9\u30C6\u30FC\u30B81"
     AchieveType: 1
     AchieveText: "\u6575\u62E0\u70B9\u3092\u5236\u5727\u3059\u308B"
-    EnemyBasementId: 1050
+    EnemyBasementId: 0
     Selectable: 1
     Help: '""'
     StageLv: 0
@@ -71,18 +71,40 @@ MonoBehaviour:
     StageSymbols: []
   - Id: 20
     StageNo: 2
-    Name: "\u30B9\u30C6\u30FC\u30B82"
+    Name: "\u30B9\u30C6\u30FC\u30B81"
     AchieveType: 1
     AchieveText: "\u6575\u62E0\u70B9\u3092\u5236\u5727\u3059\u308B"
-    EnemyBasementId: 2020
+    EnemyBasementId: 0
     Selectable: 1
     Help: '""'
     StageLv: 0
     PartyMemberIds: 00000000
     Width: 40
     Height: 40
-    InitX: 14
-    InitY: 36
+    InitX: 22
+    InitY: 2
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates: []
+    BackGround: NA_background image_3D like_894
+    BGMId: 1010
+    BossBGMId: 2010
+    MenuBGMId: 100
+    StageEvents: []
+    StageSymbols: []
+  - Id: 30
+    StageNo: 3
+    Name: "\u30B9\u30C6\u30FC\u30B81"
+    AchieveType: 1
+    AchieveText: "\u6575\u62E0\u70B9\u3092\u5236\u5727\u3059\u308B"
+    EnemyBasementId: 0
+    Selectable: 1
+    Help: '""'
+    StageLv: 0
+    PartyMemberIds: 00000000
+    Width: 40
+    Height: 40
+    InitX: 22
+    InitY: 2
     RandomTroopWeight: 30
     RandomTroopEnemyRates: []
     BackGround: NA_background image_3D like_894

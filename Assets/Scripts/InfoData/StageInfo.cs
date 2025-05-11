@@ -178,5 +178,39 @@ namespace Ryneus
             var depatureActorInfos = GameSystem.GameInfo.PartyInfo.ActorInfos.FindAll(a => !a.Lost.Value);
             return (depatureActorInfos.Count == 0) && fieldUnit == null;
         }
+
+        /// <summary>
+        /// 制圧してマップを開放
+        /// </summary>
+        /// <param name="stageId"></param>
+        public void AddStageSymbolDates(List<HexUnitInfo> openUnitInfos)
+        {
+            // マップを開放
+            var newFields = new List<HexUnitInfo>();
+            // 既存ユニットを保持
+            newFields.AddRange(FieldHexList.FindAll(a => a.HexUnitType != HexUnitType.None));
+            // 壁を開放
+            var walls = FieldHexList.FindAll(a => a.HexUnitType == HexUnitType.None);
+            var openFields = openUnitInfos.FindAll(a => a.HexUnitType == HexUnitType.None);
+            foreach (var wall in walls)
+            {
+                if (openFields.Find(a => a.OnField(wall.HexField.X,wall.HexField.Y)) != null)
+                {
+                    newFields.Add(wall);
+                }
+            }
+            SetHexUnitInfos(newFields);
+            // 新規ユニットを追加
+            AddHexUnitInfos(openUnitInfos.FindAll(a => a.HexUnitType != HexUnitType.None && !a.IsUnit));
+            // 敵ユニットを登録
+            var oppnents = openUnitInfos.FindAll(a => a.IsBattlerUnit);
+            foreach (var oppnent in oppnents)
+            {
+                AwayTeamInfo.AddUnitInfos(oppnent);
+            }
+            // 敵は敵部隊数分1回ずつ行動可能
+            var awayActPoint = AwayTeamInfo.UnitInfos.FindAll(a => a.IsUnit && a.IsFriend(AwayTeamInfo.TeamId.Value));
+            AwayTeamInfo.SetActPoint(awayActPoint.Count - 1);
+        }
     }
 }

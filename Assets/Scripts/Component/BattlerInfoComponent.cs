@@ -294,13 +294,16 @@ namespace Ryneus
                 }
             },delayCount);
             _battleDamages.Add(battleDamage);
-            if (damageType == DamageType.HpHeal)
+            if (_battlerInfo != null)
             {
-                ChangeHpAnimation(_battlerInfo.Hp.Value,value + _battlerInfo.Hp.Value);
-            } else
-            if (damageType == DamageType.MpHeal)
-            {
-                ChangeMpAnimation(_battlerInfo.Mp.Value,value + _battlerInfo.Mp.Value);
+                if (damageType == DamageType.HpHeal)
+                {
+                    ChangeHpAnimation(_battlerInfo.Hp.Value,value + _battlerInfo.Hp.Value);
+                } else
+                if (damageType == DamageType.MpHeal)
+                {
+                    ChangeMpAnimation(_battlerInfo.Mp.Value,value + _battlerInfo.Mp.Value);
+                }
             }
         }
 

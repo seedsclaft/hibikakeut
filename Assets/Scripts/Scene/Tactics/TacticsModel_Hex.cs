@@ -570,8 +570,8 @@ namespace Ryneus
                 basement.Conquer(term.TeamId.Value);
                 if (basement.Master.Param1 == 1)
                 {
-                    // マップを開放
-                    
+                    var openUnitInfos = GetStageHexUnitInfos(basement.Master.Param2,CurrentData.PlayerInfo.ClearCount);
+                    CurrentStage.AddStageSymbolDates(openUnitInfos);
                 }
                 // 行動ポイントを減らす
                 UseActPoint();

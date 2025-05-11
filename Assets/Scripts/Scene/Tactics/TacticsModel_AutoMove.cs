@@ -268,7 +268,7 @@ namespace Ryneus
         {
             var moveBattlerMax = moveBattler.GetUnitMov();
             // 移動圏内にいる場合
-            var targetReaches = GetHexReach(target.HexField,0);
+            var targetReaches = GetHexReach(target.HexField,1);
             var moveBattlerReaches = GetHexReach(moveBattler.HexField,moveBattlerMax,serachUnit);
             // 重なりを検知
             var findReach = targetReaches.Find(a => moveBattlerReaches.Find(b => a.X == b.X && a.Y == b.Y) != null);
