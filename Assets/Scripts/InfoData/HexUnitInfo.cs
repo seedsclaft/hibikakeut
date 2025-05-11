@@ -6,6 +6,8 @@ namespace Ryneus
     [Serializable]
     public class HexUnitInfo
     {
+        private StageSymbolData _master;
+        public StageSymbolData Master => _master;
         public ParameterInt Id = new();
         [UnityEngine.SerializeField] private HexField _hexField = new();
         public HexField HexField => _hexField;
@@ -60,6 +62,7 @@ namespace Ryneus
 
         public HexUnitInfo(int index,StageSymbolData stageSymbolData,int teamId = 0)
         {
+            _master = stageSymbolData;
             Id.SetValue(stageSymbolData.Id);
             Index.SetValue(index);
             SetHexUnitType(stageSymbolData.UnitType);

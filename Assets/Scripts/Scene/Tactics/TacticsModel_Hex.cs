@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using Unity.VisualScripting;
 
 namespace Ryneus
 {
@@ -569,6 +568,11 @@ namespace Ryneus
             {
                 var term = CurrentStage.GetTurnTeamInfo();
                 basement.Conquer(term.TeamId.Value);
+                if (basement.Master.Param1 == 1)
+                {
+                    // マップを開放
+                    
+                }
                 // 行動ポイントを減らす
                 UseActPoint();
             }
