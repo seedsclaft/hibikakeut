@@ -111,11 +111,6 @@ namespace Ryneus
             return DataSystem.StatusCommand;
         }
 
-        public List<ListData> SelectActorLearningMagicList(int selectedSkillId = -1)
-        {
-            return ActorLearningMagicList(CurrentActor,-1,selectedSkillId);
-        }
-
         public int LevelUpCost()
         {
             return ActorLevelUpCost(CurrentActor);

@@ -147,7 +147,7 @@ namespace Ryneus
             var displayActorInfos = _model.DisplayActorInfos;
             if (displayActorInfos.Count > 0)
             {
-                _view.StartResultAnimation(_model.MakeListData(displayActorInfos));
+                _view.StartResultAnimation(MakeListData(displayActorInfos));
             } else
             {
                 NextSeekResult();

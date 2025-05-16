@@ -12,42 +12,50 @@ namespace Ryneus
         {
             if (ListData == null) return;
             var battleSceneInfo = ListItemData<BattleSceneInfo>();
-            partyNames.SetText(PartyName(battleSceneInfo.ActorBattlerInfos));
-            enemyNames.SetText(EnemyName(battleSceneInfo.EnemyInfos));
+            partyNames.SetText(PartyName(battleSceneInfo.ActorUnitInfos));
+            enemyNames.SetText(EnemyName(battleSceneInfo.EnemyUnitInfos));
         }
 
-        private string PartyName(List<BattlerInfo> battlerInfos)
+        private string PartyName(List<UnitInfo> unitInfos)
         {
             var text = "";
-            for (int i = battlerInfos.Count-1;i >= 0;i--)
+            foreach (var unitInfo in unitInfos)
             {
-                if (battlerInfos[i].ActorInfo == null)
+                for (int i = unitInfo.BattlerInfos.Count-1;i >= 0;i--)
                 {
-                    continue;
+                    if (unitInfo.BattlerInfos[i].ActorInfo == null)
+                    {
+                        continue;
+                    }
+                    text += unitInfo.BattlerInfos[i].ActorInfo.Master.Name;
+                    if (i != 0)
+                    {
+                        text += "・";
+                    }
                 }
-                text += battlerInfos[i].ActorInfo.Master.Name + "隊";
-                if (i != 0)
-                {
-                    text += "・";
-                }
+                text += "隊";
             }
             return text;
         }
 
-        private string EnemyName(List<BattlerInfo> enemyInfos)
+        private string EnemyName(List<UnitInfo> unitInfos)
         {
             var text = "";
-            for (int i = 0;i < enemyInfos.Count;i++)
+            foreach (var unitInfo in unitInfos)
             {
-                if (enemyInfos[i].EnemyData == null)
+                for (int i = 0;i < unitInfo.BattlerInfos.Count;i++)
                 {
-                    continue;
+                    if (unitInfo.BattlerInfos[i].EnemyData == null)
+                    {
+                        continue;
+                    }
+                    text += unitInfo.BattlerInfos[i].EnemyData.Name;
+                    if (i != 0)
+                    {
+                        text += "・";
+                    }
                 }
-                text += enemyInfos[i].EnemyData.Name + "隊";
-                if (i != 0)
-                {
-                    text += "・";
-                }
+                text += "隊";
             }
             return text;
         }

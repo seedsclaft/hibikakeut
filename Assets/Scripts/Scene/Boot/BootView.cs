@@ -6,10 +6,10 @@ using Ryneus.Boot;
 
 namespace Ryneus
 {
-    public class BootView : BaseView ,IInputHandlerEvent
+    public class BootView : BaseView, IInputHandlerEvent
     {
         [SerializeField] private Button logoButton = null;
-        public override void Initialize() 
+        public override void Initialize()
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Boot);

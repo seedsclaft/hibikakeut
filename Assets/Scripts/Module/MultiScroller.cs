@@ -16,13 +16,13 @@ namespace Ryneus
         private IEndDragHandler[] parentEndDragHandlers;
 
         private bool isSelf = false;
-        public void SetScrollEvent(ScrollRect scrollRect) 
+        public void SetScrollEvent(ScrollRect scrollRect)
         {
             parentDragHandlers = scrollRect.gameObject.GetComponents<IDragHandler>().Where(p => p is not MultiScroller).ToArray();
             parentBeginDragHandlers = scrollRect.gameObject.GetComponents<IBeginDragHandler>().Where(p => p is not MultiScroller).ToArray();
             parentEndDragHandlers = scrollRect.gameObject.GetComponents<IEndDragHandler>().Where(p => p is not MultiScroller).ToArray();
         }
-        
+
         public void OnDrag(PointerEventData ped)
         {
             if (parentDragHandlers == null)

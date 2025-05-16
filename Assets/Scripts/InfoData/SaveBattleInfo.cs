@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Ryneus
 {
-	[Serializable]
+    [Serializable]
     public class SaveBattleInfo
     {
         public SaveBattleInfo()
@@ -38,8 +38,8 @@ namespace Ryneus
         {
             _troop = troop;
         }
-        public Dictionary<int,ActionInfo> actionInfos = new ();
-        public Dictionary<int,List<ActionResultInfo>> actionResultInfos = new ();
+        public Dictionary<int, ActionInfo> actionInfos = new();
+        public Dictionary<int, List<ActionResultInfo>> actionResultInfos = new();
 
 
         public void AddActionData(ActionInfo actionInfo)
@@ -52,7 +52,7 @@ namespace Ryneus
         {
             if (!actionResultInfos.ContainsKey(_countIndex))
             {
-                actionResultInfos[_countIndex] = new ();
+                actionResultInfos[_countIndex] = new();
             }
             actionResultInfos[_countIndex].Add(actionResultInfo);
             _countIndex++;

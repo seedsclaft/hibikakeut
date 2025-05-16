@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Ryneus
 {
-    public class CharacterListActor : ListItem,IListViewItem
+    public class CharacterListActor : ListItem, IListViewItem
     {
         [SerializeField] private ActorInfoComponent component;
 

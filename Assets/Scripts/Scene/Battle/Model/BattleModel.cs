@@ -75,6 +75,21 @@ namespace Ryneus
             _reserveBattlers.Clear();
             _battleRecords.Clear();
 
+            var actorUnitInfos = _sceneParam.ActorUnitInfos;
+            foreach (var actorUnitInfo in actorUnitInfos)
+            {
+                foreach (var battlerInfo in actorUnitInfo.BattlerInfos)
+                {
+                    if (battlerInfo.ActorInfo == null)
+                    {
+                        continue;
+                    }
+                    battlerInfo.SetUnitMp(actorUnitInfo.UnitMp());
+                    _battlers.Add(battlerInfo);
+                    _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
+                }
+            }
+            /*
             var actorInfos = _sceneParam.ActorBattlerInfos;
             foreach (var actorInfo in actorInfos)
             {
@@ -93,7 +108,31 @@ namespace Ryneus
                 _battlers.Add(battlerInfo);
                 _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
             }
+            */
 
+            var enemyUnitInfos = _sceneParam.EnemyUnitInfos;
+            foreach (var enemyUnitInfo in enemyUnitInfos)
+            {
+                foreach (var battlerInfo in enemyUnitInfo.BattlerInfos)
+                {
+                    if (battlerInfo.EnemyData == null)
+                    {
+                        continue;
+                    }
+                    foreach (var kind in battlerInfo.Kinds)
+                    {
+                        if (CurrentData.PlayerInfo.CheckEnemyWeakPointDict(battlerInfo.EnemyData.Id,kind))
+                        {
+                            battlerInfo.SetWeakPoint(kind);
+                        }
+                    }
+                    battlerInfo.SetEnemyMp();
+                    battlerInfo.SetUnitMp(enemyUnitInfo.UnitMp());
+                    _battlers.Add(battlerInfo);
+                    _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
+                }
+            }
+            /*
             var enemies = _sceneParam.EnemyInfos;
             foreach (var enemy in enemies)
             {
@@ -113,7 +152,7 @@ namespace Ryneus
                 }
                 battlerInfo.SetEnemyMp();
                 var unitMp = battlerInfo.MaxMp;
-                var sub = actorInfos.Find(a => a.Index.Value == battlerInfo.Index.Value + 3);
+                var sub = enemies.Find(a => a.Index.Value == battlerInfo.Index.Value + 3);
                 if (sub != null)
                 {
                     unitMp += sub.MaxMp;
@@ -122,6 +161,7 @@ namespace Ryneus
                 _battlers.Add(battlerInfo);
                 _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
             }
+            */
             // アルカナ
             /*
             var alcana = new BattlerInfo(AlcanaSkillInfos(),true,1);
@@ -2689,7 +2729,9 @@ namespace Ryneus
     {
         public List<ActorInfo> ActorInfos;
         public List<BattlerInfo> ActorBattlerInfos;
+        public List<UnitInfo> ActorUnitInfos;
         public List<BattlerInfo> EnemyInfos;
+        public List<UnitInfo> EnemyUnitInfos;
         public List<GetItemInfo> GetItemInfos;
         public bool BossBattle;
     }

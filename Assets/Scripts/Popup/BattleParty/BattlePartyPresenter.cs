@@ -6,7 +6,7 @@ using BattleParty;
 namespace Ryneus
 {
     using BattleParty;
-    public class BattlePartyPresenter :BasePresenter
+    public class BattlePartyPresenter : BasePresenter
     {
         BattlePartyModel _model = null;
         BattlePartyView _view = null;
@@ -203,13 +203,13 @@ namespace Ryneus
         private void CommandSelectSideMenu()
         {
             _busy = true;
-            CommandCallSideMenu(_model.SideMenu(),() => 
+            CommandCallSideMenu(_model.SideMenu(), () =>
             {
                 _busy = false;
                 _view.CommandRefresh();
             });
         }
-        
+
         private void CommandDecideTacticsMember(ActorInfo actorInfo)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
@@ -217,15 +217,16 @@ namespace Ryneus
             {
                 // 選択する
                 _model.SetSwapFromActorInfo(actorInfo);
-            } else
+            }
+            else
             {
                 // 交換する
                 _model.SwapActorInfo(actorInfo);
                 _model.SetSwapFromActorInfo(null);
             }
-            
+
             //_model.SetInBattle();
-            _view.RefreshTacticsMembers(MakeListData(_model.BattlePartyMembers(),_model.SwapFromActor));
+            _view.RefreshTacticsMembers(MakeListData(_model.BattlePartyMembers(), _model.SwapFromActor));
             CommandRefresh();
         }
 
@@ -243,7 +244,7 @@ namespace Ryneus
             {
                 lastSelectSkillId = lastSelectSkill.Id.Value;
             }
-            _view.RefreshLeaningList(_model.SelectActorLearningMagicList((int)attributeType,lastSelectSkillId));
+            _view.RefreshLeaningList(MakeListData(_model.SelectActorLearningMagicList((int)attributeType, lastSelectSkillId)));
             _view.CommandRefresh();
         }
 
@@ -255,7 +256,7 @@ namespace Ryneus
             var selectIndex = index - 1;
             if (selectIndex <= -1)
             {
-                selectIndex = list.Count-1;
+                selectIndex = list.Count - 1;
             }
             //CommandSelectAttribute(list[selectIndex]);
             _view.SelectAttribute(selectIndex);
@@ -267,7 +268,7 @@ namespace Ryneus
             var list = _model.AttributeTabList();
             var index = list.FindIndex(a => a == current);
             var selectIndex = index + 1;
-            if (selectIndex > list.Count-1)
+            if (selectIndex > list.Count - 1)
             {
                 selectIndex = 0;
             }
@@ -278,7 +279,7 @@ namespace Ryneus
         private void CommandStatusInfo()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            CommandStatusInfo(_model.BattlePartyMembers(),false,true,true,false,_model.CurrentActor.ActorId.Value,() => 
+            CommandStatusInfo(_model.BattlePartyMembers(), false, true, true, false, _model.CurrentActor.ActorId.Value, () =>
             {
                 _view.CommandRefresh();
             });
@@ -288,7 +289,7 @@ namespace Ryneus
         {
             _busy = true;
             var enemyInfos = _model.EnemyInfos();
-            CommandEnemyInfo(enemyInfos,false,() => 
+            CommandEnemyInfo(enemyInfos, false, () =>
             {
                 _busy = false;
                 _view.CommandRefresh();
@@ -312,7 +313,8 @@ namespace Ryneus
                     }
                 };
                 _view.CommandCallPopup(popupInfo);
-            } else
+            }
+            else
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
@@ -331,11 +333,13 @@ namespace Ryneus
                 if (battleMembers.Count < 5 && battleMembers.Count < stageMembers.Count)
                 {
                     CheckBattleLessMember();
-                } else
-                {
-                    BattleStart(); 
                 }
-            } else
+                else
+                {
+                    BattleStart();
+                }
+            }
+            else
             {
                 CheckBattleMember();
             }
@@ -350,7 +354,7 @@ namespace Ryneus
         private void CheckBattleLessMember()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Deny);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(19401),(a) => 
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(19401), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
@@ -369,13 +373,15 @@ namespace Ryneus
             if (_model.SceneParam.IsBoss)
             {
                 PlayBossBgm();
-            } else
+            }
+            else
             {
                 var bgmData = _model.TacticsBgmData();
                 if (bgmData.CrossFade != "" && SoundManager.Instance.CrossFadeMode)
                 {
                     SoundManager.Instance.ChangeCrossFade();
-                } else
+                }
+                else
                 {
                     PlayTacticsBgm();
                 }
@@ -384,17 +390,17 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
             var battleSceneInfo = new BattleSceneInfo
             {
-                ActorInfos = _model.BattleMembers(),
-                EnemyInfos = _model.EnemyInfos(),
+                //ActorInfos = _model.BattleMembers(),
+                //EnemyInfos = _model.EnemyInfos(),
                 //GetItemInfos = _model.CurrentSymbolInfo()?.GetItemInfos,
                 BossBattle = false,// _model.CurrentSymbolInfo().SymbolType == SymbolType.Boss,
             };
-            _view.CommandSceneChange(Scene.Battle,battleSceneInfo);
+            _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
         }
 
         private void ShowCharacterDetail()
         {
-            _view.ShowCharacterDetail(_model.CurrentActor,_model.BattlePartyMembers(),_model.SkillActionListData(_model.CurrentActor));  
+            _view.ShowCharacterDetail(_model.CurrentActor, _model.BattlePartyMembers(), MakeListData(_model.SkillActionListData(_model.CurrentActor)));
         }
 
         private void CommandChangeLineIndex(ActorInfo actorInfo)
@@ -403,7 +409,8 @@ namespace Ryneus
             if (actorInfo.LineIndex == LineType.Front)
             {
                 actorInfo.SetLineIndex(LineType.Back);
-            } else
+            }
+            else
             {
                 actorInfo.SetLineIndex(LineType.Front);
             }
@@ -428,12 +435,12 @@ namespace Ryneus
             };
             _view.CommandCallPopup(popupInfo);
         }
-        
+
         private void CommandLevelUp()
         {
             _busy = true;
             _view.SetBusy(true);
-            CommandLevelUp(_model.CurrentActor,() => 
+            CommandLevelUp(_model.CurrentActor, () =>
             {
                 _busy = false;
                 _view.SetBusy(false);
@@ -453,14 +460,14 @@ namespace Ryneus
             {
                 lastSelectSkillId = lastSelectSkill.Id.Value;
             }
-            _view.ShowLeaningList(_model.SelectActorLearningMagicList(-1,lastSelectSkillId));
+            _view.ShowLeaningList(MakeListData(_model.SelectActorLearningMagicList(-1, lastSelectSkillId)));
             _view.SetLearnMagicButtonActive(true);
             _view.CommandRefresh();
         }
 
         private void CommandLearnMagic(SkillInfo skillInfo)
         {
-            CommandLearnMagic(_model.CurrentActor,skillInfo,() => 
+            CommandLearnMagic(_model.CurrentActor, skillInfo, () =>
             {
                 _view.SetNuminous(_model.Currency);
                 //_view.CommandRefresh();
@@ -480,7 +487,7 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
-            var skillTriggerViewInfo = new SkillTriggerViewInfo(_model.CurrentActor.ActorId.Value,() => 
+            var skillTriggerViewInfo = new SkillTriggerViewInfo(_model.CurrentActor.ActorId.Value, () =>
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 _busy = false;

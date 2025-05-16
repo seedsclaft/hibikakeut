@@ -62,11 +62,6 @@ namespace Ryneus
             TempInfo.CashBattleActors(BattleMembers());
         }
 
-        public List<ActorInfo> PartyMembers()
-        {
-            return PartyInfo.ActorInfos;
-        }
-
         public List<SkillInfo> SortSkillInfos(List<SkillInfo> skillInfos)
         {
             var sortList1 = new List<SkillInfo>();

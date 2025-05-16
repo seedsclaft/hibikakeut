@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Ryneus
 {
-    public class UnitInfoListItem : ListItem ,IListViewItem
+    public class UnitInfoListItem : ListItem, IListViewItem
     {
         [SerializeField] private UnitInfoComponent component;
         [SerializeField] private Button detailButton;
@@ -39,19 +39,20 @@ namespace Ryneus
             }
         }
 
-        public void SetDecideBattlerEvent(Action decideEvent,Action rightEvent,Action statusEvent)
+        public void SetDecideBattlerEvent(Action decideEvent, Action rightEvent, Action statusEvent)
         {
             if (_isInit)
             {
                 return;
             }
-            battlerList.SetInputHandler(InputKeyType.Decide,() => decideEvent?.Invoke());
+            battlerList.SetInputHandler(InputKeyType.Decide, () => decideEvent?.Invoke());
             battlerList.SetSelectedHandler(() =>
             {
                 if (battlerList.Index == 0)
                 {
                     rightEvent?.Invoke();
-                } else
+                }
+                else
                 if (battlerList.Index == 1)
                 {
                     rightEvent?.Invoke();
@@ -88,7 +89,8 @@ namespace Ryneus
             if (activate)
             {
                 battlerList.Activate();
-            } else
+            }
+            else
             {
                 battlerList.Deactivate();
             }

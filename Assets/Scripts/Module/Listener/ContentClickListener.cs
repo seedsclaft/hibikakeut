@@ -5,7 +5,7 @@ public class ContentClickListener : MonoBehaviour, IPointerDownHandler, IPointer
 {
     private System.Action _clickAction = null;
     private bool _clicked = false;
-    
+
     public void OnPointerDown(PointerEventData eventData)
     {
         _clicked = true;

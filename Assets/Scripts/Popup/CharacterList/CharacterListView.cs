@@ -8,7 +8,8 @@ namespace Ryneus
     {
         [SerializeField] private BaseList characterList = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
-        
+
+
         public override void Initialize()
         {
             base.Initialize();
@@ -20,14 +21,14 @@ namespace Ryneus
 
         public void OpenAnimation()
         {
-            popupAnimation.OpenAnimation(UiRoot.transform,() => CallViewEvent(CharacterList.CommandType.EndOpenAnimation));
+            popupAnimation.OpenAnimation(UiRoot.transform, () => CallViewEvent(CharacterList.CommandType.EndOpenAnimation));
         }
 
         private void InitializeCharacterList()
         {
             characterList.Initialize();
-            characterList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
-            characterList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CharacterList.CommandType.DecideActor,characterList.ListItemData<ActorInfo>()));
+            characterList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
+            characterList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CharacterList.CommandType.DecideActor, characterList.ListItemData<ActorInfo>()));
             SetInputHandler(characterList.gameObject);
         }
 

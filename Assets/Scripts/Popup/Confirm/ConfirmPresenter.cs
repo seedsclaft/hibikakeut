@@ -51,12 +51,12 @@ namespace Ryneus
 
         private void CommandIsChoice()
         {
-            _view.SetConfirmCommand(_model.ConfirmCommand());
+            _view.SetConfirmCommand(MakeListData(_model.ConfirmCommand()));
         }
 
         private void CommandIsNoChoice()
         {
-            _view.SetConfirmCommand(_model.NoChoiceConfirmCommand());
+            _view.SetConfirmCommand(MakeListData(_model.NoChoiceConfirmCommand()));
         }
 
         private void CommandDisableIds(List<int> disableIds)
@@ -85,9 +85,9 @@ namespace Ryneus
         }
         private int _selectIndex = 0;
         public int SelectIndex => _selectIndex;
-        private List<int> _disableIds = new ();
+        private List<int> _disableIds = new();
         public List<int> DisableIds => _disableIds;
-        private List<int> _commandTextIds = new ();
+        private List<int> _commandTextIds = new();
         public List<int> CommandTextIds => _commandTextIds;
         private ConfirmType _confirmType;
         public ConfirmType ConfirmType => _confirmType;
@@ -98,7 +98,7 @@ namespace Ryneus
             _backEvent = backEvent;
         }
 
-        public ConfirmInfo(string title,System.Action<ConfirmCommandType> callEvent,ConfirmType confirmType = ConfirmType.Confirm)
+        public ConfirmInfo(string title, System.Action<ConfirmCommandType> callEvent, ConfirmType confirmType = ConfirmType.Confirm)
         {
             _confirmType = confirmType;
             _title = title;
@@ -109,7 +109,7 @@ namespace Ryneus
         {
             _isNoChoice = isNoChoice;
         }
-        
+
         public void SetDisableIds(List<int> ids)
         {
             _disableIds = ids;

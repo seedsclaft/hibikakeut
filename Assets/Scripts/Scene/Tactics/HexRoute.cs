@@ -59,7 +59,7 @@ namespace Ryneus
         {
             foreach (var field in _fields)
             {
-                var find = _hexUnitInfos.Find(a => a.HexField.X == field.X && a.HexField.Y == field.Y);
+                var find = _hexUnitInfos.Find(a => a.OnField(field));
                 field.IsUnit = find != null && find.IsUnit;
             }
         }

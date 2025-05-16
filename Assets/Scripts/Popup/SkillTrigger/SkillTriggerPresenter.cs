@@ -189,7 +189,7 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var skillInfos = _model.SkillTriggerSkillList();
-            _view.SetSkillList(skillInfos);
+            _view.SetSkillList(MakeListData(skillInfos,-1));
         }
 
         private void CommandCallTrigger1Select()

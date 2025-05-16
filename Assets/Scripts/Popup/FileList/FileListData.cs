@@ -3,7 +3,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class FileListData : ListItem ,IListViewItem
+    public class FileListData : ListItem, IListViewItem
     {
         [SerializeField] private ActorInfoComponent actorInfoComponent;
         [SerializeField] private StageInfoComponent stageInfoComponent;
@@ -13,7 +13,8 @@ namespace Ryneus
         [SerializeField] private GameObject clearData;
         [SerializeField] private GameObject saveData;
         [SerializeField] private GameObject newGame;
-        
+
+
         public void UpdateViewItem()
         {
             if (ListData == null) return;

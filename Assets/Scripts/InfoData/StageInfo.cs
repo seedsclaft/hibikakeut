@@ -194,7 +194,7 @@ namespace Ryneus
             var openFields = openUnitInfos.FindAll(a => a.HexUnitType == HexUnitType.None);
             foreach (var wall in walls)
             {
-                if (openFields.Find(a => a.OnField(wall.HexField.X,wall.HexField.Y)) != null)
+                if (openFields.Find(a => a.OnField(wall.HexField)) != null)
                 {
                     newFields.Add(wall);
                 }

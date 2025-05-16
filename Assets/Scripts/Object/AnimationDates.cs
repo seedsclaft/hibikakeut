@@ -13,7 +13,6 @@ namespace Ryneus
     [Serializable]
     public class AnimationData
     {
-
         public int Id;
         public string AnimationPath;
         public bool MakerEffect;

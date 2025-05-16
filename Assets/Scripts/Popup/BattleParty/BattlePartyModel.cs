@@ -10,11 +10,13 @@ namespace Ryneus
 
         private ActorInfo _currentActor = null;
         public ActorInfo CurrentActor => _currentActor;
-        public void SetCurrentActorInfo(ActorInfo actorInfo) => _currentActor = actorInfo; 
-        
+        public void SetCurrentActorInfo(ActorInfo actorInfo) => _currentActor = actorInfo;
+
+
         private ActorInfo _swapFromActor = null;
         public ActorInfo SwapFromActor => _swapFromActor;
-        public void SetSwapFromActorInfo(ActorInfo actorInfo) => _swapFromActor = actorInfo; 
+        public void SetSwapFromActorInfo(ActorInfo actorInfo) => _swapFromActor = actorInfo;
+
         public void SwapActorInfo(ActorInfo actorInfo)
         {
             if (_swapFromActor == null)
@@ -94,11 +96,12 @@ namespace Ryneus
             return BattleMembers();
         }
 
-        public List<ListData> SelectActorLearningMagicList(int selectAttribute,int selectedSkillId = -1)
+        public List<SkillInfo> SelectActorLearningMagicList(int selectAttribute, int selectedSkillId = -1)
         {
-            return ActorLearningMagicList(CurrentActor,selectAttribute,selectedSkillId);
+            return ActorLearningMagicList(CurrentActor, selectAttribute, selectedSkillId);
         }
-        
+
+
 
         public void SetPartyBattlerIdList()
         {
@@ -124,18 +127,20 @@ namespace Ryneus
                 RemoveBattleActor(actorInfo);
                 return;
             }
-            if (battleIndex > 5) 
+            if (battleIndex > 5)
+
             {
                 return;
             }
             actorInfo.BattleIndex.SetValue(battleIndex);
         }
-        
+
+
         private void RemoveBattleActor(ActorInfo actorInfo)
         {
             actorInfo.BattleIndex.SetValue(-1);
             var battleMembers = BattleMembers();
-            for (int i = 0;i < battleMembers.Count;i++)
+            for (int i = 0; i < battleMembers.Count; i++)
             {
                 battleMembers[i].BattleIndex.SetValue(i + 1);
             }
@@ -184,7 +189,8 @@ namespace Ryneus
                 Key = "Title"
             };
             list.Add(titleCommand);
-            Func<SystemData.CommandData,bool> enable = (a) => 
+            Func<SystemData.CommandData, bool> enable = (a) =>
+
             {
                 if (a.Key == "Save" || a.Key == "Retire")
                 {
@@ -192,16 +198,18 @@ namespace Ryneus
                 }
                 return true;
             };
-            return MakeListData(list,enable);
+            return MakeListData(list, enable);
         }
     }
-    
+
+
     public class BattlePartySceneInfo
     {
         public BattlePartySceneInfo()
         {
         }
-        
+
+
         public bool IsBoss = false;
         public List<ActorInfo> ActorInfos;
         public List<BattlerInfo> EnemyInfos;

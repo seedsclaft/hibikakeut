@@ -10,8 +10,10 @@ namespace Ryneus
     {
         [SerializeField] private BaseList fileList = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
-        
-        public override void Initialize() 
+
+
+        public override void Initialize()
+
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.FileList);
@@ -23,14 +25,14 @@ namespace Ryneus
         private void InitializeFileList()
         {
             fileList.Initialize();
-            fileList.SetInputHandler(InputKeyType.Cancel,() => BackEvent?.Invoke());
-            fileList.SetInputHandler(InputKeyType.Decide,CallFileData);
+            fileList.SetInputHandler(InputKeyType.Cancel, () => BackEvent?.Invoke());
+            fileList.SetInputHandler(InputKeyType.Decide, CallFileData);
             AddViewActives(fileList);
         }
 
         public void OpenAnimation()
         {
-            popupAnimation.OpenAnimation(UiRoot.transform,null);
+            popupAnimation.OpenAnimation(UiRoot.transform, null);
         }
 
         public void SetFileList(List<ListData> fileDataList)
@@ -46,7 +48,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 var data = (SaveFileInfo)listData.Data;
-                CallViewEvent(CommandType.DecideFile,data);
+                CallViewEvent(CommandType.DecideFile, data);
             }
         }
 

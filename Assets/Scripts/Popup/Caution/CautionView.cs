@@ -12,11 +12,13 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI levelPlusText = null;
         [SerializeField] private CanvasGroup canvasGroup = null;
 
-        public override void Initialize() 
+        public override void Initialize()
+
         {
             base.Initialize();
         }
-        
+
+
         public void SetTitle(string title)
         {
             ClearText();
@@ -29,11 +31,11 @@ namespace Ryneus
                 3);
         }
 
-        public void SetLevelup(int from,int to)
+        public void SetLevelup(int from, int to)
         {
             ClearText();
-            levelPlusText?.SetText("+" + (to-from).ToString());
-            AnimationUtility.CountUpText(evaluateText,from,to);
+            levelPlusText?.SetText("+" + (to - from).ToString());
+            AnimationUtility.CountUpText(evaluateText, from, to);
             canvasGroup.alpha = 1;
             AnimationUtility.AlphaToTransform(canvasGroup,
                 1f,
@@ -63,11 +65,10 @@ namespace Ryneus
         public int From => _from;
         private int _to = 0;
         public int To => _to;
-        public void SetLevelUp(int from,int to)
+        public void SetLevelUp(int from, int to)
         {
             _from = from;
             _to = to;
         }
-
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Ryneus
 {
-    public class CharacterListPresenter :BasePresenter
+    public class CharacterListPresenter : BasePresenter
     {
         CharacterListModel _model = null;
         CharacterListView _view = null;
@@ -24,12 +24,12 @@ namespace Ryneus
         {
             _view.SetEvent((type) => UpdateCommand(type));
             _view.SetHelpInputInfo("CHARACTER_LIST");
-            Func<ActorInfo,bool> enable = (actorInfo) =>
+            Func<ActorInfo, bool> enable = (actorInfo) =>
             {
                 // 既に出撃中か
                 return !_model.NoDepatureActorIds().Contains(actorInfo.ActorId.Value);
             };
-            _view.SetCharacterList(MakeListDataFunc<ActorInfo>(_model.GetActorInfos(),0,enable));
+            _view.SetCharacterList(MakeListDataFunc<ActorInfo>(_model.GetActorInfos(), 0, enable));
             _view.OpenAnimation();
         }
 
@@ -78,7 +78,7 @@ namespace Ryneus
 
         private void CheckTutorialState(object commandType = null)
         {
-            Func<TutorialData,bool> enable = (tutorialData) => 
+            Func<TutorialData, bool> enable = (tutorialData) =>
             {
                 var checkFlag = false;
                 if (tutorialData.Param1 == 200)
@@ -88,7 +88,7 @@ namespace Ryneus
                 }
                 return checkFlag;
             };
-            Func<TutorialData,bool> checkEnd = (tutorialData) => 
+            Func<TutorialData, bool> checkEnd = (tutorialData) =>
             {
                 return true;
             };
@@ -97,7 +97,7 @@ namespace Ryneus
                 SceneType = (int)PopupType.CharacterList + 100,
                 CheckEndMethod = checkEnd,
                 CheckMethod = enable,
-                EndEvent = () => 
+                EndEvent = () =>
                 {
                     _busy = false;
                     CheckTutorialState(commandType);

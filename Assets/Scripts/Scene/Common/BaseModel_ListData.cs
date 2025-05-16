@@ -6,48 +6,33 @@ namespace Ryneus
 {
     public partial class BaseModel
     {
-        public List<ListData> MakeListData<T>(List<T> dataList)
-        {
-            var listData = ListData.MakeListData(dataList);
-            return listData;
-        }
-
         public List<ListData> MakeListData<T>(List<T> dataList,Func<T,bool> enable,int selectIndex = 0)
         {
             var listData = ListData.MakeListData(dataList,enable);
             return listData;
         }
 
-        public List<ListData> ConfirmCommand()
+        public List<SystemData.CommandData> ConfirmCommand()
         {
-            return MakeListData(BaseConfirmCommand(3050,3051));
+            return BaseConfirmCommand(3050,3051);
         }
 
-        public List<ListData> NoChoiceConfirmCommand()
+        public List<SystemData.CommandData> NoChoiceConfirmCommand()
         {
-            return MakeListData(new List<SystemData.CommandData>(){BaseConfirmCommand(3052,0)[0]});
+            return new List<SystemData.CommandData>(){BaseConfirmCommand(3052,0)[0]};
         }
 
         public List<SkillInfo> SkillActionList(ActorInfo actorInfo)
         {
             return new List<SkillInfo>();
-            /*
-            if (actorInfo == null)
-            {
-                return new List<SkillInfo>();
-            }
-            var alchemyIds = PartyInfo.CurrentAlchemyIdList(CurrentStage.Id,CurrentStage.Seek,CurrentStage.WorldType);
-            return actorInfo.SkillActionList(alchemyIds);
-            */
         }
 
-        public List<ListData> SkillActionListData(ActorInfo actorInfo)
+        public List<SkillInfo> SkillActionListData(ActorInfo actorInfo)
         {
-            var data = SkillActionList(actorInfo);
-            return MakeListData(data,(a) => { return true;},-1);
+            return SkillActionList(actorInfo);
         }
 
-        public List<ListData> ActorLearningMagicList(ActorInfo actorInfo,int selectAttribute = -1, int selectedSkillId = -1)
+        public List<SkillInfo> ActorLearningMagicList(ActorInfo actorInfo,int selectAttribute = -1, int selectedSkillId = -1)
         {
             var skillInfos = new List<SkillInfo>();
             /*
@@ -68,8 +53,7 @@ namespace Ryneus
             }
             */
             var selectIndex = skillInfos.FindIndex(a => a.Id.Value == selectedSkillId);
-            var listData = MakeListData(skillInfos);
-            return listData;
+            return skillInfos;
         }
 
         public List<AttributeType> AttributeTabList()

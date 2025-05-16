@@ -76,6 +76,11 @@ namespace Ryneus
             return _hexField.X == x && _hexField.Y == y;
         }
 
+        public bool OnField(HexField hexField)
+        {
+            return _hexField.X == hexField.X && _hexField.Y == hexField.Y;
+        }
+
         public bool IsFriend(int teamId)
         {
             return TeamId.Value == teamId;
@@ -94,9 +99,9 @@ namespace Ryneus
 
         public int GetUnitMov()
         {
-            if (IsBattlerUnit && UnitInfo.BattlerInfos.Count > 0 && UnitInfo.BattlerInfos[0].Index.Value != 0)
+            if (IsBattlerUnit)
             {
-                return UnitInfo.BattlerInfos[0].CurrentMov();
+                return UnitInfo.CurrentMov();
             }
             return 0;
         }
@@ -112,17 +117,8 @@ namespace Ryneus
             {
                 battleIndex += 100;
             }
-            
-            if (_unitInfo.BattlerInfos.Count > 0 && _unitInfo.BattlerInfos[0].Index.Value > 0)
-            {
-                _unitInfo.BattlerInfos[0].Index.SetValue(battleIndex);
-                _unitInfo.BattlerInfos[0].SetLineIndex(LineType.Front);
-            }
-            if (_unitInfo.BattlerInfos.Count > 1 && _unitInfo.BattlerInfos[1].Index.Value > 0)
-            {
-                _unitInfo.BattlerInfos[1].Index.SetValue(battleIndex+3);
-                _unitInfo.BattlerInfos[1].SetLineIndex(LineType.Back);
-            }
+
+            _unitInfo.SetLineIndexes(battleIndex);
         }
 
         /// <summary>
@@ -130,19 +126,7 @@ namespace Ryneus
         /// </summary>
         public void UpdateBattlerIndexes()
         {
-            if (_unitInfo.BattlerInfos == null)
-            {
-                return;
-            }
-
-            if (_unitInfo.BattlerInfos.Count > 1)
-            {
-                var frontBattler = _unitInfo.BattlerInfos.Find(a => a.LineIndex == LineType.Front);
-                var backBattler = _unitInfo.BattlerInfos.Find(a => a.LineIndex == LineType.Back);
-                _unitInfo.BattlerInfos.Clear();
-                _unitInfo.BattlerInfos.Add(frontBattler);
-                _unitInfo.BattlerInfos.Add(backBattler);
-            }
+            _unitInfo.BattleEndSetLineIndexes();
         }
 
         public bool IsLostUnit()

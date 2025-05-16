@@ -6,7 +6,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class HexTile : ListItem ,IListViewItem
+    public class HexTile : ListItem, IListViewItem
     {
         [SerializeField] private RectTransform layoutRect;
         [SerializeField] private GameObject baseObj;
@@ -23,9 +23,9 @@ namespace Ryneus
             }
             var hexPosition = ListItemData<HexField>();
             var halfsize = hexPosition.X % 2 == 1 ? -48 : 0;
-            layoutRect.localPosition = new Vector2(0,halfsize);
+            layoutRect.localPosition = new Vector2(0, halfsize);
             //position.SetText(hexPosition.X + ":" + hexPosition.Y);
-            var fieldUnitInfos = GameSystem.GameInfo.StageInfo.FindFieldUnitInfos(hexPosition.X,hexPosition.Y);
+            var fieldUnitInfos = GameSystem.GameInfo.StageInfo.FindFieldUnitInfos(hexPosition.X, hexPosition.Y);
             // マス更新がない
             if (_lastHexUnitInfos.Count == 0 && fieldUnitInfos.Count == 0)
             {

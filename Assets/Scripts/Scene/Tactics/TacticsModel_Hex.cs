@@ -431,7 +431,7 @@ namespace Ryneus
             // 隣接候補
             var oppnents = CurrentStage.OpponentUnitInfos();
             var friends = CurrentStage.FriendUnitInfos();
-            var opponentUnits = oppnents.FindAll(a => _reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+            var opponentUnits = oppnents.FindAll(a => _reachAreas.Find(b => a.OnField(b)) != null);
             if (mainParty != null && opponentUnits.Count > 0)
             {
                 if (CurrentStage.GetTurnTeamInfo().TeamId.Value == (int)TeamIdType.Home)
@@ -445,13 +445,15 @@ namespace Ryneus
                         // メインのみ
                         var m1 = new BattleSceneInfo
                         {
-                            ActorBattlerInfos = mainParty.UnitInfo.BattlerInfos.FindAll(a => a.ActorInfo != null),
-                            EnemyInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.EnemyData != null)
+                            ActorUnitInfos = new List<UnitInfo>(){mainParty.UnitInfo},
+                            EnemyUnitInfos = new List<UnitInfo>(){battlerUnit.UnitInfo},
+                            //ActorBattlerInfos = mainParty.UnitInfo.BattlerInfos.FindAll(a => a.ActorInfo != null),
+                            //EnemyInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.EnemyData != null)
                         };
                         list.Add(m1);
                         var enemyReach = GetHexReach(battlerUnit.HexField,1,true);
                         // メインと隣接あり
-                        var nearFriends = friends.FindAll(a => a != mainParty && enemyReach.Find(b => a.OnField(b.X,b.Y)) != null && _reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+                        var nearFriends = friends.FindAll(a => a != mainParty && enemyReach.Find(b => a.OnField(b)) != null && _reachAreas.Find(b => a.OnField(b)) != null);
                         var battlerIndex = 1;
                         foreach (var nearFriend in nearFriends)
                         {
@@ -466,8 +468,10 @@ namespace Ryneus
                             battlerInfos.AddRange(nearFriend.UnitInfo.BattlerInfos);
                             var m2 = new BattleSceneInfo
                             {
-                                ActorBattlerInfos = battlerInfos.FindAll(a => a.ActorInfo != null),
-                                EnemyInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.EnemyData != null),
+                                ActorUnitInfos = new List<UnitInfo>(){mainParty.UnitInfo,nearFriend.UnitInfo},
+                                EnemyUnitInfos = new List<UnitInfo>(){battlerUnit.UnitInfo},
+                                //ActorBattlerInfos = battlerInfos.FindAll(a => a.ActorInfo != null),
+                                //EnemyInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.EnemyData != null),
                             };
                             list.Insert(0,m2);
                         }
@@ -482,8 +486,10 @@ namespace Ryneus
                             // 両サイドどちらも
                             var m3 = new BattleSceneInfo
                             {
-                                ActorBattlerInfos = battlerInfos.FindAll(a => a.ActorInfo != null),
-                                EnemyInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.EnemyData != null),
+                                ActorUnitInfos = new List<UnitInfo>(){mainParty.UnitInfo,nearFriends[0].UnitInfo,nearFriends[1].UnitInfo},
+                                EnemyUnitInfos = new List<UnitInfo>(){battlerUnit.UnitInfo},
+                                //ActorBattlerInfos = battlerInfos.FindAll(a => a.ActorInfo != null),
+                                //EnemyInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.EnemyData != null),
                             };
                             list.Insert(0,m3);
                         }
@@ -500,13 +506,15 @@ namespace Ryneus
                         // メインのみ
                         var m1 = new BattleSceneInfo
                         {
-                            ActorBattlerInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.ActorInfo != null),
-                            EnemyInfos = mainParty.UnitInfo.BattlerInfos.FindAll(a => a.EnemyData != null)
+                            ActorUnitInfos = new List<UnitInfo>(){battlerUnit.UnitInfo},    
+                            EnemyUnitInfos = new List<UnitInfo>(){mainParty.UnitInfo},
+                            //ActorBattlerInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.ActorInfo != null),
+                            //EnemyInfos = mainParty.UnitInfo.BattlerInfos.FindAll(a => a.EnemyData != null)
                         };
                         list.Add(m1);
                         var enemyReach = GetHexReach(battlerUnit.HexField,1,true);
                         // メインと隣接あり
-                        var nearFriends = friends.FindAll(a => a != mainParty && enemyReach.Find(b => a.OnField(b.X,b.Y)) != null && _reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+                        var nearFriends = friends.FindAll(a => a != mainParty && enemyReach.Find(b => a.OnField(b)) != null && _reachAreas.Find(b => a.OnField(b)) != null);
                         var battlerIndex = 1;
                         foreach (var nearFriend in nearFriends)
                         {
@@ -521,8 +529,10 @@ namespace Ryneus
                             battlerInfos.AddRange(nearFriend.UnitInfo.BattlerInfos);
                             var m2 = new BattleSceneInfo
                             {
-                                EnemyInfos = battlerInfos.FindAll(a => a.EnemyData != null),
-                                ActorBattlerInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.ActorInfo != null)
+                                ActorUnitInfos = new List<UnitInfo>(){battlerUnit.UnitInfo},    
+                                EnemyUnitInfos = new List<UnitInfo>(){mainParty.UnitInfo,nearFriend.UnitInfo},
+                                //EnemyInfos = battlerInfos.FindAll(a => a.EnemyData != null),
+                                //ActorBattlerInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.ActorInfo != null)
                             };
                             list.Insert(0,m2);
                         }
@@ -537,8 +547,10 @@ namespace Ryneus
                             // 両サイドどちらも
                             var m3 = new BattleSceneInfo
                             {
-                                EnemyInfos = battlerInfos.FindAll(a => a.EnemyData != null),
-                                ActorBattlerInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.ActorInfo != null)
+                                ActorUnitInfos = new List<UnitInfo>(){battlerUnit.UnitInfo},
+                                EnemyUnitInfos = new List<UnitInfo>(){mainParty.UnitInfo,nearFriends[0].UnitInfo,nearFriends[1].UnitInfo},
+                                //EnemyInfos = battlerInfos.FindAll(a => a.EnemyData != null),
+                                //ActorBattlerInfos = battlerUnit.UnitInfo.BattlerInfos.FindAll(a => a.ActorInfo != null)
                             };
                             list.Insert(0,m3);
                         }
@@ -844,7 +856,7 @@ namespace Ryneus
             // 敵と隣接している
             var battler = SelectingUnit;
             var reachAreas = GetHexReach(battler.HexField,1,true);
-            var battlerUnits = CurrentStage.OpponentUnitInfos().FindAll(a => reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+            var battlerUnits = CurrentStage.OpponentUnitInfos().FindAll(a => reachAreas.Find(b => a.OnField(b)) != null);
             var enemyInfos = battlerUnits.FindAll(a => a.UnitInfo != null);
             if (enemyInfos.Count > 0)
             {
@@ -949,7 +961,7 @@ namespace Ryneus
                     // 隣接している
                     var battler = SelectingUnit;
                     var reachAreas = GetHexReach(battler.HexField,1,true);
-                    var battlerUnits = CurrentStage.OpponentUnitInfos().FindAll(a => reachAreas.Find(b => a.OnField(b.X,b.Y)) != null);
+                    var battlerUnits = CurrentStage.OpponentUnitInfos().FindAll(a => reachAreas.Find(b => a.OnField(b)) != null);
                     var enemyInfos = battlerUnits.FindAll(a => a.UnitInfo != null);
                     return enemyInfos.Count > 0;
                 } else

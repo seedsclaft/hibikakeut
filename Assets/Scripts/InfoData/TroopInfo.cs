@@ -21,12 +21,12 @@ namespace Ryneus
 
                 if (BattlerInfos.Count > 0)
                 {
-                    return BattlerInfos[BattlerInfos.Count-1];
+                    return BattlerInfos[BattlerInfos.Count - 1];
                 }
                 return null;
             }
         }
-        private List<GetItemInfo> _getItemInfos = new ();
+        private List<GetItemInfo> _getItemInfos = new();
         public List<GetItemInfo> GetItemInfos => _getItemInfos;
 
         // リプレイを保存するか
@@ -40,13 +40,13 @@ namespace Ryneus
         public void MakeEnemyTroopDates(int plusLevel)
         {
             // EnemyIndex割り振り
-            var enemyIndexKeys = new Dictionary<int,int>();
+            var enemyIndexKeys = new Dictionary<int, int>();
             foreach (var troopEnemies in TroopMaster.TroopEnemies)
             {
                 if (troopEnemies.StageLv <= plusLevel)
                 {
                     var enemyData = DataSystem.Enemies.Find(a => a.Id == troopEnemies.EnemyId);
-                    var battlerInfo = new BattlerInfo(enemyData,troopEnemies.Lv + plusLevel,BattlerInfos.Count,troopEnemies.Line,troopEnemies.BossFlag);
+                    var battlerInfo = new BattlerInfo(enemyData, troopEnemies.Lv + plusLevel, BattlerInfos.Count, troopEnemies.Line, troopEnemies.BossFlag);
                     AddEnemy(battlerInfo);
                     if (!enemyIndexKeys.ContainsKey(enemyData.Id))
                     {
@@ -58,13 +58,13 @@ namespace Ryneus
             }
         }
 
-        public void MakeEnemyRandomTroopDates(int baseLv,List<StageEnemyRate> stageEnemyRates)
+        public void MakeEnemyRandomTroopDates(int baseLv, List<StageEnemyRate> stageEnemyRates)
         {
-            var randMax = MathF.Min(3,baseLv / 15);
+            var randMax = MathF.Min(3, baseLv / 15);
             var weight = 30;
             while (weight > 0)
             {
-                var targetIdRand = UnityEngine.Random.Range(0,stageEnemyRates.Count);
+                var targetIdRand = UnityEngine.Random.Range(0, stageEnemyRates.Count);
                 var enemyData = DataSystem.Enemies.Find(a => a.Id == stageEnemyRates[targetIdRand].EnemyId);
                 /*
                 var lineRand = UnityEngine.Random.Range(0,1);
@@ -74,7 +74,7 @@ namespace Ryneus
                     lineRand = 0;
                 }
                 */
-                var battlerInfo = new BattlerInfo(enemyData,baseLv,BattlerInfos.Count,LineType.Front,BattlerInfos.Count == 0);
+                var battlerInfo = new BattlerInfo(enemyData, baseLv, BattlerInfos.Count, LineType.Front, BattlerInfos.Count == 0);
                 AddEnemy(battlerInfo);
                 weight -= stageEnemyRates[targetIdRand].Weight;
             }

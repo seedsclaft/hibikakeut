@@ -16,7 +16,7 @@ namespace Ryneus
         public OptionInfo OptionCommandInfo => optionList.ListItemData<OptionInfo>();
         public int OptionCategoryIndex => optionCategoryList.Index;
 
-        public override void Initialize() 
+        public override void Initialize()
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Option);
@@ -27,7 +27,7 @@ namespace Ryneus
             new OptionPresenter(this);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
-        
+
         private void InitializeCategoryList()
         {
             optionCategoryList.Initialize();
@@ -35,8 +35,8 @@ namespace Ryneus
             {
                 CallViewEvent(CommandType.SelectCategory);
             });
-            optionCategoryList.SetInputHandler(InputKeyType.Decide,() => CallDecideCategory());
-            optionCategoryList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
+            optionCategoryList.SetInputHandler(InputKeyType.Decide, () => CallDecideCategory());
+            optionCategoryList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
             AddViewActives(optionCategoryList);
         }
 
@@ -48,17 +48,17 @@ namespace Ryneus
         private void InitializeOptionList()
         {
             optionList.Initialize();
-            optionList.SetInputHandler(InputKeyType.Right,() => CallChangeOptionValue(InputKeyType.Right));
-            optionList.SetInputHandler(InputKeyType.Left,() => CallChangeOptionValue(InputKeyType.Left));
-            optionList.SetInputHandler(InputKeyType.Option1,() => CallChangeOptionValue(InputKeyType.Option1));
-            optionList.SetInputHandler(InputKeyType.Decide,() => OnClickOptionList());
-            optionList.SetInputHandler(InputKeyType.Cancel,() => CallCancelOptionList());
+            optionList.SetInputHandler(InputKeyType.Right, () => CallChangeOptionValue(InputKeyType.Right));
+            optionList.SetInputHandler(InputKeyType.Left, () => CallChangeOptionValue(InputKeyType.Left));
+            optionList.SetInputHandler(InputKeyType.Option1, () => CallChangeOptionValue(InputKeyType.Option1));
+            optionList.SetInputHandler(InputKeyType.Decide, () => OnClickOptionList());
+            optionList.SetInputHandler(InputKeyType.Cancel, () => CallCancelOptionList());
             AddViewActives(optionList);
         }
 
         public void OpenAnimation()
         {
-            popupAnimation.OpenAnimation(UiRoot.transform,null);
+            popupAnimation.OpenAnimation(UiRoot.transform, null);
         }
 
         public void SetOptionList(List<ListData> optionData)
@@ -77,7 +77,8 @@ namespace Ryneus
             if (optionCategoryList.Active)
             {
                 SetHelpInputInfo("OPTION_CATEGORY");
-            } else
+            }
+            else
             {
                 SetHelpInputInfo("OPTION");
             }
@@ -91,8 +92,8 @@ namespace Ryneus
 
         public new void SetBackEvent(System.Action backEvent)
         {
-            SetBackCommand(() => 
-            {    
+            SetBackCommand(() =>
+            {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 GameSystem.OptionData.InputType = GameSystem.TempData.TempInputType;
                 if (GameSystem.OptionData.InputType == InputType.MouseOnly)
@@ -118,14 +119,14 @@ namespace Ryneus
                 OptionCommand = optionResultInfo.OptionCommand,
                 keyType = inputKeyType
             };
-            CallViewEvent(CommandType.ChangeOptionValue,optionInfo);
+            CallViewEvent(CommandType.ChangeOptionValue, optionInfo);
         }
 
         private void CallDecideCategory()
         {
             CallViewEvent(CommandType.DecideCategory);
         }
-        
+
         public void DecideCategory()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);

@@ -65,7 +65,7 @@ namespace Ryneus
         }
         private System.Action _backEvent;
         public System.Action BackEvent => _backEvent;
-        
+
         private List<ActorInfo> _actorInfos;
         public List<ActorInfo> ActorInfos => _actorInfos;
         public void SetActorInfos(List<ActorInfo> actorInfos)

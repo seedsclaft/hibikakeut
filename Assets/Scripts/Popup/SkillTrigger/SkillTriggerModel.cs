@@ -47,23 +47,22 @@ namespace Ryneus
             return findIndex;
         }
 
-        public List<ListData> SkillTriggerSkillList()
+        public List<SkillInfo> SkillTriggerSkillList()
         {
             var list = new List<SkillInfo>();
             if (CurrentActor != null)
             {
                 var skillInfo = new SkillInfo(0);
                 list.Add(skillInfo);
-                var listData = MakeListData(list);
                 foreach (var actionInfo in SkillActionList(CurrentActor))
                 {
-                    if (actionInfo.IsEnhanceSkill() == false)
+                    if (!actionInfo.IsEnhanceSkill())
                     {
                         list.Add(actionInfo);
                     }
                 }
             }
-            return MakeListData(list,(a) => { return true;},-1);
+            return list;
         }
         
         public List<string> SkillTriggerCategoryList()

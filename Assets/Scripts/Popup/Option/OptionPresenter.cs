@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Option;
 
 namespace Ryneus
 {
-    using Option;
     public class OptionPresenter : BasePresenter
     {
         OptionView _view = null;
@@ -31,7 +31,7 @@ namespace Ryneus
             CommandSelectCategory();
             _view.OpenAnimation();
         }
-        
+
         private void UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
@@ -71,7 +71,8 @@ namespace Ryneus
                     if (inputKeyType == InputKeyType.Right)
                     {
                         OptionUtility.ChangeScreenMode(true);
-                    } else
+                    }
+                    else
                     if (inputKeyType == InputKeyType.Left)
                     {
                         OptionUtility.ChangeScreenMode(false);
@@ -81,7 +82,8 @@ namespace Ryneus
                     if (inputKeyType == InputKeyType.Right)
                     {
                         OptionUtility.ChangeScreenSize(true);
-                    } else
+                    }
+                    else
                     if (inputKeyType == InputKeyType.Left)
                     {
                         OptionUtility.ChangeScreenSize(false);
@@ -91,11 +93,13 @@ namespace Ryneus
                     if (inputKeyType == InputKeyType.Right)
                     {
                         OptionUtility.ChangeBGMValue(Mathf.Min(1, SoundManager.Instance.BgmVolume + 0.05f));
-                    } else
+                    }
+                    else
                     if (inputKeyType == InputKeyType.Left)
                     {
                         OptionUtility.ChangeBGMValue(Mathf.Max(0, SoundManager.Instance.BgmVolume - 0.05f));
-                    } else
+                    }
+                    else
                     if (inputKeyType == InputKeyType.Option1)
                     {
                         OptionUtility.ChangeBGMMute(!SoundManager.Instance.BGMMute);
@@ -105,11 +109,13 @@ namespace Ryneus
                     if (inputKeyType == InputKeyType.Right)
                     {
                         OptionUtility.ChangeSEValue(Mathf.Min(1, SoundManager.Instance.SeVolume + 0.05f));
-                    } else
+                    }
+                    else
                     if (inputKeyType == InputKeyType.Left)
                     {
                         OptionUtility.ChangeSEValue(Mathf.Max(0, SoundManager.Instance.SeVolume - 0.05f));
-                    } else
+                    }
+                    else
                     if (inputKeyType == InputKeyType.Option1)
                     {
                         OptionUtility.ChangeSEMute(!SoundManager.Instance.SeMute);
@@ -123,7 +129,8 @@ namespace Ryneus
                     if (inputKeyType == InputKeyType.Left)
                     {
                         OptionUtility.ChangeGraphicIndex(2);
-                    };
+                    }
+                    ;
                     break;
                 case "EVENT_SKIP":
                     OptionUtility.ChangeEventSkipIndex(inputKeyType == InputKeyType.Right);
@@ -165,7 +172,7 @@ namespace Ryneus
                     break;
                 case "BATTLE_SPEED":
                     if (inputKeyType == InputKeyType.Right)
-                    {                    
+                    {
                         OptionUtility.ChangeBattleSpeed(1);
                     }
                     if (inputKeyType == InputKeyType.Left)
@@ -188,7 +195,8 @@ namespace Ryneus
                 if (data.OptionCommand.Key == "BGM_VOLUME")
                 {
                     OptionUtility.ChangeBGMValue(volume);
-                } else
+                }
+                else
                 if (data.OptionCommand.Key == "SE_VOLUME")
                 {
                     OptionUtility.ChangeSEValue(volume);
@@ -205,7 +213,8 @@ namespace Ryneus
                 if (data.OptionCommand.Key == "BGM_VOLUME")
                 {
                     OptionUtility.ChangeBGMMute(isMute);
-                } else
+                }
+                else
                 if (data.OptionCommand.Key == "SE_VOLUME")
                 {
                     OptionUtility.ChangeSEMute(isMute);
@@ -229,7 +238,8 @@ namespace Ryneus
                         if (toggleIndex == 0)
                         {
                             OptionUtility.ChangeGraphicIndex(2);
-                        };
+                        }
+                        ;
                         break;
                     case "EVENT_SKIP":
                         OptionUtility.ChangeEventSkipIndex(toggleIndex == 1);
@@ -253,7 +263,7 @@ namespace Ryneus
                         OptionUtility.ChangeBattleAuto(toggleIndex == 1);
                         break;
                     case "BATTLE_SPEED":
-                        OptionUtility.SetBattleSpeed(OptionUtility.SpeedList[toggleIndex+1]);
+                        OptionUtility.SetBattleSpeed(OptionUtility.SpeedList[toggleIndex + 1]);
                         break;
                     case "TUTORIAL_CHECK":
                         OptionUtility.ChangeTutorialCheck(toggleIndex == 0);
@@ -274,7 +284,8 @@ namespace Ryneus
                         if (plusValue > 0)
                         {
                             OptionUtility.ChangeScreenSize(true);
-                        } else
+                        }
+                        else
                         {
                             OptionUtility.ChangeScreenSize(false);
                         }

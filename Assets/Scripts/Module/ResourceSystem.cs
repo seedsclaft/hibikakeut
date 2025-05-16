@@ -13,7 +13,7 @@ namespace Ryneus
     public class ResourceSystem : MonoBehaviour
     {
         private static GameObject _lastScene = null;
-        private static List<Object> _lastLoadAssets = new List<Object>();
+        private static List<Object> _lastLoadAssets = new();
 
         private static string _bgmPath = "Audios/BGM/";
         private static string _bgsPath = "Audios/BGS/";
@@ -57,7 +57,8 @@ namespace Ryneus
             {
                 data.Add(_bgmPath + bGMData.FileName + "_intro");
                 data.Add(_bgmPath + bGMData.FileName + "_loop");
-            } else{
+            } else
+            {
                 data.Add(_bgmPath + bGMData.FileName + "");
             }
             AudioClip result2 = null;
@@ -159,12 +160,12 @@ namespace Ryneus
 
         public static Sprite LoadBackGround(string fileName)
         {
-            return  LoadResource<Sprite>("Texture/BG/" + fileName);
+            return LoadResource<Sprite>("Texture/BG/" + fileName);
         }
 
         public static GameObject LoadBattleBackGround(string fileName)
         {
-            return  LoadResource<GameObject>("Prefabs/BG/" + fileName);
+            return LoadResource<GameObject>("Prefabs/BG/" + fileName);
         }
 
         public static EffekseerEffectAsset LoadResourceEffect(string path)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Ryneus
 {
     [System.Serializable]
-    public class GetItemInfo 
+    public class GetItemInfo
     {
         private GetItemData _getItemData = null;
         public GetItemData Master => _getItemData;
@@ -57,23 +57,23 @@ namespace Ryneus
                 case GetItemType.Ending:
                     return DataSystem.GetText(20270);
                 case GetItemType.StatusUp:
-                    return DataSystem.GetReplaceText(20220,_resultParam.ToString());
+                    return DataSystem.GetReplaceText(20220, _resultParam.ToString());
                 case GetItemType.Regeneration:
-                    return DataSystem.GetReplaceText(20230,_resultParam.ToString());
+                    return DataSystem.GetReplaceText(20230, _resultParam.ToString());
                 case GetItemType.ReBirth:
                     break;
                 //case GetItemType.LearnSkill:
-                    //return DataSystem.FindSkill(Param2).Name;
+                //return DataSystem.FindSkill(Param2).Name;
                 case GetItemType.AddActor:
                     return DataSystem.FindActor(Param1).Name + DataSystem.GetText(20201);
                 case GetItemType.SelectAddActor:
                     return DataSystem.GetText(20240);
                 case GetItemType.BattleScoreBonus:
-                    return DataSystem.GetReplaceText(20260,(_resultParam*0.01f).ToString()) + "x" + Param1.ToString();
+                    return DataSystem.GetReplaceText(20260, (_resultParam * 0.01f).ToString()) + "x" + Param1.ToString();
                 case GetItemType.BattleNuminosBonus:
-                    return DataSystem.GetReplaceText(20280,Param1.ToString());
+                    return DataSystem.GetReplaceText(20280, Param1.ToString());
                 case GetItemType.BattleEnemyLvUp:
-                    return DataSystem.GetReplaceText(20290,Param1.ToString());
+                    return DataSystem.GetReplaceText(20290, Param1.ToString());
                 case GetItemType.SelectRelic:
                     if (Param1 < 1000)
                     {
@@ -89,7 +89,7 @@ namespace Ryneus
             }
             return "";
         }
-        
+
         public bool IsSkill()
         {
             return _getItemType == GetItemType.Skill || (_getItemType == GetItemType.SelectRelic && Param1 > 1000);

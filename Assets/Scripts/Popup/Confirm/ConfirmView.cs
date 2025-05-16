@@ -6,7 +6,7 @@ using Confirm;
 
 namespace Ryneus
 {
-    public class ConfirmView : BaseView,IInputHandlerEvent
+    public class ConfirmView : BaseView, IInputHandlerEvent
     {
         [SerializeField] private BaseList commandList = null;
         [SerializeField] private TextMeshProUGUI titleText = null;
@@ -15,7 +15,7 @@ namespace Ryneus
         private System.Action<ConfirmCommandType> _confirmEvent = null;
         private ConfirmInfo _confirmInfo = null;
 
-        public override void Initialize() 
+        public override void Initialize()
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Confirm);
@@ -29,7 +29,7 @@ namespace Ryneus
         private void InitializeCommandList()
         {
             commandList.Initialize();
-            commandList.SetInputHandler(InputKeyType.Decide,() => CallConfirmCommand());
+            commandList.SetInputHandler(InputKeyType.Decide, () => CallConfirmCommand());
             SetInputHandler(commandList.GetComponent<IInputHandlerEvent>());
         }
 
@@ -45,9 +45,9 @@ namespace Ryneus
 
         public void OpenAnimation()
         {
-            confirmAnimation.OpenAnimation(UiRoot.transform,null);
+            confirmAnimation.OpenAnimation(UiRoot.transform, null);
         }
-        
+
         public void SetTitle(string title)
         {
             titleText?.SetText(title);
@@ -69,7 +69,7 @@ namespace Ryneus
         {
             if (disableIds.Count > 0)
             {
-                CallViewEvent(CommandType.DisableIds,disableIds);
+                CallViewEvent(CommandType.DisableIds, disableIds);
             }
         }
 
@@ -103,7 +103,8 @@ namespace Ryneus
                 if (data.Key == "Yes")
                 {
                     SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                } else
+                }
+                else
                 {
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
@@ -112,7 +113,7 @@ namespace Ryneus
             }
         }
 
-        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
 
         }
@@ -122,7 +123,8 @@ namespace Ryneus
             if (_confirmInfo.IsNoChoice)
             {
                 CallConfirmCommand();
-            } else
+            }
+            else
             {
                 CallConfirmCommand();
             }

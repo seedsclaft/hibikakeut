@@ -62,7 +62,7 @@ namespace Ryneus
 
         private void CommandStartResult()
         {
-            _view.StartResultAnimation(_model.MakeListData(_model.TacticsActors()));
+            _view.StartResultAnimation(MakeListData(_model.TacticsActors()));
         }
 
         private void CommandEndAnimation()
