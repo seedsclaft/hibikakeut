@@ -8,7 +8,10 @@ namespace Ryneus
     {
         [SerializeField] private TextMeshProUGUI noText;
         [SerializeField] private BattlerInfoComponent frontBattler;
+        public BattlerInfoComponent FrontBattler => frontBattler;
         [SerializeField] private BattlerInfoComponent backBattler;
+        public BattlerInfoComponent BackBattler => backBattler;
+
 
         public void UpdateInfo(UnitInfo unitInfo)
         {

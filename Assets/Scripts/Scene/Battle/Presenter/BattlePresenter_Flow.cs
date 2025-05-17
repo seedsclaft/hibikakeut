@@ -166,12 +166,12 @@ namespace Ryneus
             }
         }
 
-        private void CommandOnDecideEnemy(BattlerInfo battlerInfo)
+        private void CommandOnDecideEnemy(UnitInfo unitInfo)
         {
             // 対象選択として有効か
             var actionInfo = _model.SelectActionInfo;
             var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
-            if (targetIndexes.FindIndex(a => a == battlerInfo.Index.Value) > -1)
+            if (targetIndexes.FindIndex(a => a == unitInfo.FrontBattlerInfo().Index.Value) > -1)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 _model.SetActiveActionInfo(actionInfo);
@@ -192,12 +192,12 @@ namespace Ryneus
             ShowMagicList(_model.CurrentBattler,false);
         }
 
-        private void CommandOnDecideActor(BattlerInfo battlerInfo)
+        private void CommandOnDecideActor(UnitInfo unitInfo)
         {
             // 対象選択として有効か
             var actionInfo = _model.SelectActionInfo;
             var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
-            if (targetIndexes.FindIndex(a => a == battlerInfo.Index.Value) > -1)
+            if (targetIndexes.FindIndex(a => a == unitInfo.FrontBattlerInfo().Index.Value) > -1)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 _model.SetActiveActionInfo(actionInfo);

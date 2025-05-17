@@ -222,13 +222,13 @@ namespace Ryneus
                     CommandOnSelectTarget((InputKeyType)viewEvent.Template);
                     break;
                 case CommandType.OnDecideEnemy:
-                    CommandOnDecideEnemy((BattlerInfo)viewEvent.Template);
+                    CommandOnDecideEnemy((UnitInfo)viewEvent.Template);
                     break;
                 case CommandType.OnCancelEnemy:
                     CommandOnCancelEnemy();
                     break;
                 case CommandType.OnDecideActor:
-                    CommandOnDecideActor((BattlerInfo)viewEvent.Template);
+                    CommandOnDecideActor((UnitInfo)viewEvent.Template);
                     break;
                 case CommandType.OnCancelActor:
                     CommandOnCancelActor();

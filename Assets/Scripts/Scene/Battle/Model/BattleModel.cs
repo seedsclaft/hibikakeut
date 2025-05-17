@@ -246,8 +246,10 @@ namespace Ryneus
             }
         }
 
-        public List<BattlerInfo> ViewBattlerActors()
+        public List<UnitInfo> ViewBattlerActors()
         {
+            return _sceneParam.ActorUnitInfos;
+            /*
             var list = new List<BattlerInfo>();
             var battlerInfos = _battlers.FindAll(a => a.isAlcana == false && a.IsActor == true);
             for (int i = 1;i <= 6;i++)
@@ -265,10 +267,13 @@ namespace Ryneus
                 }
             }
             return list;
+            */
         }
 
-        public List<BattlerInfo> ViewBattlerEnemies()
+        public List<UnitInfo> ViewBattlerEnemies()
         {
+            return _sceneParam.EnemyUnitInfos;
+            /*
             var list = new List<BattlerInfo>();
             var battlerInfos = _battlers.FindAll(a => a.isAlcana == false && a.IsActor == false);
             for (int i = 101;i <= 106;i++)
@@ -285,6 +290,7 @@ namespace Ryneus
                 }
             }
             return list;
+            */
         }
 
         public List<BattlerInfo> UnitBattlerActors()

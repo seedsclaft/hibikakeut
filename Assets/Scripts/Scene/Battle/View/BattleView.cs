@@ -10,8 +10,8 @@ namespace Ryneus
 {
     public partial class BattleView : BaseView, IInputHandlerEvent
     {
-        [SerializeField] private BattleBattlerList battleActorList = null;
-        [SerializeField] private BattleBattlerList battleEnemyLayer = null;
+        [SerializeField] private BattleUnitList battleActorUnitList = null;
+        [SerializeField] private BattleUnitList battleEnemyUnitList = null;
         [SerializeField] private BattleGridLayer battleGridLayer = null;
         [SerializeField] private BattleThumb battleThumb;
         [SerializeField] private TextMeshProUGUI turns;
@@ -95,70 +95,73 @@ namespace Ryneus
         
         private void InitializeActorList()
         {
-            battleActorList.Initialize();
-            battleActorList.SetInputHandler(InputKeyType.Decide,() => OnDecideActor());
-            battleActorList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.OnCancelActor));
-            //battleActorList.SetInputHandler(InputKeyType.Cancel,() => OnClickBack());
-            //battleActorList.SetInputHandler(InputKeyType.SideLeft1,() => OnClickSelectEnemy());
-            //battleActorList.SetSelectedHandler(() => CallSelectActorList());
-            AddViewActives(battleActorList);
+            battleActorUnitList.Initialize();
+            battleActorUnitList.SetInputHandler(InputKeyType.Decide,() => OnDecideActor());
+            battleActorUnitList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.OnCancelActor));
+            AddViewActives(battleActorUnitList);
         }
 
-        public void SetActors(List<ListData> battlerInfos)
+        public void SetActors(List<ListData> unitInfos)
         {
-            battleActorList.SetData(battlerInfos);
-            foreach (var battlerInfo in battlerInfos)
+            battleActorUnitList.SetData(unitInfos);
+            foreach (var unitInfo in unitInfos)
             {
-                var data = (BattlerInfo)battlerInfo.Data;
-                _battlerComps[data.Index.Value] = battleActorList.GetBattlerInfoComp(data.Index.Value);
+                var data = (UnitInfo)unitInfo.Data;
+                foreach (var battlerInfo in data.BattlerInfos)
+                {
+                    _battlerComps[battlerInfo.Index.Value] = battleActorUnitList.GetBattlerInfoComp(data.Index.Value,battlerInfo.Index.Value);
+                }
             }
         }
 
         private void InitializeEnemyLayer()
         {
-            battleEnemyLayer.Initialize();
-            battleEnemyLayer.SetInputHandler(InputKeyType.Up,() => OnSelectTarget(InputKeyType.Up));
-            battleEnemyLayer.SetInputHandler(InputKeyType.Down,() => OnSelectTarget(InputKeyType.Down));
-            battleEnemyLayer.SetInputHandler(InputKeyType.Right,() => OnSelectTarget(InputKeyType.Right));
-            battleEnemyLayer.SetInputHandler(InputKeyType.Left,() => OnSelectTarget(InputKeyType.Left));
-            battleEnemyLayer.SetInputHandler(InputKeyType.Decide,OnDecideEnemy);
-            battleEnemyLayer.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.OnCancelEnemy));
-            //battleEnemyLayer.SetSelectedHandler(TargetSelectCursor);
-            AddViewActives(battleEnemyLayer);
+            battleEnemyUnitList.Initialize();
+            battleEnemyUnitList.SetInputHandler(InputKeyType.Up,() => OnSelectTarget(InputKeyType.Up));
+            battleEnemyUnitList.SetInputHandler(InputKeyType.Down,() => OnSelectTarget(InputKeyType.Down));
+            battleEnemyUnitList.SetInputHandler(InputKeyType.Right,() => OnSelectTarget(InputKeyType.Right));
+            battleEnemyUnitList.SetInputHandler(InputKeyType.Left,() => OnSelectTarget(InputKeyType.Left));
+            battleEnemyUnitList.SetInputHandler(InputKeyType.Decide,OnDecideEnemy);
+            battleEnemyUnitList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.OnCancelEnemy));
+            //battleEnemyUnitList.SetSelectedHandler(TargetSelectCursor);
+            AddViewActives(battleEnemyUnitList);
         }
 
-        public void SetEnemies(List<ListData> battlerInfos)
+        public void SetEnemies(List<ListData> unitInfos)
         {
-            battleEnemyLayer.SetData(battlerInfos);
-            //battleEnemyLayer.SetSelectedHandler(() => CallSelectEnemyList());
-            foreach (var battlerInfo in battlerInfos)
+            battleEnemyUnitList.SetData(unitInfos);
+            //battleEnemyUnitList.SetSelectedHandler(() => CallSelectEnemyList());
+            foreach (var unitInfo in unitInfos)
             {
-                var data = (BattlerInfo)battlerInfo.Data;
-                _battlerComps[data.Index.Value] = battleEnemyLayer.GetBattlerInfoComp(data.Index.Value);
-                _battlerComps[data.Index.Value].HideStatus();
+                var data = (UnitInfo)unitInfo.Data;
+                foreach (var battlerInfo in data.BattlerInfos)
+                {
+                    _battlerComps[battlerInfo.Index.Value] = battleEnemyUnitList.GetBattlerInfoComp(data.Index.Value,battlerInfo.Index.Value);
+                    _battlerComps[battlerInfo.Index.Value].HideStatus();
+                }
             }
         }
 
         public void UpdateSelectCursor(List<int> targetIndexes)
         {
             //battleActorList.UpdateSelectIndexList(targetIndexes);
-            //battleEnemyLayer.UpdateSelectIndexList(targetIndexes);
+            //battleEnemyUnitList.UpdateSelectIndexList(targetIndexes);
         }
 
         public void SelectActorList(int selectIndex)
         {
             magicList.gameObject.SetActive(false);
             battleThumb.HideThumb();
-            SetActivate(battleActorList);
-            battleActorList.UpdateSelectIndex(selectIndex);
+            SetActivate(battleActorUnitList);
+            battleActorUnitList.UpdateSelectIndex(selectIndex);
         }
 
         public void SelectEnemyList(int selectIndex)
         {
             magicList.gameObject.SetActive(false);
             battleThumb.HideThumb();
-            SetActivate(battleEnemyLayer);
-            battleEnemyLayer.UpdateSelectIndex(selectIndex);
+            SetActivate(battleEnemyUnitList);
+            battleEnemyUnitList.UpdateSelectIndex(selectIndex);
         }
 
         public void SetGridMembers(List<BattlerInfo> battlerInfos)
@@ -207,7 +210,7 @@ namespace Ryneus
 
         private void OnDecideEnemy()
         {
-            var listData = battleEnemyLayer.ListItemData<BattlerInfo>();
+            var listData = battleEnemyUnitList.ListItemData<UnitInfo>();
             if (listData != null)
             {
                 CallViewEvent(CommandType.OnDecideEnemy,listData);
@@ -216,7 +219,7 @@ namespace Ryneus
 
         private void OnDecideActor()
         {
-            var listData = battleActorList.ListItemData<BattlerInfo>();
+            var listData = battleActorUnitList.ListItemData<UnitInfo>();
             if (listData != null)
             {
                 CallViewEvent(CommandType.OnDecideActor,listData);
@@ -228,8 +231,8 @@ namespace Ryneus
             SetActivate(null);
             battleThumb.HideThumb();
             magicList.gameObject.SetActive(false);
-            battleEnemyLayer.ClearSelect();
-            battleActorList.ClearSelect();
+            battleEnemyUnitList.ClearSelect();
+            battleActorUnitList.ClearSelect();
         }
 
         private void InitializeSelectCharacter()
@@ -303,8 +306,8 @@ namespace Ryneus
         {
             //if (GameSystem.ConfigData.InputType)
             {
-                //battleEnemyLayer.Activate();
-                //battleEnemyLayer.UpdateSelectIndex(0);
+                //battleEnemyUnitList.Activate();
+                //battleEnemyUnitList.UpdateSelectIndex(0);
                 //battleActorList.Deactivate();
             }
         }
@@ -339,8 +342,8 @@ namespace Ryneus
 
         public void StartUIAnimation()
         {
-            battleActorList.gameObject.SetActive(true);
-            //battleEnemyLayer.gameObject.SetActive(true);
+            battleActorUnitList.gameObject.SetActive(true);
+            //battleEnemyUnitList.gameObject.SetActive(true);
             var duration = 0.8f;
             /*
             var actorListRect = battleActorList.GetComponent<RectTransform>();
@@ -348,7 +351,7 @@ namespace Ryneus
                 new Vector3(actorListRect.localPosition.x - 240,actorListRect.localPosition.y,0),
                 new Vector3(actorListRect.localPosition.x,actorListRect.localPosition.y,0),
                 duration);
-            var enemyListRect = battleEnemyLayer.GetComponent<RectTransform>();
+            var enemyListRect = battleEnemyUnitList.GetComponent<RectTransform>();
             AnimationUtility.LocalMoveToTransform(enemyListRect.gameObject,
                 new Vector3(enemyListRect.localPosition.x + 240,enemyListRect.localPosition.y,0),
                 new Vector3(enemyListRect.localPosition.x,enemyListRect.localPosition.y,0),
@@ -377,7 +380,7 @@ namespace Ryneus
         public void ShowMagicList(List<ListData> skillInfos,bool resetScrollRect,int selectIndex)
         {
             SetActivate(magicList);
-            battleActorList.gameObject.SetActive(true);
+            battleActorUnitList.gameObject.SetActive(true);
             magicList.gameObject.SetActive(true);
             magicList.SetData(skillInfos,resetScrollRect);
             if (resetScrollRect)
@@ -395,7 +398,7 @@ namespace Ryneus
         private void CallEnemyDetailInfo(List<BattlerInfo> battlerInfos)
         {
             if (_animationBusy) return;
-            var selectedIndex = battleEnemyLayer.SelectedIndex;
+            var selectedIndex = battleEnemyUnitList.SelectedIndex;
             var battlerInfo = battlerInfos.Find(a => a.Index.Value == selectedIndex);
             if (battlerInfo != null)
             {
@@ -439,7 +442,7 @@ namespace Ryneus
 
         public void RefreshPartyBattlerList(List<ListData> battlerInfos)
         {
-            battleActorList.SetTargetListData(battlerInfos);
+            battleActorUnitList.SetTargetListData(battlerInfos);
             foreach (var item in _battlerComps)
             {
                 var battlerInfo = battlerInfos.Find(a => item.Key == ((BattlerInfo)a.Data).Index.Value);
@@ -453,7 +456,7 @@ namespace Ryneus
 
         public void RefreshEnemyBattlerList(List<ListData> battlerInfos)
         {
-            battleEnemyLayer.SetTargetListData(battlerInfos);
+            battleEnemyUnitList.SetTargetListData(battlerInfos);
             foreach (var item in _battlerComps)
             {
                 var battlerInfo = battlerInfos.Find(a => item.Key == ((BattlerInfo)a.Data).Index.Value);
@@ -468,7 +471,7 @@ namespace Ryneus
         public void BattlerBattleClearSelect()
         {
             //battleActorList.ClearSelect();
-            //battleEnemyLayer.ClearSelect();
+            //battleEnemyUnitList.ClearSelect();
         }
 
         public void HideEnemyStateOverlay()
