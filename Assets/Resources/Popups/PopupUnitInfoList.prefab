@@ -507,7 +507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4594044833622364394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -874,7 +874,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8786813446746163369}
   m_HandleRect: {fileID: 9016338019909783936}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1153,6 +1153,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WindowFrame
+      objectReference: {fileID: 0}
+    - target: {fileID: 3989721738116581697, guid: 98de571f5a67a544cbb3e7fe5073b775,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6059821474677459810, guid: 98de571f5a67a544cbb3e7fe5073b775,
         type: 3}
