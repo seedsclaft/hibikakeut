@@ -136,8 +136,11 @@ namespace Ryneus
                 var data = (UnitInfo)unitInfo.Data;
                 foreach (var battlerInfo in data.BattlerInfos)
                 {
-                    _battlerComps[battlerInfo.Index.Value] = battleEnemyUnitList.GetBattlerInfoComp(data.Index.Value,battlerInfo.Index.Value);
-                    _battlerComps[battlerInfo.Index.Value].HideStatus();
+                    if (battlerInfo.Index.Value > 0)
+                    {
+                        _battlerComps[battlerInfo.Index.Value] = battleEnemyUnitList.GetBattlerInfoComp(data.Index.Value,battlerInfo.Index.Value);
+                        _battlerComps[battlerInfo.Index.Value].HideStatus();
+                    }
                 }
             }
         }

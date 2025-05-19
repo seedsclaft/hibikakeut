@@ -38,9 +38,9 @@ namespace Ryneus
             var unitInfo = ListItemData<UnitInfo>();
             _unitInfo = unitInfo;
             unitInfoComponent.UpdateInfo(unitInfo);
-            if (Disable != null)
+            if (!ListData.Enable)
             {
-                Disable.SetActive(!ListData.Enable);
+                SetDisable();
             }
         }
 
@@ -49,6 +49,7 @@ namespace Ryneus
             if (Disable != null)
             {
                 Disable.SetActive(true);
+                clickButton.enabled = false;
             }
         }
     }

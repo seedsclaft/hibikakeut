@@ -113,7 +113,9 @@ namespace Ryneus
             {
                 if (battlerInfo.ActorInfo != null)
                 {
-                    list.Add(StageMembers().Find(a => a.ActorId == battlerInfo.ActorInfo.ActorId));
+                    var actorInfo = StageMembers().Find(a => a.ActorId == battlerInfo.ActorInfo.ActorId);
+                    actorInfo.ChangeHp(battlerInfo.Hp.Value);
+                    list.Add(actorInfo);
                 }
             }
             return list;

@@ -46,7 +46,7 @@ namespace Ryneus
         // 戦略用
         public BattlerInfo FrontBattlerInfo()
         {
-            if (_battlerInfos.Count == 0)
+            if (_battlerInfos.Count <= 0)
             {
                 return null;
             }
@@ -59,7 +59,7 @@ namespace Ryneus
 
         public BattlerInfo BackBattlerInfo()
         {
-            if (_battlerInfos.Count == 1)
+            if (_battlerInfos.Count <= 1)
             {
                 return null;
             }
@@ -105,7 +105,19 @@ namespace Ryneus
 
         public int UnitMp()
         {
-            return _battlerInfos.FindAll(a => a != null).Sum(a => a.MaxMp);
+            var maxMp = 0;
+            foreach (var battlerInfo in _battlerInfos)
+            {
+                if (battlerInfo.IsActor && battlerInfo.ActorInfo != null)
+                {
+                    maxMp += battlerInfo.ActorInfo.MaxMp;
+                } else
+                if (!battlerInfo.IsActor && battlerInfo.EnemyData != null)
+                {
+                    maxMp += battlerInfo.MaxMp;
+                }
+            }
+            return maxMp;
         }
 
         public int CurrentMov()

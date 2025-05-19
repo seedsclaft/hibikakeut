@@ -63,6 +63,10 @@ namespace Ryneus
             {
                 return;
             }
+            if (clickButton.enabled == false)
+            {
+                return;
+            }
             //if (disable != null && disable.activeSelf) return;
 
             cursor.SetActive(true);
@@ -99,7 +103,7 @@ namespace Ryneus
             var enterListener = clickButton.gameObject.AddComponent<ContentEnterListener>();
             enterListener.SetEnterEvent(() =>
             {
-                if (_index != -1)
+                if (_index != -1 && clickButton.enabled)
                 {
                     handler(_index);
                 }

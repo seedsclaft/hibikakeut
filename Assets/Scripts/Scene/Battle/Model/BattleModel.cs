@@ -248,7 +248,23 @@ namespace Ryneus
 
         public List<UnitInfo> ViewBattlerActors()
         {
-            return _sceneParam.ActorUnitInfos;
+            var list = new List<UnitInfo>();
+            for (int i = 1;i <= 3;i++)
+            {
+                var find = _sceneParam.ActorUnitInfos.Find(a => a.BattlerInfos.Find(b => b != null && b.Index.Value == i) != null);
+                if (find != null)
+                {
+                    find.Index.SetValue(i);
+                    list.Add(find);
+                } else
+                {
+                    var newUnitInfo = new UnitInfo();
+                    newUnitInfo.Index.SetValue(i);
+                    list.Add(newUnitInfo);
+                }
+            }
+            return list;
+            //return _sceneParam.ActorUnitInfos;
             /*
             var list = new List<BattlerInfo>();
             var battlerInfos = _battlers.FindAll(a => a.isAlcana == false && a.IsActor == true);
@@ -272,7 +288,23 @@ namespace Ryneus
 
         public List<UnitInfo> ViewBattlerEnemies()
         {
-            return _sceneParam.EnemyUnitInfos;
+            var list = new List<UnitInfo>();
+            for (int i = 101;i <= 103;i++)
+            {
+                var find = _sceneParam.EnemyUnitInfos.Find(a => a.BattlerInfos.Find(b => b != null && b.Index.Value == i) != null);
+                if (find != null)
+                {
+                    find.Index.SetValue(i-100);
+                    list.Add(find);
+                } else
+                {
+                    var newUnitInfo = new UnitInfo();
+                    newUnitInfo.Index.SetValue(i-100);
+                    list.Add(newUnitInfo);
+                }
+            }
+            return list;
+            //return _sceneParam.EnemyUnitInfos;
             /*
             var list = new List<BattlerInfo>();
             var battlerInfos = _battlers.FindAll(a => a.isAlcana == false && a.IsActor == false);
