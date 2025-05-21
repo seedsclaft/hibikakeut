@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SideMenu;
+using Ryneus.SideMenu;
 
 namespace Ryneus
 {
@@ -26,62 +26,66 @@ namespace Ryneus
             ClosePopup();
             _view.SetEvent((type) => UpdateCommand(type));
             CommandRefresh();
+            _view.SetSideMenuViewInfo(_model.SceneParam);
             _view.OpenAnimation();
         }
 
-        private void UpdateCommand(SideMenuViewEvent viewEvent)
+        private void UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
             {
                 return;
             }
-            switch (viewEvent.commandType)
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.SideMenu)
+            {
+                return;
+            }
+            switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.SelectSideMenu:
-                    CommandSelectSideMenu();
+                    CommandSelectSideMenu((SystemData.CommandData)viewEvent.Template);
                     break;
             }
         }
 
-        private void CommandSelectSideMenu()
+        private void CommandSelectSideMenu(SystemData.CommandData commandData)
         {
-            var data = _view.SideMenuCommand;
-            if (data != null)
+            if (commandData == null)
             {
-                switch (data.Key)
-                {
-                    case "Option":
-                        CommandOption();
-                        break;
-                    case "Retire":
-                        CommandDropout();
-                        break;
-                    case "Help":
-                        CommandRule();
-                        break;
-                    case "Save":
-                        CommandSave(false);
-                        break;
-                    case "License":
-                        CommandCredit();
-                        break;
-                    case "InitializeData":
-                        CommandInitializeData();
-                        break;
-                    case "DeleteStage":
-                        CommandDeleteStage();
-                        break;
-                    case "Title":
-                        CommandTitle();
-                        break;
-                    case "EndGame":
-                        CommandEndGame();
-                        break;
-                    case "Dictionary":
-                        CommandDictionary();
-                        break;
-                    
-                }
+                return;
+            }
+            switch (commandData.Key)
+            {
+                case "Option":
+                    CommandOption();
+                    break;
+                case "Retire":
+                    CommandDropout();
+                    break;
+                case "Help":
+                    CommandRule();
+                    break;
+                case "Save":
+                    CommandSave(false);
+                    break;
+                case "License":
+                    CommandCredit();
+                    break;
+                case "InitializeData":
+                    CommandInitializeData();
+                    break;
+                case "DeleteStage":
+                    CommandDeleteStage();
+                    break;
+                case "Title":
+                    CommandTitle();
+                    break;
+                case "EndGame":
+                    CommandEndGame();
+                    break;
+                case "Dictionary":
+                    CommandDictionary();
+                    break;
             }
         }
 
@@ -89,7 +93,7 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            _view.CommandCallOption(() => 
+            _view.CommandCallOption(() =>
             {
                 ClosePopup();
                 //_view.CommandGameSystem(Base.CommandType.ClosePopup);
@@ -97,10 +101,11 @@ namespace Ryneus
         }
 
         private void CommandDropout()
-        {  
+        {
+
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(1100),(a) => UpdatePopupDropout(a));
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(1100), (a) => UpdatePopupDropout(a));
             _view.CommandCallConfirm(confirmInfo);
         }
 
@@ -111,7 +116,8 @@ namespace Ryneus
                 _model.SavePlayerStageData(false);
                 _view.CallSystemCommand(Base.CommandType.CloseStatus);
                 _view.CommandGotoSceneChange(Scene.MainMenu);
-            } else
+            }
+            else
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             }
@@ -119,7 +125,8 @@ namespace Ryneus
             //_view.ActivateCommandList();
             _view.CallSystemCommand(Base.CommandType.CloseConfirm);
         }
-        
+
+
         private void CommandRule()
         {
             _busy = true;
@@ -154,7 +161,7 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(13300),(a) => UpdatePopupDeletePlayerData(a));
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(13300), (a) => UpdatePopupDeletePlayerData(a));
             _view.CommandCallConfirm(confirmInfo);
         }
 
@@ -162,7 +169,7 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(13301),(a) => UpdatePopupDeleteStageData(a));
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(13301), (a) => UpdatePopupDeleteStageData(a));
             _view.CommandCallConfirm(confirmInfo);
         }
 
@@ -170,7 +177,7 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(13320),(a) => UpdatePopupTitle((ConfirmCommandType)a));
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(13320), (a) => UpdatePopupTitle((ConfirmCommandType)a));
             _view.CommandCallConfirm(confirmInfo);
         }
 
@@ -181,7 +188,8 @@ namespace Ryneus
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 _model.DeletePlayerData();
                 _view.CallSystemCommand(Base.CommandType.CloseConfirm);
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(13310),(a) => 
+                var confirmInfo = new ConfirmInfo(DataSystem.GetText(13310), (a) =>
+
                 {
                     SoundManager.Instance.StopBgm();
                     _view.CallSystemCommand(Base.CommandType.CloseStatus);
@@ -189,8 +197,10 @@ namespace Ryneus
                 });
                 confirmInfo.SetIsNoChoice(true);
                 _view.CommandCallConfirm(confirmInfo);
-            } else
-            {            
+            }
+            else
+            {
+
                 ClosePopup();
             }
         }
@@ -202,7 +212,8 @@ namespace Ryneus
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 _model.DeleteStageData();
                 _view.CallSystemCommand(Base.CommandType.CloseConfirm);
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(13310),(a) => 
+                var confirmInfo = new ConfirmInfo(DataSystem.GetText(13310), (a) =>
+
                 {
                     SoundManager.Instance.StopBgm();
                     _view.CallSystemCommand(Base.CommandType.CloseStatus);
@@ -210,8 +221,10 @@ namespace Ryneus
                 });
                 confirmInfo.SetIsNoChoice(true);
                 _view.CommandCallConfirm(confirmInfo);
-            } else
-            {            
+            }
+            else
+            {
+
                 ClosePopup();
             }
         }

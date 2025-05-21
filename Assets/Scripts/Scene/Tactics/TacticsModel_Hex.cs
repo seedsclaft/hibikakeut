@@ -103,8 +103,7 @@ namespace Ryneus
             var moveBattler = teamInfo.GetMoveBattlerUnit();
             if (moveBattler != null)
             {
-                CurrentStage.FieldX.SetValue(moveBattler.HexField.X);
-                CurrentStage.FieldY.SetValue(moveBattler.HexField.Y);
+                CurrentStage.SetFieldPosition(moveBattler.HexField);
                 UnityEngine.Debug.Log(CurrentStage.FieldX.Value+":"+CurrentStage.FieldY.Value);
                 return true;
             }

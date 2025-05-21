@@ -248,7 +248,7 @@ namespace Ryneus
                     continue;
                 }
                 listItem.SetListData(_listDates[itemIndex], itemIndex);
-                Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + itemIndex);
+                //Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + itemIndex);
                 itemPrefab.transform.SetParent(_objectList[itemIndex].transform, false);
                 itemPrefab.SetActive(true);
             }

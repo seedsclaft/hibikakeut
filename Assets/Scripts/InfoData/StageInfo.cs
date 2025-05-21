@@ -143,14 +143,18 @@ namespace Ryneus
         {
             StageId.SetValue(id);
             TurnTeamId.SetValue((int)TeamIdType.Home);
-            FieldX.SetValue(Master.InitX);
-            FieldY.SetValue(Master.InitY);
+            SetFieldPosition(Master.InitX,Master.InitY);
+        }
+
+        public void SetFieldPosition(int x,int y)
+        {
+            FieldX.SetValue(x);
+            FieldY.SetValue(y);
         }
 
         public void SetFieldPosition(HexField hexField)
         {
-            FieldX.SetValue(hexField.X);
-            FieldY.SetValue(hexField.Y);
+            SetFieldPosition(hexField.X,hexField.Y);
         }
 
         public bool CheckVictory()

@@ -30,22 +30,23 @@ namespace Ryneus
             CommandRefresh();
             var bgmData = DataSystem.BGM.Find(a => a.Key == "Title");
             var bgm = await _model.GetBgmData("Title");
-            SoundManager.Instance.PlayBgm(bgm,bgmData.Volume,true);
+            SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true);
             if (!SaveSystem.ExistsLoadPlayerFile())
             {
                 SaveSystem.SavePlayerInfo();
-            } else
+            }
+            else
             {
                 var loadSuccess = await SaveSystem.LoadPlayerInfo();
                 if (loadSuccess == false)
                 {
-                    var confirmInfo = new ConfirmInfo(DataSystem.GetText(13330),(a) => UpdatePopup(a));
+                    var confirmInfo = new ConfirmInfo(DataSystem.GetText(13330), (a) => UpdatePopup(a));
                     confirmInfo.SetIsNoChoice(true);
                     _view.CommandCallConfirm(confirmInfo);
                     return;
                 }
                 // プレイヤーネームを設定しなおし
-                _view.CallSystemCommand(Base.CommandType.DecidePlayerName,GameSystem.CurrentData.PlayerInfo.PlayerName.Value);
+                _view.CallSystemCommand(Base.CommandType.DecidePlayerName, GameSystem.CurrentData.PlayerInfo.PlayerName.Value);
             }
             _busy = false;
             _view.SetTitleCommand(_model.TitleCommand());
@@ -97,7 +98,7 @@ namespace Ryneus
             _busy = true;
             _model.InitializeNewGame();
             SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
-            _view.WaitFrame(2,() => 
+            _view.WaitFrame(2, () =>
             {
                 _view.CommandGotoSceneChange(Scene.Tactics);
                 //_view.CommandGotoSceneChange(Scene.NameEntry);
@@ -107,7 +108,7 @@ namespace Ryneus
         private void CommandContinue()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            
+
             var sceneParam = new FileListSceneInfo
             {
                 IsLoad = true
@@ -129,7 +130,7 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            _view.CommandCallOption(() => 
+            _view.CommandCallOption(() =>
             {
                 _busy = false;
                 CommandRefresh();
@@ -141,7 +142,7 @@ namespace Ryneus
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _view.DeactivateTitleCommand();
-            
+
             var popupInfo = new PopupInfo()
             {
                 PopupType = PopupType.TutorialStage,
@@ -163,8 +164,8 @@ namespace Ryneus
         private void CommandSelectSideMenu()
         {
             _busy = true;
-            CommandCallSideMenu(MakeListData(_model.SideMenu()),() => 
-            {            
+            CommandCallSideMenu(MakeListData(_model.SideMenu()), () =>
+            {
                 CommandRefresh();
                 _busy = false;
             });

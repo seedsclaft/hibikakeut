@@ -42,6 +42,7 @@ namespace Ryneus
         FileList,
         CharacterList,
         UnitInfoList,
+        SideMenu,
         Option,
         TutorialStage,
         Confirm,

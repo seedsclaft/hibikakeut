@@ -383,7 +383,6 @@ namespace Ryneus
             ClosePopupAll,
             CloseConfirm,
             CallOptionView,
-            CallSideMenu,
             CallRankingView,
             CallHelpView,
             CallStatusView,

@@ -73,6 +73,7 @@ namespace Ryneus
             _view.SetHexTileList(MakeListData(_model.HexFields()),_model.CurrentStage.Master.Width+1);
             //_view.SetNuminous(_model.Currency);
             CommandRefresh();
+            _view.DeActivateHexTiles();
             await PlayTacticsBgm(timeStamp);
             _view.ChangeUIActive(true);
             CommandReturnStrategy();
@@ -83,6 +84,9 @@ namespace Ryneus
             {
                 _model.CurrentStage.CheckedStageStart.SetValue(true);
                 TurnStartAnimation();
+            } else
+            {
+                CommandEndAnimation();
             }
             TacticsChecker.Instance.SetModel(_model.CurrentStage);
         }
@@ -479,7 +483,7 @@ namespace Ryneus
                     break;
             }
             _view.EndTacticsCommand();
-            _view.RefreshCurrentMouseSelect();
+            //_view.RefreshCurrentMouseSelect();
         }
 
         private void CommandDeparture()

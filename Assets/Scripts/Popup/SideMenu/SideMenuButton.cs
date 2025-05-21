@@ -6,12 +6,12 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class SideMenuButton : ListItem ,IListViewItem 
+    public class SideMenuButton : ListItem, IListViewItem
     {
         [SerializeField] private TextMeshProUGUI commandName;
 
-        private SystemData.CommandData _data; 
-        public void SetData(SystemData.CommandData data,int index)
+        private SystemData.CommandData _data;
+        public void SetData(SystemData.CommandData data, int index)
         {
             _data = data;
             SetIndex(index);
@@ -25,7 +25,7 @@ namespace Ryneus
 
         public void SetCallHandler(System.Action<SystemData.CommandData> handler)
         {
-            clickButton.onClick.AddListener(() => 
+            clickButton.onClick.AddListener(() =>
             {
                 handler(_data);
             });

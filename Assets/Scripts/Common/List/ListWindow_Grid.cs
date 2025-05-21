@@ -139,7 +139,7 @@ namespace Ryneus
                     {
                         continue;
                     }
-                    Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
+                    //Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
                     UpdateListItem(itemIndex, objectIndex);
                 }
             }
@@ -180,7 +180,7 @@ namespace Ryneus
                     {
                         continue;
                     }
-                    Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
+                    //Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
                     UpdateListItem(itemIndex, objectIndex);
                 }
             }
@@ -217,7 +217,7 @@ namespace Ryneus
                     {
                         continue;
                     }
-                    Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
+                    //Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
                     UpdateListItem(itemIndex, objectIndex);
                 }
             }
@@ -254,7 +254,7 @@ namespace Ryneus
                     {
                         continue;
                     }
-                    Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
+                    //Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
                     UpdateListItem(itemIndex, objectIndex);
                 }
             }

@@ -48,11 +48,11 @@ namespace Ryneus
             tacticsAlcana.gameObject.SetActive(false);
             alcanaButton.onClick.AddListener(() => CallAlcanaCheck());
 
-            SideMenuButton.OnClickAddListener(() => 
+            SideMenuButton.OnClickAddListener(() =>
             {
                 CallSideMenu();
             });
-            stageHelpButton.onClick.AddListener(() => 
+            stageHelpButton.onClick.AddListener(() =>
             {
                 CallViewEvent(CommandType.StageHelp);
             });
@@ -151,7 +151,7 @@ namespace Ryneus
             hexTiles.SetInputHandler(InputKeyType.Down,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Down));
             hexTiles.SetInputHandler(InputKeyType.Right,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Right));
             hexTiles.SetInputHandler(InputKeyType.Left,() => CallViewEvent(CommandType.MoveHexMap,InputKeyType.Left));
-            hexTiles.SetSelectedHandler(() => 
+            hexTiles.SetSelectedHandler(() =>
             {
                 if (!hexTiles.Active)
                 {
@@ -233,7 +233,7 @@ namespace Ryneus
         {
             HealUnit(healUnits,hpHeals);
         }
-        
+
         public async void HealUnit(List<HexUnitInfo> healUnits,List<List<int>> hpHeals)
         {
             if (healUnits.Count == 0)

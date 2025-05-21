@@ -157,9 +157,6 @@ namespace Ryneus
                 case Base.CommandType.CallOptionView:
                     CommandOptionView((System.Action)viewEvent.Template);
                     break;
-                case Base.CommandType.CallSideMenu:
-                    CommandSideMenu((SideMenuViewInfo)viewEvent.Template);
-                    break;
                 case Base.CommandType.CallRankingView:
                     CommandRankingView((RankingViewInfo)viewEvent.Template);
                     break;
@@ -339,7 +336,6 @@ namespace Ryneus
                 optionView.CallSystemCommand(Base.CommandType.ClosePopup);
                 endEvent?.Invoke();
             });
-            optionView.SetEvent((type) => UpdateCommand(type));
             SetIsBusyMainAndStatus();
         }
 
@@ -371,21 +367,6 @@ namespace Ryneus
                 skillLogViewInfo.EndEvent?.Invoke();
             });
             SetIsBusyMainAndStatus();
-        }
-
-        private void CommandSideMenu(SideMenuViewInfo sideMenuViewInfo)
-        {
-            var prefab = popupAssign.CreatePopup(PopupType.SideMenu, helpWindow);
-            var sideMenuView = prefab.GetComponent<SideMenuView>();
-            sideMenuView.SetEvent((type) => UpdateCommand(type));
-            sideMenuView.Initialize();
-            sideMenuView.SetBackEvent(() =>
-            {
-                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                sideMenuView.CallSystemCommand(Base.CommandType.ClosePopup);
-                sideMenuViewInfo.EndEvent?.Invoke();
-            });
-            sideMenuView.SetSideMenuViewInfo(sideMenuViewInfo);
         }
 
         private void CommandRankingView(RankingViewInfo rankingViewInfo)

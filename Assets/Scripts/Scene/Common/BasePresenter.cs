@@ -254,7 +254,16 @@ namespace Ryneus
                 },
                 CommandLists = sideMenuCommands
             };
-            _view.CallSystemCommand(Base.CommandType.CallSideMenu,sideMenuViewInfo);
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.SideMenu,
+                template = sideMenuViewInfo,
+                EndEvent = () =>
+                {
+                    closeEvent?.Invoke();
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
         }
 
         public void CloseConfirm()
