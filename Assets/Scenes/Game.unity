@@ -9056,6 +9056,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ee6ba374a534e42870d2246177158c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &848135455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 848135458}
+  - component: {fileID: 848135456}
+  - component: {fileID: 848135457}
+  m_Layer: 5
+  m_Name: ViewManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &848135456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848135455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b9599cd25cbbe74597d04625579f677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  postMoveChecker: {fileID: 848135457}
+  screenMaskImage: {fileID: 0}
+  screenFadeTime: 1
+--- !u!114 &848135457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848135455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c2979b6017d0445b3ece000e4502b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &848135458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848135455}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1631066103}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &850850065
 GameObject:
   m_ObjectHideFlags: 0
@@ -24222,6 +24282,7 @@ Transform:
   - {fileID: 267380119}
   - {fileID: 831134566}
   - {fileID: 1596458143}
+  - {fileID: 848135458}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1631066104
@@ -24252,6 +24313,8 @@ MonoBehaviour:
   debugBattleData: {fileID: 1631066105}
   helpWindow: {fileID: 1488024012}
   advHelpWindow: {fileID: 1438665401}
+  dungeonViewManager: {fileID: 848135456}
+  MoveController: {fileID: 0}
 --- !u!114 &1631066105
 MonoBehaviour:
   m_ObjectHideFlags: 0

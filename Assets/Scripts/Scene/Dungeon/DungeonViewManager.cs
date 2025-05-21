@@ -15,8 +15,15 @@ namespace Ariadne
         [SerializeField] Image screenMaskImage;
         [SerializeField] float screenFadeTime = 1.0f;
 
+        private bool _isInitilized = false;
+
         public void Initialize()
         {
+            if (_isInitilized)
+            {
+                return;
+            }
+            _isInitilized = true;
             // Initialize game settings.
             InitializeTraverseData();
             InitializeEventFlagData();

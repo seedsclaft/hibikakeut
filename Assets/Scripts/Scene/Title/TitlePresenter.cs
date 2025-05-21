@@ -100,6 +100,9 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
             _view.WaitFrame(2, () =>
             {
+                // ダンジョン生成
+                _view.CommandChangeDungeon("DefaultDungeon");
+                GameSystem.DungeonViewManager.Initialize();
                 _view.CommandGotoSceneChange(Scene.Dungeon);
                 //_view.CommandGotoSceneChange(Scene.Tactics);
                 //_view.CommandGotoSceneChange(Scene.NameEntry);

@@ -10,7 +10,6 @@ namespace Ryneus
 {
     public class DungeonView : BaseView, IInputHandlerEvent
     {
-        [SerializeField] private DungeonViewManager viewManager = null;
         [SerializeField] private BaseList partyUnitList = null;
 
         public override void Initialize()
@@ -23,8 +22,7 @@ namespace Ryneus
                 CallSideMenu();
             });
             new DungeonPresenter(this);
-            viewManager.Initialize();
-            viewManager.SetMoveEndEvent(() => CallViewEvent(CommandType.MoveEnd));
+            GameSystem.DungeonViewManager.SetMoveEndEvent(() => CallViewEvent(CommandType.MoveEnd));
         }
 
         private void InitializePartyUnitList()

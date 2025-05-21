@@ -39,6 +39,8 @@ namespace Ryneus
         public static TempInfo TempData = null;
         private static TutorialData _lastTutorialData = null;
 #region ダンジョン関連
+        [SerializeField] private Ariadne.DungeonViewManager dungeonViewManager = null;
+        public static Ariadne.DungeonViewManager DungeonViewManager;
         public Ariadne.MoveController MoveController = null;
 #endregion
         private bool _busy = false;
@@ -70,6 +72,7 @@ namespace Ryneus
             TempData = new TempInfo();
             _model = new BaseModel();
             _lastTutorialData = null;
+            DungeonViewManager = dungeonViewManager;
             Version = Application.version;
 #if UNITY_EDITOR
             DebugBattleData = debugBattleData;
