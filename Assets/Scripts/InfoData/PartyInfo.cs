@@ -74,5 +74,14 @@ namespace Ryneus
         {
             _unitInfos.Add(unitInfo);
         }
+
+        public void UpdateBattlerInfo(BattlerInfo battlerInfo)
+        {
+            var find = _unitInfos.Find(a => a.BattlerInfos.Find(b => b.Index.Value == battlerInfo.Index.Value) != null);
+            if (find != null)
+            {
+                find.UpdateBattlerInfo(battlerInfo);
+            }
+        }
     }
 }

@@ -36,13 +36,7 @@ namespace Ryneus
                 {
                     if (battlerInfo.ActorInfo != null)
                     {
-                        var team = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Home);
-                        team.UpdateUnitStatus(battlerInfo);
-                    } else
-                    if (battlerInfo.EnemyData != null)
-                    {
-                        var team = CurrentStage.TeamInfos.Find(a => a.TeamId.Value == (int)TeamIdType.Away);
-                        team.UpdateUnitStatus(battlerInfo);
+                        PartyInfo.UpdateBattlerInfo(battlerInfo);
                     }
                 }
             } else

@@ -61,7 +61,7 @@ namespace Ryneus
             var battleSceneInfo = new BattleSceneInfo
             {
                 ActorUnitInfos = _model.PartyUnit(),
-                EnemyUnitInfos = new List<UnitInfo>(){_model.RandumTroopInfo()},
+                EnemyUnitInfos = _model.RandumTroopInfos(),
             };
             _view.CommandChangeViewToTransition(null);
             _view.ChangeUIActive(false);

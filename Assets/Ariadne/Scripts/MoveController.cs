@@ -20,7 +20,7 @@ namespace Ariadne
         GameObject postMoveEventObj;
 
         GameObject player;
-        public bool canMove = false;
+        bool canMove = false;
         public float moveWait = 0.5f;
 
         // Button ID
@@ -63,13 +63,16 @@ namespace Ariadne
         bool isExecutingEvent = false;
         bool isEventReady = false;
 
-        bool isInDungeon = false;
+        public bool isInDungeon = false;
         DungeonMasterData moveDestDungeon;
 
         bool hasPostCheck = false;
         bool didChangeFloor = false;
 
         Queue<Vector2Int> enterFloorEventPosQueue = new Queue<Vector2Int>();
+
+        [SerializeField]
+        GameObject dungeonUI = null;
 
         void Start()
         {
@@ -1509,6 +1512,16 @@ namespace Ariadne
         void PostMoveEventMsg(IPostMoveNotify inf, BaseEventData eventData)
         {
             inf.OnPostMoveEvent();
+        }
+
+        public void ShowUI()
+        {
+            dungeonUI.SetActive(true);
+        }
+
+        public void HideUI()
+        {
+            dungeonUI.SetActive(false);
         }
     }
 }

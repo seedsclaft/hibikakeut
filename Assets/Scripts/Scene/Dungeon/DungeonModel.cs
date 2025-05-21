@@ -14,6 +14,30 @@ namespace Ryneus
             return PartyInfo.UnitInfos();
         }
 
+        public List<UnitInfo> RandumTroopInfos()
+        {
+            var list = new List<UnitInfo>();
+            var troopInfo = new TroopInfo(-1);
+            troopInfo.MakeEnemyRandomTroopDates(1,CurrentStage.Master.RandomTroopEnemyRates);
+            
+            for (int i = 101;i <= 103;i++)
+            {
+                var unitInfo = new UnitInfo();
+                unitInfo.Index.SetValue(i-100);
+                list.Add(unitInfo);
+            }
+            
+            for (int i = 101;i <= 103;i++)
+            {
+                var unitInfo = list.Find(a => a.Index.Value == i - 100);
+                var front = troopInfo.BattlerInfos.Find(a => a != null && a.Index.Value == i);
+                var back = troopInfo.BattlerInfos.Find(a => a != null && a.Index.Value == (i + 3));
+                var battlerInfos = new List<BattlerInfo>(){front,back};
+                unitInfo.SetBattlers(battlerInfos.FindAll(a => a != null));
+            }
+            return list.FindAll(a => a.BattlerInfos.Count > 0);
+        }
+
         public TroopInfo RandumTroopInfo()
         {
             var troopInfo = new TroopInfo(-1);

@@ -329,7 +329,7 @@ namespace Ryneus
                 ReturnBeforeBattle = true,
             };
             _model.EndStrategy();
-            _view.CommandGotoSceneChange(Scene.Tactics,tacticsSceneInfo);
+            _view.CommandGotoSceneChange(Scene.Dungeon);
         }
     }
 }

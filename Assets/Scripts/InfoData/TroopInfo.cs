@@ -64,7 +64,7 @@ namespace Ryneus
             var weight = 30;
             while (weight > 0)
             {
-                var targetIdRand = UnityEngine.Random.Range(0, stageEnemyRates.Count);
+                var targetIdRand = UnityEngine.Random.Range(0, stageEnemyRates.Count-1);
                 var enemyData = DataSystem.Enemies.Find(a => a.Id == stageEnemyRates[targetIdRand].EnemyId);
                 /*
                 var lineRand = UnityEngine.Random.Range(0,1);

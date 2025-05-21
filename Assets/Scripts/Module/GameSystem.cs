@@ -444,6 +444,18 @@ namespace Ryneus
             {
                 sceneInfo.FromScene = _sceneStackManager.Current;
             }
+            if (MoveController != null)
+            {
+                MoveController.isInDungeon = sceneInfo.ToScene == Scene.Dungeon;
+                
+                if (sceneInfo.ToScene != Scene.Dungeon)
+                {
+                    MoveController.HideUI();
+                } else
+                {
+                    MoveController.ShowUI();
+                }
+            }
             var prefab = sceneAssign.CreateScene(sceneInfo.ToScene, helpWindow);
             _currentScene = prefab.GetComponent<BaseView>();
             _currentScene.SetTestMode(testMode);

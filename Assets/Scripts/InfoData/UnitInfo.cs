@@ -17,6 +17,15 @@ namespace Ryneus
             _battlerInfos = battlerInfos;
         }
 
+        public void UpdateBattlerInfo(BattlerInfo battlerInfo)
+        {
+            var findIndex = _battlerInfos.FindIndex(a => a.ActorInfo.ActorId.Value == battlerInfo.ActorInfo.ActorId.Value);
+            if (findIndex > -1)
+            {
+                _battlerInfos[findIndex] = battlerInfo;
+            }
+        }
+
         public List<BattlerInfo> FrontBattlers()
         {
             // 最前列は

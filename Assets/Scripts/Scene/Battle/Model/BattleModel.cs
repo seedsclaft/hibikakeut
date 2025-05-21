@@ -296,11 +296,6 @@ namespace Ryneus
                 {
                     find.Index.SetValue(i-100);
                     list.Add(find);
-                } else
-                {
-                    var newUnitInfo = new UnitInfo();
-                    newUnitInfo.Index.SetValue(i-100);
-                    list.Add(newUnitInfo);
                 }
             }
             return list;
