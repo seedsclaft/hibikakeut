@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1508385317044136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4496468535874308}
+  - component: {fileID: 114876487115252574}
+  - component: {fileID: 114901999373396762}
+  - component: {fileID: 114203015635280070}
+  - component: {fileID: 114281158881042708}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4496468535874308
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508385317044136}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114876487115252574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508385317044136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 643eb8715e4fe40ab914cacba07a47ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonData: {fileID: 11400000, guid: b6ca2d27c0836463583042f0a34e3b8c, type: 2}
+  eventCategoryDataList:
+  - {fileID: 11400000, guid: a0b4ddc04ae9742839410d5815f6eb02, type: 2}
+  drawOutsideWall: 1
+  outsideWallSize: 1
+--- !u!114 &114901999373396762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508385317044136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e30c59a68bc6c41de8f1edd451520d0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showLengthHorizontal: 4
+  showLengthVertical: 4
+  smoothness: 2
+  gridLineWidth: 1
+  enableAutoMapping: 1
+--- !u!114 &114203015635280070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508385317044136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7ed4fc1743b6443c9e9e0b4645df117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableDrawMap: 1
+--- !u!114 &114281158881042708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508385317044136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c846d3288612d49a195d2502ce4bd5d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventProcessorObject: {fileID: 0}
+  eventDataHolderObject: {fileID: 0}
+  eventFlagManagerObject: {fileID: 0}
+  itemDataHolderObject: {fileID: 0}
+  itemDataManagerObject: {fileID: 0}
+  moveControllerObject: {fileID: 0}

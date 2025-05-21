@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd1784404421f40e3b87a8cdfe093899, type: 3}
+  m_Name: MapAttributeData
+  m_EditorClassIdentifier: 
+  mapAttributeRecords:
+  - attributeId: 0
+    attributeName: Hallway
+    mapIcon: {fileID: 21300000, guid: 34680e6baf96740449b1d408e14af073, type: 3}
+    drawMapIcon: 0
+    drawIconOnEditor: 0
+    drawAsWallOnMap: 0
+    canWalk: 1
+    notInUse: 0
+  - attributeId: 1
+    attributeName: Wall
+    mapIcon: {fileID: 21300000, guid: 8ee71c1ba6d704bcb9be8ec32494a468, type: 3}
+    drawMapIcon: 0
+    drawIconOnEditor: 1
+    drawAsWallOnMap: 1
+    canWalk: 0
+    notInUse: 0
+  - attributeId: 2
+    attributeName: Door
+    mapIcon: {fileID: 21300000, guid: 91dd2bb0bafd74775a09ea9355d3fbed, type: 3}
+    drawMapIcon: 1
+    drawIconOnEditor: 1
+    drawAsWallOnMap: 0
+    canWalk: 0
+    notInUse: 0
+  - attributeId: 3
+    attributeName: LockedDoor
+    mapIcon: {fileID: 21300000, guid: 9af17dfcfea4544abb00038c7be2888a, type: 3}
+    drawMapIcon: 1
+    drawIconOnEditor: 1
+    drawAsWallOnMap: 0
+    canWalk: 0
+    notInUse: 0
+  - attributeId: 4
+    attributeName: DownStairs
+    mapIcon: {fileID: 21300000, guid: b99c06f608128410db71f884699264a5, type: 3}
+    drawMapIcon: 1
+    drawIconOnEditor: 1
+    drawAsWallOnMap: 0
+    canWalk: 0
+    notInUse: 0
+  - attributeId: 5
+    attributeName: Upstairs
+    mapIcon: {fileID: 21300000, guid: 9457fb87fc93d45e3a87c8e1af29f2c5, type: 3}
+    drawMapIcon: 1
+    drawIconOnEditor: 1
+    drawAsWallOnMap: 0
+    canWalk: 0
+    notInUse: 0
+  - attributeId: 6
+    attributeName: Treasure
+    mapIcon: {fileID: 21300000, guid: 1988652e75d3c43d9953ea707f2865a6, type: 3}
+    drawMapIcon: 1
+    drawIconOnEditor: 1
+    drawAsWallOnMap: 0
+    canWalk: 0
+    notInUse: 0
+  - attributeId: 7
+    attributeName: Messenger
+    mapIcon: {fileID: 21300000, guid: cbc15ccefbb0d401d90e3e5db98321b7, type: 3}
+    drawMapIcon: 1
+    drawIconOnEditor: 1
+    drawAsWallOnMap: 0
+    canWalk: 0
+    notInUse: 0
+  - attributeId: 8
+    attributeName: Pillar
+    mapIcon: {fileID: 21300000, guid: 3ea74ce02c94a48efa609e1c3a89c715, type: 3}
+    drawMapIcon: 1
+    drawIconOnEditor: 1
+    drawAsWallOnMap: 1
+    canWalk: 0
+    notInUse: 0
+  - attributeId: 9
+    attributeName: WallWithToach
+    mapIcon: {fileID: 21300000, guid: 1d609b904053c4c069c97bb6737aceac, type: 3}
+    drawMapIcon: 1
+    drawIconOnEditor: 1
+    drawAsWallOnMap: 1
+    canWalk: 0
+    notInUse: 0
+  isSystemData: 1

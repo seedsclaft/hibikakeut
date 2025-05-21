@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fc29cd0ad1e426a990b58d4b3e7683, type: 3}
+  m_Name: EventCategoryData
+  m_EditorClassIdentifier: 
+  eventCategoryRecords:
+  - eventCategoryId: 0
+    eventCategoryName: None
+    scriptPrefab: {fileID: 1477778433489732, guid: 62d59d222a30449fd9b5ef5b5c8b7873,
+      type: 3}
+    eventArgs: []
+  - eventCategoryId: 1
+    eventCategoryName: IncreaseItem
+    scriptPrefab: {fileID: 1477778433489732, guid: 9b7db0221d4e946188b0154888bb2870,
+      type: 3}
+    eventArgs:
+    - argName: ItemID
+      argTypeId: 0
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+    - argName: ItemNumDelta
+      argTypeId: 0
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+  - eventCategoryId: 2
+    eventCategoryName: IncreaseMoney
+    scriptPrefab: {fileID: 1477778433489732, guid: 2fd0f8794640b44098d8e94178d7eca7,
+      type: 3}
+    eventArgs:
+    - argName: MoneyDeltaValue
+      argTypeId: 0
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+  - eventCategoryId: 3
+    eventCategoryName: MovePosition
+    scriptPrefab: {fileID: 1477778433489732, guid: cec8d2938805e4e3887246a0c635a5d0,
+      type: 3}
+    eventArgs:
+    - argName: DestinationDungeon
+      argTypeId: 15
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+    - argName: DestinationFloor
+      argTypeId: 16
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+    - argName: DestinationPosition
+      argTypeId: 6
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+    - argName: DestinationDirection
+      argTypeId: 17
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+    - argName: RedrawDungeon
+      argTypeId: 5
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+  - eventCategoryId: 4
+    eventCategoryName: ExitDungeon
+    scriptPrefab: {fileID: 1477778433489732, guid: 8485829e6c38d427e87152441a07216b,
+      type: 3}
+    eventArgs:
+    - argName: RecieverObjName
+      argTypeId: 4
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+  - eventCategoryId: 5
+    eventCategoryName: ShowMessages
+    scriptPrefab: {fileID: 1477778433489732, guid: ec855414b968e434aa90e11d67da71f6,
+      type: 3}
+    eventArgs:
+    - argName: MessageList
+      argTypeId: 4
+      isList: 1
+      argListValue: []
+      argObjListValue: []
+  - eventCategoryId: 6
+    eventCategoryName: PlayAnimation
+    scriptPrefab: {fileID: 1477778433489732, guid: 1ab9127d875994c9988f6e5bab09ed8c,
+      type: 3}
+    eventArgs:
+    - argName: SpecifyTargetObj
+      argTypeId: 5
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+    - argName: AnimatorObjectName
+      argTypeId: 4
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+    - argName: ParameterName
+      argTypeId: 4
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+    - argName: ParameterType
+      argTypeId: 18
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+    - argName: IntValue
+      argTypeId: 0
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+    - argName: FloatValue
+      argTypeId: 2
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+    - argName: BoolValue
+      argTypeId: 5
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+  - eventCategoryId: 7
+    eventCategoryName: MovePlayerToFront
+    scriptPrefab: {fileID: 1477778433489732, guid: 2e5f7d6c877b6486dbaf147fa610dfd0,
+      type: 3}
+    eventArgs:
+    - argName: Steps
+      argTypeId: 0
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+    - argName: CheckPostEvent
+      argTypeId: 5
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+  - eventCategoryId: 8
+    eventCategoryName: Wait
+    scriptPrefab: {fileID: 1477778433489732, guid: eac847b3c774543198ecd082446bae30,
+      type: 3}
+    eventArgs:
+    - argName: WaitTime
+      argTypeId: 2
+      isList: 0
+      argListValue: []
+      argObjListValue: []
+  isSystemData: 1

@@ -1,0 +1,247 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cdd1134c8d4f48adbeacf439ab6669a, type: 3}
+  m_Name: event_990001
+  m_EditorClassIdentifier: 
+  eventId: 990001
+  eventName: Door
+  eventParts:
+  - eventCategory: 0
+    eventCategoryId: 0
+    eventTrigger: 0
+    eventPos: 0
+    startCondition: 0
+    startFlagName: 
+    startItemId: 0
+    startNum: 0
+    comparisonOperator: 0
+    hasExecutedFlag: 0
+    executedFlagName: 
+    hasDirectionCondition: 0
+    directionConditions: 
+    eventProcessList:
+    - eventCategoryId: 6
+      eventArgs:
+      - argName: SpecifyTargetObj
+        argTypeId: 5
+        isList: 0
+        argListValue:
+        - False
+        argObjListValue: []
+      - argName: AnimatorObjectName
+        argTypeId: 4
+        isList: 0
+        argListValue:
+        - 
+        argObjListValue: []
+      - argName: ParameterName
+        argTypeId: 4
+        isList: 0
+        argListValue:
+        - open
+        argObjListValue: []
+      - argName: ParameterType
+        argTypeId: 18
+        isList: 0
+        argListValue:
+        - 4
+        argObjListValue: []
+      - argName: IntValue
+        argTypeId: 0
+        isList: 0
+        argListValue:
+        - 0
+        argObjListValue: []
+      - argName: FloatValue
+        argTypeId: 2
+        isList: 0
+        argListValue:
+        - 0.0
+        argObjListValue: []
+      - argName: BoolValue
+        argTypeId: 5
+        isList: 0
+        argListValue:
+        - True
+        argObjListValue: []
+    - eventCategoryId: 8
+      eventArgs:
+      - argName: WaitTime
+        argTypeId: 2
+        isList: 0
+        argListValue:
+        - 1
+        argObjListValue: []
+    - eventCategoryId: 6
+      eventArgs:
+      - argName: SpecifyTargetObj
+        argTypeId: 5
+        isList: 0
+        argListValue:
+        - False
+        argObjListValue: []
+      - argName: AnimatorObjectName
+        argTypeId: 4
+        isList: 0
+        argListValue:
+        - 
+        argObjListValue: []
+      - argName: ParameterName
+        argTypeId: 4
+        isList: 0
+        argListValue:
+        - open
+        argObjListValue: []
+      - argName: ParameterType
+        argTypeId: 18
+        isList: 0
+        argListValue:
+        - 4
+        argObjListValue: []
+      - argName: IntValue
+        argTypeId: 0
+        isList: 0
+        argListValue:
+        - 0
+        argObjListValue: []
+      - argName: FloatValue
+        argTypeId: 2
+        isList: 0
+        argListValue:
+        - 0.0
+        argObjListValue: []
+      - argName: BoolValue
+        argTypeId: 5
+        isList: 0
+        argListValue:
+        - False
+        argObjListValue: []
+    - eventCategoryId: 7
+      eventArgs:
+      - argName: Steps
+        argTypeId: 0
+        isList: 0
+        argListValue:
+        - 2
+        argObjListValue: []
+      - argName: CheckPostEvent
+        argTypeId: 5
+        isList: 0
+        argListValue:
+        - True
+        argObjListValue: []
+    - eventCategoryId: 6
+      eventArgs:
+      - argName: SpecifyTargetObj
+        argTypeId: 5
+        isList: 0
+        argListValue:
+        - False
+        argObjListValue: []
+      - argName: AnimatorObjectName
+        argTypeId: 4
+        isList: 0
+        argListValue:
+        - 
+        argObjListValue: []
+      - argName: ParameterName
+        argTypeId: 4
+        isList: 0
+        argListValue:
+        - close
+        argObjListValue: []
+      - argName: ParameterType
+        argTypeId: 18
+        isList: 0
+        argListValue:
+        - 4
+        argObjListValue: []
+      - argName: IntValue
+        argTypeId: 0
+        isList: 0
+        argListValue:
+        - 0
+        argObjListValue: []
+      - argName: FloatValue
+        argTypeId: 2
+        isList: 0
+        argListValue:
+        - 0.0
+        argObjListValue: []
+      - argName: BoolValue
+        argTypeId: 5
+        isList: 0
+        argListValue:
+        - True
+        argObjListValue: []
+    - eventCategoryId: 8
+      eventArgs:
+      - argName: WaitTime
+        argTypeId: 2
+        isList: 0
+        argListValue:
+        - 0.25
+        argObjListValue: []
+    - eventCategoryId: 6
+      eventArgs:
+      - argName: SpecifyTargetObj
+        argTypeId: 5
+        isList: 0
+        argListValue:
+        - False
+        argObjListValue: []
+      - argName: AnimatorObjectName
+        argTypeId: 4
+        isList: 0
+        argListValue:
+        - 
+        argObjListValue: []
+      - argName: ParameterName
+        argTypeId: 4
+        isList: 0
+        argListValue:
+        - close
+        argObjListValue: []
+      - argName: ParameterType
+        argTypeId: 18
+        isList: 0
+        argListValue:
+        - 4
+        argObjListValue: []
+      - argName: IntValue
+        argTypeId: 0
+        isList: 0
+        argListValue:
+        - 0
+        argObjListValue: []
+      - argName: FloatValue
+        argTypeId: 2
+        isList: 0
+        argListValue:
+        - 0.0
+        argObjListValue: []
+      - argName: BoolValue
+        argTypeId: 5
+        isList: 0
+        argListValue:
+        - False
+        argObjListValue: []
+    doorKeyType: 0
+    destDungeon: {fileID: 0}
+    destMap: {fileID: 0}
+    destPos: {x: 0, y: 0}
+    direction: 0
+    treasureType: 0
+    itemId: 0
+    itemNum: 0
+    msgList: []
+  isSampleData: 1

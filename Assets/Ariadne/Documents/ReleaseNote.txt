@@ -1,0 +1,81 @@
+///**************************************************
+/// Ariadne 3D Dungeon Maker
+/// © 2018 Explorers' Lab
+/// Version 1.5.1
+///**************************************************
+
+Version History
+
+### Ver 1.5.1
+- About
+  - Changed the support version to Unity 2018.4 or later.
+
+- Added
+  - Added side step and back step feature to MoveController.
+
+- Changed
+  - Changed methods in runtime controllers to virtual methods.
+
+
+### Ver 1.5.0
+- About
+  - Updated whole system.
+  - Changed the support version to Unity 2018.1 or later.
+
+- Added
+  - Added "MapAttributeEditor" to customize map attributes.
+  - Added "EventCategoryEditor" to customize categories of events.
+  - Added "EventArgumentTypeEditor" to customize argument types of event processes.
+  - Added "DungeonPartsEditor" to customize dungeon parts that correspond to each map attribute.
+  - Added the direction condition in event parts that correspond to the player's direction.
+  - Added the new event trigger "OnEnterFloor" in event parts.
+  - Added data holder classed to hold event data and item data in the scene.
+  - Added an interface to call the custom process in other scripts after moving the player.
+  - Added template prefabs as assets that are required to run Ariadne system.
+
+- Changed
+  - Changed the menu path. Windows in Ariadne system are placed under [Window/Ariadne].
+  - Changed the way to define map attributes. You can add new map attributes in the "MapAttributeEditor"
+    without changing the code.
+  - Changed fields in "FloorMapMasterData" script.
+    FloorMapMasterData holds "MapAttributeData", "DungeonPartsData" and "DungeonPartsBaseData"
+    for each floor.
+  - Changed event systems to customize more flexible.
+    You can add event processes in event parts.
+  - Changed the way to define event categories. You can add new event categories in the "EventCategoryEditor"
+    without changing the code.
+  - Changed the way to execute events. In the new version, you don't have to change the code in "AriadneEventStrategyFactory" class.
+    Attach an event script to a prefab, and assing this prefab to the field which corresponding to the event category in "EventCategoryEditor".
+  - Changed the naming rule of EventMasterData file. The new rule uses 6 digits of event ID.
+  - Changed the way to load EventMasterData. The new version does not use "Resources" folder.
+    Ariadne loads event data from "EventDataList".
+  - Changed the way to load ItemMasterData. The new version does not use "Resources" folder too.
+    Ariadne loads item data from "ItemDataList".
+  - Changed the ItemMasterData class as a partial class to customize this class in the user environment.
+  - Changed the way to find objects from using tags to using names.
+    Tags that are defined by default are still in use ("GameController" and "Player").
+  - Separated controller scripts to each object in the Demo scene.
+  - The new version does not use "Resources" folder for the performance.
+
+- Deprecated
+  - MapAttriuteDefine is deprecated. To customize map attriubtes, use "MapAttributeEditor" instead.
+  - DungeonPartsMasterData is deprecated.
+    To customize dungeon parts more flexible, use "DungeonPartsEditor" instead.
+  - Some event scripts are deprecated by changing the way to define event categories.
+  - Definition of item categories and key types are deprecated.
+    You can customize the definition of items by adding a partial script for ItemMsterData.
+
+
+### Ver 1.0.1
+- About prefabs
+  - Added "pillar" parts and "wall with torch" parts as prefabs.
+    New files are placed below [Ariadne/Resources/Prefabs].
+  - Added "pillar" and "wall with torch" attributes to MapEditor.
+  - Added "pillar" and "wall with torch" reference to DungeonPartsMasterData.
+
+- About manuals
+  - Added a manual for Japanese.
+
+
+### Ver 1.0.0
+- First release.
