@@ -44,10 +44,13 @@ namespace Ryneus
                     }
                     foreach (var battlerInfo in unitInfo.BattlerInfos)
                     {
-                        battleUnit.SetDamageRoot(battlerInfo.Index.Value,damageRoots[(battlerInfo.Index.Value % 100) - 1]);
-                        if (statusRoot != null)
+                        if (battlerInfo.Index.Value > 0)
                         {
-                            battleUnit.SetStatusRoot(battlerInfo.Index.Value,statusRoot);
+                            battleUnit.SetDamageRoot(battlerInfo.Index.Value,damageRoots[(battlerInfo.Index.Value % 100) - 1]);
+                            if (statusRoot != null)
+                            {
+                                battleUnit.SetStatusRoot(battlerInfo.Index.Value,statusRoot);
+                            }
                         }
                     }
                 }

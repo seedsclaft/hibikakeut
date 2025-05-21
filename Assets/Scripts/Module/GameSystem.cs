@@ -38,7 +38,9 @@ namespace Ryneus
         public static SaveOptionInfo OptionData = null;
         public static TempInfo TempData = null;
         private static TutorialData _lastTutorialData = null;
-
+#region ダンジョン関連
+        public Ariadne.MoveController MoveController = null;
+#endregion
         private bool _busy = false;
         public bool Busy => _busy;
 
@@ -120,8 +122,8 @@ namespace Ryneus
                         CommandSceneChange(sceneInfo);
                     }
                     break;
-                case Base.CommandType.MapChange:
-                    var mapType = (MapType)viewEvent.Template;
+                case Base.CommandType.ChangeDungeon:
+                    var mapType = (string)viewEvent.Template;
                     CommandMapChange(mapType);
                     break;
                 case Base.CommandType.MapClear:
@@ -452,9 +454,14 @@ namespace Ryneus
             //tutorialView.HideFocusImage();
         }
 
-        public void CommandMapChange(MapType mapType)
+        public void CommandMapChange(string mapName)
         {
-            var prefab = mapAssign.CreateMap(mapType);
+            var prefab = mapAssign.CreateMap(mapName);
+            var moveController = prefab.GetComponentInChildren<Ariadne.MoveController>();
+            if (moveController != null)
+            {
+                MoveController = moveController;
+            }
             /*
             _currentScene = prefab.GetComponent<BaseView>();
             _currentScene.SetTestMode(testMode);

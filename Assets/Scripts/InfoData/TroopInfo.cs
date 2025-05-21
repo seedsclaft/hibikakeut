@@ -74,7 +74,7 @@ namespace Ryneus
                     lineRand = 0;
                 }
                 */
-                var battlerInfo = new BattlerInfo(enemyData, baseLv, BattlerInfos.Count, LineType.Front, BattlerInfos.Count == 0);
+                var battlerInfo = new BattlerInfo(enemyData, baseLv, BattlerInfos.Count + 1, LineType.Front, BattlerInfos.Count == 0);
                 AddEnemy(battlerInfo);
                 weight -= stageEnemyRates[targetIdRand].Weight;
             }

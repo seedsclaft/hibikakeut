@@ -383,7 +383,7 @@ namespace Ryneus
             }
             if (CalcMpCost(battlerInfo,skillInfo.Master.MpCost) > battlerInfo.Mp.Value)
             {
-                return false;
+                //return false;
             }
             if (skillInfo.Master.SkillType == SkillType.Passive)
             {

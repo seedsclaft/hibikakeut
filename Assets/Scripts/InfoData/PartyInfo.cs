@@ -64,5 +64,15 @@ namespace Ryneus
                 }
             }
         }
+
+        private List<UnitInfo> _unitInfos = new();
+        public List<UnitInfo> UnitInfos()
+        {
+            return _unitInfos;
+        }
+        public void AddUnitInfos(UnitInfo unitInfo)
+        {
+            _unitInfos.Add(unitInfo);
+        }
     }
 }

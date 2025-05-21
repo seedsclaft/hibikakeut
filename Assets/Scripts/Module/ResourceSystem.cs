@@ -234,6 +234,7 @@ namespace Ryneus
         Status,
         Tactics,
         Strategy,
+        Dungeon,
         Slot,
         FastBattle,
         Result,

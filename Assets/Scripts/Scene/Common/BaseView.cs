@@ -189,9 +189,9 @@ namespace Ryneus
             CallSystemCommand(Base.CommandType.SceneChange,sceneInfo);
         }
 
-        public void CommandMapChange(MapType mapType)
+        public void CommandChangeDungeon(string mapName)
         {
-            CallSystemCommand(Base.CommandType.MapChange,mapType);
+            CallSystemCommand(Base.CommandType.ChangeDungeon,mapName);
         }
 
         public void CommandCreateMapObject(GameObject mapObject)
@@ -372,7 +372,8 @@ namespace Ryneus
         {
             None = 0,
             SceneChange,
-            MapChange,
+            ChangeDungeon,
+            BusyDungeon,
             MapClear,
             CreateMapObject,
             CallConfirmView,

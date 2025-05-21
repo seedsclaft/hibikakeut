@@ -14,6 +14,16 @@ namespace Ryneus
             {
                 AddGetItemInfo(getItemInfo);
             }
+
+            // 初期編成を作成
+            var initUnitInfo = new UnitInfo();
+            initUnitInfo.Index.SetValue(1);
+            var actorInfo = PartyInfo.ActorInfos[0];
+            var battlerInfo = new BattlerInfo(actorInfo,1);
+            var battlerInfo2 = new BattlerInfo();
+            initUnitInfo.SetBattlers(new List<BattlerInfo>(){battlerInfo,battlerInfo2});
+            PartyInfo.AddUnitInfos(initUnitInfo);
+            /*
             var unitInfos = GetStageHexUnitInfos(stageId,clearCount);
             // Fieldをセット
             stageInfo.SetHexUnitInfos(unitInfos.FindAll(a => !a.IsUnit));
@@ -83,7 +93,7 @@ namespace Ryneus
             // 敵は敵部隊数分1回ずつ行動可能
             var awayActPoint = unitInfos.FindAll(a => a.IsUnit && a.IsFriend(awayTeam.TeamId.Value));
             awayTeam.SetActPoint(awayActPoint.Count - 1);
-
+            */
             CurrentGameInfo.SetStageInfo(stageInfo);
             PartyInfo.StageId.SetValue(stageId);
         }

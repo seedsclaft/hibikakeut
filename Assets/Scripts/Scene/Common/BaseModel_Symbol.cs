@@ -252,7 +252,7 @@ namespace Ryneus
             return stageSymbolData;
         }
         
-        private TroopInfo BattleTroop(StageSymbolData stageSymbolData)
+        public TroopInfo BattleTroop(StageSymbolData stageSymbolData)
         {
             var troopId = stageSymbolData.Param1;
             var plusLv = 0;//PartyInfo.BattleEnemyLv(stageSymbolData.StageId,stageSymbolData.Seek,WorldType.Main);

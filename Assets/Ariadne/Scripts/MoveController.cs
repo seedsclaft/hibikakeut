@@ -20,7 +20,7 @@ namespace Ariadne
         GameObject postMoveEventObj;
 
         GameObject player;
-        bool canMove = false;
+        public bool canMove = false;
         public float moveWait = 0.5f;
 
         // Button ID
