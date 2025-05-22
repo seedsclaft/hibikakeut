@@ -29,6 +29,27 @@ namespace Ryneus
         // 評価値
         public ParameterInt EvaluationValue = new();
 
+        // 出撃回数
+        public ParameterInt DepartureCount = new();
+
+        // 報告リストのRank
+        public ParameterInt MissionRank = new(1);
+
+        private List<AchievementInfo> _achievements = new();
+        public List<AchievementInfo> AchievementInfos => _achievements;
+        public void SetAchievementRank(List<AchievementData> achievementDatas)
+        {
+            _achievements.Clear();
+            foreach (var achievementData in achievementDatas)
+            {
+                if (achievementData.Rank == MissionRank.Value)
+                {
+                    var achievementInfo = new AchievementInfo(achievementData);
+                    _achievements.Add(achievementInfo);
+                }
+            }
+        }
+
         // 所持アイテム情報
         private List<GetItemInfo> _getItemInfos = new();
         public List<GetItemInfo> GetItemInfos => _getItemInfos;

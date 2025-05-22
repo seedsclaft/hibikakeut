@@ -81,6 +81,7 @@ namespace Ryneus
         UnitInfoList,
         DepatureList,
         Help,
+        Achievement,
         AlcanaList,
         SlotSave,
         LearnSkill,

@@ -1,10 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 namespace Ryneus
 {
     public class MainMenuModel : BaseModel
     {
+        public void CheckAchievementConditions()
+        {
+            foreach (var achievementInfo in PartyInfo.AchievementInfos)
+            {
+                CheckAchievementCondition(achievementInfo);
+            }
+        }
+
+        private void CheckAchievementCondition(AchievementInfo achievementInfo)
+        {
+            switch(achievementInfo.Master.ConditionType)
+            {
+                case AchievementConditionType.DepartureCount:
+                    // 出撃回数
+                    achievementInfo.SetCondition(PartyInfo.DepartureCount.Value,achievementInfo.Master.Param1);
+                    break;
+            }
+        }
+
+        public List<GetItemInfo> AchievementGetItemInfos()
+        {
+            var list = new List<GetItemInfo>();
+            var achievements = PartyInfo.AchievementInfos.FindAll(a => !a.Presented.Value && a.Achieved.Value);
+            foreach (var achievement in achievements)
+            {
+                var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == achievement.Master.PriseSetId);
+                if (prizeSets != null)
+                {
+                    foreach (var prizeSet in prizeSets)
+                    {
+                        var getItemInfo = new GetItemInfo(prizeSet.GetItem);
+                        list.Add(getItemInfo);
+                    }
+                }
+                achievement.Presented.SetValue(true);
+            }
+            return list;
+        }
+
         public bool IsEnding()
         {
             return false;//PartyInfo.HasEndingGetItem();
@@ -16,7 +56,7 @@ namespace Ryneus
             {
                 return true;
             },0);
-        }        
+        }
 
         public List<SystemData.CommandData> SideMenu()
         {

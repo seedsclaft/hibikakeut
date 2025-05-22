@@ -14,9 +14,13 @@ namespace Ryneus
         public ParameterInt Index = new();
         // 現在位置
         public ParameterInt StageId = new();
-        private Vector2Int _position = new();
-        public Vector2Int Position => _position;
-        public void SetPosition(Vector2Int position) => _position = position;
+        public ParameterInt PositionX = new();
+        public ParameterInt PositionY = new();
+        public void SetPosition(int x,int y)
+        {
+            PositionX.SetValue(x);
+            PositionY.SetValue(y);
+        }
 
         // ランダムエンカウント値
         public ParameterInt Encount = new();

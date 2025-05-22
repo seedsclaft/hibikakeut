@@ -77,9 +77,49 @@ namespace Ryneus
             switch (commandData.Key)
             {
                 case "Departure":
+                    _model.PartyInfo.DepartureCount.GainValue(1);
                     _view.CommandSceneChange(Scene.Dungeon);
                     break;
+                case "Mission":
+                    CommandAchievement();
+                    break;
             }
+        }
+
+        private void CommandAchievement()
+        {
+            // 達成状況更新
+            _model.CheckAchievementConditions();
+
+            // 達成報酬あれば遷移　なければリスト表示
+            var getItemInfos = _model.AchievementGetItemInfos();
+            if (getItemInfos.Count > 0)
+            {
+                var strategySceneInfo = new StrategySceneInfo
+                {
+                    ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
+                    InBattle = false
+                };
+                strategySceneInfo.GetItemInfos = getItemInfos;
+                _view.CommandSceneChange(Scene.Strategy,strategySceneInfo);
+                return;
+            }
+            ShowAchievementList();
+        }
+
+        private void ShowAchievementList()
+        {
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.Achievement,
+                template = null,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
         }
 
         private void CommandSelectSideMenu()

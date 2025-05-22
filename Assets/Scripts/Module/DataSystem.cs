@@ -25,6 +25,8 @@ namespace Ryneus
         public static List<PrizeSetData> PrizeSets = new();
         //public static List<ScorePrizeData> ScorePrizes = new ();
         public static List<SkillTriggerData> SkillTriggers = new();
+        public static List<AchievementData> Achievements = new();
+
         public static List<TutorialData> TutorialDates = new();
         public static SystemData System;
 
@@ -65,6 +67,7 @@ namespace Ryneus
             Animations = Resources.Load<AnimationDates>("Data/Animations").Data;
             SkillTriggers = Resources.Load<SkillTriggerDates>("Data/SkillTrigger").Data;
             //DataSystem._alcana = Resources.Load<AlcanaData>("Data/Alcana");
+            Achievements = Resources.Load<AchievementDates>("Data/Achievements").Data;
             TutorialDates = Resources.Load<TutorialDates>("Data/Tutorial").Data;
             BGM = Resources.Load<SoundDates>("Data/BGM").Data;
             SE = Resources.Load<SoundDates>("Data/SE").Data;

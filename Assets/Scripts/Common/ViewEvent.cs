@@ -44,6 +44,7 @@ namespace Ryneus
         FileList,
         CharacterList,
         UnitInfoList,
+        Achievement,
         SideMenu,
         Option,
         TutorialStage,

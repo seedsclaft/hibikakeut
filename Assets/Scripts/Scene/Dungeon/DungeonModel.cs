@@ -20,10 +20,11 @@ namespace Ryneus
             {
                 return;
             }
-            var lastPosition = CurrentDeckInfo.Position;
-            if (lastPosition != position)
+            var lastPositionX = CurrentDeckInfo.PositionX;
+            var lastPositionY = CurrentDeckInfo.PositionY;
+            if (lastPositionX.Value != position.x || lastPositionY.Value != position.y)
             {
-                CurrentDeckInfo.SetPosition(position);
+                CurrentDeckInfo.SetPosition(position.x,position.y);
                 // ランダムエンカウントフラグ加算
                 int flag = UnityEngine.Random.Range(5, 15);
                 CurrentDeckInfo.Encount.GainValue(flag,0,100);

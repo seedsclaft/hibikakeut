@@ -75,6 +75,7 @@ namespace Ryneus
         {
             InitSaveStageInfo();
             MakeStageInfo(DataSystem.System.StartStageId,true);
+            PartyInfo.SetAchievementRank(DataSystem.Achievements);
         }
     }
 }
