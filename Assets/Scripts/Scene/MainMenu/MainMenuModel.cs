@@ -10,43 +10,60 @@ namespace Ryneus
             return false;//PartyInfo.HasEndingGetItem();
         }
 
-        public void StartSelectStage(int stageId)
+        public List<ListData> MainMenuCommand()
         {
-            SavePlayerStageData(true);
-        }
-        
-        private bool SelectedStage(int stageId)
-        {
-            return false;
-            //var records = PartyInfo.SymbolRecordList.FindAll(a => a.StageId == stageId);
-            //return records.Count > 0;
-        }
-
-        public int SelectedStageCurrentTurn(int stageId)
-        {
-            var turn = 0;
-            /*
-            var records = PartyInfo.SymbolRecordList.FindAll(a => a.StageId == stageId && a.Selected);
-            foreach (var record in records)
+            return ListData.MakeListData(DataSystem.TacticsCommand,(a) =>
             {
-                if (record.Seek >= turn)
-                {
-                    turn = record.Seek;
-                }
-            }
-            */
-            return turn + 1;
-        }
+                return true;
+            },0);
+        }        
 
-        public StageInfo NextStage()
+        public List<SystemData.CommandData> SideMenu()
         {
-            var list = new List<StageInfo>();
-            var find = DataSystem.Stages.Find(a => a.Id > CurrentStage.StageId.Value);
-            if (find != null)
+            var list = new List<SystemData.CommandData>();
+            var status = new SystemData.CommandData
             {
-                return new StageInfo(find.Id);
-            }
-            return null;
+                Id = 1,
+                Name = "メンバー確認",
+                Key = "Status"
+            };
+            list.Add(status);
+            var option = new SystemData.CommandData
+            {
+                Id = 2,
+                Name = DataSystem.GetText(13410),
+                Key = "Option"
+            };
+            list.Add(option);
+            var menuCommand = new SystemData.CommandData
+            {
+                Id = 3,
+                Name = DataSystem.GetText(19700),
+                Key = "Help"
+            };
+            list.Add(menuCommand);
+            var dictionaryCommand = new SystemData.CommandData
+            {
+                Id = 11,
+                Name = DataSystem.GetText(19730),
+                Key = "Dictionary"
+            };
+            list.Add(dictionaryCommand);
+            var saveCommand = new SystemData.CommandData
+            {
+                Id = 4,
+                Name = DataSystem.GetText(19710),
+                Key = "Save"
+            };
+            list.Add(saveCommand);
+            var titleCommand = new SystemData.CommandData
+            {
+                Id = 5,
+                Name = DataSystem.GetText(19720),
+                Key = "Title"
+            };
+            list.Add(titleCommand);
+            return list;
         }
     }
 }

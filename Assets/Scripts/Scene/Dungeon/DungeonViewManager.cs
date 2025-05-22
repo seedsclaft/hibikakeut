@@ -116,7 +116,7 @@ namespace Ariadne
             enterDungeon.OnEnterDungeon();
         }
 
-        public void SetMoveEndEvent(System.Action moveEndEvent)
+        public void SetMoveEndEvent(System.Action<Vector2Int> moveEndEvent)
         {
             if (postMoveChecker == null)
             {

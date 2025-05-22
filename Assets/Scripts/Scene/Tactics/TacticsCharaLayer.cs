@@ -9,7 +9,7 @@ namespace Ryneus
         [SerializeField] private List<GameObject> tacticsCharaRoots;
         [SerializeField] private GameObject tacticsCharaPrefab;
 
-        private List<TacticsChara> _tacticsCharacters = new ();
+        private List<TacticsChara> _tacticsCharacters = new();
 
         public ActorInfo ActorInfo()
         {

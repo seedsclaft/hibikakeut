@@ -17,6 +17,7 @@ namespace Ryneus
         public StageInfo CurrentStage => CurrentGameInfo.StageInfo;
 
         public PartyInfo PartyInfo => CurrentGameInfo.PartyInfo;
+        public DeckInfo CurrentDeckInfo => CurrentGameInfo.PartyInfo.CurrentDeckInfo;
 
         public int Currency => PartyInfo != null ? PartyInfo.Currency.Value : 0;
         //public float TotalScore => PartyInfo.TotalScore(CurrentStage.WorldType);

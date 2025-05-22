@@ -10,7 +10,7 @@ namespace Ryneus
         public ParameterInt StageId = new();
         public ParameterInt FieldX = new();
         public ParameterInt FieldY = new();
-        public ParameterInt TurnCount = new(1);
+        public ParameterInt TurnCount = new();
         public ParameterBool CheckedStageStart = new();
         public ParameterBool CheckedTurnStart = new();
 

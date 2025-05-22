@@ -18,60 +18,16 @@ MonoBehaviour:
     Name: "\u51FA\u6483"
     Help: '""'
   - Id: 2
-    Key: TurnEnd
-    Name: "\u30BF\u30FC\u30F3\u7D42\u4E86"
-    Help: '""'
-  - Id: 3
-    Key: MoveBattler
-    Name: "\u79FB\u52D5"
-    Help: '""'
-  - Id: 4
-    Key: Wait
-    Name: "\u5F85\u6A5F"
-    Help: '""'
-  - Id: 5
-    Key: UnitActEnd
-    Name: "\u5F85\u6A5F"
-    Help: '""'
-  - Id: 6
-    Key: Battle
-    Name: "\u30D0\u30C8\u30EB"
-    Help: '""'
-  - Id: 7
-    Key: Units
-    Name: "\u90E8\u968A"
-    Help: '""'
-  - Id: 8
-    Key: Save
-    Name: "\u30BB\u30FC\u30D6"
-    Help: '""'
-  - Id: 9
-    Key: Conquer
-    Name: "\u5236\u5727"
-    Help: '""'
-  - Id: 10
-    Key: UnitEdit
+    Key: DeckEdit
     Name: "\u7DE8\u6210"
     Help: '""'
-  - Id: 11
-    Key: Return
-    Name: "\u5E30\u9084"
+  - Id: 3
+    Key: Mission
+    Name: "\u5831\u544A"
     Help: '""'
-  - Id: 12
-    Key: Event
-    Name: "\u30A4\u30D9\u30F3\u30C8"
-    Help: '""'
-  - Id: 13
-    Key: GetItem
-    Name: "\u30A2\u30A4\u30C6\u30E0\u5165\u624B"
-    Help: '""'
-  - Id: 14
-    Key: Gacha
-    Name: "\u5947\u8DE1"
-    Help: '""'
-  - Id: 15
-    Key: SelectActor
-    Name: "\u53EC\u559A"
+  - Id: 4
+    Key: Transfer
+    Name: "\u795E\u754C\u8EE2\u9001"
     Help: '""'
   StatusCommandData:
   - Id: 1
@@ -924,7 +880,7 @@ MonoBehaviour:
     Help: '""'
     Feature: Boot
   - Id: 13010
-    Text: "\u6A4B\u6881\u6226\u5834\u306E\u30A8\u30A4\u30F3\u30D5\u30A7\u30EA\u30A2"
+    Text: "\u7D42\u672B\u6642\u8A08\u3068\n\u30A8\u30A4\u30F3\u30D5\u30A7\u30EA\u30A2\u306E\u7269\u8A9E"
     Help: '""'
     Feature: Title
   - Id: 13020
@@ -1228,15 +1184,15 @@ MonoBehaviour:
     Help: '""'
     Feature: Tactics
   - Id: 19001
-    Text: "\u30BF\u30FC\u30F3\u7D42\u4E86"
+    Text: "\u7DE8\u6210"
     Help: '""'
     Feature: 
   - Id: 19002
-    Text: "\u79FB\u52D5"
+    Text: "\u5831\u544A"
     Help: '""'
     Feature: 
   - Id: 19003
-    Text: "\u5F85\u6A5F"
+    Text: "\u795E\u754C\u8EE2\u9001"
     Help: '""'
     Feature: 
   - Id: 19004

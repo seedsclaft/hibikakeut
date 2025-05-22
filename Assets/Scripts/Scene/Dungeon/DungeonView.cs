@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using Ryneus.Dungeon;
 using TMPro;
-using Ariadne;
 
 namespace Ryneus
 {
     public class DungeonView : BaseView, IInputHandlerEvent
     {
         [SerializeField] private BaseList partyUnitList = null;
+        [SerializeField] private StageInfoComponent stageInfoComponent = null;
 
         public override void Initialize()
         {
@@ -21,8 +21,9 @@ namespace Ryneus
             {
                 CallSideMenu();
             });
+            CommandRefresh();
             new DungeonPresenter(this);
-            GameSystem.DungeonViewManager.SetMoveEndEvent(() => CallViewEvent(CommandType.MoveEnd));
+            GameSystem.DungeonViewManager.SetMoveEndEvent((a) => CallViewEvent(CommandType.MoveEnd,a));
         }
 
         private void InitializePartyUnitList()
@@ -39,6 +40,11 @@ namespace Ryneus
         private void CallSideMenu()
         {
             CallViewEvent(CommandType.SelectSideMenu);
+        }
+
+        public void CommandRefresh()
+        {
+            stageInfoComponent.UpdateCurrent();
         }
 
         public void SetHelpWindow()

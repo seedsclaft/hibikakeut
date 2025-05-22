@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Ryneus.Dungeon;
+using UnityEngine;
 
 namespace Ryneus
 {
@@ -22,13 +23,13 @@ namespace Ryneus
             Initialize();
         }
 
-        private async Task Initialize()
+        private async Task Initialize(float timeStamp = 0)
         {
             //_view.SetHelpWindow();
             _view.SetEvent((type) => UpdateCommand(type));
 
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
-            var m = GameSystem.Instance.MoveController;
+            await PlayTacticsBgm(timeStamp);
             _busy = false;
         }
 
@@ -46,7 +47,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.MoveEnd:
-                    CommandMoveEnd();
+                    CommandMoveEnd((Vector2Int)viewEvent.Template);
                     break;
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu();
@@ -54,16 +55,27 @@ namespace Ryneus
             }
         }
 
-        private void CommandMoveEnd()
+        private void CommandMoveEnd(Vector2Int position)
         {
-            var battleSceneInfo = new BattleSceneInfo
+            _model.CommandMoveEnd(position);
+
+            CommandRefresh();
+
+            // エンカウントした場合
+            if (_model.EncountEnemy())
             {
-                ActorUnitInfos = _model.PartyUnit(),
-                EnemyUnitInfos = _model.RandumTroopInfos(),
-            };
-            _view.CommandChangeViewToTransition(null);
-            _view.ChangeUIActive(false);
-            _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
+                _model.ResetEncountValue();
+                var battleSceneInfo = new BattleSceneInfo
+                {
+                    ActorUnitInfos = _model.PartyUnit(),
+                    EnemyUnitInfos = _model.RandumTroopInfos(),
+                };
+                //PlayBattleBgm();
+                _view.CommandChangeViewToTransition(null);
+                _view.ChangeUIActive(false);
+                _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
+                SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
+            }
         }
 
         private void CommandSelectSideMenu()
@@ -73,6 +85,11 @@ namespace Ryneus
             {
                 _busy = false;
             });
+        }
+
+        private void CommandRefresh()
+        {
+            _view.CommandRefresh();
         }
 
         private void UpdatePopup(ConfirmCommandType confirmCommandType)

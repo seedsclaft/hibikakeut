@@ -11,7 +11,44 @@ namespace Ryneus
 
         public List<UnitInfo> PartyUnit()
         {
-            return PartyInfo.UnitInfos();
+            return CurrentDeckInfo.UnitInfos;
+        }
+
+        public void CommandMoveEnd(UnityEngine.Vector2Int position)
+        {
+            if (CurrentDeckInfo == null)
+            {
+                return;
+            }
+            var lastPosition = CurrentDeckInfo.Position;
+            if (lastPosition != position)
+            {
+                CurrentDeckInfo.SetPosition(position);
+                // ランダムエンカウントフラグ加算
+                int flag = UnityEngine.Random.Range(5, 15);
+                CurrentDeckInfo.Encount.GainValue(flag,0,100);
+
+                // 残りターン数を減算
+                CurrentStage.TurnCount.GainValue(-1);
+            }
+        }
+
+        public bool EncountEnemy()
+        {
+            if (CurrentDeckInfo == null)
+            {
+                return false;
+            }
+            return CurrentDeckInfo.Encount.Value >= 100;
+        }
+
+        public void ResetEncountValue()
+        {
+            if (CurrentDeckInfo == null)
+            {
+                return;
+            }
+            CurrentDeckInfo.Encount.SetValue(0);
         }
 
         public List<UnitInfo> RandumTroopInfos()
@@ -48,16 +85,30 @@ namespace Ryneus
         public List<SystemData.CommandData> SideMenu()
         {
             var list = new List<SystemData.CommandData>();
-            var retire = new SystemData.CommandData
+            var status = new SystemData.CommandData
             {
                 Id = 1,
+                Name = "メンバー確認",
+                Key = "Status"
+            };
+            list.Add(status);
+            var @return = new SystemData.CommandData
+            {
+                Id = 1,
+                Name = "帰還する",
+                Key = "Return"
+            };
+            list.Add(@return);
+            var option = new SystemData.CommandData
+            {
+                Id = 2,
                 Name = DataSystem.GetText(13410),
                 Key = "Option"
             };
-            list.Add(retire);
+            list.Add(option);
             var menuCommand = new SystemData.CommandData
             {
-                Id = 2,
+                Id = 3,
                 Name = DataSystem.GetText(19700),
                 Key = "Help"
             };
@@ -71,14 +122,14 @@ namespace Ryneus
             list.Add(dictionaryCommand);
             var saveCommand = new SystemData.CommandData
             {
-                Id = 3,
+                Id = 4,
                 Name = DataSystem.GetText(19710),
                 Key = "Save"
             };
             list.Add(saveCommand);
             var titleCommand = new SystemData.CommandData
             {
-                Id = 4,
+                Id = 5,
                 Name = DataSystem.GetText(19720),
                 Key = "Title"
             };

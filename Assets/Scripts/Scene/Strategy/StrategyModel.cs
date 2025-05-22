@@ -36,7 +36,7 @@ namespace Ryneus
                 {
                     if (battlerInfo.ActorInfo != null)
                     {
-                        PartyInfo.UpdateBattlerInfo(battlerInfo);
+                        CurrentDeckInfo.UpdateBattlerInfo(battlerInfo);
                     }
                 }
             } else

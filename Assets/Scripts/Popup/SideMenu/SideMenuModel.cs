@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Ryneus
 {
     public class SideMenuModel : BaseModel
@@ -16,6 +18,16 @@ namespace Ryneus
         public void DeleteStageData()
         {
             SaveSystem.DeleteStageData();
+        }
+
+        public List<ActorInfo> CurrentDeckActorInfos()
+        {
+            var actorInfos = new List<ActorInfo>();
+            if (CurrentDeckInfo != null)
+            {
+                actorInfos = PartyInfo.CurrentDeckActorInfos();
+            }
+            return actorInfos;
         }
     }
 }

@@ -56,6 +56,12 @@ namespace Ryneus
             }
             switch (commandData.Key)
             {
+                case "Status":
+                    CommandStatus();
+                    break;
+                case "Return":
+                    CommandReturn();
+                    break;
                 case "Option":
                     CommandOption();
                     break;
@@ -89,6 +95,33 @@ namespace Ryneus
             }
         }
 
+        private void CommandStatus()
+        {
+            _busy = true;
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var actorInfos = _model.CurrentDeckActorInfos();
+            CommandStatusInfo(actorInfos,false,true,true,false,actorInfos[0].ActorId.Value,() => 
+            {
+                ClosePopup();
+            });
+        }
+
+        private void CommandReturn()
+        {
+            _busy = true;
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var confirmInfo = new ConfirmInfo("位置情報を保存して帰還しますか？", (a) =>
+            {
+                if (a == ConfirmCommandType.Yes)
+                {
+                    ClosePopup();
+                    _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
+                    _view.CommandSceneChange(Scene.MainMenu);
+                }
+            });
+            _view.CommandCallConfirm(confirmInfo);
+        }
+
         private void CommandOption()
         {
             _busy = true;
@@ -102,7 +135,6 @@ namespace Ryneus
 
         private void CommandDropout()
         {
-
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(1100), (a) => UpdatePopupDropout(a));

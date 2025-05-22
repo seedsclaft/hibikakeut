@@ -34,6 +34,7 @@ namespace Ryneus
         Boot,
         Title,
         NameEntry,
+        MainMenu,
         Tactics,
         Status,
         Battle,

@@ -2,33 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using MainMenu;
+using Ryneus.MainMenu;
 
 namespace Ryneus
 {
     public class MainMenuView : BaseView, IInputHandlerEvent
     {
-        [SerializeField] private StageInfoComponent component;
-        [SerializeField] private OnOffButton nextStageButton;
-
-        private new System.Action<MainMenuViewEvent> _commandData = null;
-
-        public override void Initialize() 
+        [SerializeField] private PartyInfoComponent component;
+        [SerializeField] private BaseList commandList;
+        [SerializeField] private TacticsCharaLayer tacticsCharaLayer;
+        public override void Initialize()
         {
             base.Initialize();
-            nextStageButton?.SetText(DataSystem.GetText(17010));
-            nextStageButton?.OnClickAddListener(() => 
+            SetViewCommandSceneType(ViewCommandSceneType.MainMenu);
+            InitializeCommandList();
+            SideMenuButton.OnClickAddListener(() =>
             {
-                CallNextStage();
+                CallSideMenu();
             });
             SetInputHandler(gameObject);
-            new MainMenuPresenter(this);
+            CommandRefresh();
+            _ = new MainMenuPresenter(this);
         }
 
-        private void CallNextStage()
+        private void InitializeCommandList()
         {
-            var eventData = new MainMenuViewEvent(CommandType.NextStage);
-            _commandData(eventData);
+            commandList.Initialize();
+            commandList.SetInputHandler(InputKeyType.Decide,() => CallMainMenuCommand());
+            AddViewActives(commandList);
+        }
+
+        public void SetCommandList(List<ListData> listDatas)
+        {
+            commandList.SetData(listDatas);
+        }
+
+        private void CallMainMenuCommand()
+        {
+            var command = commandList.ListItemData<SystemData.CommandData>();
+            if (command != null)
+            {
+                CallViewEvent(CommandType.MainMenuCommand,command);
+            }
+        }
+
+        public void SetCharaLayer(List<ActorInfo> actorInfos)
+        {
+            tacticsCharaLayer.SetData(actorInfos,() => {});
+        }
+
+        private void CallSideMenu()
+        {
+            CallViewEvent(CommandType.SelectSideMenu);
         }
 
         public void SetInitHelpText()
@@ -42,41 +67,23 @@ namespace Ryneus
             SetInitHelpText();
         }
 
-        public void SetEvent(System.Action<MainMenuViewEvent> commandData)
+        public void CommandRefresh()
         {
-            _commandData = commandData;
-        }
-
-        public void SetStageData(StageInfo stageInfo)
-        {
-            if (stageInfo != null)
-            {
-                component.UpdateInfo(stageInfo);
-            }
+            component.UpdateCurrentInfo();
         }
 
         public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
         }
     }
-}
 
-namespace MainMenu
-{
-    public enum CommandType
+    namespace MainMenu
     {
-        None = 0,
-        NextStage = 100,
-    }
-}
-
-public class MainMenuViewEvent
-{
-    public CommandType commandType;
-    public object template;
-
-    public MainMenuViewEvent(CommandType type)
-    {
-        commandType = type;
+        public enum CommandType
+        {
+            None = 0,
+            MainMenuCommand,
+            SelectSideMenu,
+        }
     }
 }

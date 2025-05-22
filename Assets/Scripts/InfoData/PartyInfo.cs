@@ -7,6 +7,9 @@ namespace Ryneus
     {
         public PartyInfo()
         {
+            InitDeckInfos();
+            EvaluationValue.SetValue(100);
+            LimitCount.SetValue(12);
         }
 
         // 所持アクターリスト
@@ -19,6 +22,12 @@ namespace Ryneus
 
         // 所持金
         public ParameterInt Currency = new();
+
+        // 終末までの行動可能数
+        public ParameterInt LimitCount = new();
+
+        // 評価値
+        public ParameterInt EvaluationValue = new();
 
         // 所持アイテム情報
         private List<GetItemInfo> _getItemInfos = new();
@@ -65,23 +74,41 @@ namespace Ryneus
             }
         }
 
-        private List<UnitInfo> _unitInfos = new();
-        public List<UnitInfo> UnitInfos()
+        public ParameterInt DeckId = new(1);
+        private Dictionary<int,DeckInfo> _deckInfos = new();
+        private void InitDeckInfos()
         {
-            return _unitInfos;
-        }
-        public void AddUnitInfos(UnitInfo unitInfo)
-        {
-            _unitInfos.Add(unitInfo);
+            for (int i = 1;i <= 5;i++)
+            {
+                _deckInfos[i] = new DeckInfo();
+            }
         }
 
-        public void UpdateBattlerInfo(BattlerInfo battlerInfo)
+        public DeckInfo CurrentDeckInfo => _deckInfos[DeckId.Value];
+
+        public void MakeInitDeckInfo()
         {
-            var find = _unitInfos.Find(a => a.BattlerInfos.Find(b => b.Index.Value == battlerInfo.Index.Value) != null);
-            if (find != null)
+            var initUnitInfo = new UnitInfo();
+            initUnitInfo.Index.SetValue(1);
+            var actorInfo = ActorInfos[0];
+            var battlerInfo = new BattlerInfo(actorInfo,1);
+            var battlerInfo2 = new BattlerInfo();
+            initUnitInfo.SetBattlers(new List<BattlerInfo>(){battlerInfo,battlerInfo2});
+            CurrentDeckInfo.AddUnitInfos(initUnitInfo);
+        }
+
+        public List<ActorInfo> CurrentDeckActorInfos()
+        {
+            var actorInfos = new List<ActorInfo>();
+            foreach (var unitInfo in CurrentDeckInfo.UnitInfos)
             {
-                find.UpdateBattlerInfo(battlerInfo);
+                var find = _actorInfos.Find(a => unitInfo.BattlerInfos.Find(b => b.ActorInfo.ActorId.Value == a.ActorId.Value) != null);
+                if (find != null)
+                {
+                    actorInfos.Add(find);
+                }
             }
+            return actorInfos;
         }
     }
 }

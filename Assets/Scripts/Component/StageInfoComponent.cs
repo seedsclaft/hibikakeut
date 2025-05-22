@@ -6,7 +6,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class StageInfoComponent : MonoBehaviour
+    public class StageInfoComponent : BaseInfoComponent
     {
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI stageNoText;
@@ -19,6 +19,15 @@ namespace Ryneus
         [SerializeField] private TeamInfoComponent homeTeamInfoComponent;
         [SerializeField] private TeamInfoComponent awayTeamInfoComponent;
 
+        public void UpdateCurrent()
+        {
+            var current = CurrentStage;
+            if (current != null)
+            {
+                UpdateInfo(current);
+            }
+        }
+
         public void UpdateInfo(StageInfo stageInfo)
         {
             if (stageInfo == null)
@@ -27,7 +36,7 @@ namespace Ryneus
             }
             var stageData = stageInfo.Master;
             UpdateData(stageData);
-            help?.SetText(stageData.Help.Replace("\\p",GameSystem.CurrentData.PlayerInfo.PlayerName.Value));
+            help?.SetText(stageData.Help.Replace("\\p",CurrentData.PlayerInfo.PlayerName.Value));
             turnCount?.SetText(stageInfo.TurnCount.Value.ToString());
             if (homeTeamInfoComponent != null)
             {

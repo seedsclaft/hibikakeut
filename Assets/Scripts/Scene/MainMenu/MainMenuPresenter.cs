@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MainMenu;
+using Ryneus.MainMenu;
 
 namespace Ryneus
 {
@@ -39,31 +39,56 @@ namespace Ryneus
                 });
                 _view.CommandCallAdv(advInfo);
                 _view.ChangeUIActive(false);
-            } else
-            {
-                _view.SetBackGround(_model.NextStage().Master.BackGround);
-                _view.SetStageData(_model.NextStage());
-
-                var bgm = await _model.GetBgmData("Mainmenu");
-                SoundManager.Instance.PlayBgm(bgm,1.0f,true);
+                return;
             }
+
+            _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
+            _view.SetCommandList(_model.MainMenuCommand());
+
+            var bgm = await _model.GetBgmData("Mainmenu");
+            SoundManager.Instance.PlayBgm(bgm,1.0f,true);
             _busy = false;
         }
 
-        private void UpdateCommand(MainMenuViewEvent viewEvent)
+        private void UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
             {
                 return;
             }
-            switch (viewEvent.commandType)
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.MainMenu)
             {
-                case CommandType.NextStage:
-                    SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                    _model.StartSelectStage(_model.NextStage().StageId.Value);
-                    _view.CommandGotoSceneChange(Scene.Tactics);
+                return;
+            }
+            switch (viewEvent.ViewCommandType.CommandType)
+            {
+                case CommandType.MainMenuCommand:
+                    CommandMainMenuCommand((SystemData.CommandData)viewEvent.Template);
+                    break;
+                case CommandType.SelectSideMenu:
+                    CommandSelectSideMenu();
                     break;
             }
+        }
+
+        private void CommandMainMenuCommand(SystemData.CommandData commandData)
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            switch (commandData.Key)
+            {
+                case "Departure":
+                    _view.CommandSceneChange(Scene.Dungeon);
+                    break;
+            }
+        }
+
+        private void CommandSelectSideMenu()
+        {
+            _busy = true;
+            CommandCallSideMenu(MakeListData(_model.SideMenu()), () =>
+            {
+                _busy = false;
+            });
         }
     }
 }

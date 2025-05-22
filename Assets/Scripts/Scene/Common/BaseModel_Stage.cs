@@ -16,13 +16,10 @@ namespace Ryneus
             }
 
             // 初期編成を作成
-            var initUnitInfo = new UnitInfo();
-            initUnitInfo.Index.SetValue(1);
-            var actorInfo = PartyInfo.ActorInfos[0];
-            var battlerInfo = new BattlerInfo(actorInfo,1);
-            var battlerInfo2 = new BattlerInfo();
-            initUnitInfo.SetBattlers(new List<BattlerInfo>(){battlerInfo,battlerInfo2});
-            PartyInfo.AddUnitInfos(initUnitInfo);
+            PartyInfo.MakeInitDeckInfo();
+
+            // ダンジョンターン数を設定
+            stageInfo.TurnCount.SetValue(50);
             /*
             var unitInfos = GetStageHexUnitInfos(stageId,clearCount);
             // Fieldをセット
