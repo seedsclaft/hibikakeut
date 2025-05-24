@@ -44,6 +44,7 @@ namespace Ryneus
         FileList,
         CharacterList,
         UnitInfoList,
+        DeckEdit,
         Achievement,
         SideMenu,
         Option,

@@ -74,7 +74,7 @@ namespace Ryneus
             _battlers.Clear();
             _reserveBattlers.Clear();
             _battleRecords.Clear();
-
+/*
             var actorUnitInfos = _sceneParam.ActorUnitInfos;
             foreach (var actorUnitInfo in actorUnitInfos)
             {
@@ -89,7 +89,7 @@ namespace Ryneus
                     _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
                 }
             }
-            /*
+*/
             var actorInfos = _sceneParam.ActorBattlerInfos;
             foreach (var actorInfo in actorInfos)
             {
@@ -98,6 +98,7 @@ namespace Ryneus
                 {
                     continue;
                 }
+                /*
                 var unitMp = battlerInfo.MaxMp;
                 var sub = actorInfos.Find(a => a.Index.Value == battlerInfo.Index.Value + 3);
                 if (sub != null)
@@ -105,11 +106,11 @@ namespace Ryneus
                     unitMp += sub.MaxMp;
                 }
                 battlerInfo.SetUnitMp(unitMp);
+                */
                 _battlers.Add(battlerInfo);
                 _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
             }
-            */
-
+/*
             var enemyUnitInfos = _sceneParam.EnemyUnitInfos;
             foreach (var enemyUnitInfo in enemyUnitInfos)
             {
@@ -132,7 +133,7 @@ namespace Ryneus
                     _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
                 }
             }
-            /*
+*/
             var enemies = _sceneParam.EnemyInfos;
             foreach (var enemy in enemies)
             {
@@ -150,6 +151,7 @@ namespace Ryneus
                         battlerInfo.SetWeakPoint(kind);
                     }
                 }
+                /*
                 battlerInfo.SetEnemyMp();
                 var unitMp = battlerInfo.MaxMp;
                 var sub = enemies.Find(a => a.Index.Value == battlerInfo.Index.Value + 3);
@@ -158,10 +160,10 @@ namespace Ryneus
                     unitMp += sub.MaxMp;
                 }
                 battlerInfo.SetUnitMp(unitMp);
+                */
                 _battlers.Add(battlerInfo);
                 _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
             }
-            */
             // アルカナ
             /*
             var alcana = new BattlerInfo(AlcanaSkillInfos(),true,1);
@@ -246,8 +248,10 @@ namespace Ryneus
             }
         }
 
-        public List<UnitInfo> ViewBattlerActors()
+        public List<BattlerInfo> ViewBattlerActors()
         {
+            return _party.BattlerInfos;
+            /*
             var list = new List<UnitInfo>();
             for (int i = 1;i <= 3;i++)
             {
@@ -286,8 +290,10 @@ namespace Ryneus
             */
         }
 
-        public List<UnitInfo> ViewBattlerEnemies()
+        public List<BattlerInfo> ViewBattlerEnemies()
         {
+            return _troop.BattlerInfos;
+            /*
             var list = new List<UnitInfo>();
             for (int i = 101;i <= 103;i++)
             {

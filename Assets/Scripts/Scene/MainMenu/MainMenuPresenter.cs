@@ -80,10 +80,28 @@ namespace Ryneus
                     _model.PartyInfo.DepartureCount.GainValue(1);
                     _view.CommandSceneChange(Scene.Dungeon);
                     break;
+                case "DeckEdit":
+                    CommandDeckEdit();
+                    break;
                 case "Mission":
                     CommandAchievement();
                     break;
             }
+        }
+
+        private void CommandDeckEdit()
+        {
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.DeckEdit,
+                template = null,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
         }
 
         private void CommandAchievement()

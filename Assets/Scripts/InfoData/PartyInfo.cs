@@ -16,6 +16,9 @@ namespace Ryneus
         [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = new();
         public List<ActorInfo> ActorInfos => _actorInfos;
 
+        [UnityEngine.SerializeField] private List<BattlerInfo> _battlerInfos = new();
+        public List<BattlerInfo> BattlerInfos => _battlerInfos;
+
         // 現在のステージ場所
         public StageData StageMaster => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
@@ -91,6 +94,9 @@ namespace Ryneus
                     _actorInfos.Add(actorInfo);
                     // 整列
                     _actorInfos.Sort((a,b) => a.BattleIndex.Value - b.BattleIndex.Value > 0 ? 1 : -1);
+
+                    var battlerInfo = new BattlerInfo(actorInfo,actorInfo.BattleIndex.Value);
+                    _battlerInfos.Add(battlerInfo);
                 }
             }
         }
@@ -118,12 +124,26 @@ namespace Ryneus
             CurrentDeckInfo.AddUnitInfos(initUnitInfo);
         }
 
+        public List<BattlerInfo> CurrentDeckBattlerInfos()
+        {
+            var battlerInfos = new List<BattlerInfo>();
+            foreach (var actorId in CurrentDeckInfo.ActorIdDict)
+            {
+                var find = _battlerInfos.Find(a => a.ActorInfo.ActorId.Value == actorId.Value);
+                if (find != null)
+                {
+                    battlerInfos.Add(find);
+                }
+            }
+            return battlerInfos;
+        }
+
         public List<ActorInfo> CurrentDeckActorInfos()
         {
             var actorInfos = new List<ActorInfo>();
-            foreach (var unitInfo in CurrentDeckInfo.UnitInfos)
+            foreach (var actorId in CurrentDeckInfo.ActorIdDict)
             {
-                var find = _actorInfos.Find(a => unitInfo.BattlerInfos.Find(b => b.ActorInfo.ActorId.Value == a.ActorId.Value) != null);
+                var find = _actorInfos.Find(a => a.ActorId.Value == actorId.Value);
                 if (find != null)
                 {
                     actorInfos.Add(find);

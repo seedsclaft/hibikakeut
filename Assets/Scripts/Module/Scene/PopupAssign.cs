@@ -80,6 +80,7 @@ namespace Ryneus
         CharacterList,
         UnitInfoList,
         DepatureList,
+        DeckEdit,
         Help,
         Achievement,
         AlcanaList,

@@ -8,6 +8,7 @@ namespace Ryneus
         [SerializeField] private BattlerInfoComponent component;
         public void UpdateViewItem()
         {
+            return;
             if (ListData == null)
             {
                 return;

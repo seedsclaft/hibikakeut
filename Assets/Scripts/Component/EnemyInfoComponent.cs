@@ -49,7 +49,7 @@ namespace Ryneus
             }
             if (weakPoints != null)
             {
-                UpdateWeakPoints(battlerInfo.WeakPoints);
+                //UpdateWeakPoints(battlerInfo.WeakPoints);
             }
         }
 

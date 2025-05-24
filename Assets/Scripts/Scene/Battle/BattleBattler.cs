@@ -8,6 +8,10 @@ namespace Ryneus
     {
         [SerializeField] private BattlerInfoComponent battlerInfoComponent;
         [SerializeField] private RectTransform battlerRect;
+        [SerializeField] private RectTransform positionRect;
+        [SerializeField] private float normalScale = 1;
+        [SerializeField] private float smallScale = 0.75f;
+        [SerializeField] private float rightRectSize = 24;
         public BattlerInfoComponent BattlerInfoComponent => battlerInfoComponent;
 
         public void SetDamageRoot(GameObject damageRoot)
@@ -31,7 +35,7 @@ namespace Ryneus
             battlerInfoComponent.UpdateInfo(battlerInfo);
             if (!battlerInfo.IsActor)
             {
-                gameObject.SetActive(battlerInfo != null && battlerInfo.Index.Value > 0);
+                //gameObject.SetActive(battlerInfo != null && battlerInfo.Index.Value > 0);
             }
             battlerInfoComponent.RefreshStatus();
             if (!battlerInfo.IsActorView)
@@ -48,6 +52,12 @@ namespace Ryneus
             {
                 Disable.SetActive(!ListData.Enable);
             }
+        }
+
+        public void SetSmallScale()
+        {
+            battlerRect.localScale = new Vector2(smallScale,smallScale);
+            positionRect.localPosition = new Vector3(rightRectSize,0,0);
         }
 
         public void SetDisable()

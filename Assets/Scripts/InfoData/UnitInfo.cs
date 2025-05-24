@@ -12,6 +12,10 @@ namespace Ryneus
         public List<BattlerInfo> BattlerInfos => _battlerInfos;
         public List<BattlerInfo> AliveBattlerInfos => _battlerInfos.FindAll(a => a != null && a.IsAlive());
 
+        public UnitInfo()
+        {
+        }
+
         public void SetBattlers(List<BattlerInfo> battlerInfos)
         {
             _battlerInfos = battlerInfos;

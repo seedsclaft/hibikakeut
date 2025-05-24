@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Ryneus
@@ -25,27 +26,56 @@ namespace Ryneus
         // ランダムエンカウント値
         public ParameterInt Encount = new();
 
+        // 編成情報
+        private Dictionary<int,int> _actorIdDict = new();
+        public Dictionary<int,int> ActorIdDict => _actorIdDict;
+
+        public void SwapBattler(int fromActorId,int toActorId)
+        {
+            var fromEditIndex = FindEditIndex(fromActorId);
+            var toEditIndex = FindEditIndex(toActorId);
+            _actorIdDict[fromEditIndex] = toActorId;
+            _actorIdDict[toEditIndex] = fromActorId;
+        }
+
+        public int FindEditIndex(int actorId)
+        {
+            foreach (var actorIdDict in _actorIdDict)
+            {
+                if (actorIdDict.Value == actorId)
+                {
+                    return actorIdDict.Key;
+                }
+            }
+            return -1;
+        }
+
         // 所持ユニット
-        private List<UnitInfo> _unitInfos = new();
-        public List<UnitInfo> UnitInfos => _unitInfos;
+        //private List<UnitInfo> _unitInfos = new();
+        //public List<UnitInfo> UnitInfos => _unitInfos;
 
         private void InitUnitInfos()
         {
-            _unitInfos.Clear();
+            for (int i = 1;i <= 6;i++)
+            {
+                _actorIdDict[i] = -1;
+            }
+            _actorIdDict[1] = 1;
         }
 
         public void AddUnitInfos(UnitInfo unitInfo)
         {
-            _unitInfos.Add(unitInfo);
         }
 
         public void UpdateBattlerInfo(BattlerInfo battlerInfo)
         {
+            /*
             var find = _unitInfos.Find(a => a.BattlerInfos.Find(b => b.Index.Value == battlerInfo.Index.Value) != null);
             if (find != null)
             {
                 find.UpdateBattlerInfo(battlerInfo);
             }
+            */
         }
 
     }

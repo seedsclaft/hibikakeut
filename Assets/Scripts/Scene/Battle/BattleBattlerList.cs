@@ -44,6 +44,10 @@ namespace Ryneus
                         battleBattler.SetStatusRoot(statusRoot);
                     }
                 }
+                if (i >= 3)
+                {
+                    battleBattler.SetSmallScale();
+                }
             }
         }
 

@@ -22,7 +22,7 @@ namespace Ryneus
                 CallSideMenu();
             });
             CommandRefresh();
-            new DungeonPresenter(this);
+            _ = new DungeonPresenter(this);
             GameSystem.DungeonViewManager.SetMoveEndEvent((a) => CallViewEvent(CommandType.MoveEnd,a));
         }
 

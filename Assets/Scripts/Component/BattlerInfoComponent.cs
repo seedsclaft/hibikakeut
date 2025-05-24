@@ -381,7 +381,7 @@ namespace Ryneus
             {
                 if (animationPosition == AnimationPosition.Center)
                 {
-                    effectRect.localPosition = new Vector2(0,64);
+                    effectRect.localPosition = new Vector2(0,0);
                 } else
                 if (animationPosition == AnimationPosition.Down)
                 {

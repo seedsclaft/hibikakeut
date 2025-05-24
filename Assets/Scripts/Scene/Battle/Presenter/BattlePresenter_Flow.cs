@@ -123,7 +123,7 @@ namespace Ryneus
             } else
             if (inputKeyType == InputKeyType.Left)
             {
-                var nextIndex = (findIndex-1) < 0 ? candidateTargetIndexes.Count : findIndex-1;
+                var nextIndex = (findIndex-1) < 0 ? candidateTargetIndexes.Count-1 : findIndex-1;
                 _model.SetTargetBattler(_model.GetBattlerInfo(candidateTargetIndexes[nextIndex]));
             } else
             if (inputKeyType == InputKeyType.Up)
@@ -166,12 +166,12 @@ namespace Ryneus
             }
         }
 
-        private void CommandOnDecideEnemy(UnitInfo unitInfo)
+        private void CommandOnDecideEnemy(BattlerInfo battlerInfo)
         {
             // 対象選択として有効か
             var actionInfo = _model.SelectActionInfo;
-            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
-            if (targetIndexes.FindIndex(a => a == unitInfo.FrontBattlerInfo().Index.Value) > -1)
+            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,battlerInfo.Index.Value);
+            if (targetIndexes.FindIndex(a => a == battlerInfo.Index.Value) > -1)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 _model.SetActiveActionInfo(actionInfo);
@@ -192,12 +192,12 @@ namespace Ryneus
             ShowMagicList(_model.CurrentBattler,false);
         }
 
-        private void CommandOnDecideActor(UnitInfo unitInfo)
+        private void CommandOnDecideActor(BattlerInfo battlerInfo)
         {
             // 対象選択として有効か
             var actionInfo = _model.SelectActionInfo;
             var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
-            if (targetIndexes.FindIndex(a => a == unitInfo.FrontBattlerInfo().Index.Value) > -1)
+            if (targetIndexes.FindIndex(a => a == battlerInfo.Index.Value) > -1)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 _model.SetActiveActionInfo(actionInfo);
