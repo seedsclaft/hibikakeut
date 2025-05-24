@@ -5,7 +5,8 @@ namespace Ryneus
 {
     public class PartyInfoComponent : BaseInfoComponent
     {
-        [SerializeField] private TextMeshProUGUI limitCount;
+        [SerializeField] private TextMeshProUGUI period;
+        [SerializeField] private TextMeshProUGUI chapter;
         [SerializeField] private TextMeshProUGUI currency;
         [SerializeField] private TextMeshProUGUI evaluationValue;
         [SerializeField] private StatusGaugeAnimation evaluationValueGauge;
@@ -24,9 +25,13 @@ namespace Ryneus
             {
                 currency.SetText(partyInfo.Currency.Value.ToString());
             }
-            if (limitCount != null)
+            if (period != null)
             {
-                limitCount.SetText(partyInfo.LimitCount.Value.ToString());
+                period.SetText(partyInfo.Period.Value.ToString());
+            }
+            if (chapter != null)
+            {
+                chapter.SetText(partyInfo.Chapter.Value.ToString());
             }
             if (evaluationValue != null)
             {

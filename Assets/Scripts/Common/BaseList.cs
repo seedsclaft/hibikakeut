@@ -65,7 +65,7 @@ namespace Ryneus
                 selectIndex = listData.FindIndex(a => a.Selected);
                 if (selectIndex == -1 && !unselect)
                 {
-                    selectIndex = 0;
+                    //selectIndex = 0;
                 }
             }
             if (selectIndex > 0 || initializeAfterEvent != null)

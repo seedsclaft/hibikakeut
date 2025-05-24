@@ -120,7 +120,6 @@ namespace Ryneus
                                 StageData.StageEvents.Add(EventData);
                             }
                         }
-						/*
                         StageData.StageSymbols = new();
                         KeyRow = SymbolSheet.GetRow(0);
                         AssetPostImporter.SetKeyNames(KeyRow.Cells);
@@ -170,7 +169,6 @@ namespace Ryneus
                                 };
                             }
                         }
-						*/
 
                         // 存在しないマスを生成
 						/*

@@ -98,8 +98,7 @@ namespace Ryneus
 
         public static List<StageSymbolData> FindStageSymbolData(int id)
         {
-            var fileName = "Map" + id.ToString("D4");
-            return Resources.Load<MapDates>("Data/" + fileName).Data;
+            return FindStage(id).StageSymbols;
         }
 
         public static StageData FindNextStage(int currentStageId)

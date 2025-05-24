@@ -70,7 +70,7 @@ namespace Ryneus
                     ActorBattlerInfos = _model.PartyInfo.CurrentDeckBattlerInfos(),
                     EnemyInfos = _model.RandumTroopInfos(),
                 };
-                //PlayBattleBgm();
+                PlayBattleBgm();
                 _view.CommandChangeViewToTransition(null);
                 _view.ChangeUIActive(false);
                 _view.CommandSceneChange(Scene.Battle, battleSceneInfo);

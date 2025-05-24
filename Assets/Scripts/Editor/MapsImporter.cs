@@ -9,7 +9,7 @@ namespace Ryneus
 {
     public class MapsImporter : AssetPostprocessor
     {
-        static readonly string ExcelName = "Map";
+        static readonly string ExcelName = "Map_dummy";
 
         // アセット更新があると呼ばれる
         static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)

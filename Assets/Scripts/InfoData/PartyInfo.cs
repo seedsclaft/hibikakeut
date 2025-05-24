@@ -9,7 +9,8 @@ namespace Ryneus
         {
             InitDeckInfos();
             EvaluationValue.SetValue(100);
-            LimitCount.SetValue(12);
+            Chapter.SetValue(1);
+            Period.SetValue(1);
         }
 
         // 所持アクターリスト
@@ -26,8 +27,11 @@ namespace Ryneus
         // 所持金
         public ParameterInt Currency = new();
 
-        // 終末までの行動可能数
-        public ParameterInt LimitCount = new();
+        // フェーズ
+        public ParameterInt Chapter = new();
+
+        // フェーズ終了までのピリオド
+        public ParameterInt Period = new();
 
         // 評価値
         public ParameterInt EvaluationValue = new();
