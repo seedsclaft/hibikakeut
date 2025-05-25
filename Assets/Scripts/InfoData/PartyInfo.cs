@@ -38,6 +38,15 @@ namespace Ryneus
 
         // 出撃回数
         public ParameterInt DepartureCount = new();
+        // 勝利回数
+        public ParameterInt BattleVictoryCount = new();
+        // Nu消費レベルアップ回数
+        public ParameterInt TacticsLvupCount = new();
+        // バトル評価値
+        public ParameterInt BattleScore = new();
+        // 与ダメージ
+        public ParameterInt TotalDamage = new();
+
 
         // 報告リストのRank
         public ParameterInt MissionRank = new(1);

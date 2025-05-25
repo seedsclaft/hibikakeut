@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 
 namespace Ryneus
@@ -18,9 +19,47 @@ namespace Ryneus
         {
             switch(achievementInfo.Master.ConditionType)
             {
+                case AchievementConditionType.Complete:
+                    // 達成数
+                    var achived = PartyInfo.AchievementInfos.FindAll(a => a.Achieved.Value).Count;
+                    achievementInfo.SetCondition(achived,PartyInfo.AchievementInfos.Count-1);
+                    if (achievementInfo.Achieved.Value)
+                    {
+                        PartyInfo.MissionRank.GainValue(1);
+                    }
+                    break;
                 case AchievementConditionType.DepartureCount:
                     // 出撃回数
                     achievementInfo.SetCondition(PartyInfo.DepartureCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.BattleVictory:
+                    // 勝利回数
+                    achievementInfo.SetCondition(PartyInfo.BattleVictoryCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.CharacterLevel:
+                    // キャラLv　Param2がActorId,-1なら任意
+                    var level = 0;
+                    if (achievementInfo.Master.Param2 == -1)
+                    {
+                        level = PartyInfo.ActorInfos.Max(a => a.Level);
+                    } else
+                    {
+                        var levelChara = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == achievementInfo.Master.Param2);
+                        level = levelChara != null ? levelChara.Level : 0;
+                    }
+                    achievementInfo.SetCondition(level,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.TacticsLvupCount:
+                    // Nu消費レベルアップ回数
+                    achievementInfo.SetCondition(PartyInfo.TacticsLvupCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.BattleScore:
+                    // バトル評価値
+                    achievementInfo.SetCondition(PartyInfo.BattleScore.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.TotalDamage:
+                    // 与ダメージ
+                    achievementInfo.SetCondition(PartyInfo.TotalDamage.Value,achievementInfo.Master.Param1);
                     break;
             }
         }

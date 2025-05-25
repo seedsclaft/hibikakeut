@@ -36,14 +36,14 @@ namespace Ryneus
             actorInfoComponent.UpdateInfo(actorInfo,null);
             _actorInfo = actorInfo;
             HideCursor();
-            if (_isInit == false)
+            if (!_isInit)
             {
+                _isInit = true;
                 var parent = gameObject.transform.parent;
                 var parentRect = parent.GetComponent<RectTransform>();
                 _backLocalX = parentRect.localPosition.x;
                 _backLocalY = parentRect.localPosition.y;
                 _backScale = parentRect.localScale.x;
-                _isInit = true;
             }
         }
 

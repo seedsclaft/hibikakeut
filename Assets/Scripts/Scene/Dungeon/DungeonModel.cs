@@ -11,7 +11,7 @@ namespace Ryneus
 
         public List<BattlerInfo> PartyUnit()
         {
-            return PartyInfo.CurrentDeckBattlerInfos();
+            return PartyInfo.DeckEditBattlerInfos();
         }
 
         public void CommandMoveEnd(UnityEngine.Vector2Int position)

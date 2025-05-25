@@ -25,6 +25,12 @@ namespace Ryneus
 
     public enum AchievementConditionType
     {
+        Complete = 10,
         DepartureCount = 1010,
+        BattleVictory = 1020,
+        CharacterLevel = 1030,
+        TacticsLvupCount = 1040,
+        BattleScore = 1050,
+        TotalDamage = 1060,
     }
 }

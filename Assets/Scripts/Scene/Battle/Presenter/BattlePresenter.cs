@@ -584,10 +584,11 @@ namespace Ryneus
             if (_model.CheckDefeat())
             {
                 _view.StartBattleStartAnim(DataSystem.GetText(16110)); 
-                strategySceneInfo.GetItemInfos = new List<GetItemInfo>();  
-                strategySceneInfo.BattleTurn = -1; 
+                strategySceneInfo.GetItemInfos = new List<GetItemInfo>();
+                strategySceneInfo.BattleTurn = -1;
                 strategySceneInfo.BattleResultScore = _model.MakeBattleScore(false,strategySceneInfo);
-                strategySceneInfo.BattleResultVictory = false; 
+                strategySceneInfo.BattleResultVictory = false;
+                _model.PartyInfo.BattleVictoryCount.GainValue(1);
                 //_model.CurrentStage.GainLoseCount();
             } else
             if (_model.CheckVictory())
@@ -599,7 +600,7 @@ namespace Ryneus
                 strategySceneInfo.BattleResultScore = _model.MakeBattleScore(true,strategySceneInfo);
                 strategySceneInfo.BattleResultVictory = true;
                 _model.AddEnemyInfoSkillId();
-            } else
+            }/* else
             if (_model.CheckIsOver())
             {
                 _view.StartBattleStartAnim(DataSystem.GetText(16100));
@@ -610,6 +611,7 @@ namespace Ryneus
                 strategySceneInfo.BattleResultVictory = true;
                 _model.AddEnemyInfoSkillId();
             }
+            */
 
             _model.EndBattle();
             _battleEnded = true;

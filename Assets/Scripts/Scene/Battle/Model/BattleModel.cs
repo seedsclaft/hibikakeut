@@ -2528,7 +2528,7 @@ namespace Ryneus
                 score = Math.Max(0,score);
                 score = Math.Min(100,score);
                 // 与ダメージ - 被ダメージの加算
-                //var attack = 0;
+                var attack = 0;
                 //var damaged = 0;
                 var remainHpPercent = 0f;
                 var maxDamage = 0;
@@ -2550,6 +2550,7 @@ namespace Ryneus
                         {
                             maxDamage = battleRecord.Value.MaxDamage;
                         }
+                        attack += battleRecord.Value.AttackValue;
                         if (!actorInfo.IsAlive())
                         {
                             defeated += 1;
@@ -2574,6 +2575,8 @@ namespace Ryneus
                 strategySceneInfo.BattleRemainHpPercent = (int)((remainHpPercent/actorCount) * 100);
                 strategySceneInfo.BattleMaxDamage = maxDamage;
                 strategySceneInfo.BattleDefeatedCount = defeated;
+                PartyInfo.BattleScore.GainValue((int)score);
+                PartyInfo.TotalDamage.GainValue(attack);
                 return (int)score;
             }
             return 0;

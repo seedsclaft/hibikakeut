@@ -232,6 +232,7 @@ namespace Ryneus
         {
             _busy = true;
             _view.SetBusy(true);
+            _model.PartyInfo.TacticsLvupCount.GainValue(1);
             CommandLevelUp(_model.CurrentActor,() =>
             {
                 _busy = false;

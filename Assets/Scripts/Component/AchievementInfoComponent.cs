@@ -28,6 +28,7 @@ namespace Ryneus
             }
             if (getItem != null && achievementInfo.GetItemInfos.Count > 0)
             {
+                getItem.gameObject.SetActive(true);
                 getItem.SetItemData(achievementInfo.GetItemInfos[0]);
             }
         }

@@ -9,7 +9,7 @@ namespace Ryneus
 {
     public class DungeonView : BaseView, IInputHandlerEvent
     {
-        [SerializeField] private BaseList partyUnitList = null;
+        [SerializeField] private BattleBattlerList partyUnitList = null;
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
 
         public override void Initialize()

@@ -40,9 +40,9 @@ namespace Ryneus
                 _tacticsCharacters[i].SetData(actorInfos[i]);
                 _tacticsCharacters[i].OnClickAddListener(clickEvent);
                 _tacticsCharacters[i].SetIndex(actorInfos[i].ActorId.Value);
-                _tacticsCharacters[i].SetSelectHandler((a) => 
+                _tacticsCharacters[i].SetSelectHandler((a) =>
                 {
-                    SelectedEvent(a);
+                    //SelectedEvent(a);
                 });
             }
         }
@@ -92,7 +92,7 @@ namespace Ryneus
                 }
             }
         } 
-        
+
         public void ShowActor()
         {
             foreach (var tacticsChara in _tacticsCharacters)
