@@ -116,13 +116,13 @@ namespace Ariadne
             enterDungeon.OnEnterDungeon();
         }
 
-        public void SetMoveEndEvent(System.Action<Vector2Int> moveEndEvent)
+        public void SetMoveEndEvent(System.Action playerPosition)
         {
             if (postMoveChecker == null)
             {
                 return;
             }
-            postMoveChecker.SetMoveEndEvent(moveEndEvent);
+            postMoveChecker.SetMoveEndEvent(playerPosition);
         }
     }
 }

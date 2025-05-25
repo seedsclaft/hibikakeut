@@ -23,6 +23,39 @@ namespace Ryneus
         // 現在のステージ場所
         public StageData StageMaster => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
+        // 開示マス情報
+        private Dictionary<int,List<string>> _traverseDict = new();
+        public void SetupDungeonTraverse(int dungeonId)
+        {
+            if (_traverseDict.ContainsKey(dungeonId))
+            {
+                return;
+            }
+            _traverseDict[dungeonId] = new();
+        }
+        public void AddDungeonTraverse(int dungeonId,Dictionary<string, bool> traverses)
+        {
+            foreach (var traverse in traverses)
+            {
+                if (!traverse.Value)
+                {
+                    continue;
+                }
+                if (_traverseDict[dungeonId].Find(a => a == traverse.Key) == null)
+                {
+                    _traverseDict[dungeonId].Add(traverse.Key);
+                }
+            }
+        }
+        public List<string> GetDungeonTraverse(int stageId)
+        {
+            var traverses = new List<string>();
+            if (!_traverseDict.ContainsKey(stageId))
+            {
+                return traverses;
+            }
+            return _traverseDict[stageId];
+        }
 
         // 所持金
         public ParameterInt Currency = new();

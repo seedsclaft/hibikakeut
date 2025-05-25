@@ -23,7 +23,7 @@ namespace Ryneus
             });
             CommandRefresh();
             _ = new DungeonPresenter(this);
-            GameSystem.DungeonViewManager.SetMoveEndEvent((a) => CallViewEvent(CommandType.MoveEnd,a));
+            GameSystem.DungeonViewManager.SetMoveEndEvent(() => CallViewEvent(CommandType.MoveEnd));
         }
 
         private void InitializePartyUnitList()

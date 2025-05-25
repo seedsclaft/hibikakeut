@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Ryneus.Title;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -109,10 +110,15 @@ namespace Ryneus
             });
         }
 
-        private void CommandContinue()
+        private async Task CommandContinue()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            await _model.LoadFile();
+            _view.CommandChangeDungeon("DefaultDungeon");
+            GameSystem.DungeonViewManager.Initialize();
+            _view.CommandGotoSceneChange(Scene.MainMenu);
 
+/*
             var sceneParam = new FileListSceneInfo
             {
                 IsLoad = true
@@ -128,6 +134,7 @@ namespace Ryneus
                 template = sceneParam
             };
             _view.CommandCallPopup(popupInfo);
+*/
         }
 
         private void CommandOption()

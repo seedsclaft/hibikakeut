@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -76,6 +77,12 @@ namespace Ryneus
             InitSaveStageInfo();
             MakeStageInfo(DataSystem.System.StartStageId,true);
             PartyInfo.SetAchievementRank(DataSystem.Achievements);
+        }
+
+        public async Task LoadFile()
+        {
+            _ = await SaveSystem.LoadStageInfo(0);
+            //TempInfo.SetPlayingTime(saveFileInfo.PlayTime);
         }
     }
 }

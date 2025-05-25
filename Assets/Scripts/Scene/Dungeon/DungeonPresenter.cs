@@ -47,7 +47,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.MoveEnd:
-                    CommandMoveEnd((Vector2Int)viewEvent.Template);
+                    CommandMoveEnd();
                     break;
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu();
@@ -55,9 +55,9 @@ namespace Ryneus
             }
         }
 
-        private void CommandMoveEnd(Vector2Int position)
+        private void CommandMoveEnd()
         {
-            _model.CommandMoveEnd(position);
+            _model.CommandMoveEnd();
 
             CommandRefresh();
 

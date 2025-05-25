@@ -450,13 +450,16 @@ namespace Ryneus
             if (MoveController != null)
             {
                 MoveController.isInDungeon = sceneInfo.ToScene == Scene.Dungeon;
-                
                 if (sceneInfo.ToScene != Scene.Dungeon)
                 {
                     MoveController.HideUI();
                 } else
                 {
                     MoveController.ShowUI();
+                    // 開示マスを復帰
+                    MoveController.SetTraverses(_model.CurrentDeckInfo.DungeonId.Value,_model.PartyInfo.GetDungeonTraverse(_model.CurrentDeckInfo.DungeonId.Value));
+                    // 位置保存情報を復帰
+                    MoveController.SetPlayerPosition(_model.PartyInfo.CurrentDeckInfo.PositionX.Value,_model.PartyInfo.CurrentDeckInfo.PositionY.Value,_model.PartyInfo.CurrentDeckInfo.Direction.Value);
                 }
             }
             var prefab = sceneAssign.CreateScene(sceneInfo.ToScene, helpWindow);
@@ -471,12 +474,17 @@ namespace Ryneus
 
         public void CommandMapChange(string mapName)
         {
+            if (MoveController != null)
+            {
+                return;
+            }
             var prefab = mapAssign.CreateMap(mapName);
             var moveController = prefab.GetComponentInChildren<Ariadne.MoveController>();
             if (moveController != null)
             {
                 MoveController = moveController;
             }
+            _model.PartyInfo.SetupDungeonTraverse(Ariadne.PlayerPosition.currentDungeonId);
             /*
             _currentScene = prefab.GetComponent<BaseView>();
             _currentScene.SetTestMode(testMode);

@@ -14,17 +14,20 @@ namespace Ryneus
             return PartyInfo.DeckEditBattlerInfos();
         }
 
-        public void CommandMoveEnd(UnityEngine.Vector2Int position)
+        public void CommandMoveEnd()
         {
             if (CurrentDeckInfo == null)
             {
                 return;
             }
+            var playerDungeonId = Ariadne.PlayerPosition.currentDungeonId;
+            var playerPosition = Ariadne.PlayerPosition.playerPos;
+            var playerDirection = Ariadne.PlayerPosition.direction;
             var lastPositionX = CurrentDeckInfo.PositionX;
             var lastPositionY = CurrentDeckInfo.PositionY;
-            if (lastPositionX.Value != position.x || lastPositionY.Value != position.y)
+            if (lastPositionX.Value != playerPosition.x || lastPositionY.Value != playerPosition.y)
             {
-                CurrentDeckInfo.SetPosition(position.x,position.y);
+                CurrentDeckInfo.SetPosition(playerDungeonId,playerPosition.x,playerPosition.y,(int)playerDirection);
                 // ランダムエンカウントフラグ加算
                 int flag = UnityEngine.Random.Range(5, 15);
                 CurrentDeckInfo.Encount.GainValue(flag,0,100);

@@ -114,6 +114,7 @@ namespace Ryneus
             {
                 if (a == ConfirmCommandType.Yes)
                 {
+                    _model.ReturnDungeon();
                     ClosePopup();
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                     _view.CommandSceneChange(Scene.MainMenu);

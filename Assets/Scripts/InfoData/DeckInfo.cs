@@ -14,13 +14,16 @@ namespace Ryneus
 
         public ParameterInt Index = new();
         // 現在位置
-        public ParameterInt StageId = new();
+        public ParameterInt DungeonId = new();
         public ParameterInt PositionX = new();
         public ParameterInt PositionY = new();
-        public void SetPosition(int x,int y)
+        public ParameterInt Direction = new(); // 0=North, 1=East , 2=South , 3=West
+        public void SetPosition(int dungeonId,int x,int y,int direction)
         {
+            DungeonId.SetValue(dungeonId);
             PositionX.SetValue(x);
             PositionY.SetValue(y);
+            Direction.SetValue(direction);
         }
 
         // ランダムエンカウント値

@@ -1523,5 +1523,34 @@ namespace Ariadne
         {
             dungeonUI.SetActive(false);
         }
+
+        public void SetTraverses(int dungeonId,List<string> traverses)
+        {
+            TraverseData dungeonTraverseData = TraverseManager.GetDungeonTraverseData(dungeonId);
+            if (dungeonTraverseData == null)
+            {
+                return;
+            }
+
+            foreach (var traverse in traverses)
+            {
+                if (dungeonTraverseData.traverseDict.ContainsKey(traverse))
+                {
+                    dungeonTraverseData.traverseDict[traverse] = true;
+                }
+            }
+        }
+
+        public void SetPlayerPosition(int x,int y,int direction)
+        {
+            PlayerPosition.playerPos = new Vector2Int(x,y);
+            PlayerPosition.direction = (DungeonDir)direction;
+            float targetAngle = CurrentDirAngle();
+            player.transform.eulerAngles = new Vector3(0, targetAngle, 0);
+            SetCameraPos();
+            // Add traverse data
+            SetTraverse();
+            SendSetDirtyMsg();
+        }
     }
 }
