@@ -25,7 +25,8 @@ namespace Ryneus
         private void Initialize()
         {
             _view.SetEvent((type) => UpdateCommand(type));
-            CommandRefresh();
+            _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
+            _view.SetActorList(MakeListData(_model.PartyInfo.ActorInfos,-1));
             _view.EndSelectChangeBattler();
             _view.OpenAnimation();
         }
@@ -43,7 +44,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.SelectBattler:
-                    CommandSelectBattler((BattlerInfo)viewEvent.Template);
+                    CommandSelectBattler((int)viewEvent.Template);
                     break;
                 case CommandType.DecideBattlerInfo:
                     CommandDecideBattlerInfo((ActorInfo)viewEvent.Template);
@@ -56,9 +57,13 @@ namespace Ryneus
             }
         }
 
-        private void CommandSelectBattler(BattlerInfo battlerInfo)
+        private void CommandSelectBattler(int fromEditIndex)
         {
-            _model.ChangeActorId.SetValue(battlerInfo.ActorInfo.ActorId.Value);
+            if (fromEditIndex < 0)
+            {
+                return;
+            }
+            _model.FromEditIndex.SetValue(fromEditIndex + 1);
             _view.SelectChangeBattler();
         }
 
@@ -71,8 +76,8 @@ namespace Ryneus
 
         private void CommandRefresh()
         {
-            _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
-            _view.SetActorList(MakeListData(_model.PartyInfo.ActorInfos,-1));
+            _view.SetPartyUnitList(MakeListData(_model.PartyUnit()));
+            _view.SetActorList(MakeListData(_model.PartyInfo.ActorInfos));
         }
     }
 }

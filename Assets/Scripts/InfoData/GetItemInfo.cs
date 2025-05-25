@@ -48,7 +48,7 @@ namespace Ryneus
             switch (_getItemType)
             {
                 case GetItemType.Currency:
-                    return "+" + _resultParam.ToString() + "/" + Param1.ToString() + DataSystem.GetText(1000);
+                    return "+" + Param1.ToString() + DataSystem.GetText(1000);
                 case GetItemType.Skill:
                     var skillData = DataSystem.FindSkill(Param1);
                     return skillData.Name;

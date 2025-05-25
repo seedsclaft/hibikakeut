@@ -61,6 +61,15 @@ namespace Ryneus
 
             CommandRefresh();
 
+            // ターン数が0の場合
+            if (_model.EndDungeonByTurnCount())
+            {
+                var cautionInfo = new CautionInfo();
+                cautionInfo.SetTitle("残りターン数が枯渇したため帰還します!");
+                _view.CommandCallCaution(cautionInfo);
+                return;
+            }
+
             // エンカウントした場合
             if (_model.EncountEnemy())
             {

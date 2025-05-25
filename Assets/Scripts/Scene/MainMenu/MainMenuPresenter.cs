@@ -86,6 +86,12 @@ namespace Ryneus
                 case "Mission":
                     CommandAchievement();
                     break;
+                case "Status":
+                    var actorInfos = _model.PartyInfo.ActorInfos;
+                    CommandStatusInfo(actorInfos,false,true,true,false,actorInfos[0].ActorId.Value,() => 
+                    {
+                    },false,true);
+                    break;
             }
         }
 

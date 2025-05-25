@@ -5,7 +5,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class GetItem : ListItem,IListViewItem
+    public class GetItem : ListItem, IListViewItem
     {
         [SerializeField] private SkillInfoComponent skillInfoComponent;
         [SerializeField] private TextMeshProUGUI titleName;
@@ -41,6 +41,12 @@ namespace Ryneus
             {
                 Disable?.gameObject.SetActive(!ListData.Enable);
             }
+        }
+
+        public void SetItemData(GetItemInfo getItemInfo)
+        {
+            SetListData(new ListData(getItemInfo),0);
+            UpdateViewItem();
         }
     }
 }

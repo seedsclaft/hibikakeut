@@ -31,6 +31,8 @@ namespace Ryneus
         public List<int> NoDepatureActorIds()
         {
             var busyActorIndexes = new List<int>();
+            return busyActorIndexes;
+            /*
             foreach (var unitInfo in CurrentStage.GetTurnTeamInfo().UnitInfos)
             {
                 foreach (var battlerInfo in unitInfo.UnitInfo.BattlerInfos)
@@ -42,6 +44,7 @@ namespace Ryneus
                 }
             }
             return busyActorIndexes;
+            */
         }
 
         public void CallDecideEvent(ActorInfo actorInfo)

@@ -30,12 +30,14 @@ namespace Ryneus
         private Dictionary<int,int> _actorIdDict = new();
         public Dictionary<int,int> ActorIdDict => _actorIdDict;
 
-        public void SwapBattler(int fromActorId,int toActorId)
+        public void SwapBattler(int fromEditIndex,int toActorId)
         {
-            var fromEditIndex = FindEditIndex(fromActorId);
             var toEditIndex = FindEditIndex(toActorId);
             _actorIdDict[fromEditIndex] = toActorId;
-            _actorIdDict[toEditIndex] = fromActorId;
+            if (toEditIndex != -1)
+            {
+                _actorIdDict[toEditIndex] = fromEditIndex;
+            }
         }
 
         public int FindEditIndex(int actorId)

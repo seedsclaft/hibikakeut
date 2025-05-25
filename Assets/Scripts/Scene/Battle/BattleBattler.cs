@@ -37,6 +37,10 @@ namespace Ryneus
             {
                 //gameObject.SetActive(battlerInfo != null && battlerInfo.Index.Value > 0);
             }
+            if (battlerInfo != null && battlerInfo.Index.Value == 0)
+            {
+                return;
+            }
             battlerInfoComponent.RefreshStatus();
             if (!battlerInfo.IsActorView)
             {

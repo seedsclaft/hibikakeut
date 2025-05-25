@@ -729,10 +729,10 @@ RectTransform:
   - {fileID: 548706709902279732}
   m_Father: {fileID: 4226077817985761844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -48, y: -48}
+  m_SizeDelta: {x: 832, y: 532}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4493614366201059135
 CanvasRenderer:
@@ -950,6 +950,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AchievementListData
+      objectReference: {fileID: 0}
+    - target: {fileID: 965865220501028765, guid: 6ba11c9852326434f9dd78608e61925c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 965865220501028765, guid: 6ba11c9852326434f9dd78608e61925c,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 965865220501028765, guid: 6ba11c9852326434f9dd78608e61925c,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 965865220501028765, guid: 6ba11c9852326434f9dd78608e61925c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 148.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 965865220501028765, guid: 6ba11c9852326434f9dd78608e61925c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4554389829194659028, guid: 6ba11c9852326434f9dd78608e61925c,
         type: 3}

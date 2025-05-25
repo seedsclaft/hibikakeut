@@ -142,6 +142,24 @@ namespace Ryneus
             return battlerInfos;
         }
 
+        public List<BattlerInfo> DeckEditBattlerInfos()
+        {
+            // 空きスロットも表示する
+            var battlerInfos = new List<BattlerInfo>();
+            for (int i = 1;i <= 6;i++)
+            {
+                var dictValue = CurrentDeckInfo.ActorIdDict[i];
+                if (dictValue > -1)
+                {
+                    battlerInfos.Add(_battlerInfos.Find(a => a.ActorInfo.ActorId.Value == dictValue));
+                } else
+                {
+                    battlerInfos.Add(new BattlerInfo());
+                }
+            }
+            return battlerInfos;
+        }
+
         public List<ActorInfo> CurrentDeckActorInfos()
         {
             var actorInfos = new List<ActorInfo>();

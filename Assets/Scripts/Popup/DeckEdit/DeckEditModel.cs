@@ -7,7 +7,7 @@ namespace Ryneus
 {
     public class DeckEditModel : BaseModel
     {
-        public ParameterInt ChangeActorId = new();
+        public ParameterInt FromEditIndex = new();
 
         public DeckEditModel()
         {
@@ -15,21 +15,12 @@ namespace Ryneus
 
         public List<BattlerInfo> PartyUnit()
         {
-            return PartyInfo.CurrentDeckBattlerInfos();
+            return PartyInfo.DeckEditBattlerInfos();
         }
 
         public void SwapBattler(int toActorId)
         {
-            CurrentDeckInfo.SwapBattler(ChangeActorId.Value,toActorId);
+            CurrentDeckInfo.SwapBattler(FromEditIndex.Value,toActorId);
         }
-    }
-
-    public class DeckEditSceneInfo
-    {
-        public DeckEditSceneInfo()
-        {
-        }
-
-        public bool IsLoad = false;
     }
 }

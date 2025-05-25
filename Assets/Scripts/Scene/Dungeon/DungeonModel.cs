@@ -34,6 +34,15 @@ namespace Ryneus
             }
         }
 
+        public bool EndDungeonByTurnCount()
+        {
+            if (CurrentStage == null)
+            {
+                return false;
+            }
+            return CurrentStage.TurnCount.Value <= 0;
+        }
+
         public bool EncountEnemy()
         {
             if (CurrentDeckInfo == null)

@@ -31,15 +31,7 @@ namespace Ryneus
             var achievements = PartyInfo.AchievementInfos.FindAll(a => !a.Presented.Value && a.Achieved.Value);
             foreach (var achievement in achievements)
             {
-                var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == achievement.Master.PriseSetId);
-                if (prizeSets != null)
-                {
-                    foreach (var prizeSet in prizeSets)
-                    {
-                        var getItemInfo = new GetItemInfo(prizeSet.GetItem);
-                        list.Add(getItemInfo);
-                    }
-                }
+                list.AddRange(achievement.GetItemInfos);
                 achievement.Presented.SetValue(true);
             }
             return list;
@@ -61,6 +53,7 @@ namespace Ryneus
         public List<SystemData.CommandData> SideMenu()
         {
             var list = new List<SystemData.CommandData>();
+            /*
             var status = new SystemData.CommandData
             {
                 Id = 1,
@@ -68,6 +61,7 @@ namespace Ryneus
                 Key = "Status"
             };
             list.Add(status);
+            */
             var option = new SystemData.CommandData
             {
                 Id = 2,
