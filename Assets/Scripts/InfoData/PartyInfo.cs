@@ -17,9 +17,6 @@ namespace Ryneus
         [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = new();
         public List<ActorInfo> ActorInfos => _actorInfos;
 
-        [UnityEngine.SerializeField] private List<BattlerInfo> _battlerInfos = new();
-        public List<BattlerInfo> BattlerInfos => _battlerInfos;
-
         // 現在のステージ場所
         public StageData StageMaster => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
@@ -123,7 +120,6 @@ namespace Ryneus
 
         // 所持アイテム情報
         private List<GetItemInfo> _getItemInfos = new();
-        public List<GetItemInfo> GetItemInfos => _getItemInfos;
         public void AddGetItemInfo(GetItemInfo getItemInfo)
         {
             _getItemInfos.Add(getItemInfo);
@@ -167,9 +163,6 @@ namespace Ryneus
                     _actorInfos.Add(actorInfo);
                     // 整列
                     _actorInfos.Sort((a,b) => a.BattleIndex.Value - b.BattleIndex.Value > 0 ? 1 : -1);
-
-                    var battlerInfo = new BattlerInfo(actorInfo,actorInfo.BattleIndex.Value);
-                    _battlerInfos.Add(battlerInfo);
                 }
             }
         }
@@ -188,27 +181,7 @@ namespace Ryneus
 
         public void MakeInitDeckInfo()
         {
-            var initUnitInfo = new UnitInfo();
-            initUnitInfo.Index.SetValue(1);
-            var actorInfo = ActorInfos[0];
-            var battlerInfo = new BattlerInfo(actorInfo,1);
-            var battlerInfo2 = new BattlerInfo();
-            initUnitInfo.SetBattlers(new List<BattlerInfo>(){battlerInfo,battlerInfo2});
-            CurrentDeckInfo.AddUnitInfos(initUnitInfo);
-        }
 
-        public List<BattlerInfo> CurrentDeckBattlerInfos()
-        {
-            var battlerInfos = new List<BattlerInfo>();
-            foreach (var actorId in CurrentDeckInfo.ActorIdDict)
-            {
-                var find = _battlerInfos.Find(a => a.ActorInfo.ActorId.Value == actorId.Value);
-                if (find != null)
-                {
-                    battlerInfos.Add(find);
-                }
-            }
-            return battlerInfos;
         }
 
         public List<BattlerInfo> DeckEditBattlerInfos()
@@ -220,7 +193,8 @@ namespace Ryneus
                 var dictValue = CurrentDeckInfo.ActorIdDict[i];
                 if (dictValue > -1)
                 {
-                    battlerInfos.Add(_battlerInfos.Find(a => a.ActorInfo.ActorId.Value == dictValue));
+                    var actorInfo = _actorInfos.Find(a => a.ActorId.Value == dictValue);
+                    battlerInfos.Add(new BattlerInfo(actorInfo,i));
                 } else
                 {
                     battlerInfos.Add(new BattlerInfo());

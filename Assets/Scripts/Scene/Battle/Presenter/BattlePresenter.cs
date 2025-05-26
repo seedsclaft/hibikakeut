@@ -588,7 +588,6 @@ namespace Ryneus
                 strategySceneInfo.BattleTurn = -1;
                 strategySceneInfo.BattleResultScore = _model.MakeBattleScore(false,strategySceneInfo);
                 strategySceneInfo.BattleResultVictory = false;
-                _model.PartyInfo.BattleVictoryCount.GainValue(1);
                 //_model.CurrentStage.GainLoseCount();
             } else
             if (_model.CheckVictory())
@@ -600,6 +599,7 @@ namespace Ryneus
                 strategySceneInfo.BattleResultScore = _model.MakeBattleScore(true,strategySceneInfo);
                 strategySceneInfo.BattleResultVictory = true;
                 _model.AddEnemyInfoSkillId();
+                _model.PartyInfo.BattleVictoryCount.GainValue(1);
             }/* else
             if (_model.CheckIsOver())
             {

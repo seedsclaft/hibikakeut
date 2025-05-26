@@ -140,7 +140,6 @@ namespace Ryneus
             }
             _enhanceSkills = enhanceSkills;
 
-
             _demigodParam = actorInfo.DemigodParam;
             _isActor = true;
             _isAlcana = false;
@@ -162,7 +161,7 @@ namespace Ryneus
             InitKindTypes(actorInfo.Master.Kinds);
             InitSkillCount();
             ResetAp();
-            GainMp(MaxMp);
+            //GainMp(MaxMp);
         }
 
         public BattlerInfo(EnemyData enemyData, int lv, int index, LineType lineIndex, bool isBoss)
@@ -246,7 +245,7 @@ namespace Ryneus
             InitSkillCount();
             ResetAp();
             SetEnemyMp();
-            GainMp(MaxMp);
+            //GainMp(MaxMp);
         }
 
         private void InitKindTypes(List<KindType> kindTypes)

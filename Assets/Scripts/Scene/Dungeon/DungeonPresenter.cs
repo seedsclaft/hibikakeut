@@ -76,7 +76,7 @@ namespace Ryneus
                 _model.ResetEncountValue();
                 var battleSceneInfo = new BattleSceneInfo
                 {
-                    ActorBattlerInfos = _model.PartyInfo.CurrentDeckBattlerInfos(),
+                    ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
                     EnemyInfos = _model.RandumTroopInfos(),
                 };
                 PlayBattleBgm();

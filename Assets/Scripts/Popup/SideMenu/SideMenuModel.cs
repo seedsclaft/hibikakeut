@@ -22,17 +22,12 @@ namespace Ryneus
 
         public void ReturnDungeon()
         {
-            if (CurrentDeckInfo == null)
+            // 全回復
+            foreach (var actorInfo in PartyInfo.CurrentDeckActorInfos())
             {
-                return;
+                actorInfo.ChangeHp(actorInfo.MaxHp);
             }
-            var playerDungeonId = Ariadne.PlayerPosition.currentDungeonId;
-            var playerPosition = Ariadne.PlayerPosition.playerPos;
-            var playerDirection = Ariadne.PlayerPosition.direction;
-            CurrentDeckInfo.SetPosition(playerDungeonId,playerPosition.x,playerPosition.y,(int)playerDirection);
-            // 開示マス情報を更新
-            var traverses = Ariadne.TraverseManager.GetDungeonTraverseData(playerDungeonId);
-            PartyInfo.AddDungeonTraverse(playerDungeonId,traverses.traverseDict);
+            SaveDungeonPlayerData();
         }
 
         public List<ActorInfo> CurrentDeckActorInfos()

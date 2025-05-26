@@ -90,10 +90,11 @@ namespace Ryneus
                 }
             }
 */
-            var actorInfos = _sceneParam.ActorBattlerInfos;
+            var actorInfos = _sceneParam.ActorInfos;
+            var idx = 1;
             foreach (var actorInfo in actorInfos)
             {
-                var battlerInfo = actorInfo;
+                var battlerInfo = new BattlerInfo(actorInfo,idx);
                 if (battlerInfo.ActorInfo == null)
                 {
                     continue;
@@ -109,6 +110,7 @@ namespace Ryneus
                 */
                 _battlers.Add(battlerInfo);
                 _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
+                idx++;
             }
 /*
             var enemyUnitInfos = _sceneParam.EnemyUnitInfos;
@@ -2642,7 +2644,13 @@ namespace Ryneus
             }
             foreach (var battler in _battlers)
             {
-                battler.GainMp(battler.MaxMp);
+                if (battler.ActorInfo == null)
+                {
+                    continue;
+                }
+                var actorInfo = PartyInfo.ActorInfos.Find(a => a.ActorId == battler.ActorInfo.ActorId);
+                actorInfo.ChangeHp(battler.Hp.Value);
+                //battler.GainMp(battler.MaxMp);
                 battler.SetAwaken(false);
             }
             SaveSystem.SaveOptionStart(GameSystem.OptionData);
@@ -2770,7 +2778,7 @@ namespace Ryneus
     public class BattleSceneInfo
     {
         public List<ActorInfo> ActorInfos;
-        public List<BattlerInfo> ActorBattlerInfos;
+        //public List<BattlerInfo> ActorBattlerInfos;
         public List<UnitInfo> ActorUnitInfos;
         public List<BattlerInfo> EnemyInfos;
         public List<UnitInfo> EnemyUnitInfos;

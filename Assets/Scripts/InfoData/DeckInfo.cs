@@ -55,10 +55,6 @@ namespace Ryneus
             return -1;
         }
 
-        // 所持ユニット
-        //private List<UnitInfo> _unitInfos = new();
-        //public List<UnitInfo> UnitInfos => _unitInfos;
-
         private void InitUnitInfos()
         {
             for (int i = 1;i <= 6;i++)
@@ -67,21 +63,5 @@ namespace Ryneus
             }
             _actorIdDict[1] = 1;
         }
-
-        public void AddUnitInfos(UnitInfo unitInfo)
-        {
-        }
-
-        public void UpdateBattlerInfo(BattlerInfo battlerInfo)
-        {
-            /*
-            var find = _unitInfos.Find(a => a.BattlerInfos.Find(b => b.Index.Value == battlerInfo.Index.Value) != null);
-            if (find != null)
-            {
-                find.UpdateBattlerInfo(battlerInfo);
-            }
-            */
-        }
-
     }
 }

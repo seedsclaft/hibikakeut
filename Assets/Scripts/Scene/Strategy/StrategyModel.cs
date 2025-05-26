@@ -31,14 +31,6 @@ namespace Ryneus
                 {
                     _displayActorInfos.Add(PartyInfo.ActorInfos.Find(a => a.ActorId == actor.ActorInfo.ActorId));
                 }
-                // バトル結果をUnitと同期
-                foreach (var battlerInfo in _sceneParam.BattlerInfos)
-                {
-                    if (battlerInfo.ActorInfo != null)
-                    {
-                        CurrentDeckInfo.UpdateBattlerInfo(battlerInfo);
-                    }
-                }
             } else
             {
                 _displayActorInfos = _sceneParam.ActorInfos;

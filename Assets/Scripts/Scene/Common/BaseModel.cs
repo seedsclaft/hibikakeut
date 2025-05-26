@@ -6,6 +6,7 @@ using UnityEngine.AddressableAssets;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using System.Linq;
+using UnityEditor.Tilemaps;
 
 namespace Ryneus
 {
@@ -367,6 +368,7 @@ namespace Ryneus
 
         public void SavePlayerStageData(bool isResumeStage)
         {
+            SaveDungeonPlayerData();
             TempInfo.ClearRankingInfo();
             SetResumeStage(isResumeStage);
             SaveSystem.SaveStageInfo(GameSystem.GameInfo);
@@ -546,21 +548,6 @@ namespace Ryneus
             {
                 actorInfo.AddSkillTriggerSkill(skill.Id.Value);
             }
-            // ユニットに情報を反映
-            foreach (var unitInfo in CurrentStage.HomeTeamInfo.UnitInfos)
-            {
-                for (int i = unitInfo.UnitInfo.BattlerInfos.Count - 1; i >= 0; i--)
-                {
-                    if (unitInfo.UnitInfo.BattlerInfos[i].ActorInfo == null)
-                    {
-                        continue;
-                    }
-                    if (actorInfo.ActorId.Value == unitInfo.UnitInfo.BattlerInfos[i].ActorInfo.ActorId.Value)
-                    {
-                        unitInfo.UnitInfo.BattlerInfos[i] = new BattlerInfo(actorInfo, unitInfo.UnitInfo.BattlerInfos[i].Index.Value);
-                    }
-                }
-            }
         }
 
         public int ActorLevelUpCost(ActorInfo actorInfo)
@@ -616,6 +603,21 @@ namespace Ryneus
         public void ReadTutorialData(TutorialData tutorialData)
         {
             CurrentData.PlayerInfo.AddReadTutorials(tutorialData.Id);
+        }
+
+        public void SaveDungeonPlayerData()
+        {
+            if (CurrentDeckInfo == null)
+            {
+                return;
+            }
+            var playerDungeonId = Ariadne.PlayerPosition.currentDungeonId;
+            var playerPosition = Ariadne.PlayerPosition.playerPos;
+            var playerDirection = Ariadne.PlayerPosition.direction;
+            CurrentDeckInfo.SetPosition(playerDungeonId,playerPosition.x,playerPosition.y,(int)playerDirection);
+            // 開示マス情報を更新
+            var traverses = Ariadne.TraverseManager.GetDungeonTraverseData(playerDungeonId);
+            PartyInfo.AddDungeonTraverse(playerDungeonId,traverses.traverseDict);
         }
     }
 }
