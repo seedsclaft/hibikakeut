@@ -24,7 +24,7 @@ namespace Ryneus
     [Serializable]
     public enum ItemType
     {
-        LearnSkill = 10,
+        RandumAddSkill = 10,
     }
 
 }

@@ -79,7 +79,7 @@ namespace Ryneus
             {
                 return;
             }
-            _items[itemId].GainValue(num,0,9999);
+            _items[itemId].GainValue(num * -1,0,9999);
         }
 
         // フェーズ
@@ -149,11 +149,6 @@ namespace Ryneus
                     _learningSkillIds.Add(addSkillInfo.Param1);
                 }
             }
-        }
-
-        private void CheckAddItem()
-        {
-
         }
 
         private void CheckAddActor()

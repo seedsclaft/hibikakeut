@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Ryneus.ItemList;
 
 namespace Ryneus
@@ -8,6 +9,7 @@ namespace Ryneus
     public class ItemListView : BaseView
     {
         [SerializeField] private BaseList itemList = null;
+        [SerializeField] private Button presentButton = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
 
         public override void Initialize()
@@ -15,6 +17,10 @@ namespace Ryneus
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.ItemList);
             InitializeItemList();
+            if (presentButton != null)
+            {
+                presentButton.onClick.AddListener(() => CallViewEvent(CommandType.DecideItem, itemList.ListItemData<ItemInfo>()));
+            }
             SetBaseAnimation(popupAnimation);
             _ = new ItemListPresenter(this);
         }
@@ -29,6 +35,8 @@ namespace Ryneus
             itemList.Initialize();
             itemList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
             itemList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.DecideItem, itemList.ListItemData<ItemInfo>()));
+            itemList.SetInputHandler(InputKeyType.Left, () => CallViewEvent(CommandType.PlusUseNum, itemList.ListItemData<ItemInfo>()?.Id.Value));
+            itemList.SetInputHandler(InputKeyType.Right, () => CallViewEvent(CommandType.MinusUseNum, itemList.ListItemData<ItemInfo>()?.Id.Value));
             SetInputHandler(itemList.gameObject);
         }
 

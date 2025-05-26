@@ -42,12 +42,48 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case CommandType.DecideItem:
+                    CommandDecideItem();
+                    break;
                 case CommandType.PlusUseNum:
                     CommandPlusUseNum((int)viewEvent.Template);
                     break;
                 case CommandType.MinusUseNum:
                     CommandMinusUseNum((int)viewEvent.Template);
                     break;
+            }
+        }
+
+        private void CommandDecideItem()
+        {
+            if (_model.CanPresent())
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                var confirmInfo = new ConfirmInfo("献上しますか？", (a) =>
+                {
+                    if (a == ConfirmCommandType.Yes)
+                    {
+                        var getItemInfos = _model.PresentGetItemInfos();
+                        if (getItemInfos.Count > 0)
+                        {
+                            _view.CallSystemCommand(Base.CommandType.ClosePopup);
+                            var strategySceneInfo = new StrategySceneInfo
+                            {
+                                ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
+                                InBattle = false
+                            };
+                            strategySceneInfo.GetItemInfos = getItemInfos;
+                            _view.CommandSceneChange(Scene.Strategy,strategySceneInfo);
+                        }
+                    }
+                });
+                _view.CommandCallConfirm(confirmInfo);
+            } else
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                var cautionInfo = new CautionInfo();
+                cautionInfo.SetTitle("献上するアイテムがありません!");
+                _view.CommandCallCaution(cautionInfo);
             }
         }
 
