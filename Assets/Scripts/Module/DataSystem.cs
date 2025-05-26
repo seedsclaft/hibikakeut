@@ -17,6 +17,7 @@ namespace Ryneus
         public static List<RuleData> Rules = new();
         public static List<HelpData> Helps = new();
         public static Dictionary<int, SkillData> Skills = new();
+        public static List<ItemData> Items = new();
         public static List<StageData> Stages = new();
         public static List<SymbolGroupData> SymbolGroups = new();
         public static List<StateData> States = new();
@@ -57,6 +58,7 @@ namespace Ryneus
             {
                 Skills[skillData.Id] = skillData;
             }
+            Items = Resources.Load<ItemDates>("Data/Items").Data;
             Stages = Resources.Load<StageDates>("Data/Stages").Data;
             SymbolGroups = Resources.Load<StageDates>("Data/Stages").SymbolGroupData;
             States = Resources.Load<StateDates>("Data/States").Data;

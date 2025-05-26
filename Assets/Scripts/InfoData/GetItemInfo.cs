@@ -50,8 +50,7 @@ namespace Ryneus
                 case GetItemType.Currency:
                     return "+" + Param1.ToString() + DataSystem.GetText(1000);
                 case GetItemType.Skill:
-                    var skillData = DataSystem.FindSkill(Param1);
-                    return skillData.Name;
+                    return DataSystem.FindSkill(Param1).Name;
                 case GetItemType.Demigod:
                     return DataSystem.GetText(20210) + "+" + Param1.ToString();
                 case GetItemType.Ending:
@@ -86,6 +85,8 @@ namespace Ryneus
                 //case GetItemType.Multiverse:
                 case GetItemType.LvLink:
                     break;
+                case GetItemType.Item:
+                    return DataSystem.Items.Find(a => a.Id == Param1).Name + " x" + Param2.ToString();
             }
             return "";
         }

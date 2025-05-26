@@ -86,6 +86,9 @@ namespace Ryneus
                 case "Mission":
                     CommandAchievement();
                     break;
+                case "Present":
+                    CommandPresent();
+                    break;
                 case "Status":
                     var actorInfos = _model.PartyInfo.ActorInfos;
                     CommandStatusInfo(actorInfos,false,true,true,false,actorInfos[0].ActorId.Value,() => 
@@ -136,6 +139,21 @@ namespace Ryneus
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.Achievement,
+                template = null,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
+        }
+
+        private void CommandPresent()
+        {
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.ItemList,
                 template = null,
                 EndEvent = () =>
                 {

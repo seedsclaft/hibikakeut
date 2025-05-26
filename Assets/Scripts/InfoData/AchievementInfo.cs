@@ -36,6 +36,10 @@ namespace Ryneus
 
         public void SetCondition(int count,int achieveCount)
         {
+            if (count > achieveCount)
+            {
+                count = achieveCount;
+            }
             Count.SetValue(count);
             AchieveCount.SetValue(achieveCount);
             Achieved.SetValue(Count.Value >= AchieveCount.Value);

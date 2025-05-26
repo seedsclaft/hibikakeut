@@ -168,6 +168,13 @@ namespace Ryneus
                 AddGetItemInfo(skillGetItemInfo);
             }
 
+            // アイテム入手
+            var itemGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Item);
+            foreach (var itemGetItemInfo in itemGetItemInfos)
+            {
+                AddGetItemInfo(itemGetItemInfo);
+            }
+
             // 獲得エナジー、魔法情報を生成
             _resultInfos.Clear();
             if (gainCurrency > 0)

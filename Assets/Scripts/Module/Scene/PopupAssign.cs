@@ -83,6 +83,7 @@ namespace Ryneus
         DeckEdit,
         Help,
         Achievement,
+        ItemList,
         AlcanaList,
         SlotSave,
         LearnSkill,

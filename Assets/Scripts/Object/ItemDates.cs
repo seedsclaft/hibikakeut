@@ -14,11 +14,17 @@ namespace Ryneus
     public class ItemData
     {
         public int Id;
-        public int ItemType;
+        public ItemType ItemType;
         public int Param1;
         public int Param2;
-        public string Text;
+        public string Name;
         public string Help;
+    }
+
+    [Serializable]
+    public enum ItemType
+    {
+        LearnSkill = 10,
     }
 
 }

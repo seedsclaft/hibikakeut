@@ -23,6 +23,7 @@ namespace Ryneus
         // 現在のステージ場所
         public StageData StageMaster => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
+
         // 開示マス情報
         private Dictionary<int,List<string>> _traverseDict = new();
         public void SetupDungeonTraverse(int dungeonId)
@@ -33,6 +34,7 @@ namespace Ryneus
             }
             _traverseDict[dungeonId] = new();
         }
+
         public void AddDungeonTraverse(int dungeonId,Dictionary<string, bool> traverses)
         {
             foreach (var traverse in traverses)
@@ -59,6 +61,26 @@ namespace Ryneus
 
         // 所持金
         public ParameterInt Currency = new();
+
+        // 所持アイテム
+        private Dictionary<int,ParameterInt> _items = new();
+        public Dictionary<int,ParameterInt> Items => _items;
+        private void GainItemNum(int itemId,int num)
+        {
+            if (!_items.ContainsKey(itemId))
+            {
+                _items[itemId] = new();
+            }
+            _items[itemId].GainValue(num,0,9999);
+        }
+        public void ConsuneItemNum(int itemId,int num)
+        {
+            if (!_items.ContainsKey(itemId))
+            {
+                return;
+            }
+            _items[itemId].GainValue(num,0,9999);
+        }
 
         // フェーズ
         public ParameterInt Chapter = new();
@@ -105,6 +127,11 @@ namespace Ryneus
         public void AddGetItemInfo(GetItemInfo getItemInfo)
         {
             _getItemInfos.Add(getItemInfo);
+            if (getItemInfo.GetItemType == GetItemType.Item)
+            {
+                GainItemNum(getItemInfo.Param1,getItemInfo.Param2);
+                return;
+            }
             CheckAddActor();
             CheckLearningSkillId();
         }
@@ -122,6 +149,11 @@ namespace Ryneus
                     _learningSkillIds.Add(addSkillInfo.Param1);
                 }
             }
+        }
+
+        private void CheckAddItem()
+        {
+
         }
 
         private void CheckAddActor()

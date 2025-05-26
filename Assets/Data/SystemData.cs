@@ -141,5 +141,6 @@ namespace Ryneus
 		//Multiverse = 103,
 		LvLink = 104,
 		Ending = 210,
+		Item = 1010,
 	}
 }

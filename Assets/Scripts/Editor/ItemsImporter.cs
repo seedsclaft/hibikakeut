@@ -56,16 +56,19 @@ namespace Ryneus
                     for (int i = 1; i <= BaseSheet.LastRowNum; i++)
                     {
                         IRow BaseRow = BaseSheet.GetRow(i);
+                        if (BaseRow == null)
+                        {
+                            continue;
+                        }
                         var ItemData = new ItemData
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
-                            ItemType = AssetPostImporter.ImportNumeric(BaseRow, "ItemType"),
+                            ItemType = (ItemType)AssetPostImporter.ImportNumeric(BaseRow, "ItemType"),
                             Param1 = AssetPostImporter.ImportNumeric(BaseRow, "Param1"),
-                            Param2 = AssetPostImporter.ImportNumeric(BaseRow, "Param2"),
-                                    
+                            Param2 = AssetPostImporter.ImportNumeric(BaseRow, "Param2"),  
                         };
-                        ItemData.Text = textData.Find(a => a.Id == ItemData.Id).Text;
-                        ItemData.Help = textData.Find(a => a.Id == ItemData.Id).Help;
+                        ItemData.Name = textData.Find(a => a.Id == ItemData.Id)?.Text;
+                        ItemData.Help = textData.Find(a => a.Id == ItemData.Id)?.Help;
                         Data.Data.Add(ItemData);
                     }
                 }

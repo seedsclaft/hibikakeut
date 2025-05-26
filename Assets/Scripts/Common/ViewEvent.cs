@@ -46,6 +46,7 @@ namespace Ryneus
         UnitInfoList,
         DeckEdit,
         Achievement,
+        ItemList,
         SideMenu,
         Option,
         TutorialStage,
