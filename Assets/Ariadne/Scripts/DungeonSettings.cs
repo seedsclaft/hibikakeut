@@ -37,7 +37,7 @@ namespace Ariadne
                         continue;
                     }
 
-                    if (floor.floorId == PlayerPosition.currentFloorId)
+                    if (floor.floorId == PlayerPosition.Instance.currentFloorId)
                     {
                         floorData = floor;
                         break;

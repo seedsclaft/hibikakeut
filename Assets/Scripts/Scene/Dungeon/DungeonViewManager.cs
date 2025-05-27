@@ -40,7 +40,7 @@ namespace Ariadne
         /// </Summary>
         void InitializeTraverseData()
         {
-            TraverseManager.InitializeTraverseData();
+            TraverseManager.Instance.InitializeTraverseData();
         }
 
         /// <Summary>

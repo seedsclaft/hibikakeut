@@ -20,9 +20,9 @@ namespace Ryneus
             {
                 return;
             }
-            var playerDungeonId = Ariadne.PlayerPosition.currentDungeonId;
-            var playerPosition = Ariadne.PlayerPosition.playerPos;
-            var playerDirection = Ariadne.PlayerPosition.direction;
+            var playerDungeonId = Ariadne.PlayerPosition.Instance.currentDungeonId;
+            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+            var playerDirection = Ariadne.PlayerPosition.Instance.direction;
             var lastPositionX = CurrentDeckInfo.PositionX;
             var lastPositionY = CurrentDeckInfo.PositionY;
             if (lastPositionX.Value != playerPosition.x || lastPositionY.Value != playerPosition.y)

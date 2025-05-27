@@ -83,7 +83,7 @@ namespace Ariadne
         {
             float minAngle = 0f;
             float maxAngle = minAngle + 90f;
-            switch(PlayerPosition.direction)
+            switch(PlayerPosition.Instance.direction)
             {
                 case DungeonDir.North:
                     maxAngle = 0f;

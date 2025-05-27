@@ -64,9 +64,11 @@ namespace Ryneus
             // ターン数が0の場合
             if (_model.EndDungeonByTurnCount())
             {
-                var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle("残りターン数が枯渇したため帰還します!");
-                _view.CommandCallCaution(cautionInfo);
+                var confirmInfo = new ConfirmInfo("残りターン数が枯渇したため帰還します!",(a) => 
+                {
+                    _view.CommandSceneChange(Scene.MainMenu);
+                });
+                _view.CommandCallConfirm(confirmInfo);
                 return;
             }
 
@@ -90,8 +92,10 @@ namespace Ryneus
         private void CommandSelectSideMenu()
         {
             _busy = true;
+            _view.CallSystemCommand(Base.CommandType.DungeonBusy,true);
             CommandCallSideMenu(MakeListData(_model.SideMenu()), () =>
             {
+                _view.CallSystemCommand(Base.CommandType.DungeonBusy,false);
                 _busy = false;
             });
         }

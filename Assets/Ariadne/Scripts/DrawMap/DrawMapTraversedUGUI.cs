@@ -133,7 +133,7 @@ namespace Ariadne
                     
                     Vector2Int pos = new Vector2Int(xAxis, yAxis);
 
-                    bool traversed = TraverseManager.GetPositionTraverseData(dungeonData.dungeonId, floorMapData.floorId, pos);
+                    bool traversed = TraverseManager.Instance.GetPositionTraverseData(dungeonData.dungeonId, floorMapData.floorId, pos);
 
                     if (enableAutoMapping)
                     {
@@ -227,8 +227,8 @@ namespace Ariadne
         protected virtual IEnumerator DrawIntermediateMap(float time)
         {
             yield return null;
-            Vector2Int sourcePos = PlayerPosition.playerPosPre;
-            Vector2Int destPos = PlayerPosition.playerPos;
+            Vector2Int sourcePos = PlayerPosition.Instance.playerPosPre;
+            Vector2Int destPos = PlayerPosition.Instance.playerPos;
             float finishTime = Time.time + time;
 
             while (true)

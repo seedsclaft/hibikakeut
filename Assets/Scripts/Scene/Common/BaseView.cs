@@ -40,7 +40,7 @@ namespace Ryneus
         public bool AnimationBusy => baseAnimation != null && baseAnimation.Busy;
         private int _wait = 0;
         public Action _waitEndEvent = null;
-        private List<BaseList> _viewActives = new ();
+        private List<BaseList> _viewActives = new();
         public void AddViewActives(BaseList baseList)
         {
             SetInputHandler(baseList.gameObject);
@@ -404,6 +404,7 @@ namespace Ryneus
             CheckTutorialState,
             SceneShowUI,
             SceneHideUI,
+            DungeonBusy,
         }
     }
 }

@@ -611,12 +611,12 @@ namespace Ryneus
             {
                 return;
             }
-            var playerDungeonId = Ariadne.PlayerPosition.currentDungeonId;
-            var playerPosition = Ariadne.PlayerPosition.playerPos;
-            var playerDirection = Ariadne.PlayerPosition.direction;
+            var playerDungeonId = Ariadne.PlayerPosition.Instance.currentDungeonId;
+            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+            var playerDirection = Ariadne.PlayerPosition.Instance.direction;
             CurrentDeckInfo.SetPosition(playerDungeonId,playerPosition.x,playerPosition.y,(int)playerDirection);
             // 開示マス情報を更新
-            var traverses = Ariadne.TraverseManager.GetDungeonTraverseData(playerDungeonId);
+            var traverses = Ariadne.TraverseManager.Instance.GetDungeonTraverseData(playerDungeonId);
             PartyInfo.AddDungeonTraverse(playerDungeonId,traverses.traverseDict);
         }
     }

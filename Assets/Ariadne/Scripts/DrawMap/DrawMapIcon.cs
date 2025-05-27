@@ -264,7 +264,7 @@ namespace Ariadne
         /// <param name="obj">The icon object.</param>
         protected virtual void SetIconVisibleState(Vector2Int axisPos, GameObject obj)
         {
-            bool isTraversed = TraverseManager.GetPositionTraverseData(dungeonData.dungeonId, floorMapData.floorId, axisPos);
+            bool isTraversed = TraverseManager.Instance.GetPositionTraverseData(dungeonData.dungeonId, floorMapData.floorId, axisPos);
             obj.GetComponent<Image>().enabled = isTraversed;
         }
 
@@ -297,8 +297,8 @@ namespace Ariadne
         protected virtual IEnumerator DrawIntermediateMap(float time)
         {
             yield return null;
-            Vector2Int sourcePos = PlayerPosition.playerPosPre;
-            Vector2Int destPos = PlayerPosition.playerPos;
+            Vector2Int sourcePos = PlayerPosition.Instance.playerPosPre;
+            Vector2Int destPos = PlayerPosition.Instance.playerPos;
             float finishTime = Time.time + time;
 
             Vector2 prePosLerp = Vector2.zero;

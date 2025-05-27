@@ -202,10 +202,10 @@ namespace Ariadne
                 initDir = floorMapData.enteringDir;
             }
 
-            PlayerPosition.playerPos = initPos;
-            PlayerPosition.direction = initDir;
-            PlayerPosition.currentFloorId = floorMapData.floorId;
-            PlayerPosition.currentDungeonId = dungeonData.dungeonId;
+            PlayerPosition.Instance.playerPos = initPos;
+            PlayerPosition.Instance.direction = initDir;
+            PlayerPosition.Instance.currentFloorId = floorMapData.floorId;
+            PlayerPosition.Instance.currentDungeonId = dungeonData.dungeonId;
 
             float targetAngle = CurrentDirAngle();
             player.transform.eulerAngles = new Vector3(0, targetAngle, 0);
@@ -217,8 +217,8 @@ namespace Ariadne
         /// </Summary>
         protected virtual void SetTraverse()
         {
-            TraverseManager.AddDungeonTraverseData(dungeonData.dungeonId, floorMapData.floorId, floorMapData);
-            PlayerPosition.SetTraverseData();
+            TraverseManager.Instance.AddDungeonTraverseData(dungeonData.dungeonId, floorMapData.floorId, floorMapData);
+            PlayerPosition.Instance.SetTraverseData();
         }
 
         /// <Summary>
@@ -227,9 +227,9 @@ namespace Ariadne
         protected virtual void SetCameraPos()
         {
             Vector3 currentPos = Vector3.zero;
-            currentPos.x += PlayerPosition.playerPos.x * unitSize.x;
+            currentPos.x += PlayerPosition.Instance.playerPos.x * unitSize.x;
             currentPos.y = player.transform.position.y;
-            currentPos.z += PlayerPosition.playerPos.y * unitSize.z;
+            currentPos.z += PlayerPosition.Instance.playerPos.y * unitSize.z;
             Vector3 targetPos = currentPos;
             player.transform.position = targetPos;
         }
@@ -306,6 +306,16 @@ namespace Ariadne
         /// </Summary>
         protected virtual void PlayerMove()
         {
+            if (isEventReady)
+            {
+                if (Input.GetKeyUp(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow))
+                {
+                    canMove = false;
+                    OnEventKeyPressed();
+                    return;
+                }
+            }
+
             if (Input.GetKey(KeyCode.UpArrow) || isPressedMoveFront)
             {
                 MoveFrontProcess();
@@ -317,7 +327,7 @@ namespace Ariadne
                 if (Input.GetKey(KeyCode.LeftArrow) || isPressedTurnLeft)
                 {
                     Direction dir = new Direction();
-                    DungeonDir targetDir = dir.GetCounterclockwiseDir(PlayerPosition.direction);
+                    DungeonDir targetDir = dir.GetCounterclockwiseDir(PlayerPosition.Instance.direction);
                     MoveToTargetDirectionProcess(targetDir);
                     return;
                 }
@@ -325,7 +335,7 @@ namespace Ariadne
                 if (Input.GetKey(KeyCode.RightArrow) || isPressedTurnRight)
                 {
                     Direction dir = new Direction();
-                    DungeonDir targetDir = dir.GetClockwiseDir(PlayerPosition.direction);
+                    DungeonDir targetDir = dir.GetClockwiseDir(PlayerPosition.Instance.direction);
                     MoveToTargetDirectionProcess(targetDir);
                     return;
                 }
@@ -333,7 +343,7 @@ namespace Ariadne
                 if (Input.GetKey(KeyCode.DownArrow) || isPressedTurnBack)
                 {
                     Direction dir = new Direction();
-                    DungeonDir targetDir = dir.GetReverseDir(PlayerPosition.direction);
+                    DungeonDir targetDir = dir.GetReverseDir(PlayerPosition.Instance.direction);
                     MoveToTargetDirectionProcess(targetDir);
                     return;
                 }
@@ -358,15 +368,16 @@ namespace Ariadne
                     return;
                 }
             }
-
+/* 最上に移動
             if (isEventReady)
             {
-                if (Input.GetKeyUp(KeyCode.Space))
+                if (Input.GetKeyUp(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow))
                 {
                     canMove = false;
                     OnEventKeyPressed();
                 }
             }
+*/
         }
 
         /// <Summary>
@@ -457,8 +468,8 @@ namespace Ariadne
             PreMove();
 
             // Check forward wall in current position
-            Vector2Int currentPos = PlayerPosition.playerPos;
-            int mapAttrId = PlayerPosition.GetMapInfoByDirection(floorMapData, currentPos, PlayerPosition.direction);
+            Vector2Int currentPos = PlayerPosition.Instance.playerPos;
+            int mapAttrId = PlayerPosition.Instance.GetMapInfoByDirection(floorMapData, currentPos, PlayerPosition.Instance.direction);
             if (!CheckCanMove(mapAttrId))
             {
                 canMove = true;
@@ -469,11 +480,11 @@ namespace Ariadne
                 return;
             }
 
-            Vector2Int ps = PlayerPosition.GetForwardPosition(1);
+            Vector2Int ps = PlayerPosition.Instance.GetForwardPosition(1);
             if (CheckPositionIsValid(ps))
             {
                 StartCoroutine(MoveForward(1));
-                PlayerPosition.SetTraverseData();
+                PlayerPosition.Instance.SetTraverseData();
                 SendSetDirtyMsg();
             }
         }
@@ -486,8 +497,8 @@ namespace Ariadne
             PreMove();
 
             // Check a wall of the specified direction from current position
-            Vector2Int currentPos = PlayerPosition.playerPos;
-            int mapAttrId = PlayerPosition.GetMapInfoByDirection(floorMapData, currentPos, targetDirection);
+            Vector2Int currentPos = PlayerPosition.Instance.playerPos;
+            int mapAttrId = PlayerPosition.Instance.GetMapInfoByDirection(floorMapData, currentPos, targetDirection);
             if (!CheckCanMove(mapAttrId))
             {
                 canMove = true;
@@ -498,11 +509,11 @@ namespace Ariadne
                 return;
             }
 
-            Vector2Int ps = PlayerPosition.GetSpecifiedDirPosition(targetDirection, 1);
+            Vector2Int ps = PlayerPosition.Instance.GetSpecifiedDirPosition(targetDirection, 1);
             if (CheckPositionIsValid(ps))
             {
                 StartCoroutine(MoveToTargetDirection(targetDirection, 1));
-                PlayerPosition.SetTraverseData();
+                PlayerPosition.Instance.SetTraverseData();
                 SendSetDirtyMsg();
             }
         }
@@ -647,7 +658,7 @@ namespace Ariadne
             bool matched = false;
             foreach (DungeonDir dir in parts.directionConditions)
             {
-                if (dir == PlayerPosition.direction)
+                if (dir == PlayerPosition.Instance.direction)
                 {
                     matched = true;
                     break;
@@ -665,7 +676,7 @@ namespace Ariadne
             StartCoroutine(HideKeyWaitWindow());
 
             // Check an event ID of target position.
-            Vector2Int ps = PlayerPosition.playerPos;
+            Vector2Int ps = PlayerPosition.Instance.playerPos;
             EventMasterData eventData = GetEventData(ps);
             bool isExecuted = ExecuteEventOnKeyPressed(eventData, ps, AriadneEventPosition.ThisPosition);
 
@@ -673,7 +684,7 @@ namespace Ariadne
             bool isForwardEventExecuted = false;
             if (!isExecuted)
             {
-                ps = PlayerPosition.GetForwardPosition(1);
+                ps = PlayerPosition.Instance.GetForwardPosition(1);
                 EventMasterData eventDataForward = GetEventData(ps);
                 isForwardEventExecuted = ExecuteEventOnKeyPressed(eventDataForward, ps, AriadneEventPosition.Around);
             }
@@ -692,7 +703,7 @@ namespace Ariadne
         protected virtual void SetEventTraverse(Vector2Int eventPos)
         {
             // This position is validated in GetEventData method.
-            TraverseManager.SetTraverseData(PlayerPosition.currentDungeonId, PlayerPosition.currentFloorId, eventPos, true);
+            TraverseManager.Instance.SetTraverseData(PlayerPosition.Instance.currentDungeonId, PlayerPosition.Instance.currentFloorId, eventPos, true);
             SendSetDirtyMsgImmediately();
         }
 
@@ -719,7 +730,7 @@ namespace Ariadne
             SetArrowButtonState(true);
 
             // Check an event ID of target position.
-            Vector2Int ps = PlayerPosition.playerPos;
+            Vector2Int ps = PlayerPosition.Instance.playerPos;
             EventMasterData eventData = GetEventData(ps);
             bool isExecuted = ExecuteEventOnPostMove(eventData, ps, AriadneEventPosition.ThisPosition);
 
@@ -727,7 +738,7 @@ namespace Ariadne
             bool isForwardEventExecuted = false;
             if (!isExecuted)
             {
-                ps = PlayerPosition.GetForwardPosition(1);
+                ps = PlayerPosition.Instance.GetForwardPosition(1);
                 EventMasterData eventDataForward = GetEventData(ps);
                 isForwardEventExecuted = ExecuteEventOnPostMove(eventDataForward, ps, AriadneEventPosition.Around);
             }
@@ -774,7 +785,7 @@ namespace Ariadne
         {
             // Move a step
             StartCoroutine(MoveForward(1));
-            PlayerPosition.SetTraverseData();
+            PlayerPosition.Instance.SetTraverseData();
             SendSetDirtyMsg();
             yield return new WaitForSeconds(moveWait);
         }
@@ -916,15 +927,15 @@ namespace Ariadne
             moveDestDungeon = destDungeon;
             SendDungeonData(gameController);
 
-            int preDungeonId = PlayerPosition.currentDungeonId;
-            int preFloorId = PlayerPosition.currentFloorId;
+            int preDungeonId = PlayerPosition.Instance.currentDungeonId;
+            int preFloorId = PlayerPosition.Instance.currentFloorId;
 
-            PlayerPosition.currentDungeonId = destDungeon.dungeonId;
-            PlayerPosition.currentFloorId = destFloor.floorId;
-            PlayerPosition.playerPos = destPos;
-            PlayerPosition.direction = destDirection;
+            PlayerPosition.Instance.currentDungeonId = destDungeon.dungeonId;
+            PlayerPosition.Instance.currentFloorId = destFloor.floorId;
+            PlayerPosition.Instance.playerPos = destPos;
+            PlayerPosition.Instance.direction = destDirection;
 
-            if (preDungeonId == PlayerPosition.currentDungeonId && preFloorId == PlayerPosition.currentFloorId)
+            if (preDungeonId == PlayerPosition.Instance.currentDungeonId && preFloorId == PlayerPosition.Instance.currentFloorId)
             {
                 didChangeFloor = false;
             }
@@ -939,8 +950,8 @@ namespace Ariadne
             floorMapData = ds.GetCurrentFloorData();
 
             // Add traverse data
-            TraverseManager.AddDungeonTraverseData(PlayerPosition.currentDungeonId, PlayerPosition.currentFloorId, floorMapData);
-            PlayerPosition.SetTraverseData();
+            TraverseManager.Instance.AddDungeonTraverseData(PlayerPosition.Instance.currentDungeonId, PlayerPosition.Instance.currentFloorId, floorMapData);
+            PlayerPosition.Instance.SetTraverseData();
             yield return null;
 
             // Remove dungeon walls and redraw dungeon
@@ -1081,12 +1092,12 @@ namespace Ariadne
             for (int i = 0; i < steps; i++)
             {
                 Vector3 currentPos = Vector3.zero;
-                currentPos.x += PlayerPosition.playerPos.x * unitSize.x;
+                currentPos.x += PlayerPosition.Instance.playerPos.x * unitSize.x;
                 currentPos.y = player.transform.position.y;
-                currentPos.z += PlayerPosition.playerPos.y * unitSize.z;
-                PlayerPosition.MoveForward();
+                currentPos.z += PlayerPosition.Instance.playerPos.y * unitSize.z;
+                PlayerPosition.Instance.MoveForward();
                 Vector3 targetPos = currentPos;
-                switch (PlayerPosition.direction)
+                switch (PlayerPosition.Instance.direction)
                 {
                     case DungeonDir.North:
                         targetPos = new Vector3(currentPos.x, currentPos.y, currentPos.z + unitSize.z);
@@ -1134,10 +1145,10 @@ namespace Ariadne
             for (int i = 0; i < steps; i++)
             {
                 Vector3 currentPos = Vector3.zero;
-                currentPos.x += PlayerPosition.playerPos.x * unitSize.x;
+                currentPos.x += PlayerPosition.Instance.playerPos.x * unitSize.x;
                 currentPos.y = player.transform.position.y;
-                currentPos.z += PlayerPosition.playerPos.y * unitSize.z;
-                PlayerPosition.MoveToTargetDirection(targetDir);
+                currentPos.z += PlayerPosition.Instance.playerPos.y * unitSize.z;
+                PlayerPosition.Instance.MoveToTargetDirection(targetDir);
                 Vector3 targetPos = currentPos;
                 switch (targetDir)
                 {
@@ -1188,15 +1199,15 @@ namespace Ariadne
             switch (turnDir)
             {
                 case TurnLeft:
-                    PlayerPosition.TurnLeft();
+                    PlayerPosition.Instance.TurnLeft();
                     targetAngle = CurrentDirAngle();
                     break;
                 case TurnRight:
-                    PlayerPosition.TurnRight();
+                    PlayerPosition.Instance.TurnRight();
                     targetAngle = CurrentDirAngle();
                     break;
                 case TurnBack:
-                    PlayerPosition.TurnBack();
+                    PlayerPosition.Instance.TurnBack();
                     targetAngle = CurrentDirAngle();
                     break;
             }
@@ -1226,7 +1237,7 @@ namespace Ariadne
         protected virtual float CurrentDirAngle()
         {
             float angle = 0f;
-            switch (PlayerPosition.direction)
+            switch (PlayerPosition.Instance.direction)
             {
                 case DungeonDir.North:
                     angle = 0f;
@@ -1526,7 +1537,7 @@ namespace Ariadne
 
         public void SetTraverses(int dungeonId,List<string> traverses)
         {
-            TraverseData dungeonTraverseData = TraverseManager.GetDungeonTraverseData(dungeonId);
+            TraverseData dungeonTraverseData = TraverseManager.Instance.GetDungeonTraverseData(dungeonId);
             if (dungeonTraverseData == null)
             {
                 return;
@@ -1543,8 +1554,8 @@ namespace Ariadne
 
         public void SetPlayerPosition(int x,int y,int direction)
         {
-            PlayerPosition.playerPos = new Vector2Int(x,y);
-            PlayerPosition.direction = (DungeonDir)direction;
+            PlayerPosition.Instance.playerPos = new Vector2Int(x,y);
+            PlayerPosition.Instance.direction = (DungeonDir)direction;
             float targetAngle = CurrentDirAngle();
             player.transform.eulerAngles = new Vector3(0, targetAngle, 0);
             SetCameraPos();

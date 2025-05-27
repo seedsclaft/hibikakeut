@@ -35,6 +35,7 @@ namespace Ryneus
         public void SetPartyUnitList(List<ListData> listDatas)
         {
             partyUnitList.SetData(listDatas);
+            SetActivate(null);
         }
 
         private void CallSideMenu()

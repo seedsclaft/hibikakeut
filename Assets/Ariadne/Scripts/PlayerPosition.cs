@@ -7,19 +7,19 @@ namespace Ariadne
     /// <Summary>
     /// Holds player position and direction data.
     /// </Summary>
-    public static class PlayerPosition
+    public class PlayerPosition : SingletonMonoBehaviour<PlayerPosition>
     {
-        public static Vector2Int playerPos;
-        public static Vector2Int playerPosPre;
-        public static DungeonDir direction = DungeonDir.North;
-        public static int currentDungeonId = 0;
-        public static int currentFloorId = 0;
+        public Vector2Int playerPos;
+        public Vector2Int playerPosPre;
+        public DungeonDir direction = DungeonDir.North;
+        public int currentDungeonId = 0;
+        public int currentFloorId = 0;
 
         /// <Summary>
         /// Returns the position of specified steps forward.
         /// </Summary>
         /// <param name="units">Forward steps to get position.</param>
-        public static Vector2Int GetForwardPosition(int units)
+        public Vector2Int GetForwardPosition(int units)
         {
             Vector2Int ps = playerPos;
             switch (direction)
@@ -45,7 +45,7 @@ namespace Ariadne
         /// </Summary>
         /// <param name="targetDir">Target direction.</param>
         /// <param name="units">Forward steps to get position.</param>
-        public static Vector2Int GetSpecifiedDirPosition(DungeonDir targetDir, int units)
+        public Vector2Int GetSpecifiedDirPosition(DungeonDir targetDir, int units)
         {
             Vector2Int ps = playerPos;
             switch (targetDir)
@@ -72,7 +72,7 @@ namespace Ariadne
         /// <param name="mapData">Target position to check.</param>
         /// <param name="pos">Target position to check.</param>
         /// <param name="dir">Direction to check.</param>
-        public static int GetMapInfoByDirection(FloorMapMasterData mapData, Vector2Int pos, DungeonDir dir)
+        public int GetMapInfoByDirection(FloorMapMasterData mapData, Vector2Int pos, DungeonDir dir)
         {
             int wallInfo = 0;
             Vector2Int targetPos = pos;
@@ -107,7 +107,7 @@ namespace Ariadne
         /// <Summary>
         /// Set forward position to playerPos.
         /// </Summary>
-        public static void MoveForward()
+        public void MoveForward()
         {
             playerPosPre = playerPos;
             switch (direction)
@@ -130,7 +130,7 @@ namespace Ariadne
         /// <Summary>
         /// Set the position of the target direction to playerPos.
         /// </Summary>
-        public static void MoveToTargetDirection(DungeonDir targetDir)
+        public void MoveToTargetDirection(DungeonDir targetDir)
         {
             playerPosPre = playerPos;
             switch (targetDir)
@@ -153,7 +153,7 @@ namespace Ariadne
         /// <Summary>
         /// Set direction to player's left hand side.
         /// </Summary>
-        public static void TurnLeft()
+        public void TurnLeft()
         {
             Direction dir = new Direction();
             direction = dir.GetCounterclockwiseDir(direction);
@@ -162,7 +162,7 @@ namespace Ariadne
         /// <Summary>
         /// Set direction to player's right hand side.
         /// </Summary>
-        public static void TurnRight()
+        public void TurnRight()
         {
             Direction dir = new Direction();
             direction = dir.GetClockwiseDir(direction);
@@ -171,7 +171,7 @@ namespace Ariadne
         /// <Summary>
         /// Set direction to the player's back side.
         /// </Summary>
-        public static void TurnBack()
+        public void TurnBack()
         {
             Direction dir = new Direction();
             direction = dir.GetReverseDir(direction);
@@ -183,7 +183,7 @@ namespace Ariadne
         /// <param name="targetPosition">Target position to check.</param>
         /// <param name="horizontalMax">Horizontal size of the floor.</param>
         /// <param name="verticalMax">Vertical size of the floor.</param>
-        public static bool CheckPositionIsValid(Vector2Int targetPosition, int horizontalMax, int verticalMax)
+        public bool CheckPositionIsValid(Vector2Int targetPosition, int horizontalMax, int verticalMax)
         {
             bool isValid = true;
 
@@ -204,9 +204,9 @@ namespace Ariadne
         /// <Summary>
         /// Set traverse data.
         /// </Summary>
-        public static void SetTraverseData()
+        public void SetTraverseData()
         {
-            TraverseManager.SetTraverseData(currentDungeonId, currentFloorId, playerPos, true);
+            TraverseManager.Instance.SetTraverseData(currentDungeonId, currentFloorId, playerPos, true);
         }
     }
 }

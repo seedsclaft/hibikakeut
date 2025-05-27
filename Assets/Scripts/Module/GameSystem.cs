@@ -257,6 +257,9 @@ namespace Ryneus
                 case Base.CommandType.SceneShowUI:
                     SceneShowUI();
                     break;
+                case Base.CommandType.DungeonBusy:
+                    CommandDungeonBusy((bool)viewEvent.Template);
+                    break;
             }
         }
 
@@ -449,7 +452,7 @@ namespace Ryneus
             }
             if (MoveController != null)
             {
-                MoveController.isInDungeon = sceneInfo.ToScene == Scene.Dungeon;
+                CommandDungeonBusy(sceneInfo.ToScene != Scene.Dungeon);
                 if (sceneInfo.ToScene != Scene.Dungeon)
                 {
                     MoveController.HideUI();
@@ -484,7 +487,7 @@ namespace Ryneus
             {
                 MoveController = moveController;
             }
-            _model.PartyInfo.SetupDungeonTraverse(Ariadne.PlayerPosition.currentDungeonId);
+            _model.PartyInfo.SetupDungeonTraverse(Ariadne.PlayerPosition.Instance.currentDungeonId);
             /*
             _currentScene = prefab.GetComponent<BaseView>();
             _currentScene.SetTestMode(testMode);
@@ -527,6 +530,15 @@ namespace Ryneus
         private void SceneHideUI()
         {
             _currentScene?.ChangeUIActive(false);
+        }
+
+        private void CommandDungeonBusy(bool busy)
+        {
+            if (MoveController == null)
+            {
+                return;
+            }
+            MoveController.isInDungeon = !busy;
         }
 
         private void CheckTutorialState(TutorialViewInfo tutorialViewInfo)
