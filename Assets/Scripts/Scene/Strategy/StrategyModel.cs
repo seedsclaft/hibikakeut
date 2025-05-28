@@ -7,6 +7,8 @@ namespace Ryneus
     {
         private StrategySceneInfo _sceneParam;
         public StrategySceneInfo SceneParam => _sceneParam;
+        private Scene _returnScene = Scene.None;
+        public Scene ReturnScene => _returnScene;
         private bool _battleResultVictory = false;
         public bool BattleResultVictory => _battleResultVictory;
 
@@ -24,6 +26,7 @@ namespace Ryneus
             _sceneParam = (StrategySceneInfo)GameSystem.SceneStackManager.LastSceneParam;
             _inBattleResult = _sceneParam.InBattle;
             _battleResultVictory = _sceneParam.BattleResultVictory;
+            _returnScene = _sceneParam.ReturnScene;
             if (_inBattleResult)
             {
                 var actors = _sceneParam.BattlerInfos.FindAll(a => a.ActorInfo != null);
@@ -389,5 +392,6 @@ namespace Ryneus
         public int BattleMaxDamage;
         public int BattleDefeatedCount;
         public bool BattleResultVictory;
+        public Scene ReturnScene;
     }
 }

@@ -463,6 +463,12 @@ namespace Ryneus
                     MoveController.SetTraverses(_model.CurrentDeckInfo.DungeonId.Value,_model.PartyInfo.GetDungeonTraverse(_model.CurrentDeckInfo.DungeonId.Value));
                     // 位置保存情報を復帰
                     MoveController.SetPlayerPosition(_model.PartyInfo.CurrentDeckInfo.PositionX.Value,_model.PartyInfo.CurrentDeckInfo.PositionY.Value,_model.PartyInfo.CurrentDeckInfo.Direction.Value);
+                    // フラグ情報でイベント表示を制御
+                    var endStageEvents = _model.EndStageEvents();
+                    foreach (var endStageEvent in endStageEvents)
+                    {
+                        MoveController.SetDeactiveEventObj(endStageEvent.PositionX,endStageEvent.PositionY);
+                    }
                 }
             }
             var prefab = sceneAssign.CreateScene(sceneInfo.ToScene, helpWindow);

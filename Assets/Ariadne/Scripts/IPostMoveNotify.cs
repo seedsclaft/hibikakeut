@@ -11,5 +11,6 @@ namespace Ariadne
         /// Notify the event of post move.
         /// </Summary>
         void OnPostMoveEvent();
+        void OnPostGameEvent();
     }
 }

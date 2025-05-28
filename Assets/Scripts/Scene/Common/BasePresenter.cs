@@ -60,6 +60,16 @@ namespace Ryneus
             return null;
         }
 
+        public StageEventData GetStageEventData(EventTiming eventTiming,int positionX,int positionY)
+        {
+            var timingEvents = _model.StageEvents(eventTiming,positionX,positionY);
+            if (timingEvents.Count > 0)
+            {
+                return timingEvents.First();
+            }
+            return null;
+        }
+
         public bool CheckAdvEvent(EventTiming eventTiming,float timeStamp = 0,Action endEvent = null)
         {
             if (CheckEvent(eventTiming,(a) => CheckAdvEvent(eventTiming,timeStamp,endEvent)))

@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Ryneus
@@ -76,6 +76,18 @@ namespace Ryneus
             var troopInfo = new TroopInfo(-1);
             troopInfo.MakeEnemyRandomTroopDates(1,CurrentStage.Master.RandomTroopEnemyRates);
             return troopInfo;
+        }
+
+        public List<ActorInfo> AddSelectActorInfos()
+        {
+            // 未加入の仲間
+            var actorDates = DataSystem.Actors.Where(a => PartyInfo.ActorInfos.Find(b => a.Value.Id == b.ActorId.Value) == null).ToList();
+            var actorInfos = new List<ActorInfo>();
+            foreach (var actorDate in actorDates)
+            {
+                actorInfos.Add(new ActorInfo(actorDate.Value));
+            }
+            return actorInfos;
         }
 
         public List<SystemData.CommandData> SideMenu()

@@ -74,6 +74,9 @@ namespace Ariadne
         [SerializeField]
         GameObject dungeonUI = null;
 
+
+        [SerializeField] private DrawDungeonWall drawDungeonWall;
+
         void Start()
         {
             
@@ -1051,6 +1054,7 @@ namespace Ariadne
         protected virtual void PostEvent()
         {
             InitializeEventFlags();
+            NotifyPostMoveEvent(postMoveEventObj);
             ReadyToMove();
         }
 
@@ -1525,6 +1529,27 @@ namespace Ariadne
             inf.OnPostMoveEvent();
         }
 
+        /// <Summary>
+        /// Notify the post event of after moving.
+        /// </Summary>
+        /// <param name="obj">Specify the gameObject which holds the script for post events.</param>
+        protected virtual void NotifyPostGameEvent(GameObject obj)
+        {
+            ExecuteEvents.Execute<IPostMoveNotify>(
+                target: obj,
+                eventData: null,
+                functor: PostGameEventMsg
+            );
+        }
+
+        /// <Summary>
+        /// The functor of NotifyPostMoveEvent method.
+        /// </Summary>
+        void PostGameEventMsg(IPostMoveNotify inf, BaseEventData eventData)
+        {
+            inf.OnPostGameEvent();
+        }
+
         public void ShowUI()
         {
             dungeonUI.SetActive(true);
@@ -1562,6 +1587,15 @@ namespace Ariadne
             // Add traverse data
             SetTraverse();
             SendSetDirtyMsg();
+        }
+
+        public void SetDeactiveEventObj(int positionX,int positionY)
+        {
+            GameObject eventObj = drawDungeonWall.GetWallObjectByAxis(positionX, positionY);
+            if (eventObj != null)
+            {
+                eventObj.SetActive(false);
+            }
         }
     }
 }

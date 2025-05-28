@@ -329,6 +329,10 @@ namespace Ryneus
                 ReturnBeforeBattle = true,
             };
             _model.EndStrategy();
+            if (_model.ReturnScene != Scene.None)
+            {
+                _view.CommandGotoSceneChange(_model.ReturnScene);
+            } else
             if (_model.InBattleResult)
             {
                 _view.CommandGotoSceneChange(Scene.Dungeon);

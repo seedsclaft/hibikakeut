@@ -33,7 +33,7 @@ namespace Ryneus
 
         private bool CheckEventData(Action endEvent = null)
         {
-            var stageEvent = GetStageEventData(EventTiming.BeforeTactics);
+            var stageEvent = GetStageEventData(EventTiming.BeforeMainMenu);
             if (stageEvent != null)
             {
                 switch (stageEvent.Type)
@@ -41,7 +41,7 @@ namespace Ryneus
                     case StageEventType.AdvStart:
                         // TimeStampを取得してBgmをフェードアウト
                         var timeStamp = SoundManager.Instance.CurrentTimeStamp();
-                        if (CheckAdvEvent(EventTiming.BeforeTactics,timeStamp,() => CheckEventData(() => InitializeView(timeStamp))))
+                        if (CheckAdvEvent(EventTiming.BeforeMainMenu,timeStamp,() => CheckEventData(() => InitializeView(timeStamp))))
                         {
                             return true;
                         }
@@ -171,7 +171,6 @@ namespace Ryneus
                             }
                             _model.AddEventReadFlag(stageEvent);
                         }
-                        
                     }
                     _model.SetTutorial(tutorialData);
                 }

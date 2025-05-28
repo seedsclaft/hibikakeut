@@ -128,7 +128,8 @@ namespace Ryneus
             var strategySceneInfo = new StrategySceneInfo
             {
                 ActorInfos = StageMembers().FindAll(a => a.ActorId.Value == CurrentActor.ActorId.Value),
-                InBattle = false
+                InBattle = false,
+                ReturnScene = Scene.Dungeon
             };
             strategySceneInfo.GetItemInfos = new List<GetItemInfo>
             {

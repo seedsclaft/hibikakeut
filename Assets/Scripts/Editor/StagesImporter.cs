@@ -109,13 +109,13 @@ namespace Ryneus
 
                             if (StageId == StageData.Id)
                             {
-                                EventData.Turns = AssetPostImporter.ImportNumeric(EventRow, "Turns");
+                                EventData.PositionX = AssetPostImporter.ImportNumeric(EventRow, "PositionX");
+                                EventData.PositionY = AssetPostImporter.ImportNumeric(EventRow, "PositionY");
                                 EventData.Timing = (EventTiming)AssetPostImporter.ImportNumeric(EventRow, "Timing");
                                 EventData.Type = (StageEventType)AssetPostImporter.ImportNumeric(EventRow, "Type");
                                 EventData.Param = AssetPostImporter.ImportNumeric(EventRow, "Param");
                                 EventData.ReadFlag = AssetPostImporter.ImportBool(EventRow, "ReadFlag");
-
-                                EventData.EventKey = EventData.Turns.ToString() + EventData.Timing.ToString() + EventData.Type.ToString() + EventData.Param.ToString();
+                                EventData.EventKey = StageId.ToString() + "_" + EventData.PositionX.ToString() + "_" + EventData.PositionY.ToString() + EventData.Timing.ToString() + EventData.Type.ToString() + EventData.Param.ToString();
 
                                 StageData.StageEvents.Add(EventData);
                             }

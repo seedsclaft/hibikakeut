@@ -37,15 +37,14 @@ namespace Ryneus
         public List<StageSymbolData> StageSymbols;
     }
 
-
-
     [Serializable]
     public class StageEventData
     {
         public string EventKey;
-        public int Turns;
         public EventTiming Timing;
         public StageEventType Type;
+        public int PositionX;
+        public int PositionY;
         public int Param;
         public bool ReadFlag;
     }
@@ -153,40 +152,20 @@ namespace Ryneus
     public enum EventTiming
     {
         None = 0,
-        BeforeTactics = 110,
-        BattleVictory = 210,
         StartTutorial = 1010,
+        BeforeMainMenu = 2010,
+        BattleVictory = 2020,
+        Dungeon = 3010,
     }
 
     public enum StageEventType
     {
         None = 0,
-        CommandDisable = 1, // コマンドを制限する
-        TutorialBattle = 2, // バトルをチュートリアルで固定する
-        NeedAllTactics = 3, // 全員コマンドを選ばないと進まない
-        IsSubordinate = 4, // 隷従属度フラグを管理
-        IsAlcana = 5, // アルカナフラグを管理
-        SelectAddActor = 6, // 仲間を選んで加入する
-        SaveCommand = 7, // セーブを行う,
-        SetDefineBossIndex = 8, // ボスの選択番号を設定する
-        NeedUseSp = 9, // SPを消費しないと進まない
-        SelectActorAdvStart = 12, // IDにActorIDを加算してADV再生
-        RouteSelectEvent = 13, // ルート分岐イベント
-        SetRouteSelectParam = 14, // ルート分岐パラメータを保存
-        RouteSelectMoveEvent = 15, // ルート分岐ステージイベント
-        ClearStage = 21, // ステージをクリアする
-        ChangeRouteSelectStage = 31, // ルート分岐でステージに移動
-        RouteSelectBattle = 32, // ルート分岐敵グループを生成
-        SetDisplayTurns = 33, // 表示残りターンをマスターから取得
-        RebornSkillEffect = 41, // 継承スキル演出再生
-        MoveStage = 51, // ステージ移動
-        SetDefineBoss = 61, // 中ボスを設定する
-        SetLastBoss = 62, // 上位者ボスを設定する
-        AdvStart = 100, // ADV再生
-        ForceBattle = 110, // 今のステージシンボルの〇SeekIndexのバトルを開始
-        SurvivalMode = 201, // サバイバルモードにする
-        TurnEndCommandEnable = 1010, // ターン終了コマンド操作
-        TurnEndCommandDisable = 1011, // ターン終了コマンド操作
+        AdvStart = 1010,
+        SelectAddActor = 4010, // 選択して仲間を増やす
+        ForceBattle,
+        TurnEndCommandEnable,
+        TurnEndCommandDisable,
     }
 
     public enum TutorialType

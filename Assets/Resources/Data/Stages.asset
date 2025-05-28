@@ -67,7 +67,14 @@ MonoBehaviour:
     BGMId: 1010
     BossBGMId: 2010
     MenuBGMId: 100
-    StageEvents: []
+    StageEvents:
+    - EventKey: 10_1_1DungeonSelectAddActor1
+      Timing: 3010
+      Type: 4010
+      PositionX: 1
+      PositionY: 1
+      Param: 1
+      ReadFlag: 1
     StageSymbols:
     - Id: 1000
       StageId: 10
@@ -228,31 +235,7 @@ MonoBehaviour:
     BGMId: 1010
     BossBGMId: 2010
     MenuBGMId: 100
-    StageEvents:
-    - EventKey: 1StartTutorialTurnEndCommandDisable0
-      Turns: 1
-      Timing: 1010
-      Type: 1011
-      Param: 0
-      ReadFlag: 1
-    - EventKey: 1StartTutorialTurnEndCommandEnable400
-      Turns: 1
-      Timing: 1010
-      Type: 1010
-      Param: 400
-      ReadFlag: 1
-    - EventKey: 1StartTutorialTurnEndCommandDisable500
-      Turns: 1
-      Timing: 1010
-      Type: 1011
-      Param: 500
-      ReadFlag: 1
-    - EventKey: 1StartTutorialTurnEndCommandEnable600
-      Turns: 1
-      Timing: 1010
-      Type: 1010
-      Param: 600
-      ReadFlag: 1
+    StageEvents: []
     StageSymbols: []
   - Id: 1020
     StageNo: 101

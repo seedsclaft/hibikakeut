@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -72,6 +72,13 @@ namespace Ryneus
                 return;
             }
 
+            // イベントマスの場合
+            if (CheckEventData(() => {_view.CallSystemCommand(Base.CommandType.DungeonBusy,false);}))
+            {
+                _view.CallSystemCommand(Base.CommandType.DungeonBusy,true);
+                return;
+            }
+
             // エンカウントした場合
             if (_model.EncountEnemy())
             {
@@ -86,6 +93,76 @@ namespace Ryneus
                 _view.ChangeUIActive(false);
                 _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
                 SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
+            }
+        }
+
+        private bool CheckEventData(Action endEvent = null)
+        {
+            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+            var stageEvent = GetStageEventData(EventTiming.Dungeon,playerPosition.x,playerPosition.y);
+            if (stageEvent != null)
+            {
+                switch (stageEvent.Type)
+                {
+                    case StageEventType.AdvStart:
+                        // TimeStampを取得してBgmをフェードアウト
+                        var timeStamp = SoundManager.Instance.CurrentTimeStamp();
+                        if (CheckAdvEvent(EventTiming.BattleVictory,timeStamp,() => CheckEventData(() => Initialize())))
+                        {
+                            return true;
+                        }
+                        return true;
+                    case StageEventType.SelectAddActor:
+                        // 選択して仲間を加入
+                        // 確認後仲間選択
+                        var confirmInfo = new ConfirmInfo("加入したい仲間を選択！",(a) =>
+                        {
+                            CommandCallAddActorInfo(true,true);
+                        });
+                        confirmInfo.SetIsNoChoice(true);
+                        confirmInfo.SetBackEvent(() => {});
+                        _view.CommandCallConfirm(confirmInfo);
+                        _model.AddEventReadFlag(stageEvent);
+                        SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                        return true;
+                }
+            }
+            endEvent?.Invoke();
+            return false;
+        }
+
+        private void CommandCallAddActorInfo(bool freeSelect,bool addCommand)
+        {
+            List<ActorInfo> actorInfos = null;
+            if (freeSelect)
+            {
+                actorInfos = _model.AddSelectActorInfos();
+            } else
+            {
+                //actorInfos = _model.AddSelectActorGetItemInfos(symbolResultInfo.SymbolInfo.GetItemInfos);
+            }
+            if (addCommand)
+            {
+                // 加入する用
+                CommandStatusInfo(actorInfos,false,false,false,true,-1,() => 
+                {
+
+                },false,true);
+            } else
+            {
+                /*
+                var selectActorId = -1;
+                var getItemInfo = _view.SymbolGetItemInfo;
+                if (getItemInfo != null)
+                {
+                    selectActorId = getItemInfo.Param1;
+                }
+                // 確認する用
+                CommandStatusInfo(actorInfos,false,true,false,false,selectActorId,() => 
+                {
+
+                });
+                */
             }
         }
 

@@ -50,5 +50,11 @@ namespace Ariadne
         {
             _moveEndEvent = moveEndEvent;
         }
+
+
+        public void OnPostGameEvent()
+        {
+            _moveEndEvent?.Invoke();
+        }
     }
 }

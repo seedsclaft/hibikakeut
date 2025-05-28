@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace Ariadne
 {
+/*
     /// <Summary>
     /// Check the post event in the Demo scene.
     /// </Summary>
@@ -44,4 +45,5 @@ namespace Ariadne
             inf.OnFinishedPostMoveEvent();
         }
     }
+*/
 }

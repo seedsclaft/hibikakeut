@@ -186,6 +186,18 @@ namespace Ryneus
             return StageEventDates.FindAll(a => a.Timing == eventTiming && !eventKeys.Contains(a.EventKey));
         }
 
+        public List<StageEventData> StageEvents(EventTiming eventTiming,int positionX,int positionY)
+        {
+            var eventKeys = CurrentGameInfo.ReadEventKeys;
+            return StageEventDates.FindAll(a => a.Timing == eventTiming && a.PositionX == positionX && a.PositionY == positionY && !eventKeys.Contains(a.EventKey));
+        }
+
+        public List<StageEventData> EndStageEvents()
+        {
+            var eventKeys = CurrentGameInfo.ReadEventKeys;
+            return StageEventDates.FindAll(a => eventKeys.Contains(a.EventKey));
+        }
+
         public void AddEventsReadFlag(List<StageEventData> stageEventDates)
         {
             foreach (var eventData in stageEventDates)
