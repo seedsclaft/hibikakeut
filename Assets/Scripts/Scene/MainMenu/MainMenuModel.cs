@@ -61,6 +61,23 @@ namespace Ryneus
                     // 与ダメージ
                     achievementInfo.SetCondition(PartyInfo.TotalDamage.Value,achievementInfo.Master.Param1);
                     break;
+                case AchievementConditionType.DeckEditCommandCount:
+                    // 編成コマンド回数
+                    achievementInfo.SetCondition(PartyInfo.DeckEditCommandCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.PresentCommandCount:
+                    // 献上コマンド回数
+                    achievementInfo.SetCondition(PartyInfo.PresentCommandCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.ReliefCommandCount:
+                    // 救済コマンド回数
+                    achievementInfo.SetCondition(PartyInfo.ReliefCommandCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.StatusSkillChangeCount:
+                    // 魔法編成回数
+                    achievementInfo.SetCondition(PartyInfo.StatusSkillChangeCount.Value,achievementInfo.Master.Param1);
+                    break;
+                    
             }
         }
 
@@ -79,6 +96,18 @@ namespace Ryneus
         public bool IsEnding()
         {
             return false;//PartyInfo.HasEndingGetItem();
+        }
+
+        public List<ActorInfo> AddSelectActorInfos()
+        {
+            // 未加入の仲間
+            var actorDates = DataSystem.Actors.Where(a => PartyInfo.ActorInfos.Find(b => a.Value.Id == b.ActorId.Value) == null).ToList();
+            var actorInfos = new List<ActorInfo>();
+            foreach (var actorDate in actorDates)
+            {
+                actorInfos.Add(new ActorInfo(actorDate.Value));
+            }
+            return actorInfos;
         }
 
         public List<ListData> MainMenuCommand()

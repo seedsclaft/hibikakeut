@@ -2280,6 +2280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partyInfo:
+    ResumeScene: 0
     _actorInfos:
     - ActorId:
         _value: 0
@@ -2297,6 +2298,8 @@ MonoBehaviour:
       BattleIndex:
         _value: 0
     StageId:
+      _value: 0
+    TurnCount:
       _value: 0
     Currency:
       _value: 0
@@ -25527,33 +25530,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d011acd54de2c45bde315a6e5c4f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  homeTeamInfo:
-    TeamId:
-      _value: 0
-    ActPoint:
-      _value: 1
-    CurrentActPoint:
-      _value: 1
-    LastSelectHexX:
-      _value: 0
-    LastSelectHexY:
-      _value: 0
-  homeUnitInfos: []
-  homeDepatuerInfos: []
-  awayTeamInfo:
-    TeamId:
-      _value: 0
-    ActPoint:
-      _value: 1
-    CurrentActPoint:
-      _value: 1
-    LastSelectHexX:
-      _value: 0
-    LastSelectHexY:
-      _value: 0
-  awayUnitInfos: []
-  awayDepatuerInfos: []
-  stageFieldInfos: []
 --- !u!1001 &1597365432
 PrefabInstance:
   m_ObjectHideFlags: 0

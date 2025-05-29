@@ -42,7 +42,7 @@ namespace Ryneus
                 //AssetDatabase.CreateAsset(Data, ExportPath);
                 //Data.hideFlags = HideFlags.NotEditable;
             }
-            Data.hideFlags = HideFlags.None;
+            //Data.hideFlags = HideFlags.None;
 
             try
             {
@@ -92,7 +92,7 @@ namespace Ryneus
                         AriadoneMasterData = ScriptableObject.CreateInstance<Ariadne.DungeonMasterData>();
                         
                         AssetDatabase.CreateAsset(AriadoneMasterData, AriadoneExportPath);
-                        //Data.hideFlags = HideFlags.NotEditable;
+                        AriadoneMasterData.hideFlags = HideFlags.None;
                     }
                     AriadoneMasterData.dungeonId = Data.Data.Id;
                     AriadoneMasterData.dungeonName = Data.Data.Name;
@@ -185,9 +185,9 @@ namespace Ryneus
                 AriadoneFloorData = ScriptableObject.CreateInstance<Ariadne.FloorMapMasterData>();
                 
                 AssetDatabase.CreateAsset(AriadoneFloorData, AriadoneExportPath);
-                //Data.hideFlags = HideFlags.NotEditable;
             }
             AriadoneFloorData.hideFlags = HideFlags.None;
+            //AriadoneFloorData.hideFlags = HideFlags.None;
             AriadoneFloorData.floorSizeVertical = Data.Data.Width;
             AriadoneFloorData.floorSizeHorizontal = Data.Data.Height;
             AriadoneFloorData.floorId = Data.Data.FloorId;

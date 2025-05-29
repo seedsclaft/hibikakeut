@@ -106,6 +106,12 @@ namespace Ryneus
             return States.Find(a => a.StateType == (StateType)id);
         }
 
+        public static Ariadne.FloorMapMasterData FindDungeonFloor(int id)
+        {
+            var master = Resources.Load<Ariadne.DungeonMasterData>("Data/Dungeon" + id.ToString("D4"));
+            return master.floorList[0];
+        }
+
         public static TextData GetTextData(int id)
         {
             return System.GetTextData(id);

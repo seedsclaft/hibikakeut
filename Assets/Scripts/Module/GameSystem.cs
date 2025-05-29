@@ -493,6 +493,7 @@ namespace Ryneus
             {
                 MoveController = moveController;
             }
+            //_model.CurrentDeckInfo.SetPosition(Ariadne.PlayerPosition.Instance.currentDungeonId,);
             _model.PartyInfo.SetupDungeonTraverse(Ariadne.PlayerPosition.Instance.currentDungeonId);
             /*
             _currentScene = prefab.GetComponent<BaseView>();

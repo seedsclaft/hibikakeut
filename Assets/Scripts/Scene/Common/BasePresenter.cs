@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 namespace Ryneus
 {
@@ -232,6 +233,29 @@ namespace Ryneus
             statusViewInfo.DisplayLvUpInfo.SetValue(levelUpObj);
             statusViewInfo.DisplayBackButton.SetValue(backButton);
             statusViewInfo.IsRanking.SetValue(isRanking);
+            _view.CallSystemCommand(Base.CommandType.CallStatusView,statusViewInfo);
+            _view.ChangeUIActive(false);
+        }
+
+        /// <summary>
+        /// 仲間加入ステータス詳細を表示
+        /// </summary>
+        /// <param name="actorInfos"></param>
+        public void CommandAddActorStatusInfo(List<ActorInfo> actorInfos,Action closeEvent = null)
+        {
+            var statusViewInfo = new StatusViewInfo(() =>
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                _view.CallSystemCommand(Base.CommandType.CloseStatus);
+                _view.ChangeUIActive(true);
+                closeEvent?.Invoke();
+            });
+            statusViewInfo.SetActorInfos(actorInfos,false);
+            statusViewInfo.DisplayDecideButton.SetValue(true);
+            statusViewInfo.DisplayCharacterList.SetValue(true);
+            statusViewInfo.DisplayLvUpInfo.SetValue(false);
+            statusViewInfo.DisplayBackButton.SetValue(false);
+            statusViewInfo.IsRanking.SetValue(false);
             _view.CallSystemCommand(Base.CommandType.CallStatusView,statusViewInfo);
             _view.ChangeUIActive(false);
         }

@@ -180,6 +180,7 @@ namespace Ryneus
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 _model.ChangeEquipSkill(skillInfo.Id.Value);
                 ResetSelectSkill();
+                _model.PartyInfo.StatusSkillChangeCount.GainValue(1);
             }
         }
 
@@ -290,6 +291,7 @@ namespace Ryneus
                 {
                     _view.CallSystemCommand(Base.CommandType.CloseStatus);
                     var strategySceneInfo = _model.DecideActor();
+                    strategySceneInfo.ReturnScene = GameSystem.SceneStackManager.Current;
                     _view.CommandGotoSceneChange(Scene.Strategy,strategySceneInfo);
                 } else
                 {

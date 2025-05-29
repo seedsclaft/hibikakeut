@@ -791,6 +791,10 @@ namespace Ryneus
             {
                 return;
             }
+            if (_objectList.Count <= _index)
+            {
+                return;
+            }
             if (_grid)
             {
                 UpdateGridScrollRect(keyTypes);

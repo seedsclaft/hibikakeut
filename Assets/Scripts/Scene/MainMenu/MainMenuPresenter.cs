@@ -89,6 +89,9 @@ namespace Ryneus
                 case "Present":
                     CommandPresent();
                     break;
+                case "Relief":
+                    CommandRelief();
+                    break;
                 case "Status":
                     var actorInfos = _model.PartyInfo.ActorInfos;
                     CommandStatusInfo(actorInfos,false,true,true,false,actorInfos[0].ActorId.Value,() => 
@@ -162,6 +165,25 @@ namespace Ryneus
                 }
             };
             _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
+        }
+
+        private void CommandRelief()
+        {
+            var confirmInfo = new ConfirmInfo("仲間を増やしますか？",(a) =>
+            {
+                if (a == ConfirmCommandType.Yes)
+                {
+                    _model.PartyInfo.ReliefCommandCount.GainValue(1);
+                    List<ActorInfo> actorInfos =_model.AddSelectActorInfos();
+                    CommandAddActorStatusInfo(actorInfos,() => 
+                    {
+
+                    });
+                }
+            });
+            confirmInfo.SetBackEvent(() => {});
+            _view.CommandCallConfirm(confirmInfo);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 
         private void CommandSelectSideMenu()

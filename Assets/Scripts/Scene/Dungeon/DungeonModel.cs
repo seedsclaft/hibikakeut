@@ -29,7 +29,7 @@ namespace Ryneus
             {
                 CurrentDeckInfo.SetPosition(playerDungeonId,playerPosition.x,playerPosition.y,(int)playerDirection);
                 // ランダムエンカウントフラグ加算
-                int flag = UnityEngine.Random.Range(5, 15);
+                int flag = UnityEngine.Random.Range(CurrentStage.Master.EncountMin, CurrentStage.Master.EncountMax);
                 CurrentDeckInfo.Encount.GainValue(flag,0,100);
 
                 // 残りターン数を減算
@@ -68,6 +68,13 @@ namespace Ryneus
         {
             var troopInfo = new TroopInfo(-1);
             troopInfo.MakeEnemyRandomTroopDates(1,CurrentStage.Master.RandomTroopEnemyRates);
+            return troopInfo.BattlerInfos;
+        }
+
+        public List<BattlerInfo> ForceBattleTroopInfos(int troopId)
+        {
+            var troopInfo = new TroopInfo(troopId);
+            troopInfo.MakeEnemyTroopDates(CurrentStage.Master.StageLv);
             return troopInfo.BattlerInfos;
         }
 

@@ -73,7 +73,6 @@ namespace Ryneus
                             Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
                             AchieveType = (AchieveType)AssetPostImporter.ImportNumeric(BaseRow, "AchieveType"),
                             AchieveText = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "AchieveTextId"))?.Text,
-                            EnemyBasementId = AssetPostImporter.ImportNumeric(BaseRow, "EnemyBasementId"),
                             Selectable = AssetPostImporter.ImportNumeric(BaseRow, "Selectable") == 1,
                             Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,
                             StageLv = AssetPostImporter.ImportNumeric(BaseRow, "StageLv"),
@@ -86,6 +85,8 @@ namespace Ryneus
                             StageData.PartyMemberIds.Add(int.Parse(item));
                         }
                         StageData.RandomTroopWeight = AssetPostImporter.ImportNumeric(BaseRow, "RandomTroopWeight");
+                        StageData.EncountMin = AssetPostImporter.ImportNumeric(BaseRow, "EncountMin");
+                        StageData.EncountMax = AssetPostImporter.ImportNumeric(BaseRow, "EncountMax");
                         StageData.BackGround = AssetPostImporter.ImportString(BaseRow, "BackGround");
                         StageData.BGMId = AssetPostImporter.ImportNumeric(BaseRow, "BGMId");
                         StageData.BossBGMId = AssetPostImporter.ImportNumeric(BaseRow, "BossBGMId");

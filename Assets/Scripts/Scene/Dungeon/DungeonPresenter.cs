@@ -99,6 +99,7 @@ namespace Ryneus
         private bool CheckEventData(Action endEvent = null)
         {
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+            UnityEngine.Debug.Log(playerPosition);
             var stageEvent = GetStageEventData(EventTiming.Dungeon,playerPosition.x,playerPosition.y);
             if (stageEvent != null)
             {
@@ -111,6 +112,9 @@ namespace Ryneus
                         {
                             return true;
                         }
+                        return true;
+                    case StageEventType.ExitDungeon:
+                        CommandReturn();
                         return true;
                     case StageEventType.SelectAddActor:
                         // 選択して仲間を加入
@@ -125,10 +129,38 @@ namespace Ryneus
                         _model.AddEventReadFlag(stageEvent);
                         SoundManager.Instance.PlayStaticSe(SEType.Decide);
                         return true;
+                    case StageEventType.ForceBattle:
+                        _model.AddEventReadFlag(stageEvent);
+                        var battleSceneInfo = new BattleSceneInfo
+                        {
+                            ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
+                            EnemyInfos = _model.ForceBattleTroopInfos(stageEvent.Param),
+                        };
+                        PlayBattleBgm();
+                        _view.CommandChangeViewToTransition(null);
+                        _view.ChangeUIActive(false);
+                        _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
+                        SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
+                        return true;
                 }
             }
             endEvent?.Invoke();
             return false;
+        }
+
+        private void CommandReturn()
+        {
+            _busy = true;
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var confirmInfo = new ConfirmInfo("帰還しますか？", (a) =>
+            {
+                if (a == ConfirmCommandType.Yes)
+                {
+                    _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
+                    _view.CommandSceneChange(Scene.MainMenu);
+                }
+            });
+            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CommandCallAddActorInfo(bool freeSelect,bool addCommand)
@@ -144,10 +176,10 @@ namespace Ryneus
             if (addCommand)
             {
                 // 加入する用
-                CommandStatusInfo(actorInfos,false,false,false,true,-1,() => 
+                CommandAddActorStatusInfo(actorInfos,() =>
                 {
 
-                },false,true);
+                });
             } else
             {
                 /*

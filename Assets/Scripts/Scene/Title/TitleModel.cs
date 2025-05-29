@@ -93,7 +93,8 @@ namespace Ryneus
                         break;
                 }
             }
-            
+            var floor = DataSystem.FindDungeonFloor(DataSystem.System.StartStageId);
+            CurrentDeckInfo.SetPosition(DataSystem.System.StartStageId,floor.entrancePos.x,floor.entrancePos.y,(int)floor.enteringDir);
             PartyInfo.SetAchievementRank(DataSystem.Achievements);
         }
 

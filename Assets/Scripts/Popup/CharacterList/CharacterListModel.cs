@@ -7,6 +7,7 @@ namespace Ryneus
     {
         private CharacterListInfo _sceneParam;
         private List<ActorInfo> _actorInfos = null;
+        public List<ActorInfo> ActorInfos => _actorInfos;
         public CharacterListModel()
         {
             _sceneParam = (CharacterListInfo)GameSystem.SceneStackManager.LastTemplate;

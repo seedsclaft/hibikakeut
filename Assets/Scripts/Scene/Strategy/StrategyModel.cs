@@ -376,7 +376,7 @@ namespace Ryneus
 
         public void EndStrategy()
         {
-            SavePlayerStageData(true,GameSystem.SceneStackManager.Current);
+            SavePlayerStageData(true,_returnScene);
         }
     }
 

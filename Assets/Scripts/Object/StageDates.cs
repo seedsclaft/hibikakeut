@@ -17,13 +17,14 @@ namespace Ryneus
         public string Name;
         public AchieveType AchieveType;
         public string AchieveText;
-        public int EnemyBasementId;
         public bool Selectable;
         public string Help;
         public int StageLv;
         public List<int> PartyMemberIds;
         public int RandomTroopWeight;
         public List<StageEnemyRate> RandomTroopEnemyRates;
+        public int EncountMin;
+        public int EncountMax;
         public string BackGround;
         public int BGMId;
         public int BossBGMId;
@@ -107,9 +108,10 @@ namespace Ryneus
     {
         None = 0,
         AdvStart = 1010,
+        ExitDungeon = 2010,
         AddActor = 4010, // 仲間を増やす
         SelectAddActor = 4020, // 選択して仲間を増やす
-        ForceBattle,
+        ForceBattle = 5010, // 強制戦闘
         TurnEndCommandEnable,
         TurnEndCommandDisable,
     }

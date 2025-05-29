@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.InputSystem;
 
 namespace Ryneus
 {
@@ -104,6 +106,15 @@ namespace Ryneus
         // 与ダメージ
         public ParameterInt TotalDamage = new();
 
+        // 編成コマンド回数
+        public ParameterInt DeckEditCommandCount = new();
+        // 献上コマンド回数
+        public ParameterInt PresentCommandCount = new();
+        // 救済コマンド回数
+        public ParameterInt ReliefCommandCount = new();
+        // 魔法編成回数
+        public ParameterInt StatusSkillChangeCount = new();
+
 
         // 報告リストのRank
         public ParameterInt MissionRank = new(1);
@@ -168,6 +179,11 @@ namespace Ryneus
                     _actorInfos.Add(actorInfo);
                     // 整列
                     _actorInfos.Sort((a,b) => a.BattleIndex.Value - b.BattleIndex.Value > 0 ? 1 : -1);
+                    var first = CurrentDeckInfo.ActorIdDict.Where(a => a.Value == -1).First();
+                    if (first.Value == -1)
+                    {
+                        CurrentDeckInfo.ActorIdDict[first.Key] = actorInfo.ActorId.Value;
+                    }
                 }
             }
         }
