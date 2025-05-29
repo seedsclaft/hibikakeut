@@ -146,9 +146,9 @@ namespace Ryneus
         {
             if (confirmCommandType == ConfirmCommandType.Yes)
             {
-                _model.SavePlayerStageData(false);
-                _view.CallSystemCommand(Base.CommandType.CloseStatus);
-                _view.CommandGotoSceneChange(Scene.MainMenu);
+                //_model.SavePlayerStageData(false);
+                //_view.CallSystemCommand(Base.CommandType.CloseStatus);
+                //_view.CommandGotoSceneChange(Scene.MainMenu);
             }
             else
             {

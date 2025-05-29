@@ -13,8 +13,6 @@ namespace Ryneus
             {
                 return;
             }
-            actPointTotal?.SetText(teamInfo.ActPoint.Value.ToString());
-            actPoint?.SetText(teamInfo.CurrentActPoint.Value.ToString());
         }
     }
 }

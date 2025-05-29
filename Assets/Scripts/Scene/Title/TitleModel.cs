@@ -76,6 +76,24 @@ namespace Ryneus
         {
             InitSaveStageInfo();
             MakeStageInfo(DataSystem.System.StartStageId,true);
+            // ステージ開始時アイテム入手
+            var stageEventDates = StageEvents(EventTiming.GameStart);
+            foreach (var stageEventDate in stageEventDates)
+            {
+                switch (stageEventDate.Type)
+                {
+                    case StageEventType.AddActor:
+                        var getItemData = new GetItemData
+                        {
+                            Type = GetItemType.AddActor,
+                            Param1 = stageEventDate.Param
+                        };
+                        var getItemInfo = new GetItemInfo(getItemData);
+                        AddGetItemInfo(getItemInfo);
+                        break;
+                }
+            }
+            
             PartyInfo.SetAchievementRank(DataSystem.Achievements);
         }
 

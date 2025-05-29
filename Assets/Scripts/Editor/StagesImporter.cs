@@ -50,7 +50,7 @@ namespace Ryneus
                 {
                     // エクセルブックを作成
                     AssetPostImporter.CreateBook(asset, Mainstream, out IWorkbook Book);
-                    var textData = AssetPostImporter.CreateText(Book.GetSheetAt(7));
+                    var textData = AssetPostImporter.CreateText(Book.GetSheetAt(4));
 
                     // 情報の初期化
                     Data.Data.Clear();
@@ -58,10 +58,8 @@ namespace Ryneus
                     // エクセルシートからセル単位で読み込み
                     ISheet BaseSheet = Book.GetSheetAt(0);
                     ISheet EventSheet = Book.GetSheetAt(1);
-                    ISheet SymbolSheet = Book.GetSheetAt(2);
-                    ISheet EnemyRateSheet = Book.GetSheetAt(3);
-                    ISheet MoveTypeParamSheet = Book.GetSheetAt(5);
-                    ISheet TutorialSheet = Book.GetSheetAt(6);
+                    ISheet EnemyRateSheet = Book.GetSheetAt(2);
+                    ISheet TutorialSheet = Book.GetSheetAt(3);
                     for (int i = 1; i <= BaseSheet.LastRowNum; i++)
                     {
                         var KeyRow = BaseSheet.GetRow(0);
@@ -80,10 +78,6 @@ namespace Ryneus
                             Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,
                             StageLv = AssetPostImporter.ImportNumeric(BaseRow, "StageLv"),
                             PartyMemberIds = new List<int>(),
-                            Width = AssetPostImporter.ImportNumeric(BaseRow, "Width"),
-                            Height = AssetPostImporter.ImportNumeric(BaseRow, "Height"),
-                            InitX = AssetPostImporter.ImportNumeric(BaseRow, "InitX"),
-                            InitY = AssetPostImporter.ImportNumeric(BaseRow, "InitY"),
                             RandomTroopEnemyRates = new List<StageEnemyRate>(),
                         };
                         string[] list = AssetPostImporter.ImportString(BaseRow, "PartyMemberIds").Split(',');
@@ -120,127 +114,6 @@ namespace Ryneus
                                 StageData.StageEvents.Add(EventData);
                             }
                         }
-                        StageData.StageSymbols = new();
-                        KeyRow = SymbolSheet.GetRow(0);
-                        AssetPostImporter.SetKeyNames(KeyRow.Cells);
-                        for (int j = 1; j <= SymbolSheet.LastRowNum; j++)
-                        {
-                            IRow SymbolRow = SymbolSheet.GetRow(j);
-                            var SymbolData = new StageSymbolData();
-                            var StageId = AssetPostImporter.ImportNumeric(SymbolRow, "StageId");
-
-                            if (StageId == StageData.Id)
-                            {
-                                SymbolData.Id = AssetPostImporter.ImportNumeric(SymbolRow, "Id");
-                                SymbolData.StageId = AssetPostImporter.ImportNumeric(SymbolRow, "StageId");
-                                SymbolData.InitX = AssetPostImporter.ImportNumeric(SymbolRow, "InitX");
-                                SymbolData.InitY = AssetPostImporter.ImportNumeric(SymbolRow, "InitY");
-                                //SymbolData.SymbolType = (SymbolType)AssetPostImporter.ImportNumeric(SymbolRow, "SymbolType");
-                                SymbolData.UnitType = (HexUnitType)AssetPostImporter.ImportNumeric(SymbolRow, "UnitType");
-                                SymbolData.InitTeamId = (TeamIdType)AssetPostImporter.ImportNumeric(SymbolRow, "InitTeamId");
-                                SymbolData.Rate = AssetPostImporter.ImportNumeric(SymbolRow, "Rate");
-                                SymbolData.Param1 = AssetPostImporter.ImportNumeric(SymbolRow, "Param1");
-                                SymbolData.Param2 = AssetPostImporter.ImportNumeric(SymbolRow, "Param2");
-                                SymbolData.PrizeSetId = AssetPostImporter.ImportNumeric(SymbolRow, "PrizeSetId");
-                                SymbolData.ClearCount = AssetPostImporter.ImportNumeric(SymbolRow, "ClearCount");
-                                SymbolData.MoveType = (UnitMoveType)AssetPostImporter.ImportNumeric(SymbolRow, "MoveType");
-                                //SymbolData.MoveTypeParam = (MoveTypeParam)AssetPostImporter.ImportNumeric(SymbolRow, "MoveParam");
-
-                                StageData.StageSymbols.Add(SymbolData);
-                            }
-                        }
-
-                        KeyRow = MoveTypeParamSheet.GetRow(0);
-                        AssetPostImporter.SetKeyNames(KeyRow.Cells);
-                        for (int j = 1; j <= MoveTypeParamSheet.LastRowNum; j++)
-                        {
-                            IRow MoveTypeParam = MoveTypeParamSheet.GetRow(j);
-
-                            var SymbolId = AssetPostImporter.ImportNumeric(MoveTypeParam, "SymbolId");
-                            var symbols = StageData.StageSymbols.FindAll(a => a.Id == SymbolId);
-                            foreach (var symbol in symbols)
-                            {
-                                symbol.MoveTypeParam = new MoveTypeParam()
-                                {
-                                    Param1 = AssetPostImporter.ImportNumeric(MoveTypeParam, "Param1"),
-                                    Param2 = AssetPostImporter.ImportNumeric(MoveTypeParam, "Param2"),
-                                    Param3 = AssetPostImporter.ImportNumeric(MoveTypeParam, "Param3"),
-                                    Param4 = AssetPostImporter.ImportNumeric(MoveTypeParam, "Param4"),
-                                };
-                            }
-                        }
-
-                        // 存在しないマスを生成
-						/*
-                        if (StageData.MinX > 0)
-                        {
-                            for (int j = 0; j < StageData.Height; j++)
-                            {
-                                for (int k = 0; k < StageData.MinX; k++)
-                                {
-                                    var stageSymbolData = new StageSymbolData
-                                    {
-                                        StageId = StageData.Id,
-                                        InitX = k,
-                                        InitY = j,
-                                        UnitType = HexUnitType.None
-                                    };
-                                    StageData.StageSymbols.Add(stageSymbolData);
-                                }
-                            }
-                        }
-                        if (StageData.MaxX < StageData.Width)
-                        {
-                            for (int j = 0; j < StageData.Height; j++)
-                            {
-                                for (int k = StageData.Width - 1; k >= StageData.MaxX; k--)
-                                {
-                                    var stageSymbolData = new StageSymbolData
-                                    {
-                                        StageId = StageData.Id,
-                                        InitX = k,
-                                        InitY = j,
-                                        UnitType = HexUnitType.None
-                                    };
-                                    StageData.StageSymbols.Add(stageSymbolData);
-                                }
-                            }
-                        }
-                        if (StageData.MinY > 0)
-                        {
-                            for (int j = 0; j < StageData.Width; j++)
-                            {
-                                for (int k = 0; k < StageData.MinY; k++)
-                                {
-                                    var stageSymbolData = new StageSymbolData
-                                    {
-                                        StageId = StageData.Id,
-                                        InitX = j,
-                                        InitY = k,
-                                        UnitType = HexUnitType.None
-                                    };
-                                    StageData.StageSymbols.Add(stageSymbolData);
-                                }
-                            }
-                        }
-                        if (StageData.MaxY < StageData.Height)
-                        {
-                            for (int j = 0; j < StageData.Width; j++)
-                            {
-                                for (int k = StageData.Height - 1; k >= StageData.MaxY; k--)
-                                {
-                                    var stageSymbolData = new StageSymbolData
-                                    {
-                                        StageId = StageData.Id,
-                                        InitX = j,
-                                        InitY = k,
-                                        UnitType = HexUnitType.None
-                                    };
-                                    StageData.StageSymbols.Add(stageSymbolData);
-                                }
-                            }
-                        }
-						*/
 
                         KeyRow = EnemyRateSheet.GetRow(0);
                         AssetPostImporter.SetKeyNames(KeyRow.Cells);
@@ -262,26 +135,6 @@ namespace Ryneus
                             }
                         }
                         Data.Data.Add(StageData);
-                    }
-
-                    Data.SymbolGroupData = new List<SymbolGroupData>();
-                    ISheet SymbolGroupSheet = Book.GetSheetAt(4);
-                    var KeyRow2 = SymbolGroupSheet.GetRow(0);
-                    AssetPostImporter.SetKeyNames(KeyRow2.Cells);
-                    for (int i = 1; i <= SymbolGroupSheet.LastRowNum; i++)
-                    {
-                        IRow BaseRow = SymbolGroupSheet.GetRow(i);
-
-                        var SymbolGroupData = new SymbolGroupData
-                        {
-                            GroupId = AssetPostImporter.ImportNumeric(BaseRow, "GroupId"),
-                            //SymbolType = (SymbolType)AssetPostImporter.ImportNumeric(BaseRow, "SymbolType"),
-                            Param1 = AssetPostImporter.ImportNumeric(BaseRow, "Param1"),
-                            Param2 = AssetPostImporter.ImportNumeric(BaseRow, "Param2"),
-                            Rate = AssetPostImporter.ImportNumeric(BaseRow, "Rate"),
-                            PrizeSetId = AssetPostImporter.ImportNumeric(BaseRow, "PrizeSetId")
-                        };
-                        Data.SymbolGroupData.Add(SymbolGroupData);
                     }
                 }
             }

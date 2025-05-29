@@ -13,28 +13,6 @@ MonoBehaviour:
   m_Name: Stages
   m_EditorClassIdentifier: 
   Data:
-  - Id: 1
-    StageNo: 0
-    Name: "\u6E96\u5099\u753B\u9762"
-    AchieveType: 2
-    AchieveText: "\u6575\u62E0\u70B9\u3092\u5236\u5727\u3059\u308B"
-    EnemyBasementId: 0
-    Selectable: 0
-    Help: '""'
-    StageLv: 0
-    PartyMemberIds: 00000000
-    Width: 12
-    Height: 9
-    InitX: 4
-    InitY: 4
-    RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
-    BackGround: NA_background image_3D like_894
-    BGMId: 1010
-    BossBGMId: 2010
-    MenuBGMId: 100
-    StageEvents: []
-    StageSymbols: []
   - Id: 10
     StageNo: 1
     Name: "\u30B9\u30C6\u30FC\u30B81"
@@ -45,10 +23,6 @@ MonoBehaviour:
     Help: '""'
     StageLv: 0
     PartyMemberIds: 00000000
-    Width: 40
-    Height: 40
-    InitX: 22
-    InitY: 2
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
     - EnemyId: 1
@@ -68,219 +42,20 @@ MonoBehaviour:
     BossBGMId: 2010
     MenuBGMId: 100
     StageEvents:
-    - EventKey: 10_1_1DungeonSelectAddActor1
-      Timing: 3010
+    - EventKey: 10_1_1GameStartAddActor1
+      Timing: 1010
       Type: 4010
       PositionX: 1
       PositionY: 1
       Param: 1
       ReadFlag: 1
-    StageSymbols:
-    - Id: 1000
-      StageId: 10
-      InitX: -1
-      InitY: 0
-      UnitType: 70
-      InitTeamId: 0
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 1001
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 1000
-      StageId: 10
-      InitX: -1
-      InitY: 0
-      UnitType: 70
-      InitTeamId: 0
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 1002
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 1000
-      StageId: 10
-      InitX: -1
-      InitY: 0
-      UnitType: 70
-      InitTeamId: 0
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 1003
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 1000
-      StageId: 10
-      InitX: -1
-      InitY: 0
-      UnitType: 70
-      InitTeamId: 0
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 1004
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-    - Id: 1000
-      StageId: 10
-      InitX: -1
-      InitY: 0
-      UnitType: 70
-      InitTeamId: 0
-      Rate: 100
-      Param1: 0
-      Param2: 0
-      PrizeSetId: 1005
-      ClearCount: 0
-      MoveType: 0
-      MoveTypeParam:
-        SymbolId: 0
-        Param1: 0
-        Param2: 0
-        Param3: 0
-        Param4: 0
-        Flag: 0
-  - Id: 20
-    StageNo: 2
-    Name: "\u30B9\u30C6\u30FC\u30B81"
-    AchieveType: 1
-    AchieveText: "\u6575\u62E0\u70B9\u3092\u5236\u5727\u3059\u308B"
-    EnemyBasementId: 0
-    Selectable: 1
-    Help: '""'
-    StageLv: 0
-    PartyMemberIds: 00000000
-    Width: 40
-    Height: 40
-    InitX: 22
-    InitY: 2
-    RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
-    BackGround: NA_background image_3D like_894
-    BGMId: 1010
-    BossBGMId: 2010
-    MenuBGMId: 100
-    StageEvents: []
-    StageSymbols: []
-  - Id: 30
-    StageNo: 3
-    Name: "\u30B9\u30C6\u30FC\u30B81"
-    AchieveType: 1
-    AchieveText: "\u6575\u62E0\u70B9\u3092\u5236\u5727\u3059\u308B"
-    EnemyBasementId: 0
-    Selectable: 1
-    Help: '""'
-    StageLv: 0
-    PartyMemberIds: 00000000
-    Width: 40
-    Height: 40
-    InitX: 22
-    InitY: 2
-    RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
-    BackGround: NA_background image_3D like_894
-    BGMId: 1010
-    BossBGMId: 2010
-    MenuBGMId: 100
-    StageEvents: []
-    StageSymbols: []
-  - Id: 1010
-    StageNo: 101
-    Name: "\u30B2\u30FC\u30E0\u306E\u6D41\u308C"
-    AchieveType: 1
-    AchieveText: "\u6575\u62E0\u70B9\u3092\u5236\u5727\u3059\u308B"
-    EnemyBasementId: 10030
-    Selectable: 1
-    Help: '""'
-    StageLv: 0
-    PartyMemberIds: 00000000
-    Width: 40
-    Height: 13
-    InitX: 4
-    InitY: 4
-    RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
-    BackGround: NA_background image_3D like_894
-    BGMId: 1010
-    BossBGMId: 2010
-    MenuBGMId: 100
-    StageEvents: []
-    StageSymbols: []
-  - Id: 1020
-    StageNo: 101
-    Name: "\u6709\u5229\u306A\u30D0\u30C8\u30EB\u306E\u9032\u3081\u65B9"
-    AchieveType: 1
-    AchieveText: "\u6575\u62E0\u70B9\u3092\u5236\u5727\u3059\u308B"
-    EnemyBasementId: 10030
-    Selectable: 1
-    Help: '""'
-    StageLv: 0
-    PartyMemberIds: 00000000
-    Width: 20
-    Height: 8
-    InitX: 10
-    InitY: 4
-    RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
-    BackGround: NA_background image_3D like_894
-    BGMId: 1010
-    BossBGMId: 2010
-    MenuBGMId: 100
-    StageEvents: []
-    StageSymbols: []
-  - Id: 1030
-    StageNo: 101
-    Name: "\u30E6\u30CB\u30C3\u30C8\u306E\u5F37\u5316"
-    AchieveType: 1
-    AchieveText: "\u6575\u62E0\u70B9\u3092\u5236\u5727\u3059\u308B"
-    EnemyBasementId: 10030
-    Selectable: 1
-    Help: '""'
-    StageLv: 0
-    PartyMemberIds: 00000000
-    Width: 20
-    Height: 8
-    InitX: 10
-    InitY: 4
-    RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
-    BackGround: NA_background image_3D like_894
-    BGMId: 1010
-    BossBGMId: 2010
-    MenuBGMId: 100
-    StageEvents: []
-    StageSymbols: []
+    - EventKey: 10_1_1DungeonSelectAddActor1
+      Timing: 3010
+      Type: 4020
+      PositionX: 1
+      PositionY: 1
+      Param: 1
+      ReadFlag: 1
   SymbolGroupData:
   - GroupId: 201
     Rate: 50

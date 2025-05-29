@@ -7,7 +7,6 @@ namespace Ryneus
     public class StageDates : ScriptableObject
     {
         public List<StageData> Data = new();
-        public List<SymbolGroupData> SymbolGroupData = new();
     }
 
     [Serializable]
@@ -23,10 +22,6 @@ namespace Ryneus
         public string Help;
         public int StageLv;
         public List<int> PartyMemberIds;
-        public int Width;
-        public int Height;
-        public int InitX;
-        public int InitY;
         public int RandomTroopWeight;
         public List<StageEnemyRate> RandomTroopEnemyRates;
         public string BackGround;
@@ -34,7 +29,6 @@ namespace Ryneus
         public int BossBGMId;
         public int MenuBGMId;
         public List<StageEventData> StageEvents;
-        public List<StageSymbolData> StageSymbols;
     }
 
     [Serializable]
@@ -47,55 +41,6 @@ namespace Ryneus
         public int PositionY;
         public int Param;
         public bool ReadFlag;
-    }
-
-    [Serializable]
-    public class StageSymbolData
-    {
-        public int Id;
-        public int StageId;
-        public int InitX;
-        public int InitY;
-        public HexUnitType UnitType;
-        public TeamIdType InitTeamId;
-        public int Rate;
-        public int Param1;
-        public int Param2;
-        public int PrizeSetId;
-        public int ClearCount;
-        public UnitMoveType MoveType;
-        public MoveTypeParam MoveTypeParam;
-
-        public void ConvertSymbolGroupData(SymbolGroupData symbolGroupData)
-        {
-            //SymbolType = symbolGroupData.SymbolType;
-            Param1 = symbolGroupData.Param1;
-            Param2 = symbolGroupData.Param2;
-            PrizeSetId = symbolGroupData.PrizeSetId;
-            ClearCount = 0;
-        }
-
-        public void CopyData(StageSymbolData stageSymbolData)
-        {
-            CopyParamData(stageSymbolData);
-            StageId = stageSymbolData.StageId;
-            InitX = stageSymbolData.InitX;
-            InitY = stageSymbolData.InitY;
-        }
-
-        public void CopyParamData(StageSymbolData stageSymbolData)
-        {
-            //SymbolType = stageSymbolData.SymbolType;
-            Param1 = stageSymbolData.Param1;
-            Param2 = stageSymbolData.Param2;
-            PrizeSetId = stageSymbolData.PrizeSetId;
-            ClearCount = stageSymbolData.ClearCount;
-        }
-
-        public bool IsGroupSymbol()
-        {
-            return false;//SymbolType > SymbolType.Group;
-        }
     }
 
     [Serializable]
@@ -152,7 +97,7 @@ namespace Ryneus
     public enum EventTiming
     {
         None = 0,
-        StartTutorial = 1010,
+        GameStart = 1010,
         BeforeMainMenu = 2010,
         BattleVictory = 2020,
         Dungeon = 3010,
@@ -162,7 +107,8 @@ namespace Ryneus
     {
         None = 0,
         AdvStart = 1010,
-        SelectAddActor = 4010, // 選択して仲間を増やす
+        AddActor = 4010, // 仲間を増やす
+        SelectAddActor = 4020, // 選択して仲間を増やす
         ForceBattle,
         TurnEndCommandEnable,
         TurnEndCommandDisable,

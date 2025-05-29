@@ -37,15 +37,7 @@ namespace Ryneus
             var stageData = stageInfo.Master;
             UpdateData(stageData);
             help?.SetText(stageData.Help.Replace("\\p",CurrentData.PlayerInfo.PlayerName.Value));
-            turnCount?.SetText(stageInfo.TurnCount.Value.ToString());
-            if (homeTeamInfoComponent != null)
-            {
-                homeTeamInfoComponent.UpdateInfo(stageInfo.HomeTeamInfo);
-            }
-            if (awayTeamInfoComponent != null)
-            {
-                awayTeamInfoComponent.UpdateInfo(stageInfo.AwayTeamInfo);
-            }
+            
             /*
             if (clearCount != null){
                 clearCount.text = stageInfo.ClearCount.ToString();

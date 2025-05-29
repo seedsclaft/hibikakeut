@@ -29,7 +29,7 @@ namespace Ryneus
                 // 既に出撃中か
                 return !_model.NoDepatureActorIds().Contains(actorInfo.ActorId.Value);
             };
-            _view.SetCharacterList(MakeListDataFunc<ActorInfo>(_model.GetActorInfos(), 0, enable));
+            _view.SetCharacterList(MakeListDataFunc<ActorInfo>(_model.PartyInfo.CurrentDeckActorInfos(), 0, enable));
             _view.OpenAnimation();
         }
 

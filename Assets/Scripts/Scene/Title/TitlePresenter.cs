@@ -102,7 +102,7 @@ namespace Ryneus
             _view.WaitFrame(2, () =>
             {
                 // ダンジョン生成
-                _view.CommandChangeDungeon("TestDungeon");
+                _view.CommandChangeDungeon(_model.CurrentStage.Master.Id.ToString("D4"));
                 GameSystem.DungeonViewManager.Initialize();
                 _view.CommandGotoSceneChange(Scene.Dungeon);
                 //_view.CommandGotoSceneChange(Scene.Tactics);
@@ -114,9 +114,9 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             await _model.LoadFile();
-            _view.CommandChangeDungeon("TestDungeon");
+            _view.CommandChangeDungeon(_model.CurrentStage.Master.Id.ToString("D4"));
             GameSystem.DungeonViewManager.Initialize();
-            _view.CommandGotoSceneChange(Scene.MainMenu);
+            _view.CommandGotoSceneChange(_model.PartyInfo.ResumeScene);
 
 /*
             var sceneParam = new FileListSceneInfo

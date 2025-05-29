@@ -378,11 +378,12 @@ namespace Ryneus
             SaveSystem.SavePlayerInfo(GameSystem.CurrentData);
         }
 
-        public void SavePlayerStageData(bool isResumeStage)
+        public void SavePlayerStageData(bool isResumeStage,Scene resumeScene)
         {
             SaveDungeonPlayerData();
             TempInfo.ClearRankingInfo();
             SetResumeStage(isResumeStage);
+            PartyInfo.ResumeScene = resumeScene;
             SaveSystem.SaveStageInfo(GameSystem.GameInfo);
             SavePlayerData();
         }

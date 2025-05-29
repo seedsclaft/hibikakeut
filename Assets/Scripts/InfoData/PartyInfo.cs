@@ -13,6 +13,9 @@ namespace Ryneus
             Period.SetValue(1);
         }
 
+        // レジュームシーン
+        public Scene ResumeScene = Scene.None;
+
         // 所持アクターリスト
         [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = new();
         public List<ActorInfo> ActorInfos => _actorInfos;
@@ -20,6 +23,7 @@ namespace Ryneus
         // 現在のステージ場所
         public StageData StageMaster => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
+        public ParameterInt TurnCount = new();
 
         // 開示マス情報
         private Dictionary<int,List<string>> _traverseDict = new();
@@ -179,11 +183,6 @@ namespace Ryneus
         }
 
         public DeckInfo CurrentDeckInfo => _deckInfos[DeckId.Value];
-
-        public void MakeInitDeckInfo()
-        {
-
-        }
 
         public List<BattlerInfo> DeckEditBattlerInfos()
         {

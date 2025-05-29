@@ -33,7 +33,7 @@ namespace Ryneus
                 CurrentDeckInfo.Encount.GainValue(flag,0,100);
 
                 // 残りターン数を減算
-                CurrentStage.TurnCount.GainValue(-1);
+                PartyInfo.TurnCount.GainValue(-1);
             }
         }
 
@@ -43,7 +43,7 @@ namespace Ryneus
             {
                 return false;
             }
-            return CurrentStage.TurnCount.Value <= 0;
+            return PartyInfo.TurnCount.Value <= 0;
         }
 
         public bool EncountEnemy()

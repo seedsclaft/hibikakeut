@@ -193,7 +193,7 @@ namespace Ryneus
             // ロード非表示
             _view.CallSystemCommand(Base.CommandType.CloseLoading);
             _model.GainSaveCount();
-            _model.SavePlayerStageData(true);
+            _model.SavePlayerStageData(true,GameSystem.SceneStackManager.Current);
             // 成功表示
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(19500),(a) =>
             {

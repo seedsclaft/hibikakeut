@@ -19,7 +19,6 @@ namespace Ryneus
         public static Dictionary<int, SkillData> Skills = new();
         public static List<ItemData> Items = new();
         public static List<StageData> Stages = new();
-        public static List<SymbolGroupData> SymbolGroups = new();
         public static List<StateData> States = new();
         public static List<TroopData> Troops = new();
         public static List<AnimationData> Animations = new();
@@ -60,7 +59,6 @@ namespace Ryneus
             }
             Items = Resources.Load<ItemDates>("Data/Items").Data;
             Stages = Resources.Load<StageDates>("Data/Stages").Data;
-            SymbolGroups = Resources.Load<StageDates>("Data/Stages").SymbolGroupData;
             States = Resources.Load<StateDates>("Data/States").Data;
             System = Resources.Load<SystemData>("Data/System");
             Troops = Resources.Load<TroopDates>("Data/Troops").Data;
@@ -96,11 +94,6 @@ namespace Ryneus
         public static StageData FindStage(int id)
         {
             return Stages.Find(a => a.Id == id);
-        }
-
-        public static List<StageSymbolData> FindStageSymbolData(int id)
-        {
-            return FindStage(id).StageSymbols;
         }
 
         public static StageData FindNextStage(int currentStageId)

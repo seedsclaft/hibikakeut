@@ -13,20 +13,6 @@ namespace Ryneus
             _actorInfos = _sceneParam.ActorInfos;
         }
 
-        public List<ActorInfo> GetActorInfos()
-        {
-            var battlerUnits = CurrentStage.FieldHexList.FindAll(a => a.IsBattlerUnit && !a.IsLostUnit());
-            var actorInfos = new List<ActorInfo>();
-            foreach (var actorInfo in _actorInfos)
-            {
-                if (battlerUnits.Find(a => a.UnitInfo.BattlerInfos.Find(b => b.ActorInfo != null && b.ActorInfo.ActorId == actorInfo.ActorId) != null) != null)
-                {
-                    continue;
-                }
-                actorInfos.Add(actorInfo);
-            }
-            return actorInfos;
-        }
 
         public List<int> NoDepatureActorIds()
         {
