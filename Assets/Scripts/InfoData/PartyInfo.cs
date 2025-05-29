@@ -34,6 +34,7 @@ namespace Ryneus
 
         public void AddDungeonTraverse(int dungeonId,Dictionary<string, bool> traverses)
         {
+            SetupDungeonTraverse(dungeonId);
             foreach (var traverse in traverses)
             {
                 if (!traverse.Value)
