@@ -87,6 +87,8 @@ namespace Ryneus
                     break;
                 case GetItemType.Item:
                     return DataSystem.Items.Find(a => a.Id == Param1).Name + " x" + Param2.ToString();
+                case GetItemType.RankUp:
+                    return "神格等級アップ";
             }
             return "";
         }

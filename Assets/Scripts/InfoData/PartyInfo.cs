@@ -92,6 +92,9 @@ namespace Ryneus
         // フェーズ終了までのピリオド
         public ParameterInt Period = new();
 
+        // このフェーズでの救済コマンド回数
+        public ParameterInt ThisPeriodReliefCount = new();
+
         // 評価値
         public ParameterInt EvaluationValue = new();
 
@@ -143,6 +146,12 @@ namespace Ryneus
             {
                 GainItemNum(getItemInfo.Param1,getItemInfo.Param2);
                 return;
+            }
+            if (getItemInfo.GetItemType == GetItemType.RankUp)
+            {
+                var rankUpInfos = _getItemInfos.FindAll(a => a.GetItemType == GetItemType.RankUp);
+                var rank = rankUpInfos.Count() > 0 ? rankUpInfos.Max(a => a.Param1) : 1;
+                MissionRank.SetValue(rank);
             }
             CheckAddActor();
             CheckLearningSkillId();

@@ -170,6 +170,13 @@ namespace Ryneus
                 AddGetItemInfo(itemGetItemInfo);
             }
 
+            // RankUp
+            var rankUpgetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.RankUp);
+            foreach (var rankUpgetItemInfo in rankUpgetItemInfos)
+            {
+                AddGetItemInfo(rankUpgetItemInfo);
+            }
+
             // 獲得エナジー、魔法情報を生成
             _resultInfos.Clear();
             if (gainCurrency > 0)

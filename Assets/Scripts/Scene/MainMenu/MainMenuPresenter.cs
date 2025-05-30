@@ -169,13 +169,22 @@ namespace Ryneus
 
         private void CommandRelief()
         {
-            var confirmInfo = new ConfirmInfo("仲間を増やしますか？",(a) =>
+            if (_model.PartyInfo.ThisPeriodReliefCount.Value > 0)
+            {
+                var cautionInfo = new CautionInfo();
+                cautionInfo.SetTitle("今は召喚に応じるエインフェリアはいないようだ…");
+                _view.CommandCallCaution(cautionInfo);
+                return;
+            }
+            var confirmInfo = new ConfirmInfo("エインフェリアを召喚しますか？",(a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
                     _model.PartyInfo.ReliefCommandCount.GainValue(1);
+                    _model.PartyInfo.Period.GainValue(1);
+                    _model.PartyInfo.ThisPeriodReliefCount.GainValue(1);
                     List<ActorInfo> actorInfos =_model.AddSelectActorInfos();
-                    CommandAddActorStatusInfo(actorInfos,() => 
+                    CommandAddActorStatusInfo(actorInfos,() =>
                     {
 
                     });

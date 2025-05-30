@@ -142,5 +142,6 @@ namespace Ryneus
 		LvLink = 104,
 		Ending = 210,
 		Item = 1010,
+		RankUp = 2010,
 	}
 }

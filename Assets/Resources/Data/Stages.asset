@@ -16,12 +16,10 @@ MonoBehaviour:
   - Id: 10
     StageNo: 1
     Name: "\u59CB\u307E\u308A\u306E\u6642"
-    AchieveType: 1
-    AchieveText: "\u6575\u62E0\u70B9\u3092\u5236\u5727\u3059\u308B"
-    Selectable: 1
+    Selectable: 0
     Help: '""'
     StageLv: 0
-    PartyMemberIds: 00000000
+    DisplayRank: 1
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
     - EnemyId: 1
@@ -64,3 +62,26 @@ MonoBehaviour:
       PositionY: 13
       Param: 0
       ReadFlag: 0
+  - Id: 20
+    StageNo: 2
+    Name: "\u7070\u6A19\u306E\u5915\u8349\u539F"
+    Selectable: 1
+    Help: '""'
+    StageLv: 1
+    DisplayRank: 2
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates: []
+    EncountMin: 5
+    EncountMax: 15
+    BackGround: NA_background image_3D like_894
+    BGMId: 1010
+    BossBGMId: 2010
+    MenuBGMId: 100
+    StageEvents:
+    - EventKey: 20_1_1GameStartAddActor1
+      Timing: 1010
+      Type: 4010
+      PositionX: 1
+      PositionY: 1
+      Param: 1
+      ReadFlag: 1

@@ -15,7 +15,6 @@ namespace Ryneus
 
         public bool CheckVictory()
         {
-            var achieveType = Master.AchieveType;
             return false;
         }
 

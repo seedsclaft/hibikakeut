@@ -71,19 +71,12 @@ namespace Ryneus
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             StageNo = AssetPostImporter.ImportNumeric(BaseRow, "StageNo"),
                             Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
-                            AchieveType = (AchieveType)AssetPostImporter.ImportNumeric(BaseRow, "AchieveType"),
-                            AchieveText = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "AchieveTextId"))?.Text,
                             Selectable = AssetPostImporter.ImportNumeric(BaseRow, "Selectable") == 1,
                             Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,
                             StageLv = AssetPostImporter.ImportNumeric(BaseRow, "StageLv"),
-                            PartyMemberIds = new List<int>(),
+                            DisplayRank = AssetPostImporter.ImportNumeric(BaseRow, "DisplayRank"),
                             RandomTroopEnemyRates = new List<StageEnemyRate>(),
                         };
-                        string[] list = AssetPostImporter.ImportString(BaseRow, "PartyMemberIds").Split(',');
-                        foreach (string item in list)
-                        {
-                            StageData.PartyMemberIds.Add(int.Parse(item));
-                        }
                         StageData.RandomTroopWeight = AssetPostImporter.ImportNumeric(BaseRow, "RandomTroopWeight");
                         StageData.EncountMin = AssetPostImporter.ImportNumeric(BaseRow, "EncountMin");
                         StageData.EncountMax = AssetPostImporter.ImportNumeric(BaseRow, "EncountMax");

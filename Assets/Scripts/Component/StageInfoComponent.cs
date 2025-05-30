@@ -10,8 +10,6 @@ namespace Ryneus
     {
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI stageNoText;
-        [SerializeField] private GameObject achieve;
-        [SerializeField] private TextMeshProUGUI achieveText;
         [SerializeField] private TextMeshProUGUI help;
         [SerializeField] private TextMeshProUGUI turnCount;
         [SerializeField] private TextMeshProUGUI clearCount;
@@ -53,17 +51,6 @@ namespace Ryneus
                 return;
             }
             nameText?.SetText(stageData.Name);
-            if (achieve != null)
-            {
-                achieve?.SetActive(stageData.AchieveText != "");
-            }
-            if (stageData.AchieveText != "")
-            {
-                achieveText?.SetText(DataSystem.GetText(31) + stageData.AchieveText);
-            } else
-            {
-                achieveText?.SetText(DataSystem.GetText(31) + DataSystem.GetText(10000));
-            }
             stageLv?.SetText(stageData.StageLv.ToString());
             stageNoText?.SetText(DataSystem.GetReplaceText(15010,stageData.StageNo.ToString()));
         }

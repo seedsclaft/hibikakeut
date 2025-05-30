@@ -15,12 +15,10 @@ namespace Ryneus
         public int Id;
         public int StageNo;
         public string Name;
-        public AchieveType AchieveType;
-        public string AchieveText;
         public bool Selectable;
         public string Help;
         public int StageLv;
-        public List<int> PartyMemberIds;
+        public int DisplayRank;
         public int RandomTroopWeight;
         public List<StageEnemyRate> RandomTroopEnemyRates;
         public int EncountMin;

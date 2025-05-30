@@ -68,10 +68,29 @@ namespace Ryneus
                         {
                             var cell = AssetPostImporter.ImportString(SymbolRow, i.ToString());
                             Debug.Log(cell);
+                            var attr = 0;
+                            if (cell != "")
+                            {
+                                switch (cell)
+                                {
+                                    case "■":
+                                        attr = 1;
+                                        break;
+                                    case "Ev":
+                                        attr = 10;
+                                        break;
+                                    case "Out":
+                                        attr = 11;
+                                        break;
+                                    case "Un":
+                                        attr = 12;
+                                        break;
+                                }
+                            }
                             var map = new Ariadne.MapInfo
                             {
                                 eventId = 0,
-                                mapAttr = cell != "" ? int.Parse(cell) : 0,
+                                mapAttr = attr,
                                 objectTypeId = 0,
                                 objectFront = 0
                             };
@@ -92,8 +111,8 @@ namespace Ryneus
                         AriadoneMasterData = ScriptableObject.CreateInstance<Ariadne.DungeonMasterData>();
                         
                         AssetDatabase.CreateAsset(AriadoneMasterData, AriadoneExportPath);
-                        AriadoneMasterData.hideFlags = HideFlags.None;
                     }
+                    AriadoneMasterData.hideFlags = HideFlags.NotEditable;
                     AriadoneMasterData.dungeonId = Data.Data.Id;
                     AriadoneMasterData.dungeonName = Data.Data.Name;
                     if (floorData != null)

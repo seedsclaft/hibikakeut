@@ -108,6 +108,10 @@ namespace Ariadne
         
         protected virtual void Update()
         {
+            if (mapObj == null)
+            {
+                return;
+            }
             if (enableDrawMap)
             {
                 mapObj.SetActive(true);

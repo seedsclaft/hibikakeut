@@ -453,6 +453,7 @@ namespace Ryneus
             if (MoveController != null)
             {
                 CommandDungeonBusy(sceneInfo.ToScene != Scene.Dungeon);
+                mapAssign.gameObject.SetActive(sceneInfo.ToScene != Scene.MainMenu);
                 if (sceneInfo.ToScene != Scene.Dungeon)
                 {
                     MoveController.HideUI();
