@@ -84,6 +84,7 @@ namespace Ryneus
         Help,
         Achievement,
         ItemList,
+        StageList,
         AlcanaList,
         SlotSave,
         LearnSkill,
@@ -98,5 +99,12 @@ namespace Ryneus
         Dictionary,
         FileList,
         TutorialStage,
+    }
+
+    public class PopupInfo
+    {
+        public PopupType PopupType;
+        public System.Action EndEvent;
+        public object template;
     }
 }

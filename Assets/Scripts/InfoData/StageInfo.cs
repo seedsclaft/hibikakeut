@@ -8,9 +8,11 @@ namespace Ryneus
     {
         public StageData Master => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
-        public StageInfo(int id)
+        public ParameterBool Cleared = new();
+        public StageInfo(int id,bool cleared = false)
         {
             StageId.SetValue(id);
+            Cleared.SetValue(cleared);
         }
 
         public bool CheckVictory()

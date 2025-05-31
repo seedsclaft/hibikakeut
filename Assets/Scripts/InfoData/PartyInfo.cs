@@ -27,6 +27,18 @@ namespace Ryneus
         public ParameterInt StageId = new();
         public ParameterInt TurnCount = new();
 
+        private List<int> _clearedStages = new();
+        public void ClearStage(int stageId)
+        {
+            if (!IsClaeredStage(stageId))
+            {
+                _clearedStages.Add(stageId);
+            }
+        }
+        public bool IsClaeredStage(int stageId)
+        {
+            return _clearedStages.Contains(stageId);
+        }
         // 開示マス情報
         private Dictionary<int,List<string>> _traverseDict = new();
         public void SetupDungeonTraverse(int dungeonId)

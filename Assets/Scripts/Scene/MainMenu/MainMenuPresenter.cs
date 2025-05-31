@@ -77,8 +77,7 @@ namespace Ryneus
             switch (commandData.Key)
             {
                 case "Departure":
-                    _model.PartyInfo.DepartureCount.GainValue(1);
-                    _view.CommandSceneChange(Scene.Dungeon);
+                    CommandDepature();
                     break;
                 case "DeckEdit":
                     CommandDeckEdit();
@@ -99,6 +98,21 @@ namespace Ryneus
                     },false,true);
                     break;
             }
+        }
+
+        private void CommandDepature()
+        {
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.StageList,
+                template = null,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
         }
 
         private void CommandDeckEdit()

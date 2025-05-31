@@ -160,10 +160,3 @@ namespace Option
         ChangeOptionValue = 2000,
     }
 }
-
-public class PopupInfo
-{
-    public PopupType PopupType;
-    public System.Action EndEvent;
-    public object template;
-}

@@ -16,8 +16,8 @@ namespace Ryneus
         [SerializeField] private SkillInfoComponent skillInfoComponent;
         [SerializeField] private bool usePartyInfoComponent = false;
         [SerializeField] private PartyInfoComponent partyInfoComponent;
-        [SerializeField] private bool useHexUnitComponent = false;
-        [SerializeField] private HexUnitComponent hexUnitComponent;
+        [SerializeField] private bool useStageInfoComponent = false;
+        [SerializeField] private StageInfoComponent stageInfoComponent;
 
 
         
@@ -49,10 +49,10 @@ namespace Ryneus
                 var partyInfo = ListItemData<PartyInfo>();
                 partyInfoComponent.UpdateInfo(partyInfo);
             }
-            if (hexUnitComponent != null && useHexUnitComponent)
+            if (stageInfoComponent != null && useStageInfoComponent)
             {
-                var hexUnitInfo = ListItemData<HexUnitInfo>();
-                hexUnitComponent.UpdateInfo(hexUnitInfo);
+                var stageInfo = ListItemData<StageInfo>();
+                stageInfoComponent.UpdateInfo(stageInfo);
             }
         }
     }
