@@ -1931,7 +1931,7 @@ namespace Ariadne
     {
         public int[] floorIds;
         public string[] floorNames;
-
+/*
         /// <Summary>
         /// Constructor of DungeonFloorStruct.
         /// </Summary>
@@ -1951,5 +1951,6 @@ namespace Ariadne
             floorIds = floorIdList.ToArray();
             floorNames = floorNameList.ToArray();
         }
+*/
     }
 }

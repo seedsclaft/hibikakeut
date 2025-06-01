@@ -8,9 +8,10 @@ namespace Ariadne
     /// <Summary>
     /// Editor script for dungeon data.
     /// </Summary>
-    [CustomEditor(typeof(DungeonMasterData))]
+    //[CustomEditor(typeof(DungeonMasterData))]
     public class DungeonMasterDataEditor : Editor
     {
+        /*
         /// <Summary>
         /// Show floor selector on inspector.
         /// </Summary>
@@ -77,5 +78,6 @@ namespace Ariadne
             }
             return floorIdArray;
         }
+        */
     }
 }

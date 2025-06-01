@@ -7,7 +7,7 @@ namespace Ariadne
     /// <Summary>
     /// Definition of dungeon data.
     /// </Summary>
-    [CreateAssetMenu(fileName = "dungeon_", menuName = "Ariadne/DungeonData", order = AriadneMenuOrder.DungeonData)]
+    //[CreateAssetMenu(fileName = "dungeon_", menuName = "Ariadne/DungeonData", order = AriadneMenuOrder.DungeonData)]
     public class DungeonMasterData : ScriptableObject
     {
         public int dungeonId;
