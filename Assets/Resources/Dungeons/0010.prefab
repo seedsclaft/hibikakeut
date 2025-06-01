@@ -652,7 +652,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
-  m_Color: {r: 0.97794116, g: 0.80784285, b: 0.62559474, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.5
   m_Range: 50
   m_SpotAngle: 30
@@ -1389,6 +1389,7 @@ GameObject:
   - component: {fileID: 6054136897528807998}
   - component: {fileID: 4516721680755823111}
   - component: {fileID: 5971373829070120715}
+  - component: {fileID: 1581533329820724437}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1470,6 +1471,37 @@ Behaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4835857868180797514}
   m_Enabled: 1
+--- !u!114 &1581533329820724437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4835857868180797514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9441d5450817c342a45e4b8dd66de6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showEditorMainBehavior: 1
+  showEditorBloomBehavior: 1
+  showEditorLensSurfaceBehavior: 0
+  debugView: 0
+  workflow: 0
+  selectiveRenderLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  anamorphicRatio: 0
+  bloomThreshold:
+    minValue: 1
+    maxValue: 10
+  bloomScattering: 7
+  bloomIntensity: 1
+  allowLensSurface: 0
+  lensSurfaceDirtTexture: {fileID: 0}
+  lensSurfaceDirtIntensity: 2.5
+  lensSurfaceDiffractionTexture: {fileID: 0}
+  lensSurfaceDiffractionIntensity: 2
 --- !u!1 &5239345902291967513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2884,7 +2916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1872638402315450, guid: 9613485145c964aa59bc32a548dc79e3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4814813228955760, guid: 9613485145c964aa59bc32a548dc79e3, type: 3}
       propertyPath: m_RootOrder
