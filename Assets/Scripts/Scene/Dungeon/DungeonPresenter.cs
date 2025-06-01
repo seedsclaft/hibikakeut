@@ -90,7 +90,7 @@ namespace Ryneus
                 };
                 PlayBattleBgm();
                 _view.CommandChangeViewToTransition(null);
-                _view.ChangeUIActive(false);
+                //_view.ChangeUIActive(false);
                 _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
                 SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
             }
@@ -138,7 +138,7 @@ namespace Ryneus
                         };
                         PlayBattleBgm();
                         _view.CommandChangeViewToTransition(null);
-                        _view.ChangeUIActive(false);
+                        //_view.ChangeUIActive(false);
                         _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
                         SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
                         return true;
@@ -158,6 +158,10 @@ namespace Ryneus
                 {
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                     _view.CommandSceneChange(Scene.MainMenu);
+                } else
+                {
+                    _view.CallSystemCommand(Base.CommandType.DungeonBusy,false);
+                    _busy = false;
                 }
             });
             _view.CommandCallConfirm(confirmInfo);

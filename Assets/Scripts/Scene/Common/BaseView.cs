@@ -29,6 +29,7 @@ namespace Ryneus
 
         [SerializeField] private Button _backCommand = null;
         [SerializeField] private SpriteRenderer _backGround = null;
+        public SpriteRenderer BackGround => _backGround;
         private Action _backEvent = null;
         public Action BackEvent => _backEvent;
         [SerializeField] private GameObject uiRoot = null;

@@ -65,6 +65,7 @@ namespace Ryneus
             battleMaxDamageObj?.SetActive(false);
             battleAttackPerObj?.SetActive(false);
             battleDefeatedCountObj?.SetActive(false);
+            BackGround.gameObject.SetActive(GameSystem.SceneStackManager.Current == Scene.MainMenu);
             new StrategyPresenter(this);
         }
 

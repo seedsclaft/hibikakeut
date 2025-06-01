@@ -62,6 +62,7 @@ namespace Ryneus
                 {
                     if (a == ConfirmCommandType.Yes)
                     {
+                        _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                         _model.PartyInfo.DepartureCount.GainValue(1);
                         _view.CommandSceneChange(Scene.Dungeon);
                     }
