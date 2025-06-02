@@ -507,13 +507,17 @@ namespace Ryneus
         {
             if (MoveController != null)
             {
-                return;
+                mapAssign.ClearMap();
+                MoveController = null;
             }
             var prefab = mapAssign.CreateMap(mapName);
             var moveController = prefab.GetComponentInChildren<Ariadne.MoveController>();
             if (moveController != null)
             {
                 MoveController = moveController;
+                DungeonViewManager.Initialize();
+                //DungeonViewManager.SetMoveController(MoveController);
+                MoveController.OnEnterDungeon();
             }
             //_model.CurrentDeckInfo.SetPosition(Ariadne.PlayerPosition.Instance.currentDungeonId,);
             _model.PartyInfo.SetupDungeonTraverse(Ariadne.PlayerPosition.Instance.currentDungeonId);

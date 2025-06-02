@@ -103,7 +103,7 @@ namespace Ryneus
             {
                 // ダンジョン生成
                 _view.CommandChangeDungeon(_model.CurrentStage.Master.Id.ToString("D4"));
-                GameSystem.DungeonViewManager.Initialize();
+                //GameSystem.DungeonViewManager.Initialize();
                 _view.CommandGotoSceneChange(Scene.Dungeon);
                 //_view.CommandGotoSceneChange(Scene.Tactics);
                 //_view.CommandGotoSceneChange(Scene.NameEntry);

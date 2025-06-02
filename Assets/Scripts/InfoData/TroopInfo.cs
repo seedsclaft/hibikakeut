@@ -75,8 +75,11 @@ namespace Ryneus
                 }
                 */
                 var battlerInfo = new BattlerInfo(enemyData, baseLv, BattlerInfos.Count + 1, LineType.Front, BattlerInfos.Count == 0);
-                AddEnemy(battlerInfo);
                 weight -= stageEnemyRates[targetIdRand].Weight;
+                if (weight > 0)
+                {
+                    AddEnemy(battlerInfo);
+                }
             }
         }
 

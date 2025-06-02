@@ -21,19 +21,7 @@ MonoBehaviour:
     StageLv: 0
     DisplayRank: 1
     RandomTroopWeight: 30
-    RandomTroopEnemyRates:
-    - EnemyId: 1
-      Weight: 15
-    - EnemyId: 1
-      Weight: 15
-    - EnemyId: 3
-      Weight: 15
-    - EnemyId: 7
-      Weight: 20
-    - EnemyId: 7
-      Weight: 20
-    - EnemyId: 16
-      Weight: 30
+    RandomTroopEnemyRates: []
     EncountMin: 0
     EncountMax: 0
     BackGround: RockCave2
@@ -70,7 +58,17 @@ MonoBehaviour:
     StageLv: 1
     DisplayRank: 2
     RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
+    RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 15
+    - EnemyId: 1
+      Weight: 15
+    - EnemyId: 3
+      Weight: 15
+    - EnemyId: 7
+      Weight: 20
+    - EnemyId: 7
+      Weight: 20
     EncountMin: 5
     EncountMax: 15
     BackGround: RockCave2

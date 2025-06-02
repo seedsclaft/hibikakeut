@@ -21,7 +21,7 @@ namespace Ariadne
         {
             if (_isInitilized)
             {
-                return;
+                //return;
             }
             _isInitilized = true;
             // Initialize game settings.
@@ -31,6 +31,13 @@ namespace Ariadne
 
             // Set up the move controller script.
             CheckMoveControllerReference();
+            moveController.SetPostMoveEventObject(gameObject);
+            SendEnterDungeonMessage(moveController.gameObject);
+        }
+
+        public void SetMoveController(MoveController controller)
+        {
+            moveController = controller;
             moveController.SetPostMoveEventObject(gameObject);
             SendEnterDungeonMessage(moveController.gameObject);
         }
