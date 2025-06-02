@@ -113,12 +113,13 @@ namespace Ryneus
         private async Task CommandContinue()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            /*
             await _model.LoadFile();
             _view.CommandChangeDungeon(_model.CurrentStage.Master.Id.ToString("D4"));
             GameSystem.DungeonViewManager.Initialize();
             _view.CommandGotoSceneChange(_model.PartyInfo.ResumeScene);
 
-/*
+*/
             var sceneParam = new FileListSceneInfo
             {
                 IsLoad = true
@@ -134,7 +135,6 @@ namespace Ryneus
                 template = sceneParam
             };
             _view.CommandCallPopup(popupInfo);
-*/
         }
 
         private void CommandOption()

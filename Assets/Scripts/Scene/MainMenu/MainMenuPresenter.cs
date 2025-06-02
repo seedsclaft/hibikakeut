@@ -132,11 +132,12 @@ namespace Ryneus
 
         private void CommandAchievement()
         {
-            // 達成状況更新
-            _model.CheckAchievementConditions();
-
-            // 達成報酬あれば遷移　なければリスト表示
-            var getItemInfos = _model.AchievementGetItemInfos();
+            var rankup = CheckAchievements(true,() => CommandAchievement());
+            if (rankup)
+            {
+                return;
+            }
+            /*
             if (getItemInfos.Count > 0)
             {
                 var strategySceneInfo = new StrategySceneInfo
@@ -148,6 +149,7 @@ namespace Ryneus
                 _view.CommandSceneChange(Scene.Strategy,strategySceneInfo);
                 return;
             }
+            */
             ShowAchievementList();
         }
 
@@ -200,7 +202,7 @@ namespace Ryneus
                     List<ActorInfo> actorInfos =_model.AddSelectActorInfos();
                     CommandAddActorStatusInfo(actorInfos,() =>
                     {
-
+                        CheckAchievements();
                     });
                 }
             });

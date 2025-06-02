@@ -46,5 +46,6 @@ namespace Ryneus
         Confirm,
         Caution,
         SkillDetail,
+        MissionClear,
     }
 }

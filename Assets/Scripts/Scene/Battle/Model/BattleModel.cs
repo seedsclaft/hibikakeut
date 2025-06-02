@@ -2579,6 +2579,7 @@ namespace Ryneus
                 strategySceneInfo.BattleDefeatedCount = defeated;
                 PartyInfo.BattleScore.GainValue((int)score);
                 PartyInfo.TotalDamage.GainValue(attack);
+                CheckAchievements();
                 return (int)score;
             }
             return 0;

@@ -13,7 +13,7 @@ namespace Ryneus
         [SerializeField] private SkillInfoComponent skillInfoComponent = null;
         [SerializeField] private ConfirmAnimation confirmAnimation = null;
 
-        public override void Initialize() 
+        public override void Initialize()
         {
             base.Initialize();
             SetBaseAnimation(confirmAnimation);
@@ -32,7 +32,7 @@ namespace Ryneus
             afterEvaluateText?.SetText(learnSkillInfo.To.ToString());
             skillInfoComponent.UpdateInfo(learnSkillInfo.SkillInfo);
         }
-        
+
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
             if (keyTypes.Count > 0)

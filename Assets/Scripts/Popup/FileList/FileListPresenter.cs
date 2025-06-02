@@ -56,7 +56,9 @@ namespace Ryneus
                 _view.CommandEnd();
                 if (isLoad)
                 {
-                    _view.CommandGotoSceneChange(Scene.Tactics);
+                    _view.CommandChangeDungeon(_model.CurrentStage.Master.Id.ToString("D4"));
+                    GameSystem.DungeonViewManager.Initialize();
+                    _view.CommandGotoSceneChange(_model.PartyInfo.ResumeScene);
                 }
             }
         }

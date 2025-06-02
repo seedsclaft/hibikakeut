@@ -55,7 +55,7 @@ namespace Ryneus
 
         private void CommandDecideStage(StageInfo stageInfo)
         {
-            if (_model.IsLimitedRank(stageInfo))
+            if (!_model.IsLimitedRank(stageInfo))
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 var confirmInfo = new ConfirmInfo("出撃しますか？", (a) =>
@@ -64,6 +64,7 @@ namespace Ryneus
                     {
                         _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                         _model.PartyInfo.DepartureCount.GainValue(1);
+                        CheckAchievements();
                         _view.CommandSceneChange(Scene.Dungeon);
                     }
                 });

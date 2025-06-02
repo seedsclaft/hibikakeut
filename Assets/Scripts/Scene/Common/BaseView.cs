@@ -236,6 +236,11 @@ namespace Ryneus
             CallSystemCommand(Base.CommandType.CallCautionView,popupInfo);
         }
 
+        public void CommandCallMissionClear(MissionClearInfo popupInfo)
+        {
+            CallSystemCommand(Base.CommandType.CallMissionClearView,popupInfo);
+        }
+
         public void CommandCallPopup(PopupInfo popupInfo)
         {
             CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
@@ -380,6 +385,7 @@ namespace Ryneus
             CallConfirmView,
             CallSkillDetailView,
             CallCautionView,
+            CallMissionClearView,
             CallPopupView,
             ClosePopup,
             ClosePopupAll,

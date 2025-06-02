@@ -67,6 +67,7 @@ namespace Ryneus
                         if (getItemInfos.Count > 0)
                         {
                             _model.PartyInfo.PresentCommandCount.GainValue(1);
+                            CheckAchievements();
                             _view.CallSystemCommand(Base.CommandType.ClosePopup);
                             var strategySceneInfo = new StrategySceneInfo
                             {

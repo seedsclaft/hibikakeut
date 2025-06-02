@@ -149,6 +149,91 @@ namespace Ryneus
             }
         }
 
+        public void UpdateAchievementConditions(bool checkMissionRank = false)
+        {
+            foreach (var achievementInfo in _achievements)
+            {
+                if (!checkMissionRank && achievementInfo.Master.ConditionType == AchievementConditionType.Complete)
+                {
+                    continue;
+                }
+                CheckAchievementCondition(achievementInfo);
+            }
+        }
+
+        private void CheckAchievementCondition(AchievementInfo achievementInfo)
+        {
+            switch(achievementInfo.Master.ConditionType)
+            {
+                case AchievementConditionType.Complete:
+                    // 達成数
+                    var achived = _achievements.FindAll(a => a.Achieved.Value).Count;
+                    achievementInfo.SetCondition(achived,_achievements.Count-1);
+                    break;
+                case AchievementConditionType.DepartureCount:
+                    // 出撃回数
+                    achievementInfo.SetCondition(DepartureCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.BattleVictory:
+                    // 勝利回数
+                    achievementInfo.SetCondition(BattleVictoryCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.CharacterLevel:
+                    // キャラLv　Param2がActorId,-1なら任意
+                    var level = 0;
+                    if (achievementInfo.Master.Param2 == -1)
+                    {
+                        level = ActorInfos.Max(a => a.Level);
+                    } else
+                    {
+                        var levelChara = ActorInfos.Find(a => a.ActorId.Value == achievementInfo.Master.Param2);
+                        level = levelChara != null ? levelChara.Level : 0;
+                    }
+                    achievementInfo.SetCondition(level,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.TacticsLvupCount:
+                    // Nu消費レベルアップ回数
+                    achievementInfo.SetCondition(TacticsLvupCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.BattleScore:
+                    // バトル評価値
+                    achievementInfo.SetCondition(BattleScore.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.TotalDamage:
+                    // 与ダメージ
+                    achievementInfo.SetCondition(TotalDamage.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.DeckEditCommandCount:
+                    // 編成コマンド回数
+                    achievementInfo.SetCondition(DeckEditCommandCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.PresentCommandCount:
+                    // 献上コマンド回数
+                    achievementInfo.SetCondition(PresentCommandCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.ReliefCommandCount:
+                    // 救済コマンド回数
+                    achievementInfo.SetCondition(ReliefCommandCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.StatusSkillChangeCount:
+                    // 魔法編成回数
+                    achievementInfo.SetCondition(StatusSkillChangeCount.Value,achievementInfo.Master.Param1);
+                    break;
+            }
+        }
+
+        public List<GetItemInfo> AchievementGetItemInfos()
+        {
+            var list = new List<GetItemInfo>();
+            var achievements = AchievementInfos.FindAll(a => !a.Presented.Value && a.Achieved.Value);
+            foreach (var achievement in achievements)
+            {
+                list.AddRange(achievement.GetItemInfos);
+                achievement.Presented.SetValue(true);
+            }
+            return list;
+        }
+
         // 所持アイテム情報
         private List<GetItemInfo> _getItemInfos = new();
         public void AddGetItemInfo(GetItemInfo getItemInfo)
@@ -161,9 +246,7 @@ namespace Ryneus
             }
             if (getItemInfo.GetItemType == GetItemType.RankUp)
             {
-                var rankUpInfos = _getItemInfos.FindAll(a => a.GetItemType == GetItemType.RankUp);
-                var rank = rankUpInfos.Count() > 0 ? rankUpInfos.Max(a => a.Param1) : 1;
-                MissionRank.SetValue(rank);
+                MissionRank.GainValue(1);
             }
             CheckAddActor();
             CheckLearningSkillId();

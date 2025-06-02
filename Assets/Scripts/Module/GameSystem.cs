@@ -143,6 +143,9 @@ namespace Ryneus
                 case Base.CommandType.CallCautionView:
                     CommandCautionView((CautionInfo)viewEvent.Template);
                     break;
+                case Base.CommandType.CallMissionClearView:
+                    CommandMissionClearView((MissionClearInfo)viewEvent.Template);
+                    break;
                 case Base.CommandType.ClosePopup:
                     popupAssign.ClosePopup();
                     SetIsNotBusyMainAndStatus();
@@ -295,6 +298,18 @@ namespace Ryneus
             //SetIsBusyMainAndStatus();
         }
 
+        private void CommandMissionClearView(MissionClearInfo confirmInfo)
+        {
+            var prefab = confirmAssign.CreateConfirm(ConfirmType.MissionClear, helpWindow);
+            var missionClearView = prefab.GetComponent<MissionClearView>();
+            missionClearView.SetEvent((type) => UpdateCommand(type));
+            missionClearView.Initialize();
+            if (confirmInfo.Title != null)
+            {
+                missionClearView.SetTitle(confirmInfo.Title);
+            }
+        }
+
         private void CommandPopupView(PopupInfo popupInfo)
         {
             _sceneStackManager.PushPopupInfo(popupInfo);
@@ -322,6 +337,12 @@ namespace Ryneus
             {
                 var guide = prefab.GetComponent<GuideView>();
                 guide.SetGuide((string)popupInfo.template);
+            }
+            else
+            if (popupInfo.PopupType == PopupType.Rankup)
+            {
+                var rankup = prefab.GetComponent<RankupView>();
+                rankup.SetRankupInfo((RankupInfo)popupInfo.template);
             }
             SetIsBusyMainAndStatus();
         }

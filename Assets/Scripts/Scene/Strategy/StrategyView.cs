@@ -9,7 +9,7 @@ namespace Ryneus
 {
     public class StrategyView : BaseView
     {
-        [SerializeField] private Image backgroundImage = null; 
+        [SerializeField] private Image backgroundImage = null;
         [SerializeField] private StrategyActorList strategyActorList = null;
         [SerializeField] private CanvasGroup strategyResultCanvasGroup = null;
         [SerializeField] private BaseList strategyResultList = null;
@@ -65,7 +65,7 @@ namespace Ryneus
             battleMaxDamageObj?.SetActive(false);
             battleAttackPerObj?.SetActive(false);
             battleDefeatedCountObj?.SetActive(false);
-            BackGround.gameObject.SetActive(GameSystem.SceneStackManager.Current == Scene.MainMenu);
+            //BackGround.gameObject.SetActive(GameSystem.SceneStackManager.Current == Scene.MainMenu);
             new StrategyPresenter(this);
         }
 

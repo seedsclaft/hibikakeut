@@ -54,7 +54,7 @@ namespace Ryneus
             _view.SetHelpWindow();
 
             _view.InitResultList(MakeListData(_model.ResultCommand()));
-            _view.SetBackGround(_model.CurrentStage.Master.BackGround);
+            _view.SetBackGround(_model.BackGround());
             if (_model.StageEnd())
             {
                 SoundManager.Instance.FadeOutBgm();
@@ -63,6 +63,7 @@ namespace Ryneus
 
             _view.ChangeUIActive(true);
             CommandStartStrategy();
+            CheckAchievements();
             _busy = false;
         }
 

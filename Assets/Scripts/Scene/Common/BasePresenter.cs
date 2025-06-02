@@ -169,6 +169,21 @@ namespace Ryneus
 
         public void CommandSave(bool isReturnScene)
         {
+            var sceneParam = new FileListSceneInfo
+            {
+                IsLoad = false
+            };
+            var popupInfo = new PopupInfo()
+            {
+                PopupType = PopupType.FileList,
+                EndEvent = () =>
+                {
+                    //SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                },
+                template = sceneParam
+            };
+            _view.CommandCallPopup(popupInfo);
+            /*
 #if UNITY_ANDROID
             var savePopupTitle = _model.SavePopupTitle();
             var saveNeedAds = _model.NeedAdsSave();
@@ -187,6 +202,7 @@ namespace Ryneus
 #else
             SuccessSave(isReturnScene);
 #endif
+*/
         }
 
         private void SuccessSave(bool isReturnScene)
@@ -397,6 +413,49 @@ namespace Ryneus
                 };
                 _view.CommandCallPopup(popupInfo);
             }
+        }
+
+        public bool CheckAchievements(bool checkMissionRank = false,Action endEvent = null)
+        {
+            // 現在のRank
+            var currentRank = _model.PartyInfo.MissionRank.Value;
+            var achievements = _model.CheckAchievements(checkMissionRank);
+            if (achievements.Count > 0)
+            {
+                var missionClearInfo = new MissionClearInfo();
+                var text = "課題を達成！\n";
+                foreach (var achievement in achievements)
+                {
+                    text += achievement.GetTitleData();
+                    if (achievement != achievements[achievements.Count-1])
+                    {
+                        text += " ";
+                    }
+                }
+                text += "を獲得";
+                missionClearInfo.SetTitle(text);
+                _view.CommandCallMissionClear(missionClearInfo);
+            }
+            var afterRank = _model.PartyInfo.MissionRank.Value;
+            if (checkMissionRank && afterRank > currentRank)
+            {
+                _model.PartyInfo.SetAchievementRank(DataSystem.Achievements);
+                var rankupInfo = new RankupInfo(currentRank,afterRank);
+                SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+
+                var popupInfo = new PopupInfo
+                {
+                    PopupType = PopupType.Rankup,
+                    EndEvent = () =>
+                    {
+                        SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                        endEvent?.Invoke();
+                    },
+                    template = rankupInfo
+                };
+                _view.CommandCallPopup(popupInfo);
+            }
+            return checkMissionRank && afterRank > currentRank;
         }
     }
 }

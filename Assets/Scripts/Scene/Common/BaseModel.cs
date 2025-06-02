@@ -632,5 +632,29 @@ namespace Ryneus
             var traverses = Ariadne.TraverseManager.Instance.GetDungeonTraverseData(playerDungeonId);
             PartyInfo.AddDungeonTraverse(playerDungeonId,traverses.traverseDict);
         }
+
+        private void UpdateAchievementConditions(bool checkMissionRank = false)
+        {
+            PartyInfo.UpdateAchievementConditions(checkMissionRank);
+        }
+
+        private List<GetItemInfo> AchievementGetItemInfos()
+        {
+            return PartyInfo.AchievementGetItemInfos();
+        }
+
+        public List<GetItemInfo> CheckAchievements(bool checkMissionRank = false)
+        {
+            // 達成状況更新
+            UpdateAchievementConditions(checkMissionRank);
+
+            // 達成報酬あれば遷移　なければリスト表示
+            var getItemInfos = AchievementGetItemInfos();
+            foreach (var getItemInfo in getItemInfos)
+            {
+                AddGetItemInfo(getItemInfo);
+            }
+            return getItemInfos;
+        }
     }
 }

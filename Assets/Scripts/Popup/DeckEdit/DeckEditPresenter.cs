@@ -29,7 +29,6 @@ namespace Ryneus
             _view.SetActorList(MakeListData(_model.PartyInfo.ActorInfos,-1));
             _view.EndSelectChangeBattler();
             _view.OpenAnimation();
-            _model.PartyInfo.DeckEditCommandCount.GainValue(1);
         }
 
         private void UpdateCommand(ViewEvent viewEvent)
@@ -70,6 +69,8 @@ namespace Ryneus
 
         private void CommandDecideBattlerInfo(ActorInfo actorInfo)
         {
+            _model.PartyInfo.DeckEditCommandCount.GainValue(1);
+            CheckAchievements();
             _model.SwapBattler(actorInfo.ActorId.Value);
             CommandRefresh();
             _view.EndSelectChangeBattler();

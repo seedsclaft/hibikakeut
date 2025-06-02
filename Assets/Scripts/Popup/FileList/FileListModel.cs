@@ -79,6 +79,7 @@ namespace Ryneus
             }
             CurrentData.PushSaveFile(saveFileInfo);
             SavePlayerData();
+            SavePlayerStageData(true,GameSystem.SceneStackManager.Current);
             SaveSystem.SaveStageInfo(GameSystem.GameInfo,saveFileInfo.SaveNo);
         }
 

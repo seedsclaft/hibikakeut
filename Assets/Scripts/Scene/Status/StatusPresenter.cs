@@ -181,6 +181,7 @@ namespace Ryneus
                 _model.ChangeEquipSkill(skillInfo.Id.Value);
                 ResetSelectSkill();
                 _model.PartyInfo.StatusSkillChangeCount.GainValue(1);
+                CheckAchievements();
             }
         }
 
@@ -236,6 +237,7 @@ namespace Ryneus
             _model.PartyInfo.TacticsLvupCount.GainValue(1);
             CommandLevelUp(_model.CurrentActor,() =>
             {
+                CheckAchievements();
                 _busy = false;
                 _view.SetBusy(false);
                 CommandRefresh();

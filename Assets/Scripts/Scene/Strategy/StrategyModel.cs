@@ -78,25 +78,13 @@ namespace Ryneus
             return list;
         }
 
-        public void MakeSelectRelicData()
+        public string BackGround()
         {
-            /*
-            var record = PartyInfo.SymbolRecordList.Find(a => a.IsSameSymbol(CurrentSelectRecord()));
-            
-            var getItemInfos = SceneParam.GetItemInfos;
-            var selectRelicInfo = getItemInfos.Find(a => a.GetItemType == GetItemType.SelectRelic);
-            if (selectRelicInfo != null)
+            if (CurrentStage != null)
             {
-                var relicInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Skill);
-                _relicData = new List<SkillInfo>();
-                foreach (var relicInfo in relicInfos)
-                {
-                    var skillInfo = new SkillInfo(relicInfo.Param1);
-                    skillInfo.SetEnable(true);
-                    _relicData.Add(skillInfo);
-                }
+                return CurrentStage.Master.BackGround;
             }
-            */
+            return null;
         }
 
         public void MakeResult()
