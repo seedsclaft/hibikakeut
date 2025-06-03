@@ -1,12 +1,46 @@
 using System.Linq;
 using System.Collections.Generic;
+using Ariadne;
 
 namespace Ryneus
 {
     public class DungeonModel : BaseModel
     {
-        public DungeonModel()
+        private MoveController _moveController;
+        public DungeonModel(MoveController moveController)
         {
+            _moveController = moveController;
+        }
+
+        // 開示マスを復帰
+        public void UpdateTraverses()
+        {
+            if (CurrentStage != null)
+            {
+                var traversDates = PartyInfo.GetDungeonTraverse(CurrentStage.StageId.Value);
+                TraverseManager.Instance.UpdateTraverses(CurrentStage.StageId.Value,traversDates);
+            }
+        }
+
+        public void SetPlayerPosition()
+        {
+            // 位置保存情報を復帰
+            _moveController.SetPlayerPosition(CurrentDeckInfo.PositionX.Value,CurrentDeckInfo.PositionY.Value,CurrentDeckInfo.Direction.Value);
+        }
+
+        public void UpdateEventObjects()
+        {
+            // フラグ情報でイベント表示を制御
+            var endStageEvents = EndStageEvents();
+            foreach (var endStageEvent in endStageEvents)
+            {
+                _moveController.SetDeactiveEventObj(endStageEvent.PositionX,endStageEvent.PositionY);
+            }
+        }
+
+        public void DungeonBusy(bool busy)
+        {
+            _moveController.isInDungeon = !busy;
         }
 
         public List<BattlerInfo> PartyUnit()

@@ -17,7 +17,7 @@ namespace Ryneus
         {
             _view = view;
             SetView(_view);
-            _model = new DungeonModel();
+            _model = new DungeonModel(view.MoveController);
             SetModel(_model);
 
             Initialize();
@@ -29,10 +29,15 @@ namespace Ryneus
             _view.SetEvent((type) => UpdateCommand(type));
 
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
+            // ダンジョン生成
+            _view.CommandChangeDungeon(_model.DungeonPrefabName());
             await PlayTacticsBgm(timeStamp);
+            _view.SetupDungeon();
+            _model.UpdateTraverses();
+            _model.SetPlayerPosition();
+            _model.UpdateEventObjects();
             _busy = false;
         }
-
 
         private void UpdateCommand(ViewEvent viewEvent)
         {
@@ -74,9 +79,9 @@ namespace Ryneus
             }
 
             // イベントマスの場合
-            if (CheckEventData(() => {_view.CallSystemCommand(Base.CommandType.DungeonBusy,false);}))
+            if (CheckEventData(() => {_model.DungeonBusy(false);}))
             {
-                _view.CallSystemCommand(Base.CommandType.DungeonBusy,true);
+                _model.DungeonBusy(true);
                 return;
             }
 
@@ -161,7 +166,7 @@ namespace Ryneus
                     _view.CommandSceneChange(Scene.MainMenu);
                 } else
                 {
-                    _view.CallSystemCommand(Base.CommandType.DungeonBusy,false);
+                    _model.DungeonBusy(false);
                     _busy = false;
                 }
             });
@@ -206,10 +211,10 @@ namespace Ryneus
         private void CommandSelectSideMenu()
         {
             _busy = true;
-            _view.CallSystemCommand(Base.CommandType.DungeonBusy,true);
+            _model.DungeonBusy(true);
             CommandCallSideMenu(MakeListData(_model.SideMenu()), () =>
             {
-                _view.CallSystemCommand(Base.CommandType.DungeonBusy,false);
+                _model.DungeonBusy(false);
                 _busy = false;
             });
         }

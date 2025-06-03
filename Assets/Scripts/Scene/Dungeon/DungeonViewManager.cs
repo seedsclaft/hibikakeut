@@ -12,7 +12,6 @@ namespace Ariadne
     public class DungeonViewManager : AriadneSystemBase, IExitDungeon
     {
         [SerializeField] DungeonPostMoveChecker postMoveChecker;
-        public DungeonPostMoveChecker PostMoveChecker => postMoveChecker;
         [SerializeField] Image screenMaskImage;
         [SerializeField] float screenFadeTime = 1.0f;
 
@@ -40,6 +39,7 @@ namespace Ariadne
         {
             Debug.Log("SetMoveController");
             moveController = controller;
+            postMoveChecker.SetMoveController(controller);
             moveController.SetPostMoveEventObject(gameObject);
             SendEnterDungeonMessage(moveController.gameObject);
         }
@@ -85,7 +85,7 @@ namespace Ariadne
         {
             yield return StartCoroutine(AriadneFadeManager.FadeInImage(screenMaskImage, screenFadeTime));
             yield return new WaitForSeconds(screenFadeTime);
-            SendEnterDungeonMessage(moveController.gameObject);
+            //SendEnterDungeonMessage(moveController.gameObject);
         }
 
         /// <Summary>

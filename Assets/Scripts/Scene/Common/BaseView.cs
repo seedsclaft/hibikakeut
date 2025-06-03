@@ -411,7 +411,6 @@ namespace Ryneus
             CheckTutorialState,
             SceneShowUI,
             SceneHideUI,
-            DungeonBusy,
         }
     }
 }

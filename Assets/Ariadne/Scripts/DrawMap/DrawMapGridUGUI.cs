@@ -51,11 +51,11 @@ namespace Ariadne
                 gameController = GameObject.FindGameObjectWithTag(AriadneSceneObjectTag.GameController);
             }
 
-            if (dungeonSettings == null)
+            if (dungeonSettings == null && gameController != null)
             {
                 dungeonSettings = gameController.GetComponent<DungeonSettings>();
+                floorMapData = dungeonSettings.GetCurrentFloorData();
             }
-            floorMapData = dungeonSettings.GetCurrentFloorData();
         }
 
         /// <Summary>
@@ -68,15 +68,14 @@ namespace Ariadne
                 gameController = GameObject.FindGameObjectWithTag(AriadneSceneObjectTag.GameController);
             }
 
-            if (mapSettings == null)
+            if (mapSettings == null && gameController != null)
             {
                 mapSettings = gameController.GetComponent<MapShowingSettings>();
+                this.showLengthHorizontal = mapSettings.showLengthHorizontal;
+                this.showLengthVertical = mapSettings.showLengthVertical;
+                this.gridLineWidth = mapSettings.gridLineWidth;
+                this.drawSmoothness = mapSettings.smoothness;
             }
-
-            this.showLengthHorizontal = mapSettings.showLengthHorizontal;
-            this.showLengthVertical = mapSettings.showLengthVertical;
-            this.gridLineWidth = mapSettings.gridLineWidth;
-            this.drawSmoothness = mapSettings.smoothness;
         }
 
         /// <Summary>
@@ -94,6 +93,10 @@ namespace Ariadne
             if (mapRt == null)
             {
                 mapRt = gameObject.GetComponent<RectTransform>();
+            }
+            if (mapRt == null || floorMapData == null)
+            {
+                return;
             }
             Vector3 centerPos = mapRt.transform.localPosition;
 

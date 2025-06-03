@@ -71,7 +71,7 @@ namespace Ryneus
                         {
                             _model.CurrentDeckInfo.SetPosition(stageInfo.StageId.Value,floor.entrancePos.x,floor.entrancePos.y,(int)floor.enteringDir);
                         }
-                        _view.CommandChangeDungeon(_model.CurrentStage.Master.Id.ToString("D4"));
+                        //_view.CommandChangeDungeon(_model.CurrentStage.Master.Id.ToString("D4"));
                         _view.CommandSceneChange(Scene.Dungeon);
                     }
                 });

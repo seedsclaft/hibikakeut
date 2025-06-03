@@ -134,5 +134,22 @@ namespace Ariadne
                 dungeonTraverseData.traverseDict[key] = flag;
             }
         }
+
+        public void UpdateTraverses(int dungeonId,List<string> traverses)
+        {
+            TraverseData dungeonTraverseData = GetDungeonTraverseData(dungeonId);
+            if (dungeonTraverseData == null)
+            {
+                return;
+            }
+
+            foreach (var traverse in traverses)
+            {
+                if (dungeonTraverseData.traverseDict.ContainsKey(traverse))
+                {
+                    dungeonTraverseData.traverseDict[traverse] = true;
+                }
+            }
+        }
     }
 }

@@ -107,9 +107,11 @@ namespace Ariadne
         {
             if (moveController == null)
             {
+                /*
                 CheckSystemReference();
                 GameObject obj = systemReference.GetMoveControllerObject();
                 moveController = obj.GetComponent<MoveController>();
+                */
             }
         }
     }

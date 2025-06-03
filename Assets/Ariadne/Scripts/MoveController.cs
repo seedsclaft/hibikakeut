@@ -75,9 +75,6 @@ namespace Ariadne
         [SerializeField]
         GameObject dungeonUI = null;
 
-
-        [SerializeField] private DrawDungeonWall drawDungeonWall;
-
         void Start()
         {
             
@@ -1047,7 +1044,7 @@ namespace Ariadne
             SetUpMoveController();
             SendDrawMessage(gameController);
             SendSetNewMap();
-            StartCoroutine(DelayFadeIn());
+            //StartCoroutine(DelayFadeIn());
             ExecuteEventsOnEnteringFloor();
         }
 
@@ -1519,14 +1516,13 @@ namespace Ariadne
         protected virtual void NotifyPostMoveEvent(GameObject obj)
         {
             Debug.Log("NotifyPostMoveEvent");
-            GameSystem.DungeonViewManager.PostMoveChecker.OnPostMoveEvent();
-            /*
+            //GameSystem.DungeonViewManager.PostMoveChecker.OnPostMoveEvent();
+            
             ExecuteEvents.Execute<IPostMoveNotify>(
                 target: obj,
                 eventData: null,
                 functor: PostMoveEventMsg
             );
-            */
         }
 
         /// <Summary>
@@ -1534,7 +1530,7 @@ namespace Ariadne
         /// </Summary>
         void PostMoveEventMsg(IPostMoveNotify inf, BaseEventData eventData)
         {
-            //inf.OnPostMoveEvent();
+            inf.OnPostMoveEvent();
         }
 
         /// <Summary>
@@ -1568,23 +1564,6 @@ namespace Ariadne
             dungeonUI.SetActive(false);
         }
 
-        public void SetTraverses(int dungeonId,List<string> traverses)
-        {
-            TraverseData dungeonTraverseData = TraverseManager.Instance.GetDungeonTraverseData(dungeonId);
-            if (dungeonTraverseData == null)
-            {
-                return;
-            }
-
-            foreach (var traverse in traverses)
-            {
-                if (dungeonTraverseData.traverseDict.ContainsKey(traverse))
-                {
-                    dungeonTraverseData.traverseDict[traverse] = true;
-                }
-            }
-        }
-
         public void SetPlayerPosition(int x,int y,int direction)
         {
             PlayerPosition.Instance.playerPos = new Vector2Int(x,y);
@@ -1599,6 +1578,16 @@ namespace Ariadne
 
         public void SetDeactiveEventObj(int positionX,int positionY)
         {
+            GameObject wallPratenObj = GameObject.Find(AriadneSceneObjectName.WallParent);
+            if (wallPratenObj == null)
+            {
+                return;
+            }
+            DrawDungeonWall drawDungeonWall = wallPratenObj.GetComponent<DrawDungeonWall>();
+            if (drawDungeonWall == null)
+            {
+                return;
+            }
             GameObject eventObj = drawDungeonWall.GetWallObjectByAxis(positionX, positionY);
             if (eventObj != null)
             {

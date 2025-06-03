@@ -28,6 +28,7 @@ namespace Ariadne
         
         protected virtual void Update()
         {
+            SetObjRef();
             GetMapSettings();
             SetPointerPos();
             SetPointerSize();
@@ -40,6 +41,14 @@ namespace Ariadne
         protected virtual void SetObjRef()
         {
             gameController = GameObject.FindGameObjectWithTag(AriadneSceneObjectTag.GameController);
+            if (gameController == null)
+            {
+                return;
+            }
+            if (mapSettings != null)
+            {
+                return;
+            }
             mapSettings = gameController.GetComponent<MapShowingSettings>();
 
             mapObj = GameObject.Find(AriadneMapPartsName.MapBase);

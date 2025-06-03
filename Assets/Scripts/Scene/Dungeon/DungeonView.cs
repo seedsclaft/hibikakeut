@@ -9,6 +9,9 @@ namespace Ryneus
 {
     public class DungeonView : BaseView, IInputHandlerEvent
     {
+        [SerializeField] private Ariadne.DungeonViewManager dungeonViewManager = null;
+        [SerializeField] private Ariadne.MoveController moveController = null;
+        public Ariadne.MoveController MoveController => moveController;
         [SerializeField] private BattleBattlerList partyUnitList = null;
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private PartyInfoComponent partyInfoComponent = null;
@@ -24,7 +27,13 @@ namespace Ryneus
             });
             CommandRefresh();
             _ = new DungeonPresenter(this);
-            GameSystem.DungeonViewManager.SetMoveEndEvent(() => CallViewEvent(CommandType.MoveEnd));
+        }
+
+        public void SetupDungeon()
+        {
+            dungeonViewManager.Initialize();
+            dungeonViewManager.SetMoveController(moveController);
+            dungeonViewManager.SetMoveEndEvent(() => CallViewEvent(CommandType.MoveEnd));
         }
 
         private void InitializePartyUnitList()

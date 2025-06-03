@@ -54,14 +54,14 @@ namespace Ariadne
                 gameController = GameObject.FindGameObjectWithTag(AriadneSceneObjectTag.GameController);
             }
 
-            if (dungeonSettings == null)
+            if (dungeonSettings == null && gameController != null)
             {
                 dungeonSettings = gameController.GetComponent<DungeonSettings>();
+                dungeonData = dungeonSettings.dungeonData;
+                floorMapData = dungeonSettings.GetCurrentFloorData();
+                mapAttributeDataList = dungeonSettings.GetMapAttributeList();
             }
 
-            dungeonData = dungeonSettings.dungeonData;
-            floorMapData = dungeonSettings.GetCurrentFloorData();
-            mapAttributeDataList = dungeonSettings.GetMapAttributeList();
         }
 
         /// <Summary>
@@ -74,15 +74,14 @@ namespace Ariadne
                 gameController = GameObject.FindGameObjectWithTag(AriadneSceneObjectTag.GameController);
             }
 
-            if (mapSettings == null)
+            if (mapSettings == null && gameController != null)
             {
                 mapSettings = gameController.GetComponent<MapShowingSettings>();
+                this.showLengthHorizontal = mapSettings.showLengthHorizontal;
+                this.showLengthVertical = mapSettings.showLengthVertical;
+                this.drawSmoothness = mapSettings.smoothness;
+                this.enableAutoMapping = mapSettings.enableAutoMapping;
             }
-
-            this.showLengthHorizontal = mapSettings.showLengthHorizontal;
-            this.showLengthVertical = mapSettings.showLengthVertical;
-            this.drawSmoothness = mapSettings.smoothness;
-            this.enableAutoMapping = mapSettings.enableAutoMapping;
         }
 
         /// <Summary>
@@ -94,6 +93,10 @@ namespace Ariadne
             if (mapRt == null)
             {
                 mapRt = gameObject.GetComponent<RectTransform>();
+            }
+            if (mapRt == null || floorMapData == null)
+            {
+                return;
             }
             Vector3 centerPos = mapRt.transform.localPosition;
 

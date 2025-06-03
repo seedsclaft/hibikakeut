@@ -38,11 +38,6 @@ namespace Ryneus
         public static SaveOptionInfo OptionData = null;
         public static TempInfo TempData = null;
         private static TutorialData _lastTutorialData = null;
-#region ダンジョン関連
-        [SerializeField] private Ariadne.DungeonViewManager dungeonViewManager = null;
-        public static Ariadne.DungeonViewManager DungeonViewManager;
-        public Ariadne.MoveController MoveController = null;
-#endregion
         private bool _busy = false;
         public bool Busy => _busy;
 
@@ -72,7 +67,6 @@ namespace Ryneus
             TempData = new TempInfo();
             _model = new BaseModel();
             _lastTutorialData = null;
-            DungeonViewManager = dungeonViewManager;
             Version = Application.version;
 #if UNITY_EDITOR
             DebugBattleData = debugBattleData;
@@ -259,9 +253,6 @@ namespace Ryneus
                     break;
                 case Base.CommandType.SceneShowUI:
                     SceneShowUI();
-                    break;
-                case Base.CommandType.DungeonBusy:
-                    CommandDungeonBusy((bool)viewEvent.Template);
                     break;
             }
         }
@@ -471,27 +462,18 @@ namespace Ryneus
             {
                 sceneInfo.FromScene = _sceneStackManager.Current;
             }
-            if (MoveController != null)
+            if (true)
             {
-                CommandDungeonBusy(sceneInfo.ToScene != Scene.Dungeon);
                 mapAssign.gameObject.SetActive(sceneInfo.ToScene != Scene.MainMenu);
+                /*
                 if (sceneInfo.ToScene != Scene.Dungeon)
                 {
-                    MoveController.HideUI();
+                    _moveController.HideUI();
                 } else
                 {
-                    MoveController.ShowUI();
-                    // 開示マスを復帰
-                    MoveController.SetTraverses(_model.CurrentDeckInfo.DungeonId.Value,_model.PartyInfo.GetDungeonTraverse(_model.CurrentDeckInfo.DungeonId.Value));
-                    // 位置保存情報を復帰
-                    MoveController.SetPlayerPosition(_model.PartyInfo.CurrentDeckInfo.PositionX.Value,_model.PartyInfo.CurrentDeckInfo.PositionY.Value,_model.PartyInfo.CurrentDeckInfo.Direction.Value);
+                    _moveController.ShowUI();
                 }
-                // フラグ情報でイベント表示を制御
-                var endStageEvents = _model.EndStageEvents();
-                foreach (var endStageEvent in endStageEvents)
-                {
-                    MoveController.SetDeactiveEventObj(endStageEvent.PositionX,endStageEvent.PositionY);
-                }
+                */
             }
             var prefab = sceneAssign.CreateScene(sceneInfo.ToScene, helpWindow);
             _currentScene = prefab.GetComponent<BaseView>();
@@ -505,22 +487,12 @@ namespace Ryneus
 
         public void CommandMapChange(string mapName)
         {
-            if (MoveController != null)
+            if (true)
             {
                 mapAssign.ClearMap();
-                MoveController = null;
                 mapAssign.gameObject.SetActive(true);
             }
             var prefab = mapAssign.CreateMap(mapName);
-            var moveController = prefab.GetComponentInChildren<Ariadne.MoveController>();
-            if (moveController != null)
-            {
-                MoveController = moveController;
-                DungeonViewManager.Initialize();
-                DungeonViewManager.SetMoveController(MoveController);
-                //MoveController.OnEnterDungeon();
-            }
-            //_model.CurrentDeckInfo.SetPosition(Ariadne.PlayerPosition.Instance.currentDungeonId,);
             _model.PartyInfo.SetupDungeonTraverse(Ariadne.PlayerPosition.Instance.currentDungeonId);
             /*
             _currentScene = prefab.GetComponent<BaseView>();
@@ -564,15 +536,6 @@ namespace Ryneus
         private void SceneHideUI()
         {
             _currentScene?.ChangeUIActive(false);
-        }
-
-        private void CommandDungeonBusy(bool busy)
-        {
-            if (MoveController == null)
-            {
-                return;
-            }
-            MoveController.isInDungeon = !busy;
         }
 
         private void CheckTutorialState(TutorialViewInfo tutorialViewInfo)

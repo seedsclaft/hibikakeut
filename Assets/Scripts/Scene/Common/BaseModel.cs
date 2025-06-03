@@ -655,5 +655,14 @@ namespace Ryneus
             }
             return getItemInfos;
         }
+
+        public string DungeonPrefabName()
+        {
+            if (CurrentStage != null)
+            {
+                return CurrentStage.Master.Id.ToString("D4");
+            }
+            return "";
+        }
     }
 }
