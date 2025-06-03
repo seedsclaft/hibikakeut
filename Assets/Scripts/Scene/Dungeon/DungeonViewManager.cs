@@ -12,6 +12,7 @@ namespace Ariadne
     public class DungeonViewManager : AriadneSystemBase, IExitDungeon
     {
         [SerializeField] DungeonPostMoveChecker postMoveChecker;
+        public DungeonPostMoveChecker PostMoveChecker => postMoveChecker;
         [SerializeField] Image screenMaskImage;
         [SerializeField] float screenFadeTime = 1.0f;
 
@@ -21,22 +22,23 @@ namespace Ariadne
         {
             if (_isInitilized)
             {
-                //return;
+                return;
             }
             _isInitilized = true;
             // Initialize game settings.
             InitializeTraverseData();
             InitializeEventFlagData();
-            InitializeItemData();
+            //InitializeItemData();
 
             // Set up the move controller script.
-            CheckMoveControllerReference();
-            moveController.SetPostMoveEventObject(gameObject);
-            SendEnterDungeonMessage(moveController.gameObject);
+            //CheckMoveControllerReference();
+            //moveController.SetPostMoveEventObject(gameObject);
+            //SendEnterDungeonMessage(moveController.gameObject);
         }
 
         public void SetMoveController(MoveController controller)
         {
+            Debug.Log("SetMoveController");
             moveController = controller;
             moveController.SetPostMoveEventObject(gameObject);
             SendEnterDungeonMessage(moveController.gameObject);
@@ -64,8 +66,8 @@ namespace Ariadne
         /// </Summary>
         void InitializeItemData()
         {
-            CheckItemDataManagerReference();
-            itemDataManager.InitializeHoldItemDict();
+            //CheckItemDataManagerReference();
+            //itemDataManager.InitializeHoldItemDict();
         }
 
         /// <Summary>

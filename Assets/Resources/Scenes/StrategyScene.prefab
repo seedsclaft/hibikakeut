@@ -5505,7 +5505,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3678297942950190708}
   - component: {fileID: 2874244035317246270}
-  - component: {fileID: 1908628743012084559}
   m_Layer: 5
   m_Name: Bg (1)
   m_TagString: Untagged
@@ -5523,7 +5522,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 110, y: 110, z: 1}
+  m_LocalScale: {x: 82, y: 82, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1004826568635353915}
@@ -5551,7 +5550,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5583,24 +5582,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1908628743012084559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7960771671203952722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b588e800cbc03d84687131f7dc1e9517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ForceMaterial: {fileID: 0}
-  ActiveChange: 1
-  _Alpha: 1
-  _EffectAmount: 1
-  ShaderChange: 0
-  ActiveUpdate: 1
 --- !u!1 &7968640487990429967
 GameObject:
   m_ObjectHideFlags: 0

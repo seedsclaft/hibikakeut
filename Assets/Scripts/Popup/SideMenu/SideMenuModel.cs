@@ -27,6 +27,7 @@ namespace Ryneus
             {
                 actorInfo.ChangeHp(actorInfo.MaxHp);
             }
+            PartyInfo.Period.GainValue(1);
             SaveDungeonPlayerData();
         }
 

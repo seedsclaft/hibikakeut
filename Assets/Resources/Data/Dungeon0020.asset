@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 8
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc068e2887724fd5ac05ca40d7f999c, type: 3}
   m_Name: Dungeon0020
   m_EditorClassIdentifier: 
-  dungeonId: 0
+  dungeonId: 20
   dungeonName: 
-  floorList: []
+  floorList:
+  - {fileID: 11400000, guid: a3a8865e1950b8e4bb86ee53e4058bfd, type: 2}
   startFloorId: 0

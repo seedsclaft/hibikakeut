@@ -16,6 +16,7 @@ namespace Ariadne
         /// </Summary>
         public void OnPostMoveEvent()
         {
+            Debug.Log("OnPostMoveEvent");
             // Implement your process of after moving.
             // Such as encountering enemies, check player's HP, and so on.
             _moveEndEvent?.Invoke();
@@ -31,6 +32,7 @@ namespace Ariadne
         /// <param name="obj">The GameObject that holds the MoveConteroller component.</param>
         void PostMoveEventFinished(GameObject obj)
         {
+            Debug.Log("PostMoveEventFinished");
             ExecuteEvents.Execute<IPostMoveProcessNotify>(
                 target: obj,
                 eventData: null,
@@ -48,12 +50,14 @@ namespace Ariadne
 
         public void SetMoveEndEvent(System.Action moveEndEvent)
         {
+            Debug.Log("SetMoveEndEvent");
             _moveEndEvent = moveEndEvent;
         }
 
 
         public void OnPostGameEvent()
         {
+            Debug.Log("OnPostGameEvent");
             _moveEndEvent?.Invoke();
         }
     }

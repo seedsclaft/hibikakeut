@@ -80,7 +80,7 @@ namespace Ryneus
 
         public string BackGround()
         {
-            if (CurrentStage != null)
+            if (CurrentStage != null && GameSystem.SceneStackManager.Current == Scene.Dungeon)
             {
                 return CurrentStage.Master.BackGround;
             }

@@ -509,6 +509,7 @@ namespace Ryneus
             {
                 mapAssign.ClearMap();
                 MoveController = null;
+                mapAssign.gameObject.SetActive(true);
             }
             var prefab = mapAssign.CreateMap(mapName);
             var moveController = prefab.GetComponentInChildren<Ariadne.MoveController>();
@@ -516,8 +517,8 @@ namespace Ryneus
             {
                 MoveController = moveController;
                 DungeonViewManager.Initialize();
-                //DungeonViewManager.SetMoveController(MoveController);
-                MoveController.OnEnterDungeon();
+                DungeonViewManager.SetMoveController(MoveController);
+                //MoveController.OnEnterDungeon();
             }
             //_model.CurrentDeckInfo.SetPosition(Ariadne.PlayerPosition.Instance.currentDungeonId,);
             _model.PartyInfo.SetupDungeonTraverse(Ariadne.PlayerPosition.Instance.currentDungeonId);

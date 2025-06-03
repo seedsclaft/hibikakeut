@@ -92,10 +92,10 @@ namespace Ryneus
             var selfIndex = battlerInfo.Index.Value % 100;
             if (battlerInfo.IsActor == false)
             {
-                selfIndex += 1;
+                selfIndex += 0;
             } else
             {
-                selfIndex -= 1;
+                selfIndex -= 0;
             }
             for (int i = 0;i < 5;i++)
             {

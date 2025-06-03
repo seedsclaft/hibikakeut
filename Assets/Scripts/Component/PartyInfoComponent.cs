@@ -9,6 +9,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI chapter;
         [SerializeField] private TextMeshProUGUI currency;
         [SerializeField] private TextMeshProUGUI evaluationValue;
+        [SerializeField] private TextMeshProUGUI turnCount;
         [SerializeField] private StatusGaugeAnimation evaluationValueGauge;
         public void UpdateCurrentInfo()
         {
@@ -32,6 +33,10 @@ namespace Ryneus
             if (chapter != null)
             {
                 chapter.SetText(partyInfo.Chapter.Value.ToString());
+            }
+            if (turnCount != null)
+            {
+                turnCount.SetText(partyInfo.TurnCount.Value.ToString());
             }
             if (evaluationValue != null)
             {

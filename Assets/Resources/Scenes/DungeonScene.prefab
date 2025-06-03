@@ -401,6 +401,7 @@ MonoBehaviour:
   sideMenuButton: {fileID: 6114046655706071322}
   partyUnitList: {fileID: 559025139179941058}
   stageInfoComponent: {fileID: 6595002376293444890}
+  partyInfoComponent: {fileID: 9053077126167640290}
 --- !u!1 &1220125579034278413
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,6 +549,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5530635469102716145}
   - component: {fileID: 6595002376293444890}
+  - component: {fileID: 9053077126167640290}
   m_Layer: 5
   m_Name: StageInfo
   m_TagString: Untagged
@@ -593,14 +595,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 1348723656302015108}
   stageNoText: {fileID: 7149462055624645236}
-  achieve: {fileID: 6608691916501226245}
-  achieveText: {fileID: 8713667035632021266}
   help: {fileID: 0}
-  turnCount: {fileID: 7393179551971569585}
-  clearCount: {fileID: 0}
   stageLv: {fileID: 0}
-  homeTeamInfoComponent: {fileID: 0}
-  awayTeamInfoComponent: {fileID: 0}
+  stageImage: {fileID: 0}
+  cleared: {fileID: 0}
+--- !u!114 &9053077126167640290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444311298740606006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 190cdf158086bd245b4536ae7ba8a705, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  period: {fileID: 0}
+  chapter: {fileID: 0}
+  currency: {fileID: 0}
+  evaluationValue: {fileID: 0}
+  turnCount: {fileID: 7393179551971569585}
+  evaluationValueGauge: {fileID: 0}
 --- !u!1 &1453957036843156915
 GameObject:
   m_ObjectHideFlags: 0

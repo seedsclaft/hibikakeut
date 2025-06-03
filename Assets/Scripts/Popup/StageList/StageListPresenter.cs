@@ -65,9 +65,12 @@ namespace Ryneus
                         _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                         _model.PartyInfo.DepartureCount.GainValue(1);
                         CheckAchievements();
-                        _model.MakeStageInfo(stageInfo.StageId.Value,false);          
+                        _model.MakeStageInfo(stageInfo.StageId.Value,false);
                         var floor = DataSystem.FindDungeonFloor(stageInfo.StageId.Value);
-                        _model.CurrentDeckInfo.SetPosition(stageInfo.StageId.Value,floor.entrancePos.x,floor.entrancePos.y,(int)floor.enteringDir);
+                        if (_model.CurrentDeckInfo.DungeonId.Value != stageInfo.StageId.Value)
+                        {
+                            _model.CurrentDeckInfo.SetPosition(stageInfo.StageId.Value,floor.entrancePos.x,floor.entrancePos.y,(int)floor.enteringDir);
+                        }
                         _view.CommandChangeDungeon(_model.CurrentStage.Master.Id.ToString("D4"));
                         _view.CommandSceneChange(Scene.Dungeon);
                     }

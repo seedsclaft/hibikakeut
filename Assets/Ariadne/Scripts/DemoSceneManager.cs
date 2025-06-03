@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace Ariadne
 {
+        /*
     /// <Summary>
     /// Manager class of the Demo Scene.
     /// </Summary>
@@ -118,4 +119,5 @@ namespace Ariadne
             enterDungeon.OnEnterDungeon();
         }
     }
+        */
 }

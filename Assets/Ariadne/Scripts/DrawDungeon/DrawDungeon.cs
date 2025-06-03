@@ -11,7 +11,7 @@ namespace Ariadne
     {
         protected FloorMapMasterData currentFloorMapData;
         protected GameObject gameController;
-        protected DungeonMasterData dungeonData;
+        //protected DungeonMasterData dungeonData;
         protected DungeonBasePartsData dungeonBasePartsData;
         protected List<DungeonPartsData> dungeonPartsDataList;
         protected List<MapAttributeData> mapAttributeDataList;
@@ -25,7 +25,7 @@ namespace Ariadne
         {
             gameController = GameObject.FindGameObjectWithTag(AriadneSceneObjectTag.GameController);
             DungeonSettings ds = gameController.GetComponent<DungeonSettings>();
-            dungeonData = ds.dungeonData;
+            //dungeonData = ds.dungeonData;
             currentFloorMapData = ds.GetCurrentFloorData();
             dungeonBasePartsData = currentFloorMapData.dungeonBasePartsData;
             dungeonPartsDataList = ds.GetDungeonPartsDataList();

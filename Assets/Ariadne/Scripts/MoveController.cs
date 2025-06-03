@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Ryneus;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -727,6 +728,7 @@ namespace Ariadne
         /// </Summary>
         protected virtual void PostMove()
         {
+            Debug.Log("PostMove");
             isExecutingEvent = false;
             isEventReady = false;
 
@@ -768,6 +770,7 @@ namespace Ariadne
         /// </Summary>
         public virtual void OnFinishedPostMoveEvent()
         {
+            Debug.Log("OnFinishedPostMoveEvent");
             ReadyToMove();
         }
 
@@ -1053,6 +1056,7 @@ namespace Ariadne
         /// </Summary>
         protected virtual void PostEvent()
         {
+            Debug.Log("PostEvent");
             InitializeEventFlags();
             NotifyPostMoveEvent(postMoveEventObj);
             ReadyToMove();
@@ -1514,11 +1518,15 @@ namespace Ariadne
         /// <param name="obj">Specify the gameObject which holds the script for post events.</param>
         protected virtual void NotifyPostMoveEvent(GameObject obj)
         {
+            Debug.Log("NotifyPostMoveEvent");
+            GameSystem.DungeonViewManager.PostMoveChecker.OnPostMoveEvent();
+            /*
             ExecuteEvents.Execute<IPostMoveNotify>(
                 target: obj,
                 eventData: null,
                 functor: PostMoveEventMsg
             );
+            */
         }
 
         /// <Summary>
@@ -1526,7 +1534,7 @@ namespace Ariadne
         /// </Summary>
         void PostMoveEventMsg(IPostMoveNotify inf, BaseEventData eventData)
         {
-            inf.OnPostMoveEvent();
+            //inf.OnPostMoveEvent();
         }
 
         /// <Summary>

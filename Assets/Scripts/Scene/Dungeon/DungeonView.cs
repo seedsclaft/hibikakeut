@@ -11,6 +11,7 @@ namespace Ryneus
     {
         [SerializeField] private BattleBattlerList partyUnitList = null;
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
+        [SerializeField] private PartyInfoComponent partyInfoComponent = null;
 
         public override void Initialize()
         {
@@ -46,6 +47,7 @@ namespace Ryneus
         public void CommandRefresh()
         {
             stageInfoComponent.UpdateCurrent();
+            partyInfoComponent.UpdateCurrentInfo();
         }
 
         public void SetHelpWindow()

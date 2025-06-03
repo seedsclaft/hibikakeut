@@ -27,7 +27,7 @@ namespace Ryneus
 
         private static void CreateDungeonsData(string asset)
         {
-            Debug.Log("CreateDungeonsData");
+            Debug.Log("CreateDungeonsData" + asset);
             // 拡張子なしのファイル名を取得
             string FileName = Path.GetFileNameWithoutExtension(asset);
 
@@ -128,6 +128,7 @@ namespace Ryneus
                         }
                         AriadoneMasterData.floorList.Add(floorData);
                     }
+                    EditorUtility.SetDirty(AriadoneMasterData);
                     /*
                     ISheet SymbolSheet = Book.GetSheetAt(1);
                     KeyRow = SymbolSheet.GetRow(0);
@@ -214,6 +215,7 @@ namespace Ryneus
             AriadoneFloorData.entrancePos = new Vector2Int(Data.Data.InitX,Data.Data.InitY);
             AriadoneFloorData.enteringDir = (Ariadne.DungeonDir)Data.Data.InitDir;
             AriadoneFloorData.mapInfo = Data.FloorData;
+            EditorUtility.SetDirty(AriadoneFloorData);
             return AriadoneFloorData;
         }
     }

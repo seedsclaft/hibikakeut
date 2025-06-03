@@ -36,6 +36,7 @@ namespace Ryneus
 
         private void UpdateCommand(ViewEvent viewEvent)
         {
+            LogOutput.Log(viewEvent.ViewCommandType.CommandType);
             if (_busy || _view.AnimationBusy)
             {
                 return;
