@@ -23,6 +23,7 @@ namespace Ariadne
         GameObject player;
         bool canMove = false;
         public float moveWait = 0.5f;
+        public float startmoveWait = 0.1f;
 
         // Button ID
         const int TurnLeft = 0;
@@ -120,6 +121,7 @@ namespace Ariadne
 
             // Refrect traversed data of init position to map.
             SendSetDirtyMsg();
+            startmoveWait = moveWait;
         }
 
         /// <Summary>
@@ -1354,7 +1356,7 @@ namespace Ariadne
         /// </Summary>
         void CallSetDirty(IDirtyMarkerMap marker, BaseEventData eventData)
         {
-            marker.OnSetDirtyLerp(moveWait);
+            marker.OnSetDirtyLerp(startmoveWait);
         }
 
         /// <Summary>
@@ -1573,7 +1575,7 @@ namespace Ariadne
             SetCameraPos();
             // Add traverse data
             SetTraverse();
-            SendSetDirtyMsg();
+            SendSetDirtyMsgImmediately();
         }
 
         public void SetDeactiveEventObj(int positionX,int positionY)

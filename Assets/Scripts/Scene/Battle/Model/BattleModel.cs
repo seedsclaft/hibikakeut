@@ -94,7 +94,7 @@ namespace Ryneus
             var idx = 1;
             foreach (var actorInfo in actorInfos)
             {
-                var battlerInfo = new BattlerInfo(actorInfo,idx);
+                var battlerInfo = new BattlerInfo(actorInfo,actorInfo.BattleIndex.Value);
                 if (battlerInfo.ActorInfo == null)
                 {
                     continue;
@@ -252,7 +252,20 @@ namespace Ryneus
 
         public List<BattlerInfo> ViewBattlerActors()
         {
-            return _party.BattlerInfos;
+            var list = new List<BattlerInfo>();
+            for (int i = 1;i <= 6;i++)
+            {
+                var find = _battlers.Find(a => a.Index.Value == i);
+                if (find != null)
+                {
+                    list.Add(find);
+                } else
+                {
+                    var newUnitInfo = new BattlerInfo();
+                    list.Add(newUnitInfo);
+                }
+            }
+            return list;
             /*
             var list = new List<UnitInfo>();
             for (int i = 1;i <= 3;i++)

@@ -325,13 +325,17 @@ namespace Ryneus
         public List<ActorInfo> CurrentDeckActorInfos()
         {
             var actorInfos = new List<ActorInfo>();
+            var idx = 1;
             foreach (var actorId in CurrentDeckInfo.ActorIdDict)
             {
                 var find = _actorInfos.Find(a => a.ActorId.Value == actorId.Value);
                 if (find != null)
                 {
+                    find.BattleIndex.SetValue(idx);
+                    find.SetLineIndex(idx <= 3 ? LineType.Front : LineType.Back);
                     actorInfos.Add(find);
                 }
+                idx++;
             }
             return actorInfos;
         }
