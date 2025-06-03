@@ -85,6 +85,9 @@ namespace Ryneus
                                     case "Un":
                                         attr = 12;
                                         break;
+                                    case "Dr":
+                                        attr = 2;
+                                        break;
                                 }
                             }
                             var map = new Ariadne.MapInfo

@@ -105,6 +105,32 @@ namespace Ariadne
         }
 
         /// <Summary>
+        /// Returns the map attribute of the position that is specified direction of target position.
+        /// </Summary>
+        /// <param name="mapData">Target position to check.</param>
+        /// <param name="pos">Target position to check.</param>
+        /// <param name="dir">Direction to check.</param>
+        public Vector2Int GetPositionByDirection(Vector2Int pos, DungeonDir dir)
+        {
+            Vector2Int targetPos = pos;
+            switch (dir)
+            {
+                case DungeonDir.North:
+                    targetPos.y += 1;
+                    break;
+                case DungeonDir.East:
+                    targetPos.x += 1;
+                    break;
+                case DungeonDir.South:
+                    targetPos.y -= 1;
+                    break;
+                case DungeonDir.West:
+                    targetPos.x -= 1;
+                    break;
+            }
+            return targetPos;
+        }
+        /// <Summary>
         /// Set forward position to playerPos.
         /// </Summary>
         public void MoveForward()

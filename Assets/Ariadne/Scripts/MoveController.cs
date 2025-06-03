@@ -472,8 +472,9 @@ namespace Ariadne
 
             // Check forward wall in current position
             Vector2Int currentPos = PlayerPosition.Instance.playerPos;
+            Vector2Int positionByDirection = PlayerPosition.Instance.GetPositionByDirection(currentPos,PlayerPosition.Instance.direction);
             int mapAttrId = PlayerPosition.Instance.GetMapInfoByDirection(floorMapData, currentPos, PlayerPosition.Instance.direction);
-            if (!CheckCanMove(mapAttrId))
+            if (!CheckCanMove(mapAttrId) && !CheckCanMoveEvent(positionByDirection))
             {
                 canMove = true;
                 if (!isExecutingEvent)
@@ -1308,6 +1309,21 @@ namespace Ariadne
             return isPass;
         }
 
+        /// <summary>
+        /// イベント消去済みなら通過可能
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        private bool CheckCanMoveEvent(Vector2Int position)
+        {
+            GameObject eventObj = GetDrawDungeonWall()?.GetWallObjectByAxis(position.x, position.y);
+            if (eventObj != null)
+            {
+                return !eventObj.activeSelf;
+            }
+            return false;
+        }
+
         /// <Summary>
         /// Call fade in with delay time.
         /// </Summary>
@@ -1578,19 +1594,24 @@ namespace Ariadne
             SendSetDirtyMsgImmediately();
         }
 
-        public void SetDeactiveEventObj(int positionX,int positionY)
+        private DrawDungeonWall GetDrawDungeonWall()
         {
             GameObject wallPratenObj = GameObject.Find(AriadneSceneObjectName.WallParent);
             if (wallPratenObj == null)
             {
-                return;
+                return null;
             }
             DrawDungeonWall drawDungeonWall = wallPratenObj.GetComponent<DrawDungeonWall>();
             if (drawDungeonWall == null)
             {
-                return;
+                return null;
             }
-            GameObject eventObj = drawDungeonWall.GetWallObjectByAxis(positionX, positionY);
+            return drawDungeonWall;
+        }
+
+        public void SetDeactiveEventObj(int positionX,int positionY)
+        {
+            GameObject eventObj = GetDrawDungeonWall()?.GetWallObjectByAxis(positionX, positionY);
             if (eventObj != null)
             {
                 eventObj.SetActive(false);

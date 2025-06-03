@@ -148,6 +148,16 @@ namespace Ryneus
                         _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
                         SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
                         return true;
+                    case StageEventType.AddEventFlag:
+                        _model.AddEventReadFlag(stageEvent);
+                        var findAll = _model.StageEvents(EventTiming.Dungeon).FindAll(a => a.Param == stageEvent.Param);
+                        // 同じParam値のイベントを既読にする
+                        foreach (var item in findAll)
+                        {
+                            _model.AddEventReadFlag(item);
+                        }
+                        _model.UpdateEventObjects();
+                        return true;
                 }
             }
             endEvent?.Invoke();
