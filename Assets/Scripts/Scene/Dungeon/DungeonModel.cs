@@ -131,6 +131,22 @@ namespace Ryneus
             return actorInfos;
         }
 
+        public bool CanUseCurrencyHeal()
+        {
+            var notLimited = PartyInfo.CurrentDeckActorInfos().FindAll(a => a.CurrentHp.Value < a.MaxHp);
+            return notLimited.Count > 0 && PartyInfo.Currency.Value > 0;
+        }
+
+        public void UseCurrencyHeal()
+        {
+            if (PartyInfo.Currency.Value <= 0)
+            {
+                return;
+            }
+            PartyInfo.Currency.GainValue(-1,0);
+            PartyInfo.UseCurrencyHeal();
+        }
+
         public List<SystemData.CommandData> SideMenu()
         {
             var list = new List<SystemData.CommandData>();

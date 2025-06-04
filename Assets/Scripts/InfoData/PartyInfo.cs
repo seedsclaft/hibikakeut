@@ -152,6 +152,10 @@ namespace Ryneus
         {
             foreach (var achievementInfo in _achievements)
             {
+                if (achievementInfo.Master == null)
+                {
+                    continue;
+                }
                 if (!checkMissionRank && achievementInfo.Master.ConditionType == AchievementConditionType.Complete)
                 {
                     continue;
@@ -202,6 +206,11 @@ namespace Ryneus
                     // 与ダメージ
                     achievementInfo.SetCondition(TotalDamage.Value,achievementInfo.Master.Param1);
                     break;
+                case AchievementConditionType.ClearStage:
+                    // ステージクリア
+                    var cleared = _clearedStages.Contains(achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(cleared ? 1 : 0,1);
+                    break;
                 case AchievementConditionType.DeckEditCommandCount:
                     // 編成コマンド回数
                     achievementInfo.SetCondition(DeckEditCommandCount.Value,achievementInfo.Master.Param1);
@@ -246,6 +255,10 @@ namespace Ryneus
             if (getItemInfo.GetItemType == GetItemType.RankUp)
             {
                 MissionRank.GainValue(1);
+            }
+            if (getItemInfo.GetItemType == GetItemType.ClearStage)
+            {
+                ClearStage(getItemInfo.Param1);
             }
             CheckAddActor();
             CheckLearningSkillId();
@@ -338,6 +351,15 @@ namespace Ryneus
                 idx++;
             }
             return actorInfos;
+        }
+
+        public void UseCurrencyHeal()
+        {
+            foreach (var actorId in CurrentDeckInfo.ActorIdDict)
+            {
+                var find = _actorInfos.Find(a => a.ActorId.Value == actorId.Value);
+                find?.ChangeHp(find.CurrentHp.Value + 10);
+            }
         }
     }
 }

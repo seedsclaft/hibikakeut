@@ -15,12 +15,20 @@ namespace Ryneus
         [SerializeField] private BattleBattlerList partyUnitList = null;
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private PartyInfoComponent partyInfoComponent = null;
+        [SerializeField] private OnOffButton healButton = null;
 
         public override void Initialize()
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Dungeon);
             InitializePartyUnitList();
+            if (healButton != null)
+            {
+                healButton.OnClickAddListener(() =>
+                {
+                    CallViewEvent(CommandType.Heal);
+                });
+            }
             SideMenuButton.OnClickAddListener(() =>
             {
                 CallSideMenu();
@@ -80,6 +88,7 @@ namespace Ryneus
         {
             None = 0,
             MoveEnd,
+            Heal,
             SelectSideMenu
         }
     }

@@ -32,6 +32,7 @@ namespace Ryneus
         TacticsLvupCount = 1040,
         BattleScore = 1050,
         TotalDamage = 1060,
+        ClearStage = 2010,
         DeckEditCommandCount = 7020,
         PresentCommandCount = 7040,
         ReliefCommandCount = 7050,

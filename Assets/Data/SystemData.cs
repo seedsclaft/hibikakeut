@@ -143,5 +143,6 @@ namespace Ryneus
 		Ending = 210,
 		Item = 1010,
 		RankUp = 2010,
+		ClearStage = 3010,
 	}
 }

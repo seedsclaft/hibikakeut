@@ -2656,6 +2656,12 @@ namespace Ryneus
             {
                 TempInfo.SetInReplay(false);
             }
+            // ActorIdDict並び替えをする
+            var actorIdDict = new Dictionary<int,int>();
+            for (int i = 1;i <= 6;i++)
+            {
+                actorIdDict[i] = -1;
+            }
             foreach (var battler in _battlers)
             {
                 if (battler.ActorInfo == null)
@@ -2664,9 +2670,11 @@ namespace Ryneus
                 }
                 var actorInfo = PartyInfo.ActorInfos.Find(a => a.ActorId == battler.ActorInfo.ActorId);
                 actorInfo.ChangeHp(battler.Hp.Value);
+                actorIdDict[actorInfo.BattleIndex.Value] = actorInfo.ActorId.Value;
                 //battler.GainMp(battler.MaxMp);
                 battler.SetAwaken(false);
             }
+            CurrentDeckInfo.SetActorIdDict(actorIdDict);
             SaveSystem.SaveOptionStart(GameSystem.OptionData);
         }
 

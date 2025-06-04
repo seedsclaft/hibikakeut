@@ -55,6 +55,9 @@ namespace Ryneus
                 case CommandType.MoveEnd:
                     CommandMoveEnd();
                     break;
+                case CommandType.Heal:
+                    CommandHeal();
+                    break;
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu();
                     break;
@@ -70,10 +73,12 @@ namespace Ryneus
             // ターン数が0の場合
             if (_model.EndDungeonByTurnCount())
             {
+                _model.DungeonBusy(true);
                 var confirmInfo = new ConfirmInfo("残りターン数が枯渇したため帰還します!",(a) => 
                 {
                     _view.CommandSceneChange(Scene.MainMenu);
                 });
+                confirmInfo.SetIsNoChoice(true);
                 _view.CommandCallConfirm(confirmInfo);
                 return;
             }
@@ -88,6 +93,7 @@ namespace Ryneus
             // エンカウントした場合
             if (_model.EncountEnemy())
             {
+                _model.DungeonBusy(true);
                 _model.ResetEncountValue();
                 var battleSceneInfo = new BattleSceneInfo
                 {
@@ -139,13 +145,29 @@ namespace Ryneus
                         SoundManager.Instance.PlayStaticSe(SEType.Decide);
                         return true;
                     case StageEventType.ForceBattle:
+                    case StageEventType.ForceBossBattle:
                         _model.AddEventReadFlag(stageEvent);
                         var battleSceneInfo = new BattleSceneInfo
                         {
                             ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
                             EnemyInfos = _model.ForceBattleTroopInfos(stageEvent.Param),
                         };
-                        PlayBattleBgm();
+                        if (stageEvent.Type == StageEventType.ForceBattle)
+                        {
+                            // バトルの報酬にステージクリアを足す
+                            var clearStageItem = new GetItemData
+                            {
+                                Type = GetItemType.ClearStage,
+                                Param1 = _model.CurrentStage.StageId.Value
+                            };
+                            var clearStageGetItemInfo = new GetItemInfo(clearStageItem);
+                            battleSceneInfo.GetItemInfos.Add(clearStageGetItemInfo);
+                            PlayBattleBgm();
+                        } else
+                        if (stageEvent.Type == StageEventType.ForceBossBattle)
+                        {
+                            PlayBossBgm();
+                        }
                         _view.CommandChangeViewToTransition(null);
                         //_view.ChangeUIActive(false);
                         _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
@@ -225,6 +247,23 @@ namespace Ryneus
 
                 });
                 */
+            }
+        }
+
+        private void CommandHeal()
+        {
+            if (_model.CanUseCurrencyHeal())
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Heal);
+                _model.UseCurrencyHeal();
+                _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
+                CommandRefresh();
+            } else
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                var cautionInfo = new CautionInfo();
+                cautionInfo.SetTitle("回復できませんでした");
+                _view.CommandCallCaution(cautionInfo);
             }
         }
 

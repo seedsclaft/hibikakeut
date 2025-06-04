@@ -14,6 +14,7 @@ namespace Ryneus
 
         public ParameterInt Index = new();
         // 現在位置
+        public ParameterInt StageNo = new();
         public ParameterInt DungeonId = new();
         public ParameterInt PositionX = new();
         public ParameterInt PositionY = new();
@@ -32,6 +33,7 @@ namespace Ryneus
         // 編成情報
         private Dictionary<int,int> _actorIdDict = new();
         public Dictionary<int,int> ActorIdDict => _actorIdDict;
+        public void SetActorIdDict(Dictionary<int,int> actorIdDict) => _actorIdDict = actorIdDict;
 
         public void SwapBattler(int fromEditIndex,int toActorId)
         {
@@ -64,5 +66,6 @@ namespace Ryneus
             }
             //_actorIdDict[1] = 1;
         }
+
     }
 }

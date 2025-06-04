@@ -165,6 +165,13 @@ namespace Ryneus
                 AddGetItemInfo(rankUpgetItemInfo);
             }
 
+            // ステージクリア
+            var claerStageGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.ClearStage);
+            foreach (var claerStageGetItemInfo in claerStageGetItemInfos)
+            {
+                AddGetItemInfo(claerStageGetItemInfo);
+            }
+
             // 獲得エナジー、魔法情報を生成
             _resultInfos.Clear();
             if (gainCurrency > 0)
