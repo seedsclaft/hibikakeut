@@ -35,6 +35,8 @@ MonoBehaviour:
       PositionX: 7
       PositionY: 6
       Param: 1
+      Param2: 0
+      Param3: 0
       ReadFlag: 1
     - EventKey: 10_7_8DungeonForceBattle1010
       Timing: 3010
@@ -42,6 +44,8 @@ MonoBehaviour:
       PositionX: 7
       PositionY: 8
       Param: 1010
+      Param2: 0
+      Param3: 0
       ReadFlag: 1
     - EventKey: 10_7_13DungeonExitDungeon0
       Timing: 3010
@@ -49,6 +53,8 @@ MonoBehaviour:
       PositionX: 7
       PositionY: 13
       Param: 0
+      Param2: 0
+      Param3: 0
       ReadFlag: 0
   - Id: 20
     StageNo: 2
@@ -82,6 +88,8 @@ MonoBehaviour:
       PositionX: 10
       PositionY: 9
       Param: 79
+      Param2: 0
+      Param3: 0
       ReadFlag: 1
     - EventKey: 20_7_9DungeonNone79
       Timing: 3010
@@ -89,4 +97,50 @@ MonoBehaviour:
       PositionX: 7
       PositionY: 9
       Param: 79
+      Param2: 0
+      Param3: 0
       ReadFlag: 1
+    - EventKey: 20_7_0DungeonMoveDungeonFloor21
+      Timing: 3010
+      Type: 2020
+      PositionX: 7
+      PositionY: 0
+      Param: 21
+      Param2: 1
+      Param3: 14
+      ReadFlag: 0
+  - Id: 21
+    StageNo: 2
+    Name: "\u5C71\u5CB3\u907A\u8DE1\u30FB\u5965"
+    Selectable: 0
+    Help: '""'
+    StageLv: 1
+    DisplayRank: 0
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 15
+    - EnemyId: 1
+      Weight: 15
+    - EnemyId: 3
+      Weight: 15
+    - EnemyId: 7
+      Weight: 20
+    - EnemyId: 7
+      Weight: 20
+    EncountMin: 5
+    EncountMax: 15
+    BackGround: RockCave2
+    BGMId: 1010
+    BossBGMId: 2010
+    MenuBGMId: 100
+    StageEvents:
+    - EventKey: 21_1_15DungeonMoveDungeonFloor20
+      Timing: 3010
+      Type: 2020
+      PositionX: 1
+      PositionY: 15
+      Param: 20
+      Param2: 7
+      Param3: 1
+      ReadFlag: 0

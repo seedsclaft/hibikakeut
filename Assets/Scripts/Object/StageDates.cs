@@ -39,6 +39,8 @@ namespace Ryneus
         public int PositionX;
         public int PositionY;
         public int Param;
+        public int Param2;
+        public int Param3;
         public bool ReadFlag;
     }
 
@@ -107,6 +109,7 @@ namespace Ryneus
         None = 0,
         AdvStart = 1010,
         ExitDungeon = 2010,
+        MoveDungeonFloor = 2020,
         AddActor = 4010, // 仲間を増やす
         SelectAddActor = 4020, // 選択して仲間を増やす
         ForceBattle = 5010, // 強制戦闘

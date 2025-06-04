@@ -122,6 +122,9 @@ namespace Ryneus
                     case StageEventType.ExitDungeon:
                         CommandReturn();
                         return true;
+                    case StageEventType.MoveDungeonFloor:
+                        CommandMoveDungeonFloor(stageEvent.Param,stageEvent.Param2,stageEvent.Param3);
+                        return true;
                     case StageEventType.SelectAddActor:
                         // 選択して仲間を加入
                         // 確認後仲間選択
@@ -181,6 +184,13 @@ namespace Ryneus
                 }
             });
             _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void CommandMoveDungeonFloor(int floorId,int x,int y)
+        {
+            _model.MakeStageInfo(floorId,false);
+            _model.CurrentDeckInfo.SetPosition(floorId,x,y,_model.CurrentDeckInfo.Direction.Value);
+            _view.CommandGotoSceneChange(Scene.Dungeon);
         }
 
         private void CommandCallAddActorInfo(bool freeSelect,bool addCommand)

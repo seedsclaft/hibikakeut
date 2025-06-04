@@ -102,6 +102,8 @@ namespace Ryneus
                                 EventData.Timing = (EventTiming)AssetPostImporter.ImportNumeric(EventRow, "Timing");
                                 EventData.Type = (StageEventType)AssetPostImporter.ImportNumeric(EventRow, "Type");
                                 EventData.Param = AssetPostImporter.ImportNumeric(EventRow, "Param");
+                                EventData.Param2 = AssetPostImporter.ImportNumeric(EventRow, "Param2");
+                                EventData.Param3 = AssetPostImporter.ImportNumeric(EventRow, "Param3");
                                 EventData.ReadFlag = AssetPostImporter.ImportBool(EventRow, "ReadFlag");
                                 EventData.EventKey = StageId.ToString() + "_" + EventData.PositionX.ToString() + "_" + EventData.PositionY.ToString() + EventData.Timing.ToString() + EventData.Type.ToString() + EventData.Param.ToString();
 
