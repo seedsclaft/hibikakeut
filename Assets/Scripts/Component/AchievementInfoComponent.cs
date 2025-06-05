@@ -5,6 +5,8 @@ namespace Ryneus
 {
     public class AchievementInfoComponent : BaseInfoComponent
     {
+        [SerializeField] private GameObject categoryMain;
+        [SerializeField] private TextMeshProUGUI rank;
         [SerializeField] private TextMeshProUGUI description;
         [SerializeField] private TextMeshProUGUI count;
         [SerializeField] private TextMeshProUGUI achieveCount;
@@ -14,13 +16,26 @@ namespace Ryneus
         public void UpdateInfo(AchievementInfo achievementInfo)
         {
             UpdateDate(achievementInfo.Master);
-            if (count != null)
+            if (achievementInfo.Master.ConditionType == AchievementConditionType.BattleScore)
             {
-                count.SetText(achievementInfo.Count.Value.ToString());
-            }
-            if (achieveCount != null)
+                if (count != null)
+                {
+                    count.SetText((achievementInfo.Count.Value*0.01f).ToString());
+                }
+                if (achieveCount != null)
+                {
+                    achieveCount.SetText((achievementInfo.AchieveCount.Value*0.01f).ToString());
+                }
+            } else
             {
-                achieveCount.SetText(achievementInfo.AchieveCount.Value.ToString());
+                if (count != null)
+                {
+                    count.SetText(achievementInfo.Count.Value.ToString());
+                }
+                if (achieveCount != null)
+                {
+                    achieveCount.SetText(achievementInfo.AchieveCount.Value.ToString());
+                }
             }
             if (achivePer != null)
             {
@@ -35,6 +50,14 @@ namespace Ryneus
 
         private void UpdateDate(AchievementData achievementData)
         {
+            if (categoryMain != null)
+            {
+                categoryMain.SetActive(achievementData.Category == AchievementCategory.Main);
+            }
+            if (rank != null)
+            {
+                rank.SetText(achievementData.Rank.ToString());
+            }
             if (description != null)
             {
                 description.SetText(achievementData.Text);

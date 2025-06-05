@@ -147,6 +147,21 @@ namespace Ryneus
             PartyInfo.UseCurrencyHeal();
         }
 
+        public void SaveBgmTiming()
+        {
+            var timeStamp = SoundManager.Instance.CurrentTimeStamp();
+            CurrentDeckInfo.GetDungeonBgmTimeStamp().SetValue(timeStamp);
+        }
+
+        public float DungeonBgmTimeStamp()
+        {
+            if (CurrentDeckInfo != null && CurrentDeckInfo.DungeonBgmTimeStamp != null)
+            {
+                return CurrentDeckInfo.GetDungeonBgmTimeStamp().Value;
+            }
+            return 0;
+        }
+
         public List<SystemData.CommandData> SideMenu()
         {
             var list = new List<SystemData.CommandData>();

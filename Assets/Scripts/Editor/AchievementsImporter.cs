@@ -28,7 +28,7 @@ namespace Ryneus
         {
             string FileName = Path.GetFileNameWithoutExtension(asset);
             string ExportPath = $"{Path.Combine(AssetPostImporter.ExportExcelPath, FileName)}.asset";
-            
+
 			AchievementDates Data = AssetDatabase.LoadAssetAtPath<AchievementDates>(ExportPath);
             if (!Data)
             {
@@ -49,7 +49,7 @@ namespace Ryneus
                     // 情報の初期化
                     Data.Data.Clear();
 
-					List<TextData> textData = AssetPostImporter.CreateText(Book.GetSheetAt(1));
+                    List<TextData> textData = AssetPostImporter.CreateText(Book.GetSheetAt(1));
                     ISheet BaseSheet = Book.GetSheetAt(0);
                     var KeyRow = BaseSheet.GetRow(0);
                     AssetPostImporter.SetKeyNames(KeyRow.Cells);
@@ -60,6 +60,7 @@ namespace Ryneus
                         var AchievementData = new AchievementData
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
+                            Category = (AchievementCategory)AssetPostImporter.ImportNumeric(BaseRow, "Category"),
                             Rank = AssetPostImporter.ImportNumeric(BaseRow, "Rank"),
                             ConditionType = (AchievementConditionType)AssetPostImporter.ImportNumeric(BaseRow, "ConditionType"),
                             Param1 = AssetPostImporter.ImportNumeric(BaseRow, "Param1"),

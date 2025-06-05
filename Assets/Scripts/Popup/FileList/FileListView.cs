@@ -19,7 +19,7 @@ namespace Ryneus
             SetViewCommandSceneType(ViewCommandSceneType.FileList);
             SetBaseAnimation(popupAnimation);
             InitializeFileList();
-            new FileListPresenter(this);
+            _ = new FileListPresenter(this);
         }
 
         private void InitializeFileList()
@@ -46,7 +46,6 @@ namespace Ryneus
             var listData = fileList.ListData;
             if (listData != null)
             {
-                SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 var data = (SaveFileInfo)listData.Data;
                 CallViewEvent(CommandType.DecideFile, data);
             }

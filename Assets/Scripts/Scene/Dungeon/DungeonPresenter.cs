@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Ryneus.Dungeon;
 using UnityEngine;
@@ -31,7 +30,7 @@ namespace Ryneus
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
             // ダンジョン生成
             _view.CommandChangeDungeon(_model.DungeonPrefabName());
-            await PlayTacticsBgm(timeStamp);
+            await PlayTacticsBgm(_model.DungeonBgmTimeStamp());
             _view.SetupDungeon();
             _model.UpdateTraverses();
             _model.SetPlayerPosition();
@@ -95,6 +94,8 @@ namespace Ryneus
             {
                 _model.DungeonBusy(true);
                 _model.ResetEncountValue();
+                // ダンジョンの再開時間を記憶
+                _model.SaveBgmTiming();
                 var battleSceneInfo = new BattleSceneInfo
                 {
                     ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
@@ -142,6 +143,7 @@ namespace Ryneus
                         confirmInfo.SetBackEvent(() => {});
                         _view.CommandCallConfirm(confirmInfo);
                         _model.AddEventReadFlag(stageEvent);
+                        _model.UpdateEventObjects();
                         SoundManager.Instance.PlayStaticSe(SEType.Decide);
                         return true;
                     case StageEventType.ForceBattle:
@@ -154,6 +156,10 @@ namespace Ryneus
                         };
                         if (stageEvent.Type == StageEventType.ForceBattle)
                         {
+                            PlayBattleBgm();
+                        } else
+                        if (stageEvent.Type == StageEventType.ForceBossBattle)
+                        {
                             // バトルの報酬にステージクリアを足す
                             var clearStageItem = new GetItemData
                             {
@@ -161,11 +167,10 @@ namespace Ryneus
                                 Param1 = _model.CurrentStage.StageId.Value
                             };
                             var clearStageGetItemInfo = new GetItemInfo(clearStageItem);
-                            battleSceneInfo.GetItemInfos.Add(clearStageGetItemInfo);
-                            PlayBattleBgm();
-                        } else
-                        if (stageEvent.Type == StageEventType.ForceBossBattle)
-                        {
+                            battleSceneInfo.GetItemInfos = new()
+                            {
+                                clearStageGetItemInfo
+                            };
                             PlayBossBgm();
                         }
                         _view.CommandChangeViewToTransition(null);
@@ -182,7 +187,8 @@ namespace Ryneus
                             _model.AddEventReadFlag(item);
                         }
                         _model.UpdateEventObjects();
-                        return true;
+                        endEvent?.Invoke();
+                        return false;
                 }
             }
             endEvent?.Invoke();

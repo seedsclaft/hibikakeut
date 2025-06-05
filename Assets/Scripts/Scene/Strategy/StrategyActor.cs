@@ -71,7 +71,7 @@ namespace Ryneus
             if (fromRate >= afterRate)
             {
                 // Lvアップ
-                statusGaugeAnimation.UpdateLevelUpGaugeAnimation(afterRate,() => 
+                statusGaugeAnimation.UpdateLevelUpGaugeAnimation(afterRate,() =>
                 {
                     component.LvupText();
                 },_callEvent);

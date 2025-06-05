@@ -57,6 +57,9 @@ namespace Ryneus
                 if (isLoad)
                 {
                     _view.CommandGotoSceneChange(_model.PartyInfo.ResumeScene);
+                } else
+                {
+                    SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 }
             }
         }

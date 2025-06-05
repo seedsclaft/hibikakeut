@@ -14,7 +14,7 @@ namespace Ryneus
         [SerializeField] private Image gaugeAnimation;
         [SerializeField] private int fillWidth = 100;
         [SerializeField] private int fillMargin = 2;
-        [SerializeField] private float waitDuration = 0.8f;
+        [SerializeField] private float waitDuration = 0.5f;
         [SerializeField] private float delayDuration = 0.25f;
 
         private Sequence _animation = null;

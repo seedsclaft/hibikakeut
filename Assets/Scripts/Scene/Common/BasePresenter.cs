@@ -169,6 +169,7 @@ namespace Ryneus
 
         public void CommandSave(bool isReturnScene)
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var sceneParam = new FileListSceneInfo
             {
                 IsLoad = false

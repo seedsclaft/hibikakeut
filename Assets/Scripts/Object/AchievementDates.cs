@@ -14,6 +14,7 @@ namespace Ryneus
     public class AchievementData
     {
         public int Id;
+        public AchievementCategory Category;
         public int Rank;
         public AchievementConditionType ConditionType;
         public int Param1;
@@ -21,6 +22,12 @@ namespace Ryneus
         public int PriseSetId;
         public string Text;
         public string Help;
+    }
+
+    public enum AchievementCategory
+    {
+        None = 0,
+        Main = 10, // 重要課題
     }
 
     public enum AchievementConditionType

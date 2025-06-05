@@ -6,6 +6,7 @@ using UnityEngine.AddressableAssets;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 namespace Ryneus
 {
@@ -620,6 +621,10 @@ namespace Ryneus
         public void SaveDungeonPlayerData()
         {
             if (CurrentDeckInfo == null)
+            {
+                return;
+            }
+            if (GameSystem.SceneStackManager.Current != Scene.Dungeon)
             {
                 return;
             }
