@@ -6,7 +6,7 @@ using System;
 namespace Ryneus
 {
     public class VirtualModelController : MonoBehaviour
-    {        
+    {
         [SerializeField] private Animator animator = null;
         [SerializeField] private float scaleSize = 1f;
         [SerializeField] private CharacterController characterController = null;
@@ -31,10 +31,11 @@ namespace Ryneus
         private bool _isActor;
         public bool IsActor => _isActor;
 
-        public void Initialize(bool isActor) 
-        { 
+        public void Initialize(bool isActor)
+        {
+
             _isActor = isActor;
-            transform.localScale = new Vector3(scaleSize,scaleSize,scaleSize);
+            transform.localScale = new Vector3(scaleSize, scaleSize, scaleSize);
             _virtualCamera = new VirtualCamera(selfCamera);
             UpdateCameraZoom();
         }
@@ -51,7 +52,7 @@ namespace Ryneus
 
         public void SetStatusPrefab(GameObject gameObject)
         {
-            gameObject.transform.SetParent(statusRoot.transform,false);
+            gameObject.transform.SetParent(statusRoot.transform, false);
         }
 
         public void Stop()
@@ -73,12 +74,12 @@ namespace Ryneus
                 return;
             }
             StartAnimation(AnimationState.RunForward);
-            var moveZ = Math.Min(1,_moveDirection.z+1);
-            _moveDirection.Set(_moveDirection.x,_moveDirection.y,moveZ);
+            var moveZ = Math.Min(1, _moveDirection.z + 1);
+            _moveDirection.Set(_moveDirection.x, _moveDirection.y, moveZ);
             if (_virtualCamera.IsChanged())
             {
                 var plusY = Mathf.Abs(selfCamera.transform.localEulerAngles.y) + Mathf.Abs(transform.localEulerAngles.y);
-                transform.localRotation = Quaternion.Euler(0,plusY,0);
+                transform.localRotation = Quaternion.Euler(0, plusY, 0);
                 _virtualCamera.ResetInitialize();
                 UpdateCameraZoom();
             }
@@ -92,8 +93,8 @@ namespace Ryneus
                 return;
             }
             StartAnimation(AnimationState.RunForward);
-            var moveZ = Math.Max(-1,_moveDirection.z-1);
-            _moveDirection.Set(_moveDirection.x,_moveDirection.y,moveZ);
+            var moveZ = Math.Max(-1, _moveDirection.z - 1);
+            _moveDirection.Set(_moveDirection.x, _moveDirection.y, moveZ);
         }
 
         public void RightForward()
@@ -103,8 +104,8 @@ namespace Ryneus
                 return;
             }
             StartAnimation(AnimationState.RunForward);
-            var moveX = Math.Min(1,_moveDirection.x+1);
-            _moveDirection.Set(moveX,_moveDirection.y,_moveDirection.z);
+            var moveX = Math.Min(1, _moveDirection.x + 1);
+            _moveDirection.Set(moveX, _moveDirection.y, _moveDirection.z);
         }
 
         public void LeftForward()
@@ -114,8 +115,8 @@ namespace Ryneus
                 return;
             }
             StartAnimation(AnimationState.RunForward);
-            var moveX = Math.Max(-1,_moveDirection.x-1);
-            _moveDirection.Set(moveX,_moveDirection.y,_moveDirection.z);
+            var moveX = Math.Max(-1, _moveDirection.x - 1);
+            _moveDirection.Set(moveX, _moveDirection.y, _moveDirection.z);
         }
 
         public void Jump()
@@ -160,13 +161,14 @@ namespace Ryneus
 
         public void ZoomIn()
         {
-            _virtualCamera.SetZoomPosition(10,_rotationSpeed);
+            _virtualCamera.SetZoomPosition(10, _rotationSpeed);
             UpdateCameraZoom();
         }
 
         public void ZoomOut()
-        {    
-            _virtualCamera.SetZoomPosition(-10,_rotationSpeed);
+        {
+
+            _virtualCamera.SetZoomPosition(-10, _rotationSpeed);
             UpdateCameraZoom();
         }
 
@@ -181,7 +183,8 @@ namespace Ryneus
                     if (moveX > 0)
                     {
                         RightCamera();
-                    } else
+                    }
+                    else
                     if (moveX < 0)
                     {
                         LeftCamera();
@@ -189,7 +192,8 @@ namespace Ryneus
                     if (moveY > 0)
                     {
                         UpCamera();
-                    } else
+                    }
+                    else
                     if (moveY < 0)
                     {
                         DownCamera();
@@ -205,7 +209,8 @@ namespace Ryneus
             if (wheelY > 0)
             {
                 ZoomIn();
-            } else
+            }
+            else
             if (wheelY < 0)
             {
                 ZoomOut();
@@ -230,11 +235,12 @@ namespace Ryneus
                     return;
                 }
                 _lastState = animationState;
-                animator.SetInteger("State",(int)animationState);
+                animator.SetInteger("State", (int)animationState);
             }
         }
 
-        private void Update() 
+        private void Update()
+
         {
             RotateCamera();
             transform.Rotate(0, _rotation * _rotationSpeed, 0);
@@ -260,25 +266,31 @@ namespace Ryneus
                     _jumping = true;
                     _moveDirection.y = jumpSpeed;
                     moveDirection.y = jumpSpeed;
-                } 
+                }
                 //重力分変更する
+
                 moveDirection.y -= gravity * Time.deltaTime;
-                characterController.Move(moveDirection * Time.deltaTime); 
+                characterController.Move(moveDirection * Time.deltaTime);
+
                 return;
-            } 
+            }
+
             _moveDirection.y -= gravity * Time.deltaTime;
-            characterController.Move(_moveDirection * Time.deltaTime); 
-        }   
-        
+            characterController.Move(_moveDirection * Time.deltaTime);
+        }
+
+
         private void RotateCamera()
         {
             //Vector3でX,Y方向の回転の度合いを定義
-            Vector3 angle = new Vector3(_cameraRotation.x * _rotationSpeed,_cameraRotation.y * _rotationSpeed, 0);
-            
+            Vector3 angle = new Vector3(_cameraRotation.x * _rotationSpeed, _cameraRotation.y * _rotationSpeed, 0);
+
+
             var cameraAngle = selfCamera.transform.localEulerAngles;
             //transform.RotateAround()をしようしてメインカメラを回転させる
             selfCamera.transform.RotateAround(transform.position, Vector3.up, angle.x);
-            
+
+
             var nextAngle = cameraAngle.x + angle.y;
             if (nextAngle < 30 || nextAngle > 330)
             {
@@ -290,13 +302,15 @@ namespace Ryneus
         public void SetVictoryCamera()
         {
             //Vector3でX,Y方向の回転の度合いを定義
-            Vector3 angle = new Vector3(180,10, 0);
+            Vector3 angle = new Vector3(180, 10, 0);
             _virtualCamera.SetZoomPosition(-1.25f);
-            
+
             //transform.RotateAround()をしようしてメインカメラを回転させる
+
             selfCamera.transform.RotateAround(transform.position, Vector3.up, angle.x);
             selfCamera.transform.RotateAround(transform.position, selfCamera.transform.right, angle.y);
-            selfCamera.transform.parent.transform.localPosition = new Vector3(0,1,0); 
+            selfCamera.transform.parent.transform.localPosition = new Vector3(0, 1, 0);
+
             UpdateCameraZoom();
         }
 
@@ -305,23 +319,25 @@ namespace Ryneus
             _virtualCamera?.UpdateCameraZoom();
         }
 
-        public void PlayEffect(EffekseerEffectAsset effectAsset,int animationPosition,float animationScale,float animationSpeed)
+        public void PlayEffect(EffekseerEffectAsset effectAsset, int animationPosition, float animationScale, float animationSpeed)
         {
             if (effectAsset == null)
             {
                 effectEmitter.Stop();
                 return;
-            } 
+            }
+
             var effectRect = effectEmitter.gameObject.GetComponent<Transform>();
             if (animationPosition == 0)
             {
-                effectRect.localPosition = new Vector2(0,0);
-            } else
+                effectRect.localPosition = new Vector2(0, 0);
+            }
+            else
             if (animationPosition == 1)
             {
-                effectRect.localPosition = new Vector2(0,-48);
+                effectRect.localPosition = new Vector2(0, -48);
             }
-            effectRect.localScale = new Vector3(animationScale,animationScale,animationScale);
+            effectRect.localScale = new Vector3(animationScale, animationScale, animationScale);
             effectEmitter.enabled = true;
             effectEmitter.Stop();
             effectEmitter.speed = animationSpeed;

@@ -211,7 +211,7 @@ namespace Ryneus
             int audioSourceIndex = -1;
             for (int i = 0; i < _seAudioSourceNum; i++)
             {
-                if (_se[i].isPlaying == false && _playingSe.Contains(_se[i]) == false)
+                if (!_se[i].isPlaying && _playingSe.Contains(_se[i]) == false)
                 {
                     audioSourceIndex = i;
                     break;
@@ -235,7 +235,10 @@ namespace Ryneus
         public void PlayStaticSe(SEType sEType, float volume = 1.0f)
         {
             //Debug.Log(sEType);
-            if (SeMute) return;
+            if (SeMute)
+            {
+                return;
+            }
             var seIndex = DataSystem.SE.FindIndex(a => a.Id == (int)sEType);
             if (seIndex > -1)
             {

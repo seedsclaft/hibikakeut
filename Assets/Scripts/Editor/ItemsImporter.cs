@@ -27,7 +27,7 @@ namespace Ryneus
         {
             string FileName = Path.GetFileNameWithoutExtension(asset);
             string ExportPath = $"{Path.Combine(AssetPostImporter.ExportExcelPath, FileName)}.asset";
-            
+
 			ItemDates Data = AssetDatabase.LoadAssetAtPath<ItemDates>(ExportPath);
             if (!Data)
             {

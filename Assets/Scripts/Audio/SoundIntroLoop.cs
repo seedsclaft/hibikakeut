@@ -28,7 +28,7 @@ namespace Ryneus
             }
             if (_introAudioSource.IsLoopEnded(_reservedTime))
             {
-                var timeSamples = _loopAudioSource.timeSamples();
+                var timeSamples = _loopAudioSource.TimeSamples();
                 if (timeSamples > 0)
                 {
                     return timeSamples / _loopAudioSource.Clip.length;
@@ -36,7 +36,7 @@ namespace Ryneus
             }
             else
             {
-                var timeSamples = _introAudioSource.timeSamples();
+                var timeSamples = _introAudioSource.TimeSamples();
                 if (timeSamples > 0)
                 {
                     return timeSamples / _introAudioSource.Clip.length;
@@ -79,7 +79,6 @@ namespace Ryneus
             _introAudioSource.ResetReserveTimestamp();
             _introAudioSource.SetAudioData(clip, true);
             if (_loopWebGLAudioSource)
-
             {
                 _loopWebGLAudioSource.ResetReserveTimestamp();
                 _loopWebGLAudioSource.SetAudioData(clip, true);
@@ -91,7 +90,6 @@ namespace Ryneus
             _introAudioSource.ResetReserveTimestamp();
             _loopAudioSource.ResetReserveTimestamp();
             if (_loopWebGLAudioSource)
-
             {
                 _loopWebGLAudioSource.ResetReserveTimestamp();
             }
@@ -125,11 +123,9 @@ namespace Ryneus
         {
             if (_nowPlayIndex == 2 && _introAudioSource.IsLoopEnded(_reservedTime))
             {
-                float reserve = _introAudioSource.ReserveTimeSample - _introAudioSource.timeSamples();
+                float reserve = _introAudioSource.ReserveTimeSample - _introAudioSource.TimeSamples();
                 _nowPlayIndex = 0;
                 _loopAudioSource.PlayDelay(reserve / 44100);
-
-
             }
             // WebGL のためのループ切り替え処理
 #if UNITY_WEBGL
@@ -207,7 +203,7 @@ namespace Ryneus
                     _introAudioSource.SetReserveTimestamp();
                     if (_introAudioSource.IsLoopEnded(_reservedTime))
                     {
-                        float reserve = _introAudioSource.ReserveTimeSample - _introAudioSource.timeSamples();
+                        float reserve = _introAudioSource.ReserveTimeSample - _introAudioSource.TimeSamples();
                         _nowPlayIndex = 0;
                         _loopAudioSource.Play((int)timeStamp);
                     }
@@ -230,11 +226,17 @@ namespace Ryneus
         /// <summary>BGM を一時停止します。</summary>
         public void Pause()
         {
-            if (_introAudioSource == null || _loopAudioSource == null) return;
+            if (_introAudioSource == null || _loopAudioSource == null)
+            {
+                return;
+            }
 
             _introAudioSource.Pause();
             _loopAudioSource.Pause();
-            if (_loopWebGLAudioSource != null) _loopWebGLAudioSource.Pause();
+            if (_loopWebGLAudioSource != null)
+            {
+                _loopWebGLAudioSource.Pause();
+            }
 
             _isPause = true;
         }
@@ -242,26 +244,42 @@ namespace Ryneus
         /// <summary>BGM を停止します。</summary>
         public void Stop()
         {
-            if (_introAudioSource == null || _loopAudioSource == null) return;
+            if (_introAudioSource == null || _loopAudioSource == null)
+            {
+                return;
+            }
 
             _introAudioSource.Stop();
             _loopAudioSource.Stop();
-            if (_loopWebGLAudioSource != null) _loopWebGLAudioSource.Stop();
+            if (_loopWebGLAudioSource != null)
+            {
+                _loopWebGLAudioSource.Stop();
+            }
             _isPause = false;
         }
 
         public void ChangeVolume(float volume)
         {
-            if (_introAudioSource == null || _loopAudioSource == null) return;
+            if (_introAudioSource == null || _loopAudioSource == null)
+            {
+                return;
+            }
+
             _introAudioSource.ChangeVolume(volume);
             _loopAudioSource.ChangeVolume(volume);
-            if (_loopWebGLAudioSource != null) _loopWebGLAudioSource.ChangeVolume(volume);
+            if (_loopWebGLAudioSource != null)
+            {
+                _loopWebGLAudioSource.ChangeVolume(volume);
+            }
         }
 
         public void FadeVolume(float targetVolume, int duration)
         {
-            if (_introAudioSource == null || _loopAudioSource == null) return;
-            if (_introAudioSource.isPlaying())
+            if (_introAudioSource == null || _loopAudioSource == null)
+            {
+                return;
+            }
+            if (_introAudioSource.IsPlaying())
             {
                 _introAudioSource.FadeVolume(targetVolume, duration);
             }
@@ -269,13 +287,12 @@ namespace Ryneus
             {
                 _introAudioSource.ChangeVolume(targetVolume);
             }
-            if (_loopAudioSource.isPlaying())
+            if (_loopAudioSource.IsPlaying())
             {
                 _loopAudioSource.FadeVolume(targetVolume, duration);
             }
             else
             {
-
                 _loopAudioSource.ChangeVolume(targetVolume);
             }
         }

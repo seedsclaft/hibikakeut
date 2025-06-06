@@ -10,8 +10,7 @@ namespace Ryneus
 {
     public class MultiScroller : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler 
     {
-        [SerializeField]
-        private IDragHandler[] parentDragHandlers;
+        [SerializeField] private IDragHandler[] parentDragHandlers;
         private IBeginDragHandler[] parentBeginDragHandlers;
         private IEndDragHandler[] parentEndDragHandlers;
 

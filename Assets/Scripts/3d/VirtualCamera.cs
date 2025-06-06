@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace Ryneus
 {
-    public class VirtualCamera 
+    public class VirtualCamera
+
     {
         private Camera _selfCamera = null;
         private Quaternion _initRotation;
@@ -19,8 +20,9 @@ namespace Ryneus
             Initialize();
         }
 
-        public void Initialize() 
-        { 
+        public void Initialize()
+        {
+
             _initRotation = _selfCamera.transform.localRotation;
             _initPosition = _selfCamera.transform.localPosition;
             _zoomPosition = _selfCamera.transform.localPosition.z;
@@ -53,8 +55,9 @@ namespace Ryneus
             _selfCamera.transform.localRotation = _initRotation;
         }
 
-        public void SetZoomPosition(float value,float speed)
-        {   
+        public void SetZoomPosition(float value, float speed)
+        {
+
             _zoomPosition = Mathf.MoveTowards(_zoomPosition, value, speed * Time.deltaTime);
         }
     }
