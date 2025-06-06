@@ -5,7 +5,7 @@ namespace Ryneus
 {
     public class CheckTriggerLineIndex : ICheckTrigger
     {
-        public bool CheckTrigger(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        public bool CheckTrigger(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var isTrigger = false;
             switch (triggerData.TriggerType)
@@ -38,7 +38,7 @@ namespace Ryneus
                     {
                         isTrigger = checkTriggerInfo.Friends.Count > 0;
                     }
-                break;
+                    break;
                 case TriggerType.OpponentLineFront:
                     if (checkTriggerInfo.Opponents.Find(a => a.LineIndex == LineType.Front) != null)
                     {
@@ -69,8 +69,9 @@ namespace Ryneus
                         if (friend.IsActor && friend.Index.Value == triggerData.Param1)
                         {
                             isTrigger = true;
-                        } else
-                        if (!friend.IsActor && friend.Index.Value-100 == triggerData.Param1)
+                        }
+                        else
+                        if (!friend.IsActor && friend.Index.Value - 100 == triggerData.Param1)
                         {
                             isTrigger = true;
                         }
@@ -82,37 +83,38 @@ namespace Ryneus
                         if (opponent.IsActor && opponent.Index.Value == triggerData.Param1)
                         {
                             isTrigger = true;
-                        } else
-                        if (!opponent.IsActor && opponent.Index.Value-99 == triggerData.Param1)
+                        }
+                        else
+                        if (!opponent.IsActor && opponent.Index.Value - 99 == triggerData.Param1)
                         {
                             isTrigger = true;
                         }
                     }
                     break;
                 case TriggerType.LinkageAble:
-                    var linkage = checkTriggerInfo.ReserveMembers.Find(a => a.Index.Value == battlerInfo.Index.Value+3);
+                    var linkage = checkTriggerInfo.ReserveMembers.Find(a => a.Index.Value == battlerInfo.Index.Value + 3);
                     return linkage != null && linkage.IsAlive();
             }
             return isTrigger;
         }
 
-        public int CheckTargetIndex(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo,int targetBattlerIndex)
+        public int CheckTargetIndex(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo, int targetBattlerIndex)
         {
             switch (triggerData.TriggerType)
             {
                 case TriggerType.FriendLineMoreTarget:
-                    return LineMoreTargetIndex(checkTriggerInfo.Friends,battlerInfo,triggerData.Param1,targetBattlerIndex);
+                    return LineMoreTargetIndex(checkTriggerInfo.Friends, battlerInfo, triggerData.Param1, targetBattlerIndex);
                 case TriggerType.FriendLineLessTarget:
-                    return LineLessTargetIndex(checkTriggerInfo.Friends,battlerInfo,triggerData.Param1,targetBattlerIndex);
+                    return LineLessTargetIndex(checkTriggerInfo.Friends, battlerInfo, triggerData.Param1, targetBattlerIndex);
                 case TriggerType.OpponentLineMoreTarget:
-                    return LineMoreTargetIndex(checkTriggerInfo.Opponents,battlerInfo,triggerData.Param1,targetBattlerIndex);
+                    return LineMoreTargetIndex(checkTriggerInfo.Opponents, battlerInfo, triggerData.Param1, targetBattlerIndex);
                 case TriggerType.OpponentLineLessTarget:
-                    return LineLessTargetIndex(checkTriggerInfo.Opponents,battlerInfo,triggerData.Param1,targetBattlerIndex);
+                    return LineLessTargetIndex(checkTriggerInfo.Opponents, battlerInfo, triggerData.Param1, targetBattlerIndex);
             }
             return -1;
         }
 
-        private int LineMoreTargetIndex(List<BattlerInfo> targetBattlers,BattlerInfo battlerInfo,int param1,int targeBattlerIndex)
+        private int LineMoreTargetIndex(List<BattlerInfo> targetBattlers, BattlerInfo battlerInfo, int param1, int targeBattlerIndex)
         {
             if (targetBattlers.Count > 0)
             {
@@ -120,16 +122,17 @@ namespace Ryneus
                 var back = targetBattlers.FindAll(a => a.LineIndex == LineType.Back);
                 if (back.Count > front.Count)
                 {
-                    return BattleUtility.NearTargetIndex(battlerInfo,back,targeBattlerIndex);
-                } else
+                    return BattleUtility.NearTargetIndex(battlerInfo, back, targeBattlerIndex);
+                }
+                else
                 {
-                    return BattleUtility.NearTargetIndex(battlerInfo,front,targeBattlerIndex);
+                    return BattleUtility.NearTargetIndex(battlerInfo, front, targeBattlerIndex);
                 }
             }
             return -1;
         }
 
-        private int LineLessTargetIndex(List<BattlerInfo> targetBattlers,BattlerInfo battlerInfo,int param1,int targeBattlerIndex)
+        private int LineLessTargetIndex(List<BattlerInfo> targetBattlers, BattlerInfo battlerInfo, int param1, int targeBattlerIndex)
         {
             if (targetBattlers.Count > 0)
             {
@@ -137,20 +140,22 @@ namespace Ryneus
                 var back = targetBattlers.FindAll(a => a.LineIndex == LineType.Back);
                 if (back.Count < front.Count)
                 {
-                    return BattleUtility.NearTargetIndex(battlerInfo,back,targeBattlerIndex);
-                } else
+                    return BattleUtility.NearTargetIndex(battlerInfo, back, targeBattlerIndex);
+                }
+                else
                 {
-                    return BattleUtility.NearTargetIndex(battlerInfo,front,targeBattlerIndex);
+                    return BattleUtility.NearTargetIndex(battlerInfo, front, targeBattlerIndex);
                 }
             }
             return -1;
         }
 
-        public void AddTargetIndexList(List<int> targetIndexList,List<int> targetIndexes,BattlerInfo targetBattler,SkillData.TriggerData triggerData,SkillData skillData,CheckTriggerInfo checkTriggerInfo)
+        public void AddTargetIndexList(List<int> targetIndexList, List<int> targetIndexes, BattlerInfo targetBattler, SkillData.TriggerData triggerData, SkillData skillData, CheckTriggerInfo checkTriggerInfo)
         {
             var IsFriend = checkTriggerInfo.IsFriend(targetBattler);
             var targetIndex = targetBattler.Index;
-            
+
+
             switch (triggerData.TriggerType)
             {
                 case TriggerType.FriendLineFront:
@@ -193,8 +198,9 @@ namespace Ryneus
                     if (targetBattler.IsActor && targetBattler.Index.Value == triggerData.Param1)
                     {
                         targetIndexList.Add(targetIndex.Value);
-                    } else
-                    if (!targetBattler.IsActor && targetBattler.Index.Value-100 == triggerData.Param1)
+                    }
+                    else
+                    if (!targetBattler.IsActor && targetBattler.Index.Value - 100 == triggerData.Param1)
                     {
                         targetIndexList.Add(targetIndex.Value);
                     }
@@ -203,8 +209,9 @@ namespace Ryneus
                     if (targetBattler.IsActor && targetBattler.Index.Value == triggerData.Param1)
                     {
                         targetIndexList.Add(targetIndex.Value);
-                    } else
-                    if (!targetBattler.IsActor && targetBattler.Index.Value-99 == triggerData.Param1)
+                    }
+                    else
+                    if (!targetBattler.IsActor && targetBattler.Index.Value - 99 == triggerData.Param1)
                     {
                         targetIndexList.Add(targetIndex.Value);
                     }
@@ -212,7 +219,7 @@ namespace Ryneus
             }
         }
 
-        public void AddTriggerTargetList(List<int> targetIndexList,SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        public void AddTriggerTargetList(List<int> targetIndexList, SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
 
         }

@@ -41,7 +41,7 @@ namespace Ryneus
 
         // 選択範囲が相手
         private List<int> TargetIndexOpponent(bool isActor)
-        {   
+        {
             var targetIndexList = new List<int>();
             foreach (var battlerInfo in GetBattlerInfos(isActor,false))
             {
@@ -79,7 +79,7 @@ namespace Ryneus
                 }
                 return targetIndexList;
             }
-        
+
             var selfIsFront = false;
             if (battlerInfo.LineIndex == LineType.Front)
             {
@@ -163,8 +163,8 @@ namespace Ryneus
                         {
                             if (!targetIndexList.Contains(actionResultInfo.TargetIndex.Value))
                             {
-                                targetIndexList.Add(actionResultInfo.TargetIndex.Value);     
-                            }               
+                                targetIndexList.Add(actionResultInfo.TargetIndex.Value);
+                            }
                         }
                     }
                     break;
@@ -184,11 +184,11 @@ namespace Ryneus
             {
                 targetIndexList = CheckScopeTriggers(targetIndexList,skillData.ScopeTriggers,actionInfo,actionResultInfos);
             }
-            
+
             var withinRangeTargetList = WithinRangeTargetList(subject,rangeType);
             // 範囲外にいる対象を候補から外す
             targetIndexList = targetIndexList.FindAll(a => withinRangeTargetList.Contains(a));
-            if (checkCondition == true)
+            if (checkCondition)
             {
                 targetIndexList = targetIndexList.FindAll(a => CanUseCondition(skillId,subject,a));
             }

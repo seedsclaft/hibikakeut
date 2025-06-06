@@ -18,7 +18,7 @@ namespace Ryneus
         public BattlerInfo TargetBattler => _targetBattler;
         public void SetTargetBattler(BattlerInfo battlerInfo) => _targetBattler = battlerInfo;
 
-        private List<ActionInfo> _receiveActionInfos = new ();
+        private List<ActionInfo> _receiveActionInfos = new();
         // 誘発した行動
         private ActionInfo _receiveActionInfo = null;
         public ActionInfo ReceiveActionInfo => _receiveActionInfo;

@@ -25,7 +25,7 @@ namespace Ryneus
 
         private bool _busy = false;
         public bool IsBusy => _busy;
-        private void Awake() 
+        private void Awake()
         {
             UpdateAllHide();
         }
@@ -41,20 +41,20 @@ namespace Ryneus
 
         private void DestroyChild(GameObject gameObject)
         {
-            foreach(Transform child in gameObject.transform)
+            foreach (Transform child in gameObject.transform)
             {
                 Destroy(child.gameObject);
             }
         }
 
-        public void StartDamage(DamageType damageType,int value,System.Action endEvent,int delayCount)
+        public void StartDamage(DamageType damageType, int value, System.Action endEvent, int delayCount)
         {
             //UpdateAllHide();
             _busy = true;
             string result = value.ToString();
             var _damageList = new List<GameObject>();
             for (int i = 0; i < result.Count(); i++)
-            {   
+            {
                 var prefab = Instantiate(GetPrefabType(damageType));
                 prefab.transform.SetParent(GetRootType(damageType).transform, false);
                 var textMeshProUGUI = prefab.GetComponent<TextMeshProUGUI>();
@@ -62,8 +62,8 @@ namespace Ryneus
                 _damageList.Add(prefab);
             }
 
-            for (int i = _damageList.Count-1; i >= 0; i--)
-            {   
+            for (int i = _damageList.Count - 1; i >= 0; i--)
+            {
                 var textMeshProUGUI = _damageList[i].GetComponent<TextMeshProUGUI>();
                 textMeshProUGUI.alpha = 0;
                 int delay = i + delayCount * 2;
@@ -75,25 +75,27 @@ namespace Ryneus
                     .Append(textMeshProUGUI.gameObject.transform.DOLocalMoveY(4, 0.05f))
                     .Append(textMeshProUGUI.gameObject.transform.DOLocalMoveY(0, 0.05f))
                     .SetEase(Ease.InOutQuad)
-                    .OnComplete(() => {
+                    .OnComplete(() =>
+                    {
                         var sequence = DOTween.Sequence()
                             .Append(textMeshProUGUI.DOFade(0.0f, 0.2f))
-                            .OnComplete(() => {
+                            .OnComplete(() =>
+                            {
                                 _busy = false;
-                                if (endEvent != null) endEvent(); 
+                                if (endEvent != null) endEvent();
                             });
                     });
             }
         }
 
-        public void StartHeal(DamageType damageType,int value,System.Action endEvent,int delayCount)
+        public void StartHeal(DamageType damageType, int value, System.Action endEvent, int delayCount)
         {
             //UpdateAllHide();
             _busy = true;
             var result = value.ToString();
             var _damageList = new List<GameObject>();
             for (int i = 0; i < result.Count(); i++)
-            {   
+            {
                 var prefab = Instantiate(GetPrefabType(damageType));
                 prefab.transform.SetParent(GetRootType(damageType).transform, false);
                 var textMeshProUGUI = prefab.GetComponent<TextMeshProUGUI>();
@@ -101,8 +103,8 @@ namespace Ryneus
                 _damageList.Add(prefab);
             }
 
-            for (int i = _damageList.Count-1; i >= 0; i--)
-            {   
+            for (int i = _damageList.Count - 1; i >= 0; i--)
+            {
                 var textMeshProUGUI = _damageList[i].GetComponent<TextMeshProUGUI>();
                 textMeshProUGUI.alpha = 0;
                 int delay = i + delayCount * 8;
@@ -115,10 +117,12 @@ namespace Ryneus
                     .Append(textMeshProUGUI.gameObject.transform.DOLocalMoveY(4, 0.05f))
                     .Append(textMeshProUGUI.gameObject.transform.DOLocalMoveY(0, 0.05f))
                     .SetEase(Ease.InOutQuad)
-                    .OnComplete(() => {
+                    .OnComplete(() =>
+                    {
                         var sequence = DOTween.Sequence()
                             .Append(textMeshProUGUI.DOFade(0.0f, 0.2f))
-                            .OnComplete(() => {
+                            .OnComplete(() =>
+                            {
                                 _busy = false;
                                 if (endEvent != null) endEvent();
                             });
@@ -126,7 +130,7 @@ namespace Ryneus
             }
         }
 
-        public void StartStatePopup(DamageType damageType,string stateName,float delay,System.Action endEvent)
+        public void StartStatePopup(DamageType damageType, string stateName, float delay, System.Action endEvent)
         {
             var prefab = Instantiate(GetPrefabType(damageType));
             prefab.transform.SetParent(GetRootType(damageType).transform, false);
@@ -142,9 +146,11 @@ namespace Ryneus
                 .Append(textMeshProUGUI.gameObject.transform.DOLocalMoveY(24, 0.2f))
                 .Join(textMeshProUGUI.DOFade(0.0f, 0.1f))
                 .SetEase(Ease.InOutQuad)
-                .OnComplete(() => {
+                .OnComplete(() =>
+                {
                     var sequence = DOTween.Sequence()
-                        .OnComplete(() => {
+                        .OnComplete(() =>
+                        {
                             _busy = false;
                             if (endEvent != null) endEvent();
                         });
@@ -164,7 +170,7 @@ namespace Ryneus
                 _ => null,
             };
         }
-        
+
         private GameObject GetRootType(DamageType damageType)
         {
             return damageType switch

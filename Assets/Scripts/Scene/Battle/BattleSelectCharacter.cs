@@ -7,7 +7,8 @@ namespace Ryneus
 {
 
     public class BattleSelectCharacter : BaseView, IInputHandlerEvent
-    {   
+    {
+
         [SerializeField] private MagicList magicList;
         public MagicList MagicList => magicList;
         [SerializeField] private BaseList conditionList;
@@ -26,10 +27,12 @@ namespace Ryneus
         private bool _isInit = false;
 
         public int SelectedTabIndex => toggleSelect.SelectTabIndex;
-        
+
+
         public SkillInfo ActionData
         {
-            get 
+            get
+
             {
                 if (magicList.ListData != null)
                 {
@@ -41,7 +44,8 @@ namespace Ryneus
 
         public AttributeType AttributeType
         {
-            get 
+            get
+
             {
                 if (attributeList.ListData != null)
                 {
@@ -58,11 +62,13 @@ namespace Ryneus
                 return;
             }
             base.Initialize();
-            SetInputHandlerAction(InputKeyType.SideLeft2,() => 
+            SetInputHandlerAction(InputKeyType.SideLeft2, () =>
+
             {
                 CommandTabSelect(InputKeyType.SideLeft2);
             });
-            SetInputHandlerAction(InputKeyType.SideRight2,() => 
+            SetInputHandlerAction(InputKeyType.SideRight2, () =>
+
             {
                 CommandTabSelect(InputKeyType.SideRight2);
             });
@@ -84,7 +90,8 @@ namespace Ryneus
                 DataSystem.GetText(402),
                 DataSystem.GetText(422),
             });
-            toggleSelect.SetSelectTabHandler(() => 
+            toggleSelect.SetSelectTabHandler(() =>
+
             {
                 skillTriggerList.UpdateHelpWindow();
             });
@@ -96,7 +103,8 @@ namespace Ryneus
         public void InitializeLvReset(System.Action lvResetEvent)
         {
             lvResetButton?.gameObject.SetActive(true);
-            lvResetButton?.OnClickAddListener(() => 
+            lvResetButton?.OnClickAddListener(() =>
+
             {
                 lvResetEvent?.Invoke();
             });
@@ -105,15 +113,16 @@ namespace Ryneus
         public void SetStatusButtonEvent(System.Action statusEvent)
         {
             statusButton?.gameObject.SetActive(true);
-            statusButton.onClick.AddListener(() => 
+            statusButton.onClick.AddListener(() =>
+
             {
                 statusEvent?.Invoke();
             });
         }
 
-        public void SelectCharacterTab(int tabIndex,bool needSe = true)
+        public void SelectCharacterTab(int tabIndex, bool needSe = true)
         {
-            toggleSelect.SetSelectTabIndex(tabIndex,needSe);
+            toggleSelect.SetSelectTabIndex(tabIndex, needSe);
         }
 
         public void SelectCharacterTabSmooth(int index)
@@ -125,18 +134,20 @@ namespace Ryneus
         {
             toggleSelect.UpdateTabs();
         }
-        
-        public void SetActiveTab(SelectCharacterTabType selectCharacterTabType,bool isActive)
-        {    
-            toggleSelect.SetActiveTab((int)selectCharacterTabType,isActive);
+
+
+        public void SetActiveTab(SelectCharacterTabType selectCharacterTabType, bool isActive)
+        {
+
+            toggleSelect.SetActiveTab((int)selectCharacterTabType, isActive);
         }
 
         public void UpdateStatus(ActorInfo actorInfo)
         {
             var currentStatus = actorInfo.CurrentStatus;
             statusInfoComponent.UpdateInfo(currentStatus);
-            statusInfoComponent.UpdateHp(actorInfo.MaxHp,currentStatus.Hp);
-            statusInfoComponent.UpdateMp(actorInfo.MaxMp,currentStatus.Mp);
+            statusInfoComponent.UpdateHp(actorInfo.MaxHp, currentStatus.Hp);
+            statusInfoComponent.UpdateMp(actorInfo.MaxMp, currentStatus.Mp);
         }
 
         public void UpdateStatus(BattlerInfo battlerInfo)
@@ -144,9 +155,9 @@ namespace Ryneus
             battlerInfoComponent.UpdateInfo(battlerInfo);
             var baseStatus = battlerInfo.CurrentStatus(true);
             var currentStatus = battlerInfo.CurrentStatus(false);
-            statusInfoComponent.UpdateInfo(currentStatus,baseStatus);
-            statusInfoComponent.UpdateHp(battlerInfo.MaxHp,currentStatus.Hp);
-            statusInfoComponent.UpdateMp(battlerInfo.MaxMp,currentStatus.Mp);
+            statusInfoComponent.UpdateInfo(currentStatus, baseStatus);
+            statusInfoComponent.UpdateHp(battlerInfo.MaxHp, currentStatus.Hp);
+            statusInfoComponent.UpdateMp(battlerInfo.MaxMp, currentStatus.Mp);
         }
 
         public void HideStatus()
@@ -175,9 +186,9 @@ namespace Ryneus
             skillTriggerList.SetData(skillTriggerLists);
         }
 
-        public void SetActorInfo(ActorInfo actorInfo,List<ActorInfo> party)
+        public void SetActorInfo(ActorInfo actorInfo, List<ActorInfo> party)
         {
-            actorInfoComponent.UpdateInfo(actorInfo,party);
+            actorInfoComponent.UpdateInfo(actorInfo, party);
         }
 
         public void SetEnemyBattlerInfo(BattlerInfo enemyInfo)
@@ -186,10 +197,10 @@ namespace Ryneus
             kindList?.SetData(ListData.MakeListData(enemyInfo.Kinds));
         }
 
-        public void SetInputHandlerAction(InputKeyType keyType,System.Action callEvent)
+        public void SetInputHandlerAction(InputKeyType keyType, System.Action callEvent)
         {
-            magicList.SetInputHandler(keyType,callEvent);
-            conditionList.SetInputHandler(keyType,callEvent);
+            magicList.SetInputHandler(keyType, callEvent);
+            conditionList.SetInputHandler(keyType, callEvent);
         }
 
         public void RefreshAction(int selectIndex = 0)
@@ -212,7 +223,7 @@ namespace Ryneus
             gameObject.SetActive(false);
         }
 
-        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
             if (attributeList != null && !attributeList.gameObject.activeSelf)
             {
@@ -220,7 +231,8 @@ namespace Ryneus
                 if (keyTypes.Contains(InputKeyType.SideLeft2))
                 {
                     toggleSelect.SelectPrev();
-                } else
+                }
+                else
                 if (keyTypes.Contains(InputKeyType.SideRight2))
                 {
                     toggleSelect.SelectNext();
@@ -237,21 +249,24 @@ namespace Ryneus
                 if (keyType == InputKeyType.SideLeft2)
                 {
                     selectAttribute--;
-                } else
+                }
+                else
                 if (keyType == InputKeyType.SideRight2)
                 {
                     selectAttribute++;
                 }
                 if (selectAttribute < 0)
                 {
-                    selectAttribute = attributeList.DataCount-1;
-                } else
+                    selectAttribute = attributeList.DataCount - 1;
+                }
+                else
                 if (selectAttribute >= attributeList.DataCount)
                 {
                     selectAttribute = 0;
                 }
                 attributeList.UpdateSelectIndex(selectAttribute);
-            } else
+            }
+            else
             {
             }
         }

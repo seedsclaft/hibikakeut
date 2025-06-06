@@ -18,7 +18,11 @@ namespace Ryneus
         public Scene ResumeScene = Scene.None;
 
         // 所持アクターリスト
+#if UNITY_EDITOR
         [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = new();
+#else
+        private List<ActorInfo> _actorInfos = new();
+#endif
         public List<ActorInfo> ActorInfos => _actorInfos;
 
         // 現在のステージ場所

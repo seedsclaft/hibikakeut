@@ -5,7 +5,7 @@ namespace Ryneus
 {
     public class CheckTriggerAwaken : ICheckTrigger
     {
-        public bool CheckTrigger(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        public bool CheckTrigger(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var isTrigger = false;
             if (!battlerInfo.IsAlive())
@@ -76,16 +76,18 @@ namespace Ryneus
             return isTrigger;
         }
 
-        public int CheckTargetIndex(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo,int targetBattlerIndex)
+        public int CheckTargetIndex(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo, int targetBattlerIndex)
         {
             return -1;
         }
-        
-        public void AddTargetIndexList(List<int> targetIndexList,List<int> targetIndexes,BattlerInfo targetBattler,SkillData.TriggerData triggerData,SkillData skillData,CheckTriggerInfo checkTriggerInfo)
+
+
+        public void AddTargetIndexList(List<int> targetIndexList, List<int> targetIndexes, BattlerInfo targetBattler, SkillData.TriggerData triggerData, SkillData skillData, CheckTriggerInfo checkTriggerInfo)
         {
             var IsFriend = checkTriggerInfo.IsFriend(targetBattler);
             var targetIndex = targetBattler.Index;
-            
+
+
             switch (triggerData.TriggerType)
             {
                 case TriggerType.IsNotAwaken:
@@ -130,17 +132,17 @@ namespace Ryneus
             }
         }
 
-        public void AddTriggerTargetList(List<int> targetIndexList,SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        public void AddTriggerTargetList(List<int> targetIndexList, SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             switch (triggerData.TriggerType)
             {
                 case TriggerType.FriendIsAwaken:
-                    targetIndexList.AddRange(CheckFriendIsAwaken(triggerData,battlerInfo,checkTriggerInfo));
+                    targetIndexList.AddRange(CheckFriendIsAwaken(triggerData, battlerInfo, checkTriggerInfo));
                     break;
             }
         }
 
-        private List<int> CheckFriendIsAwaken(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        private List<int> CheckFriendIsAwaken(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var list = new List<int>();
             if (battlerInfo.IsAlive())

@@ -5,7 +5,7 @@ namespace Ryneus
 {
     public class CheckTriggerTurnCount : ICheckTrigger
     {
-        public bool CheckTrigger(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        public bool CheckTrigger(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var isTrigger = false;
             switch (triggerData.TriggerType)
@@ -18,7 +18,8 @@ namespace Ryneus
                     if (triggerData.Param1 == 0)
                     {
                         return battlerInfo.TurnCount.Value - triggerData.Param2 == 0;
-                    } else
+                    }
+                    else
                     {
                         return (battlerInfo.TurnCount.Value % triggerData.Param1) - triggerData.Param2 == 0;
                     }
@@ -27,23 +28,25 @@ namespace Ryneus
                     if (triggerData.Param1 > 0)
                     {
                         return (turns % triggerData.Param1) - triggerData.Param2 == 0;
-                    } else
+                    }
+                    else
                     {
                         return turns - triggerData.Param2 == 0;
                     }
                 case TriggerType.SelfTargetOnly:
                     return battlerInfo.IsAlive();
                 case TriggerType.SelfTargetNotOnly:
-                /*
-                    if (checkTriggerInfo.ActionInfo != null)
-                    {
-                        if (checkTriggerInfo.ActionResultInfos != null)
+                    /*
+                        if (checkTriggerInfo.ActionInfo != null)
                         {
-                            return checkTriggerInfo.ActionResultInfos.Find(a => a.TargetIndex != battlerInfo.Index) != null;
+                            if (checkTriggerInfo.ActionResultInfos != null)
+                            {
+                                return checkTriggerInfo.ActionResultInfos.Find(a => a.TargetIndex != battlerInfo.Index) != null;
+                            }
                         }
-                    }
-                    return false;
-                    */
+                        return false;
+                        */
+
                     return checkTriggerInfo.Friends.Count > 1;
                 case TriggerType.ActionInfoTurnNumPer:
                     if (checkTriggerInfo.ActionInfo != null)
@@ -55,7 +58,8 @@ namespace Ryneus
                             {
                                 isTrigger = true;
                             }
-                        } else
+                        }
+                        else
                         {
                             if ((actionBattlerInfo.TurnCount.Value % triggerData.Param1) - triggerData.Param2 == 0)
                             {
@@ -68,46 +72,48 @@ namespace Ryneus
             return isTrigger;
         }
 
-        public int CheckTargetIndex(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo,int targetBattlerIndex)
+        public int CheckTargetIndex(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo, int targetBattlerIndex)
         {
             return -1;
         }
-        
-        public void AddTargetIndexList(List<int> targetIndexList,List<int> targetIndexes,BattlerInfo targetBattler,SkillData.TriggerData triggerData,SkillData skillData,CheckTriggerInfo checkTriggerInfo)
+
+
+        public void AddTargetIndexList(List<int> targetIndexList, List<int> targetIndexes, BattlerInfo targetBattler, SkillData.TriggerData triggerData, SkillData skillData, CheckTriggerInfo checkTriggerInfo)
         {
             var IsFriend = checkTriggerInfo.IsFriend(targetBattler);
             var targetIndex = targetBattler.Index;
-            
+
+
             switch (triggerData.TriggerType)
             {
                 case TriggerType.TurnNum:
-                if (checkTriggerInfo.BattlerInfo.TurnCount.Value == triggerData.Param1)
-                {
-                    targetIndexList.Add(targetIndex.Value);
-                }
-                break;
+                    if (checkTriggerInfo.BattlerInfo.TurnCount.Value == triggerData.Param1)
+                    {
+                        targetIndexList.Add(targetIndex.Value);
+                    }
+                    break;
                 case TriggerType.TurnNumPer:
-                if ((checkTriggerInfo.BattlerInfo.TurnCount.Value % triggerData.Param1) - triggerData.Param2 == 0)
-                {
-                    targetIndexList.Add(targetIndex.Value);
-                }
-                break;
+                    if ((checkTriggerInfo.BattlerInfo.TurnCount.Value % triggerData.Param1) - triggerData.Param2 == 0)
+                    {
+                        targetIndexList.Add(targetIndex.Value);
+                    }
+                    break;
                 case TriggerType.SelfTargetOnly:
-                if (checkTriggerInfo.BattlerInfo.Index == targetIndex)
-                {
-                    targetIndexList.Add(targetIndex.Value);
-                }
-                break;
+                    if (checkTriggerInfo.BattlerInfo.Index == targetIndex)
+                    {
+                        targetIndexList.Add(targetIndex.Value);
+                    }
+                    break;
                 case TriggerType.SelfTargetNotOnly:
-                if (checkTriggerInfo.BattlerInfo.Index != targetIndex)
-                {
-                    targetIndexList.Add(targetIndex.Value);
-                }
-                break;
+                    if (checkTriggerInfo.BattlerInfo.Index != targetIndex)
+                    {
+                        targetIndexList.Add(targetIndex.Value);
+                    }
+                    break;
             }
         }
 
-        public void AddTriggerTargetList(List<int> targetIndexList,SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        public void AddTriggerTargetList(List<int> targetIndexList, SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
 
         }

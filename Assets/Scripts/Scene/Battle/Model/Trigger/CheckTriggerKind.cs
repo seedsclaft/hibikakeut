@@ -5,63 +5,64 @@ namespace Ryneus
 {
     public class CheckTriggerKind : ICheckTrigger
     {
-        public bool CheckTrigger(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        public bool CheckTrigger(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var isTrigger = false;
             switch (triggerData.TriggerType)
             {
                 case TriggerType.FriendHasKind:
-                if (checkTriggerInfo.Friends.Find(a => a.Kinds.Contains((KindType)triggerData.Param1)) != null)
-                {
-                    isTrigger = true;
-                }
-                if (triggerData.Param2 == 1)
-                {
-                    isTrigger = checkTriggerInfo.Friends.Count > 0;
-                }
-                break;
+                    if (checkTriggerInfo.Friends.Find(a => a.Kinds.Contains((KindType)triggerData.Param1)) != null)
+                    {
+                        isTrigger = true;
+                    }
+                    if (triggerData.Param2 == 1)
+                    {
+                        isTrigger = checkTriggerInfo.Friends.Count > 0;
+                    }
+                    break;
                 case TriggerType.OpponentHasKind:
-                if (checkTriggerInfo.Opponents.Find(a => a.Kinds.Contains((KindType)triggerData.Param1)) != null)
-                {
-                    isTrigger = true;
-                }
-                if (triggerData.Param2 == 1)
-                {
-                    isTrigger = checkTriggerInfo.Opponents.Count > 0;
-                }
-                break;
+                    if (checkTriggerInfo.Opponents.Find(a => a.Kinds.Contains((KindType)triggerData.Param1)) != null)
+                    {
+                        isTrigger = true;
+                    }
+                    if (triggerData.Param2 == 1)
+                    {
+                        isTrigger = checkTriggerInfo.Opponents.Count > 0;
+                    }
+                    break;
             }
             return isTrigger;
         }
 
-        public int CheckTargetIndex(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo,int targetBattlerIndex)
+        public int CheckTargetIndex(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo, int targetBattlerIndex)
         {
             return -1;
         }
 
-        public void AddTargetIndexList(List<int> targetIndexList,List<int> targetIndexes,BattlerInfo targetBattler,SkillData.TriggerData triggerData,SkillData skillData,CheckTriggerInfo checkTriggerInfo)
+        public void AddTargetIndexList(List<int> targetIndexList, List<int> targetIndexes, BattlerInfo targetBattler, SkillData.TriggerData triggerData, SkillData skillData, CheckTriggerInfo checkTriggerInfo)
         {
             var IsFriend = checkTriggerInfo.IsFriend(targetBattler);
             var targetIndex = targetBattler.Index;
-            
+
+
             switch (triggerData.TriggerType)
             {
                 case TriggerType.FriendHasKind:
-                if (IsFriend && targetBattler.Kinds.Contains((KindType)triggerData.Param1))
-                {
-                    targetIndexList.Add(targetIndex.Value);
-                }
-                break;
+                    if (IsFriend && targetBattler.Kinds.Contains((KindType)triggerData.Param1))
+                    {
+                        targetIndexList.Add(targetIndex.Value);
+                    }
+                    break;
                 case TriggerType.OpponentHasKind:
-                if (!IsFriend && targetBattler.Kinds.Contains((KindType)triggerData.Param1))
-                {
-                    targetIndexList.Add(targetIndex.Value);
-                }
-                break;
+                    if (!IsFriend && targetBattler.Kinds.Contains((KindType)triggerData.Param1))
+                    {
+                        targetIndexList.Add(targetIndex.Value);
+                    }
+                    break;
             }
         }
 
-        public void AddTriggerTargetList(List<int> targetIndexList,SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        public void AddTriggerTargetList(List<int> targetIndexList, SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
 
         }

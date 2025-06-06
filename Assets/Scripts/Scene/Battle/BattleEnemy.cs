@@ -6,7 +6,7 @@ using Effekseer;
 
 namespace Ryneus
 {
-    public class BattleEnemy : ListItem 
+    public class BattleEnemy : ListItem
     {
         [SerializeField] private BattlerInfoComponent battlerInfoComponent;
         public BattlerInfoComponent BattlerInfoComponent => battlerInfoComponent;
@@ -20,7 +20,7 @@ namespace Ryneus
 
         public int EnemyIndex => _battlerInfo.Index.Value;
 
-        public void SetData(BattlerInfo battlerInfo,int index,bool isFront)
+        public void SetData(BattlerInfo battlerInfo, int index, bool isFront)
         {
             _battlerInfo = battlerInfo;
             _isFront = isFront;
@@ -45,7 +45,7 @@ namespace Ryneus
             if (_battlerInfo == null) return;
             clickButton.onClick.AddListener(() => handler(_battlerInfo.Index.Value));
         }
-        
+
         public new void SetSelectHandler(System.Action<int> handler)
         {
             var enterListener = clickButton.gameObject.AddComponent<ContentEnterListener>();
@@ -57,7 +57,7 @@ namespace Ryneus
             var pressListener = clickButton.gameObject.AddComponent<ContentPressListener>();
             pressListener.SetPressEvent(() => handler(_battlerInfo.Index.Value));
         }
-        
+
         public void SetSelect(EffekseerEffectAsset effekseerEffectAsset)
         {
             if (Cursor == null) return;

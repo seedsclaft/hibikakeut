@@ -5,51 +5,53 @@ namespace Ryneus
 {
     public class CheckTriggerAttackedAction : ICheckTrigger
     {
-        public bool CheckTrigger(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        public bool CheckTrigger(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var isTrigger = false;
             switch (triggerData.TriggerType)
             {
                 case TriggerType.AttackedActionIsScope:
-                    isTrigger = CheckAttackedActionIsScope(triggerData,battlerInfo,checkTriggerInfo).Count > 0;
+                    isTrigger = CheckAttackedActionIsScope(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
                     break;
                 case TriggerType.AttackedActionIsKind:
-                    isTrigger = CheckAttackedActionIsKind(triggerData,battlerInfo,checkTriggerInfo).Count > 0;
+                    isTrigger = CheckAttackedActionIsKind(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
                     break;
                 case TriggerType.AttackedActionIsState:
-                    isTrigger = CheckAttackedActionIsState(triggerData,battlerInfo,checkTriggerInfo).Count > 0;
+                    isTrigger = CheckAttackedActionIsState(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
                     break;
             }
             return isTrigger;
         }
-        
-        public int CheckTargetIndex(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo,int targetBattlerIndex)
+
+
+        public int CheckTargetIndex(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo, int targetBattlerIndex)
         {
             return -1;
         }
 
-        public void AddTargetIndexList(List<int> targetIndexList,List<int> targetIndexes,BattlerInfo targetBattler,SkillData.TriggerData triggerData,SkillData skillData,CheckTriggerInfo checkTriggerInfo)
+        public void AddTargetIndexList(List<int> targetIndexList, List<int> targetIndexes, BattlerInfo targetBattler, SkillData.TriggerData triggerData, SkillData skillData, CheckTriggerInfo checkTriggerInfo)
         {
-            
+
+
         }
 
-        public void AddTriggerTargetList(List<int> targetIndexList,SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        public void AddTriggerTargetList(List<int> targetIndexList, SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             switch (triggerData.TriggerType)
             {
                 case TriggerType.AttackedActionIsScope:
-                    targetIndexList.AddRange(CheckAttackedActionIsScope(triggerData,battlerInfo,checkTriggerInfo));
+                    targetIndexList.AddRange(CheckAttackedActionIsScope(triggerData, battlerInfo, checkTriggerInfo));
                     break;
                 case TriggerType.AttackedActionIsKind:
-                    targetIndexList.AddRange(CheckAttackedActionIsKind(triggerData,battlerInfo,checkTriggerInfo));
+                    targetIndexList.AddRange(CheckAttackedActionIsKind(triggerData, battlerInfo, checkTriggerInfo));
                     break;
                 case TriggerType.AttackedActionIsState:
-                    targetIndexList.AddRange(CheckAttackedActionIsState(triggerData,battlerInfo,checkTriggerInfo));
+                    targetIndexList.AddRange(CheckAttackedActionIsState(triggerData, battlerInfo, checkTriggerInfo));
                     break;
             }
         }
 
-        private List<int> CheckAttackedActionIsScope(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        private List<int> CheckAttackedActionIsScope(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var list = new List<int>();
             var actionInfo = checkTriggerInfo.ActionInfo;
@@ -80,9 +82,10 @@ namespace Ryneus
                 }
             }
             return list;
-        }        
-        
-        private List<int> CheckAttackedActionIsKind(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        }
+
+
+        private List<int> CheckAttackedActionIsKind(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var list = new List<int>();
             var actionInfo = checkTriggerInfo.ActionInfo;
@@ -115,7 +118,7 @@ namespace Ryneus
             return list;
         }
 
-        private List<int> CheckAttackedActionIsState(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        private List<int> CheckAttackedActionIsState(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var list = new List<int>();
             var actionInfo = checkTriggerInfo.ActionInfo;

@@ -683,9 +683,9 @@ namespace Ryneus
                 StartAnimationDemigod(battlerInfo,skillData,speed);
                 HideStateOverlay();
                 SetAnimationBusy(true);
-                await UniTask.DelayFrame((int)(20 / speed));
+                await UniTask.DelayFrame((int)(20f / speed));
                 SoundManager.Instance.PlayStaticSe(SEType.Awaken);
-                await UniTask.DelayFrame((int)(90 / speed));
+                await UniTask.DelayFrame((int)(90f / speed));
             }
         }
 
@@ -716,14 +716,6 @@ namespace Ryneus
             {
                 StartAnimation(targetIndex,animation,0);
             }
-        }
-
-        public void SetTargetEnemy(BattlerInfo battlerInfo)
-        {
-        }
-
-        public void SetTargetActor(BattlerInfo battlerInfo)
-        {
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Ryneus
 {
     public class CheckTriggerActionInfo : ICheckTrigger
     {
-        public bool CheckTrigger(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        public bool CheckTrigger(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var actionInfo = checkTriggerInfo.ActionInfo;
             var actionResultInfos = checkTriggerInfo.ActionResultInfos;
@@ -13,13 +13,13 @@ namespace Ryneus
             switch (triggerData.TriggerType)
             {
                 case TriggerType.TargetHpRateUnder:
-                    isTrigger = CheckTargetHpRateUnder(triggerData,battlerInfo,checkTriggerInfo).Count > 0;
+                    isTrigger = CheckTargetHpRateUnder(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
                     break;
                 case TriggerType.TargetAbnormal:
-                    isTrigger = CheckTargetAbnormal(triggerData,battlerInfo,checkTriggerInfo).Count > 0;
+                    isTrigger = CheckTargetAbnormal(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
                     break;
                 case TriggerType.TargetBuff:
-                    isTrigger = CheckTargetBuff(triggerData,battlerInfo,checkTriggerInfo).Count > 0;
+                    isTrigger = CheckTargetBuff(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
                     break;
                 case TriggerType.TargetDeath:
                     if (battlerInfo.IsAlive() && actionResultInfos != null && actionResultInfos.Count > 0)
@@ -32,7 +32,8 @@ namespace Ryneus
                                 if (targetBattlerInfo != null && battlerInfo.IsActor == targetBattlerInfo.IsActor && actionResultInfo.DeadIndexList.Contains(targetBattlerInfo.Index.Value))
                                 {
                                     isTrigger = true;
-                                }               
+                                }
+
                             }
                         }
                     }
@@ -44,7 +45,7 @@ namespace Ryneus
                     }
                     break;
                 case TriggerType.FriendAttackedAction:
-                    isTrigger = CheckFriendAttackedAction(triggerData,battlerInfo,checkTriggerInfo).Count > 0;
+                    isTrigger = CheckFriendAttackedAction(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
                     break;
                 case TriggerType.SelfAbnormalAction:
                     if (battlerInfo.IsAlive())
@@ -61,7 +62,7 @@ namespace Ryneus
                     }
                     break;
                 case TriggerType.FriendAbnormalAction:
-                    isTrigger = CheckFriendAbnormalAction(triggerData,battlerInfo,checkTriggerInfo).Count > 0;
+                    isTrigger = CheckFriendAbnormalAction(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
                     break;
                 case TriggerType.SelfPassiveAction:
                     if (battlerInfo.IsAlive())
@@ -157,37 +158,38 @@ namespace Ryneus
             return isTrigger;
         }
 
-        public int CheckTargetIndex(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo,int targetBattlerIndex)
+        public int CheckTargetIndex(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo, int targetBattlerIndex)
         {
             return -1;
         }
 
-        public void AddTargetIndexList(List<int> targetIndexList,List<int> targetIndexes,BattlerInfo targetBattler,SkillData.TriggerData triggerData,SkillData skillData,CheckTriggerInfo checkTriggerInfo)
+        public void AddTargetIndexList(List<int> targetIndexList, List<int> targetIndexes, BattlerInfo targetBattler, SkillData.TriggerData triggerData, SkillData skillData, CheckTriggerInfo checkTriggerInfo)
         {
-            
+
+
         }
 
-        public void AddTriggerTargetList(List<int> targetIndexList,SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        public void AddTriggerTargetList(List<int> targetIndexList, SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             switch (triggerData.TriggerType)
             {
                 case TriggerType.TargetHpRateUnder:
-                    targetIndexList.AddRange(CheckTargetHpRateUnder(triggerData,battlerInfo,checkTriggerInfo));
+                    targetIndexList.AddRange(CheckTargetHpRateUnder(triggerData, battlerInfo, checkTriggerInfo));
                     break;
                 case TriggerType.TargetAbnormal:
-                    targetIndexList.AddRange(CheckTargetAbnormal(triggerData,battlerInfo,checkTriggerInfo));
+                    targetIndexList.AddRange(CheckTargetAbnormal(triggerData, battlerInfo, checkTriggerInfo));
                     break;
                 case TriggerType.TargetBuff:
-                    targetIndexList.AddRange(CheckTargetBuff(triggerData,battlerInfo,checkTriggerInfo));
+                    targetIndexList.AddRange(CheckTargetBuff(triggerData, battlerInfo, checkTriggerInfo));
                     break;
                 case TriggerType.FriendAttackedAction:
-                    var selectIndex = CheckFriendAttackedAction(triggerData,battlerInfo,checkTriggerInfo);
+                    var selectIndex = CheckFriendAttackedAction(triggerData, battlerInfo, checkTriggerInfo);
                     targetIndexList.AddRange(selectIndex);
                     break;
             }
         }
 
-        private List<int> CheckTargetHpRateUnder(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        private List<int> CheckTargetHpRateUnder(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var list = new List<int>();
             var actionInfo = checkTriggerInfo.ActionInfo;
@@ -220,7 +222,7 @@ namespace Ryneus
             return list;
         }
 
-        private List<int> CheckTargetAbnormal(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        private List<int> CheckTargetAbnormal(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var list = new List<int>();
             var actionInfo = checkTriggerInfo.ActionInfo;
@@ -244,13 +246,14 @@ namespace Ryneus
                     if (abnormalTarget)
                     {
                         list.Add(targetBattlerInfo.Index.Value);
-                    }               
+                    }
+
                 }
             }
             return list;
         }
 
-        private List<int> CheckTargetBuff(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        private List<int> CheckTargetBuff(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var list = new List<int>();
             var actionInfo = checkTriggerInfo.ActionInfo;
@@ -274,13 +277,14 @@ namespace Ryneus
                     if (buffTarget)
                     {
                         list.Add(targetBattlerInfo.Index.Value);
-                    }               
+                    }
+
                 }
             }
             return list;
         }
 
-        private List<int> CheckFriendAttackedAction(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        private List<int> CheckFriendAttackedAction(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var list = new List<int>();
             var actionInfo = checkTriggerInfo.ActionInfo;
@@ -312,14 +316,16 @@ namespace Ryneus
                     {
                         list.Add(result.TargetIndex.Value);
                     }
-                } else
+                }
+                else
                 if ((ScopeType)triggerData.Param2 == ScopeType.WithoutSelfAll)
                 {
                     if (result.TargetIndex.Value != battlerInfo.Index.Value)
                     {
                         list.Add(result.TargetIndex.Value);
                     }
-                } else
+                }
+                else
                 {
                     list.Add(result.TargetIndex.Value);
                 }
@@ -327,7 +333,7 @@ namespace Ryneus
             return list;
         }
 
-        private List<int> CheckFriendAbnormalAction(SkillData.TriggerData triggerData,BattlerInfo battlerInfo,CheckTriggerInfo checkTriggerInfo)
+        private List<int> CheckFriendAbnormalAction(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var list = new List<int>();
             var actionInfo = checkTriggerInfo.ActionInfo;
@@ -359,14 +365,16 @@ namespace Ryneus
                     {
                         list.Add(result.TargetIndex.Value);
                     }
-                } else
+                }
+                else
                 if ((ScopeType)triggerData.Param2 == ScopeType.WithoutSelfAll)
                 {
                     if (result.TargetIndex.Value != battlerInfo.Index.Value)
                     {
                         list.Add(result.TargetIndex.Value);
                     }
-                } else
+                }
+                else
                 {
                     list.Add(result.TargetIndex.Value);
                 }

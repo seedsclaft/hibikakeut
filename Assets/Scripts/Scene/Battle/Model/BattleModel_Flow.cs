@@ -58,7 +58,6 @@ namespace Ryneus
             // 対象を自動決定
             return (actionInfo,MakeAutoSelectIndex(actionInfo,oneTargetIndex));
         }
-        
 
         /// <summary>
         /// ActionInfoの要素を決定する

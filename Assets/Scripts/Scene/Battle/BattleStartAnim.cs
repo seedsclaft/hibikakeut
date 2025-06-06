@@ -18,72 +18,72 @@ namespace Ryneus
         public bool IsBusy => _busy;
 
 
-        private void OnEnable() 
+        private void OnEnable()
         {
             Reset();
         }
 
         public void Reset()
         {
-            mainText.color = new Color(255,255,255,0);
-            mainText.transform.DOMoveX(0,0); 
-            subText.color = new Color(255,255,255,0);
-            subText.transform.DOMoveX(0,0); 
-            backBlack.color = new Color(0,0,0,0);
-            lineWhite.color = new Color(255,255,255,255);
-            lineWhite.transform.DOScaleY(0,0);
+            mainText.color = new Color(255, 255, 255, 0);
+            mainText.transform.DOMoveX(0, 0);
+            subText.color = new Color(255, 255, 255, 0);
+            subText.transform.DOMoveX(0, 0);
+            backBlack.color = new Color(0, 0, 0, 0);
+            lineWhite.color = new Color(255, 255, 255, 255);
+            lineWhite.transform.DOScaleY(0, 0);
         }
 
-        public void SetText(string text) 
+        public void SetText(string text)
         {
             mainText.SetText(text);
             subText.SetText(text);
         }
 
-        public void StartAnim(bool inBattle,float delay = 0,System.Action endEvent = null)
+        public void StartAnim(bool inBattle, float delay = 0, System.Action endEvent = null)
         {
             _busy = true;
             Reset();
             var speedRate = inBattle ? GameSystem.OptionData.BattleSpeed : 1;
             var duration = 0.1f / speedRate;
-            mainText.transform.DOScaleY(0.95f,0);
+            mainText.transform.DOScaleY(0.95f, 0);
             var main = DOTween.Sequence()
                 .SetDelay(duration + delay)
-                .Append(mainText.DOFade(1f,0f))
-                .Append(mainText.transform.DOScale(0.95f,duration * 4))
+                .Append(mainText.DOFade(1f, 0f))
+                .Append(mainText.transform.DOScale(0.95f, duration * 4))
                 .AppendInterval(duration * 12)
                 .Append(mainText.DOFade(0f, duration))
                 .Join(mainText.transform.DOLocalMoveX(-480, duration));
-            
-        
-            subText.transform.DOScaleY(0.95f,0);
+
+
+            subText.transform.DOScaleY(0.95f, 0);
             var sub = DOTween.Sequence()
                 .SetDelay(duration + delay)
-                .Append(subText.DOFade(1f,0f))
-                .Append(subText.transform.DOScale(1.25f,duration * 8))
+                .Append(subText.DOFade(1f, 0f))
+                .Append(subText.transform.DOScale(1.25f, duration * 8))
                 .Join(subText.DOFade(0, duration * 8))
                 .AppendInterval(duration * 8)
-                .Append(subText.transform.DOScale(1f,0f))
+                .Append(subText.transform.DOScale(1f, 0f))
                 .Join(subText.DOFade(1, 0f))
                 .Append(subText.DOFade(0f, duration))
                 .Join(subText.transform.DOLocalMoveX(480, duration));
 
-            lineWhite.transform.DOScaleY(0.95f,0);
+            lineWhite.transform.DOScaleY(0.95f, 0);
             var white = DOTween.Sequence()
                 .SetDelay(delay)
-                .Append(lineWhite.transform.DOScaleY(1f,duration / 5))
-                .Append(lineWhite.transform.DOScaleY(0.08f,duration))
+                .Append(lineWhite.transform.DOScaleY(1f, duration / 5))
+                .Append(lineWhite.transform.DOScaleY(0.08f, duration))
                 .Join(lineWhite.DOFade(0f, duration * 16))
                 .SetEase(Ease.InOutQuad);
 
             var black = DOTween.Sequence()
                 .SetDelay(duration + delay)
                 .Append(backBlack.DOFade(1f, duration))
-                .Join(backBlack.transform.DOScaleY(1f,duration))
+                .Join(backBlack.transform.DOScaleY(1f, duration))
                 .AppendInterval(duration * 16)
                 .Append(backBlack.DOFade(0f, duration))
                 .Join(backBlack.transform.DOScaleY(0f, duration))
-                .OnComplete(() => 
+                .OnComplete(() =>
                 {
                     endEvent?.Invoke();
                     _busy = false;

@@ -9,7 +9,7 @@ namespace Ryneus
     {
         [SerializeField] private Image icon = null;
         [SerializeField] private Image iconBack = null;
-        
+
         public void SetStateImage(Sprite sprite)
         {
             icon.sprite = sprite;

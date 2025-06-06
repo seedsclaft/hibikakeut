@@ -15,14 +15,14 @@ namespace Ryneus
         [SerializeField] private GameObject iconRoot = null;
         //[SerializeField] private Image icon = null;
         [SerializeField] private EffekseerEmitter effekseerEmitter = null;
-        private List<StateInfo> _stateInfos = new List<StateInfo>();
+        private List<StateInfo> _stateInfos = new();
         private string _overlayEffectPath = null;
 
         private Sequence _iconSequence;
 
         private int _iconAnimIndex = -1;
 
-        private List<BattleStateIcon> _stateIconImages = new ();
+        private List<BattleStateIcon> _stateIconImages = new();
 
         public void Initialize()
         {
@@ -40,20 +40,20 @@ namespace Ryneus
         private void UpdateStateIcons()
         {
             HideStateIcons();
-            for (int i = 0;i < _stateInfos.Count ;i++)
+            for (int i = 0; i < _stateInfos.Count; i++)
             {
                 var stateInfo = _stateInfos[i];
                 var prefab = Instantiate(iconPrefab);
-                prefab.transform.SetParent(iconRoot.transform,false);
+                prefab.transform.SetParent(iconRoot.transform, false);
                 var stateIconImage = prefab.GetComponent<BattleStateIcon>();
-                SetActiveStateIcon(stateIconImage,true);
+                SetActiveStateIcon(stateIconImage, true);
                 _stateIconImages.Add(stateIconImage);
                 var spriteAtlas = Resources.Load<SpriteAtlas>("Texture/Icons");
                 stateIconImage?.SetStateImage(spriteAtlas.GetSprite(stateInfo.Master.IconPath));
             }
         }
 
-        private void SetActiveStateIcon(BattleStateIcon stateIconImage ,bool isActive)
+        private void SetActiveStateIcon(BattleStateIcon stateIconImage, bool isActive)
         {
             if (stateIconImage != null)
             {
@@ -67,7 +67,7 @@ namespace Ryneus
             {
                 if (stateIconImage != null)
                 {
-                    SetActiveStateIcon(stateIconImage,false);
+                    SetActiveStateIcon(stateIconImage, false);
                 }
             }
         }
@@ -81,7 +81,7 @@ namespace Ryneus
             }
             var delay = 0.5f;
             var duration = 1.0f;
-            if (_iconAnimIndex < 0 || _iconAnimIndex > (_stateInfos.Count-1))
+            if (_iconAnimIndex < 0 || _iconAnimIndex > (_stateInfos.Count - 1))
             {
                 _iconAnimIndex = 0;
             }
@@ -92,21 +92,25 @@ namespace Ryneus
                 {
                     _iconSequence = DOTween.Sequence()
                         .SetDelay(delay + duration)
-                        .OnComplete(() => {
-                            _iconAnimIndex += 1;
-                            IconAnimation();
-                        });
-                } else
-                {
-                    _iconSequence.Kill(false);
-                    _iconSequence = DOTween.Sequence()
-                        .SetDelay(delay + duration)
-                        .OnComplete(() => {
+                        .OnComplete(() =>
+                        {
                             _iconAnimIndex += 1;
                             IconAnimation();
                         });
                 }
-            } else
+                else
+                {
+                    _iconSequence.Kill(false);
+                    _iconSequence = DOTween.Sequence()
+                        .SetDelay(delay + duration)
+                        .OnComplete(() =>
+                        {
+                            _iconAnimIndex += 1;
+                            IconAnimation();
+                        });
+                }
+            }
+            else
             {
                 StopAnimation();
                 _iconAnimIndex = 0;
@@ -158,23 +162,25 @@ namespace Ryneus
                 _overlayEffectPath = overlayState.Master.EffectPath;
                 var asset = UpdateStateOverlay();
                 //effekseerEmitter.enabled = true;
-                if (asset != null) {
+                if (asset != null)
+                {
                     var rect = effekseerEmitter.gameObject.GetComponent<RectTransform>();
                     if (overlayState.Master.EffectPosition == EffectPositionType.Center)
                     {
-                        rect.localPosition = new Vector2(rect.localPosition.x,-36);
-                    } else
+                        rect.localPosition = new Vector2(rect.localPosition.x, -36);
+                    }
+                    else
                     if (overlayState.Master.EffectPosition == EffectPositionType.Down)
                     {
-                        rect.localPosition = new Vector2(rect.localPosition.x,-8);
+                        rect.localPosition = new Vector2(rect.localPosition.x, -8);
                     }
-                    rect.localScale = new Vector3(overlayState.Master.EffectScale,overlayState.Master.EffectScale,overlayState.Master.EffectScale);
+                    rect.localScale = new Vector3(overlayState.Master.EffectScale, overlayState.Master.EffectScale, overlayState.Master.EffectScale);
                     effekseerEmitter.effectAsset = asset;
                     effekseerEmitter.Play();
                 }
             }
         }
-        
+
         private EffekseerEffectAsset UpdateStateOverlay()
         {
             string path = "Animations/" + _overlayEffectPath;

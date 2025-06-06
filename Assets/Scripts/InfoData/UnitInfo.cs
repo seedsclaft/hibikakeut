@@ -8,7 +8,11 @@ namespace Ryneus
     public class UnitInfo
     {
         public ParameterInt Index = new();
+#if UNITY_EDITOR
         [UnityEngine.SerializeField] private List<BattlerInfo> _battlerInfos = new();
+#else
+        private List<BattlerInfo> _battlerInfos = new();
+#endif
         public List<BattlerInfo> BattlerInfos => _battlerInfos;
         public List<BattlerInfo> AliveBattlerInfos => _battlerInfos.FindAll(a => a != null && a.IsAlive());
 

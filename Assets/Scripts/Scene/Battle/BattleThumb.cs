@@ -11,7 +11,7 @@ namespace Ryneus
         [SerializeField] private GameObject mainThumbRoot = null;
         [SerializeField] private GameObject awakenThumbRoot = null;
         [SerializeField] private CanvasGroup canvasGroup = null;
-        
+
         private Sequence _sequence;
 
         private bool _animationBusy = false;
@@ -20,10 +20,10 @@ namespace Ryneus
         {
             gameObject.SetActive(false);
             var image = actorInfoComponent.MainThumb;
-            gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-24,0,0);
+            gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-24, 0, 0);
             //image.color = new Color(255,255,255,0);
             canvasGroup.alpha = 1;
-            MoveAndFade(gameObject.GetComponent<RectTransform>(),0,1,0.1f);
+            MoveAndFade(gameObject.GetComponent<RectTransform>(), 0, 1, 0.1f);
             mainThumbRoot.SetActive(true);
             gameObject.SetActive(true);
             UpdateThumb(battlerInfo.ActorInfo.Master);
@@ -31,7 +31,7 @@ namespace Ryneus
 
         public void HideThumb()
         {
-            mainThumbRoot.SetActive(false);   
+            mainThumbRoot.SetActive(false);
             awakenThumbRoot.SetActive(false);
             gameObject.SetActive(false);
             Clear();
@@ -48,7 +48,8 @@ namespace Ryneus
             {
                 Kill();
                 _animationBusy = false;
-            };
+            }
+            ;
             gameObject.SetActive(false);
             if (!battlerInfo.IsActor)
             {
@@ -59,11 +60,11 @@ namespace Ryneus
                 return;
             }
             var image = actorInfoComponent.MainThumb;
-            gameObject.GetComponent<RectTransform>().localPosition = new Vector3(20,0,0);
+            gameObject.GetComponent<RectTransform>().localPosition = new Vector3(20, 0, 0);
             canvasGroup.alpha = 1;
             _animationBusy = true;
             var waitFrame = 0.6f / GameSystem.OptionData.BattleSpeed;
-            MoveAndFade(gameObject.GetComponent<RectTransform>(),0,0,waitFrame,() => 
+            MoveAndFade(gameObject.GetComponent<RectTransform>(), 0, 0, waitFrame, () =>
             {
                 _animationBusy = false;
             });
@@ -72,12 +73,12 @@ namespace Ryneus
             UpdateThumb(battlerInfo.ActorInfo.Master);
         }
 
-        public void MoveAndFade(RectTransform rect,float moveX,float fade,float duration = 0.1f,System.Action endEvent = null)
+        public void MoveAndFade(RectTransform rect, float moveX, float fade, float duration = 0.1f, System.Action endEvent = null)
         {
             _sequence = DOTween.Sequence()
-                .Append(rect.DOLocalMoveX(moveX,duration))
-                .Join(canvasGroup.DOFade(fade,duration)
-                .OnComplete(() => 
+                .Append(rect.DOLocalMoveX(moveX, duration))
+                .Join(canvasGroup.DOFade(fade, duration)
+                .OnComplete(() =>
                 {
                     if (endEvent != null) endEvent();
                 })

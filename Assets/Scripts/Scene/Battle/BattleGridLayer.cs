@@ -10,7 +10,7 @@ namespace Ryneus
         [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private GameObject actorRoot;
         [SerializeField] private GameObject enemyRoot;
-        private Dictionary<BattlerInfo,BattlerGrid> _battlers = new();
+        private Dictionary<BattlerInfo, BattlerGrid> _battlers = new();
 
         public void SetGridMembers(List<BattlerInfo> battlerInfos)
         {
@@ -20,7 +20,7 @@ namespace Ryneus
 
         private void SetActorInfo(List<BattlerInfo> battlerInfos)
         {
-            for (int i = 0; i < battlerInfos.Count;i++)
+            for (int i = 0; i < battlerInfos.Count; i++)
             {
                 GameObject prefab = Instantiate(actorPrefab);
                 prefab.transform.SetParent(actorRoot.transform, false);
@@ -31,10 +31,10 @@ namespace Ryneus
             UpdatePosition();
             RefreshStatus();
         }
-        
+
         private void SetEnemyInfo(List<BattlerInfo> battlerInfos)
         {
-            for (int i = 0; i < battlerInfos.Count;i++)
+            for (int i = 0; i < battlerInfos.Count; i++)
             {
                 GameObject prefab = Instantiate(enemyPrefab);
                 prefab.transform.SetParent(enemyRoot.transform, false);
@@ -67,7 +67,7 @@ namespace Ryneus
                 rect.localPosition = new Vector3(rect.localPosition.x, data.Key.Ap.Value, 0);
                 battlerInfos.Add(data.Key);
             }
-            battlerInfos.Sort((a,b)=> (int)a.Ap.Value - (int)b.Ap.Value);
+            battlerInfos.Sort((a, b) => (int)a.Ap.Value - (int)b.Ap.Value);
             foreach (var info in battlerInfos)
             {
                 _battlers[info].gameObject.transform.SetAsFirstSibling();
