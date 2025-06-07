@@ -5,6 +5,7 @@ namespace Ryneus
 {
     public class Battle3DDamageView : MonoBehaviour
     {
+        /*
         [SerializeField] private GameObject damagePrefab = null;
         [SerializeField] private GameObject damageRoot = null;
         private Canvas _canvas = null;
@@ -84,5 +85,6 @@ namespace Ryneus
             prefab.transform.SetParent(damageRoot.transform, false);
             return prefab.GetComponent<BattleDamage>();
         }
+        */
     }
 }

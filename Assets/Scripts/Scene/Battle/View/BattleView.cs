@@ -582,14 +582,14 @@ namespace Ryneus
             _battlerComps[targetIndex].StartBlink();
         }
 
-        public void StartHeal(int targetIndex,DamageType damageType,int value,bool needPopupDelay = true)
+        public void StartHeal(int targetIndex,DamageType damageType, int value, bool needPopupDelay = true)
         {
             _battlerComps[targetIndex].StartHeal(damageType,value,needPopupDelay);
         }
 
-        public void StartStatePopup(int targetIndex,DamageType damageType,string stateName)
+        public void StartStatePopup(int targetIndex, DamageType damageType, string stateName, bool buff = false, bool debuff = false)
         {
-            _battlerComps[targetIndex].StartStatePopup(damageType,stateName);
+            _battlerComps[targetIndex].StartStatePopup(damageType,stateName,buff,debuff);
         }
 
         public void StartDeathAnimation(int targetIndex)

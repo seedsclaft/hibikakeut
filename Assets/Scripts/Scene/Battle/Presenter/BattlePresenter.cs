@@ -207,10 +207,9 @@ namespace Ryneus
                     if (GameSystem.OptionData.BattleTurnSkip)
                     {
                         CommandTurnSkip();
-                    } else
-                    {
-                        CommandUpdateAp();
+                        break;
                     }
+                    CommandUpdateAp();
                     break;
                 case CommandType.OnDecideSkill:
                     CommandDecideSkill();
@@ -288,200 +287,56 @@ namespace Ryneus
         {
             _view.UpdateGridLayer();
             _model.CheckTriggerPassiveInfos(BattleUtility.StartTriggerTimings(),null,null);
-        }
-
-        private async void CommandUpdateAp()
-        {
-            /*
-            var currentActionInfo = _model.CurrentActionInfo;
-            if (currentActionInfo != null)
+            // 開始誘発を発動
+            var receiveActionInfo = _model.ReceiveActionInfo;
+            if (receiveActionInfo != null)
             {
                 _view.SetBattleBusy(true);
-                _model.SetActionBattler(currentActionInfo.SubjectIndex);
-                var targetIndexes = _model.MakeAutoSelectIndex(currentActionInfo);
-                MakeActionResultInfoTargetIndexes(targetIndexes);
-                return;
-            }
-            */
-            var currentBattler = CheckApCurrentBattler();
-            if (currentBattler == null)
-            {
-                if (IsBattleEnd())
-                {
-                    BattleEnd();
-                    return;
-                }
-                var removeStateList = _model.UpdateAp();
-                if (removeStateList.Count > 0)
-                {
-                    _view.ClearDamagePopup();
-                    foreach (var removeState in removeStateList)
-                    {
-                        _view.StartStatePopup(removeState.TargetIndex.Value,DamageType.State,"-" + removeState.Master.Name);
-                    }
-                    // Passive解除
-                    await RemovePassiveInfos();
-                }
-                _view.UpdateGridLayer();
-            } else
-            {
-                CommandStartSelect();
+                _model.SetActiveActionInfo(receiveActionInfo);
+                StartActionInfo(receiveActionInfo);
+                //MakeResultInfoStartAction(receiveActionInfo,receiveActionInfo.CandidateTargetIndexList);
             }
         }
 
-        private async void CommandTurnSkip()
+        private void CommandUpdateAp()
+        {
+            var currentBattler = CheckApCurrentBattler();
+            if (currentBattler != null)
+            {
+                CommandStartSelect();
+                return;
+            }
+            CheckUpdateAp();
+        }
+
+        private async void CheckUpdateAp()
+        {
+            if (IsBattleEnd())
+            {
+                BattleEnd();
+                return;
+            }
+            var removeStateList = _model.UpdateAp();
+            if (removeStateList.Count > 0)
+            {
+                _view.ClearDamagePopup();
+                foreach (var removeState in removeStateList)
+                {
+                    _view.StartStatePopup(removeState.TargetIndex.Value,DamageType.State,"-" + removeState.Master.Name);
+                }
+                // Passive解除
+                await RemovePassiveInfos();
+            }
+            _view.UpdateGridLayer();
+        }
+
+        private void CommandTurnSkip()
         {
             while (CheckApCurrentBattler() == null)
             {
-                if (IsBattleEnd())
-                {
-                    BattleEnd();
-                    return;
-                }
-                var removeStateList = _model.UpdateAp();
-                if (removeStateList.Count > 0)
-                {
-                    _view.ClearDamagePopup();
-                    foreach (var removeState in removeStateList)
-                    {
-                        _view.StartStatePopup(removeState.TargetIndex.Value,DamageType.State,"-" + removeState.Master.Name);
-                    }
-                    // Passive解除
-                    await RemovePassiveInfos();
-                }
-                _view.UpdateGridLayer();
+                CheckUpdateAp();
             }
             CommandStartSelect();
-        }
-
-        private void StartWaitCommand(ActionInfo actionInfo)
-        {
-            _model.WaitCommand(actionInfo);
-            CommandEndAnimation();
-        }
-
-        private void PlayAnimation(AnimationData animationData,AnimationType animationType,List<int> targetIndexList,bool isCurse = false)
-        {            
-            var animation = ResourceSystem.LoadResourceEffect(animationData.AnimationPath);
-            _view.ClearDamagePopup();
-            if (animationType == AnimationType.All)
-            {
-                _view.StartAnimationAll(animation,animationData.Position,animationData.Scale,animationData.Speed);
-            } else
-            {
-                foreach (var targetIndex in targetIndexList)
-                {
-                    var oneAnimation = isCurse ? ResourceSystem.LoadResourceEffect("NA_Effekseer/NA_curse_001") : animation;
-                    _view.StartAnimation(targetIndex,oneAnimation,animationData.Position,animationData.Scale,animationData.Speed);
-                }
-            }
-        }
-
-        private void PopupActionResult(ActionResultInfo actionResultInfo,int targetIndex,bool needDamageBlink = true,bool needPopupDelay = true)
-        {
-            if (actionResultInfo.TargetIndex.Value != targetIndex)
-            {
-                return;
-            }
-            if (actionResultInfo.Missed)
-            {
-                SoundManager.Instance.PlayStaticSe(SEType.Miss);
-                _view.StartStatePopup(targetIndex,DamageType.State,"Miss!");
-            }
-            if (actionResultInfo.HpDamage.Value > 0)
-            {
-                _model.GainAttackedCount(actionResultInfo.TargetIndex.Value);
-                _model.GainMaxDamage(actionResultInfo.TargetIndex.Value,actionResultInfo.HpDamage.Value);
-                if (actionResultInfo.Critical)
-                {
-                    _model.GainBeCriticalCount(actionResultInfo.TargetIndex.Value);
-                }
-                var damageType = actionResultInfo.Critical || actionResultInfo.WeakPoint ? DamageType.HpCritical : DamageType.HpDamage;
-                _view.StartDamage(targetIndex,damageType,actionResultInfo.HpDamage.Value,needPopupDelay);
-                if (needDamageBlink)
-                {
-                    _view.StartBlink(targetIndex);
-                    PlayDamageSound(damageType);
-                }
-            }
-            if (actionResultInfo.WeakPoint)
-            {
-                _model.HitWeakPoint(actionResultInfo.TargetIndex.Value,actionResultInfo.SkillId.Value);
-            }
-            if (actionResultInfo.HpHeal.Value > 0)
-            {
-                if (!actionResultInfo.DeadIndexList.Contains(targetIndex))
-                {
-                    SoundManager.Instance.PlayStaticSe(SEType.Heal);
-                    _view.StartHeal(targetIndex,DamageType.HpHeal,actionResultInfo.HpHeal.Value,needPopupDelay);
-                }
-            }
-            if (actionResultInfo.CtDamage.Value > 0)
-            {    
-                _view.StartDamage(targetIndex,DamageType.MpDamage,actionResultInfo.CtDamage.Value);
-            }
-            if (actionResultInfo.CtHeal.Value > 0)
-            {
-                _view.StartHeal(targetIndex,DamageType.MpHeal,actionResultInfo.CtHeal.Value);
-            }
-            if (actionResultInfo.ApHeal.Value > 0)
-            {    
-                _view.StartStatePopup(targetIndex,DamageType.State,DataSystem.GetReplaceText(16200,actionResultInfo.ApHeal.ToString()));
-            }
-            if (actionResultInfo.ApDamage.Value > 0)
-            {    
-                _view.StartStatePopup(targetIndex,DamageType.State,DataSystem.GetReplaceText(16210,actionResultInfo.ApDamage.ToString()));
-            }
-            if (actionResultInfo.ReDamage.Value > 0 || actionResultInfo.CurseDamage.Value > 0)
-            {
-                var reDamage = 0;
-                //if (!actionResultInfo.DeadIndexList.Contains(targetIndex) && _model.GetBattlerInfo(targetIndex).IsAlive())
-                //{
-                    reDamage += actionResultInfo.ReDamage.Value;
-                //}
-                reDamage += actionResultInfo.CurseDamage.Value;
-                if (reDamage > 0)
-                {
-                    var damageType = actionResultInfo.Critical || actionResultInfo.WeakPoint ? DamageType.HpCritical : DamageType.HpDamage;
-                    PlayDamageSound(damageType);
-                    _view.StartDamage(actionResultInfo.SubjectIndex.Value,damageType,reDamage);
-                    _view.StartBlink(actionResultInfo.SubjectIndex.Value);
-                }
-            }
-            if (actionResultInfo.ReHeal.Value > 0)
-            {    
-                SoundManager.Instance.PlayStaticSe(SEType.Heal);
-                _view.StartHeal(actionResultInfo.SubjectIndex.Value,DamageType.HpHeal,actionResultInfo.ReHeal.Value);
-            }
-            foreach (var addedState in actionResultInfo.AddedStates)
-            {    
-                if (addedState.IsBuff())
-                {
-                    SoundManager.Instance.PlayStaticSe(SEType.Buff);
-                } else
-                if (addedState.IsDeBuff())
-                {
-                    SoundManager.Instance.PlayStaticSe(SEType.DeBuff);
-                }
-                _view.StartStatePopup(addedState.TargetIndex.Value,DamageType.State,"+" + addedState.Master.Name);
-            }
-            foreach (var removedState in actionResultInfo.RemovedStates)
-            {    
-                _view.StartStatePopup(removedState.TargetIndex.Value,DamageType.State,"-" + removedState.Master.Name);
-            }
-            foreach (var displayState in actionResultInfo.DisplayStates)
-            {
-                _view.StartStatePopup(displayState.TargetIndex.Value,DamageType.State,displayState.Master.Name);
-            }
-            foreach (var displayUpperState in actionResultInfo.DisplayUpperStates)
-            {
-                _view.StartStatePopup(displayUpperState.TargetIndex.Value,DamageType.State,displayUpperState.Master.Name + DataSystem.GetText(16230));
-            }
-            if (actionResultInfo.StartDash)
-            {        
-                //先制攻撃
-                _view.StartStatePopup(targetIndex,DamageType.State,DataSystem.GetText(16220));
-            }
         }
 
         private void PlayDamageSound(DamageType damageType)
@@ -515,47 +370,6 @@ namespace Ryneus
             }
         }
 
-        private async UniTask RemovePassiveInfos()
-        {
-            var RemovePassiveResults = _model.CheckRemovePassiveInfos();
-            await ExecActionResultInfos(RemovePassiveResults,true);
-        }
-
-        public async UniTask<bool> ExecActionResultInfos(List<ActionResultInfo> resultInfos,bool removePassive = false)
-        {
-            _model.AdjustActionResultInfo(resultInfos);
-            if (_skipBattle == false)
-            {
-                foreach (var resultInfo in resultInfos)
-                {
-                    var skillData = DataSystem.FindSkill(resultInfo.SkillId.Value);
-                    if (skillData != null)
-                    {
-                        var animationData = BattleUtility.AnimationData(skillData.AnimationId);
-                        // パッシブが消えるアニメーションは固定
-                        if (removePassive)
-                        {
-                            animationData = BattleUtility.AnimationData(61);
-                        }
-                        if (animationData != null && animationData.AnimationPath != "" && GameSystem.OptionData.BattleAnimationSkip == false)
-                        {
-                            PlayAnimation(animationData,skillData.AnimationType,new List<int>(){resultInfo.TargetIndex.Value});
-                            await UniTask.DelayFrame(_model.WaitFrameTime(animationData.DamageTiming));
-                        }
-                    }
-                    // ダメージ表現をしない
-                    PopupActionResult(resultInfo,resultInfo.TargetIndex.Value,true,false);
-                    await UniTask.DelayFrame(_model.WaitFrameTime(16));
-                }
-            }
-            _model.ExecActionResultInfos(resultInfos,true);
-            if (resultInfos.Count > 0)
-            {
-                _view.RefreshStatus();
-            }
-            return true;
-        }
-
         /*
         private void RefreshSkillInfos()
         {
@@ -583,7 +397,7 @@ namespace Ryneus
             };
             if (_model.CheckDefeat())
             {
-                _view.StartBattleStartAnim(DataSystem.GetText(16110)); 
+                _view.StartBattleStartAnim(DataSystem.GetText(16110));
                 strategySceneInfo.GetItemInfos = new List<GetItemInfo>();
                 strategySceneInfo.BattleTurn = -1;
                 strategySceneInfo.BattleResultScore = _model.MakeBattleScore(false,strategySceneInfo);

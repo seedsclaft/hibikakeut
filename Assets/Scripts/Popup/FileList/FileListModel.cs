@@ -86,6 +86,7 @@ namespace Ryneus
         private async Task LoadFile(SaveFileInfo saveFileInfo)
         {
             _ = await SaveSystem.LoadStageInfo(saveFileInfo.SaveNo);
+            PartyInfoChecker.Instance.UpdateInfo();
             TempInfo.SetPlayingTime(saveFileInfo.PlayTime);
         }
     }

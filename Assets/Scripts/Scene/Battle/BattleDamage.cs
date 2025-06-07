@@ -19,6 +19,8 @@ namespace Ryneus
         [SerializeField] private GameObject mpHealPrefab;
         [SerializeField] private GameObject stateRoot;
         [SerializeField] private GameObject statePrefab;
+        [SerializeField] private GameObject buffStatePrefab;
+        [SerializeField] private GameObject debuffStatePrefab;
         [SerializeField] private GameObject mpDamageRoot;
         [SerializeField] private GameObject mpDamagePrefab;
         //[SerializeField] private List<TextMeshProUGUI> mpHealList;
@@ -47,7 +49,7 @@ namespace Ryneus
             }
         }
 
-        public void StartDamage(DamageType damageType, int value, System.Action endEvent, int delayCount)
+        public void StartDamage(DamageType damageType, int value, int delayCount, System.Action endEvent)
         {
             //UpdateAllHide();
             _busy = true;
@@ -82,13 +84,13 @@ namespace Ryneus
                             .OnComplete(() =>
                             {
                                 _busy = false;
-                                if (endEvent != null) endEvent();
+                                endEvent?.Invoke();
                             });
                     });
             }
         }
 
-        public void StartHeal(DamageType damageType, int value, System.Action endEvent, int delayCount)
+        public void StartHeal(DamageType damageType, int value, int delayCount, System.Action endEvent)
         {
             //UpdateAllHide();
             _busy = true;
@@ -124,20 +126,21 @@ namespace Ryneus
                             .OnComplete(() =>
                             {
                                 _busy = false;
-                                if (endEvent != null) endEvent();
+                                endEvent?.Invoke();
                             });
                     });
             }
         }
 
-        public void StartStatePopup(DamageType damageType, string stateName, float delay, System.Action endEvent)
+        public void StartStatePopup(DamageType damageType, string stateName, bool buff, bool debuff, float delay,System.Action endEvent = null)
         {
-            var prefab = Instantiate(GetPrefabType(damageType));
+            var prefab = Instantiate(GetPrefabType(damageType,buff,debuff));
             prefab.transform.SetParent(GetRootType(damageType).transform, false);
             var textMeshProUGUI = prefab.GetComponent<TextMeshProUGUI>();
             textMeshProUGUI.text = stateName;
 
             textMeshProUGUI.alpha = 0;
+
             var sequence = DOTween.Sequence()
                 .SetDelay(delay * 0.5f)
                 .Append(textMeshProUGUI.DOFade(1.0f, 0.1f))
@@ -152,12 +155,12 @@ namespace Ryneus
                         .OnComplete(() =>
                         {
                             _busy = false;
-                            if (endEvent != null) endEvent();
+                            endEvent?.Invoke();
                         });
                 });
         }
 
-        private GameObject GetPrefabType(DamageType damageType)
+        private GameObject GetPrefabType(DamageType damageType,bool buff = false, bool debuff = false)
         {
             return damageType switch
             {
@@ -165,7 +168,7 @@ namespace Ryneus
                 DamageType.HpCritical => hpCriticalPrefab,
                 DamageType.HpHeal => hpHealPrefab,
                 DamageType.MpHeal => mpHealPrefab,
-                DamageType.State => statePrefab,
+                DamageType.State => !buff && !debuff ? statePrefab : buff ? buffStatePrefab : debuffStatePrefab,
                 DamageType.MpDamage => mpDamagePrefab,
                 _ => null,
             };

@@ -36,6 +36,7 @@ namespace Ryneus
             var saveGameInfo = new SaveGameInfo();
             saveGameInfo.Initialize();
             GameSystem.GameInfo = saveGameInfo;
+            PartyInfoChecker.Instance.UpdateInfo();
         }
 
         public void InitOptionInfo()
@@ -659,6 +660,18 @@ namespace Ryneus
                 AddGetItemInfo(getItemInfo);
             }
             return getItemInfos;
+        }
+
+        public void ReturnDungeon()
+        {
+            // 全回復
+            foreach (var actorInfo in PartyInfo.CurrentDeckActorInfos())
+            {
+                actorInfo.ChangeHp(actorInfo.MaxHp);
+            }
+            PartyInfo.Period.GainValue(1);
+            CurrentDeckInfo.GetDungeonBgmTimeStamp().SetValue(0);
+            SaveDungeonPlayerData();
         }
 
         public string DungeonPrefabName()

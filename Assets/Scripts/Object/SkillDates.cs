@@ -277,7 +277,6 @@ namespace Ryneus
 
     public enum DamageType
     {
-        None = 0,
         HpDamage = 1,
         HpCritical = 2,
         HpHeal = 3,

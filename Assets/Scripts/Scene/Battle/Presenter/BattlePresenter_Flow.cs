@@ -238,7 +238,6 @@ namespace Ryneus
             }
         }
 
-
         /// <summary>
         /// 行動者を登録する
         /// </summary>
@@ -254,6 +253,10 @@ namespace Ryneus
                 foreach (var removedState in removed)
                 {
                     _view.StartStatePopup(removedState.TargetIndex.Value,DamageType.State,"-" + removedState.Master.Name);
+                }
+                if (removed.Count > 0)
+                {
+                    _view.RefreshStatus();
                 }
                 // Passive解除
                 await RemovePassiveInfos();
@@ -314,6 +317,7 @@ namespace Ryneus
             {
                 _view.BattlerBattleClearSelect();
 
+                CheckBeforeActionInfo(actionInfo);
                 // 自分,味方,相手の行動前パッシブ
                 /*
                 CheckBeforeActionInfo(actionInfo);
@@ -389,14 +393,12 @@ namespace Ryneus
 
         private void StartActionInfo(ActionInfo actionInfo)
         {
-            // 行動変化対応のため再取得
             _view.EndActionSelect();
             _view.HideBattleThumb();
-            //LogOutput.Log(actionInfo.Master.Id + "行動");
             if (actionInfo != null)
             {
                 // 待機か戦闘不能なら何もしない
-                if (actionInfo.IsWait() || !_model.CurrentActionBattler.IsAlive())
+                if (actionInfo.IsWait() || (_model.CurrentActionBattler != null && !_model.CurrentActionBattler.IsAlive()))
                 {
                     StartWaitCommand(actionInfo);
                 } else

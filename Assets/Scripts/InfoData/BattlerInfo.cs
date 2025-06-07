@@ -582,12 +582,12 @@ namespace Ryneus
             if (skillId > -1)
             {
                 var find = _skills.Find(a => a.Id.Value == skillId);
-                find?.CountTurn.GainValue(seekCount);
+                find?.CountTurn.GainValue(seekCount * -1,0);
                 return;
             }
             foreach (var skill in _skills)
             {
-                skill.CountTurn.GainValue(seekCount);
+                skill.CountTurn.GainValue(seekCount * -1,0);
             }
         }
 

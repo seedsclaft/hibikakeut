@@ -75,11 +75,11 @@ MonoBehaviour:
       Weight: 20
     - EnemyId: 7
       Weight: 20
-    EncountMin: 5
-    EncountMax: 15
+    EncountMin: 4
+    EncountMax: 8
     BackGround: RockCave2
     BGMId: 1010
-    BossBGMId: 2010
+    BossBGMId: 3010
     MenuBGMId: 100
     StageEvents:
     - EventKey: 20_10_9DungeonAddEventFlag79
@@ -128,11 +128,11 @@ MonoBehaviour:
       Weight: 20
     - EnemyId: 7
       Weight: 20
-    EncountMin: 5
-    EncountMax: 15
+    EncountMin: 4
+    EncountMax: 8
     BackGround: RockCave2
     BGMId: 1010
-    BossBGMId: 2010
+    BossBGMId: 3010
     MenuBGMId: 100
     StageEvents:
     - EventKey: 21_1_15DungeonMoveDungeonFloor20
@@ -144,7 +144,7 @@ MonoBehaviour:
       Param2: 7
       Param3: 1
       ReadFlag: 0
-    - EventKey: 21_10_8Dungeon50201020
+    - EventKey: 21_10_8DungeonForceBossBattle1020
       Timing: 3010
       Type: 5020
       PositionX: 10

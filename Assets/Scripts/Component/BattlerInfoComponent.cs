@@ -212,7 +212,7 @@ namespace Ryneus
             {
                 statusInfoComponent.HideStatus();
             }
-            battleStateOverlay?.gameObject.SetActive(false);
+            //battleStateOverlay?.gameObject.SetActive(false);
         }
 
         private BattleDamage CreatePrefab()
@@ -234,12 +234,8 @@ namespace Ryneus
         public void StartDamage(DamageType damageType,int value,bool needPopupDelay)
         {
             var battleDamage = CreatePrefab();
-            int delayCount = _battleDamages.Count;
-            if (needPopupDelay == false)
-            {
-                delayCount = 0;
-            }
-            battleDamage.StartDamage(damageType,value,() =>
+            int delayCount = !needPopupDelay ? 0 : _battleDamages.Count;
+            battleDamage.StartDamage(damageType,value,delayCount,() =>
             {
                 if (_battleDamages.Contains(battleDamage))
                 {
@@ -249,15 +245,15 @@ namespace Ryneus
                 {
                     Destroy(battleDamage.gameObject);
                 }
-            },delayCount);
+            });
             _battleDamages.Add(battleDamage);
             if (damageType == DamageType.HpDamage || damageType == DamageType.HpCritical)
             {
-                ChangeHpAnimation(_battlerInfo.Hp.Value,value * -1 + _battlerInfo.Hp.Value);
-            }
+                ChangeHpAnimation(_battlerInfo.Hp.Value,(value * -1) + _battlerInfo.Hp.Value);
+            } else
             if (damageType == DamageType.MpDamage)
             {
-                ChangeMpAnimation(_battlerInfo.Mp.Value,value * -1 + _battlerInfo.Mp.Value);
+                ChangeMpAnimation(_battlerInfo.Mp.Value,(value * -1) + _battlerInfo.Mp.Value);
             }
         }
 
@@ -277,12 +273,8 @@ namespace Ryneus
         public void StartHeal(DamageType damageType,int value,bool needPopupDelay)
         {
             var battleDamage = CreatePrefab();
-            int delayCount = _battleDamages.Count;
-            if (!needPopupDelay)
-            {
-                delayCount = 0;
-            }
-            battleDamage.StartHeal(damageType,value,() => 
+            int delayCount = !needPopupDelay ? 0 : _battleDamages.Count;
+            battleDamage.StartHeal(damageType,value,delayCount,() =>
             {
                 if (_battleDamages.Contains(battleDamage))
                 {
@@ -292,7 +284,7 @@ namespace Ryneus
                 {
                     Destroy(battleDamage.gameObject);
                 }
-            },delayCount);
+            });
             _battleDamages.Add(battleDamage);
             if (_battlerInfo != null)
             {
@@ -307,10 +299,10 @@ namespace Ryneus
             }
         }
 
-        public void StartStatePopup(DamageType damageType,string stateName)
+        public void StartStatePopup(DamageType damageType, string stateName, bool buff, bool debuff)
         {
             var battleDamage = CreatePrefab();
-            battleDamage.StartStatePopup(damageType,stateName,_battleDamages.Count,() => 
+            battleDamage.StartStatePopup(damageType,stateName,buff,debuff,_battleDamages.Count,() =>
             {
                 if (_battleDamages.Contains(battleDamage))
                 {
@@ -463,7 +455,7 @@ namespace Ryneus
 
         public void HideStateOverlay()
         {
-            battleStateOverlay?.HideStateOverlay();
+            //battleStateOverlay?.HideStateOverlay();
         }
 
         private void Update()

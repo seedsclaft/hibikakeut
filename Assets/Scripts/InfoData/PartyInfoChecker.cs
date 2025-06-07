@@ -5,9 +5,11 @@ namespace Ryneus
     public class PartyInfoChecker : SingletonMonoBehaviour<PartyInfoChecker>
     {
         [SerializeField] private PartyInfo partyInfo = null;
+        [SerializeField] private DeckInfo deckInfo = null;
         public void UpdateInfo()
         {
             partyInfo = GameSystem.GameInfo.PartyInfo;
+            deckInfo = partyInfo.CurrentDeckInfo;
         }
     }
 }

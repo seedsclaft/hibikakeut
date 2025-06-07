@@ -75,6 +75,7 @@ namespace Ryneus
                 _model.DungeonBusy(true);
                 var confirmInfo = new ConfirmInfo("残りターン数が枯渇したため帰還します!",(a) => 
                 {
+                    _model.ReturnDungeon();
                     _view.CommandSceneChange(Scene.MainMenu);
                 });
                 confirmInfo.SetIsNoChoice(true);
@@ -204,6 +205,7 @@ namespace Ryneus
                 if (a == ConfirmCommandType.Yes)
                 {
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
+                    _model.ReturnDungeon();
                     _view.CommandSceneChange(Scene.MainMenu);
                 } else
                 {

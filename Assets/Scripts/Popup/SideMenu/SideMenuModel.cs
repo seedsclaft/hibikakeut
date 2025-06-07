@@ -20,18 +20,6 @@ namespace Ryneus
             SaveSystem.DeleteStageData();
         }
 
-        public void ReturnDungeon()
-        {
-            // 全回復
-            foreach (var actorInfo in PartyInfo.CurrentDeckActorInfos())
-            {
-                actorInfo.ChangeHp(actorInfo.MaxHp);
-            }
-            PartyInfo.Period.GainValue(1);
-            CurrentDeckInfo.GetDungeonBgmTimeStamp().SetValue(0);
-            SaveDungeonPlayerData();
-        }
-
         public List<ActorInfo> CurrentDeckActorInfos()
         {
             var actorInfos = new List<ActorInfo>();

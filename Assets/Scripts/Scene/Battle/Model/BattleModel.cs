@@ -629,7 +629,7 @@ namespace Ryneus
             */
         }
 
-        public bool CanUseCondition(int skillId,BattlerInfo subject,int targetIndex)
+        public bool CanUseCondition(int skillId,BattlerInfo subject,int targetIndex,ActionInfo actionInfo = null)
         {
             bool IsEnable = false;
             var skill = DataSystem.FindSkill(skillId);
@@ -684,14 +684,20 @@ namespace Ryneus
                     }
                     break;
                     case FeatureType.CtHeal:
-                    if (subject != null)
-                    {
-                        if (target.Skills.Find(a => a.CountTurn.Value > 0) != null)
+                        if (subject != null)
                         {
-                            IsEnable = true;
+                            if (target.Skills.Find(a => a.CountTurn.Value > 0) != null)
+                            {
+                                IsEnable = true;
+                            } else
+                            {
+                                if (actionInfo != null && actionInfo.Master.CountTurn > 0)
+                                {
+                                   // IsEnable = true;
+                                }
+                            }
                         }
-                    }
-                    break;
+                        break;
                     case FeatureType.CtDamage:
                     if (target.Skills.Find(a => a.CountTurn.Value < a.Master.CountTurn) != null)
                     {
@@ -1790,33 +1796,20 @@ namespace Ryneus
                     var selectSkill = -1;
                     var selectTarget = -1;
                     var skillTriggerInfos = battlerInfo.SkillTriggerInfos;
-                    var sameSkillTriggerInfo = skillTriggerInfos.Find(a => a.SkillId == passiveInfo.Id.Value);
-                    if (sameSkillTriggerInfo != null)
+                    var skillTriggerInfo = skillTriggerInfos.Find(a => a.SkillId == passiveInfo.Id.Value);
+                    if (skillTriggerInfo == null)
                     {
-                        (selectSkill,selectTarget) = SelectSkillTargetBySkillTriggerDates(battlerInfo,new List<SkillTriggerInfo>(){sameSkillTriggerInfo},actionInfo,actionResultInfos);
-                        if (selectSkill != passiveInfo.Id.Value)
-                        {
-                            continue;
-                        }
-                        if (selectTarget == -1)
-                        {
-                            continue;
-                        }
-                    } else
-                    {
-                        // 制限なしトリガー
-                        var skillTriggerInfo = new SkillTriggerInfo(battlerInfo.Index.Value,passiveInfo);
+                        skillTriggerInfo = new SkillTriggerInfo(battlerInfo.Index.Value,passiveInfo);
                         skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>());
-                        // 作戦に縛りがなければ使える
-                        (selectSkill,selectTarget) = SelectSkillTargetBySkillTriggerDates(battlerInfo,new List<SkillTriggerInfo>(){skillTriggerInfo},actionInfo,actionResultInfos);
-                        if (selectSkill != passiveInfo.Id.Value)
-                        {
-                            continue;
-                        }
-                        if (selectTarget == -1)
-                        {
-                            continue;
-                        }
+                    }
+                    (selectSkill,selectTarget) = SelectSkillTargetBySkillTriggerDates(battlerInfo,new List<SkillTriggerInfo>(){skillTriggerInfo},actionInfo,actionResultInfos);
+                    if (selectSkill != passiveInfo.Id.Value)
+                    {
+                        continue;
+                    }
+                    if (selectTarget == -1)
+                    {
+                        continue;
                     }
                     var IsInterrupt = triggerDates[0].TriggerTiming == TriggerTiming.Interrupt || triggerDates[0].TriggerTiming == TriggerTiming.BeforeSelfUse || triggerDates[0].TriggerTiming == TriggerTiming.BeforeOpponentUse || triggerDates[0].TriggerTiming == TriggerTiming.BeforeFriendUse || triggerDates[0].TriggerTiming == TriggerTiming.PrimaryInterrupt;
                     var result = MakePassiveSkillActionResults(battlerInfo,passiveInfo,IsInterrupt,selectTarget,actionInfo,actionResultInfos,triggerDates[0]);
@@ -1916,7 +1909,7 @@ namespace Ryneus
                     return null;
                 }
                 selectIndex = selectIndexList[0];
-            }                        
+            }
             if (makeActionInfo.Master.SkillType == SkillType.Unique && battlerInfo.IsAwaken == false)
             {
                 battlerInfo.SetAwaken(true);
@@ -2527,9 +2520,12 @@ namespace Ryneus
 
         public bool CheckIsOver()
         {
+            return false;
+            /*
             // 全員のMpが0
             bool over = FieldBattlerInfos().Find(a => SkillActionList(a).Count > 0) == null;
             return over;
+            */
         }
 
         public int MakeBattleScore(bool isVictory,StrategySceneInfo strategySceneInfo)

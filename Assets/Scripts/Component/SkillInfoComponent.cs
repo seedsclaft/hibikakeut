@@ -23,6 +23,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI range;
         [SerializeField] private TextMeshProUGUI learningCost;
         [SerializeField] private TextMeshProUGUI countTurn;
+        [SerializeField] private TextMeshProUGUI battleCountTurn;
         [SerializeField] private TextMeshProUGUI learningText;
         [SerializeField] private TextMeshProUGUI rank;
         [SerializeField] private GameObject selectable;
@@ -75,6 +76,8 @@ namespace Ryneus
                     learningText.transform.parent.gameObject.SetActive(false);
                 }
             }
+            battleCountTurn?.gameObject?.SetActive(skillInfo.Master.SkillType == SkillType.Active || (skillInfo.Master.SkillType == SkillType.Passive && skillInfo.Master.CountTurn > 0));
+            battleCountTurn?.SetText(skillInfo.CountTurn.Value.ToString());
         }
 
         public void UpdateData(int skillId)

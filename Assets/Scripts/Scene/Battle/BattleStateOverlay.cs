@@ -24,9 +24,16 @@ namespace Ryneus
 
         private List<BattleStateIcon> _stateIconImages = new();
 
+        private bool _isInitialized = false;
+
         public void Initialize()
         {
+            if (_isInitialized)
+            {
+                return;
+            }
             iconRoot.transform.DestroyChildren();
+            _isInitialized = true;
         }
 
         public void SetStates(List<StateInfo> stateInfos)

@@ -105,7 +105,7 @@ namespace Ryneus
                     if (target > -1)
                     {
                         // 対象が有効か
-                        var condition = CanUseCondition(selectSkillId,battlerInfo,target);
+                        var condition = CanUseCondition(selectSkillId,battlerInfo,target,actionInfo);
                         if (condition)
                         {
                             selectTargetIndex = target;
