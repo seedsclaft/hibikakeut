@@ -91,6 +91,7 @@ namespace Ryneus
         public List<int> CommandTextIds => _commandTextIds;
         private ConfirmType _confirmType;
         public ConfirmType ConfirmType => _confirmType;
+        public ParameterBool IsArtifact = new();
         private System.Action _backEvent = null;
         public System.Action BackEvent => _backEvent;
         public void SetBackEvent(System.Action backEvent)

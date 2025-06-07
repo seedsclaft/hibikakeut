@@ -48,11 +48,11 @@ namespace Ryneus
             return PartyInfo.DeckEditBattlerInfos();
         }
 
-        public void CommandMoveEnd()
+        public bool CommandMoveEnd()
         {
             if (CurrentDeckInfo == null)
             {
-                return;
+                return false;
             }
             var playerDungeonId = PlayerPosition.Instance.currentDungeonId;
             var playerPosition = PlayerPosition.Instance.playerPos;
@@ -68,7 +68,38 @@ namespace Ryneus
 
                 // 残りターン数を減算
                 PartyInfo.TurnCount.GainValue(-1);
+                return true;
             }
+            return false;
+        }
+
+        public int CheckHpHeal()
+        {
+            var hpHeal = 0;
+            foreach (var item in PartyInfo.Items)
+            {
+                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
+                if (itemData != null && itemData.ItemType == ItemType.Artifact)
+                {
+                    var skillData = DataSystem.FindSkill(itemData.Param1);
+                    foreach (var featureData in skillData.FeatureDates)
+                    {
+                        if (featureData.FeatureType == FeatureType.HpHeal)
+                        {
+                            hpHeal += featureData.Param1;
+                        }
+                    }
+                }
+            }
+            foreach (var partyBattlerInfo in PartyUnit())
+            {
+                if (partyBattlerInfo.ActorInfo == null)
+                {
+                    continue;
+                }
+                partyBattlerInfo.GainHp(hpHeal);
+            }
+            return hpHeal;
         }
 
         public bool EndDungeonByTurnCount()

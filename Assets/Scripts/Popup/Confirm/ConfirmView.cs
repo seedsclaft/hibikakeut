@@ -12,6 +12,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI titleText = null;
         [SerializeField] private BaseList skillInfoList = null;
         [SerializeField] private ConfirmAnimation confirmAnimation = null;
+        [SerializeField] private GameObject cautionArtifact = null;
         private System.Action<ConfirmCommandType> _confirmEvent = null;
         private ConfirmInfo _confirmInfo = null;
 
@@ -22,7 +23,7 @@ namespace Ryneus
             InitializeCommandList();
             skillInfoList.Initialize();
             SetBaseAnimation(confirmAnimation);
-            new ConfirmPresenter(this);
+            _ = new ConfirmPresenter(this);
             SetHelpInputInfo("CONFIRM");
         }
 
@@ -87,6 +88,7 @@ namespace Ryneus
             SetSkillInfo(confirmInfo.SkillInfos());
             SetConfirmEvent(confirmInfo.CallEvent);
             SetDisableIds(confirmInfo.DisableIds);
+            cautionArtifact?.SetActive(confirmInfo.IsArtifact.Value);
         }
 
         public void CommandDisableIds(List<int> disableIds)

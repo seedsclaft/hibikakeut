@@ -98,6 +98,8 @@ namespace Ryneus
                     var rand = UnityEngine.Random.Range(0,candidateSkills.Count);
                     // 報酬設定
                     return MakeGetItemInfo(GetItemType.Skill,candidateSkills[rand].Value.Id);
+                case ItemType.Artifact:
+                    return MakeGetItemInfo(GetItemType.Evaluate,10);
             }
             return null;
         }

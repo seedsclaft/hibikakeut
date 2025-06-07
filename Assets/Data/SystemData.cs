@@ -143,6 +143,7 @@ namespace Ryneus
 		Ending = 210,
 		Item = 1010,
 		RankUp = 2010,
+		Evaluate = 2020,
 		ClearStage = 3010,
 	}
 }

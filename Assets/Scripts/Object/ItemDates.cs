@@ -25,6 +25,7 @@ namespace Ryneus
     public enum ItemType
     {
         RandumAddSkill = 10,
+        Artifact = 20,
     }
 
 }

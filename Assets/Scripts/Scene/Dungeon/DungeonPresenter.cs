@@ -65,7 +65,11 @@ namespace Ryneus
 
         private void CommandMoveEnd()
         {
-            _model.CommandMoveEnd();
+            var moved = _model.CommandMoveEnd();
+            if (moved)
+            {
+                var hpHeal = _model.CheckHpHeal();
+            }
 
             CommandRefresh();
 
@@ -132,6 +136,10 @@ namespace Ryneus
                         return true;
                     case StageEventType.MoveDungeonFloor:
                         CommandMoveDungeonFloor(stageEvent.Param,stageEvent.Param2,stageEvent.Param3);
+                        return true;
+                    case StageEventType.GetArtifact:
+                        _model.AddEventReadFlag(stageEvent);
+                        CommandGetArtifact(stageEvent.Param);
                         return true;
                     case StageEventType.SelectAddActor:
                         // 選択して仲間を加入
@@ -221,6 +229,44 @@ namespace Ryneus
             _model.MakeStageInfo(floorId,false);
             _model.CurrentDeckInfo.SetPosition(floorId,x,y,_model.CurrentDeckInfo.Direction.Value);
             _view.CommandGotoSceneChange(Scene.Dungeon);
+        }
+
+        private void CommandGetArtifact(int itemId)
+        {
+            var item = DataSystem.Items.Find(a => a.Id == itemId);
+            if (item != null)
+            {
+                _busy = true;
+                var skillId = item.Param1;
+                var learnSkillInfo = new LearnSkillInfo(0,0,new SkillInfo(skillId));
+                SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+                var popupInfo = new PopupInfo
+                {
+                    PopupType = PopupType.LearnSkill,
+                    EndEvent = () =>
+                    {
+                        var confirmInfo = new ConfirmInfo("アーティファクトを入手しますか？",(a) => 
+                        {
+                            if (a == ConfirmCommandType.Yes)
+                            {
+                                var itemData = new GetItemData
+                                {
+                                    Param1 = item.Param1,
+                                    Param2 = 1
+                                };
+                                var getItemInfo = new GetItemInfo(itemData);
+                                _model.AddGetItemInfo(getItemInfo);
+                            }
+                            _busy = false;
+                            _model.DungeonBusy(false);
+                        });
+                        confirmInfo.IsArtifact.SetValue(true);
+                        _view.CommandCallConfirm(confirmInfo);
+                    },
+                    template = learnSkillInfo
+                };
+                _view.CommandCallPopup(popupInfo);
+            }
         }
 
         private void CommandCallAddActorInfo(bool freeSelect,bool addCommand)
