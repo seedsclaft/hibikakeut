@@ -18,7 +18,7 @@ namespace Ryneus
             var rate = TacticsCostRate(actorInfo);
             float remainPer = 1f - (actorInfo.Exp.Value % 100 * 0.01f);
             var needPoint = ((actorInfo.Level - 1) * 0.5f) + 10;
-            return (int)MathF.Floor(needPoint * remainPer * rate);
+            return (int)MathF.Floor(needPoint * remainPer * rate) + 1;
         }
 
         public static int TrainCost(int level,ActorInfo actorInfo)

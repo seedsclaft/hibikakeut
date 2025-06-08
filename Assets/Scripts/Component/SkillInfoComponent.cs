@@ -59,6 +59,11 @@ namespace Ryneus
             {
                 learningCost.gameObject.SetActive(skillInfo.LearningCost.Value > 0);
                 learningCost.SetText(skillInfo.LearningCost.Value.ToString());// + DataSystem.System.GetTextData(1000).Text;
+                battleCountTurn?.gameObject?.SetActive(false);
+            } else
+            {
+                battleCountTurn?.gameObject?.SetActive(skillInfo.Master.SkillType == SkillType.Active || (skillInfo.Master.SkillType == SkillType.Passive && skillInfo.Master.CountTurn > 0));
+                battleCountTurn?.SetText(skillInfo.CountTurn.Value.ToString());
             }
             if (learningText != null)
             {
@@ -76,8 +81,6 @@ namespace Ryneus
                     learningText.transform.parent.gameObject.SetActive(false);
                 }
             }
-            battleCountTurn?.gameObject?.SetActive(skillInfo.Master.SkillType == SkillType.Active || (skillInfo.Master.SkillType == SkillType.Passive && skillInfo.Master.CountTurn > 0));
-            battleCountTurn?.SetText(skillInfo.CountTurn.Value.ToString());
         }
 
         public void UpdateData(int skillId)

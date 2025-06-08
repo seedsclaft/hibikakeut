@@ -95,6 +95,7 @@ namespace Ryneus
                     var actorInfos = _model.PartyInfo.ActorInfos;
                     CommandStatusInfo(actorInfos,false,true,true,false,actorInfos[0].ActorId.Value,() => 
                     {
+                        _view.CommandRefresh();
                     },false,true);
                     break;
             }

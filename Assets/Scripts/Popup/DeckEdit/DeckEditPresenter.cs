@@ -53,7 +53,6 @@ namespace Ryneus
                 case CommandType.SelectingBattlerInfo:
                     _view.UpdateActorInfo((ActorInfo)viewEvent.Template);
                     break;
-                    
             }
         }
 
@@ -63,12 +62,14 @@ namespace Ryneus
             {
                 return;
             }
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.FromEditIndex.SetValue(fromEditIndex + 1);
             _view.SelectChangeBattler();
         }
 
         private void CommandDecideBattlerInfo(ActorInfo actorInfo)
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.PartyInfo.DeckEditCommandCount.GainValue(1);
             CheckAchievements();
             _model.SwapBattler(actorInfo.ActorId.Value);

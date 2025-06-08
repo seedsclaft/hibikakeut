@@ -679,6 +679,15 @@ namespace Ryneus
             PartyInfo.Period.GainValue(1);
             // ピリオド超える度にアイテム入手
             CheckItemGetSkill();
+            // 評価値を減らす
+            PartyInfo.EvaluationValue.GainValue(-10,0);
+            // 6ピリオドでチャプター切り替え
+            if (PartyInfo.Period.Value > 6)
+            {
+                PartyInfo.Period.SetValue(1);
+                PartyInfo.Chapter.GainValue(1);
+                PartyInfo.ThisPeriodReliefCount.SetValue(0);
+            }
         }
 
         private void CheckItemGetSkill()

@@ -58,20 +58,20 @@ MonoBehaviour:
       ReadFlag: 0
   - Id: 20
     StageNo: 2
-    Name: "\u5C71\u5CB3\u907A\u8DE1"
+    Name: "\u5FD8\u308C\u3089\u308C\u305F\u5C71\u5CB3\u907A\u8DE1"
     Selectable: 1
     Help: '""'
     StageLv: 1
     DisplayRank: 2
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
-    - EnemyId: 1
-      Weight: 15
-    - EnemyId: 1
+    - EnemyId: 3
       Weight: 15
     - EnemyId: 3
       Weight: 15
-    - EnemyId: 7
+    - EnemyId: 6
+      Weight: 15
+    - EnemyId: 1
       Weight: 20
     - EnemyId: 7
       Weight: 20
@@ -111,20 +111,20 @@ MonoBehaviour:
       ReadFlag: 0
   - Id: 21
     StageNo: 2
-    Name: "\u5C71\u5CB3\u907A\u8DE1\u30FB\u5965"
+    Name: "\u5FD8\u308C\u3089\u308C\u305F\u5C71\u5CB3\u907A\u8DE1\u30FB\u5965"
     Selectable: 0
     Help: '""'
     StageLv: 1
     DisplayRank: 0
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
-    - EnemyId: 1
-      Weight: 15
-    - EnemyId: 1
+    - EnemyId: 3
       Weight: 15
     - EnemyId: 3
       Weight: 15
-    - EnemyId: 7
+    - EnemyId: 6
+      Weight: 15
+    - EnemyId: 1
       Weight: 20
     - EnemyId: 7
       Weight: 20
@@ -173,22 +173,22 @@ MonoBehaviour:
       ReadFlag: 1
   - Id: 30
     StageNo: 3
-    Name: "\u68EE"
+    Name: "\u6708\u5F71\u306E\u68EE"
     Selectable: 1
     Help: '""'
     StageLv: 4
     DisplayRank: 3
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
-    - EnemyId: 1
-      Weight: 15
-    - EnemyId: 1
+    - EnemyId: 3
       Weight: 15
     - EnemyId: 3
       Weight: 15
-    - EnemyId: 7
+    - EnemyId: 5
+      Weight: 15
+    - EnemyId: 5
       Weight: 20
-    - EnemyId: 7
+    - EnemyId: 9
       Weight: 20
     EncountMin: 4
     EncountMax: 8
@@ -262,22 +262,22 @@ MonoBehaviour:
       ReadFlag: 1
   - Id: 31
     StageNo: 3
-    Name: "\u68EE\u30FB\u5730\u4E0B\u6D1E\u7A9F"
+    Name: "\u6708\u5F71\u306E\u68EE\u30FB\u5730\u4E0B\u6D1E\u7A9F"
     Selectable: 0
     Help: '""'
     StageLv: 4
     DisplayRank: 0
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
-    - EnemyId: 1
-      Weight: 15
-    - EnemyId: 1
+    - EnemyId: 3
       Weight: 15
     - EnemyId: 3
       Weight: 15
-    - EnemyId: 7
+    - EnemyId: 5
+      Weight: 15
+    - EnemyId: 1
       Weight: 20
-    - EnemyId: 7
+    - EnemyId: 9
       Weight: 20
     EncountMin: 4
     EncountMax: 8

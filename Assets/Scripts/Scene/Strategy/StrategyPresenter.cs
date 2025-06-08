@@ -249,18 +249,12 @@ namespace Ryneus
 
         private void CommandResultClose(SystemData.CommandData commandData)
         {
-            if (commandData.Key == "Yes")
+            var battledMembers = _model.DisplayActorInfos;
+            if (battledMembers != null && battledMembers.Count > 0)
             {
-                var battledMembers = _model.DisplayActorInfos;
-                if (battledMembers != null && battledMembers.Count > 0)
-                {
-                    _model.ClearSceneParam();
-                }
-                EndStrategy();
-            } else
-            {
-                ShowStatus();
+                _model.ClearSceneParam();
             }
+            EndStrategy();
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 
@@ -326,18 +320,19 @@ namespace Ryneus
         private void EndStrategy()
         {
             _view.EndShinyEffect();
-            // 敗北して戻る
-            //_model.ReturnTempBattleMembers();
-            var tacticsSceneInfo = new TacticsSceneInfo
-            {
-                ReturnBeforeBattle = true,
-            };
             _model.EndStrategy();
+            // 敗北して戻る
+            if (_model.InBattleResult && !_model.BattleResultVictory)
+            {
+                _view.CommandGotoSceneChange(Scene.MainMenu);
+                return;
+            }
+
             if (_model.ReturnScene != Scene.None)
             {
                 _view.CommandGotoSceneChange(_model.ReturnScene);
             } else
-            if (_model.InBattleResult)
+            if (_model.InBattleResult && _model.BattleResultVictory)
             {
                 _view.CommandGotoSceneChange(Scene.Dungeon);
             } else

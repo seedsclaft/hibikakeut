@@ -367,11 +367,14 @@ namespace Ryneus
 
         public List<SystemData.CommandData> ResultCommand()
         {
+            return BaseConfirmCommand(3040);
+            /*
             if (_inBattleResult && !_battleResultVictory)
             {
                 return BaseConfirmCommand(3040,3054); // 再戦
             }
             return BaseConfirmCommand(3040,19040);
+            */
         }
 
         public bool IsBonusTactics(int actorId)

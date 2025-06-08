@@ -67,28 +67,10 @@ namespace Ryneus
             learnMagicBackButton?.gameObject.SetActive(IsActive);
         }
 
-        public void SetActive(bool IsActive)
-        {
-            if (levelUpObj != null)
-            {
-                levelUpObj.SetActive(IsActive);
-            }
-        }
-
         public void SetLvUpInfo(int cost,int currency)
         {
             numinousText.SetText(currency + DataSystem.GetText(1000));
-            lvUpCostText.SetText(cost + DataSystem.GetText(1000));
-        }
-
-        public void SetLvUpCost(int cost)
-        {
-            lvUpCostText.SetText(cost + DataSystem.GetText(1000));
-        }
-
-        public void ToLvText(int currentLv)
-        {
-            toLvText.SetText("Lv." + currentLv + "→" + (currentLv+1));
+            lvUpCostText.SetText(cost.ToString());
         }
     }
 }
