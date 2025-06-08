@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -2598,35 +2599,39 @@ namespace Ryneus
         {
             var list = new List<GetItemInfo>();
             var enemyInfos = BattlerEnemies().FindAll(a => !a.IsAlive());
+            var bossLv = enemyInfos.Max(a => a.Level.Value);
             var exp = CheckVictory() ? 20 : 0;
             // 経験値アイテムを作る
-            foreach (var enemyInfo in enemyInfos)
+            foreach (var actorInfo in UnitBattlerActors())
             {
-                foreach (var actorInfo in UnitBattlerActors())
+                var gainExp = 0;
+                foreach (var enemyInfo in enemyInfos)
                 {
-                    var expData = new GetItemData
-                    {
-                        Type = GetItemType.Exp,
-                        // 誰に対して
-                        Param1 = actorInfo.ActorInfo.ActorId.Value,
-                        // いくつ
-                        Param2 = exp + (enemyInfo.Level.Value - actorInfo.Level.Value) * 3
-                    };
-                    if (_battleRecords[actorInfo.Index.Value].MaxDamage > 0 || _battleRecords[actorInfo.Index.Value].HealValue > 0)
-                    {
-                        expData.Param2 += (31 - (actorInfo.Level.Value - enemyInfo.Level.Value)) / 3;
-                    }
-                    if (expData.Param2 <= 0)
-                    {
-                        expData.Param2 = 1;
-                    }
-                    if (expData.Param2 > 100)
-                    {
-                        expData.Param2 = 100;
-                    }
-                    var expItem = new GetItemInfo(expData);
-                    list.Add(expItem);
+                    gainExp += exp + (enemyInfo.Level.Value - actorInfo.Level.Value) * 3;
                 }
+                if (_battleRecords[actorInfo.Index.Value].MaxDamage > 0 || _battleRecords[actorInfo.Index.Value].HealValue > 0)
+                {
+                    gainExp += (31 - (actorInfo.Level.Value - bossLv)) / 3;
+                }
+                if (gainExp <= 0)
+                {
+                    gainExp = 1;
+                } else
+                if (gainExp > 100)
+                {
+                    gainExp = 100;
+                }
+            
+                var expData = new GetItemData
+                {
+                    Type = GetItemType.Exp,
+                    // 誰に対して
+                    Param1 = actorInfo.ActorInfo.ActorId.Value,
+                    // いくつ
+                    Param2 = gainExp
+                };
+                var expItem = new GetItemInfo(expData);
+                list.Add(expItem);
             }
             if (_sceneParam.GetItemInfos != null)
             {

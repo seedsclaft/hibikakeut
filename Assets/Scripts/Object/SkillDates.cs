@@ -427,6 +427,8 @@ namespace Ryneus
         ActionResultSelfDeath = 20160, // 自身が戦闘不能になる攻撃を受ける
         InterruptAttackDodge = 23010, // 攻撃を回避した時
         ExtendStageTurn = 30010, // 存在猶予を延長している
+        DungeonMoveEnd = 40010, // ダンジョンで移動する
+        NextPeriod = 40020, // ピリオド経過
     }
 
     public enum TriggerTiming
@@ -508,6 +510,7 @@ namespace Ryneus
         AbsoluteHit = 11010,
         ReflectLastAbnormal = 12010, // 最後に受けたAbnormalを相手に移す
         RobBuffState = 13010, // 対象のバフを奪い取る
+        GetItem = 40010, // アイテム入手
         Numinous = 301,
         TacticsCost = 302,
         EnemyLv = 303,

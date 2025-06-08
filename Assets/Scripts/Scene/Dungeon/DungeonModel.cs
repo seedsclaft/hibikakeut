@@ -82,22 +82,25 @@ namespace Ryneus
                 if (itemData != null && itemData.ItemType == ItemType.Artifact)
                 {
                     var skillData = DataSystem.FindSkill(itemData.Param1);
-                    foreach (var featureData in skillData.FeatureDates)
+                    if (skillData.TriggerDates.Find(a => a.TriggerType == TriggerType.DungeonMoveEnd) != null)
                     {
-                        if (featureData.FeatureType == FeatureType.HpHeal)
+                        foreach (var featureData in skillData.FeatureDates)
                         {
-                            hpHeal += featureData.Param1;
+                            if (featureData.FeatureType == FeatureType.HpHeal)
+                            {
+                                hpHeal += featureData.Param1;
+                            }
                         }
                     }
                 }
             }
-            foreach (var partyBattlerInfo in PartyUnit())
+            foreach (var actorInfo in PartyInfo.CurrentDeckActorInfos())
             {
-                if (partyBattlerInfo.ActorInfo == null)
+                if (actorInfo == null)
                 {
                     continue;
                 }
-                partyBattlerInfo.GainHp(hpHeal);
+                actorInfo.ChangeHp(actorInfo.CurrentHp.Value + hpHeal);
             }
             return hpHeal;
         }

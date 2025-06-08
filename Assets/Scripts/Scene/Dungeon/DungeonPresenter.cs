@@ -69,6 +69,10 @@ namespace Ryneus
             if (moved)
             {
                 var hpHeal = _model.CheckHpHeal();
+                if (hpHeal > 0)
+                {
+                    _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
+                }
             }
 
             CommandRefresh();
@@ -88,7 +92,7 @@ namespace Ryneus
             }
 
             // イベントマスの場合
-            if (CheckEventData(() => {_model.DungeonBusy(false);}))
+            if (CheckEventData(moved,() => {_model.DungeonBusy(false);}))
             {
                 _model.DungeonBusy(true);
                 return;
@@ -114,7 +118,7 @@ namespace Ryneus
             }
         }
 
-        private bool CheckEventData(Action endEvent = null)
+        private bool CheckEventData(bool moved,Action endEvent = null)
         {
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
             UnityEngine.Debug.Log(playerPosition);
@@ -126,20 +130,32 @@ namespace Ryneus
                     case StageEventType.AdvStart:
                         // TimeStampを取得してBgmをフェードアウト
                         var timeStamp = SoundManager.Instance.CurrentTimeStamp();
-                        if (CheckAdvEvent(EventTiming.BattleVictory,timeStamp,() => CheckEventData(() => Initialize())))
+                        if (CheckAdvEvent(EventTiming.BattleVictory,timeStamp,() => CheckEventData(moved,() => Initialize())))
                         {
                             return true;
                         }
                         return true;
                     case StageEventType.ExitDungeon:
-                        CommandReturn();
-                        return true;
+                        if (moved)
+                        {
+                            CommandReturn();
+                            return true;
+                        }
+                        return false;
                     case StageEventType.MoveDungeonFloor:
-                        CommandMoveDungeonFloor(stageEvent.Param,stageEvent.Param2,stageEvent.Param3);
-                        return true;
+                        if (moved)
+                        {
+                            CommandMoveDungeonFloor(stageEvent.Param,stageEvent.Param2,stageEvent.Param3);
+                            return true;
+                        }
+                        return false;
                     case StageEventType.GetArtifact:
                         _model.AddEventReadFlag(stageEvent);
                         CommandGetArtifact(stageEvent.Param);
+                        return true;
+                    case StageEventType.GetItem:
+                        _model.AddEventReadFlag(stageEvent);
+                        CommandGetItem(stageEvent.Param);
                         return true;
                     case StageEventType.SelectAddActor:
                         // 選択して仲間を加入
@@ -185,6 +201,7 @@ namespace Ryneus
                         _view.CommandChangeViewToTransition(null);
                         //_view.ChangeUIActive(false);
                         _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
+                        _model.ResetEncountValue();
                         SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
                         return true;
                     case StageEventType.AddEventFlag:
@@ -234,39 +251,85 @@ namespace Ryneus
         private void CommandGetArtifact(int itemId)
         {
             var item = DataSystem.Items.Find(a => a.Id == itemId);
-            if (item != null)
+            if (item == null)
             {
-                _busy = true;
-                var skillId = item.Param1;
-                var learnSkillInfo = new LearnSkillInfo(0,0,new SkillInfo(skillId));
-                SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
-                var popupInfo = new PopupInfo
-                {
-                    PopupType = PopupType.LearnSkill,
-                    EndEvent = () =>
-                    {
-                        var confirmInfo = new ConfirmInfo("アーティファクトを入手しますか？",(a) => 
-                        {
-                            if (a == ConfirmCommandType.Yes)
-                            {
-                                var itemData = new GetItemData
-                                {
-                                    Param1 = item.Param1,
-                                    Param2 = 1
-                                };
-                                var getItemInfo = new GetItemInfo(itemData);
-                                _model.AddGetItemInfo(getItemInfo);
-                            }
-                            _busy = false;
-                            _model.DungeonBusy(false);
-                        });
-                        confirmInfo.IsArtifact.SetValue(true);
-                        _view.CommandCallConfirm(confirmInfo);
-                    },
-                    template = learnSkillInfo
-                };
-                _view.CommandCallPopup(popupInfo);
+                return;
             }
+            _busy = true;
+            var skillId = item.Param1;
+            var learnSkillInfo = new LearnSkillInfo(0,0,new SkillInfo(skillId));
+            SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.LearnSkill,
+                EndEvent = () =>
+                {
+                    PresentArtifact(item.Id);
+                },
+                template = learnSkillInfo
+            };
+            _view.CommandCallPopup(popupInfo);
+        }
+
+        private void PresentArtifact(int itemId)
+        {
+            var confirmInfo = new ConfirmInfo("アーティファクトを献上しますか？",(a) =>
+            {
+                if (a == ConfirmCommandType.Yes)
+                {
+                    _busy = false;
+                    _model.DungeonBusy(false);
+                } else
+                {
+                    GetArtifact(itemId);
+                }
+            });
+            confirmInfo.IsArtifact.SetValue(true);
+            _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void GetArtifact(int itemId)
+        {
+            var itemData = new GetItemData
+            {
+                Param1 = itemId,
+                Param2 = 1,
+                Type = GetItemType.Item
+            };
+            var getItemInfo = new GetItemInfo(itemData);
+            _model.AddGetItemInfo(getItemInfo);
+            _model.PartyInfo.EvaluationValue.GainValue(-10,0);
+            var confirmInfo = new ConfirmInfo("アーティファクトを入手し評価値が10減少しました",(a) =>
+            {
+                _busy = false;
+                _model.DungeonBusy(false);
+            });
+            confirmInfo.SetIsNoChoice(true);
+            _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void CommandGetItem(int itemId)
+        {
+            var item = DataSystem.Items.Find(a => a.Id == itemId);
+            if (item == null)
+            {
+                return;
+            }
+            var confirmInfo = new ConfirmInfo(item.Name + "を入手！",(a) =>
+            {
+                var itemData = new GetItemData
+                {
+                    Param1 = item.Param1,
+                    Param2 = 1,
+                    Type = GetItemType.Item
+                };
+                var getItemInfo = new GetItemInfo(itemData);
+                _model.AddGetItemInfo(getItemInfo);
+                _busy = false;
+                _model.DungeonBusy(false);
+            });
+            confirmInfo.SetIsNoChoice(true);
+            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CommandCallAddActorInfo(bool freeSelect,bool addCommand)

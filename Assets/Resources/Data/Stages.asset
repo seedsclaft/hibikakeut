@@ -19,7 +19,7 @@ MonoBehaviour:
     Selectable: 0
     Help: '""'
     StageLv: 0
-    DisplayRank: 1
+    DisplayRank: 0
     RandomTroopWeight: 30
     RandomTroopEnemyRates: []
     EncountMin: 0
@@ -159,6 +159,166 @@ MonoBehaviour:
       PositionX: 10
       PositionY: 6
       Param: 2010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 21_4_7DungeonGetItem1000
+      Timing: 3010
+      Type: 3020
+      PositionX: 4
+      PositionY: 7
+      Param: 1000
+      Param2: 1
+      Param3: 0
+      ReadFlag: 1
+  - Id: 30
+    StageNo: 3
+    Name: "\u68EE"
+    Selectable: 1
+    Help: '""'
+    StageLv: 4
+    DisplayRank: 3
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 15
+    - EnemyId: 1
+      Weight: 15
+    - EnemyId: 3
+      Weight: 15
+    - EnemyId: 7
+      Weight: 20
+    - EnemyId: 7
+      Weight: 20
+    EncountMin: 4
+    EncountMax: 8
+    BackGround: 002-Woods01
+    BGMId: 1020
+    BossBGMId: 3010
+    MenuBGMId: 100
+    StageEvents:
+    - EventKey: 30_8_15DungeonExitDungeon0
+      Timing: 3010
+      Type: 2010
+      PositionX: 8
+      PositionY: 15
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 30_1_2DungeonMoveDungeonFloor31
+      Timing: 3010
+      Type: 2020
+      PositionX: 1
+      PositionY: 2
+      Param: 31
+      Param2: 1
+      Param3: 2
+      ReadFlag: 0
+    - EventKey: 30_14_2DungeonMoveDungeonFloor31
+      Timing: 3010
+      Type: 2020
+      PositionX: 14
+      PositionY: 2
+      Param: 31
+      Param2: 14
+      Param3: 2
+      ReadFlag: 0
+    - EventKey: 30_1_3DungeonAddEventFlag612
+      Timing: 3010
+      Type: 6010
+      PositionX: 1
+      PositionY: 3
+      Param: 612
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 30_6_12DungeonNone612
+      Timing: 3010
+      Type: 0
+      PositionX: 6
+      PositionY: 12
+      Param: 612
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 30_1_4DungeonAddEventFlag86
+      Timing: 3010
+      Type: 6010
+      PositionX: 1
+      PositionY: 4
+      Param: 86
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 30_8_6DungeonNone86
+      Timing: 3010
+      Type: 0
+      PositionX: 8
+      PositionY: 6
+      Param: 86
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+  - Id: 31
+    StageNo: 3
+    Name: "\u68EE\u30FB\u5730\u4E0B\u6D1E\u7A9F"
+    Selectable: 0
+    Help: '""'
+    StageLv: 4
+    DisplayRank: 0
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 15
+    - EnemyId: 1
+      Weight: 15
+    - EnemyId: 3
+      Weight: 15
+    - EnemyId: 7
+      Weight: 20
+    - EnemyId: 7
+      Weight: 20
+    EncountMin: 4
+    EncountMax: 8
+    BackGround: DirtCave
+    BGMId: 1020
+    BossBGMId: 3010
+    MenuBGMId: 100
+    StageEvents:
+    - EventKey: 31_1_2DungeonMoveDungeonFloor30
+      Timing: 3010
+      Type: 2020
+      PositionX: 1
+      PositionY: 2
+      Param: 30
+      Param2: 1
+      Param3: 2
+      ReadFlag: 0
+    - EventKey: 31_14_2DungeonMoveDungeonFloor30
+      Timing: 3010
+      Type: 2020
+      PositionX: 14
+      PositionY: 2
+      Param: 30
+      Param2: 14
+      Param3: 2
+      ReadFlag: 0
+    - EventKey: 31_11_7DungeonForceBossBattle2010
+      Timing: 3010
+      Type: 5020
+      PositionX: 11
+      PositionY: 7
+      Param: 2010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 31_8_13DungeonGetArtifact2020
+      Timing: 3010
+      Type: 3010
+      PositionX: 8
+      PositionY: 13
+      Param: 2020
       Param2: 0
       Param3: 0
       ReadFlag: 1

@@ -197,7 +197,7 @@ namespace Ryneus
                 if (a == ConfirmCommandType.Yes)
                 {
                     _model.PartyInfo.ReliefCommandCount.GainValue(1);
-                    _model.PartyInfo.Period.GainValue(1);
+                    _model.PartyNextPeriod();
                     _model.PartyInfo.ThisPeriodReliefCount.GainValue(1);
                     List<ActorInfo> actorInfos =_model.AddSelectActorInfos();
                     CommandAddActorStatusInfo(actorInfos,() =>

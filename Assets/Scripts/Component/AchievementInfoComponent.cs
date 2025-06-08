@@ -20,7 +20,7 @@ namespace Ryneus
             {
                 if (count != null)
                 {
-                    count.SetText((achievementInfo.Count.Value*0.01f).ToString());
+                    count.SetText((achievementInfo.Count.Value*0.01f).ToString("F1"));
                 }
                 if (achieveCount != null)
                 {

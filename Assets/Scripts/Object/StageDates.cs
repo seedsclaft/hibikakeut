@@ -111,6 +111,7 @@ namespace Ryneus
         ExitDungeon = 2010,
         MoveDungeonFloor = 2020,
         GetArtifact = 3010, // アーティファクト取得
+        GetItem = 3020, // アイテム取得
         AddActor = 4010, // 仲間を増やす
         SelectAddActor = 4020, // 選択して仲間を増やす
         ForceBattle = 5010, // 強制戦闘

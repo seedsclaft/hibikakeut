@@ -122,7 +122,10 @@ namespace Ryneus
                         {
                             _learnSkillInfo.Add(null);
                         }
-                        lvUpList.Add(target);
+                        if (!lvUpList.Contains(target))
+                        {
+                            lvUpList.Add(target);
+                        }
                     }
                     target.Exp.GainValue(expGetItemInfo.Param2 * -1);
                 }

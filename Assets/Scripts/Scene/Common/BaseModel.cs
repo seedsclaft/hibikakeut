@@ -669,9 +669,53 @@ namespace Ryneus
             {
                 actorInfo.ChangeHp(actorInfo.MaxHp);
             }
-            PartyInfo.Period.GainValue(1);
+            PartyNextPeriod();
             CurrentDeckInfo.GetDungeonBgmTimeStamp().SetValue(0);
             SaveDungeonPlayerData();
+        }
+
+        public void PartyNextPeriod()
+        {
+            PartyInfo.Period.GainValue(1);
+            // ピリオド超える度にアイテム入手
+            CheckItemGetSkill();
+        }
+
+        private void CheckItemGetSkill()
+        {
+            var getItemInfos = new List<GetItemInfo>();
+            foreach (var item in PartyInfo.Items)
+            {
+                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
+                if (itemData != null && itemData.ItemType == ItemType.Artifact)
+                {
+                    var skillData = DataSystem.FindSkill(itemData.Param1);
+                    if (skillData.TriggerDates.Find(a => a.TriggerType == TriggerType.NextPeriod) != null)
+                    {
+                        foreach (var featureData in skillData.FeatureDates)
+                        {
+                            if (featureData.FeatureType == FeatureType.GetItem)
+                            {
+                                // Rank = Param1;
+                                // ランダムでRankを入手
+                                var categoryItems = DataSystem.Items.FindAll(a => (int)a.ItemType == featureData.Param1);
+                                if (featureData.Param2 != -1)
+                                {
+                                    categoryItems = categoryItems.FindAll(a => a.Id == featureData.Param2);
+                                }
+                                var rand = UnityEngine.Random.Range(0,categoryItems.Count);
+                                // 報酬設定
+                                var getItemInfo = MakeGetItemInfo(GetItemType.Item,categoryItems[rand].Id);
+                                getItemInfos.Add(getItemInfo);
+                            }
+                        }
+                    }
+                }
+            }
+            foreach (var getItemInfo in getItemInfos)
+            {
+                AddGetItemInfo(getItemInfo);
+            }
         }
 
         public string DungeonPrefabName()
