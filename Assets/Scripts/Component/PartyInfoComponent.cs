@@ -10,6 +10,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI currency;
         [SerializeField] private TextMeshProUGUI evaluationValue;
         [SerializeField] private TextMeshProUGUI turnCount;
+        [SerializeField] private TextMeshProUGUI missionRank;
         [SerializeField] private StatusGaugeAnimation evaluationValueGauge;
         public void UpdateCurrentInfo()
         {
@@ -45,6 +46,10 @@ namespace Ryneus
             if (evaluationValueGauge != null)
             {
                 evaluationValueGauge.UpdateGauge(partyInfo.EvaluationValue.Value * 0.01f);
+            }
+            if (missionRank != null)
+            {
+                missionRank.SetText(partyInfo.MissionRank.Value.ToString());
             }
         }
     }

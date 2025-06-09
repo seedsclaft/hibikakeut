@@ -92,6 +92,7 @@ namespace Ryneus
             _view.BattlerBattleClearSelect();
 
             _view.RefreshStatus();
+            _view.EndActionSelect();
 #if UNITY_EDITOR
             if (_view.TestMode == true && _view.TestBattleMode)
             {

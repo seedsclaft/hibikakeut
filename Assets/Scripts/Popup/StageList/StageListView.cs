@@ -10,6 +10,7 @@ namespace Ryneus
     {
         [SerializeField] private BaseList stageList = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
+        [SerializeField] private PartyInfoComponent partyInfoComponent;
 
         public override void Initialize()
         {
@@ -37,6 +38,7 @@ namespace Ryneus
         {
             stageList.SetData(achievementLists);
             stageList.Activate();
+            partyInfoComponent.UpdateCurrentInfo();
         }
     }
 

@@ -92,7 +92,7 @@ namespace Ryneus
             //prefab.transform.SetParent(battleBackGroundRoot.transform,false);
             //_backGroundAnimation = prefab.GetComponent<BattleBackGroundAnimation>();
         }
-        
+
         private void InitializeActorList()
         {
             battleActorList.Initialize();
