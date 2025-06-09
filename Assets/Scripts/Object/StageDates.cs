@@ -24,6 +24,7 @@ namespace Ryneus
         public int EncountMin;
         public int EncountMax;
         public string BackGround;
+        public int BossTroopId;
         public int BGMId;
         public int BossBGMId;
         public int MenuBGMId;

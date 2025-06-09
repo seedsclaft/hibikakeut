@@ -12,7 +12,11 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI stageNoText;
         [SerializeField] private TextMeshProUGUI help;
         [SerializeField] private TextMeshProUGUI stageLv;
+        [SerializeField] private TextMeshProUGUI needStageRank;
         [SerializeField] private Image stageImage;
+        [SerializeField] private Image bossImage;
+        [SerializeField] private TextMeshProUGUI bossLv;
+        [SerializeField] private TextMeshProUGUI bossName;
         [SerializeField] private GameObject cleared;
 
         public void UpdateCurrent()
@@ -37,6 +41,22 @@ namespace Ryneus
             {
                 cleared.SetActive(stageInfo.Cleared.Value);
             }
+            var bossEnemyData = stageInfo.BossEnemyData();
+            if (bossEnemyData != null)
+            {
+                if (bossImage != null)
+                {
+                    bossImage.sprite = ResourceSystem.LoadEnemySprite(stageInfo.BossImage());
+                }
+                if (bossName != null)
+                {
+                    bossName.SetText(bossEnemyData.Name);
+                }
+                if (bossLv != null)
+                {
+                    bossLv.SetText(stageInfo.BossLv().ToString());
+                }
+            }
             /*
             if (clearCount != null){
                 clearCount.text = stageInfo.ClearCount.ToString();
@@ -54,6 +74,7 @@ namespace Ryneus
             nameText?.SetText(stageData.Name);
             stageLv?.SetText(stageData.StageLv.ToString());
             stageNoText?.SetText(DataSystem.GetReplaceText(15010,stageData.StageNo.ToString()));
+            needStageRank?.SetText(stageData.DisplayRank.ToString() + "～");
             if (stageImage != null)
             {
                 stageImage.sprite = ResourceSystem.LoadBackGround(stageData.BackGround);

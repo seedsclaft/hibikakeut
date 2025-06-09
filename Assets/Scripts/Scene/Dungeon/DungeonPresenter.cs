@@ -28,6 +28,7 @@ namespace Ryneus
             _view.SetEvent((type) => UpdateCommand(type));
 
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
+            _view.SetActiveStageInfo(_model.IsActiveDungeon());
             // ダンジョン生成
             _view.CommandChangeDungeon(_model.DungeonPrefabName());
             await PlayTacticsBgm(_model.DungeonBgmTimeStamp());

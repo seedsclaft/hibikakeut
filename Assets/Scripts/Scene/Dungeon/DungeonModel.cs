@@ -62,12 +62,16 @@ namespace Ryneus
             if (lastPositionX.Value != playerPosition.x || lastPositionY.Value != playerPosition.y)
             {
                 CurrentDeckInfo.SetPosition(playerDungeonId,playerPosition.x,playerPosition.y,(int)playerDirection);
-                // ランダムエンカウントフラグ加算
-                int flag = UnityEngine.Random.Range(CurrentStage.Master.EncountMin, CurrentStage.Master.EncountMax);
-                CurrentDeckInfo.Encount.GainValue(flag,0,100);
 
-                // 残りターン数を減算
-                PartyInfo.TurnCount.GainValue(-1);
+                if (IsActiveDungeon())
+                {
+                    // ランダムエンカウントフラグ加算
+                    int flag = UnityEngine.Random.Range(CurrentStage.Master.EncountMin, CurrentStage.Master.EncountMax);
+                    CurrentDeckInfo.Encount.GainValue(flag,0,100);
+
+                    // 残りターン数を減算
+                    PartyInfo.TurnCount.GainValue(-1);
+                }
                 return true;
             }
             return false;
@@ -104,6 +108,7 @@ namespace Ryneus
             }
             return hpHeal;
         }
+
 
         public bool EndDungeonByTurnCount()
         {

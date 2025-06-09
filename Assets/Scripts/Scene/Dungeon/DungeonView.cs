@@ -80,6 +80,15 @@ namespace Ryneus
                 CallSideMenu();
             }
         }
+
+        public void SetActiveStageInfo(bool isActive)
+        {
+            if (stageInfoComponent == null)
+            {
+                return;
+            }
+            stageInfoComponent.gameObject.SetActive(isActive);
+        }
     }
 
     namespace Dungeon

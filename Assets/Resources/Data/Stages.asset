@@ -25,10 +25,20 @@ MonoBehaviour:
     EncountMin: 0
     EncountMax: 0
     BackGround: RockCave2
+    BossTroopId: 0
     BGMId: 0
     BossBGMId: 2010
     MenuBGMId: 100
     StageEvents:
+    - EventKey: 10_7_4DungeonSelectAddActor1
+      Timing: 3010
+      Type: 4020
+      PositionX: 7
+      PositionY: 4
+      Param: 1
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
     - EventKey: 10_7_6DungeonSelectAddActor1
       Timing: 3010
       Type: 4020
@@ -78,6 +88,7 @@ MonoBehaviour:
     EncountMin: 4
     EncountMax: 8
     BackGround: RockCave2
+    BossTroopId: 1020
     BGMId: 1010
     BossBGMId: 3010
     MenuBGMId: 100
@@ -131,6 +142,7 @@ MonoBehaviour:
     EncountMin: 4
     EncountMax: 8
     BackGround: RockCave2
+    BossTroopId: 0
     BGMId: 1010
     BossBGMId: 3010
     MenuBGMId: 100
@@ -193,6 +205,7 @@ MonoBehaviour:
     EncountMin: 4
     EncountMax: 8
     BackGround: 002-Woods01
+    BossTroopId: 2010
     BGMId: 1020
     BossBGMId: 3010
     MenuBGMId: 100
@@ -282,6 +295,7 @@ MonoBehaviour:
     EncountMin: 4
     EncountMax: 8
     BackGround: DirtCave
+    BossTroopId: 0
     BGMId: 1020
     BossBGMId: 3010
     MenuBGMId: 100

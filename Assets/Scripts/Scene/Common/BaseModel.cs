@@ -349,6 +349,16 @@ namespace Ryneus
             CurrentData.PlayerInfo.GainClearCount();
         }
 
+        public bool IsActiveDungeon()
+        {
+            if (CurrentStage != null)
+            {
+                // stageLvが0はダンジョン以外の扱い
+                return CurrentStage.Master.StageLv > 0;
+            }
+            return false;
+        }
+
         public async UniTask LoadBattleResources(List<BattlerInfo> battlers)
         {
             _cancellationTokenSource = new CancellationTokenSource();
@@ -676,6 +686,10 @@ namespace Ryneus
 
         public void PartyNextPeriod()
         {
+            if (!IsActiveDungeon())
+            {
+                return;
+            }
             PartyInfo.Period.GainValue(1);
             // ピリオド超える度にアイテム入手
             CheckItemGetSkill();

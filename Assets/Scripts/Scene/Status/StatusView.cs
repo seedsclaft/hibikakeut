@@ -13,6 +13,7 @@ namespace Ryneus
         [SerializeField] private Button helpButton = null;
         [SerializeField] private MagicList equipSkillList = null;
         [SerializeField] private MagicList changeSkillList = null;
+        [SerializeField] private GameObject statusLevelUpRoot = null;
         [SerializeField] private StatusLevelUp statusLevelUp = null;
         [SerializeField] private ActorInfoComponent selectingActorInfoComponent = null;
         [SerializeField] private Button leftArrowButton = null;
@@ -51,7 +52,7 @@ namespace Ryneus
             {
                 characterListButton.OnClickAddListener(() => CallViewEvent(CommandType.CharacterList));
             }
-            new StatusPresenter(this);
+            _ = new StatusPresenter(this);
         }
 
         private void InitializeEquipSkillList()
@@ -177,11 +178,11 @@ namespace Ryneus
 
         public void SetActiveLvUpInfo(bool isActive)
         {
-            if (statusLevelUp == null)
+            if (statusLevelUpRoot == null)
             {
                 return;
             }
-            statusLevelUp.gameObject.SetActive(isActive);
+            statusLevelUpRoot.SetActive(isActive);
         }
 
         public void SetLvUpInfo(int cost,int currency)
