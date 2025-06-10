@@ -344,7 +344,8 @@ namespace Ryneus
 
         private int Rows()
         {
-            return (int)Math.Floor(GetViewPortHeight() / _itemSize.y);
+            var height = GetViewPortHeight();
+            return (int)Math.Floor(height / _itemSize.y);
         }
 
         private float ItemSpace(bool isHorizontal)
@@ -896,9 +897,10 @@ namespace Ryneus
             else
             if (_horizontal)
             {
-                return horizontalCount * Cols();
+                return (horizontalCount + 1) * Rows();
             }
-            return verticalCount * Rows();
+            // GetVerticalCountがFloor値のため1加算
+            return (verticalCount + 1) * Cols();
         }
 
 /*
