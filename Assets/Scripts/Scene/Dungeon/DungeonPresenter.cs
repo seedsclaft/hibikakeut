@@ -152,10 +152,12 @@ namespace Ryneus
                         return false;
                     case StageEventType.GetArtifact:
                         _model.AddEventReadFlag(stageEvent);
+                        _model.UpdateEventObjects();
                         CommandGetArtifact(stageEvent.Param);
                         return true;
                     case StageEventType.GetItem:
                         _model.AddEventReadFlag(stageEvent);
+                        _model.UpdateEventObjects();
                         CommandGetItem(stageEvent.Param);
                         return true;
                     case StageEventType.SelectAddActor:
@@ -175,6 +177,7 @@ namespace Ryneus
                     case StageEventType.ForceBattle:
                     case StageEventType.ForceBossBattle:
                         _model.AddEventReadFlag(stageEvent);
+                        _model.UpdateEventObjects();
                         var battleSceneInfo = new BattleSceneInfo
                         {
                             ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
