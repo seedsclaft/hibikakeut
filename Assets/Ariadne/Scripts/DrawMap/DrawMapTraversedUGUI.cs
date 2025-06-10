@@ -58,8 +58,11 @@ namespace Ariadne
             {
                 dungeonSettings = gameController.GetComponent<DungeonSettings>();
                 dungeonData = dungeonSettings.dungeonData;
-                floorMapData = dungeonSettings.GetCurrentFloorData();
-                mapAttributeDataList = dungeonSettings.GetMapAttributeList();
+                if (dungeonData != null)
+                {
+                    floorMapData = dungeonSettings.GetCurrentFloorData();
+                    mapAttributeDataList = dungeonSettings.GetMapAttributeList();
+                }
             }
 
         }

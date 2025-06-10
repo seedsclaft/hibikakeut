@@ -18,6 +18,11 @@ namespace Ariadne
             {
                 return;
             }
+
+            if (gameObject.transform.childCount > 0)
+            {
+                return;
+            }
             
             Vector3 basePos = Vector3.zero;
             GameObject groundPrefab = dungeonBasePartsData.groundObj;

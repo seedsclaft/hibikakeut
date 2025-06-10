@@ -339,13 +339,14 @@ namespace Ryneus
 
         private int Cols()
         {
-            return (int)Math.Floor(GetViewPortWidth() / _itemSize.x);
+            var cols = (int)Math.Floor(GetViewPortWidth() / _itemSize.x);
+            return cols > 0 ? cols : 1;
         }
 
         private int Rows()
         {
-            var height = GetViewPortHeight();
-            return (int)Math.Floor(height / _itemSize.y);
+            var rows = (int)Math.Floor(GetViewPortHeight() / _itemSize.y);
+            return rows > 0 ? rows : 1;
         }
 
         private float ItemSpace(bool isHorizontal)

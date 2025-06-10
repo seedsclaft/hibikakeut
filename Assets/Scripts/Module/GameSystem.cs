@@ -28,6 +28,7 @@ namespace Ryneus
         [SerializeField] private DebugBattleData debugBattleData = null;
         [SerializeField] private HelpWindow helpWindow = null;
         [SerializeField] private HelpWindow advHelpWindow = null;
+        [SerializeField] private GameObject dungeonObjects = null;
 
         private BaseView _currentScene = null;
 
@@ -487,22 +488,20 @@ namespace Ryneus
 
         public void CommandMapChange(string mapName)
         {
-            if (true)
+            if (mapAssign.LastMapName == mapName)
             {
-                mapAssign.ClearMap();
-                mapAssign.gameObject.SetActive(true);
+                return;
             }
-            var prefab = mapAssign.CreateMap(mapName);
+            mapAssign.SetLastMapName(mapName);
+
+            mapAssign.ClearMap();
+            var prefab = Instantiate(dungeonObjects);
+            prefab.transform.SetParent(mapAssign.transform,false);
+            var dungeonSettings = prefab.GetComponentInChildren<Ariadne.DungeonSettings>();
+            mapAssign.gameObject.SetActive(true);
+            var dungeonData = ResourceSystem.LoadDungeonMaster(mapName);
+            dungeonSettings.OnSetDungeon(dungeonData);
             _model.PartyInfo.SetupDungeonTraverse(Ariadne.PlayerPosition.Instance.currentDungeonId);
-            /*
-            _currentScene = prefab.GetComponent<BaseView>();
-            _currentScene.SetTestMode(testMode);
-            _currentScene.SetBattleTestMode(debugBattleData.TestBattle);
-            _currentScene.SetEvent((type) => UpdateCommand(type));
-            _sceneStackManager.PushSceneInfo(mapType);
-            _currentScene.Initialize();
-            */
-            //tutorialView.HideFocusImage();
         }
 
         private void CommandMapClear()

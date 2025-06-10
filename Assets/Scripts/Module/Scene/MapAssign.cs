@@ -6,6 +6,9 @@ namespace Ryneus
 {
     public class MapAssign : MonoBehaviour
     {
+        private string _lastMapName = "";
+        public string LastMapName => _lastMapName;
+
         public GameObject CreateMap(string mapName)
         {
             var prefab = Instantiate(GetMapObject(mapName));
@@ -27,11 +30,13 @@ namespace Ryneus
         {
             transform.DestroyChildren();
         }
-    }
 
-    public enum MapType
-    {
-        Default = 0,
-        Battle,
+        public void SetLastMapName(string mapName)
+        {
+            if (_lastMapName != mapName)
+            {
+                _lastMapName = mapName;
+            }
+        }
     }
 }

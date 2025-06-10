@@ -20,6 +20,11 @@ namespace Ariadne
         /// </Summary>
         public virtual FloorMapMasterData GetCurrentFloorData()
         {
+            if (dungeonData == null)
+            {
+                return null;
+            }
+
             if (dungeonData.floorList == null)
             {
                 ShowAssignErrorMessage(dungeonData.name);

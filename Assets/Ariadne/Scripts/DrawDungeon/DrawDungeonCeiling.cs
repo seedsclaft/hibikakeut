@@ -17,6 +17,10 @@ namespace Ariadne
         /// </Summary>
         protected virtual void DrawCeiling()
         {
+            if (gameObject.transform.childCount > 0)
+            {
+                return;
+            }
             Vector3 basePos = Vector3.zero;
             GameObject ceilingPrefab = dungeonBasePartsData.ceilingObj;
 

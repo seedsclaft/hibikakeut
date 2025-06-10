@@ -153,6 +153,11 @@ namespace Ariadne
                 return;
             }
 
+            if (axisObjDict.ContainsKey(axisKey))
+            {
+                return;
+            }
+
             float heightOffset = 0f;
             switch (record.heightAnchor)
             {

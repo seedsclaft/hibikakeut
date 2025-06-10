@@ -53,8 +53,11 @@ namespace Ariadne
             }
 
             dungeonData = dungeonSettings.dungeonData;
-            floorMapData = dungeonSettings.GetCurrentFloorData();
-            mapAttributeDataList = dungeonSettings.GetMapAttributeList();
+            if (dungeonData != null)
+            {
+                floorMapData = dungeonSettings.GetCurrentFloorData();
+                mapAttributeDataList = dungeonSettings.GetMapAttributeList();
+            }
         }
 
         /// <Summary>
@@ -83,6 +86,11 @@ namespace Ariadne
         /// </Summary>
         protected virtual void DrawIcon()
         {
+            if (floorMapData == null)
+            {
+                return;
+            }
+
             if (posIconDict == null)
             {
                 posIconDict = new Dictionary<Vector2Int, GameObject>();

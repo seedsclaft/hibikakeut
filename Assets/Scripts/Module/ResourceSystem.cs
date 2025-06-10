@@ -202,6 +202,11 @@ namespace Ryneus
         {
             return LoadResource<Sprite>("Texture/Guide/" + path);
         }
+
+        public static Ariadne.DungeonMasterData LoadDungeonMaster(string path)
+        {
+            return LoadResource<Ariadne.DungeonMasterData>("Data/Dungeon" + path);
+        }
     }
 
     public static class ResourceRequestExtenion
