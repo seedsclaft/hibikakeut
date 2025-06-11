@@ -4651,12 +4651,12 @@ PrefabInstance:
     - target: {fileID: 571385609855397447, guid: c6e040513339a5240a65ac300c2d19b6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 480
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 571385609855397447, guid: c6e040513339a5240a65ac300c2d19b6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 328
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 571385609855397447, guid: c6e040513339a5240a65ac300c2d19b6,
         type: 3}
@@ -4673,6 +4673,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1443063722799211723, guid: c6e040513339a5240a65ac300c2d19b6,
+        type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 5188203532592601036}
+    - target: {fileID: 4282052407561421632, guid: c6e040513339a5240a65ac300c2d19b6,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
     - target: {fileID: 4497671529759625114, guid: c6e040513339a5240a65ac300c2d19b6,
         type: 3}
       propertyPath: m_IsActive
@@ -4686,7 +4696,7 @@ PrefabInstance:
     - target: {fileID: 7313347675400518973, guid: c6e040513339a5240a65ac300c2d19b6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4709,6 +4719,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52c2e7ae1c9d147439d29de33ce077db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5188203532592601036 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6619372991391813222, guid: c6e040513339a5240a65ac300c2d19b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1431176242834610602}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1661205929541995615
@@ -7041,6 +7063,11 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 8017919681449992716}
+    - target: {fileID: 4282052407561421632, guid: c6e040513339a5240a65ac300c2d19b6,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
     - target: {fileID: 4497671529759625114, guid: c6e040513339a5240a65ac300c2d19b6,
         type: 3}
       propertyPath: m_IsActive
@@ -7054,7 +7081,7 @@ PrefabInstance:
     - target: {fileID: 7313347675400518973, guid: c6e040513339a5240a65ac300c2d19b6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8598,6 +8625,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Skip
+      objectReference: {fileID: 0}
+    - target: {fileID: 7313347675400518973, guid: c6e040513339a5240a65ac300c2d19b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

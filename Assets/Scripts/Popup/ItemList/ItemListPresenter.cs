@@ -84,7 +84,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle("献上するアイテムがありません!");
+                cautionInfo.SetTitle("献上するアイテムがありません！");
                 _view.CommandCallCaution(cautionInfo);
             }
         }

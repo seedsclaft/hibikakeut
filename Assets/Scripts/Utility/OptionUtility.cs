@@ -175,11 +175,11 @@ namespace Ryneus
             switch (current)
             {
                 case 1:
-                return DataSystem.GetText(option.ToggleText1);
+                    return DataSystem.GetText(option.ToggleText1);
                 case 2:
-                return DataSystem.GetText(option.ToggleText2);
+                    return DataSystem.GetText(option.ToggleText2);
                 case 3:
-                return DataSystem.GetText(option.ToggleText3);
+                    return DataSystem.GetText(option.ToggleText3);
             }
             return "";
         }

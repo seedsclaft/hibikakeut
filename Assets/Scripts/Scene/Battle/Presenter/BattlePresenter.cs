@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Ryneus
 {
+    using System.Diagnostics;
     using Battle;
     public partial class BattlePresenter : BasePresenter
     {
@@ -80,7 +81,7 @@ namespace Ryneus
             _view.ClearCurrentSkillData();
             _view.CreateObject();
             _view.RefreshTurn(_model.TurnCount);
-            _view.SetBattleAutoButton(_model.BattleAutoButton(),GameSystem.OptionData.BattleAuto == true);
+            _view.SetBattleAutoButton(_model.BattleAutoButton(),_model.IsBattleAuto());
             _view.ChangeBackCommandActive(false);
             _view.SetBattleAutoButton(false);
             _view.SetBattleSpeedButton(OptionUtility.CurrentBattleSpeedText());
@@ -116,7 +117,7 @@ namespace Ryneus
             _view.SetBattleAutoButton(true);
             //_view.StartBattle(_model.BattlerEnemies().Count);
             await UniTask.WaitUntil(() => _view.StartAnimIsBusy == false);
-            _view.SetBattleSkipActive(true);
+            //_view.SetBattleSkipActive(true);
             _view.UpdateStartActivate();
 
             _view.SetBattleBusy(false);
@@ -183,7 +184,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.ChangeBattleAuto:
-                    //CommandChangeBattleAuto();
+                    CommandChangeBattleAuto();
                     break;
                 case CommandType.ChangeBattleSpeed:
                     CommandChangeBattleSpeed((int)viewEvent.Template);
@@ -309,6 +310,26 @@ namespace Ryneus
                 return;
             }
             CheckUpdateAp();
+            if (GameSystem.OptionData.BattleSpeed == 2)
+            {
+                currentBattler = CheckApCurrentBattler();
+                if (currentBattler != null)
+                {
+                    CommandStartSelect();
+                    return;
+                }
+                CheckUpdateAp();
+            }
+            if (GameSystem.OptionData.BattleSpeed > 2)
+            {
+                currentBattler = CheckApCurrentBattler();
+                if (currentBattler != null)
+                {
+                    CommandStartSelect();
+                    return;
+                }
+                CheckUpdateAp();
+            }
         }
 
         private async void CheckUpdateAp()
@@ -471,9 +492,12 @@ namespace Ryneus
 
         private void CommandSelectSideMenu()
         {
-            if (_busy) return;
+            if (_busy)
+            {
+                return;
+            }
             _busy = true;
-            CommandCallSideMenu(MakeListData(_model.SideMenu()),() => 
+            CommandCallSideMenu(MakeListData(_model.SideMenu()),() =>
             {
                 _busy = false;
             });
@@ -488,13 +512,13 @@ namespace Ryneus
         {
             _model.StopApCount(isStop);
         }
-        /*
+
         private void CommandChangeBattleAuto()
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.ChangeBattleAuto();
-            _view.ChangeBattleAuto(GameSystem.ConfigData.BattleAuto == true);
-            if (_view.AnimationBusy == false && _view.BattleBusy && GameSystem.ConfigData.BattleAuto == true)
+            _view.ChangeBattleAuto(_model.IsBattleAuto());
+            if (!_view.AnimationBusy && _view.BattleBusy && _model.IsBattleAuto())
             {
                 _model.ClearActionInfo();
                 _view.BattlerBattleClearSelect();
@@ -503,7 +527,6 @@ namespace Ryneus
                 MakeActionInfoSkillTrigger();
             }
         }
-        */
 
         private void CommandChangeBattleSpeed(int plus)
         {

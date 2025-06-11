@@ -59,7 +59,10 @@ namespace Ryneus
         {
             equipSkillList.Initialize();
             equipSkillList.SetInputHandler(InputKeyType.Decide,OnSelectEquipSkill);
-            equipSkillList.SetInputHandler(InputKeyType.Cancel,OnCancelEquipSkill);
+            equipSkillList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
+            equipSkillList.SetInputHandler(InputKeyType.SideLeft1,() => CallViewEvent(CommandType.LeftActor));
+            equipSkillList.SetInputHandler(InputKeyType.SideRight1,() => CallViewEvent(CommandType.RightActor));
+            equipSkillList.SetInputHandler(InputKeyType.Option1,() => CallViewEvent(CommandType.LevelUp));
             AddViewActives(equipSkillList);
         }
 

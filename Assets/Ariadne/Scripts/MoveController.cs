@@ -1617,5 +1617,97 @@ namespace Ariadne
                 eventObj.SetActive(false);
             }
         }
+
+        public void UpdateKey(List<InputKeyType> inputKeyTypes)
+        {
+            if (!isInDungeon)
+            {
+                return;
+            }
+
+            if (canMove)
+            {
+                PlayerMove(inputKeyTypes);
+            }
+        }
+
+        /// <Summary>
+        /// Check key inputs about movement.
+        /// </Summary>
+        protected void PlayerMove(List<InputKeyType> inputKeyTypes)
+        {
+            if (isEventReady)
+            {
+                if (inputKeyTypes.Contains(InputKeyType.Decide) || inputKeyTypes.Contains(InputKeyType.Up))
+                {
+                    canMove = false;
+                    OnEventKeyPressed();
+                    return;
+                }
+            }
+
+            if (inputKeyTypes.Contains(InputKeyType.Up) || isPressedMoveFront)
+            {
+                MoveFrontProcess();
+                return;
+            }
+
+            if (inputKeyTypes.Contains(InputKeyType.SideLeft1) || inputKeyTypes.Contains(InputKeyType.SideRight1))
+            {
+                if (inputKeyTypes.Contains(InputKeyType.Left) || isPressedTurnLeft)
+                {
+                    Direction dir = new Direction();
+                    DungeonDir targetDir = dir.GetCounterclockwiseDir(PlayerPosition.Instance.direction);
+                    MoveToTargetDirectionProcess(targetDir);
+                    return;
+                }
+
+                if (inputKeyTypes.Contains(InputKeyType.Right) || isPressedTurnRight)
+                {
+                    Direction dir = new Direction();
+                    DungeonDir targetDir = dir.GetClockwiseDir(PlayerPosition.Instance.direction);
+                    MoveToTargetDirectionProcess(targetDir);
+                    return;
+                }
+
+                if (inputKeyTypes.Contains(InputKeyType.Down) || isPressedTurnBack)
+                {
+                    Direction dir = new Direction();
+                    DungeonDir targetDir = dir.GetReverseDir(PlayerPosition.Instance.direction);
+                    MoveToTargetDirectionProcess(targetDir);
+                    return;
+                }
+            }
+            else
+            {
+                if (inputKeyTypes.Contains(InputKeyType.Left) || isPressedTurnLeft)
+                {
+                    TurnProcess(TurnLeft);
+                    return;
+                }
+
+                if (inputKeyTypes.Contains(InputKeyType.Right) || isPressedTurnRight)
+                {
+                    TurnProcess(TurnRight);
+                    return;
+                }
+
+                if (inputKeyTypes.Contains(InputKeyType.Down) || isPressedTurnBack)
+                {
+                    TurnProcess(TurnBack);
+                    return;
+                }
+            }
+/* 最上に移動
+            if (isEventReady)
+            {
+                if (Input.GetKeyUp(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow))
+                {
+                    canMove = false;
+                    OnEventKeyPressed();
+                }
+            }
+*/
+        }
     }
 }

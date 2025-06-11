@@ -135,9 +135,9 @@ namespace Ryneus
             }
         }
 
-        public void LateUpdate() 
+        public void LateUpdate()
         {
-            if (_inputSystem != null && _busy == false)
+            if (_inputSystem != null && !_busy)
             {
                 _inputSystemModel.UpdateInputKeyType(_inputSystem.Update());
             }
@@ -150,7 +150,10 @@ namespace Ryneus
 
         private void UpdateWait()
         {
-            if (_wait <= 0) return;
+            if (_wait <= 0)
+            {
+                return;
+            }
             _busy = true;
             _wait--;
             if (_wait <= 0)

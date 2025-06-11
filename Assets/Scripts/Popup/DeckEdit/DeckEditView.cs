@@ -32,6 +32,7 @@ namespace Ryneus
         {
             partyUnitList.Initialize();
             partyUnitList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.SelectBattler,partyUnitList.Index));
+            partyUnitList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
             partyUnitList.SetSelectedHandler(() => CallViewEvent(CommandType.SelectingBattlerInfo,partyUnitList.ListItemData<BattlerInfo>()?.ActorInfo));
             AddViewActives(partyUnitList);
         }

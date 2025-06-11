@@ -2722,6 +2722,11 @@ namespace Ryneus
             OptionUtility.ChangeBattleAuto(!GameSystem.OptionData.BattleAuto);
         }
 
+        public bool IsBattleAuto()
+        {
+            return GameSystem.OptionData.BattleAuto;
+        }
+
         public List<StateInfo> SelectCharacterConditions()
         {
             return _currentBattler.StateInfos;

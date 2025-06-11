@@ -63,27 +63,30 @@ namespace Ryneus
             InitializeSelectCharacter();
             InitializeActorList();
             InitializeEnemyLayer();
-            SideMenuButton.OnClickAddListener(() => 
+            SideMenuButton.OnClickAddListener(() =>
             {
                 CallSideMenu();
             });
-            battleSpeedButton.OnClickAddListener(() => 
+            battleSpeedButton.OnClickAddListener(() =>
             {
                 CallChangeBattleSpeed(1);
             });
-            battleSkipButton.OnClickAddListener(() => 
+            battleSkipButton.OnClickAddListener(() =>
             {
                 CallBattleSkip();
             });
-            skillLogButton.OnClickAddListener(() => 
+            skillLogButton.OnClickAddListener(() =>
             {
-                if (skillLogButton.gameObject.activeSelf == false) return;
+                if (!skillLogButton.gameObject.activeSelf)
+                {
+                    return;
+                }
                 CallViewEvent(CommandType.SkillLog);
             });
             SetBattleSkipActive(false);
             battleCutinAnimation.Initialize();
             InitializeMagicList();
-            new BattlePresenter(this);
+            _ = new BattlePresenter(this);
         }
 
         public void CreateBattleBackGround(GameObject gameObject)
@@ -257,31 +260,31 @@ namespace Ryneus
 
         public void SetBattleAutoButton(SystemData.CommandData data,bool isAuto)
         {
-            /*
             battleAutoButton.gameObject.SetActive(false);
             battleAutoButton.SetText(data.Name);
-            battleAutoButton.SetCallHandler(() => 
+            battleAutoButton.OnClickAddListener(() =>
             {
-                if (battleAutoButton.gameObject.activeSelf == false) return;
-                var eventData = CallEvent(CommandType.ChangeBattleAuto);
-                _commandData(eventData);
-            },() => 
+                if (!battleAutoButton.gameObject.activeSelf)
+                {
+                    return;
+                }
+                CallViewEvent(CommandType.ChangeBattleAuto);
+            },() =>
             {
-                battleAutoButton.Cursor.SetActive(isAuto);
+                ChangeBattleAuto(isAuto);
             });
-            battleAutoButton.Cursor.SetActive(isAuto);
-            */
+            ChangeBattleAuto(isAuto);
         }
 
         public void SetBattleAutoButton(bool isActive)
         {
-            //battleAutoButton.gameObject.SetActive(isActive);
+            battleAutoButton.gameObject.SetActive(isActive);
             battleSpeedButton.gameObject.SetActive(isActive);
         }
 
         public void SetBattleSkipActive(bool isActive)
         {
-            battleSkipButton.gameObject.SetActive(isActive);
+            //battleSkipButton.gameObject.SetActive(isActive);
             //skillLogButton.gameObject.SetActive(isActive);
         }
 
@@ -315,7 +318,10 @@ namespace Ryneus
 
         private void CallBattleSkip()
         {
-            if (battleSkipButton.gameObject.activeSelf == false) return;
+            if (!battleSkipButton.gameObject.activeSelf)
+            {
+                return;
+            }
             _skipBattle = true;
             CallViewEvent(CommandType.SkipBattle);
         }
@@ -664,15 +670,7 @@ namespace Ryneus
 
         public void ChangeBattleAuto(bool isAuto)
         {
-            /*
             battleAutoButton.Cursor.SetActive(isAuto);
-            battleAutoButton.SetCallHandler(() => 
-            {
-            },() => 
-            {
-                battleAutoButton.Cursor.SetActive(isAuto);
-            });
-            */
         }
 
         public async UniTask StartAnimationDemigod(BattlerInfo battlerInfo,SkillData skillData)

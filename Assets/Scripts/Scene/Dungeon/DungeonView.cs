@@ -79,6 +79,7 @@ namespace Ryneus
             {
                 CallSideMenu();
             }
+            moveController.UpdateKey(keyTypes);
         }
 
         public void SetActiveStageInfo(bool isActive)

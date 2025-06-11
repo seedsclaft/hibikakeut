@@ -9,7 +9,7 @@ namespace Ryneus
     public class ItemListView : BaseView
     {
         [SerializeField] private BaseList itemList = null;
-        [SerializeField] private Button presentButton = null;
+        [SerializeField] private OnOffButton presentButton = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
 
         public override void Initialize()
@@ -19,7 +19,7 @@ namespace Ryneus
             InitializeItemList();
             if (presentButton != null)
             {
-                presentButton.onClick.AddListener(() => CallViewEvent(CommandType.DecideItem, itemList.ListItemData<ItemInfo>()));
+                presentButton.OnClickAddListener(() => CallViewEvent(CommandType.DecideItem, itemList.ListItemData<ItemInfo>()));
             }
             SetBaseAnimation(popupAnimation);
             _ = new ItemListPresenter(this);

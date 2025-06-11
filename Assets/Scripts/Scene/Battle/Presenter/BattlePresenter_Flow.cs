@@ -47,7 +47,7 @@ namespace Ryneus
                 }
                 */
                 _model.SetCurrentActionBattler(currentBattler);
-                if (currentBattler.IsActor)
+                if (currentBattler.IsActor && !_model.IsBattleAuto())
                 {
                     // マニュアルなら魔法選択
                     ShowMagicList(currentBattler,true);
