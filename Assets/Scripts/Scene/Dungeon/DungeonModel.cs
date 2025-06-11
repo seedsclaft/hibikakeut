@@ -140,7 +140,7 @@ namespace Ryneus
         public List<BattlerInfo> RandumTroopInfos()
         {
             var troopInfo = new TroopInfo(-1);
-            troopInfo.MakeEnemyRandomTroopDates(1,CurrentStage.Master.RandomTroopEnemyRates);
+            troopInfo.MakeEnemyRandomTroopDates(CurrentStage.Master.StageLv,CurrentStage.Master.RandomTroopEnemyRates);
             return troopInfo.BattlerInfos;
         }
 

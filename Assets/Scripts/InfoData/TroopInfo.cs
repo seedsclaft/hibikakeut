@@ -60,7 +60,6 @@ namespace Ryneus
 
         public void MakeEnemyRandomTroopDates(int baseLv, List<StageEnemyRate> stageEnemyRates)
         {
-            var randMax = MathF.Min(3, baseLv / 15);
             var weight = 30;
             while (weight > 0)
             {
@@ -76,7 +75,7 @@ namespace Ryneus
                 */
                 var battlerInfo = new BattlerInfo(enemyData, baseLv, BattlerInfos.Count + 1, LineType.Front, BattlerInfos.Count == 0);
                 weight -= stageEnemyRates[targetIdRand].Weight;
-                if (weight > 0)
+                if (weight >= 0)
                 {
                     AddEnemy(battlerInfo);
                 }

@@ -5,11 +5,7 @@ namespace Ryneus
     [System.Serializable]
     public class ParameterFloat
     {
-#if UNITY_EDITOR
         [SerializeField] private float _value = 0;
-#else
-        private float _value = 0;
-#endif
         public float Value => _value;
 
         public ParameterFloat(float value = 0)

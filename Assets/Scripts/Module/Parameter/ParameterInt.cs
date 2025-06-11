@@ -5,11 +5,7 @@ namespace Ryneus
     [Serializable]
     public class ParameterInt
     {
-#if UNITY_EDITOR
         [UnityEngine.SerializeField] private int _value = 0;
-#else
-        private int _value = 0;
-#endif
         public int Value => _value;
 
         public ParameterInt(int value = 0)

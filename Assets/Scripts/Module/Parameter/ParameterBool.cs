@@ -3,11 +3,7 @@ namespace Ryneus
     [System.Serializable]
     public class ParameterBool
     {
-#if UNITY_EDITOR
         [UnityEngine.SerializeField] private bool _value = false;
-#else
-        private bool _value = false;
-#endif
         public bool Value => _value;
 
         public ParameterBool(bool value = false)

@@ -323,7 +323,7 @@ namespace Ryneus
             {
                 var itemData = new GetItemData
                 {
-                    Param1 = item.Param1,
+                    Param1 = item.Id,
                     Param2 = 1,
                     Type = GetItemType.Item
                 };

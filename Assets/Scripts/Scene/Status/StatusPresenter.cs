@@ -148,6 +148,10 @@ namespace Ryneus
 
         private void CommandSelectEquipSkill(SkillInfo skillInfo)
         {
+            if (_model.SceneParam.DisplayDecideButton.Value)
+            {
+                return;
+            }
             if (skillInfo.IsBattleSpecialSkill())
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
@@ -163,6 +167,10 @@ namespace Ryneus
 
         private void CommandCancelSkill()
         {
+            if (_model.SceneParam.DisplayDecideButton.Value)
+            {
+                return;
+            }
             if (_model.SelectSkillInfo != null)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
@@ -174,6 +182,10 @@ namespace Ryneus
 
         private void CommandSelectChangeSkill(SkillInfo skillInfo)
         {
+            if (_model.SceneParam.DisplayDecideButton.Value)
+            {
+                return;
+            }
             // 変更する
             if (skillInfo.Enable)
             {

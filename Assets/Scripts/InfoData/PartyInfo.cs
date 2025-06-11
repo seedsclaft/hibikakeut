@@ -18,11 +18,7 @@ namespace Ryneus
         public Scene ResumeScene = Scene.None;
 
         // 所持アクターリスト
-#if UNITY_EDITOR
         [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = new();
-#else
-        private List<ActorInfo> _actorInfos = new();
-#endif
         public List<ActorInfo> ActorInfos => _actorInfos;
 
         // 現在のステージ場所
@@ -300,14 +296,19 @@ namespace Ryneus
                     actorInfo.BattleIndex.SetValue(_actorInfos.Count+1);
                     actorInfo.SetLevel(actorData.InitLv);
                     actorInfo.ChangeHp(actorInfo.MaxHp);
+                    // 最初に加入したキャラは自動編成
+                    if (_actorInfos.Count == 0)
+                    {
+                        var first = CurrentDeckInfo.ActorIdDict.Where(a => a.Value == -1).First();
+                        if (first.Value == -1)
+                        {
+                            CurrentDeckInfo.ActorIdDict[first.Key] = actorInfo.ActorId.Value;
+                        }
+                    }
                     _actorInfos.Add(actorInfo);
                     // 整列
                     _actorInfos.Sort((a,b) => a.BattleIndex.Value - b.BattleIndex.Value > 0 ? 1 : -1);
-                    var first = CurrentDeckInfo.ActorIdDict.Where(a => a.Value == -1).First();
-                    if (first.Value == -1)
-                    {
-                        CurrentDeckInfo.ActorIdDict[first.Key] = actorInfo.ActorId.Value;
-                    }
+
                 }
             }
         }

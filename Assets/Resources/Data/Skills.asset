@@ -1954,18 +1954,18 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 12010
-    Name: "\u30A8\u30AF\u30B9\u30C6\u30F3\u30B7\u30E7\u30F3"
+    Name: "\u30B3\u30F3\u30BB\u30F3\u30C8\u30EC\u30A4\u30C8"
     IconIndex: 6
     AnimationId: 51
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 10
+    Rank: 20
     Attribute: 2
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "\u653B\u6483\u7BC4\u56F2\u304C\u5EF6\u9577\u3059\u308B\n/s"
+    Help: "\\s\u306E\u547D\u4E2D\u3068\u56DE\u907F\u3092/f[f,0,3]%\u30A2\u30C3\u30D7"
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1973,9 +1973,15 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 12010
       FeatureType: 3010
-      Param1: 2190
+      Param1: 1080
       Param2: 999
-      Param3: 0
+      Param3: 25
+      Rate: 100
+    - SkillId: 12010
+      FeatureType: 3010
+      Param1: 1090
+      Param2: 999
+      Param3: 25
       Rate: 100
     TriggerDates:
     - SkillId: 12010
