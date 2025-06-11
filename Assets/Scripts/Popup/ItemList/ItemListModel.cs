@@ -99,7 +99,7 @@ namespace Ryneus
                     // 報酬設定
                     return MakeGetItemInfo(GetItemType.Skill,candidateSkills[rand].Value.Id);
                 case ItemType.Artifact:
-                    return MakeGetItemInfo(GetItemType.Evaluate,10);
+                    return MakeGetItemInfo(GetItemType.Evaluate,5);
             }
             return null;
         }

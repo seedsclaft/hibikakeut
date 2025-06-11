@@ -164,6 +164,7 @@ namespace Ryneus
             {
                 _view.SelectEnemyList(targetIndexes[0]-101);
             }
+            _view.UpdateSelectCursor(targetIndexes);
         }
 
         private void CommandOnDecideEnemy(BattlerInfo battlerInfo)

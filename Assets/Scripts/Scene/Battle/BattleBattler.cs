@@ -12,6 +12,7 @@ namespace Ryneus
         [SerializeField] private float normalScale = 1;
         [SerializeField] private float smallScale = 0.75f;
         [SerializeField] private float rightRectSize = 24;
+        [SerializeField] private GameObject candidateSelect;
         public BattlerInfoComponent BattlerInfoComponent => battlerInfoComponent;
 
         public void SetDamageRoot(GameObject damageRoot)
@@ -70,6 +71,15 @@ namespace Ryneus
             {
                 Disable.SetActive(true);
             }
+        }
+
+        public void SetActivecandidateSelect(bool isActive)
+        {
+            if (candidateSelect == null)
+            {
+                return;
+            }
+            candidateSelect.SetActive(isActive);
         }
     }
 }

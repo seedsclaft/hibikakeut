@@ -64,7 +64,7 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.FromEditIndex.SetValue(fromEditIndex + 1);
-            _view.SelectChangeBattler();
+            _view.SelectChangeBattler(_model.FromEditSelectIndex());
         }
 
         private void CommandDecideBattlerInfo(ActorInfo actorInfo)

@@ -60,22 +60,28 @@ namespace Ryneus
             }
             return null;
         }
-        
+
         public void UpdateSelectIndexList(List<int> indexes)
         {
             for (int i = 0; i < ItemPrefabList.Count;i++)
             {
-                if (ItemPrefabList[i] == null) continue;
+                if (ItemPrefabList[i] == null)
+                {
+                    continue;
+                }
                 var listItem = ItemPrefabList[i].GetComponentInChildren<ListItem>();
-                if (listItem == null) continue;
-                if (listItem.ListData == null) continue;
+                if (listItem == null || listItem.ListData == null)
+                {
+                    continue;
+                }
                 var battler = (BattlerInfo)listItem.ListData.Data;
+                var battleBattler = ItemPrefabList[i].GetComponent<BattleBattler>();
                 if (indexes.Contains(battler.Index.Value))
                 {
-                    listItem.SetSelect();
+                    battleBattler.SetActivecandidateSelect(true);
                 } else
                 {
-                    listItem.SetUnSelect();
+                    battleBattler.SetActivecandidateSelect(false);
                 }
             }
         }

@@ -456,12 +456,12 @@ namespace Ryneus
         private void UpdateListUp(int startIndex)
         {
             _lastStartIndexX = startIndex;
-            var itemIndex = (startIndex - 1) % _itemPrefabList.Count;
+            var itemIndex = (startIndex - 0) % _itemPrefabList.Count;
             if (itemIndex < 0)
             {
                 return;
             }
-            var objectIndex = startIndex - 1;
+            var objectIndex = startIndex - 0;
             if (objectIndex < 0)
             {
                 return;

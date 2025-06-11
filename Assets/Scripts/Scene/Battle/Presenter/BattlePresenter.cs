@@ -120,6 +120,7 @@ namespace Ryneus
             _view.UpdateStartActivate();
 
             _view.SetBattleBusy(false);
+            _view.UpdateSelectCursor(new List<int>(){});
             CommandStartBattleAction();
             _busy = false;
         }

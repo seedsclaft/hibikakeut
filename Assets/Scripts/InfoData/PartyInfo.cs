@@ -251,21 +251,25 @@ namespace Ryneus
         public void AddGetItemInfo(GetItemInfo getItemInfo)
         {
             _getItemInfos.Add(getItemInfo);
-            if (getItemInfo.GetItemType == GetItemType.Item)
+            switch (getItemInfo.GetItemType)
             {
-                GainItemNum(getItemInfo.Param1,getItemInfo.Param2);
-                return;
+                case GetItemType.Item:
+                    GainItemNum(getItemInfo.Param1,getItemInfo.Param2);
+                    break;
+                case GetItemType.RankUp:
+                    MissionRank.GainValue(1);
+                    break;
+                case GetItemType.ClearStage:
+                    ClearStage(getItemInfo.Param1);
+                    break;
+                case GetItemType.Evaluate:
+                    EvaluationValue.GainValue(getItemInfo.Param1);
+                    break;
+                default:
+                    CheckAddActor();
+                    CheckLearningSkillId();
+                    break;
             }
-            if (getItemInfo.GetItemType == GetItemType.RankUp)
-            {
-                MissionRank.GainValue(1);
-            }
-            if (getItemInfo.GetItemType == GetItemType.ClearStage)
-            {
-                ClearStage(getItemInfo.Param1);
-            }
-            CheckAddActor();
-            CheckLearningSkillId();
         }
 
         private List<int> _learningSkillIds = new();

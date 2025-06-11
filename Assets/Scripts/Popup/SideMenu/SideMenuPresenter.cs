@@ -72,7 +72,7 @@ namespace Ryneus
                     CommandRule();
                     break;
                 case "Save":
-                    CommandSave(false);
+                    CommandSave();
                     break;
                 case "License":
                     CommandCredit();
@@ -172,6 +172,27 @@ namespace Ryneus
                     ClosePopup();
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
+            };
+            _view.CommandCallPopup(popupInfo);
+        }
+
+        public void CommandSave()
+        {
+            _busy = true;
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var sceneParam = new FileListSceneInfo
+            {
+                IsLoad = false
+            };
+            var popupInfo = new PopupInfo()
+            {
+                PopupType = PopupType.FileList,
+                EndEvent = () =>
+                {
+                    ClosePopup();
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                },
+                template = sceneParam
             };
             _view.CommandCallPopup(popupInfo);
         }

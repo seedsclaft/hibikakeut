@@ -2039,79 +2039,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255791121}
   m_Enabled: 1
---- !u!1001 &261366127
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 425995392}
-    m_Modifications:
-    - target: {fileID: 4664816465733383540, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4664816465733383540, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4664816465733383540, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4664816465733383540, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4664816465733383540, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4664816465733383540, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4664816465733383540, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4664816465733383540, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4664816465733383540, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4664816465733383540, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948005475728271668, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-        type: 3}
-      propertyPath: m_Name
-      value: DungeonObjects
-      objectReference: {fileID: 0}
-    - target: {fileID: 7083099292407988620, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-        type: 3}
-      propertyPath: dungeonData
-      value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a1def54fb78f82247b5c9c5ffc1a4944, type: 3}
 --- !u!1 &266153555
 GameObject:
   m_ObjectHideFlags: 0
@@ -3828,8 +3755,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1541834101}
+  m_Children: []
   m_Father: {fileID: 1931081345}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &454791753 stripped
@@ -14201,18 +14127,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1127659263}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1130699180 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7083099292407988620, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-    type: 3}
-  m_PrefabInstance: {fileID: 261366127}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 643eb8715e4fe40ab914cacba07a47ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1153565672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24187,12 +24101,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!4 &1541834101 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4664816465733383540, guid: a1def54fb78f82247b5c9c5ffc1a4944,
-    type: 3}
-  m_PrefabInstance: {fileID: 261366127}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1542568944
 GameObject:
   m_ObjectHideFlags: 0
@@ -25418,7 +25326,8 @@ MonoBehaviour:
   debugBattleData: {fileID: 1631066105}
   helpWindow: {fileID: 1488024012}
   advHelpWindow: {fileID: 1438665401}
-  dungeonSettings: {fileID: 1130699180}
+  dungeonObjects: {fileID: 4948005475728271668, guid: a1def54fb78f82247b5c9c5ffc1a4944,
+    type: 3}
 --- !u!114 &1631066105
 MonoBehaviour:
   m_ObjectHideFlags: 0

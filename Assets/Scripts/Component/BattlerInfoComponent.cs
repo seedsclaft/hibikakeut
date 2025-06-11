@@ -60,6 +60,8 @@ namespace Ryneus
                 } else
                 {
                     UpdateMainThumb(battlerInfo.EnemyData.ImagePath,0,0,1.0f);
+                    additiveFaceThumb.gameObject.GetComponent<RectTransform>().localScale = new Vector2(battlerInfo.EnemyData.ImageScale,battlerInfo.EnemyData.ImageScale);
+                    additiveFaceThumb.SetNativeSize();
                 }
             }
             RefreshStatus();
@@ -70,7 +72,7 @@ namespace Ryneus
             var handle = ResourceSystem.LoadEnemySprite(imagePath);
             if (additiveFaceThumb != null)
             {
-                additiveFaceThumb.gameObject.SetActive(true);
+                //additiveFaceThumb.gameObject.SetActive(true);
                 var rect = additiveFaceThumb.GetComponent<RectTransform>();
                 rect.localPosition = new Vector3(x, y, 0);
                 rect.localScale = new Vector3(scale, scale, 1);
@@ -506,6 +508,7 @@ namespace Ryneus
 
         public void SetActiveBeforeSkillThumb(bool isActive)
         {
+            /*
             if (additiveFaceThumb != null)
             {
                 additiveFaceThumb.gameObject.SetActive(isActive);
@@ -520,6 +523,7 @@ namespace Ryneus
                         });
                 }
             }
+            */
         }
 
         public void UpdateEnemyImageNativeSize()

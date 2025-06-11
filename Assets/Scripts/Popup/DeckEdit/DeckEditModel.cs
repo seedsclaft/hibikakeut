@@ -22,5 +22,15 @@ namespace Ryneus
         {
             CurrentDeckInfo.SwapBattler(FromEditIndex.Value,toActorId);
         }
+
+        public int FromEditSelectIndex()
+        {
+            var actorId = CurrentDeckInfo.ActorIdDict[FromEditIndex.Value];
+            if (actorId > 0)
+            {
+                return PartyInfo.ActorInfos.FindIndex(a => a.ActorId.Value == actorId);
+            }
+            return 0;
+        }
     }
 }

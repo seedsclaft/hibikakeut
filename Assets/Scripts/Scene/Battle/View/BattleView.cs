@@ -144,8 +144,8 @@ namespace Ryneus
 
         public void UpdateSelectCursor(List<int> targetIndexes)
         {
-            //battleActorList.UpdateSelectIndexList(targetIndexes);
-            //battleEnemyUnitList.UpdateSelectIndexList(targetIndexes);
+            battleActorList.UpdateSelectIndexList(targetIndexes);
+            battleEnemyList.UpdateSelectIndexList(targetIndexes);
         }
 
         public void SelectActorList(int selectIndex)
@@ -228,6 +228,7 @@ namespace Ryneus
 
         public void EndActionSelect()
         {
+            UpdateSelectCursor(new List<int>(){});
             SetActivate(null);
             battleThumb.HideThumb();
             magicList.gameObject.SetActive(false);

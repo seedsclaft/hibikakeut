@@ -55,7 +55,6 @@ namespace Ryneus
 
         private void UpdateMainThumb(Image image,string imagePath,int x,int y,float scale,bool nativeSize)
         {
-            //var handle = await ResourceSystem.LoadAsset<Sprite>("Enemies/" + imagePath);
             var handle = ResourceSystem.LoadEnemySprite(imagePath);
             if (image != null)
             {

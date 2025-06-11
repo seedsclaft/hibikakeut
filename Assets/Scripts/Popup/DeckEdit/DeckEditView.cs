@@ -57,9 +57,10 @@ namespace Ryneus
             actorInfoList.SetData(listDatas);
         }
 
-        public void SelectChangeBattler()
+        public void SelectChangeBattler(int selectIndex)
         {
             SetActivate(actorInfoList);
+            actorInfoList.UpdateSelectIndex(selectIndex);
         }
 
         public void EndSelectChangeBattler()
