@@ -31,6 +31,12 @@ namespace Ryneus
         {
             commandList.Initialize();
             commandList.SetInputHandler(InputKeyType.Decide, () => CallConfirmCommand());
+            commandList.SetInputHandler(InputKeyType.Cancel, () =>
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                BackEvent();
+                _confirmEvent(ConfirmCommandType.No);
+            });
             SetInputHandler(commandList.GetComponent<IInputHandlerEvent>());
         }
 
@@ -56,7 +62,10 @@ namespace Ryneus
 
         public void SetSkillInfo(List<ListData> skillInfos)
         {
-            if (skillInfos == null) return;
+            if (skillInfos == null)
+            {
+                return;
+            }
             skillInfoList.SetData(skillInfos);
         }
 

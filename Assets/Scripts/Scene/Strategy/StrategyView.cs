@@ -7,7 +7,7 @@ using Ryneus.Strategy;
 
 namespace Ryneus
 {
-    public class StrategyView : BaseView
+    public class StrategyView : BaseView, IInputHandlerEvent
     {
         [SerializeField] private Image backgroundImage = null;
         [SerializeField] private StrategyActorList strategyActorList = null;
@@ -168,10 +168,8 @@ namespace Ryneus
             strategyResultList.gameObject.SetActive(false);
             strategyResultCanvasGroup.alpha = 0;
 
-            commandList.SetData(confirmCommands,true,() =>
-            {
-                commandList.UpdateSelectIndex(1);
-            });
+            commandList.SetData(confirmCommands);
+            commandList.UpdateSelectIndex(0);
         }
 
         private void CallEndAnimation()
@@ -273,6 +271,17 @@ namespace Ryneus
                 }
             }
             return null;
+        }
+
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
+        {
+            if (lvUpStatusButton.gameObject.activeSelf)
+            {
+                if (keyTypes.Contains(InputKeyType.Decide) || keyTypes.Contains(InputKeyType.Cancel))
+                {
+                    CallLvUpNext();
+                }
+            }
         }
     }
 }

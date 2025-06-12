@@ -301,7 +301,10 @@ namespace Ryneus
                 _backCommand.onClick.RemoveAllListeners();
                 _backCommand.onClick.AddListener(() =>
                 {
-                    if (!_backCommand.gameObject.activeSelf) return;
+                    if (!_backCommand.gameObject.activeSelf)
+                    {
+                        return;
+                    }
                     callEvent();
                 });
             }

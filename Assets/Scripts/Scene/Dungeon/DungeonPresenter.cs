@@ -81,6 +81,7 @@ namespace Ryneus
             // ターン数が0の場合
             if (_model.EndDungeonByTurnCount())
             {
+                SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
                 _model.DungeonBusy(true);
                 var confirmInfo = new ConfirmInfo("残りターン数が枯渇したため帰還します!",(a) => 
                 {
@@ -319,6 +320,7 @@ namespace Ryneus
             {
                 return;
             }
+            SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
             var confirmInfo = new ConfirmInfo(item.Name + "を入手！",(a) =>
             {
                 var itemData = new GetItemData

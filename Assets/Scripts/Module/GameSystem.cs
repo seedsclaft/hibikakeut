@@ -313,7 +313,7 @@ namespace Ryneus
             {
                 var endPopupInfo = _sceneStackManager.LastPopupInfo;
                 baseView.CallSystemCommand(Base.CommandType.ClosePopup);
-                if (endPopupInfo != null)
+                if (endPopupInfo != null && !baseView.Busy)
                 {
                     endPopupInfo.EndEvent?.Invoke();
                     _sceneStackManager.RemovePopupInfo(endPopupInfo);

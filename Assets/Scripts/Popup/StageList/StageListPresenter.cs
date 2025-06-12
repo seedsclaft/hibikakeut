@@ -58,6 +58,7 @@ namespace Ryneus
             if (!_model.IsLimitedRank(stageInfo))
             {
                 _busy = true;
+                _view.SetBusy(true);
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 var confirmInfo = new ConfirmInfo("出撃しますか？", (a) =>
                 {
@@ -70,6 +71,7 @@ namespace Ryneus
                         _view.CommandSceneChange(Scene.Dungeon);
                     }
                     _busy = false;
+                    _view.SetBusy(false);
                 });
                 _view.CommandCallConfirm(confirmInfo);
             } else

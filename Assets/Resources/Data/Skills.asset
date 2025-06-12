@@ -5469,7 +5469,7 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 310010
-    Name: "\u30D2\u30FC\u30EB\u30E6\u30CB\u30C3\u30C8"
+    Name: "\u5996\u7CBE\u306E\u7948\u308A"
     IconIndex: 6
     AnimationId: 0
     AnimationType: 1
@@ -5480,7 +5480,7 @@ MonoBehaviour:
     Scope: 3
     SkillType: 5
     TargetType: 2
-    Help: "(\u6761\u4EF6)\u6240\u6301\u3057\u3066\u3044\u308B\u3068\u81EA\u52D5\u3067\u52B9\u679C\u3092\u767A\u63EE\n\u79FB\u52D5\u3059\u308B\u305F\u3073\u306BHp\u30921\u56DE\u5FA9"
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -5488,13 +5488,13 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 310010
       FeatureType: 2010
-      Param1: 1
+      Param1: 3
       Param2: 0
       Param3: 0
       Rate: 100
     TriggerDates:
     - SkillId: 310010
-      TriggerType: 40010
+      TriggerType: 0
       TriggerTiming: 4
       Param1: 0
       Param2: 0
@@ -5527,6 +5527,64 @@ MonoBehaviour:
     TriggerDates:
     - SkillId: 310020
       TriggerType: 40020
+      TriggerTiming: 4
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 310030
+    Name: "\u932C\u91D1\u8853\u5E2B\u306E\u907A\u7A3F"
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 220
+    Attribute: 4
+    Scope: 3
+    SkillType: 5
+    TargetType: 2
+    Help: "\u9B54\u6CD5\u306E\u914D\u5217\u5909\u63DB\u304C\u53EF\u80FD\u306B\u306A\u308B"
+    Range: 2
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 310030
+      FeatureType: 40020
+      Param1: 1
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 310130
+    Name: "\u30D2\u30FC\u30EB\u30E6\u30CB\u30C3\u30C8"
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 220
+    Attribute: 4
+    Scope: 3
+    SkillType: 5
+    TargetType: 2
+    Help: "(\u6761\u4EF6)\u6240\u6301\u3057\u3066\u3044\u308B\u3068\u81EA\u52D5\u3067\u52B9\u679C\u3092\u767A\u63EE\n\u79FB\u52D5\u3059\u308B\u305F\u3073\u306BHp\u30921\u56DE\u5FA9"
+    Range: 2
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 310130
+      FeatureType: 2010
+      Param1: 1
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 310130
+      TriggerType: 40010
       TriggerTiming: 4
       Param1: 0
       Param2: 0
