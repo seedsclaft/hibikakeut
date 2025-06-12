@@ -78,6 +78,10 @@ namespace Ryneus
             if (keyTypes.Contains(InputKeyType.Option1))
             {
                 CallSideMenu();
+            } else
+            if (keyTypes.Contains(InputKeyType.Option2))
+            {
+                CallViewEvent(CommandType.Heal);
             }
             moveController.UpdateKey(keyTypes);
         }

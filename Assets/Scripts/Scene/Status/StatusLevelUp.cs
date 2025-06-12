@@ -16,6 +16,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI lvUpCostText = null;
         [SerializeField] private TextMeshProUGUI toLvText = null;
         [SerializeField] private GameObject levelUpObj = null;
+        [SerializeField] private InputInfoComponent levelUpButtonKey = null;
         public void Initialize(Action levelUpEvent)
         {
             if (levelUpButton != null)
@@ -36,6 +37,10 @@ namespace Ryneus
             if (learnMagicBackButton != null)
             {
                 learnMagicBackButton.onClick.AddListener(CallHideLearnMagic);
+            }
+            if (levelUpButtonKey != null)
+            {
+                levelUpButtonKey.UpdateGuideIcon(6);
             }
             SetLearnMagicButtonActive(false);
         }

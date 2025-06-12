@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Ryneus.Status;
 
 namespace Ryneus
@@ -349,22 +351,28 @@ namespace Ryneus
             }
         }
 
-        private void CommandLeftActor()
+        private async Task CommandLeftActor()
         {
+            _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             SaveSelectedSkillId();
             _model.ChangeActorIndex(-1);
             CommandRefreshMagicList();
             CommandRefresh();
+            await UniTask.DelayFrame(30);
+            _busy = false;
         }
 
-        private void CommandRightActor()
+        private async Task CommandRightActor()
         {
+            _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             SaveSelectedSkillId();
             _model.ChangeActorIndex(1);
             CommandRefreshMagicList();
             CommandRefresh();
+            await UniTask.DelayFrame(30);
+            _busy = false;
         }
 
         private void CommandRefresh()

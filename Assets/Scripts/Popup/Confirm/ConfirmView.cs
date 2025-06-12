@@ -36,7 +36,7 @@ namespace Ryneus
 
         public void SetSelectIndex(int selectIndex)
         {
-            commandList.Refresh(selectIndex);
+            commandList.UpdateSelectIndex(selectIndex);
         }
 
         public void SetConfirmCommand(List<ListData> menuCommands)

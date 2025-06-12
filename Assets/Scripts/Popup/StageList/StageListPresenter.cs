@@ -57,6 +57,7 @@ namespace Ryneus
         {
             if (!_model.IsLimitedRank(stageInfo))
             {
+                _busy = true;
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 var confirmInfo = new ConfirmInfo("出撃しますか？", (a) =>
                 {
@@ -68,6 +69,7 @@ namespace Ryneus
                         _model.MakeStageInfoDepature(stageInfo.StageId.Value);
                         _view.CommandSceneChange(Scene.Dungeon);
                     }
+                    _busy = false;
                 });
                 _view.CommandCallConfirm(confirmInfo);
             } else

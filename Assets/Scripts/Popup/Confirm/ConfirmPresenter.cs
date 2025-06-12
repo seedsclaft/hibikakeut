@@ -57,6 +57,7 @@ namespace Ryneus
         private void CommandIsNoChoice()
         {
             _view.SetConfirmCommand(MakeListData(_model.NoChoiceConfirmCommand()));
+            _view.SetSelectIndex(0);
         }
 
         private void CommandDisableIds(List<int> disableIds)

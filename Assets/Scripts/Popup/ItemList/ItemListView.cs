@@ -10,6 +10,7 @@ namespace Ryneus
     {
         [SerializeField] private BaseList itemList = null;
         [SerializeField] private OnOffButton presentButton = null;
+        [SerializeField] private InputInfoComponent presentButtonKey = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
 
         public override void Initialize()
@@ -20,6 +21,10 @@ namespace Ryneus
             if (presentButton != null)
             {
                 presentButton.OnClickAddListener(() => CallViewEvent(CommandType.DecideItem, itemList.ListItemData<ItemInfo>()));
+            }
+            if (presentButtonKey != null)
+            {
+                presentButtonKey.UpdateGuideIcon(5);
             }
             SetBaseAnimation(popupAnimation);
             _ = new ItemListPresenter(this);
@@ -35,8 +40,8 @@ namespace Ryneus
             itemList.Initialize();
             itemList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
             itemList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.DecideItem, itemList.ListItemData<ItemInfo>()));
-            itemList.SetInputHandler(InputKeyType.Left, () => CallViewEvent(CommandType.PlusUseNum, itemList.ListItemData<ItemInfo>()?.Id.Value));
-            itemList.SetInputHandler(InputKeyType.Right, () => CallViewEvent(CommandType.MinusUseNum, itemList.ListItemData<ItemInfo>()?.Id.Value));
+            itemList.SetInputHandler(InputKeyType.Right, () => CallViewEvent(CommandType.PlusUseNum, itemList.ListItemData<ItemInfo>()?.Id.Value));
+            itemList.SetInputHandler(InputKeyType.Left, () => CallViewEvent(CommandType.MinusUseNum, itemList.ListItemData<ItemInfo>()?.Id.Value));
             SetInputHandler(itemList.gameObject);
         }
 

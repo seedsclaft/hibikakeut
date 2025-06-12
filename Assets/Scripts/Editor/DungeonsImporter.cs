@@ -69,6 +69,7 @@ namespace Ryneus
                             var cell = AssetPostImporter.ImportString(SymbolRow, i.ToString());
                             Debug.Log(cell);
                             var attr = 0;
+                            var front = 0;
                             if (cell != "")
                             {
                                 switch (cell)
@@ -91,6 +92,9 @@ namespace Ryneus
                                     case "Dr":
                                         attr = 2;
                                         break;
+                                    case "DrS":
+                                        attr = 3;
+                                        break;
                                 }
                             }
                             var map = new Ariadne.MapInfo
@@ -98,7 +102,7 @@ namespace Ryneus
                                 eventId = 0,
                                 mapAttr = attr,
                                 objectTypeId = 0,
-                                objectFront = 0
+                                objectFront = (Ariadne.DungeonDir)front
                             };
                             MapInfos.Add(map);
                         }

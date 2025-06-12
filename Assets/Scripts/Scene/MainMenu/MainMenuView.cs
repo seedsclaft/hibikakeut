@@ -72,6 +72,17 @@ namespace Ryneus
             component.UpdateCurrentInfo();
         }
 
+        public void SetActiveCommandList(bool isActive)
+        {
+            if (isActive)
+            {
+                SetActivate(commandList);
+            } else
+            {
+                SetActivate(null);
+            }
+        }
+
         public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
         }

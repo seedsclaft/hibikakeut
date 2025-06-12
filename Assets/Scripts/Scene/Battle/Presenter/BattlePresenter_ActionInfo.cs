@@ -204,11 +204,11 @@ namespace Ryneus
             }
             if (actionResultInfo.ApHeal.Value > 0)
             {
-                _view.StartStatePopup(targetIndex,DamageType.State,DataSystem.GetReplaceText(16200,actionResultInfo.ApHeal.ToString()));
+                _view.StartStatePopup(targetIndex,DamageType.State,DataSystem.GetReplaceText(16200,actionResultInfo.ApHeal.Value.ToString()));
             }
             if (actionResultInfo.ApDamage.Value > 0)
             {
-                _view.StartStatePopup(targetIndex,DamageType.State,DataSystem.GetReplaceText(16210,actionResultInfo.ApDamage.ToString()));
+                _view.StartStatePopup(targetIndex,DamageType.State,DataSystem.GetReplaceText(16210,actionResultInfo.ApDamage.Value.ToString()));
             }
             if (actionResultInfo.ReDamage.Value > 0 || actionResultInfo.CurseDamage.Value > 0)
             {

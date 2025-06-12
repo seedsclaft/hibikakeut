@@ -324,6 +324,7 @@ namespace Ryneus
             // 敗北して戻る
             if (_model.InBattleResult && !_model.BattleResultVictory)
             {
+                _model.ReturnDungeon();
                 _view.CommandGotoSceneChange(Scene.MainMenu);
                 return;
             }

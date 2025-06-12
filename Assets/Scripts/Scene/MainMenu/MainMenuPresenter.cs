@@ -103,6 +103,8 @@ namespace Ryneus
 
         private void CommandDepature()
         {
+            _busy = true;
+            _view.SetActiveCommandList(false);
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.StageList,
@@ -110,6 +112,7 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     _busy = false;
+                    _view.SetActiveCommandList(true);
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
@@ -118,6 +121,8 @@ namespace Ryneus
 
         private void CommandDeckEdit()
         {
+            _busy = true;
+            _view.SetActiveCommandList(false);
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.DeckEdit,
@@ -125,6 +130,7 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     _busy = false;
+                    _view.SetActiveCommandList(true);
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
@@ -156,6 +162,8 @@ namespace Ryneus
 
         private void ShowAchievementList()
         {
+            _busy = true;
+            _view.SetActiveCommandList(false);
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.Achievement,
@@ -163,6 +171,7 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     _busy = false;
+                    _view.SetActiveCommandList(true);
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
@@ -171,6 +180,8 @@ namespace Ryneus
 
         private void CommandPresent()
         {
+            _busy = true;
+            _view.SetActiveCommandList(false);
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.ItemList,
@@ -178,6 +189,7 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     _busy = false;
+                    _view.SetActiveCommandList(true);
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };

@@ -59,6 +59,7 @@ namespace Ryneus
             if (_model.CanPresent())
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                _busy = true;
                 var confirmInfo = new ConfirmInfo("献上しますか？", (a) =>
                 {
                     if (a == ConfirmCommandType.Yes)
@@ -72,12 +73,13 @@ namespace Ryneus
                             var strategySceneInfo = new StrategySceneInfo
                             {
                                 ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
-                                InBattle = false
+                                InBattle = false,
+                                GetItemInfos = getItemInfos
                             };
-                            strategySceneInfo.GetItemInfos = getItemInfos;
                             _view.CommandSceneChange(Scene.Strategy,strategySceneInfo);
                         }
                     }
+                    _busy = false;
                 });
                 _view.CommandCallConfirm(confirmInfo);
             } else
@@ -91,12 +93,14 @@ namespace Ryneus
 
         private void CommandPlusUseNum(int itemId)
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _model.ChangeUseNum(itemId,true);
             CommandRefresh();
         }
 
         private void CommandMinusUseNum(int itemId)
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _model.ChangeUseNum(itemId,false);
             CommandRefresh();
         }
