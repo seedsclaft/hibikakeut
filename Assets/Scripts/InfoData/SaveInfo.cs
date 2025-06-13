@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 namespace Ryneus
 {
@@ -23,7 +24,7 @@ namespace Ryneus
             else
             {
                 _saveFileInfos.Add(saveFileInfo);
-                LastSaveIndex.SetValue(_saveFileInfos.Count);
+                LastSaveIndex.SetValue(saveFileInfo.SaveNo-1);
             }
             _saveFileInfos.Sort((a, b) => a.SaveNo - b.SaveNo > 0 ? 1 : -1);
         }

@@ -84,6 +84,7 @@ namespace Ryneus
         Help,
         Achievement,
         ItemList,
+        ArtifactList,
         StageList,
         AlcanaList,
         SlotSave,

@@ -150,10 +150,6 @@ namespace Ryneus
 
         private void CommandSelectEquipSkill(SkillInfo skillInfo)
         {
-            if (_model.SceneParam.DisplayDecideButton.Value)
-            {
-                return;
-            }
             if (skillInfo.IsBattleSpecialSkill())
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
@@ -246,6 +242,10 @@ namespace Ryneus
 
         private void CommandLevelUp()
         {
+            if (_model.SceneParam.DisplayDecideButton.Value)
+            {
+                return;
+            }
             _busy = true;
             _view.SetBusy(true);
             _model.PartyInfo.TacticsLvupCount.GainValue(1);

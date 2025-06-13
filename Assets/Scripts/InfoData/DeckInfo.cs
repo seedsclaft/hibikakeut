@@ -55,6 +55,17 @@ namespace Ryneus
             }
         }
 
+        public void SwapBattler(int fromEditIndex,int toActorId,int toEditIndex)
+        {
+            //var toEditIndex = FindEditIndex(toActorId);
+            var beforeEditIndex = _actorIdDict[fromEditIndex];
+            _actorIdDict[fromEditIndex] = toActorId;
+            if (toEditIndex != -1)
+            {
+                _actorIdDict[toEditIndex] = beforeEditIndex;
+            }
+        }
+
         public int FindEditIndex(int actorId)
         {
             foreach (var actorIdDict in _actorIdDict)

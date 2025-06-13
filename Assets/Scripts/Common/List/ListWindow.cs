@@ -211,7 +211,7 @@ namespace Ryneus
             }
         }
 
-        public void UpdateItemPrefab(int selectIndex = -1)
+        public void UpdateItemPrefab(int selectIndex = -1,int itemStartIndex = -1)
         {
             if (_grid)
             {
@@ -223,9 +223,16 @@ namespace Ryneus
             horizontalCount += 1;
             var startIndex = selectIndex == -1 ? GetStartIndex(_horizontal) : selectIndex;
             var gridIndex = selectIndex == -1 ? GetStartIndex(!_horizontal) : selectIndex;
+
             for (int i = 0; i < _itemPrefabList.Count; i++)
             {
                 var itemPrefab = _itemPrefabList[i];
+                if (itemStartIndex > -1)
+                {
+                    //
+                    var tempIndex = (i + itemStartIndex) % _itemPrefabList.Count;
+                    itemPrefab = _itemPrefabList[tempIndex];
+                }
                 var itemIndex = i + startIndex;
                 if (_grid)
                 {
@@ -242,13 +249,24 @@ namespace Ryneus
                 var listItem = itemPrefab.GetComponent<ListItem>();
                 if (_listDates.Count <= itemIndex || _objectList.Count <= itemIndex || itemIndex < 0)
                 {
-                    itemPrefab.SetActive(false);
-                    listItem.SetListData(null, -1);
-                    listItem.SetUnSelect();
-                    continue;
+                    if (itemStartIndex > -1)
+                    {
+                        // 1つ上のグループの最後に設定
+                        itemIndex -= _itemPrefabList.Count;
+                        if (itemIndex < 0)
+                        {
+                            continue;
+                        }
+                    } else
+                    {
+                        itemPrefab.SetActive(false);
+                        listItem.SetListData(null, -1);
+                        listItem.SetUnSelect();
+                        continue;
+                    }
                 }
                 listItem.SetListData(_listDates[itemIndex], itemIndex);
-                //Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + itemIndex);
+                Debug.Log("itemIndex:" + i + "がobjectIndex: " + itemIndex);
                 itemPrefab.transform.SetParent(_objectList[itemIndex].transform, false);
                 itemPrefab.SetActive(true);
             }
@@ -433,7 +451,7 @@ namespace Ryneus
                     _selectedHandler?.Invoke();
                     return;
                 }
-                UpdateItemPrefab();
+                UpdateItemPrefab(-1,startIndex % _itemPrefabList.Count);
                 UpdateAllItems();
                 _lastStartIndexX = startIndex;
                 _selectedHandler?.Invoke();
@@ -608,12 +626,11 @@ namespace Ryneus
                         break;
                     }
                 }
-            }
-            else
+            } else
             if (keyTypes.Contains(pageUpKey) || keyTypes.Contains(pageDownKey))
             {
                 // 列移動
-                var lines = _horizontal ? Cols() : Rows();
+                var lines = _horizontal ? Rows() : Cols();
                 if (lines > 1)
                 {
                     for (int i = 0; i < lines; i++)
@@ -813,7 +830,8 @@ namespace Ryneus
             {
                 if (keyTypes.Contains(plusKey))
                 {
-                    if (itemPosition < 0)
+                    var viewPortPosition = GetCornerPosition(_scrollRect.viewport.gameObject, 0, false);
+                    if (itemPosition < viewPortPosition)
                     {
                         var c = _index - verticalCount + 1;
                         var per = 1f - (c / p);

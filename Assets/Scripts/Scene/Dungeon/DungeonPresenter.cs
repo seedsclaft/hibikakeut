@@ -58,6 +58,15 @@ namespace Ryneus
                 case CommandType.Heal:
                     CommandHeal();
                     break;
+                case CommandType.Formation:
+                    CommandFormation();
+                    break;
+                case CommandType.SelectCharacter:
+                    CommandSelectCharacter((int)viewEvent.Template);
+                    break;
+                case CommandType.EndFormation:
+                    CommandEndFormation();
+                    break;
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu();
                     break;
@@ -194,7 +203,7 @@ namespace Ryneus
                             var clearStageItem = new GetItemData
                             {
                                 Type = GetItemType.ClearStage,
-                                Param1 = _model.CurrentStage.StageId.Value
+                                Param1 = _model.CurrentStage.Master.StageNo
                             };
                             var clearStageGetItemInfo = new GetItemInfo(clearStageItem);
                             battleSceneInfo.GetItemInfos = new()
@@ -388,6 +397,36 @@ namespace Ryneus
                 cautionInfo.SetTitle("回復できませんでした");
                 _view.CommandCallCaution(cautionInfo);
             }
+        }
+
+        private void CommandFormation()
+        {
+            _model.DungeonBusy(true);
+            _view.StartFormation();
+        }
+
+        private void CommandSelectCharacter(int selectIndex)
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            if (_model.SelectIndex.Value > -1)
+            {
+                _model.SwapSelectIndex(selectIndex);
+                _view.UpdatePartyUnitList(MakeListData(_model.PartyUnit()));
+                _view.StartFormation();
+                _view.UpdateSelectCursor(new List<int>(){});
+                return;
+            }
+            _model.SelectIndex.SetValue(selectIndex);
+            _view.UpdateSelectCursor(new List<int>(){_model.SelectedCharacterIndex()});
+        }
+
+        private void CommandEndFormation()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            _view.UpdateSelectCursor(new List<int>(){});
+            _view.EndFormation();
+            _model.SelectIndex.SetValue(-1);
+            _model.DungeonBusy(false);
         }
 
         private void CommandSelectSideMenu()

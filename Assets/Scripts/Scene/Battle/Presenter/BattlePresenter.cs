@@ -4,7 +4,6 @@ using Cysharp.Threading.Tasks;
 
 namespace Ryneus
 {
-    using System.Diagnostics;
     using Battle;
     public partial class BattlePresenter : BasePresenter
     {
@@ -421,10 +420,15 @@ namespace Ryneus
             if (_model.CheckDefeat())
             {
                 _view.StartBattleStartAnim(DataSystem.GetText(16110));
+                await UniTask.DelayFrame((int)(150f / GameSystem.OptionData.BattleSpeed));
+                _view.CommandGotoSceneChange(Scene.Title);
+                return;
+                /*
                 strategySceneInfo.GetItemInfos = new List<GetItemInfo>();
                 strategySceneInfo.BattleTurn = -1;
                 strategySceneInfo.BattleResultScore = _model.MakeBattleScore(false,strategySceneInfo);
                 strategySceneInfo.BattleResultVictory = false;
+                */
                 //_model.CurrentStage.GainLoseCount();
             } else
             if (_model.CheckVictory())

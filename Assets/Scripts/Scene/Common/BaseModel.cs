@@ -728,7 +728,7 @@ namespace Ryneus
                                 }
                                 var rand = UnityEngine.Random.Range(0,categoryItems.Count);
                                 // 報酬設定
-                                var getItemInfo = MakeGetItemInfo(GetItemType.Item,categoryItems[rand].Id);
+                                var getItemInfo = MakeGetItemInfo(GetItemType.Item,categoryItems[rand].Id,1);
                                 getItemInfos.Add(getItemInfo);
                             }
                         }

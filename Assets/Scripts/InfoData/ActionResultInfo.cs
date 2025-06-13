@@ -252,6 +252,9 @@ namespace Ryneus
                 case FeatureType.ActiveCtHeal:
                     MakeActiveCtHeal(subject, target, featureData);
                     return;
+                case FeatureType.MostCtTurnCtHeal:
+                    MakeMostCtTurnCtHeal(subject, target, featureData);
+                    return;
                 case FeatureType.AddState:
                     MakeAddState(subject, target, featureData, true);
                     return;
@@ -770,6 +773,27 @@ namespace Ryneus
         private void MakeActiveCtHeal(BattlerInfo subject, BattlerInfo target, SkillData.FeatureData featureData)
         {
             CtHealSkillId.SetValue(subject.LastSelectSkill.Value);
+            float HealValue = featureData.Param1;
+            CtHeal.SetValue((int)Mathf.Round(HealValue));
+        }
+
+        private void MakeMostCtTurnCtHeal(BattlerInfo subject, BattlerInfo target, SkillData.FeatureData featureData)
+        {
+            var ct = 0;
+            var skillId = 0;
+            foreach (var skill in target.Skills)
+            {
+                if (skill.Master.CountTurn > ct)
+                {
+                    skillId = skill.Id.Value;
+                    ct = skill.Master.CountTurn;
+                }
+            }
+            if (skillId == 0)
+            {
+                return;
+            }
+            CtHealSkillId.SetValue(skillId);
             float HealValue = featureData.Param1;
             CtHeal.SetValue((int)Mathf.Round(HealValue));
         }

@@ -15,7 +15,11 @@ namespace Ryneus
         [SerializeField] private BattleBattlerList partyUnitList = null;
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private PartyInfoComponent partyInfoComponent = null;
-        [SerializeField] private OnOffButton healButton = null;
+        [SerializeField] private Button formationButton = null;
+        [SerializeField] private InputInfoComponent formationInpurKey = null;
+        [SerializeField] private Button healButton = null;
+        [SerializeField] private InputInfoComponent healInpurKey = null;
+        //[SerializeField] private OnOffButton healButton = null;
 
         public override void Initialize()
         {
@@ -24,10 +28,25 @@ namespace Ryneus
             InitializePartyUnitList();
             if (healButton != null)
             {
-                healButton.OnClickAddListener(() =>
+                healButton.onClick.AddListener(() =>
                 {
                     CallViewEvent(CommandType.Heal);
                 });
+            }
+            if (healInpurKey != null)
+            {
+                healInpurKey.UpdateGuideIcon(9);
+            }
+            if (formationButton != null)
+            {
+                formationButton.onClick.AddListener(() =>
+                {
+                    CallViewEvent(CommandType.Formation);
+                });
+            }
+            if (formationInpurKey != null)
+            {
+                formationInpurKey.UpdateGuideIcon(8);
             }
             SideMenuButton.OnClickAddListener(() =>
             {
@@ -47,6 +66,8 @@ namespace Ryneus
         private void InitializePartyUnitList()
         {
             partyUnitList.Initialize();
+            partyUnitList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.SelectCharacter,partyUnitList.Index));
+            partyUnitList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.EndFormation));
             AddViewActives(partyUnitList);
         }
 
@@ -54,6 +75,18 @@ namespace Ryneus
         {
             partyUnitList.SetData(listDatas);
             SetActivate(null);
+        }
+
+        public void UpdatePartyUnitList(List<ListData> listDatas)
+        {
+            var lastIndex = partyUnitList.Index;
+            partyUnitList.SetData(listDatas);
+            partyUnitList.UpdateSelectIndex(lastIndex);
+        }
+
+        public void UpdateSelectCursor(List<int> targetIndexes)
+        {
+            partyUnitList.UpdateSelectIndexList(targetIndexes);
         }
 
         private void CallSideMenu()
@@ -65,6 +98,18 @@ namespace Ryneus
         {
             stageInfoComponent.UpdateCurrent();
             partyInfoComponent.UpdateCurrentInfo();
+        }
+
+        public void StartFormation()
+        {
+            SetActivate(partyUnitList);
+            partyUnitList.UpdateSelectIndex(0);
+        }
+
+        public void EndFormation()
+        {
+            partyUnitList.UpdateSelectIndex(-1);
+            SetActivate(null);
         }
 
         public void SetHelpWindow()
@@ -79,9 +124,13 @@ namespace Ryneus
             {
                 CallSideMenu();
             } else
-            if (keyTypes.Contains(InputKeyType.Option2))
+            if (keyTypes.Contains(InputKeyType.SideRight1))
             {
                 CallViewEvent(CommandType.Heal);
+            } else
+            if (keyTypes.Contains(InputKeyType.SideLeft1))
+            {
+                CallViewEvent(CommandType.Formation);
             }
             moveController.UpdateKey(keyTypes);
         }
@@ -103,6 +152,9 @@ namespace Ryneus
             None = 0,
             MoveEnd,
             Heal,
+            Formation,
+            SelectCharacter,
+            EndFormation,
             SelectSideMenu
         }
     }

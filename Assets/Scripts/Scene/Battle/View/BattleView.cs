@@ -523,6 +523,10 @@ namespace Ryneus
 
         public void StartAnimation(int targetIndex,EffekseerEffectAsset effekseerEffectAsset,AnimationPosition animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
         {
+            if (!_battlerComps.ContainsKey(targetIndex))
+            {
+                return;
+            }
             magicList.gameObject.SetActive(false);
             if (GameSystem.OptionData.BattleAnimationSkip == true) 
             {
@@ -581,31 +585,55 @@ namespace Ryneus
 
         public void StartDamage(int targetIndex,DamageType damageType,int value,bool needPopupDelay = true)
         {
+            if (!_battlerComps.ContainsKey(targetIndex))
+            {
+                return;
+            }
             _battlerComps[targetIndex].StartDamage(damageType,value,needPopupDelay);
         }
 
         public void StartBlink(int targetIndex)
         {
+            if (!_battlerComps.ContainsKey(targetIndex))
+            {
+                return;
+            }
             _battlerComps[targetIndex].StartBlink();
         }
 
         public void StartHeal(int targetIndex,DamageType damageType, int value, bool needPopupDelay = true)
         {
+            if (!_battlerComps.ContainsKey(targetIndex))
+            {
+                return;
+            }
             _battlerComps[targetIndex].StartHeal(damageType,value,needPopupDelay);
         }
 
         public void StartStatePopup(int targetIndex, DamageType damageType, string stateName, bool buff = false, bool debuff = false)
         {
+            if (!_battlerComps.ContainsKey(targetIndex))
+            {
+                return;
+            }
             _battlerComps[targetIndex].StartStatePopup(damageType,stateName,buff,debuff);
         }
 
         public void StartDeathAnimation(int targetIndex)
         {
+            if (!_battlerComps.ContainsKey(targetIndex))
+            {
+                return;
+            }
             _battlerComps[targetIndex].StartDeathAnimation();
         }
 
         public void StartAliveAnimation(int targetIndex)
         {
+            if (!_battlerComps.ContainsKey(targetIndex))
+            {
+                return;
+            }
             _battlerComps[targetIndex].ResetDeathMaterial();
         }
 

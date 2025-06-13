@@ -17,7 +17,10 @@ namespace Ryneus
 
         public void UpdateViewItem()
         {
-            if (ListData == null) return;
+            if (ListData == null)
+            {
+                return;
+            }
             var data = ListItemData<SaveFileInfo>();
             saveData?.SetActive(data.ActorId > 0);
             newGame?.SetActive(data.ActorId <= 0);
@@ -27,7 +30,7 @@ namespace Ryneus
                 actorInfoComponent.UpdateData(DataSystem.FindActor(data.ActorId));
                 stageInfoComponent.UpdateData(DataSystem.FindStage(data.StageNo));
                 saveTime?.SetText(data.SaveTime);
-                var hours = data.PlayTime / 360;
+                var hours = data.PlayTime / 3600;
                 var minutes = data.PlayTime / 60;
                 var seconds = data.PlayTime % 60;
                 playTime?.SetText(hours.ToString("00") + ":" + minutes.ToString("00") + ":" + seconds.ToString("00"));

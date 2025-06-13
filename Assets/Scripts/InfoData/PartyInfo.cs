@@ -97,6 +97,20 @@ namespace Ryneus
             _items[itemId].GainValue(num * -1,0,9999);
         }
 
+        public List<SkillInfo> AritifactSkills()
+        {
+            var list = new List<SkillInfo>();
+            foreach (var item in _items)
+            {
+                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
+                if (itemData.ItemType == ItemType.Artifact && item.Value.Value > 0)
+                {
+                    list.Add(new SkillInfo(itemData.Param1));
+                }
+            }
+            return list;
+        }
+
         // フェーズ
         public ParameterInt Chapter = new();
 

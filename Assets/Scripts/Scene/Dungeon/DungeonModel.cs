@@ -7,9 +7,44 @@ namespace Ryneus
     public class DungeonModel : BaseModel
     {
         private MoveController _moveController;
+        public ParameterInt SelectIndex = new(-1);
         public DungeonModel(MoveController moveController)
         {
             _moveController = moveController;
+        }
+
+        public int SelectedCharacterIndex()
+        {
+            var index = 0;
+            var idx = 0;
+            foreach (var battlerInfo in PartyUnit())
+            {
+                if (SelectIndex.Value == idx && battlerInfo.ActorInfo != null)
+                {
+                    index = battlerInfo.Index.Value;
+                }
+                idx++;
+            }
+            return index;
+        }
+
+        public void SwapSelectIndex(int selectIndex)
+        {
+            var toActorId = -1;
+            var idx = 0;
+            foreach (var battlerInfo in PartyUnit())
+            {
+                if (selectIndex == idx && battlerInfo.ActorInfo != null)
+                {
+                    toActorId = battlerInfo.ActorInfo.ActorId.Value;
+                }
+                idx++;
+            }
+            //if (toActorId > -1)
+            {
+                CurrentDeckInfo.SwapBattler(SelectIndex.Value+1,toActorId,selectIndex+1);
+            }
+            SelectIndex.SetValue(-1);
         }
 
         // 開示マスを復帰

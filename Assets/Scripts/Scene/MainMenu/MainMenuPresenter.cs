@@ -68,6 +68,9 @@ namespace Ryneus
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu();
                     break;
+                case CommandType.Aritifact:
+                    CommandAritifact();
+                    break;
             }
         }
 
@@ -231,6 +234,28 @@ namespace Ryneus
             {
                 _busy = false;
             });
+        }
+
+        private void CommandAritifact()
+        {
+            if (_model.PartyInfo.AritifactSkills().Count == 0)
+            {
+                return;
+            }
+            _busy = true;
+            _view.SetActiveCommandList(false);
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.ArtifactList,
+                template = null,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    _view.SetActiveCommandList(true);
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
         }
     }
 }

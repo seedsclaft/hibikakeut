@@ -168,16 +168,17 @@ namespace Ryneus
                 _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
             }
             // アルカナ
-            /*
-            var alcana = new BattlerInfo(AlcanaSkillInfos(),true,1);
-            _battleRecords[alcana.Index] = new BattleRecord(alcana.Index);
-            _battlers.Add(alcana);
-            */
+            if (PartyInfo.AritifactSkills().Count > 0)
+            {
+                var alcana = new BattlerInfo(PartyInfo.AritifactSkills(),true,1);
+                _battleRecords[alcana.Index.Value] = new BattleRecord(alcana.Index.Value);
+                _battlers.Add(alcana);
+            }
 
             _party = new UnitInfo();
-            _party.SetBattlers(_battlers.FindAll(a => a.IsActor));
+            _party.SetBattlers(FieldBattlerInfos().FindAll(a => a.IsActor));
             _troop = new UnitInfo();
-            _troop.SetBattlers(_battlers.FindAll(a => !a.IsActor));
+            _troop.SetBattlers(FieldBattlerInfos().FindAll(a => !a.IsActor));
             //_saveBattleInfo.SetParty(_party.CopyData());
             //_saveBattleInfo.SetTroop(_troop.CopyData());
         }
@@ -2218,6 +2219,38 @@ namespace Ryneus
                                 }
                             }
                             break;
+                            case TriggerType.HasMostCountTurnSKill:
+                                if (battlerInfo.IsAlive())
+                                {
+                                    if (actionInfo != null && battlerInfo.IsActor == GetBattlerInfo(actionInfo.SubjectIndex.Value).IsActor)
+                                    {
+                                        var mostCountTurn = -1;
+                                        var mostCountTurnIndex = -1;
+                                        foreach (var targetIndex in actionInfo.ResultTargetIndexes())
+                                        {
+                                            var target = GetBattlerInfo(targetIndex);
+                                            foreach (var skill in target.Skills)
+                                            {
+                                                if (skill.Master.CountTurn > mostCountTurn)
+                                                {
+                                                    mostCountTurn = skill.Master.CountTurn;
+                                                    mostCountTurnIndex = targetIndex;
+                                                }
+                                            }
+                                        }
+                                        if (mostCountTurn > -1 && mostCountTurnIndex > -1)
+                                        {
+                                            foreach (var actionResultInfo in actionInfo.ActionResults)
+                                            {
+                                                if (actionResultInfo.TargetIndex.Value == mostCountTurnIndex)
+                                                {
+                                                    IsTriggered = true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
                         }
                     }
                     // Param3をAnd条件フラグにする

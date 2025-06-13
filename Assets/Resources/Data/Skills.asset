@@ -5541,23 +5541,35 @@ MonoBehaviour:
     CountTurn: 0
     Rank: 220
     Attribute: 4
-    Scope: 3
+    Scope: 1
     SkillType: 5
     TargetType: 2
-    Help: "\u9B54\u6CD5\u306E\u914D\u5217\u5909\u63DB\u304C\u53EF\u80FD\u306B\u306A\u308B"
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\u524D\u885B\u306E\u4E2D\u30671\u756ACT\u304C\u9577\u3044\u9B54\u6CD5\u306ECT-1"
     Range: 2
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 310030
-      FeatureType: 40020
+      FeatureType: 4041
       Param1: 1
       Param2: 0
       Param3: 0
       Rate: 100
-    TriggerDates: []
-    ScopeTriggers: []
+    TriggerDates:
+    - SkillId: 310030
+      TriggerType: 0
+      TriggerTiming: 4
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers:
+    - SkillId: 310030
+      TriggerType: 24010
+      TriggerTiming: 2
+      Param1: 0
+      Param2: 0
+      Param3: 0
   - Id: 310130
     Name: "\u30D2\u30FC\u30EB\u30E6\u30CB\u30C3\u30C8"
     IconIndex: 6

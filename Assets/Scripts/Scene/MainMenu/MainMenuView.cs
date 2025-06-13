@@ -11,6 +11,9 @@ namespace Ryneus
         [SerializeField] private PartyInfoComponent component;
         [SerializeField] private BaseList commandList;
         [SerializeField] private TacticsCharaLayer tacticsCharaLayer;
+        [SerializeField] private AlcanaInfoComponent alcanaInfoComponent;
+        [SerializeField] private Button alcanaInfoButton;
+
         public override void Initialize()
         {
             base.Initialize();
@@ -20,6 +23,10 @@ namespace Ryneus
             {
                 CallSideMenu();
             });
+            if (alcanaInfoButton != null)
+            {
+                alcanaInfoButton.onClick.AddListener(() => CallViewEvent(CommandType.Aritifact));
+            }
             SetInputHandler(gameObject);
             CommandRefresh();
             _ = new MainMenuPresenter(this);
@@ -29,6 +36,7 @@ namespace Ryneus
         {
             commandList.Initialize();
             commandList.SetInputHandler(InputKeyType.Decide,() => CallMainMenuCommand());
+            commandList.SetInputHandler(InputKeyType.Option1,() => CallSideMenu());
             AddViewActives(commandList);
         }
 
@@ -70,6 +78,7 @@ namespace Ryneus
         public void CommandRefresh()
         {
             component.UpdateCurrentInfo();
+            alcanaInfoComponent.UpdateCurrentInfo();
         }
 
         public void SetActiveCommandList(bool isActive)
@@ -95,6 +104,7 @@ namespace Ryneus
             None = 0,
             MainMenuCommand,
             SelectSideMenu,
+            Aritifact
         }
     }
 }

@@ -78,6 +78,12 @@ namespace Ryneus
 
         private void OnSelectEquipSkill()
         {
+            if (decideButton.gameObject.activeSelf)
+            {
+                // この場合は仲間決定動作
+                CallViewEvent(CommandType.DecideActor);
+                return;
+            }
             var data = equipSkillList.ListItemData<SkillInfo>();
             if (data != null)
             {

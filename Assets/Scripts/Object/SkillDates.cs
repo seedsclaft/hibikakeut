@@ -426,6 +426,7 @@ namespace Ryneus
         DemigodMagicAttribute = 20150, // Demigod魔法の属性が〇の味方が神化する
         ActionResultSelfDeath = 20160, // 自身が戦闘不能になる攻撃を受ける
         InterruptAttackDodge = 23010, // 攻撃を回避した時
+        HasMostCountTurnSKill = 24010, // 対象の中で1番CTの長い魔法を持っている
         ExtendStageTurn = 30010, // 存在猶予を延長している
         DungeonMoveEnd = 40010, // ダンジョンで移動する
         NextPeriod = 40020, // ピリオド経過
@@ -482,6 +483,7 @@ namespace Ryneus
         CtHeal = 4020,
         CtDrain = 4030,
         ActiveCtHeal = 4040,
+        MostCtTurnCtHeal = 4041,
         SetAfterAp = 5010,
         SetAfterApHalf = 5011,
         ActionResultSetAp = 5012,

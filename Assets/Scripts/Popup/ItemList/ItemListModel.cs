@@ -47,7 +47,6 @@ namespace Ryneus
             }
         }
 
-        
         public bool CanPresent()
         {
             return _useCount.Where(a => a.Value.Value > 0).Count() > 0;
@@ -72,11 +71,18 @@ namespace Ryneus
             var itemData = DataSystem.Items.Find(a => a.Id == itemId);
             if (itemData != null)
             {
-                for (int i = 0;i < num;i++)
+                var count = 0;
+                while (list.Count != num)
                 {
                     var getItemInfo = MakeItemGetItemInfo(itemData);
-                    if (getItemInfo != null)
+                    if (getItemInfo != null && list.Find(a => a.Param1 == getItemInfo.Param1) == null)
                     {
+                        list.Add(getItemInfo);
+                    }
+                    count++;
+                    if (count > 99)
+                    {
+                        getItemInfo = MakeGetItemInfo(GetItemType.Currency,10,0);
                         list.Add(getItemInfo);
                     }
                 }

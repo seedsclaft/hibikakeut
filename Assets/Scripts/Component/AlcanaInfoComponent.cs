@@ -5,11 +5,20 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class AlcanaInfoComponent : MonoBehaviour
+    public class AlcanaInfoComponent : BaseInfoComponent
     {
         [SerializeField] private GameObject alcana;
         [SerializeField] private TextMeshProUGUI alcanaCount;
         [SerializeField] private _2dxFX_Shiny_Reflect shinyReflect;
+        public void UpdateCurrentInfo()
+        {
+            var current = PartyInfo;
+            if (current != null)
+            {
+                UpdateInfo(current.AritifactSkills());
+            }
+        }
+
         public void UpdateInfo(List<SkillInfo> skillInfos)
         {
             alcana?.gameObject.SetActive(skillInfos.Count > 0);

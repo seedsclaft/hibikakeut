@@ -42,7 +42,7 @@ namespace Ryneus
                 {
                     continue;
                 }
-                var cleared = PartyInfo.IsClaeredStage(stageData.Id);
+                var cleared = PartyInfo.IsClaeredStage(stageData.StageNo);
                 var stageInfo = new StageInfo(stageData.Id,cleared);
                 list.Add(stageInfo);
             }
