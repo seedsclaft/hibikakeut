@@ -56,6 +56,16 @@ namespace Ryneus
                 {
                     bossLv.SetText(stageInfo.BossLv().ToString());
                 }
+            } else
+            {
+                if (bossName != null)
+                {
+                    bossName.SetText("");
+                }
+                if (bossLv != null)
+                {
+                    bossLv.SetText("");
+                }
             }
             /*
             if (clearCount != null){

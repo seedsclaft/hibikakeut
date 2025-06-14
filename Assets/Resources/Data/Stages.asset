@@ -354,15 +354,6 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 31_8_10DungeonForceBossBattle2010
-      Timing: 3010
-      Type: 5020
-      PositionX: 8
-      PositionY: 10
-      Param: 2010
-      Param2: 0
-      Param3: 0
-      ReadFlag: 1
     - EventKey: 31_8_13DungeonGetArtifact2020
       Timing: 3010
       Type: 3010
@@ -408,12 +399,55 @@ MonoBehaviour:
       Param2: 4
       Param3: 0
       ReadFlag: 0
+    - EventKey: 32_4_6DungeonForceBossBattle2010
+      Timing: 3010
+      Type: 5020
+      PositionX: 4
+      PositionY: 6
+      Param: 2010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
     - EventKey: 32_4_3DungeonGetArtifact2030
       Timing: 3010
       Type: 3010
       PositionX: 4
       PositionY: 3
       Param: 2030
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+  - Id: 1010
+    StageNo: 101
+    Name: "\u5FD8\u5374\u306E\u6D1E\u7A9F"
+    Selectable: 1
+    Help: '""'
+    StageLv: 1
+    DisplayRank: 2
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 3
+      Weight: 15
+    - EnemyId: 6
+      Weight: 15
+    - EnemyId: 1
+      Weight: 20
+    - EnemyId: 7
+      Weight: 20
+    EncountMin: 6
+    EncountMax: 12
+    BackGround: RockCave2
+    BossTroopId: 0
+    BGMId: 1210
+    BossBGMId: 3010
+    MenuBGMId: 100
+    StageEvents:
+    - EventKey: 1010_10_4DungeonGetSkill30010
+      Timing: 3010
+      Type: 3030
+      PositionX: 10
+      PositionY: 4
+      Param: 30010
       Param2: 0
       Param3: 0
       ReadFlag: 1

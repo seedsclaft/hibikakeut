@@ -194,6 +194,11 @@ namespace Ryneus
                         _model.UpdateEventObjects();
                         CommandGetItem(stageEvent.Param);
                         return true;
+                    case StageEventType.GetSkill:
+                        _model.AddEventReadFlag(stageEvent);
+                        _model.UpdateEventObjects();
+                        CommandGetSkill(stageEvent.Param);
+                        return true;
                     case StageEventType.SelectAddActor:
                         // 選択して仲間を加入
                         // 確認後仲間選択
@@ -371,6 +376,36 @@ namespace Ryneus
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void CommandGetSkill(int skillId)
+        {
+            var skill = DataSystem.FindSkill(skillId);
+            if (skill == null)
+            {
+                return;
+            }
+            var learnSkillInfo = new LearnSkillInfo(0,0,new SkillInfo(skillId));
+            SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.LearnSkill,
+                EndEvent = () =>
+                {
+                    var skillGetItemData = new GetItemData
+                    {
+                        Param1 = skill.Id,
+                        Type = GetItemType.Skill
+                    };
+                    var getItemInfo = new GetItemInfo(skillGetItemData);
+                    _model.AddGetItemInfo(getItemInfo);
+                    _busy = false;
+                    CommandRefresh();
+                    _model.DungeonBusy(false);
+                },
+                template = learnSkillInfo
+            };
+            _view.CommandCallPopup(popupInfo);
         }
 
         private void CommandCallAddActorInfo(bool freeSelect,bool addCommand)

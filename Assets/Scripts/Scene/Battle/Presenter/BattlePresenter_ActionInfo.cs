@@ -91,10 +91,9 @@ namespace Ryneus
             if (actionInfo.FirstAttack())
             {
                 await SelfAnimation(actionInfo);
-
-                await ShowCutinBattleThumb(actionInfo);
             }
 
+            await ShowCutinBattleThumb(actionInfo);
             
             //if (actionInfo.Master.IsDisplayBattleSkill())
             //{
@@ -272,11 +271,12 @@ namespace Ryneus
 
         private async UniTask<bool> ShowCutinBattleThumb(ActionInfo actionInfo)
         {
+            var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
             if (actionInfo.TriggeredSkill && actionInfo.Master.SkillType != SkillType.Unique && actionInfo.Master.SkillType != SkillType.Awaken)
             {
-                if (actionInfo.Master.IsDisplayBattleSkill() && _model.GetBattlerInfo(actionInfo.SubjectIndex.Value).IsActor)
+                if (actionInfo.Master.IsDisplayBattleSkill() && subject.IsActor)
                 {
-                    _view.ShowCutinBattleThumb(_model.GetBattlerInfo(actionInfo.SubjectIndex.Value));
+                    _view.ShowCutinBattleThumb(subject);
                     await UniTask.DelayFrame(_model.WaitFrameTime(16));
                 }
             }

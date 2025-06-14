@@ -23,6 +23,11 @@ namespace Ryneus
             CurrentActor.ChangeEquipSkill(changeSkillId,_selectSkillInfo.Id.Value);
         }
 
+        public void RemoveEquipSkill(ActorInfo actorInfo,int removeSkillId)
+        {
+            actorInfo.ChangeEquipSkill(0,removeSkillId);
+        }
+
         public void UpdateActorRemainCost()
         {
             var cost = 0;
@@ -48,6 +53,16 @@ namespace Ryneus
             removeSkill.SetEnable(true);
             changeAbleSkills.Insert(0,removeSkill);
             return changeAbleSkills;
+        }
+
+        public ActorInfo EquipmentSkill(SkillInfo skillInfo)
+        {
+            if (skillInfo.Master.SkillType != SkillType.Equipment)
+            {
+                return null;
+            }
+            var find = PartyInfo.ActorInfos.Find(a => a.EquipmentSkillIds.Contains(skillInfo.Id));
+            return find;
         }
 
         public string HelpText()

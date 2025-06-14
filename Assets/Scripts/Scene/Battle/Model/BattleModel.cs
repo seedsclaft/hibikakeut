@@ -2646,6 +2646,14 @@ namespace Ryneus
                 {
                     gainExp += (31 - (actorInfo.Level.Value - bossLv)) / 3;
                 }
+
+                // 獲得経験値アップ付与
+                var expRateUp = actorInfo.Skills.Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.GetExpRateUp) != null);
+                if (expRateUp != null)
+                {
+                    gainExp *= 1 + (int)(expRateUp.FeatureDates[0].Param1 * 0.01f);
+                }
+
                 if (gainExp <= 0)
                 {
                     gainExp = 1;
@@ -2654,7 +2662,7 @@ namespace Ryneus
                 {
                     gainExp = 100;
                 }
-            
+
                 var expData = new GetItemData
                 {
                     Type = GetItemType.Exp,

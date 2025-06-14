@@ -793,9 +793,12 @@ namespace Ryneus
             {
                 return;
             }
-            CtHealSkillId.SetValue(skillId);
-            float HealValue = featureData.Param1;
-            CtHeal.SetValue((int)Mathf.Round(HealValue));
+            var skillInfo = target.Skills.Find(a => a.Id.Value == skillId);
+            if (skillInfo != null)
+            {
+                float HealValue = featureData.Param1;
+                skillInfo.SetMinusCountTurn((int)HealValue);
+            }
         }
 
         private void MakeAddState(BattlerInfo subject, BattlerInfo target, SkillData.FeatureData featureData, bool checkCounter = false, bool isOneTarget = false, bool removeTimingIsNextTurn = false, int range = 0)

@@ -34,10 +34,12 @@ namespace Ryneus
                 _clearedStages.Add(stageId);
             }
         }
+
         public bool IsClaeredStage(int stageId)
         {
             return _clearedStages.Contains(stageId);
         }
+
         // 開示マス情報
         private Dictionary<int,List<string>> _traverseDict = new();
         public void SetupDungeonTraverse(int dungeonId)
@@ -64,6 +66,7 @@ namespace Ryneus
                 }
             }
         }
+
         public List<string> GetDungeonTraverse(int stageId)
         {
             var traverses = new List<string>();
@@ -88,6 +91,7 @@ namespace Ryneus
             }
             _items[itemId].GainValue(num,0,9999);
         }
+
         public void ConsuneItemNum(int itemId,int num)
         {
             if (!_items.ContainsKey(itemId))

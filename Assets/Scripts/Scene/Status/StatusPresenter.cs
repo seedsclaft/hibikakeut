@@ -184,10 +184,34 @@ namespace Ryneus
             {
                 return;
             }
+
             // 変更する
             if (skillInfo.Enable)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
+
+                // だれかが装備している
+                var equipmentActor = _model.EquipmentSkill(skillInfo);
+                if (equipmentActor != null && equipmentActor.ActorId.Value != _model.CurrentActor.ActorId.Value)
+                {
+                    var confirmInfo = new ConfirmInfo(skillInfo.Master.Name + "は" + equipmentActor.Master.Name + "が装備中です\n付け替えて装備しますか？",(a) =>
+                    {
+                        if (a == ConfirmCommandType.Yes)
+                        {
+                            _model.RemoveEquipSkill(equipmentActor,skillInfo.Id.Value);
+                            _model.ChangeEquipSkill(skillInfo.Id.Value);
+                            ResetSelectSkill();
+                            _model.PartyInfo.StatusSkillChangeCount.GainValue(1);
+                            CheckAchievements();
+                        } else
+                        {
+                        }
+                        _busy = false;
+                    });
+                    _view.CommandCallConfirm(confirmInfo);
+                    return;
+                }
+
                 _model.ChangeEquipSkill(skillInfo.Id.Value);
                 ResetSelectSkill();
                 _model.PartyInfo.StatusSkillChangeCount.GainValue(1);

@@ -185,6 +185,11 @@ namespace Ryneus
 
         public int LearningMagicCost(SkillData skillData, List<ActorInfo> stageMembers)
         {
+            // 装備スキルなら
+            if (skillData.SkillType == SkillType.Equipment)
+            {
+                return ConvertRankCost(skillData.Rank);
+            }
             if (skillData.Attribute == AttributeType.None)
             {
                 return 0;
@@ -271,11 +276,15 @@ namespace Ryneus
                     return 0;
                 case RankType.PassiveRank1:
                 case RankType.EnhanceRank1:
+                case RankType.EquipmentRank1:
                     return 1;
                 case RankType.ActiveRank2:
                 case RankType.PassiveRank2:
                 case RankType.EnhanceRank2:
+                case RankType.EquipmentRank2:
                     return 2;
+                case RankType.EquipmentRank3:
+                    return 3;
             }
             return 1;
         }

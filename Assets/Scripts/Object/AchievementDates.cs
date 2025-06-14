@@ -44,5 +44,8 @@ namespace Ryneus
         PresentCommandCount = 7040,
         ReliefCommandCount = 7050,
         StatusSkillChangeCount = 7080,
+        MissionRank = 8010,
+        ClearStageNum = 8020,
+        PartyEvaluate = 8030,
     }
 }

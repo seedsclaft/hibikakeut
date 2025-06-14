@@ -227,6 +227,7 @@ namespace Ryneus
         Awaken = 4, // 覚醒
         Relic = 5, // レリック
         Enhance = 6, // 強化
+        Equipment = 7, // 装備
         UseAlcana = 11, // アルカナ使用
     }
 
@@ -252,6 +253,9 @@ namespace Ryneus
         EnhanceRank2 = 110,
         RelicRank1 = 200,
         RelicRank2 = 210,
+        EquipmentRank1 = 310,
+        EquipmentRank2 = 320,
+        EquipmentRank3 = 330,
         Uniq = 1000,
     }
 
@@ -513,6 +517,7 @@ namespace Ryneus
         ReflectLastAbnormal = 12010, // 最後に受けたAbnormalを相手に移す
         RobBuffState = 13010, // 対象のバフを奪い取る
         GetItem = 40010, // アイテム入手
+        GetExpRateUp = 40020, // 獲得経験値%アップ
         Numinous = 301,
         TacticsCost = 302,
         EnemyLv = 303,
