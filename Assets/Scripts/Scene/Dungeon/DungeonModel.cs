@@ -159,7 +159,7 @@ namespace Ryneus
         {
             var position = GetForwardPosition();
             var stageEvent = StageEvents(EventTiming.Dungeon,position.x,position.y);
-            return stageEvent.Count > 0;
+            return stageEvent.Count > 0 && (stageEvent[0].Type == StageEventType.GetItem || stageEvent[0].Type == StageEventType.GetArtifact);
         }
 
 

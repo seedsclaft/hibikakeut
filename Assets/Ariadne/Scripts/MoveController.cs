@@ -1630,6 +1630,11 @@ namespace Ariadne
                     animator.Play("Take 001",0,0.3f);
                     animator.speed = 0;
                 }
+                var emitter = eventObj.GetComponentInChildren<Effekseer.EffekseerEmitter>();
+                if (emitter != null)
+                {
+                    emitter.enabled = false;
+                }
             }
         }
 

@@ -89,9 +89,6 @@ namespace Ryneus
                 }
             }
 
-            // 正面にイベントがあるか
-            var directionEvent = _model.CheckDirectionEvent();
-            _view.SetActiveDisplayEventKey(directionEvent);
 
             CommandRefresh();
 
@@ -344,8 +341,7 @@ namespace Ryneus
             {
                 _busy = false;
                 _model.DungeonBusy(false);
-                var directionEvent = _model.CheckDirectionEvent();
-                _view.SetActiveDisplayEventKey(directionEvent);
+                CommandRefresh();
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
@@ -370,8 +366,7 @@ namespace Ryneus
                 var getItemInfo = new GetItemInfo(itemData);
                 _model.AddGetItemInfo(getItemInfo);
                 _busy = false;
-                var directionEvent = _model.CheckDirectionEvent();
-                _view.SetActiveDisplayEventKey(directionEvent);
+                CommandRefresh();
                 _model.DungeonBusy(false);
             });
             confirmInfo.SetIsNoChoice(true);
@@ -473,6 +468,8 @@ namespace Ryneus
 
         private void CommandRefresh()
         {
+            var directionEvent = _model.CheckDirectionEvent();
+            _view.SetActiveDisplayEventKey(directionEvent);
             _view.CommandRefresh();
         }
 
