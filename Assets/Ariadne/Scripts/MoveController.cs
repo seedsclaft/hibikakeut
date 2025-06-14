@@ -1618,6 +1618,21 @@ namespace Ariadne
             }
         }
 
+        public void SetEventEndDeactiveEventObj(int positionX,int positionY)
+        {
+            GameObject eventObj = GetDrawDungeonWall()?.GetWallObjectByAxis(positionX, positionY);
+            if (eventObj != null)
+            {
+                var animator = eventObj.GetComponentInChildren<Animator>();
+                if (animator != null)
+                {
+                    animator.enabled = true;
+                    animator.Play("Take 001",0,0.3f);
+                    animator.speed = 0;
+                }
+            }
+        }
+
         public void UpdateKey(List<InputKeyType> inputKeyTypes)
         {
             if (!isInDungeon)
@@ -1708,6 +1723,11 @@ namespace Ariadne
                 }
             }
 */
+        }
+
+        public Vector2Int GetForwardPosition()
+        {
+            return PlayerPosition.Instance.GetForwardPosition(1);
         }
     }
 }

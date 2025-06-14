@@ -69,7 +69,13 @@ namespace Ryneus
             var endStageEvents = EndStageEvents();
             foreach (var endStageEvent in endStageEvents)
             {
-                _moveController.SetDeactiveEventObj(endStageEvent.PositionX,endStageEvent.PositionY);
+                if (endStageEvent.Type == StageEventType.GetItem || endStageEvent.Type == StageEventType.GetArtifact)
+                {
+                    _moveController.SetEventEndDeactiveEventObj(endStageEvent.PositionX,endStageEvent.PositionY);
+                } else
+                {
+                    _moveController.SetDeactiveEventObj(endStageEvent.PositionX,endStageEvent.PositionY);
+                }
             }
         }
 
@@ -142,6 +148,18 @@ namespace Ryneus
                 actorInfo.ChangeHp(actorInfo.CurrentHp.Value + hpHeal);
             }
             return hpHeal;
+        }
+
+        public UnityEngine.Vector2Int GetForwardPosition()
+        {
+            return _moveController.GetForwardPosition();
+        }
+
+        public bool CheckDirectionEvent()
+        {
+            var position = GetForwardPosition();
+            var stageEvent = StageEvents(EventTiming.Dungeon,position.x,position.y);
+            return stageEvent.Count > 0;
         }
 
 

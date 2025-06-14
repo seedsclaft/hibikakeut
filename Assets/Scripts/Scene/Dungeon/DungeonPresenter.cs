@@ -55,6 +55,9 @@ namespace Ryneus
                 case CommandType.MoveEnd:
                     CommandMoveEnd();
                     break;
+                case CommandType.DecideDirectEvent:
+                    CommandDecideDirectEvent();
+                    break;
                 case CommandType.Heal:
                     CommandHeal();
                     break;
@@ -75,6 +78,7 @@ namespace Ryneus
 
         private void CommandMoveEnd()
         {
+            // 移動したか
             var moved = _model.CommandMoveEnd();
             if (moved)
             {
@@ -84,6 +88,10 @@ namespace Ryneus
                     _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
                 }
             }
+
+            // 正面にイベントがあるか
+            var directionEvent = _model.CheckDirectionEvent();
+            _view.SetActiveDisplayEventKey(directionEvent);
 
             CommandRefresh();
 
@@ -103,7 +111,8 @@ namespace Ryneus
             }
 
             // イベントマスの場合
-            if (CheckEventData(moved,() => {_model.DungeonBusy(false);}))
+            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+            if (CheckEventData(moved,playerPosition,() => {_model.DungeonBusy(false);}))
             {
                 _model.DungeonBusy(true);
                 return;
@@ -129,11 +138,28 @@ namespace Ryneus
             }
         }
 
-        private bool CheckEventData(bool moved,Action endEvent = null)
+        private void CommandDecideDirectEvent()
         {
-            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-            UnityEngine.Debug.Log(playerPosition);
-            var stageEvent = GetStageEventData(EventTiming.Dungeon,playerPosition.x,playerPosition.y);
+            // 正面にイベントがあるか
+            var directionEvent = _model.CheckDirectionEvent();
+            if (!directionEvent)
+            {
+                return;
+            }
+            var playerPosition = _model.GetForwardPosition();
+            if (CheckEventData(true,playerPosition,() =>
+            {
+                _model.DungeonBusy(false);
+            }))
+            {
+                _model.DungeonBusy(true);
+                return;
+            }
+        }
+
+        private bool CheckEventData(bool moved,Vector2Int position,Action endEvent = null)
+        {
+            var stageEvent = GetStageEventData(EventTiming.Dungeon,position.x,position.y);
             if (stageEvent != null)
             {
                 switch (stageEvent.Type)
@@ -141,7 +167,8 @@ namespace Ryneus
                     case StageEventType.AdvStart:
                         // TimeStampを取得してBgmをフェードアウト
                         var timeStamp = SoundManager.Instance.CurrentTimeStamp();
-                        if (CheckAdvEvent(EventTiming.BattleVictory,timeStamp,() => CheckEventData(moved,() => Initialize())))
+                        var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+                        if (CheckAdvEvent(EventTiming.BattleVictory,timeStamp,() => CheckEventData(moved,playerPosition,() => Initialize())))
                         {
                             return true;
                         }
@@ -317,6 +344,8 @@ namespace Ryneus
             {
                 _busy = false;
                 _model.DungeonBusy(false);
+                var directionEvent = _model.CheckDirectionEvent();
+                _view.SetActiveDisplayEventKey(directionEvent);
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
@@ -341,6 +370,8 @@ namespace Ryneus
                 var getItemInfo = new GetItemInfo(itemData);
                 _model.AddGetItemInfo(getItemInfo);
                 _busy = false;
+                var directionEvent = _model.CheckDirectionEvent();
+                _view.SetActiveDisplayEventKey(directionEvent);
                 _model.DungeonBusy(false);
             });
             confirmInfo.SetIsNoChoice(true);

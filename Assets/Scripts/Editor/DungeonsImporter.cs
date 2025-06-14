@@ -72,29 +72,50 @@ namespace Ryneus
                             var front = 0;
                             if (cell != "")
                             {
-                                switch (cell)
+                                if (cell.Contains("■"))
                                 {
-                                    case "■":
-                                        attr = 1;
-                                        break;
-                                    case "Ev":
-                                        attr = 10;
-                                        break;
-                                    case "Out":
-                                        attr = 11;
-                                        break;
-                                    case "Un":
-                                        attr = 12;
-                                        break;
-                                    case "Mv":
-                                        attr = 13;
-                                        break;
-                                    case "Dr":
-                                        attr = 2;
-                                        break;
-                                    case "DrS":
-                                        attr = 3;
-                                        break;
+                                    attr = 1;
+                                } else
+                                if (cell.Contains("Ev"))
+                                {
+                                    attr = 10;
+                                } else
+                                if (cell.Contains("Out"))
+                                {
+                                    attr = 11;
+                                } else
+                                if (cell.Contains("Un"))
+                                {
+                                    attr = 12;
+                                } else
+                                if (cell.Contains("Mv"))
+                                {
+                                    attr = 13;
+                                } else
+                                if (cell.Contains("DrS"))
+                                {
+                                    attr = 3;
+                                } else
+                                if (cell.Contains("Dr"))
+                                {
+                                    attr = 2;
+                                } else
+                                if (cell.Contains("Tr"))
+                                {
+                                    attr = 6;
+                                }
+                                
+                                if (cell.Contains("D2"))
+                                {
+                                    front = 2;
+                                } else
+                                if (cell.Contains("D3"))
+                                {
+                                    front = 3;
+                                } else
+                                if (cell.Contains("D1"))
+                                {
+                                    front = 1;
                                 }
                             }
                             var map = new Ariadne.MapInfo

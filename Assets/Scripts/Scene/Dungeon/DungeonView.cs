@@ -15,10 +15,12 @@ namespace Ryneus
         [SerializeField] private BattleBattlerList partyUnitList = null;
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private PartyInfoComponent partyInfoComponent = null;
-        [SerializeField] private Button formationButton = null;
+        [SerializeField] private OnOffButton formationButton = null;
         [SerializeField] private InputInfoComponent formationInpurKey = null;
-        [SerializeField] private Button healButton = null;
+        [SerializeField] private OnOffButton healButton = null;
         [SerializeField] private InputInfoComponent healInpurKey = null;
+        [SerializeField] private OnOffButton decideButton = null;
+        [SerializeField] private InputInfoComponent decideInpurKey = null;
         //[SerializeField] private OnOffButton healButton = null;
 
         public override void Initialize()
@@ -26,9 +28,20 @@ namespace Ryneus
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Dungeon);
             InitializePartyUnitList();
+            if (decideButton != null)
+            {
+                decideButton.OnClickAddListener(() =>
+                {
+                    CallViewEvent(CommandType.DecideDirectEvent);
+                });
+            }
+            if (decideInpurKey != null)
+            {
+                decideInpurKey.UpdateGuideIcon(4);
+            }
             if (healButton != null)
             {
-                healButton.onClick.AddListener(() =>
+                healButton.OnClickAddListener(() =>
                 {
                     CallViewEvent(CommandType.Heal);
                 });
@@ -39,7 +52,7 @@ namespace Ryneus
             }
             if (formationButton != null)
             {
-                formationButton.onClick.AddListener(() =>
+                formationButton.OnClickAddListener(() =>
                 {
                     CallViewEvent(CommandType.Formation);
                 });
@@ -131,8 +144,24 @@ namespace Ryneus
             if (keyTypes.Contains(InputKeyType.SideLeft1))
             {
                 CallViewEvent(CommandType.Formation);
+            } else
+            if (keyTypes.Contains(InputKeyType.Decide))
+            {
+                if (decideButton.gameObject.activeSelf && !partyUnitList.Active)
+                {
+                    CallViewEvent(CommandType.DecideDirectEvent);
+                }
             }
             moveController.UpdateKey(keyTypes);
+        }
+
+        public void SetActiveDisplayEventKey(bool isActive)
+        {
+            if (decideButton == null)
+            {
+                return;
+            }
+            decideButton.gameObject.SetActive(isActive);
         }
 
         public void SetActiveStageInfo(bool isActive)
@@ -151,6 +180,7 @@ namespace Ryneus
         {
             None = 0,
             MoveEnd,
+            DecideDirectEvent,
             Heal,
             Formation,
             SelectCharacter,
