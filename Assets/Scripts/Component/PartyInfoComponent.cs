@@ -29,7 +29,9 @@ namespace Ryneus
             }
             if (period != null)
             {
-                period.SetText(partyInfo.Period.Value.ToString());
+                var periodValue = partyInfo.Period.Value > 6 ? 6 :partyInfo.Period.Value;
+                // 6超えてても6で表示
+                period.SetText(periodValue.ToString());
             }
             if (chapter != null)
             {

@@ -27,6 +27,7 @@ namespace Ryneus
                 }
                 list.Add(itemInfo);
             }
+            list.Sort((a,b) => a.Id.Value - b.Id.Value > 0 ? 1: -1);
             return list;
         }
 

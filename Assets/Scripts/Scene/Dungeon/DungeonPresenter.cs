@@ -29,13 +29,14 @@ namespace Ryneus
 
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
             _view.SetActiveStageInfo(_model.IsActiveDungeon());
+            await PlayTacticsBgm(_model.DungeonBgmTimeStamp());
             // ダンジョン生成
             _view.CommandChangeDungeon(_model.DungeonPrefabName());
-            await PlayTacticsBgm(_model.DungeonBgmTimeStamp());
             _view.SetupDungeon();
             _model.UpdateTraverses();
             _model.SetPlayerPosition();
             _model.UpdateEventObjects();
+            CommandRefresh();
             _busy = false;
         }
 
@@ -92,26 +93,24 @@ namespace Ryneus
 
             CommandRefresh();
 
-            // ターン数が0の場合
-            if (_model.EndDungeonByTurnCount())
-            {
-                SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
-                _model.DungeonBusy(true);
-                var confirmInfo = new ConfirmInfo("残りターン数が枯渇したため帰還します!",(a) => 
-                {
-                    _model.ReturnDungeon();
-                    _view.CommandSceneChange(Scene.MainMenu);
-                });
-                confirmInfo.SetIsNoChoice(true);
-                _view.CommandCallConfirm(confirmInfo);
-                return;
-            }
 
             // イベントマスの場合
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
             if (CheckEventData(moved,playerPosition,() => {_model.DungeonBusy(false);}))
             {
                 _model.DungeonBusy(true);
+                // ターン数が0の場合
+                if (_model.EndDungeonByTurnCount())
+                {
+                    CommandTurnOver();
+                }
+                return;
+            }
+
+            // ターン数が0の場合
+            if (_model.EndDungeonByTurnCount())
+            {
+                CommandTurnOver();
                 return;
             }
 
@@ -133,6 +132,19 @@ namespace Ryneus
                 _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
                 SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
             }
+        }
+
+        private void CommandTurnOver()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
+            _model.DungeonBusy(true);
+            var confirmInfo = new ConfirmInfo("残りターン数が枯渇したため帰還します!",(a) => 
+            {
+                _model.ReturnDungeon();
+                _view.CommandSceneChange(Scene.MainMenu);
+            });
+            confirmInfo.SetIsNoChoice(true);
+            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CommandDecideDirectEvent()
