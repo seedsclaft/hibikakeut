@@ -240,6 +240,7 @@ namespace Ryneus
         Tactics,
         Strategy,
         Dungeon,
+        Interlude,
         Slot,
         FastBattle,
         Result,

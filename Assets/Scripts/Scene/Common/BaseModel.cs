@@ -706,13 +706,6 @@ namespace Ryneus
                 }
                 PartyInfo.EvaluationValue.GainValue(-4 * artifactNum,0);
             }
-            // 6ピリオドでチャプター切り替え
-            if (PartyInfo.Period.Value > 6)
-            {
-                PartyInfo.Period.SetValue(1);
-                PartyInfo.Chapter.GainValue(1);
-                PartyInfo.ThisPeriodReliefCount.SetValue(0);
-            }
         }
 
         private void CheckItemGetSkill()

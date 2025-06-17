@@ -39,7 +39,7 @@ namespace Ryneus
             else
             {
                 var loadSuccess = await SaveSystem.LoadPlayerInfo();
-                if (loadSuccess == false)
+                if (!loadSuccess)
                 {
                     var confirmInfo = new ConfirmInfo(DataSystem.GetText(13330), (a) => UpdatePopup(a));
                     confirmInfo.SetIsNoChoice(true);

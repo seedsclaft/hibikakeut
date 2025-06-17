@@ -41,6 +41,7 @@ namespace Ryneus
         BattleParty,
         Strategy,
         Dungeon,
+        Interlude,
         FileList,
         CharacterList,
         UnitInfoList,

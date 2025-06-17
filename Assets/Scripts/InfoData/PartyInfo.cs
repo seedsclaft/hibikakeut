@@ -27,6 +27,7 @@ namespace Ryneus
         public ParameterInt TurnCount = new();
 
         private List<int> _clearedStages = new();
+        public List<int> ClearedStages => _clearedStages;
         public void ClearStage(int stageId)
         {
             if (!IsClaeredStage(stageId))
@@ -387,6 +388,11 @@ namespace Ryneus
                 var find = _actorInfos.Find(a => a.ActorId.Value == actorId.Value);
                 find?.ChangeHp(find.CurrentHp.Value + 10);
             }
+        }
+
+        public int PartyEvaluate()
+        {
+            return _actorInfos.Sum(a => a.Evaluate());
         }
     }
 }

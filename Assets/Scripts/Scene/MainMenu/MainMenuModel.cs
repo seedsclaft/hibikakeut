@@ -6,6 +6,18 @@ namespace Ryneus
 {
     public class MainMenuModel : BaseModel
     {
+        public bool InterludePhase()
+        {
+            // 6ピリオドでチャプター切り替え
+            if (PartyInfo.Period.Value > 6)
+            {
+                //PartyInfo.Period.SetValue(1);
+                //PartyInfo.Chapter.GainValue(1);
+                //PartyInfo.ThisPeriodReliefCount.SetValue(0);
+                return true;
+            }
+            return false;
+        }
 
         public bool IsEnding()
         {

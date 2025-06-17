@@ -26,6 +26,7 @@ namespace Ryneus
         {
             _view.SetHelpWindow();
             _view.SetEvent((type) => UpdateCommand(type));
+
             if (_model.IsEnding())
             {
                 // エンディング再生
@@ -47,6 +48,18 @@ namespace Ryneus
 
             var bgm = await _model.GetBgmData("Mainmenu");
             SoundManager.Instance.PlayBgm(bgm,1.0f,true);
+            // 幕間に移動
+            if (_model.InterludePhase())
+            {
+                _busy = true;
+                var confirmInfo = new ConfirmInfo("Periodが終了しヘイムダルから定期報告が入りました。",(a) =>
+                {
+                    _view.CommandGotoSceneChange(Scene.Interlude);
+                });
+                confirmInfo.SetIsNoChoice(true);
+                _view.CommandCallConfirm(confirmInfo);
+                return;
+            }
             _busy = false;
         }
 

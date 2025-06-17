@@ -6,6 +6,7 @@ namespace Ryneus
     {
         public void MakeStageInfo(int stageId,bool startStage,int clearCount = 0)
         {
+            SaveDungeonPlayerData();
             var stageInfo = new StageInfo(stageId);
 
             // ダンジョンターン数を設定

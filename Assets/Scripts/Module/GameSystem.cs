@@ -204,7 +204,11 @@ namespace Ryneus
                     break;
                 case Base.CommandType.DecidePlayerName:
                     string playerName = (string)advEngine.Param.GetParameter("PlayerName");
-                    advEngine.Param.SetParameterString("PlayerName", (string)viewEvent.Template);
+                    var name = (string)viewEvent.Template;
+                    if (name != null)
+                    {
+                        advEngine.Param.SetParameterString("PlayerName", (string)viewEvent.Template);
+                    }
                     break;
                 case Base.CommandType.CallLoading:
                     loadingView.gameObject.SetActive(true);
@@ -215,7 +219,8 @@ namespace Ryneus
                     SetIsNotBusyMainAndStatus();
                     break;
                 case Base.CommandType.SetRouteSelect:
-                    int routeSelect = (int)advEngine.Param.GetParameter("RouteSelect");
+                    //int routeSelect = (int)advEngine.Param.GetParameter("RouteSelect");
+                    advEngine.Param.SetParameterInt("RouteSelect", (int)viewEvent.Template);
                     break;
                 case Base.CommandType.ChangeViewToTransition:
                     transitionRoot.SetActive(true);
@@ -427,8 +432,8 @@ namespace Ryneus
             {
                 while (advEngine.IsWaitBootLoading) yield return null;
                 while (advEngine.IsLoading) yield return null;
-                advEngine.Param.SetParameterBoolean("SelectionParam_0", false);
-                advEngine.Param.SetParameterBoolean("SelectionParam_1", false);
+                //advEngine.Param.SetParameterBoolean("SelectionParam_0", false);
+                //advEngine.Param.SetParameterBoolean("SelectionParam_1", false);
                 advEngine.JumpScenario(label);
                 advEngine.Config.IsSkip = OptionData.EventTextSkipIndex;
                 advController.StartAdv();
@@ -465,7 +470,7 @@ namespace Ryneus
             }
             if (true)
             {
-                mapAssign.gameObject.SetActive(sceneInfo.ToScene != Scene.MainMenu);
+                mapAssign.gameObject.SetActive(sceneInfo.ToScene == Scene.Dungeon);
                 /*
                 if (sceneInfo.ToScene != Scene.Dungeon)
                 {
