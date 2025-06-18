@@ -17,6 +17,7 @@ MonoBehaviour:
     StageNo: 1
     Name: "\u59CB\u307E\u308A\u306E\u6642"
     Selectable: 0
+    Chapter: 1
     Help: '""'
     StageLv: 0
     DisplayRank: 0
@@ -70,6 +71,7 @@ MonoBehaviour:
     StageNo: 2
     Name: "\u5FD8\u308C\u3089\u308C\u305F\u5C71\u5CB3\u907A\u8DE1"
     Selectable: 1
+    Chapter: 1
     Help: '""'
     StageLv: 1
     DisplayRank: 2
@@ -133,6 +135,7 @@ MonoBehaviour:
     StageNo: 2
     Name: "\u5FD8\u308C\u3089\u308C\u305F\u5C71\u5CB3\u907A\u8DE1\u30FB\u5965"
     Selectable: 0
+    Chapter: 1
     Help: '""'
     StageLv: 1
     DisplayRank: 0
@@ -214,6 +217,7 @@ MonoBehaviour:
     StageNo: 3
     Name: "\u6708\u5F71\u306E\u68EE"
     Selectable: 1
+    Chapter: 1
     Help: '""'
     StageLv: 5
     DisplayRank: 3
@@ -295,6 +299,7 @@ MonoBehaviour:
     StageNo: 3
     Name: "\u6708\u5F71\u306E\u68EE\u30FB\u5730\u4E0B\u6D1E\u7A9F"
     Selectable: 0
+    Chapter: 1
     Help: '""'
     StageLv: 5
     DisplayRank: 0
@@ -354,11 +359,11 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 31_8_13DungeonGetArtifact2020
+    - EventKey: 31_1_6DungeonGetArtifact2020
       Timing: 3010
       Type: 3010
-      PositionX: 8
-      PositionY: 13
+      PositionX: 1
+      PositionY: 6
       Param: 2020
       Param2: 0
       Param3: 0
@@ -367,6 +372,7 @@ MonoBehaviour:
     StageNo: 3
     Name: "\u6708\u5F71\u306E\u68EE\u30FB\u63A1\u6398\u4E0A\u8DE1"
     Selectable: 0
+    Chapter: 1
     Help: '""'
     StageLv: 5
     DisplayRank: 0
@@ -417,10 +423,40 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
+  - Id: 40
+    StageNo: 4
+    Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF"
+    Selectable: 1
+    Chapter: 1
+    Help: '""'
+    StageLv: 5
+    DisplayRank: 4
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 15
+    EncountMin: 6
+    EncountMax: 12
+    BackGround: NA_Background image_Fantasy_027
+    BossTroopId: 2010
+    BGMId: 1030
+    BossBGMId: 3010
+    MenuBGMId: 100
+    StageEvents:
+    - EventKey: 40_1_19DungeonExitDungeon0
+      Timing: 3010
+      Type: 2010
+      PositionX: 1
+      PositionY: 19
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
   - Id: 1010
     StageNo: 101
     Name: "\u5FD8\u5374\u306E\u6D1E\u7A9F"
     Selectable: 1
+    Chapter: 1
     Help: '""'
     StageLv: 1
     DisplayRank: 2
@@ -442,12 +478,92 @@ MonoBehaviour:
     BossBGMId: 3010
     MenuBGMId: 100
     StageEvents:
+    - EventKey: 1010_13_13DungeonExitDungeon0
+      Timing: 3010
+      Type: 2010
+      PositionX: 13
+      PositionY: 13
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
     - EventKey: 1010_10_4DungeonGetSkill30010
       Timing: 3010
       Type: 3030
       PositionX: 10
       PositionY: 4
       Param: 30010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+  - Id: 1020
+    StageNo: 102
+    Name: "\u5FD8\u5374\u306E\u6D1E\u7A9F"
+    Selectable: 1
+    Chapter: 2
+    Help: '""'
+    StageLv: 6
+    DisplayRank: 3
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 3
+      Weight: 15
+    - EnemyId: 6
+      Weight: 15
+    - EnemyId: 1
+      Weight: 20
+    - EnemyId: 7
+      Weight: 20
+    EncountMin: 6
+    EncountMax: 12
+    BackGround: RockCave2
+    BossTroopId: 0
+    BGMId: 1210
+    BossBGMId: 3010
+    MenuBGMId: 100
+    StageEvents:
+    - EventKey: 1020_7_8DungeonExitDungeon0
+      Timing: 3010
+      Type: 2010
+      PositionX: 7
+      PositionY: 8
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 1020_12_12DungeonGetSkill30020
+      Timing: 3010
+      Type: 3030
+      PositionX: 12
+      PositionY: 12
+      Param: 30020
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 1020_2_1DungeonGetItem11010
+      Timing: 3010
+      Type: 3020
+      PositionX: 2
+      PositionY: 1
+      Param: 11010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 1020_9_4DungeonGetItem11020
+      Timing: 3010
+      Type: 3020
+      PositionX: 9
+      PositionY: 4
+      Param: 11020
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 1020_10_12DungeonGetItem11030
+      Timing: 3010
+      Type: 3020
+      PositionX: 10
+      PositionY: 12
+      Param: 11030
       Param2: 0
       Param3: 0
       ReadFlag: 1

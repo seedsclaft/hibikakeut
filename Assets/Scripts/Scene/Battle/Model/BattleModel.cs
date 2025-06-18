@@ -932,7 +932,9 @@ namespace Ryneus
                 actionResultInfos.AddRange(AttackCountHealPartyResultInfos);
                 var DamageMpHealPartyResultInfos = CalcDamageCtHealParty(subject,featureDates,actionResultInfo.HpDamage.Value);
                 actionResultInfos.AddRange(DamageMpHealPartyResultInfos);
-
+                // 倒した敵のHpに応じて回復計算
+                var HpHealTargetMaxHpResultInfos = CalcHpHealTargetMaxHp(subject,featureDates,actionResultInfo.HpDamage.Value);
+                actionResultInfos.AddRange(HpHealTargetMaxHpResultInfos);
                 if (actionResultInfo.RemoveAttackStateDamage())            
                 {
                     // 攻撃を受けた時に外れるステートを管理
@@ -982,6 +984,28 @@ namespace Ryneus
                         Param1 = hpHeal
                     };
                     var actionResultInfo = new ActionResultInfo(subject,GetBattlerInfo(friend.Index.Value),new List<SkillData.FeatureData>(){featureData},-1);
+                    actionResultInfos.Add(actionResultInfo);
+                }
+            }
+            return actionResultInfos;
+        }
+
+        private List<ActionResultInfo> CalcHpHealTargetMaxHp(BattlerInfo subject,List<SkillData.FeatureData> featureDates,int hpDamage)
+        {
+            var actionResultInfos = new List<ActionResultInfo>();
+            var hpHealTargetMaxHp = featureDates.Find(a => a.FeatureType == FeatureType.HpHealTargetMaxHp);
+            if (hpHealTargetMaxHp != null)
+            {
+                var target = GetBattlerInfo(subject.LastTargetIndex());
+                if (target != null && !target.IsAlive())
+                {
+                    var hpHeal = target.MaxHp * hpHealTargetMaxHp.Param1 * 0.01f;
+                    var featureData = new SkillData.FeatureData
+                    {
+                        FeatureType = FeatureType.HpHeal,
+                        Param1 = (int)hpHeal
+                    };
+                    var actionResultInfo = new ActionResultInfo(subject,subject,new List<SkillData.FeatureData>(){featureData},-1);
                     actionResultInfos.Add(actionResultInfo);
                 }
             }

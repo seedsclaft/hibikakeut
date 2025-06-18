@@ -72,6 +72,7 @@ namespace Ryneus
                             StageNo = AssetPostImporter.ImportNumeric(BaseRow, "StageNo"),
                             Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
                             Selectable = AssetPostImporter.ImportNumeric(BaseRow, "Selectable") == 1,
+                            Chapter = AssetPostImporter.ImportNumeric(BaseRow, "Chapter"),
                             Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,
                             StageLv = AssetPostImporter.ImportNumeric(BaseRow, "StageLv"),
                             DisplayRank = AssetPostImporter.ImportNumeric(BaseRow, "DisplayRank"),

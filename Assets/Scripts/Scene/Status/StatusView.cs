@@ -68,7 +68,7 @@ namespace Ryneus
 
         public void SetEquipSkillList(List<ListData> skillInfos)
         {
-            equipSkillList.SetData(skillInfos);
+            equipSkillList.SetData(skillInfos,false);
         }
 
         public void SetActorInfo(ActorInfo actorInfo,List<ActorInfo> partyInfo)

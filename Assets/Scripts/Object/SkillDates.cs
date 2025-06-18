@@ -470,6 +470,7 @@ namespace Ryneus
         PenetrateHpDamage = 1100,
         HpParamHpDamage = 1110, // 残りHp比例ダメージ
         HpHeal = 2010,
+        HpHealTargetMaxHp = 2011, // 攻撃対象の最大Hpに比例して回復
         RemainHpOne = 2020,
         RemainHpOneTarget = 2030,
         HpDivide = 2040,

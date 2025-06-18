@@ -19,33 +19,26 @@ namespace Ryneus
             var evaluatePrizes = DataSystem.EvaluatePrizes.FindAll(a => a.Chapter == PartyInfo.Chapter.Value);
             var category = 1;
             var evaluatePrizeDates = new List<EvaluatePrizeData>();
-            foreach (var evaluatePrize in evaluatePrizes)
+            var evaluateDicts = new Dictionary<int,List<EvaluatePrizeData>>();
+            foreach (var evaluatePrizeData in evaluatePrizeDates)
             {
-                switch(evaluatePrize.ConditionType)
+                if (!evaluateDicts.ContainsKey(evaluatePrizeData.Category))
                 {
-                    case AchievementConditionType.MissionRank:
-                        if (evaluatePrize.Category == category && PartyInfo.MissionRank.Value >= evaluatePrize.Param1)
-                        {
-                            evaluatePrizeDates.Add(evaluatePrize);
-                            category++;
-                        }
-                        break;
-                    case AchievementConditionType.ClearStageNum:
-                        if (evaluatePrize.Category == category && PartyInfo.ClearedStages.Count >= evaluatePrize.Param1)
-                        {
-                            evaluatePrizeDates.Add(evaluatePrize);
-                            category++;
-                        }
-                        break;
-                    case AchievementConditionType.PartyEvaluate:
-                        if (evaluatePrize.Category == category && PartyInfo.PartyEvaluate() >= evaluatePrize.Param1)
-                        {
-                            evaluatePrizeDates.Add(evaluatePrize);
-                            category++;
-                        }
-                        break;
+                    evaluateDicts[category] = new();
+                }
+                evaluateDicts[category].Add(evaluatePrizeData);
+            }
+            var score = 0;
+            foreach (var evaluateDict in evaluateDicts)
+            {
+                var findIndex = evaluateDict.Value.FindIndex(a => CheckAchieved(a));
+                score += evaluateDict.Value.Count - findIndex;
+                if (findIndex > -1)
+                {
+                    evaluatePrizeDates.Add(evaluateDict.Value[findIndex]);
                 }
             }
+
             var getItemInfos = new List<GetItemInfo>();
             foreach (var evaluatePrize in evaluatePrizeDates)
             {
@@ -173,11 +166,45 @@ namespace Ryneus
                 }
             }
             // 評価値を決定
-            if (evaluatePrizeDates.Count >= 3)
+            if (score >= 10)
             {
                 return 3;
+            } else
+            if (score >= 5)
+            {
+                return 2;
+            } else
+            if (score >= 2)
+            {
+                return 1;
             }
-            return evaluatePrizeDates.Count;
+            return 0;
+        }
+
+        private bool CheckAchieved(EvaluatePrizeData evaluatePrize)
+        {
+            switch(evaluatePrize.ConditionType)
+            {
+                case AchievementConditionType.MissionRank:
+                    if (PartyInfo.MissionRank.Value >= evaluatePrize.Param1)
+                    {
+                        return true;
+                    }
+                    break;
+                case AchievementConditionType.ClearStageNum:
+                    if (PartyInfo.ClearedStages.Count >= evaluatePrize.Param1)
+                    {
+                        return true;
+                    }
+                    break;
+                case AchievementConditionType.PartyEvaluate:
+                    if (PartyInfo.PartyEvaluate() >= evaluatePrize.Param1)
+                    {
+                        return true;
+                    }
+                    break;
+            }
+            return false;
         }
 
         public List<ActorInfo> DisplayActorInfos()

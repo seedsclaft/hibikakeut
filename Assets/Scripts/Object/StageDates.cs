@@ -16,6 +16,7 @@ namespace Ryneus
         public int StageNo;
         public string Name;
         public bool Selectable;
+        public int Chapter;
         public string Help;
         public int StageLv;
         public int DisplayRank;

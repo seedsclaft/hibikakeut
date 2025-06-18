@@ -42,6 +42,14 @@ namespace Ryneus
                 {
                     continue;
                 }
+                if (stageData.DisplayRank < PartyInfo.MissionRank.Value)
+                {
+                    continue;
+                }
+                if (stageData.Chapter < PartyInfo.Chapter.Value)
+                {
+                    continue;
+                }
                 var cleared = PartyInfo.IsClaeredStage(stageData.StageNo);
                 var stageInfo = new StageInfo(stageData.Id,cleared);
                 list.Add(stageInfo);
