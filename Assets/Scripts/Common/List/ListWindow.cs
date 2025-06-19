@@ -892,15 +892,19 @@ namespace Ryneus
             }
             if (listIndex > 0)
             {
-                var per = (float)1 / (dataCount - listCount);
-                var normalizedPosition = 1 - per * (selectIndex - listCount + 1);
+                float verticalCount = GetVerticalCount();
+                var p = _objectList.Count - verticalCount;
+                var c = _index - verticalCount + 1;
+                var per = 1f - (c / p);
+                //var per = (float)1 / (dataCount - listCount);
+                //var normalizedPosition = 1 - per * (selectIndex - listCount + 1);
                 if (_horizontal)
                 {
-                    ScrollRect.normalizedPosition = new Vector2(normalizedPosition, 0);
+                    ScrollRect.normalizedPosition = new Vector2(per, 0);
                 }
                 else
                 {
-                    ScrollRect.normalizedPosition = new Vector2(0, normalizedPosition);
+                    ScrollRect.normalizedPosition = new Vector2(0, per);
                 }
             }
         }

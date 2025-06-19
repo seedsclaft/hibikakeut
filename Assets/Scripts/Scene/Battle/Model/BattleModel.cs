@@ -1130,6 +1130,14 @@ namespace Ryneus
                     subject.InitCountTurn(actionInfo.SkillInfo.Id.Value);
                     subject.LastSelectSkill.SetValue(actionInfo.SkillInfo.Id.Value);
                     subject.GainUseCount(actionInfo.SkillInfo.Id.Value);
+                    if (actionInfo.SkillInfo.Master.SkillType == SkillType.Awaken)
+                    {
+                        PartyInfo.UseAwakeSkillCount.GainValue(1);
+                    }
+                    if (actionInfo.SkillInfo.Master.FeatureDates.Find(a => a.FeatureType == FeatureType.ActionAfterChange) != null);
+                    {
+                        PartyInfo.UseChangeLineCount.GainValue(1);
+                    }
                 }
                 if (actionInfo.Master.IsHpHealFeature())
                 {

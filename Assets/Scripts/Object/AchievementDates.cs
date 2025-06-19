@@ -28,6 +28,7 @@ namespace Ryneus
     {
         None = 0,
         Main = 10, // 重要課題
+        Normal = 20,
     }
 
     public enum AchievementConditionType
@@ -36,13 +37,17 @@ namespace Ryneus
         DepartureCount = 1010,
         BattleVictory = 1020,
         CharacterLevel = 1030,
+        CharacterLevelNum = 1031,
         TacticsLvupCount = 1040,
         BattleScore = 1050,
         TotalDamage = 1060,
         ClearStage = 2010,
+        UseAwakeSkillCount = 3010,
+        UseChangeLineCount = 3020,
         DeckEditCommandCount = 7020,
         PresentCommandCount = 7040,
         ReliefCommandCount = 7050,
+        TransferCommandCount = 7060,
         StatusSkillChangeCount = 7080,
         MissionRank = 8010,
         ClearStageNum = 8020,

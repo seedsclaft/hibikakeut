@@ -145,8 +145,16 @@ namespace Ryneus
         public ParameterInt PresentCommandCount = new();
         // 救済コマンド回数
         public ParameterInt ReliefCommandCount = new();
+        // 転送コマンド回数
+        public ParameterInt TransferCommandCount = new();
         // 魔法編成回数
         public ParameterInt StatusSkillChangeCount = new();
+
+        // 覚醒スキル使用回数
+        public ParameterInt UseAwakeSkillCount = new();
+        // 交代スキル使用回数
+        public ParameterInt UseChangeLineCount = new();
+
 
 
         // 報告リストのRank
@@ -189,8 +197,9 @@ namespace Ryneus
             {
                 case AchievementConditionType.Complete:
                     // 達成数
-                    var achived = _achievements.FindAll(a => a.Achieved.Value).Count;
-                    achievementInfo.SetCondition(achived,_achievements.Count-1);
+                    var mains = _achievements.FindAll(a => a.Master.Category == AchievementCategory.Main);
+                    var achived = mains.FindAll(a => a.Achieved.Value).Count;
+                    achievementInfo.SetCondition(achived,mains.Count-1);
                     break;
                 case AchievementConditionType.DepartureCount:
                     // 出撃回数
@@ -213,6 +222,10 @@ namespace Ryneus
                     }
                     achievementInfo.SetCondition(level,achievementInfo.Master.Param1);
                     break;
+                case AchievementConditionType.CharacterLevelNum:
+                    var findAll = ActorInfos.FindAll(a => a.Level >= achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(findAll.Count,achievementInfo.Master.Param2);
+                    break;
                 case AchievementConditionType.TacticsLvupCount:
                     // Nu消費レベルアップ回数
                     achievementInfo.SetCondition(TacticsLvupCount.Value,achievementInfo.Master.Param1);
@@ -230,6 +243,14 @@ namespace Ryneus
                     var cleared = _clearedStages.Contains(achievementInfo.Master.Param1);
                     achievementInfo.SetCondition(cleared ? 1 : 0,1);
                     break;
+                case AchievementConditionType.UseAwakeSkillCount:
+                    // 覚醒スキル使用回数
+                    achievementInfo.SetCondition(UseAwakeSkillCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.UseChangeLineCount:
+                    // 交代スキル使用回数
+                    achievementInfo.SetCondition(UseChangeLineCount.Value,achievementInfo.Master.Param1);
+                    break;
                 case AchievementConditionType.DeckEditCommandCount:
                     // 編成コマンド回数
                     achievementInfo.SetCondition(DeckEditCommandCount.Value,achievementInfo.Master.Param1);
@@ -241,6 +262,10 @@ namespace Ryneus
                 case AchievementConditionType.ReliefCommandCount:
                     // 救済コマンド回数
                     achievementInfo.SetCondition(ReliefCommandCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.TransferCommandCount:
+                    // 転送コマンド回数
+                    achievementInfo.SetCondition(TransferCommandCount.Value,achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.StatusSkillChangeCount:
                     // 魔法編成回数

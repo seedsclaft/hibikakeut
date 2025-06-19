@@ -420,6 +420,7 @@ namespace Ryneus
             {
                 // ダメージなどを適用
                 _model.ExecCurrentAction(actionInfo,true);
+                CheckAchievements();
 
                 // Hp変化での行動・パッシブを確認
                 _model.CheckTriggerActiveInfos(TriggerTiming.HpDamaged,actionInfo,actionInfo.ActionResults,true);
