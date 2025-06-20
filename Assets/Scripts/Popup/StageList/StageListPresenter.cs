@@ -78,7 +78,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle("Rankが足りません!");
+                cautionInfo.SetTitle("神界等級が達していません！");
                 _view.CommandCallCaution(cautionInfo);
             }
         }

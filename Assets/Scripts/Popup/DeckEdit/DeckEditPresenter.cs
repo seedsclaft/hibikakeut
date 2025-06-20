@@ -27,6 +27,8 @@ namespace Ryneus
             _view.SetEvent((type) => UpdateCommand(type));
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
             _view.SetActorList(MakeListData(_model.PartyInfo.ActorInfos,-1));
+            _view.SelectChangeBattler(-1);
+            _view.UpdateActorInfo(_model.PartyInfo.ActorInfos.Find(a => _model.PartyUnit()[0].ActorInfo != null && a.ActorId.Value == _model.PartyUnit()[0].ActorInfo.ActorId.Value));
             _view.EndSelectChangeBattler();
             _view.OpenAnimation();
         }
@@ -53,6 +55,9 @@ namespace Ryneus
                 case CommandType.SelectingBattlerInfo:
                     _view.UpdateActorInfo((ActorInfo)viewEvent.Template);
                     break;
+                case CommandType.Back:
+                    CommandBack();
+                    break;
             }
         }
 
@@ -73,8 +78,22 @@ namespace Ryneus
             _model.PartyInfo.DeckEditCommandCount.GainValue(1);
             CheckAchievements();
             _model.SwapBattler(actorInfo.ActorId.Value);
-            CommandRefresh();
             _view.EndSelectChangeBattler();
+            CommandRefresh();
+            _view.UpdateActorInfo(actorInfo);
+        }
+
+        private void CommandBack()
+        {
+            if (_model.FromEditIndex.Value >= 0)
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                _model.FromEditIndex.SetValue(-1);
+                _view.EndSelectChangeBattler();
+                CommandRefresh();
+                return;
+            }
+            _view.BackEvent();
         }
 
         private void CommandRefresh()

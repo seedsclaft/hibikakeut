@@ -23,6 +23,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI profileText;
         [SerializeField] private TextMeshProUGUI evaluate;
         [SerializeField] private TextMeshProUGUI demigod;
+        [SerializeField] private GameObject lvCation;
         [SerializeField] private TextMeshProUGUI lv;
         [SerializeField] private TextMeshProUGUI exp;
         [SerializeField] private Image expGauge;
@@ -68,6 +69,10 @@ namespace Ryneus
                 }
             }
             demigod?.SetText(actorInfo.DemigodParam.ToString());
+            if (lvCation != null)
+            {
+                lvCation.SetActive(true);
+            }
             lv?.SetText(actorInfo.Level.ToString());
             exp?.SetText(actorInfo.NextExp.ToString());
             if (expGauge != null)
@@ -268,6 +273,11 @@ namespace Ryneus
             {
                 statusInfoComponent.gameObject.SetActive(false);
             }
+            if (lvCation != null)
+            {
+                lvCation.SetActive(false);
+            }
+            lv?.SetText("");
             nameText?.SetText("");
         }
 

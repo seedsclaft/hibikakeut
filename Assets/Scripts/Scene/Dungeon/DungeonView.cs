@@ -133,13 +133,16 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
+            if (InputSystem.GetInputDate(InputKeyType.SideRight1).IsDownTrigger())
+            {
+                CallViewEvent(CommandType.Heal);
+            }
             if (keyTypes.Contains(InputKeyType.Option1))
             {
                 CallSideMenu();
             } else
             if (keyTypes.Contains(InputKeyType.SideRight1))
             {
-                CallViewEvent(CommandType.Heal);
             } else
             if (keyTypes.Contains(InputKeyType.SideLeft1))
             {

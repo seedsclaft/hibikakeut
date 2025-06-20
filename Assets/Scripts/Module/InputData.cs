@@ -18,7 +18,12 @@ namespace Ryneus
 
         public bool IsTrigger()
         {
-            return _onDown || _onPress ||_value > 0;
+            return _onDown || _onPress || _value > 0;
+        }
+
+        public bool IsDownTrigger()
+        {
+            return _onDown && !_onPress && !_onLeft;
         }
 
         public bool IsPress()

@@ -39,6 +39,10 @@ namespace Ryneus
 
         public void SetPartyUnitList(List<ListData> listDatas)
         {
+            if (partyUnitList.Index > -1)
+            {
+                listDatas[partyUnitList.Index].SetSelected(true);
+            }
             partyUnitList.SetData(listDatas);
         }
 
@@ -46,7 +50,7 @@ namespace Ryneus
         {
             actorInfoList.Initialize();
             actorInfoList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.DecideBattlerInfo,actorInfoList.ListItemData<ActorInfo>()));
-            actorInfoList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
+            actorInfoList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.Back));
             actorInfoList.SetSelectedHandler(() => CallViewEvent(CommandType.SelectingActorInfo,actorInfoList.ListItemData<ActorInfo>()));
             //unitInfoList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(UnitInfoList.CommandType.DecideUnit,unitInfoList.ListItemData<UnitInfo>()));
             SetInputHandler(actorInfoList);
@@ -96,6 +100,7 @@ namespace Ryneus
             SelectingActorInfo,
             SelectingBattlerInfo,
             EndOpenAnimation,
+            Back,
         }
     }
 }

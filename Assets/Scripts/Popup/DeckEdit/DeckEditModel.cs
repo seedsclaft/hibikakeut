@@ -7,7 +7,7 @@ namespace Ryneus
 {
     public class DeckEditModel : BaseModel
     {
-        public ParameterInt FromEditIndex = new();
+        public ParameterInt FromEditIndex = new(-1);
 
         public DeckEditModel()
         {
