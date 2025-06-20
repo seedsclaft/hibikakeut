@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace Ryneus
 {
-    public class BattleRecord 
+    public class BattleRecord
     {
+        private Dictionary<int,int> _useSkillCountDict = new();
+        public Dictionary<int,int> UseSkillCountDict => _useSkillCountDict;
         private int _battlerIndex = -1;
         public int BattlerIndex => _battlerIndex;
         private int _attackValue = 0;
@@ -42,6 +44,15 @@ namespace Ryneus
             {
                 _maxDamage = attackValue;
             }
+        }
+
+        public void GainUseSkillCount(int skillId,int gain)
+        {
+            if (!_useSkillCountDict.ContainsKey(skillId))
+            {
+                _useSkillCountDict[skillId] = 0;
+            }
+            _useSkillCountDict[skillId] += gain;
         }
     }
 }

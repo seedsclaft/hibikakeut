@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Ryneus
 {
-    public class StrategyStrength : ListItem,IListViewItem
+    public class StrategyStrength : ListItem, IListViewItem
     {
         [SerializeField] private StrengthComponent strengthComponent;
 
@@ -14,13 +14,14 @@ namespace Ryneus
                 return;
             }
 
-            var data = ListItemData<ActorInfo>();
-            var paramIndex = Index;
-            if (Index > 0)
-            {
-                paramIndex++;
-            }
-            strengthComponent.UpdateInfo(data,(StatusParamType)paramIndex);
+            var data = ListItemData<StrategyStrengthInfo>();
+            strengthComponent.UpdateInfo(data.ActorInfo,data.StatusParamType);
         }
+    }
+
+    public class StrategyStrengthInfo
+    {
+        public ActorInfo ActorInfo;
+        public StatusParamType StatusParamType;
     }
 }

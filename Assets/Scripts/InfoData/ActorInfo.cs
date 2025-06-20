@@ -12,11 +12,60 @@ namespace Ryneus
         public ParameterInt ActorId = new();
 
         public ParameterInt Exp = new();
-        public int NextExp => 100 - Exp.Value % 100;
+        public int NextExp => 100 - (Exp.Value % 100);
         public int Level => (Exp.Value / 100) + 1;
         public void SetLevel(int level)
         {
             Exp.SetValue((level - 1) * 100);
+        }
+
+        [SerializeField] private List<int> _mastarySkillIds = new();
+        public List<int> MastarySkillIds => _mastarySkillIds;
+        public void GainSkillMastary(int skillId)
+        {
+            if (!_mastarySkillIds.Contains(skillId))
+            {
+                return;
+            }
+            _mastarySkillIds.Add(skillId);
+        }
+        [SerializeField] private Dictionary<int,int> _mastarySkillExps = new();
+        public bool GainSkillExp(int skillId,int gain)
+        {
+            if (!_mastarySkillExps.ContainsKey(skillId))
+            {
+                _mastarySkillExps[skillId] = 0;
+            }
+            _mastarySkillExps[skillId] += gain;
+            if (_mastarySkillExps[skillId] >= NeedMastarySkillExp(skillId))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public int NeedMastarySkillExp(int skillId)
+        {
+            var basecost = EquipSkillCost(skillId,null);
+            if (basecost == 0)
+            {
+                return 0;
+            }
+            return basecost * 10;
+        }
+
+        public float MastarySkillRate(int skillId)
+        {
+            if (!_mastarySkillExps.ContainsKey(skillId))
+            {
+                return 0;
+            }
+            var basecost = NeedMastarySkillExp(skillId);
+            if (basecost == 0)
+            {
+                return 1;
+            }
+            return _mastarySkillExps[skillId] / basecost;
         }
 
         [SerializeField] private List<ParameterInt> _equipmentSkillIds = new();
@@ -34,6 +83,7 @@ namespace Ryneus
                 var insert = new ParameterInt(changeSkillId);
                 _equipmentSkillIds.Insert(insertIndex, insert);
             }
+            GainSkillExp(changeSkillId,0);
         }
 
         public StatusInfo CurrentStatus => LevelUpStatus(Level);
@@ -135,6 +185,7 @@ namespace Ryneus
                 {
                     var learned = new ParameterInt(skillInfo.Id.Value);
                     _equipmentSkillIds.Add(learned);
+                    _mastarySkillExps[learned.Value] = 0;
                 }
             }
         }
@@ -183,8 +234,9 @@ namespace Ryneus
             return list;
         }
 
-        public int LearningMagicCost(SkillData skillData, List<ActorInfo> stageMembers)
+        public int EquipSkillCost(int skillId, List<ActorInfo> stageMembers)
         {
+            var skillData = DataSystem.FindSkill(skillId);
             // 装備スキルなら
             if (skillData.SkillType == SkillType.Equipment)
             {
@@ -224,8 +276,13 @@ namespace Ryneus
                     cost = 8;
                     break;
             }
-
-            return Mathf.FloorToInt(cost * rankCost);
+            int result = Mathf.FloorToInt(cost * rankCost);
+            // 会得済みなら-1
+            if (_mastarySkillIds.Contains(skillId))
+            {
+                result -= 1;
+            }
+            return Math.Max(0,result);
         }
 
         public int LearningMagicCost(AttributeType attributeType, List<ActorInfo> stageMembers, RankType rank = RankType.None)

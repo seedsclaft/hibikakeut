@@ -17,6 +17,7 @@ namespace Ryneus
         {
             _enable = IsEnable;
         }
+        public ParameterFloat ExpRate = new();
         public AttributeType Attribute => Master.Attribute;
 
         private LearningState _learningState;

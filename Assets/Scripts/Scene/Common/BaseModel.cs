@@ -107,18 +107,20 @@ namespace Ryneus
                 var skillInfo = new SkillInfo(learnSkillId);
                 skillInfo.SetLearningState(LearningState.Learned);
                 skillInfo.SetEnable(true);
+                skillInfo.ExpRate.SetValue(actorInfo.MastarySkillRate(learnSkillId));
                 changeAbleSkills.Add(skillInfo);
             }
             foreach (var changeAbleSkill in SortSkillInfos(changeAbleSkills))
             {
                 if (changeAbleSkill.Master != null && !changeAbleSkill.IsBattleSpecialSkill())
                 {
-                    var cost = actorInfo.LearningMagicCost(changeAbleSkill.Master, PartyInfo.ActorInfos);
+                    var cost = actorInfo.EquipSkillCost(changeAbleSkill.Master.Id, PartyInfo.ActorInfos);
                     changeAbleSkill.LearningCost.SetValue(cost);
                     if (changeAbleSkill.Enable)
                     {
                         changeAbleSkill.SetEnable((cost - minusSp) <= actorInfo.CurrentCost.Value);
                     }
+                    changeAbleSkill.ExpRate.SetValue(actorInfo.MastarySkillRate(changeAbleSkill.Master.Id));
                 }
             }
             return changeAbleSkills;
@@ -137,9 +139,10 @@ namespace Ryneus
                 var skillInfo = new SkillInfo(equipSkillId.Value);
                 skillInfo.SetLearningState(LearningState.Learned);
                 skillInfo.SetEnable(true);
+                skillInfo.ExpRate.SetValue(actorInfo.MastarySkillRate(equipSkillId.Value));
                 if (!skillInfo.IsBattleSpecialSkill())
                 {
-                    var cost = actorInfo.LearningMagicCost(skillInfo.Master, PartyInfo.ActorInfos);
+                    var cost = actorInfo.EquipSkillCost(skillInfo.Master.Id, PartyInfo.ActorInfos);
                     skillInfo.LearningCost.SetValue(cost);
                 }
                 equipSkills.Add(skillInfo);
@@ -592,7 +595,7 @@ namespace Ryneus
         public void ActorLearnMagic(ActorInfo actorInfo, int skillId)
         {
             var skillInfo = new SkillInfo(skillId);
-            var learningCost = actorInfo.LearningMagicCost(skillInfo.Master, StageMembers());
+            var learningCost = actorInfo.EquipSkillCost(skillInfo.Master.Id, StageMembers());
             actorInfo.AddSkillTriggerSkill(skillId);
         }
 

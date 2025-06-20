@@ -68,13 +68,40 @@ namespace Ryneus
         public List<LearnSkillInfo> LearnSkillInfo => _learnSkillInfo;
         public List<ListData> LevelUpActorStatus()
         {
+            var strategyStrengthInfos = new List<StrategyStrengthInfo>
+            {
+                new StrategyStrengthInfo()
+                {
+                    ActorInfo = _levelUpActorInfos[0],
+                    StatusParamType = StatusParamType.Hp,
+                },
+                new StrategyStrengthInfo()
+                {
+                    ActorInfo = _levelUpActorInfos[0],
+                    StatusParamType = StatusParamType.Atk,
+                },
+                new StrategyStrengthInfo()
+                {
+                    ActorInfo = _levelUpActorInfos[0],
+                    StatusParamType = StatusParamType.Def,
+                },
+                new StrategyStrengthInfo()
+                {
+                    ActorInfo = _levelUpActorInfos[0],
+                    StatusParamType = StatusParamType.Spd,
+                },
+                new StrategyStrengthInfo()
+                {
+                    ActorInfo = _levelUpActorInfos[0],
+                    StatusParamType = StatusParamType.Cost,
+                }
+            };
             var list = new List<ListData>();
-            var listData = new ListData(_levelUpActorInfos[0]);
-            list.Add(listData);
-            list.Add(listData);
-            list.Add(listData);
-            list.Add(listData);
-            list.Add(listData);
+            foreach (var strategyStrengthInfo in strategyStrengthInfos)
+            {
+                var listData = new ListData(strategyStrengthInfo);
+                list.Add(listData);
+            }
             return list;
         }
 
@@ -129,6 +156,14 @@ namespace Ryneus
                     }
                     target.Exp.GainValue(expGetItemInfo.Param2 * -1);
                 }
+            }
+            // Skillマスタリーを付与する
+            var skillExpGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.SkillMastary);
+            foreach (var skillExpGetItemInfo in skillExpGetItemInfos)
+            {
+                skillExpGetItemInfo.SetGetFlag(true);
+                var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == skillExpGetItemInfo.Param1);
+                target.GainSkillMastary(skillExpGetItemInfo.Param2);
             }
 
             _levelUpActorInfos = lvUpList;
@@ -192,6 +227,18 @@ namespace Ryneus
                 _resultInfos.Add(resultInfo);
             }
 
+            //
+            foreach (var skillExpGetItemInfo in skillExpGetItemInfos)
+            {
+                var resultInfo = new StrategyResultViewInfo();
+                var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == skillExpGetItemInfo.Param1);
+                var skillData = DataSystem.FindSkill(skillExpGetItemInfo.Param2);
+                if (skillData.Id > 1000 && skillData.Rank > RankType.ActiveRank1)
+                {
+                    resultInfo.SetTitle(target.Master.Name + "は" + skillData.Name + "を会得！");
+                    _resultInfos.Add(resultInfo);
+                }
+            }
 
             foreach (var getItemInfo in getItemInfos)
             {

@@ -435,7 +435,7 @@ namespace Ryneus
                 // 加入する用
                 CommandAddActorStatusInfo(actorInfos,() =>
                 {
-
+                    CommandRefresh();
                 });
             } else
             {

@@ -61,6 +61,10 @@ namespace Ariadne
         /// </Summary>
         protected virtual void GetMapSettings()
         {
+            if (mapSettings == null)
+            {
+                return;
+            }
             this.showLengthHorizontal = mapSettings.showLengthHorizontal;
             this.showLengthVertical = mapSettings.showLengthVertical;
         }
@@ -70,6 +74,10 @@ namespace Ariadne
         /// </Summary>
         protected virtual void SetPointerPos()
         {
+            if (mapRt == null)
+            {
+                return;
+            }
             Vector3 centerPos = mapRt.transform.localPosition;
             pointerRt.transform.localPosition = centerPos;
         }
@@ -79,6 +87,10 @@ namespace Ariadne
         /// </Summary>
         protected virtual void SetPointerSize()
         {
+            if (mapRt == null)
+            {
+                return;
+            }
             float cellWidth = mapRt.sizeDelta.x / (1 + showLengthHorizontal * 2);
             float cellHeight = mapRt.sizeDelta.y / (1 + showLengthVertical * 2);
             Vector2 sizeSet = new Vector2(cellWidth, cellHeight);
@@ -90,6 +102,10 @@ namespace Ariadne
         /// </Summary>
         protected virtual void SetPointerRotation()
         {
+            if (pointerRt == null)
+            {
+                return;
+            }
             float minAngle = 0f;
             float maxAngle = minAngle + 90f;
             switch(PlayerPosition.Instance.direction)

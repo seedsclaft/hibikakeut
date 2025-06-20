@@ -66,7 +66,7 @@ namespace Ryneus
                     return sameSkills.Count;
                 }
             }
-            return 0; 
+            return 0;
         }
 
         public void CreateBattleData()
@@ -1134,10 +1134,11 @@ namespace Ryneus
                     {
                         PartyInfo.UseAwakeSkillCount.GainValue(1);
                     }
-                    if (actionInfo.SkillInfo.Master.FeatureDates.Find(a => a.FeatureType == FeatureType.ActionAfterChange) != null);
+                    if (actionInfo.SkillInfo.Master.FeatureDates.Find(a => a.FeatureType == FeatureType.ActionAfterChange) != null)
                     {
                         PartyInfo.UseChangeLineCount.GainValue(1);
                     }
+                    _battleRecords[subject.Index.Value].GainUseSkillCount(actionInfo.SkillInfo.Id.Value,1);
                 }
                 if (actionInfo.Master.IsHpHealFeature())
                 {
@@ -2705,6 +2706,32 @@ namespace Ryneus
                 };
                 var expItem = new GetItemInfo(expData);
                 list.Add(expItem);
+            }
+            // スキル経験値を代入
+            foreach (var battlerInfo in UnitBattlerActors())
+            {
+                foreach (var useSkillCountDict in _battleRecords[battlerInfo.Index.Value].UseSkillCountDict)
+                {
+                    var skillData = DataSystem.FindSkill(useSkillCountDict.Key);
+                    if (skillData.Id < 1000 || skillData.Rank <= RankType.ActiveRank1)
+                    {
+                        continue;
+                    }
+                    var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == battlerInfo.ActorInfo.ActorId.Value);
+                    var learned = target.GainSkillExp(useSkillCountDict.Key,useSkillCountDict.Value);
+                    // 会得していたら
+                    if (learned && !target.IsLearnedSkill(useSkillCountDict.Value))
+                    {
+                        var skillMastary = new GetItemData
+                        {
+                            Type = GetItemType.SkillMastary,
+                            Param1 = battlerInfo.ActorInfo.ActorId.Value,
+                            Param2 = useSkillCountDict.Key
+                        };
+                        var skillMastaryItem = new GetItemInfo(skillMastary);
+                        list.Add(skillMastaryItem);
+                    }
+                }
             }
             if (_sceneParam.GetItemInfos != null)
             {

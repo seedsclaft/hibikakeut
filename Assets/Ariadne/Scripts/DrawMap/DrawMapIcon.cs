@@ -47,6 +47,11 @@ namespace Ariadne
                 gameController = GameObject.FindGameObjectWithTag(AriadneSceneObjectTag.GameController);
             }
 
+            if (gameController == null)
+            {
+                return;
+            }
+
             if (dungeonSettings == null)
             {
                 dungeonSettings = gameController.GetComponent<DungeonSettings>();
@@ -68,6 +73,11 @@ namespace Ariadne
             if (gameController == null)
             {
                 gameController = GameObject.FindGameObjectWithTag(AriadneSceneObjectTag.GameController);
+            }
+
+            if (gameController == null)
+            {
+                return;
             }
 
             if (mapSettings == null)

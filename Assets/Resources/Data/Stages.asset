@@ -433,12 +433,16 @@ MonoBehaviour:
     DisplayRank: 4
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
-    - EnemyId: 1
+    - EnemyId: 2
+      Weight: 15
+    - EnemyId: 12
+      Weight: 15
+    - EnemyId: 14
       Weight: 15
     EncountMin: 6
     EncountMax: 12
     BackGround: NA_Background image_Fantasy_027
-    BossTroopId: 2010
+    BossTroopId: 3010
     BGMId: 1030
     BossBGMId: 3010
     MenuBGMId: 100
@@ -564,6 +568,105 @@ MonoBehaviour:
       PositionX: 10
       PositionY: 12
       Param: 11030
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+  - Id: 2010
+    StageNo: 201
+    Name: "\u8352\u91CE\u306E\u6226\u3044"
+    Selectable: 0
+    Chapter: 2
+    Help: '""'
+    StageLv: 10
+    DisplayRank: 0
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates: []
+    EncountMin: 0
+    EncountMax: 0
+    BackGround: RockCave2
+    BossTroopId: 0
+    BGMId: 3020
+    BossBGMId: 3020
+    MenuBGMId: 100
+    StageEvents:
+    - EventKey: 2010_7_1DungeonMoveDungeonFloor2011
+      Timing: 3010
+      Type: 2020
+      PositionX: 7
+      PositionY: 1
+      Param: 2011
+      Param2: 7
+      Param3: 12
+      ReadFlag: 0
+    - EventKey: 2010_7_7DungeonForceBossBattle20010
+      Timing: 3010
+      Type: 5020
+      PositionX: 7
+      PositionY: 7
+      Param: 20010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+  - Id: 2011
+    StageNo: 201
+    Name: "\u8352\u91CE\u306E\u6226\u3044"
+    Selectable: 0
+    Chapter: 2
+    Help: '""'
+    StageLv: 10
+    DisplayRank: 0
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates: []
+    EncountMin: 0
+    EncountMax: 0
+    BackGround: RockCave2
+    BossTroopId: 0
+    BGMId: 3020
+    BossBGMId: 3020
+    MenuBGMId: 100
+    StageEvents:
+    - EventKey: 2011_7_1DungeonMoveDungeonFloor2012
+      Timing: 3010
+      Type: 2020
+      PositionX: 7
+      PositionY: 1
+      Param: 2012
+      Param2: 7
+      Param3: 12
+      ReadFlag: 0
+    - EventKey: 2011_7_7DungeonForceBossBattle20020
+      Timing: 3010
+      Type: 5020
+      PositionX: 7
+      PositionY: 7
+      Param: 20020
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+  - Id: 2012
+    StageNo: 201
+    Name: "\u8352\u91CE\u306E\u6226\u3044"
+    Selectable: 0
+    Chapter: 2
+    Help: '""'
+    StageLv: 10
+    DisplayRank: 0
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates: []
+    EncountMin: 0
+    EncountMax: 0
+    BackGround: RockCave2
+    BossTroopId: 0
+    BGMId: 3020
+    BossBGMId: 3020
+    MenuBGMId: 100
+    StageEvents:
+    - EventKey: 2012_7_7DungeonForceBossBattle20030
+      Timing: 3010
+      Type: 5020
+      PositionX: 7
+      PositionY: 7
+      Param: 20030
       Param2: 0
       Param3: 0
       ReadFlag: 1

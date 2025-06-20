@@ -28,6 +28,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI rank;
         [SerializeField] private GameObject selectable;
         [SerializeField] private GameObject selectedAlcana;
+        [SerializeField] private StatusGaugeAnimation skillExpGauge;
         [SerializeField] private _2dxFX_Shiny_Reflect shinyReflect;
 
         public void UpdateInfo(SkillInfo skillInfo)
@@ -80,6 +81,11 @@ namespace Ryneus
                 {
                     learningText.transform.parent.gameObject.SetActive(false);
                 }
+            }
+            if (skillExpGauge != null)
+            {
+                skillExpGauge.gameObject.SetActive(!skillInfo.Master.IsBattleSpecialSkill() && skillInfo.Master.Rank > RankType.ActiveRank1);
+                skillExpGauge.UpdateGauge(skillInfo.ExpRate.Value);
             }
         }
 

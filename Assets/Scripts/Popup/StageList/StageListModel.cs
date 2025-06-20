@@ -42,11 +42,11 @@ namespace Ryneus
                 {
                     continue;
                 }
-                if (stageData.DisplayRank < PartyInfo.MissionRank.Value)
+                if ((stageData.DisplayRank-1) > PartyInfo.MissionRank.Value)
                 {
                     continue;
                 }
-                if (stageData.Chapter < PartyInfo.Chapter.Value)
+                if (stageData.Chapter > PartyInfo.Chapter.Value)
                 {
                     continue;
                 }
