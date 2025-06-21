@@ -76,7 +76,7 @@ namespace Ryneus
                 }
                 var battler = (BattlerInfo)listItem.ListData.Data;
                 var battleBattler = ItemPrefabList[i].GetComponent<BattleBattler>();
-                if (indexes.Contains(battler.Index.Value))
+                if (indexes.Contains(battler.Index.Value) && battler.Index.Value > 0)
                 {
                     battleBattler.SetActivecandidateSelect(true);
                 } else

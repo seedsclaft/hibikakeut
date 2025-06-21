@@ -31,6 +31,10 @@ namespace Ryneus
         [SerializeField] private EffekseerEmitter demigodCutinAnimation = null;
         [SerializeField] private BattleAwakenAnimation battleAwakenAnimation = null;
         [SerializeField] private MagicList magicList = null;
+        [SerializeField] private OnOffButton formationButton = null;
+        [SerializeField] private InputInfoComponent formationInpurKey = null;
+        [SerializeField] private OnOffButton decideButton = null;
+        [SerializeField] private InputInfoComponent decideInpurKey = null;
         private BattleBackGroundAnimation _backGroundAnimation = null;
 
         private BattleStartAnim _battleStartAnim = null;
@@ -75,6 +79,28 @@ namespace Ryneus
             {
                 CallBattleSkip();
             });
+            if (decideInpurKey != null)
+            {
+                decideInpurKey.UpdateGuideIcon(12);
+            }
+            if (decideButton != null)
+            {
+                decideButton.OnClickAddListener(() =>
+                {
+                    CallViewEvent(CommandType.DecideBattle);
+                });
+            }
+            if (formationInpurKey != null)
+            {
+                formationInpurKey.UpdateGuideIcon(6);
+            }
+            if (formationButton != null)
+            {
+                formationButton.OnClickAddListener(() =>
+                {
+                    CallViewEvent(CommandType.Formation);
+                });
+            }
             skillLogButton.OnClickAddListener(() =>
             {
                 if (!skillLogButton.gameObject.activeSelf)
@@ -99,8 +125,8 @@ namespace Ryneus
         private void InitializeActorList()
         {
             battleActorList.Initialize();
-            battleActorList.SetInputHandler(InputKeyType.Decide,() => OnDecideActor());
-            battleActorList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.OnCancelActor));
+            battleActorList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.SelectCharacter,battleActorList.Index));
+            battleActorList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.EndFormation));
             AddViewActives(battleActorList);
         }
 
@@ -237,6 +263,32 @@ namespace Ryneus
             magicList.gameObject.SetActive(false);
             battleEnemyList.ClearSelect();
             battleActorList.ClearSelect();
+        }
+
+        public void SetActiveBeforeBattles(bool isActive)
+        {
+            formationButton.gameObject.SetActive(isActive);
+            decideButton.gameObject.SetActive(isActive);
+        }
+
+        public void StartFormation()
+        {
+            SetActivate(battleActorList);
+            battleActorList.UpdateSelectIndex(0);
+        }
+
+        public void CancelFormation()
+        {
+            battleActorList.UpdateSelectIndex(-1);
+            SetActivate(null);
+        }
+
+        public void EndFormation()
+        {
+            battleActorList.SetInputHandler(InputKeyType.Decide,() => OnDecideActor());
+            battleActorList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.OnCancelActor));
+            battleActorList.UpdateSelectIndex(-1);
+            SetActivate(null);
         }
 
         private void InitializeSelectCharacter()
@@ -694,6 +746,14 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
+            if (InputSystem.GetInputDate(InputKeyType.Start).IsDownTrigger())
+            {
+                CallViewEvent(CommandType.DecideBattle);
+            } else
+            if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
+            {
+                CallViewEvent(CommandType.Formation);
+            }
         }
 
         public void ChangeBattleAuto(bool isAuto)

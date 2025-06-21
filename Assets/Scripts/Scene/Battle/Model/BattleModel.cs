@@ -20,6 +20,46 @@ namespace Ryneus
         private int _turnCount = 1;
         public int TurnCount => _turnCount;
         public void SeekTurnCount(){_turnCount++;}
+        public ParameterInt SelectIndex = new(-1);
+
+        public int SelectedCharacterIndex()
+        {
+            var index = 0;
+            var idx = 0;
+            foreach (var battlerInfo in ViewBattlerActors())
+            {
+                if (SelectIndex.Value == idx && battlerInfo.ActorInfo != null)
+                {
+                    index = battlerInfo.Index.Value;
+                }
+                idx++;
+            }
+            return index;
+        }
+
+        public void SwapSelectIndex(int selectIndex)
+        {
+            BattlerInfo fromBattlerInfo = null;
+            var fromIndex = SelectIndex.Value + 1;
+            BattlerInfo toBattlerInfo = null;
+            var toIndex = selectIndex + 1;
+            var idx = 0;
+            foreach (var battlerInfo in ViewBattlerActors())
+            {
+                if (selectIndex == idx)
+                {
+                    toBattlerInfo = battlerInfo;
+                } else
+                if (SelectIndex.Value == idx)
+                {
+                    fromBattlerInfo = battlerInfo;
+                }
+                idx++;
+            }
+            fromBattlerInfo?.Index.SetValue(toIndex);
+            toBattlerInfo?.Index.SetValue(fromIndex);
+            SelectIndex.SetValue(-1);
+        }
 
         //private List<SkillLogListInfo> _skillLogs = new ();
         //public List<SkillLogListInfo> SkillLogs => _skillLogs;
@@ -110,7 +150,6 @@ namespace Ryneus
                 battlerInfo.SetUnitMp(unitMp);
                 */
                 _battlers.Add(battlerInfo);
-                _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
                 idx++;
             }
 /*
@@ -165,7 +204,6 @@ namespace Ryneus
                 battlerInfo.SetUnitMp(unitMp);
                 */
                 _battlers.Add(battlerInfo);
-                _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
             }
             // アルカナ
             if (PartyInfo.AritifactSkills().Count > 0)
@@ -181,6 +219,14 @@ namespace Ryneus
             _troop.SetBattlers(FieldBattlerInfos().FindAll(a => !a.IsActor));
             //_saveBattleInfo.SetParty(_party.CopyData());
             //_saveBattleInfo.SetTroop(_troop.CopyData());
+        }
+
+        public void CreateBattleRecords()
+        {
+            foreach (var battlerInfo in _battlers)
+            {
+                _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
+            }
         }
 
         public List<BattlerInfo> FieldBattlerInfos()

@@ -12,6 +12,7 @@ namespace Ryneus
 
         private bool _busy = true;
         private bool _skipBattle = false;
+        private bool _beforeBattle = true;
 #if UNITY_EDITOR
         private bool _debug = false;
         public void SetDebug(bool busy)
@@ -115,13 +116,10 @@ namespace Ryneus
             _view.StartUIAnimation();
             _view.SetBattleAutoButton(true);
             //_view.StartBattle(_model.BattlerEnemies().Count);
-            await UniTask.WaitUntil(() => _view.StartAnimIsBusy == false);
+            await UniTask.WaitUntil(() => !_view.StartAnimIsBusy);
             //_view.SetBattleSkipActive(true);
-            _view.UpdateStartActivate();
-
-            _view.SetBattleBusy(false);
-            _view.UpdateSelectCursor(new List<int>(){});
-            CommandStartBattleAction();
+            // バトル開始と並べ替え選択待ち
+            _view.SetActiveBeforeBattles(true);
             _busy = false;
         }
 
@@ -204,6 +202,18 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case CommandType.DecideBattle:
+                    CommandDecideBattle();
+                    break;
+                case CommandType.Formation:
+                    CommandFormation();
+                    break;
+                case CommandType.EndFormation:
+                    CommandEndFormation();
+                    break;
+                case CommandType.SelectCharacter:
+                    CommandSelectCharacter((int)viewEvent.Template);
+                    break;
                 case CommandType.UpdateAp:
                     // ターンスキップあり
                     if (GameSystem.OptionData.BattleTurnSkip)
@@ -257,6 +267,55 @@ namespace Ryneus
                     break;
             }
             //CheckTutorialState(viewEvent.commandType);
+        }
+
+        private void CommandDecideBattle()
+        {
+            if (!_beforeBattle)
+            {
+                return;
+            }
+            _beforeBattle = false;
+            _model.CreateBattleRecords();
+            _view.SetActiveBeforeBattles(false);
+            _view.EndFormation();
+            _view.UpdateStartActivate();
+
+            _view.SetBattleBusy(false);
+            _view.UpdateSelectCursor(new List<int>(){});
+            CommandStartBattleAction();
+        }
+
+        private void CommandFormation()
+        {
+            if (!_beforeBattle)
+            {
+                return;
+            }
+            _view.StartFormation();
+        }
+
+        private void CommandSelectCharacter(int selectIndex)
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            if (_model.SelectIndex.Value > -1)
+            {
+                _model.SwapSelectIndex(selectIndex);
+                _view.SetActors(MakeListData(_model.ViewBattlerActors()));
+                _view.StartFormation();
+                _view.UpdateSelectCursor(new List<int>(){});
+                return;
+            }
+            _model.SelectIndex.SetValue(selectIndex);
+            _view.UpdateSelectCursor(new List<int>(){_model.SelectedCharacterIndex()});
+        }
+
+        private void CommandEndFormation()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            _view.UpdateSelectCursor(new List<int>(){});
+            _view.CancelFormation();
+            _model.SelectIndex.SetValue(-1);
         }
 
         private void CommandBack()

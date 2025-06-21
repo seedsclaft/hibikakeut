@@ -25,6 +25,10 @@ namespace Ryneus
             SkipBattle,
             ForceVictory,
             StopApCount,
+            Formation,
+            EndFormation,
+            SelectCharacter,
+            DecideBattle,
         }
     }
 }
