@@ -35,6 +35,7 @@ namespace Ryneus
         public StageData StageMaster => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
         public ParameterInt TurnCount = new();
+        public ParameterInt VictoryBonusCount = new();
 
         private List<int> _clearedStages = new();
         public List<int> ClearedStages => _clearedStages;

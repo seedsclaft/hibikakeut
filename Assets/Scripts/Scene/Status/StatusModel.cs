@@ -61,7 +61,7 @@ namespace Ryneus
             {
                 return null;
             }
-            var find = PartyInfo.ActorInfos.Find(a => a.EquipmentSkillIds.Contains(skillInfo.Id));
+            var find = PartyInfo.ActorInfos.Find(a => a.EquipmentSkillIds.Find(b => b.Value == skillInfo.Id.Value) != null);
             return find;
         }
 

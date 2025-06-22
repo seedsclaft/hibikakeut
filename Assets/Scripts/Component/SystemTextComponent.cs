@@ -11,7 +11,7 @@ namespace Ryneus
 
         public void Awake()
         {
-            if (id != 0)
+            if (id != 0 && enabled)
             {
                 var textData = DataSystem.GetText(id);
                 if (textData == null)

@@ -502,6 +502,7 @@ namespace Ryneus
                 strategySceneInfo.BattleResultVictory = true;
                 _model.AddEnemyInfoSkillId();
                 _model.PartyInfo.BattleVictoryCount.GainValue(1);
+                _model.PartyInfo.VictoryBonusCount.GainValue(1);
                 CheckAchievements();
             }/* else
             if (_model.CheckIsOver())

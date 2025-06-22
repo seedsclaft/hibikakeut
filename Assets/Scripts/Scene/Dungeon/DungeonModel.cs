@@ -237,6 +237,7 @@ namespace Ryneus
             }
             PartyInfo.Currency.GainValue(-1,0);
             PartyInfo.UseCurrencyHeal();
+            PartyInfo.VictoryBonusCount.SetValue(0);
         }
 
         public void SaveBgmTiming()

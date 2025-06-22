@@ -1420,7 +1420,7 @@ namespace Ryneus
         
         public List<int> DeathBattlerIndex(List<ActionResultInfo> actionResultInfos)
         {
-            var deathBattlerIndex = new List<int>();
+            var deathBattlerIndexes = new List<int>();
             foreach (var actionResultInfo in actionResultInfos)
             {
                 foreach (var deadIndexList in actionResultInfo.DeadIndexList)
@@ -1431,11 +1431,18 @@ namespace Ryneus
 
                     } else
                     {
-                        deathBattlerIndex.Add(deadIndexList);
+                        deathBattlerIndexes.Add(deadIndexList);
                     }
                 }
             }
-            return deathBattlerIndex;
+            foreach (var deathBattlerIndex in deathBattlerIndexes)
+            {
+                if (deathBattlerIndex < 100)
+                {
+                    PartyInfo.VictoryBonusCount.SetValue(0);
+                }
+            }
+            return deathBattlerIndexes;
         }
 
         public List<int> AliveBattlerIndex(List<ActionResultInfo> actionResultInfos)
@@ -2740,6 +2747,11 @@ namespace Ryneus
                 if (gainExp > 100)
                 {
                     gainExp = 100;
+                }
+
+                if (PartyInfo.VictoryBonusCount.Value > 0)
+                {
+                    gainExp = (int)(gainExp * (1 + PartyInfo.VictoryBonusCount.Value * 0.1f));
                 }
 
                 var expData = new GetItemData

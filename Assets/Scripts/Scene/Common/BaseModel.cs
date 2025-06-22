@@ -687,9 +687,9 @@ namespace Ryneus
             SaveDungeonPlayerData();
         }
 
-        public void PartyNextPeriod()
+        public void PartyNextPeriod(bool force = false)
         {
-            if (!IsActiveDungeon())
+            if (!IsActiveDungeon() && !force)
             {
                 return;
             }

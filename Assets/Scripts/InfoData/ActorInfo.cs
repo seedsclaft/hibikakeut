@@ -23,7 +23,7 @@ namespace Ryneus
         public List<int> MastarySkillIds => _mastarySkillIds;
         public void GainSkillMastary(int skillId)
         {
-            if (!_mastarySkillIds.Contains(skillId))
+            if (_mastarySkillIds.Contains(skillId))
             {
                 return;
             }
@@ -65,7 +65,7 @@ namespace Ryneus
             {
                 return 1;
             }
-            return _mastarySkillExps[skillId] / basecost;
+            return _mastarySkillExps[skillId] * 0.01f / (basecost * 0.01f);
         }
 
         [SerializeField] private List<ParameterInt> _equipmentSkillIds = new();
