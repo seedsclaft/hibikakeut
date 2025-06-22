@@ -17,16 +17,15 @@ namespace Ryneus
         public int MakeEvaluateResults()
         {
             var evaluatePrizes = DataSystem.EvaluatePrizes.FindAll(a => a.Chapter == PartyInfo.Chapter.Value);
-            var category = 1;
             var evaluatePrizeDates = new List<EvaluatePrizeData>();
             var evaluateDicts = new Dictionary<int,List<EvaluatePrizeData>>();
-            foreach (var evaluatePrizeData in evaluatePrizeDates)
+            foreach (var evaluatePrizeData in evaluatePrizes)
             {
                 if (!evaluateDicts.ContainsKey(evaluatePrizeData.Category))
                 {
-                    evaluateDicts[category] = new();
+                    evaluateDicts[evaluatePrizeData.Category] = new();
                 }
-                evaluateDicts[category].Add(evaluatePrizeData);
+                evaluateDicts[evaluatePrizeData.Category].Add(evaluatePrizeData);
             }
             var score = 0;
             foreach (var evaluateDict in evaluateDicts)

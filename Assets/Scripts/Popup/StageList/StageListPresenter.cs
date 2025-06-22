@@ -30,7 +30,8 @@ namespace Ryneus
                 // 出撃可能か
                 return !_model.IsLimitedRank(stageInfo);
             };
-            _view.SetStageList(MakeListDataFunc(_model.StageInfos(), 0, enable));
+            var stageInfos = _model.StageInfos();
+            _view.SetStageList(MakeListDataFunc(stageInfos, stageInfos.FindIndex(a => a.StageId.Value == _model.PartyInfo.StageId.Value), enable));
             _view.OpenAnimation();
             _busy = false;
         }

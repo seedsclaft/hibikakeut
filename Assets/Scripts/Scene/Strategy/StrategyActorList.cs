@@ -24,15 +24,15 @@ namespace Ryneus
             }
         }
 
-        public void StartGetExpAnimation(Dictionary<ActorInfo,(float,float)> ecpDict,Action callEvent)
+        public void StartGetExpAnimation(List<StrategyActorLevelUpInfo> levelUpInfos,Action callEvent)
         {
             for (int i = 0; i < ItemPrefabList.Count;i++)
             {
-                if (i < ecpDict.Count)
+                if (i < levelUpInfos.Count)
                 {
                     var StrategyActor = ItemPrefabList[i].GetComponent<StrategyActor>();
-                    StrategyActor.StartGetExpAnimation(ecpDict[(ActorInfo)ListDates[i].Data].Item1,ecpDict[(ActorInfo)ListDates[i].Data].Item2);
-                    if (i == ecpDict.Count-1)
+                    StrategyActor.StartGetExpAnimation(levelUpInfos[i]);
+                    if (i == levelUpInfos.Count-1)
                     {
                         StrategyActor.SetEndCallEvent(callEvent);
                     }

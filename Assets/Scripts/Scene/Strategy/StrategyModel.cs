@@ -17,8 +17,8 @@ namespace Ryneus
 
         private List<ActorInfo> _displayActorInfos = new();
         public List<ActorInfo> DisplayActorInfos => _displayActorInfos;
-        private Dictionary<ActorInfo,(float,float)> _displayExpDict = new();
-        public Dictionary<ActorInfo,(float,float)> DisplayExpDict => _displayExpDict;
+        private List<StrategyActorLevelUpInfo> _displayLevelUpInfos = new();
+        public List<StrategyActorLevelUpInfo> DisplayLevelUpInfos => _displayLevelUpInfos;
         private List<HexUnitInfo> _lostUnitInfos = new();
 
         public StrategyModel()
@@ -132,7 +132,14 @@ namespace Ryneus
                     var beforeRate = (target.Exp.Value % 100) * 0.01f;
                     target.Exp.GainValue(expGetItemInfo.Param2);
                     var afterRate = (target.Exp.Value % 100) * 0.01f;
-                    _displayExpDict[target] = (beforeRate,afterRate);
+                    _displayLevelUpInfos.Add(new StrategyActorLevelUpInfo()
+                    {
+                        IsLevelUp = beforeLv != target.Level,
+                        AfterRate = afterRate,
+                        BeforeRate = beforeRate,
+                        PlusLv = target.Level - beforeLv
+                    });
+                    //_displayExpDict[target] = (beforeRate,afterRate);
                     if (beforeLv != target.Level)
                     {
                         // 新規魔法取得があるか
@@ -326,7 +333,8 @@ namespace Ryneus
                     target.Exp.GainValue(expGetItemInfo.Param2);
                 }
             }
-            _displayExpDict.Clear();
+            _displayLevelUpInfos.Clear();
+            //_displayExpDict.Clear();
         }
 
         public string BattleResultTurn()

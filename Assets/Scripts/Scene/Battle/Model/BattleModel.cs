@@ -1174,7 +1174,10 @@ namespace Ryneus
                     subject.GainMp(actionInfo.MpCost.Value * -1);
                     //subject.GainPayBattleMp(actionInfo.MpCost);
                     subject.InitCountTurn(actionInfo.SkillInfo.Id.Value);
-                    subject.LastSelectSkill.SetValue(actionInfo.SkillInfo.Id.Value);
+                    if (actionInfo.Master.IsBattleActiveSkill())
+                    {
+                        subject.LastSelectSkill.SetValue(actionInfo.SkillInfo.Id.Value);
+                    }
                     subject.GainUseCount(actionInfo.SkillInfo.Id.Value);
                     if (actionInfo.SkillInfo.Master.SkillType == SkillType.Awaken)
                     {
@@ -1439,7 +1442,7 @@ namespace Ryneus
             {
                 if (deathBattlerIndex < 100)
                 {
-                    PartyInfo.VictoryBonusCount.SetValue(0);
+                    PartyInfo.VictoryBonusCount.GainValue(-5,0);
                 }
             }
             return deathBattlerIndexes;
@@ -2751,7 +2754,7 @@ namespace Ryneus
 
                 if (PartyInfo.VictoryBonusCount.Value > 0)
                 {
-                    gainExp = (int)(gainExp * (1 + PartyInfo.VictoryBonusCount.Value * 0.1f));
+                    gainExp = (int)(gainExp * (1 + PartyInfo.VictoryBonusCount.Value * 0.05f));
                 }
 
                 var expData = new GetItemData

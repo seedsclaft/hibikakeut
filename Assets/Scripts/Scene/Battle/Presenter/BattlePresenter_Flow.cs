@@ -158,10 +158,10 @@ namespace Ryneus
             var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
             if (targetIndexes[0] < 100)
             {
-                _view.SelectActorList(targetIndexes[0]-1);
+                _view.SelectActorList(targetIndexes);
             } else
             {
-                _view.SelectEnemyList(targetIndexes[0]-101);
+                _view.SelectEnemyList(targetIndexes);
             }
             _view.UpdateSelectCursor(targetIndexes);
             _view.SetCurrentSkillData(actionInfo.SkillInfo,_model.GetBattlerInfo(actionInfo.SubjectIndex.Value));

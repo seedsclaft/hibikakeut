@@ -237,9 +237,9 @@ namespace Ryneus
             strategyActorList.SetShinyReflect(false);
         }
 
-        public void StartGetExpAnimation(Dictionary<ActorInfo,(float,float)> expDict)
+        public void StartGetExpAnimation(List<StrategyActorLevelUpInfo> levelUpInfos)
         {
-            strategyActorList.StartGetExpAnimation(expDict,CallEndAnimation);
+            strategyActorList.StartGetExpAnimation(levelUpInfos,CallEndAnimation);
         }
 
         public void FadeOut()

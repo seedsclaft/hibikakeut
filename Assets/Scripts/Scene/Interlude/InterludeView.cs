@@ -258,7 +258,7 @@ namespace Ryneus
 
         public void StartGetExpAnimation(Dictionary<ActorInfo,(float,float)> expDict)
         {
-            strategyActorList.StartGetExpAnimation(expDict,CallEndAnimation);
+            //strategyActorList.StartGetExpAnimation(expDict,CallEndAnimation);
         }
 
         public void FadeOut()

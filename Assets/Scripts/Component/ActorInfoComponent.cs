@@ -249,9 +249,9 @@ namespace Ryneus
             }
         }
 
-        public void LvupText()
+        public void LvupText(int plus)
         {
-            int lvValue = int.Parse(lv.text) + 1;
+            int lvValue = int.Parse(lv.text) + plus;
             lv?.SetText(lvValue.ToString());
         }
 

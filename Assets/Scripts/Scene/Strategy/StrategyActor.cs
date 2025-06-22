@@ -64,20 +64,20 @@ namespace Ryneus
                 });
         }
 
-        public void StartGetExpAnimation(float fromRate,float afterRate)
+        public void StartGetExpAnimation(StrategyActorLevelUpInfo levelUpInfo)
         {
-            statusGaugeAnimation.UpdateGauge(fromRate);
-            statusGaugeAnimation.SetGaugeAnimation(fromRate);
-            if (fromRate >= afterRate)
+            statusGaugeAnimation.UpdateGauge(levelUpInfo.BeforeRate);
+            statusGaugeAnimation.SetGaugeAnimation(levelUpInfo.BeforeRate);
+            if (levelUpInfo.IsLevelUp)
             {
                 // Lvアップ
-                statusGaugeAnimation.UpdateLevelUpGaugeAnimation(afterRate,() =>
+                statusGaugeAnimation.UpdateLevelUpGaugeAnimation(levelUpInfo.AfterRate,() =>
                 {
-                    component.LvupText();
+                    component.LvupText(levelUpInfo.PlusLv);
                 },_callEvent);
             } else
             {
-                statusGaugeAnimation.UpdateExpGaugeAnimation(afterRate,_callEvent);
+                statusGaugeAnimation.UpdateExpGaugeAnimation(levelUpInfo.AfterRate,_callEvent);
             }
         }
 
@@ -104,5 +104,13 @@ namespace Ryneus
                 shinyClip.SetMaterialDirty();
             }
         }
+    }
+
+    public class StrategyActorLevelUpInfo
+    {
+        public bool IsLevelUp = false;
+        public float BeforeRate = 0f;
+        public float AfterRate = 0f;
+        public int PlusLv = 0;
     }
 }

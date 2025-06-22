@@ -209,9 +209,9 @@ namespace Ryneus
 
         private void NextSeekResult()
         {
-            if (_model.DisplayExpDict.Count > 0)
+            if (_model.DisplayLevelUpInfos.Count > 0)
             {
-                _view.StartGetExpAnimation(_model.DisplayExpDict);
+                _view.StartGetExpAnimation(_model.DisplayLevelUpInfos);
                 _model.ClearExpDict();
                 return;
             }

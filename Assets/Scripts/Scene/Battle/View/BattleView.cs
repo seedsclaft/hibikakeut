@@ -177,20 +177,22 @@ namespace Ryneus
             battleEnemyList.UpdateSelectIndexList(targetIndexes);
         }
 
-        public void SelectActorList(int selectIndex)
+        public void SelectActorList(List<int> selectIndexes)
         {
             magicList.gameObject.SetActive(false);
             battleThumb.HideThumb();
             SetActivate(battleActorList);
-            battleActorList.UpdateSelectIndex(selectIndex);
+            battleActorList.SetSelectIndexes(selectIndexes);
+            battleActorList.UpdateSelectIndex(selectIndexes[0]-1);
         }
 
-        public void SelectEnemyList(int selectIndex)
+        public void SelectEnemyList(List<int> selectIndexes)
         {
             magicList.gameObject.SetActive(false);
             battleThumb.HideThumb();
             SetActivate(battleEnemyList);
-            battleEnemyList.UpdateSelectIndex(selectIndex);
+            battleEnemyList.SetSelectIndexes(selectIndexes);
+            battleEnemyList.UpdateSelectIndex(selectIndexes[0]-101);
         }
 
         public void SetGridMembers(List<BattlerInfo> battlerInfos)
@@ -447,7 +449,7 @@ namespace Ryneus
             magicList.SetData(skillInfos,resetScrollRect);
             if (resetScrollRect)
             {
-                magicList.Refresh(selectIndex);
+                magicList.UpdateSelectIndex(selectIndex);
             }
             OnSelectMagic();
         }
