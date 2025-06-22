@@ -107,6 +107,9 @@ namespace Ryneus
                 case "Relief":
                     CommandRelief();
                     break;
+                case "Transfer":
+                    CommandTransfer();
+                    break;
                 case "Status":
                     var actorInfos = _model.PartyInfo.ActorInfos;
                     CommandStatusInfo(actorInfos,false,true,true,false,actorInfos[0].ActorId.Value,() => 
@@ -148,6 +151,7 @@ namespace Ryneus
                     _busy = false;
                     _view.SetActiveCommandList(true);
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                    _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
                 }
             };
             _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
@@ -206,6 +210,25 @@ namespace Ryneus
                 {
                     _busy = false;
                     _view.SetActiveCommandList(true);
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
+        }
+
+        private void CommandTransfer()
+        {
+            _busy = true;
+            _view.SetActiveCommandList(false);
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.Transfer,
+                template = null,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    _view.SetActiveCommandList(true);
+                    _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };

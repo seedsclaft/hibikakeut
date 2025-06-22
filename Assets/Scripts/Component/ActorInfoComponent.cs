@@ -50,8 +50,9 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI battlePosition;
         [SerializeField] private Image unitTypeImage;
         [SerializeField] private Image unitTypeImageBack;
+        [SerializeField] private TextMeshProUGUI transferGetItemText;
 
-        public void UpdateInfo(ActorInfo actorInfo,List<ActorInfo> actorInfos)
+        public void UpdateInfo(ActorInfo actorInfo, List<ActorInfo> actorInfos)
         {
             if (actorInfo == null)
             {
@@ -130,7 +131,11 @@ namespace Ryneus
             if (battlePosition != null)
             {
                 var textId = actorInfo.LineIndex == LineType.Front ? 2012 : 2013;
-                battlePosition.text = DataSystem.GetText(textId);
+                battlePosition.SetText(DataSystem.GetText(textId));
+            }
+            if (transferGetItemText != null)
+            {
+                transferGetItemText.SetText(actorInfo.TransferGetItemText());
             }
         }
 

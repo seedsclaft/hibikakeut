@@ -50,6 +50,7 @@ namespace Ryneus
         ItemList,
         ArtifactList,
         StageList,
+        Transfer,
         SideMenu,
         Option,
         TutorialStage,

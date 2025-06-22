@@ -94,8 +94,7 @@ namespace Ryneus
             {
                 _model.SetTargetBattler(_model.GetBattlerInfo(targetIndexes[0]));
             }
-            var selectTargetIndexes = _model.MakeAutoSelectIndex(_model.SelectActionInfo,_model.TargetBattler.Index.Value);
-            _view.UpdateSelectCursor(selectTargetIndexes);
+            _view.UpdateSelectCursor(_model.SelectActionInfo.CandidateTargetIndexList);
         }
 
         /// <summary>
@@ -165,6 +164,7 @@ namespace Ryneus
                 _view.SelectEnemyList(targetIndexes[0]-101);
             }
             _view.UpdateSelectCursor(targetIndexes);
+            _view.SetCurrentSkillData(actionInfo.SkillInfo,_model.GetBattlerInfo(actionInfo.SubjectIndex.Value));
         }
 
         private void CommandOnDecideEnemy(BattlerInfo battlerInfo)
@@ -191,6 +191,7 @@ namespace Ryneus
             _model.SetSelectActionInfo(null);
             _view.SelectedCharacter(_model.CurrentActionBattler);
             ShowMagicList(_model.CurrentBattler,false);
+            _view.ClearCurrentSkillData();
         }
 
         private void CommandOnDecideActor(BattlerInfo battlerInfo)
@@ -217,6 +218,7 @@ namespace Ryneus
             _model.SetSelectActionInfo(null);
             _view.SelectedCharacter(_model.CurrentActionBattler);
             ShowMagicList(_model.CurrentBattler,false);
+            _view.ClearCurrentSkillData();
         }
 
         /// <summary>

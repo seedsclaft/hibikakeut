@@ -120,6 +120,7 @@ namespace Ryneus
             //_view.SetBattleSkipActive(true);
             // バトル開始と並べ替え選択待ち
             _view.SetActiveBeforeBattles(true);
+            _view.ShowEnemiesStatus();
             _busy = false;
         }
 
@@ -278,6 +279,7 @@ namespace Ryneus
             _beforeBattle = false;
             _model.CreateBattleRecords();
             _view.SetActiveBeforeBattles(false);
+            _view.HideEnemiesStatus();
             _view.EndFormation();
             _view.UpdateStartActivate();
 

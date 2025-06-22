@@ -20,6 +20,16 @@ namespace Ryneus
         // 所持アクターリスト
         [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = new();
         public List<ActorInfo> ActorInfos => _actorInfos;
+        // 派遣アクターリスト
+        [UnityEngine.SerializeField] private List<ActorInfo> _transferActorInfos = new();
+        public void AddTransferActorInfos(ActorInfo actorInfo)
+        {
+            if (_transferActorInfos.Find(a => a.ActorId.Value == actorInfo.ActorId.Value) == null)
+            {
+                _transferActorInfos.Add(actorInfo);
+                CurrentDeckInfo.TransferActorInfo(actorInfo.ActorId.Value);
+            }
+        }
 
         // 現在のステージ場所
         public StageData StageMaster => DataSystem.FindStage(StageId.Value);
@@ -336,6 +346,10 @@ namespace Ryneus
                 {
                     // 新規加入
                     var actorData = DataSystem.FindActor(addActorInfo.Param1);
+                    if (_transferActorInfos.Find(a => a.ActorId.Value == actorData.Id) != null)
+                    {
+                        return;
+                    }
                     var actorInfo = new ActorInfo(actorData);
                     actorInfo.BattleIndex.SetValue(_actorInfos.Count+1);
                     actorInfo.SetLevel(actorData.InitLv);

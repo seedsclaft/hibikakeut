@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ryneus
 {
-    public class CharacterListView : BaseView
+    public class TransferView : BaseView
     {
         [SerializeField] private BaseList characterList = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
@@ -13,23 +13,23 @@ namespace Ryneus
         public override void Initialize()
         {
             base.Initialize();
-            SetViewCommandSceneType(ViewCommandSceneType.CharacterList);
-            InitializeCharacterList();
+            SetViewCommandSceneType(ViewCommandSceneType.Transfer);
+            InitializeTransfer();
             SetBaseAnimation(popupAnimation);
-            _ = new CharacterListPresenter(this);
+            _ = new TransferPresenter(this);
         }
 
         public void OpenAnimation()
         {
-            popupAnimation.OpenAnimation(UiRoot.transform, () => CallViewEvent(CharacterList.CommandType.EndOpenAnimation));
+            popupAnimation.OpenAnimation(UiRoot.transform, () => CallViewEvent(Transfer.CommandType.EndOpenAnimation));
         }
 
-        private void InitializeCharacterList()
+        private void InitializeTransfer()
         {
             characterList.Initialize();
             characterList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
-            characterList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CharacterList.CommandType.DecideActor, characterList.ListItemData<ActorInfo>()));
-            SetInputHandler(characterList.gameObject);
+            characterList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(Transfer.CommandType.DecideActor, characterList.ListItemData<ActorInfo>()));
+            AddViewActives(characterList);
         }
 
         public void SetCharacterList(List<ListData> characterLists)
@@ -39,7 +39,7 @@ namespace Ryneus
         }
     }
 
-    namespace CharacterList
+    namespace Transfer
     {
         public enum CommandType
         {

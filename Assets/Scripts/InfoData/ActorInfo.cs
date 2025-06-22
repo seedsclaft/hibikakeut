@@ -549,6 +549,18 @@ namespace Ryneus
             return total;
         }
 
+        public ParameterBool Transfer = new();
+
+        public int TransferGetItem()
+        {
+            return Level * 2;
+        }
+
+        public string TransferGetItemText()
+        {
+            return "評価値+" + TransferGetItem().ToString();
+        }
+
         private List<SkillTriggerInfo> _skillTriggerInfos = new();
         public List<SkillTriggerInfo> SkillTriggerInfos => _skillTriggerInfos;
 

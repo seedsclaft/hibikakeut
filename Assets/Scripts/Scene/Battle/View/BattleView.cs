@@ -380,7 +380,10 @@ namespace Ryneus
 
         private void CallChangeBattleSpeed(int plus)
         {
-            if (battleSpeedButton.gameObject.activeSelf == false) return;
+            if (!battleSpeedButton.gameObject.activeSelf)
+            {
+                return;
+            }
             CallViewEvent(CommandType.ChangeBattleSpeed,plus);
         }
 
@@ -715,6 +718,14 @@ namespace Ryneus
             }
         }
 
+        public void ShowEnemiesStatus()
+        {
+            foreach (var item in _battlerComps)
+            {
+                item.Value.SetActiveStatus(true);
+            }
+        }
+
         public void HideEnemiesStatus()
         {
             SetBattlerActiveStatus(new List<int>());
@@ -753,6 +764,30 @@ namespace Ryneus
             if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
             {
                 CallViewEvent(CommandType.Formation);
+            } else
+            if (InputSystem.GetInputDate(InputKeyType.Option2).IsDownTrigger())
+            {
+                if (!battleAutoButton.gameObject.activeSelf)
+                {
+                    return;
+                }
+                CallViewEvent(CommandType.ChangeBattleAuto);
+            } else
+            if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
+            {
+                if (!battleSpeedButton.gameObject.activeSelf)
+                {
+                    return;
+                }
+                CallViewEvent(CommandType.ChangeBattleSpeed,-1);
+            } else
+            if (InputSystem.GetInputDate(InputKeyType.SideRight1).IsDownTrigger())
+            {
+                if (!battleSpeedButton.gameObject.activeSelf)
+                {
+                    return;
+                }
+                CallViewEvent(CommandType.ChangeBattleSpeed,1);
             }
         }
 
