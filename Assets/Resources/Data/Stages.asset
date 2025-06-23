@@ -277,24 +277,60 @@ MonoBehaviour:
       Param2: 4
       Param3: 9
       ReadFlag: 0
-    - EventKey: 30_5_12DungeonAddEventFlag612
+    - EventKey: 30_9_0DungeonMoveDungeonFloor32
+      Timing: 3010
+      Type: 2020
+      PositionX: 9
+      PositionY: 0
+      Param: 32
+      Param2: 9
+      Param3: 9
+      ReadFlag: 0
+    - EventKey: 30_6_1DungeonAddEventFlag71
       Timing: 3010
       Type: 6010
-      PositionX: 5
-      PositionY: 12
-      Param: 612
+      PositionX: 6
+      PositionY: 1
+      Param: 71
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 30_6_12DungeonNone612
+    - EventKey: 30_7_1DungeonNone71
       Timing: 3010
       Type: 0
-      PositionX: 6
-      PositionY: 12
-      Param: 612
+      PositionX: 7
+      PositionY: 1
+      Param: 71
       Param2: 0
       Param3: 0
       ReadFlag: 1
+    - EventKey: 30_8_4DungeonAdvStart1030
+      Timing: 3010
+      Type: 1010
+      PositionX: 8
+      PositionY: 4
+      Param: 1030
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 30_8_2DungeonDamageFloor20
+      Timing: 3010
+      Type: 7010
+      PositionX: 8
+      PositionY: 2
+      Param: 20
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 30_8_3DungeonDamageFloor20
+      Timing: 3010
+      Type: 7010
+      PositionX: 8
+      PositionY: 3
+      Param: 20
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
   - Id: 31
     StageNo: 3
     Name: "\u6708\u5F71\u306E\u68EE\u30FB\u5730\u4E0B\u6D1E\u7A9F"
@@ -405,6 +441,15 @@ MonoBehaviour:
       Param2: 4
       Param3: 0
       ReadFlag: 0
+    - EventKey: 32_9_9DungeonMoveDungeonFloor30
+      Timing: 3010
+      Type: 2020
+      PositionX: 9
+      PositionY: 9
+      Param: 30
+      Param2: 9
+      Param3: 0
+      ReadFlag: 0
     - EventKey: 32_4_6DungeonForceBossBattle2010
       Timing: 3010
       Type: 5020
@@ -429,7 +474,7 @@ MonoBehaviour:
     Selectable: 1
     Chapter: 1
     Help: '""'
-    StageLv: 5
+    StageLv: 10
     DisplayRank: 4
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
@@ -462,18 +507,18 @@ MonoBehaviour:
     Selectable: 1
     Chapter: 1
     Help: '""'
-    StageLv: 3
+    StageLv: 5
     DisplayRank: 3
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
     - EnemyId: 3
-      Weight: 15
+      Weight: 20
     - EnemyId: 6
-      Weight: 15
+      Weight: 20
     - EnemyId: 1
-      Weight: 15
+      Weight: 20
     - EnemyId: 7
-      Weight: 15
+      Weight: 20
     EncountMin: 6
     EncountMax: 12
     BackGround: RockCave2
@@ -506,7 +551,7 @@ MonoBehaviour:
     Selectable: 1
     Chapter: 2
     Help: '""'
-    StageLv: 6
+    StageLv: 10
     DisplayRank: 4
     RandomTroopWeight: 30
     RandomTroopEnemyRates:

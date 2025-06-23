@@ -237,7 +237,7 @@ namespace Ryneus
             }
             PartyInfo.Currency.GainValue(-1,0);
             PartyInfo.UseCurrencyHeal();
-            PartyInfo.VictoryBonusCount.GainValue(-2,0);
+            PartyInfo.VictoryBonusCount.GainValue(-1,0);
         }
 
         public void SaveBgmTiming()
@@ -253,6 +253,16 @@ namespace Ryneus
                 return CurrentDeckInfo.GetDungeonBgmTimeStamp().Value;
             }
             return 0;
+        }
+
+        public void DamageFloor(int damage)
+        {
+            PartyInfo.DamageFloor(damage);
+        }
+
+        public bool CheckGameover()
+        {
+            return PartyUnit().Find(a => a.Hp.Value > 0) == null;
         }
 
         public List<SystemData.CommandData> SideMenu()

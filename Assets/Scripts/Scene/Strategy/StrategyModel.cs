@@ -123,15 +123,14 @@ namespace Ryneus
             var expGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Exp);
             foreach (var expGetItemInfo in expGetItemInfos)
             {
-                expGetItemInfo.SetGetFlag(true);
                 var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == expGetItemInfo.Param1);
                 if (target != null)
                 {
                     var beforeLv = target.Level;
                     var from = target.Evaluate();
-                    var beforeRate = (target.Exp.Value % 100) * 0.01f;
+                    var beforeRate = target.Exp.Value % 100 * 0.01f;
                     target.Exp.GainValue(expGetItemInfo.Param2);
-                    var afterRate = (target.Exp.Value % 100) * 0.01f;
+                    var afterRate = target.Exp.Value % 100 * 0.01f;
                     _displayLevelUpInfos.Add(new StrategyActorLevelUpInfo()
                     {
                         IsLevelUp = beforeLv != target.Level,
@@ -139,7 +138,6 @@ namespace Ryneus
                         BeforeRate = beforeRate,
                         PlusLv = target.Level - beforeLv
                     });
-                    //_displayExpDict[target] = (beforeRate,afterRate);
                     if (beforeLv != target.Level)
                     {
                         // 新規魔法取得があるか
@@ -164,15 +162,6 @@ namespace Ryneus
                     target.Exp.GainValue(expGetItemInfo.Param2 * -1);
                 }
             }
-            // Skillマスタリーを付与する
-            var skillExpGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.SkillMastary);
-            foreach (var skillExpGetItemInfo in skillExpGetItemInfos)
-            {
-                skillExpGetItemInfo.SetGetFlag(true);
-                var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == skillExpGetItemInfo.Param1);
-                target.GainSkillMastary(skillExpGetItemInfo.Param2);
-            }
-
             _levelUpActorInfos = lvUpList;
             if (lvUpList.Count > 0)
             {
@@ -196,45 +185,26 @@ namespace Ryneus
                 AddGetItemInfo(skillGetItemInfo);
             }
 
-            // アイテム入手
-            var itemGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Item);
-            foreach (var itemGetItemInfo in itemGetItemInfos)
-            {
-                AddGetItemInfo(itemGetItemInfo);
-            }
-
-            // RankUp
-            var rankUpgetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.RankUp);
-            foreach (var rankUpgetItemInfo in rankUpgetItemInfos)
-            {
-                AddGetItemInfo(rankUpgetItemInfo);
-            }
-
-            // ステージクリア
-            var claerStageGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.ClearStage);
-            foreach (var claerStageGetItemInfo in claerStageGetItemInfos)
-            {
-                AddGetItemInfo(claerStageGetItemInfo);
-            }
-
             // 獲得エナジー、魔法情報を生成
             _resultInfos.Clear();
             if (gainCurrency > 0)
             {
                 var resultInfo = new StrategyResultViewInfo();
-                resultInfo.SetTitle("+" + gainCurrency.ToString() + DataSystem.GetText(1000) + "を入手！");
+                resultInfo.SetTitle("+" + DataSystem.GetReplaceText(20100, gainCurrency.ToString() + DataSystem.GetText(1000)));
                 _resultInfos.Add(resultInfo);
             }
+
             foreach (var skillGetItemInfo in skillGetItemInfos)
             {
                 var resultInfo = new StrategyResultViewInfo();
                 var skillData = DataSystem.FindSkill(skillGetItemInfo.Param1);
                 resultInfo.SetSkillId(skillData.Id);
-                resultInfo.SetTitle(skillData.Name + "を入手！");
+                resultInfo.SetTitle(DataSystem.GetReplaceText(20100,skillData.Name));
                 _resultInfos.Add(resultInfo);
             }
 
             //
+            var skillExpGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.SkillMastary);
             foreach (var skillExpGetItemInfo in skillExpGetItemInfos)
             {
                 var resultInfo = new StrategyResultViewInfo();
@@ -242,7 +212,7 @@ namespace Ryneus
                 var skillData = DataSystem.FindSkill(skillExpGetItemInfo.Param2);
                 if (skillData.Id > 1000 && skillData.Rank > RankType.ActiveRank1)
                 {
-                    resultInfo.SetTitle(target.Master.Name + "は" + skillData.Name + "を会得！");
+                    resultInfo.SetTitle(DataSystem.GetReplaceText(20110,target.Master.Name) + DataSystem.GetReplaceText(20111,skillData.Name));
                     _resultInfos.Add(resultInfo);
                 }
             }
@@ -282,7 +252,10 @@ namespace Ryneus
                         }
                         break;
                     case GetItemType.Ending:
-                        getItemInfo.SetGetFlag(true);
+                    case GetItemType.SkillMastary:
+                    case GetItemType.Item:
+                    case GetItemType.ClearStage:
+                        AddGetItemInfo(getItemInfo);
                         break;
                 }
             }
@@ -346,7 +319,7 @@ namespace Ryneus
             var turn = _sceneParam.BattleTurn;
             if (turn > 0)
             {
-                return turn.ToString() + "ターン";
+                return turn.ToString() + DataSystem.GetText(20301);
             }
             return null;
         }

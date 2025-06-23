@@ -103,22 +103,16 @@ namespace Ryneus
 
         public string TargetTypeText()
         {
-            switch (TargetType)
+            return TargetType switch
             {
-                case TargetType.Friend:
-                    return DataSystem.GetText(600);
-                case TargetType.Opponent:
-                    return DataSystem.GetText(601);
-                case TargetType.Self:
-                    return DataSystem.GetText(602);
-                case TargetType.All:
-                    return DataSystem.GetText(603);
-                case TargetType.Counter:
-                    return DataSystem.GetText(606);
-                case TargetType.IsTriggerTarget:
-                    return DataSystem.GetText(611);
-            }
-            return "";
+                TargetType.Friend => DataSystem.GetText(600),
+                TargetType.Opponent => DataSystem.GetText(601),
+                TargetType.Self => DataSystem.GetText(602),
+                TargetType.All => DataSystem.GetText(603),
+                TargetType.Counter => DataSystem.GetText(606),
+                TargetType.IsTriggerTarget => DataSystem.GetText(611),
+                _ => "",
+            };
         }
 
         public string ScopeTypeText()

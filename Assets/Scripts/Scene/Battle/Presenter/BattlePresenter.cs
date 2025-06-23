@@ -81,9 +81,9 @@ namespace Ryneus
             _view.ClearCurrentSkillData();
             _view.CreateObject();
             _view.RefreshTurn(_model.TurnCount);
-            _view.SetBattleAutoButton(_model.BattleAutoButton(),_model.IsBattleAuto());
+            _view.SetBattleAutoButton(_model.IsBattleAuto());
             _view.ChangeBackCommandActive(false);
-            _view.SetBattleAutoButton(false);
+            _view.SetActiveBattleAutoButton(false);
             _view.SetBattleSpeedButton(OptionUtility.CurrentBattleSpeedText());
             _view.SetBattleSkipButton(DataSystem.GetText(16010));
             _view.SetSkillLogButton(DataSystem.GetText(16020));
@@ -114,7 +114,7 @@ namespace Ryneus
                 _view.StartBattleStartAnim(_model.BattleStartText());
             }
             _view.StartUIAnimation();
-            _view.SetBattleAutoButton(true);
+            _view.SetActiveBattleAutoButton(true);
             //_view.StartBattle(_model.BattlerEnemies().Count);
             await UniTask.WaitUntil(() => !_view.StartAnimIsBusy);
             //_view.SetBattleSkipActive(true);

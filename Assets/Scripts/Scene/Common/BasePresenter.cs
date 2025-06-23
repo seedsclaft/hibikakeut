@@ -89,7 +89,7 @@ namespace Ryneus
             if (advInfo != null)
             {
                 BeforeStageAdv();
-                _view.WaitFrame(60,() =>
+                _view.WaitFrame(10,() =>
                 {
                     advInfo.SetCallEvent(() =>
                     {
@@ -133,8 +133,8 @@ namespace Ryneus
         {
             _view.CallSystemCommand(Base.CommandType.SceneHideUI);
             // BGMとBGSのフェードアウト
-            SoundManager.Instance.FadeOutBgm();
-            SoundManager.Instance.FadeOutBgs();
+            //SoundManager.Instance.FadeOutBgm();
+            //SoundManager.Instance.FadeOutBgs();
         }
 
         public async UniTask PlayTacticsBgm(float timeStamp = 0)
@@ -424,7 +424,7 @@ namespace Ryneus
             if (achievements.Count > 0)
             {
                 var missionClearInfo = new MissionClearInfo();
-                var text = "課題を達成！\n";
+                var text = DataSystem.GetText(36010) + "\n";
                 foreach (var achievement in achievements)
                 {
                     text += achievement.GetTitleData();
@@ -433,7 +433,7 @@ namespace Ryneus
                         text += " ";
                     }
                 }
-                text += "を獲得";
+                text += DataSystem.GetText(36011);
                 missionClearInfo.SetTitle(text);
                 _view.CommandCallMissionClear(missionClearInfo);
             }

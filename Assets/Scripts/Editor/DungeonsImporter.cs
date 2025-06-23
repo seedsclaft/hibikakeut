@@ -107,6 +107,10 @@ namespace Ryneus
                                 if (cell.Contains("Ar"))
                                 {
                                     attr = 7;
+                                } else
+                                if (cell.Contains("Dm"))
+                                {
+                                    attr = 14;
                                 }
                                 
                                 if (cell.Contains("D2"))

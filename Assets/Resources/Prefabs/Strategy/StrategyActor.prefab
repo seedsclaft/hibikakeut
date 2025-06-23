@@ -356,7 +356,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -96, y: 3}
+  m_AnchoredPosition: {x: 0, y: 3}
   m_SizeDelta: {x: 64, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &860480900052690517
@@ -608,7 +608,6 @@ GameObject:
   - component: {fileID: 301894437367445050}
   - component: {fileID: 7820665511998090814}
   - component: {fileID: 8475968323074902752}
-  - component: {fileID: 7519236112138475724}
   m_Layer: 5
   m_Name: Caption
   m_TagString: Untagged
@@ -633,7 +632,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 240, y: 40}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &301894437367445050
 MonoBehaviour:
@@ -647,7 +646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f44f7c136c1dcf4b86a8b7fad1fad41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 316
+  id: 3010
 --- !u!222 &7820665511998090814
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -748,19 +747,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7519236112138475724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5197811576461836504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f44f7c136c1dcf4b86a8b7fad1fad41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 18500
 --- !u!1 &5506509304731845662
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,6 +877,7 @@ MonoBehaviour:
   profileText: {fileID: 0}
   evaluate: {fileID: 8161824883496629682}
   demigod: {fileID: 0}
+  lvCation: {fileID: 0}
   lv: {fileID: 1481157523000141416}
   exp: {fileID: 0}
   expGauge: {fileID: 0}
@@ -914,6 +901,7 @@ MonoBehaviour:
   battlePosition: {fileID: 0}
   unitTypeImage: {fileID: 0}
   unitTypeImageBack: {fileID: 0}
+  transferGetItemText: {fileID: 0}
 --- !u!114 &1372751182464953999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1170,7 +1158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 107, y: 8}
+  m_AnchoredPosition: {x: 16, y: 8}
   m_SizeDelta: {x: 0, y: 26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9208849370050799968

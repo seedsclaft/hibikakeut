@@ -2867,17 +2867,6 @@ namespace Ryneus
             return list;
         }
 
-        public SystemData.CommandData BattleAutoButton()
-        {
-            var menuCommand = new SystemData.CommandData
-            {
-                Id = 1,
-                Name = DataSystem.GetText(706),
-                Key = "BATTLE_AUTO"
-            };
-            return menuCommand;
-        }
-
         public void ChangeBattleAuto()
         {
             OptionUtility.ChangeBattleAuto(!GameSystem.OptionData.BattleAuto);

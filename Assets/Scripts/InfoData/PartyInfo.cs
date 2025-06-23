@@ -316,6 +316,10 @@ namespace Ryneus
                 case GetItemType.Evaluate:
                     EvaluationValue.GainValue(getItemInfo.Param1);
                     break;
+                case GetItemType.SkillMastary:
+                    var target = _actorInfos.Find(a => a.ActorId.Value == getItemInfo.Param1);
+                    target.GainSkillMastary(getItemInfo.Param2);
+                    break;
                 default:
                     CheckAddActor();
                     CheckLearningSkillId();
@@ -427,6 +431,15 @@ namespace Ryneus
             {
                 var find = _actorInfos.Find(a => a.ActorId.Value == actorId.Value);
                 find?.ChangeHp(find.CurrentHp.Value + 10);
+            }
+        }
+
+        public void DamageFloor(int damage)
+        {
+            foreach (var actorId in CurrentDeckInfo.ActorIdDict)
+            {
+                var find = _actorInfos.Find(a => a.ActorId.Value == actorId.Value);
+                find?.ChangeHp(find.CurrentHp.Value - damage);
             }
         }
 

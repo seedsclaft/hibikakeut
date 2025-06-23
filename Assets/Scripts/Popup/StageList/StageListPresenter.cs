@@ -30,7 +30,8 @@ namespace Ryneus
                 return !_model.IsLimitedRank(stageInfo);
             };
             var stageInfos = _model.StageInfos();
-            _view.SetStageList(MakeListDataFunc(stageInfos, stageInfos.FindIndex(a => a.StageId.Value == _model.PartyInfo.StageId.Value), enable));
+            var index = stageInfos.FindIndex(a => a.StageId.Value == _model.CurrentDeckInfo.StageNo.Value);
+            _view.SetStageList(MakeListDataFunc(stageInfos, index != -1 ? index : 0, enable));
             _view.OpenAnimation();
             _busy = false;
         }
@@ -55,6 +56,10 @@ namespace Ryneus
 
         private void CommandDecideStage(StageInfo stageInfo)
         {
+            if (stageInfo == null)
+            {
+                return;
+            }
             if (!_model.IsLimitedRank(stageInfo))
             {
                 _busy = true;

@@ -177,7 +177,11 @@ namespace Ryneus
                         // TimeStampを取得してBgmをフェードアウト
                         var timeStamp = SoundManager.Instance.CurrentTimeStamp();
                         var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-                        if (CheckAdvEvent(EventTiming.BattleVictory,timeStamp,() => CheckEventData(moved,playerPosition,() => Initialize())))
+                        if (CheckAdvEvent(EventTiming.Dungeon,timeStamp,() => CheckEventData(moved,playerPosition,() => 
+                        {
+                            _view.CallSystemCommand(Base.CommandType.SceneShowUI);
+                            endEvent?.Invoke();
+                        })))
                         {
                             return true;
                         }
@@ -268,6 +272,23 @@ namespace Ryneus
                             _model.AddEventReadFlag(item);
                         }
                         _model.UpdateEventObjects();
+                        endEvent?.Invoke();
+                        return false;
+                    case StageEventType.DamageFloor:
+                        SoundManager.Instance.PlayStaticSe(SEType.Damage);
+                        _model.DamageFloor(stageEvent.Param);
+                        _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
+                        if (_model.CheckGameover())
+                        {
+                            var confirmInfo2 = new ConfirmInfo(DataSystem.GetText(10150),(a) =>
+                            {
+                                _view.CommandGotoSceneChange(Scene.Title);
+                            });
+                            confirmInfo2.SetIsNoChoice(true);
+                            confirmInfo2.SetBackEvent(() => {});
+                            _view.CommandCallConfirm(confirmInfo2);
+                            return false;
+                        }
                         endEvent?.Invoke();
                         return false;
                 }

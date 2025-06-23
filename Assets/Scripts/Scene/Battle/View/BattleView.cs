@@ -312,10 +312,9 @@ namespace Ryneus
             */
         }
 
-        public void SetBattleAutoButton(SystemData.CommandData data,bool isAuto)
+        public void SetBattleAutoButton(bool isAuto)
         {
             battleAutoButton.gameObject.SetActive(false);
-            battleAutoButton.SetText(data.Name);
             battleAutoButton.OnClickAddListener(() =>
             {
                 if (!battleAutoButton.gameObject.activeSelf)
@@ -330,7 +329,7 @@ namespace Ryneus
             ChangeBattleAuto(isAuto);
         }
 
-        public void SetBattleAutoButton(bool isActive)
+        public void SetActiveBattleAutoButton(bool isActive)
         {
             battleAutoButton.gameObject.SetActive(isActive);
             battleSpeedButton.gameObject.SetActive(isActive);
