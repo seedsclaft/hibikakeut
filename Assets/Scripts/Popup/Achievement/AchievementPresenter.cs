@@ -24,7 +24,6 @@ namespace Ryneus
         private void Initialize()
         {
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetHelpInputInfo("CHARACTER_LIST");
             _view.SetAchievement(MakeListData(_model.AchivementDates(), 0));
             _view.OpenAnimation();
         }

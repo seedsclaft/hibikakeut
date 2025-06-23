@@ -127,7 +127,7 @@ namespace Ryneus
             {
                 return textData.Text;
             }
-            return "";
+            return id + ":が不足";
         }
 
         public static string GetHelp(int id)

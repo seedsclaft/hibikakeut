@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 4221943730572513148}
   - component: {fileID: 2844010249658462125}
   - component: {fileID: 8987715550273039080}
+  - component: {fileID: 8954523273786832616}
   m_Layer: 5
   m_Name: Caption
   m_TagString: Untagged
@@ -442,6 +443,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8954523273786832616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017108891914495446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f44f7c136c1dcf4b86a8b7fad1fad41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 3200
 --- !u!1 &1021265950950751502
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,6 +1198,7 @@ GameObject:
   - component: {fileID: 304379416205272637}
   - component: {fileID: 6739694676833196391}
   - component: {fileID: 7870014582640067013}
+  - component: {fileID: 870715697602078743}
   m_Layer: 5
   m_Name: Caption
   m_TagString: Untagged
@@ -1310,6 +1325,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &870715697602078743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4535146455996992484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f44f7c136c1dcf4b86a8b7fad1fad41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 3210
 --- !u!1 &5428820299931583392
 GameObject:
   m_ObjectHideFlags: 0
@@ -8844,6 +8872,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6692906855744418222, guid: e91ca2ba6d88a2845ac2fcf23fbb6a74,
+        type: 3}
+      propertyPath: id
+      value: 3100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6692906855744418222, guid: e91ca2ba6d88a2845ac2fcf23fbb6a74,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

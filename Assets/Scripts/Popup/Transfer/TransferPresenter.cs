@@ -23,7 +23,6 @@ namespace Ryneus
         private void Initialize()
         {
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetHelpInputInfo("CHARACTER_LIST");
             _view.SetCharacterList(MakeListData(_model.PartyInfo.ActorInfos,0));
             _view.OpenAnimation();
         }
@@ -68,11 +67,11 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle("ヒロインは派遣できません！");
+                cautionInfo.SetTitle(DataSystem.GetText(35020));
                 _view.CommandCallCaution(cautionInfo);
                 return;
             }
-            var confirmInfo = new ConfirmInfo(actorInfo.Master.Name + "を派遣しますか？\n！派遣した仲間は終末まで戻ってきません！", (a) =>
+            var confirmInfo = new ConfirmInfo(actorInfo.Master.Name + DataSystem.GetText(35010), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {

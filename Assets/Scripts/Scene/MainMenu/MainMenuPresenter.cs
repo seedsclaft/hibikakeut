@@ -52,7 +52,7 @@ namespace Ryneus
             if (_model.InterludePhase())
             {
                 _busy = true;
-                var confirmInfo = new ConfirmInfo("Periodが終了しヘイムダルから定期報告が入りました。",(a) =>
+                var confirmInfo = new ConfirmInfo(DataSystem.GetText(11020),(a) =>
                 {
                     _view.CommandGotoSceneChange(Scene.Interlude);
                 });
@@ -240,11 +240,11 @@ namespace Ryneus
             if (_model.PartyInfo.ThisPeriodReliefCount.Value > 0)
             {
                 var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle("今は召喚に応じるエインフェリアはいないようだ…");
+                cautionInfo.SetTitle(DataSystem.GetText(11011));
                 _view.CommandCallCaution(cautionInfo);
                 return;
             }
-            var confirmInfo = new ConfirmInfo("エインフェリアを召喚しますか？",(a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(11010),(a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {

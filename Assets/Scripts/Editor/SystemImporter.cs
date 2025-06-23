@@ -63,7 +63,7 @@ namespace Ryneus
                 {
                     // エクセルブックを作成
                     AssetPostImporter.CreateBook(asset, Mainstream, out IWorkbook Book);
-                    List<TextData> textData = AssetPostImporter.CreateText(Book.GetSheetAt(6));
+                    List<TextData> textData = AssetPostImporter.CreateText(Book.GetSheetAt(7));
 
                     // 情報の初期化
                     Data.TacticsCommandData = new();

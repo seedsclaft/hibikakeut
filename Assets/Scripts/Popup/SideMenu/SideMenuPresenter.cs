@@ -110,7 +110,7 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo("位置情報を保存して帰還しますか？", (a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10130), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {

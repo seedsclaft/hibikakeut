@@ -2187,7 +2187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f44f7c136c1dcf4b86a8b7fad1fad41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 18500
+  id: 3010
 --- !u!114 &5024419513571801331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3619,7 +3619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f44f7c136c1dcf4b86a8b7fad1fad41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 18510
+  id: 3020
 --- !u!1 &4312772921516122446
 GameObject:
   m_ObjectHideFlags: 0
@@ -6744,7 +6744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f44f7c136c1dcf4b86a8b7fad1fad41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 18410
+  id: 14040
 --- !u!222 &903087133645953407
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7147,6 +7147,7 @@ MonoBehaviour:
   profileText: {fileID: 0}
   evaluate: {fileID: 0}
   demigod: {fileID: 0}
+  lvCation: {fileID: 0}
   lv: {fileID: 1323979974478770768}
   exp: {fileID: 4025902174454192961}
   expGauge: {fileID: 4100970139643973676}
@@ -7170,6 +7171,7 @@ MonoBehaviour:
   battlePosition: {fileID: 0}
   unitTypeImage: {fileID: 0}
   unitTypeImageBack: {fileID: 0}
+  transferGetItemText: {fileID: 0}
 --- !u!1 &7233671292846377451
 GameObject:
   m_ObjectHideFlags: 0
@@ -7654,7 +7656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f44f7c136c1dcf4b86a8b7fad1fad41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 18420
+  id: 14050
 --- !u!222 &8116667537661567219
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7683,7 +7685,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Attribute
+  m_text: "\u5C5E\u6027\u9069\u6B63"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fd7871a73864a2147a57697b5b13bd89, type: 2}
   m_sharedMaterial: {fileID: 7947116292471950640, guid: fd7871a73864a2147a57697b5b13bd89,
@@ -7693,8 +7695,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

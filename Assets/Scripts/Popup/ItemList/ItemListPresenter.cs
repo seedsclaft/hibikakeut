@@ -24,7 +24,6 @@ namespace Ryneus
         private void Initialize()
         {
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetHelpInputInfo("CHARACTER_LIST");
             _view.SetItemList(MakeListData(_model.ItemInfoss(), 0));
             _view.OpenAnimation();
             _busy = false;
@@ -60,7 +59,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 _busy = true;
-                var confirmInfo = new ConfirmInfo("献上しますか？", (a) =>
+                var confirmInfo = new ConfirmInfo(DataSystem.GetText(34040), (a) =>
                 {
                     if (a == ConfirmCommandType.Yes)
                     {
@@ -86,7 +85,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle("献上するアイテムがありません！");
+                cautionInfo.SetTitle(DataSystem.GetText(34050));
                 _view.CommandCallCaution(cautionInfo);
             }
         }

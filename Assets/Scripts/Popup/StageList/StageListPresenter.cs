@@ -24,7 +24,6 @@ namespace Ryneus
         private void Initialize()
         {
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetHelpInputInfo("CHARACTER_LIST");
             Func<StageInfo, bool> enable = (stageInfo) =>
             {
                 // 出撃可能か
@@ -61,7 +60,7 @@ namespace Ryneus
                 _busy = true;
                 _view.SetBusy(true);
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                var confirmInfo = new ConfirmInfo("出撃しますか？", (a) =>
+                var confirmInfo = new ConfirmInfo(DataSystem.GetText(32030), (a) =>
                 {
                     if (a == ConfirmCommandType.Yes)
                     {
@@ -79,7 +78,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle("神界等級が達していません！");
+                cautionInfo.SetTitle(DataSystem.GetText(32040));
                 _view.CommandCallCaution(cautionInfo);
             }
         }

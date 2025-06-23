@@ -153,7 +153,7 @@ namespace Ryneus
             if (skillInfo.IsBattleSpecialSkill())
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
-                CommandCautionInfo("固有スキルははずすことができません");
+                CommandCautionInfo(DataSystem.GetText(14010));
                 return;
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
@@ -194,7 +194,7 @@ namespace Ryneus
                 var equipmentActor = _model.EquipmentSkill(skillInfo);
                 if (equipmentActor != null && equipmentActor.ActorId.Value != _model.CurrentActor.ActorId.Value)
                 {
-                    var confirmInfo = new ConfirmInfo(skillInfo.Master.Name + "は" + equipmentActor.Master.Name + "が装備中です\n付け替えて装備しますか？",(a) =>
+                    var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(14020, skillInfo.Master.Name) + DataSystem.GetReplaceText(14021, equipmentActor.Master.Name),(a) =>
                     {
                         if (a == ConfirmCommandType.Yes)
                         {
@@ -325,7 +325,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
             // 確認後結果表示
-            var confirmInfo = new ConfirmInfo(_model.CurrentActor.Master.Name +"を仲間にしますか？",(a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(14030, _model.CurrentActor.Master.Name),(a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {

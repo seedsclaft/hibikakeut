@@ -35,17 +35,18 @@ namespace Ryneus
             var optionCommand = new SystemData.CommandData
             {
                 Id = 1,
-                Name = DataSystem.GetText(13410),
+                Name = DataSystem.GetText(19101),
                 Key = "Option"
             };
             list.Add(optionCommand);
             var menuCommand = new SystemData.CommandData
             {
                 Id = 2,
-                Name = DataSystem.GetText(13400),
+                Name = DataSystem.GetText(19107),
                 Key = "License"
             };
             list.Add(menuCommand);
+            /*
             var deleteStage = new SystemData.CommandData
             {
                 Id = 3,
@@ -53,10 +54,11 @@ namespace Ryneus
                 Key = "DeleteStage"
             };
             list.Add(deleteStage);
+            */
             var initCommand = new SystemData.CommandData
             {
                 Id = 4,
-                Name = DataSystem.GetText(13421),
+                Name = DataSystem.GetText(19108),
                 Key = "InitializeData"
             };
             list.Add(initCommand);
@@ -64,7 +66,7 @@ namespace Ryneus
             var endCommand = new SystemData.CommandData
             {
                 Id = 5,
-                Name = DataSystem.GetText(13430),
+                Name = DataSystem.GetText(19109),
                 Key = "EndGame"
             };
             list.Add(endCommand);

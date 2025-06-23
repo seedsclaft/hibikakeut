@@ -261,49 +261,49 @@ namespace Ryneus
             var status = new SystemData.CommandData
             {
                 Id = 1,
-                Name = "メンバー確認",
+                Name = DataSystem.GetText(19006),
                 Key = "Status"
             };
             list.Add(status);
             var @return = new SystemData.CommandData
             {
                 Id = 1,
-                Name = "帰還する",
+                Name = DataSystem.GetText(19100),
                 Key = "Return"
             };
             list.Add(@return);
             var option = new SystemData.CommandData
             {
                 Id = 2,
-                Name = DataSystem.GetText(13410),
+                Name = DataSystem.GetText(19101),
                 Key = "Option"
             };
             list.Add(option);
             var menuCommand = new SystemData.CommandData
             {
                 Id = 3,
-                Name = DataSystem.GetText(19700),
+                Name = DataSystem.GetText(19102),
                 Key = "Help"
             };
             list.Add(menuCommand);
             var dictionaryCommand = new SystemData.CommandData
             {
                 Id = 11,
-                Name = DataSystem.GetText(19730),
+                Name = DataSystem.GetText(19103),
                 Key = "Dictionary"
             };
             list.Add(dictionaryCommand);
             var saveCommand = new SystemData.CommandData
             {
                 Id = 4,
-                Name = DataSystem.GetText(19710),
+                Name = DataSystem.GetText(19104),
                 Key = "Save"
             };
             list.Add(saveCommand);
             var titleCommand = new SystemData.CommandData
             {
                 Id = 5,
-                Name = DataSystem.GetText(19720),
+                Name = DataSystem.GetText(19106),
                 Key = "Title"
             };
             list.Add(titleCommand);

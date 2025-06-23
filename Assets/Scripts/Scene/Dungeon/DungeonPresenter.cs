@@ -138,7 +138,7 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
             _model.DungeonBusy(true);
-            var confirmInfo = new ConfirmInfo("残りターン数が枯渇したため帰還します!",(a) => 
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10110),(a) =>
             {
                 _model.ReturnDungeon();
                 _view.CommandSceneChange(Scene.MainMenu);
@@ -214,7 +214,7 @@ namespace Ryneus
                     case StageEventType.SelectAddActor:
                         // 選択して仲間を加入
                         // 確認後仲間選択
-                        var confirmInfo = new ConfirmInfo("加入したい仲間を選択！",(a) =>
+                        var confirmInfo = new ConfirmInfo(DataSystem.GetText(10120),(a) =>
                         {
                             CommandCallAddActorInfo(true,true);
                         });
@@ -280,7 +280,7 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo("帰還しますか？", (a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10130), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
@@ -328,7 +328,7 @@ namespace Ryneus
 
         private void PresentArtifact(int itemId)
         {
-            var confirmInfo = new ConfirmInfo("アーティファクトを献上しますか？",(a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10140),(a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
@@ -354,7 +354,7 @@ namespace Ryneus
             var getItemInfo = new GetItemInfo(itemData);
             _model.AddGetItemInfo(getItemInfo);
             _model.PartyInfo.EvaluationValue.GainValue(-10,0);
-            var confirmInfo = new ConfirmInfo("アーティファクトを入手し評価値が10減少しました",(a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(10141,10.ToString()),(a) =>
             {
                 _busy = false;
                 _model.DungeonBusy(false);
@@ -467,7 +467,8 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle("回復できませんでした");
+                var textId = (_model.PartyInfo.Currency.Value <= 0) ? 10100 : 10101;
+                cautionInfo.SetTitle(DataSystem.GetText(textId));
                 _view.CommandCallCaution(cautionInfo);
             }
         }
