@@ -29,7 +29,7 @@ namespace Ryneus
 
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
             _view.SetActiveStageInfo(_model.IsActiveDungeon());
-            await PlayTacticsBgm(_model.DungeonBgmTimeStamp());
+            await PlayDungeonBgm(_model.DungeonBgmTimeStamp());
             // ダンジョン生成
             _view.CommandChangeDungeon(_model.DungeonPrefabName());
             _view.SetupDungeon();
@@ -282,6 +282,7 @@ namespace Ryneus
                         {
                             var confirmInfo2 = new ConfirmInfo(DataSystem.GetText(10150),(a) =>
                             {
+                                _view.CallSystemCommand(Base.CommandType.MapClear);
                                 _view.CommandGotoSceneChange(Scene.Title);
                             });
                             confirmInfo2.SetIsNoChoice(true);

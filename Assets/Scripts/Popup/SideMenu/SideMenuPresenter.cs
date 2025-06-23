@@ -288,6 +288,7 @@ namespace Ryneus
             if (confirmCommandType == ConfirmCommandType.Yes)
             {
                 _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
+                _view.CallSystemCommand(Base.CommandType.MapClear);
                 _view.CommandGotoSceneChange(Scene.Title);
             }
             ClosePopup();

@@ -137,13 +137,13 @@ namespace Ryneus
             //SoundManager.Instance.FadeOutBgs();
         }
 
-        public async UniTask PlayTacticsBgm(float timeStamp = 0)
+        public async UniTask PlayDungeonBgm(float timeStamp = 0)
         {
-            var bgmData = _model.TacticsBgmData();
+            var bgmData = _model.DungeonBgmData();
             if (bgmData != null)
             {
                 var bgm = await _model.GetBgmData(bgmData.Key);
-                SoundManager.Instance.PlayBgm(bgm,bgmData.Volume,bgmData.Loop,timeStamp);
+                SoundManager.Instance.PlayBgm(bgm,bgmData.Volume,true,timeStamp);
             } else
             {
                 SoundManager.Instance.FadeOutBgm();
@@ -156,7 +156,7 @@ namespace Ryneus
             if (bgmData != null)
             {
                 var bgm = await _model.GetBgmData("Battle1");
-                SoundManager.Instance.PlayBgm(bgm,bgmData.Volume,bgmData.Loop);
+                SoundManager.Instance.PlayBgm(bgm,bgmData.Volume);
             }
         }
 
@@ -295,8 +295,9 @@ namespace Ryneus
             _view.ChangeUIActive(false);
         }
 
-        public void CommandCallSideMenu(List<ListData> sideMenuCommands,System.Action closeEvent = null)
+        public void CommandCallSideMenu(List<ListData> sideMenuCommands, Action closeEvent = null)
         {
+            sideMenuCommands[0].SetSelected(true);
             var sideMenuViewInfo = new SideMenuViewInfo
             {
                 EndEvent = () =>

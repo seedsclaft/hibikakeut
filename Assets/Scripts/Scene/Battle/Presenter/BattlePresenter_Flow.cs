@@ -92,7 +92,12 @@ namespace Ryneus
             _view.SetBattlerActiveStatus(targetIndexes);
             if (targetIndexes.Count > 0)
             {
-                _model.SetTargetBattler(_model.GetBattlerInfo(targetIndexes[0]));
+                var targetIndex = targetIndexes[0];
+                if (targetIndexes.Contains(currentBattler.LastTargetIndex()))
+                {
+                    targetIndex = currentBattler.LastTargetIndex();
+                }
+                _model.SetTargetBattler(_model.GetBattlerInfo(targetIndex));
             }
             _view.UpdateSelectCursor(_model.SelectActionInfo.CandidateTargetIndexList);
         }
@@ -141,7 +146,7 @@ namespace Ryneus
         private void CommandDecideSkill()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            SelectSkillSelectTarget();
+            SelectSkillSelectTarget(true);
             // ActionInfoを設定する
             /*
             _model.SetActiveActionInfo(actionInfo);
@@ -151,20 +156,25 @@ namespace Ryneus
             */
         }
 
-        private void SelectSkillSelectTarget()
+        private void SelectSkillSelectTarget(bool autoTarget = false)
         {
             // 対象選択を行う
             var actionInfo = _model.SelectActionInfo;
+            var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
             var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
             if (targetIndexes[0] < 100)
             {
                 _view.SelectActorList(targetIndexes);
             } else
             {
+                if (autoTarget && actionInfo.CandidateTargetIndexList.Contains(subject.LastTargetIndex()))
+                {
+                    targetIndexes[0] = subject.LastTargetIndex();
+                }
                 _view.SelectEnemyList(targetIndexes);
             }
             _view.UpdateSelectCursor(targetIndexes);
-            _view.SetCurrentSkillData(actionInfo.SkillInfo,_model.GetBattlerInfo(actionInfo.SubjectIndex.Value));
+            _view.SetCurrentSkillData(actionInfo.SkillInfo,subject);
         }
 
         private void CommandOnDecideEnemy(BattlerInfo battlerInfo)

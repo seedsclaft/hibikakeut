@@ -39,7 +39,7 @@ namespace Ryneus
 
         public int GetGridRowCount()
         {
-            return _objectList.Count / _gridColumnCount;
+            return ObjectListCount / _gridColumnCount;
         }
 
         private void UpdateGridScrollRect(List<InputKeyType> keyTypes)

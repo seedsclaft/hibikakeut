@@ -160,7 +160,7 @@ namespace Ryneus
             return equipSkills;
         }
 
-        public SoundData TacticsBgmData()
+        public SoundData DungeonBgmData()
         {
             if (CurrentStage != null && PartyInfo != null)
             {

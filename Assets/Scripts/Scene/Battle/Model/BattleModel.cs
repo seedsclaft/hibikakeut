@@ -2781,7 +2781,7 @@ namespace Ryneus
                     var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == battlerInfo.ActorInfo.ActorId.Value);
                     var learned = target.GainSkillExp(useSkillCountDict.Key,useSkillCountDict.Value);
                     // 会得していたら
-                    if (learned && !target.IsLearnedSkill(useSkillCountDict.Value))
+                    if (learned && !target.MastarySkillIds.Contains(useSkillCountDict.Value))
                     {
                         var skillMastary = new GetItemData
                         {

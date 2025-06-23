@@ -182,8 +182,14 @@ namespace Ryneus
             magicList.gameObject.SetActive(false);
             battleThumb.HideThumb();
             SetActivate(battleActorList);
-            battleActorList.SetSelectIndexes(selectIndexes);
-            battleActorList.UpdateSelectIndex(selectIndexes[0]-1);
+            //battleActorList.UpdateSelectIndex(selectIndexes[0]);
+            var selects = new List<int>();
+            foreach (var select in selectIndexes)
+            {
+                selects.Add(select-1);
+            }
+            battleActorList.SetSelectIndexes(selects);
+            battleActorList.UpdateSelectIndex(selectIndexes[0]);
         }
 
         public void SelectEnemyList(List<int> selectIndexes)

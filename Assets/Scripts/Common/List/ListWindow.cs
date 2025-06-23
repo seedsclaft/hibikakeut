@@ -52,6 +52,7 @@ namespace Ryneus
         private LinkedList<IListViewItem> _itemList = new();
         private List<GameObject> _objectList = new();
         public List<GameObject> ObjectList => _objectList;
+        public int ObjectListCount => _objectList.FindAll(a => a.activeSelf).Count;
 
         private Action<List<InputKeyType>> _inputCallHandler = null;
         private Dictionary<InputKeyType, Action> _inputHandler = new();
@@ -247,7 +248,7 @@ namespace Ryneus
                     }
                 }
                 var listItem = itemPrefab.GetComponent<ListItem>();
-                if (_listDates.Count <= itemIndex || _objectList.Count <= itemIndex || itemIndex < 0)
+                if (_listDates.Count <= itemIndex || ObjectListCount <= itemIndex || itemIndex < 0)
                 {
                     if (itemStartIndex > -1)
                     {
@@ -463,7 +464,7 @@ namespace Ryneus
             _lastStartIndexX = startIndex;
             var itemIndex = (startIndex - 1) % _itemPrefabList.Count;
             var objectIndex = _itemPrefabList.Count + startIndex - 1;
-            if (objectIndex > _objectList.Count - 1)
+            if (objectIndex > ObjectListCount - 1)
             {
                 return;
             }
@@ -810,7 +811,7 @@ namespace Ryneus
             {
                 return;
             }
-            if (_objectList.Count <= _index)
+            if (ObjectListCount <= _index)
             {
                 return;
             }
@@ -824,7 +825,7 @@ namespace Ryneus
             var selectItem = _objectList[_index];
             var itemPosition = GetCornerPosition(selectItem, 0, false);
             float verticalCount = GetVerticalCount();
-            var p = _objectList.Count - verticalCount;
+            var p = ObjectListCount - verticalCount;
             var verticalNormalizedPosition = -1f;
             if (!_horizontal)
             {
@@ -893,7 +894,7 @@ namespace Ryneus
             if (listIndex > 0)
             {
                 float verticalCount = GetVerticalCount();
-                var p = _objectList.Count - verticalCount;
+                var p = ObjectListCount - verticalCount;
                 var c = _index - verticalCount + 1;
                 var per = 1f - (c / p);
                 //var per = (float)1 / (dataCount - listCount);

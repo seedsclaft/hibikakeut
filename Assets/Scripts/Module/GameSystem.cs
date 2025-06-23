@@ -511,6 +511,7 @@ namespace Ryneus
 
         private void CommandMapClear()
         {
+            mapAssign.SetLastMapName("");
             mapAssign.ClearMap();
         }
 

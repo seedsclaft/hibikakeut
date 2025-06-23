@@ -482,6 +482,7 @@ namespace Ryneus
             {
                 _view.StartBattleStartAnim(DataSystem.GetText(16110));
                 await UniTask.DelayFrame((int)(150f / GameSystem.OptionData.BattleSpeed));
+                _view.CallSystemCommand(Base.CommandType.MapClear);
                 _view.CommandGotoSceneChange(Scene.Title);
                 return;
                 /*

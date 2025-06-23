@@ -123,7 +123,10 @@ namespace Ryneus
 
         public void PlayBgm(List<AudioClip> clips, float volume = 1.0f, bool loop = true, float timeStamp = 0)
         {
-            if (clips[0].name == _lastPlayAudio) return;
+            if (clips[0].name == _lastPlayAudio)
+            {
+                return;
+            }
             _lastBgmVolume = volume;
             _lastPlayAudio = clips[0].name;
             // これから再生するTrackを停止して再生

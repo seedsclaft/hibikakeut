@@ -160,7 +160,7 @@ namespace Ryneus
             _model.SetSelectSkillInfo(skillInfo);
             // 選択する
             _view.CallChangeSkillList();
-            _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills()));
+            _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills(),0));
         }
 
         private void CommandCancelSkill()
@@ -184,39 +184,41 @@ namespace Ryneus
             {
                 return;
             }
+            if (!skillInfo.Enable)
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                return;
+            }
 
             // 変更する
-            if (skillInfo.Enable)
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+
+            // だれかが装備している
+            var equipmentActor = _model.EquipmentSkill(skillInfo);
+            if (equipmentActor != null && equipmentActor.ActorId.Value != _model.CurrentActor.ActorId.Value)
             {
-                SoundManager.Instance.PlayStaticSe(SEType.Decide);
-
-                // だれかが装備している
-                var equipmentActor = _model.EquipmentSkill(skillInfo);
-                if (equipmentActor != null && equipmentActor.ActorId.Value != _model.CurrentActor.ActorId.Value)
+                var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(14020, skillInfo.Master.Name) + DataSystem.GetReplaceText(14021, equipmentActor.Master.Name),(a) =>
                 {
-                    var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(14020, skillInfo.Master.Name) + DataSystem.GetReplaceText(14021, equipmentActor.Master.Name),(a) =>
+                    if (a == ConfirmCommandType.Yes)
                     {
-                        if (a == ConfirmCommandType.Yes)
-                        {
-                            _model.RemoveEquipSkill(equipmentActor,skillInfo.Id.Value);
-                            _model.ChangeEquipSkill(skillInfo.Id.Value);
-                            ResetSelectSkill();
-                            _model.PartyInfo.StatusSkillChangeCount.GainValue(1);
-                            CheckAchievements();
-                        } else
-                        {
-                        }
-                        _busy = false;
-                    });
-                    _view.CommandCallConfirm(confirmInfo);
-                    return;
-                }
-
-                _model.ChangeEquipSkill(skillInfo.Id.Value);
-                ResetSelectSkill();
-                _model.PartyInfo.StatusSkillChangeCount.GainValue(1);
-                CheckAchievements();
+                        _model.RemoveEquipSkill(equipmentActor,skillInfo.Id.Value);
+                        _model.ChangeEquipSkill(skillInfo.Id.Value);
+                        ResetSelectSkill();
+                        _model.PartyInfo.StatusSkillChangeCount.GainValue(1);
+                        CheckAchievements();
+                    } else
+                    {
+                    }
+                    _busy = false;
+                });
+                _view.CommandCallConfirm(confirmInfo);
+                return;
             }
+
+            _model.ChangeEquipSkill(skillInfo.Id.Value);
+            ResetSelectSkill();
+            _model.PartyInfo.StatusSkillChangeCount.GainValue(1);
+            CheckAchievements();
         }
 
         private void ResetSelectSkill()
@@ -410,7 +412,7 @@ namespace Ryneus
         private void CommandRefreshMagicList()
         {
             CommandRefresh();
-            _view.SetEquipSkillList(MakeListData(_model.EquipSkills()));
+            _view.SetEquipSkillList(MakeListData(_model.EquipSkills(),0));
         }
 
         private void SaveSelectedSkillId()
