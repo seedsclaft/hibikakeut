@@ -84,6 +84,7 @@ namespace Ryneus
                 _equipmentSkillIds.Insert(insertIndex, insert);
             }
             GainSkillExp(changeSkillId,0);
+            RecommendActiveSkill();
         }
 
         public StatusInfo CurrentStatus => LevelUpStatus(Level);
@@ -720,10 +721,16 @@ namespace Ryneus
             _skillTriggerInfos.Clear();
             // 初期設定に戻す
             InitSkillTriggerInfos();
-            var addActive = LearningSkillInfos().FindAll(a => a.Master.SkillType == SkillType.Active && a.Id.Value > 1000 && a.LearningState == LearningState.Learned);
+            var skills = new List<SkillInfo>();
+            foreach (var equipmentSkillId in _equipmentSkillIds)
+            {
+                var skillInfo = new SkillInfo(equipmentSkillId.Value);
+                skills.Add(skillInfo);
+            }
+            var addActive = skills.FindAll(a => a.IsBattleActiveSkill());
             // 新たに追加したアクティブをアクティブの下に入れる
             InsertSkillTriggerSkills(addActive, false);
-            var addPassive = LearningSkillInfos().FindAll(a => a.Master.SkillType == SkillType.Passive && a.Id.Value > 1000 && a.LearningState == LearningState.Learned);
+            var addPassive = skills.FindAll(a => a.IsBattlePassiveSkill());
 
             // その他のパッシブを加える
             InsertSkillTriggerSkills(addPassive, true);

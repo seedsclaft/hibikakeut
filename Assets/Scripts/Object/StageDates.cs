@@ -120,6 +120,7 @@ namespace Ryneus
         ForceBattle = 5010, // 強制戦闘
         ForceBossBattle = 5020, // 強制ボス戦闘
         AddEventFlag = 6010, // 指定のイベントマスを消す
+        AddEventFlagEndForceBattle = 6020, // 同フロアの強制戦闘が終わってたらイベントマスを消す
         DamageFloor = 7010, // ダメージ床
     }
 

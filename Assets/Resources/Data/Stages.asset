@@ -470,7 +470,7 @@ MonoBehaviour:
       ReadFlag: 1
   - Id: 40
     StageNo: 4
-    Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF"
+    Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u57CE\u9580"
     Selectable: 1
     Chapter: 1
     Help: '""'
@@ -486,7 +486,7 @@ MonoBehaviour:
       Weight: 15
     EncountMin: 6
     EncountMax: 12
-    BackGround: NA_Background image_Fantasy_027
+    BackGround: 042-EvilCastle02
     BossTroopId: 3010
     BGMId: 1030
     BossBGMId: 3010
@@ -501,6 +501,272 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 0
+    - EventKey: 40_6_1DungeonMoveDungeonFloor41
+      Timing: 3010
+      Type: 2020
+      PositionX: 6
+      PositionY: 1
+      Param: 41
+      Param2: 11
+      Param3: 18
+      ReadFlag: 0
+    - EventKey: 40_8_8DungeonAddEventFlag45
+      Timing: 3010
+      Type: 6010
+      PositionX: 8
+      PositionY: 8
+      Param: 45
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_4_5DungeonNone45
+      Timing: 3010
+      Type: 0
+      PositionX: 4
+      PositionY: 5
+      Param: 45
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+  - Id: 41
+    StageNo: 4
+    Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u9928\u5185"
+    Selectable: 0
+    Chapter: 1
+    Help: '""'
+    StageLv: 12
+    DisplayRank: 4
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 2
+      Weight: 15
+    - EnemyId: 12
+      Weight: 15
+    - EnemyId: 14
+      Weight: 15
+    EncountMin: 6
+    EncountMax: 12
+    BackGround: 042-EvilCastle02
+    BossTroopId: 0
+    BGMId: 1030
+    BossBGMId: 3010
+    MenuBGMId: 100
+    StageEvents:
+    - EventKey: 41_11_18DungeonMoveDungeonFloor40
+      Timing: 3010
+      Type: 2020
+      PositionX: 11
+      PositionY: 18
+      Param: 40
+      Param2: 10
+      Param3: 1
+      ReadFlag: 0
+    - EventKey: 41_9_4DungeonMoveDungeonFloor42
+      Timing: 3010
+      Type: 2020
+      PositionX: 9
+      PositionY: 4
+      Param: 42
+      Param2: 2
+      Param3: 18
+      ReadFlag: 0
+    - EventKey: 41_14_16DungeonGetArtifact2130
+      Timing: 3010
+      Type: 3010
+      PositionX: 14
+      PositionY: 16
+      Param: 2130
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_3_1DungeonGetItem11010
+      Timing: 3010
+      Type: 3020
+      PositionX: 3
+      PositionY: 1
+      Param: 11010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_4_1DungeonGetItem11010
+      Timing: 3010
+      Type: 3020
+      PositionX: 4
+      PositionY: 1
+      Param: 11010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_5_1DungeonGetItem11010
+      Timing: 3010
+      Type: 3020
+      PositionX: 5
+      PositionY: 1
+      Param: 11010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_4_6DungeonAdvStart1040
+      Timing: 3010
+      Type: 1010
+      PositionX: 4
+      PositionY: 6
+      Param: 1040
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_4_4DungeonAdvStart100
+      Timing: 3010
+      Type: 1010
+      PositionX: 4
+      PositionY: 4
+      Param: 100
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_4_4DungeonForceBattle3020
+      Timing: 3010
+      Type: 5010
+      PositionX: 4
+      PositionY: 4
+      Param: 3020
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_4_4DungeonAddEventFlag43
+      Timing: 3010
+      Type: 6010
+      PositionX: 4
+      PositionY: 4
+      Param: 43
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_4_3DungeonNone43
+      Timing: 3010
+      Type: 0
+      PositionX: 4
+      PositionY: 3
+      Param: 43
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+  - Id: 42
+    StageNo: 4
+    Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u738B\u5BA4"
+    Selectable: 0
+    Chapter: 1
+    Help: '""'
+    StageLv: 14
+    DisplayRank: 4
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 2
+      Weight: 15
+    - EnemyId: 12
+      Weight: 15
+    - EnemyId: 14
+      Weight: 15
+    - EnemyId: 15
+      Weight: 15
+    EncountMin: 6
+    EncountMax: 12
+    BackGround: 042-EvilCastle02
+    BossTroopId: 0
+    BGMId: 1030
+    BossBGMId: 3010
+    MenuBGMId: 100
+    StageEvents:
+    - EventKey: 42_2_18DungeonMoveDungeonFloor41
+      Timing: 3010
+      Type: 2020
+      PositionX: 2
+      PositionY: 18
+      Param: 41
+      Param2: 9
+      Param3: 4
+      ReadFlag: 0
+    - EventKey: 42_8_1DungeonGetArtifact2020
+      Timing: 3010
+      Type: 3010
+      PositionX: 8
+      PositionY: 1
+      Param: 2020
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 42_8_8DungeonForceBossBattle3010
+      Timing: 3010
+      Type: 5020
+      PositionX: 8
+      PositionY: 8
+      Param: 3010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 42_4_8DungeonAdvStart100
+      Timing: 3010
+      Type: 1010
+      PositionX: 4
+      PositionY: 8
+      Param: 100
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 42_4_8DungeonForceBattle3030
+      Timing: 3010
+      Type: 5010
+      PositionX: 4
+      PositionY: 8
+      Param: 3030
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 42_12_8DungeonAdvStart100
+      Timing: 3010
+      Type: 1010
+      PositionX: 12
+      PositionY: 8
+      Param: 100
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 42_12_8DungeonForceBattle3040
+      Timing: 3010
+      Type: 5010
+      PositionX: 12
+      PositionY: 8
+      Param: 3040
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 42_8_10DungeonAdvStart1030
+      Timing: 3010
+      Type: 1010
+      PositionX: 8
+      PositionY: 10
+      Param: 1030
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 42_8_10DungeonAddEventFlagEndForceBattle89
+      Timing: 3010
+      Type: 6020
+      PositionX: 8
+      PositionY: 10
+      Param: 89
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 42_8_9DungeonNone89
+      Timing: 3010
+      Type: 0
+      PositionX: 8
+      PositionY: 9
+      Param: 89
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
   - Id: 1010
     StageNo: 101
     Name: "\u5FD8\u5374\u306E\u6D1E\u7A9F"
@@ -555,13 +821,13 @@ MonoBehaviour:
     DisplayRank: 4
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
-    - EnemyId: 3
+    - EnemyId: 2
       Weight: 15
-    - EnemyId: 6
-      Weight: 15
-    - EnemyId: 1
+    - EnemyId: 4
       Weight: 15
     - EnemyId: 7
+      Weight: 15
+    - EnemyId: 8
       Weight: 15
     EncountMin: 6
     EncountMax: 12

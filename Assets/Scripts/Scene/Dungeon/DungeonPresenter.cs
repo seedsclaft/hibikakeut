@@ -166,133 +166,207 @@ namespace Ryneus
             }
         }
 
-        private bool CheckEventData(bool moved,Vector2Int position,Action endEvent = null)
+        private bool CheckEventData(bool moved, Vector2Int position, Action endEvent = null)
         {
-            var stageEvent = GetStageEventData(EventTiming.Dungeon,position.x,position.y);
+            var stageEvent = GetStageEventData(EventTiming.Dungeon, position.x, position.y);
             if (stageEvent != null)
             {
                 switch (stageEvent.Type)
                 {
                     case StageEventType.AdvStart:
-                        // TimeStampを取得してBgmをフェードアウト
-                        var timeStamp = SoundManager.Instance.CurrentTimeStamp();
-                        var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-                        if (CheckAdvEvent(EventTiming.Dungeon,timeStamp,() => CheckEventData(moved,playerPosition,() => 
-                        {
-                            _view.CallSystemCommand(Base.CommandType.SceneShowUI);
-                            endEvent?.Invoke();
-                        })))
-                        {
-                            return true;
-                        }
-                        return true;
+                        return StageEventAdvEvent(moved,endEvent);
                     case StageEventType.ExitDungeon:
-                        if (moved)
-                        {
-                            CommandReturn();
-                            return true;
-                        }
-                        return false;
+                        return StageEventExitDungeon(moved);
                     case StageEventType.MoveDungeonFloor:
-                        if (moved)
-                        {
-                            CommandMoveDungeonFloor(stageEvent.Param,stageEvent.Param2,stageEvent.Param3);
-                            return true;
-                        }
-                        return false;
+                        return StageEventMoveDungeonFloor(moved,stageEvent);
                     case StageEventType.GetArtifact:
-                        _model.AddEventReadFlag(stageEvent);
-                        _model.UpdateEventObjects();
-                        CommandGetArtifact(stageEvent.Param);
-                        return true;
+                        return StageEventGetArtifact(stageEvent);
                     case StageEventType.GetItem:
-                        _model.AddEventReadFlag(stageEvent);
-                        _model.UpdateEventObjects();
-                        CommandGetItem(stageEvent.Param);
-                        return true;
+                        return StageEventGetItem(stageEvent);
                     case StageEventType.GetSkill:
-                        _model.AddEventReadFlag(stageEvent);
-                        _model.UpdateEventObjects();
-                        CommandGetSkill(stageEvent.Param);
-                        return true;
+                        return StageEventGetSkill(stageEvent);
                     case StageEventType.SelectAddActor:
-                        // 選択して仲間を加入
-                        // 確認後仲間選択
-                        var confirmInfo = new ConfirmInfo(DataSystem.GetText(10120),(a) =>
-                        {
-                            CommandCallAddActorInfo(true,true);
-                        });
-                        confirmInfo.SetIsNoChoice(true);
-                        confirmInfo.SetBackEvent(() => {});
-                        _view.CommandCallConfirm(confirmInfo);
-                        _model.AddEventReadFlag(stageEvent);
-                        _model.UpdateEventObjects();
-                        SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                        return true;
+                        return StageEventSelectAddActor(stageEvent);
                     case StageEventType.ForceBattle:
                     case StageEventType.ForceBossBattle:
-                        _model.AddEventReadFlag(stageEvent);
-                        _model.UpdateEventObjects();
-                        var battleSceneInfo = new BattleSceneInfo
-                        {
-                            ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
-                            EnemyInfos = _model.ForceBattleTroopInfos(stageEvent.Param),
-                        };
-                        if (stageEvent.Type == StageEventType.ForceBattle)
-                        {
-                            PlayBattleBgm();
-                        } else
-                        if (stageEvent.Type == StageEventType.ForceBossBattle)
-                        {
-                            // バトルの報酬にステージクリアを足す
-                            var clearStageItem = new GetItemData
-                            {
-                                Type = GetItemType.ClearStage,
-                                Param1 = _model.CurrentStage.Master.StageNo
-                            };
-                            var clearStageGetItemInfo = new GetItemInfo(clearStageItem);
-                            battleSceneInfo.GetItemInfos = new()
-                            {
-                                clearStageGetItemInfo
-                            };
-                            PlayBossBgm();
-                        }
-                        _view.CommandChangeViewToTransition(null);
-                        //_view.ChangeUIActive(false);
-                        _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
-                        _model.ResetEncountValue();
-                        SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
-                        return true;
+                        return StageEventForceBattle(stageEvent);
                     case StageEventType.AddEventFlag:
-                        _model.AddEventReadFlag(stageEvent);
-                        var findAll = _model.StageEvents(EventTiming.Dungeon).FindAll(a => a.Param == stageEvent.Param);
-                        // 同じParam値のイベントを既読にする
-                        foreach (var item in findAll)
-                        {
-                            _model.AddEventReadFlag(item);
-                        }
-                        _model.UpdateEventObjects();
-                        endEvent?.Invoke();
-                        return false;
+                        return StageEventAddEventFlag(stageEvent, endEvent);
+                    case StageEventType.AddEventFlagEndForceBattle:
+                        return StageEventAddEventFlagEndForceBattle(stageEvent, endEvent);
                     case StageEventType.DamageFloor:
-                        SoundManager.Instance.PlayStaticSe(SEType.Damage);
-                        _model.DamageFloor(stageEvent.Param);
-                        _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
-                        if (_model.CheckGameover())
-                        {
-                            var confirmInfo2 = new ConfirmInfo(DataSystem.GetText(10150),(a) =>
-                            {
-                                _view.CallSystemCommand(Base.CommandType.MapClear);
-                                _view.CommandGotoSceneChange(Scene.Title);
-                            });
-                            confirmInfo2.SetIsNoChoice(true);
-                            confirmInfo2.SetBackEvent(() => {});
-                            _view.CommandCallConfirm(confirmInfo2);
-                            return false;
-                        }
-                        endEvent?.Invoke();
-                        return false;
+                        return StageEventDamageFloor(stageEvent, endEvent);
                 }
+            }
+            endEvent?.Invoke();
+            return false;
+        }
+
+        private bool StageEventAdvEvent(bool moved,Action endEvent)
+        {
+            // TimeStampを取得してBgmをフェードアウト
+            var timeStamp = SoundManager.Instance.CurrentTimeStamp();
+            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+            if (CheckAdvEvent(EventTiming.Dungeon,timeStamp,() => CheckEventData(moved,playerPosition,() =>
+            {
+                _view.CallSystemCommand(Base.CommandType.SceneShowUI);
+                endEvent?.Invoke();
+            })))
+            {
+                return true;
+            }
+            return true;
+        }
+
+        private bool StageEventExitDungeon(bool moved)
+        {
+            if (moved)
+            {
+                CommandReturn();
+                return true;
+            }
+            return false;
+        }
+
+        private bool StageEventMoveDungeonFloor(bool moved, StageEventData stageEvent)
+        {
+            if (moved)
+            {
+                CommandMoveDungeonFloor(stageEvent.Param, stageEvent.Param2, stageEvent.Param3);
+                return true;
+            }
+            return false;
+        }
+
+        private bool StageEventGetArtifact(StageEventData stageEvent)
+        {
+            _model.AddEventReadFlag(stageEvent);
+            _model.UpdateEventObjects();
+            CommandGetArtifact(stageEvent.Param);
+            return true;
+        }
+
+        private bool StageEventGetItem(StageEventData stageEvent)
+        {
+            _model.AddEventReadFlag(stageEvent);
+            _model.UpdateEventObjects();
+            CommandGetItem(stageEvent.Param);
+            return true;
+        }
+
+        private bool StageEventGetSkill(StageEventData stageEvent)
+        {
+            _model.AddEventReadFlag(stageEvent);
+            _model.UpdateEventObjects();
+            CommandGetSkill(stageEvent.Param);
+            return true;
+        }
+
+        private bool StageEventSelectAddActor(StageEventData stageEvent)
+        {
+            // 選択して仲間を加入
+            // 確認後仲間選択
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10120),(a) =>
+            {
+                CommandCallAddActorInfo(true,true);
+            });
+            confirmInfo.SetIsNoChoice(true);
+            confirmInfo.SetBackEvent(() => {});
+            _view.CommandCallConfirm(confirmInfo);
+            _model.AddEventReadFlag(stageEvent);
+            _model.UpdateEventObjects();
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            return true;
+        }
+
+        private bool StageEventForceBattle(StageEventData stageEvent)
+        {
+            _model.AddEventReadFlag(stageEvent);
+            _model.UpdateEventObjects();
+            var battleSceneInfo = new BattleSceneInfo
+            {
+                ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
+                EnemyInfos = _model.ForceBattleTroopInfos(stageEvent.Param),
+            };
+            if (stageEvent.Type == StageEventType.ForceBattle)
+            {
+                PlayBattleBgm();
+            } else
+            if (stageEvent.Type == StageEventType.ForceBossBattle)
+            {
+                // バトルの報酬にステージクリアを足す
+                var clearStageItem = new GetItemData
+                {
+                    Type = GetItemType.ClearStage,
+                    Param1 = _model.CurrentStage.Master.StageNo
+                };
+                var clearStageGetItemInfo = new GetItemInfo(clearStageItem);
+                battleSceneInfo.GetItemInfos = new()
+                {
+                    clearStageGetItemInfo
+                };
+                PlayBossBgm();
+            }
+            _view.CommandChangeViewToTransition(null);
+            //_view.ChangeUIActive(false);
+            _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
+            _model.ResetEncountValue();
+            SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
+            return true;
+        }
+
+        private bool StageEventAddEventFlag(StageEventData stageEvent, Action endEvent)
+        {
+            _model.AddEventReadFlag(stageEvent);
+            var findAll = _model.StageEvents(EventTiming.Dungeon).FindAll(a => a.Param == stageEvent.Param);
+            // 同じParam値のイベントを既読にする
+            foreach (var item in findAll)
+            {
+                _model.AddEventReadFlag(item);
+            }
+            _model.UpdateEventObjects();
+            endEvent?.Invoke();
+            return false;
+        }
+
+        private bool StageEventAddEventFlagEndForceBattle(StageEventData stageEvent, Action endEvent)
+        {
+            _model.AddEventReadFlag(stageEvent);
+            var findAll = _model.StageEventDates.FindAll(a => a.Param == (int)StageEventType.ForceBattle);
+            var open = true;
+            // 強制戦闘が終わっているか
+            foreach (var item in findAll)
+            {
+                if (!_model.CurrentGameInfo.ReadEventKeys.Contains(item.EventKey))
+                {
+                    open = false;
+                }
+            }
+            if (open)
+            {
+                StageEventAddEventFlag(stageEvent,null);
+                _model.UpdateEventObjects();
+            }
+            endEvent?.Invoke();
+            return false;
+        }
+
+        private bool StageEventDamageFloor(StageEventData stageEvent, Action endEvent)
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Damage);
+            _model.DamageFloor(stageEvent.Param);
+            _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
+            if (_model.CheckGameover())
+            {
+                var confirmInfo2 = new ConfirmInfo(DataSystem.GetText(10150),(a) =>
+                {
+                    _view.CallSystemCommand(Base.CommandType.MapClear);
+                    _view.CommandGotoSceneChange(Scene.Title);
+                });
+                confirmInfo2.SetIsNoChoice(true);
+                confirmInfo2.SetBackEvent(() => {});
+                _view.CommandCallConfirm(confirmInfo2);
+                return false;
             }
             endEvent?.Invoke();
             return false;
