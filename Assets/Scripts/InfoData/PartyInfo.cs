@@ -166,6 +166,8 @@ namespace Ryneus
         // 交代スキル使用回数
         public ParameterInt UseChangeLineCount = new();
 
+        // 帰還できるかのフラグ
+        public ParameterBool Cursed = new();
 
 
         // 報告リストのRank
@@ -441,6 +443,11 @@ namespace Ryneus
                 var find = _actorInfos.Find(a => a.ActorId.Value == actorId.Value);
                 find?.ChangeHp(find.CurrentHp.Value - damage);
             }
+        }
+
+        public void CursedParty(bool cursed)
+        {
+            Cursed.SetValue(cursed);
         }
 
         public int PartyEvaluate()

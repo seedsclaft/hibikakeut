@@ -79,6 +79,24 @@ namespace Ryneus
             }
         }
 
+        public void AddEventNotFlag()
+        {
+            var displayEvents = NotEndStageEvents().FindAll(a => a.Type == StageEventType.AddEventNotFlag);
+            foreach (var displayEvent in displayEvents)
+            {
+                var position = StageEventDates.Find(a => a.Param == displayEvent.Param && a != displayEvent);
+                if (position != null)
+                {
+                    _moveController.SetDeactiveEventObj(position.PositionX,position.PositionY);
+                }
+            }
+        }
+
+        public void DisplayAddEventNotFlag(StageEventData stageEvent)
+        {
+            _moveController.SetActiveEventObj(stageEvent.PositionX,stageEvent.PositionY);
+        }
+
         public void DungeonBusy(bool busy)
         {
             _moveController.isInDungeon = !busy;
@@ -258,6 +276,11 @@ namespace Ryneus
         public void DamageFloor(int damage)
         {
             PartyInfo.DamageFloor(damage);
+        }
+
+        public void CursedParty()
+        {
+            PartyInfo.CursedParty(true);
         }
 
         public bool CheckGameover()

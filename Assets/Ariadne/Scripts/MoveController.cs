@@ -1618,6 +1618,15 @@ namespace Ariadne
             }
         }
 
+        public void SetActiveEventObj(int positionX,int positionY)
+        {
+            GameObject eventObj = GetDrawDungeonWall()?.GetWallObjectByAxis(positionX, positionY);
+            if (eventObj != null)
+            {
+                eventObj.SetActive(true);
+            }
+        }
+
         public void SetEventEndDeactiveEventObj(int positionX,int positionY)
         {
             GameObject eventObj = GetDrawDungeonWall()?.GetWallObjectByAxis(positionX, positionY);

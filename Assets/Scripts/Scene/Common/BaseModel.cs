@@ -202,6 +202,12 @@ namespace Ryneus
             return StageEventDates.FindAll(a => eventKeys.Contains(a.EventKey));
         }
 
+        public List<StageEventData> NotEndStageEvents()
+        {
+            var eventKeys = CurrentGameInfo.ReadEventKeys;
+            return StageEventDates.FindAll(a => !eventKeys.Contains(a.EventKey));
+        }
+
         public void AddEventsReadFlag(List<StageEventData> stageEventDates)
         {
             foreach (var eventData in stageEventDates)

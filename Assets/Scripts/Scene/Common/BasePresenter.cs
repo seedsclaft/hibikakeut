@@ -61,14 +61,42 @@ namespace Ryneus
             return null;
         }
 
-        public StageEventData GetStageEventData(EventTiming eventTiming,int positionX,int positionY)
+        private bool CheckStageEvent(int advId,Action<bool> callEvent = null)
         {
-            var timingEvents = _model.StageEvents(eventTiming,positionX,positionY);
-            if (timingEvents.Count > 0)
+            var advInfo = CheckAdvStageEvent(advId);
+            if (advInfo != null)
             {
-                return timingEvents.First();
+                BeforeStageAdv();
+                _view.WaitFrame(10,() =>
+                {
+                    advInfo.SetCallEvent(() =>
+                    {
+                        callEvent?.Invoke(true);
+                    });
+                    _view.CommandCallAdv(advInfo);
+                });
+                return true;
             }
-            return null;
+            return false;
+        }
+
+        public AdvCallInfo CheckAdvStageEvent(int advId)
+        {
+            var advInfo = new AdvCallInfo();
+            advInfo.Label.SetValue(_model.GetAdvFile(advId));
+            return advInfo;
+        }
+
+        public bool CheckStageAdvEvent(int advId,float timeStamp = 0,Action endEvent = null)
+        {
+            if (CheckStageEvent(advId,(a) => endEvent?.Invoke()))
+            {
+                return true;
+            } else
+            {
+                endEvent?.Invoke();
+            }
+            return false;
         }
 
         public bool CheckAdvEvent(EventTiming eventTiming,float timeStamp = 0,Action endEvent = null)

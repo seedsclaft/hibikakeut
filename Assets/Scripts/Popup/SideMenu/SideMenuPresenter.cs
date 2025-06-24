@@ -108,6 +108,15 @@ namespace Ryneus
 
         private void CommandReturn()
         {
+            // 帰還できない
+            if (_model.PartyInfo.Cursed.Value)
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                var cautionInfo = new CautionInfo();
+                cautionInfo.SetTitle(DataSystem.GetText(10131));
+                _view.CommandCallCaution(cautionInfo);
+                return;
+            }
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(10130), (a) =>

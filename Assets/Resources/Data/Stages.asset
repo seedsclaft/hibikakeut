@@ -651,6 +651,105 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
+    - EventKey: 41_4_13DungeonDamageFloor20
+      Timing: 3010
+      Type: 7010
+      PositionX: 4
+      PositionY: 13
+      Param: 20
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 41_5_13DungeonDamageFloor20
+      Timing: 3010
+      Type: 7010
+      PositionX: 5
+      PositionY: 13
+      Param: 20
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 41_6_13DungeonDamageFloor20
+      Timing: 3010
+      Type: 7010
+      PositionX: 6
+      PositionY: 13
+      Param: 20
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 41_7_13DungeonAddEventNotFlag713
+      Timing: 3010
+      Type: 6011
+      PositionX: 7
+      PositionY: 13
+      Param: 713
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_8_13DungeonNone713
+      Timing: 3010
+      Type: 0
+      PositionX: 8
+      PositionY: 13
+      Param: 713
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_7_13DungeonAdvStart110
+      Timing: 3010
+      Type: 1010
+      PositionX: 7
+      PositionY: 13
+      Param: 110
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_7_13DungeonCurseFloor0
+      Timing: 3010
+      Type: 7020
+      PositionX: 7
+      PositionY: 13
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_7_13DungeonAdvStart120
+      Timing: 3010
+      Type: 1010
+      PositionX: 7
+      PositionY: 13
+      Param: 120
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_2_13DungeonEndCurseFloor0
+      Timing: 3010
+      Type: 7021
+      PositionX: 2
+      PositionY: 13
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_2_13DungeonAddEventFlag813
+      Timing: 3010
+      Type: 6010
+      PositionX: 2
+      PositionY: 13
+      Param: 813
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_8_13DungeonNone813
+      Timing: 3010
+      Type: 0
+      PositionX: 8
+      PositionY: 13
+      Param: 813
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
   - Id: 42
     StageNo: 4
     Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u738B\u5BA4"
@@ -677,15 +776,6 @@ MonoBehaviour:
     BossBGMId: 3010
     MenuBGMId: 100
     StageEvents:
-    - EventKey: 42_2_18DungeonMoveDungeonFloor41
-      Timing: 3010
-      Type: 2020
-      PositionX: 2
-      PositionY: 18
-      Param: 41
-      Param2: 9
-      Param3: 4
-      ReadFlag: 0
     - EventKey: 42_8_1DungeonGetArtifact2020
       Timing: 3010
       Type: 3010
