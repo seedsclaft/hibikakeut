@@ -115,6 +115,7 @@ namespace Ryneus
                 var cautionInfo = new CautionInfo();
                 cautionInfo.SetTitle(DataSystem.GetText(10131));
                 _view.CommandCallCaution(cautionInfo);
+                ClosePopup();
                 return;
             }
             _busy = true;

@@ -61,7 +61,7 @@ namespace Ryneus
             return null;
         }
 
-        private bool CheckStageEvent(int advId,Action<bool> callEvent = null)
+        private void CheckStageEvent(int advId,Action<bool> callEvent = null)
         {
             var advInfo = CheckAdvStageEvent(advId);
             if (advInfo != null)
@@ -75,9 +75,7 @@ namespace Ryneus
                     });
                     _view.CommandCallAdv(advInfo);
                 });
-                return true;
             }
-            return false;
         }
 
         public AdvCallInfo CheckAdvStageEvent(int advId)
@@ -87,16 +85,9 @@ namespace Ryneus
             return advInfo;
         }
 
-        public bool CheckStageAdvEvent(int advId,float timeStamp = 0,Action endEvent = null)
+        public void CheckStageAdvEvent(int advId,float timeStamp = 0,Action endEvent = null)
         {
-            if (CheckStageEvent(advId,(a) => endEvent?.Invoke()))
-            {
-                return true;
-            } else
-            {
-                endEvent?.Invoke();
-            }
-            return false;
+            CheckStageEvent(advId,(a) => endEvent?.Invoke());
         }
 
         public bool CheckAdvEvent(EventTiming eventTiming,float timeStamp = 0,Action endEvent = null)

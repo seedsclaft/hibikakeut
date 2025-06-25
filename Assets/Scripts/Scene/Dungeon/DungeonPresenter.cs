@@ -98,28 +98,45 @@ namespace Ryneus
             // 未読の非表示マスを管理
             _model.AddEventNotFlag();
 
-            _thisTurnStageEvents.Clear();
-            // イベントマスの場合
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-            if (CheckEventData(moved,playerPosition,() => {_model.DungeonBusy(false);}))
+            var stageEvent = GetStageEventData(EventTiming.Dungeon, playerPosition.x, playerPosition.y);
+            // イベントがある場合
+            if (stageEvent != null)
             {
-                _model.DungeonBusy(true);
-                // ターン数が0の場合
-                if (_model.EndDungeonByTurnCount())
-                {
-                    CommandTurnOver();
-                }
+                _thisTurnStageEvents.Clear();
+                CheckStageEvent(moved);
                 return;
             }
 
             // ターン数が0の場合
             if (_model.EndDungeonByTurnCount())
             {
-                CommandTurnOver();
+                CommandTurnOver(moved);
                 return;
             }
 
             // エンカウントした場合
+            CheckEncount();
+        }
+
+        private void CheckStageEvent(bool moved)
+        {
+            _model.DungeonBusy(true);
+            // イベントマスの場合
+            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+            CheckEventData(moved,playerPosition,() =>
+            {
+                _model.DungeonBusy(false);
+                // ターン数が0の場合
+                if (_model.EndDungeonByTurnCount())
+                {
+                    CommandTurnOver(moved);
+                }
+            });
+        }
+
+        private void CheckEncount()
+        {
             if (_model.EncountEnemy())
             {
                 _model.DungeonBusy(true);
@@ -139,8 +156,21 @@ namespace Ryneus
             }
         }
 
-        private void CommandTurnOver()
+        private void CommandTurnOver(bool moved)
         {
+            if (_model.PartyInfo.Cursed.Value)
+            {
+                if (moved)
+                {
+                    SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                    var cautionInfo = new CautionInfo();
+                    cautionInfo.SetTitle(DataSystem.GetText(10132));
+                    _view.CommandCallCaution(cautionInfo);
+                    _model.PartyInfo.VictoryBonusCount.GainValue(-1,0);
+                }
+                _model.DungeonBusy(false);
+                return;
+            }
             SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
             _model.DungeonBusy(true);
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(10110),(a) =>
@@ -161,14 +191,9 @@ namespace Ryneus
                 return;
             }
             var playerPosition = _model.GetForwardPosition();
-            if (CheckEventData(true,playerPosition,() =>
+            CheckEventData(true,playerPosition,() =>
             {
-                _model.DungeonBusy(false);
-            }))
-            {
-                _model.DungeonBusy(true);
-                return;
-            }
+            });
         }
 
         public StageEventData GetStageEventData(EventTiming eventTiming,int positionX,int positionY)
@@ -182,7 +207,7 @@ namespace Ryneus
             return null;
         }
 
-        private bool CheckEventData(bool moved, Vector2Int position, Action endEvent = null)
+        private void CheckEventData(bool moved, Vector2Int position, Action endEvent = null)
         {
             var stageEvent = GetStageEventData(EventTiming.Dungeon, position.x, position.y);
             if (stageEvent != null)
@@ -192,102 +217,113 @@ namespace Ryneus
                 {
                     case StageEventType.AdvStart:
                         _model.AddEventReadFlag(stageEvent);
-                        return StageEventAdvEvent(moved,stageEvent.Param,endEvent);
+                        StageEventAdvEvent(moved,stageEvent.Param,endEvent);
+                        return;
                     case StageEventType.ExitDungeon:
-                        return StageEventExitDungeon(moved);
+                        StageEventExitDungeon(moved);
+                        return;
                     case StageEventType.MoveDungeonFloor:
-                        return StageEventMoveDungeonFloor(moved,stageEvent);
+                        StageEventMoveDungeonFloor(moved,stageEvent,endEvent);
+                        return;
                     case StageEventType.GetArtifact:
-                        return StageEventGetArtifact(stageEvent);
+                        StageEventGetArtifact(stageEvent);
+                        return;
                     case StageEventType.GetItem:
-                        return StageEventGetItem(stageEvent);
+                        StageEventGetItem(stageEvent);
+                        return;
                     case StageEventType.GetSkill:
-                        return StageEventGetSkill(stageEvent);
+                        StageEventGetSkill(stageEvent);
+                        return;
                     case StageEventType.SelectAddActor:
-                        return StageEventSelectAddActor(stageEvent);
+                        StageEventSelectAddActor(stageEvent);
+                        return;
                     case StageEventType.ForceBattle:
                     case StageEventType.ForceBossBattle:
-                        return StageEventForceBattle(stageEvent);
+                        StageEventForceBattle(stageEvent);
+                        return;
                     case StageEventType.AddEventFlag:
-                        return StageEventAddEventFlag(stageEvent, endEvent);
+                        StageEventAddEventFlag(stageEvent, endEvent);
+                        return;
                     case StageEventType.AddEventNotFlag:
-                        return StageEventAddEventNotFlag(stageEvent, endEvent);
+                        StageEventAddEventNotFlag(stageEvent, endEvent);
+                        return;
                     case StageEventType.AddEventFlagEndForceBattle:
-                        return StageEventAddEventFlagEndForceBattle(stageEvent, endEvent);
+                        StageEventAddEventFlagEndForceBattle(stageEvent, endEvent);
+                        return;
                     case StageEventType.DamageFloor:
-                        return StageEventDamageFloor(stageEvent, endEvent);
+                        StageEventDamageFloor(stageEvent, endEvent);
+                        return;
                     case StageEventType.CurseFloor:
-                        return StageEventCurseFloor(stageEvent, endEvent);
+                        StageEventCurseFloor(stageEvent, endEvent);
+                        return;
                     case StageEventType.EndCurseFloor:
-                        return StageEventEndCurseFloor(stageEvent, endEvent);
-                        
+                        StageEventEndCurseFloor(stageEvent, endEvent);
+                        return;
+                    case StageEventType.EventEnd:
+                        _model.DungeonBusy(false);
+                        // ターン数が0の場合
+                        if (_model.EndDungeonByTurnCount())
+                        {
+                            CommandTurnOver(false);
+                        }
+                        return;
                 }
             }
-            endEvent?.Invoke();
-            return false;
         }
 
-        private bool StageEventAdvEvent(bool moved, int advId, Action endEvent)
+        private void StageEventAdvEvent(bool moved, int advId, Action endEvent)
         {
             // TimeStampを取得してBgmをフェードアウト
             var timeStamp = SoundManager.Instance.CurrentTimeStamp();
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-            if (CheckStageAdvEvent(advId,timeStamp,() => CheckEventData(moved,playerPosition,() =>
+            CheckStageAdvEvent(advId,timeStamp,() =>
             {
                 _view.CallSystemCommand(Base.CommandType.SceneShowUI);
-                endEvent?.Invoke();
-            })))
-            {
-                return true;
-            }
-            return true;
+                CheckStageEvent(moved);
+            });
         }
 
-        private bool StageEventExitDungeon(bool moved)
+        private void StageEventExitDungeon(bool moved)
         {
             if (moved)
             {
                 CommandReturn();
-                return true;
             }
-            return false;
         }
 
-        private bool StageEventMoveDungeonFloor(bool moved, StageEventData stageEvent)
+        private void StageEventMoveDungeonFloor(bool moved, StageEventData stageEvent, Action endEvent)
         {
             if (moved)
             {
                 CommandMoveDungeonFloor(stageEvent.Param, stageEvent.Param2, stageEvent.Param3);
-                return true;
+            } else
+            {            
+                endEvent?.Invoke();
             }
-            return false;
         }
 
-        private bool StageEventGetArtifact(StageEventData stageEvent)
+        private void StageEventGetArtifact(StageEventData stageEvent)
         {
             _model.AddEventReadFlag(stageEvent);
             _model.UpdateEventObjects();
             CommandGetArtifact(stageEvent.Param);
-            return true;
         }
 
-        private bool StageEventGetItem(StageEventData stageEvent)
+        private void StageEventGetItem(StageEventData stageEvent)
         {
             _model.AddEventReadFlag(stageEvent);
             _model.UpdateEventObjects();
             CommandGetItem(stageEvent.Param);
-            return true;
         }
 
-        private bool StageEventGetSkill(StageEventData stageEvent)
+        private void StageEventGetSkill(StageEventData stageEvent)
         {
             _model.AddEventReadFlag(stageEvent);
             _model.UpdateEventObjects();
             CommandGetSkill(stageEvent.Param);
-            return true;
         }
 
-        private bool StageEventSelectAddActor(StageEventData stageEvent)
+        private void StageEventSelectAddActor(StageEventData stageEvent)
         {
             // 選択して仲間を加入
             // 確認後仲間選択
@@ -301,10 +337,9 @@ namespace Ryneus
             _model.AddEventReadFlag(stageEvent);
             _model.UpdateEventObjects();
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            return true;
         }
 
-        private bool StageEventForceBattle(StageEventData stageEvent)
+        private void StageEventForceBattle(StageEventData stageEvent)
         {
             _model.AddEventReadFlag(stageEvent);
             _model.UpdateEventObjects();
@@ -337,10 +372,9 @@ namespace Ryneus
             _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
             _model.ResetEncountValue();
             SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
-            return true;
         }
 
-        private bool StageEventAddEventFlag(StageEventData stageEvent, Action endEvent)
+        private void StageEventAddEventFlag(StageEventData stageEvent, Action endEvent)
         {
             _model.AddEventReadFlag(stageEvent);
             var findAll = _model.StageEvents(EventTiming.Dungeon).FindAll(a => a.Param == stageEvent.Param);
@@ -351,10 +385,9 @@ namespace Ryneus
             }
             _model.UpdateEventObjects();
             endEvent?.Invoke();
-            return false;
         }
 
-        private bool StageEventAddEventNotFlag(StageEventData stageEvent, Action endEvent)
+        private void StageEventAddEventNotFlag(StageEventData stageEvent, Action endEvent)
         {
             _model.AddEventReadFlag(stageEvent);
             var findAll = _model.StageEvents(EventTiming.Dungeon).FindAll(a => a.Param == stageEvent.Param);
@@ -367,10 +400,9 @@ namespace Ryneus
             _model.UpdateEventObjects();
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
             CheckEventData(false,playerPosition,endEvent);
-            return true;
         }
 
-        private bool StageEventAddEventFlagEndForceBattle(StageEventData stageEvent, Action endEvent)
+        private void StageEventAddEventFlagEndForceBattle(StageEventData stageEvent, Action endEvent)
         {
             _model.AddEventReadFlag(stageEvent);
             var findAll = _model.StageEventDates.FindAll(a => a.Type == StageEventType.ForceBattle);
@@ -388,11 +420,9 @@ namespace Ryneus
                 StageEventAddEventFlag(stageEvent,null);
                 _model.UpdateEventObjects();
             }
-            endEvent?.Invoke();
-            return false;
         }
 
-        private bool StageEventDamageFloor(StageEventData stageEvent, Action endEvent)
+        private void StageEventDamageFloor(StageEventData stageEvent, Action endEvent)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Damage);
             _model.DamageFloor(stageEvent.Param);
@@ -407,13 +437,10 @@ namespace Ryneus
                 confirmInfo2.SetIsNoChoice(true);
                 confirmInfo2.SetBackEvent(() => {});
                 _view.CommandCallConfirm(confirmInfo2);
-                return false;
             }
-            endEvent?.Invoke();
-            return false;
         }
 
-        private bool StageEventCurseFloor(StageEventData stageEvent, Action endEvent)
+        private void StageEventCurseFloor(StageEventData stageEvent, Action endEvent)
         {
             _model.AddEventReadFlag(stageEvent);
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(10160),(a) =>
@@ -424,20 +451,14 @@ namespace Ryneus
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
-            return true;
         }
 
-        private bool StageEventEndCurseFloor(StageEventData stageEvent, Action endEvent)
+        private void StageEventEndCurseFloor(StageEventData stageEvent, Action endEvent)
         {
             _model.AddEventReadFlag(stageEvent);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10161),(a) =>
-            {
-                var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-                CheckEventData(false,playerPosition,endEvent);
-            });
-            confirmInfo.SetIsNoChoice(true);
-            _view.CommandCallConfirm(confirmInfo);
-            return true;
+            _model.EndCursedParty();
+            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+            CheckEventData(false,playerPosition,endEvent);
         }
 
         private void CommandReturn()

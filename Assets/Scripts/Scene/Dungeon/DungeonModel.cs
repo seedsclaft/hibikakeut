@@ -283,6 +283,11 @@ namespace Ryneus
             PartyInfo.CursedParty(true);
         }
 
+        public void EndCursedParty()
+        {
+            PartyInfo.CursedParty(false);
+        }
+
         public bool CheckGameover()
         {
             return PartyUnit().Find(a => a.Hp.Value > 0) == null;

@@ -36,6 +36,26 @@ namespace Ryneus
             return actorInfos;
         }
 
+        public bool CheckBeforeDepature()
+        {
+            var editNum = 0;
+            foreach (var actorIdDict in CurrentDeckInfo.ActorIdDict)
+            {
+                if (actorIdDict.Value > -1)
+                {
+                    editNum++;
+                }
+            }
+            if (editNum < 6)
+            {
+                if (editNum < PartyInfo.ActorInfos.Count)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public List<ListData> MainMenuCommand()
         {
             return ListData.MakeListData(DataSystem.TacticsCommand,(a) =>

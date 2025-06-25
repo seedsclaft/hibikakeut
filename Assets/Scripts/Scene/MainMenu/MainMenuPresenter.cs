@@ -93,6 +93,20 @@ namespace Ryneus
             switch (commandData.Key)
             {
                 case "Departure":
+                    // 未編成のキャラがいる
+                    if (_model.CheckBeforeDepature())
+                    {
+                        var confirmInfo = new ConfirmInfo(DataSystem.GetText(11030),(a) =>
+                        {
+                            if (a == ConfirmCommandType.Yes)
+                            {
+                                CommandDepature();
+                            }
+                        });
+                        confirmInfo.SetBackEvent(() => {});
+                        _view.CommandCallConfirm(confirmInfo);
+                        return;
+                    }
                     CommandDepature();
                     break;
                 case "DeckEdit":
