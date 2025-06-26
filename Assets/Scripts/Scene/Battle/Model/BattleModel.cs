@@ -1442,7 +1442,7 @@ namespace Ryneus
             {
                 if (deathBattlerIndex < 100)
                 {
-                    PartyInfo.VictoryBonusCount.GainValue(-5,0);
+                    PartyInfo.VictoryBonusCount.GainValue(-2,0);
                 }
             }
             return deathBattlerIndexes;
