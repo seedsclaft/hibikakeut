@@ -220,7 +220,7 @@ namespace Ryneus
                         StageEventAdvEvent(moved,stageEvent.Param,endEvent);
                         return;
                     case StageEventType.ExitDungeon:
-                        StageEventExitDungeon(moved);
+                        StageEventExitDungeon(moved, endEvent);
                         return;
                     case StageEventType.MoveDungeonFloor:
                         StageEventMoveDungeonFloor(moved,stageEvent,endEvent);
@@ -283,11 +283,14 @@ namespace Ryneus
             });
         }
 
-        private void StageEventExitDungeon(bool moved)
+        private void StageEventExitDungeon(bool moved, Action endEvent)
         {
             if (moved)
             {
                 CommandReturn();
+            } else
+            {
+                endEvent?.Invoke();
             }
         }
 
