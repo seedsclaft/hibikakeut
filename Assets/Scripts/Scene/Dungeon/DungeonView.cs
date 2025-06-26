@@ -167,6 +167,24 @@ namespace Ryneus
             decideButton.gameObject.SetActive(isActive);
         }
 
+        public void SetActiveHealButton(bool isActive)
+        {
+            if (healButton == null)
+            {
+                return;
+            }
+            healButton.gameObject.SetActive(isActive);
+        }
+
+        public void SetActiveFormationButton(bool isActive)
+        {
+            if (formationButton == null)
+            {
+                return;
+            }
+            formationButton.gameObject.SetActive(isActive);
+        }
+
         public void SetActiveStageInfo(bool isActive)
         {
             if (stageInfoComponent == null)

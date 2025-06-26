@@ -407,7 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showEditorMainBehavior: 1
   showEditorBloomBehavior: 1
-  showEditorLensSurfaceBehavior: 0
+  showEditorLensSurfaceBehavior: 1
   debugView: 0
   workflow: 0
   selectiveRenderLayerMask:
@@ -417,8 +417,8 @@ MonoBehaviour:
   bloomThreshold:
     minValue: 1
     maxValue: 10
-  bloomScattering: 7
-  bloomIntensity: 1
+  bloomScattering: 3
+  bloomIntensity: 0.6
   allowLensSurface: 0
   lensSurfaceDirtTexture: {fileID: 0}
   lensSurfaceDirtIntensity: 2.5
@@ -1003,7 +1003,7 @@ PrefabInstance:
     - target: {fileID: 114557685953475304, guid: 9613485145c964aa59bc32a548dc79e3,
         type: 3}
       propertyPath: drawCeiling
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

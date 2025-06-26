@@ -642,6 +642,10 @@ namespace Ryneus
 
         private void CommandHeal()
         {
+            if (!_model.IsActiveDungeon())
+            {
+                return;
+            }
             if (_model.CanUseCurrencyHeal())
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Heal);
@@ -660,6 +664,10 @@ namespace Ryneus
 
         private void CommandFormation()
         {
+            if (!_model.IsActiveDungeon())
+            {
+                return;
+            }
             _model.DungeonBusy(true);
             _view.StartFormation();
         }
@@ -690,6 +698,10 @@ namespace Ryneus
 
         private void CommandSelectSideMenu()
         {
+            if (!_model.IsActiveDungeon())
+            {
+                return;
+            }
             _busy = true;
             _model.DungeonBusy(true);
             CommandCallSideMenu(MakeListData(_model.SideMenu()), () =>
@@ -704,6 +716,11 @@ namespace Ryneus
             var directionEvent = _model.CheckDirectionEvent();
             _view.SetActiveDisplayEventKey(directionEvent);
             _view.CommandRefresh();
+            if (!_model.IsActiveDungeon())
+            {
+                _view.SetActiveFormationButton(false);
+                _view.SetActiveHealButton(false);
+            }
         }
 
         private void UpdatePopup(ConfirmCommandType confirmCommandType)
