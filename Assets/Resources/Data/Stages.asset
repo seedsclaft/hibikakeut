@@ -25,7 +25,7 @@ MonoBehaviour:
     RandomTroopEnemyRates: []
     EncountMin: 0
     EncountMax: 0
-    BackGround: RockCave2
+    BackGround: Clouds
     BossTroopId: 0
     BGMId: 0
     BossBGMId: 2010
@@ -69,11 +69,11 @@ MonoBehaviour:
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
     - EnemyId: 3
-      Weight: 15
+      Weight: 20
     - EnemyId: 3
-      Weight: 15
+      Weight: 20
     - EnemyId: 6
-      Weight: 15
+      Weight: 20
     - EnemyId: 1
       Weight: 20
     - EnemyId: 7
@@ -95,6 +95,15 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 0
+    - EventKey: 20_10_9DungeonAdvStart140
+      Timing: 3010
+      Type: 1010
+      PositionX: 10
+      PositionY: 9
+      Param: 140
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
     - EventKey: 20_10_9DungeonAddEventFlag79
       Timing: 3010
       Type: 6010
@@ -113,6 +122,15 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
+    - EventKey: 20_10_9DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 10
+      PositionY: 9
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
     - EventKey: 20_7_0DungeonMoveDungeonFloor21
       Timing: 3010
       Type: 2020
@@ -120,7 +138,7 @@ MonoBehaviour:
       PositionY: 0
       Param: 21
       Param2: 1
-      Param3: 14
+      Param3: 15
       ReadFlag: 0
   - Id: 21
     StageNo: 2
@@ -157,7 +175,7 @@ MonoBehaviour:
       PositionY: 15
       Param: 20
       Param2: 7
-      Param3: 1
+      Param3: 0
       ReadFlag: 0
     - EventKey: 21_10_8DungeonForceBossBattle1020
       Timing: 3010
@@ -165,6 +183,15 @@ MonoBehaviour:
       PositionX: 10
       PositionY: 8
       Param: 1020
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 21_11_5DungeonAdvStart140
+      Timing: 3010
+      Type: 1010
+      PositionX: 11
+      PositionY: 5
+      Param: 140
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -186,6 +213,15 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
+    - EventKey: 21_11_5DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 11
+      PositionY: 5
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
     - EventKey: 21_9_5DungeonGetArtifact2010
       Timing: 3010
       Type: 3010

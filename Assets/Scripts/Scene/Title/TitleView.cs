@@ -21,7 +21,7 @@ namespace Ryneus
             {
                 CallSideMenu();
             });
-            new TitlePresenter(this);
+            _ = new TitlePresenter(this);
         }
 
         private void InitializeTitleCommand()
@@ -29,6 +29,7 @@ namespace Ryneus
             titleCommandList.Initialize();
             SetInputHandler(titleCommandList.gameObject);
             titleCommandList.SetInputHandler(InputKeyType.Decide, OnClickTitle);
+            titleCommandList.SetInputHandler(InputKeyType.Option2, CallSideMenu);
         }
 
         public void SetTitleCommand(List<ListData> titleCommand)

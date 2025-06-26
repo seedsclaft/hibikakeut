@@ -71,7 +71,6 @@ namespace Ariadne
         public static IEnumerator FadeOutImage(Image image, float fadeAnimTime)
         {
             float alpha = 0.0f;
-            Debug.Log(image);
             yield return FadeImageProcess(image, alpha, fadeAnimTime);
         }
 

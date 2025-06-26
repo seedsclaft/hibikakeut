@@ -112,6 +112,10 @@ namespace Ryneus
                                 {
                                     attr = 14;
                                 } else
+                                if (cell.Contains("Mg"))
+                                {
+                                    attr = 8;
+                                } else
                                 if (cell.Contains("No"))
                                 {
                                     attr = 9;

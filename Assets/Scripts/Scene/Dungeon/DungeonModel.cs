@@ -69,12 +69,16 @@ namespace Ryneus
             var endStageEvents = EndStageEvents();
             foreach (var endStageEvent in endStageEvents)
             {
-                if (endStageEvent.Type == StageEventType.GetItem || endStageEvent.Type == StageEventType.GetArtifact || endStageEvent.Type == StageEventType.GetSkill)
+                if (endStageEvent.Type == StageEventType.GetItem || endStageEvent.Type == StageEventType.GetArtifact || endStageEvent.Type == StageEventType.GetSkill || endStageEvent.Type == StageEventType.SelectAddActor)
                 {
                     _moveController.SetEventEndDeactiveEventObj(endStageEvent.PositionX,endStageEvent.PositionY);
                 } else
+                if (endStageEvent.Type == (StageEventType)0)
                 {
-                    _moveController.SetDeactiveEventObj(endStageEvent.PositionX,endStageEvent.PositionY);
+                    _moveController.SetDeactiveParentObj(endStageEvent.PositionX,endStageEvent.PositionY);
+                } else
+                {
+                    _moveController.SetDeactiveChildObj(endStageEvent.PositionX,endStageEvent.PositionY);
                 }
             }
         }
@@ -87,7 +91,7 @@ namespace Ryneus
                 var position = StageEventDates.Find(a => a.Param == displayEvent.Param && a != displayEvent);
                 if (position != null)
                 {
-                    _moveController.SetDeactiveEventObj(position.PositionX,position.PositionY);
+                    _moveController.SetDeactiveChildObj(position.PositionX,position.PositionY);
                 }
             }
         }

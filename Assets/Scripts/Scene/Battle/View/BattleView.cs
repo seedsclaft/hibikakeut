@@ -301,21 +301,6 @@ namespace Ryneus
 
         private void InitializeSelectCharacter()
         {
-            /*
-            selectCharacter.SetInputHandlerAction(InputKeyType.Decide,() => CallSkillAction());
-            selectCharacter.SetInputHandlerAction(InputKeyType.Cancel,() => OnClickBack());
-            selectCharacter.SetInputHandlerAction(InputKeyType.Option1,() => CommandOpenSideMenu());
-            selectCharacter.SetInputHandlerAction(InputKeyType.Option2,() => OnClickEscape());
-            selectCharacter.SetInputHandlerAction(InputKeyType.SideLeft2,() => 
-            {
-                selectCharacter.SelectCharacterTabSmooth(-1);
-            });
-            selectCharacter.SetInputHandlerAction(InputKeyType.SideRight2,() => 
-            {
-                selectCharacter.SelectCharacterTabSmooth(1);
-            });
-            SetInputHandler(selectCharacter.MagicList.GetComponent<IInputHandlerEvent>());
-            */
         }
 
         public void SetBattleAutoButton(bool isAuto)

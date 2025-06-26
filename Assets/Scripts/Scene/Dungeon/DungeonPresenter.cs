@@ -242,7 +242,7 @@ namespace Ryneus
                         StageEventForceBattle(stageEvent);
                         return;
                     case StageEventType.AddEventFlag:
-                        StageEventAddEventFlag(stageEvent, endEvent);
+                        StageEventAddEventFlag(moved, stageEvent, endEvent);
                         return;
                     case StageEventType.AddEventNotFlag:
                         StageEventAddEventNotFlag(stageEvent, endEvent);
@@ -297,7 +297,7 @@ namespace Ryneus
             {
                 CommandMoveDungeonFloor(stageEvent.Param, stageEvent.Param2, stageEvent.Param3);
             } else
-            {            
+            {
                 endEvent?.Invoke();
             }
         }
@@ -374,7 +374,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
         }
 
-        private void StageEventAddEventFlag(StageEventData stageEvent, Action endEvent)
+        private void StageEventAddEventFlag(bool moved, StageEventData stageEvent, Action endEvent)
         {
             _model.AddEventReadFlag(stageEvent);
             var findAll = _model.StageEvents(EventTiming.Dungeon).FindAll(a => a.Param == stageEvent.Param);
@@ -384,7 +384,7 @@ namespace Ryneus
                 _model.AddEventReadFlag(item);
             }
             _model.UpdateEventObjects();
-            endEvent?.Invoke();
+            CheckStageEvent(moved);
         }
 
         private void StageEventAddEventNotFlag(StageEventData stageEvent, Action endEvent)
@@ -417,7 +417,7 @@ namespace Ryneus
             }
             if (open)
             {
-                StageEventAddEventFlag(stageEvent,null);
+                StageEventAddEventFlag(false, stageEvent, null);
                 _model.UpdateEventObjects();
             }
         }

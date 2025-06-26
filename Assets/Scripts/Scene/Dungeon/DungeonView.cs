@@ -48,7 +48,7 @@ namespace Ryneus
             }
             if (healInpurKey != null)
             {
-                healInpurKey.UpdateGuideIcon(9);
+                healInpurKey.UpdateGuideIcon(12);
             }
             if (formationButton != null)
             {
@@ -59,7 +59,7 @@ namespace Ryneus
             }
             if (formationInpurKey != null)
             {
-                formationInpurKey.UpdateGuideIcon(8);
+                formationInpurKey.UpdateGuideIcon(6);
             }
             SideMenuButton.OnClickAddListener(() =>
             {
@@ -133,18 +133,15 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            if (InputSystem.GetInputDate(InputKeyType.SideRight1).IsDownTrigger())
+            if (InputSystem.GetInputDate(InputKeyType.Start).IsDownTrigger())
             {
                 CallViewEvent(CommandType.Heal);
             }
-            if (keyTypes.Contains(InputKeyType.Option1))
+            if (keyTypes.Contains(InputKeyType.Option2))
             {
                 CallSideMenu();
-            } else
-            if (keyTypes.Contains(InputKeyType.SideRight1))
-            {
-            } else
-            if (keyTypes.Contains(InputKeyType.SideLeft1))
+            }else
+            if (keyTypes.Contains(InputKeyType.Option1))
             {
                 CallViewEvent(CommandType.Formation);
             } else

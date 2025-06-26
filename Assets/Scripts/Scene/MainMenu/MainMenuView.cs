@@ -36,7 +36,7 @@ namespace Ryneus
         {
             commandList.Initialize();
             commandList.SetInputHandler(InputKeyType.Decide,() => CallMainMenuCommand());
-            commandList.SetInputHandler(InputKeyType.Option1,() => CallSideMenu());
+            commandList.SetInputHandler(InputKeyType.Option2,() => CallSideMenu());
             AddViewActives(commandList);
         }
 
