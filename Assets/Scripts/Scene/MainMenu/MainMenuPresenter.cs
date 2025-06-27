@@ -125,9 +125,11 @@ namespace Ryneus
                     CommandTransfer();
                     break;
                 case "Status":
+                    UpdateCommandSelecting(false);
                     var actorInfos = _model.PartyInfo.ActorInfos;
                     CommandStatusInfo(actorInfos,false,true,true,false,actorInfos[0].ActorId.Value,() => 
                     {
+                        UpdateCommandSelecting(true);
                         _view.CommandRefresh();
                     },false,true);
                     break;
@@ -137,7 +139,7 @@ namespace Ryneus
         private void CommandDepature()
         {
             _busy = true;
-            _view.SetActiveCommandList(false);
+            UpdateCommandSelecting(false);
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.StageList,
@@ -145,7 +147,7 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     _busy = false;
-                    _view.SetActiveCommandList(true);
+                    UpdateCommandSelecting(true);
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
@@ -155,7 +157,7 @@ namespace Ryneus
         private void CommandDeckEdit()
         {
             _busy = true;
-            _view.SetActiveCommandList(false);
+            UpdateCommandSelecting(false);
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.DeckEdit,
@@ -163,7 +165,7 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     _busy = false;
-                    _view.SetActiveCommandList(true);
+                    UpdateCommandSelecting(true);
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                     _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
                 }
@@ -197,7 +199,7 @@ namespace Ryneus
         private void ShowAchievementList()
         {
             _busy = true;
-            _view.SetActiveCommandList(false);
+            UpdateCommandSelecting(false);
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.Achievement,
@@ -205,7 +207,7 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     _busy = false;
-                    _view.SetActiveCommandList(true);
+                    UpdateCommandSelecting(true);
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
@@ -215,7 +217,7 @@ namespace Ryneus
         private void CommandPresent()
         {
             _busy = true;
-            _view.SetActiveCommandList(false);
+            UpdateCommandSelecting(false);
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.ItemList,
@@ -223,7 +225,7 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     _busy = false;
-                    _view.SetActiveCommandList(true);
+                    UpdateCommandSelecting(true);
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
@@ -233,7 +235,7 @@ namespace Ryneus
         private void CommandTransfer()
         {
             _busy = true;
-            _view.SetActiveCommandList(false);
+            UpdateCommandSelecting(false);
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.Transfer,
@@ -241,7 +243,7 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     _busy = false;
-                    _view.SetActiveCommandList(true);
+                    UpdateCommandSelecting(true);
                     _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
@@ -293,7 +295,7 @@ namespace Ryneus
                 return;
             }
             _busy = true;
-            _view.SetActiveCommandList(false);
+            UpdateCommandSelecting(false);
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.ArtifactList,
@@ -301,11 +303,17 @@ namespace Ryneus
                 EndEvent = () =>
                 {
                     _busy = false;
-                    _view.SetActiveCommandList(true);
+                    UpdateCommandSelecting(true);
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
             _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
+        }
+
+        private void UpdateCommandSelecting(bool isSelecting)
+        {
+            _view.SetActiveCommandList(isSelecting);
+            _view.SetActiveParticleObject(isSelecting);
         }
     }
 }

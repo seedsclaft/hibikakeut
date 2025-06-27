@@ -35,6 +35,7 @@ namespace Ryneus
             await PlayDungeonBgm(_model.DungeonBgmTimeStamp());
             // ダンジョン生成
             _view.CommandChangeDungeon(_model.DungeonPrefabName());
+            _view.ChangeSkybox(_model.DungeonSkyboxMaterial());
             _view.SetupDungeon();
             _model.UpdateTraverses();
             _model.SetPlayerPosition();

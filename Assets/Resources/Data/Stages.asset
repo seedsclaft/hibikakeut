@@ -30,6 +30,7 @@ MonoBehaviour:
     BGMId: 0
     BossBGMId: 2010
     MenuBGMId: 100
+    SkyboxName: DayInTheClouds
     StageEvents:
     - EventKey: 10_7_6DungeonSelectAddActor1
       Timing: 3010
@@ -85,6 +86,7 @@ MonoBehaviour:
     BGMId: 1010
     BossBGMId: 3010
     MenuBGMId: 100
+    SkyboxName: '""'
     StageEvents:
     - EventKey: 20_2_1DungeonExitDungeon0
       Timing: 3010
@@ -167,6 +169,7 @@ MonoBehaviour:
     BGMId: 1010
     BossBGMId: 3010
     MenuBGMId: 100
+    SkyboxName: '""'
     StageEvents:
     - EventKey: 21_1_15DungeonMoveDungeonFloor20
       Timing: 3010
@@ -267,6 +270,7 @@ MonoBehaviour:
     BGMId: 1020
     BossBGMId: 3010
     MenuBGMId: 100
+    SkyboxName: CoriolisNight4k
     StageEvents:
     - EventKey: 30_8_23DungeonExitDungeon0
       Timing: 3010
@@ -277,11 +281,11 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 0
-    - EventKey: 30_1_2DungeonMoveDungeonFloor31
+    - EventKey: 30_1_3DungeonMoveDungeonFloor31
       Timing: 3010
       Type: 2020
       PositionX: 1
-      PositionY: 2
+      PositionY: 3
       Param: 31
       Param2: 1
       Param3: 2
@@ -295,84 +299,75 @@ MonoBehaviour:
       Param2: 12
       Param3: 13
       ReadFlag: 0
-    - EventKey: 30_4_0DungeonMoveDungeonFloor32
+    - EventKey: 30_4_1DungeonMoveDungeonFloor32
       Timing: 3010
       Type: 2020
       PositionX: 4
-      PositionY: 0
+      PositionY: 1
       Param: 32
       Param2: 4
       Param3: 9
       ReadFlag: 0
-    - EventKey: 30_9_0DungeonMoveDungeonFloor32
+    - EventKey: 30_9_1DungeonMoveDungeonFloor32
       Timing: 3010
       Type: 2020
       PositionX: 9
-      PositionY: 0
+      PositionY: 1
       Param: 32
       Param2: 9
       Param3: 9
       ReadFlag: 0
-    - EventKey: 30_6_1DungeonAdvStart140
+    - EventKey: 30_6_2DungeonAdvStart140
       Timing: 3010
       Type: 1010
       PositionX: 6
-      PositionY: 1
+      PositionY: 2
       Param: 140
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 30_6_1DungeonAddEventFlag71
+    - EventKey: 30_6_2DungeonAddEventFlag71
       Timing: 3010
       Type: 6010
       PositionX: 6
-      PositionY: 1
+      PositionY: 2
       Param: 71
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 30_7_1DungeonNone71
+    - EventKey: 30_7_2DungeonNone71
       Timing: 3010
       Type: 0
       PositionX: 7
-      PositionY: 1
+      PositionY: 2
       Param: 71
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 30_6_1DungeonEventEnd0
+    - EventKey: 30_6_2DungeonEventEnd0
       Timing: 3010
       Type: 9010
       PositionX: 6
-      PositionY: 1
+      PositionY: 2
       Param: 0
       Param2: 0
       Param3: 0
       ReadFlag: 0
-    - EventKey: 30_8_4DungeonAdvStart1030
+    - EventKey: 30_8_5DungeonAdvStart1030
       Timing: 3010
       Type: 1010
       PositionX: 8
-      PositionY: 4
+      PositionY: 5
       Param: 1030
       Param2: 0
       Param3: 0
       ReadFlag: 0
-    - EventKey: 30_8_4DungeonEventEnd0
+    - EventKey: 30_8_5DungeonEventEnd0
       Timing: 3010
       Type: 9010
       PositionX: 8
-      PositionY: 4
+      PositionY: 5
       Param: 0
-      Param2: 0
-      Param3: 0
-      ReadFlag: 0
-    - EventKey: 30_8_2DungeonDamageFloor20
-      Timing: 3010
-      Type: 7010
-      PositionX: 8
-      PositionY: 2
-      Param: 20
       Param2: 0
       Param3: 0
       ReadFlag: 0
@@ -381,6 +376,15 @@ MonoBehaviour:
       Type: 7010
       PositionX: 8
       PositionY: 3
+      Param: 20
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 30_8_4DungeonDamageFloor20
+      Timing: 3010
+      Type: 7010
+      PositionX: 8
+      PositionY: 4
       Param: 20
       Param2: 0
       Param3: 0
@@ -412,6 +416,7 @@ MonoBehaviour:
     BGMId: 1020
     BossBGMId: 3010
     MenuBGMId: 100
+    SkyboxName: '""'
     StageEvents:
     - EventKey: 31_1_2DungeonMoveDungeonFloor30
       Timing: 3010
@@ -503,6 +508,7 @@ MonoBehaviour:
     BGMId: 1020
     BossBGMId: 3010
     MenuBGMId: 100
+    SkyboxName: '""'
     StageEvents:
     - EventKey: 32_4_9DungeonMoveDungeonFloor30
       Timing: 3010
@@ -511,7 +517,7 @@ MonoBehaviour:
       PositionY: 9
       Param: 30
       Param2: 4
-      Param3: 0
+      Param3: 1
       ReadFlag: 0
     - EventKey: 32_9_9DungeonMoveDungeonFloor30
       Timing: 3010
@@ -520,7 +526,7 @@ MonoBehaviour:
       PositionY: 9
       Param: 30
       Param2: 9
-      Param3: 0
+      Param3: 1
       ReadFlag: 0
     - EventKey: 32_4_6DungeonForceBossBattle2010
       Timing: 3010
@@ -563,6 +569,7 @@ MonoBehaviour:
     BGMId: 1030
     BossBGMId: 3010
     MenuBGMId: 100
+    SkyboxName: '""'
     StageEvents:
     - EventKey: 40_1_19DungeonExitDungeon0
       Timing: 3010
@@ -623,6 +630,7 @@ MonoBehaviour:
     BGMId: 1030
     BossBGMId: 3010
     MenuBGMId: 100
+    SkyboxName: '""'
     StageEvents:
     - EventKey: 41_11_18DungeonMoveDungeonFloor40
       Timing: 3010
@@ -865,6 +873,7 @@ MonoBehaviour:
     BGMId: 1030
     BossBGMId: 3010
     MenuBGMId: 100
+    SkyboxName: '""'
     StageEvents:
     - EventKey: 42_8_1DungeonGetArtifact2020
       Timing: 3010
@@ -972,6 +981,7 @@ MonoBehaviour:
     BGMId: 1210
     BossBGMId: 3010
     MenuBGMId: 100
+    SkyboxName: '""'
     StageEvents:
     - EventKey: 1010_13_13DungeonExitDungeon0
       Timing: 3010
@@ -1016,6 +1026,7 @@ MonoBehaviour:
     BGMId: 1210
     BossBGMId: 3010
     MenuBGMId: 100
+    SkyboxName: '""'
     StageEvents:
     - EventKey: 1020_7_8DungeonExitDungeon0
       Timing: 3010
@@ -1079,6 +1090,7 @@ MonoBehaviour:
     BGMId: 3020
     BossBGMId: 3020
     MenuBGMId: 100
+    SkyboxName: '""'
     StageEvents:
     - EventKey: 2010_7_1DungeonMoveDungeonFloor2011
       Timing: 3010
@@ -1115,6 +1127,7 @@ MonoBehaviour:
     BGMId: 3020
     BossBGMId: 3020
     MenuBGMId: 100
+    SkyboxName: '""'
     StageEvents:
     - EventKey: 2011_7_1DungeonMoveDungeonFloor2012
       Timing: 3010
@@ -1151,6 +1164,7 @@ MonoBehaviour:
     BGMId: 3020
     BossBGMId: 3020
     MenuBGMId: 100
+    SkyboxName: '""'
     StageEvents:
     - EventKey: 2012_7_7DungeonForceBossBattle20030
       Timing: 3010

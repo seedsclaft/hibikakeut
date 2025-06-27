@@ -762,5 +762,14 @@ namespace Ryneus
             }
             return "";
         }
+
+        public string DungeonSkyboxName()
+        {
+            if (CurrentStage != null)
+            {
+                return CurrentStage.Master.SkyboxName;
+            }
+            return "";
+        }
     }
 }

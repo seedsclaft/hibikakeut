@@ -13,6 +13,7 @@ namespace Ryneus
         [SerializeField] private TacticsCharaLayer tacticsCharaLayer;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent;
         [SerializeField] private Button alcanaInfoButton;
+        [SerializeField] private GameObject particleObject;
 
         public override void Initialize()
         {
@@ -90,6 +91,11 @@ namespace Ryneus
             {
                 SetActivate(null);
             }
+        }
+
+        public void SetActiveParticleObject(bool isActive)
+        {
+            particleObject.SetActive(isActive);
         }
 
         public void InputHandler(List<InputKeyType> keyTypes,bool pressed)

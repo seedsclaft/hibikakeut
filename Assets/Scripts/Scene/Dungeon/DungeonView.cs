@@ -190,6 +190,11 @@ namespace Ryneus
             }
             stageInfoComponent.gameObject.SetActive(isActive);
         }
+
+        public void ChangeSkybox(Material material)
+        {
+            RenderSettings.skybox = material;
+        }
     }
 
     namespace Dungeon

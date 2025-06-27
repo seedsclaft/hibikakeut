@@ -29,6 +29,7 @@ namespace Ryneus
         public int BGMId;
         public int BossBGMId;
         public int MenuBGMId;
+        public string SkyboxName;
         public List<StageEventData> StageEvents;
     }
 

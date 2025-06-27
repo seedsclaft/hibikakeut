@@ -77,17 +77,17 @@ namespace Ryneus
                             StageLv = AssetPostImporter.ImportNumeric(BaseRow, "StageLv"),
                             DisplayRank = AssetPostImporter.ImportNumeric(BaseRow, "DisplayRank"),
                             RandomTroopEnemyRates = new List<StageEnemyRate>(),
+                            RandomTroopWeight = AssetPostImporter.ImportNumeric(BaseRow, "RandomTroopWeight"),
+                            EncountMin = AssetPostImporter.ImportNumeric(BaseRow, "EncountMin"),
+                            EncountMax = AssetPostImporter.ImportNumeric(BaseRow, "EncountMax"),
+                            BackGround = AssetPostImporter.ImportString(BaseRow, "BackGround"),
+                            BossTroopId = AssetPostImporter.ImportNumeric(BaseRow, "BossTroopId"),
+                            BGMId = AssetPostImporter.ImportNumeric(BaseRow, "BGMId"),
+                            BossBGMId = AssetPostImporter.ImportNumeric(BaseRow, "BossBGMId"),
+                            MenuBGMId = AssetPostImporter.ImportNumeric(BaseRow, "MenuBGMId"),
+                            SkyboxName = AssetPostImporter.ImportString(BaseRow, "SkyboxName"),
+                            StageEvents = new List<StageEventData>()
                         };
-                        StageData.RandomTroopWeight = AssetPostImporter.ImportNumeric(BaseRow, "RandomTroopWeight");
-                        StageData.EncountMin = AssetPostImporter.ImportNumeric(BaseRow, "EncountMin");
-                        StageData.EncountMax = AssetPostImporter.ImportNumeric(BaseRow, "EncountMax");
-                        StageData.BackGround = AssetPostImporter.ImportString(BaseRow, "BackGround");
-                        StageData.BossTroopId = AssetPostImporter.ImportNumeric(BaseRow, "BossTroopId");
-                        StageData.BGMId = AssetPostImporter.ImportNumeric(BaseRow, "BGMId");
-                        StageData.BossBGMId = AssetPostImporter.ImportNumeric(BaseRow, "BossBGMId");
-                        StageData.MenuBGMId = AssetPostImporter.ImportNumeric(BaseRow, "MenuBGMId");
-
-                        StageData.StageEvents = new List<StageEventData>();
 
                         KeyRow = EventSheet.GetRow(0);
                         AssetPostImporter.SetKeyNames(KeyRow.Cells);

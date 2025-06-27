@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using Ariadne;
+using UnityEngine;
 
 namespace Ryneus
 {
@@ -11,6 +12,16 @@ namespace Ryneus
         public DungeonModel(MoveController moveController)
         {
             _moveController = moveController;
+        }
+
+        public Material DungeonSkyboxMaterial()
+        {
+            var skyboxName = DungeonSkyboxName();
+            if (skyboxName != "")
+            {
+                return ResourceSystem.LoadSkyboxMaterial(skyboxName);
+            }
+            return null;
         }
 
         public int SelectedCharacterIndex()

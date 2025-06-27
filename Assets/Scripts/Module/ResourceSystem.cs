@@ -207,6 +207,11 @@ namespace Ryneus
         {
             return LoadResource<Ariadne.DungeonMasterData>("Data/Dungeon" + path);
         }
+
+        public static Material LoadSkyboxMaterial(string path)
+        {
+            return LoadResource<Material>("Material/" + path);
+        }
     }
 
     public static class ResourceRequestExtenion
