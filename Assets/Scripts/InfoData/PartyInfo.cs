@@ -81,10 +81,9 @@ namespace Ryneus
 
         public List<string> GetDungeonTraverse(int stageId)
         {
-            var traverses = new List<string>();
             if (!_traverseDict.ContainsKey(stageId))
             {
-                return traverses;
+                return null;
             }
             return _traverseDict[stageId];
         }
@@ -113,6 +112,18 @@ namespace Ryneus
             _items[itemId].GainValue(num * -1,0,9999);
         }
 
+        public bool IsOwnItem()
+        {
+            foreach (var item in _items)
+            {
+                if (item.Value.Value > 0 && DataSystem.Items.Find(a => a.Id == item.Key).ItemType == ItemType.RandumAddSkill)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public List<SkillInfo> AritifactSkills()
         {
             var list = new List<SkillInfo>();
@@ -135,6 +146,9 @@ namespace Ryneus
 
         // このフェーズでの救済コマンド回数
         public ParameterInt ThisPeriodReliefCount = new();
+
+        // 転送できるか
+        public ParameterBool EnableTransfer = new();
 
         // 評価値
         public ParameterInt EvaluationValue = new();
@@ -202,6 +216,18 @@ namespace Ryneus
                 }
                 CheckAchievementCondition(achievementInfo);
             }
+        }
+
+        public bool IsRankUpBefore()
+        {
+            var find = _achievements.Find(a => a.Master.ConditionType == AchievementConditionType.Complete);
+            if (find != null)
+            {
+                var mains = _achievements.FindAll(a => a.Master.Category == AchievementCategory.Main);
+                var achived = mains.FindAll(a => a.Achieved.Value).Count;
+                return mains.Count-1 == achived;
+            }
+            return false;
         }
 
         private void CheckAchievementCondition(AchievementInfo achievementInfo)

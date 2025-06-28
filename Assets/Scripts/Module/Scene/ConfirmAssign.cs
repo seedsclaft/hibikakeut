@@ -47,5 +47,6 @@ namespace Ryneus
         Caution,
         SkillDetail,
         MissionClear,
+        StageConfirm,
     }
 }

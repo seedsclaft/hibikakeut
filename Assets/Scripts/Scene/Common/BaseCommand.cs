@@ -15,8 +15,15 @@ namespace Ryneus
             }
 
             var data = ListItemData<SystemData.CommandData>();
-            commandName.text = data.Name;
-            Disable?.gameObject.SetActive(!ListData.Enable);
+            commandName.SetText(data.Name);
+            if (Disable != null)
+            {
+                Disable.SetActive(!ListData.Enable);
+            }
+            if (Batch != null)
+            {
+                Batch.SetActive(ListData.Batch.Value);
+            }
         }
     }
 }

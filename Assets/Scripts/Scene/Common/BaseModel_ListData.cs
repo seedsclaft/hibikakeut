@@ -6,11 +6,6 @@ namespace Ryneus
 {
     public partial class BaseModel
     {
-        public List<ListData> MakeListData<T>(List<T> dataList,Func<T,bool> enable,int selectIndex = 0)
-        {
-            var listData = ListData.MakeListData(dataList,enable);
-            return listData;
-        }
 
         public List<SystemData.CommandData> ConfirmCommand()
         {

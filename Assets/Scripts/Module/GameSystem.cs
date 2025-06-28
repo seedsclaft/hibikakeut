@@ -200,7 +200,7 @@ namespace Ryneus
                 case Base.CommandType.CallAdvScene:
                     SetIsBusyMainAndStatus();
                     var advCallInfo = (AdvCallInfo)viewEvent.Template;
-                    StartCoroutine(JumpScenarioAsync(advCallInfo.Label.Value, advCallInfo.CallEvent));
+                    _ = Instance.StartCoroutine(JumpScenarioAsync(advCallInfo.Label.Value, advCallInfo.CallEvent));
                     break;
                 case Base.CommandType.DecidePlayerName:
                     string playerName = (string)advEngine.Param.GetParameter("PlayerName");
@@ -427,24 +427,26 @@ namespace Ryneus
         IEnumerator JumpScenarioAsync(string label, Action onComplete)
         {
             _busy = true;
-            advHelpWindow.SetInputInfo("ADV_READING");
-            if (!OptionData.EventSkipIndex)
+            //advHelpWindow.SetInputInfo("ADV_READING");
+            while (advEngine.IsWaitBootLoading)
             {
-                while (advEngine.IsWaitBootLoading) yield return null;
-                while (advEngine.IsLoading) yield return null;
-                //advEngine.Param.SetParameterBoolean("SelectionParam_0", false);
-                //advEngine.Param.SetParameterBoolean("SelectionParam_1", false);
-                advEngine.JumpScenario(label);
-                advEngine.Config.IsSkip = OptionData.EventTextSkipIndex;
-                advController.StartAdv();
-                while (!advEngine.IsEndOrPauseScenario)
-                {
-                    yield return null;
-                }
+                yield return null;
+            }
+
+            while (advEngine.IsLoading)
+            {
+                yield return null;
+            }
+            advEngine.JumpScenario(label);
+            advEngine.Config.IsSkip = false;//OptionData.EventTextSkipIndex;
+            advController.StartAdv();
+            while (!advEngine.IsEndOrPauseScenario)
+            {
+                yield return null;
             }
             SetIsNotBusyMainAndStatus();
             advController.EndAdv();
-            advHelpWindow.SetInputInfo("");
+            //advHelpWindow.SetInputInfo("");
 
             _busy = false;
             onComplete?.Invoke();
@@ -529,7 +531,11 @@ namespace Ryneus
 
         private void SetIsNotBusyMainAndStatus()
         {
-            if (!statusAssign.StatusRoot.gameObject.activeSelf) _currentScene.SetBusy(false);
+            if (!statusAssign.StatusRoot.gameObject.activeSelf)
+            {
+                _currentScene.SetBusy(false);
+            }
+
             statusAssign.SetBusy(false);
         }
 

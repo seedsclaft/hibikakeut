@@ -107,6 +107,17 @@ namespace Ryneus
                         _view.CommandCallConfirm(confirmInfo);
                         return;
                     }
+                    // 出撃できるステージがない
+                    if (_model.CheckDepatureDungeon())
+                    {
+                        var confirmInfo = new ConfirmInfo(DataSystem.GetText(32050),(a) =>
+                        {
+                        });
+                        confirmInfo.SetBackEvent(() => {});
+                        confirmInfo.SetIsNoChoice(true);
+                        _view.CommandCallConfirm(confirmInfo);
+                        return;
+                    }
                     CommandDepature();
                     break;
                 case "DeckEdit":
@@ -129,6 +140,7 @@ namespace Ryneus
                     var actorInfos = _model.PartyInfo.ActorInfos;
                     CommandStatusInfo(actorInfos,false,true,true,false,actorInfos[0].ActorId.Value,() => 
                     {
+                        _view.UpdateCommandList(_model.MainMenuCommand());
                         UpdateCommandSelecting(true);
                         _view.CommandRefresh();
                     },false,true);
@@ -166,6 +178,7 @@ namespace Ryneus
                 {
                     _busy = false;
                     UpdateCommandSelecting(true);
+                    _view.UpdateCommandList(_model.MainMenuCommand());
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                     _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
                 }
@@ -208,6 +221,7 @@ namespace Ryneus
                 {
                     _busy = false;
                     UpdateCommandSelecting(true);
+                    _view.UpdateCommandList(_model.MainMenuCommand());
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
@@ -226,6 +240,7 @@ namespace Ryneus
                 {
                     _busy = false;
                     UpdateCommandSelecting(true);
+                    _view.UpdateCommandList(_model.MainMenuCommand());
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
@@ -244,6 +259,7 @@ namespace Ryneus
                 {
                     _busy = false;
                     UpdateCommandSelecting(true);
+                    _view.UpdateCommandList(_model.MainMenuCommand());
                     _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }

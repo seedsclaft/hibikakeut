@@ -23,7 +23,10 @@ namespace Ryneus
         
         public void UpdateViewItem()
         {
-            if (ListData == null) return;
+            if (ListData == null)
+            {
+                return;
+            }
             if (battlerInfoComponent != null && useBattlerInfoComponent)
             {
                 var battlerInfo = ListItemData<BattlerInfo>();
@@ -53,6 +56,10 @@ namespace Ryneus
             {
                 var stageInfo = ListItemData<StageInfo>();
                 stageInfoComponent.UpdateInfo(stageInfo);
+            }
+            if (Batch != null)
+            {
+                Batch.SetActive(ListData.Batch.Value);
             }
         }
     }

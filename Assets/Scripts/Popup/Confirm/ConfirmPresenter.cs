@@ -84,6 +84,12 @@ namespace Ryneus
             }
             return list;
         }
+        private StageInfo _stageInfo = null;
+        public StageInfo StageInfo => _stageInfo;
+        public void SetStageInfo(StageInfo stageInfo)
+        {
+            _stageInfo = stageInfo;
+        }
         private int _selectIndex = 0;
         public int SelectIndex => _selectIndex;
         private List<int> _disableIds = new();

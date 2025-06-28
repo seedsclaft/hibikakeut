@@ -27,8 +27,8 @@ namespace Ryneus
             {
                 return a.SkillId == 0 || SkillActionList(CurrentActor).Find(b => b.LearningState == LearningState.Learned && b.Id.Value == a.SkillId) != null;
             };
-            var listData = MakeListData(CurrentActor.SkillTriggerInfos,enable,selectIndex);
-            return listData;
+            //var listData = MakeListData(CurrentActor.SkillTriggerInfos,enable,selectIndex);
+            return null;
         }
 
         public int SelectCategoryIndex(int selectIndex,int skillTriggerIndex)

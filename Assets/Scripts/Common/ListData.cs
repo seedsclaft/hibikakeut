@@ -21,6 +21,7 @@ namespace Ryneus
         {
             _selected = selected;
         }
+        public ParameterBool Batch = new();
 
         public ListData(object data,bool enable = true)
         {
@@ -127,24 +128,38 @@ namespace Ryneus
             return list;
         }
 
-        public static List<ListData> MakeListData<T>(List<T> dataList,Func<T,bool> enable = null)
+        public static List<ListData> MakeListData<T>(List<T> dataList,Func<T,bool> enable = null,Func<T,bool> select = null,Func<T,bool> batch = null,int selectIndex = -1)
         {
             var list = new List<ListData>();
+            var idx = 0;
             if (enable != null)
             {
                 foreach (var data in dataList)
                 {
                     var listData = new ListData(data);
                     listData.SetEnable(enable(data));
+                    if (selectIndex > 0 && idx == selectIndex)
+                    {
+                        listData.SetSelected(true);
+                    }
+                    if (select != null)
+                    {
+                        listData.SetSelected(select(data));
+                    }
+                    if (batch != null)
+                    {
+                        listData.Batch.SetValue(batch(data));
+                    }
                     list.Add(listData);
+                    idx++;
                 }
             }
             return list;
         }
-        
+
         public static List<ListData> MakeListData<T>(List<T> dataList,Func<T,bool> enable,int selectIndex = -1)
         {
-            var listData = MakeListData(dataList,enable);
+            var listData = MakeListData(dataList,enable,null,null);
             if (selectIndex != -1 && listData.Count > selectIndex)
             {
                 listData[selectIndex].SetSelected(true);

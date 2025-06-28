@@ -64,7 +64,10 @@ namespace Ryneus
             if (CurrentStage != null)
             {
                 var traversDates = PartyInfo.GetDungeonTraverse(CurrentStage.StageId.Value);
-                TraverseManager.Instance.UpdateTraverses(CurrentStage.StageId.Value,traversDates);
+                if (traversDates != null)
+                {
+                    TraverseManager.Instance.UpdateTraverses(CurrentStage.StageId.Value,traversDates);
+                }
             }
         }
 

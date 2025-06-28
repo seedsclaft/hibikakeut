@@ -51,6 +51,11 @@ namespace Ryneus
             return ListData.MakeListData(dataList,enable,selectFunc);
         }
 
+        public List<ListData> MakeListData<T>(List<T> dataList,Func<T,bool> enable,Func<T,bool> selectFunc,Func<T,bool> batchFunc,int selectIndex)
+        {
+            return ListData.MakeListData(dataList,enable,selectFunc,batchFunc,selectIndex);
+        }
+
         public StageEventData GetStageEventData(EventTiming eventTiming)
         {
             var timingEvents = _model.StageEvents(eventTiming);

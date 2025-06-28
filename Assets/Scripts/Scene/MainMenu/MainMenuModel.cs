@@ -56,12 +56,37 @@ namespace Ryneus
             return false;
         }
 
+        public bool CheckDepatureDungeon()
+        {
+            return StageInfos().Count == 0;
+        }
+
         public List<ListData> MainMenuCommand()
         {
             return ListData.MakeListData(DataSystem.TacticsCommand,(a) =>
             {
+                if (a.Key == "Transfer")
+                {
+                    return PartyInfo.EnableTransfer.Value;
+                }
                 return true;
-            },0);
+            },null,(a) =>
+            {
+                switch (a.Key)
+                {
+                    case "Departure":
+                        return StageInfos().Find(a => PartyInfo.GetDungeonTraverse(a.StageId.Value) == null) != null;
+                    case "DeckEdit":
+                        return CheckBeforeDepature();
+                    case "Mission":
+                        return PartyInfo.IsRankUpBefore();
+                    case "Relief":
+                        return PartyInfo.ThisPeriodReliefCount.Value == 0;
+                    case "Present":
+                        return PartyInfo.IsOwnItem();
+                }
+                return false;
+            });
         }
 
         public List<SystemData.CommandData> SideMenu()

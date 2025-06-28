@@ -28,6 +28,8 @@ namespace Ryneus
         [SerializeField] private CursorRectAnimation cursorRectAnimation = null;
         [SerializeField] private GameObject disable = null;
         public GameObject Disable => disable;
+        [SerializeField] private GameObject batch;
+        public GameObject Batch => batch;
 
         [SerializeField] private Color selectColor;
         [SerializeField] private Color unSelectColor;

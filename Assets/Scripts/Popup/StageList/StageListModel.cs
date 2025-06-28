@@ -33,28 +33,5 @@ namespace Ryneus
             return PartyInfo.MissionRank.Value < stageInfo.Master.DisplayRank;
         }
 
-        public List<StageInfo> StageInfos()
-        {
-            var list = new List<StageInfo>();
-            foreach (var stageData in DataSystem.Stages)
-            {
-                if (!stageData.Selectable)
-                {
-                    continue;
-                }
-                if ((stageData.DisplayRank-1) > PartyInfo.MissionRank.Value)
-                {
-                    continue;
-                }
-                if (stageData.Chapter > PartyInfo.Chapter.Value)
-                {
-                    continue;
-                }
-                var cleared = PartyInfo.IsClaeredStage(stageData.StageNo);
-                var stageInfo = new StageInfo(stageData.Id,cleared);
-                list.Add(stageInfo);
-            }
-            return list;
-        }
     }
 }

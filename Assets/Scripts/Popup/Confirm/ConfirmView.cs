@@ -13,6 +13,8 @@ namespace Ryneus
         [SerializeField] private BaseList skillInfoList = null;
         [SerializeField] private ConfirmAnimation confirmAnimation = null;
         [SerializeField] private GameObject cautionArtifact = null;
+        [SerializeField] private StageInfoComponent stageInfoComponent = null;
+
         private System.Action<ConfirmCommandType> _confirmEvent = null;
         private ConfirmInfo _confirmInfo = null;
 
@@ -21,10 +23,13 @@ namespace Ryneus
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Confirm);
             InitializeCommandList();
-            skillInfoList.Initialize();
+            if (skillInfoList != null)
+            {
+                skillInfoList.Initialize();
+            }
             SetBaseAnimation(confirmAnimation);
             _ = new ConfirmPresenter(this);
-            SetHelpInputInfo("CONFIRM");
+            //SetHelpInputInfo("CONFIRM");
         }
 
         private void InitializeCommandList()
@@ -62,11 +67,20 @@ namespace Ryneus
 
         public void SetSkillInfo(List<ListData> skillInfos)
         {
-            if (skillInfos == null)
+            if (skillInfos == null || skillInfoList == null)
             {
                 return;
             }
             skillInfoList.SetData(skillInfos);
+        }
+
+        public void SetStageInfo(StageInfo stageInfo)
+        {
+            if (stageInfo == null || stageInfoComponent == null)
+            {
+                return;
+            }
+            stageInfoComponent.UpdateInfo(stageInfo);
         }
 
         public void SetIsNoChoice(bool isNoChoice)
@@ -95,9 +109,13 @@ namespace Ryneus
             SetSelectIndex(confirmInfo.SelectIndex);
             SetTitle(confirmInfo.Title);
             SetSkillInfo(confirmInfo.SkillInfos());
+            SetStageInfo(confirmInfo.StageInfo);
             SetConfirmEvent(confirmInfo.CallEvent);
             SetDisableIds(confirmInfo.DisableIds);
-            cautionArtifact?.SetActive(confirmInfo.IsArtifact.Value);
+            if (cautionArtifact != null)
+            {
+                cautionArtifact.SetActive(confirmInfo.IsArtifact.Value);
+            }
         }
 
         public void CommandDisableIds(List<int> disableIds)

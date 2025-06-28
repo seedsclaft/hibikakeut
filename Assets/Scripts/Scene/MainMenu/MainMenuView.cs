@@ -46,6 +46,11 @@ namespace Ryneus
             commandList.SetData(listDatas);
         }
 
+        public void UpdateCommandList(List<ListData> listDatas)
+        {
+            commandList.RefreshListData(listDatas);
+        }
+
         private void CallMainMenuCommand()
         {
             var command = commandList.ListItemData<SystemData.CommandData>();

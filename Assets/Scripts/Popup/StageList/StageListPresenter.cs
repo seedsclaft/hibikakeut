@@ -29,9 +29,15 @@ namespace Ryneus
                 // 出撃可能か
                 return !_model.IsLimitedRank(stageInfo);
             };
+            Func<StageInfo, bool> batch = (stageInfo) =>
+            {
+                // 未出撃か
+                return _model.PartyInfo.GetDungeonTraverse(stageInfo.StageId.Value) == null;
+            };
             var stageInfos = _model.StageInfos();
             var index = stageInfos.FindIndex(a => a.StageId.Value == _model.CurrentDeckInfo.StageNo.Value);
-            _view.SetStageList(MakeListDataFunc(stageInfos, index != -1 ? index : 0, enable));
+            
+            _view.SetStageList(MakeListData(stageInfos,enable,null,batch,index != -1 ? index : 0));
             _view.OpenAnimation();
             _busy = false;
         }
@@ -77,7 +83,8 @@ namespace Ryneus
                     }
                     _busy = false;
                     _view.SetBusy(false);
-                });
+                },ConfirmType.StageConfirm);
+                confirmInfo.SetStageInfo(stageInfo);
                 _view.CommandCallConfirm(confirmInfo);
             } else
             {

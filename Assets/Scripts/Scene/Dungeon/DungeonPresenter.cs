@@ -101,10 +101,11 @@ namespace Ryneus
 
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
             var stageEvent = GetStageEventData(EventTiming.Dungeon, playerPosition.x, playerPosition.y);
+            
+            _thisTurnStageEvents.Clear();
             // イベントがある場合
             if (stageEvent != null)
             {
-                _thisTurnStageEvents.Clear();
                 CheckStageEvent(moved);
                 return;
             }
