@@ -231,16 +231,5 @@ namespace Ryneus
                 learningText.transform.parent.gameObject.SetActive(false);
             }
         }
-
-        void Update()
-        {
-                if (learningCost != null)
-                {
-                    if (learningCost.color != DataSystem.PowerUpColor)
-                    {
-
-                    }
-                }
-        }
     }
 }

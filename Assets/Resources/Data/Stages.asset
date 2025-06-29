@@ -558,7 +558,7 @@ MonoBehaviour:
     Selectable: 1
     Chapter: 1
     Help: "\u304B\u3064\u3066\u6804\u3048\u305F\u53E4\u4EE3\u738B\u56FD\u306E\u5BAE\u6BBF\u3002\n\u6226\u4E71\u306B\u6563\u3063\u305F\u52C7\u8005\u304C\u6028\u5FF5\u3068\u3057\u3066\u5F98\u5F8A\u3057\u3066\u3044\u308B\u3002"
-    StageLv: 10
+    StageLv: 12
     OnlyOnce: 0
     DisplayRank: 4
     RandomTroopWeight: 30
@@ -596,6 +596,15 @@ MonoBehaviour:
       Param2: 11
       Param3: 18
       ReadFlag: 0
+    - EventKey: 40_8_8DungeonAdvStart140
+      Timing: 3010
+      Type: 1010
+      PositionX: 8
+      PositionY: 8
+      Param: 140
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
     - EventKey: 40_8_8DungeonAddEventFlag45
       Timing: 3010
       Type: 6010
@@ -614,13 +623,22 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
+    - EventKey: 40_8_8DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 8
+      PositionY: 8
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
   - Id: 41
     StageNo: 4
     Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u9928\u5185"
     Selectable: 0
     Chapter: 1
     Help: '""'
-    StageLv: 12
+    StageLv: 13
     OnlyOnce: 0
     DisplayRank: 4
     RandomTroopWeight: 30
@@ -703,21 +721,21 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
+    - EventKey: 41_4_6DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 4
+      PositionY: 6
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
     - EventKey: 41_4_4DungeonAdvStart100
       Timing: 3010
       Type: 1010
       PositionX: 4
       PositionY: 4
       Param: 100
-      Param2: 0
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 41_4_4DungeonForceBattle3020
-      Timing: 3010
-      Type: 5010
-      PositionX: 4
-      PositionY: 4
-      Param: 3020
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -739,6 +757,24 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
+    - EventKey: 41_4_4DungeonForceBattle3020
+      Timing: 3010
+      Type: 5010
+      PositionX: 4
+      PositionY: 4
+      Param: 3020
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 41_4_4DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 4
+      PositionY: 4
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
     - EventKey: 41_4_13DungeonDamageFloor20
       Timing: 3010
       Type: 7010
@@ -819,7 +855,7 @@ MonoBehaviour:
       Param: 0
       Param2: 0
       Param3: 0
-      ReadFlag: 1
+      ReadFlag: 0
     - EventKey: 41_2_13DungeonAdvStart130
       Timing: 3010
       Type: 1010
@@ -856,6 +892,15 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
+    - EventKey: 41_2_13DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 2
+      PositionY: 13
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
   - Id: 42
     StageNo: 4
     Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u738B\u5BA4"
@@ -938,12 +983,12 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 42_8_10DungeonAdvStart1030
+    - EventKey: 42_8_10DungeonAdvStart1050
       Timing: 3010
       Type: 1010
       PositionX: 8
       PositionY: 10
-      Param: 1030
+      Param: 1050
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -965,6 +1010,15 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
+    - EventKey: 42_8_10DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 8
+      PositionY: 10
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
   - Id: 1010
     StageNo: 101
     Name: "\u5FD8\u5374\u306E\u6D1E\u7A9F"
@@ -1057,30 +1111,30 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 1020_2_1DungeonGetItem11010
+    - EventKey: 1020_2_1DungeonGetItem1110
       Timing: 3010
       Type: 3020
       PositionX: 2
       PositionY: 1
-      Param: 11010
+      Param: 1110
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 1020_9_4DungeonGetItem11020
+    - EventKey: 1020_9_4DungeonGetItem1120
       Timing: 3010
       Type: 3020
       PositionX: 9
       PositionY: 4
-      Param: 11020
+      Param: 1120
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 1020_10_12DungeonGetItem11030
+    - EventKey: 1020_10_12DungeonGetItem1130
       Timing: 3010
       Type: 3020
       PositionX: 10
       PositionY: 12
-      Param: 11030
+      Param: 1130
       Param2: 0
       Param3: 0
       ReadFlag: 1

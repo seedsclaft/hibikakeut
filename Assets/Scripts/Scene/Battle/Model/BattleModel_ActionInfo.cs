@@ -18,6 +18,11 @@ namespace Ryneus
         public BattlerInfo TargetBattler => _targetBattler;
         public void SetTargetBattler(BattlerInfo battlerInfo) => _targetBattler = battlerInfo;
 
+        // 現アクションより前の割り込み
+        private List<ActionInfo> _interruptActionInfos = new();
+        private ActionInfo _interruptActionInfo = null;
+        public ActionInfo InterruptActionInfo => _interruptActionInfo;
+
         private List<ActionInfo> _receiveActionInfos = new();
         // 誘発した行動
         private ActionInfo _receiveActionInfo = null;
@@ -41,51 +46,30 @@ namespace Ryneus
             if (IsInterrupt)
             {
                 //LogOutput.Log(actionInfo.Master.Id + "を割り込み");
-                _receiveActionInfos.Insert(0,actionInfo);
+                _interruptActionInfos.Add(actionInfo);
+                _interruptActionInfo = _interruptActionInfos[0];
+                return;
             } else
             {
                 //LogOutput.Log(actionInfo.Master.Id + "を後に追加");
                 _receiveActionInfos.Add(actionInfo);
-            }
-            _receiveActionInfo = _receiveActionInfos[0];
-        }
-
-        public List<ActionInfo> BeforeActionInfo(ActionInfo targetActionInfo)
-        {
-            var list = new List<ActionInfo>();
-            var findIndex = _receiveActionInfos.FindIndex(a => a == targetActionInfo);
-            var idx = 0;
-            foreach (var actionInfo in _receiveActionInfos)
-            {
-                if (idx < findIndex)
-                {
-                    list.Add(actionInfo);
-                }
-                idx++;
-            }
-            return list;
-        }
-
-        public void RemoveActionInfo(ActionInfo targetActionInfo)
-        {
-            var findIndex = _receiveActionInfos.FindIndex(a => a == targetActionInfo);
-            if (findIndex > -1)
-            {
-                _receiveActionInfos.RemoveAt(findIndex);
-            }
-            if (_receiveActionInfos.Count > 0)
-            {
                 _receiveActionInfo = _receiveActionInfos[0];
             }
         }
 
         private void PopActionInfo(ActionInfo actionInfo)
         {
-            var findIndex = _receiveActionInfos.FindIndex(a => a == actionInfo);
+            var findIndex = _interruptActionInfos.FindIndex(a => a == actionInfo);
+            if (findIndex > -1)
+            {
+                _interruptActionInfos.RemoveAt(findIndex);
+            }
+            findIndex = _receiveActionInfos.FindIndex(a => a == actionInfo);
             if (findIndex > -1)
             {
                 _receiveActionInfos.RemoveAt(findIndex);
             }
+            _interruptActionInfo = _interruptActionInfos.Count > 0 ? _interruptActionInfos[0] : null;
             _receiveActionInfo = _receiveActionInfos.Count > 0 ? _receiveActionInfos[0] : null;
         }
 
@@ -95,6 +79,7 @@ namespace Ryneus
         public void ClearActionInfo()
         {
             _receiveActionInfos.Clear();
+            _interruptActionInfos.Clear();
         }
 
         // 行動を生成

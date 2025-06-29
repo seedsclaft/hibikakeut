@@ -914,9 +914,9 @@ namespace Ryneus
             var aliveType = actionInfo.Master.AliveType;
             if (actionInfo != null)
             {
-                indexList = CalcAliveTypeIndexList(indexList,aliveType);
+                indexList = CalcAliveTypeIndexList(indexList, aliveType);
             }
-            SetActorLastTarget(actionInfo,subject,indexList);
+            SetActorLastTarget(actionInfo, subject, indexList);
             if (subject.IsState(StateType.Silence))
             {
                 return;
@@ -2722,19 +2722,29 @@ namespace Ryneus
             var list = new List<GetItemInfo>();
             var enemyInfos = BattlerEnemies().FindAll(a => !a.IsAlive());
             var bossLv = enemyInfos.Max(a => a.Level.Value);
-            var exp = CheckVictory() ? 20 : 0;
+            var exp = 20f;
+            if (enemyInfos.Count == 2)
+            {
+                exp = 30f / 2f;
+            }
+            if (enemyInfos.Count == 3)
+            {
+                exp = 40f / 3f;
+            }
             // 経験値アイテムを作る
             foreach (var actorInfo in UnitBattlerActors())
             {
-                var gainExp = 0;
+                var gainExp = 0f;
                 foreach (var enemyInfo in enemyInfos)
                 {
                     gainExp += exp + (enemyInfo.Level.Value - actorInfo.Level.Value) * 3;
                 }
+                /*
                 if (_battleRecords[actorInfo.Index.Value].MaxDamage > 0 || _battleRecords[actorInfo.Index.Value].HealValue > 0)
                 {
                     gainExp += (31 - (actorInfo.Level.Value - bossLv)) / 3;
                 }
+                */
 
                 // 獲得経験値アップ付与
                 var expRateUp = actorInfo.Skills.Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.GetExpRateUp) != null);
@@ -2763,7 +2773,7 @@ namespace Ryneus
                     // 誰に対して
                     Param1 = actorInfo.ActorInfo.ActorId.Value,
                     // いくつ
-                    Param2 = gainExp
+                    Param2 = (int)gainExp
                 };
                 var expItem = new GetItemInfo(expData);
                 list.Add(expItem);

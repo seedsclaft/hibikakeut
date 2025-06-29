@@ -105,7 +105,7 @@ namespace Ryneus
                 var position = StageEventDates.Find(a => a.Param == displayEvent.Param && a != displayEvent);
                 if (position != null)
                 {
-                    _moveController.SetDeactiveChildObj(position.PositionX,position.PositionY);
+                    _moveController.SetDeactiveParentObj(position.PositionX,position.PositionY);
                 }
             }
         }
@@ -143,7 +143,7 @@ namespace Ryneus
                 if (IsActiveDungeon())
                 {
                     // ランダムエンカウントフラグ加算
-                    int flag = UnityEngine.Random.Range(CurrentStage.Master.EncountMin, CurrentStage.Master.EncountMax);
+                    int flag = Random.Range(CurrentStage.Master.EncountMin, CurrentStage.Master.EncountMax);
                     CurrentDeckInfo.Encount.GainValue(flag,0,100);
 
                     // 残りターン数を減算

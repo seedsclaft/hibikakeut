@@ -232,26 +232,6 @@ namespace Ryneus
         }
 
         /// <summary>
-        /// 手動で対象を決定
-        /// </summary>
-        /// <param name="battlerInfo"></param>
-        private void CommandOnSelectEnemy(BattlerInfo battlerInfo)
-        {
-            // 対象を決定
-            if (battlerInfo != null)
-            {
-                SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                // ActionInfoを設定する
-                var actionInfo = _model.SelectActionInfo;
-                var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,battlerInfo.Index.Value);
-                _model.SetActiveActionInfo(actionInfo);
-                MakeResultInfoStartAction(actionInfo,targetIndexes);
-
-                _view.EndActionSelect();
-            }
-        }
-
-        /// <summary>
         /// 行動者を登録する
         /// </summary>
         /// <returns></returns>
@@ -309,13 +289,21 @@ namespace Ryneus
         /// 行動結果を生成する
         /// </summary>
         /// <param name="indexList"></param>
-        public async void MakeResultInfoStartAction(ActionInfo actionInfo,List<int> indexList)
+        public async void MakeResultInfoStartAction(ActionInfo actionInfo, List<int> indexList)
         {
             _view.SetHelpText("");
             _view.ChangeBackCommandActive(false);
 
             _model.SetActionInfoParameter(actionInfo);
-            await MakeActionResultInfo(actionInfo,indexList);
+            await MakeActionResultInfo(actionInfo, indexList);
+            // 割り込み判定
+            var interruptAction = _model.InterruptActionInfo;
+            if (interruptAction != null)
+            {
+                _model.SetActiveActionInfo(interruptAction);
+                StartActionInfo(interruptAction);
+                return;
+            }
             _model.SetActiveActionInfo(actionInfo);
             StartActionInfo(actionInfo);
         }
@@ -324,21 +312,21 @@ namespace Ryneus
         /// 行動結果を生成する
         /// </summary>
         /// <param name="indexList"></param>
-        private async UniTask MakeActionResultInfo(ActionInfo actionInfo,List<int> indexList)
+        private async UniTask MakeActionResultInfo(ActionInfo actionInfo, List<int> indexList)
         {
             if (actionInfo != null)
             {
                 _view.BattlerBattleClearSelect();
+                // かばうによりターゲットを変更
 
-                CheckBeforeActionInfo(actionInfo);
                 // 自分,味方,相手の行動前パッシブ
-                /*
                 CheckBeforeActionInfo(actionInfo);
-                */
 
-                // 開始行動のアクションの結果を生成
-                _model.MakeActionResultInfo(actionInfo,indexList);
+                // 開始行動アクションの結果を生成
+                _model.MakeActionResultInfo(actionInfo, indexList);
 
+                // 行動決定後の割り込みスキル判定
+                CheckInterruptActionInfoTriggerTimings(actionInfo);
                 /*
                 var current = _model.CurrentActionInfo;
                 // かばう専用割り込み判定
@@ -363,8 +351,6 @@ namespace Ryneus
                     _model.MakeActionResultInfo(current,indexList,false,true);
                 }
 
-                // 行動決定後の割り込みスキル判定
-                CheckInterruptActionInfoTriggerTimings(current);
                 */
             }
         }
@@ -398,7 +384,7 @@ namespace Ryneus
         /// 行動割り込みトリガー確認
         /// </summary>
         private void CheckInterruptActionInfoTriggerTimings(ActionInfo actionInfo)
-        {    
+        {
             _model.CheckTriggerActiveInfos(TriggerTiming.Interrupt,actionInfo,actionInfo.ActionResults,true);
             _model.CheckTriggerPassiveInfos(new List<TriggerTiming>(){TriggerTiming.Interrupt},actionInfo,actionInfo.ActionResults);
             _model.CheckTriggerPassiveInfos(new List<TriggerTiming>(){TriggerTiming.Use},actionInfo,actionInfo.ActionResults);

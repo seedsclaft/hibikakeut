@@ -250,7 +250,7 @@ namespace Ryneus
                         StageEventAddEventNotFlag(stageEvent, endEvent);
                         return;
                     case StageEventType.AddEventFlagEndForceBattle:
-                        StageEventAddEventFlagEndForceBattle(stageEvent, endEvent);
+                        StageEventAddEventFlagEndForceBattle(moved, stageEvent, endEvent);
                         return;
                     case StageEventType.DamageFloor:
                         StageEventDamageFloor(stageEvent, endEvent);
@@ -407,9 +407,8 @@ namespace Ryneus
             CheckEventData(false,playerPosition,endEvent);
         }
 
-        private void StageEventAddEventFlagEndForceBattle(StageEventData stageEvent, Action endEvent)
+        private void StageEventAddEventFlagEndForceBattle(bool moved, StageEventData stageEvent, Action endEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             var findAll = _model.StageEventDates.FindAll(a => a.Type == StageEventType.ForceBattle);
             var open = true;
             // 強制戦闘が終わっているか
@@ -422,9 +421,12 @@ namespace Ryneus
             }
             if (open)
             {
+                _model.AddEventReadFlag(stageEvent);
                 StageEventAddEventFlag(false, stageEvent, null);
                 _model.UpdateEventObjects();
+                return;
             }
+            CheckStageEvent(moved);
         }
 
         private void StageEventDamageFloor(StageEventData stageEvent, Action endEvent)
