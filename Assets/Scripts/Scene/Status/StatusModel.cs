@@ -131,6 +131,16 @@ namespace Ryneus
             return ActorLevelUpCost(CurrentActor);
         }
 
+        public int LevelUpBeforeExp()
+        {
+            return CurrentActor.BeforeExp;
+        }
+
+        public int LevelUpAfterExp()
+        {
+            return ActorLevelUpAfterExp(CurrentActor);
+        }
+
         public StrategySceneInfo DecideActor()
         {
             var getItemData = new GetItemData
@@ -144,11 +154,11 @@ namespace Ryneus
             {
                 ActorInfos = StageMembers().FindAll(a => a.ActorId.Value == CurrentActor.ActorId.Value),
                 InBattle = false,
-                ReturnScene = Scene.Dungeon
-            };
-            strategySceneInfo.GetItemInfos = new List<GetItemInfo>
-            {
-                getItemInfo
+                ReturnScene = Scene.Dungeon,
+                GetItemInfos = new List<GetItemInfo>
+                {
+                    getItemInfo
+                }
             };
             return strategySceneInfo;
         }

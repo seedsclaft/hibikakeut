@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEngine;
 
 namespace Ryneus
 {
@@ -103,6 +105,8 @@ namespace Ryneus
                 var same = targetIndexList.FindIndex(a => a % 100 == (selfIndex + (i * -1)));
                 if (same > -1)
                 {
+                    UnityEngine.Debug.Log(selfIndex);
+                    UnityEngine.Debug.Log("same: " +same);
                     return targetIndexList[same];
                 }
                 if (i > 0)

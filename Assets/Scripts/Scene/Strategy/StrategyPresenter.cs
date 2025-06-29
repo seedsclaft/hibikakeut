@@ -252,7 +252,7 @@ namespace Ryneus
             var battledMembers = _model.DisplayActorInfos;
             if (battledMembers != null && battledMembers.Count > 0)
             {
-                _model.ClearSceneParam();
+                //_model.ClearSceneParam();
             }
             EndStrategy();
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
@@ -331,14 +331,26 @@ namespace Ryneus
 
             if (_model.ReturnScene != Scene.None)
             {
-                _view.CommandGotoSceneChange(_model.ReturnScene);
+                if (_model.SceneParam.ReturnMainMenuSceneParam != null)
+                {
+                    _view.CommandGotoSceneChange(_model.ReturnScene,_model.SceneParam.ReturnMainMenuSceneParam);
+                } else
+                {
+                    _view.CommandGotoSceneChange(_model.ReturnScene);
+                }
             } else
             if (_model.InBattleResult && _model.BattleResultVictory)
             {
                 _view.CommandGotoSceneChange(Scene.Dungeon);
             } else
             {
-                _view.CommandGotoSceneChange(Scene.MainMenu);
+                if (_model.SceneParam.ReturnMainMenuSceneParam != null)
+                {
+                    _view.CommandGotoSceneChange(Scene.MainMenu,_model.SceneParam.ReturnMainMenuSceneParam);
+                } else
+                {
+                    _view.CommandGotoSceneChange(Scene.MainMenu);
+                }
             }
         }
     }

@@ -275,7 +275,7 @@ namespace Ryneus
             _busy = true;
             _view.SetBusy(true);
             _model.PartyInfo.TacticsLvupCount.GainValue(1);
-            CommandLevelUp(_model.CurrentActor,() =>
+            CommandExpUp(_model.CurrentActor,() =>
             {
                 CheckAchievements();
                 _busy = false;
@@ -334,7 +334,12 @@ namespace Ryneus
                     _view.CallSystemCommand(Base.CommandType.CloseStatus);
                     var strategySceneInfo = _model.DecideActor();
                     strategySceneInfo.ReturnScene = GameSystem.SceneStackManager.Current;
-                    _view.CommandGotoSceneChange(Scene.Strategy,strategySceneInfo);
+                    var sceneParam = new MainMenuSceneInfo
+                    {
+                        CommandIndex = 3
+                    };
+                    strategySceneInfo.ReturnMainMenuSceneParam = sceneParam;
+                    _view.CommandGotoSceneChange(Scene.Strategy, strategySceneInfo);
                 } else
                 {
                     _busy = false;
@@ -406,6 +411,7 @@ namespace Ryneus
             _model.UpdateActorRemainCost();
             _view.SetActorInfo(_model.CurrentActor,_model.ActorInfos);
             _view.SetLvUpInfo(_model.LevelUpCost(),_model.Currency);
+            _view.SetLvUpExpInfo(_model.LevelUpBeforeExp(),_model.LevelUpAfterExp());
             _view.CommandRefresh();
         }
 

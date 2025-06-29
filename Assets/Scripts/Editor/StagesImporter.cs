@@ -75,6 +75,7 @@ namespace Ryneus
                             Chapter = AssetPostImporter.ImportNumeric(BaseRow, "Chapter"),
                             Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,
                             StageLv = AssetPostImporter.ImportNumeric(BaseRow, "StageLv"),
+                            OnlyOnce = AssetPostImporter.ImportBool(BaseRow, "OnlyOnce"),
                             DisplayRank = AssetPostImporter.ImportNumeric(BaseRow, "DisplayRank"),
                             RandomTroopEnemyRates = new List<StageEnemyRate>(),
                             RandomTroopWeight = AssetPostImporter.ImportNumeric(BaseRow, "RandomTroopWeight"),

@@ -213,7 +213,7 @@ namespace Ryneus
             CallSystemCommand(Base.CommandType.SceneChange,sceneInfo);
         }
 
-        public void CommandGotoSceneChange(Scene scene,object sceneParam = null)
+        public void CommandGotoSceneChange(Scene scene, object sceneParam = null)
         {
             var sceneInfo = new SceneInfo()
             {
@@ -221,7 +221,7 @@ namespace Ryneus
                 SceneChangeType = SceneChangeType.Goto,
                 SceneParam = sceneParam
             };
-            CallSystemCommand(Base.CommandType.SceneChange,sceneInfo);
+            CallSystemCommand(Base.CommandType.SceneChange, sceneInfo);
         }
 
         public void CommandCallConfirm(ConfirmInfo popupInfo)

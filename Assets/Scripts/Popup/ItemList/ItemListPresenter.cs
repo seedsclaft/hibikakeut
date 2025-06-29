@@ -69,13 +69,18 @@ namespace Ryneus
                             _model.PartyInfo.PresentCommandCount.GainValue(1);
                             CheckAchievements();
                             _view.CallSystemCommand(Base.CommandType.ClosePopup);
+                            var sceneParam = new MainMenuSceneInfo
+                            {
+                                CommandIndex = 4
+                            };
                             var strategySceneInfo = new StrategySceneInfo
                             {
                                 ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
                                 InBattle = false,
-                                GetItemInfos = getItemInfos
+                                GetItemInfos = getItemInfos,
+                                ReturnMainMenuSceneParam = sceneParam
                             };
-                            _view.CommandSceneChange(Scene.Strategy,strategySceneInfo);
+                            _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
                         }
                     }
                     _busy = false;

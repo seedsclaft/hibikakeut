@@ -13,6 +13,7 @@ namespace Ryneus
 
         public ParameterInt Exp = new();
         public int NextExp => 100 - (Exp.Value % 100);
+        public int BeforeExp => Exp.Value % 100;
         public int Level => (Exp.Value / 100) + 1;
         public void SetLevel(int level)
         {

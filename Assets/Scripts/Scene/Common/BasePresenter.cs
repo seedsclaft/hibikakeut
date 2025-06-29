@@ -409,6 +409,55 @@ namespace Ryneus
             });
         }
 
+        public void CommandExpUp(ActorInfo actorInfo, Action endEvent = null)
+        {
+            var getExp = _model.ActorGetExpCurrency(actorInfo);
+            if (_model.Currency > 0 && getExp > 0)
+            {
+                _model.PartyInfo.Currency.GainValue(-1);
+                SoundManager.Instance.PlayStaticSe(SEType.LevelUp);
+                // 新規魔法取得があるか
+                var from = actorInfo.Evaluate();
+                var beforeLv = actorInfo.Level;
+                var beforeSkills = actorInfo.LearningSkills();
+
+                actorInfo.Exp.GainValue(getExp);
+
+                var to = actorInfo.Evaluate();
+                var afterLv = actorInfo.Level;
+                var afterSkills = actorInfo.LearningSkills();
+                if (afterLv > beforeLv)
+                {
+                    if (afterSkills.Count > beforeSkills.Count)
+                    {
+                        //_busy = true;
+                        _view.SetBusy(true);
+                        var learnSkillInfo = new LearnSkillInfo(from,to,afterSkills[0]);
+                        SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+
+                        var popupInfo = new PopupInfo
+                        {
+                            PopupType = PopupType.LearnSkill,
+                            EndEvent = () =>
+                            {
+                                endEvent?.Invoke();
+                                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                            },
+                            template = learnSkillInfo
+                        };
+                        _view.CommandCallPopup(popupInfo);
+                    } else
+                    {
+                        CommandCautionInfo("",from,to);
+                        endEvent?.Invoke();
+                        SoundManager.Instance.PlayStaticSe(SEType.CountUp);
+                    }
+                    return;
+                }
+            }
+            endEvent?.Invoke();
+        }
+
         public void CommandLearnMagic(ActorInfo actorInfo,SkillInfo skillInfo,Action endEvent = null)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);

@@ -138,7 +138,7 @@ namespace Ryneus
                 {
                     var listData = new ListData(data);
                     listData.SetEnable(enable(data));
-                    if (selectIndex > 0 && idx == selectIndex)
+                    if (selectIndex >= 0 && idx == selectIndex)
                     {
                         listData.SetSelected(true);
                     }

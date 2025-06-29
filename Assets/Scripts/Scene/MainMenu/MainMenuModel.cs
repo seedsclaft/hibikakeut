@@ -6,6 +6,13 @@ namespace Ryneus
 {
     public class MainMenuModel : BaseModel
     {
+        private MainMenuSceneInfo _sceneParam;
+        public MainMenuSceneInfo SceneParam => _sceneParam;
+        public MainMenuModel()
+        {
+            _sceneParam = (MainMenuSceneInfo)GameSystem.SceneStackManager.LastSceneParam;
+        }
+
         public bool InterludePhase()
         {
             // 6ピリオドでチャプター切り替え
@@ -63,6 +70,7 @@ namespace Ryneus
 
         public List<ListData> MainMenuCommand()
         {
+            var selectIndex = _sceneParam != null ? _sceneParam.CommandIndex : 0;
             return ListData.MakeListData(DataSystem.TacticsCommand,(a) =>
             {
                 if (a.Key == "Transfer")
@@ -86,7 +94,7 @@ namespace Ryneus
                         return PartyInfo.IsOwnItem();
                 }
                 return false;
-            });
+            },selectIndex);
         }
 
         public List<SystemData.CommandData> SideMenu()
@@ -138,5 +146,10 @@ namespace Ryneus
             list.Add(titleCommand);
             return list;
         }
+    }
+
+    public class MainMenuSceneInfo
+    {
+        public int CommandIndex;
     }
 }

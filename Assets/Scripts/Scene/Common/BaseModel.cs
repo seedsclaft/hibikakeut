@@ -588,6 +588,16 @@ namespace Ryneus
             return TacticsUtility.TrainCost(actorInfo);
         }
 
+        public int ActorLevelUpAfterExp(ActorInfo actorInfo)
+        {
+            return ActorGetExpCurrency(actorInfo) + actorInfo.BeforeExp;
+        }
+
+        public int ActorGetExpCurrency(ActorInfo actorInfo)
+        {
+            return TacticsUtility.GetExpCurrency(actorInfo, 1);
+        }
+
         public bool EnableActorLevelUp(ActorInfo actorInfo)
         {
             return Currency >= ActorLevelUpCost(actorInfo);

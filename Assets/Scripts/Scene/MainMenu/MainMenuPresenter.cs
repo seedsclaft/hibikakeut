@@ -32,7 +32,7 @@ namespace Ryneus
                 // エンディング再生
                 var advInfo = new AdvCallInfo();
                 advInfo.Label.SetValue(_model.GetAdvFile(101));
-                advInfo.SetCallEvent(() => 
+                advInfo.SetCallEvent(() =>
                 {
                     _busy = false;
                     _view.ChangeUIActive(true);

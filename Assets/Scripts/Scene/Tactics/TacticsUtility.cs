@@ -21,6 +21,12 @@ namespace Ryneus
             return (int)MathF.Floor(needPoint * remainPer * rate) + 1;
         }
 
+        public static int GetExpCurrency(ActorInfo actorInfo, int currency)
+        {
+            var baseValue = 20 - (int)MathF.Floor((actorInfo.Level - 1) * 0.5f);
+            return baseValue * currency;
+        }
+
         public static int TrainCost(int level,ActorInfo actorInfo)
         {
             return level * TacticsCostRate(actorInfo);

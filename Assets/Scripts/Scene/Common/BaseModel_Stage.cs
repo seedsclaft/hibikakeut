@@ -21,6 +21,10 @@ namespace Ryneus
                 {
                     continue;
                 }
+                if (stageData.OnlyOnce && PartyInfo.GetDungeonTraverse(stageData.Id) != null)
+                {
+                    continue;
+                }
                 var cleared = PartyInfo.IsClaeredStage(stageData.StageNo);
                 var stageInfo = new StageInfo(stageData.Id,cleared);
                 list.Add(stageInfo);
@@ -40,14 +44,6 @@ namespace Ryneus
             }
             CurrentGameInfo.SetStageInfo(stageInfo);
             PartyInfo.StageId.SetValue(stageId);
-        }
-
-        public void UpdateUnitStatus()
-        {
-            foreach (var actorInfo in PartyInfo.ActorInfos)
-            {
-                actorInfo.ChangeHp(actorInfo.MaxHp);
-            }
         }
     }
 }

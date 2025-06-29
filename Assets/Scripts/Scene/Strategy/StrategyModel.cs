@@ -429,5 +429,6 @@ namespace Ryneus
         public int BattleDefeatedCount;
         public bool BattleResultVictory;
         public Scene ReturnScene;
+        public MainMenuSceneInfo ReturnMainMenuSceneParam;
     }
 }

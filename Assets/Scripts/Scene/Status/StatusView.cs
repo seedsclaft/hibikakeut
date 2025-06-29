@@ -203,6 +203,15 @@ namespace Ryneus
             statusLevelUp.SetLvUpInfo(cost,currency);
         }
 
+        public void SetLvUpExpInfo(int before, int after)
+        {
+            if (statusLevelUp == null)
+            {
+                return;
+            }
+            statusLevelUp.SetLvUpExpInfo(before, after);
+        }
+
         public void SetActiveCharacterList(bool isActive)
         {
             if (characterListButton == null)

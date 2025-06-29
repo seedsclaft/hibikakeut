@@ -15,6 +15,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI numinousText = null;
         [SerializeField] private TextMeshProUGUI lvUpCostText = null;
         [SerializeField] private TextMeshProUGUI toLvText = null;
+        [SerializeField] private TextMeshProUGUI beforeExp = null;
+        [SerializeField] private TextMeshProUGUI afterExp = null;
         [SerializeField] private GameObject levelUpObj = null;
         [SerializeField] private InputInfoComponent levelUpButtonKey = null;
         public void Initialize(Action levelUpEvent)
@@ -75,7 +77,13 @@ namespace Ryneus
         public void SetLvUpInfo(int cost,int currency)
         {
             numinousText.SetText(currency + DataSystem.GetText(1000));
-            lvUpCostText.SetText(cost.ToString());
+            //lvUpCostText.SetText(cost.ToString());
+        }
+
+        public void SetLvUpExpInfo(int before,int after)
+        {
+            beforeExp.SetText(before.ToString());
+            afterExp.SetText(after.ToString());
         }
     }
 }

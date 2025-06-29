@@ -19,6 +19,7 @@ namespace Ryneus
         public int Chapter;
         public string Help;
         public int StageLv;
+        public bool OnlyOnce;
         public int DisplayRank;
         public int RandomTroopWeight;
         public List<StageEnemyRate> RandomTroopEnemyRates;
