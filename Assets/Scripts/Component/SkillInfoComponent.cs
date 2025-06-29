@@ -59,7 +59,7 @@ namespace Ryneus
             if (learningCost != null)
             {
                 learningCost.gameObject.SetActive(skillInfo.LearningCost.Value > 0);
-                learningCost.SetText(skillInfo.LearningCost.Value.ToString());// + DataSystem.System.GetTextData(1000).Text;
+                learningCost.SetText(skillInfo.LearningCost.Value.ToString());
                 battleCountTurn?.gameObject?.SetActive(false);
             } else
             {
@@ -84,8 +84,13 @@ namespace Ryneus
             }
             if (skillExpGauge != null)
             {
-                skillExpGauge.gameObject.SetActive(!skillInfo.Master.IsBattleSpecialSkill() && skillInfo.Master.Rank > RankType.ActiveRank1);
+                var displayExp = !skillInfo.Master.IsBattleSpecialSkill() && skillInfo.Master.Rank > RankType.ActiveRank1;
+                skillExpGauge.gameObject.SetActive(displayExp);
                 skillExpGauge.UpdateGauge(skillInfo.ExpRate.Value);
+                if (learningCost != null && displayExp && skillInfo.ExpRate.Value >= 1)
+                {
+                    learningCost.text = DataSystem.PowerUpColorTag + learningCost.text + "</color>";
+                }
             }
         }
 
@@ -225,6 +230,17 @@ namespace Ryneus
             {
                 learningText.transform.parent.gameObject.SetActive(false);
             }
+        }
+
+        void Update()
+        {
+                if (learningCost != null)
+                {
+                    if (learningCost.color != DataSystem.PowerUpColor)
+                    {
+
+                    }
+                }
         }
     }
 }

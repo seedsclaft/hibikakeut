@@ -35,7 +35,7 @@ namespace Ryneus
         [SerializeField] private Color unSelectColor;
         [SerializeField] private List<TextMeshProUGUI> textUguiList = new();
         [SerializeField] private List<Image> imageUguiList = new();
-        
+
         private bool _addListenHandler = false;
         public void SetAddListenHandler(bool add)
         {

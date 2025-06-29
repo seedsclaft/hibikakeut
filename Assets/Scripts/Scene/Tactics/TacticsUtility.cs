@@ -53,5 +53,38 @@ namespace Ryneus
         {
             return actorInfo.Level;
         }
+
+        public static int EquipAttributeRankCost(AttributeRank attributeRank)
+        {
+            var cost = 1;
+            switch (attributeRank)
+            {
+                case AttributeRank.S:
+                    cost = 1;
+                    break;
+                case AttributeRank.A:
+                    cost = 2;
+                    break;
+                case AttributeRank.B:
+                    cost = 3;
+                    break;
+                case AttributeRank.C:
+                    cost = 4;
+                    break;
+                case AttributeRank.D:
+                    cost = 5;
+                    break;
+                case AttributeRank.E:
+                    cost = 6;
+                    break;
+                case AttributeRank.F:
+                    cost = 7;
+                    break;
+                case AttributeRank.G:
+                    cost = 8;
+                    break;
+            }
+            return cost;
+        }
     }
 }

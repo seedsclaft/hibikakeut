@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace Ryneus
@@ -248,36 +249,9 @@ namespace Ryneus
             {
                 return 0;
             }
-            var cost = 1;
             var rankCost = ConvertRankCost(skillData.Rank);
             var param = AttributeRanks(stageMembers)[(int)skillData.Attribute - 1];
-            switch (param)
-            {
-                case AttributeRank.S:
-                    cost = 1;
-                    break;
-                case AttributeRank.A:
-                    cost = 2;
-                    break;
-                case AttributeRank.B:
-                    cost = 3;
-                    break;
-                case AttributeRank.C:
-                    cost = 4;
-                    break;
-                case AttributeRank.D:
-                    cost = 5;
-                    break;
-                case AttributeRank.E:
-                    cost = 6;
-                    break;
-                case AttributeRank.F:
-                    cost = 7;
-                    break;
-                case AttributeRank.G:
-                    cost = 8;
-                    break;
-            }
+            var cost = TacticsUtility.EquipAttributeRankCost(param);
             int result = Mathf.FloorToInt(cost * rankCost);
             // 会得済みなら-1
             if (_mastarySkillIds.Contains(skillId))
@@ -293,36 +267,9 @@ namespace Ryneus
             {
                 return 0;
             }
-            var cost = 1;
             var rankCost = ConvertRankCost(rank);
             var param = AttributeRanks(stageMembers)[(int)attributeType - 1];
-            switch (param)
-            {
-                case AttributeRank.S:
-                    cost = 1;
-                    break;
-                case AttributeRank.A:
-                    cost = 2;
-                    break;
-                case AttributeRank.B:
-                    cost = 3;
-                    break;
-                case AttributeRank.C:
-                    cost = 4;
-                    break;
-                case AttributeRank.D:
-                    cost = 5;
-                    break;
-                case AttributeRank.E:
-                    cost = 6;
-                    break;
-                case AttributeRank.F:
-                    cost = 7;
-                    break;
-                case AttributeRank.G:
-                    cost = 8;
-                    break;
-            }
+            var cost = TacticsUtility.EquipAttributeRankCost(param);
 
             return Mathf.FloorToInt(cost * rankCost);
         }

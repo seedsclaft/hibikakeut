@@ -41,6 +41,7 @@ namespace Ryneus
         public static List<SystemData.OptionCommand> OptionCommand => System.OptionCommandData;
 
         public static Color PowerUpColor => new(128, 255, 128);
+        public static string PowerUpColorTag => "<color=#80FF80>";
         public static Color PowerDownColor => new(255, 128, 64);
 
         public static void LoadData()

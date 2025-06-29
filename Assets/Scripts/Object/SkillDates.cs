@@ -92,15 +92,6 @@ namespace Ryneus
             return SkillType is SkillType.Unique or SkillType.Awaken;
         }
 
-        [Serializable]
-        public class SkillAttributeInfo
-        {
-            public AttributeType AttributeType;
-            public string ValueText;
-            public int LearningCost;
-            public string LearningCount;
-        }
-
         public string TargetTypeText()
         {
             return TargetType switch
