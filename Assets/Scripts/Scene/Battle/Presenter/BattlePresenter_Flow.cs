@@ -186,6 +186,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 _model.SetActiveActionInfo(actionInfo);
+                _model.SetMainActionInfo(actionInfo);
                 MakeResultInfoStartAction(actionInfo,targetIndexes);
                 _view.EndActionSelect();
             }
@@ -213,6 +214,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 _model.SetActiveActionInfo(actionInfo);
+                _model.SetMainActionInfo(actionInfo);
                 MakeResultInfoStartAction(actionInfo,targetIndexes);
                 _view.EndActionSelect();
             }
@@ -282,6 +284,7 @@ namespace Ryneus
         {
             // 対象を自動決定
             var (actionInfo,targetIndexes) = _model.GetActionInfoTargetIndexes(battlerInfo,skillId,oneTargetIndex);
+            _model.SetMainActionInfo(actionInfo);
             MakeResultInfoStartAction(actionInfo,targetIndexes);
         }
 
@@ -636,12 +639,20 @@ namespace Ryneus
             //_view.UpdateGridLayer();
             _view.RefreshStatus();
 
+            // 現アクションがまだならそのまま続ける
+            var mainActionInfo = _model.MainActionInfo;
+            if (mainActionInfo != null)
+            {
+                _battleEnded = false;
+                MakeResultInfoStartAction(mainActionInfo, mainActionInfo.CandidateTargetIndexList);
+                return;
+            }
             // 誘発行動があれば続ける
             var receiveActionInfo = _model.ReceiveActionInfo;
             if (receiveActionInfo != null)
             {
                 _battleEnded = false;
-                MakeResultInfoStartAction(receiveActionInfo,receiveActionInfo.CandidateTargetIndexList);
+                MakeResultInfoStartAction(receiveActionInfo, receiveActionInfo.CandidateTargetIndexList);
                 return;
             }
             var linkage = _model.CheckLinkageBattlerInfo();

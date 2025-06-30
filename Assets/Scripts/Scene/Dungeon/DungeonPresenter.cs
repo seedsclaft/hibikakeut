@@ -41,6 +41,8 @@ namespace Ryneus
             _model.SetPlayerPosition();
             _model.UpdateEventObjects();
             CommandRefresh();
+            // 未読の非表示マスを管理
+            _model.AddEventNotFlag();
             _busy = false;
         }
 
@@ -261,6 +263,7 @@ namespace Ryneus
                     case StageEventType.EndCurseFloor:
                         StageEventEndCurseFloor(stageEvent, endEvent);
                         return;
+                    case StageEventType.None:
                     case StageEventType.EventEnd:
                         _model.DungeonBusy(false);
                         // ターン数が0の場合

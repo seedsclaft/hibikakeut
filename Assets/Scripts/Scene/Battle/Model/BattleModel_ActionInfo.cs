@@ -23,8 +23,16 @@ namespace Ryneus
         private ActionInfo _interruptActionInfo = null;
         public ActionInfo InterruptActionInfo => _interruptActionInfo;
 
-        private List<ActionInfo> _receiveActionInfos = new();
+        // 現アクション
+        private ActionInfo _mainActionInfo = null;
+        public ActionInfo MainActionInfo => _mainActionInfo;
+        public void SetMainActionInfo(ActionInfo actionInfo)
+        {
+            _mainActionInfo = actionInfo;
+        }
+
         // 誘発した行動
+        private List<ActionInfo> _receiveActionInfos = new();
         private ActionInfo _receiveActionInfo = null;
         public ActionInfo ReceiveActionInfo => _receiveActionInfo;
         /// <summary>
@@ -68,6 +76,10 @@ namespace Ryneus
             if (findIndex > -1)
             {
                 _receiveActionInfos.RemoveAt(findIndex);
+            }
+            if (actionInfo == _mainActionInfo)
+            {
+                _mainActionInfo = null;
             }
             _interruptActionInfo = _interruptActionInfos.Count > 0 ? _interruptActionInfos[0] : null;
             _receiveActionInfo = _receiveActionInfos.Count > 0 ? _receiveActionInfos[0] : null;
