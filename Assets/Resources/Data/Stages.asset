@@ -15,6 +15,7 @@ MonoBehaviour:
   Data:
   - Id: 10
     StageNo: 1
+    Category: 0
     Name: "\u59CB\u307E\u308A\u306E\u6642"
     Selectable: 0
     Chapter: 1
@@ -30,7 +31,7 @@ MonoBehaviour:
     BossTroopId: 0
     BGMId: 0
     BossBGMId: 2010
-    MenuBGMId: 100
+    BattleBGMId: 2010
     SkyboxName: DayInTheClouds
     StageEvents:
     - EventKey: 10_7_6DungeonSelectAddActor1
@@ -62,6 +63,7 @@ MonoBehaviour:
       ReadFlag: 0
   - Id: 20
     StageNo: 2
+    Category: 1
     Name: "\u5FD8\u308C\u3089\u308C\u305F\u5C71\u5CB3\u907A\u8DE1"
     Selectable: 1
     Chapter: 1
@@ -87,7 +89,7 @@ MonoBehaviour:
     BossTroopId: 1020
     BGMId: 1010
     BossBGMId: 3010
-    MenuBGMId: 100
+    BattleBGMId: 2010
     SkyboxName: '""'
     StageEvents:
     - EventKey: 20_2_1DungeonExitDungeon0
@@ -146,6 +148,7 @@ MonoBehaviour:
       ReadFlag: 0
   - Id: 21
     StageNo: 2
+    Category: 1
     Name: "\u5FD8\u308C\u3089\u308C\u305F\u5C71\u5CB3\u907A\u8DE1\u30FB\u5965"
     Selectable: 0
     Chapter: 1
@@ -171,7 +174,7 @@ MonoBehaviour:
     BossTroopId: 0
     BGMId: 1010
     BossBGMId: 3010
-    MenuBGMId: 100
+    BattleBGMId: 2010
     SkyboxName: '""'
     StageEvents:
     - EventKey: 21_1_15DungeonMoveDungeonFloor20
@@ -248,6 +251,7 @@ MonoBehaviour:
       ReadFlag: 1
   - Id: 30
     StageNo: 3
+    Category: 1
     Name: "\u6708\u5F71\u306E\u68EE"
     Selectable: 1
     Chapter: 1
@@ -273,7 +277,7 @@ MonoBehaviour:
     BossTroopId: 2010
     BGMId: 1020
     BossBGMId: 3010
-    MenuBGMId: 100
+    BattleBGMId: 2010
     SkyboxName: CoriolisNight4k
     StageEvents:
     - EventKey: 30_8_23DungeonExitDungeon0
@@ -395,6 +399,7 @@ MonoBehaviour:
       ReadFlag: 0
   - Id: 31
     StageNo: 3
+    Category: 1
     Name: "\u6708\u5F71\u306E\u68EE\u30FB\u5730\u4E0B\u6D1E\u7A9F"
     Selectable: 0
     Chapter: 1
@@ -420,7 +425,7 @@ MonoBehaviour:
     BossTroopId: 0
     BGMId: 1020
     BossBGMId: 3010
-    MenuBGMId: 100
+    BattleBGMId: 2010
     SkyboxName: '""'
     StageEvents:
     - EventKey: 31_1_2DungeonMoveDungeonFloor30
@@ -488,6 +493,7 @@ MonoBehaviour:
       ReadFlag: 1
   - Id: 32
     StageNo: 3
+    Category: 1
     Name: "\u6708\u5F71\u306E\u68EE\u30FB\u63A1\u6398\u4E0A\u8DE1"
     Selectable: 0
     Chapter: 1
@@ -513,7 +519,7 @@ MonoBehaviour:
     BossTroopId: 0
     BGMId: 1020
     BossBGMId: 3010
-    MenuBGMId: 100
+    BattleBGMId: 2010
     SkyboxName: '""'
     StageEvents:
     - EventKey: 32_4_9DungeonMoveDungeonFloor30
@@ -554,6 +560,7 @@ MonoBehaviour:
       ReadFlag: 1
   - Id: 40
     StageNo: 4
+    Category: 1
     Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u57CE\u9580"
     Selectable: 1
     Chapter: 1
@@ -575,7 +582,7 @@ MonoBehaviour:
     BossTroopId: 3010
     BGMId: 1030
     BossBGMId: 3010
-    MenuBGMId: 100
+    BattleBGMId: 2010
     SkyboxName: CoriolisNight4k
     StageEvents:
     - EventKey: 40_1_19DungeonExitDungeon0
@@ -634,6 +641,7 @@ MonoBehaviour:
       ReadFlag: 0
   - Id: 41
     StageNo: 4
+    Category: 1
     Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u9928\u5185"
     Selectable: 0
     Chapter: 1
@@ -655,7 +663,7 @@ MonoBehaviour:
     BossTroopId: 0
     BGMId: 1030
     BossBGMId: 3010
-    MenuBGMId: 100
+    BattleBGMId: 2010
     SkyboxName: '""'
     StageEvents:
     - EventKey: 41_11_18DungeonMoveDungeonFloor40
@@ -903,6 +911,7 @@ MonoBehaviour:
       ReadFlag: 0
   - Id: 42
     StageNo: 4
+    Category: 1
     Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u738B\u5BA4"
     Selectable: 0
     Chapter: 1
@@ -924,33 +933,15 @@ MonoBehaviour:
     BossTroopId: 0
     BGMId: 1030
     BossBGMId: 3010
-    MenuBGMId: 100
+    BattleBGMId: 2010
     SkyboxName: '""'
     StageEvents:
-    - EventKey: 42_8_1DungeonGetArtifact2020
+    - EventKey: 42_8_1DungeonGetArtifact2040
       Timing: 3010
       Type: 3010
       PositionX: 8
       PositionY: 1
-      Param: 2020
-      Param2: 0
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 42_8_8DungeonAddEventFlag83
-      Timing: 3010
-      Type: 6010
-      PositionX: 8
-      PositionY: 8
-      Param: 83
-      Param2: 0
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 42_8_3DungeonNone83
-      Timing: 3010
-      Type: 0
-      PositionX: 8
-      PositionY: 3
-      Param: 83
+      Param: 2040
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -968,6 +959,33 @@ MonoBehaviour:
       Type: 9010
       PositionX: 8
       PositionY: 8
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 42_8_7DungeonAddEventFlag83
+      Timing: 3010
+      Type: 6010
+      PositionX: 8
+      PositionY: 7
+      Param: 83
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 42_8_3DungeonNone83
+      Timing: 3010
+      Type: 0
+      PositionX: 8
+      PositionY: 3
+      Param: 83
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 42_8_7DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 8
+      PositionY: 7
       Param: 0
       Param2: 0
       Param3: 0
@@ -1046,6 +1064,7 @@ MonoBehaviour:
       ReadFlag: 0
   - Id: 1010
     StageNo: 101
+    Category: 11
     Name: "\u5FD8\u5374\u306E\u6D1E\u7A9F"
     Selectable: 1
     Chapter: 1
@@ -1069,7 +1088,7 @@ MonoBehaviour:
     BossTroopId: 0
     BGMId: 1210
     BossBGMId: 3010
-    MenuBGMId: 100
+    BattleBGMId: 2010
     SkyboxName: '""'
     StageEvents:
     - EventKey: 1010_13_13DungeonExitDungeon0
@@ -1092,6 +1111,7 @@ MonoBehaviour:
       ReadFlag: 1
   - Id: 1020
     StageNo: 102
+    Category: 11
     Name: "\u5FD8\u5374\u306E\u6D1E\u7A9F"
     Selectable: 1
     Chapter: 2
@@ -1115,7 +1135,7 @@ MonoBehaviour:
     BossTroopId: 0
     BGMId: 1210
     BossBGMId: 3010
-    MenuBGMId: 100
+    BattleBGMId: 2010
     SkyboxName: '""'
     StageEvents:
     - EventKey: 1020_7_8DungeonExitDungeon0
@@ -1165,23 +1185,44 @@ MonoBehaviour:
       ReadFlag: 1
   - Id: 2010
     StageNo: 201
-    Name: "\u8352\u91CE\u306E\u6226\u3044"
-    Selectable: 0
-    Chapter: 2
-    Help: '""'
-    StageLv: 10
+    Category: 2
+    Name: "\u30A2\u30B9\u30AC\u30EB\u30C9\u306E\u57CE\u58C1\u30FB\u4EA4\u6226\u5730"
+    Selectable: 1
+    Chapter: 3
+    Help: "\u30A2\u30FC\u30B9\u795E\u65CF\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
+    StageLv: 18
     OnlyOnce: 1
-    DisplayRank: 0
+    DisplayRank: 1
     RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
+    RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 10
+    - EnemyId: 2
+      Weight: 10
+    - EnemyId: 3
+      Weight: 10
+    - EnemyId: 4
+      Weight: 10
+    - EnemyId: 5
+      Weight: 10
+    - EnemyId: 6
+      Weight: 10
+    - EnemyId: 7
+      Weight: 10
+    - EnemyId: 8
+      Weight: 10
+    - EnemyId: 9
+      Weight: 10
+    - EnemyId: 10
+      Weight: 10
     EncountMin: 0
     EncountMax: 0
     BackGround: RockCave2
-    BossTroopId: 0
-    BGMId: 3020
-    BossBGMId: 3020
-    MenuBGMId: 100
-    SkyboxName: '""'
+    BossTroopId: 20020
+    BGMId: 2020
+    BossBGMId: 2020
+    BattleBGMId: 2020
+    SkyboxName: CloudedSunGlow
     StageEvents:
     - EventKey: 2010_7_1DungeonMoveDungeonFloor2011
       Timing: 3010
@@ -1190,36 +1231,57 @@ MonoBehaviour:
       PositionY: 1
       Param: 2011
       Param2: 7
-      Param3: 12
+      Param3: 13
       ReadFlag: 0
-    - EventKey: 2010_7_7DungeonForceBossBattle20010
+    - EventKey: 2010_7_7DungeonForceBattle-1
       Timing: 3010
-      Type: 5020
+      Type: 5010
       PositionX: 7
       PositionY: 7
-      Param: 20010
-      Param2: 0
+      Param: -1
+      Param2: 40020
       Param3: 0
       ReadFlag: 1
   - Id: 2011
     StageNo: 201
-    Name: "\u8352\u91CE\u306E\u6226\u3044"
+    Category: 2
+    Name: "\u30A2\u30B9\u30AC\u30EB\u30C9\u306E\u57CE\u58C1\u30FB\u4EA4\u6226\u5730"
     Selectable: 0
-    Chapter: 2
-    Help: '""'
-    StageLv: 10
+    Chapter: 3
+    Help: "\u30A2\u30FC\u30B9\u795E\u65CF\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
+    StageLv: 19
     OnlyOnce: 1
-    DisplayRank: 0
+    DisplayRank: 1
     RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
+    RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 10
+    - EnemyId: 2
+      Weight: 10
+    - EnemyId: 3
+      Weight: 10
+    - EnemyId: 4
+      Weight: 10
+    - EnemyId: 5
+      Weight: 10
+    - EnemyId: 6
+      Weight: 10
+    - EnemyId: 7
+      Weight: 10
+    - EnemyId: 8
+      Weight: 10
+    - EnemyId: 9
+      Weight: 10
+    - EnemyId: 10
+      Weight: 10
     EncountMin: 0
     EncountMax: 0
     BackGround: RockCave2
     BossTroopId: 0
-    BGMId: 3020
-    BossBGMId: 3020
-    MenuBGMId: 100
-    SkyboxName: '""'
+    BGMId: 2020
+    BossBGMId: 2020
+    BattleBGMId: 2020
+    SkyboxName: CloudedSunGlow
     StageEvents:
     - EventKey: 2011_7_1DungeonMoveDungeonFloor2012
       Timing: 3010
@@ -1228,43 +1290,53 @@ MonoBehaviour:
       PositionY: 1
       Param: 2012
       Param2: 7
-      Param3: 12
+      Param3: 13
       ReadFlag: 0
-    - EventKey: 2011_7_7DungeonForceBossBattle20020
+    - EventKey: 2011_7_7DungeonForceBattle20010
       Timing: 3010
-      Type: 5020
+      Type: 5010
       PositionX: 7
       PositionY: 7
-      Param: 20020
-      Param2: 0
+      Param: 20010
+      Param2: 40020
       Param3: 0
       ReadFlag: 1
   - Id: 2012
     StageNo: 201
-    Name: "\u8352\u91CE\u306E\u6226\u3044"
+    Category: 2
+    Name: "\u30A2\u30B9\u30AC\u30EB\u30C9\u306E\u57CE\u58C1\u30FB\u4EA4\u6226\u5730"
     Selectable: 0
-    Chapter: 2
-    Help: '""'
-    StageLv: 10
+    Chapter: 3
+    Help: "\u30A2\u30FC\u30B9\u795E\u65CF\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
+    StageLv: 20
     OnlyOnce: 1
-    DisplayRank: 0
+    DisplayRank: 1
     RandomTroopWeight: 30
     RandomTroopEnemyRates: []
     EncountMin: 0
     EncountMax: 0
     BackGround: RockCave2
     BossTroopId: 0
-    BGMId: 3020
-    BossBGMId: 3020
-    MenuBGMId: 100
-    SkyboxName: '""'
+    BGMId: 2020
+    BossBGMId: 2020
+    BattleBGMId: 2020
+    SkyboxName: CloudedSunGlow
     StageEvents:
-    - EventKey: 2012_7_7DungeonForceBossBattle20030
+    - EventKey: 2012_7_8DungeonForceBossBattle20020
       Timing: 3010
       Type: 5020
       PositionX: 7
-      PositionY: 7
-      Param: 20030
-      Param2: 0
+      PositionY: 8
+      Param: 20020
+      Param2: 40010
       Param3: 0
       ReadFlag: 1
+    - EventKey: 2012_7_4DungeonExitDungeon0
+      Timing: 3010
+      Type: 2010
+      PositionX: 7
+      PositionY: 4
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0

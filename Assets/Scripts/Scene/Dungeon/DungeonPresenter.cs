@@ -355,6 +355,7 @@ namespace Ryneus
             {
                 ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
                 EnemyInfos = _model.ForceBattleTroopInfos(stageEvent.Param),
+                GetItemInfos = new()
             };
             if (stageEvent.Type == StageEventType.ForceBattle)
             {
@@ -369,11 +370,21 @@ namespace Ryneus
                     Param1 = _model.CurrentStage.Master.StageNo
                 };
                 var clearStageGetItemInfo = new GetItemInfo(clearStageItem);
-                battleSceneInfo.GetItemInfos = new()
-                {
-                    clearStageGetItemInfo
-                };
+                battleSceneInfo.GetItemInfos.Add(clearStageGetItemInfo);
                 PlayBossBgm();
+            }
+            // 報酬設定があれば入れる
+            if (stageEvent.Param2 > 0)
+            {
+                var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == stageEvent.Param2);
+                if (prizeSets != null)
+                {
+                    foreach (var prizeSet in prizeSets)
+                    {
+                        var getItemInfo = new GetItemInfo(prizeSet.GetItem);
+                        battleSceneInfo.GetItemInfos.Add(getItemInfo);
+                    }
+                }
             }
             _view.CommandChangeViewToTransition(null);
             //_view.ChangeUIActive(false);
@@ -475,7 +486,8 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10130), (a) =>
+            var textId = _model.CurrentStage.Master.OnlyOnce ? 10133 : 10130;
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(textId), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {

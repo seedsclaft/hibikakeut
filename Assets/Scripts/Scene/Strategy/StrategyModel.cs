@@ -217,6 +217,14 @@ namespace Ryneus
                 }
             }
 
+            var evaluateGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Evaluate);
+            foreach (var evaluateGetItemInfo in evaluateGetItemInfos)
+            {
+                var resultInfo = new StrategyResultViewInfo();
+                resultInfo.SetTitle("評価値" + " +" + evaluateGetItemInfo.Param1);
+                _resultInfos.Add(resultInfo);
+            }
+
             foreach (var getItemInfo in getItemInfos)
             {
                 var resultInfo = new StrategyResultViewInfo();
@@ -254,6 +262,7 @@ namespace Ryneus
                     case GetItemType.Ending:
                     case GetItemType.SkillMastary:
                     case GetItemType.Item:
+                    case GetItemType.Evaluate:
                     case GetItemType.ClearStage:
                         AddGetItemInfo(getItemInfo);
                         break;

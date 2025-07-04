@@ -1489,7 +1489,9 @@ namespace Ryneus
                 var changeBattler = _battlers.Find(a => a.IsActor == subject.IsActor && a.Index.Value == (subject.Index.Value + 3));
                 if (subject != null && changeBattler != null && changeBattler.IsAlive())
                 {
-                    ChangeUnitLineType(subject,changeBattler);
+                    ChangeUnitLineType(subject, changeBattler);
+                    _party.RemoveBattlerInfo(subject);
+                    _party.AddBattlerInfo(changeBattler);
                 }
             }
             return chenage;
@@ -1507,20 +1509,20 @@ namespace Ryneus
                     var changeBattler = _battlers.Find(a => a.IsActor == fieldBattlerInfo.IsActor && a.Index.Value == (fieldBattlerInfo.Index.Value + 3));
                     if (changeBattler != null && changeBattler.IsAlive())
                     {
-                        ChangeUnitLineType(fieldBattlerInfo,changeBattler);
+                        ChangeUnitLineType(fieldBattlerInfo, changeBattler);
+                        _party.RemoveBattlerInfo(fieldBattlerInfo);
+                        _party.AddBattlerInfo(changeBattler);
                     }
                 }
             }
         }
 
-        public void ChangeUnitLineType(BattlerInfo subject,BattlerInfo changeBattler)
+        public void ChangeUnitLineType(BattlerInfo subject, BattlerInfo changeBattler)
         {
             subject.Index.GainValue(3);
             changeBattler.Index.GainValue(-3);
             subject.SetLineIndex(LineType.Back);
             changeBattler.SetLineIndex(LineType.Front);
-            // Mpを引き継ぐ
-            changeBattler.SetUnitMp(subject.Mp.Value);
         }
 
         public void ActionAfterGainAp(int gainAp)

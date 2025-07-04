@@ -163,7 +163,8 @@ namespace Ryneus
                 if (itemData != null && itemData.ItemType == ItemType.Artifact)
                 {
                     var skillData = DataSystem.FindSkill(itemData.Param1);
-                    if (skillData.TriggerDates.Find(a => a.TriggerType == TriggerType.DungeonMoveEnd) != null)
+                    var trigger = skillData.TriggerDates.Find(a => a.TriggerType == TriggerType.DungeonMoveEnd);
+                    if (trigger != null && trigger.Param1 == (PartyInfo.TurnCount.Value % trigger.Param2))
                     {
                         foreach (var featureData in skillData.FeatureDates)
                         {
@@ -235,16 +236,13 @@ namespace Ryneus
 
         public List<BattlerInfo> ForceBattleTroopInfos(int troopId)
         {
-            var troopInfo = new TroopInfo(troopId);
-            troopInfo.MakeEnemyTroopDates(CurrentStage.Master.StageLv);
-            return troopInfo.BattlerInfos;
-        }
-
-        public TroopInfo RandumTroopInfo()
-        {
-            var troopInfo = new TroopInfo(-1);
-            troopInfo.MakeEnemyRandomTroopDates(1,CurrentStage.Master.RandomTroopEnemyRates);
-            return troopInfo;
+            if (troopId != -1)
+            {
+                var troopInfo = new TroopInfo(troopId);
+                troopInfo.MakeEnemyTroopDates(CurrentStage.Master.StageLv);
+                return troopInfo.BattlerInfos;
+            }
+            return RandumTroopInfos();
         }
 
         public List<ActorInfo> AddSelectActorInfos()

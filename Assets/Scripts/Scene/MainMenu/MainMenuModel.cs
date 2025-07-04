@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Ryneus
 {
@@ -11,6 +13,16 @@ namespace Ryneus
         public MainMenuModel()
         {
             _sceneParam = (MainMenuSceneInfo)GameSystem.SceneStackManager.LastSceneParam;
+        }
+
+        public async UniTask<List<AudioClip>> GetMainStageBgmData()
+        {
+            var key = "Mainmenu";
+            if (StageInfos().Find(a => a.Master.Category == StageCategory.BattleField) != null)
+            {
+                key = "Mainmenu2";
+            }
+            return await ResourceSystem.LoadBGMAsset(key);
         }
 
         public bool InterludePhase()
@@ -89,7 +101,7 @@ namespace Ryneus
                     case "Mission":
                         return PartyInfo.IsRankUpBefore();
                     case "Relief":
-                        return PartyInfo.ThisPeriodReliefCount.Value == 0;
+                        return PartyInfo.ReliefCommandCount.Value > PartyInfo.MissionRank.Value;
                     case "Present":
                         return PartyInfo.IsOwnItem();
                 }

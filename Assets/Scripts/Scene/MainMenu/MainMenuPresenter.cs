@@ -46,7 +46,7 @@ namespace Ryneus
             _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
             _view.SetCommandList(_model.MainMenuCommand());
 
-            var bgm = await _model.GetBgmData("Mainmenu");
+            var bgm = await _model.GetMainStageBgmData();
             SoundManager.Instance.PlayBgm(bgm,1.0f,true);
             // 幕間に移動
             if (_model.InterludePhase())
@@ -269,7 +269,7 @@ namespace Ryneus
 
         private void CommandRelief()
         {
-            if (_model.PartyInfo.ThisPeriodReliefCount.Value > 0)
+            if (_model.PartyInfo.MissionRank.Value < _model.PartyInfo.ReliefCommandCount.Value)
             {
                 var cautionInfo = new CautionInfo();
                 cautionInfo.SetTitle(DataSystem.GetText(11011));
@@ -282,7 +282,6 @@ namespace Ryneus
                 {
                     _model.PartyInfo.ReliefCommandCount.GainValue(1);
                     _model.PartyNextPeriod(true);
-                    _model.PartyInfo.ThisPeriodReliefCount.GainValue(1);
                     List<ActorInfo> actorInfos =_model.AddSelectActorInfos();
                     CommandAddActorStatusInfo(actorInfos,() =>
                     {

@@ -18,6 +18,9 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI bossLv;
         [SerializeField] private TextMeshProUGUI bossName;
         [SerializeField] private GameObject cleared;
+        [SerializeField] private GameObject mainStage;
+        [SerializeField] private GameObject subStage;
+        [SerializeField] private GameObject battleFieldStage;
 
         public void UpdateCurrent()
         {
@@ -88,6 +91,18 @@ namespace Ryneus
             if (stageImage != null)
             {
                 stageImage.sprite = ResourceSystem.LoadBackGround(stageData.BackGround);
+            }
+            if (mainStage != null)
+            {
+                mainStage.SetActive(stageData.Category == StageCategory.Main);
+            }
+            if (subStage != null)
+            {
+                subStage.SetActive(stageData.Category == StageCategory.Sub);
+            }
+            if (battleFieldStage != null)
+            {
+                battleFieldStage.SetActive(stageData.Category == StageCategory.BattleField);
             }
         }
     }

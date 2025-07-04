@@ -14,6 +14,7 @@ namespace Ryneus
     {
         public int Id;
         public int StageNo;
+        public StageCategory Category;
         public string Name;
         public bool Selectable;
         public int Chapter;
@@ -29,9 +30,17 @@ namespace Ryneus
         public int BossTroopId;
         public int BGMId;
         public int BossBGMId;
-        public int MenuBGMId;
+        public int BattleBGMId;
         public string SkyboxName;
         public List<StageEventData> StageEvents;
+    }
+
+    public enum StageCategory
+    {
+        None = 0,
+        Main = 1,
+        BattleField = 2,
+        Sub = 11,
     }
 
     [Serializable]
@@ -66,6 +75,7 @@ namespace Ryneus
         public int Weight;
     }
 
+    /*
     [Serializable]
     public class MoveTypeParam
     {
@@ -77,7 +87,6 @@ namespace Ryneus
         public bool Flag = false; // 動作管理用
     }
 
-    /*
     public enum SymbolType
     {
         Random = -1,

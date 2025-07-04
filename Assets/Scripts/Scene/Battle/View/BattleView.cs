@@ -568,19 +568,19 @@ namespace Ryneus
             skillInfoComponent.Clear();
         }
 
-        public void StartAnimation(int targetIndex,EffekseerEffectAsset effekseerEffectAsset,AnimationPosition animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
+        public void StartAnimation(int targetIndex,EffekseerEffectAsset effekseerEffectAsset, AnimationPosition animationPosition, float animationScale = 1.0f, float animationSpeed = 1.0f, bool soundPlay = true)
         {
             if (!_battlerComps.ContainsKey(targetIndex))
             {
                 return;
             }
             magicList.gameObject.SetActive(false);
-            if (GameSystem.OptionData.BattleAnimationSkip == true) 
+            if (GameSystem.OptionData.BattleAnimationSkip) 
             {
                 return;
             }
             animationSpeed *= GameSystem.OptionData.BattleSpeed;
-            _battlerComps[targetIndex].StartAnimation(effekseerEffectAsset,animationPosition,animationScale,animationSpeed);
+            _battlerComps[targetIndex].StartAnimation(effekseerEffectAsset, animationPosition, animationScale, animationSpeed, soundPlay);
         }
 
         public void StartAnimationAll(EffekseerEffectAsset effekseerEffectAsset,AnimationPosition animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)

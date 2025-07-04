@@ -21,6 +21,24 @@ namespace Ryneus
             _battlerInfos = battlerInfos;
         }
 
+        public void AddBattlerInfo(BattlerInfo battlerInfos)
+        {
+            var findIndex = _battlerInfos.FindIndex(a => a.ActorInfo.ActorId.Value == battlerInfos.ActorInfo.ActorId.Value);
+            if (findIndex == -1)
+            {
+                _battlerInfos.Add(battlerInfos);
+            }
+        }
+
+        public void RemoveBattlerInfo(BattlerInfo battlerInfos)
+        {
+            var findIndex = _battlerInfos.FindIndex(a => a.ActorInfo.ActorId.Value == battlerInfos.ActorInfo.ActorId.Value);
+            if (findIndex > -1)
+            {
+                _battlerInfos.RemoveAt(findIndex);
+            }
+        }
+
         public void UpdateBattlerInfo(BattlerInfo battlerInfo)
         {
             var findIndex = _battlerInfos.FindIndex(a => a.ActorInfo.ActorId.Value == battlerInfo.ActorInfo.ActorId.Value);

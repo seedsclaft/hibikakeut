@@ -120,7 +120,8 @@ namespace Ryneus
             }
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10130), (a) =>
+            var textId = _model.CurrentStage.Master.OnlyOnce ? 10133 : 10130;
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(textId), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {

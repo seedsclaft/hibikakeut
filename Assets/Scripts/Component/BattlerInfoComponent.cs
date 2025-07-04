@@ -356,7 +356,7 @@ namespace Ryneus
             }
         }
 
-        public void StartAnimation(EffekseerEffectAsset effectAsset,AnimationPosition animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
+        public void StartAnimation(EffekseerEffectAsset effectAsset, AnimationPosition animationPosition, float animationScale = 1.0f, float animationSpeed = 1.0f, bool soundPlay = true)
         {
             if (effectAsset == null)
             {
@@ -396,6 +396,7 @@ namespace Ryneus
             effekseerEmitter.enabled = true;
             effekseerEmitter.Stop();
             effekseerEmitter.speed = animationSpeed;
+            effekseerEmitter.SoundPlay.SetValue(soundPlay);
             effekseerEmitter.Play(effectAsset);
         }
 

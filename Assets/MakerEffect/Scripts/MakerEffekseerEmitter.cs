@@ -6,10 +6,11 @@ namespace Ryneus
 {
     public class MakerEffekseerEmitter : EffekseerEmitter
     {
+        public ParameterBool SoundPlay = new();
         private List<MakerEffectSound> _effectSounds = new();
 		public new EffekseerHandle Play(EffekseerEffectAsset effectAsset)
 		{
-            if (effectAsset is MakerEffectAsset)
+            if (effectAsset is MakerEffectAsset && SoundPlay.Value)
             {
                 var makerEffectAsset = (MakerEffectAsset)effectAsset;
                 foreach (var soundTiming in makerEffectAsset.soundTimings)

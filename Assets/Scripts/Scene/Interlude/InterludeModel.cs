@@ -14,6 +14,16 @@ namespace Ryneus
         {
         }
 
+        public int InterrudeEventId()
+        {
+            return PartyInfo.Chapter.Value * 10;
+        }
+
+        public int AfterInterrudeEventId()
+        {
+            return PartyInfo.Chapter.Value * 10 + 1;
+        }
+
         public int MakeEvaluateResults()
         {
             var evaluatePrizes = DataSystem.EvaluatePrizes.FindAll(a => a.Chapter == PartyInfo.Chapter.Value);
@@ -241,7 +251,6 @@ namespace Ryneus
             {
                 PartyInfo.Period.SetValue(1);
                 PartyInfo.Chapter.GainValue(1);
-                PartyInfo.ThisPeriodReliefCount.SetValue(0);
                 return true;
             }
             return false;

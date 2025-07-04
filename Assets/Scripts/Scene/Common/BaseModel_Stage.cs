@@ -6,6 +6,7 @@ namespace Ryneus
     {
         public List<StageInfo> StageInfos()
         {
+            var claerList = new List<StageInfo>();
             var list = new List<StageInfo>();
             foreach (var stageData in DataSystem.Stages)
             {
@@ -27,8 +28,17 @@ namespace Ryneus
                 }
                 var cleared = PartyInfo.IsClaeredStage(stageData.StageNo);
                 var stageInfo = new StageInfo(stageData.Id,cleared);
-                list.Add(stageInfo);
+                if (cleared)
+                {
+                    claerList.Add(stageInfo);
+                } else
+                {
+                    list.Add(stageInfo);
+                }
             }
+            claerList.Sort((a,b) => a.Master.Category - b.Master.Category > 1 ? 1 : -1);
+            list.Sort((a,b) => a.Master.Category - b.Master.Category > 1 ? 1 : -1);
+            list.AddRange(claerList);
             return list;
         }
 

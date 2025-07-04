@@ -147,7 +147,7 @@ namespace Ryneus
             foreach (var targetIndex in targetIndexList)
             {
                 var oneAnimation = isCurse ? ResourceSystem.LoadResourceEffect("NA_Effekseer/NA_curse_001") : animation;
-                _view.StartAnimation(targetIndex,oneAnimation,animationData.Position,animationData.Scale,animationData.Speed);
+                _view.StartAnimation(targetIndex, oneAnimation, animationData.Position, animationData.Scale, animationData.Speed, targetIndex == targetIndexList[0]);
             }
         }
 

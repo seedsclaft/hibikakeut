@@ -70,6 +70,7 @@ namespace Ryneus
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             StageNo = AssetPostImporter.ImportNumeric(BaseRow, "StageNo"),
+                            Category = (StageCategory)AssetPostImporter.ImportNumeric(BaseRow, "Category"),
                             Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
                             Selectable = AssetPostImporter.ImportNumeric(BaseRow, "Selectable") == 1,
                             Chapter = AssetPostImporter.ImportNumeric(BaseRow, "Chapter"),
@@ -85,7 +86,7 @@ namespace Ryneus
                             BossTroopId = AssetPostImporter.ImportNumeric(BaseRow, "BossTroopId"),
                             BGMId = AssetPostImporter.ImportNumeric(BaseRow, "BGMId"),
                             BossBGMId = AssetPostImporter.ImportNumeric(BaseRow, "BossBGMId"),
-                            MenuBGMId = AssetPostImporter.ImportNumeric(BaseRow, "MenuBGMId"),
+                            BattleBGMId = AssetPostImporter.ImportNumeric(BaseRow, "BattleBGMId"),
                             SkyboxName = AssetPostImporter.ImportString(BaseRow, "SkyboxName"),
                             StageEvents = new List<StageEventData>()
                         };

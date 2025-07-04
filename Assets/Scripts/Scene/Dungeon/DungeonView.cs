@@ -54,7 +54,7 @@ namespace Ryneus
             {
                 formationButton.OnClickAddListener(() =>
                 {
-                    CallViewEvent(CommandType.Formation);
+                    CallFormation();
                 });
             }
             if (formationInpurKey != null)
@@ -102,8 +102,21 @@ namespace Ryneus
             partyUnitList.UpdateSelectIndexList(targetIndexes);
         }
 
+        private void CallFormation()
+        {
+            if (partyUnitList.Active)
+            {
+                return;
+            }
+            CallViewEvent(CommandType.Formation);
+        }
+
         private void CallSideMenu()
         {
+            if (partyUnitList.Active)
+            {
+                return;
+            }
             CallViewEvent(CommandType.SelectSideMenu);
         }
 
@@ -143,7 +156,7 @@ namespace Ryneus
             }else
             if (keyTypes.Contains(InputKeyType.Option1))
             {
-                CallViewEvent(CommandType.Formation);
+                CallFormation();
             } else
             if (keyTypes.Contains(InputKeyType.Decide))
             {

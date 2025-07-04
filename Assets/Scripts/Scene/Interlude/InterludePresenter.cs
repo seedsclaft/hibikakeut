@@ -37,7 +37,6 @@ namespace Ryneus
             
             var displayActorInfos = _model.DisplayActorInfos();
             _view.StartTitleAnimation();
-            //_view.StartResultAnimation(MakeListData(displayActorInfos));
             _busy = false;
         }
 
@@ -68,7 +67,7 @@ namespace Ryneus
             if (!_startEvent)
             {
                 var advInfo = new AdvCallInfo();
-                advInfo.Label.SetValue(_model.GetAdvFile(10));
+                advInfo.Label.SetValue(_model.GetAdvFile(_model.InterrudeEventId()));
                 advInfo.SetCallEvent(() =>
                 {
                     _view.ChangeUIActive(true);
@@ -101,7 +100,7 @@ namespace Ryneus
             // 報酬授与後
             _view.HideResultList();
             var advInfo = new AdvCallInfo();
-            advInfo.Label.SetValue(_model.GetAdvFile(11));
+            advInfo.Label.SetValue(_model.GetAdvFile(_model.AfterInterrudeEventId()));
             advInfo.SetCallEvent(() =>
             {
                 _view.ChangeUIActive(true);

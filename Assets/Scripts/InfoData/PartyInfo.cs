@@ -144,9 +144,6 @@ namespace Ryneus
         // フェーズ終了までのピリオド
         public ParameterInt Period = new();
 
-        // このフェーズでの救済コマンド回数
-        public ParameterInt ThisPeriodReliefCount = new();
-
         // 転送できるか
         public ParameterBool EnableTransfer = new();
 
