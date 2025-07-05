@@ -1062,6 +1062,411 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 0
+  - Id: 40
+    StageNo: 5
+    Category: 1
+    Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u57CE\u9580"
+    Selectable: 1
+    Chapter: 1
+    Help: "\u304B\u3064\u3066\u6804\u3048\u305F\u53E4\u4EE3\u738B\u56FD\u306E\u5BAE\u6BBF\u3002\n\u6226\u4E71\u306B\u6563\u3063\u305F\u52C7\u8005\u304C\u6028\u5FF5\u3068\u3057\u3066\u5F98\u5F8A\u3057\u3066\u3044\u308B\u3002"
+    StageLv: 15
+    OnlyOnce: 0
+    DisplayRank: 5
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 2
+      Weight: 15
+    - EnemyId: 12
+      Weight: 15
+    - EnemyId: 14
+      Weight: 15
+    EncountMin: 6
+    EncountMax: 12
+    BackGround: Ruins2
+    BossTroopId: 3010
+    BGMId: 1040
+    BossBGMId: 3010
+    BattleBGMId: 2010
+    SkyboxName: DarkStorm
+    StageEvents:
+    - EventKey: 40_1_19DungeonExitDungeon0
+      Timing: 3010
+      Type: 2010
+      PositionX: 1
+      PositionY: 19
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 40_6_1DungeonMoveDungeonFloor41
+      Timing: 3010
+      Type: 2020
+      PositionX: 6
+      PositionY: 1
+      Param: 41
+      Param2: 11
+      Param3: 18
+      ReadFlag: 0
+    - EventKey: 40_8_8DungeonAdvStart140
+      Timing: 3010
+      Type: 1010
+      PositionX: 8
+      PositionY: 8
+      Param: 140
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_8_8DungeonAddEventFlag45
+      Timing: 3010
+      Type: 6010
+      PositionX: 8
+      PositionY: 8
+      Param: 45
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_4_5DungeonNone45
+      Timing: 3010
+      Type: 0
+      PositionX: 4
+      PositionY: 5
+      Param: 45
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_8_8DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 8
+      PositionY: 8
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+  - Id: 40
+    StageNo: 5
+    Category: 1
+    Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u57CE\u9580"
+    Selectable: 0
+    Chapter: 1
+    Help: "\u304B\u3064\u3066\u6804\u3048\u305F\u53E4\u4EE3\u738B\u56FD\u306E\u5BAE\u6BBF\u3002\n\u6226\u4E71\u306B\u6563\u3063\u305F\u52C7\u8005\u304C\u6028\u5FF5\u3068\u3057\u3066\u5F98\u5F8A\u3057\u3066\u3044\u308B\u3002"
+    StageLv: 15
+    OnlyOnce: 0
+    DisplayRank: 5
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 2
+      Weight: 15
+    - EnemyId: 12
+      Weight: 15
+    - EnemyId: 14
+      Weight: 15
+    EncountMin: 6
+    EncountMax: 12
+    BackGround: Ruins2
+    BossTroopId: 0
+    BGMId: 1040
+    BossBGMId: 3010
+    BattleBGMId: 2010
+    SkyboxName: DarkStorm
+    StageEvents:
+    - EventKey: 40_1_19DungeonExitDungeon0
+      Timing: 3010
+      Type: 2010
+      PositionX: 1
+      PositionY: 19
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 40_6_1DungeonMoveDungeonFloor41
+      Timing: 3010
+      Type: 2020
+      PositionX: 6
+      PositionY: 1
+      Param: 41
+      Param2: 11
+      Param3: 18
+      ReadFlag: 0
+    - EventKey: 40_8_8DungeonAdvStart140
+      Timing: 3010
+      Type: 1010
+      PositionX: 8
+      PositionY: 8
+      Param: 140
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_8_8DungeonAddEventFlag45
+      Timing: 3010
+      Type: 6010
+      PositionX: 8
+      PositionY: 8
+      Param: 45
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_4_5DungeonNone45
+      Timing: 3010
+      Type: 0
+      PositionX: 4
+      PositionY: 5
+      Param: 45
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_8_8DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 8
+      PositionY: 8
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+  - Id: 40
+    StageNo: 5
+    Category: 1
+    Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u57CE\u9580"
+    Selectable: 0
+    Chapter: 1
+    Help: "\u304B\u3064\u3066\u6804\u3048\u305F\u53E4\u4EE3\u738B\u56FD\u306E\u5BAE\u6BBF\u3002\n\u6226\u4E71\u306B\u6563\u3063\u305F\u52C7\u8005\u304C\u6028\u5FF5\u3068\u3057\u3066\u5F98\u5F8A\u3057\u3066\u3044\u308B\u3002"
+    StageLv: 15
+    OnlyOnce: 0
+    DisplayRank: 5
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 2
+      Weight: 15
+    - EnemyId: 12
+      Weight: 15
+    - EnemyId: 14
+      Weight: 15
+    EncountMin: 6
+    EncountMax: 12
+    BackGround: Ruins2
+    BossTroopId: 0
+    BGMId: 1040
+    BossBGMId: 3010
+    BattleBGMId: 2010
+    SkyboxName: DarkStorm
+    StageEvents:
+    - EventKey: 40_1_19DungeonExitDungeon0
+      Timing: 3010
+      Type: 2010
+      PositionX: 1
+      PositionY: 19
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 40_6_1DungeonMoveDungeonFloor41
+      Timing: 3010
+      Type: 2020
+      PositionX: 6
+      PositionY: 1
+      Param: 41
+      Param2: 11
+      Param3: 18
+      ReadFlag: 0
+    - EventKey: 40_8_8DungeonAdvStart140
+      Timing: 3010
+      Type: 1010
+      PositionX: 8
+      PositionY: 8
+      Param: 140
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_8_8DungeonAddEventFlag45
+      Timing: 3010
+      Type: 6010
+      PositionX: 8
+      PositionY: 8
+      Param: 45
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_4_5DungeonNone45
+      Timing: 3010
+      Type: 0
+      PositionX: 4
+      PositionY: 5
+      Param: 45
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_8_8DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 8
+      PositionY: 8
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+  - Id: 40
+    StageNo: 5
+    Category: 1
+    Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u57CE\u9580"
+    Selectable: 0
+    Chapter: 1
+    Help: "\u304B\u3064\u3066\u6804\u3048\u305F\u53E4\u4EE3\u738B\u56FD\u306E\u5BAE\u6BBF\u3002\n\u6226\u4E71\u306B\u6563\u3063\u305F\u52C7\u8005\u304C\u6028\u5FF5\u3068\u3057\u3066\u5F98\u5F8A\u3057\u3066\u3044\u308B\u3002"
+    StageLv: 15
+    OnlyOnce: 0
+    DisplayRank: 5
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 2
+      Weight: 15
+    - EnemyId: 12
+      Weight: 15
+    - EnemyId: 14
+      Weight: 15
+    EncountMin: 6
+    EncountMax: 12
+    BackGround: Ruins2
+    BossTroopId: 0
+    BGMId: 1040
+    BossBGMId: 3010
+    BattleBGMId: 2010
+    SkyboxName: DarkStorm
+    StageEvents:
+    - EventKey: 40_1_19DungeonExitDungeon0
+      Timing: 3010
+      Type: 2010
+      PositionX: 1
+      PositionY: 19
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 40_6_1DungeonMoveDungeonFloor41
+      Timing: 3010
+      Type: 2020
+      PositionX: 6
+      PositionY: 1
+      Param: 41
+      Param2: 11
+      Param3: 18
+      ReadFlag: 0
+    - EventKey: 40_8_8DungeonAdvStart140
+      Timing: 3010
+      Type: 1010
+      PositionX: 8
+      PositionY: 8
+      Param: 140
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_8_8DungeonAddEventFlag45
+      Timing: 3010
+      Type: 6010
+      PositionX: 8
+      PositionY: 8
+      Param: 45
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_4_5DungeonNone45
+      Timing: 3010
+      Type: 0
+      PositionX: 4
+      PositionY: 5
+      Param: 45
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_8_8DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 8
+      PositionY: 8
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+  - Id: 40
+    StageNo: 5
+    Category: 1
+    Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u57CE\u9580"
+    Selectable: 0
+    Chapter: 1
+    Help: "\u304B\u3064\u3066\u6804\u3048\u305F\u53E4\u4EE3\u738B\u56FD\u306E\u5BAE\u6BBF\u3002\n\u6226\u4E71\u306B\u6563\u3063\u305F\u52C7\u8005\u304C\u6028\u5FF5\u3068\u3057\u3066\u5F98\u5F8A\u3057\u3066\u3044\u308B\u3002"
+    StageLv: 15
+    OnlyOnce: 0
+    DisplayRank: 5
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 2
+      Weight: 15
+    - EnemyId: 12
+      Weight: 15
+    - EnemyId: 14
+      Weight: 15
+    EncountMin: 6
+    EncountMax: 12
+    BackGround: Ruins2
+    BossTroopId: 0
+    BGMId: 1040
+    BossBGMId: 3010
+    BattleBGMId: 2010
+    SkyboxName: DarkStorm
+    StageEvents:
+    - EventKey: 40_1_19DungeonExitDungeon0
+      Timing: 3010
+      Type: 2010
+      PositionX: 1
+      PositionY: 19
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 40_6_1DungeonMoveDungeonFloor41
+      Timing: 3010
+      Type: 2020
+      PositionX: 6
+      PositionY: 1
+      Param: 41
+      Param2: 11
+      Param3: 18
+      ReadFlag: 0
+    - EventKey: 40_8_8DungeonAdvStart140
+      Timing: 3010
+      Type: 1010
+      PositionX: 8
+      PositionY: 8
+      Param: 140
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_8_8DungeonAddEventFlag45
+      Timing: 3010
+      Type: 6010
+      PositionX: 8
+      PositionY: 8
+      Param: 45
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_4_5DungeonNone45
+      Timing: 3010
+      Type: 0
+      PositionX: 4
+      PositionY: 5
+      Param: 45
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 40_8_8DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 8
+      PositionY: 8
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
   - Id: 1010
     StageNo: 101
     Category: 11
@@ -1233,11 +1638,20 @@ MonoBehaviour:
       Param2: 7
       Param3: 13
       ReadFlag: 0
-    - EventKey: 2010_7_7DungeonForceBattle-1
+    - EventKey: 2010_7_10DungeonForceBattle-1
       Timing: 3010
       Type: 5010
       PositionX: 7
-      PositionY: 7
+      PositionY: 10
+      Param: -1
+      Param2: 40020
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2010_7_6DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 7
+      PositionY: 6
       Param: -1
       Param2: 40020
       Param3: 0
@@ -1292,11 +1706,20 @@ MonoBehaviour:
       Param2: 7
       Param3: 13
       ReadFlag: 0
-    - EventKey: 2011_7_7DungeonForceBattle20010
+    - EventKey: 2011_7_10DungeonForceBattle-1
       Timing: 3010
       Type: 5010
       PositionX: 7
-      PositionY: 7
+      PositionY: 10
+      Param: -1
+      Param2: 40020
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2011_7_6DungeonForceBattle20010
+      Timing: 3010
+      Type: 5010
+      PositionX: 7
+      PositionY: 6
       Param: 20010
       Param2: 40020
       Param3: 0

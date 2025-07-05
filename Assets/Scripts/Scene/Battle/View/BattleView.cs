@@ -127,6 +127,10 @@ namespace Ryneus
             battleActorList.Initialize();
             battleActorList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.SelectCharacter,battleActorList.Index));
             battleActorList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.EndFormation));
+            battleActorList.SetInputHandler(InputKeyType.Up,() => OnSelectTarget(InputKeyType.Up));
+            battleActorList.SetInputHandler(InputKeyType.Down,() => OnSelectTarget(InputKeyType.Down));
+            battleActorList.SetInputHandler(InputKeyType.Right,() => OnSelectTarget(InputKeyType.Right));
+            battleActorList.SetInputHandler(InputKeyType.Left,() => OnSelectTarget(InputKeyType.Left));
             AddViewActives(battleActorList);
         }
 
@@ -171,6 +175,10 @@ namespace Ryneus
             }
         }
 
+        /// <summary>
+        /// 選択可能対象を光らせる
+        /// </summary>
+        /// <param name="targetIndexes"></param>
         public void UpdateSelectCursor(List<int> targetIndexes)
         {
             battleActorList.UpdateSelectIndexList(targetIndexes);
@@ -189,7 +197,7 @@ namespace Ryneus
                 selects.Add(select-1);
             }
             battleActorList.SetSelectIndexes(selects);
-            battleActorList.UpdateSelectIndex(selectIndexes[0]);
+            battleActorList.UpdateSelectIndex(selects[0]);
         }
 
         public void SelectEnemyList(List<int> selectIndexes)

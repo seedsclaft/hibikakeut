@@ -173,7 +173,7 @@ namespace Ryneus
                 }
                 _view.SelectEnemyList(targetIndexes);
             }
-            _view.UpdateSelectCursor(targetIndexes);
+            _view.UpdateSelectCursor(actionInfo.CandidateTargetIndexList);
             _view.SetCurrentSkillData(actionInfo.SkillInfo,subject);
         }
 

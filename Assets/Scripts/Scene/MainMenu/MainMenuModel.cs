@@ -87,7 +87,7 @@ namespace Ryneus
             {
                 if (a.Key == "Transfer")
                 {
-                    return PartyInfo.EnableTransfer.Value;
+                    return PartyInfo.MissionRank.Value > 3;
                 }
                 return true;
             },null,(a) =>
@@ -101,7 +101,7 @@ namespace Ryneus
                     case "Mission":
                         return PartyInfo.IsRankUpBefore();
                     case "Relief":
-                        return PartyInfo.ReliefCommandCount.Value > PartyInfo.MissionRank.Value;
+                        return PartyInfo.ReliefCommandCount.Value < PartyInfo.MissionRank.Value;
                     case "Present":
                         return PartyInfo.IsOwnItem();
                 }
