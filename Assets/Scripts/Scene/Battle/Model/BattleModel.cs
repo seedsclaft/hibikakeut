@@ -73,8 +73,29 @@ namespace Ryneus
 
         private UnitInfo _party = null;
         private UnitInfo _troop = null;
+        /// <summary>
+        /// Indexから取得
+        /// </summary>
+        public List<BattlerInfo> GetBattlerInfoByIndex(int targetIndex, bool friends, bool aliveOnly)
+        {
+            if (aliveOnly)
+            {
+                if (targetIndex < 100)
+                {
+                    return friends ? _party.AliveBattlerInfos : _troop.AliveBattlerInfos;
+                }
+                return friends ? _troop.AliveBattlerInfos : _party.AliveBattlerInfos;
+            } else
+            {
+                if (targetIndex < 100)
+                {
+                    return friends ? _party.BattlerInfos : _troop.BattlerInfos;
+                }
+                return friends ? _troop.BattlerInfos : _party.BattlerInfos;
+            }
+        }
 
-        private Dictionary<int,List<ActionInfo>> _turnActionInfos = new ();
+        private Dictionary<int,List<ActionInfo>> _turnActionInfos = new();
 
         public void AddTurnActionInfos(ActionInfo actionInfo,bool Interrupt)
         {
@@ -391,7 +412,7 @@ namespace Ryneus
 
         public List<BattlerInfo> UnitBattlerActors()
         {
-            return _battlers.FindAll(a => a.isAlcana == false && a.IsActor == true);;
+            return _battlers.FindAll(a => a.isAlcana == false && a.IsActor == true);
         }
 
         public List<BattlerInfo> BattlerActors()

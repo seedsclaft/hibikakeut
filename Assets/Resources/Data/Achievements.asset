@@ -19,7 +19,7 @@ MonoBehaviour:
     ConditionType: 7050
     Param1: 1
     Param2: 0
-    PriseSetId: 10
+    PriseSetId: 5
     Text: "\u6551\u6E08\u30B3\u30DE\u30F3\u30C9\u3067\u4EF2\u9593\u3092\u5897\u3084\u3059"
     Help: '""'
   - Id: 1020
@@ -28,7 +28,7 @@ MonoBehaviour:
     ConditionType: 1040
     Param1: 1
     Param2: 0
-    PriseSetId: 10
+    PriseSetId: 5
     Text: "(Nu)\u3092\u6D88\u8CBB\u3057\u3066\u3044\u305A\u308C\u304B\u306E\u4EF2\u9593\u306E\u30AD\u30E3\u30E9Lv\u3092\u4E0A\u3052\u308B"
     Help: '""'
   - Id: 1030
@@ -46,7 +46,7 @@ MonoBehaviour:
     ConditionType: 7040
     Param1: 1
     Param2: 0
-    PriseSetId: 10
+    PriseSetId: 5
     Text: "\u732E\u4E0A\u30B3\u30DE\u30F3\u30C9\u3067\u9B54\u6CD5\u3092\u5165\u624B\u3059\u308B"
     Help: '""'
   - Id: 1050
@@ -55,7 +55,7 @@ MonoBehaviour:
     ConditionType: 7080
     Param1: 1
     Param2: 0
-    PriseSetId: 10
+    PriseSetId: 5
     Text: "\u4EF2\u9593\u306E\u9B54\u6CD5\u88C5\u5099\u3092\u5909\u66F4\u3059\u308B"
     Help: '""'
   - Id: 1060
@@ -205,15 +205,6 @@ MonoBehaviour:
   - Id: 4020
     Category: 10
     Rank: 4
-    ConditionType: 2010
-    Param1: 4
-    Param2: 0
-    PriseSetId: 20
-    Text: "\u4EA1\u56FD\u306E\u5BAE\u6BBF\u8DE1\u5730\u306E\u30DC\u30B9\u3092\u6483\u7834\u3059\u308B"
-    Help: '""'
-  - Id: 4030
-    Category: 10
-    Rank: 4
     ConditionType: 10
     Param1: 2
     Param2: 0
@@ -291,4 +282,85 @@ MonoBehaviour:
     Param2: 0
     PriseSetId: 11030
     Text: "\u6226\u95D8\u3067\u4EA4\u4EE3\u30921\u56DE\u4EE5\u4E0A\u4F7F\u7528\u3059\u308B"
+    Help: '""'
+  - Id: 5040
+    Category: 10
+    Rank: 5
+    ConditionType: 2010
+    Param1: 4
+    Param2: 0
+    PriseSetId: 20
+    Text: "\u4EA1\u56FD\u306E\u5BAE\u6BBF\u8DE1\u5730\u306E\u30DC\u30B9\u3092\u6483\u7834\u3059\u308B"
+    Help: '""'
+  - Id: 5050
+    Category: 10
+    Rank: 5
+    ConditionType: 10
+    Param1: 2
+    Param2: 0
+    PriseSetId: 20010
+    Text: "Rank5\u306E\u91CD\u8981\u8AB2\u984C\u3092\u5168\u3066\u9054\u6210\u3059\u308B"
+    Help: '""'
+  - Id: 5110
+    Category: 20
+    Rank: 5
+    ConditionType: 1010
+    Param1: 15
+    Param2: 0
+    PriseSetId: 5
+    Text: "\u7D2F\u8A0815\u56DE\u4EE5\u4E0A\u51FA\u6483\u3059\u308B"
+    Help: '""'
+  - Id: 5120
+    Category: 20
+    Rank: 5
+    ConditionType: 1020
+    Param1: 80
+    Param2: 0
+    PriseSetId: 5
+    Text: "\u7D2F\u8A0880\u56DE\u4EE5\u4E0A\u30D0\u30C8\u30EB\u306B\u52DD\u5229\u3059\u308B"
+    Help: '""'
+  - Id: 5130
+    Category: 20
+    Rank: 5
+    ConditionType: 1030
+    Param1: 25
+    Param2: -1
+    PriseSetId: 5
+    Text: "\u3044\u305A\u308C\u304B\u306E\u30AD\u30E3\u30E9Lv\u309225\u4EE5\u4E0A\u306B\u3059\u308B"
+    Help: '""'
+  - Id: 5140
+    Category: 20
+    Rank: 5
+    ConditionType: 1050
+    Param1: 10000
+    Param2: 0
+    PriseSetId: 5
+    Text: "\u30D0\u30C8\u30EB\u8A55\u4FA1\u5024\u3092100%\u4EE5\u4E0A\u306B\u3059\u308B"
+    Help: '""'
+  - Id: 5150
+    Category: 20
+    Rank: 5
+    ConditionType: 1060
+    Param1: 5000
+    Param2: 0
+    PriseSetId: 5
+    Text: "\u4E0E\u30C0\u30E1\u30FC\u30B8\u7D2F\u8A08\u304C5000\u4EE5\u4E0A\u306B\u306A\u308B"
+    Help: '""'
+  - Id: 6040
+    Category: 10
+    Rank: 6
+    ConditionType: 2010
+    Param1: 5
+    Param2: 0
+    PriseSetId: 25
+    Text: "\u6697\u9ED2\u306E\u5854\u306E\u30DC\u30B9\u3092\u6483\u7834\u3059\u308B"
+    Help: '""'
+  - Id: 6050
+    Category: 10
+    Rank: 6
+    ConditionType: 10
+    Param1: 2
+    Param2: 0
+    PriseSetId: 20010
+    Text: "Rank6\u306E\u91CD\u8981\u8AB2\u984C\u3092\u5168\u3066\u9054\u6210\u3059\u308B"
     Help: '""'

@@ -1722,6 +1722,8 @@ MonoBehaviour:
   effectAsset: {fileID: 0}
   playOnStart: 0
   isLooping: 0
+  SoundPlay:
+    _value: 0
 --- !u!1 &7500246425680388634
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,8 +2318,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 703571380169973198}
   - {fileID: 8232838658930705016}
+  - {fileID: 703571380169973198}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -2350,6 +2352,7 @@ MonoBehaviour:
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
   disable: {fileID: 0}
+  batch: {fileID: 0}
   selectColor: {r: 0, g: 0, b: 0, a: 0}
   unSelectColor: {r: 0, g: 0, b: 0, a: 0}
   textUguiList: []
@@ -2396,6 +2399,7 @@ MonoBehaviour:
   profileText: {fileID: 0}
   evaluate: {fileID: 0}
   demigod: {fileID: 0}
+  lvCation: {fileID: 0}
   lv: {fileID: 0}
   exp: {fileID: 0}
   expGauge: {fileID: 0}
@@ -2419,6 +2423,7 @@ MonoBehaviour:
   battlePosition: {fileID: 0}
   unitTypeImage: {fileID: 0}
   unitTypeImageBack: {fileID: 0}
+  transferGetItemText: {fileID: 0}
 --- !u!114 &6210809427047181281
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -198,6 +198,7 @@ namespace Ryneus
             }
             battleActorList.SetSelectIndexes(selects);
             battleActorList.UpdateSelectIndex(selects[0]);
+            battleEnemyList.ClearSelect();
         }
 
         public void SelectEnemyList(List<int> selectIndexes)
@@ -207,6 +208,7 @@ namespace Ryneus
             SetActivate(battleEnemyList);
             battleEnemyList.SetSelectIndexes(selectIndexes);
             battleEnemyList.UpdateSelectIndex(selectIndexes[0]-101);
+            battleActorList.ClearSelect();
         }
 
         public void SetGridMembers(List<BattlerInfo> battlerInfos)

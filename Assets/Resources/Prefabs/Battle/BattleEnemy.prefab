@@ -614,8 +614,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6171897209088586003}
   - {fileID: 8565592375351835781}
+  - {fileID: 6171897209088586003}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -648,6 +648,7 @@ MonoBehaviour:
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
   disable: {fileID: 0}
+  batch: {fileID: 0}
   selectColor: {r: 0, g: 0, b: 0, a: 0}
   unSelectColor: {r: 0, g: 0, b: 0, a: 0}
   textUguiList: []
@@ -1072,6 +1073,8 @@ MonoBehaviour:
   effectAsset: {fileID: 0}
   playOnStart: 0
   isLooping: 0
+  SoundPlay:
+    _value: 0
 --- !u!1 &3044657621000356907
 GameObject:
   m_ObjectHideFlags: 0
