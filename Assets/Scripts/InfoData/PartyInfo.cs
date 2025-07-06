@@ -220,7 +220,7 @@ namespace Ryneus
             var find = _achievements.Find(a => a.Master.ConditionType == AchievementConditionType.Complete);
             if (find != null)
             {
-                var mains = _achievements.FindAll(a => a.Master.Category == AchievementCategory.Main);
+                var mains = _achievements.FindAll(a => a.Master != null && a.Master.Category == AchievementCategory.Main);
                 var achived = mains.FindAll(a => a.Achieved.Value).Count;
                 return mains.Count-1 == achived;
             }

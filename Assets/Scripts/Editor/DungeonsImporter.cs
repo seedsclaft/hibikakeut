@@ -176,35 +176,6 @@ namespace Ryneus
                         AriadoneMasterData.floorList.Add(floorData);
                     }
                     EditorUtility.SetDirty(AriadoneMasterData);
-                    /*
-                    ISheet SymbolSheet = Book.GetSheetAt(1);
-                    KeyRow = SymbolSheet.GetRow(0);
-                    AssetPostImporter.SetKeyNames(KeyRow.Cells);
-                    for (int j = 1; j <= SymbolSheet.LastRowNum; j++)
-                    {
-                        IRow SymbolRow = SymbolSheet.GetRow(j);
-                        var SymbolData = new Ariadne.MapInfo
-                        {
-                            Id = AssetPostImporter.ImportNumeric(SymbolRow, "Id"),
-                            StageId = stageId,
-                            InitX = AssetPostImporter.ImportNumeric(SymbolRow, "InitX"),
-                            InitY = AssetPostImporter.ImportNumeric(SymbolRow, "InitY"),
-                            //SymbolData.SymbolType = (SymbolType)AssetPostImporter.ImportNumeric(SymbolRow, "SymbolType");
-                            UnitType = (HexUnitType)AssetPostImporter.ImportNumeric(SymbolRow, "UnitType"),
-                            InitTeamId = (TeamIdType)AssetPostImporter.ImportNumeric(SymbolRow, "InitTeamId"),
-                            Rate = AssetPostImporter.ImportNumeric(SymbolRow, "Rate"),
-                            Param1 = AssetPostImporter.ImportNumeric(SymbolRow, "Param1"),
-                            Param2 = AssetPostImporter.ImportNumeric(SymbolRow, "Param2"),
-                            PrizeSetId = AssetPostImporter.ImportNumeric(SymbolRow, "PrizeSetId"),
-                            ClearCount = AssetPostImporter.ImportNumeric(SymbolRow, "ClearCount"),
-                            MoveType = (UnitMoveType)AssetPostImporter.ImportNumeric(SymbolRow, "MoveType")
-                        };
-                        //SymbolData.MoveTypeParam = (MoveTypeParam)AssetPostImporter.ImportNumeric(SymbolRow, "MoveParam");
-
-                        MapInfos.Add(SymbolData);
-                    }
-                    */
-
                 }
             }
             catch (Exception ex)
