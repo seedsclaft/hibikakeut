@@ -327,6 +327,10 @@ namespace Ryneus
         public string GetAdvFile(int id)
         {
             var adventureFile = DataSystem.Adventures.Find(a => a.Id == id);
+            if (adventureFile == null)
+            {
+                return "";
+            }
             if (adventureFile.PrizeSetId > 0)
             {
                 var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == adventureFile.PrizeSetId);

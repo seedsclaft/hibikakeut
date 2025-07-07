@@ -77,6 +77,9 @@ namespace Ryneus
                 case CommandType.EndFormation:
                     CommandEndFormation();
                     break;
+                case CommandType.Aritifact:
+                    CommandAritifact();
+                    break;
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu();
                     break;
@@ -458,6 +461,9 @@ namespace Ryneus
                 confirmInfo2.SetIsNoChoice(true);
                 confirmInfo2.SetBackEvent(() => {});
                 _view.CommandCallConfirm(confirmInfo2);
+            } else
+            {
+                endEvent?.Invoke();
             }
         }
 
@@ -716,6 +722,28 @@ namespace Ryneus
             _view.EndFormation();
             _model.SelectIndex.SetValue(-1);
             _model.DungeonBusy(false);
+        }
+
+        private void CommandAritifact()
+        {
+            if (_model.PartyInfo.AritifactSkills().Count == 0)
+            {
+                return;
+            }
+            _busy = true;
+            _model.DungeonBusy(true);
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.ArtifactList,
+                template = null,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    _model.DungeonBusy(false);
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
         }
 
         private void CommandSelectSideMenu()

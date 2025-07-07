@@ -34,7 +34,7 @@ namespace Ryneus
         [SerializeField] private CanvasGroup canvasGroup;
 
         [SerializeField] private int _rectWidth = 80;
-        public void UpdateInfo(StatusInfo statusInfo,StatusInfo baseStatus = null)
+        public void UpdateInfo(StatusInfo statusInfo, StatusInfo baseStatus = null)
         {
             if (statusInfo == null)
             {
@@ -112,11 +112,11 @@ namespace Ryneus
             }
         }
 
-        private void ChangeTextColor(TextMeshProUGUI text,int currentStatus,int baseStatus)
+        private void ChangeTextColor(TextMeshProUGUI text, int currentStatus, int baseStatus)
         {
             if (currentStatus > baseStatus)
             {
-                text.color = upperColor;        
+                text.color = upperColor;
             } else
             if (currentStatus < baseStatus)
             {

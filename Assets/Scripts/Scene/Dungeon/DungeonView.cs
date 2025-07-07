@@ -21,6 +21,8 @@ namespace Ryneus
         [SerializeField] private InputInfoComponent healInpurKey = null;
         [SerializeField] private OnOffButton decideButton = null;
         [SerializeField] private InputInfoComponent decideInpurKey = null;
+        [SerializeField] private AlcanaInfoComponent alcanaInfoComponent;
+        [SerializeField] private Button alcanaInfoButton;
         //[SerializeField] private OnOffButton healButton = null;
 
         public override void Initialize()
@@ -60,6 +62,10 @@ namespace Ryneus
             if (formationInpurKey != null)
             {
                 formationInpurKey.UpdateGuideIcon(6);
+            }
+            if (alcanaInfoButton != null)
+            {
+                alcanaInfoButton.onClick.AddListener(() => CallViewEvent(CommandType.Aritifact));
             }
             SideMenuButton.OnClickAddListener(() =>
             {
@@ -124,6 +130,7 @@ namespace Ryneus
         {
             stageInfoComponent.UpdateCurrent();
             partyInfoComponent.UpdateCurrentInfo();
+            alcanaInfoComponent.UpdateCurrentInfo();
         }
 
         public void StartFormation()
@@ -149,6 +156,10 @@ namespace Ryneus
             if (InputSystem.GetInputDate(InputKeyType.Start).IsDownTrigger())
             {
                 CallViewEvent(CommandType.Heal);
+            }
+            if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
+            {
+                CallViewEvent(CommandType.Aritifact);
             }
             if (keyTypes.Contains(InputKeyType.Option2))
             {
@@ -221,6 +232,7 @@ namespace Ryneus
             Formation,
             SelectCharacter,
             EndFormation,
+            Aritifact,
             SelectSideMenu
         }
     }

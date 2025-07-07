@@ -10,6 +10,7 @@ namespace Ryneus
         [SerializeField] private GameObject alcana;
         [SerializeField] private TextMeshProUGUI alcanaCount;
         [SerializeField] private _2dxFX_Shiny_Reflect shinyReflect;
+        [SerializeField] private InputInfoComponent alcanaButtonKey = null;
         public void UpdateCurrentInfo()
         {
             var current = PartyInfo;
@@ -23,6 +24,10 @@ namespace Ryneus
         {
             alcana?.gameObject.SetActive(skillInfos.Count > 0);
             alcanaCount?.SetText(skillInfos.Count.ToString());
+            if (alcanaButtonKey != null)
+            {
+                alcanaButtonKey.UpdateGuideIcon(8);
+            }
         }
     }
 }
