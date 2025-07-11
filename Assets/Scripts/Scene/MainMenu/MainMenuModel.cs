@@ -109,18 +109,21 @@ namespace Ryneus
             },selectIndex);
         }
 
+        public bool HasBattleField()
+        {
+            return StageInfos().Find(a => a.Master.Category == StageCategory.BattleField) != null;
+        }
+
         public List<SystemData.CommandData> SideMenu()
         {
             var list = new List<SystemData.CommandData>();
-            /*
-            var status = new SystemData.CommandData
+            var artifact = new SystemData.CommandData
             {
                 Id = 1,
-                Name = "メンバー確認",
-                Key = "Status"
+                Name = "アーティファクト",
+                Key = "Artifact"
             };
-            list.Add(status);
-            */
+            list.Add(artifact);
             var option = new SystemData.CommandData
             {
                 Id = 2,

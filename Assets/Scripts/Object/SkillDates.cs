@@ -212,7 +212,7 @@ namespace Ryneus
         Awaken = 4, // 覚醒
         Relic = 5, // レリック
         Enhance = 6, // 強化
-        Equipment = 7, // 装備
+        Equip = 7, // 装備
         UseAlcana = 11, // アルカナ使用
     }
 

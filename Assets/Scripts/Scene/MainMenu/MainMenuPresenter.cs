@@ -45,6 +45,7 @@ namespace Ryneus
 
             _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
             _view.SetCommandList(_model.MainMenuCommand());
+            _view.UpdateBattleFieldNotice(_model.HasBattleField());
 
             var bgm = await _model.GetMainStageBgmData();
             SoundManager.Instance.PlayBgm(bgm,1.0f,true);
@@ -269,14 +270,16 @@ namespace Ryneus
 
         private void CommandRelief()
         {
-            if (_model.PartyInfo.MissionRank.Value < _model.PartyInfo.ReliefCommandCount.Value)
+            var enableCount = _model.PartyInfo.ReliefCommandCount.Value - _model.PartyInfo.MissionRank.Value;
+            if (enableCount <= 0)
             {
                 var cautionInfo = new CautionInfo();
                 cautionInfo.SetTitle(DataSystem.GetText(11011));
                 _view.CommandCallCaution(cautionInfo);
                 return;
             }
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(11010),(a) =>
+            var countText = DataSystem.GetReplaceText(11010, enableCount.ToString());
+            var confirmInfo = new ConfirmInfo(countText, (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {

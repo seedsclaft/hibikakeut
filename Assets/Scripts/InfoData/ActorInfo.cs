@@ -241,7 +241,7 @@ namespace Ryneus
         {
             var skillData = DataSystem.FindSkill(skillId);
             // 装備スキルなら
-            if (skillData.SkillType == SkillType.Equipment)
+            if (skillData.SkillType == SkillType.Equip)
             {
                 return ConvertRankCost(skillData.Rank);
             }

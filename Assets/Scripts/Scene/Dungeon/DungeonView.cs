@@ -22,7 +22,7 @@ namespace Ryneus
         [SerializeField] private OnOffButton decideButton = null;
         [SerializeField] private InputInfoComponent decideInpurKey = null;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent;
-        [SerializeField] private Button alcanaInfoButton;
+        [SerializeField] private OnOffButton alcanaInfoButton;
         //[SerializeField] private OnOffButton healButton = null;
 
         public override void Initialize()
@@ -65,7 +65,7 @@ namespace Ryneus
             }
             if (alcanaInfoButton != null)
             {
-                alcanaInfoButton.onClick.AddListener(() => CallViewEvent(CommandType.Aritifact));
+                alcanaInfoButton.OnClickAddListener(() => CallViewEvent(CommandType.Aritifact));
             }
             SideMenuButton.OnClickAddListener(() =>
             {

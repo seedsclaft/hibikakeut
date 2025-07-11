@@ -62,6 +62,9 @@ namespace Ryneus
                 case "Return":
                     CommandReturn();
                     break;
+                case "Artifact":
+                    CommandAritifact();
+                    break;
                 case "Option":
                     CommandOption();
                     break;
@@ -132,6 +135,26 @@ namespace Ryneus
                 }
             });
             _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void CommandAritifact()
+        {
+            if (_model.PartyInfo.AritifactSkills().Count == 0)
+            {
+                return;
+            }
+            _busy = true;
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.ArtifactList,
+                template = null,
+                EndEvent = () =>
+                {
+                    ClosePopup();
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
         }
 
         private void CommandOption()

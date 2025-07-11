@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Ryneus.MainMenu;
 
 namespace Ryneus
@@ -12,8 +11,9 @@ namespace Ryneus
         [SerializeField] private BaseList commandList;
         [SerializeField] private TacticsCharaLayer tacticsCharaLayer;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent;
-        [SerializeField] private Button alcanaInfoButton;
+        [SerializeField] private OnOffButton alcanaInfoButton;
         [SerializeField] private GameObject particleObject;
+        [SerializeField] private GameObject battleFieldNotice;
 
         public override void Initialize()
         {
@@ -26,7 +26,7 @@ namespace Ryneus
             });
             if (alcanaInfoButton != null)
             {
-                alcanaInfoButton.onClick.AddListener(() => CallViewEvent(CommandType.Aritifact));
+                alcanaInfoButton.OnClickAddListener(() => CallViewEvent(CommandType.Aritifact));
             }
             SetInputHandler(gameObject);
             CommandRefresh();
@@ -102,6 +102,11 @@ namespace Ryneus
         public void SetActiveParticleObject(bool isActive)
         {
             particleObject.SetActive(isActive);
+        }
+
+        public void UpdateBattleFieldNotice(bool isActive)
+        {
+            battleFieldNotice.SetActive(isActive);
         }
 
         public void InputHandler(List<InputKeyType> keyTypes,bool pressed)

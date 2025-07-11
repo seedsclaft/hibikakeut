@@ -57,7 +57,7 @@ namespace Ryneus
 
         public ActorInfo EquipmentSkill(SkillInfo skillInfo)
         {
-            if (skillInfo.Master.SkillType != SkillType.Equipment)
+            if (skillInfo.Master.SkillType != SkillType.Equip)
             {
                 return null;
             }

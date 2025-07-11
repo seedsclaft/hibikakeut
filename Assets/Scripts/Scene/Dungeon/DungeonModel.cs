@@ -312,6 +312,13 @@ namespace Ryneus
         public List<SystemData.CommandData> SideMenu()
         {
             var list = new List<SystemData.CommandData>();
+            var artifact = new SystemData.CommandData
+            {
+                Id = 1,
+                Name = "アーティファクト",
+                Key = "Artifact"
+            };
+            list.Add(artifact);
             var status = new SystemData.CommandData
             {
                 Id = 1,

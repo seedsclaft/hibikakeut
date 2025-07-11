@@ -14,6 +14,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI mpCost;
         [SerializeField] private Image lineImage;
+        [SerializeField] private Transform skillTypeBgRoot;
         [SerializeField] private TextMeshProUGUI type;
         [SerializeField] private TextMeshProUGUI value;
         [SerializeField] private TextMeshProUGUI description;
@@ -125,6 +126,16 @@ namespace Ryneus
                 var mpCostText = skillData.SkillType == SkillType.Active ? "(" + skillData.MpCost.ToString() + ")" : "";
                 mpCost?.SetText(mpCostText);
                 type?.SetText(skillData.SkillType.ToString());
+                if (skillTypeBgRoot != null)
+                {
+                    var count = 1;
+                    var skillType = (int)skillData.SkillType;
+                    foreach (Transform child in skillTypeBgRoot.transform)
+                    {
+                        child.gameObject.SetActive(skillType == count);
+                        count++;
+                    }
+                }
                 countTurn?.gameObject?.SetActive(skillData.SkillType == SkillType.Active || (skillData.SkillType == SkillType.Passive && skillData.CountTurn > 0));
                 countTurn?.SetText(skillData.CountTurn.ToString());
                 rank?.gameObject?.SetActive(true);
@@ -139,7 +150,7 @@ namespace Ryneus
             }
             if (range != null)
             {
-                range.gameObject.SetActive(true);
+                //range.gameObject.SetActive(true);
                 var rangeTextId = skillData.Range == RangeType.S ? 2210 : 2220;
                 range.SetText(DataSystem.GetText(rangeTextId));
             }
@@ -212,6 +223,13 @@ namespace Ryneus
             nameText?.SetText("");
             mpCost?.SetText("");
             type?.SetText("");
+            if (skillTypeBgRoot != null)
+            {
+                foreach (Transform child in skillTypeBgRoot.transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
+            }
             description?.SetText("");
             if (lineImage != null)
             {
