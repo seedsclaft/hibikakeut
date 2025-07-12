@@ -235,8 +235,8 @@ namespace Ryneus
                 var triggerDate = triggerDates[i];
                 var key = (int)triggerDate.TriggerType / 1000;
                 if (_checkTriggerDict.ContainsKey(key))
-                {   
-                    int targetIndex = _checkTriggerDict[key].CheckTargetIndex(triggerDate,battlerInfo,checkTriggerInfo,targeBattlerIndex);
+                {
+                    int targetIndex = _checkTriggerDict[key].CheckTargetIndex(triggerDate, battlerInfo, checkTriggerInfo, targeBattlerIndex);
                     if (targetIndex > -1)
                     {
                         return targetIndex;

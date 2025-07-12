@@ -14,6 +14,7 @@ namespace Ryneus
                 case TriggerType.FriendStatusUnder:
                 case TriggerType.OpponentStatusUpper:
                 case TriggerType.OpponentStatusUnder:
+                case TriggerType.FriendLvUnder:
                     return true;
                 case TriggerType.LvUpper:
                     return triggerData.Param1 <= battlerInfo.Level.Value;
@@ -38,6 +39,9 @@ namespace Ryneus
                 case TriggerType.OpponentStatusUnder:
                     var opponentStatusUnderIndex = SortStatusUnderTargetIndex(battlerInfo, checkTriggerInfo.Opponents, (StatusParamType)triggerData.Param1, targetBattlerIndex);
                     return opponentStatusUnderIndex;
+                case TriggerType.FriendLvUnder:
+                    var friendLvUnderIndex = SortLvUnderTargetIndex(battlerInfo, checkTriggerInfo.Friends, targetBattlerIndex);
+                    return friendLvUnderIndex;
             }
             return -1;
         }
@@ -124,6 +128,18 @@ namespace Ryneus
                     var spd = targetInfos[0].CurrentSpd();
                     targetInfos = targetInfos.FindAll(a => a.CurrentSpd() == spd);
                 }
+                return BattleUtility.NearTargetIndex(battlerInfo, targetInfos, targetBattlerIndex);
+            }
+            return -1;
+        }
+
+        private int SortLvUnderTargetIndex(BattlerInfo battlerInfo, List<BattlerInfo> targetInfos, int targetBattlerIndex)
+        {
+            if (targetInfos.Count > 0)
+            {
+                targetInfos.Sort((a, b) => a.Level.Value > b.Level.Value ? 1 : -1);
+                var lv = targetInfos[0].Level.Value;
+                targetInfos = targetInfos.FindAll(a => a.Level.Value == lv);
                 return BattleUtility.NearTargetIndex(battlerInfo, targetInfos, targetBattlerIndex);
             }
             return -1;

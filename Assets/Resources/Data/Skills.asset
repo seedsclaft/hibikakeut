@@ -5602,7 +5602,7 @@ MonoBehaviour:
     Scope: 3
     SkillType: 5
     TargetType: 2
-    Help: "(\u6761\u4EF6)\u6240\u6301\u3057\u3066\u3044\u308B\u3068\u81EA\u52D5\u3067\u52B9\u679C\u3092\u767A\u63EE\n\u30D4\u30EA\u30AA\u30C9\u7D4C\u904E\u6642\u30E9\u30F3\u30C0\u30E0\u306B\u5C5E\u6027\u306E\u7CBE\u970A\u77F3\u30921\u3064\u5165\u624B"
+    Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\n\u30E9\u30F3\u30C0\u30E0\u306B\u5C5E\u6027\u306E\u7CBE\u970A\u77F3\u30921\u3064\u5165\u624B"
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -5780,6 +5780,76 @@ MonoBehaviour:
       TriggerTiming: 4
       Param1: 1
       Param2: 2
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 320010
+    Name: "\u8A13\u7DF4\u65BD\u8A2D"
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 220
+    Attribute: 4
+    Scope: 3
+    SkillType: 8
+    TargetType: 2
+    Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\nLv\u306E\u4F4E\u30443\u4EBA\u307E\u3067Exp+25"
+    Range: 2
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 320010
+      FeatureType: 40030
+      Param1: 25
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 320010
+      TriggerType: 40020
+      TriggerTiming: 4
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers:
+    - SkillId: 320010
+      TriggerType: 14520
+      TriggerTiming: 2
+      Param1: 3
+      Param2: 0
+      Param3: 0
+  - Id: 320020
+    Name: "\u7814\u7A76\u65BD\u8A2D"
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 220
+    Attribute: 4
+    Scope: 4
+    SkillType: 8
+    TargetType: 4
+    Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\n(Nu)\u30922\u5165\u624B"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 320020
+      FeatureType: 40040
+      Param1: 2
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 320020
+      TriggerType: 40020
+      TriggerTiming: 4
+      Param1: 0
+      Param2: 0
       Param3: 0
     ScopeTriggers: []
   - Id: 401010

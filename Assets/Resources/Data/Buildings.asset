@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f22bf3f872e2574da4a40f30b3fea6b, type: 3}
+  m_Name: Buildings
+  m_EditorClassIdentifier: 
+  Data:
+  - Id: 1000
+    Name: "\u8A13\u7DF4\u65BD\u8A2DLv1"
+    Help: "Period\u7D4C\u904E\u6642Lv\u306E\u4F4E\u30443\u4EBA\u307E\u3067Exp+25"
+    ImagePath: Alcana
+    Cost: 10
+    Chapter: 1
+    SkillId: 320010
+    NeedBuildingId: 0
+  - Id: 1010
+    Name: "\u7814\u7A76\u65BD\u8A2DLv1"
+    Help: "Period\u7D4C\u904E\u6642(Nu)\u30922\u5165\u624B"
+    ImagePath: Alcana
+    Cost: 10
+    Chapter: 1
+    SkillId: 320020
+    NeedBuildingId: 0
+  - Id: 2000
+    Name: "\u8A13\u7DF4\u65BD\u8A2DLv2"
+    Help: "Period\u7D4C\u904E\u6642Lv\u306E\u4F4E\u30443\u4EBA\u307E\u3067Exp+50"
+    ImagePath: Alcana
+    Cost: 10
+    Chapter: 2
+    SkillId: 320010
+    NeedBuildingId: 1000
+  - Id: 2010
+    Name: "\u7814\u7A76\u65BD\u8A2DLv2"
+    Help: "Period\u7D4C\u904E\u6642(Nu)\u30924\u5165\u624B"
+    ImagePath: Alcana
+    Cost: 10
+    Chapter: 2
+    SkillId: 320020
+    NeedBuildingId: 1010

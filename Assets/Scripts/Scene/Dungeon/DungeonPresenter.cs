@@ -183,7 +183,21 @@ namespace Ryneus
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(10110),(a) =>
             {
                 _model.ReturnDungeon();
-                _view.CommandSceneChange(Scene.MainMenu);
+                var periodItemInfos = _model.PeriodGetItemInfos();
+                if (periodItemInfos.Count > 0)
+                {
+                    var strategySceneInfo = new StrategySceneInfo
+                    {
+                        ActorInfos = _model.PartyInfo.ActorInfos,
+                        InBattle = false,
+                        GetItemInfos = periodItemInfos,
+                        ReturnScene = Scene.MainMenu,
+                    };
+                    _view.CommandSceneChange(Scene.Strategy);
+                } else
+                {
+                    _view.CommandSceneChange(Scene.MainMenu);
+                }
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
@@ -499,7 +513,21 @@ namespace Ryneus
                 {
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                     _model.ReturnDungeon();
-                    _view.CommandSceneChange(Scene.MainMenu);
+                    var periodItemInfos = _model.PeriodGetItemInfos();
+                    if (periodItemInfos.Count > 0)
+                    {
+                        var strategySceneInfo = new StrategySceneInfo
+                        {
+                            ActorInfos = _model.PartyInfo.ActorInfos,
+                            InBattle = false,
+                            GetItemInfos = periodItemInfos,
+                            ReturnScene = Scene.MainMenu,
+                        };
+                        _view.CommandSceneChange(Scene.Strategy);
+                    } else
+                    {
+                        _view.CommandSceneChange(Scene.MainMenu);
+                    }
                 } else
                 {
                     _model.DungeonBusy(false);

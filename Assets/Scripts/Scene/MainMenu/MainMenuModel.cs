@@ -124,6 +124,13 @@ namespace Ryneus
                 Key = "Artifact"
             };
             list.Add(artifact);
+            var status = new SystemData.CommandData
+            {
+                Id = 1,
+                Name = DataSystem.GetText(19006),
+                Key = "Status"
+            };
+            list.Add(status);
             var option = new SystemData.CommandData
             {
                 Id = 2,

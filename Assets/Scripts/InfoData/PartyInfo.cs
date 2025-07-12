@@ -124,6 +124,17 @@ namespace Ryneus
             return false;
         }
 
+        // 所持解放
+        private List<int> _buildingIds = new();
+        public List<int> BuildingIds => _buildingIds;
+        private void GainBuilding(int buildingId)
+        {
+            if (!_buildingIds.Contains(buildingId))
+            {
+                _buildingIds.Add(buildingId);
+            }
+        }
+
         public List<SkillInfo> AritifactSkills()
         {
             var list = new List<SkillInfo>();
@@ -169,6 +180,8 @@ namespace Ryneus
         public ParameterInt ReliefCommandCount = new();
         // 転送コマンド回数
         public ParameterInt TransferCommandCount = new();
+        // 解放コマンド回数
+        public ParameterInt ReleaseCommandCount = new();
         // 魔法編成回数
         public ParameterInt StatusSkillChangeCount = new();
 
@@ -331,6 +344,9 @@ namespace Ryneus
             {
                 case GetItemType.Item:
                     GainItemNum(getItemInfo.Param1,getItemInfo.Param2);
+                    break;
+                case GetItemType.Building:
+                    GainBuilding(getItemInfo.Param1);
                     break;
                 case GetItemType.RankUp:
                     MissionRank.GainValue(1);

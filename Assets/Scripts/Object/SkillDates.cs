@@ -388,6 +388,7 @@ namespace Ryneus
         OpponentStatusUpper = 14210, // ステータスの高い敵
         OpponentStatusUnder = 14310, // ステータスの低い敵
         LvUpper = 14410, // Lvが〇以上
+        FriendLvUnder = 14520, // Lvが低い味方
         SelfAttackActionInfo = 15010, // 自身が攻撃タイプの行動をしようとしている
         FriendAttackActionInfo = 15011, // 味方が攻撃タイプの行動をしようとしている
         OpponentBuffActionInfo = 15022, // 相手がバフの行動をしようとしている
@@ -504,6 +505,8 @@ namespace Ryneus
         RobBuffState = 13010, // 対象のバフを奪い取る
         GetItem = 40010, // アイテム入手
         GetExpRateUp = 40020, // 獲得経験値%アップ
+        GetExp = 40030, // Exp入手
+        GetCurrency = 40040, // Nu入手
         Numinous = 301,
         TacticsCost = 302,
         EnemyLv = 303,

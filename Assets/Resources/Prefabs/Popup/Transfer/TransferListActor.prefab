@@ -760,7 +760,6 @@ GameObject:
   - component: {fileID: 395023609093904740}
   - component: {fileID: 1261717886090962487}
   - component: {fileID: 6426457858205293415}
-  - component: {fileID: 1149254404148966365}
   m_Layer: 5
   m_Name: Param
   m_TagString: Untagged
@@ -887,21 +886,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1149254404148966365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132369907974021244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e1d633c6a85e040a3eeb66ccca5432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _entryId:
-    _value: 547d6d0d-14c3-48f0-8385-10503450facd
-  _component: {fileID: 6426457858205293415}
 --- !u!1 &1645682243773937436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,7 +1094,6 @@ GameObject:
   - component: {fileID: 8251579427117381684}
   - component: {fileID: 777244830985901881}
   - component: {fileID: 3456641797224266165}
-  - component: {fileID: 5150047000133760572}
   m_Layer: 5
   m_Name: Caption
   m_TagString: Untagged
@@ -1263,21 +1246,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 18500
---- !u!114 &5150047000133760572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065904930696197909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e1d633c6a85e040a3eeb66ccca5432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _entryId:
-    _value: 547d6d0d-14c3-48f0-8385-10503450facd
-  _component: {fileID: 777244830985901881}
 --- !u!1 &3051325329999479489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1472,6 +1440,7 @@ MonoBehaviour:
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
   disable: {fileID: 5504171888316901383}
+  batch: {fileID: 0}
   selectColor: {r: 0, g: 0, b: 0, a: 0}
   unSelectColor: {r: 0, g: 0, b: 0, a: 0}
   textUguiList: []

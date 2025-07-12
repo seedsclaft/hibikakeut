@@ -1939,7 +1939,7 @@ PrefabInstance:
     - target: {fileID: 1680097065265639571, guid: 5339fe8145c7f9d409c378be6c284d06,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1680097065265639571, guid: 5339fe8145c7f9d409c378be6c284d06,
         type: 3}
@@ -1949,7 +1949,7 @@ PrefabInstance:
     - target: {fileID: 1680097065265639571, guid: 5339fe8145c7f9d409c378be6c284d06,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1680097065265639571, guid: 5339fe8145c7f9d409c378be6c284d06,
         type: 3}
@@ -2026,7 +2026,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: TransferListActor (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1149254404148966365, guid: 5339fe8145c7f9d409c378be6c284d06, type: 3}
+    - {fileID: 5150047000133760572, guid: 5339fe8145c7f9d409c378be6c284d06, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

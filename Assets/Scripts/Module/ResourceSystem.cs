@@ -173,6 +173,11 @@ namespace Ryneus
             return LoadResource<EffekseerEffectAsset>("Animations/" + path);
         }
 
+        public static Sprite LoadBuildingSprite(string fileName)
+        {
+            return LoadResource<Sprite>("Texture/Symbol/" + fileName);
+        }
+
         public static SpriteAtlas LoadSpellIcons()
         {
             return LoadResource<SpriteAtlas>("Texture/SpellIcons");

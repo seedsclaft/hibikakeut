@@ -540,7 +540,7 @@ namespace Ryneus
             BattleChecker.Instance.SetModel(null,null);
             _view.CallSystemCommand(Base.CommandType.CloseLoading);
             //_view.CommandChangeViewToTransition(null);
-            _view.CommandGotoSceneChange(Scene.Strategy,strategySceneInfo);
+            _view.CommandGotoSceneChange(Scene.Strategy, strategySceneInfo);
         }
 
         private void CommandSkillLog()

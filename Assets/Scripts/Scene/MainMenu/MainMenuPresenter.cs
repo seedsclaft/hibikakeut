@@ -94,31 +94,6 @@ namespace Ryneus
             switch (commandData.Key)
             {
                 case "Departure":
-                    // 未編成のキャラがいる
-                    if (_model.CheckBeforeDepature())
-                    {
-                        var confirmInfo = new ConfirmInfo(DataSystem.GetText(11030),(a) =>
-                        {
-                            if (a == ConfirmCommandType.Yes)
-                            {
-                                CommandDepature();
-                            }
-                        });
-                        confirmInfo.SetBackEvent(() => {});
-                        _view.CommandCallConfirm(confirmInfo);
-                        return;
-                    }
-                    // 出撃できるステージがない
-                    if (_model.CheckDepatureDungeon())
-                    {
-                        var confirmInfo = new ConfirmInfo(DataSystem.GetText(32050),(a) =>
-                        {
-                        });
-                        confirmInfo.SetBackEvent(() => {});
-                        confirmInfo.SetIsNoChoice(true);
-                        _view.CommandCallConfirm(confirmInfo);
-                        return;
-                    }
                     CommandDepature();
                     break;
                 case "DeckEdit":
@@ -136,6 +111,9 @@ namespace Ryneus
                 case "Transfer":
                     CommandTransfer();
                     break;
+                case "Release":
+                    CommandRelease();
+                    break;
                 case "Status":
                     UpdateCommandSelecting(false);
                     var actorInfos = _model.PartyInfo.ActorInfos;
@@ -151,6 +129,31 @@ namespace Ryneus
 
         private void CommandDepature()
         {
+            // 未編成のキャラがいる
+            if (_model.CheckBeforeDepature())
+            {
+                var confirmInfo = new ConfirmInfo(DataSystem.GetText(11030),(a) =>
+                {
+                    if (a == ConfirmCommandType.Yes)
+                    {
+                        CommandDepature();
+                    }
+                });
+                confirmInfo.SetBackEvent(() => {});
+                _view.CommandCallConfirm(confirmInfo);
+                return;
+            }
+            // 出撃できるステージがない
+            if (_model.CheckDepatureDungeon())
+            {
+                var confirmInfo = new ConfirmInfo(DataSystem.GetText(32050),(a) =>
+                {
+                });
+                confirmInfo.SetBackEvent(() => {});
+                confirmInfo.SetIsNoChoice(true);
+                _view.CommandCallConfirm(confirmInfo);
+                return;
+            }
             _busy = true;
             UpdateCommandSelecting(false);
             var popupInfo = new PopupInfo
@@ -250,6 +253,10 @@ namespace Ryneus
 
         private void CommandTransfer()
         {
+            if (_model.PartyInfo.MissionRank.Value <= 3)
+            {
+                return;
+            }
             _busy = true;
             UpdateCommandSelecting(false);
             var popupInfo = new PopupInfo
@@ -268,9 +275,28 @@ namespace Ryneus
             _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
         }
 
+        private void CommandRelease()
+        {
+            _busy = true;
+            UpdateCommandSelecting(false);
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.Release,
+                template = null,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    UpdateCommandSelecting(true);
+                    _view.UpdateCommandList(_model.MainMenuCommand());
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
+        }
+
         private void CommandRelief()
         {
-            var enableCount = _model.PartyInfo.ReliefCommandCount.Value - _model.PartyInfo.MissionRank.Value;
+            var enableCount = _model.PartyInfo.MissionRank.Value - _model.PartyInfo.ReliefCommandCount.Value;
             if (enableCount <= 0)
             {
                 var cautionInfo = new CautionInfo();
