@@ -272,6 +272,19 @@ namespace Ryneus
             {
                 return;
             }
+            // Nu不足
+            if (_model.PartyInfo.Currency.Value <= 0)
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                var confirmInfo2 = new ConfirmInfo(DataSystem.GetText(38020),(a) =>
+                {
+                    _busy = false;
+                });
+                confirmInfo2.SetBackEvent(() => {});
+                confirmInfo2.SetIsNoChoice(true);
+                _view.CommandCallConfirm(confirmInfo2);
+                return;
+            }
             _busy = true;
             _view.SetBusy(true);
             _model.PartyInfo.TacticsLvupCount.GainValue(1);
@@ -384,6 +397,10 @@ namespace Ryneus
 
         private async Task CommandLeftActor()
         {
+            if (_model.ActorInfos.Count == 1)
+            {
+                return;
+            }
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             SaveSelectedSkillId();
@@ -396,6 +413,10 @@ namespace Ryneus
 
         private async Task CommandRightActor()
         {
+            if (_model.ActorInfos.Count == 1)
+            {
+                return;
+            }
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             SaveSelectedSkillId();

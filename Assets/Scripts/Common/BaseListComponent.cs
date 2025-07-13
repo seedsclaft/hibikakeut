@@ -63,6 +63,10 @@ namespace Ryneus
                 var buildingInfo = ListItemData<BuildingInfo>();
                 buildingInfoComponent.UpdateInfo(buildingInfo);
             }
+            if (Disable != null)
+            {
+                Disable.SetActive(!ListData.Enable);
+            }
             if (Batch != null)
             {
                 Batch.SetActive(ListData.Batch.Value);

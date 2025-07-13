@@ -281,13 +281,14 @@ namespace Ryneus
             UpdateCommandSelecting(false);
             var popupInfo = new PopupInfo
             {
-                PopupType = PopupType.Release,
+                PopupType = PopupType.ReleaseList,
                 template = null,
                 EndEvent = () =>
                 {
                     _busy = false;
                     UpdateCommandSelecting(true);
                     _view.UpdateCommandList(_model.MainMenuCommand());
+                    _view.CommandRefresh();
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
@@ -329,6 +330,7 @@ namespace Ryneus
             CommandCallSideMenu(MakeListData(_model.SideMenu()), () =>
             {
                 _busy = false;
+                _view.UpdateCommandList(_model.MainMenuCommand());
             });
         }
 

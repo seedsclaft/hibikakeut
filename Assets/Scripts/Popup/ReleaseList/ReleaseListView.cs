@@ -6,6 +6,7 @@ namespace Ryneus
 {
     public class ReleaseListView : BaseView
     {
+        [SerializeField] private PartyInfoComponent partyInfoComponent;
         [SerializeField] private BaseList releaseList = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
 
@@ -28,7 +29,7 @@ namespace Ryneus
         {
             releaseList.Initialize();
             releaseList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
-            releaseList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(ReleaseList.CommandType.DecideBuilding, releaseList.ListItemData<ActorInfo>()));
+            releaseList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(ReleaseList.CommandType.DecideBuilding, releaseList.ListItemData<BuildingInfo>()));
             AddViewActives(releaseList);
         }
 
@@ -36,6 +37,11 @@ namespace Ryneus
         {
             releaseList.SetData(characterLists);
             releaseList.Activate();
+        }
+
+        public void CommandRefresh()
+        {
+            partyInfoComponent.UpdateCurrentInfo();
         }
     }
 

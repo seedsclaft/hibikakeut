@@ -15,7 +15,7 @@ namespace Ryneus
         {
             nameText?.SetText(buildingsData.Name);
             description?.SetText(buildingsData.Help);
-            cost?.SetText(buildingsData.Cost.ToString());
+            cost?.SetText(buildingsData.Cost.ToString() + DataSystem.GetText(1000));
             image.sprite = ResourceSystem.LoadBuildingSprite(buildingsData.ImagePath);
         }
 

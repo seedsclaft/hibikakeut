@@ -62,30 +62,38 @@ namespace Ryneus
             // 既に入手済み
             if (_model.PartyInfo.BuildingIds.Contains(buildingInfo.Id.Value))
             {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                var confirmInfo2 = new CautionInfo();
+                confirmInfo2.SetTitle(DataSystem.GetText(38030));
+                _view.CommandCallCaution(confirmInfo2);
                 return;
             }
             // コスト判定
             if (buildingInfo.Master.Cost > _model.PartyInfo.Currency.Value)
             {
+                _busy = true;
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var confirmInfo2 = new ConfirmInfo(DataSystem.GetText(38020),(a) =>
                 {
+                    _busy = false;
                 });
                 confirmInfo2.SetBackEvent(() => {});
                 confirmInfo2.SetIsNoChoice(true);
                 _view.CommandCallConfirm(confirmInfo2);
                 return;
             }
+            _busy = true;
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var confirmInfo = new ConfirmInfo(buildingInfo.Master.Name + DataSystem.GetText(38010), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
-                    _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
-
                     var getItemData = new GetItemData
                     {
                         Type = GetItemType.Building,
                         Param1 = buildingInfo.Id.Value
                     };
+                    _model.PartyInfo.Currency.GainValue(buildingInfo.Master.Cost * -1,0);
                     var getItemInfo = new GetItemInfo(getItemData);
                     _model.AddGetItemInfo(getItemInfo);
 
@@ -93,7 +101,6 @@ namespace Ryneus
                     CommandRefresh();
                 }
                 _busy = false;
-                _view.SetBusy(false);
             });
             _view.CommandCallConfirm(confirmInfo);
         }
@@ -110,6 +117,7 @@ namespace Ryneus
                 return !_model.PartyInfo.BuildingIds.Contains(buildingInfo.Id.Value);
             };
             _view.SetBuildingList(MakeListDataFunc(_model.BuildingInfos(),0,enable));
+            _view.CommandRefresh();
         }
     }
 }

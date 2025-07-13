@@ -155,6 +155,11 @@ namespace Ryneus
         {
             if (_model.PartyInfo.AritifactSkills().Count == 0)
             {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                var cautionInfo = new CautionInfo();
+                cautionInfo.SetTitle(DataSystem.GetText(37020));
+                ClosePopup();
+                _view.CommandCallCaution(cautionInfo);
                 return;
             }
             _busy = true;

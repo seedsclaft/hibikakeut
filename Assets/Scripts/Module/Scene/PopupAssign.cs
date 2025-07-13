@@ -87,7 +87,7 @@ namespace Ryneus
         ArtifactList,
         StageList,
         Transfer,
-        Release,
+        ReleaseList,
         AlcanaList,
         SlotSave,
         LearnSkill,
