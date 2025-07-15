@@ -135,6 +135,17 @@ namespace Ryneus
             }
         }
 
+        public List<SkillInfo> BuildingSkills()
+        {
+            var list = new List<SkillInfo>();
+            foreach (var buildingId in _buildingIds)
+            {
+                var buildingsData = DataSystem.Buildings.Find(a => a.Id == buildingId);
+                list.Add(new SkillInfo(buildingsData.SkillId));
+            }
+            return list;
+        }
+
         public List<SkillInfo> AritifactSkills()
         {
             var list = new List<SkillInfo>();

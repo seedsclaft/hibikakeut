@@ -507,6 +507,7 @@ namespace Ryneus
         GetExpRateUp = 40020, // 獲得経験値%アップ
         GetExp = 40030, // Exp入手
         GetCurrency = 40040, // Nu入手
+        AttributeRateUp = 40050, // 属性適正アップ
         Numinous = 301,
         TacticsCost = 302,
         EnemyLv = 303,

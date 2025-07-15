@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 
 namespace Ryneus
@@ -48,7 +47,7 @@ namespace Ryneus
 
         public int NeedMastarySkillExp(int skillId)
         {
-            var basecost = EquipSkillCost(skillId,null);
+            var basecost = EquipSkillCost(skillId, null, null);
             if (basecost == 0)
             {
                 return 0;
@@ -237,7 +236,7 @@ namespace Ryneus
             return list;
         }
 
-        public int EquipSkillCost(int skillId, List<ActorInfo> stageMembers)
+        public int EquipSkillCost(int skillId, List<ActorInfo> stageMembers, List<SkillInfo> buildingSkills)
         {
             var skillData = DataSystem.FindSkill(skillId);
             // 装備スキルなら
@@ -258,7 +257,20 @@ namespace Ryneus
             {
                 result -= 1;
             }
-            return Math.Max(0,result);
+            // 施設効果で-1
+            if (buildingSkills != null)
+            {
+                foreach (var buildingSkill in buildingSkills)
+                {
+                    var featureDates = buildingSkill.FeatureDates.FindAll(a => a.FeatureType == FeatureType.AttributeRateUp && a.Param1 == (int)skillData.Attribute);
+                    if (featureDates.Count > 0)
+                    {
+                        result -= 1;
+                        return Math.Max(0, result);
+                    }
+                }
+            }
+            return Math.Max(0, result);
         }
 
         public int LearningMagicCost(AttributeType attributeType, List<ActorInfo> stageMembers, RankType rank = RankType.None)

@@ -6,7 +6,6 @@ using UnityEngine.AddressableAssets;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using System.Linq;
-using UnityEngine.SceneManagement;
 
 namespace Ryneus
 {
@@ -114,7 +113,7 @@ namespace Ryneus
             {
                 if (changeAbleSkill.Master != null && !changeAbleSkill.IsBattleSpecialSkill())
                 {
-                    var cost = actorInfo.EquipSkillCost(changeAbleSkill.Master.Id, PartyInfo.ActorInfos);
+                    var cost = actorInfo.EquipSkillCost(changeAbleSkill.Master.Id, PartyInfo.ActorInfos, PartyInfo.BuildingSkills());
                     changeAbleSkill.LearningCost.SetValue(cost);
                     if (changeAbleSkill.Enable)
                     {
@@ -142,7 +141,7 @@ namespace Ryneus
                 skillInfo.ExpRate.SetValue(actorInfo.MastarySkillRate(equipSkillId.Value));
                 if (!skillInfo.IsBattleSpecialSkill())
                 {
-                    var cost = actorInfo.EquipSkillCost(skillInfo.Master.Id, PartyInfo.ActorInfos);
+                    var cost = actorInfo.EquipSkillCost(skillInfo.Master.Id, PartyInfo.ActorInfos, PartyInfo.BuildingSkills());
                     skillInfo.LearningCost.SetValue(cost);
                 }
                 equipSkills.Add(skillInfo);
@@ -615,7 +614,6 @@ namespace Ryneus
         public void ActorLearnMagic(ActorInfo actorInfo, int skillId)
         {
             var skillInfo = new SkillInfo(skillId);
-            var learningCost = actorInfo.EquipSkillCost(skillInfo.Master.Id, StageMembers());
             actorInfo.AddSkillTriggerSkill(skillId);
         }
 

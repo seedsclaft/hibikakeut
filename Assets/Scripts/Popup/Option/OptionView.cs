@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using Option;
-using Ryneus;
 
 namespace Ryneus
 {
@@ -24,7 +21,7 @@ namespace Ryneus
             InitializeCategoryList();
             InitializeOptionList();
             SetActivate(optionCategoryList);
-            new OptionPresenter(this);
+            _ = new OptionPresenter(this);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 

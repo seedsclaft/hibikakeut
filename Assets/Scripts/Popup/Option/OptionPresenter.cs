@@ -26,7 +26,7 @@ namespace Ryneus
         private void Initialize()
         {
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetOptionCategoryList(MakeListData(_model.OptionCategoryList()));
+            _view.SetOptionCategoryList(MakeListData(_model.OptionCategoryList(), 0));
             _view.SetHelpWindow();
             CommandSelectCategory();
             _view.OpenAnimation();

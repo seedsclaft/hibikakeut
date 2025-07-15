@@ -46,12 +46,12 @@ namespace Ryneus
         public List<SkillInfo> ChangeAbleSkills()
         {
             // マイナスSP計算
-            var cost = _selectSkillInfo != null ? CurrentActor.EquipSkillCost(_selectSkillInfo.Master.Id,PartyInfo.ActorInfos) : 0;
-            var changeAbleSkills = ChangeAbleSkills(CurrentActor,cost);
+            var cost = _selectSkillInfo != null ? CurrentActor.EquipSkillCost(_selectSkillInfo.Master.Id, PartyInfo.ActorInfos, PartyInfo.BuildingSkills()) : 0;
+            var changeAbleSkills = ChangeAbleSkills(CurrentActor, cost);
             // はずすを挿入
             var removeSkill = new SkillInfo(1);
             removeSkill.SetEnable(true);
-            changeAbleSkills.Insert(0,removeSkill);
+            changeAbleSkills.Insert(0, removeSkill);
             return changeAbleSkills;
         }
 

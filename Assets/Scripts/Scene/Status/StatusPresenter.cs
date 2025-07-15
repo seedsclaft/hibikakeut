@@ -321,7 +321,7 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
-            var skillTriggerViewInfo = new SkillTriggerViewInfo(actorId,() => 
+            var skillTriggerViewInfo = new SkillTriggerViewInfo(actorId,() =>
             {
                 _busy = false;
                 CommandRefresh();
@@ -359,40 +359,6 @@ namespace Ryneus
                 }
             });
             _view.CommandCallConfirm(confirmInfo);
-        }
-
-        private void UpdatePopup(ConfirmCommandType confirmCommandType)
-        {
-            if (_popupCommandType == CommandType.SelectEquipSkill)
-            {
-                if (confirmCommandType == ConfirmCommandType.Yes)
-                {
-                    CommandRefresh();
-                }
-            }
-
-
-            if (_popupCommandType == CommandType.DecideStage)
-            {
-                if (confirmCommandType == ConfirmCommandType.Yes)
-                {
-                    _view.CallSystemCommand(Base.CommandType.CloseStatus);
-
-                    var makeSelectActorInfos = _model.MakeSelectActorInfos();
-                    var makeSelectGetItemInfos = _model.MakeSelectGetItemInfos();
-                    var strategySceneInfo = new StrategySceneInfo
-                    {
-                        GetItemInfos = makeSelectGetItemInfos,
-                        ActorInfos = makeSelectActorInfos,
-                        InBattle = false
-                    };
-                    _view.CommandGotoSceneChange(Scene.Strategy,strategySceneInfo);
-                } else
-                {
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                    SetBusy(false);
-                }
-            }
         }
 
         private async Task CommandLeftActor()
@@ -449,12 +415,6 @@ namespace Ryneus
             {
                 _model.SetActorLastSkillId(selectedSkillId);
             }
-        }
-
-        private void SetBusy(bool busy)
-        {
-            _busy = busy;
-            _view.SetBusy(busy);
         }
 
         private void CommandCallHelp()
