@@ -388,6 +388,7 @@ namespace Ryneus
         OpponentStatusUpper = 14210, // ステータスの高い敵
         OpponentStatusUnder = 14310, // ステータスの低い敵
         LvUpper = 14410, // Lvが〇以上
+        LvLower = 14420, // Lvが〇以下
         FriendLvUnder = 14520, // Lvが低い味方
         SelfAttackActionInfo = 15010, // 自身が攻撃タイプの行動をしようとしている
         FriendAttackActionInfo = 15011, // 味方が攻撃タイプの行動をしようとしている

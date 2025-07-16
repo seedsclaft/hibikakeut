@@ -2113,7 +2113,7 @@ namespace Ryneus
 
         private bool IsTriggeredSkillInfo(BattlerInfo battlerInfo,List<SkillData.TriggerData> triggerDates,ActionInfo actionInfo,List<ActionResultInfo> actionResultInfos)
         {
-            var friends = battlerInfo.IsActor ? _party : _troop;            
+            var friends = battlerInfo.IsActor ? _party : _troop;
             var opponents = battlerInfo.IsActor ? _troop : _party;
             bool IsTriggered = false;
             var checkTriggerInfo = new CheckTriggerInfo(_turnCount,battlerInfo,BattlerActors(),BattlerEnemies(),_reserveBattlers,actionInfo,actionResultInfos);
@@ -2181,156 +2181,156 @@ namespace Ryneus
                             case TriggerType.None:
                             case TriggerType.ExtendStageTurn: // 別処理で判定するためここではパス
                                 IsTriggered = true;
-                            break;
+                                break;
                             case TriggerType.SelfActionInfo:
-                            if (battlerInfo.IsAlive() && actionInfo != null)
-                            {
-                                if (actionInfo.SubjectIndex.Value == battlerInfo.Index.Value)
+                                if (battlerInfo.IsAlive() && actionInfo != null)
                                 {
-                                    IsTriggered = true;
+                                    if (actionInfo.SubjectIndex.Value == battlerInfo.Index.Value)
+                                    {
+                                        IsTriggered = true;
+                                    }
                                 }
-                            }
-                            break;
+                                break;
                             case TriggerType.IsFriendBattler:
-                            if (battlerInfo.IsAlive())
-                            {
-                                if (actionResultInfos.Find(a => friends.AliveBattlerInfos.Find(b => GetBattlerInfo(a.TargetIndex.Value).IsActor == battlerInfo.IsActor) != null) != null)
+                                if (battlerInfo.IsAlive())
                                 {
-                                    IsTriggered = true;
+                                    if (actionResultInfos.Find(a => friends.AliveBattlerInfos.Find(b => GetBattlerInfo(a.TargetIndex.Value).IsActor == battlerInfo.IsActor) != null) != null)
+                                    {
+                                        IsTriggered = true;
+                                    }
                                 }
-                            }
-                            break;
+                                break;
                             case TriggerType.IsOpponentBattler:
-                            if (battlerInfo.IsAlive())
-                            {
-                                if (actionResultInfos.Find(a => opponents.AliveBattlerInfos.Find(b => GetBattlerInfo(a.TargetIndex.Value).IsActor != battlerInfo.IsActor) != null) != null)
+                                if (battlerInfo.IsAlive())
                                 {
-                                    IsTriggered = true;
+                                    if (actionResultInfos.Find(a => opponents.AliveBattlerInfos.Find(b => GetBattlerInfo(a.TargetIndex.Value).IsActor != battlerInfo.IsActor) != null) != null)
+                                    {
+                                        IsTriggered = true;
+                                    }
                                 }
-                            }
-                            break;
+                                break;
                             case TriggerType.ActionResultDeath:
-                            if (battlerInfo.IsAlive())
-                            {
-                                if (actionResultInfos.Find(a => opponents.AliveBattlerInfos.Find(b => a.DeadIndexList.Contains(b.Index.Value)) != null) != null)
+                                if (battlerInfo.IsAlive())
                                 {
-                                    IsTriggered = true;
+                                    if (actionResultInfos.Find(a => opponents.AliveBattlerInfos.Find(b => a.DeadIndexList.Contains(b.Index.Value)) != null) != null)
+                                    {
+                                        IsTriggered = true;
+                                    }
                                 }
-                            }
-                            break;
+                                break;
                             case TriggerType.DeadWithoutSelf:
-                            var dWithoutSelfUnit = battlerInfo.IsActor ? _party : _troop;
-                            int aliveCount = dWithoutSelfUnit.AliveBattlerInfos.Count;
-                            if (battlerInfo.IsAlive() && aliveCount == 1)
-                            {
-                                IsTriggered = true;
-                            }
-                            break;
-                            case TriggerType.SelfDead:
-                            if (actionResultInfos.Find(a => a.DeadIndexList.Contains(battlerInfo.Index.Value)) != null)
-                            {
-                                IsTriggered = true;
-                                var stateInfos = battlerInfo.GetStateInfoAll(StateType.Death);
-                                for (var i = 0;i < stateInfos.Count;i++)
-                                {
-                                    battlerInfo.RemoveState(stateInfos[i],true);
-                                    battlerInfo.SetPreserveAlive(true);
-                                }
-                            }
-                            break;
-                            case TriggerType.AllEnemyCurseState:
-                            /*
-                            if (battlerInfo.IsAlive() && opponents.AliveBattlerInfos.Find(a => !a.IsState(StateType.DeBuffUpper)) == null && opponents.AliveBattlerInfos.FindAll(a => a.IsAlive()).Count > 0)
-                            {
-                                IsTriggered = true;
-                            }
-                            */
-                            break;
-                            case TriggerType.AllEnemyFreezeState:
-                            if (battlerInfo.IsAlive() && opponents.AliveBattlerInfos.Find(a => !a.IsState(StateType.Freeze)) == null && opponents.AliveBattlerInfos.FindAll(a => a.IsAlive()).Count > 0)
-                            {
-                                IsTriggered = true;
-                            }
-                            break;
-                            case TriggerType.DemigodMemberCount:
-                            if (battlerInfo.IsAlive())
-                            {
-                                var demigodMember = opponents.AliveBattlerInfos.FindAll(a => a.IsState(StateType.Demigod));
-                                if (demigodMember.Count >= triggerData.Param1)
+                                var dWithoutSelfUnit = battlerInfo.IsActor ? _party : _troop;
+                                int aliveCount = dWithoutSelfUnit.AliveBattlerInfos.Count;
+                                if (battlerInfo.IsAlive() && aliveCount == 1)
                                 {
                                     IsTriggered = true;
                                 }
-                            }
-                            break;
-                            case TriggerType.ActionResultAddState:
-                            if (battlerInfo.IsAlive())
-                            {
-                                if (actionInfo != null && battlerInfo.IsActor != GetBattlerInfo(actionInfo.SubjectIndex.Value).IsActor)
-                                {
-                                    var states = actionInfo.SkillInfo.FeatureDates.FindAll(a => a.FeatureType == FeatureType.AddState);
-                                    foreach (var state in states)
-                                    {
-                                        if (state.Param1 == (int)StateType.Stun || state.Param1 == (int)StateType.BurnDamage || state.Param1 == (int)StateType.Freeze)
-                                        {
-                                            IsTriggered = true;
-                                        }
-                                    }
-                                }
-                            }
-                            break;
-                            case TriggerType.DefeatEnemyByAttack:
-                            if (actionInfo != null && actionResultInfos != null)
-                            {
-                                var attackBattler = GetBattlerInfo(actionInfo.SubjectIndex.Value);
-                                if (battlerInfo.IsAlive() && attackBattler != null && battlerInfo.Index == attackBattler.Index)
-                                {
-                                    foreach (var actionResultInfo in actionResultInfos)
-                                    {
-                                        foreach (var deadIndex in actionResultInfo.DeadIndexList)
-                                        {
-                                            if (battlerInfo.IsActor != GetBattlerInfo(deadIndex).IsActor)
-                                            {
-                                                IsTriggered = true;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            break;
-                            case TriggerType.AwakenDemigodAttribute:
-                            var DemigodAttributes = friends.AliveBattlerInfos.FindAll(a => a.IsAwaken);
-                            if (battlerInfo.IsAlive() && DemigodAttributes.Count > 0 && DemigodAttributes.Find(a => a.Skills.Find(b => b.Attribute == (AttributeType)triggerData.Param1 && b.Master.SkillType == SkillType.Unique) != null) != null)
-                            {
-                                IsTriggered = true;
-                            }
-                            break;
-                            case TriggerType.ActionResultSelfDeath:
-                            if (battlerInfo.IsAlive())
-                            {
+                                break;
+                            case TriggerType.SelfDead:
                                 if (actionResultInfos.Find(a => a.DeadIndexList.Contains(battlerInfo.Index.Value)) != null)
                                 {
                                     IsTriggered = true;
-                                }
-                            }
-                            break;
-                            case TriggerType.InterruptAttackDodge:
-                            if (battlerInfo.IsAlive())
-                            {
-                                if (actionInfo != null && battlerInfo.IsActor != GetBattlerInfo(actionInfo.SubjectIndex.Value).IsActor)
-                                {
-                                    foreach (var actionResultInfo in actionInfo.ActionResults)
+                                    var stateInfos = battlerInfo.GetStateInfoAll(StateType.Death);
+                                    for (var i = 0;i < stateInfos.Count;i++)
                                     {
-                                        if (actionResultInfo.TargetIndex.Value == battlerInfo.Index.Value)
+                                        battlerInfo.RemoveState(stateInfos[i],true);
+                                        battlerInfo.SetPreserveAlive(true);
+                                    }
+                                }
+                                break;
+                            case TriggerType.AllEnemyCurseState:
+                                /*
+                                if (battlerInfo.IsAlive() && opponents.AliveBattlerInfos.Find(a => !a.IsState(StateType.DeBuffUpper)) == null && opponents.AliveBattlerInfos.FindAll(a => a.IsAlive()).Count > 0)
+                                {
+                                    IsTriggered = true;
+                                }
+                                */
+                                break;
+                            case TriggerType.AllEnemyFreezeState:
+                                if (battlerInfo.IsAlive() && opponents.AliveBattlerInfos.Find(a => !a.IsState(StateType.Freeze)) == null && opponents.AliveBattlerInfos.FindAll(a => a.IsAlive()).Count > 0)
+                                {
+                                    IsTriggered = true;
+                                }
+                                break;
+                            case TriggerType.DemigodMemberCount:
+                                if (battlerInfo.IsAlive())
+                                {
+                                    var demigodMember = opponents.AliveBattlerInfos.FindAll(a => a.IsState(StateType.Demigod));
+                                    if (demigodMember.Count >= triggerData.Param1)
+                                    {
+                                        IsTriggered = true;
+                                    }
+                                }
+                                break;
+                            case TriggerType.ActionResultAddState:
+                                if (battlerInfo.IsAlive())
+                                {
+                                    if (actionInfo != null && battlerInfo.IsActor != GetBattlerInfo(actionInfo.SubjectIndex.Value).IsActor)
+                                    {
+                                        var states = actionInfo.SkillInfo.FeatureDates.FindAll(a => a.FeatureType == FeatureType.AddState);
+                                        foreach (var state in states)
                                         {
-                                            if (actionResultInfo.Missed)
+                                            if (state.Param1 == (int)StateType.Stun || state.Param1 == (int)StateType.BurnDamage || state.Param1 == (int)StateType.Freeze)
                                             {
                                                 IsTriggered = true;
                                             }
                                         }
                                     }
                                 }
-                            }
-                            break;
+                                break;
+                            case TriggerType.DefeatEnemyByAttack:
+                                if (actionInfo != null && actionResultInfos != null)
+                                {
+                                    var attackBattler = GetBattlerInfo(actionInfo.SubjectIndex.Value);
+                                    if (battlerInfo.IsAlive() && attackBattler != null && battlerInfo.Index == attackBattler.Index)
+                                    {
+                                        foreach (var actionResultInfo in actionResultInfos)
+                                        {
+                                            foreach (var deadIndex in actionResultInfo.DeadIndexList)
+                                            {
+                                                if (battlerInfo.IsActor != GetBattlerInfo(deadIndex).IsActor)
+                                                {
+                                                    IsTriggered = true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            case TriggerType.AwakenDemigodAttribute:
+                                var DemigodAttributes = friends.AliveBattlerInfos.FindAll(a => a.IsAwaken);
+                                if (battlerInfo.IsAlive() && DemigodAttributes.Count > 0 && DemigodAttributes.Find(a => a.Skills.Find(b => b.Attribute == (AttributeType)triggerData.Param1 && b.Master.SkillType == SkillType.Unique) != null) != null)
+                                {
+                                    IsTriggered = true;
+                                }
+                                break;
+                            case TriggerType.ActionResultSelfDeath:
+                                if (battlerInfo.IsAlive())
+                                {
+                                    if (actionResultInfos.Find(a => a.DeadIndexList.Contains(battlerInfo.Index.Value)) != null)
+                                    {
+                                        IsTriggered = true;
+                                    }
+                                }
+                                break;
+                            case TriggerType.InterruptAttackDodge:
+                                if (battlerInfo.IsAlive())
+                                {
+                                    if (actionInfo != null && battlerInfo.IsActor != GetBattlerInfo(actionInfo.SubjectIndex.Value).IsActor)
+                                    {
+                                        foreach (var actionResultInfo in actionInfo.ActionResults)
+                                        {
+                                            if (actionResultInfo.TargetIndex.Value == battlerInfo.Index.Value)
+                                            {
+                                                if (actionResultInfo.Missed)
+                                                {
+                                                    IsTriggered = true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
                             case TriggerType.HasMostCountTurnSKill:
                                 if (battlerInfo.IsAlive())
                                 {
@@ -2770,10 +2770,32 @@ namespace Ryneus
                 */
 
                 // 獲得経験値アップ付与
-                var expRateUp = actorInfo.Skills.Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.GetExpRateUp) != null);
-                if (expRateUp != null)
+                var expRateUps = actorInfo.Skills.FindAll(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.GetExpRateUp) != null);
+                var upperRate = 0f;
+                foreach (var expRateUp in expRateUps)
                 {
-                    gainExp *= 1 + (int)(expRateUp.FeatureDates[0].Param1 * 0.01f);
+                    upperRate += expRateUp.FeatureDates[0].Param1 * 0.01f;
+                }
+                // 施設効果経験値アップ付与
+                var expRateUpBuildings = PartyInfo.BuildingSkills().FindAll(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.GetExpRateUp) != null);
+                // 重複はしない
+                // triggerあり
+                var upperBuildingsRate = 0f;
+                foreach (var expRateUpBuilding in expRateUpBuildings)
+                {
+                    if (IsTriggeredSkillInfo(actorInfo,expRateUpBuilding.TriggerDates,null,null))
+                    {
+                        var rate = expRateUpBuilding.FeatureDates[0].Param1 * 0.01f;
+                        if (rate > upperBuildingsRate)
+                        {
+                            upperBuildingsRate = rate;
+                        }
+                    }
+                }
+                upperRate += upperBuildingsRate;
+                if (upperRate > 0)
+                {
+                    gainExp *= 1 + (int)(upperRate);
                 }
 
                 if (gainExp <= 0)

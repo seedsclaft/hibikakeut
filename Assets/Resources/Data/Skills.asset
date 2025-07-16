@@ -5783,7 +5783,7 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 320010
-    Name: "\u8A13\u7DF4\u65BD\u8A2D"
+    Name: "\u8A13\u7DF4\u6240Lv1"
     IconIndex: 6
     AnimationId: 0
     AnimationType: 1
@@ -5820,8 +5820,46 @@ MonoBehaviour:
       Param1: 3
       Param2: 0
       Param3: 0
+  - Id: 320011
+    Name: "\u8A13\u7DF4\u6240Lv2"
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 220
+    Attribute: 4
+    Scope: 3
+    SkillType: 8
+    TargetType: 2
+    Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\nLv\u306E\u4F4E\u30443\u4EBA\u307E\u3067Exp+50"
+    Range: 2
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 320011
+      FeatureType: 40030
+      Param1: 50
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 320011
+      TriggerType: 40020
+      TriggerTiming: 4
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers:
+    - SkillId: 320011
+      TriggerType: 14520
+      TriggerTiming: 2
+      Param1: 3
+      Param2: 0
+      Param3: 0
   - Id: 320020
-    Name: "\u7814\u7A76\u65BD\u8A2D"
+    Name: "\u7814\u7A76\u65BD\u8A2DLv1"
     IconIndex: 6
     AnimationId: 0
     AnimationType: 1
@@ -5852,7 +5890,103 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
     ScopeTriggers: []
+  - Id: 320021
+    Name: "\u7814\u7A76\u65BD\u8A2DLv2"
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 220
+    Attribute: 4
+    Scope: 4
+    SkillType: 8
+    TargetType: 4
+    Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\n(Nu)\u30924\u5165\u624B"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 320021
+      FeatureType: 40040
+      Param1: 4
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 320021
+      TriggerType: 40020
+      TriggerTiming: 4
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
   - Id: 320030
+    Name: "\u8CC7\u6599\u9928Lv1"
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 220
+    Attribute: 4
+    Scope: 3
+    SkillType: 8
+    TargetType: 2
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u52DD\u5229\u6642\nLv10\u4EE5\u4E0B\u306E\u4EF2\u9593\u306E\u30D0\u30C8\u30EB\u5165\u624B\u7D4C\u9A13\u5024+50%"
+    Range: 2
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 320030
+      FeatureType: 40020
+      Param1: 0
+      Param2: 50
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 320030
+      TriggerType: 14420
+      TriggerTiming: 4
+      Param1: 10
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 320031
+    Name: "\u8CC7\u6599\u9928Lv2"
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 220
+    Attribute: 4
+    Scope: 3
+    SkillType: 8
+    TargetType: 2
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u52DD\u5229\u6642\nLv20\u4EE5\u4E0B\u306E\u4EF2\u9593\u306E\u30D0\u30C8\u30EB\u5165\u624B\u7D4C\u9A13\u5024+50%"
+    Range: 2
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 320031
+      FeatureType: 40020
+      Param1: 0
+      Param2: 50
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 320031
+      TriggerType: 14420
+      TriggerTiming: 4
+      Param1: 20
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 321010
     Name: "\u708E\u306E\u796D\u58C7"
     IconIndex: 6
     AnimationId: 0
@@ -5870,21 +6004,21 @@ MonoBehaviour:
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
-    - SkillId: 320030
+    - SkillId: 321010
       FeatureType: 40050
       Param1: 1
       Param2: 1
       Param3: 0
       Rate: 100
     TriggerDates:
-    - SkillId: 320030
+    - SkillId: 321010
       TriggerType: 0
       TriggerTiming: 4
       Param1: 0
       Param2: 0
       Param3: 0
     ScopeTriggers: []
-  - Id: 320040
+  - Id: 321020
     Name: "\u7A32\u59BB\u306E\u796D\u58C7"
     IconIndex: 6
     AnimationId: 0
@@ -5902,21 +6036,21 @@ MonoBehaviour:
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
-    - SkillId: 320040
+    - SkillId: 321020
       FeatureType: 40050
       Param1: 2
       Param2: 1
       Param3: 0
       Rate: 100
     TriggerDates:
-    - SkillId: 320040
+    - SkillId: 321020
       TriggerType: 0
       TriggerTiming: 4
       Param1: 0
       Param2: 0
       Param3: 0
     ScopeTriggers: []
-  - Id: 320050
+  - Id: 321030
     Name: "\u84BC\u306E\u796D\u58C7"
     IconIndex: 6
     AnimationId: 0
@@ -5934,21 +6068,21 @@ MonoBehaviour:
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
-    - SkillId: 320050
+    - SkillId: 321030
       FeatureType: 40050
       Param1: 3
       Param2: 1
       Param3: 0
       Rate: 100
     TriggerDates:
-    - SkillId: 320050
+    - SkillId: 321030
       TriggerType: 0
       TriggerTiming: 4
       Param1: 0
       Param2: 0
       Param3: 0
     ScopeTriggers: []
-  - Id: 320060
+  - Id: 321040
     Name: "\u5149\u306E\u796D\u58C7"
     IconIndex: 6
     AnimationId: 0
@@ -5966,21 +6100,21 @@ MonoBehaviour:
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
-    - SkillId: 320060
+    - SkillId: 321040
       FeatureType: 40050
       Param1: 4
       Param2: 1
       Param3: 0
       Rate: 100
     TriggerDates:
-    - SkillId: 320060
+    - SkillId: 321040
       TriggerType: 0
       TriggerTiming: 4
       Param1: 0
       Param2: 0
       Param3: 0
     ScopeTriggers: []
-  - Id: 320070
+  - Id: 321050
     Name: "\u6708\u306E\u796D\u58C7"
     IconIndex: 6
     AnimationId: 0
@@ -5998,14 +6132,14 @@ MonoBehaviour:
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
-    - SkillId: 320070
+    - SkillId: 321050
       FeatureType: 40050
       Param1: 5
       Param2: 1
       Param3: 0
       Rate: 100
     TriggerDates:
-    - SkillId: 320070
+    - SkillId: 321050
       TriggerType: 0
       TriggerTiming: 4
       Param1: 0

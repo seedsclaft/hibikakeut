@@ -18,6 +18,8 @@ namespace Ryneus
                     return true;
                 case TriggerType.LvUpper:
                     return triggerData.Param1 <= battlerInfo.Level.Value;
+                case TriggerType.LvLower:
+                    return triggerData.Param1 >= battlerInfo.Level.Value;
             }
             return isTrigger;
         }
