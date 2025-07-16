@@ -28,7 +28,7 @@ namespace Ryneus
             base.SetData(listDates);
         }
 
-        public void SetBattlerInfoComp(List<ListData> listDates)
+        private void SetBattlerInfoComp(List<ListData> listDates)
         {
             damageRoots.ForEach(a => a.SetActive(false));
             for (var i = 0;i < listDates.Count;i++)

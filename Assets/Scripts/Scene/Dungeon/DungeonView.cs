@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Ryneus.Dungeon;
 using TMPro;
+using DG.Tweening;
 
 namespace Ryneus
 {
@@ -23,6 +24,10 @@ namespace Ryneus
         [SerializeField] private InputInfoComponent decideInpurKey = null;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent;
         [SerializeField] private OnOffButton alcanaInfoButton;
+        [SerializeField] private TextMeshProUGUI minusVictoryBonus;
+        [SerializeField] private TextMeshProUGUI minusEvaluate;
+        private readonly Dictionary<int,BattlerInfoComponent> _battlerComps = new();
+        private List<Sequence> _sequences = new();
         //[SerializeField] private OnOffButton healButton = null;
 
         public override void Initialize()
@@ -94,6 +99,14 @@ namespace Ryneus
         {
             partyUnitList.SetData(listDatas);
             SetActivate(null);
+            foreach (var battlerInfo in listDatas)
+            {
+                var data = (BattlerInfo)battlerInfo.Data;
+                if (data.Index.Value > 0)
+                {
+                    _battlerComps[data.Index.Value] = partyUnitList.GetBattlerInfoComp(data.Index.Value);
+                }
+            }
         }
 
         public void UpdatePartyUnitList(List<ListData> listDatas)
@@ -218,6 +231,103 @@ namespace Ryneus
         public void ChangeSkybox(Material material)
         {
             RenderSettings.skybox = material;
+        }
+
+        public void StartDamage(int value)
+        {
+            foreach (var battlerComp in _battlerComps)
+            {
+                StartDamage(battlerComp.Key, DamageType.HpDamage, value);
+            }
+        }
+
+        public void StartDamage(int targetIndex,DamageType damageType,int value,bool needPopupDelay = true)
+        {
+            if (!_battlerComps.ContainsKey(targetIndex))
+            {
+                return;
+            }
+            _battlerComps[targetIndex].StartDamage(damageType,value,needPopupDelay);
+        }
+
+        public void StartBlink(int targetIndex)
+        {
+            if (!_battlerComps.ContainsKey(targetIndex))
+            {
+                return;
+            }
+            _battlerComps[targetIndex].StartBlink();
+        }
+
+        public void StartHeal(int value)
+        {
+            foreach (var battlerComp in _battlerComps)
+            {
+                StartHeal(battlerComp.Key, DamageType.HpHeal, value);
+            }
+        }
+
+        private void StartHeal(int targetIndex,DamageType damageType, int value, bool needPopupDelay = true)
+        {
+            if (!_battlerComps.ContainsKey(targetIndex))
+            {
+                return;
+            }
+            _battlerComps[targetIndex].StartHeal(damageType,value,needPopupDelay);
+        }
+
+        public void MinusVictoryBonus(float minus)
+        {
+            SeekTweens();
+            var lastY = 334;//minusVictoryBonus.transform.localPosition.y;
+            minusVictoryBonus.transform.DOLocalMoveY(lastY, 0);
+            minusVictoryBonus.SetText("-" + minus.ToString());
+            minusVictoryBonus.DOFade(1f, 0);
+            var sequence = DOTween.Sequence()
+                .Append(minusVictoryBonus.transform.DOLocalMoveY(lastY - 24, 0.8f))
+                .Append(minusVictoryBonus.transform.DOLocalMoveY(lastY - 24, 2f))
+                .Append(minusVictoryBonus.DOFade(0f, 0.8f))
+                .SetEase(Ease.OutQuart)
+                .OnComplete(() =>
+                {
+                    minusVictoryBonus.transform.DOLocalMoveY(lastY, 0);
+                });
+            _sequences.Add(sequence);
+        }
+
+        public void MinusEvaluate(int minus)
+        {
+            SeekTweens();
+            var lastY = 224;//minusEvaluate.transform.localPosition.y;
+            minusEvaluate.transform.DOLocalMoveY(lastY, 0);
+            minusEvaluate.SetText("-" + minus.ToString());
+            minusEvaluate.DOFade(1f, 0);
+            var sequence = DOTween.Sequence()
+                .Append(minusEvaluate.transform.DOLocalMoveY(lastY - 24, 0.8f))
+                .Append(minusEvaluate.transform.DOLocalMoveY(lastY - 24, 2f))
+                .Append(minusEvaluate.DOFade(0f, 0.8f))
+                .SetEase(Ease.OutQuart)
+                .OnComplete(() =>
+                {
+                    minusEvaluate.transform.DOLocalMoveY(lastY, 0);
+                });
+            _sequences.Add(sequence);
+        }
+
+        private void SeekTweens()
+        {
+            foreach (var sequences in _sequences)
+            {
+                sequences.Complete();
+            }
+        }
+
+        void OnDestroy()
+        {
+            foreach (var sequences in _sequences)
+            {
+                sequences.Kill();
+            }
         }
     }
 

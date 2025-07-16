@@ -24,7 +24,7 @@ namespace Ryneus
             }
         }
 
-        public void StartGetExpAnimation(List<StrategyActorLevelUpInfo> levelUpInfos,Action callEvent)
+        public void StartGetExpAnimation(List<StrategyActorLevelUpInfo> levelUpInfos, Action callEvent)
         {
             for (int i = 0; i < ItemPrefabList.Count;i++)
             {

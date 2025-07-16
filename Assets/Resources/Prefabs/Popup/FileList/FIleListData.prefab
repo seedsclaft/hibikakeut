@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140, y: 55.999996}
+  m_AnchoredPosition: {x: 120, y: 55.999996}
   m_SizeDelta: {x: 120, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7211151945411939604
@@ -336,7 +336,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -200, y: 55.999996}
+  m_AnchoredPosition: {x: -176, y: 55.999996}
   m_SizeDelta: {x: 240, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7779341204773528742
@@ -602,7 +602,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 40, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4940295484492148877
@@ -751,7 +751,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 16, y: -44}
-  m_SizeDelta: {x: 48, y: 40}
+  m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5494558950268442678
 CanvasRenderer:
@@ -781,7 +781,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fd7871a73864a2147a57697b5b13bd89, type: 2}
   m_sharedMaterial: {fileID: 7947116292471950640, guid: fd7871a73864a2147a57697b5b13bd89,
@@ -1000,6 +1000,7 @@ MonoBehaviour:
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
   disable: {fileID: 0}
+  batch: {fileID: 0}
   selectColor: {r: 0, g: 0, b: 0, a: 0}
   unSelectColor: {r: 0, g: 0, b: 0, a: 0}
   textUguiList: []
@@ -1035,6 +1036,7 @@ MonoBehaviour:
   profileText: {fileID: 0}
   evaluate: {fileID: 0}
   demigod: {fileID: 0}
+  lvCation: {fileID: 0}
   lv: {fileID: 0}
   exp: {fileID: 0}
   expGauge: {fileID: 0}
@@ -1058,6 +1060,7 @@ MonoBehaviour:
   battlePosition: {fileID: 0}
   unitTypeImage: {fileID: 0}
   unitTypeImageBack: {fileID: 0}
+  transferGetItemText: {fileID: 0}
 --- !u!114 &7509042224877532517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1072,14 +1075,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 2010411411096618164}
   stageNoText: {fileID: 0}
-  achieve: {fileID: 0}
-  achieveText: {fileID: 0}
   help: {fileID: 0}
-  turns: {fileID: 0}
-  clearCount: {fileID: 0}
   stageLv: {fileID: 0}
-  homeTeamInfoComponent: {fileID: 0}
-  awayTeamInfoComponent: {fileID: 0}
+  needStageRank: {fileID: 0}
+  stageImage: {fileID: 0}
+  bossImage: {fileID: 0}
+  bossLv: {fileID: 0}
+  bossName: {fileID: 0}
+  cleared: {fileID: 0}
+  mainStage: {fileID: 0}
+  subStage: {fileID: 0}
+  battleFieldStage: {fileID: 0}
 --- !u!114 &6374796301642788209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1183,7 +1189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -200, y: -16.000004}
+  m_AnchoredPosition: {x: -176, y: -16.000004}
   m_SizeDelta: {x: 480, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5830532265242173959
@@ -1320,7 +1326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: 55.999996}
+  m_AnchoredPosition: {x: 176, y: 55.999996}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3895088157757316881

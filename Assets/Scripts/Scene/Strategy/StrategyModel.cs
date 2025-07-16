@@ -136,7 +136,8 @@ namespace Ryneus
                         IsLevelUp = beforeLv != target.Level,
                         AfterRate = afterRate,
                         BeforeRate = beforeRate,
-                        PlusLv = target.Level - beforeLv
+                        PlusLv = target.Level - beforeLv,
+                        PlusExp = expGetItemInfo.Param2
                     });
                     if (beforeLv != target.Level)
                     {

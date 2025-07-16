@@ -464,6 +464,7 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Damage);
             _model.DamageFloor(stageEvent.Param);
+            _view.StartDamage(stageEvent.Param);
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
             if (_model.CheckGameover())
             {
@@ -594,7 +595,8 @@ namespace Ryneus
             };
             var getItemInfo = new GetItemInfo(itemData);
             _model.AddGetItemInfo(getItemInfo);
-            _model.PartyInfo.EvaluationValue.GainValue(-10,0);
+            _view.MinusEvaluate(-10);
+            _model.PartyInfo.EvaluationValue.GainValue(-10, 0);
             var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(10141,10.ToString()),(a) =>
             {
                 _busy = false;
@@ -706,6 +708,8 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Heal);
                 _model.UseCurrencyHeal();
+                _view.StartHeal(10);
+                _view.MinusVictoryBonus(-0.5f);
                 _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
                 CommandRefresh();
             } else

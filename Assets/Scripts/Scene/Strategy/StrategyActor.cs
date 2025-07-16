@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 namespace Ryneus
 {
@@ -12,6 +13,7 @@ namespace Ryneus
         [SerializeField] private Image bonusImage;
         [SerializeField] private Image shinyClip;
         [SerializeField] private StatusGaugeAnimation statusGaugeAnimation;
+        [SerializeField] private TextMeshProUGUI plusExp;
 
         private System.Action _callEvent = null;
 
@@ -23,7 +25,7 @@ namespace Ryneus
             }
             var data = ListItemData<ActorInfo>();
             component.Clear();
-            component.UpdateInfo(data,null);
+            component.UpdateInfo(data, null);
         }
 
         public void StartResultAnimation(int animId,bool isBonus)
@@ -79,6 +81,16 @@ namespace Ryneus
             {
                 statusGaugeAnimation.UpdateExpGaugeAnimation(levelUpInfo.AfterRate,_callEvent);
             }
+            plusExp.DOFade(0, 0);
+            plusExp.gameObject.SetActive(true);
+            plusExp.SetText("Exp+" + levelUpInfo.PlusExp.ToString());
+            var sequence = DOTween.Sequence()
+                .Append(plusExp.DOFade(1.0f, 0.8f))
+                .Join(plusExp.transform.DOLocalMoveY(-26, 0.8f))
+                .SetEase(Ease.OutQuart)
+                .OnComplete(() =>
+                {
+                });
         }
 
         public void SetShinyReflect(bool isEnable)
@@ -112,5 +124,6 @@ namespace Ryneus
         public float BeforeRate = 0f;
         public float AfterRate = 0f;
         public int PlusLv = 0;
+        public int PlusExp = 0;
     }
 }
