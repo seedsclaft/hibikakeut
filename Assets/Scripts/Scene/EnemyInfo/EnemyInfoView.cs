@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using EnemyInfo;
 
 namespace Ryneus
 {
-    public class EnemyInfoView : BaseView,IInputHandlerEvent
+    public class EnemyInfoView : BaseView, IInputHandlerEvent
     {
         [SerializeField] private BattleBattlerList battleEnemyLayer = null;
         [SerializeField] private BattleSelectCharacter selectCharacter = null;
         [SerializeField] private EnemyInfoComponent enemyInfoComponent = null;
+        [SerializeField] private Button leftArrowButton = null;
+        [SerializeField] private Button rightArrowButton = null;
+
         private System.Action _backEvent = null;
 
         public int EnemyListIndex => battleEnemyLayer.Index;
@@ -19,25 +23,36 @@ namespace Ryneus
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Status);
-            InitializeEnemyList();
+            //InitializeEnemyList();
             InitializeSelectCharacter();
-            new EnemyInfoPresenter(this);
-            SetInputHandler(gameObject);
+            if (leftArrowButton != null)
+            {
+                leftArrowButton.onClick.AddListener(() => CallViewEvent(CommandType.LeftEnemy));
+            }
+            if (rightArrowButton != null)
+            {
+                rightArrowButton.onClick.AddListener(() => CallViewEvent(CommandType.RightEnemy));
+            }
+            _ = new EnemyInfoPresenter(this);
         }
 
         private void InitializeEnemyList()
         {
+            /*
             battleEnemyLayer.Initialize();
             battleEnemyLayer.SetSelectedHandler(() => CallViewEvent(CommandType.SelectEnemy));
             SetInputHandler(battleEnemyLayer.gameObject);
+            */
         }
 
         public void SetEnemies(List<ListData> battlerInfos)
         {
+            /*
             battleEnemyLayer.SetData(battlerInfos);
             battleEnemyLayer.SetInputHandler(InputKeyType.Decide,() => {});
             battleEnemyLayer.SetInputHandler(InputKeyType.Cancel,() => OnClickBack());
             SetInputHandler(battleEnemyLayer.GetComponent<IInputHandlerEvent>());
+            */
         }
 
         private void InitializeSelectCharacter()
@@ -59,7 +74,7 @@ namespace Ryneus
             selectCharacter.SetActiveTab(SelectCharacterTabType.Condition,false);
         }
 
-        public void CommandRefreshStatus(List<ListData> skillInfos,BattlerInfo battlerInfo,List<ListData> skillTriggerInfos,List<int> enemyIndexes,int lastSelectIndex)
+        public void CommandRefreshStatus(List<ListData> skillInfos, BattlerInfo battlerInfo,List<ListData> skillTriggerInfos,List<int> enemyIndexes,int lastSelectIndex)
         {
             selectCharacter.ShowActionList();
             selectCharacter.SetEnemyBattlerInfo(battlerInfo);
@@ -72,7 +87,7 @@ namespace Ryneus
 
         public void UpdateEnemyList(int selectIndex)
         {
-            battleEnemyLayer.UpdateSelectIndex(selectIndex);
+            //battleEnemyLayer.UpdateSelectIndex(selectIndex);
         }
 
         private void OnClickBack()
@@ -109,8 +124,12 @@ namespace Ryneus
             _backEvent?.Invoke();
         }
 
-        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
+            if (InputSystem.GetInputDate(InputKeyType.Cancel).IsDownTrigger())
+            {
+                CommandBack();
+            }
         }
 
 

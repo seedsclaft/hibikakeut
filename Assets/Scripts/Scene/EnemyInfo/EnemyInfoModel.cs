@@ -12,11 +12,11 @@ namespace Ryneus
             _sceneParam = (StatusViewInfo)GameSystem.SceneStackManager.LastStatusViewInfo;
             _enemyBattlerInfos = _sceneParam.EnemyInfos;
         }
-        
+
         private List<BattlerInfo> _enemyBattlerInfos = new();
         public List<BattlerInfo> EnemyBattlerInfos => _enemyBattlerInfos;
 
-        private int _currentIndex = 0; 
+        private int _currentIndex = 0;
         public int CurrentIndex => _currentIndex;
 
         public List<int> EnemyIndexes()
@@ -35,7 +35,7 @@ namespace Ryneus
         }
 
         public BattlerInfo CurrentEnemy => _currentIndex > -1 ? _enemyBattlerInfos[_currentIndex] : null;
-        
+
         public List<SkillInfo> SkillActionList()
         {
             var skillInfos = new List<SkillInfo>();

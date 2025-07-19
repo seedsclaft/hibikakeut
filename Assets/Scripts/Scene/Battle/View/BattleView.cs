@@ -150,12 +150,13 @@ namespace Ryneus
         private void InitializeEnemyLayer()
         {
             battleEnemyList.Initialize();
-            battleEnemyList.SetInputHandler(InputKeyType.Up,() => OnSelectTarget(InputKeyType.Up));
-            battleEnemyList.SetInputHandler(InputKeyType.Down,() => OnSelectTarget(InputKeyType.Down));
-            battleEnemyList.SetInputHandler(InputKeyType.Right,() => OnSelectTarget(InputKeyType.Right));
-            battleEnemyList.SetInputHandler(InputKeyType.Left,() => OnSelectTarget(InputKeyType.Left));
-            battleEnemyList.SetInputHandler(InputKeyType.Decide,OnDecideEnemy);
-            battleEnemyList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.OnCancelEnemy));
+            battleEnemyList.SetInputHandler(InputKeyType.Up, () => OnSelectTarget(InputKeyType.Up));
+            battleEnemyList.SetInputHandler(InputKeyType.Down, () => OnSelectTarget(InputKeyType.Down));
+            battleEnemyList.SetInputHandler(InputKeyType.Right, () => OnSelectTarget(InputKeyType.Right));
+            battleEnemyList.SetInputHandler(InputKeyType.Left, () => OnSelectTarget(InputKeyType.Left));
+            battleEnemyList.SetInputHandler(InputKeyType.Decide, OnDecideEnemy);
+            battleEnemyList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.OnCancelEnemy));
+            battleEnemyList.SetInputHandler(InputKeyType.Option1, () => CallEnemyDetailInfo());
             //battleEnemyUnitList.SetSelectedHandler(TargetSelectCursor);
             AddViewActives(battleEnemyList);
         }
@@ -459,15 +460,14 @@ namespace Ryneus
             HelpWindow.SetHelpText(text);
         }
 
-        private void CallEnemyDetailInfo(List<BattlerInfo> battlerInfos)
+        private void CallEnemyDetailInfo()
         {
-            if (_animationBusy) return;
-            var selectedIndex = battleEnemyList.SelectedIndex;
-            var battlerInfo = battlerInfos.Find(a => a.Index.Value == selectedIndex);
-            if (battlerInfo != null)
+            if (_animationBusy)
             {
-                CallViewEvent(CommandType.EnemyDetail,selectedIndex);
+                return;
             }
+            var battlerInfo = battleEnemyList.ListItemData<BattlerInfo>();
+            CallViewEvent(CommandType.EnemyDetail, battlerInfo);
         }
 
         public void SelectedCharacter(BattlerInfo battlerInfo)

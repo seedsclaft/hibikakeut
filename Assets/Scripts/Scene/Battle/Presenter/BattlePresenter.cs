@@ -258,7 +258,7 @@ namespace Ryneus
                     CommandEscape();
                     break;
                 case CommandType.EnemyDetail:
-                    CommandEnemyDetail((int)viewEvent.Template);
+                    CommandEnemyDetail((BattlerInfo)viewEvent.Template);
                     break;
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu();
@@ -332,12 +332,15 @@ namespace Ryneus
         {
         }
 
-        private void CommandEnemyDetail(int enemyIndex)
+        private void CommandEnemyDetail(BattlerInfo battlerInfo)
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);  
+            if (battlerInfo == null)
+            {
+                return;
+            }
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
-            var enemyInfo = _model.GetBattlerInfo(enemyIndex);
-            CommandEnemyInfo(new List<BattlerInfo>(){enemyInfo},true,() => 
+            CommandEnemyInfo(new List<BattlerInfo>(){battlerInfo}, true, () =>
             {
                 _busy = false;
             });

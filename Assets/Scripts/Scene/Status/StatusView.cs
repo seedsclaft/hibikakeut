@@ -1,14 +1,14 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using System;
 using Ryneus.Status;
 
 namespace Ryneus
 {
-    public class StatusView : BaseView,IInputHandlerEvent
+    public class StatusView : BaseView, IInputHandlerEvent
     {
         [SerializeField] private Button helpButton = null;
         [SerializeField] private MagicList equipSkillList = null;
