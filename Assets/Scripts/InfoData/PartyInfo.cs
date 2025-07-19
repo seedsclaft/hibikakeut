@@ -92,24 +92,24 @@ namespace Ryneus
         public ParameterInt Currency = new();
 
         // 所持アイテム
-        private Dictionary<int,ParameterInt> _items = new();
-        public Dictionary<int,ParameterInt> Items => _items;
-        private void GainItemNum(int itemId,int num)
+        private Dictionary<int, ParameterInt> _items = new();
+        public Dictionary<int, ParameterInt> Items => _items;
+        private void GainItemNum(int itemId, int num)
         {
             if (!_items.ContainsKey(itemId))
             {
                 _items[itemId] = new();
             }
-            _items[itemId].GainValue(num,0,9999);
+            _items[itemId].GainValue(num, 0, 9999);
         }
 
-        public void ConsuneItemNum(int itemId,int num)
+        public void ConsuneItemNum(int itemId, int num)
         {
             if (!_items.ContainsKey(itemId))
             {
                 return;
             }
-            _items[itemId].GainValue(num * -1,0,9999);
+            _items[itemId].GainValue(num * -1, 0, 9999);
         }
 
         public bool IsOwnItem()

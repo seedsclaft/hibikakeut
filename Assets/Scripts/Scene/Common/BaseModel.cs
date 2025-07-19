@@ -43,10 +43,6 @@ namespace Ryneus
             GameSystem.OptionData = new SaveOptionInfo();
         }
 
-        public void LostActors(List<ActorInfo> lostMembers)
-        {
-        }
-
         public List<ActorInfo> StageMembers()
         {
             return PartyInfo.ActorInfos;

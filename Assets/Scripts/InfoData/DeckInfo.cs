@@ -40,9 +40,9 @@ namespace Ryneus
         public ParameterInt Encount = new();
 
         // 編成情報
-        private Dictionary<int,int> _actorIdDict = new();
-        public Dictionary<int,int> ActorIdDict => _actorIdDict;
-        public void SetActorIdDict(Dictionary<int,int> actorIdDict) => _actorIdDict = actorIdDict;
+        private Dictionary<int, int> _actorIdDict = new();
+        public Dictionary<int, int> ActorIdDict => _actorIdDict;
+        public void SetActorIdDict(Dictionary<int, int> actorIdDict) => _actorIdDict = actorIdDict;
         public void TransferActorInfo(int actorId)
         {
             foreach (var actorIdDict in _actorIdDict)
@@ -53,7 +53,8 @@ namespace Ryneus
                 }
             }
         }
-        public void SwapBattler(int fromEditIndex,int toActorId)
+
+        public void SwapBattler(int fromEditIndex, int toActorId)
         {
             var toEditIndex = FindEditIndex(toActorId);
             var beforeEditIndex = _actorIdDict[fromEditIndex];
@@ -64,7 +65,7 @@ namespace Ryneus
             }
         }
 
-        public void SwapBattler(int fromEditIndex,int toActorId,int toEditIndex)
+        public void SwapBattler(int fromEditIndex, int toActorId, int toEditIndex)
         {
             //var toEditIndex = FindEditIndex(toActorId);
             var beforeEditIndex = _actorIdDict[fromEditIndex];

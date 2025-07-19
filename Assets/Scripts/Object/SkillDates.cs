@@ -421,6 +421,7 @@ namespace Ryneus
         ExtendStageTurn = 30010, // 存在猶予を延長している
         DungeonMoveEnd = 40010, // ダンジョンで移動する
         NextPeriod = 40020, // ピリオド経過
+        DungeonStart = 40030, // ダンジョン開始時
     }
 
     public enum TriggerTiming
@@ -509,6 +510,7 @@ namespace Ryneus
         GetExp = 40030, // Exp入手
         GetCurrency = 40040, // Nu入手
         AttributeRateUp = 40050, // 属性適正アップ
+        StageTurnUp = 40060, // ステージ探索猶予アップ
         Numinous = 301,
         TacticsCost = 302,
         EnemyLv = 303,

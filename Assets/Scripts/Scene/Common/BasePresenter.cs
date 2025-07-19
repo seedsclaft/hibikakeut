@@ -25,34 +25,34 @@ namespace Ryneus
             return ListData.MakeListData(dataList);
         }
 
-        public List<ListData> MakeListData<T>(List<T> dataList,int selectIndex)
+        public List<ListData> MakeListData<T>(List<T> dataList, int selectIndex)
         {
-            return ListData.MakeListData(dataList,selectIndex);
+            return ListData.MakeListData(dataList, selectIndex);
         }
 
-        public List<ListData> MakeListDataFunc<T>(List<T> dataList,int selectIndex,Func<T,bool> enableFunc)
+        public List<ListData> MakeListDataFunc<T>(List<T> dataList, int selectIndex, Func<T,bool> enableFunc)
         {
-            return ListData.MakeListData(dataList,selectIndex,enableFunc);
+            return ListData.MakeListData(dataList, selectIndex, enableFunc);
         }
 
-        public List<ListData> MakeListData<T>(List<T> dataList,T selected)
+        public List<ListData> MakeListData<T>(List<T> dataList, T selected)
         {
-            return ListData.MakeListData(dataList,selected);
+            return ListData.MakeListData(dataList, selected);
         }
 
-        public List<ListData> MakeListData<T>(List<T> dataList,List<T> selected)
+        public List<ListData> MakeListData<T>(List<T> dataList, List<T> selected)
         {
-            return ListData.MakeListData(dataList,selected);
+            return ListData.MakeListData(dataList, selected);
         }
 
-        public List<ListData> MakeListData<T>(List<T> dataList,Func<T,bool> enable,Func<T,bool> selectFunc)
+        public List<ListData> MakeListData<T>(List<T> dataList, Func<T, bool> enable, Func<T, bool> selectFunc)
         {
-            return ListData.MakeListData(dataList,enable,selectFunc);
+            return ListData.MakeListData(dataList, enable, selectFunc);
         }
 
-        public List<ListData> MakeListData<T>(List<T> dataList,Func<T,bool> enable,Func<T,bool> selectFunc,Func<T,bool> batchFunc,int selectIndex)
+        public List<ListData> MakeListData<T>(List<T> dataList, Func<T, bool> enable, Func<T, bool> selectFunc, Func<T, bool> batchFunc,int selectIndex)
         {
-            return ListData.MakeListData(dataList,enable,selectFunc,batchFunc,selectIndex);
+            return ListData.MakeListData(dataList, enable, selectFunc, batchFunc, selectIndex);
         }
 
         public StageEventData GetStageEventData(EventTiming eventTiming)
@@ -65,7 +65,7 @@ namespace Ryneus
             return null;
         }
 
-        private void CheckStageEvent(int advId,Action<bool> callEvent = null)
+        private void CheckStageEvent(int advId, Action<bool> callEvent = null)
         {
             var advInfo = CheckAdvStageEvent(advId);
             if (advInfo != null)
@@ -89,14 +89,14 @@ namespace Ryneus
             return advInfo;
         }
 
-        public void CheckStageAdvEvent(int advId,float timeStamp = 0,Action endEvent = null)
+        public void CheckStageAdvEvent(int advId, float timeStamp = 0, Action endEvent = null)
         {
-            CheckStageEvent(advId,(a) => endEvent?.Invoke());
+            CheckStageEvent(advId, (a) => endEvent?.Invoke());
         }
 
-        public bool CheckAdvEvent(EventTiming eventTiming,float timeStamp = 0,Action endEvent = null)
+        public bool CheckAdvEvent(EventTiming eventTiming, float timeStamp = 0, Action endEvent = null)
         {
-            if (CheckEvent(eventTiming,(a) => CheckAdvEvent(eventTiming,timeStamp,endEvent)))
+            if (CheckEvent(eventTiming, (a) => CheckAdvEvent(eventTiming, timeStamp, endEvent)))
             {
                 return true;
             } else
@@ -112,7 +112,7 @@ namespace Ryneus
             if (advInfo != null)
             {
                 BeforeStageAdv();
-                _view.WaitFrame(10,() =>
+                _view.WaitFrame(10, () =>
                 {
                     advInfo.SetCallEvent(() =>
                     {
@@ -125,7 +125,7 @@ namespace Ryneus
             return false;
         }
 
-        private AdvCallInfo CheckAdvStageEvent(EventTiming eventTiming,int selectActorId = 0)
+        private AdvCallInfo CheckAdvStageEvent(EventTiming eventTiming, int selectActorId = 0)
         {
             var stageEvents = _model.StageEvents(eventTiming);
             var find = stageEvents.Find(a => a.Type == StageEventType.AdvStart);
@@ -166,7 +166,7 @@ namespace Ryneus
             if (bgmData != null)
             {
                 var bgm = await _model.GetBgmData(bgmData.Key);
-                SoundManager.Instance.PlayBgm(bgm,bgmData.Volume,true,timeStamp);
+                SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true, timeStamp);
             } else
             {
                 SoundManager.Instance.FadeOutBgm();
@@ -178,14 +178,14 @@ namespace Ryneus
             if (_model.CurrentStage == null)
             {
                 var bgm = await _model.GetBgmData("Battle1");
-                SoundManager.Instance.PlayBgm(bgm,1);
+                SoundManager.Instance.PlayBgm(bgm, 1);
                 return;
             }
             var bgmData = DataSystem.BGM.Find(a => a.Id == _model.CurrentStage.Master.BattleBGMId);
             if (bgmData != null)
             {
                 var bgm = await _model.GetBgmData(bgmData.Key);
-                SoundManager.Instance.PlayBgm(bgm,bgmData.Volume);
+                SoundManager.Instance.PlayBgm(bgm, bgmData.Volume);
             }
         }
 
@@ -193,7 +193,7 @@ namespace Ryneus
         {
             var bgmData = DataSystem.BGM.Find(a => a.Id == _model.CurrentStage.Master.BossBGMId);
             var bgm = await _model.GetBgmData(bgmData.Key);
-            SoundManager.Instance.PlayBgm(bgm,bgmData.Volume);
+            SoundManager.Instance.PlayBgm(bgm, bgmData.Volume);
         }
 
         public void CommandSave(bool isReturnScene)
@@ -242,7 +242,7 @@ namespace Ryneus
             _model.GainSaveCount();
             _model.SavePlayerStageData(true,GameSystem.SceneStackManager.Current);
             // 成功表示
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(19500),(a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(19500), (a) =>
             {
                 if (isReturnScene)
                 {
@@ -260,7 +260,7 @@ namespace Ryneus
         /// ステータス詳細を表示
         /// </summary>
         /// <param name="actorInfos"></param>
-        public void CommandStatusInfo(List<ActorInfo> actorInfos,bool inBattle,bool backButton = true,bool levelUpObj = true,bool addActor = false,int startIndex = -1,Action closeEvent = null,bool isRanking = false,bool characterList = false)
+        public void CommandStatusInfo(List<ActorInfo> actorInfos, bool inBattle, bool backButton = true,bool levelUpObj = true,bool addActor = false,int startIndex = -1,Action closeEvent = null,bool isRanking = false,bool characterList = false)
         {
             var statusViewInfo = new StatusViewInfo(() =>
             {
@@ -279,7 +279,7 @@ namespace Ryneus
             statusViewInfo.DisplayLvUpInfo.SetValue(levelUpObj);
             statusViewInfo.DisplayBackButton.SetValue(backButton);
             statusViewInfo.IsRanking.SetValue(isRanking);
-            _view.CallSystemCommand(Base.CommandType.CallStatusView,statusViewInfo);
+            _view.CallSystemCommand(Base.CommandType.CallStatusView, statusViewInfo);
             _view.ChangeUIActive(false);
         }
 
@@ -287,7 +287,7 @@ namespace Ryneus
         /// 仲間加入ステータス詳細を表示
         /// </summary>
         /// <param name="actorInfos"></param>
-        public void CommandAddActorStatusInfo(List<ActorInfo> actorInfos,Action closeEvent = null)
+        public void CommandAddActorStatusInfo(List<ActorInfo> actorInfos, Action closeEvent = null)
         {
             var statusViewInfo = new StatusViewInfo(() =>
             {
@@ -296,13 +296,13 @@ namespace Ryneus
                 _view.ChangeUIActive(true);
                 closeEvent?.Invoke();
             });
-            statusViewInfo.SetActorInfos(actorInfos,false);
+            statusViewInfo.SetActorInfos(actorInfos, false);
             statusViewInfo.DisplayDecideButton.SetValue(true);
             statusViewInfo.DisplayCharacterList.SetValue(true);
             statusViewInfo.DisplayLvUpInfo.SetValue(false);
             statusViewInfo.DisplayBackButton.SetValue(false);
             statusViewInfo.IsRanking.SetValue(false);
-            _view.CallSystemCommand(Base.CommandType.CallStatusView,statusViewInfo);
+            _view.CallSystemCommand(Base.CommandType.CallStatusView, statusViewInfo);
             _view.ChangeUIActive(false);
         }
 
@@ -310,17 +310,17 @@ namespace Ryneus
         /// 敵詳細を表示
         /// </summary>
         /// <param name="battlerInfos"></param>
-        public void CommandEnemyInfo(List<BattlerInfo> battlerInfos,bool inBattle,System.Action closeEvent = null)
+        public void CommandEnemyInfo(List<BattlerInfo> battlerInfos, bool inBattle, Action closeEvent = null)
         {
-            var enemyViewInfo = new StatusViewInfo(() => 
+            var enemyViewInfo = new StatusViewInfo(() =>
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 _view.CallSystemCommand(Base.CommandType.CloseStatus);
                 _view.ChangeUIActive(true);
                 closeEvent?.Invoke();
             });
-            enemyViewInfo.SetEnemyInfos(battlerInfos,inBattle);
-            _view.CallSystemCommand(Base.CommandType.CallEnemyInfoView,enemyViewInfo);
+            enemyViewInfo.SetEnemyInfos(battlerInfos, inBattle);
+            _view.CallSystemCommand(Base.CommandType.CallEnemyInfoView, enemyViewInfo);
             _view.ChangeUIActive(false);
         }
 
@@ -344,7 +344,7 @@ namespace Ryneus
                     closeEvent?.Invoke();
                 }
             };
-            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
+            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
         }
 
         public void CloseConfirm()
@@ -352,18 +352,18 @@ namespace Ryneus
             _view.CallSystemCommand(Base.CommandType.CloseConfirm);
         }
 
-        public void CommandCautionInfo(string title,int from = -1,int to = -1)
+        public void CommandCautionInfo(string title, int from = -1, int to = -1)
         {
             var cautionInfo = new CautionInfo();
             cautionInfo.SetTitle(title);
             if (from != -1 && to != -1)
             {
-                cautionInfo.SetLevelUp(from,to);
+                cautionInfo.SetLevelUp(from, to);
             }
             _view.CommandCallCaution(cautionInfo);
         }
 
-        public void CommandActorLevelUp(ActorInfo actorInfo,Action endEvent = null)
+        public void CommandActorLevelUp(ActorInfo actorInfo, Action endEvent = null)
         {
             if (_model.EnableActorLevelUp(actorInfo))
             {
@@ -377,7 +377,7 @@ namespace Ryneus
                 {
                     //_busy = true;
                     _view.SetBusy(true);
-                    var learnSkillInfo = new LearnSkillInfo(from,to,skills[0]);
+                    var learnSkillInfo = new LearnSkillInfo(from, to, skills[0]);
                     SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 
                     var popupInfo = new PopupInfo
@@ -393,7 +393,7 @@ namespace Ryneus
                     _view.CommandCallPopup(popupInfo);
                 } else
                 {
-                    CommandCautionInfo("",from,to);
+                    CommandCautionInfo("", from, to);
                     endEvent?.Invoke();
                     SoundManager.Instance.PlayStaticSe(SEType.CountUp);
                 }
@@ -406,9 +406,9 @@ namespace Ryneus
             }
         }
 
-        public void CommandLevelUp(ActorInfo actorInfo,Action endEvent = null)
+        public void CommandLevelUp(ActorInfo actorInfo, Action endEvent = null)
         {
-            CommandActorLevelUp(actorInfo,() =>
+            CommandActorLevelUp(actorInfo, () =>
             {
                 endEvent?.Invoke();
             });
@@ -437,7 +437,7 @@ namespace Ryneus
                     {
                         //_busy = true;
                         _view.SetBusy(true);
-                        var learnSkillInfo = new LearnSkillInfo(from,to,afterSkills[0]);
+                        var learnSkillInfo = new LearnSkillInfo(from, to, afterSkills[0]);
                         SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 
                         var popupInfo = new PopupInfo
@@ -453,7 +453,7 @@ namespace Ryneus
                         _view.CommandCallPopup(popupInfo);
                     } else
                     {
-                        CommandCautionInfo("",from,to);
+                        CommandCautionInfo("", from, to);
                         endEvent?.Invoke();
                         SoundManager.Instance.PlayStaticSe(SEType.CountUp);
                     }
@@ -463,10 +463,10 @@ namespace Ryneus
             endEvent?.Invoke();
         }
 
-        public void CommandLearnMagic(ActorInfo actorInfo,SkillInfo skillInfo,Action endEvent = null)
+        public void CommandLearnMagic(ActorInfo actorInfo, SkillInfo skillInfo, Action endEvent = null)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(19510,skillInfo.LearningCost.Value.ToString()) + DataSystem.GetReplaceText(19520,skillInfo.Master.Name),(a) => UpdatePopupLearnSkill(a,actorInfo,skillInfo,endEvent));
+            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(19510, skillInfo.LearningCost.Value.ToString()) + DataSystem.GetReplaceText(19520,skillInfo.Master.Name),(a) => UpdatePopupLearnSkill(a,actorInfo,skillInfo,endEvent));
             _view.CommandCallConfirm(confirmInfo);
         }
 
@@ -475,10 +475,10 @@ namespace Ryneus
             if (confirmCommandType == ConfirmCommandType.Yes)
             {
                 var from = actorInfo.Evaluate();
-                _model.ActorLearnMagic(actorInfo,skillInfo.Id.Value);
+                _model.ActorLearnMagic(actorInfo, skillInfo.Id.Value);
                 var to = actorInfo.Evaluate();
 
-                var learnSkillInfo = new LearnSkillInfo(from,to,skillInfo);
+                var learnSkillInfo = new LearnSkillInfo(from, to, skillInfo);
                 SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 
                 var popupInfo = new PopupInfo
@@ -495,7 +495,7 @@ namespace Ryneus
             }
         }
 
-        public bool CheckAchievements(bool checkMissionRank = false,Action endEvent = null)
+        public bool CheckAchievements(bool checkMissionRank = false, Action endEvent = null)
         {
             // 現在のRank
             var currentRank = _model.PartyInfo.MissionRank.Value;
@@ -507,7 +507,7 @@ namespace Ryneus
                 foreach (var achievement in achievements)
                 {
                     text += achievement.GetTitleData();
-                    if (achievement != achievements[achievements.Count-1])
+                    if (achievement != achievements[^1])
                     {
                         text += " ";
                     }
@@ -520,7 +520,7 @@ namespace Ryneus
             if (checkMissionRank && afterRank > currentRank)
             {
                 _model.PartyInfo.SetAchievementRank(DataSystem.Achievements);
-                var rankupInfo = new RankupInfo(currentRank,afterRank);
+                var rankupInfo = new RankupInfo(currentRank, afterRank);
                 SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 
                 var popupInfo = new PopupInfo
