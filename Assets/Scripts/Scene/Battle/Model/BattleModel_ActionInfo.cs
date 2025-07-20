@@ -41,15 +41,15 @@ namespace Ryneus
         /// <param name="actionInfo"></param>
         /// <param name="indexList"></param>
         /// <param name="IsInterrupt"></param>
-        public void AddReceiveActionInfo(ActionInfo actionInfo,List<int> indexList,bool IsInterrupt)
+        public void AddReceiveActionInfo(ActionInfo actionInfo, List<int> indexList, bool IsInterrupt)
         {
             SetActionInfoParameter(actionInfo);
-            MakeActionResultInfo(actionInfo,indexList);
-            AddActionInfo(actionInfo,IsInterrupt);
-            AddTurnActionInfos(actionInfo,IsInterrupt);
+            MakeActionResultInfo(actionInfo, indexList);
+            AddActionInfo(actionInfo, IsInterrupt);
+            AddTurnActionInfos(actionInfo, IsInterrupt);
         }
 
-        public void AddActionInfo(ActionInfo actionInfo,bool IsInterrupt)
+        public void AddActionInfo(ActionInfo actionInfo, bool IsInterrupt)
         {
             if (IsInterrupt)
             {
@@ -95,10 +95,10 @@ namespace Ryneus
         }
 
         // 行動を生成
-        public ActionInfo MakeActionInfo(BattlerInfo subject,SkillInfo skillInfo,bool IsInterrupt,bool IsTrigger)
+        public ActionInfo MakeActionInfo(BattlerInfo subject, SkillInfo skillInfo, bool IsInterrupt, bool IsTrigger)
         {
             var skillData = skillInfo.Master;
-            var targetIndexList = GetSkillTargetIndexList(skillInfo.Id.Value,subject.Index.Value,true);
+            var targetIndexList = GetSkillTargetIndexList(skillInfo.Id.Value, subject.Index.Value, true);
             if (subject.IsState(StateType.Substitute))
             {
                 int substituteId = subject.GetStateInfo(StateType.Substitute).BattlerId.Value;
@@ -108,7 +108,7 @@ namespace Ryneus
                     targetIndexList.Add(substituteId);
                 } else
                 {
-                    var tempIndexList = GetSkillTargetIndexList(skillInfo.Id.Value,subject.Index.Value,false);
+                    var tempIndexList = GetSkillTargetIndexList(skillInfo.Id.Value, subject.Index.Value, false);
                     if (tempIndexList.Contains(substituteId))
                     {
                         targetIndexList.Clear();
@@ -140,26 +140,26 @@ namespace Ryneus
                     }
                 }
             }
-            var actionInfo = new ActionInfo(skillInfo,_actionIndex,subject.Index.Value,lastTargetIndex,targetIndexList);
+            var actionInfo = new ActionInfo(skillInfo, _actionIndex, subject.Index.Value, lastTargetIndex, targetIndexList);
             _actionIndex++;
-            actionInfo.SetRangeType(CalcRangeType(actionInfo.Master,subject));
-            var actionScopeType = CalcScopeType(subject,actionInfo);
+            actionInfo.SetRangeType(CalcRangeType(actionInfo.Master, subject));
+            var actionScopeType = CalcScopeType(subject, actionInfo);
             actionInfo.SetScopeType(actionScopeType);
             if (IsTrigger)
             {
                 actionInfo.SetTriggerSkill(true);
             }
-            AddTurnActionInfos(actionInfo,IsInterrupt);
+            AddTurnActionInfos(actionInfo, IsInterrupt);
             return actionInfo;
         }
 
-        public void HitWeakPoint(int targetIndex,int skillId)
+        public void HitWeakPoint(int targetIndex, int skillId)
         {
             var target = GetBattlerInfo(targetIndex);
             if (!target.IsActor)
             {
                 var kindType = (KindType)DataSystem.FindSkill(skillId).Attribute;
-                CurrentData.PlayerInfo.AddEnemyWeakPointDict(target.EnemyData.Id,kindType);
+                CurrentData.PlayerInfo.AddEnemyWeakPointDict(target.EnemyData.Id, kindType);
                 target.SetWeakPoint(kindType);
             }
         }

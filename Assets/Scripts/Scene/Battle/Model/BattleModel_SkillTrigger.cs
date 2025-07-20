@@ -5,7 +5,7 @@ namespace Ryneus
 {
     public partial class BattleModel : BaseModel
     {
-        private Dictionary<int,ICheckTrigger> _checkTriggerDict = new ();
+        private Dictionary<int, ICheckTrigger> _checkTriggerDict = new();
         public void InitializeCheckTrigger()
         {
             _checkTriggerDict[1] = new CheckTriggerHp();
@@ -58,7 +58,7 @@ namespace Ryneus
         /// <param name="actionInfo"></param>
         /// <param name="actionResultInfos"></param>
         /// <returns></returns>
-        private (int,int) SelectSkillTargetBySkillTriggerDates(BattlerInfo battlerInfo,List<SkillTriggerInfo> skillTriggerInfos,ActionInfo actionInfo = null,List<ActionResultInfo> actionResultInfos = null)
+        private (int,int) SelectSkillTargetBySkillTriggerDates(BattlerInfo battlerInfo, List<SkillTriggerInfo> skillTriggerInfos,ActionInfo actionInfo = null,List<ActionResultInfo> actionResultInfos = null)
         {
             var selectSkillId = -1;
             var selectTargetIndex = -1;
@@ -79,8 +79,8 @@ namespace Ryneus
                         {
                             triggerDates[0].Param3 = 1; // and判定
                         }
-                        if (CanUseSkillTrigger(triggerDates,battlerInfo))
-                        {           
+                        if (CanUseSkillTrigger(triggerDates, battlerInfo))
+                        {
                             selectSkillId = skillTriggerInfo.SkillId;
                         }
                     }
@@ -88,24 +88,24 @@ namespace Ryneus
                 // 優先指定の判定
                 if (selectSkillId > -1 && selectTargetIndex == -1)
                 {
-                    var targetIndexList = GetSkillTargetIndexList(selectSkillId,battlerInfo.Index.Value,true,counterSubjectIndex,actionInfo,actionResultInfos);
+                    var targetIndexList = GetSkillTargetIndexList(selectSkillId, battlerInfo.Index.Value, true, counterSubjectIndex, actionInfo, actionResultInfos);
                     if (targetIndexList.Count == 0)
                     {
                         var triggeredSkill = DataSystem.FindSkill(selectSkillId);
                         if (actionResultInfos != null && triggeredSkill != null && triggeredSkill.TargetType == TargetType.IsTriggerTarget)
                         {
-                            targetIndexList = TriggerTargetList(battlerInfo,triggeredSkill.TriggerDates[0],actionInfo,actionResultInfos,triggeredSkill.AliveType);
+                            targetIndexList = TriggerTargetList(battlerInfo, triggeredSkill.TriggerDates[0], actionInfo, actionResultInfos, triggeredSkill.AliveType);
                         }
                         if (targetIndexList.Count == 0)
                         {
                             selectSkillId = -1;
                         }
                     }
-                    var target = CanUseSkillTriggerTarget(selectSkillId,triggerDates,battlerInfo,targetIndexList);
+                    var target = CanUseSkillTriggerTarget(selectSkillId, triggerDates, battlerInfo, targetIndexList);
                     if (target > -1)
                     {
                         // 対象が有効か
-                        var condition = CanUseCondition(selectSkillId,battlerInfo,target,actionInfo);
+                        var condition = CanUseCondition(selectSkillId, battlerInfo, target, actionInfo);
                         if (condition)
                         {
                             selectTargetIndex = target;
@@ -120,23 +120,23 @@ namespace Ryneus
                 }
                 if (selectSkillId > -1 && selectTargetIndex > -1)
                 {
-                    return (selectSkillId,selectTargetIndex);
+                    return (selectSkillId, selectTargetIndex);
                 }
             }
-            return (selectSkillId,selectTargetIndex);
+            return (selectSkillId, selectTargetIndex);
         }
 
-        private bool CanUseSkillTrigger(List<SkillData.TriggerData> triggerDates,BattlerInfo battlerInfo)
+        private bool CanUseSkillTrigger(List<SkillData.TriggerData> triggerDates, BattlerInfo battlerInfo)
         {
             bool CanUse = true;
             if (triggerDates.Count > 0)
             {
-                CanUse = IsTriggeredSkillInfo(battlerInfo,triggerDates,null,new List<ActionResultInfo>());
+                CanUse = IsTriggeredSkillInfo(battlerInfo, triggerDates, null, new List<ActionResultInfo>());
             }
             return CanUse;
         }
         
-        private int CanUseSkillTriggerTarget(int skillId,List<SkillData.TriggerData> triggerDates,BattlerInfo battlerInfo,List<int> targetIndexes)
+        private int CanUseSkillTriggerTarget(int skillId, List<SkillData.TriggerData> triggerDates, BattlerInfo battlerInfo, List<int> targetIndexes)
         {
             var skillData = DataSystem.FindSkill(skillId);
             var targeBattlerIndex = -1;
@@ -154,7 +154,7 @@ namespace Ryneus
             // 条件なし
             if (triggerDates.Count == 0)
             {
-                return BattleUtility.NearTargetIndex(battlerInfo,targetIndexes,targeBattlerIndex);
+                return BattleUtility.NearTargetIndex(battlerInfo, targetIndexes, targeBattlerIndex);
             }
             var targetIndexList1 = new List<int>();
             var targetIndexList2 = new List<int>();
@@ -173,9 +173,9 @@ namespace Ryneus
                     var targetBattler = GetBattlerInfo(targetIndex);
                     var key = (int)triggerDate.TriggerType / 1000;
                     if (_checkTriggerDict.ContainsKey(key))
-                    {                
-                        var checkTriggerInfo2 = new CheckTriggerInfo(_turnCount,battlerInfo,BattlerActors(),BattlerEnemies(),_reserveBattlers);
-                        _checkTriggerDict[key].AddTargetIndexList(targetIndexList,targetIndexes,targetBattler,triggerDate,skillData,checkTriggerInfo2);
+                    {
+                        var checkTriggerInfo2 = new CheckTriggerInfo(_turnCount, battlerInfo, BattlerActors(), BattlerEnemies(), _reserveBattlers);
+                        _checkTriggerDict[key].AddTargetIndexList(targetIndexList, targetIndexes, targetBattler, triggerDate, skillData, checkTriggerInfo2);
                     } else
                     {
                         targetIndexList.Add(targetIndex);
@@ -197,7 +197,7 @@ namespace Ryneus
 
             // ～範囲優先の第二候補があれば変更
             if (bindTargetIndexList.Count == 0)
-            {   
+            {
                 bindTargetIndexList = targetIndexWithInList;
             }
 
@@ -229,7 +229,7 @@ namespace Ryneus
                     opponentTargets.Add(bindBattlerInfo);
                 }
             }
-            var checkTriggerInfo = new CheckTriggerInfo(_turnCount,battlerInfo,friendTargets,opponentTargets,_reserveBattlers);
+            var checkTriggerInfo = new CheckTriggerInfo(_turnCount, battlerInfo, friendTargets, opponentTargets, _reserveBattlers);
             for (int i = 0;i < triggerDates.Count;i++)
             {
                 var triggerDate = triggerDates[i];
@@ -246,7 +246,7 @@ namespace Ryneus
             if (bindTargetIndexList.Count > 0)
             {
                 // 複数候補は列に近い方を選ぶ
-                return BattleUtility.NearTargetIndex(battlerInfo,bindTargetIndexList,targeBattlerIndex);
+                return BattleUtility.NearTargetIndex(battlerInfo, bindTargetIndexList, targeBattlerIndex);
             }
             return -1;
         }

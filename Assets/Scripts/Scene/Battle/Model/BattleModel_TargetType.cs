@@ -5,7 +5,7 @@ namespace Ryneus
 {
     public partial class BattleModel : BaseModel
     {
-        public List<BattlerInfo> GetBattlerInfos(bool isActor,bool isFriend)
+        public List<BattlerInfo> GetBattlerInfos(bool isActor, bool isFriend)
         {
             if (isActor && isFriend || !isActor && !isFriend)
             {
@@ -43,7 +43,7 @@ namespace Ryneus
         private List<int> TargetIndexOpponent(bool isActor)
         {
             var targetIndexList = new List<int>();
-            foreach (var battlerInfo in GetBattlerInfos(isActor,false))
+            foreach (var battlerInfo in GetBattlerInfos(isActor, false))
             {
                 targetIndexList.Add(battlerInfo.Index.Value);
             }
@@ -53,14 +53,14 @@ namespace Ryneus
         private List<int> TargetIndexFriend(bool isActor)
         {
             var targetIndexList = new List<int>();
-            foreach (var battlerInfo in GetBattlerInfos(isActor,true))
+            foreach (var battlerInfo in GetBattlerInfos(isActor, true))
             {
                 targetIndexList.Add(battlerInfo.Index.Value);
             }
             return targetIndexList;
         }
 
-        private List<int> WithinRangeTargetList(BattlerInfo battlerInfo,RangeType skillRangeType)
+        private List<int> WithinRangeTargetList(BattlerInfo battlerInfo, RangeType skillRangeType)
         {
             var targetIndexList = new List<int>();
             var isActor = battlerInfo.IsActor;
@@ -120,11 +120,11 @@ namespace Ryneus
         }
 
         // 選択可能な対象のインデックスを取得
-        public List<int> GetSkillTargetIndexList(int skillId,int subjectIndex,bool checkCondition,int counterSubjectIndex = -1,ActionInfo actionInfo = null,List<ActionResultInfo> actionResultInfos = null)
+        public List<int> GetSkillTargetIndexList(int skillId, int subjectIndex, bool checkCondition, int counterSubjectIndex = -1, ActionInfo actionInfo = null, List<ActionResultInfo> actionResultInfos = null)
         {
             var skillData = DataSystem.FindSkill(skillId);
             var subject = GetBattlerInfo(subjectIndex);
-            var rangeType = CalcRangeType(skillData,subject);
+            var rangeType = CalcRangeType(skillData, subject);
 
             var targetIndexList = new List<int>();
             switch (skillData.TargetType)
@@ -182,15 +182,15 @@ namespace Ryneus
             }
             if (skillData.ScopeTriggers.Count > 0)
             {
-                targetIndexList = CheckScopeTriggers(targetIndexList,skillData.ScopeTriggers,actionInfo,actionResultInfos);
+                targetIndexList = CheckScopeTriggers(targetIndexList, skillData.ScopeTriggers, actionInfo, actionResultInfos);
             }
 
-            var withinRangeTargetList = WithinRangeTargetList(subject,rangeType);
+            var withinRangeTargetList = WithinRangeTargetList(subject, rangeType);
             // 範囲外にいる対象を候補から外す
             targetIndexList = targetIndexList.FindAll(a => withinRangeTargetList.Contains(a));
             if (checkCondition)
             {
-                targetIndexList = targetIndexList.FindAll(a => CanUseCondition(skillId,subject,a));
+                targetIndexList = targetIndexList.FindAll(a => CanUseCondition(skillId, subject, a));
             }
             return targetIndexList;
         }

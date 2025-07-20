@@ -34,7 +34,7 @@ namespace Ryneus
         public BattlerInfo CheckApCurrentBattler()
         {
             var battlerInfos = FieldBattlerInfos().FindAll(a => a.IsAlive());
-            battlerInfos.Sort((a,b) => (int)a.Ap.Value - (int)b.Ap.Value);
+            battlerInfos.Sort((a, b) => (int)a.Ap.Value - (int)b.Ap.Value);
             _currentBattler = battlerInfos.Find(a => a.Ap.Value <= 0);
             return _currentBattler;
         }
@@ -46,17 +46,17 @@ namespace Ryneus
         /// <param name="skillId"></param>
         /// <param name="oneTargetIndex"></param>
         /// <returns></returns>
-        public (ActionInfo,List<int>) GetActionInfoTargetIndexes(BattlerInfo battlerInfo,int skillId,int oneTargetIndex = -1)
+        public (ActionInfo,List<int>) GetActionInfoTargetIndexes(BattlerInfo battlerInfo, int skillId, int oneTargetIndex = -1)
         {
             var skillInfo = battlerInfo.Skills.Find(a => a.Id.Value == skillId);
             if (skillInfo == null)
             {
                 skillInfo = new SkillInfo(skillId);
             }
-            var actionInfo = MakeActionInfo(battlerInfo,skillInfo,false,false);
+            var actionInfo = MakeActionInfo(battlerInfo, skillInfo, false, false);
             //AddActionInfo(actionInfo,false);
             // 対象を自動決定
-            return (actionInfo,MakeAutoSelectIndex(actionInfo,oneTargetIndex));
+            return (actionInfo, MakeAutoSelectIndex(actionInfo, oneTargetIndex));
         }
 
         /// <summary>
