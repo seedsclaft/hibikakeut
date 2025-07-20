@@ -493,7 +493,7 @@ namespace Ryneus
         {
             battleThumb.HideThumb();
         }
-        
+
         public void RefreshMagicList(List<ListData> skillInfos,int selectIndex)
         {
             //selectCharacter.SetActiveTab(SelectCharacterTabType.Detail,false);

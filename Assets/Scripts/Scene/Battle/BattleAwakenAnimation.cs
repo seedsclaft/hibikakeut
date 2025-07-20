@@ -16,10 +16,10 @@ namespace Ryneus
         [SerializeField] private GameObject enemyMainObject;
         [SerializeField] private EffekseerEmitter emitter;
         [SerializeField] private CanvasGroup canvasGroup;
-        public void StartAnimation(BattlerInfo battlerInfo,Sprite actorSprite,float speedRate)
+        public void StartAnimation(BattlerInfo battlerInfo, Sprite actorSprite, float speedRate)
         {
             canvasGroup.alpha = 0;
-            emitter.transform.DOScaleY(2.0f,0);
+            emitter.transform.DOScaleY(2.0f, 0);
             if (battlerInfo.IsActorView)
             {
                 actorMain.sprite = actorSprite;
@@ -47,7 +47,6 @@ namespace Ryneus
                 .SetEase(Ease.InOutCubic);
             await UniTask.DelayFrame((int)(48f / speedRate));
             //await UniTask.WaitUntil(() => !emit.exists);
-            
             gameObject.SetActive(false);
         }
     }

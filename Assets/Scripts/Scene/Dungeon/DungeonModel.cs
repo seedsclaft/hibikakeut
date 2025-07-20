@@ -85,14 +85,14 @@ namespace Ryneus
             {
                 if (endStageEvent.Type == StageEventType.GetItem || endStageEvent.Type == StageEventType.GetArtifact || endStageEvent.Type == StageEventType.GetSkill || endStageEvent.Type == StageEventType.SelectAddActor)
                 {
-                    _moveController.SetEventEndDeactiveEventObj(endStageEvent.PositionX,endStageEvent.PositionY);
+                    _moveController.SetEventEndDeactiveEventObj(endStageEvent.PositionX, endStageEvent.PositionY);
                 } else
                 if (endStageEvent.Type == (StageEventType)0)
                 {
-                    _moveController.SetDeactiveParentObj(endStageEvent.PositionX,endStageEvent.PositionY);
+                    _moveController.SetDeactiveParentObj(endStageEvent.PositionX, endStageEvent.PositionY);
                 } else
                 {
-                    _moveController.SetDeactiveChildObj(endStageEvent.PositionX,endStageEvent.PositionY);
+                    _moveController.SetDeactiveChildObj(endStageEvent.PositionX, endStageEvent.PositionY);
                 }
             }
         }
@@ -105,14 +105,14 @@ namespace Ryneus
                 var position = StageEventDates.Find(a => a.Param == displayEvent.Param && a != displayEvent);
                 if (position != null)
                 {
-                    _moveController.SetDeactiveParentObj(position.PositionX,position.PositionY);
+                    _moveController.SetDeactiveParentObj(position.PositionX, position.PositionY);
                 }
             }
         }
 
         public void DisplayAddEventNotFlag(StageEventData stageEvent)
         {
-            _moveController.SetActiveEventObj(stageEvent.PositionX,stageEvent.PositionY);
+            _moveController.SetActiveEventObj(stageEvent.PositionX, stageEvent.PositionY);
         }
 
         public void DungeonBusy(bool busy)
@@ -138,13 +138,13 @@ namespace Ryneus
             var lastPositionY = CurrentDeckInfo.PositionY;
             if (lastPositionX.Value != playerPosition.x || lastPositionY.Value != playerPosition.y)
             {
-                CurrentDeckInfo.SetPosition(playerDungeonId,playerPosition.x,playerPosition.y,(int)playerDirection);
+                CurrentDeckInfo.SetPosition(playerDungeonId, playerPosition.x, playerPosition.y, (int)playerDirection);
 
                 if (IsActiveDungeon())
                 {
                     // ランダムエンカウントフラグ加算
                     int flag = Random.Range(CurrentStage.Master.EncountMin, CurrentStage.Master.EncountMax);
-                    CurrentDeckInfo.Encount.GainValue(flag,0,100);
+                    CurrentDeckInfo.Encount.GainValue(flag, 0, 100);
 
                     // 残りターン数を減算
                     PartyInfo.TurnCount.GainValue(-1);
@@ -195,7 +195,7 @@ namespace Ryneus
         public bool CheckDirectionEvent()
         {
             var position = GetForwardPosition();
-            var stageEvent = StageEvents(EventTiming.Dungeon,position.x,position.y);
+            var stageEvent = StageEvents(EventTiming.Dungeon, position.x, position.y);
             return stageEvent.Count > 0 && (stageEvent[0].Type == StageEventType.GetItem || stageEvent[0].Type == StageEventType.GetArtifact || stageEvent[0].Type == StageEventType.GetSkill);
         }
 
@@ -230,7 +230,7 @@ namespace Ryneus
         public List<BattlerInfo> RandumTroopInfos()
         {
             var troopInfo = new TroopInfo(-1);
-            troopInfo.MakeEnemyRandomTroopDates(CurrentStage.Master.StageLv,CurrentStage.Master.RandomTroopEnemyRates);
+            troopInfo.MakeEnemyRandomTroopDates(CurrentStage.Master.StageLv, CurrentStage.Master.RandomTroopEnemyRates);
             return troopInfo.BattlerInfos;
         }
 
@@ -269,9 +269,9 @@ namespace Ryneus
             {
                 return;
             }
-            PartyInfo.Currency.GainValue(-1,0);
+            PartyInfo.Currency.GainValue(-1, 0);
             PartyInfo.UseCurrencyHeal();
-            PartyInfo.VictoryBonusCount.GainValue(-1,0);
+            PartyInfo.VictoryBonusCount.GainValue(-1, 0);
         }
 
         public void SaveBgmTiming()

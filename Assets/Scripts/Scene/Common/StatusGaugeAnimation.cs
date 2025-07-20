@@ -24,11 +24,11 @@ namespace Ryneus
             if (gauge != null)
             {
                 var bgRect = gaugeBg.gameObject.GetComponent<RectTransform>();
-                bgRect.sizeDelta = new Vector2(fillWidth,bgRect.sizeDelta.y);
+                bgRect.sizeDelta = new Vector2(fillWidth, bgRect.sizeDelta.y);
                 gaugeBg.fillAmount = 1.0f;
 
                 var rect = gauge.gameObject.GetComponent<RectTransform>();
-                rect.sizeDelta = new Vector2(fillWidth - fillMargin,rect.sizeDelta.y);
+                rect.sizeDelta = new Vector2(fillWidth - fillMargin, rect.sizeDelta.y);
                 gauge.fillAmount = gaugeAmount;
             }
         }
@@ -38,18 +38,18 @@ namespace Ryneus
             if (gaugeAnimation != null)
             {
                 var gaugeRect = gaugeAnimation.gameObject.GetComponent<RectTransform>();
-                gaugeRect.sizeDelta = new Vector2(fillWidth - fillMargin,gaugeRect.sizeDelta.y);
+                gaugeRect.sizeDelta = new Vector2(fillWidth - fillMargin, gaugeRect.sizeDelta.y);
                 gaugeAnimation.fillAmount = gaugeAmount;
             }
         }
 
-        public void UpdateGaugeAnimation(float gaugeAmount,Action endEvent = null)
+        public void UpdateGaugeAnimation(float gaugeAmount, Action endEvent = null)
         {
             if (gaugeAnimation != null)
             {
                 _animation?.Kill(true);
                 var sequence = DOTween.Sequence()
-                    .Append(gaugeAnimation.DOFillAmount(gaugeAmount,waitDuration)
+                    .Append(gaugeAnimation.DOFillAmount(gaugeAmount, waitDuration)
                     .SetDelay(delayDuration)
                     .OnComplete(() =>
                         {
@@ -62,13 +62,13 @@ namespace Ryneus
             }
         }
 
-        public void UpdateExpGaugeAnimation(float gaugeAmount,Action endEvent = null)
+        public void UpdateExpGaugeAnimation(float gaugeAmount, Action endEvent = null)
         {
             if (gaugeAnimation != null)
             {
                 _animation?.Kill(true);
                 var sequence = DOTween.Sequence()
-                    .Append(gaugeAnimation.DOFillAmount(gaugeAmount,waitDuration)
+                    .Append(gaugeAnimation.DOFillAmount(gaugeAmount, waitDuration)
                     .SetDelay(delayDuration)
                     .OnComplete(() =>
                         {
@@ -81,13 +81,13 @@ namespace Ryneus
             }
         }
 
-        public void UpdateLevelUpGaugeAnimation(float gaugeAmount,Action statusUpEvent,Action endEvent = null)
+        public void UpdateLevelUpGaugeAnimation(float gaugeAmount, Action statusUpEvent, Action endEvent = null)
         {
             if (gaugeAnimation != null)
             {
                 _animation?.Kill(true);
                 var sequence = DOTween.Sequence()
-                    .Append(gaugeAnimation.DOFillAmount(1,waitDuration/2))
+                    .Append(gaugeAnimation.DOFillAmount(1, waitDuration/2))
                     .SetDelay(delayDuration)
                     .OnComplete(() =>
                         {
@@ -95,7 +95,7 @@ namespace Ryneus
                             gauge.fillAmount = 0;
                             statusUpEvent?.Invoke();
                             var sequence = DOTween.Sequence()
-                            .Append(gaugeAnimation.DOFillAmount(gaugeAmount,waitDuration/2)
+                            .Append(gaugeAnimation.DOFillAmount(gaugeAmount, waitDuration/2)
                             .OnComplete(() =>
                                 {
                                     _animation = null;

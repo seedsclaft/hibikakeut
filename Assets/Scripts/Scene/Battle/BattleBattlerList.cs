@@ -8,13 +8,13 @@ namespace Ryneus
     {
         [SerializeField] private List<GameObject> damageRoots;
         [SerializeField] private GameObject statusRoot;
-        private Dictionary<int,BattleBattler> _battleBattler = new();
+        private Dictionary<int, BattleBattler> _battleBattler = new();
         private int _selectIndex = -1;
         public int SelectedIndex => _selectIndex;
 
         public void SetData(List<ListData> listDates)
         {
-            SetData(listDates,true,null,true);
+            SetData(listDates, true, null, true);
             SetBattlerInfoComp(listDates);
         }
 

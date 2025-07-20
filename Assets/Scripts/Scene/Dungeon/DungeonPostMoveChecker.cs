@@ -26,7 +26,7 @@ namespace Ariadne
             Debug.Log("OnPostMoveEvent");
             // Implement your process of after moving.
             // Such as encountering enemies, check player's HP, and so on.
-            _moveEndEvent?.Invoke();
+            //_moveEndEvent?.Invoke();
 
             // When your process has finished, call PostMoveEventFinished method.
             CheckMoveControllerReference();
@@ -52,6 +52,7 @@ namespace Ariadne
         /// </Summary>
         void FinishedMsg(IPostMoveProcessNotify inf, BaseEventData eventData)
         {
+            _moveEndEvent?.Invoke();
             inf.OnFinishedPostMoveEvent();
         }
 

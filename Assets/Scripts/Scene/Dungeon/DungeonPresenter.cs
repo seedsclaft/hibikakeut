@@ -465,10 +465,10 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Damage);
             _model.DamageFloor(stageEvent.Param);
             _view.StartDamage(stageEvent.Param);
-            _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
+            _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             if (_model.CheckGameover())
             {
-                var confirmInfo2 = new ConfirmInfo(DataSystem.GetText(10150),(a) =>
+                var confirmInfo2 = new ConfirmInfo(DataSystem.GetText(10150), (a) =>
                 {
                     _view.CallSystemCommand(Base.CommandType.MapClear);
                     _view.CommandGotoSceneChange(Scene.Title);

@@ -50,7 +50,7 @@ namespace Ryneus
             if (battlerRect != null && battlerInfo.Index.Value > 100)
             {
                 var x = battlerInfo.LineIndex == LineType.Front ? 0 : -80;
-                battlerRect.localPosition = new Vector3(x,0);
+                battlerRect.localPosition = new Vector3(x, 0);
             }
             //UpdateLocalPosition(battlerInfo);
             if (Disable != null)
@@ -61,8 +61,8 @@ namespace Ryneus
 
         public void SetSmallScale()
         {
-            battlerRect.localScale = new Vector2(smallScale,smallScale);
-            positionRect.localPosition = new Vector3(rightRectSize,0,0);
+            battlerRect.localScale = new Vector2(smallScale, smallScale);
+            positionRect.localPosition = new Vector3(rightRectSize, 0, 0);
         }
 
         public void SetDisable()

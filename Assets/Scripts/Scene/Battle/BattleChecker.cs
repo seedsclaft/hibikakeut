@@ -40,12 +40,12 @@ namespace Ryneus
                 if (stopApCount)
                 {
                     stopApCount = false;
-                    _view.CallViewEvent(Battle.CommandType.StopApCount,true);
+                    _view.CallViewEvent(Battle.CommandType.StopApCount, true);
                 }
                 if (restartApCount)
                 {
                     restartApCount = false;
-                    _view.CallViewEvent(Battle.CommandType.StopApCount,false);
+                    _view.CallViewEvent(Battle.CommandType.StopApCount, false);
                 }
             }
         }
