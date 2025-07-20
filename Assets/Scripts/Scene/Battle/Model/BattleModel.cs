@@ -229,7 +229,10 @@ namespace Ryneus
             // アルカナ
             if (PartyInfo.AritifactSkills().Count > 0)
             {
-                var alcana = new BattlerInfo(PartyInfo.AritifactSkills(), true, 1);
+                var alcanaSkills = new List<SkillInfo>();
+                alcanaSkills.AddRange(PartyInfo.AritifactSkills());
+                alcanaSkills.AddRange(PartyInfo.BuildingSkills());
+                var alcana = new BattlerInfo(alcanaSkills, true, 1);
                 _battleRecords[alcana.Index.Value] = new BattleRecord(alcana.Index.Value);
                 _battlers.Add(alcana);
             }

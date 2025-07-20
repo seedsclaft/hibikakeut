@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Ryneus.Battle;
 
 namespace Ryneus
 {
-    using Battle;
     public partial class BattlePresenter : BasePresenter
     {
         BattleModel _model = null;
@@ -41,7 +40,7 @@ namespace Ryneus
 #if UNITY_EDITOR
             _view.gameObject.AddComponent<DebugBattleData>();
             var debugger = _view.gameObject.GetComponent<DebugBattleData>();
-            debugger.SetDebugger(_model,this,_view);
+            debugger.SetDebugger(_model, this, _view);
             debugger.consoleInputField = GameSystem.DebugBattleData.consoleInputField;
 #endif
             _view.SetHelpText("");
@@ -65,9 +64,9 @@ namespace Ryneus
             _view.CallSystemCommand(Base.CommandType.CloseLoading);
 
             ViewInitialize();
-            BattleChecker.Instance.SetModel(_model,_view);
+            BattleChecker.Instance.SetModel(_model, _view);
 
-            _view.CommandStartTransition(() => 
+            _view.CommandStartTransition(() =>
             {
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 StartBattle();
@@ -95,7 +94,7 @@ namespace Ryneus
             _view.RefreshStatus();
             _view.EndActionSelect();
 #if UNITY_EDITOR
-            if (_view.TestMode == true && _view.TestBattleMode)
+            if (_view.TestMode && _view.TestBattleMode)
             {
                 StartBattle();
                 _model.MakeTestBattleAction();
@@ -284,7 +283,7 @@ namespace Ryneus
             _view.UpdateStartActivate();
 
             _view.SetBattleBusy(false);
-            _view.UpdateSelectCursor(new List<int>(){});
+            _view.UpdateSelectCursor(new List<int>() { });
             CommandStartBattleAction();
         }
 
@@ -305,17 +304,17 @@ namespace Ryneus
                 _model.SwapSelectIndex(selectIndex);
                 _view.SetActors(MakeListData(_model.ViewBattlerActors()));
                 _view.StartFormation();
-                _view.UpdateSelectCursor(new List<int>(){});
+                _view.UpdateSelectCursor(new List<int>() { });
                 return;
             }
             _model.SelectIndex.SetValue(selectIndex);
-            _view.UpdateSelectCursor(new List<int>(){_model.SelectedCharacterIndex()});
+            _view.UpdateSelectCursor(new List<int>() { _model.SelectedCharacterIndex() });
         }
 
         private void CommandEndFormation()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-            _view.UpdateSelectCursor(new List<int>(){});
+            _view.UpdateSelectCursor(new List<int>() { });
             _view.CancelFormation();
             _model.SelectIndex.SetValue(-1);
         }
@@ -340,7 +339,7 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
-            CommandEnemyInfo(new List<BattlerInfo>(){battlerInfo}, true, () =>
+            CommandEnemyInfo(new List<BattlerInfo>() { battlerInfo }, true, () =>
             {
                 _busy = false;
             });
@@ -352,7 +351,7 @@ namespace Ryneus
         private void CommandStartBattleAction()
         {
             _view.UpdateGridLayer();
-            _model.CheckTriggerPassiveInfos(BattleUtility.StartTriggerTimings(),null,null);
+            _model.CheckTriggerPassiveInfos(BattleUtility.StartTriggerTimings(), null, null);
             // 開始誘発を発動
             var receiveActionInfo = _model.ReceiveActionInfo;
             if (receiveActionInfo != null)
@@ -408,7 +407,7 @@ namespace Ryneus
                 _view.ClearDamagePopup();
                 foreach (var removeState in removeStateList)
                 {
-                    _view.StartStatePopup(removeState.TargetIndex.Value,DamageType.State,"-" + removeState.Master.Name);
+                    _view.StartStatePopup(removeState.TargetIndex.Value, DamageType.State, "-" + removeState.Master.Name);
                 }
                 // Passive解除
                 await RemovePassiveInfos();
@@ -430,7 +429,8 @@ namespace Ryneus
             if (damageType == DamageType.HpDamage)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Damage);
-            } else
+            }
+            else
             if (damageType == DamageType.HpCritical)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Critical);
@@ -495,14 +495,15 @@ namespace Ryneus
                 strategySceneInfo.BattleResultVictory = false;
                 */
                 //_model.CurrentStage.GainLoseCount();
-            } else
+            }
+            else
             if (_model.CheckVictory())
             {
                 _view.StartBattleStartAnim(DataSystem.GetText(16100));
                 _view.BattleVictory(_model.BattlerActors()[0].Index.Value);
                 strategySceneInfo.GetItemInfos = _model.MakeBattlerResult();
                 strategySceneInfo.BattleTurn = _model.TurnCount;
-                strategySceneInfo.BattleResultScore = _model.MakeBattleScore(true,strategySceneInfo);
+                strategySceneInfo.BattleResultScore = _model.MakeBattleScore(true, strategySceneInfo);
                 strategySceneInfo.BattleResultVictory = true;
                 _model.AddEnemyInfoSkillId();
                 _model.PartyInfo.BattleVictoryCount.GainValue(1);
@@ -539,8 +540,8 @@ namespace Ryneus
                 PlayTacticsBgm();
             }
             */
-            
-            BattleChecker.Instance.SetModel(null,null);
+
+            BattleChecker.Instance.SetModel(null, null);
             _view.CallSystemCommand(Base.CommandType.CloseLoading);
             //_view.CommandChangeViewToTransition(null);
             _view.CommandGotoSceneChange(Scene.Strategy, strategySceneInfo);
@@ -567,7 +568,7 @@ namespace Ryneus
                 return;
             }
             _busy = true;
-            CommandCallSideMenu(MakeListData(_model.SideMenu()),() =>
+            CommandCallSideMenu(MakeListData(_model.SideMenu()), () =>
             {
                 _busy = false;
             });
