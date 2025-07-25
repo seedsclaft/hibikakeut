@@ -50,7 +50,7 @@ namespace Ryneus
             return ListData.MakeListData(dataList, enable, selectFunc);
         }
 
-        public List<ListData> MakeListData<T>(List<T> dataList, Func<T, bool> enable, Func<T, bool> selectFunc, Func<T, bool> batchFunc,int selectIndex)
+        public List<ListData> MakeListData<T>(List<T> dataList, Func<T, bool> enable, Func<T, bool> selectFunc, Func<T, bool> batchFunc, int selectIndex)
         {
             return ListData.MakeListData(dataList, enable, selectFunc, batchFunc, selectIndex);
         }
@@ -326,7 +326,7 @@ namespace Ryneus
 
         public void CommandCallSideMenu(List<ListData> sideMenuCommands, Action closeEvent = null)
         {
-            sideMenuCommands[0].SetSelected(true);
+            //sideMenuCommands[0].SetSelected(true);
             var sideMenuViewInfo = new SideMenuViewInfo
             {
                 EndEvent = () =>

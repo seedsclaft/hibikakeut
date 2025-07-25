@@ -10,32 +10,18 @@ namespace Ryneus
     {
         [SerializeField] private TextMeshProUGUI commandName;
 
-        private SystemData.CommandData _data;
-        public void SetData(SystemData.CommandData data, int index)
-        {
-            _data = data;
-            SetIndex(index);
-            commandName.text = data.Name;
-        }
-
-        public void SetText(string text)
-        {
-            commandName.text = text;
-        }
-
-        public void SetCallHandler(System.Action<SystemData.CommandData> handler)
-        {
-            clickButton.onClick.AddListener(() =>
-            {
-                handler(_data);
-            });
-        }
-
         public void UpdateViewItem()
         {
-            if (ListData == null) return;
+            if (ListData == null)
+            {
+                return;
+            }
             var data = ListItemData<SystemData.CommandData>();
-            commandName.text = data.Name;
+            commandName.SetText(data.Name);
+            if (Batch != null)
+            {
+                Batch.SetActive(ListData.Batch.Value);
+            }
         }
     }
 }

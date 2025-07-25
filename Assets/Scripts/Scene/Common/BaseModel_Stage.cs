@@ -27,7 +27,8 @@ namespace Ryneus
                     continue;
                 }
                 var cleared = PartyInfo.IsClaeredStage(stageData.StageNo);
-                var stageInfo = new StageInfo(stageData.Id,cleared);
+                var alarted = PartyInfo.IsAlartedStage(stageData.StageNo);
+                var stageInfo = new StageInfo(stageData.Id, cleared, alarted);
                 if (cleared)
                 {
                     claerList.Add(stageInfo);

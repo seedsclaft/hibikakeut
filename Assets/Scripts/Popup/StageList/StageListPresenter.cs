@@ -83,7 +83,7 @@ namespace Ryneus
                     }
                     _busy = false;
                     _view.SetBusy(false);
-                },ConfirmType.StageConfirm);
+                }, ConfirmType.StageConfirm);
                 confirmInfo.SetStageInfo(stageInfo);
                 _view.CommandCallConfirm(confirmInfo);
             } else

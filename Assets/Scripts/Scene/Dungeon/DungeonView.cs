@@ -26,6 +26,7 @@ namespace Ryneus
         [SerializeField] private OnOffButton alcanaInfoButton;
         [SerializeField] private TextMeshProUGUI minusVictoryBonus;
         [SerializeField] private TextMeshProUGUI minusEvaluate;
+        [SerializeField] private InputInfoComponent sideMenuInput = null;
         private readonly Dictionary<int,BattlerInfoComponent> _battlerComps = new();
         private List<Sequence> _sequences = new();
         //[SerializeField] private OnOffButton healButton = null;
@@ -44,7 +45,7 @@ namespace Ryneus
             }
             if (decideInpurKey != null)
             {
-                decideInpurKey.UpdateGuideIcon(4);
+                decideInpurKey.UpdateGuideIcon(InputKeyType.Start);
             }
             if (healButton != null)
             {
@@ -55,7 +56,7 @@ namespace Ryneus
             }
             if (healInpurKey != null)
             {
-                healInpurKey.UpdateGuideIcon(12);
+                healInpurKey.UpdateGuideIcon(InputKeyType.SideRight2);
             }
             if (formationButton != null)
             {
@@ -66,7 +67,7 @@ namespace Ryneus
             }
             if (formationInpurKey != null)
             {
-                formationInpurKey.UpdateGuideIcon(6);
+                formationInpurKey.UpdateGuideIcon(InputKeyType.Option1);
             }
             if (alcanaInfoButton != null)
             {
@@ -76,6 +77,7 @@ namespace Ryneus
             {
                 CallSideMenu();
             });
+            sideMenuInput.UpdateGuideIcon(InputKeyType.Option2);
             CommandRefresh();
             _ = new DungeonPresenter(this);
         }

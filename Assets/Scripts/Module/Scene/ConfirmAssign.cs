@@ -48,5 +48,6 @@ namespace Ryneus
         SkillDetail,
         MissionClear,
         StageConfirm,
+        NewStageAlert,
     }
 }

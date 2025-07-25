@@ -132,27 +132,27 @@ namespace Ryneus
         {
             var list = new List<ListData>();
             var idx = 0;
-            if (enable != null)
+            foreach (var data in dataList)
             {
-                foreach (var data in dataList)
+                var listData = new ListData(data);
+                if (enable != null)
                 {
-                    var listData = new ListData(data);
                     listData.SetEnable(enable(data));
-                    if (selectIndex >= 0 && idx == selectIndex)
-                    {
-                        listData.SetSelected(true);
-                    }
-                    if (select != null)
-                    {
-                        listData.SetSelected(select(data));
-                    }
-                    if (batch != null)
-                    {
-                        listData.Batch.SetValue(batch(data));
-                    }
-                    list.Add(listData);
-                    idx++;
                 }
+                if (selectIndex >= 0 && idx == selectIndex)
+                {
+                    listData.SetSelected(true);
+                }
+                if (select != null)
+                {
+                    listData.SetSelected(select(data));
+                }
+                if (batch != null)
+                {
+                    listData.Batch.SetValue(batch(data));
+                }
+                list.Add(listData);
+                idx++;
             }
             return list;
         }

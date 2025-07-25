@@ -114,6 +114,17 @@ namespace Ryneus
             return StageInfos().Find(a => a.Master.Category == StageCategory.BattleField) != null;
         }
 
+        public bool IsSideManuBatch()
+        {
+            var achievement = PartyInfo.NearAchievementInfo();
+            return !achievement.Achieved.Value && (achievement.Master.ConditionType == AchievementConditionType.TacticsLvupCount || achievement.Master.ConditionType == AchievementConditionType.StatusSkillChangeCount);
+        }
+
+        public bool IsStatusBatch()
+        {
+            return PartyInfo.AchievementInfos.Find(a => !a.Achieved.Value && (a.Master.ConditionType == AchievementConditionType.TacticsLvupCount || a.Master.ConditionType == AchievementConditionType.StatusSkillChangeCount)) != null;
+        }
+
         public List<SystemData.CommandData> SideMenu()
         {
             var list = new List<SystemData.CommandData>();

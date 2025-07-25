@@ -97,6 +97,7 @@ namespace Ryneus
                     var getItemInfo = new GetItemInfo(getItemData);
                     _model.AddGetItemInfo(getItemInfo);
 
+                    _model.PartyInfo.ReleaseCommandCount.GainValue(1);
                     CheckAchievements();
                     CommandRefresh();
                 }

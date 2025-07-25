@@ -42,7 +42,7 @@ namespace Ryneus
             }
             if (levelUpButtonKey != null)
             {
-                levelUpButtonKey.UpdateGuideIcon(6);
+                levelUpButtonKey.UpdateGuideIcon(InputKeyType.Option1);
             }
             SetLearnMagicButtonActive(false);
         }

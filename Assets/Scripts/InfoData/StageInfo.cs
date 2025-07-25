@@ -9,10 +9,12 @@ namespace Ryneus
         public StageData Master => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
         public ParameterBool Cleared = new();
-        public StageInfo(int id,bool cleared = false)
+        public ParameterBool Alarted = new();
+        public StageInfo(int id, bool cleared = false, bool alarted = false)
         {
             StageId.SetValue(id);
             Cleared.SetValue(cleared);
+            Alarted.SetValue(alarted);
         }
 
         public EnemyData BossEnemyData()

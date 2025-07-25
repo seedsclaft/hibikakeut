@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.U2D;
 using TMPro;
 
 namespace Ryneus
@@ -35,28 +34,27 @@ namespace Ryneus
             }
             if (guideIcon != null)
             {
-                UpdateGuideIcon(inputData.KeyId);
+                UpdateGuideIcon((InputKeyType)inputData.KeyId);
             }
         }
 
-        public void UpdateGuideIcon(int keyId)
+        public void UpdateGuideIcon(InputKeyType keyType)
         {
             if (InputSystem.IsGamePad)
             {
-                guideIcon.sprite = gamePadIcons[keyId];
-                var wide = false;
-                var width = wide == true ? 42 : 28;
-                var height = wide == true ? 48 : 28;
-                var sizeDelta = guideIcon.gameObject.GetComponent<RectTransform>().sizeDelta;
-                guideIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(width,height);
+                guideIcon.sprite = gamePadIcons[(int)keyType];
+                var width = 28;
+                var height = 28;
+                //var sizeDelta = guideIcon.gameObject.GetComponent<RectTransform>().sizeDelta;
+                guideIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
             } else
             {
-                guideIcon.sprite = keyboardIcons[keyId];
-                var wide = ((keyId+1) == (int)InputKeyType.Decide || (keyId+1) == (int)InputKeyType.Cancel);
-                var width = wide == true ? 42 : 28;
-                var height = wide == true ? 48 : 28;
-                var sizeDelta = guideIcon.gameObject.GetComponent<RectTransform>().sizeDelta;
-                guideIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(width,height);
+                guideIcon.sprite = keyboardIcons[(int)keyType];
+                var wide = (int)keyType + 1 is ((int)InputKeyType.Decide) or ((int)InputKeyType.Cancel);
+                var width = wide ? 42 : 28;
+                var height = wide ? 48 : 28;
+                //var sizeDelta = guideIcon.gameObject.GetComponent<RectTransform>().sizeDelta;
+                guideIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
             }
         }
     }

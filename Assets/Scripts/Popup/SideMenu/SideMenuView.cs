@@ -19,6 +19,7 @@ namespace Ryneus
             sideMenuInfoList.Initialize();
             closeButton.onClick.AddListener(() =>
             {
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 BackEvent();
             });
             SetBaseAnimation(sideMenuAnimation);
@@ -43,7 +44,11 @@ namespace Ryneus
                 sideMenuInfoList.Deactivate();
                 OnClickSideMenu();
             });
-            sideMenuInfoList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
+            sideMenuInfoList.SetInputHandler(InputKeyType.Cancel, () =>
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                BackEvent();
+            });
             SetInputHandler(sideMenuInfoList.gameObject);
         }
 

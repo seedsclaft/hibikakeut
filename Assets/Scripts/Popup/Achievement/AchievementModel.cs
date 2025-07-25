@@ -11,7 +11,14 @@ namespace Ryneus
 
         public List<AchievementInfo> AchivementDates()
         {
-            return PartyInfo.AchievementInfos;
+            // 達成済みは後詰め
+            var list = new List<AchievementInfo>();
+            foreach (var achievementInfo in PartyInfo.AchievementInfos)
+            {
+                list.Add(achievementInfo);
+            }
+            list.Sort((a, b) => a.SortKey() - b.SortKey() > 0 ? 1 : -1);
+            return list;
         }
     }
 }

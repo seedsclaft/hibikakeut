@@ -83,6 +83,10 @@ namespace Ryneus
         /// <param name="listData"></param>
         public void RefreshListData(List<ListData> listData)
         {
+            if (ListDates.Count == 0)
+            {
+                SetData(listData);
+            }
             SetListData(listData);
             Refresh(Index);
         }

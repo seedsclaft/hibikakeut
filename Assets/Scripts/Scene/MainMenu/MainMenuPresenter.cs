@@ -1,6 +1,5 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Ryneus.MainMenu;
 
 namespace Ryneus
@@ -11,7 +10,6 @@ namespace Ryneus
         MainMenuView _view = null;
 
         private bool _busy = true;
-        private CommandType _backCommand = CommandType.None;
         public MainMenuPresenter(MainMenuView view)
         {
             _view = view;
@@ -44,7 +42,7 @@ namespace Ryneus
             }
 
             _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
-            _view.SetCommandList(_model.MainMenuCommand());
+            CommandRefresh();
             _view.UpdateBattleFieldNotice(_model.HasBattleField());
 
             var bgm = await _model.GetMainStageBgmData();
@@ -119,9 +117,8 @@ namespace Ryneus
                     var actorInfos = _model.PartyInfo.ActorInfos;
                     CommandStatusInfo(actorInfos,false,true,true,false,actorInfos[0].ActorId.Value,() => 
                     {
-                        _view.UpdateCommandList(_model.MainMenuCommand());
                         UpdateCommandSelecting(true);
-                        _view.CommandRefresh();
+                        CommandRefresh();
                     },false,true);
                     break;
             }
@@ -182,7 +179,7 @@ namespace Ryneus
                 {
                     _busy = false;
                     UpdateCommandSelecting(true);
-                    _view.UpdateCommandList(_model.MainMenuCommand());
+                    CommandRefresh();
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                     _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
                 }
@@ -192,7 +189,7 @@ namespace Ryneus
 
         private void CommandAchievement()
         {
-            var rankup = CheckAchievements(true,() => CommandAchievement());
+            var rankup = CheckAchievements(true,() => CheckNewStage());
             if (rankup)
             {
                 return;
@@ -213,6 +210,30 @@ namespace Ryneus
             ShowAchievementList();
         }
 
+        private void CheckNewStage()
+        {
+            // ステージが解放されたら表示
+            var find = _model.StageInfos().Find(a => !a.Alarted.Value);
+            if (find != null)
+            {
+                _model.PartyInfo.AlartStage(find.StageId.Value);
+                _busy = true;
+                _view.SetBusy(true);
+                SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                var confirmInfo = new ConfirmInfo(DataSystem.GetText(32100), (a) =>
+                {
+                    _busy = false;
+                    _view.SetBusy(false);
+                    CommandAchievement();
+                }, ConfirmType.NewStageAlert);
+                confirmInfo.SetStageInfo(find);
+                confirmInfo.SetIsNoChoice(true);
+                _view.CommandCallConfirm(confirmInfo);
+                return;
+            }
+            CommandAchievement();
+        }
+
         private void ShowAchievementList()
         {
             _busy = true;
@@ -225,7 +246,7 @@ namespace Ryneus
                 {
                     _busy = false;
                     UpdateCommandSelecting(true);
-                    _view.UpdateCommandList(_model.MainMenuCommand());
+                    CommandRefresh();
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
@@ -244,7 +265,7 @@ namespace Ryneus
                 {
                     _busy = false;
                     UpdateCommandSelecting(true);
-                    _view.UpdateCommandList(_model.MainMenuCommand());
+                    CommandRefresh();
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
@@ -267,7 +288,7 @@ namespace Ryneus
                 {
                     _busy = false;
                     UpdateCommandSelecting(true);
-                    _view.UpdateCommandList(_model.MainMenuCommand());
+                    CommandRefresh();
                     _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
@@ -287,8 +308,7 @@ namespace Ryneus
                 {
                     _busy = false;
                     UpdateCommandSelecting(true);
-                    _view.UpdateCommandList(_model.MainMenuCommand());
-                    _view.CommandRefresh();
+                    CommandRefresh();
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
@@ -305,6 +325,8 @@ namespace Ryneus
                 _view.CommandCallCaution(cautionInfo);
                 return;
             }
+            _busy = true;
+            UpdateCommandSelecting(false);
             var countText = DataSystem.GetReplaceText(11010, enableCount.ToString());
             var confirmInfo = new ConfirmInfo(countText, (a) =>
             {
@@ -317,6 +339,11 @@ namespace Ryneus
                     {
                         CheckAchievements();
                     });
+                } else
+                {
+                    _busy = false;
+                    UpdateCommandSelecting(true);
+                    CommandRefresh();
                 }
             });
             confirmInfo.SetBackEvent(() => {});
@@ -328,11 +355,20 @@ namespace Ryneus
         {
             _busy = true;
             UpdateCommandSelecting(false);
-            CommandCallSideMenu(MakeListData(_model.SideMenu()), () =>
+            Func<SystemData.CommandData, bool> batch = (sideMenu) =>
+            {
+                // 仲間強化関連の課題がある
+                if (sideMenu.Key == "Status")
+                {
+                    return _model.IsStatusBatch();
+                }
+                return false;
+            };
+            CommandCallSideMenu(MakeListData(_model.SideMenu(), null, null, batch, 0), () =>
             {
                 _busy = false;
                 UpdateCommandSelecting(true);
-                _view.UpdateCommandList(_model.MainMenuCommand());
+                CommandRefresh();
             });
         }
 
@@ -362,6 +398,13 @@ namespace Ryneus
         {
             _view.SetActiveCommandList(isSelecting);
             _view.SetActiveParticleObject(isSelecting);
+        }
+
+        private void CommandRefresh()
+        {
+            _view.UpdateCommandList(_model.MainMenuCommand());
+            _view.CommandRefresh();
+            _view.UpdateSidemenuBatch(_model.IsSideManuBatch());
         }
     }
 }

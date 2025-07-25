@@ -13,6 +13,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI missionRank;
         [SerializeField] private StatusGaugeAnimation evaluationValueGauge;
         [SerializeField] private TextMeshProUGUI victoryBonus;
+        [SerializeField] private AchievementInfoComponent achievementInfoComponent;
         public void UpdateCurrentInfo()
         {
             var current = PartyInfo;
@@ -57,6 +58,10 @@ namespace Ryneus
             if (victoryBonus != null)
             {
                 victoryBonus.SetText("x" + (1 + (0.05f * partyInfo.VictoryBonusCount.Value)).ToString());
+            }
+            if (achievementInfoComponent != null)
+            {
+                achievementInfoComponent.UpdateInfo(partyInfo.NearAchievementInfo());
             }
         }
     }

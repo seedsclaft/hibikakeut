@@ -48,6 +48,7 @@ namespace Ryneus
         PresentCommandCount = 7040,
         ReliefCommandCount = 7050,
         TransferCommandCount = 7060,
+        ReleaseCommandCount = 7070,
         StatusSkillChangeCount = 7080,
         MissionRank = 8010,
         ClearStageNum = 8020,

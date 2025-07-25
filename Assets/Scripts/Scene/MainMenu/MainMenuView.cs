@@ -14,6 +14,8 @@ namespace Ryneus
         [SerializeField] private OnOffButton alcanaInfoButton;
         [SerializeField] private GameObject particleObject;
         [SerializeField] private GameObject battleFieldNotice;
+        [SerializeField] private GameObject sideMenuBatch;
+        [SerializeField] private InputInfoComponent sideMenuInput = null;
 
         public override void Initialize()
         {
@@ -24,6 +26,7 @@ namespace Ryneus
             {
                 CallSideMenu();
             });
+            sideMenuInput.UpdateGuideIcon(InputKeyType.Option2);
             if (alcanaInfoButton != null)
             {
                 alcanaInfoButton.OnClickAddListener(() => CallViewEvent(CommandType.Aritifact));
@@ -107,6 +110,15 @@ namespace Ryneus
         public void UpdateBattleFieldNotice(bool isActive)
         {
             battleFieldNotice.SetActive(isActive);
+        }
+
+        public void UpdateSidemenuBatch(bool isActive)
+        {
+            if (sideMenuBatch == null)
+            {
+                return;
+            }
+            sideMenuBatch.SetActive(isActive);
         }
 
         public void InputHandler(List<InputKeyType> keyTypes,bool pressed)

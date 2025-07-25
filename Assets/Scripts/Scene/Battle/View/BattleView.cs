@@ -81,7 +81,7 @@ namespace Ryneus
             });
             if (decideInpurKey != null)
             {
-                decideInpurKey.UpdateGuideIcon(12);
+                decideInpurKey.UpdateGuideIcon(InputKeyType.Start);
             }
             if (decideButton != null)
             {
@@ -92,7 +92,7 @@ namespace Ryneus
             }
             if (formationInpurKey != null)
             {
-                formationInpurKey.UpdateGuideIcon(6);
+                formationInpurKey.UpdateGuideIcon(InputKeyType.Option1);
             }
             if (formationButton != null)
             {

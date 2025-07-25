@@ -26,7 +26,7 @@ namespace Ryneus
             alcanaCount?.SetText(skillInfos.Count.ToString());
             if (alcanaButtonKey != null)
             {
-                alcanaButtonKey.UpdateGuideIcon(8);
+                alcanaButtonKey.UpdateGuideIcon(InputKeyType.SideRight1);
             }
         }
     }

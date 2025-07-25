@@ -9,8 +9,8 @@ namespace Ryneus
         private List<BaseView> _stackPopupView = new ();
         public List<BaseView> StackPopupView => _stackPopupView;
         public BaseView LastPopupView => _stackPopupView.Count > 0 ? _stackPopupView[_stackPopupView.Count-1] : null;
-        
-        public GameObject CreatePopup(PopupType popupType,HelpWindow helpWindow)
+
+        public GameObject CreatePopup(PopupType popupType, HelpWindow helpWindow)
         {
             var prefab = Instantiate(GetPopupObject(popupType));
             prefab.transform.SetParent(transform, false);

@@ -52,8 +52,23 @@ namespace Ryneus
             return _clearedStages.Contains(stageId);
         }
 
+        private List<int> _alartedStages = new();
+        public List<int> AlartedStages => _alartedStages;
+        public void AlartStage(int stageId)
+        {
+            if (!IsAlartedStage(stageId))
+            {
+                _alartedStages.Add(stageId);
+            }
+        }
+
+        public bool IsAlartedStage(int stageId)
+        {
+            return _alartedStages.Contains(stageId);
+        }
+
         // 開示マス情報
-        private Dictionary<int,List<string>> _traverseDict = new();
+        private Dictionary<int, List<string>> _traverseDict = new();
         public void SetupDungeonTraverse(int dungeonId)
         {
             if (_traverseDict.ContainsKey(dungeonId))
@@ -63,7 +78,7 @@ namespace Ryneus
             _traverseDict[dungeonId] = new();
         }
 
-        public void AddDungeonTraverse(int dungeonId,Dictionary<string, bool> traverses)
+        public void AddDungeonTraverse(int dungeonId, Dictionary<string, bool> traverses)
         {
             SetupDungeonTraverse(dungeonId);
             foreach (var traverse in traverses)
@@ -81,11 +96,7 @@ namespace Ryneus
 
         public List<string> GetDungeonTraverse(int stageId)
         {
-            if (!_traverseDict.ContainsKey(stageId))
-            {
-                return null;
-            }
-            return _traverseDict[stageId];
+            return _traverseDict.ContainsKey(stageId) ? _traverseDict[stageId] : null;
         }
 
         // 所持金
@@ -129,10 +140,11 @@ namespace Ryneus
         public List<int> BuildingIds => _buildingIds;
         private void GainBuilding(int buildingId)
         {
-            if (!_buildingIds.Contains(buildingId))
+            if (_buildingIds.Contains(buildingId))
             {
-                _buildingIds.Add(buildingId);
+                return;
             }
+            _buildingIds.Add(buildingId);
         }
 
         public List<SkillInfo> BuildingSkills()
@@ -210,6 +222,23 @@ namespace Ryneus
 
         private List<AchievementInfo> _achievements = new();
         public List<AchievementInfo> AchievementInfos => _achievements;
+
+        // 次達成する目標
+        public AchievementInfo NearAchievementInfo()
+        {
+            if (_achievements.Count == 0)
+            {
+                return null;
+            }
+            var notClear = _achievements.FindAll(a => !a.Achieved.Value);
+            if (notClear.Count == 0)
+            {
+                return null;
+            }
+            notClear.Sort((a, b) => a.SortKey() - b.SortKey() > 0 ? 1 : -1);
+            return notClear[0];
+        }
+
         public void SetAchievementRank(List<AchievementData> achievementDatas)
         {
             _achievements.Clear();
@@ -326,6 +355,10 @@ namespace Ryneus
                 case AchievementConditionType.TransferCommandCount:
                     // 転送コマンド回数
                     achievementInfo.SetCondition(TransferCommandCount.Value,achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.ReleaseCommandCount:
+                    // 解放コマンド回数
+                    achievementInfo.SetCondition(ReleaseCommandCount.Value,achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.StatusSkillChangeCount:
                     // 魔法編成回数

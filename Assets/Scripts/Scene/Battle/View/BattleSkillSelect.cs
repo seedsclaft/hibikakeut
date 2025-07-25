@@ -22,11 +22,11 @@ namespace Ryneus
         public void SetSelect(bool isSelect)
         {
             cursor?.gameObject.SetActive(isSelect);
-        }        
+        }
         
         public void SetButtonImage(InputKeyType inputKeyType)
         {
-            inputInfoComponent.UpdateGuideIcon((int)inputKeyType);
+            inputInfoComponent.UpdateGuideIcon(inputKeyType);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Ryneus
             }
             if (presentButtonKey != null)
             {
-                presentButtonKey.UpdateGuideIcon(5);
+                presentButtonKey.UpdateGuideIcon(InputKeyType.Decide);
             }
             SetBaseAnimation(popupAnimation);
             _ = new ItemListPresenter(this);
