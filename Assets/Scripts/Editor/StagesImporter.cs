@@ -9,10 +9,10 @@ namespace Ryneus
 {
     public class StagesInfoImporter : AssetPostprocessor
     {
-        static readonly string ExcelName = "Stages.xlsx";
+        private static readonly string ExcelName = "Stages.xlsx";
 
         // アセット更新があると呼ばれる
-        static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+        private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
             foreach (string asset in importedAssets)
             {
@@ -25,7 +25,7 @@ namespace Ryneus
             }
         }
 
-        static void CreateStagesData(string asset)
+        private static void CreateStagesData(string asset)
         {
             // 拡張子なしのファイル名を取得
             string FileName = Path.GetFileNameWithoutExtension(asset);

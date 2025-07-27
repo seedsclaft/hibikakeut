@@ -9,10 +9,10 @@ namespace Ryneus
 {
     public class DungeonsImporter : AssetPostprocessor
     {
-        static readonly string ExcelName = "Dungeon";
+        private static readonly string ExcelName = "Dungeon";
 
         // アセット更新があると呼ばれる
-        static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+        private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
             foreach (string asset in importedAssets)
             {
@@ -66,81 +66,7 @@ namespace Ryneus
                         IRow SymbolRow = DungeonSheet.GetRow(j);
                         for (int i = 1;i <= cols;i++)
                         {
-                            var cell = AssetPostImporter.ImportString(SymbolRow, i.ToString());
-                            Debug.Log(cell);
-                            var attr = 0;
-                            var front = 0;
-                            if (cell != "")
-                            {
-                                if (cell.Contains("■"))
-                                {
-                                    attr = 1;
-                                } else
-                                if (cell.Contains("Ev"))
-                                {
-                                    attr = 10;
-                                } else
-                                if (cell.Contains("Out"))
-                                {
-                                    attr = 11;
-                                } else
-                                if (cell.Contains("Un"))
-                                {
-                                    attr = 12;
-                                } else
-                                if (cell.Contains("Mv"))
-                                {
-                                    attr = 13;
-                                } else
-                                if (cell.Contains("DrS"))
-                                {
-                                    attr = 3;
-                                } else
-                                if (cell.Contains("Dr"))
-                                {
-                                    attr = 2;
-                                } else
-                                if (cell.Contains("Tr"))
-                                {
-                                    attr = 6;
-                                } else
-                                if (cell.Contains("Ar"))
-                                {
-                                    attr = 7;
-                                } else
-                                if (cell.Contains("Dm"))
-                                {
-                                    attr = 14;
-                                } else
-                                if (cell.Contains("Mg"))
-                                {
-                                    attr = 8;
-                                } else
-                                if (cell.Contains("No"))
-                                {
-                                    attr = 9;
-                                }
-                                
-                                if (cell.Contains("D2"))
-                                {
-                                    front = 2;
-                                } else
-                                if (cell.Contains("D3"))
-                                {
-                                    front = 3;
-                                } else
-                                if (cell.Contains("D1"))
-                                {
-                                    front = 1;
-                                }
-                            }
-                            var map = new Ariadne.MapInfo
-                            {
-                                eventId = 0,
-                                mapAttr = attr,
-                                objectTypeId = 0,
-                                objectFront = (Ariadne.DungeonDir)front
-                            };
+                            var map = CreateCells(SymbolRow, i.ToString());
                             MapInfos.Add(map);
                         }
                     }
@@ -184,6 +110,90 @@ namespace Ryneus
             }
 
             EditorUtility.SetDirty(Data);
+        }
+
+        private static Ariadne.MapInfo CreateCells(IRow SymbolRow, string cellText)
+        {
+            var cell = AssetPostImporter.ImportString(SymbolRow, cellText);
+            Debug.Log(cell);
+            var attr = 0;
+            var front = 0;
+            if (cell != "")
+            {
+                if (cell.Contains("■"))
+                {
+                    attr = 1;
+                } else
+                if (cell.Contains("Dr"))
+                {
+                    attr = 2;
+                } else
+                if (cell.Contains("DrS"))
+                {
+                    attr = 3;
+                } else
+                if (cell.Contains("Ta"))
+                {
+                    attr = 4;
+                } else
+                if (cell.Contains("Tr"))
+                {
+                    attr = 6;
+                } else
+                if (cell.Contains("Ar"))
+                {
+                    attr = 7;
+                } else
+                if (cell.Contains("Mg"))
+                {
+                    attr = 8;
+                } else
+                if (cell.Contains("No"))
+                {
+                    attr = 9;
+                } else
+                if (cell.Contains("Ev"))
+                {
+                    attr = 10;
+                } else
+                if (cell.Contains("Out"))
+                {
+                    attr = 11;
+                } else
+                if (cell.Contains("Un"))
+                {
+                    attr = 12;
+                } else
+                if (cell.Contains("Mv"))
+                {
+                    attr = 13;
+                } else
+                if (cell.Contains("Dm"))
+                {
+                    attr = 14;
+                }
+
+                if (cell.Contains("D1"))
+                {
+                    front = 1;
+                } else
+                if (cell.Contains("D2"))
+                {
+                    front = 2;
+                } else
+                if (cell.Contains("D3"))
+                {
+                    front = 3;
+                }
+            }
+            var map = new Ariadne.MapInfo
+            {
+                eventId = 0,
+                mapAttr = attr,
+                objectTypeId = 0,
+                objectFront = (Ariadne.DungeonDir)front
+            };
+            return map;
         }
 
         private static void CreateDungeonMain(IWorkbook Book,DungeonDates Data)

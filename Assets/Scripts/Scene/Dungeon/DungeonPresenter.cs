@@ -238,7 +238,7 @@ namespace Ryneus
                 {
                     case StageEventType.AdvStart:
                         _model.AddEventReadFlag(stageEvent);
-                        StageEventAdvEvent(moved,stageEvent.Param,endEvent);
+                        StageEventAdvEvent(moved, stageEvent.Param, endEvent);
                         return;
                     case StageEventType.ExitDungeon:
                         StageEventExitDungeon(moved, endEvent);
@@ -296,9 +296,10 @@ namespace Ryneus
         private void StageEventAdvEvent(bool moved, int advId, Action endEvent)
         {
             // TimeStampを取得してBgmをフェードアウト
+            _model.UpdateEventObjects();
             var timeStamp = SoundManager.Instance.CurrentTimeStamp();
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-            CheckStageAdvEvent(advId,timeStamp,() =>
+            CheckStageAdvEvent(advId, timeStamp, () =>
             {
                 _view.CallSystemCommand(Base.CommandType.SceneShowUI);
                 CheckStageEvent(moved);

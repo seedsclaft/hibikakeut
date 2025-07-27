@@ -12,12 +12,12 @@ namespace Utage
         {
             AdvCommandParser.OnCreateCustomCommandFromID+= CreateCustomCommand;
         }
- 
+
         //AdvEnginのクリア処理のときに呼ばれる
         public override void OnClear()
         {
         }
-         
+
         //カスタムコマンドの作成用コールバック
         public void CreateCustomCommand(string id, StringGridRow row, AdvSettingDataManager dataManager, ref AdvCommand command )
         {
@@ -53,18 +53,18 @@ namespace Utage
     public class AdvCommandPlayBgm : AdvCommand
     {
         private string fileName = "";
-        private int? volume = 80;
-        private int? pitch = 100;
+        //private int? volume = 80;
+        //private int? pitch = 100;
         //private bool? loop = true;
         public AdvCommandPlayBgm(StringGridRow row)
             :base(row)
         {
             fileName = ParseCell<string>(AdvColumnName.Arg1);
-            volume = ParseCell<int?>(AdvColumnName.Arg2);
-            pitch = ParseCell<int?>(AdvColumnName.Arg3);
+            //volume = ParseCell<int?>(AdvColumnName.Arg2);
+            //pitch = ParseCell<int?>(AdvColumnName.Arg3);
             //loop = ParseCell<bool>(AdvColumnName.Arg2);
         }
-        
+
         //コマンド実行
         public override async void DoCommand(AdvEngine engine)
         {
@@ -72,7 +72,7 @@ namespace Utage
             if (bgmData != null)
             {
                 var bgm = await ResourceSystem.LoadBGMAsset(bgmData.Key);
-                Ryneus.SoundManager.Instance.PlayBgm(bgm,bgmData.Volume,bgmData.Loop);
+                Ryneus.SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, bgmData.Loop);
             }
         }
     }
@@ -85,7 +85,7 @@ namespace Utage
         {
             bgsKey = ParseCell<string>(AdvColumnName.Arg1);
         }
-        
+
         //コマンド実行
         public override async void DoCommand(AdvEngine engine)
         {
@@ -106,7 +106,7 @@ namespace Utage
             volume = ParseCell<int?>(AdvColumnName.Arg2);
             pitch = ParseCell<int?>(AdvColumnName.Arg3);
         }
-        
+
         //コマンド実行
         public override async void DoCommand(AdvEngine engine)
         {
@@ -121,7 +121,7 @@ namespace Utage
             :base(row)
         {
         }
-    
+
         public override void DoCommand(AdvEngine engine)
         {
             Ryneus.SoundManager.Instance.StopBgm();
@@ -134,7 +134,7 @@ namespace Utage
             :base(row)
         {
         }
-    
+
         public override void DoCommand(AdvEngine engine)
         {
             Ryneus.SoundManager.Instance.StopBgs();
@@ -148,7 +148,7 @@ namespace Utage
             :base(row)
         {
         }
-    
+
         public override void DoCommand(AdvEngine engine)
         {
             if (GameSystem.GameInfo == null) return;
@@ -175,7 +175,7 @@ namespace Utage
             layerName = ParseCell<string>(AdvColumnName.Arg1);
             type = ParseCell<int>(AdvColumnName.Arg2);
         }
-        
+
         //コマンド実行
         public override void DoCommand(AdvEngine engine)
         {
@@ -191,8 +191,8 @@ namespace Utage
             _animationBalloons.Add(balloon);
             if (_isInitialized == false)
             {
-			    engine.MessageWindowManager.OnTextChange.AddListener(OnBeginCommand);
-				engine.GraphicManager.CharacterManager.SetBalloonEvent(BalloonEndEvent);
+                engine.MessageWindowManager.OnTextChange.AddListener(OnBeginCommand);
+                engine.GraphicManager.CharacterManager.SetBalloonEvent(BalloonEndEvent);
                 _isInitialized = true;
             }
         }
@@ -207,10 +207,10 @@ namespace Utage
             return prefab.GetComponent<AnimationBalloon>();
         }
 
-		private void OnBeginCommand(AdvMessageWindowManager messageWindowManager = null)
-		{
+        private void OnBeginCommand(AdvMessageWindowManager messageWindowManager = null)
+        {
             BalloonEndEvent();
-		}
+        }
 
         public void BalloonEndEvent()
         {

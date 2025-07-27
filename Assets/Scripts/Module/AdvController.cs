@@ -22,12 +22,12 @@ namespace Ryneus
         {
             base.Initialize();
             advInputButton.onClick.AddListener(() => {advUguiManager.OnInput();});
-            autoButtonList.ForEach(a => a.SetCallHandler(() => 
+            autoButtonList.ForEach(a => a.SetCallHandler(() =>
             {
                 OnClickAuto();
             }));
             UpdateAutoButton();
-            skipButtonList.ForEach(a => a.SetCallHandler(() => 
+            skipButtonList.ForEach(a => a.SetCallHandler(() =>
             {
                 OnClickSkip();
             }));
@@ -35,8 +35,8 @@ namespace Ryneus
             advUguiManager.Engine.SelectionManager.OnBeginWaitInput.AddListener(OnBeginShow);
         }
 
-		public virtual void OnBeginShow( AdvSelectionManager manager )
-		{
+        public virtual void OnBeginShow(AdvSelectionManager manager)
+        {
             _onOffButtons.Clear();
             var onOffButton = advUguiManager.CurrentSelection.ListView.Content.GetComponentsInChildren<OnOffButton>();
             foreach (var item in onOffButton)
@@ -49,7 +49,7 @@ namespace Ryneus
                 _onOffButtons[0].SetSelect();
                 _selectIndex = 0;
             }
-		}
+        }
 
         public void StartAdv()
         {
@@ -66,10 +66,13 @@ namespace Ryneus
             SaveSystem.SaveOptionStart(GameSystem.OptionData);
             advInputButton.gameObject.SetActive(false);
         }
-        
+
         public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
-            if (_advPlaying == false) return;
+            if (!_advPlaying)
+            {
+                return;
+            }
             if (keyTypes.Contains(InputKeyType.Decide) || keyTypes.Contains(InputKeyType.Cancel))
             {
                 if (_selectIndex > -1)
@@ -110,7 +113,7 @@ namespace Ryneus
             }
         }
 
-        private new void Update() 
+        private new void Update()
         {
             base.Update();
             if (advUguiManager.Engine.SelectionManager.IsWaitInput == true && (HelpWindow.LastKey != "ADV_SELECTING" || HelpWindow.LastKey != "ADV_SELECTING_ONE"))
@@ -123,7 +126,6 @@ namespace Ryneus
                 } else
                 {
                     HelpWindow.SetInputInfo("ADV_SELECTING");
-
                 }
             }
             if (advUguiManager.Engine.SelectionManager.IsWaitInput == false && HelpWindow.LastKey != "ADV_READING")
@@ -143,7 +145,7 @@ namespace Ryneus
         private void UpdateAutoButton()
         {
             var auto = advUguiManager.Engine.Config.IsAutoBrPage;
-            autoButtonList.ForEach(a => 
+            autoButtonList.ForEach(a =>
                 a.Cursor.SetActive(auto)
             );
         }
@@ -158,7 +160,7 @@ namespace Ryneus
         private void UpdateSkipButton()
         {
             var skip = advUguiManager.Engine.Config.IsSkip;
-            skipButtonList.ForEach(a => 
+            skipButtonList.ForEach(a =>
                 a.Cursor.SetActive(skip)
             );
             if (GameSystem.OptionData != null)
