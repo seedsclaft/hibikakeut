@@ -45,7 +45,7 @@ namespace Ryneus
         public static string PowerUpColorTag => "<color=#80FF80>";
         public static Color PowerDownColor => new(255, 128, 64);
 
-        public static void LoadData()
+        public static async UniTask<bool> LoadData()
         {
             var ActorsData = Resources.Load<ActorDates>("Data/Actors").Data;
             foreach (var actorData in ActorsData)
@@ -77,6 +77,13 @@ namespace Ryneus
             TutorialDates = Resources.Load<TutorialDates>("Data/Tutorial").Data;
             BGM = Resources.Load<SoundDates>("Data/BGM").Data;
             SE = Resources.Load<SoundDates>("Data/SE").Data;
+            await UniTask.WaitUntil(LoadedDates);
+            return true;
+        }
+
+        private static bool LoadedDates()
+        {
+            return SE != null;
         }
 
         public static ActorData FindActor(int id)
@@ -130,6 +137,7 @@ namespace Ryneus
             {
                 return textData.Text;
             }
+            LogOutput.Log(id + ":が不足");
             return id + ":が不足";
         }
 

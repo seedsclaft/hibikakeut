@@ -19,9 +19,9 @@ namespace Ryneus
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            DataSystem.LoadData();
+            await DataSystem.LoadData();
             SoundManager.Instance.Initialize();
             Debug.Log("Boot Success");
             Application.targetFrameRate = 60;
