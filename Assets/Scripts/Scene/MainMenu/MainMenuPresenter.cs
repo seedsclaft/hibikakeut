@@ -143,12 +143,9 @@ namespace Ryneus
             // 出撃できるステージがない
             if (_model.CheckDepatureDungeon())
             {
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(32050),(a) =>
-                {
-                });
-                confirmInfo.SetBackEvent(() => {});
-                confirmInfo.SetIsNoChoice(true);
-                _view.CommandCallConfirm(confirmInfo);
+                var cautionInfo = new CautionInfo();
+                cautionInfo.SetTitle(DataSystem.GetText(32050));
+                _view.CommandCallCaution(cautionInfo);
                 return;
             }
             _busy = true;
@@ -164,7 +161,7 @@ namespace Ryneus
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
-            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
+            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
         }
 
         private void CommandDeckEdit()

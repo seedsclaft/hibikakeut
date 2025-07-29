@@ -143,5 +143,13 @@ namespace Ryneus
                 }
             }
         }
+
+        void OnDestroy()
+        {
+            if (cursorRectAnimation != null)
+            {
+                cursorRectAnimation.StopAnimation();
+            }
+        }
     }
 }
