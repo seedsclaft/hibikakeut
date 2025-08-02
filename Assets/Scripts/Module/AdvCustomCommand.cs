@@ -53,14 +53,14 @@ namespace Utage
     public class AdvCommandPlayBgm : AdvCommand
     {
         private string fileName = "";
-        //private int? volume = 80;
+        private int? volume = 80;
         //private int? pitch = 100;
         //private bool? loop = true;
         public AdvCommandPlayBgm(StringGridRow row)
             :base(row)
         {
             fileName = ParseCell<string>(AdvColumnName.Arg1);
-            //volume = ParseCell<int?>(AdvColumnName.Arg2);
+            volume = ParseCell<int?>(AdvColumnName.Arg2);
             //pitch = ParseCell<int?>(AdvColumnName.Arg3);
             //loop = ParseCell<bool>(AdvColumnName.Arg2);
         }
@@ -68,7 +68,7 @@ namespace Utage
         //コマンド実行
         public override async void DoCommand(AdvEngine engine)
         {
-            var bgmData = DataSystem.BGM.Find(a => a.FileName == fileName);
+            var bgmData = DataSystem.BGM.Find(a => a.Key == fileName);
             if (bgmData != null)
             {
                 var bgm = await ResourceSystem.LoadBGMAsset(bgmData.Key);
