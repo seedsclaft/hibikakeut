@@ -52,6 +52,7 @@ namespace Ryneus
         StageList,
         Transfer,
         ReleaseList,
+        Trade,
         SideMenu,
         Option,
         TutorialStage,

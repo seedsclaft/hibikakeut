@@ -112,6 +112,9 @@ namespace Ryneus
                 case "Release":
                     CommandRelease();
                     break;
+                case "Trade":
+                    CommandTrade();
+                    break;
                 case "Status":
                     UpdateCommandSelecting(false);
                     var actorInfos = _model.PartyInfo.ActorInfos;
@@ -300,6 +303,25 @@ namespace Ryneus
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.ReleaseList,
+                template = null,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    UpdateCommandSelecting(true);
+                    CommandRefresh();
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
+        }
+
+        private void CommandTrade()
+        {
+            _busy = true;
+            UpdateCommandSelecting(false);
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.Trade,
                 template = null,
                 EndEvent = () =>
                 {

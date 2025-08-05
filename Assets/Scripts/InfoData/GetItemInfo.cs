@@ -18,6 +18,10 @@ namespace Ryneus
         private bool _getFlag = false;
         public bool GetFlag => _getFlag;
         public void SetGetFlag(bool getFlag) => _getFlag = getFlag;
+        public GetItemInfo()
+        {
+
+        }
 
         public GetItemInfo(GetItemData getItemData)
         {

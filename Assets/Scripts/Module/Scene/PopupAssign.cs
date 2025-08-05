@@ -88,6 +88,7 @@ namespace Ryneus
         StageList,
         Transfer,
         ReleaseList,
+        Trade,
         AlcanaList,
         SlotSave,
         LearnSkill,

@@ -205,6 +205,8 @@ namespace Ryneus
         public ParameterInt TransferCommandCount = new();
         // 解放コマンド回数
         public ParameterInt ReleaseCommandCount = new();
+        // 取引コマンド回数
+        public ParameterInt TradeCommandCount = new();
         // 魔法編成回数
         public ParameterInt StatusSkillChangeCount = new();
 
