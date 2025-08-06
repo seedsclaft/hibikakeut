@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using Ryneus.Trade;
-using Unity.VisualScripting;
 
 namespace Ryneus
 {
@@ -16,6 +14,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI afterCurrency;
         [SerializeField] private OnOffButton tradeButton = null;
         [SerializeField] private InputInfoComponent tradeButtonKey = null;
+        [SerializeField] private OnOffButton detailButton = null;
+        [SerializeField] private InputInfoComponent detailButtonKey = null;
 
         public override void Initialize()
         {
@@ -31,6 +31,14 @@ namespace Ryneus
             {
                 tradeButtonKey.UpdateGuideIcon(InputKeyType.Start);
             }
+            if (detailButton != null)
+            {
+                detailButton.OnClickAddListener(() => CallViewEvent(CommandType.TradeItemDetail, tradeList.ListItemData<TradeItemInfo>()));
+            }
+            if (detailButtonKey != null)
+            {
+                tradeButtonKey.UpdateGuideIcon(InputKeyType.Option1);
+            }
             _ = new TradePresenter(this);
         }
 
@@ -44,6 +52,7 @@ namespace Ryneus
             tradeList.Initialize();
             tradeList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
             tradeList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectTradeItem, tradeList.ListItemData<TradeItemInfo>()));
+            tradeList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.TradeItemDetail, tradeList.ListItemData<TradeItemInfo>()));
             tradeList.SetInputHandler(InputKeyType.Start, () => CallViewEvent(CommandType.DecideTrade));
             //tradeList.SetInputHandler(InputKeyType.Right, () => CallViewEvent(CommandType.AddTradeItem, tradeList.ListItemData<TradeItemInfo>()));
             //tradeList.SetInputHandler(InputKeyType.Left, () => CallViewEvent(CommandType.RemoveTradeItem, tradeList.ListItemData<TradeItemInfo>()));
@@ -52,7 +61,20 @@ namespace Ryneus
 
         public void SetTrade(List<ListData> getItemInfos)
         {
-            tradeList.SetData(getItemInfos);
+            tradeList.SetData(getItemInfos, true, () =>
+            {
+                foreach (var itemPrefab in tradeList.ItemPrefabList)
+                {
+                    var comp = itemPrefab.GetComponent<TradeItemInfoComponent>();
+                    if (comp != null)
+                    {
+                        comp.SetDetailEvent((a) =>
+                        {
+                            CallViewEvent(CommandType.TradeItemDetail, a);
+                        });
+                    }
+                }
+            });
             tradeList.Activate();
             partyInfoComponent.UpdateCurrentInfo();
         }
@@ -73,6 +95,7 @@ namespace Ryneus
         public enum CommandType
         {
             DecideTrade = 0,
+            TradeItemDetail,
             SelectTradeItem,
         }
     }

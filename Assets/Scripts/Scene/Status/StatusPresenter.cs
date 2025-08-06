@@ -280,7 +280,10 @@ namespace Ryneus
                 {
                     _busy = false;
                 });
-                confirmInfo2.SetBackEvent(() => {});
+                confirmInfo2.SetBackEvent(() =>
+                {
+                    _busy = false;
+                });
                 confirmInfo2.SetIsNoChoice(true);
                 _view.CommandCallConfirm(confirmInfo2);
                 return;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Ryneus.Trade;
+using UnityEditor.PackageManager.Requests;
 
 namespace Ryneus
 {
@@ -43,6 +44,9 @@ namespace Ryneus
             {
                 case CommandType.DecideTrade:
                     CommandDecideTrade();
+                    break;
+                case CommandType.TradeItemDetail:
+                    CommandTradeItemDetail((TradeItemInfo)viewEvent.Template);
                     break;
                 case CommandType.SelectTradeItem:
                     CommandSelectTradeItem((TradeItemInfo)viewEvent.Template);
@@ -94,14 +98,39 @@ namespace Ryneus
             _view.CommandCallConfirm(confirmInfo);
         }
 
-        private void CommandSelectTradeItem(TradeItemInfo getItemInfo)
+        private void CommandTradeItemDetail(TradeItemInfo tradeItemInfo)
         {
-            if (_model.GetItems.Contains(getItemInfo))
+            if (tradeItemInfo == null)
             {
-                CommandRemoveTradeItem(getItemInfo);
+                return;
+            }
+            _busy = true;
+            var skillInfo = new SkillInfo(tradeItemInfo.GetItemInfo.Param1);
+            var confirmInfo = new ConfirmInfo("", (a) =>
+            {
+                _busy = false;
+            }, ConfirmType.SkillDetail);
+            confirmInfo.SetBackEvent(() =>
+            {
+                _busy = false;
+            });
+            confirmInfo.SetSkillInfo(new List<SkillInfo>(){skillInfo});
+            confirmInfo.SetIsNoChoice(true);
+            _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void CommandSelectTradeItem(TradeItemInfo tradeItemInfo)
+        {
+            if (tradeItemInfo == null)
+            {
+                return;
+            }
+            if (_model.GetItems.Contains(tradeItemInfo))
+            {
+                CommandRemoveTradeItem(tradeItemInfo);
             } else
             {
-                CommandAddTradeItem(getItemInfo);
+                CommandAddTradeItem(tradeItemInfo);
             }
         }
 

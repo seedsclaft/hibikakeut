@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace Ryneus
 {
@@ -9,6 +10,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI destriction;
         [SerializeField] private TextMeshProUGUI cost;
         [SerializeField] private GameObject selected;
+        [SerializeField] private Button detailButton;
         public void UpdateViewItem()
         {
             if (ListData == null)
@@ -25,6 +27,15 @@ namespace Ryneus
             destriction.SetText(data.Destriction());
             cost.SetText(data.Cost.Value.ToString() + DataSystem.GetText(1000));
             selected.SetActive(data.Selected.Value);
+        }
+
+        public void SetDetailEvent(System.Action<TradeItemInfo> detailEvent)
+        {
+            if (detailButton == null)
+            {
+                return;
+            }
+            detailButton.onClick.AddListener(() => detailEvent.Invoke(ListItemData<TradeItemInfo>()));
         }
     }
 }

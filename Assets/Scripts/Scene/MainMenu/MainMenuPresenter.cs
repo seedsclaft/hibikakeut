@@ -365,7 +365,12 @@ namespace Ryneus
                     CommandRefresh();
                 }
             });
-            confirmInfo.SetBackEvent(() => {});
+            confirmInfo.SetBackEvent(() =>
+            {
+                _busy = false;
+                UpdateCommandSelecting(true);
+                CommandRefresh();
+            });
             _view.CommandCallConfirm(confirmInfo);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
