@@ -247,7 +247,7 @@ namespace Ryneus
         public bool EndInterludePhase()
         {
             // 6ピリオドでチャプター切り替え
-            if (PartyInfo.Period.Value > 6)
+            if (PartyInfo.Period.Value > DataSystem.System.PeriodTurns)
             {
                 PartyInfo.Period.SetValue(1);
                 PartyInfo.Chapter.GainValue(1);

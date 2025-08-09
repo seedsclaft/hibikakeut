@@ -21,6 +21,7 @@ namespace Ryneus
         public int BattleBonusValue;
         public int WeakPointRate;
         public int StartStageId;
+        public int PeriodTurns;
         public List<TextData> SystemTextData;
 
 

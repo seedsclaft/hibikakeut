@@ -6,6 +6,7 @@ namespace Ryneus
     public class PartyInfoComponent : BaseInfoComponent
     {
         [SerializeField] private TextMeshProUGUI period;
+        [SerializeField] private TextMeshProUGUI periodLimit;
         [SerializeField] private TextMeshProUGUI chapter;
         [SerializeField] private TextMeshProUGUI currency;
         [SerializeField] private TextMeshProUGUI evaluationValue;
@@ -31,9 +32,13 @@ namespace Ryneus
             }
             if (period != null)
             {
-                var periodValue = partyInfo.Period.Value > 6 ? 6 :partyInfo.Period.Value;
-                // 6超えてても6で表示
+                var periodValue = Mathf.Min(partyInfo.Period.Value, DataSystem.System.PeriodTurns);
+                // 表示ターン数限度は超えないように表示
                 period.SetText(periodValue.ToString());
+            }
+            if (periodLimit != null)
+            {
+                periodLimit.SetText(DataSystem.System.PeriodTurns.ToString());
             }
             if (chapter != null)
             {

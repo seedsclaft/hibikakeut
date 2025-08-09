@@ -28,7 +28,7 @@ namespace Ryneus
         public bool InterludePhase()
         {
             // 6ピリオドでチャプター切り替え
-            if (PartyInfo.Period.Value > 6)
+            if (PartyInfo.Period.Value > DataSystem.System.PeriodTurns)
             {
                 //PartyInfo.Period.SetValue(1);
                 //PartyInfo.Chapter.GainValue(1);
@@ -101,7 +101,7 @@ namespace Ryneus
                     case "Mission":
                         return PartyInfo.IsRankUpBefore();
                     case "Relief":
-                        return PartyInfo.ReliefCommandCount.Value < PartyInfo.MissionRank.Value;
+                        return PartyInfo.ReliefCommandCount.Value < PartyInfo.Chapter.Value;
                     case "Present":
                         return PartyInfo.IsOwnItem();
                 }

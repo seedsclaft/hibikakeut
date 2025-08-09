@@ -214,6 +214,10 @@ namespace Ryneus
                         {
                             Data.StartStageId = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
                         }
+                        if (KeyName == "PeriodTurns")
+                        {
+                            Data.PeriodTurns = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
+                        }
                     }
                 }
             }

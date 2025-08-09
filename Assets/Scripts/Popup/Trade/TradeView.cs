@@ -37,7 +37,7 @@ namespace Ryneus
             }
             if (detailButtonKey != null)
             {
-                tradeButtonKey.UpdateGuideIcon(InputKeyType.Option1);
+                detailButtonKey.UpdateGuideIcon(InputKeyType.Option1);
             }
             _ = new TradePresenter(this);
         }

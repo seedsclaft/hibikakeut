@@ -336,7 +336,7 @@ namespace Ryneus
 
         private void CommandRelief()
         {
-            var enableCount = _model.PartyInfo.MissionRank.Value - _model.PartyInfo.ReliefCommandCount.Value;
+            var enableCount = _model.PartyInfo.Chapter.Value - _model.PartyInfo.ReliefCommandCount.Value;
             if (enableCount <= 0)
             {
                 var cautionInfo = new CautionInfo();
@@ -352,7 +352,7 @@ namespace Ryneus
                 if (a == ConfirmCommandType.Yes)
                 {
                     _model.PartyInfo.ReliefCommandCount.GainValue(1);
-                    _model.PartyNextPeriod(true);
+                    //_model.PartyNextPeriod(true);
                     List<ActorInfo> actorInfos =_model.AddSelectActorInfos();
                     CommandAddActorStatusInfo(actorInfos,() =>
                     {
