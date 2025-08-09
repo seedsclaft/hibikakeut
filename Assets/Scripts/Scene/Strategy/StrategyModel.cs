@@ -320,80 +320,6 @@ namespace Ryneus
             //_displayExpDict.Clear();
         }
 
-        public string BattleResultTurn()
-        {
-            if (!_inBattleResult)
-            {
-                return null;
-            }
-            var turn = _sceneParam.BattleTurn;
-            if (turn > 0)
-            {
-                return turn.ToString() + DataSystem.GetText(20301);
-            }
-            return null;
-        }
-
-        public string BattleResultScore()
-        {
-            if (!_inBattleResult)
-            {
-                return null;
-            }
-            var recordScore = _sceneParam.BattleResultScore;
-            if (recordScore >= 0)
-            {
-                return "+" + (recordScore*0.01f).ToString("F2") + "%";
-            }
-            return null;
-        }
-
-        public string BattleResultRemainHpPercent()
-        {
-            if (!_inBattleResult)
-            {
-                return null;
-            }
-            var remainHpPercent = _sceneParam.BattleRemainHpPercent;
-            if (remainHpPercent > 0)
-            {
-                return remainHpPercent.ToString() + "%";
-            }
-            return null;
-        }
-
-        public string BattleResultMaxDamage()
-        {
-            if (!_inBattleResult)
-            {
-                return null;
-            }
-            var maxDamage = _sceneParam.BattleMaxDamage;
-            if (maxDamage > 0)
-            {
-                return maxDamage.ToString();
-            }
-            return null;
-        }
-
-        public string BattleResultDefeatedCount()
-        {
-            if (!_inBattleResult)
-            {
-                return null;
-            }
-            if (!_battleResultVictory)
-            {
-                return null;
-            }
-            var defeatedCount = _sceneParam.BattleDefeatedCount;
-            if (defeatedCount >= 0)
-            {
-                return defeatedCount.ToString();
-            }
-            return null;
-        }
-
         public string TitleText()
         {
             if (_inBattleResult)
@@ -428,15 +354,11 @@ namespace Ryneus
 
     public class StrategySceneInfo
     {
-        public int BattleTurn;
         public List<GetItemInfo> GetItemInfos;
         public List<ActorInfo> ActorInfos;
         public List<BattlerInfo> BattlerInfos;
         public bool InBattle;
-        public int BattleResultScore;
-        public int BattleRemainHpPercent;
-        public int BattleMaxDamage;
-        public int BattleDefeatedCount;
+        public BattleScore BattleScore;
         public bool BattleResultVictory;
         public Scene ReturnScene;
         public MainMenuSceneInfo ReturnMainMenuSceneParam;

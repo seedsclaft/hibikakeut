@@ -2666,70 +2666,94 @@ namespace Ryneus
             */
         }
 
-        public int MakeBattleScore(bool isVictory, StrategySceneInfo strategySceneInfo)
+        public void MakeBattleScore(bool isVictory, StrategySceneInfo strategySceneInfo)
         {
-            if (isVictory)
+            var battleScore = new BattleScore();
+            battleScore.ResultScore = -1;
+            strategySceneInfo.BattleScore = battleScore;
+            if (!isVictory)
             {
-                var score = 100f;
-                // ターン数の減点
-                //var turns = (5 * _troop.BattlerInfos.Count) - _turnCount;
-                //score += turns;
-                score = Math.Max(0, score);
-                score = Math.Min(100, score);
-                // 与ダメージ - 被ダメージの加算
-                var attack = 0;
-                //var damaged = 0;
-                var remainHpPercent = 0f;
-                var maxDamage = 0;
-                var defeated = 0;
-                var actorCount = 0;
-                foreach (var battleRecord in _battleRecords)
+                return;
+            }
+            // ターン数の減点
+            //var turns = (5 * _troop.BattlerInfos.Count) - _turnCount;
+            //score += turns;
+            //score = Math.Max(0, score);
+            //score = Math.Min(100, score);
+            // 与ダメージ - 被ダメージの加算
+            var attack = 0;
+            //var damaged = 0;
+            var remainHpPercent = 0f;
+            var maxDamage = 0;
+            var defeated = 0;
+            var totalTurnCount = 0;
+            var awakeCount = 0;
+            var actorCount = 0;
+            foreach (var battleRecord in _battleRecords)
+            {
+                if (battleRecord.Key < 10)
                 {
-                    if (battleRecord.Key < 10)
+                    var actorInfo = GetBattlerInfo(battleRecord.Key);
+                    if (actorInfo == null)
                     {
-                        var actorInfo = GetBattlerInfo(battleRecord.Key);
-                        if (actorInfo == null)
-                        {
-                            actorInfo = _reserveBattlers.Find(a => a.Index.Value == battleRecord.Key);
-                        }
-                        var actorMaxHp = actorInfo.MaxHp;
-                        remainHpPercent += 1f - (float)(actorMaxHp - actorInfo.Hp.Value) / actorMaxHp;
-                        actorCount++;
-                        if (battleRecord.Value.MaxDamage > maxDamage)
-                        {
-                            maxDamage = battleRecord.Value.MaxDamage;
-                        }
-                        attack += battleRecord.Value.AttackValue;
-                        if (!actorInfo.IsAlive())
-                        {
-                            defeated += 1;
-                        }
+                        actorInfo = _reserveBattlers.Find(a => a.Index.Value == battleRecord.Key);
+                    }
+                    var actorMaxHp = actorInfo.MaxHp;
+                    remainHpPercent += 1f - (float)(actorMaxHp - actorInfo.Hp.Value) / actorMaxHp;
+                    actorCount++;
+                    if (battleRecord.Value.MaxDamage > maxDamage)
+                    {
+                        maxDamage = battleRecord.Value.MaxDamage;
+                    }
+                    attack += battleRecord.Value.AttackValue;
+                    if (!actorInfo.IsAlive())
+                    {
+                        defeated += 1;
+                    }
+                    totalTurnCount += actorInfo.TurnCount.Value;
+                    if (actorInfo.IsAwaken)
+                    {
+                        awakeCount += 1;
                     }
                 }
-                // 被ダメージ率の加算
-                if (remainHpPercent > 0)
-                {
-                    score += (remainHpPercent/actorCount) * 100;
-                }
-                // 最大ダメージ値の加算
-                if (maxDamage > 0)
-                {
-                    score += maxDamage / 10;
-                }
-                // 戦闘不能数の少なさで加算
-                if (defeated == 0)
-                {
-                    score += 25;
-                }
-                strategySceneInfo.BattleRemainHpPercent = (int)((remainHpPercent/actorCount) * 100);
-                strategySceneInfo.BattleMaxDamage = maxDamage;
-                strategySceneInfo.BattleDefeatedCount = defeated;
-                PartyInfo.BattleScore.GainValue((int)score);
-                PartyInfo.TotalDamage.GainValue(attack);
-                CheckAchievements();
-                return (int)score;
             }
-            return 0;
+            var score = 100f;
+            // 戦闘不能数の少なさで加算
+            if (defeated == 0)
+            {
+                score += 25;
+            }
+            // ターン数の少なさとLv差で加算
+            var actorLvMax = _party.BattlerInfos.Max(a => a.Level.Value);
+            var enemyLvMax = _troop.BattlerInfos.Max(a => a.Level.Value);
+            totalTurnCount += enemyLvMax - actorLvMax;
+            if (totalTurnCount <= 30)
+            {
+                score += 30 - totalTurnCount;
+            }
+            // 覚醒したキャラ数
+            if (awakeCount > 0)
+            {
+                score += awakeCount;
+            }
+            // 被ダメージ率の加算
+            if (remainHpPercent > 0)
+            {
+                score += (remainHpPercent / actorCount) * 100;
+            }
+            // 最大ダメージ値の加算
+            if (maxDamage > 0)
+            {
+                score += maxDamage / 10;
+            }
+            battleScore.RemainHpPercent = (int)((remainHpPercent / actorCount) * 100);
+            battleScore.MaxDamage = maxDamage;
+            battleScore.DefeatedCount = defeated;
+            battleScore.AwakenCount = awakeCount;
+            PartyInfo.BattleScore.GainValue((int)score);
+            PartyInfo.TotalDamage.GainValue(attack);
+            CheckAchievements();
+            battleScore.ResultScore = (int)score;
         }
 
         public List<GetItemInfo> MakeBattlerResult()

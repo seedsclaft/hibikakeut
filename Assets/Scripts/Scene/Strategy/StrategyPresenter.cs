@@ -238,13 +238,7 @@ namespace Ryneus
 
         private void ShowResultList()
         {
-            _view.ShowResultList(MakeListData(_model.ResultViewInfos),
-                null,
-                _model.BattleResultTurn(),
-                _model.BattleResultScore(),
-                _model.BattleResultMaxDamage(),
-                _model.BattleResultRemainHpPercent(),
-                _model.BattleResultDefeatedCount());
+            _view.ShowResultList(MakeListData(_model.ResultViewInfos), _model.SceneParam.BattleScore);
         }
 
         private void CommandResultClose(SystemData.CommandData commandData)

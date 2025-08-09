@@ -483,17 +483,20 @@ namespace Ryneus
             };
             if (_model.CheckDefeat())
             {
+                /*
                 _view.StartBattleStartAnim(DataSystem.GetText(16110));
                 await UniTask.DelayFrame((int)(150f / GameSystem.OptionData.BattleSpeed));
                 _view.CallSystemCommand(Base.CommandType.MapClear);
                 _view.CommandGotoSceneChange(Scene.Title);
                 return;
-                /*
-                strategySceneInfo.GetItemInfos = new List<GetItemInfo>();
-                strategySceneInfo.BattleTurn = -1;
-                strategySceneInfo.BattleResultScore = _model.MakeBattleScore(false,strategySceneInfo);
-                strategySceneInfo.BattleResultVictory = false;
                 */
+                _view.StartBattleStartAnim(DataSystem.GetText(16110));
+                strategySceneInfo.GetItemInfos = new List<GetItemInfo>();
+                _model.MakeBattleScore(false, strategySceneInfo);
+                strategySceneInfo.BattleScore.TurnCount = -1;
+                strategySceneInfo.BattleResultVictory = false;
+                strategySceneInfo.ReturnScene = Scene.MainMenu;
+                CheckAchievements();
                 //_model.CurrentStage.GainLoseCount();
             }
             else
@@ -502,8 +505,8 @@ namespace Ryneus
                 _view.StartBattleStartAnim(DataSystem.GetText(16100));
                 _view.BattleVictory(_model.BattlerActors()[0].Index.Value);
                 strategySceneInfo.GetItemInfos = _model.MakeBattlerResult();
-                strategySceneInfo.BattleTurn = _model.TurnCount;
-                strategySceneInfo.BattleResultScore = _model.MakeBattleScore(true, strategySceneInfo);
+                _model.MakeBattleScore(true, strategySceneInfo);
+                strategySceneInfo.BattleScore.TurnCount = _model.TurnCount;
                 strategySceneInfo.BattleResultVictory = true;
                 _model.AddEnemyInfoSkillId();
                 _model.PartyInfo.BattleVictoryCount.GainValue(1);

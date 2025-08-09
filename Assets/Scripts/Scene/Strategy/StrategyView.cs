@@ -22,18 +22,7 @@ namespace Ryneus
         [SerializeField] private Button lvUpStatusButton = null;
         [SerializeField] private GameObject animRoot = null;
         [SerializeField] private GameObject animPrefab = null;
-        [SerializeField] private GameObject saveHumanObj = null;
-        [SerializeField] private TextMeshProUGUI saveHumanText = null;
-        [SerializeField] private GameObject battleTurnObj = null;
-        [SerializeField] private TextMeshProUGUI battleTurnText = null;
-        [SerializeField] private GameObject battleScoreObj = null;
-        [SerializeField] private TextMeshProUGUI battleScoreText = null;
-        [SerializeField] private GameObject battleMaxDamageObj = null;
-        [SerializeField] private TextMeshProUGUI battleMaxDamageText = null;
-        [SerializeField] private GameObject battleAttackPerObj = null;
-        [SerializeField] private TextMeshProUGUI battleAttackPerText = null;
-        [SerializeField] private GameObject battleDefeatedCountObj = null;
-        [SerializeField] private TextMeshProUGUI battleDefeatedCountText = null;
+        [SerializeField] private BattleScoreComponent battleScoreComponent = null;
 
         private BattleStartAnim _battleStartAnim = null;
         private bool _animationBusy = false;
@@ -59,12 +48,7 @@ namespace Ryneus
             actorInfoComponent.MainThumb.DOFade(0,0);
 
             strategyResultCanvasGroup.alpha = 0;
-            saveHumanObj?.SetActive(false);
-            battleTurnObj?.SetActive(false);
-            battleScoreObj?.SetActive(false);
-            battleMaxDamageObj?.SetActive(false);
-            battleAttackPerObj?.SetActive(false);
-            battleDefeatedCountObj?.SetActive(false);
+            battleScoreComponent?.UpdateEmpty();
             _ = new StrategyPresenter(this);
         }
 
@@ -177,21 +161,10 @@ namespace Ryneus
             CallViewEvent(CommandType.EndAnimation);
         }
 
-        public void ShowResultList(List<ListData> getItemInfos,string saveHuman = null,string battleTurn = null,string battleScore = null,string maxDamage = null,string attackPer = null,string defeatedCount = null)
+        public void ShowResultList(List<ListData> getItemInfos, BattleScore score)
         {
             strategyResultCanvasGroup.alpha = 1;
-            saveHumanObj?.SetActive(saveHuman != null);
-            battleTurnObj?.SetActive(battleTurn != null);
-            battleScoreObj?.SetActive(battleScore != null);
-            battleMaxDamageObj?.SetActive(maxDamage != null);
-            battleAttackPerObj?.SetActive(attackPer != null);
-            battleDefeatedCountObj?.SetActive(defeatedCount != null);
-            saveHumanText?.SetText(saveHuman);
-            battleTurnText?.SetText(battleTurn);
-            battleScoreText?.SetText(battleScore);
-            battleMaxDamageText?.SetText(maxDamage);
-            battleDefeatedCountText?.SetText(defeatedCount);
-            battleAttackPerText?.SetText(attackPer);
+            battleScoreComponent.UpdateScore(score);
             commandList.gameObject.SetActive(true);
             SetActivate(commandList);
             strategyResultList.gameObject.SetActive(true);
