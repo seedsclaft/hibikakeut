@@ -18,6 +18,32 @@ namespace Ryneus
         public SkillInfo SelectSkillInfo => _selectSkillInfo;
         public void SetSelectSkillInfo(SkillInfo skillInfo) => _selectSkillInfo = skillInfo;
 
+        private AttributeType _filterAttribute = AttributeType.None;
+        public void ChangeFilterAttribute(bool plus)
+        {
+            if (plus)
+            {
+                _filterAttribute += 1;
+            } else
+            {
+                _filterAttribute -= 1;
+            }
+            if (_filterAttribute < 0)
+            {
+                _filterAttribute = AttributeType.Void;
+            }
+            if (_filterAttribute > AttributeType.Void)
+            {
+                _filterAttribute = AttributeType.None;
+            }
+        }
+
+        public string FilterText()
+        {
+            var textId = 14121 + _filterAttribute;
+            return DataSystem.GetText((int)textId);
+        }
+
         public void ChangeEquipSkill(int changeSkillId)
         {
             CurrentActor.ChangeEquipSkill(changeSkillId,_selectSkillInfo.Id.Value);
@@ -52,6 +78,11 @@ namespace Ryneus
             var removeSkill = new SkillInfo(1);
             removeSkill.SetEnable(true);
             changeAbleSkills.Insert(0, removeSkill);
+            // フィルタ
+            if (_filterAttribute != AttributeType.None)
+            {
+                changeAbleSkills = changeAbleSkills.FindAll(a => a.Master.Attribute == _filterAttribute || a.Master.Id == 1);
+            }
             return changeAbleSkills;
         }
 

@@ -30,8 +30,8 @@ namespace Ryneus
             }
             _mastarySkillIds.Add(skillId);
         }
-        [SerializeField] private Dictionary<int,int> _mastarySkillExps = new();
-        public bool GainSkillExp(int skillId,int gain)
+        [SerializeField] private Dictionary<int, int> _mastarySkillExps = new();
+        public bool GainSkillExp(int skillId, int gain)
         {
             if (!_mastarySkillExps.ContainsKey(skillId))
             {
@@ -57,6 +57,10 @@ namespace Ryneus
 
         public float MastarySkillRate(int skillId)
         {
+            if (IsLearnedSkill(skillId))
+            {
+                return 1;
+            }
             if (!_mastarySkillExps.ContainsKey(skillId))
             {
                 return 0;
@@ -84,7 +88,7 @@ namespace Ryneus
                 var insert = new ParameterInt(changeSkillId);
                 _equipmentSkillIds.Insert(insertIndex, insert);
             }
-            GainSkillExp(changeSkillId,0);
+            GainSkillExp(changeSkillId, 0);
             RecommendActiveSkill();
         }
 
@@ -253,7 +257,8 @@ namespace Ryneus
             var cost = TacticsUtility.EquipAttributeRankCost(param);
             int result = Mathf.FloorToInt(cost * rankCost);
             // 会得済みなら-1
-            if (_mastarySkillIds.Contains(skillId))
+            // または自前で会得済みなら-1
+            if (_mastarySkillIds.Contains(skillId) || IsLearnedSkill(skillId))
             {
                 result -= 1;
             }

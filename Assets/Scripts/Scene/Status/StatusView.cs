@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using DG.Tweening;
 using Ryneus.Status;
 
@@ -13,6 +14,12 @@ namespace Ryneus
         [SerializeField] private Button helpButton = null;
         [SerializeField] private MagicList equipSkillList = null;
         [SerializeField] private MagicList changeSkillList = null;
+        [SerializeField] private GameObject filterRoot = null;
+        [SerializeField] private TextMeshProUGUI filterAttribute = null;
+        [SerializeField] private Button filterPlusButton = null;
+        [SerializeField] private InputInfoComponent filterPlusInput = null;
+        [SerializeField] private Button filterMinusButton = null;
+        [SerializeField] private InputInfoComponent filterMinusInput = null;
         [SerializeField] private GameObject statusLevelUpRoot = null;
         [SerializeField] private StatusLevelUp statusLevelUp = null;
         [SerializeField] private ActorInfoComponent selectingActorInfoComponent = null;
@@ -51,6 +58,22 @@ namespace Ryneus
             if (characterListButton != null)
             {
                 characterListButton.OnClickAddListener(() => CallViewEvent(CommandType.CharacterList));
+            }
+            if (filterPlusButton != null)
+            {
+                filterPlusButton.onClick.AddListener(() => CallViewEvent(CommandType.FilterPlus));
+            }
+            if (filterMinusButton != null)
+            {
+                filterMinusButton.onClick.AddListener(() => CallViewEvent(CommandType.FilterMinus));
+            }
+            if (filterPlusInput != null)
+            {
+                filterPlusInput.UpdateGuideIcon(InputKeyType.SideRight1);
+            }
+            if (filterMinusInput != null)
+            {
+                filterMinusInput.UpdateGuideIcon(InputKeyType.SideLeft1);
             }
             _ = new StatusPresenter(this);
         }
@@ -101,14 +124,18 @@ namespace Ryneus
             changeSkillList.Initialize();
             changeSkillList.SetInputHandler(InputKeyType.Decide,OnSelectChangeSkill);
             changeSkillList.SetInputHandler(InputKeyType.Cancel,OnCancelEquipSkill);
-            changeSkillList.SetInputHandler(InputKeyType.SideLeft1,() => CallViewEvent(CommandType.LeftActor));
-            changeSkillList.SetInputHandler(InputKeyType.SideRight1,() => CallViewEvent(CommandType.RightActor));
+            //changeSkillList.SetInputHandler(InputKeyType.SideLeft1,() => CallViewEvent(CommandType.FilterMinus));
+            //changeSkillList.SetInputHandler(InputKeyType.SideRight1,() => CallViewEvent(CommandType.FilterPlus));
             AddViewActives(changeSkillList);
         }
 
-        public void SetChangeSkillList(List<ListData> skillInfos)
+        public void SetChangeSkillList(List<ListData> skillInfos, string filterText)
         {
             changeSkillList.SetData(skillInfos);
+            if (filterAttribute != null)
+            {
+                filterAttribute.SetText(filterText);
+            }
         }
 
         private void OnSelectChangeSkill()
@@ -131,6 +158,7 @@ namespace Ryneus
             SetActivate(equipSkillList);
             equipSkillList.gameObject.SetActive(true);
             changeSkillList.gameObject.SetActive(false);
+            filterRoot.SetActive(false);
         }
 
         public void CallChangeSkillList()
@@ -138,6 +166,7 @@ namespace Ryneus
             SetActivate(changeSkillList);
             changeSkillList.gameObject.SetActive(true);
             equipSkillList.gameObject.SetActive(false);
+            filterRoot.SetActive(true);
         }
 
         public void OpenAnimation(Action endEvent)
@@ -253,6 +282,18 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
+            if (!changeSkillList.gameObject.activeSelf)
+            {
+                return;
+            }
+            if (InputSystem.GetInputDate(InputKeyType.SideRight1).IsDownTrigger())
+            {
+                CallViewEvent(CommandType.FilterPlus);
+            }
+            if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
+            {
+                CallViewEvent(CommandType.FilterMinus);
+            }
         }
 
         public new void MouseCancelHandler()
@@ -323,6 +364,8 @@ namespace Ryneus
             ShowLearnMagic,
             LearnMagic,
             HideLearnMagic,
+            FilterPlus,
+            FilterMinus,
             CallHelp,
             Back
         }

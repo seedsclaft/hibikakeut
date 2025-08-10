@@ -21,10 +21,11 @@ namespace Ryneus
             {
                 // 初期位置に設定
                 var floor = DataSystem.FindDungeonFloor(stageId);
-                CurrentDeckInfo.SetPosition(stageId,floor.entrancePos.x,floor.entrancePos.y,(int)floor.enteringDir);
+                CurrentDeckInfo.SetPosition(stageId, floor.entrancePos.x, floor.entrancePos.y, (int)floor.enteringDir);
                 CurrentDeckInfo.StageNo.SetValue(stageId);
             }
-            MakeStageInfo(stageId,true);
+            CurrentDeckInfo.Encount.SetValue(0);
+            MakeStageInfo(stageId, true);
         }
 
         public bool IsLimitedRank(StageInfo stageInfo)

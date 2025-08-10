@@ -144,23 +144,25 @@ namespace Ryneus
 
         private void CheckEncount()
         {
-            if (_model.EncountEnemy())
+            if (!_model.EncountEnemy())
             {
-                _model.DungeonBusy(true);
-                _model.ResetEncountValue();
-                // ダンジョンの再開時間を記憶
-                _model.SaveBgmTiming();
-                var battleSceneInfo = new BattleSceneInfo
-                {
-                    ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
-                    EnemyInfos = _model.RandumTroopInfos(),
-                };
-                PlayBattleBgm();
-                _view.CommandChangeViewToTransition(null);
-                //_view.ChangeUIActive(false);
-                _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
-                SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
+                return;
             }
+            _busy = true;
+            _model.DungeonBusy(true);
+            _model.ResetEncountValue();
+            // ダンジョンの再開時間を記憶
+            _model.SaveBgmTiming();
+            var battleSceneInfo = new BattleSceneInfo
+            {
+                ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
+                EnemyInfos = _model.RandumTroopInfos(),
+            };
+            PlayBattleBgm();
+            _view.CommandChangeViewToTransition(null);
+            //_view.ChangeUIActive(false);
+            _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
+            SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
         }
 
         private void CommandTurnOver(bool moved)
@@ -729,6 +731,7 @@ namespace Ryneus
             {
                 return;
             }
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.DungeonBusy(true);
             _view.StartFormation();
         }

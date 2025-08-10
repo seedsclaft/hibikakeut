@@ -98,6 +98,12 @@ namespace Ryneus
                 case CommandType.HideLearnMagic:
                     CommandHideLearnMagic();
                     return;
+                case CommandType.FilterPlus:
+                    CommandFilterPlus();
+                    return;
+                case CommandType.FilterMinus:
+                    CommandFilterMinus();
+                    return;
                 case CommandType.SelectCommandList:
                     return;
                 case CommandType.CallHelp:
@@ -160,7 +166,7 @@ namespace Ryneus
             _model.SetSelectSkillInfo(skillInfo);
             // 選択する
             _view.CallChangeSkillList();
-            _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills(),0));
+            _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills(), 0), _model.FilterText());
         }
 
         private void CommandCancelSkill()
@@ -318,6 +324,19 @@ namespace Ryneus
         private void CommandHideLearnMagic()
         {
             CommandRefresh();
+        }
+
+        private void CommandFilterPlus()
+        {
+            _model.ChangeFilterAttribute(true);
+            _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills(),0), _model.FilterText());
+        }
+
+        public void CommandFilterMinus()
+        {
+
+            _model.ChangeFilterAttribute(false);
+            _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills(),0), _model.FilterText());
         }
 
         private void CommandSelectSkillTrigger(int actorId)

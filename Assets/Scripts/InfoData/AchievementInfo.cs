@@ -20,7 +20,10 @@ namespace Ryneus
 
         public float AchievePer => AchieveCount.Value > 0 ? (float)Count.Value / (float)AchieveCount.Value : 0;
 
-        public int SortKey() => Achieved.Value ? 1000 : 0 + Id.Value;
+        public int SortKey()
+        {
+            return Achieved.Value ? 100000 : 0 + Id.Value;
+        }
 
         public AchievementInfo(AchievementData achievementData)
         {
