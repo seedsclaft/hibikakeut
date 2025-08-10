@@ -15,14 +15,16 @@ namespace Ryneus
             _sceneParam = (MainMenuSceneInfo)GameSystem.SceneStackManager.LastSceneParam;
         }
 
-        public async UniTask<List<AudioClip>> GetMainStageBgmData()
+        public async UniTask PlayMainStageBgmData()
         {
             var key = "Mainmenu";
             if (StageInfos().Find(a => a.Master.Category == StageCategory.BattleField) != null)
             {
                 key = "Mainmenu2";
             }
-            return await ResourceSystem.LoadBGMAsset(key);
+            var bgmData = DataSystem.BGM.Find(a => a.Key == key);
+            var bgm = await ResourceSystem.LoadBGMAsset(key);
+            SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true);
         }
 
         public bool InterludePhase()

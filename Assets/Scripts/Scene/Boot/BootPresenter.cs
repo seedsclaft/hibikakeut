@@ -50,6 +50,7 @@ namespace Ryneus
                 _view.CommandGotoSceneChange(Scene.Battle);
             } else
             {
+                _view.SetTitleCaution(DataSystem.GetText(12010));
                 _view.SetEvent((type) => UpdateCommand(type));
             }
             _busy = false;

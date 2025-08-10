@@ -45,8 +45,7 @@ namespace Ryneus
             CommandRefresh();
             _view.UpdateBattleFieldNotice(_model.HasBattleField());
 
-            var bgm = await _model.GetMainStageBgmData();
-            SoundManager.Instance.PlayBgm(bgm,1.0f,true);
+            await _model.PlayMainStageBgmData();
             // 幕間に移動
             if (_model.InterludePhase())
             {

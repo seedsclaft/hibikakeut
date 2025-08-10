@@ -59,14 +59,14 @@ namespace Ryneus
             // アイテムを消費
             foreach (var useCount in _useCount)
             {
-                var getItemInfos = MakeItemGetItemInfos(useCount.Key,useCount.Value.Value);
+                var getItemInfos = MakeItemGetItemInfos(useCount.Key, useCount.Value.Value);
                 list.AddRange(getItemInfos);
-                PartyInfo.ConsuneItemNum(useCount.Key,useCount.Value.Value);
+                PartyInfo.ConsuneItemNum(useCount.Key, useCount.Value.Value);
             }
             return list;
         }
 
-        public List<GetItemInfo> MakeItemGetItemInfos(int itemId,int num)
+        public List<GetItemInfo> MakeItemGetItemInfos(int itemId, int num)
         {
             var list = new List<GetItemInfo>();
             var itemData = DataSystem.Items.Find(a => a.Id == itemId);
@@ -83,7 +83,7 @@ namespace Ryneus
                     count++;
                     if (count > 99)
                     {
-                        getItemInfo = MakeGetItemInfo(GetItemType.Currency,10,0);
+                        getItemInfo = MakeGetItemInfo(GetItemType.Currency, 10, 0);
                         list.Add(getItemInfo);
                     }
                 }
@@ -106,7 +106,9 @@ namespace Ryneus
                     // 報酬設定
                     return MakeGetItemInfo(GetItemType.Skill,candidateSkills[rand].Value.Id);
                 case ItemType.Artifact:
-                    return MakeGetItemInfo(GetItemType.Evaluate,5);
+                    return MakeGetItemInfo(GetItemType.Evaluate, 5);
+                case ItemType.Currency:
+                    return MakeGetItemInfo(GetItemType.Currency, itemData.Param1);
             }
             return null;
         }

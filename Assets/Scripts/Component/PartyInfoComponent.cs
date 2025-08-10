@@ -62,7 +62,7 @@ namespace Ryneus
             }
             if (victoryBonus != null)
             {
-                victoryBonus.SetText("x" + (1 + (0.05f * partyInfo.VictoryBonusCount.Value)).ToString());
+                victoryBonus.SetText((partyInfo.BattleScore.Value * 0.01f).ToString("F2") + "%");
             }
             if (achievementInfoComponent != null)
             {

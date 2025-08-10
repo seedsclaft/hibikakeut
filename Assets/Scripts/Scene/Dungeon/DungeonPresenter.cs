@@ -173,7 +173,7 @@ namespace Ryneus
                     var cautionInfo = new CautionInfo();
                     cautionInfo.SetTitle(DataSystem.GetText(10132));
                     _view.CommandCallCaution(cautionInfo);
-                    _model.PartyInfo.VictoryBonusCount.GainValue(-1,0);
+                    _model.PartyInfo.BattleScore.GainValue(-50, 0);
                 }
                 _model.DungeonBusy(false);
                 return;

@@ -1367,6 +1367,10 @@ namespace Ryneus
                 target.Examine.DamagedValue.GainValue(hpDamage);
                 _battleRecords[subject.Index.Value].GainAttackValue(hpDamage);
                 _battleRecords[target.Index.Value].GainDamagedValue(hpDamage);
+                if (actionResultInfo.WeakPoint)
+                {
+                    _battleRecords[subject.Index.Value].WeakAttackCount.GainValue(1);
+                }
             }
             if (actionResultInfo.HpHeal.Value != 0 && (!actionResultInfo.DeadIndexList.Contains(target.Index.Value) || actionResultInfo.AliveIndexList.Contains(target.Index.Value)))
             {
@@ -1455,13 +1459,6 @@ namespace Ryneus
                     {
                         deathBattlerIndexes.Add(deadIndexList);
                     }
-                }
-            }
-            foreach (var deathBattlerIndex in deathBattlerIndexes)
-            {
-                if (deathBattlerIndex < 100)
-                {
-                    PartyInfo.VictoryBonusCount.GainValue(-2, 0);
                 }
             }
             return deathBattlerIndexes;
@@ -2683,12 +2680,13 @@ namespace Ryneus
             // 与ダメージ - 被ダメージの加算
             var attack = 0;
             //var damaged = 0;
-            var remainHpPercent = 0f;
+            //var remainHpPercent = 0f;
             var maxDamage = 0;
             var defeated = 0;
             var totalTurnCount = 0;
             var awakeCount = 0;
             var actorCount = 0;
+            var weakAttackCount = 0;
             foreach (var battleRecord in _battleRecords)
             {
                 if (battleRecord.Key < 10)
@@ -2698,8 +2696,12 @@ namespace Ryneus
                     {
                         actorInfo = _reserveBattlers.Find(a => a.Index.Value == battleRecord.Key);
                     }
+                    if (actorInfo == null)
+                    {
+                        continue;
+                    }
                     var actorMaxHp = actorInfo.MaxHp;
-                    remainHpPercent += 1f - (float)(actorMaxHp - actorInfo.Hp.Value) / actorMaxHp;
+                    //remainHpPercent += 1f - (float)(actorMaxHp - actorInfo.Hp.Value) / actorMaxHp;
                     actorCount++;
                     if (battleRecord.Value.MaxDamage > maxDamage)
                     {
@@ -2715,13 +2717,19 @@ namespace Ryneus
                     {
                         awakeCount += 1;
                     }
+                    weakAttackCount += battleRecord.Value.WeakAttackCount.Value;
                 }
             }
-            var score = 100f;
+            var score = 0f;
             // 戦闘不能数の少なさで加算
             if (defeated == 0)
             {
-                score += 25;
+                score += 20;
+            }
+            // 戦闘不能数の数で減算
+            if (defeated > 0)
+            {
+                score -= defeated * 20;
             }
             // ターン数の少なさとLv差で加算
             var actorLvMax = _party.BattlerInfos.Max(a => a.Level.Value);
@@ -2734,19 +2742,26 @@ namespace Ryneus
             // 覚醒したキャラ数
             if (awakeCount > 0)
             {
-                score += awakeCount;
+                score += awakeCount * 5;
             }
             // 被ダメージ率の加算
+            /*
             if (remainHpPercent > 0)
             {
                 score += (remainHpPercent / actorCount) * 100;
             }
+            */
             // 最大ダメージ値の加算
             if (maxDamage > 0)
             {
                 score += maxDamage / 10;
             }
-            battleScore.RemainHpPercent = (int)((remainHpPercent / actorCount) * 100);
+            // 弱点攻撃をした回数
+            if (weakAttackCount > 0)
+            {
+                score += MathF.Min(10, weakAttackCount);
+            }
+            //battleScore.RemainHpPercent = (int)((remainHpPercent / actorCount) * 100);
             battleScore.MaxDamage = maxDamage;
             battleScore.DefeatedCount = defeated;
             battleScore.AwakenCount = awakeCount;
@@ -2823,9 +2838,9 @@ namespace Ryneus
                     gainExp = 100;
                 }
 
-                if (PartyInfo.VictoryBonusCount.Value > 0)
+                if (PartyInfo.BattleScore.Value > 0)
                 {
-                    gainExp = (int)(gainExp * (1 + PartyInfo.VictoryBonusCount.Value * 0.05f));
+                    gainExp = (int)(gainExp * (1 + (PartyInfo.BattleScore.Value * 0.0001f)));
                 }
 
                 var expData = new GetItemData

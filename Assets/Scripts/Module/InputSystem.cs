@@ -28,6 +28,10 @@ namespace Ryneus
 
         public List<InputKeyType> Update()
         {
+            if (GameSystem.OptionData == null)
+            {
+                return new();
+            }
             if (GameSystem.OptionData.InputType == InputType.MouseOnly)
             {
                 return new();

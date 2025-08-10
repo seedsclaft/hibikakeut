@@ -5,8 +5,8 @@ namespace Ryneus
 {
     public class BattleRecord
     {
-        private Dictionary<int,int> _useSkillCountDict = new();
-        public Dictionary<int,int> UseSkillCountDict => _useSkillCountDict;
+        private Dictionary<int, int> _useSkillCountDict = new();
+        public Dictionary<int, int> UseSkillCountDict => _useSkillCountDict;
         private int _battlerIndex = -1;
         public int BattlerIndex => _battlerIndex;
         private int _attackValue = 0;
@@ -17,6 +17,7 @@ namespace Ryneus
         public int MaxDamage => _maxDamage;
         private int _healValue = 0;
         public int HealValue => _healValue;
+        public ParameterInt WeakAttackCount = new();
         public BattleRecord(int battlerIndex)
         {
             _battlerIndex = battlerIndex;

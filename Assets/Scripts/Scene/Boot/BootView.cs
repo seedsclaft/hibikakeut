@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using Ryneus.Boot;
 
 namespace Ryneus
@@ -9,6 +10,7 @@ namespace Ryneus
     public class BootView : BaseView, IInputHandlerEvent
     {
         [SerializeField] private Button logoButton = null;
+        [SerializeField] private TextMeshProUGUI titleCaution = null;
         public override void Initialize()
         {
             base.Initialize();
@@ -32,6 +34,15 @@ namespace Ryneus
             {
                 CallLogoClick();
             }
+        }
+
+        public void SetTitleCaution(string text)
+        {
+            if (titleCaution == null)
+            {
+                return;
+            }
+            titleCaution.SetText(text);
         }
 
     }

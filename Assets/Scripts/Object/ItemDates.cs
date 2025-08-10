@@ -26,6 +26,7 @@ namespace Ryneus
     {
         RandumAddSkill = 10,
         Artifact = 20,
+        Currency = 30,
     }
 
 }
