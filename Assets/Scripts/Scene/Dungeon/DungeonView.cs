@@ -56,7 +56,7 @@ namespace Ryneus
             }
             if (healInpurKey != null)
             {
-                healInpurKey.UpdateGuideIcon(InputKeyType.SideRight2);
+                healInpurKey.UpdateGuideIcon(InputKeyType.SideRight1);
             }
             if (formationButton != null)
             {
@@ -168,7 +168,7 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            if (InputSystem.GetInputDate(InputKeyType.Start).IsDownTrigger())
+            if (InputSystem.GetInputDate(InputKeyType.SideRight1).IsDownTrigger())
             {
                 CallViewEvent(CommandType.Heal);
             }

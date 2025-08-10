@@ -193,7 +193,7 @@ namespace Ryneus
                         GetItemInfos = periodItemInfos,
                         ReturnScene = Scene.MainMenu,
                     };
-                    _view.CommandSceneChange(Scene.Strategy);
+                    _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
                 } else
                 {
                     _view.CommandSceneChange(Scene.MainMenu);
@@ -525,7 +525,7 @@ namespace Ryneus
                             GetItemInfos = periodItemInfos,
                             ReturnScene = Scene.MainMenu,
                         };
-                        _view.CommandSceneChange(Scene.Strategy);
+                        _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
                     } else
                     {
                         _view.CommandSceneChange(Scene.MainMenu);

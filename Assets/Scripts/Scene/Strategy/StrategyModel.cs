@@ -262,9 +262,15 @@ namespace Ryneus
                         break;
                     case GetItemType.Ending:
                     case GetItemType.SkillMastary:
-                    case GetItemType.Item:
                     case GetItemType.Evaluate:
                     case GetItemType.ClearStage:
+                        AddGetItemInfo(getItemInfo);
+                        break;
+                    case GetItemType.Item:
+                        var itemResultInfo = new StrategyResultViewInfo();
+                        var itemData = DataSystem.Items.Find(a => a.Id == getItemInfo.Param1);
+                        itemResultInfo.SetTitle(itemData.Name + " x" + getItemInfo.Param2);
+                        _resultInfos.Add(itemResultInfo);
                         AddGetItemInfo(getItemInfo);
                         break;
                 }

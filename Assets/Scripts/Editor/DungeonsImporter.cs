@@ -124,13 +124,13 @@ namespace Ryneus
                 {
                     attr = 1;
                 } else
-                if (cell.Contains("Dr"))
-                {
-                    attr = 2;
-                } else
                 if (cell.Contains("DrS"))
                 {
                     attr = 3;
+                } else
+                if (cell.Contains("Dr"))
+                {
+                    attr = 2;
                 } else
                 if (cell.Contains("Ta"))
                 {

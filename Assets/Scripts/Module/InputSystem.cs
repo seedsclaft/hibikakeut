@@ -411,8 +411,8 @@ namespace Ryneus
         Cancel = 5,
         Option1 = 6, // □,A
         Option2 = 7, // △,S
-        SideLeft1 = 9, // L1
-        SideRight1 = 8, // R1
+        SideLeft1 = 8, // L1
+        SideRight1 = 9, // R1
         SideLeft2 = 11, // L2
         SideRight2 = 10, // R2
         Start = 12,

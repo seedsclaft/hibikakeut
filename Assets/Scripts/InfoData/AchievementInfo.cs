@@ -18,7 +18,7 @@ namespace Ryneus
         private List<GetItemInfo> _getItemInfos = new();
         public List<GetItemInfo> GetItemInfos => _getItemInfos;
 
-        public float AchievePer => AchieveCount.Value > 0 ? Count.Value / AchieveCount.Value : 0;
+        public float AchievePer => AchieveCount.Value > 0 ? (float)Count.Value / (float)AchieveCount.Value : 0;
 
         public int SortKey() => Achieved.Value ? 1000 : 0 + Id.Value;
 
