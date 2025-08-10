@@ -328,13 +328,14 @@ namespace Ryneus
 
         private void CommandFilterPlus()
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _model.ChangeFilterAttribute(true);
             _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills(),0), _model.FilterText());
         }
 
         public void CommandFilterMinus()
         {
-
+            SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _model.ChangeFilterAttribute(false);
             _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills(),0), _model.FilterText());
         }

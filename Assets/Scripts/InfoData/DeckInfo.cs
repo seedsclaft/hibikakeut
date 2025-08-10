@@ -45,13 +45,8 @@ namespace Ryneus
         public void SetActorIdDict(Dictionary<int, int> actorIdDict) => _actorIdDict = actorIdDict;
         public void TransferActorInfo(int actorId)
         {
-            foreach (var actorIdDict in _actorIdDict)
-            {
-                if (actorIdDict.Value == actorId)
-                {
-                    _actorIdDict[actorIdDict.Key] = -1;
-                }
-            }
+            var removeEditIndex = FindEditIndex(actorId);
+            _actorIdDict[removeEditIndex] = -1;
         }
 
         public void SwapBattler(int fromEditIndex, int toActorId)

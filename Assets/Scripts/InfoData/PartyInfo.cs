@@ -22,6 +22,11 @@ namespace Ryneus
         public List<ActorInfo> ActorInfos => _actorInfos;
         // 派遣アクターリスト
         [UnityEngine.SerializeField] private List<ActorInfo> _transferActorInfos = new();
+
+        public List<ActorInfo> EditableActorInfos()
+        {
+            return _actorInfos.FindAll(a => !_transferActorInfos.Contains(a));
+        }
         public void AddTransferActorInfos(ActorInfo actorInfo)
         {
             if (_transferActorInfos.Find(a => a.ActorId.Value == actorInfo.ActorId.Value) == null)
@@ -236,13 +241,26 @@ namespace Ryneus
             {
                 return null;
             }
-            notClear.Sort((a, b) => a.SortKey() - b.SortKey() > 0 ? 1 : -1);
+            notClear.Sort((a, b) => a.Master.Rank - b.Master.Rank > 0 ? -1 : 1);
             return notClear[0];
         }
 
         public void SetAchievementRank(List<AchievementData> achievementDatas)
         {
+            // 未受取を引き継ぐ
+            var notClearAchivements = new List<AchievementInfo>();
+            foreach (var achievement in _achievements)
+            {
+                if (!achievement.Presented.Value)
+                {
+                    notClearAchivements.Add(achievement);
+                }
+            }
             _achievements.Clear();
+            foreach (var notClearAchivement in notClearAchivements)
+            {
+                _achievements.Add(notClearAchivement);
+            }
             foreach (var achievementData in achievementDatas)
             {
                 if (achievementData.Rank == MissionRank.Value)

@@ -9,11 +9,11 @@ namespace Ryneus
         {
         }
 
-        public void TransferGetItem(ActorInfo actorInfo)
+        public int TransferGetItem(ActorInfo actorInfo)
         {
-            PartyInfo.EvaluationValue.GainValue(actorInfo.TransferGetItem(),0,100);
             actorInfo.Transfer.SetValue(true);
             PartyInfo.AddTransferActorInfos(actorInfo);
+            return actorInfo.TransferGetItem();
         }
     }
 }

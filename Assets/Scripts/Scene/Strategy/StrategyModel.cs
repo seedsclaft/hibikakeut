@@ -222,7 +222,7 @@ namespace Ryneus
             foreach (var evaluateGetItemInfo in evaluateGetItemInfos)
             {
                 var resultInfo = new StrategyResultViewInfo();
-                resultInfo.SetTitle("評価値" + " +" + evaluateGetItemInfo.Param1);
+                resultInfo.SetTitle(DataSystem.GetText(3210) + " +" + evaluateGetItemInfo.Param1);
                 _resultInfos.Add(resultInfo);
             }
 
@@ -260,10 +260,12 @@ namespace Ryneus
                             _selectLearnSkills.Add(skillInfo);
                         }
                         break;
+                    case GetItemType.Evaluate:
+                        AddGetItemInfo(getItemInfo);
+                        break;
+                    case GetItemType.ClearStage:
                     case GetItemType.Ending:
                     case GetItemType.SkillMastary:
-                    case GetItemType.Evaluate:
-                    case GetItemType.ClearStage:
                         AddGetItemInfo(getItemInfo);
                         break;
                     case GetItemType.Item:

@@ -708,7 +708,7 @@ MonoBehaviour:
       PositionX: 9
       PositionY: 4
       Param: 42
-      Param2: 2
+      Param2: 8
       Param3: 18
       ReadFlag: 0
     - EventKey: 41_14_16DungeonGetArtifact2130
@@ -720,11 +720,11 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 41_3_1DungeonGetItem1200
+    - EventKey: 41_3_2DungeonGetItem1200
       Timing: 3010
       Type: 3020
       PositionX: 3
-      PositionY: 1
+      PositionY: 2
       Param: 1200
       Param2: 0
       Param3: 0
@@ -738,11 +738,11 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 41_5_1DungeonGetItem1200
+    - EventKey: 41_5_2DungeonGetItem1200
       Timing: 3010
       Type: 3020
       PositionX: 5
-      PositionY: 1
+      PositionY: 2
       Param: 1200
       Param2: 0
       Param3: 0
@@ -963,6 +963,15 @@ MonoBehaviour:
     BattleBGMId: 2010
     SkyboxName: '""'
     StageEvents:
+    - EventKey: 42_8_18DungeonMoveDungeonFloor41
+      Timing: 3010
+      Type: 2020
+      PositionX: 8
+      PositionY: 18
+      Param: 41
+      Param2: 9
+      Param3: 4
+      ReadFlag: 0
     - EventKey: 42_8_1DungeonGetArtifact2040
       Timing: 3010
       Type: 3010
@@ -1014,6 +1023,24 @@ MonoBehaviour:
       PositionX: 8
       PositionY: 3
       Param: 83
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 42_8_7DungeonAddEventFlag86
+      Timing: 3010
+      Type: 6010
+      PositionX: 8
+      PositionY: 7
+      Param: 86
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 42_8_6DungeonNone86
+      Timing: 3010
+      Type: 0
+      PositionX: 8
+      PositionY: 6
+      Param: 86
       Param2: 0
       Param3: 0
       ReadFlag: 1

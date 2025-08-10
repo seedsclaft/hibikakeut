@@ -69,7 +69,7 @@ namespace Ryneus
             }
             if (editNum < 6)
             {
-                if (editNum < PartyInfo.ActorInfos.Count)
+                if (editNum < PartyInfo.EditableActorInfos().Count)
                 {
                     return true;
                 }

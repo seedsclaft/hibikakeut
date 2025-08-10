@@ -71,6 +71,9 @@ namespace Ryneus
                 _view.CommandCallCaution(cautionInfo);
                 return;
             }
+            _busy = true;
+            _view.SetBusy(true);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var confirmInfo = new ConfirmInfo(actorInfo.Master.Name + DataSystem.GetText(35010), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
@@ -78,7 +81,19 @@ namespace Ryneus
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                     _model.PartyInfo.TransferCommandCount.GainValue(1);
                     CheckAchievements();
-                    _model.TransferGetItem(actorInfo);
+                    var evaluate = _model.TransferGetItem(actorInfo);
+                    var sceneParam = new MainMenuSceneInfo
+                    {
+                        CommandIndex = 5
+                    };
+                    var strategySceneInfo = new StrategySceneInfo
+                    {
+                        ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
+                        InBattle = false,
+                        GetItemInfos = new List<GetItemInfo>(){_model.MakeGetItemInfo(GetItemType.Evaluate, actorInfo.TransferGetItem())},
+                        ReturnMainMenuSceneParam = sceneParam
+                    };
+                    _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
                 }
                 _busy = false;
                 _view.SetBusy(false);

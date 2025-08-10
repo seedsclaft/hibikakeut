@@ -22,7 +22,7 @@ namespace Ryneus
 
         public int SortKey()
         {
-            return Achieved.Value ? 100000 : 0 + Id.Value;
+            return Achieved.Value ? 1000000 : 0 + Id.Value;
         }
 
         public AchievementInfo(AchievementData achievementData)

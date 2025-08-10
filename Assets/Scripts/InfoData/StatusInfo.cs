@@ -19,7 +19,7 @@ namespace Ryneus
         public int Mov => (int)Math.Ceiling(_mov.Value);
         public ParameterFloat _cost = new();
         public int Cost => (int)Math.Ceiling(_cost.Value);
-        public void SetParameter(int hp,int mp,int atk,int def,int spd,int mov,int cost)
+        public void SetParameter(int hp, int mp, int atk, int def, int spd, int mov, int cost)
         {
             _hp.SetValue(hp);
             _mp.SetValue(mp);
@@ -56,7 +56,7 @@ namespace Ryneus
             };
         }
 
-        public void AddParameter(StatusParamType paramType,float param)
+        public void AddParameter(StatusParamType paramType, float param)
         {
             switch (paramType)
             {
@@ -70,7 +70,7 @@ namespace Ryneus
             }
         }
 
-        public void SetValue(StatusParamType paramType,float param)
+        public void SetValue(StatusParamType paramType, float param)
         {
             switch (paramType)
             {
@@ -97,7 +97,7 @@ namespace Ryneus
 
         public void Clear()
         {
-            SetParameter(0,0,0,0,0,0,0);
+            SetParameter(0, 0, 0, 0, 0, 0, 0);
         }
     }
 
