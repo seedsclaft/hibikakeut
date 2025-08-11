@@ -16,6 +16,27 @@ namespace Ryneus
 
         // レジュームシーン
         public Scene ResumeScene = Scene.None;
+        // ダンジョン途中座標データ
+        private List<DungeonResumeInfo> _dungeonResumeInfos = new();
+        public List<DungeonResumeInfo> DungeonResumeInfos => _dungeonResumeInfos;
+        public void UpdateDungeonResumeInfo(int dungeonId, int x, int y, int direction)
+        {
+            var find = _dungeonResumeInfos.Find(a => a.DungeonId.Value == dungeonId);
+            if (find != null)
+            {
+                find.PositionX.SetValue(x);
+                find.PositionY.SetValue(y);
+                find.Direction.SetValue(direction);
+            } else
+            {
+                var resumeInfo = new DungeonResumeInfo();
+                resumeInfo.DungeonId.SetValue(dungeonId);
+                resumeInfo.PositionX.SetValue(x);
+                resumeInfo.PositionY.SetValue(y);
+                resumeInfo.Direction.SetValue(direction);
+                _dungeonResumeInfos.Add(resumeInfo);
+            }
+        }
 
         // 所持アクターリスト
         [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = new();

@@ -829,9 +829,9 @@ namespace Ryneus
             var verticalNormalizedPosition = -1f;
             if (!_horizontal)
             {
+                var viewPortPosition = GetCornerPosition(_scrollRect.viewport.gameObject, 0, false);
                 if (keyTypes.Contains(plusKey))
                 {
-                    var viewPortPosition = GetCornerPosition(_scrollRect.viewport.gameObject, 0, false);
                     if (itemPosition < viewPortPosition)
                     {
                         var c = _index - verticalCount + 1;
@@ -848,7 +848,7 @@ namespace Ryneus
                 else
                 if (keyTypes.Contains(minusKey))
                 {
-                    if (itemPosition > GetViewPortHeight())
+                    if ((itemPosition + viewPortPosition) > GetViewPortHeight())
                     {
                         var c = _index;
                         var per = 1f - (c / p);

@@ -228,6 +228,7 @@ namespace Ryneus
                 {
                     skillInfo.SetLearningState(LearningState.Learned);
                     skillInfo.SetEnable(true);
+                    skillInfo.PrimitiveLearned.SetValue(true);
                 }
                 else
                 {
@@ -252,13 +253,17 @@ namespace Ryneus
             {
                 return 0;
             }
+            // 自前で会得済みならコスト0
+            if (IsLearnedSkill(skillId))
+            {
+                return 0;
+            }
             var rankCost = ConvertRankCost(skillData.Rank);
             var param = AttributeRanks(stageMembers)[(int)skillData.Attribute - 1];
             var cost = TacticsUtility.EquipAttributeRankCost(param);
             int result = Mathf.FloorToInt(cost * rankCost);
             // 会得済みなら-1
-            // または自前で会得済みなら-1
-            if (_mastarySkillIds.Contains(skillId) || IsLearnedSkill(skillId))
+            if (_mastarySkillIds.Contains(skillId))
             {
                 result -= 1;
             }

@@ -1582,7 +1582,7 @@ namespace Ariadne
             dungeonUI.SetActive(false);
         }
 
-        public void SetPlayerPosition(int x,int y,int direction)
+        public void SetPlayerPosition(int x, int y, int direction)
         {
             PlayerPosition.Instance.playerPos = new Vector2Int(x,y);
             PlayerPosition.Instance.direction = (DungeonDir)direction;

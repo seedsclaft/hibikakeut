@@ -102,6 +102,10 @@ namespace Ryneus
                 var skillInfo = new SkillInfo(learnSkillId);
                 skillInfo.SetLearningState(LearningState.Learned);
                 skillInfo.SetEnable(true);
+                if (actorInfo.IsLearnedSkill(learnSkillId))
+                {
+                    skillInfo.PrimitiveLearned.SetValue(true);
+                }
                 skillInfo.ExpRate.SetValue(actorInfo.MastarySkillRate(learnSkillId));
                 changeAbleSkills.Add(skillInfo);
             }
@@ -134,6 +138,10 @@ namespace Ryneus
                 var skillInfo = new SkillInfo(equipSkillId.Value);
                 skillInfo.SetLearningState(LearningState.Learned);
                 skillInfo.SetEnable(true);
+                if (actorInfo.IsLearnedSkill(equipSkillId.Value))
+                {
+                    skillInfo.PrimitiveLearned.SetValue(true);
+                }
                 skillInfo.ExpRate.SetValue(actorInfo.MastarySkillRate(equipSkillId.Value));
                 if (!skillInfo.IsBattleSpecialSkill())
                 {

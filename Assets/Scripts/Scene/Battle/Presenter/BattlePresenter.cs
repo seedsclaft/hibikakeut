@@ -275,6 +275,7 @@ namespace Ryneus
             {
                 return;
             }
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _beforeBattle = false;
             _model.CreateBattleRecords();
             _view.SetActiveBeforeBattles(false);

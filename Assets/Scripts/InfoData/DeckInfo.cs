@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Ryneus
 {
@@ -28,7 +27,7 @@ namespace Ryneus
         public ParameterInt PositionX = new();
         public ParameterInt PositionY = new();
         public ParameterInt Direction = new(); // 0=North, 1=East , 2=South , 3=West
-        public void SetPosition(int dungeonId,int x,int y,int direction)
+        public void SetPosition(int dungeonId, int x, int y, int direction)
         {
             DungeonId.SetValue(dungeonId);
             PositionX.SetValue(x);
@@ -92,5 +91,14 @@ namespace Ryneus
             //_actorIdDict[1] = 1;
         }
 
+    }
+
+    [System.Serializable]
+    public class DungeonResumeInfo
+    {
+        public ParameterInt DungeonId = new();
+        public ParameterInt PositionX = new();
+        public ParameterInt PositionY = new();
+        public ParameterInt Direction = new(); // 0=North, 1=East , 2=South , 3=West
     }
 }

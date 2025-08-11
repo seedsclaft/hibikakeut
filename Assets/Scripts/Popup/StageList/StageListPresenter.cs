@@ -66,33 +66,32 @@ namespace Ryneus
             {
                 return;
             }
-            if (!_model.IsLimitedRank(stageInfo))
-            {
-                _busy = true;
-                _view.SetBusy(true);
-                SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(32030), (a) =>
-                {
-                    if (a == ConfirmCommandType.Yes)
-                    {
-                        _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
-                        _model.PartyInfo.DepartureCount.GainValue(1);
-                        CheckAchievements();
-                        _model.MakeStageInfoDepature(stageInfo.StageId.Value);
-                        _view.CommandSceneChange(Scene.Dungeon);
-                    }
-                    _busy = false;
-                    _view.SetBusy(false);
-                }, ConfirmType.StageConfirm);
-                confirmInfo.SetStageInfo(stageInfo);
-                _view.CommandCallConfirm(confirmInfo);
-            } else
+            if (_model.IsLimitedRank(stageInfo))
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
                 cautionInfo.SetTitle(DataSystem.GetText(32040));
                 _view.CommandCallCaution(cautionInfo);
+                return;
             }
+            _busy = true;
+            _view.SetBusy(true);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(32030), (a) =>
+            {
+                if (a == ConfirmCommandType.Yes)
+                {
+                    _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
+                    _model.PartyInfo.DepartureCount.GainValue(1);
+                    CheckAchievements();
+                    _model.MakeStageInfoDepature(stageInfo.StageId.Value);
+                    _view.CommandSceneChange(Scene.Dungeon);
+                }
+                _busy = false;
+                _view.SetBusy(false);
+            }, ConfirmType.StageConfirm);
+            confirmInfo.SetStageInfo(stageInfo);
+            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CheckTutorialState(object commandType = null)

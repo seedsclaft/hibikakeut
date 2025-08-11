@@ -185,6 +185,7 @@ namespace Ryneus
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(10110),(a) =>
             {
                 _model.ReturnDungeon();
+                _view.CallSystemCommand(Base.CommandType.MapClear);
                 var periodItemInfos = _model.PeriodGetItemInfos();
                 if (periodItemInfos.Count > 0)
                 {
@@ -516,6 +517,7 @@ namespace Ryneus
                 if (a == ConfirmCommandType.Yes)
                 {
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
+                    _view.CallSystemCommand(Base.CommandType.MapClear);
                     _model.ReturnDungeon();
                     var periodItemInfos = _model.PeriodGetItemInfos();
                     if (periodItemInfos.Count > 0)

@@ -26,6 +26,7 @@ namespace Ryneus
         {
             _learningState = learningState;
         }
+        public ParameterBool PrimitiveLearned = new();
 
         public ParameterInt LearningCost = new();
         public ParameterInt LearningLv = new();

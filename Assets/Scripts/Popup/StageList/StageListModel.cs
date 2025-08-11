@@ -11,19 +11,18 @@ namespace Ryneus
 
         public void MakeStageInfoDepature(int stageId)
         {
-            var dungeonId = CurrentDeckInfo.DungeonId.Value;
-            var resumeStage = DataSystem.FindStage(dungeonId);
+            var resumeInfo = PartyInfo.DungeonResumeInfos.Find(a => a.DungeonId.Value == stageId);
             // 復帰処理
-            if (DataSystem.FindStage(stageId).StageNo == resumeStage.StageNo)
+            if (resumeInfo != null)
             {
-                stageId = dungeonId;
+                CurrentDeckInfo.SetPosition(resumeInfo.DungeonId.Value, resumeInfo.PositionX.Value, resumeInfo.PositionY.Value, resumeInfo.Direction.Value);
             } else
             {
                 // 初期位置に設定
                 var floor = DataSystem.FindDungeonFloor(stageId);
                 CurrentDeckInfo.SetPosition(stageId, floor.entrancePos.x, floor.entrancePos.y, (int)floor.enteringDir);
-                CurrentDeckInfo.StageNo.SetValue(stageId);
             }
+            CurrentDeckInfo.StageNo.SetValue(stageId);
             CurrentDeckInfo.Encount.SetValue(0);
             MakeStageInfo(stageId, true);
         }

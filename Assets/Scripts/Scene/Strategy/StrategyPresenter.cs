@@ -319,6 +319,7 @@ namespace Ryneus
             if (_model.InBattleResult && !_model.BattleResultVictory)
             {
                 _model.ReturnDungeon();
+                _view.CallSystemCommand(Base.CommandType.MapClear);
                 _view.CommandGotoSceneChange(Scene.MainMenu);
                 return;
             }

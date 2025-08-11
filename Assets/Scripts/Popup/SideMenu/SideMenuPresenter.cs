@@ -131,17 +131,18 @@ namespace Ryneus
                     _model.ReturnDungeon();
                     ClosePopup();
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
+                    _view.CallSystemCommand(Base.CommandType.MapClear);
                     var periodItemInfos = _model.PeriodGetItemInfos();
                     if (periodItemInfos.Count > 0)
                     {
                         var strategySceneInfo = new StrategySceneInfo
                         {
-                            ActorInfos = _model.PartyInfo.ActorInfos,
+                            ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
                             InBattle = false,
                             GetItemInfos = periodItemInfos,
                             ReturnScene = Scene.MainMenu,
                         };
-                        _view.CommandSceneChange(Scene.Strategy);
+                        _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
                     } else
                     {
                         _view.CommandSceneChange(Scene.MainMenu);

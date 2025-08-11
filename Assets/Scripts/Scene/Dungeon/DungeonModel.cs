@@ -139,7 +139,7 @@ namespace Ryneus
             if (lastPositionX.Value != playerPosition.x || lastPositionY.Value != playerPosition.y)
             {
                 CurrentDeckInfo.SetPosition(playerDungeonId, playerPosition.x, playerPosition.y, (int)playerDirection);
-
+                PartyInfo.UpdateDungeonResumeInfo(playerDungeonId, playerPosition.x, playerPosition.y, (int)playerDirection);
                 if (IsActiveDungeon())
                 {
                     // ランダムエンカウントフラグ加算
