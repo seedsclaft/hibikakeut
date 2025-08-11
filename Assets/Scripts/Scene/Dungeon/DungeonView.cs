@@ -92,8 +92,8 @@ namespace Ryneus
         private void InitializePartyUnitList()
         {
             partyUnitList.Initialize();
-            partyUnitList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.SelectCharacter,partyUnitList.Index));
-            partyUnitList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.EndFormation));
+            partyUnitList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectCharacter,partyUnitList.Index));
+            partyUnitList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.EndFormation));
             AddViewActives(partyUnitList);
         }
 
@@ -179,7 +179,7 @@ namespace Ryneus
             if (keyTypes.Contains(InputKeyType.Option2))
             {
                 CallSideMenu();
-            }else
+            } else
             if (keyTypes.Contains(InputKeyType.Option1))
             {
                 CallFormation();
@@ -243,13 +243,13 @@ namespace Ryneus
             }
         }
 
-        public void StartDamage(int targetIndex,DamageType damageType,int value,bool needPopupDelay = true)
+        public void StartDamage(int targetIndex, DamageType damageType, int value, bool needPopupDelay = true)
         {
             if (!_battlerComps.ContainsKey(targetIndex))
             {
                 return;
             }
-            _battlerComps[targetIndex].StartDamage(damageType,value,needPopupDelay);
+            _battlerComps[targetIndex].StartDamage(damageType, value, needPopupDelay);
         }
 
         public void StartBlink(int targetIndex)
@@ -269,13 +269,13 @@ namespace Ryneus
             }
         }
 
-        private void StartHeal(int targetIndex,DamageType damageType, int value, bool needPopupDelay = true)
+        private void StartHeal(int targetIndex, DamageType damageType, int value, bool needPopupDelay = true)
         {
             if (!_battlerComps.ContainsKey(targetIndex))
             {
                 return;
             }
-            _battlerComps[targetIndex].StartHeal(damageType,value,needPopupDelay);
+            _battlerComps[targetIndex].StartHeal(damageType, value, needPopupDelay);
         }
 
         public void MinusVictoryBonus(float minus)
@@ -283,7 +283,7 @@ namespace Ryneus
             SeekTweens();
             var lastY = 334;//minusVictoryBonus.transform.localPosition.y;
             minusVictoryBonus.transform.DOLocalMoveY(lastY, 0);
-            minusVictoryBonus.SetText("-" + minus.ToString());
+            minusVictoryBonus.SetText(minus.ToString());
             minusVictoryBonus.DOFade(1f, 0);
             var sequence = DOTween.Sequence()
                 .Append(minusVictoryBonus.transform.DOLocalMoveY(lastY - 24, 0.8f))
@@ -302,7 +302,7 @@ namespace Ryneus
             SeekTweens();
             var lastY = 224;//minusEvaluate.transform.localPosition.y;
             minusEvaluate.transform.DOLocalMoveY(lastY, 0);
-            minusEvaluate.SetText("-" + minus.ToString());
+            minusEvaluate.SetText(minus.ToString());
             minusEvaluate.DOFade(1f, 0);
             var sequence = DOTween.Sequence()
                 .Append(minusEvaluate.transform.DOLocalMoveY(lastY - 24, 0.8f))

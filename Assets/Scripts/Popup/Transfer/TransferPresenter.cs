@@ -23,7 +23,7 @@ namespace Ryneus
         private void Initialize()
         {
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetCharacterList(MakeListData(_model.PartyInfo.ActorInfos,0));
+            _view.SetCharacterList(MakeListData(_model.PartyInfo.EditableActorInfos(), 0));
             _view.OpenAnimation();
         }
 

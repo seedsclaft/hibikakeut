@@ -712,7 +712,7 @@ namespace Ryneus
                 SoundManager.Instance.PlayStaticSe(SEType.Heal);
                 _model.UseCurrencyHeal();
                 _view.StartHeal(10);
-                _view.MinusVictoryBonus(-0.5f);
+                _view.MinusVictoryBonus(-0.2f);
                 _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
                 CommandRefresh();
             } else

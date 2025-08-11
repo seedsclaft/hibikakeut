@@ -720,30 +720,30 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 41_3_2DungeonGetItem1200
+    - EventKey: 41_3_2DungeonGetItem3010
       Timing: 3010
       Type: 3020
       PositionX: 3
       PositionY: 2
-      Param: 1200
+      Param: 3010
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 41_4_1DungeonGetItem1200
+    - EventKey: 41_4_1DungeonGetItem1300
       Timing: 3010
       Type: 3020
       PositionX: 4
       PositionY: 1
-      Param: 1200
+      Param: 1300
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 41_5_2DungeonGetItem1200
+    - EventKey: 41_5_2DungeonGetItem3010
       Timing: 3010
       Type: 3020
       PositionX: 5
       PositionY: 2
-      Param: 1200
+      Param: 3010
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -1183,12 +1183,12 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 50_9_3DungeonGetItem1000
+    - EventKey: 50_9_3DungeonGetItem3020
       Timing: 3010
       Type: 3020
       PositionX: 9
       PositionY: 3
-      Param: 1000
+      Param: 3020
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -1558,12 +1558,12 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 54_8_9DungeonGetItem1200
+    - EventKey: 54_8_9DungeonGetItem1300
       Timing: 3010
       Type: 3020
       PositionX: 8
       PositionY: 9
-      Param: 1200
+      Param: 1300
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -1729,7 +1729,15 @@ MonoBehaviour:
     OnlyOnce: 1
     DisplayRank: 5
     RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
+    RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 15
+    - EnemyId: 7
+      Weight: 15
+    - EnemyId: 9
+      Weight: 15
+    - EnemyId: 13
+      Weight: 15
     EncountMin: 6
     EncountMax: 12
     BackGround: RockCave2
@@ -1782,7 +1790,7 @@ MonoBehaviour:
     Selectable: 1
     Chapter: 3
     Help: "\u30A2\u30FC\u30B9\u795E\u65CF\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
-    StageLv: 18
+    StageLv: 13
     OnlyOnce: 1
     DisplayRank: 1
     RandomTroopWeight: 30
@@ -1850,7 +1858,7 @@ MonoBehaviour:
     Selectable: 0
     Chapter: 3
     Help: "\u30A2\u30FC\u30B9\u795E\u65CF\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
-    StageLv: 19
+    StageLv: 14
     OnlyOnce: 1
     DisplayRank: 1
     RandomTroopWeight: 30
@@ -1918,7 +1926,7 @@ MonoBehaviour:
     Selectable: 0
     Chapter: 3
     Help: "\u30A2\u30FC\u30B9\u795E\u65CF\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
-    StageLv: 20
+    StageLv: 15
     OnlyOnce: 1
     DisplayRank: 1
     RandomTroopWeight: 30

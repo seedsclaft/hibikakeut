@@ -35,6 +35,7 @@ namespace Ryneus
     {
         Complete = 10,
         DepartureCount = 1010,
+        DepartureBattleFieldCount = 1012,
         BattleVictory = 1020,
         CharacterLevel = 1030,
         CharacterLevelNum = 1031,

@@ -190,6 +190,7 @@ namespace Ryneus
 
         // 出撃回数
         public ParameterInt DepartureCount = new();
+        public ParameterInt DepartureBattleFieldCount = new();
         // 勝利回数
         public ParameterInt BattleVictoryCount = new();
         // Nu消費レベルアップ回数
@@ -311,7 +312,11 @@ namespace Ryneus
                     break;
                 case AchievementConditionType.DepartureCount:
                     // 出撃回数
-                    achievementInfo.SetCondition(DepartureCount.Value,achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(DepartureCount.Value, achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.DepartureBattleFieldCount:
+                    // 出撃回数
+                    achievementInfo.SetCondition(DepartureBattleFieldCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.BattleVictory:
                     // 勝利回数
