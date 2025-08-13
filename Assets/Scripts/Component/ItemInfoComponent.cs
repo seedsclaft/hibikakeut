@@ -34,5 +34,17 @@ namespace Ryneus
                 description.SetText(itemData.Help);
             }
         }
+
+        public void Clear()
+        {
+            if (itemName != null)
+            {
+                itemName.SetText("");
+            }
+            if (description != null)
+            {
+                description.SetText("");
+            }
+        }
     }
 }

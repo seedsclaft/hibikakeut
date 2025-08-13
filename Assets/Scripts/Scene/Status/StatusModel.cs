@@ -96,6 +96,11 @@ namespace Ryneus
             return find;
         }
 
+        public List<ItemInfo> UseItemInfos()
+        {
+            return PartyInfo.UseItemInfos();
+        }
+
         public string HelpText()
         {
             return DataSystem.GetText(18010);

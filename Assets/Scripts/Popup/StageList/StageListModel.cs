@@ -9,11 +9,16 @@ namespace Ryneus
         {
         }
 
-        public void MakeStageInfoDepature(int stageId)
+        public DungeonResumeInfo GetDungeonResumeInfo(int stageId)
+        {
+            return PartyInfo.DungeonResumeInfos.Find(a => a.DungeonId.Value == stageId);
+        }
+
+        public void MakeStageInfoDepature(int stageId, bool resumeStart)
         {
             var resumeInfo = PartyInfo.DungeonResumeInfos.Find(a => a.DungeonId.Value == stageId);
             // 復帰処理
-            if (resumeInfo != null)
+            if (resumeInfo != null && resumeStart)
             {
                 CurrentDeckInfo.SetPosition(resumeInfo.DungeonId.Value, resumeInfo.PositionX.Value, resumeInfo.PositionY.Value, resumeInfo.Direction.Value);
             } else

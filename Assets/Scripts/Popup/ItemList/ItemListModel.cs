@@ -11,7 +11,7 @@ namespace Ryneus
         {
         }
 
-        public List<ItemInfo> ItemInfoss()
+        public List<ItemInfo> ItemInfos()
         {
             var list = new List<ItemInfo>();
             foreach (var item in PartyInfo.Items)
@@ -20,14 +20,18 @@ namespace Ryneus
                 {
                     continue;
                 }
-                var itemInfo = new ItemInfo(item.Key,item.Value.Value);
+                var itemInfo = new ItemInfo(item.Key, item.Value.Value);
+                if (itemInfo.Master.ItemType == ItemType.UseItem)
+                {
+                    continue;
+                }
                 if (_useCount.ContainsKey(item.Key))
                 {
                     itemInfo.UseNum.SetValue(_useCount[item.Key].Value);
                 }
                 list.Add(itemInfo);
             }
-            list.Sort((a,b) => a.Id.Value - b.Id.Value > 0 ? 1: -1);
+            list.Sort((a, b) => a.Id.Value - b.Id.Value > 0 ? 1 : -1);
             return list;
         }
 

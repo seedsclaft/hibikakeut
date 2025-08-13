@@ -10,7 +10,7 @@ namespace Ryneus
         {
             if (transform.childCount > 0)
             {
-                CloseConfirm();
+                //CloseConfirm();
             }
             var prefab = Instantiate(GetConfirmObject(popupType));
             prefab.transform.SetParent(transform, false);

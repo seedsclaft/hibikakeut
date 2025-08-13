@@ -20,6 +20,11 @@ namespace Ryneus
         [SerializeField] private InputInfoComponent filterPlusInput = null;
         [SerializeField] private Button filterMinusButton = null;
         [SerializeField] private InputInfoComponent filterMinusInput = null;
+        [SerializeField] private UseItemList useItemList = null;
+        [SerializeField] private GameObject magicListRoot = null;
+        [SerializeField] private OnOffButton magicListButton = null;
+        [SerializeField] private GameObject useItemRoot = null;
+        [SerializeField] private OnOffButton useItemButton = null;
         [SerializeField] private GameObject statusLevelUpRoot = null;
         [SerializeField] private StatusLevelUp statusLevelUp = null;
         [SerializeField] private ActorInfoComponent selectingActorInfoComponent = null;
@@ -38,6 +43,7 @@ namespace Ryneus
 
             InitializeEquipSkillList();
             InitializeChangeSkillList();
+            InitializeUseItemList();
             if (statusLevelUp != null)
             {
                 statusLevelUp.Initialize(() => CallViewEvent(CommandType.LevelUp));
@@ -75,17 +81,25 @@ namespace Ryneus
             {
                 filterMinusInput.UpdateGuideIcon(InputKeyType.SideLeft1);
             }
+            if (useItemButton != null)
+            {
+                useItemButton.OnClickAddListener(() => CallViewEvent(CommandType.ShowUseItem));
+            }
+            if (magicListButton != null)
+            {
+                magicListButton.OnClickAddListener(() => CallViewEvent(CommandType.CancelUseItem));
+            }
             _ = new StatusPresenter(this);
         }
 
         private void InitializeEquipSkillList()
         {
             equipSkillList.Initialize();
-            equipSkillList.SetInputHandler(InputKeyType.Decide,OnSelectEquipSkill);
-            equipSkillList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
-            equipSkillList.SetInputHandler(InputKeyType.SideLeft1,() => CallViewEvent(CommandType.LeftActor));
-            equipSkillList.SetInputHandler(InputKeyType.SideRight1,() => CallViewEvent(CommandType.RightActor));
-            equipSkillList.SetInputHandler(InputKeyType.Option1,() => CallViewEvent(CommandType.LevelUp));
+            equipSkillList.SetInputHandler(InputKeyType.Decide, OnSelectEquipSkill);
+            equipSkillList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
+            equipSkillList.SetInputHandler(InputKeyType.SideLeft1, () => CallViewEvent(CommandType.LeftActor));
+            equipSkillList.SetInputHandler(InputKeyType.SideRight1, () => CallViewEvent(CommandType.RightActor));
+            //equipSkillList.SetInputHandler(InputKeyType.Option1,() => CallViewEvent(CommandType.LevelUp));
             AddViewActives(equipSkillList);
         }
 
@@ -147,6 +161,35 @@ namespace Ryneus
             }
         }
 
+        private void InitializeUseItemList()
+        {
+            useItemList.Initialize();
+            useItemList.SetInputHandler(InputKeyType.Decide, OnUseItem);
+            useItemList.SetInputHandler(InputKeyType.Cancel, OnCancelUseItem);
+            //changeSkillList.SetInputHandler(InputKeyType.SideLeft1,() => CallViewEvent(CommandType.FilterMinus));
+            //changeSkillList.SetInputHandler(InputKeyType.SideRight1,() => CallViewEvent(CommandType.FilterPlus));
+            AddViewActives(useItemList);
+        }
+
+        public void SetUseItemList(List<ListData> itemInfos)
+        {
+            useItemList.SetData(itemInfos, false);
+        }
+
+        private void OnUseItem()
+        {
+            var data = useItemList.ListItemData<ItemInfo>();
+            if (data != null)
+            {
+                CallViewEvent(CommandType.UseItem, data);
+            }
+        }
+
+        private void OnCancelUseItem()
+        {
+            CallViewEvent(CommandType.CancelUseItem);
+        }
+
         public void SetActiveArrows(bool isActive)
         {
             leftArrowButton.gameObject.SetActive(isActive);
@@ -155,9 +198,12 @@ namespace Ryneus
 
         public void CallEquipSkillList()
         {
+            magicListRoot.SetActive(true);
+            useItemRoot.SetActive(false);
             SetActivate(equipSkillList);
             equipSkillList.gameObject.SetActive(true);
             changeSkillList.gameObject.SetActive(false);
+            useItemList.gameObject.SetActive(false);
             filterRoot.SetActive(false);
         }
 
@@ -166,7 +212,19 @@ namespace Ryneus
             SetActivate(changeSkillList);
             changeSkillList.gameObject.SetActive(true);
             equipSkillList.gameObject.SetActive(false);
+            useItemList.gameObject.SetActive(false);
             filterRoot.SetActive(true);
+        }
+
+        public void CallUseItemList()
+        {
+            magicListRoot.SetActive(false);
+            useItemRoot.SetActive(true);
+            SetActivate(useItemList);
+            changeSkillList.gameObject.SetActive(false);
+            equipSkillList.gameObject.SetActive(false);
+            useItemList.gameObject.SetActive(true);
+            filterRoot.SetActive(false);
         }
 
         public void OpenAnimation(Action endEvent)
@@ -193,6 +251,8 @@ namespace Ryneus
             if (isActive)
             {
                 SetDecideAnimation();
+                magicListButton.gameObject.SetActive(false);
+                useItemButton.gameObject.SetActive(false);
             }
         }
 
@@ -282,6 +342,20 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
+            if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
+            {
+                if (magicListButton.gameObject.activeSelf)
+                {
+                    CallViewEvent(CommandType.CancelUseItem);
+                }
+            }
+            if (InputSystem.GetInputDate(InputKeyType.Option2).IsDownTrigger())
+            {
+                if (useItemButton.gameObject.activeSelf)
+                {
+                    CallViewEvent(CommandType.ShowUseItem);
+                }
+            }
             if (!changeSkillList.gameObject.activeSelf)
             {
                 return;
@@ -355,7 +429,9 @@ namespace Ryneus
             CancelEquipSkill,
             SelectChangeSkill,
             DecideActor,
-            DecideStage,
+            ShowUseItem,
+            UseItem,
+            CancelUseItem,
             CharacterList,
             SelectCharacter,
             SelectCommandList,

@@ -160,6 +160,21 @@ namespace Ryneus
             return false;
         }
 
+        // 使用できるアイテムを取得
+        public List<ItemInfo> UseItemInfos()
+        {
+            var list = new List<ItemInfo>();
+            foreach (var item in _items)
+            {
+                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
+                if (itemData.ItemType == ItemType.UseItem && item.Value.Value > 0)
+                {
+                    list.Add(new ItemInfo(itemData.Id, item.Value.Value));
+                }
+            }
+            return list;
+        }
+
         // 所持解放
         private List<int> _buildingIds = new();
         public List<int> BuildingIds => _buildingIds;

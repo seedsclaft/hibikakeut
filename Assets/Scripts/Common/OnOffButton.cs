@@ -8,6 +8,8 @@ namespace Ryneus
     public class OnOffButton : ListItem, IListViewItem
     {
         [SerializeField] private TextMeshProUGUI commandName;
+        [SerializeField] private InputInfoComponent inputInfoComponent;
+        [SerializeField] private InputKeyType inputKeyType;
         private System.Action _handler = null;
         private System.Action _exitHandler = null;
         public void SetText(string text)
@@ -42,6 +44,10 @@ namespace Ryneus
                 _handler = handler;
             }
             SetIndex(0);
+            if (inputInfoComponent != null)
+            {
+                inputInfoComponent.UpdateGuideIcon(inputKeyType);
+            }
         }
 
         public void UpdateViewItem()

@@ -81,17 +81,40 @@ namespace Ryneus
             {
                 if (a == ConfirmCommandType.Yes)
                 {
-                    _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
-                    _model.PartyInfo.DepartureCount.GainValue(1);
-                    CheckAchievements();
-                    _model.MakeStageInfoDepature(stageInfo.StageId.Value);
-                    _view.CommandSceneChange(Scene.Dungeon);
+                    CheckResumeStage(stageInfo.StageId.Value);
                 }
                 _busy = false;
                 _view.SetBusy(false);
             }, ConfirmType.StageConfirm);
             confirmInfo.SetStageInfo(stageInfo);
             _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void CheckResumeStage(int stageId)
+        {
+            if (_model.GetDungeonResumeInfo(stageId) != null)
+            {
+                _busy = true;
+                _view.SetBusy(true);
+                SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                var confirmInfo = new ConfirmInfo("途中まで進んだところから再開しますか？", (a) =>
+                {
+                    StartStage(stageId, a == ConfirmCommandType.Yes);
+                    _busy = false;
+                    _view.SetBusy(false);
+                });
+                return;
+            }
+            StartStage(stageId, false);
+        }
+
+        private void StartStage(int stageId, bool resumeStart)
+        {
+            _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
+            _model.PartyInfo.DepartureCount.GainValue(1);
+            CheckAchievements();
+            _model.MakeStageInfoDepature(stageId, resumeStart);
+            _view.CommandSceneChange(Scene.Dungeon);
         }
 
         private void CheckTutorialState(object commandType = null)

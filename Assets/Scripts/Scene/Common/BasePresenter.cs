@@ -414,10 +414,10 @@ namespace Ryneus
             });
         }
 
-        public void CommandExpUp(ActorInfo actorInfo, Action endEvent = null)
+        public void CommandExpUp(ActorInfo actorInfo,int getExp, Action endEvent = null)
         {
-            var getExp = _model.ActorGetExpCurrency(actorInfo);
-            if (_model.Currency > 0 && getExp > 0)
+            //var getExp = _model.ActorGetExpCurrency(actorInfo);
+            if (getExp > 0)
             {
                 _model.PartyInfo.Currency.GainValue(-1);
                 SoundManager.Instance.PlayStaticSe(SEType.LevelUp);

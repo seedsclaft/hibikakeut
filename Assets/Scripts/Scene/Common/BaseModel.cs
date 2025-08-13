@@ -579,11 +579,11 @@ namespace Ryneus
 
         public void ActorLevelUp(ActorInfo actorInfo)
         {
-            var cost = ActorLevelUpCost(actorInfo);
-            PartyInfo.Currency.GainValue(-cost);
+            //var cost = ActorLevelUpCost(actorInfo);
+            //PartyInfo.Currency.GainValue(-cost);
             // 新規魔法取得があるか
             var skills = actorInfo.LearningSkills(1);
-            var levelUpInfo = actorInfo.LevelUp(cost, PartyInfo.StageId.Value);
+            var levelUpInfo = actorInfo.LevelUp(0, PartyInfo.StageId.Value);
             foreach (var skill in skills)
             {
                 actorInfo.AddSkillTriggerSkill(skill.Id.Value);

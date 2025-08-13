@@ -24,7 +24,7 @@ namespace Ryneus
         private void Initialize()
         {
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetItemList(MakeListData(_model.ItemInfoss(), 0));
+            _view.SetItemList(MakeListData(_model.ItemInfos(), 0));
             _view.OpenAnimation();
             _busy = false;
         }
@@ -111,7 +111,7 @@ namespace Ryneus
 
         private void CommandRefresh()
         {
-            _view.SetItemList(MakeListData(_model.ItemInfoss()));
+            _view.SetItemList(MakeListData(_model.ItemInfos()));
         }
 
         private void CheckTutorialState(object commandType = null)

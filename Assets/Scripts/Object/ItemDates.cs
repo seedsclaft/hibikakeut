@@ -17,6 +17,7 @@ namespace Ryneus
         public ItemType ItemType;
         public int Param1;
         public int Param2;
+        public int Param3;
         public string Name;
         public string Help;
     }
@@ -27,6 +28,12 @@ namespace Ryneus
         RandumAddSkill = 10,
         Artifact = 20,
         Currency = 30,
+        UseItem = 40,
     }
 
+    [Serializable]
+    public enum UseItemType
+    {
+        Exp = 10,
+    }
 }

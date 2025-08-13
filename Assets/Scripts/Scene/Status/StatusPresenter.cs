@@ -78,6 +78,15 @@ namespace Ryneus
                 case CommandType.SelectChangeSkill:
                     CommandSelectChangeSkill((SkillInfo)viewEvent.Template);
                     return;
+                case CommandType.ShowUseItem:
+                    CommandShowUseItem();
+                    return;
+                case CommandType.UseItem:
+                    CommandUseItem((ItemInfo)viewEvent.Template);
+                    return;
+                case CommandType.CancelUseItem:
+                    CommandCancelUseItem();
+                    return;
                 case CommandType.CharacterList:
                     CommandCharacterList();
                     return;
@@ -234,6 +243,48 @@ namespace Ryneus
             CommandRefreshMagicList();
         }
 
+        private void CommandShowUseItem()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _view.CallUseItemList();
+            CommandRefreshuseItemList();
+        }
+
+        private void CommandUseItem(ItemInfo itemInfo)
+        {
+            if (itemInfo == null)
+            {
+                return;
+            }
+            _model.PartyInfo.ConsuneItemNum(itemInfo.Id.Value, 1);
+            // 経験値付与
+            if (itemInfo.Master.Param1 == (int)UseItemType.Exp)
+            {
+                var getExp = itemInfo.Master.Param2;
+                if (_model.CurrentActor.Level <= itemInfo.Master.Param3)
+                {
+                    getExp *= 2;
+                }
+                _busy = true;
+                _view.SetBusy(true);
+                _model.PartyInfo.TacticsLvupCount.GainValue(1);
+                CommandExpUp(_model.CurrentActor, getExp, () =>
+                {
+                    CheckAchievements();
+                    _busy = false;
+                    _view.SetBusy(false);
+                    CommandRefresh();
+                });
+                CommandRefreshuseItemList();
+            }
+        }
+
+        private void CommandCancelUseItem()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            _view.CallEquipSkillList();
+        }
+
         private void CommandCharacterList()
         {
             _busy = true;
@@ -297,7 +348,7 @@ namespace Ryneus
             _busy = true;
             _view.SetBusy(true);
             _model.PartyInfo.TacticsLvupCount.GainValue(1);
-            CommandExpUp(_model.CurrentActor,() =>
+            CommandExpUp(_model.CurrentActor, 20,() =>
             {
                 CheckAchievements();
                 _busy = false;
@@ -428,7 +479,7 @@ namespace Ryneus
         private void CommandRefreshMagicList()
         {
             CommandRefresh();
-            _view.SetEquipSkillList(MakeListData(_model.EquipSkills(),0));
+            _view.SetEquipSkillList(MakeListData(_model.EquipSkills(), 0));
         }
 
         private void SaveSelectedSkillId()
@@ -438,6 +489,12 @@ namespace Ryneus
             {
                 _model.SetActorLastSkillId(selectedSkillId);
             }
+        }
+
+        private void CommandRefreshuseItemList()
+        {
+            CommandRefresh();
+            _view.SetUseItemList(MakeListData(_model.UseItemInfos(), 0));
         }
 
         private void CommandCallHelp()
