@@ -103,6 +103,8 @@ namespace Ryneus
                     _busy = false;
                     _view.SetBusy(false);
                 });
+                confirmInfo.SetSelectIndex(1);
+                _view.CommandCallConfirm(confirmInfo);
                 return;
             }
             StartStage(stageId, false);

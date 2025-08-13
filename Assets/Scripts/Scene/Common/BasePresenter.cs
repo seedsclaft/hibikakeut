@@ -419,7 +419,7 @@ namespace Ryneus
             //var getExp = _model.ActorGetExpCurrency(actorInfo);
             if (getExp > 0)
             {
-                _model.PartyInfo.Currency.GainValue(-1);
+                //_model.PartyInfo.Currency.GainValue(-1);
                 SoundManager.Instance.PlayStaticSe(SEType.LevelUp);
                 // 新規魔法取得があるか
                 var from = actorInfo.Evaluate();

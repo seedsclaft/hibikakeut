@@ -11,7 +11,7 @@ namespace Ryneus
 
         public DungeonResumeInfo GetDungeonResumeInfo(int stageId)
         {
-            return PartyInfo.DungeonResumeInfos.Find(a => a.DungeonId.Value == stageId);
+            return PartyInfo.DungeonResumeInfos.Find(a => a.StageId.Value == stageId);
         }
 
         public void MakeStageInfoDepature(int stageId, bool resumeStart)
