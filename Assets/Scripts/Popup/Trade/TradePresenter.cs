@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Ryneus.Trade;
-using UnityEditor.PackageManager.Requests;
 
 namespace Ryneus
 {
@@ -51,6 +50,9 @@ namespace Ryneus
                 case CommandType.SelectTradeItem:
                     CommandSelectTradeItem((TradeItemInfo)viewEvent.Template);
                     break;
+                case CommandType.CommandBack:
+                    CommandBack();
+                    break;
             }
         }
 
@@ -60,7 +62,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle("取引する商品がありません");
+                cautionInfo.SetTitle(DataSystem.GetText(39030));
                 _view.CommandCallCaution(cautionInfo);
                 return;
             }
@@ -68,7 +70,7 @@ namespace Ryneus
             _busy = true;
             _view.SetBusy(true);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo("取引しますか？", (a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(39040), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
@@ -104,19 +106,38 @@ namespace Ryneus
             {
                 return;
             }
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
-            var skillInfo = new SkillInfo(tradeItemInfo.GetItemInfo.Param1);
-            var confirmInfo = new ConfirmInfo("", (a) =>
+            if (tradeItemInfo.GetItemInfo.Master.Type == GetItemType.Skill)
             {
-                _busy = false;
-            }, ConfirmType.SkillDetail);
-            confirmInfo.SetBackEvent(() =>
+                var skillInfo = new SkillInfo(tradeItemInfo.GetItemInfo.Param1);
+                var confirmInfo = new ConfirmInfo("", (a) =>
+                {
+                    _busy = false;
+                }, ConfirmType.SkillDetail);
+                confirmInfo.SetBackEvent(() =>
+                {
+                    _busy = false;
+                });
+                confirmInfo.SetSkillInfo(new List<SkillInfo>(){skillInfo});
+                confirmInfo.SetIsNoChoice(true);
+                _view.CommandCallConfirm(confirmInfo);
+            } else
+            if (tradeItemInfo.GetItemInfo.Master.Type == GetItemType.Item)
             {
-                _busy = false;
-            });
-            confirmInfo.SetSkillInfo(new List<SkillInfo>(){skillInfo});
-            confirmInfo.SetIsNoChoice(true);
-            _view.CommandCallConfirm(confirmInfo);
+                var itemInfo = new ItemInfo(tradeItemInfo.GetItemInfo.Param1, 1);
+                var confirmInfo = new ConfirmInfo("", (a) =>
+                {
+                    _busy = false;
+                }, ConfirmType.ItemDetail);
+                confirmInfo.SetBackEvent(() =>
+                {
+                    _busy = false;
+                });
+                confirmInfo.SetItemInfo(new List<ItemInfo>(){itemInfo});
+                confirmInfo.SetIsNoChoice(true);
+                _view.CommandCallConfirm(confirmInfo);
+            }
         }
 
         private void CommandSelectTradeItem(TradeItemInfo tradeItemInfo)
@@ -134,13 +155,18 @@ namespace Ryneus
             }
         }
 
+        private void CommandBack()
+        {
+            _view.BackEvent();
+        }
+
         private void CommandAddTradeItem(TradeItemInfo getItemInfo)
         {
             if (!_model.CanPayCost(getItemInfo))
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle("Cost不足");
+                cautionInfo.SetTitle(DataSystem.GetText(39050));
                 _view.CommandCallCaution(cautionInfo);
                 return;
             }

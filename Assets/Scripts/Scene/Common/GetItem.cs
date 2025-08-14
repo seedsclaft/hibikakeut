@@ -45,7 +45,7 @@ namespace Ryneus
 
         public void SetItemData(GetItemInfo getItemInfo)
         {
-            SetListData(new ListData(getItemInfo),0);
+            SetListData(new ListData(getItemInfo), 0);
             UpdateViewItem();
         }
     }

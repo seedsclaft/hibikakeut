@@ -6,7 +6,7 @@ namespace Ryneus
 {
     public class ItemListModel : BaseModel
     {
-        private Dictionary<int,ParameterInt> _useCount = new();
+        private Dictionary<int, ParameterInt> _useCount = new();
         public ItemListModel()
         {
         }
@@ -95,26 +95,5 @@ namespace Ryneus
             return list;
         }
 
-        private GetItemInfo MakeItemGetItemInfo(ItemData itemData)
-        {
-            switch (itemData.ItemType)
-            {
-                case ItemType.RandumAddSkill:
-                    // ランダムでparam2属性のparam1Rankを入手
-                    var candidateSkills = DataSystem.Skills.Where(a => (int)a.Value.Rank == itemData.Param1 && !PartyInfo.LearningSkillIds.Contains(a.Key)).ToList();
-                    if (itemData.Param2 != -1)
-                    {
-                        candidateSkills = candidateSkills.Where(a => (int)a.Value.Attribute == itemData.Param2).ToList();
-                    }
-                    var rand = UnityEngine.Random.Range(0,candidateSkills.Count);
-                    // 報酬設定
-                    return MakeGetItemInfo(GetItemType.Skill,candidateSkills[rand].Value.Id);
-                case ItemType.Artifact:
-                    return MakeGetItemInfo(GetItemType.Evaluate, 5);
-                case ItemType.Currency:
-                    return MakeGetItemInfo(GetItemType.Currency, itemData.Param1);
-            }
-            return null;
-        }
     }
 }

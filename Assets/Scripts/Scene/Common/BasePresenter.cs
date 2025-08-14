@@ -463,6 +463,25 @@ namespace Ryneus
             endEvent?.Invoke();
         }
 
+        public void CommandAttributeUp(ActorInfo actorInfo, AttributeType attributeType, Action endEvent = null)
+        {
+            if (attributeType == AttributeType.None)
+            {
+                endEvent?.Invoke();
+                return;
+            }
+            SoundManager.Instance.PlayStaticSe(SEType.LevelUp);
+            actorInfo.AddAttributeUpper(attributeType);
+            endEvent?.Invoke();
+        }
+
+        public void CommandStatusUp(ActorInfo actorInfo, StatusParamType statusType, int upper, Action endEvent = null)
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.LevelUp);
+            actorInfo.AddStatusUpper(statusType, upper);
+            endEvent?.Invoke();
+        }
+
         public void CommandLearnMagic(ActorInfo actorInfo, SkillInfo skillInfo, Action endEvent = null)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);

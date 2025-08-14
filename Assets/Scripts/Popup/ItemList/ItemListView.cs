@@ -10,7 +10,6 @@ namespace Ryneus
     {
         [SerializeField] private BaseList itemList = null;
         [SerializeField] private OnOffButton presentButton = null;
-        [SerializeField] private InputInfoComponent presentButtonKey = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
 
         public override void Initialize()
@@ -21,10 +20,6 @@ namespace Ryneus
             if (presentButton != null)
             {
                 presentButton.OnClickAddListener(() => CallViewEvent(CommandType.DecideItem, itemList.ListItemData<ItemInfo>()));
-            }
-            if (presentButtonKey != null)
-            {
-                presentButtonKey.UpdateGuideIcon(InputKeyType.Decide);
             }
             SetBaseAnimation(popupAnimation);
             _ = new ItemListPresenter(this);

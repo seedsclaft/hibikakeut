@@ -716,6 +716,7 @@ namespace Ryneus
                 return;
             }
             PartyInfo.Period.GainValue(1);
+            PartyInfo.ClearTardeItemInfos();
             if (PartyInfo.Chapter.Value >= 2)
             {
                 // アーティファクト所持数分評価値を減らす
@@ -843,6 +844,34 @@ namespace Ryneus
                 //AddGetItemInfo(getItemInfo);
             }
             return getItemInfos;
+        }
+
+        public GetItemInfo MakeItemGetItemInfo(ItemData itemData)
+        {
+            switch (itemData.ItemType)
+            {
+                case ItemType.RandumAddSkill:
+                    // ランダムでparam2属性のparam1Rankを入手
+                    var candidateSkills = DataSystem.Skills.Where(a => (int)a.Value.Rank == itemData.Param1 && !PartyInfo.LearningSkillIds.Contains(a.Key)).ToList();
+                    if (itemData.Param2 != -1)
+                    {
+                        candidateSkills = candidateSkills.Where(a => (int)a.Value.Attribute == itemData.Param2).ToList();
+                    }
+                    var rand = UnityEngine.Random.Range(0, candidateSkills.Count);
+                    // 報酬設定
+                    return MakeGetItemInfo(GetItemType.Skill, candidateSkills[rand].Value.Id);
+                case ItemType.RandumAddItem:
+                    // ランダムでparam1が同じアイテム
+                    var candidateItems = DataSystem.Items.Where(a => a.ItemType == ItemType.UseItem && (int)a.Param1 == itemData.Param1).ToList();
+                    var rand2 = UnityEngine.Random.Range(0, candidateItems.Count);
+                    // 報酬設定
+                    return MakeGetItemInfo(GetItemType.Item, candidateItems[rand2].Id, 1);
+                case ItemType.Artifact:
+                    return MakeGetItemInfo(GetItemType.Evaluate, 5);
+                case ItemType.Currency:
+                    return MakeGetItemInfo(GetItemType.Currency, itemData.Param1);
+            }
+            return null;
         }
 
         public string DungeonPrefabName()

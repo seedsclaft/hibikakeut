@@ -14,6 +14,7 @@ namespace Ryneus
         [SerializeField] private ConfirmAnimation confirmAnimation = null;
         [SerializeField] private GameObject cautionArtifact = null;
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
+        [SerializeField] private BaseListComponent baseListComponent = null;
 
         private System.Action<ConfirmCommandType> _confirmEvent = null;
         private ConfirmInfo _confirmInfo = null;
@@ -115,6 +116,11 @@ namespace Ryneus
             if (cautionArtifact != null)
             {
                 cautionArtifact.SetActive(confirmInfo.IsArtifact.Value);
+            }
+            if (confirmInfo.ItemInfos().Count > 0)
+            {
+                baseListComponent.SetListData(confirmInfo.ItemInfos()[0], 0);
+                baseListComponent.UpdateViewItem();
             }
         }
 

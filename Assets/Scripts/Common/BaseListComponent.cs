@@ -18,6 +18,8 @@ namespace Ryneus
         [SerializeField] private PartyInfoComponent partyInfoComponent;
         [SerializeField] private bool useStageInfoComponent = false;
         [SerializeField] private StageInfoComponent stageInfoComponent;
+        [SerializeField] private bool useItemInfoComponent = false;
+        [SerializeField] private ItemInfoComponent itemInfoComponent;
         [SerializeField] private bool useBuildingInfoComponent = false;
         [SerializeField] private BuildingInfoComponent buildingInfoComponent;
 
@@ -57,6 +59,11 @@ namespace Ryneus
             {
                 var stageInfo = ListItemData<StageInfo>();
                 stageInfoComponent.UpdateInfo(stageInfo);
+            }
+            if (itemInfoComponent != null && useItemInfoComponent)
+            {
+                var itemInfo = ListItemData<ItemInfo>();
+                itemInfoComponent.UpdateInfo(itemInfo);
             }
             if (buildingInfoComponent != null && useBuildingInfoComponent)
             {

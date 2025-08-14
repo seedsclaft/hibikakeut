@@ -32,9 +32,7 @@ namespace Ryneus
         [SerializeField] private BattleAwakenAnimation battleAwakenAnimation = null;
         [SerializeField] private MagicList magicList = null;
         [SerializeField] private OnOffButton formationButton = null;
-        [SerializeField] private InputInfoComponent formationInpurKey = null;
         [SerializeField] private OnOffButton decideButton = null;
-        [SerializeField] private InputInfoComponent decideInpurKey = null;
         private BattleBackGroundAnimation _backGroundAnimation = null;
 
         private BattleStartAnim _battleStartAnim = null;
@@ -79,20 +77,12 @@ namespace Ryneus
             {
                 CallBattleSkip();
             });
-            if (decideInpurKey != null)
-            {
-                decideInpurKey.UpdateGuideIcon(InputKeyType.Start);
-            }
             if (decideButton != null)
             {
                 decideButton.OnClickAddListener(() =>
                 {
                     CallViewEvent(CommandType.DecideBattle);
                 });
-            }
-            if (formationInpurKey != null)
-            {
-                formationInpurKey.UpdateGuideIcon(InputKeyType.Option1);
             }
             if (formationButton != null)
             {

@@ -149,5 +149,7 @@ namespace Ryneus
         RankUp = 2010,
         Evaluate = 2020,
         ClearStage = 3010,
+        RandumItem = 4010,
+        RandumMagic = 4020,
     }
 }

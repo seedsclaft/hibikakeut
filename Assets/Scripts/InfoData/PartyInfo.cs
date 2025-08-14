@@ -523,8 +523,21 @@ namespace Ryneus
             }
         }
 
+        // 取引ラインナップ
+        private List<TradeItemInfo> _tradeItemInfos = new();
+        public List<TradeItemInfo> TradeItemInfos => _tradeItemInfos;
+        public void SetTardeItemInfos(List<TradeItemInfo> tradeItemInfos)
+        {
+            _tradeItemInfos = tradeItemInfos;
+        }
+        public void ClearTardeItemInfos()
+        {
+            _tradeItemInfos.Clear();
+        }
+
+
         public ParameterInt DeckId = new(1);
-        private Dictionary<int,DeckInfo> _deckInfos = new();
+        private Dictionary<int, DeckInfo> _deckInfos = new();
         private void InitDeckInfos()
         {
             for (int i = 1;i <= 5;i++)

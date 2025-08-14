@@ -29,11 +29,14 @@ namespace Ryneus
         Artifact = 20,
         Currency = 30,
         UseItem = 40,
+        RandumAddItem = 41,
     }
 
     [Serializable]
     public enum UseItemType
     {
         Exp = 10,
+        AttributeUp = 20,
+        StatusUp = 30,
     }
 }

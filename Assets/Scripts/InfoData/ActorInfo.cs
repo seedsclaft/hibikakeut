@@ -100,16 +100,6 @@ namespace Ryneus
         public ParameterInt CurrentMp = new();
         public ParameterInt CurrentCost = new();
 
-        public List<AttributeRank> GetAttributeRank()
-        {
-            var list = new List<AttributeRank>();
-            foreach (var attribute in Master.Attribute)
-            {
-                list.Add(attribute);
-            }
-            return list;
-        }
-
         public List<int> LearnSkillIds()
         {
             var list = new List<int>();
@@ -175,6 +165,11 @@ namespace Ryneus
         private void SetInitialParameter(ActorData actorData)
         {
             _plusStatus.SetParameter(actorData.PlusStatus);
+        }
+
+        public void AddStatusUpper(StatusParamType statusParamType, int upper)
+        {
+            _plusStatus.AddParameter(statusParamType, upper);
         }
 
         private void InitSkillInfo()
@@ -357,6 +352,14 @@ namespace Ryneus
                 statusInfo.AddParameter(StatusParamType.Spd, LevelGrowthRate(StatusParamType.Spd, level));
                 statusInfo.AddParameter(StatusParamType.Mov, LevelGrowthRate(StatusParamType.Mov, level));
                 statusInfo.AddParameter(StatusParamType.Cost, LevelGrowthRate(StatusParamType.Cost, level));
+
+                statusInfo.AddParameter(StatusParamType.Hp, _plusStatus.GetParameter(StatusParamType.Hp));
+                statusInfo.AddParameter(StatusParamType.Mp, _plusStatus.GetParameter(StatusParamType.Mp));
+                statusInfo.AddParameter(StatusParamType.Atk, _plusStatus.GetParameter(StatusParamType.Atk));
+                statusInfo.AddParameter(StatusParamType.Def, _plusStatus.GetParameter(StatusParamType.Def));
+                statusInfo.AddParameter(StatusParamType.Spd, _plusStatus.GetParameter(StatusParamType.Spd));
+                statusInfo.AddParameter(StatusParamType.Mov, _plusStatus.GetParameter(StatusParamType.Mov));
+                statusInfo.AddParameter(StatusParamType.Cost, _plusStatus.GetParameter(StatusParamType.Cost));
             }
             return statusInfo;
         }
@@ -404,6 +407,27 @@ namespace Ryneus
             CurrentCost.SetValue(Math.Min(cost, CurrentParameter(StatusParamType.Cost)));
         }
 
+        // 属性適正
+        private Dictionary<AttributeType, int> _attributeUpper = new();
+        public void AddAttributeUpper(AttributeType attributeType)
+        {
+            if (!_attributeUpper.ContainsKey(attributeType))
+            {
+                _attributeUpper[attributeType] = 0;
+            }
+            _attributeUpper[attributeType] += 1;
+        }
+
+        public List<AttributeRank> GetAttributeRank()
+        {
+            var list = new List<AttributeRank>();
+            foreach (var attribute in Master.Attribute)
+            {
+                list.Add(attribute);
+            }
+            return list;
+        }
+
         public List<AttributeRank> AttributeRanks(List<ActorInfo> actorInfos)
         {
             var alchemyFeatures = new List<SkillData.FeatureData>();
@@ -436,6 +460,10 @@ namespace Ryneus
                         attributeValue -= alchemyFeature.Param3;
                     }
                 }
+                if (_attributeUpper.ContainsKey((AttributeType)idx))
+                {
+                    attributeValue -= _attributeUpper[(AttributeType)idx];
+                }
                 if (attributeValue < 0)
                 {
                     attributeValue = AttributeRank.S;
@@ -444,34 +472,6 @@ namespace Ryneus
                 idx++;
             }
             return attributeValues;
-        }
-
-        private List<int> AlchemyAttributeRates(List<ActorInfo> actorInfos)
-        {
-            var attributeRanks = AttributeRanks(actorInfos);
-            var rateList = new List<int>();
-            foreach (var attributeRank in attributeRanks)
-            {
-                var rate = (int)AttributeRank.G - (int)attributeRank;
-                rateList.Add(rate * 50);
-            }
-            return rateList;
-        }
-
-        public AttributeType AlchemyAttribute(List<ActorInfo> actorInfos)
-        {
-            var alchemyAttributeRates = AlchemyAttributeRates(actorInfos);
-            int targetRand = UnityEngine.Random.Range(0, alchemyAttributeRates.Sum(a => a));
-            int targetIndex = -1;
-            for (int i = 0; i < alchemyAttributeRates.Count; i++)
-            {
-                targetRand -= alchemyAttributeRates[i];
-                if (targetRand <= 0 && targetIndex == -1)
-                {
-                    targetIndex = i;
-                }
-            }
-            return (AttributeType)(targetIndex + 1);
         }
 
         public int Evaluate()

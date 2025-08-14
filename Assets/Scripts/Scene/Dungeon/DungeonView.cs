@@ -17,11 +17,8 @@ namespace Ryneus
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private PartyInfoComponent partyInfoComponent = null;
         [SerializeField] private OnOffButton formationButton = null;
-        [SerializeField] private InputInfoComponent formationInpurKey = null;
         [SerializeField] private OnOffButton healButton = null;
-        [SerializeField] private InputInfoComponent healInpurKey = null;
         [SerializeField] private OnOffButton decideButton = null;
-        [SerializeField] private InputInfoComponent decideInpurKey = null;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent;
         [SerializeField] private OnOffButton alcanaInfoButton;
         [SerializeField] private TextMeshProUGUI minusVictoryBonus;
@@ -43,10 +40,6 @@ namespace Ryneus
                     CallViewEvent(CommandType.DecideDirectEvent);
                 });
             }
-            if (decideInpurKey != null)
-            {
-                decideInpurKey.UpdateGuideIcon(InputKeyType.Start);
-            }
             if (healButton != null)
             {
                 healButton.OnClickAddListener(() =>
@@ -54,20 +47,12 @@ namespace Ryneus
                     CallViewEvent(CommandType.Heal);
                 });
             }
-            if (healInpurKey != null)
-            {
-                healInpurKey.UpdateGuideIcon(InputKeyType.SideRight1);
-            }
             if (formationButton != null)
             {
                 formationButton.OnClickAddListener(() =>
                 {
                     CallFormation();
                 });
-            }
-            if (formationInpurKey != null)
-            {
-                formationInpurKey.UpdateGuideIcon(InputKeyType.Option1);
             }
             if (alcanaInfoButton != null)
             {

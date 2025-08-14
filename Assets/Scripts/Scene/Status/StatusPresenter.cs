@@ -258,25 +258,68 @@ namespace Ryneus
             }
             _model.PartyInfo.ConsuneItemNum(itemInfo.Id.Value, 1);
             // 経験値付与
-            if (itemInfo.Master.Param1 == (int)UseItemType.Exp)
+            switch (itemInfo.Master.Param1)
             {
-                var getExp = itemInfo.Master.Param2;
-                if (_model.CurrentActor.Level <= itemInfo.Master.Param3)
-                {
-                    getExp *= 2;
-                }
-                _busy = true;
-                _view.SetBusy(true);
-                _model.PartyInfo.TacticsLvupCount.GainValue(1);
-                CommandExpUp(_model.CurrentActor, getExp, () =>
-                {
-                    CheckAchievements();
-                    _busy = false;
-                    _view.SetBusy(false);
-                    CommandRefresh();
-                });
-                CommandRefreshuseItemList();
+                case (int)UseItemType.Exp:
+                    UseItemExp(itemInfo);
+                    break;
+                case (int)UseItemType.AttributeUp:
+                    UseItemAttributeUp(itemInfo);
+                    break;
+                case (int)UseItemType.StatusUp:
+                    UseItemStatusUp(itemInfo);
+                    break;
             }
+        }
+
+        private void UseItemExp(ItemInfo itemInfo)
+        {
+            var getExp = itemInfo.Master.Param2;
+            if (_model.CurrentActor.Level <= itemInfo.Master.Param3)
+            {
+                getExp *= 2;
+            }
+            _busy = true;
+            _view.SetBusy(true);
+            _model.PartyInfo.TacticsLvupCount.GainValue(1);
+            CommandExpUp(_model.CurrentActor, getExp, () =>
+            {
+                CheckAchievements();
+                _busy = false;
+                _view.SetBusy(false);
+                CommandRefresh();
+            });
+            CommandRefreshuseItemList();
+        }
+
+        private void UseItemAttributeUp(ItemInfo itemInfo)
+        {
+            var getAttibute = (AttributeType)itemInfo.Master.Param1;
+            _busy = true;
+            _view.SetBusy(true);
+            CommandAttributeUp(_model.CurrentActor, getAttibute, () =>
+            {
+                CheckAchievements();
+                _busy = false;
+                _view.SetBusy(false);
+                CommandRefresh();
+            });
+            CommandRefreshuseItemList();
+        }
+
+        private void UseItemStatusUp(ItemInfo itemInfo)
+        {
+            var statusType = (StatusParamType)itemInfo.Master.Param1;
+            _busy = true;
+            _view.SetBusy(true);
+            CommandStatusUp(_model.CurrentActor, statusType, itemInfo.Master.Param2, () =>
+            {
+                CheckAchievements();
+                _busy = false;
+                _view.SetBusy(false);
+                CommandRefresh();
+            });
+            CommandRefreshuseItemList();
         }
 
         private void CommandCancelUseItem()

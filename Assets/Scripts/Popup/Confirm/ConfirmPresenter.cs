@@ -90,6 +90,16 @@ namespace Ryneus
         {
             _stageInfo = stageInfo;
         }
+        private List<ItemInfo> _itemInfos = null;
+        public List<ListData> ItemInfos()
+        {
+            var list = new List<ListData>();
+            if (_itemInfos != null)
+            {
+                return ListData.MakeListData(_itemInfos);
+            }
+            return list;
+        }
         private int _selectIndex = 0;
         public int SelectIndex => _selectIndex;
         private List<int> _disableIds = new();
@@ -136,6 +146,11 @@ namespace Ryneus
         public void SetSelectIndex(int selectIndex)
         {
             _selectIndex = selectIndex;
+        }
+
+        public void SetItemInfo(List<ItemInfo> itemInfos)
+        {
+            _itemInfos = itemInfos;
         }
     }
 }

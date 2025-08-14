@@ -13,9 +13,7 @@ namespace Ryneus
         [SerializeField] private PartyInfoComponent partyInfoComponent;
         [SerializeField] private TextMeshProUGUI afterCurrency;
         [SerializeField] private OnOffButton tradeButton = null;
-        [SerializeField] private InputInfoComponent tradeButtonKey = null;
         [SerializeField] private OnOffButton detailButton = null;
-        [SerializeField] private InputInfoComponent detailButtonKey = null;
 
         public override void Initialize()
         {
@@ -27,17 +25,9 @@ namespace Ryneus
             {
                 tradeButton.OnClickAddListener(() => CallViewEvent(CommandType.DecideTrade, tradeList.ListItemData<TradeItemInfo>()));
             }
-            if (tradeButtonKey != null)
-            {
-                tradeButtonKey.UpdateGuideIcon(InputKeyType.Start);
-            }
             if (detailButton != null)
             {
                 detailButton.OnClickAddListener(() => CallViewEvent(CommandType.TradeItemDetail, tradeList.ListItemData<TradeItemInfo>()));
-            }
-            if (detailButtonKey != null)
-            {
-                detailButtonKey.UpdateGuideIcon(InputKeyType.Option1);
             }
             _ = new TradePresenter(this);
         }
@@ -50,7 +40,7 @@ namespace Ryneus
         private void InitializeTrade()
         {
             tradeList.Initialize();
-            tradeList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
+            tradeList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.CommandBack));
             tradeList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectTradeItem, tradeList.ListItemData<TradeItemInfo>()));
             tradeList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.TradeItemDetail, tradeList.ListItemData<TradeItemInfo>()));
             tradeList.SetInputHandler(InputKeyType.Start, () => CallViewEvent(CommandType.DecideTrade));
@@ -97,6 +87,7 @@ namespace Ryneus
             DecideTrade = 0,
             TradeItemDetail,
             SelectTradeItem,
+            CommandBack
         }
     }
 }

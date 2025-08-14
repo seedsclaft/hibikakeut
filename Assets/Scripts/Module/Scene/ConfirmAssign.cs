@@ -49,5 +49,6 @@ namespace Ryneus
         MissionClear,
         StageConfirm,
         NewStageAlert,
+        ItemDetail,
     }
 }
