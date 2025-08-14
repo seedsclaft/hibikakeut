@@ -96,7 +96,7 @@ namespace Ryneus
     [System.Serializable]
     public class DungeonResumeInfo
     {
-        public ParameterInt StageId = new();
+        public ParameterInt StageNo = new();
         public ParameterInt DungeonId = new();
         public ParameterInt PositionX = new();
         public ParameterInt PositionY = new();

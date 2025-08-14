@@ -1,18 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Ryneus
 {
     public class BattleStateIcon : MonoBehaviour
     {
-        [SerializeField] private Image icon = null;
-        [SerializeField] private Image iconBack = null;
-
-        public void SetStateImage(Sprite sprite)
+        [SerializeField] private StateInfoComponent stateInfoComponent = null;
+        public void SetStateInfo(StateInfo stateInfo)
         {
-            icon.sprite = sprite;
+            stateInfoComponent.UpdateInfo(stateInfo);
         }
     }
 }

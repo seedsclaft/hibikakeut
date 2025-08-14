@@ -9,6 +9,7 @@ namespace Ryneus
     public class StateInfoComponent : MonoBehaviour
     {
         [SerializeField] private Image icon;
+        [SerializeField] private Image iconBack;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI description;
         [SerializeField] private TextMeshProUGUI turns;
@@ -20,6 +21,21 @@ namespace Ryneus
                 return;
             }
             UpdateData(stateInfo.StateType);
+            if (iconBack != null)
+            {
+                if (stateInfo.Master.IconBack > 0)
+                {
+                    iconBack.sprite = ResourceSystem.LoadStateIconBase(stateInfo.Master.IconBack);
+                } else
+                if (stateInfo.Master.Buff)
+                {
+                    iconBack.sprite = ResourceSystem.LoadStateIconBase(0);
+                } else
+                if (stateInfo.Master.DeBuff)
+                {
+                    iconBack.sprite = ResourceSystem.LoadStateIconBase(17);
+                }
+            }
             if (description != null)
             {
                 string effectText = stateInfo.Master.Help.Replace("\\d",stateInfo.Effect.ToString());
@@ -74,10 +90,15 @@ namespace Ryneus
                 return;
             }
 
-            
             if (icon != null)
             {
-                UpdateStateIcon(stateData.IconPath);
+                if (stateData.IconIndex == 0)
+                {
+                    UpdateStateIcon(stateData.IconPath);
+                } else
+                {
+                    icon.sprite = ResourceSystem.LoadSBuffIcon(stateData.IconIndex);
+                }
             }
             if (nameText != null)
             {

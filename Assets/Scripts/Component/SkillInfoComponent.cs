@@ -163,6 +163,7 @@ namespace Ryneus
             if (icon != null)
             {
                 icon.sprite = spriteAtlas.GetSprite(iconIndex.ToString());
+                //icon.sprite = ResourceSystem.LoadSBuffIcon((int)iconIndex);
             }
         }
 
@@ -170,10 +171,11 @@ namespace Ryneus
         {
             iconBack.gameObject.SetActive(true);
 
-            var spriteAtlas = ResourceSystem.LoadSpellIcons();
+            //var spriteAtlas = ResourceSystem.LoadSpellIcons();
             if (iconBack != null)
             {
-                iconBack.sprite = spriteAtlas.GetSprite(attributeType.ToString());
+                //iconBack.sprite = spriteAtlas.GetSprite(attributeType.ToString());
+                iconBack.sprite = ResourceSystem.LoadSpellIconBase(attributeType);
             }
         }
 

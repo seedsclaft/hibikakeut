@@ -183,6 +183,53 @@ namespace Ryneus
             return LoadResource<SpriteAtlas>("Texture/SpellIcons");
         }
 
+        public static Sprite[] LoadSpellIconBases()
+        {
+            return LoadResources<Sprite>("Texture/Buff/IconBases");
+        }
+
+        public static Sprite LoadSpellIconBase(AttributeType attributeType)
+        {
+            var iconIndex = 0;
+            switch (attributeType)
+            {
+                case AttributeType.None:
+                    iconIndex = 33;
+                    break;
+                case AttributeType.Fire:
+                    iconIndex = 2;
+                    break;
+                case AttributeType.Thunder:
+                    iconIndex = 8;
+                    break;
+                case AttributeType.Ice:
+                    iconIndex = 18;
+                    break;
+                case AttributeType.Shine:
+                    iconIndex = 13;
+                    break;
+                case AttributeType.Dark:
+                    iconIndex = 14;
+                    break;
+            }
+            return LoadSpellIconBases()[iconIndex];
+        }
+
+        public static Sprite LoadStateIconBase(int iconIndex)
+        {
+            return LoadSpellIconBases()[iconIndex];
+        }
+
+        public static Sprite[] LoadBuffIcons()
+        {
+            return LoadResources<Sprite>("Texture/Buff/Icons");
+        }
+
+        public static Sprite LoadSBuffIcon(int iconIndex)
+        {
+            return LoadBuffIcons()[iconIndex];
+        }
+
         public static SpriteAtlas LoadUnitTypeIcons()
         {
             return LoadResource<SpriteAtlas>("Texture/UnitType");

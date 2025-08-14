@@ -19,9 +19,9 @@ namespace Ryneus
         // ダンジョン途中座標データ
         private List<DungeonResumeInfo> _dungeonResumeInfos = new();
         public List<DungeonResumeInfo> DungeonResumeInfos => _dungeonResumeInfos;
-        public void UpdateDungeonResumeInfo(int stageId, int dungeonId, int x, int y, int direction)
+        public void UpdateDungeonResumeInfo(int stageNo, int dungeonId, int x, int y, int direction)
         {
-            var find = _dungeonResumeInfos.Find(a => a.StageId.Value == stageId);
+            var find = _dungeonResumeInfos.Find(a => a.StageNo.Value == stageNo);
             if (find != null)
             {
                 find.DungeonId.SetValue(dungeonId);
@@ -31,7 +31,7 @@ namespace Ryneus
             } else
             {
                 var resumeInfo = new DungeonResumeInfo();
-                resumeInfo.StageId.SetValue(stageId);
+                resumeInfo.StageNo.SetValue(stageNo);
                 resumeInfo.DungeonId.SetValue(dungeonId);
                 resumeInfo.PositionX.SetValue(x);
                 resumeInfo.PositionY.SetValue(y);

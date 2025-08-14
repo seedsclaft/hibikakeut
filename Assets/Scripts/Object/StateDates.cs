@@ -15,6 +15,8 @@ namespace Ryneus
         public StateType StateType;
         public string Name;
         public string Help;
+        public int IconBack;
+        public int IconIndex;
         public string IconPath;
         public RemovalTiming RemovalTiming;
         public bool OverWrite;

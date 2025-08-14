@@ -81,7 +81,7 @@ namespace Ryneus
             {
                 if (a == ConfirmCommandType.Yes)
                 {
-                    CheckResumeStage(stageInfo.StageId.Value);
+                    CheckResumeStage(stageInfo.Master.StageNo, stageInfo.StageId.Value);
                 }
                 _busy = false;
                 _view.SetBusy(false);
@@ -90,16 +90,23 @@ namespace Ryneus
             _view.CommandCallConfirm(confirmInfo);
         }
 
-        private void CheckResumeStage(int stageId)
+        private void CheckResumeStage(int stageNo, int stageId)
         {
-            if (_model.GetDungeonResumeInfo(stageId) != null)
+            var resume = _model.GetDungeonResumeInfo(stageNo);
+            if (resume != null)
             {
                 _busy = true;
                 _view.SetBusy(true);
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 var confirmInfo = new ConfirmInfo("途中まで進んだところから再開しますか？", (a) =>
                 {
-                    StartStage(stageId, a == ConfirmCommandType.Yes);
+                    if (a == ConfirmCommandType.Yes)
+                    {
+                        StartStage(resume.DungeonId.Value, true);
+                    } else
+                    {
+                        StartStage(stageId, false);
+                    }
                     _busy = false;
                     _view.SetBusy(false);
                 });

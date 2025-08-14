@@ -55,8 +55,7 @@ namespace Ryneus
                 var stateIconImage = prefab.GetComponent<BattleStateIcon>();
                 SetActiveStateIcon(stateIconImage, true);
                 _stateIconImages.Add(stateIconImage);
-                var spriteAtlas = Resources.Load<SpriteAtlas>("Texture/Icons");
-                stateIconImage?.SetStateImage(spriteAtlas.GetSprite(stateInfo.Master.IconPath));
+                stateIconImage?.SetStateInfo(stateInfo);
             }
         }
 
