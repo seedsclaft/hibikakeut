@@ -2386,16 +2386,16 @@ namespace Ryneus
             switch (triggerData.TriggerType)
             {
                 case TriggerType.ActionResultDeath:
-                if (battlerInfo.IsAlive())
-                {
-                    var deathTarget = actionResultInfos.Find(a => friends.AliveBattlerInfos.Find(b => a.DeadIndexList.Contains(b.Index.Value)) != null);
-                    if (deathTarget != null)
+                    if (battlerInfo.IsAlive())
                     {
-                        var targetBattlerInfo = GetBattlerInfo(deathTarget.TargetIndex.Value);
-                        list.Add(targetBattlerInfo.Index.Value);
+                        var deathTarget = actionResultInfos.Find(a => friends.AliveBattlerInfos.Find(b => a.DeadIndexList.Contains(b.Index.Value)) != null);
+                        if (deathTarget != null)
+                        {
+                            var targetBattlerInfo = GetBattlerInfo(deathTarget.TargetIndex.Value);
+                            list.Add(targetBattlerInfo.Index.Value);
+                        }
                     }
-                }
-                break;
+                    break;
             }
             if (actionInfo != null)
             {
@@ -2734,7 +2734,7 @@ namespace Ryneus
             // ターン数の少なさとLv差で加算
             var actorLvMax = _party.BattlerInfos.Max(a => a.Level.Value);
             var enemyLvMax = _troop.BattlerInfos.Max(a => a.Level.Value);
-            totalTurnCount += enemyLvMax - actorLvMax;
+            totalTurnCount += (enemyLvMax - actorLvMax) * 5;
             if (totalTurnCount <= 30)
             {
                 score += 30 - totalTurnCount;

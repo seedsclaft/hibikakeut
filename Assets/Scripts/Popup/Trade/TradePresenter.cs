@@ -77,6 +77,7 @@ namespace Ryneus
                     var getItemInfos = _model.GetTradeGetItemInfos();
                     if (getItemInfos.Count > 0)
                     {
+                        _model.PayCostTrade();
                         _model.PartyInfo.TradeCommandCount.GainValue(1);
                         CheckAchievements();
                         _view.CallSystemCommand(Base.CommandType.ClosePopup);

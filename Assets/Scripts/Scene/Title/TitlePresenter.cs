@@ -172,7 +172,7 @@ namespace Ryneus
         private void CommandSelectSideMenu()
         {
             _busy = true;
-            CommandCallSideMenu(MakeListData(_model.SideMenu()), () =>
+            CommandCallSideMenu(MakeListData(_model.SideMenu(), 0), () =>
             {
                 CommandRefresh();
                 _busy = false;

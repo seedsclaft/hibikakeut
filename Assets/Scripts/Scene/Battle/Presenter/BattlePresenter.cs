@@ -571,7 +571,7 @@ namespace Ryneus
                 return;
             }
             _busy = true;
-            CommandCallSideMenu(MakeListData(_model.SideMenu()), () =>
+            CommandCallSideMenu(MakeListData(_model.SideMenu(), 0), () =>
             {
                 _busy = false;
             });

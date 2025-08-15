@@ -530,6 +530,16 @@ namespace Ryneus
         {
             _tradeItemInfos = tradeItemInfos;
         }
+        public void RemoveTradeItemInfos(List<TradeItemInfo> tradeItemInfos)
+        {
+            for (int i = _tradeItemInfos.Count - 1; i >= 0; i--)
+            {
+                if (tradeItemInfos.Contains(_tradeItemInfos[i]))
+                {
+                    _tradeItemInfos.RemoveAt(i);
+                }
+            }
+        }
         public void ClearTardeItemInfos()
         {
             _tradeItemInfos.Clear();

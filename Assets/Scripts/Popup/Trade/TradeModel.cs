@@ -99,5 +99,11 @@ namespace Ryneus
         {
             return Currency - PayCost.Value;
         }
+
+        public void PayCostTrade()
+        {
+            PartyInfo.Currency.GainValue(-1 * PayCost.Value);
+            PartyInfo.RemoveTradeItemInfos(_getItems);
+        }
     }
 }

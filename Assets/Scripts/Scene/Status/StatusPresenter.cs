@@ -294,7 +294,7 @@ namespace Ryneus
 
         private void UseItemAttributeUp(ItemInfo itemInfo)
         {
-            var getAttibute = (AttributeType)itemInfo.Master.Param1;
+            var getAttibute = (AttributeType)itemInfo.Master.Param2;
             _busy = true;
             _view.SetBusy(true);
             CommandAttributeUp(_model.CurrentActor, getAttibute, () =>
@@ -309,7 +309,7 @@ namespace Ryneus
 
         private void UseItemStatusUp(ItemInfo itemInfo)
         {
-            var statusType = (StatusParamType)itemInfo.Master.Param1;
+            var statusType = (StatusParamType)itemInfo.Master.Param2;
             _busy = true;
             _view.SetBusy(true);
             CommandStatusUp(_model.CurrentActor, statusType, itemInfo.Master.Param2, () =>

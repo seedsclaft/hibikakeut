@@ -792,7 +792,7 @@ namespace Ryneus
             }
             _busy = true;
             _model.DungeonBusy(true);
-            CommandCallSideMenu(MakeListData(_model.SideMenu()), () =>
+            CommandCallSideMenu(MakeListData(_model.SideMenu(), 0), () =>
             {
                 _model.DungeonBusy(false);
                 _busy = false;
