@@ -149,6 +149,7 @@ namespace Ryneus
                     // 残りターン数を減算
                     PartyInfo.TurnCount.GainValue(-1);
                 }
+                //SaveAutoFile();
                 return true;
             }
             return false;
@@ -187,9 +188,14 @@ namespace Ryneus
             return hpHeal;
         }
 
-        public UnityEngine.Vector2Int GetForwardPosition()
+        public Vector2Int GetForwardPosition()
         {
             return _moveController.GetForwardPosition();
+        }
+
+        public Vector2Int GetCurrentPosition()
+        {
+            return PlayerPosition.Instance.playerPos;
         }
 
         public bool CheckDirectionEvent()
@@ -199,6 +205,12 @@ namespace Ryneus
             return stageEvent.Count > 0 && (stageEvent[0].Type == StageEventType.GetItem || stageEvent[0].Type == StageEventType.GetArtifact || stageEvent[0].Type == StageEventType.GetSkill);
         }
 
+        public bool CheckCurrentPositionEvent()
+        {
+            var position = GetCurrentPosition();
+            var stageEvent = StageEvents(EventTiming.Dungeon, position.x, position.y);
+            return stageEvent.Count > 0 && (stageEvent[0].Type == StageEventType.ExitDungeon || stageEvent[0].Type == StageEventType.MoveDungeonFloor || stageEvent[0].Type == StageEventType.AdvStart);
+        }
 
         public bool EndDungeonByTurnCount()
         {

@@ -130,7 +130,7 @@ namespace Ryneus
             foreach (var evaluateGetItemInfo in evaluateGetItemInfos)
             {
                 var resultInfo = new StrategyResultViewInfo();
-                resultInfo.SetTitle("評価値" + " +" + evaluateGetItemInfo.Param1);
+                resultInfo.SetTitle(DataSystem.GetText(3210) + " +" + evaluateGetItemInfo.Param1);
                 _resultInfos.Add(resultInfo);
             }
 

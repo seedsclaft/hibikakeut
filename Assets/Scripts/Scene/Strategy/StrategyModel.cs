@@ -130,6 +130,7 @@ namespace Ryneus
                     var from = target.Evaluate();
                     var beforeRate = target.Exp.Value % 100 * 0.01f;
                     target.Exp.GainValue(expGetItemInfo.Param2);
+                    var afterLv = target.Level;
                     var afterRate = target.Exp.Value % 100 * 0.01f;
                     _displayLevelUpInfos.Add(new StrategyActorLevelUpInfo()
                     {
@@ -139,10 +140,10 @@ namespace Ryneus
                         PlusLv = target.Level - beforeLv,
                         PlusExp = expGetItemInfo.Param2
                     });
-                    if (beforeLv != target.Level)
+                    if (beforeLv != afterLv)
                     {
                         // 新規魔法取得があるか
-                        var skills = target.LearningSkills(target.Level - beforeLv);
+                        var skills = target.LearningSkills(afterLv - beforeLv);
                         var to = target.Evaluate();
                         if (skills.Count > 0)
                         {

@@ -11,6 +11,10 @@ namespace Ryneus
 
         private List<SaveFileInfo> _saveFileInfos = new();
         public List<SaveFileInfo> SaveFileInfos => _saveFileInfos;
+        public SaveFileInfo AutoSave()
+        {
+            return _saveFileInfos.Find(a => a.SaveNo == 0);
+        }
         public void PushSaveFile(SaveFileInfo saveFileInfo)
         {
             var findIndex = _saveFileInfos.FindIndex(a => a.SaveNo == saveFileInfo.SaveNo);
@@ -18,23 +22,39 @@ namespace Ryneus
             {
                 _saveFileInfos.RemoveAt(findIndex);
                 _saveFileInfos.Insert(findIndex, saveFileInfo);
-                LastSaveIndex.SetValue(findIndex);
             }
             else
             {
                 _saveFileInfos.Add(saveFileInfo);
-                LastSaveIndex.SetValue(saveFileInfo.SaveNo-1);
             }
             _saveFileInfos.Sort((a, b) => a.SaveNo - b.SaveNo > 0 ? 1 : -1);
+            UpdateSaveLastSaveIndex();
         }
 
         public ParameterInt LastSaveIndex = new();
+        private void UpdateSaveLastSaveIndex()
+        {
+            // 1番最新のデータ
+            var idx = 0;
+            var saveIndex = 0;
+            long saveTime = 0;
+            foreach (var saveFileInfo in _saveFileInfos)
+            {
+                if (saveFileInfo.SaveTimeLong > saveTime)
+                {
+                    saveTime = saveFileInfo.SaveTimeLong;
+                    saveIndex = idx;
+                }
+                idx++;
+            }
+            LastSaveIndex.SetValue(saveIndex);
+        }
 
         public SaveInfo()
         {
             _playerInfo = new PlayerInfo();
             _saveFileInfos.Add(new SaveFileInfo());
-            LastSaveIndex.SetValue(1);
+            LastSaveIndex.SetValue(0);
         }
 
         public void SetPlayerName(string name)

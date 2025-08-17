@@ -11,7 +11,6 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI versionText = null;
         [SerializeField] private BaseList titleCommandList = null;
         [SerializeField] private InputInfoComponent sideMenuInput = null;
-        public SystemData.CommandData TitleCommand => titleCommandList.ListItemData<SystemData.CommandData>();
 
         public override void Initialize()
         {
@@ -57,7 +56,7 @@ namespace Ryneus
 
         private void OnClickTitle()
         {
-            CallViewEvent(CommandType.SelectTitle);
+            CallViewEvent(CommandType.SelectTitle, titleCommandList.ListItemData<SystemData.CommandData>());
         }
 
         private void CallSideMenu()

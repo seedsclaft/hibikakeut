@@ -36,11 +36,25 @@ namespace Ryneus
             {
                 return new();
             }
-            UpdateGamePadData();
-            var gamePadKey = UpdateGamePad();
-            if (gamePadKey != null)
+            if (IsGamePad)
             {
-                IsGamePad = true;
+                var keyInputs = UpdateKeyBoard();
+                if (keyInputs.Count > 0)
+                {
+                    IsGamePad = false;
+                }
+            } else
+            {
+                var gamePadKey = UpdateGamePad();
+                if (gamePadKey != null)
+                {
+                    IsGamePad = true;
+                }
+            }
+            if (IsGamePad)
+            {
+                UpdateGamePadData();
+                var gamePadKey = UpdateGamePad();
                 return gamePadKey;
             }
             UpdateKeyBoardData();

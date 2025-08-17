@@ -46,6 +46,7 @@ namespace Ryneus
             _view.UpdateBattleFieldNotice(_model.HasBattleField());
 
             await _model.PlayMainStageBgmData();
+            _model.SaveAutoFile();
             // 幕間に移動
             if (_model.InterludePhase())
             {
@@ -188,7 +189,7 @@ namespace Ryneus
 
         private void CommandAchievement()
         {
-            var rankup = CheckAchievements(true,() => CheckNewStage());
+            var rankup = CheckAchievements(true, CheckNewStage);
             if (rankup)
             {
                 return;
@@ -215,12 +216,18 @@ namespace Ryneus
             var find = _model.StageInfos().Find(a => !a.Alarted.Value);
             if (find != null)
             {
-                _model.PartyInfo.AlartStage(find.StageId.Value);
+                _model.PartyInfo.AlartStage(find.Master.StageNo);
                 _busy = true;
                 _view.SetBusy(true);
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 var confirmInfo = new ConfirmInfo(DataSystem.GetText(32100), (a) =>
                 {
+                    var find = _model.StageInfos().Find(a => !a.Alarted.Value);
+                    if (find != null)
+                    {
+                        CheckNewStage();
+                        return;
+                    }
                     _busy = false;
                     _view.SetBusy(false);
                     CommandAchievement();

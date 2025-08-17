@@ -108,6 +108,10 @@ namespace Ryneus
         /// <param name="inputKeyType"></param>
         private void CommandOnSelectTarget(InputKeyType inputKeyType)
         {
+            if (_beforeBattle)
+            {
+                return;
+            }
             var candidateTargetIndexes = _model.SelectActionInfo.CandidateTargetIndexList;
             if (candidateTargetIndexes.Count <= 1)
             {

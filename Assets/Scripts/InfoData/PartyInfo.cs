@@ -43,6 +43,8 @@ namespace Ryneus
         // 所持アクターリスト
         [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = new();
         public List<ActorInfo> ActorInfos => _actorInfos;
+        // リーダーキャラId
+        public ParameterInt LeaderActorId = new();
         // 派遣アクターリスト
         [UnityEngine.SerializeField] private List<ActorInfo> _transferActorInfos = new();
 
@@ -81,17 +83,17 @@ namespace Ryneus
 
         private List<int> _alartedStages = new();
         public List<int> AlartedStages => _alartedStages;
-        public void AlartStage(int stageId)
+        public void AlartStage(int stageNo)
         {
-            if (!IsAlartedStage(stageId))
+            if (!IsAlartedStage(stageNo))
             {
-                _alartedStages.Add(stageId);
+                _alartedStages.Add(stageNo);
             }
         }
 
-        public bool IsAlartedStage(int stageId)
+        public bool IsAlartedStage(int stageNo)
         {
-            return _alartedStages.Contains(stageId);
+            return _alartedStages.Contains(stageNo);
         }
 
         // 開示マス情報
@@ -503,7 +505,7 @@ namespace Ryneus
                         return;
                     }
                     var actorInfo = new ActorInfo(actorData);
-                    actorInfo.BattleIndex.SetValue(_actorInfos.Count+1);
+                    actorInfo.BattleIndex.SetValue(_actorInfos.Count + 1);
                     actorInfo.SetLevel(actorData.InitLv);
                     actorInfo.ChangeHp(actorInfo.MaxHp);
                     // 最初に加入したキャラは自動編成
@@ -514,6 +516,7 @@ namespace Ryneus
                         {
                             CurrentDeckInfo.ActorIdDict[first.Key] = actorInfo.ActorId.Value;
                         }
+                        LeaderActorId.SetValue(actorInfo.ActorId.Value);
                     }
                     _actorInfos.Add(actorInfo);
                     // 整列

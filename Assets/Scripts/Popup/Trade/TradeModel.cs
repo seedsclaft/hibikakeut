@@ -19,7 +19,7 @@ namespace Ryneus
                 return PartyInfo.TradeItemInfos;
             }
             var list = new List<TradeItemInfo>();
-            var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == 50010 + (PartyInfo.Chapter.Value * 10));
+            var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == 50000 + (PartyInfo.Chapter.Value * 10));
             foreach (var prizeSet in prizeSets)
             {
                 TradeItemInfo tradeItemInfo;
@@ -28,7 +28,6 @@ namespace Ryneus
                     case GetItemType.Item:
                         // アイテム1つ
                         tradeItemInfo = new TradeItemInfo(prizeSet.GetItem, prizeSet.GetItem.Param2);
-                        prizeSet.GetItem.Param2 = 1;
                         break;
                     case GetItemType.RandumItem:
                         // 使用アイテムを1つ抽選する

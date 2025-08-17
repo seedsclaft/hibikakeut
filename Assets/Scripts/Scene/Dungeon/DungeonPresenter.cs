@@ -43,6 +43,7 @@ namespace Ryneus
             CommandRefresh();
             // 未読の非表示マスを管理
             _model.AddEventNotFlag();
+            _model.SaveAutoFile();
             _busy = false;
         }
 
@@ -212,10 +213,18 @@ namespace Ryneus
             var directionEvent = _model.CheckDirectionEvent();
             if (!directionEvent)
             {
+                var currentPositionEvent = _model.CheckCurrentPositionEvent();
+                if (currentPositionEvent)
+                {
+                    var position = _model.GetCurrentPosition();
+                    CheckEventData(true, position, () =>
+                    {
+                    });
+                }
                 return;
             }
             var playerPosition = _model.GetForwardPosition();
-            CheckEventData(true,playerPosition,() =>
+            CheckEventData(true,playerPosition, () =>
             {
             });
         }
@@ -385,12 +394,7 @@ namespace Ryneus
             if (stageEvent.Type == StageEventType.ForceBossBattle)
             {
                 // バトルの報酬にステージクリアを足す
-                var clearStageItem = new GetItemData
-                {
-                    Type = GetItemType.ClearStage,
-                    Param1 = _model.CurrentStage.Master.StageNo
-                };
-                var clearStageGetItemInfo = new GetItemInfo(clearStageItem);
+                var clearStageGetItemInfo = _model.MakeGetItemInfo(GetItemType.ClearStage, _model.CurrentStage.Master.StageNo);
                 battleSceneInfo.GetItemInfos.Add(clearStageGetItemInfo);
                 PlayBossBgm();
             }
@@ -592,13 +596,7 @@ namespace Ryneus
 
         private void GetArtifact(int itemId)
         {
-            var itemData = new GetItemData
-            {
-                Param1 = itemId,
-                Param2 = 1,
-                Type = GetItemType.Item
-            };
-            var getItemInfo = new GetItemInfo(itemData);
+            var getItemInfo = _model.MakeGetItemInfo(GetItemType.Item, itemId, 1);
             _model.AddGetItemInfo(getItemInfo);
             _view.MinusEvaluate(-10);
             _model.PartyInfo.EvaluationValue.GainValue(-10, 0);
@@ -620,20 +618,16 @@ namespace Ryneus
                 return;
             }
             SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
-            var confirmInfo = new ConfirmInfo(item.Name + "を入手！",(a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10170), (a) =>
             {
-                var itemData = new GetItemData
-                {
-                    Param1 = item.Id,
-                    Param2 = 1,
-                    Type = GetItemType.Item
-                };
-                var getItemInfo = new GetItemInfo(itemData);
+                var getItemInfo = _model.MakeGetItemInfo(GetItemType.Item, item.Id, 1);
                 _model.AddGetItemInfo(getItemInfo);
                 _busy = false;
                 CommandRefresh();
                 _model.DungeonBusy(false);
-            });
+            }, ConfirmType.ItemDetail);
+            var itemInfo = new ItemInfo(item.Id, 1);
+            confirmInfo.SetItemInfo(new List<ItemInfo>(){itemInfo});
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
         }
@@ -652,12 +646,7 @@ namespace Ryneus
                 PopupType = PopupType.LearnSkill,
                 EndEvent = () =>
                 {
-                    var skillGetItemData = new GetItemData
-                    {
-                        Param1 = skill.Id,
-                        Type = GetItemType.Skill
-                    };
-                    var getItemInfo = new GetItemInfo(skillGetItemData);
+                    var getItemInfo = _model.MakeGetItemInfo(GetItemType.Skill, skill.Id);
                     _model.AddGetItemInfo(getItemInfo);
                     _busy = false;
                     CommandRefresh();
@@ -803,11 +792,18 @@ namespace Ryneus
         {
             var directionEvent = _model.CheckDirectionEvent();
             _view.SetActiveDisplayEventKey(directionEvent);
+            if (!directionEvent)
+            {
+                // その場にイベントがある
+                var currentPositionEvent = _model.CheckCurrentPositionEvent();
+                _view.SetActiveDisplayEventKey(currentPositionEvent);
+            }
             _view.CommandRefresh();
             if (!_model.IsActiveDungeon())
             {
                 _view.SetActiveFormationButton(false);
                 _view.SetActiveHealButton(false);
+                _view.SideMenuButton.gameObject.SetActive(false);
             }
         }
 

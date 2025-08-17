@@ -21,9 +21,9 @@ namespace Ryneus
         }
 
         private int _listMoveInputFrameFirst = 8;
-        private int _listMoveGamePadFrameFirst = 39;
+        private int _listMoveGamePadFrameFirst = 8;
         private int _listMoveInputFrame = 4;
-        private int _listMoveGamePadFrame = 9;
+        private int _listMoveGamePadFrame = 4;
         private int _inputBusyFrame = 0;
         [SerializeField] private bool reverse = false;
         [SerializeField] private bool warpMode = true;
@@ -536,7 +536,7 @@ namespace Ryneus
             {
                 return false;
             }
-            if (_inputBusyFrame > 0 || _active == false || !gameObject || gameObject.activeSelf == false)
+            if (_inputBusyFrame > 0 || !_active || !gameObject || !gameObject.activeSelf)
             {
                 return false;
             }
@@ -768,6 +768,10 @@ namespace Ryneus
                 return;
             }
             _inputCallHandler?.Invoke(keyTypes);
+            if (keyTypes.Count == 0)
+            {
+                return;
+            }
             foreach (var keyType in keyTypes)
             {
                 CallListInputHandler(keyType);
@@ -884,12 +888,12 @@ namespace Ryneus
             var listCount = ListItemCount();
             var dataCount = _listDates.Count;
             // 表示可能な最下部
-            var lastIndex = listCount - 1;
+            var lastIndex = listCount - 2;
             var listIndex = 0;
-            if (dataCount > listCount && selectIndex > lastIndex)
+            if (/*dataCount > listCount && */selectIndex > lastIndex)
             {
                 // 移動する数
-                listIndex = selectIndex - lastIndex;
+                listIndex = selectIndex - lastIndex + 1;
             }
             if (listIndex > 0)
             {

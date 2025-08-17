@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Ryneus
 {
-    public class OptionCommand : ListItem ,IListViewItem 
+    public class OptionCommand : ListItem,IListViewItem
     {
         [SerializeField] private TextMeshProUGUI optionName;
         [SerializeField] private TextMeshProUGUI optionHelp;
@@ -27,13 +27,13 @@ namespace Ryneus
             optionName.SetText(data.Name);
             optionHelp.SetText(data.Help);
             SetResolutionText();
-            
+
             optionVolume.gameObject.SetActive(data.ButtonType == OptionButtonType.Slider);
             optionToggles.ForEach(a => a.gameObject.SetActive(data.ButtonType == OptionButtonType.Toggle));
             minusButton.gameObject.SetActive(data.ButtonType == OptionButtonType.Resolution);
             plusButton.gameObject.SetActive(data.ButtonType == OptionButtonType.Resolution);
             resolution.gameObject.SetActive(data.ButtonType == OptionButtonType.Resolution);
-            
+
             if (data.ToggleText1 > 0)
             {
                 optionTexts[0].text = DataSystem.GetText(data.ToggleText1);
@@ -69,8 +69,9 @@ namespace Ryneus
                     for (int i = 0;i < optionToggles.Count;i++)
                     {
                         var idx = toggleIndex;
-                        optionToggles[i].onValueChanged.AddListener((a) => {
-                            if (a == true)
+                        optionToggles[i].onValueChanged.AddListener((a) =>
+                        {
+                            if (a)
                             {
                                 optionInfo.ToggleEvent(idx);
                             }
@@ -80,11 +81,11 @@ namespace Ryneus
                 }
                 if (optionInfo.PlusMinusEvent != null)
                 {
-                    minusButton.onClick.AddListener(() => 
+                    minusButton.onClick.AddListener(() =>
                     {
                         optionInfo.PlusMinusEvent(-1);
                     });
-                    plusButton.onClick.AddListener(() => 
+                    plusButton.onClick.AddListener(() =>
                     {
                         optionInfo.PlusMinusEvent(1);
                     });

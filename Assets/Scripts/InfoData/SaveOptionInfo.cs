@@ -41,7 +41,7 @@ namespace Ryneus
             EventSkipIndex = false;
             EventTextSkipIndex = false;
             CommandEndCheck = true;
-            BattleTurnSkip = true;
+            BattleTurnSkip = false;
             BattleAnimationSkip = false;
             InputType = InputType.All;
             BattleAuto = false;

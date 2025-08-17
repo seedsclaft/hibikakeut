@@ -179,12 +179,7 @@ namespace Ryneus
 
         public StrategySceneInfo DecideActor()
         {
-            var getItemData = new GetItemData
-            {
-                Type = GetItemType.AddActor,
-                Param1 = CurrentActor.ActorId.Value
-            };
-            var getItemInfo = new GetItemInfo(getItemData);
+            var getItemInfo = MakeGetItemInfo(GetItemType.AddActor, CurrentActor.ActorId.Value);
             AddGetItemInfo(getItemInfo);
             var strategySceneInfo = new StrategySceneInfo
             {

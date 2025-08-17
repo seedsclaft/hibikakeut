@@ -30,6 +30,33 @@ namespace Ryneus
             GameSystem.CurrentData = new SaveInfo();
         }
 
+        public void SaveAutoFile()
+        {
+            var saveFileInfo = CurrentData.AutoSave();
+            if (saveFileInfo == null)
+            {
+                saveFileInfo = new SaveFileInfo
+                {
+                    SaveNo = 0
+                };
+            }
+            saveFileInfo.StageNo = CurrentStage.StageId.Value;
+            saveFileInfo.SaveTimeLong = DateTime.Now.ToFileTime();
+            saveFileInfo.SaveTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            saveFileInfo.PlayTime = (int)TempInfo.PlayingTime;
+            if (CurrentGameInfo.PartyInfo.ActorInfos != null && CurrentGameInfo.PartyInfo.ActorInfos.Count > 0)
+            {
+                saveFileInfo.ActorId = CurrentGameInfo.PartyInfo.LeaderActorId.Value;
+            }
+            saveFileInfo.Chapter = PartyInfo.Chapter.Value;
+            saveFileInfo.Period = PartyInfo.Period.Value;
+            saveFileInfo.Rank = PartyInfo.MissionRank.Value;
+            CurrentData.PushSaveFile(saveFileInfo);
+            SavePlayerData();
+            SavePlayerStageData(true, GameSystem.SceneStackManager.Current);
+            SaveSystem.SaveStageInfo(GameSystem.GameInfo, saveFileInfo.SaveNo);
+        }
+
         public void InitSaveStageInfo()
         {
             var saveGameInfo = new SaveGameInfo();
@@ -405,7 +432,7 @@ namespace Ryneus
             SaveSystem.SavePlayerInfo(GameSystem.CurrentData);
         }
 
-        public void SavePlayerStageData(bool isResumeStage,Scene resumeScene)
+        public void SavePlayerStageData(bool isResumeStage, Scene resumeScene)
         {
             SaveDungeonPlayerData();
             TempInfo.ClearRankingInfo();
@@ -667,10 +694,13 @@ namespace Ryneus
             var playerDungeonId = Ariadne.PlayerPosition.Instance.currentDungeonId;
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
             var playerDirection = Ariadne.PlayerPosition.Instance.direction;
-            CurrentDeckInfo.SetPosition(playerDungeonId,playerPosition.x,playerPosition.y,(int)playerDirection);
+            CurrentDeckInfo.SetPosition(playerDungeonId, playerPosition.x, playerPosition.y, (int)playerDirection);
             // 開示マス情報を更新
             var traverses = Ariadne.TraverseManager.Instance.GetDungeonTraverseData(playerDungeonId);
-            PartyInfo.AddDungeonTraverse(playerDungeonId,traverses.traverseDict);
+            if (traverses != null)
+            {
+                PartyInfo.AddDungeonTraverse(playerDungeonId, traverses.traverseDict);
+            }
         }
 
         private void UpdateAchievementConditions(bool checkMissionRank = false)
@@ -715,6 +745,7 @@ namespace Ryneus
             {
                 return;
             }
+            SaveAutoFile();
             PartyInfo.Period.GainValue(1);
             PartyInfo.ClearTardeItemInfos();
             if (PartyInfo.Chapter.Value >= 2)

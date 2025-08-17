@@ -19,10 +19,10 @@ namespace Ryneus
         {
             if (_isLoad)
             {
-                return CurrentData.SaveFileInfos.FindAll(a => a.SaveNo > 0);
+                return CurrentData.SaveFileInfos.FindAll(a => a.SaveNo >= 0);
             }
             var saveFileInfos = new List<SaveFileInfo>();
-            for (int i = 1;i < 21;i++)
+            for (int i = 0;i < 21;i++)
             {
                 var find = CurrentData.SaveFileInfos.Find(a => a.SaveNo == i);
                 if (find != null)
@@ -44,7 +44,7 @@ namespace Ryneus
         {
             if (CurrentData.LastSaveIndex != null)
             {
-                return CurrentData.LastSaveIndex.Value - 1;
+                return CurrentData.LastSaveIndex.Value;
             }
             return 0;
         }
@@ -57,6 +57,7 @@ namespace Ryneus
                 {
                     // ロード
                     await LoadFile(saveFileInfo);
+                    CurrentData.LastSaveIndex.SetValue(saveFileInfo.SaveNo);
                     return true;
                 }
             } else
@@ -71,16 +72,20 @@ namespace Ryneus
         private void SaveFile(SaveFileInfo saveFileInfo)
         {
             saveFileInfo.StageNo = CurrentStage.StageId.Value;
+            saveFileInfo.SaveTimeLong = DateTime.Now.ToFileTime();
             saveFileInfo.SaveTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             saveFileInfo.PlayTime = (int)TempInfo.PlayingTime;
             if (CurrentGameInfo.PartyInfo.ActorInfos != null && CurrentGameInfo.PartyInfo.ActorInfos.Count > 0)
             {
-                saveFileInfo.ActorId = CurrentGameInfo.PartyInfo.ActorInfos[0].ActorId.Value;
+                saveFileInfo.ActorId = CurrentGameInfo.PartyInfo.LeaderActorId.Value;
             }
+            saveFileInfo.Chapter = PartyInfo.Chapter.Value;
+            saveFileInfo.Period = PartyInfo.Period.Value;
+            saveFileInfo.Rank = PartyInfo.MissionRank.Value;
             CurrentData.PushSaveFile(saveFileInfo);
             SavePlayerData();
-            SavePlayerStageData(true,GameSystem.SceneStackManager.Current);
-            SaveSystem.SaveStageInfo(GameSystem.GameInfo,saveFileInfo.SaveNo);
+            SavePlayerStageData(true, GameSystem.SceneStackManager.Current);
+            SaveSystem.SaveStageInfo(GameSystem.GameInfo, saveFileInfo.SaveNo);
         }
 
         private async Task LoadFile(SaveFileInfo saveFileInfo)

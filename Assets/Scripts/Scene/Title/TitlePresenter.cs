@@ -35,6 +35,7 @@ namespace Ryneus
             if (!SaveSystem.ExistsLoadPlayerFile())
             {
                 SaveSystem.SavePlayerInfo();
+                await SaveSystem.LoadPlayerInfo();
             }
             else
             {
@@ -69,14 +70,13 @@ namespace Ryneus
                     CommandSelectSideMenu();
                     break;
                 case CommandType.SelectTitle:
-                    CommandSelectTitle();
+                    CommandSelectTitle((SystemData.CommandData)viewEvent.Template);
                     break;
             }
         }
 
-        private void CommandSelectTitle()
+        private void CommandSelectTitle(SystemData.CommandData titleCommand)
         {
-            var titleCommand = _view.TitleCommand;
             switch (titleCommand?.Key)
             {
                 case "NEWGAME":
@@ -109,6 +109,10 @@ namespace Ryneus
 
         private async Task CommandContinue()
         {
+            if (!_model.ExistsLoadFile())
+            {
+                return;
+            }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             /*
             await _model.LoadFile();

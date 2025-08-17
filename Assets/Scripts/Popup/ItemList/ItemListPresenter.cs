@@ -45,10 +45,18 @@ namespace Ryneus
                     CommandDecideItem();
                     break;
                 case CommandType.PlusUseNum:
+                    if (viewEvent.Template == null)
+                    {
+                        return;
+                    }
                     CommandPlusUseNum((int)viewEvent.Template);
                     break;
                 case CommandType.MinusUseNum:
-                    CommandMinusUseNum((int)viewEvent.Template);
+                    if (viewEvent.Template == null)
+                    {
+                        return;
+                    }
+                    CommandMinusUseNum((int)viewEvent?.Template);
                     break;
             }
         }
