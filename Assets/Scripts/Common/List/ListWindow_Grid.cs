@@ -384,9 +384,9 @@ namespace Ryneus
             corners[index] = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[index]);
             if (isHorizontal)
             {
-                return corners[index].x;
+                return corners[index].x * 1280 / Screen.width;
             }
-            return corners[index].y;
+            return corners[index].y * 720 / Screen.height;
         }
 
         private void UpdateGridScrollRect(int selectIndex)

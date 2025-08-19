@@ -842,27 +842,24 @@ namespace Ryneus
                         var per = 1f - (c / p);
 
                         verticalNormalizedPosition = Math.Max(per, 0);
-                    }
-                    else
+                    } else
                     if (warpMode && _index == 0)
                     {
                         verticalNormalizedPosition = 1;
                     }
-                }
-                else
+                } else
                 if (keyTypes.Contains(minusKey))
                 {
+                    if (warpMode && _index == (GetGridRowCount() - 1))
+                    {
+                        verticalNormalizedPosition = 0;
+                    } else
                     if ((itemPosition + viewPortPosition) > GetViewPortHeight())
                     {
                         var c = _index;
                         var per = 1f - (c / p);
 
                         verticalNormalizedPosition = Math.Min(1, per);
-                    }
-                    else
-                    if (warpMode && _index == (GetGridRowCount() - 1))
-                    {
-                        verticalNormalizedPosition = 0;
                     }
                 }
             }

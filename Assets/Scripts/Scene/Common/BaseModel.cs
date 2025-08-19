@@ -747,7 +747,7 @@ namespace Ryneus
             }
             SaveAutoFile();
             PartyInfo.Period.GainValue(1);
-            PartyInfo.ClearTardeItemInfos();
+            PartyInfo.ClearTradeItemInfos();
             if (PartyInfo.Chapter.Value >= 2)
             {
                 // アーティファクト所持数分評価値を減らす
@@ -794,9 +794,9 @@ namespace Ryneus
                                 {
                                     categoryItems = categoryItems.FindAll(a => a.Id == featureData.Param2);
                                 }
-                                var rand = UnityEngine.Random.Range(0,categoryItems.Count);
+                                var rand = UnityEngine.Random.Range(0, categoryItems.Count);
                                 // 報酬設定
-                                var getItemInfo = MakeGetItemInfo(GetItemType.Item,categoryItems[rand].Id,1);
+                                var getItemInfo = MakeGetItemInfo(GetItemType.Item, categoryItems[rand].Id, 1);
                                 getItemInfos.Add(getItemInfo);
                             }
                         }

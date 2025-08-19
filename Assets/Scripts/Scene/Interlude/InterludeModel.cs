@@ -175,15 +175,15 @@ namespace Ryneus
                 }
             }
             // 評価値を決定
-            if (score >= 10)
+            if (score >= 5)
             {
                 return 3;
             } else
-            if (score >= 5)
+            if (score >= 3)
             {
                 return 2;
             } else
-            if (score >= 2)
+            if (score >= 1)
             {
                 return 1;
             }

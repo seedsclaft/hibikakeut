@@ -155,9 +155,9 @@ namespace Ryneus
         {
             var current = SpeedList.FindIndex(a => a == GameSystem.OptionData.BattleSpeed);
             var next = current + plus;
-            if (next < 0)
+            if (next <= 0)
             {
-                GameSystem.OptionData.BattleSpeed = SpeedList[SpeedList.Count-1];
+                GameSystem.OptionData.BattleSpeed = SpeedList[^1];
             } else
             if (next > SpeedList.Count-1)
             {

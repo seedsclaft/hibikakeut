@@ -7,7 +7,7 @@ namespace Ryneus
 {
     public partial class BaseModel
     {
-        public GetItemInfo MakeGetItemInfo(GetItemType getItemType,int param1,int param2 = 0)
+        public GetItemInfo MakeGetItemInfo(GetItemType getItemType, int param1, int param2 = 0)
         {
             var getItemData = new GetItemData
             {

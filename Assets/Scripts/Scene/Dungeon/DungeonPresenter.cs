@@ -107,7 +107,7 @@ namespace Ryneus
 
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
             var stageEvent = GetStageEventData(EventTiming.Dungeon, playerPosition.x, playerPosition.y);
-            
+
             _thisTurnStageEvents.Clear();
             // イベントがある場合
             if (stageEvent != null)
@@ -132,7 +132,7 @@ namespace Ryneus
             _model.DungeonBusy(true);
             // イベントマスの場合
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-            CheckEventData(moved,playerPosition,() =>
+            CheckEventData(moved, playerPosition, () =>
             {
                 _model.DungeonBusy(false);
                 // ターン数が0の場合
@@ -295,6 +295,7 @@ namespace Ryneus
                     case StageEventType.None:
                     case StageEventType.EventEnd:
                         _model.DungeonBusy(false);
+                        CommandRefresh();
                         // ターン数が0の場合
                         if (_model.EndDungeonByTurnCount())
                         {
@@ -639,7 +640,7 @@ namespace Ryneus
             {
                 return;
             }
-            var learnSkillInfo = new LearnSkillInfo(0,0,new SkillInfo(skillId));
+            var learnSkillInfo = new LearnSkillInfo(0, 0, new SkillInfo(skillId));
             SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
             var popupInfo = new PopupInfo
             {

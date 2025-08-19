@@ -156,7 +156,8 @@ namespace Ryneus
         {
             foreach (var item in _items)
             {
-                if (item.Value.Value > 0 && DataSystem.Items.Find(a => a.Id == item.Key).ItemType == ItemType.RandumAddSkill)
+                var master = DataSystem.Items.Find(a => a.Id == item.Key);
+                if (item.Value.Value > 0 && (master.ItemType == ItemType.RandumAddSkill || master.ItemType == ItemType.Currency))
                 {
                     return true;
                 }
@@ -543,7 +544,7 @@ namespace Ryneus
                 }
             }
         }
-        public void ClearTardeItemInfos()
+        public void ClearTradeItemInfos()
         {
             _tradeItemInfos.Clear();
         }

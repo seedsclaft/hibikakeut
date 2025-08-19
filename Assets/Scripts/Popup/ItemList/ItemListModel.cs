@@ -35,7 +35,7 @@ namespace Ryneus
             return list;
         }
 
-        public void ChangeUseNum(int itemId,bool plus)
+        public void ChangeUseNum(int itemId, bool plus)
         {
             var ownCount = PartyInfo.Items[itemId];
             if (!_useCount.ContainsKey(itemId))
@@ -45,10 +45,10 @@ namespace Ryneus
             var useCount = _useCount[itemId];
             if (plus)
             {
-                useCount.GainValue(1,0,ownCount.Value);
+                useCount.GainValue(1, 0, ownCount.Value);
             } else
             {
-                useCount.GainValue(-1,0,ownCount.Value);
+                useCount.GainValue(-1, 0, ownCount.Value);
             }
         }
 
@@ -72,27 +72,37 @@ namespace Ryneus
 
         public List<GetItemInfo> MakeItemGetItemInfos(int itemId, int num)
         {
-            var list = new List<GetItemInfo>();
+            var getItemInfos = new List<GetItemInfo>();
             var itemData = DataSystem.Items.Find(a => a.Id == itemId);
             if (itemData != null)
             {
                 var count = 0;
-                while (list.Count != num)
+                while (getItemInfos.Count != num)
                 {
                     var getItemInfo = MakeItemGetItemInfo(itemData);
-                    if (getItemInfo != null && list.Find(a => a.Param1 == getItemInfo.Param1) == null)
+                    if (getItemInfo == null)
                     {
-                        list.Add(getItemInfo);
+                        continue;
+                    }
+                    if (getItemInfo.GetItemType == GetItemType.Skill)
+                    {
+                        if (getItemInfos.Find(a => a.Param1 == getItemInfo.Param1) == null)
+                        {
+                            getItemInfos.Add(getItemInfo);
+                        }
+                    } else
+                    {
+                        getItemInfos.Add(getItemInfo);
                     }
                     count++;
                     if (count > 99)
                     {
                         getItemInfo = MakeGetItemInfo(GetItemType.Currency, 10, 0);
-                        list.Add(getItemInfo);
+                        getItemInfos.Add(getItemInfo);
                     }
                 }
             }
-            return list;
+            return getItemInfos;
         }
 
     }
