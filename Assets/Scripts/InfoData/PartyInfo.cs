@@ -361,7 +361,7 @@ namespace Ryneus
                     break;
                 case AchievementConditionType.BattleVictory:
                     // 勝利回数
-                    achievementInfo.SetCondition(BattleVictoryCount.Value,achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(BattleVictoryCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.CharacterLevel:
                     // キャラLv　Param2がActorId,-1なら任意

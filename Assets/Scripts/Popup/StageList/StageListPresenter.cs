@@ -120,9 +120,8 @@ namespace Ryneus
         private void StartStage(int stageId, bool resumeStart)
         {
             _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
-            _model.PartyInfo.DepartureCount.GainValue(1);
-            CheckAchievements();
             _model.MakeStageInfoDepature(stageId, resumeStart);
+            CheckAchievements();
             _view.CommandSceneChange(Scene.Dungeon);
         }
 

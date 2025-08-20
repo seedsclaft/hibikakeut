@@ -30,6 +30,11 @@ namespace Ryneus
             CurrentDeckInfo.StageNo.SetValue(stageId);
             CurrentDeckInfo.Encount.SetValue(0);
             MakeStageInfo(stageId, true);
+            PartyInfo.DepartureCount.GainValue(1);
+            if (CurrentStage.Master.Category == StageCategory.BattleField)
+            {
+                PartyInfo.DepartureBattleFieldCount.GainValue(1);
+            }
         }
 
         public bool IsLimitedRank(StageInfo stageInfo)
