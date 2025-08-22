@@ -27,7 +27,13 @@ namespace Ryneus
                 {
                     case GetItemType.Item:
                         // アイテム1つ
-                        tradeItemInfo = new TradeItemInfo(prizeSet.GetItem, prizeSet.GetItem.Param2);
+                        GetItemData getItemData = new()
+                        {
+                            Type = prizeSet.GetItem.Type,
+                            Param1 = prizeSet.GetItem.Param1,
+                            Param2 = 1 // 1つ単位で取引
+                        };
+                        tradeItemInfo = new TradeItemInfo(getItemData, prizeSet.GetItem.Param2);
                         break;
                     case GetItemType.RandumItem:
                         // 使用アイテムを1つ抽選する

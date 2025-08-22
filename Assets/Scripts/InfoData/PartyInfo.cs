@@ -452,7 +452,7 @@ namespace Ryneus
             switch (getItemInfo.GetItemType)
             {
                 case GetItemType.Item:
-                    GainItemNum(getItemInfo.Param1,getItemInfo.Param2);
+                    GainItemNum(getItemInfo.Param1, getItemInfo.Param2);
                     break;
                 case GetItemType.Building:
                     GainBuilding(getItemInfo.Param1);

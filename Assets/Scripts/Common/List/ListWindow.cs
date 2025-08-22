@@ -632,7 +632,8 @@ namespace Ryneus
             {
                 // 列移動
                 var lines = _horizontal ? Cols() : Rows();
-                if (lines > 1)
+                var singleLine = _horizontal ? Rows() : Cols();
+                if (lines > 1 && singleLine > 1)
                 {
                     for (int i = 0; i < lines; i++)
                     {

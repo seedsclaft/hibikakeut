@@ -2764,6 +2764,7 @@ namespace Ryneus
             //battleScore.RemainHpPercent = (int)((remainHpPercent / actorCount) * 100);
             battleScore.MaxDamage = maxDamage;
             battleScore.DefeatedCount = defeated;
+            battleScore.WeakAttackCount = weakAttackCount;
             battleScore.AwakenCount = awakeCount;
             PartyInfo.BattleScore.GainValue((int)score);
             PartyInfo.TotalDamage.GainValue(attack);

@@ -15,6 +15,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI battleAttackPerText = null;
         [SerializeField] private GameObject battleDefeatedCountObj = null;
         [SerializeField] private TextMeshProUGUI battleDefeatedCountText = null;
+        [SerializeField] private GameObject weakAttackCountObj = null;
+        [SerializeField] private TextMeshProUGUI weakAttackCountText = null;
         public void UpdateScore(BattleScore battleScore)
         {
             if (battleScore == null)
@@ -26,11 +28,13 @@ namespace Ryneus
             battleMaxDamageObj?.SetActive(battleScore.MaxDamage != -1);
             battleAttackPerObj?.SetActive(battleScore.RemainHpPercent != -1);
             battleDefeatedCountObj?.SetActive(battleScore.DefeatedCount != -1);
+            weakAttackCountObj?.SetActive(battleScore.WeakAttackCount != -1);
 
-            battleScoreText?.SetText("+" + (battleScore.ResultScore * 0.01f).ToString("F2") + "%");
+            battleScoreText?.SetText((battleScore.ResultScore > 0 ? "+" : "") + (battleScore.ResultScore * 0.01f).ToString("F2") + "%");
             battleTurnText?.SetText(battleScore.TurnCount.ToString() + DataSystem.GetText(20301));
             battleMaxDamageText?.SetText(battleScore.MaxDamage.ToString());
             battleDefeatedCountText?.SetText(battleScore.DefeatedCount.ToString());
+            weakAttackCountText?.SetText(battleScore.WeakAttackCount.ToString());
             battleAttackPerText?.SetText(battleScore.RemainHpPercent.ToString() + "%");
         }
 
