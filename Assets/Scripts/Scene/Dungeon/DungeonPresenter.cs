@@ -96,11 +96,11 @@ namespace Ryneus
                 var hpHeal = _model.CheckHpHeal();
                 if (hpHeal > 0)
                 {
-                    _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
+                    _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
                 }
             }
 
-
+            _model.AddDungeonTraverse();
             CommandRefresh();
             // 未読の非表示マスを管理
             _model.AddEventNotFlag();
@@ -192,7 +192,7 @@ namespace Ryneus
                 {
                     var strategySceneInfo = new StrategySceneInfo
                     {
-                        ActorInfos = _model.PartyInfo.ActorInfos,
+                        ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
                         InBattle = false,
                         GetItemInfos = periodItemInfos,
                         ReturnScene = Scene.MainMenu,
@@ -224,7 +224,7 @@ namespace Ryneus
                 return;
             }
             var playerPosition = _model.GetForwardPosition();
-            CheckEventData(true,playerPosition, () =>
+            CheckEventData(true, playerPosition, () =>
             {
             });
         }
@@ -529,7 +529,7 @@ namespace Ryneus
                     {
                         var strategySceneInfo = new StrategySceneInfo
                         {
-                            ActorInfos = _model.PartyInfo.ActorInfos,
+                            ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
                             InBattle = false,
                             GetItemInfos = periodItemInfos,
                             ReturnScene = Scene.MainMenu,
@@ -705,7 +705,7 @@ namespace Ryneus
                 _model.UseCurrencyHeal();
                 _view.StartHeal(10);
                 _view.MinusVictoryBonus(-0.2f);
-                _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
+                _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
                 CommandRefresh();
             } else
             {
@@ -748,6 +748,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             _view.UpdateSelectCursor(new List<int>(){});
             _view.EndFormation();
+            _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             _model.SelectIndex.SetValue(-1);
             _model.DungeonBusy(false);
         }

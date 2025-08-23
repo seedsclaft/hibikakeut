@@ -45,6 +45,7 @@ namespace Ryneus
             battleMaxDamageObj?.SetActive(false);
             battleAttackPerObj?.SetActive(false);
             battleDefeatedCountObj?.SetActive(false);
+            weakAttackCountObj?.SetActive(false);
         }
     }
 }

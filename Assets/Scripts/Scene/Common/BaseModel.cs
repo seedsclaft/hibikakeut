@@ -126,6 +126,10 @@ namespace Ryneus
                 {
                     continue;
                 }
+                if (changeAbleSkills.Find(a => a.Id.Value == learnSkillId) != null)
+                {
+                    continue;
+                }
                 var skillInfo = new SkillInfo(learnSkillId);
                 skillInfo.SetLearningState(LearningState.Learned);
                 skillInfo.SetEnable(true);
@@ -695,6 +699,12 @@ namespace Ryneus
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
             var playerDirection = Ariadne.PlayerPosition.Instance.direction;
             CurrentDeckInfo.SetPosition(playerDungeonId, playerPosition.x, playerPosition.y, (int)playerDirection);
+            AddDungeonTraverse();
+        }
+
+        public void AddDungeonTraverse()
+        {
+            var playerDungeonId = Ariadne.PlayerPosition.Instance.currentDungeonId;
             // 開示マス情報を更新
             var traverses = Ariadne.TraverseManager.Instance.GetDungeonTraverseData(playerDungeonId);
             if (traverses != null)
@@ -759,7 +769,7 @@ namespace Ryneus
                         artifactNum++;
                     }
                 }
-                PartyInfo.EvaluationValue.GainValue(-4 * artifactNum,0);
+                PartyInfo.EvaluationValue.GainValue(-4 * artifactNum, 0);
             }
         }
 

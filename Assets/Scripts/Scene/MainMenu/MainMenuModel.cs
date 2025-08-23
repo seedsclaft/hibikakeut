@@ -89,7 +89,7 @@ namespace Ryneus
             {
                 if (a.Key == "Transfer")
                 {
-                    return PartyInfo.Chapter.Value > 3;
+                    return PartyInfo.DepartureBattleFieldCount.Value > 0;
                 }
                 return true;
             },null,(a) =>

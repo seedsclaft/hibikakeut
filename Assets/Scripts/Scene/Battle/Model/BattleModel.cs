@@ -2360,8 +2360,11 @@ namespace Ryneus
                     // Param3をAnd条件フラグにする
                     if (triggerData.Param3 == 1)
                     {
-                        IsTriggered = false;
-                        if (!IsTriggered)
+                        if (IsTriggered)
+                        {
+                            IsTriggered = false;
+                            continue;
+                        } else
                         {
                             break;
                         }

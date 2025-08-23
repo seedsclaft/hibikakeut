@@ -133,11 +133,12 @@ namespace Ryneus
 
         public float DungeonCompletionRate()
         {
-            if (StageId.Value > 0 && _traverseDict.ContainsKey(StageId.Value))
+            var stageId = StageId.Value;
+            if (stageId > 0 && _traverseDict.ContainsKey(stageId))
             {
-                var dungeon = DataSystem.FindDungeonFloor(StageId.Value);
+                var dungeon = DataSystem.FindDungeonFloor(stageId);
                 float all = dungeon.DungeonCompletion;
-                float completions = _traverseDict[StageId.Value].Count;
+                float completions = _traverseDict[stageId].Count;
                 if (all == 0)
                 {
                     return 100;
@@ -298,13 +299,21 @@ namespace Ryneus
             {
                 return null;
             }
-            var notClear = _achievements.FindAll(a => !a.Achieved.Value);
-            if (notClear.Count == 0)
+            var list = new List<AchievementInfo>();
+            foreach (var achievementInfo in _achievements)
+            {
+                if (!achievementInfo.Achieved.Value)
+                {
+                    list.Add(achievementInfo);
+                }
+            }
+            if (list.Count == 0)
             {
                 return null;
             }
-            notClear.Sort((a, b) => a.SortKey() - b.SortKey() > 0 ? 1 : -1);
-            return notClear[0];
+            //list.Sort((a, b) => a.Master.Rank - b.Master.Rank > 0 ? -1 : 1);
+            list.Sort((a, b) => a.SortKey() - b.SortKey() > 0 ? 1 : -1);
+            return list[0];
         }
 
         public void SetAchievementRank(List<AchievementData> achievementDatas)
@@ -569,6 +578,17 @@ namespace Ryneus
             _tradeItemInfos.Clear();
         }
 
+        public float TradeDownRate()
+        {
+            // 取引レートダウン
+            var tradeDownRate = AritifactSkills().Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.TrafeRateDown) != null);
+            if (tradeDownRate != null)
+            {
+                var downRate = tradeDownRate.FeatureDates.Find(a => a.FeatureType == FeatureType.TrafeRateDown);
+                return 1 - (downRate.Param1 * 0.01f);
+            }
+            return 1;
+        }
 
         public ParameterInt DeckId = new(1);
         private Dictionary<int, DeckInfo> _deckInfos = new();

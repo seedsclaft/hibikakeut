@@ -25,7 +25,8 @@ namespace Ryneus
 
             getItem.SetItemData(data.GetItemInfo);
             destriction.SetText(data.Destriction());
-            cost.SetText(data.Cost.Value.ToString() + DataSystem.GetText(1000));
+            var tradeCost = (int)(data.Cost.Value * GameSystem.GameInfo.PartyInfo.TradeDownRate());
+            cost.SetText(tradeCost.ToString() + DataSystem.GetText(1000));
             selected.SetActive(data.Selected.Value);
         }
 

@@ -24,7 +24,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI minusVictoryBonus;
         [SerializeField] private TextMeshProUGUI minusEvaluate;
         [SerializeField] private InputInfoComponent sideMenuInput = null;
-        private readonly Dictionary<int,BattlerInfoComponent> _battlerComps = new();
+        private readonly Dictionary<int, BattlerInfoComponent> _battlerComps = new();
         private List<Sequence> _sequences = new();
         //[SerializeField] private OnOffButton healButton = null;
 

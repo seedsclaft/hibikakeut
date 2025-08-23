@@ -22,7 +22,13 @@ namespace Ryneus
 
         public int SortKey()
         {
-            return Achieved.Value ? 1000000 : 0 + Id.Value;
+            int sort = Id.Value;
+            if (Achieved.Value)
+            {
+                sort += 10000000;
+            }
+            sort -= Master.Rank * 100000;
+            return sort;
         }
 
         public AchievementInfo(AchievementData achievementData)

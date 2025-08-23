@@ -183,19 +183,22 @@ namespace Ryneus
             var actionInfo = _model.SelectActionInfo;
             var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
             var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
-            if (targetIndexes[0] < 100)
+            if (targetIndexes.Count > 0)
             {
-                _view.SelectActorList(targetIndexes);
-            } else
-            {
-                if (autoTarget && actionInfo.CandidateTargetIndexList.Contains(subject.LastTargetIndex()))
+                if (targetIndexes[0] < 100)
                 {
-                    targetIndexes[0] = subject.LastTargetIndex();
+                    _view.SelectActorList(targetIndexes);
+                } else
+                {
+                    if (autoTarget && actionInfo.CandidateTargetIndexList.Contains(subject.LastTargetIndex()))
+                    {
+                        targetIndexes[0] = subject.LastTargetIndex();
+                    }
+                    _view.SelectEnemyList(targetIndexes);
                 }
-                _view.SelectEnemyList(targetIndexes);
             }
             _view.UpdateSelectCursor(actionInfo.CandidateTargetIndexList);
-            _view.SetCurrentSkillData(actionInfo.SkillInfo,subject);
+            _view.SetCurrentSkillData(actionInfo.SkillInfo, subject);
         }
 
         private void CommandOnDecideEnemy(BattlerInfo battlerInfo)

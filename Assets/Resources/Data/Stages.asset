@@ -646,7 +646,7 @@ MonoBehaviour:
     Selectable: 1
     Chapter: 1
     Help: "\u304B\u3064\u3066\u6804\u3048\u305F\u53E4\u4EE3\u738B\u56FD\u306E\u5BAE\u6BBF\u3002\n\u6226\u4E71\u306B\u6563\u3063\u305F\u52C7\u8005\u304C\u6028\u5FF5\u3068\u3057\u3066\u5F98\u5F8A\u3057\u3066\u3044\u308B\u3002"
-    StageLv: 10
+    StageLv: 12
     OnlyOnce: 0
     DisplayRank: 4
     RandomTroopWeight: 30
@@ -727,7 +727,7 @@ MonoBehaviour:
     Selectable: 0
     Chapter: 1
     Help: '""'
-    StageLv: 11
+    StageLv: 12
     OnlyOnce: 0
     DisplayRank: 4
     RandomTroopWeight: 30
@@ -1188,7 +1188,7 @@ MonoBehaviour:
     Help: "\u4EBA\u3092\u60D1\u308F\u3059\u5E7B\u60F3\u7684\u306A\u8F1D\u304D\u3092\u653E\u3064\u5854\u3002\n\u9593\u9055\u3044\u306A\u304F\u9B42\u3092\u55B0\u3089\u3046\u3082\u306E\u304C\u68F2\u307F\u3064\u3044\u3066\u3044\u308B\u3002"
     StageLv: 12
     OnlyOnce: 0
-    DisplayRank: 5
+    DisplayRank: 7
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
     - EnemyId: 3
@@ -1255,7 +1255,7 @@ MonoBehaviour:
     Help: '""'
     StageLv: 13
     OnlyOnce: 0
-    DisplayRank: 5
+    DisplayRank: 7
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
     - EnemyId: 3
@@ -1376,7 +1376,7 @@ MonoBehaviour:
     Help: '""'
     StageLv: 14
     OnlyOnce: 0
-    DisplayRank: 5
+    DisplayRank: 7
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
     - EnemyId: 3
@@ -1479,7 +1479,7 @@ MonoBehaviour:
     Help: '""'
     StageLv: 15
     OnlyOnce: 0
-    DisplayRank: 5
+    DisplayRank: 7
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
     - EnemyId: 3
@@ -1582,7 +1582,7 @@ MonoBehaviour:
     Help: '""'
     StageLv: 15
     OnlyOnce: 0
-    DisplayRank: 5
+    DisplayRank: 7
     RandomTroopWeight: 30
     RandomTroopEnemyRates: []
     EncountMin: 0
@@ -1639,7 +1639,7 @@ MonoBehaviour:
     Help: "\u304B\u3064\u3066\u6C34\u6676\u3092\u63A1\u77F3\u3057\u3066\u3044\u305F\u937E\u4E73\u6D1E\u3002\n\u3042\u308B\u6642\u3092\u5883\u306B\u8AB0\u4E00\u4EBA\u3068\u3057\u3066\u8A2A\u308C\u308B\u3053\u3068\u306F\u306A\u304F\u306A\u3063\u305F\u3002"
     StageLv: 20
     OnlyOnce: 0
-    DisplayRank: 6
+    DisplayRank: 8
     RandomTroopWeight: 30
     RandomTroopEnemyRates: []
     EncountMin: 8
@@ -1872,7 +1872,7 @@ MonoBehaviour:
     EncountMin: 0
     EncountMax: 0
     BackGround: RockCave2
-    BossTroopId: 20020
+    BossTroopId: 20010
     BGMId: 2020
     BossBGMId: 2020
     BattleBGMId: 2020
@@ -1887,128 +1887,75 @@ MonoBehaviour:
       Param2: 7
       Param3: 13
       ReadFlag: 0
-    - EventKey: 2010_7_10DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 7
-      PositionY: 10
-      Param: -1
-      Param2: 40020
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2010_7_6DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 7
-      PositionY: 6
-      Param: -1
-      Param2: 40020
-      Param3: 0
-      ReadFlag: 1
-  - Id: 2011
-    StageNo: 201
-    Category: 2
-    Name: "\u30A2\u30B9\u30AC\u30EB\u30C9\u306E\u57CE\u58C1\u30FB\u4EA4\u6226\u5730"
-    Selectable: 0
-    Chapter: 3
-    Help: "\u30A2\u30FC\u30B9\u795E\u65CF\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
-    StageLv: 12
-    OnlyOnce: 1
-    DisplayRank: 1
-    RandomTroopWeight: 30
-    RandomTroopEnemyRates:
-    - EnemyId: 1
-      Weight: 10
-    - EnemyId: 2
-      Weight: 10
-    - EnemyId: 3
-      Weight: 10
-    - EnemyId: 4
-      Weight: 10
-    - EnemyId: 5
-      Weight: 10
-    - EnemyId: 6
-      Weight: 10
-    - EnemyId: 7
-      Weight: 10
-    - EnemyId: 8
-      Weight: 10
-    - EnemyId: 9
-      Weight: 10
-    - EnemyId: 10
-      Weight: 10
-    EncountMin: 0
-    EncountMax: 0
-    BackGround: RockCave2
-    BossTroopId: 0
-    BGMId: 2020
-    BossBGMId: 2020
-    BattleBGMId: 2020
-    SkyboxName: CloudedSunGlow
-    StageEvents:
-    - EventKey: 2011_7_1DungeonMoveDungeonFloor2012
-      Timing: 3010
-      Type: 2020
-      PositionX: 7
-      PositionY: 1
-      Param: 2012
-      Param2: 7
-      Param3: 13
-      ReadFlag: 0
-    - EventKey: 2011_7_10DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 7
-      PositionY: 10
-      Param: -1
-      Param2: 40020
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2011_7_6DungeonForceBattle20010
-      Timing: 3010
-      Type: 5010
-      PositionX: 7
-      PositionY: 6
-      Param: 20010
-      Param2: 40020
-      Param3: 0
-      ReadFlag: 1
-  - Id: 2012
-    StageNo: 201
-    Category: 2
-    Name: "\u30A2\u30B9\u30AC\u30EB\u30C9\u306E\u57CE\u58C1\u30FB\u4EA4\u6226\u5730"
-    Selectable: 0
-    Chapter: 3
-    Help: "\u30A2\u30FC\u30B9\u795E\u65CF\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
-    StageLv: 15
-    OnlyOnce: 1
-    DisplayRank: 1
-    RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
-    EncountMin: 0
-    EncountMax: 0
-    BackGround: RockCave2
-    BossTroopId: 0
-    BGMId: 2020
-    BossBGMId: 2020
-    BattleBGMId: 2020
-    SkyboxName: CloudedSunGlow
-    StageEvents:
-    - EventKey: 2012_7_8DungeonForceBossBattle20020
+    - EventKey: 2010_7_8DungeonForceBossBattle20010
       Timing: 3010
       Type: 5020
       PositionX: 7
       PositionY: 8
-      Param: 20020
+      Param: 20010
       Param2: 40010
       Param3: 0
       ReadFlag: 1
-    - EventKey: 2012_7_4DungeonExitDungeon0
+    - EventKey: 2010_7_10DungeonAdvStart150
       Timing: 3010
-      Type: 2010
+      Type: 1010
       PositionX: 7
-      PositionY: 4
+      PositionY: 10
+      Param: 150
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2010_7_10DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 7
+      PositionY: 10
       Param: 0
       Param2: 0
       Param3: 0
       ReadFlag: 0
+    - EventKey: 2010_7_12DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 7
+      PositionY: 12
+      Param: -1
+      Param2: 40020
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2010_5_14DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 5
+      PositionY: 14
+      Param: -1
+      Param2: 40020
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2010_5_19DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 5
+      PositionY: 19
+      Param: -1
+      Param2: 40020
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2010_9_14DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 9
+      PositionY: 14
+      Param: -1
+      Param2: 40020
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2010_9_19DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 9
+      PositionY: 19
+      Param: -1
+      Param2: 40020
+      Param3: 0
+      ReadFlag: 1

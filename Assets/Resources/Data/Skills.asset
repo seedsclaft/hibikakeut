@@ -3336,8 +3336,8 @@ MonoBehaviour:
       TriggerType: 17010
       TriggerTiming: 2
       Param1: 3
-      Param2: 0
-      Param3: 1060
+      Param2: 1060
+      Param3: 0
     ScopeTriggers: []
   - Id: 100120
     Name: "\u30A8\u30BF\u30FC\u30CA\u30EB\u30ED\u30F3\u30C9"
@@ -4234,6 +4234,84 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 200110
+    Name: "\u30B9\u30EA\u30FC\u30BF\u30A4\u30E0\u30B9"
+    IconIndex: 10
+    AnimationId: 51
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 1000
+    Attribute: 1
+    Scope: 4
+    SkillType: 3
+    TargetType: 4
+    Help: "(\u6761\u4EF6)3\u56DE\u30A2\u30AF\u30C6\u30A3\u30D6\u3092\u4F7F\u7528\u3059\u308B\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)
+      \u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 200110
+      FeatureType: 3010
+      Param1: 1040
+      Param2: 999
+      Param3: 10
+      Rate: 100
+    - SkillId: 200110
+      FeatureType: 7010
+      Param1: 11
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 200110
+      TriggerType: 7010
+      TriggerTiming: 2
+      Param1: 0
+      Param2: 0
+      Param3: 1
+    - SkillId: 200110
+      TriggerType: 17010
+      TriggerTiming: 2
+      Param1: 3
+      Param2: 1010
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 200120
+    Name: "\u30A2\u30F3\u30B0\u30EA\u30FC\u30AF\u30E9\u30A4"
+    IconIndex: 11
+    AnimationId: 101
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 1000
+    Attribute: 1
+    Scope: 1
+    SkillType: 4
+    TargetType: 1
+    Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
+      \u899A\u9192\u89E3\u9664"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 200120
+      FeatureType: 1010
+      Param1: 250
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 200120
+      FeatureType: 7010
+      Param1: 21
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 200210
     Name: "\u30DE\u30A4\u30C8\u30EC\u30A4\u30F3\u30D5\u30A9\u30FC\u30B9"
     IconIndex: 10
@@ -4242,7 +4320,7 @@ MonoBehaviour:
     MpCost: 0
     CountTurn: 0
     Rank: 1000
-    Attribute: 1
+    Attribute: 5
     Scope: 4
     SkillType: 3
     TargetType: 4
@@ -4287,7 +4365,7 @@ MonoBehaviour:
     MpCost: 0
     CountTurn: 0
     Rank: 1000
-    Attribute: 1
+    Attribute: 5
     Scope: 1
     SkillType: 4
     TargetType: 1
@@ -5623,7 +5701,7 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 310030
-    Name: "\u5546\u58F2\u306E\u624D\u899A \u66F8"
+    Name: "\u5546\u58F2\u306E\u624D\u899A\u66F8"
     IconIndex: 6
     AnimationId: 0
     AnimationType: 1

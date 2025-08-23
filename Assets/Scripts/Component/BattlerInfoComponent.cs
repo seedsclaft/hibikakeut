@@ -226,18 +226,18 @@ namespace Ryneus
 
         public void ClearDamagePopup()
         {
-            foreach ( Transform n in _battleDamageRoot.transform )
+            foreach (Transform n in _battleDamageRoot.transform)
             {
                 //Destroy(n.gameObject);
             }
             _battleDamages.Clear();
         }
 
-        public void StartDamage(DamageType damageType,int value,bool needPopupDelay)
+        public void StartDamage(DamageType damageType, int value, bool needPopupDelay)
         {
             var battleDamage = CreatePrefab();
             int delayCount = !needPopupDelay ? 0 : _battleDamages.Count;
-            battleDamage.StartDamage(damageType,value,delayCount,() =>
+            battleDamage.StartDamage(damageType, value, delayCount, () =>
             {
                 if (_battleDamages.Contains(battleDamage))
                 {
@@ -272,11 +272,11 @@ namespace Ryneus
                 .SetLoops(3);
         }
 
-        public void StartHeal(DamageType damageType,int value,bool needPopupDelay)
+        public void StartHeal(DamageType damageType, int value, bool needPopupDelay)
         {
             var battleDamage = CreatePrefab();
             int delayCount = !needPopupDelay ? 0 : _battleDamages.Count;
-            battleDamage.StartHeal(damageType,value,delayCount,() =>
+            battleDamage.StartHeal(damageType, value, delayCount, () =>
             {
                 if (_battleDamages.Contains(battleDamage))
                 {
@@ -292,11 +292,11 @@ namespace Ryneus
             {
                 if (damageType == DamageType.HpHeal)
                 {
-                    ChangeHpAnimation(_battlerInfo.Hp.Value,value + _battlerInfo.Hp.Value);
+                    ChangeHpAnimation(_battlerInfo.Hp.Value, value + _battlerInfo.Hp.Value);
                 } else
                 if (damageType == DamageType.MpHeal)
                 {
-                    ChangeMpAnimation(_battlerInfo.Mp.Value,value + _battlerInfo.Mp.Value);
+                    ChangeMpAnimation(_battlerInfo.Mp.Value, value + _battlerInfo.Mp.Value);
                 }
             }
         }
@@ -304,7 +304,7 @@ namespace Ryneus
         public void StartStatePopup(DamageType damageType, string stateName, bool buff, bool debuff)
         {
             var battleDamage = CreatePrefab();
-            battleDamage.StartStatePopup(damageType,stateName,buff,debuff,_battleDamages.Count,() =>
+            battleDamage.StartStatePopup(damageType, stateName, buff, debuff, _battleDamages.Count, () =>
             {
                 if (_battleDamages.Contains(battleDamage))
                 {
@@ -375,21 +375,21 @@ namespace Ryneus
             {
                 if (animationPosition == AnimationPosition.Center)
                 {
-                    effectRect.localPosition = new Vector2(0,0);
+                    effectRect.localPosition = new Vector2(0, 0);
                 } else
                 if (animationPosition == AnimationPosition.Down)
                 {
-                    effectRect.localPosition = new Vector2(0,-imageRect.sizeDelta.y);
+                    effectRect.localPosition = new Vector2(0, -imageRect.sizeDelta.y);
                 }
             } else
             {
                 if (animationPosition == AnimationPosition.Center)
                 {
-                    effectRect.localPosition = new Vector2(0,imageRect.sizeDelta.y / 2);
+                    effectRect.localPosition = new Vector2(0, imageRect.sizeDelta.y / 2);
                 } else
                 if (animationPosition == AnimationPosition.Down)
                 {
-                    effectRect.localPosition = new Vector2(0,imageRect.sizeDelta.y / 2 - 48);
+                    effectRect.localPosition = new Vector2(0, imageRect.sizeDelta.y / 2 - 48);
                 }
             }
             effectRect.localScale = new Vector3(animationScale,animationScale,animationScale);

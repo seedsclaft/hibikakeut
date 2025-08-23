@@ -1020,11 +1020,21 @@ namespace Ryneus
         public List<StateInfo> IconStateInfos()
         {
             var iconStates = new List<StateInfo>();
+            if (Index.Value > 3)
+            {
+                return iconStates;
+            }
+            var iconPathes = new List<string>();
             foreach (var stateInfo in _stateInfos)
             {
                 if (stateInfo.Master.IconPath != "" && stateInfo.Master.IconPath != "\"\"")
                 {
+                    if (iconPathes.Contains(stateInfo.Master.IconPath))
+                    {
+                        continue;
+                    }
                     iconStates.Add(stateInfo);
+                    iconPathes.Add(stateInfo.Master.IconPath);
                 }
             }
             return iconStates;

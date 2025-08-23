@@ -61,17 +61,6 @@ namespace Ryneus
                 }
                 list.Add(tradeItemInfo);
             }
-            // 取引レートダウン
-            var tradeDownRate = PartyInfo.AritifactSkills().Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.TrafeRateDown) != null);
-            if (tradeDownRate != null)
-            {
-                var downRate = tradeDownRate.FeatureDates.Find(a => a.FeatureType == FeatureType.TrafeRateDown);
-                foreach (var trade in list)
-                {
-                    var downCost = (int)(trade.Cost.Value * (100 - downRate.Param1));
-                    trade.Cost.SetValue(downCost);
-                }
-            }
             PartyInfo.SetTardeItemInfos(list);
             return list;
         }
@@ -86,7 +75,8 @@ namespace Ryneus
             if (!_getItems.Contains(getItemInfo))
             {
                 getItemInfo.Selected.SetValue(true);
-                PayCost.GainValue(getItemInfo.Cost.Value);
+                var cost = (int)(getItemInfo.Cost.Value * PartyInfo.TradeDownRate());
+                PayCost.GainValue((int)cost);
                 _getItems.Add(getItemInfo);
             }
         }
@@ -96,7 +86,8 @@ namespace Ryneus
             if (_getItems.Contains(getItemInfo))
             {
                 getItemInfo.Selected.SetValue(false);
-                PayCost.GainValue(getItemInfo.Cost.Value * -1);
+                var cost = (int)(getItemInfo.Cost.Value * PartyInfo.TradeDownRate());
+                PayCost.GainValue((int)cost * -1);
                 _getItems.Remove(getItemInfo);
             }
         }
