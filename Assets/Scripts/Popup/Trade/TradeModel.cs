@@ -61,6 +61,17 @@ namespace Ryneus
                 }
                 list.Add(tradeItemInfo);
             }
+            // 取引レートダウン
+            var tradeDownRate = PartyInfo.AritifactSkills().Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.TrafeRateDown) != null);
+            if (tradeDownRate != null)
+            {
+                var downRate = tradeDownRate.FeatureDates.Find(a => a.FeatureType == FeatureType.TrafeRateDown);
+                foreach (var trade in list)
+                {
+                    var downCost = (int)(trade.Cost.Value * (100 - downRate.Param1));
+                    trade.Cost.SetValue(downCost);
+                }
+            }
             PartyInfo.SetTardeItemInfos(list);
             return list;
         }

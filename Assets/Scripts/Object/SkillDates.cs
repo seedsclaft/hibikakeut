@@ -511,6 +511,7 @@ namespace Ryneus
         GetCurrency = 40040, // Nu入手
         AttributeRateUp = 40050, // 属性適正アップ
         StageTurnUp = 40060, // ステージ探索猶予アップ
+        TrafeRateDown = 40070, // 取引コストダウン
         Numinous = 301,
         TacticsCost = 302,
         EnemyLv = 303,

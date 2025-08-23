@@ -15,6 +15,7 @@ namespace Ryneus
         [SerializeField] private StatusGaugeAnimation evaluationValueGauge;
         [SerializeField] private TextMeshProUGUI victoryBonus;
         [SerializeField] private AchievementInfoComponent achievementInfoComponent;
+        [SerializeField] private TextMeshProUGUI dungeonCompletionRate;
         public void UpdateCurrentInfo()
         {
             var current = PartyInfo;
@@ -67,6 +68,10 @@ namespace Ryneus
             if (achievementInfoComponent != null)
             {
                 achievementInfoComponent.UpdateInfo(partyInfo.NearAchievementInfo());
+            }
+            if (dungeonCompletionRate != null)
+            {
+                dungeonCompletionRate.SetText(partyInfo.DungeonCompletionRate().ToString("F2") + "%");
             }
         }
     }

@@ -42,5 +42,6 @@ namespace Ariadne
         public Vector2Int entrancePos;
         public DungeonDir enteringDir;
         public List<MapInfo> mapInfo;
+        public int DungeonCompletion;
     }
 }

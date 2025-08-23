@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Ryneus
 {
@@ -45,13 +47,14 @@ namespace Ryneus
         public List<ActorInfo> ActorInfos => _actorInfos;
         // リーダーキャラId
         public ParameterInt LeaderActorId = new();
-        // 派遣アクターリスト
+        // 転送済みアクターリスト
         [UnityEngine.SerializeField] private List<ActorInfo> _transferActorInfos = new();
 
         public List<ActorInfo> EditableActorInfos()
         {
             return _actorInfos.FindAll(a => !_transferActorInfos.Contains(a));
         }
+
         public void AddTransferActorInfos(ActorInfo actorInfo)
         {
             if (_transferActorInfos.Find(a => a.ActorId.Value == actorInfo.ActorId.Value) == null)
@@ -126,6 +129,23 @@ namespace Ryneus
         public List<string> GetDungeonTraverse(int stageId)
         {
             return _traverseDict.ContainsKey(stageId) ? _traverseDict[stageId] : null;
+        }
+
+        public float DungeonCompletionRate()
+        {
+            if (StageId.Value > 0 && _traverseDict.ContainsKey(StageId.Value))
+            {
+                var dungeon = DataSystem.FindDungeonFloor(StageId.Value);
+                float all = dungeon.DungeonCompletion;
+                float completions = _traverseDict[StageId.Value].Count;
+                if (all == 0)
+                {
+                    return 100;
+                }
+                var rate = 100 * completions / all;
+                return Mathf.Min(rate, 100);
+            }
+            return 0;
         }
 
         // 所持金
