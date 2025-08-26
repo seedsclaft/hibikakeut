@@ -43,12 +43,12 @@ namespace Ryneus
         }
 
         // 所持アクターリスト
-        [UnityEngine.SerializeField] private List<ActorInfo> _actorInfos = new();
+        [SerializeField] private List<ActorInfo> _actorInfos = new();
         public List<ActorInfo> ActorInfos => _actorInfos;
         // リーダーキャラId
         public ParameterInt LeaderActorId = new();
         // 転送済みアクターリスト
-        [UnityEngine.SerializeField] private List<ActorInfo> _transferActorInfos = new();
+        [SerializeField] private List<ActorInfo> _transferActorInfos = new();
 
         public List<ActorInfo> EditableActorInfos()
         {
@@ -73,10 +73,11 @@ namespace Ryneus
         public List<int> ClearedStages => _clearedStages;
         public void ClearStage(int stageId)
         {
-            if (!IsClaeredStage(stageId))
+            if (IsClaeredStage(stageId))
             {
-                _clearedStages.Add(stageId);
+                return;
             }
+            _clearedStages.Add(stageId);
         }
 
         public bool IsClaeredStage(int stageId)
@@ -88,10 +89,11 @@ namespace Ryneus
         public List<int> AlartedStages => _alartedStages;
         public void AlartStage(int stageNo)
         {
-            if (!IsAlartedStage(stageNo))
+            if (IsAlartedStage(stageNo))
             {
-                _alartedStages.Add(stageNo);
+                return;
             }
+            _alartedStages.Add(stageNo);
         }
 
         public bool IsAlartedStage(int stageNo)
@@ -424,7 +426,7 @@ namespace Ryneus
                 case AchievementConditionType.ClearStage:
                     // ステージクリア
                     var cleared = _clearedStages.Contains(achievementInfo.Master.Param1);
-                    achievementInfo.SetCondition(cleared ? 1 : 0,1);
+                    achievementInfo.SetCondition(cleared ? 1 : 0, 1);
                     break;
                 case AchievementConditionType.UseAwakeSkillCount:
                     // 覚醒スキル使用回数
@@ -498,6 +500,9 @@ namespace Ryneus
                 case GetItemType.SkillMastary:
                     var target = _actorInfos.Find(a => a.ActorId.Value == getItemInfo.Param1);
                     target.GainSkillMastary(getItemInfo.Param2);
+                    break;
+                case GetItemType.AddReliefCommandCount:
+                    ReleaseCommandCount.GainValue(-1, 0);
                     break;
                 default:
                     CheckAddActor();

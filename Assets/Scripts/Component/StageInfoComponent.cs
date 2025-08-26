@@ -21,6 +21,8 @@ namespace Ryneus
         [SerializeField] private GameObject mainStage;
         [SerializeField] private GameObject subStage;
         [SerializeField] private GameObject battleFieldStage;
+        [SerializeField] private GameObject dungeonEnemySymbolRoot;
+        [SerializeField] private TextMeshProUGUI dungeonEnemySymbolNum;
 
         public void UpdateCurrent()
         {
@@ -45,7 +47,7 @@ namespace Ryneus
                 cleared.SetActive(stageInfo.Cleared.Value);
             }
             var bossEnemyData = stageInfo.BossEnemyData();
-            if (bossEnemyData != null)
+            if (bossEnemyData != null && !stageInfo.Cleared.Value)
             {
                 if (bossImage != null)
                 {
@@ -57,7 +59,7 @@ namespace Ryneus
                 }
                 if (bossLv != null)
                 {
-                    bossLv.SetText(stageInfo.BossLv().ToString());
+                    bossLv.SetText(DataSystem.GetText(3010) + stageInfo.BossLv().ToString());
                 }
             } else
             {
@@ -76,6 +78,12 @@ namespace Ryneus
             }
             */
 
+            if (dungeonEnemySymbolNum != null && dungeonEnemySymbolRoot != null)
+            {
+                var symbolNum = CurrentStage.DungeonEnemySymbolNum(CurrentGameInfo.ReadEventKeys);
+                dungeonEnemySymbolRoot.SetActive(symbolNum > 0);
+                dungeonEnemySymbolNum.SetText("x" + symbolNum.ToString());
+            }
         }
 
         public void UpdateData(StageData stageData)

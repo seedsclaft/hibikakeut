@@ -148,6 +148,7 @@ namespace Ryneus
 
         RankUp = 2010,
         Evaluate = 2020,
+        AddReliefCommandCount = 2030,
         ClearStage = 3010,
         RandumItem = 4010,
         RandumMagic = 4020,

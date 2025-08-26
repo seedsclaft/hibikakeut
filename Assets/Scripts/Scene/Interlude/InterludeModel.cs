@@ -21,14 +21,14 @@ namespace Ryneus
 
         public int AfterInterrudeEventId()
         {
-            return PartyInfo.Chapter.Value * 10 + 1;
+            return InterrudeEventId() + 1;
         }
 
         public int MakeEvaluateResults()
         {
             var evaluatePrizes = DataSystem.EvaluatePrizes.FindAll(a => a.Chapter == PartyInfo.Chapter.Value);
             var evaluatePrizeDates = new List<EvaluatePrizeData>();
-            var evaluateDicts = new Dictionary<int,List<EvaluatePrizeData>>();
+            var evaluateDicts = new Dictionary<int, List<EvaluatePrizeData>>();
             foreach (var evaluatePrizeData in evaluatePrizes)
             {
                 if (!evaluateDicts.ContainsKey(evaluatePrizeData.Category))
@@ -95,6 +95,13 @@ namespace Ryneus
             foreach (var evaluateGetItemInfo in evaluateGetItemInfos)
             {
                 AddGetItemInfo(evaluateGetItemInfo);
+            }
+
+            // 招聘コマンド回数増加
+            var addReliefCommandCountGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.AddReliefCommandCount);
+            foreach (var addReliefCommandCountGetItemInfo in addReliefCommandCountGetItemInfos)
+            {
+                AddGetItemInfo(addReliefCommandCountGetItemInfo);
             }
 
             // ステージクリア
@@ -172,6 +179,11 @@ namespace Ryneus
                     case GetItemType.Ending:
                         getItemInfo.SetGetFlag(true);
                         break;
+                    case GetItemType.AddReliefCommandCount:
+                        var addReliefCommandCount = new StrategyResultViewInfo();
+                        addReliefCommandCount.SetTitle("招聘コマンド回数+1");
+                        _resultInfos.Add(addReliefCommandCount);
+                        break;
                 }
             }
             // 評価値を決定
@@ -212,6 +224,9 @@ namespace Ryneus
                         return true;
                     }
                     break;
+                case AchievementConditionType.ClearStage:
+                    // ステージクリア
+                    return PartyInfo.ClearedStages.Contains(evaluatePrize.Param1);
             }
             return false;
         }

@@ -51,7 +51,7 @@ namespace Ryneus
             if (_model.InterludePhase())
             {
                 _busy = true;
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(11020),(a) =>
+                var confirmInfo = new ConfirmInfo(DataSystem.GetText(11020), (a) =>
                 {
                     _view.CommandGotoSceneChange(Scene.Interlude);
                 });
@@ -280,7 +280,7 @@ namespace Ryneus
 
         private void CommandTransfer()
         {
-            if (_model.PartyInfo.MissionRank.Value <= 3)
+            if (_model.PartyInfo.Chapter.Value <= 3)
             {
                 return;
             }

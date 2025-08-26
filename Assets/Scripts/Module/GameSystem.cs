@@ -592,6 +592,15 @@ namespace Ryneus
 
         private void Update()
         {
+            UpdatePlayingTime();
+        }
+
+        public static void UpdatePlayingTime()
+        {
+            if (TempData == null)
+            {
+                return;
+            }
             TempData?.AddPlayingTime(Time.deltaTime);
         }
     }

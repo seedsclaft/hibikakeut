@@ -72,5 +72,11 @@ namespace Ryneus
         {
             return false;
         }
+
+        public int DungeonEnemySymbolNum(List<string> readEventKeys)
+        {
+            var stageEvents = Master.StageEvents;
+            return stageEvents.FindAll(a => !readEventKeys.Contains(a.EventKey) && (a.Type == StageEventType.ForceBattle || a.Type == StageEventType.ForceBossBattle)).Count;
+        }
     }
 }

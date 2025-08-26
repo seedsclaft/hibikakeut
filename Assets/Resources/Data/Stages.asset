@@ -642,7 +642,7 @@ MonoBehaviour:
   - Id: 40
     StageNo: 4
     Category: 1
-    Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF\u30FB\u57CE\u9580"
+    Name: "\u4EA1\u56FD\u306E\u5EC3\u589F\u5BAE\u6BBF"
     Selectable: 1
     Chapter: 1
     Help: "\u304B\u3064\u3066\u6804\u3048\u305F\u53E4\u4EE3\u738B\u56FD\u306E\u5BAE\u6BBF\u3002\n\u6226\u4E71\u306B\u6563\u3063\u305F\u52C7\u8005\u304C\u6028\u5FF5\u3068\u3057\u3066\u5F98\u5F8A\u3057\u3066\u3044\u308B\u3002"
@@ -1701,7 +1701,7 @@ MonoBehaviour:
   - Id: 1020
     StageNo: 102
     Category: 11
-    Name: "\u5FD8\u5374\u306E\u6D1E\u7A9F"
+    Name: "\u5FD8\u5374\u306E\u68EE"
     Selectable: 1
     Chapter: 2
     Help: "\u4E8C\u5EA6\u3068\u306F\u5165\u308B\u3053\u3068\u304C\u3067\u304D\u306A\u3044\u4E0D\u601D\u8B70\u306A\u6D1E\u7A9F\u3002\n\u8CB4\u91CD\u306A\u9B54\u6CD5\u66F8\u304C\u96A0\u3055\u308C\u3066\u3044\u308B\u3068\u8A00\u308F\u308C\u3066\u3044\u308B\u3002"
@@ -1720,7 +1720,7 @@ MonoBehaviour:
       Weight: 15
     EncountMin: 8
     EncountMax: 12
-    BackGround: RockCave2
+    BackGround: 002-Woods01
     BossTroopId: 0
     BGMId: 1210
     BossBGMId: 3010
@@ -1775,11 +1775,11 @@ MonoBehaviour:
   - Id: 1030
     StageNo: 103
     Category: 11
-    Name: "\u5FD8\u5374\u306E\u6D1E\u7A9F"
+    Name: "\u5FD8\u5374\u306E\u5EC3\u589F"
     Selectable: 1
     Chapter: 3
     Help: "\u4E8C\u5EA6\u3068\u306F\u5165\u308B\u3053\u3068\u304C\u3067\u304D\u306A\u3044\u4E0D\u601D\u8B70\u306A\u6D1E\u7A9F\u3002\n\u8CB4\u91CD\u306A\u9B54\u6CD5\u66F8\u304C\u96A0\u3055\u308C\u3066\u3044\u308B\u3068\u8A00\u308F\u308C\u3066\u3044\u308B\u3002"
-    StageLv: 15
+    StageLv: 14
     OnlyOnce: 1
     DisplayRank: 5
     RandomTroopWeight: 30
@@ -1794,7 +1794,7 @@ MonoBehaviour:
       Weight: 15
     EncountMin: 8
     EncountMax: 12
-    BackGround: RockCave2
+    BackGround: DirtCave
     BossTroopId: 0
     BGMId: 1210
     BossBGMId: 3010
@@ -1871,7 +1871,7 @@ MonoBehaviour:
       Weight: 10
     EncountMin: 0
     EncountMax: 0
-    BackGround: RockCave2
+    BackGround: NA_background image_3D like_204
     BossTroopId: 20010
     BGMId: 2020
     BossBGMId: 2020
@@ -1893,7 +1893,7 @@ MonoBehaviour:
       PositionX: 7
       PositionY: 8
       Param: 20010
-      Param2: 40010
+      Param2: 40020
       Param3: 0
       ReadFlag: 1
     - EventKey: 2010_7_10DungeonAdvStart150
@@ -1920,7 +1920,7 @@ MonoBehaviour:
       PositionX: 7
       PositionY: 12
       Param: -1
-      Param2: 40020
+      Param2: 40030
       Param3: 0
       ReadFlag: 1
     - EventKey: 2010_5_14DungeonForceBattle-1
@@ -1929,7 +1929,7 @@ MonoBehaviour:
       PositionX: 5
       PositionY: 14
       Param: -1
-      Param2: 40020
+      Param2: 40030
       Param3: 0
       ReadFlag: 1
     - EventKey: 2010_5_19DungeonForceBattle-1
@@ -1938,7 +1938,7 @@ MonoBehaviour:
       PositionX: 5
       PositionY: 19
       Param: -1
-      Param2: 40020
+      Param2: 40030
       Param3: 0
       ReadFlag: 1
     - EventKey: 2010_9_14DungeonForceBattle-1
@@ -1947,7 +1947,7 @@ MonoBehaviour:
       PositionX: 9
       PositionY: 14
       Param: -1
-      Param2: 40020
+      Param2: 40030
       Param3: 0
       ReadFlag: 1
     - EventKey: 2010_9_19DungeonForceBattle-1
@@ -1956,6 +1956,6 @@ MonoBehaviour:
       PositionX: 9
       PositionY: 19
       Param: -1
-      Param2: 40020
+      Param2: 40030
       Param3: 0
       ReadFlag: 1

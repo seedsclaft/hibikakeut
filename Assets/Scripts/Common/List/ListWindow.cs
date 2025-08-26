@@ -855,7 +855,7 @@ namespace Ryneus
                     {
                         verticalNormalizedPosition = 0;
                     } else
-                    if ((itemPosition + viewPortPosition) > GetViewPortHeight())
+                    if (itemPosition > (GetViewPortHeight() + viewPortPosition))
                     {
                         var c = _index;
                         var per = 1f - (c / p);

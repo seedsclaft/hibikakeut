@@ -214,7 +214,7 @@ namespace Ryneus
                 var skillData = DataSystem.FindSkill(skillExpGetItemInfo.Param2);
                 if (skillData.Id > 1000 && skillData.Rank > RankType.ActiveRank1 && !target.MastarySkillIds.Contains(skillExpGetItemInfo.Param2))
                 {
-                    resultInfo.SetTitle(DataSystem.GetReplaceText(20110,target.Master.Name) + DataSystem.GetReplaceText(20111,skillData.Name));
+                    resultInfo.SetTitle(DataSystem.GetReplaceText(20110, target.Master.Name) + DataSystem.GetReplaceText(20111, skillData.Name));
                     _resultInfos.Add(resultInfo);
                 }
             }

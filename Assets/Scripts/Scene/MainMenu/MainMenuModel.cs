@@ -29,15 +29,7 @@ namespace Ryneus
 
         public bool InterludePhase()
         {
-            // 6ピリオドでチャプター切り替え
-            if (PartyInfo.Period.Value > DataSystem.System.PeriodTurns)
-            {
-                //PartyInfo.Period.SetValue(1);
-                //PartyInfo.Chapter.GainValue(1);
-                //PartyInfo.ThisPeriodReliefCount.SetValue(0);
-                return true;
-            }
-            return false;
+            return PartyInfo.Period.Value > DataSystem.System.PeriodTurns;
         }
 
         public bool IsEnding()
@@ -89,7 +81,7 @@ namespace Ryneus
             {
                 if (a.Key == "Transfer")
                 {
-                    return PartyInfo.DepartureBattleFieldCount.Value > 0;
+                    return PartyInfo.Chapter.Value > 3;
                 }
                 return true;
             },null,(a) =>

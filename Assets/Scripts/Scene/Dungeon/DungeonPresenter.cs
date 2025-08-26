@@ -30,7 +30,7 @@ namespace Ryneus
             //_view.SetHelpWindow();
             _view.SetEvent((type) => UpdateCommand(type));
 
-            _view.SetPartyUnitList(MakeListData(_model.PartyUnit(),-1));
+            _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             _view.SetActiveStageInfo(_model.IsActiveDungeon());
             await PlayDungeonBgm(_model.DungeonBgmTimeStamp());
             // ダンジョン生成
@@ -183,28 +183,32 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
             _model.DungeonBusy(true);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10110),(a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10110), (a) =>
             {
-                _model.ReturnDungeon();
-                _view.CallSystemCommand(Base.CommandType.MapClear);
-                var periodItemInfos = _model.PeriodGetItemInfos();
-                if (periodItemInfos.Count > 0)
-                {
-                    var strategySceneInfo = new StrategySceneInfo
-                    {
-                        ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
-                        InBattle = false,
-                        GetItemInfos = periodItemInfos,
-                        ReturnScene = Scene.MainMenu,
-                    };
-                    _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
-                } else
-                {
-                    _view.CommandSceneChange(Scene.MainMenu);
-                }
+                RetunrDungeon();
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void RetunrDungeon()
+        {
+            _model.ReturnDungeon();
+            _view.CallSystemCommand(Base.CommandType.MapClear);
+            var periodItemInfos = _model.PeriodGetItemInfos();
+            if (periodItemInfos.Count > 0)
+            {
+                var strategySceneInfo = new StrategySceneInfo
+                {
+                    ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
+                    InBattle = false,
+                    GetItemInfos = periodItemInfos,
+                    ReturnScene = Scene.MainMenu,
+                };
+                _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
+                return;
+            }
+            _view.CommandSceneChange(Scene.MainMenu);
         }
 
         private void CommandDecideDirectEvent()
@@ -229,9 +233,9 @@ namespace Ryneus
             });
         }
 
-        public StageEventData GetStageEventData(EventTiming eventTiming,int positionX,int positionY)
+        public StageEventData GetStageEventData(EventTiming eventTiming, int positionX, int positionY)
         {
-            var timingEvents = _model.StageEvents(eventTiming,positionX,positionY);
+            var timingEvents = _model.StageEvents(eventTiming, positionX, positionY);
             timingEvents = timingEvents.FindAll(a => !_thisTurnStageEvents.Contains(a));
             if (timingEvents.Count > 0)
             {
@@ -366,9 +370,9 @@ namespace Ryneus
         {
             // 選択して仲間を加入
             // 確認後仲間選択
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10120),(a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10120), (a) =>
             {
-                CommandCallAddActorInfo(true,true);
+                CommandCallAddActorInfo(true, true);
             });
             confirmInfo.SetIsNoChoice(true);
             confirmInfo.SetBackEvent(() => {});
@@ -444,7 +448,7 @@ namespace Ryneus
             }
             _model.UpdateEventObjects();
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-            CheckEventData(false,playerPosition,endEvent);
+            CheckEventData(false, playerPosition, endEvent);
         }
 
         private void StageEventAddEventFlagEndForceBattle(bool moved, StageEventData stageEvent, Action endEvent)
@@ -494,7 +498,7 @@ namespace Ryneus
         private void StageEventCurseFloor(StageEventData stageEvent, Action endEvent)
         {
             _model.AddEventReadFlag(stageEvent);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10160),(a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10160), (a) =>
             {
                 _model.CursedParty();
                 var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
@@ -522,23 +526,7 @@ namespace Ryneus
                 if (a == ConfirmCommandType.Yes)
                 {
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
-                    _view.CallSystemCommand(Base.CommandType.MapClear);
-                    _model.ReturnDungeon();
-                    var periodItemInfos = _model.PeriodGetItemInfos();
-                    if (periodItemInfos.Count > 0)
-                    {
-                        var strategySceneInfo = new StrategySceneInfo
-                        {
-                            ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
-                            InBattle = false,
-                            GetItemInfos = periodItemInfos,
-                            ReturnScene = Scene.MainMenu,
-                        };
-                        _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
-                    } else
-                    {
-                        _view.CommandSceneChange(Scene.MainMenu);
-                    }
+                    RetunrDungeon();
                 } else
                 {
                     _model.DungeonBusy(false);
