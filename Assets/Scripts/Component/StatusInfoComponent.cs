@@ -44,71 +44,71 @@ namespace Ryneus
             maxMp?.SetText(statusInfo.Mp.ToString());
             if (atk != null)
             {
-                atk?.SetText(statusInfo.Atk.ToString());
+                atk.SetText(statusInfo.Atk.ToString());
                 if (baseStatus != null)
                 {
-                    ChangeTextColor(atk,statusInfo.Atk,baseStatus.Atk);
+                    ChangeTextColor(atk, statusInfo.Atk, baseStatus.Atk);
                 }
             }
             if (def != null)
             {
-                def?.SetText(statusInfo.Def.ToString());
+                def.SetText(statusInfo.Def.ToString());
                 if (baseStatus != null)
                 {
-                    ChangeTextColor(def,statusInfo.Def,baseStatus.Def);
+                    ChangeTextColor(def, statusInfo.Def, baseStatus.Def);
                 }
             }
             if (spd != null)
             {
-                spd?.SetText(statusInfo.Spd.ToString());
+                spd.SetText(statusInfo.Spd.ToString());
                 if (baseStatus != null)
                 {
-                    ChangeTextColor(spd,statusInfo.Spd,baseStatus.Spd);
+                    ChangeTextColor(spd, statusInfo.Spd, baseStatus.Spd);
                 }
             }
             if (mov != null)
             {
-                mov?.SetText(statusInfo.Mov.ToString());
+                mov.SetText(statusInfo.Mov.ToString());
                 if (baseStatus != null)
                 {
-                    ChangeTextColor(mov,statusInfo.Mov,baseStatus.Mov);
+                    ChangeTextColor(mov, statusInfo.Mov, baseStatus.Mov);
                 }
             }
             if (cost != null)
             {
-                cost?.SetText(statusInfo.Cost.ToString());
+                cost.SetText(statusInfo.Cost.ToString());
                 if (baseStatus != null)
                 {
-                    ChangeTextColor(cost,statusInfo.Cost,baseStatus.Cost);
+                    ChangeTextColor(cost, statusInfo.Cost, baseStatus.Cost);
                 }
             }
             if (hpCaption != null)
             {
-                UpdateCaption(StatusParamType.Hp,hpCaption);
+                UpdateCaption(StatusParamType.Hp, hpCaption);
             }
             if (mpCaption != null)
             {
-                UpdateCaption(StatusParamType.Mp,mpCaption);
+                UpdateCaption(StatusParamType.Mp, mpCaption);
             }
             if (atkCaption != null)
             {
-                UpdateCaption(StatusParamType.Atk,atkCaption);
+                UpdateCaption(StatusParamType.Atk, atkCaption);
             }
             if (defCaption != null)
             {
-                UpdateCaption(StatusParamType.Def,defCaption);
+                UpdateCaption(StatusParamType.Def, defCaption);
             }
             if (spdCaption != null)
             {
-                UpdateCaption(StatusParamType.Spd,spdCaption);
+                UpdateCaption(StatusParamType.Spd, spdCaption);
             }
             if (movCaption != null)
             {
-                UpdateCaption(StatusParamType.Mov,movCaption);
+                UpdateCaption(StatusParamType.Mov, movCaption);
             }
             if (costCaption != null)
             {
-                UpdateCaption(StatusParamType.Cost,costCaption);
+                UpdateCaption(StatusParamType.Cost, costCaption);
             }
         }
 
@@ -127,7 +127,7 @@ namespace Ryneus
             }
         }
 
-        public void UpdateHp(int currentHp,int maxStatusHp)
+        public void UpdateHp(int currentHp, int maxStatusHp)
         {
             if (currentHp < 0)
             {
@@ -174,7 +174,7 @@ namespace Ryneus
             }
         }
 
-        public void UpdateCost(int currentCost,int maxStatusCost)
+        public void UpdateCost(int currentCost, int maxStatusCost)
         {
             if (currentCost < 0)
             {
@@ -188,7 +188,7 @@ namespace Ryneus
             maxCost?.SetText(maxStatusCost.ToString());
         }
 
-        public void UpdateHpAnimation(int fromHp,int currentHp,int maxStatusHp)
+        public void UpdateHpAnimation(int fromHp, int currentHp, int maxStatusHp)
         {
             if (hpGaugeAnimation != null)
             {
@@ -257,7 +257,7 @@ namespace Ryneus
             }
         }
 
-        private void UpdateCaption(StatusParamType statusParamType,TextMeshProUGUI caption)
+        private void UpdateCaption(StatusParamType statusParamType, TextMeshProUGUI caption)
         {
             var textId = 2100 + (int)statusParamType;
             caption?.SetText(DataSystem.GetText(textId));

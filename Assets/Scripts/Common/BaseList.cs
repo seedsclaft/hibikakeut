@@ -52,7 +52,7 @@ namespace Ryneus
             CreateList();
             if (ListDates.Count > ObjectList.Count)
             {
-                AddCreateList(ListDates.Count-ObjectList.Count);
+                AddCreateList(ListDates.Count - ObjectList.Count);
             }
             UpdateObjectList();
 
@@ -83,12 +83,16 @@ namespace Ryneus
         /// <param name="listData"></param>
         public void RefreshListData(List<ListData> listData)
         {
-            if (ListDates.Count == 0)
+            var setData = ListDates.Count == 0;
+            if (setData)
             {
                 SetData(listData);
             }
             SetListData(listData);
-            Refresh(Index);
+            if (!setData)
+            {
+                Refresh(Index);
+            }
         }
 
         /*

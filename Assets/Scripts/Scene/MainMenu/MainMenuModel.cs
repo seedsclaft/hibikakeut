@@ -77,7 +77,7 @@ namespace Ryneus
         public List<ListData> MainMenuCommand()
         {
             var selectIndex = _sceneParam != null ? _sceneParam.CommandIndex : 0;
-            return ListData.MakeListData(DataSystem.TacticsCommand,(a) =>
+            return ListData.MakeListData(DataSystem.TacticsCommand, (a) =>
             {
                 if (a.Key == "Transfer")
                 {

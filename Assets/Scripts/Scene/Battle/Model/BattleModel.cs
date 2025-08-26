@@ -255,7 +255,7 @@ namespace Ryneus
 
         public List<BattlerInfo> FieldBattlerInfos()
         {
-            return _battlers.FindAll(a => a.isAlcana == false && a.LineIndex == LineType.Front);
+            return _battlers.FindAll(a => !a.isAlcana && a.LineIndex == LineType.Front);
         }
 
         public List<StateInfo> UpdateAp()
@@ -2103,12 +2103,12 @@ namespace Ryneus
             return actionResultInfos;
         }
 
-        private bool IsTriggeredSkillInfo(BattlerInfo battlerInfo,List<SkillData.TriggerData> triggerDates,ActionInfo actionInfo,List<ActionResultInfo> actionResultInfos)
+        private bool IsTriggeredSkillInfo(BattlerInfo battlerInfo, List<SkillData.TriggerData> triggerDates, ActionInfo actionInfo, List<ActionResultInfo> actionResultInfos)
         {
             var friends = battlerInfo.IsActor ? _party : _troop;
             var opponents = battlerInfo.IsActor ? _troop : _party;
             bool IsTriggered = false;
-            var checkTriggerInfo = new CheckTriggerInfo(_turnCount,battlerInfo,BattlerActors(),BattlerEnemies(),_reserveBattlers,actionInfo,actionResultInfos);
+            var checkTriggerInfo = new CheckTriggerInfo(_turnCount, battlerInfo, BattlerActors(), BattlerEnemies(), _reserveBattlers, actionInfo, actionResultInfos);
             if (triggerDates.Count > 0)
             {
                 foreach (var triggerData in triggerDates)
@@ -2211,9 +2211,7 @@ namespace Ryneus
                                 }
                                 break;
                             case TriggerType.DeadWithoutSelf:
-                                var dWithoutSelfUnit = battlerInfo.IsActor ? _party : _troop;
-                                int aliveCount = dWithoutSelfUnit.AliveBattlerInfos.Count;
-                                if (battlerInfo.IsAlive() && aliveCount == 1)
+                                if (battlerInfo.IsAlive() && friends.DeadWithoutSelf(battlerInfo))
                                 {
                                     IsTriggered = true;
                                 }
@@ -2225,7 +2223,7 @@ namespace Ryneus
                                     var stateInfos = battlerInfo.GetStateInfoAll(StateType.Death);
                                     for (var i = 0;i < stateInfos.Count;i++)
                                     {
-                                        battlerInfo.RemoveState(stateInfos[i],true);
+                                        battlerInfo.RemoveState(stateInfos[i], true);
                                         battlerInfo.SetPreserveAlive(true);
                                     }
                                 }

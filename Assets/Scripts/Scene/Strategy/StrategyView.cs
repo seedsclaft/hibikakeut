@@ -136,7 +136,7 @@ namespace Ryneus
 
         public void SetTitle(string text)
         {
-            title.text = text;
+            title.SetText(text);
         }
 
         public void SetHelpWindow()

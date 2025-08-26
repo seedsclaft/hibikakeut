@@ -44,6 +44,12 @@ namespace Ryneus
                 case CommandType.SelectEnemy:
                     CommandSelectEnemy();
                     break;
+                case CommandType.CallMagicList:
+                    CommandCallMagicList();
+                    break;
+                case CommandType.CallConditionList:
+                    CommandCallConditionList();
+                    break;
                 case CommandType.Back:
                     CommandBack();
                     break;
@@ -58,6 +64,16 @@ namespace Ryneus
             CommandRefresh();
         }
 
+        private void CommandCallMagicList()
+        {
+            _view.CallMagicList();
+        }
+
+        private void CommandCallConditionList()
+        {
+            _view.CallConditionList();
+        }
+
         private void CommandBack()
         {
             _view.CommandBack();
@@ -67,7 +83,7 @@ namespace Ryneus
         {
             var skillInfos = _model.SkillActionList();
             var lastSelectIndex = 0;
-            _view.SetCondition(MakeListData(_model.SelectCharacterConditions()));
+            _view.SetCondition(MakeListData(_model.SelectCharacterConditions(), 0));
             _view.CommandRefreshStatus(MakeListData(skillInfos, 0), _model.CurrentEnemy, MakeListData(_model.EnemySkillTriggerInfo()), _model.EnemyIndexes(), lastSelectIndex);
         }
     }

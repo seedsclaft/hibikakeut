@@ -163,6 +163,7 @@ namespace Ryneus
                 _view.CommandCallCaution(cautionInfo);
                 return;
             }
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
             var popupInfo = new PopupInfo
             {

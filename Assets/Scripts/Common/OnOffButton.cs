@@ -10,6 +10,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI commandName;
         [SerializeField] private InputInfoComponent inputInfoComponent;
         [SerializeField] private InputKeyType inputKeyType;
+        [SerializeField] private InputInfoComponent inputInfoComponent2;
+        [SerializeField] private InputKeyType inputKeyType2;
         private System.Action _handler = null;
         private System.Action _exitHandler = null;
         public void SetText(string text)
@@ -17,7 +19,7 @@ namespace Ryneus
             commandName.SetText(text);
         }
 
-        public void OnClickAddListener(System.Action handler,System.Action exitHandler = null)
+        public void OnClickAddListener(System.Action handler, System.Action exitHandler = null)
         {
             if (Index == 0)
             {
@@ -47,6 +49,10 @@ namespace Ryneus
             if (inputInfoComponent != null)
             {
                 inputInfoComponent.UpdateGuideIcon(inputKeyType);
+            }
+            if (inputInfoComponent2 != null)
+            {
+                inputInfoComponent2.UpdateGuideIcon(inputKeyType2);
             }
         }
 

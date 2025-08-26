@@ -39,40 +39,44 @@ namespace Ryneus
             if (description != null)
             {
                 string effectText = stateInfo.Master.Help.Replace("\\d",stateInfo.Effect.ToString());
-                description.text = effectText;
+                description.SetText(effectText);
                 var skill = DataSystem.FindSkill(stateInfo.SkillId.Value);
                 if (skill != null)
                 {
-                    description.text = description.text + "(" + skill.Name + ")";
+                    description.SetText(description.text + "(" + skill.Name + ")");
                 }
             }
             if (turns != null)
             {
-                turns.text = "";
+                turns.SetText("");
                 var removalTiming = stateInfo.RemovalTiming;
-                if (removalTiming == RemovalTiming.UpdateTurn)
+                switch (removalTiming)
                 {
-                    if (stateInfo.Turns.Value > 900)
-                    {
-                        turns.text = DataSystem.GetText(403);
-                    } else
-                    {
-                        turns.text = DataSystem.GetReplaceText(401,stateInfo.Turns.ToString());
-                    }
-                } else
-                if (removalTiming == RemovalTiming.UpdateCount)
-                {
-                    turns.text = DataSystem.GetReplaceText(404,stateInfo.Turns.ToString());
-                } else
-                if (removalTiming == RemovalTiming.UpdateAp)
-                {
-                    if (stateInfo.Turns.Value > 900)
-                    {
-                        turns.text = DataSystem.GetText(403);
-                    } else
-                    {
-                        turns.text = DataSystem.GetReplaceText(405,stateInfo.Turns.ToString());
-                    }
+                    case RemovalTiming.UpdateTurn:
+                        if (stateInfo.Turns.Value > 900)
+                        {
+                            // 永続
+                            turns.SetText(DataSystem.GetText(2410));
+                        } else
+                        {
+                            // 〇ターン
+                            turns.SetText(DataSystem.GetReplaceText(2420, stateInfo.Turns.ToString()));
+                        }
+                        break;
+                    case RemovalTiming.UpdateCount:
+                        // 〇回
+                        turns.SetText(DataSystem.GetReplaceText(2430, stateInfo.Turns.ToString()));
+                        break;
+                    case RemovalTiming.UpdateAp:
+                        if (stateInfo.Turns.Value > 900)
+                        {
+                            turns.SetText(DataSystem.GetText(2410));
+                        } else
+                        {
+                            // 〇フレーム
+                            turns.SetText(DataSystem.GetReplaceText(2440, stateInfo.Turns.ToString()));
+                        }
+                        break;
                 }
             }
         }

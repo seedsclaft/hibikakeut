@@ -329,11 +329,11 @@ namespace Ryneus
 
 
             // L1,R1
-            if (gamePad.leftShoulder.wasPressedThisFrame)
+            if (gamePad.leftTrigger.wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.SideLeft1);
             }
-            if (gamePad.rightShoulder.wasPressedThisFrame)
+            if (gamePad.rightTrigger.wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.SideRight1);
             }

@@ -1020,7 +1020,7 @@ namespace Ryneus
         public List<StateInfo> IconStateInfos()
         {
             var iconStates = new List<StateInfo>();
-            if (Index.Value > 3)
+            if ((Index.Value % 100) > 3)
             {
                 return iconStates;
             }

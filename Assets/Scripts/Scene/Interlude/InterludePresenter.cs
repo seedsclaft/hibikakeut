@@ -29,6 +29,7 @@ namespace Ryneus
 
             _view.SetEvent((type) => UpdateCommand(type));
             _view.InitResultList(MakeListData(_model.ResultCommand()));
+            _view.SetTitle();
             CommandRefresh();
             var route = _model.MakeEvaluateResults();
             _view.CallSystemCommand(Base.CommandType.SetRouteSelect,route);

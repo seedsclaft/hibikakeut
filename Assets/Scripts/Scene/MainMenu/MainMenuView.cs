@@ -39,15 +39,10 @@ namespace Ryneus
         private void InitializeCommandList()
         {
             commandList.Initialize();
-            commandList.SetInputHandler(InputKeyType.Decide,() => CallMainMenuCommand());
-            commandList.SetInputHandler(InputKeyType.SideLeft1,() => CallViewEvent(CommandType.Aritifact));
-            commandList.SetInputHandler(InputKeyType.Option2,() => CallSideMenu());
+            commandList.SetInputHandler(InputKeyType.Decide, () => CallMainMenuCommand());
+            commandList.SetInputHandler(InputKeyType.SideLeft1, () => CallViewEvent(CommandType.Aritifact));
+            commandList.SetInputHandler(InputKeyType.Option2, () => CallSideMenu());
             AddViewActives(commandList);
-        }
-
-        public void SetCommandList(List<ListData> listDatas)
-        {
-            commandList.SetData(listDatas);
         }
 
         public void UpdateCommandList(List<ListData> listDatas)

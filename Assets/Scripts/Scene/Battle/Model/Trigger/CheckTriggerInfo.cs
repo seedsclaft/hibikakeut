@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ryneus
 {
-    public class CheckTriggerInfo 
+    public class CheckTriggerInfo
     {
         public ActionInfo ActionInfo;
         public List<ActionResultInfo> ActionResultInfos;
@@ -16,7 +16,7 @@ namespace Ryneus
         public List<BattlerInfo> OpponentsBackBattlerInfos;
         public List<BattlerInfo> ReserveMembers;
         public int Turns;
-        public CheckTriggerInfo(int turns,BattlerInfo battlerInfo,List<BattlerInfo> party,List<BattlerInfo> troops,List<BattlerInfo> reserveMembers,ActionInfo actionInfo = null,List<ActionResultInfo> actionResultInfos = null)
+        public CheckTriggerInfo(int turns, BattlerInfo battlerInfo, List<BattlerInfo> party, List<BattlerInfo> troops, List<BattlerInfo> reserveMembers, ActionInfo actionInfo = null, List<ActionResultInfo> actionResultInfos = null)
         {
             BattlerInfo = battlerInfo;
             Friends = battlerInfo.IsActor ? party : troops;
@@ -35,7 +35,9 @@ namespace Ryneus
         {
             var battlerInfo = Friends.Find(a => a.Index.Value == index);
             if (battlerInfo == null)
-            battlerInfo = Opponents.Find(a => a.Index.Value == index);
+            {
+                battlerInfo = Opponents.Find(a => a.Index.Value == index);
+            }
             return battlerInfo;
         }
 

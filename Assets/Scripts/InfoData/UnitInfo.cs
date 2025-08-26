@@ -160,6 +160,19 @@ namespace Ryneus
             return 0;
         }
 
+        public bool DeadWithoutSelf(BattlerInfo battlerInfo)
+        {
+            if (_battlerInfos.Find(a => a.Index.Value == battlerInfo.Index.Value) == null)
+            {
+                return false;
+            }
+            if (_battlerInfos.Count == 1)
+            {
+                return false;
+            }
+            return AliveBattlerInfos.Count == 1;
+        }
+
         public UnitInfo CopyData()
         {
             var copyData = new UnitInfo();

@@ -164,9 +164,9 @@ namespace Ryneus
             alcanaSelectList.Hide();
         }
 
-        public void SetTitle(string text)
+        public void SetTitle()
         {
-            title.text = text;
+            title.SetText(DataSystem.GetText(20410));
         }
 
         public void SetHelpWindow()
