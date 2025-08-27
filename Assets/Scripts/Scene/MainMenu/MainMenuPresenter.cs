@@ -24,6 +24,7 @@ namespace Ryneus
         {
             _view.SetHelpWindow();
             _view.SetEvent((type) => UpdateCommand(type));
+            SoundManager.Instance.FadeOutBgm();
 
             if (_model.IsEnding())
             {
@@ -42,30 +43,21 @@ namespace Ryneus
             }
 
             _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
+            _view.MainMenuStartAnim(_model.PartyInfo.Chapter.Value, _model.PartyInfo.Period.Value, 4, 24 - (((_model.PartyInfo.Chapter.Value - 1) * 4) + _model.PartyInfo.Period.Value));
             CommandRefresh();
-            _view.UpdateBattleFieldNotice(_model.HasBattleField());
-
-            await _model.PlayMainStageBgmData();
-            _model.SaveAutoFile();
-            // 幕間に移動
-            if (_model.InterludePhase())
-            {
-                _busy = true;
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(11020), (a) =>
-                {
-                    _view.CommandGotoSceneChange(Scene.Interlude);
-                });
-                confirmInfo.SetIsNoChoice(true);
-                _view.CommandCallConfirm(confirmInfo);
-                return;
-            }
-            _busy = false;
+            _view.SetActiveCommandList(false);
         }
 
         private void UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
             {
+                switch (viewEvent.ViewCommandType.CommandType)
+                {
+                    case CommandType.EndAnimation:
+                        CommandEndAnimation();
+                        break;
+                }
                 return;
             }
             if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.MainMenu)
@@ -84,6 +76,29 @@ namespace Ryneus
                     CommandAritifact();
                     break;
             }
+        }
+
+        private async void CommandEndAnimation()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _view.UpdateBattleFieldNotice(_model.HasBattleField());
+
+            await _model.PlayMainStageBgmData();
+            _model.SaveAutoFile();
+            // 幕間に移動
+            if (_model.InterludePhase())
+            {
+                _busy = true;
+                var confirmInfo = new ConfirmInfo(DataSystem.GetText(11020), (a) =>
+                {
+                    _view.CommandGotoSceneChange(Scene.Interlude);
+                });
+                confirmInfo.SetIsNoChoice(true);
+                _view.CommandCallConfirm(confirmInfo);
+                return;
+            }
+            _view.SetActiveCommandList(true);
+            _busy = false;
         }
 
         private void CommandMainMenuCommand(SystemData.CommandData commandData)

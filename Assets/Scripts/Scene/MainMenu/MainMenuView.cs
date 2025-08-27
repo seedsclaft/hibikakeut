@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Ryneus.MainMenu;
 
 namespace Ryneus
@@ -12,6 +13,8 @@ namespace Ryneus
         [SerializeField] private TacticsCharaLayer tacticsCharaLayer;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent;
         [SerializeField] private OnOffButton alcanaInfoButton;
+        [SerializeField] private MainMenuStartAnim mainMenuStartAnim;
+        [SerializeField] private Button startAnimButton = null;
         [SerializeField] private GameObject particleObject;
         [SerializeField] private GameObject battleFieldNotice;
         [SerializeField] private GameObject sideMenuBatch;
@@ -33,6 +36,14 @@ namespace Ryneus
             }
             SetInputHandler(gameObject);
             CommandRefresh();
+            if (mainMenuStartAnim != null)
+            {
+                mainMenuStartAnim.Reset();
+            }
+            if (startAnimButton != null)
+            {
+                startAnimButton.onClick.AddListener(() => EndAnimation());
+            }
             _ = new MainMenuPresenter(this);
         }
 
@@ -42,7 +53,6 @@ namespace Ryneus
             commandList.SetInputHandler(InputKeyType.Decide, () => CallMainMenuCommand());
             commandList.SetInputHandler(InputKeyType.SideLeft1, () => CallViewEvent(CommandType.Aritifact));
             commandList.SetInputHandler(InputKeyType.Option2, () => CallSideMenu());
-            AddViewActives(commandList);
         }
 
         public void UpdateCommandList(List<ListData> listDatas)
@@ -118,6 +128,27 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
         {
+            if (InputSystem.GetInputDate(InputKeyType.Decide).IsDownTrigger())
+            {
+                EndAnimation();
+            }
+        }
+
+        public void MainMenuStartAnim(int chapter, int period, int periodMax, int remain)
+        {
+            mainMenuStartAnim.SetText(chapter, period, periodMax, remain);
+            mainMenuStartAnim.StartAnim(0);
+        }
+
+        private void EndAnimation()
+        {
+            if (!mainMenuStartAnim.gameObject.activeSelf)
+            {
+                return;
+            }
+            startAnimButton.gameObject.SetActive(false);
+            CallViewEvent(CommandType.EndAnimation);
+            mainMenuStartAnim.EndAnimation();
         }
     }
 
@@ -126,6 +157,8 @@ namespace Ryneus
         public enum CommandType
         {
             None = 0,
+            StartAnimation,
+            EndAnimation,
             MainMenuCommand,
             SelectSideMenu,
             Aritifact
