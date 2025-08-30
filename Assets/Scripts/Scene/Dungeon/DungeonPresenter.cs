@@ -395,7 +395,7 @@ namespace Ryneus
             var battleSceneInfo = new BattleSceneInfo
             {
                 ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
-                EnemyInfos = _model.ForceBattleTroopInfos(stageEvent.Param),
+                EnemyInfos = _model.ForceBattleTroopInfos(stageEvent.Param, stageEvent.Param3),
                 GetItemInfos = new()
             };
             if (stageEvent.Type == StageEventType.ForceBattle)
@@ -595,7 +595,7 @@ namespace Ryneus
             _model.AddGetItemInfo(getItemInfo);
             _view.MinusEvaluate(-10);
             _model.PartyInfo.EvaluationValue.GainValue(-10, 0);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(10141,10.ToString()),(a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(10141, 10.ToString()),(a) =>
             {
                 _busy = false;
                 _model.DungeonBusy(false);

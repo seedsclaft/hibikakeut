@@ -128,10 +128,16 @@ namespace Utage
 		[System.Serializable]
 		public class TaggedMasterVolume
 		{
-			//ラベル名
+			//タグ名
 			public string Tag { get { return tag; } set { tag = value; } }
 			[SerializeField]
 			string tag;
+
+			//タグに対応するラベル名のリスト
+			//通常はタグ名＝ラベル名なので、設定不要
+			//ラベル名が複数ある場合は、ここに追加設定する
+			public List<string> Labels => labels;
+			[SerializeField] List<string> labels = new ();
 
 			//ボリューム
 			public float Volume { get { return volume; } set { volume = value; } }
@@ -141,6 +147,12 @@ namespace Utage
 			//オーディオミキサーのグループ設定
 			public AudioMixerGroup AudioMixerGroup => audioMixerGroup;
 			[SerializeField] AudioMixerGroup audioMixerGroup = null;
+			
+			//指定のラベル名が対応しているか
+			public bool ContainsLabel(string label)
+			{
+				return (Tag==label) || Labels.Contains(label);
+			}
 		};
 
 		/// <summary>
@@ -224,7 +236,7 @@ namespace Utage
 		
 		public string MasterVolumeFormat => masterVolumeFormat;
 		[SerializeField] string masterVolumeFormat = "MasterVolume{0}";
-
+		
 		[System.Serializable]
 		public class SoundManagerEvent : UnityEvent<SoundManager> { }
 		public SoundManagerEvent OnCreateSoundSystem
@@ -277,15 +289,15 @@ namespace Utage
 		}
 
 		//************ BGM ************//
-		public void PlayBgm(AudioClip clip, bool isLoop)
+		public void PlayBgm(AudioClip clip, bool isLoop, float fadeInTime = 0)
 		{
-			System.Play(IdBgm, IdBgm, new SoundData( clip, SoundPlayMode.NotPlaySame, DefaultVolume, isLoop), 0,  DefaultFadeTime );
+			System.Play(IdBgm, IdBgm, new SoundData( clip, SoundPlayMode.NotPlaySame, DefaultVolume, isLoop), fadeInTime,  DefaultFadeTime );
 		}
-		public void PlayBgm(AudioClip clip, float introTime)
+		public void PlayBgm(AudioClip clip, float introTime, float fadeInTime = 0)
 		{
 			SoundData data = new SoundData(clip, SoundPlayMode.NotPlaySame, DefaultVolume, true);
 			data.IntroTime = introTime;
-			System.Play(IdBgm, IdBgm, data, 0, DefaultFadeTime);
+			System.Play(IdBgm, IdBgm, data, fadeInTime, DefaultFadeTime);
 		}
 
 		public void PlayBgm(AssetFile file)
@@ -407,8 +419,22 @@ namespace Utage
 		public void PlayVoice(string characterLabel, SoundData data, float fadeInTime, float fadeOutTime)
 		{
 			CurrentVoiceCharacterLabel = characterLabel;
-			data.Tag = TaggedMasterVolumes.Exists(x => x.Tag == characterLabel) ? characterLabel : TaggedMasterVolumeOthers;
+			TaggedMasterVolume taggedMasterVolume = FindVoiceMasterVolumeTag(characterLabel);
+			data.Tag = (taggedMasterVolume!=null) ? taggedMasterVolume.Tag : TaggedMasterVolumeOthers;
 			System.Play(IdVoice, characterLabel, data, fadeInTime, fadeOutTime);
+		}
+		
+		//指定したキャラクターラベルのボイスのボリュームの情報を探す
+		protected TaggedMasterVolume FindVoiceMasterVolumeTag(string characterLabel)
+		{
+			foreach (var taggedMasterVolume in TaggedMasterVolumes)
+			{
+				if(taggedMasterVolume.ContainsLabel(characterLabel))
+				{
+					return taggedMasterVolume;
+				}
+			}
+			return null;
 		}
 
 		//ボイスをすべて止める
@@ -590,6 +616,10 @@ namespace Utage
 
 		public string SaveKey { get { return "SoundManager"; } }
 
+		//サウンドのセーブデータだけ読み込みたくないケースで使用する
+		//独自の拡張などで使用することを想定
+		public bool IgnoreReadSaveData { get; set; }
+
 		//バイナリ書き込み
 		public void OnWrite(BinaryWriter writer)
 		{
@@ -598,6 +628,8 @@ namespace Utage
 		//バイナリ読み込み
 		public void OnRead(BinaryReader reader)
 		{
+			if(IgnoreReadSaveData) return;
+			
 			System.ReadSaveDataBuffer(reader);
 		}
 	}

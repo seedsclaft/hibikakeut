@@ -16,6 +16,40 @@ namespace Utage
 		public UguiView[] views;
 		protected int tabIndex = -1;
 
+		// タブインデックスを全てリセットしてオープン
+		public virtual void OpenAndResetAllTabIndex(UguiView prev)
+		{
+			var lastTabIndex = tabIndex;
+			tabIndex = -1;
+			this.Open(prev);
+			
+			//全てのタブインデックスを0にリセット
+			foreach (var toggleGroup in GetComponentsInChildren<UguiToggleGroupIndexed>(true))
+			{
+				//トグル変更のアニメーションをいったん無効化
+				var toggles = toggleGroup.TogglesToArray;
+				List<Toggle.ToggleTransition> toggleTransitions = new List<Toggle.ToggleTransition>();  
+				foreach (var toggle in toggles)
+				{
+					toggleTransitions.Add(toggle.toggleTransition);
+					toggle.toggleTransition = Toggle.ToggleTransition.None;
+				}
+				//タブインデックスを0にリセット
+				toggleGroup.CurrentIndex = 0;
+				//トグル変更のアニメーションを戻しておく
+				for (var i = 0; i < toggles.Length; i++)
+				{
+					toggles[i].toggleTransition = toggleTransitions[i];
+				}
+			}
+			//今の画面を開く
+			tabIndex = 0;
+			if (lastTabIndex == 0)
+			{
+				views[lastTabIndex].ToggleOpen(true);
+			}
+		}
+
 		/// <summary>
 		/// オープンしたときに呼ばれる
 		/// </summary>
@@ -26,6 +60,7 @@ namespace Utage
 				views[tabIndex].ToggleOpen(true);
 			}
 		}
+		
 
 		//一時的に表示オフ
 		public virtual void Sleep()
@@ -41,12 +76,14 @@ namespace Utage
 
 		public virtual void OnTabIndexChanged(int index)
 		{
+			
 			if (index >= views.Length)
 			{
 				Debug.LogError("index < views.Length");
 				return;
 			}
-
+			
+			//ほかの画面を閉じてから、次の画面を開く
 			for (int i = 0; i < views.Length; ++i)
 			{
 				if (views[i] == null)
@@ -54,16 +91,11 @@ namespace Utage
 					Debug.LogError($"views[{i}] is null",this);
 					continue;
 				}
-				if (i == index)
-				{
-					views[i].ToggleOpen(true);
-				}
-				else
-				{
-					views[i].ToggleOpen(false);
-				}
+				if (i == index) continue;
+				views[i].ToggleOpen(false);
 			}
-
+			
+			views[index].ToggleOpen(true);
 			tabIndex = index;
 		}
 	}

@@ -40,6 +40,10 @@ namespace Utage
 		public AdvBacklog Data { get { return data; } }
 		protected AdvBacklog data;
 
+		//初期化時に呼ばれるイベント
+		public UnityEvent OnInit => onInit;
+		[SerializeField] UnityEvent onInit = new();
+
 		/// <summary>
 		/// 初期化
 		/// </summary>
@@ -58,6 +62,7 @@ namespace Utage
 			}
 			InitCharacterName();
 			InitVoice();
+			OnInit.Invoke();
 		}
 
 		//ページ内に複数テキストがある場合の初期化を行う

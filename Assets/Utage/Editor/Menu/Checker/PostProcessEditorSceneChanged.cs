@@ -10,8 +10,8 @@ namespace Utage
 	public static class PostProcessEditorSceneChanged
 	{
 		//シーンが変更された
-		static string lastScene = "";
-		public static System.Action CallbackChangeScene;
+		[field:StaticField] static string lastScene = "";
+		[field:StaticField] public static System.Action CallbackChangeScene;
 
 		//Unity起動時
 		static PostProcessEditorSceneChanged()

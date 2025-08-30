@@ -19,6 +19,39 @@ namespace Utage
 		{
 		}
 
+		public void AutoIndent(TextMeshProAutoIndentSettings settings)
+		{
+			foreach (var indentData in settings.IndentDataList)
+			{
+				if(IsMatchIndentData(indentData, out int index ))
+				{
+					TagData tagData = new TagData(indentData.IndentTag, "indent", "");
+					this.ParsedDataList.Insert(index+1,tagData);
+					return;
+				}
+			}
+			return;
+			
+			bool IsMatchIndentData(TextMeshProAutoIndentSettings.IndentData indentData, out int index)
+			{
+				index = 0;
+				if (CharList.Count <= indentData.Prefix.Length) return false;
+
+				int charIndex = 0;
+				for (index = 0; index < ParsedDataList.Count; index++)
+				{
+					var parsedData = ParsedDataList[index];
+					if (parsedData is CharData charData)
+					{
+						if(charData.Char != indentData.Prefix[charIndex]) return false;
+						charIndex++;
+						if(charIndex >= indentData.Prefix.Length) return true;
+					}
+				}
+				return false;
+			}
+		}
+
 		//TextMeshPro対応のタグ解析
 		protected override bool TryParseCustomTag(string name, string arg)
 		{

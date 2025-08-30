@@ -44,6 +44,10 @@ namespace Utage
 		/// <summary>未セーブだった場合に表示するテキスト</summary>
 		public string textEmpty = "Empty";
 
+		//リフレッシュ時に呼ばれるイベント
+		public UnityEvent OnRefresh => onRefresh;
+		[SerializeField] UnityEvent onRefresh = new();
+
 		protected UnityEngine.UI.Button button;
 
 		public AdvSaveData Data
@@ -150,6 +154,7 @@ namespace Utage
 					}
 				}
 			}
+			OnRefresh.Invoke();
 		}
 
 		protected virtual void OnDestroy()

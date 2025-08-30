@@ -61,7 +61,7 @@ namespace Utage
 
 		public void OnEffectSkip()
 		{
-			
+			VideoObject.VideoPlayer.time = VideoObject.VideoPlayer.length;
 		}
 	}
 }

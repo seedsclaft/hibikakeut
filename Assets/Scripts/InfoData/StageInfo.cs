@@ -29,7 +29,7 @@ namespace Ryneus
                     enemyId = boss.EnemyId;
                 }
 
-                if (troop.TroopEnemies.Count > 0)
+                if (enemyId == 0 && troop.TroopEnemies.Count > 0)
                 {
                     enemyId = troop.TroopEnemies[troop.TroopEnemies.Count - 1].EnemyId;
                 }

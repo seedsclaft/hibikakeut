@@ -22,12 +22,14 @@ namespace Utage
                 , IAdvProjectCreatorGameScreenSize
                 , IAdvProjectCreatorSecurity
                 , IAdvProjectCreatorFont
+                , IAdvProjectCreatorUrpGraphicSettings
             where T : AdvProjectTemplateSettingsNewSceneDefault
         {
             protected T Settings => TemplateSettings as T;
             [field: SerializeField] public string SecretKey { get; set; } = "InputOriginalKey";
             [field: SerializeField] public int GameScreenWidth { get; set; }
             [field: SerializeField] public int GameScreenHeight { get; set; }
+            [field: SerializeField] public bool AutoClearUrpVolumes { get; set; } = true;
 
             protected AdvProjectCreatorNewSceneDefault(T settings)
                 :base(settings)

@@ -1103,6 +1103,7 @@ MonoBehaviour:
   categoryTabPrefab: {fileID: 100000, guid: 0eb9ca81399544b40ab6d87d2c5b0e2d, type: 3}
   rootItems: {fileID: 1794832745}
   gridItemPrefab: {fileID: 100000, guid: cf1f8282b75910b4b88e1de0678bf95d, type: 3}
+  keepCurrentIndexOnOpen: 0
 --- !u!1 &54531953
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,6 +2342,9 @@ MonoBehaviour:
   radioButtonsVoiceStopType: {fileID: 1065255993}
   tagedMasterVolumSliders: []
   dialog: {fileID: 735806397}
+  onLoadValues:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &117901429
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5420,9 +5424,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 0.13132195
     width: 1
-    height: 1
+    height: 0.73735607
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -6532,6 +6536,7 @@ MonoBehaviour:
   categoryTabPrefab: {fileID: 100000, guid: 0eb9ca81399544b40ab6d87d2c5b0e2d, type: 3}
   rootItems: {fileID: 620883970}
   gridItemPrefab: {fileID: 100002, guid: 04759c024593d354cb3ab41111d849b2, type: 3}
+  keepCurrentIndexOnOpen: 1
 --- !u!114 &349589138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8246,6 +8251,7 @@ MonoBehaviour:
   bootAsync: 0
   isStopSoundOnStart: 1
   isStopSoundOnEnd: 1
+  isStopSoundOnLoad: 1
   isStopVoiceOnSoundStop: 1
   isStopSeOnSoundStop: 0
   languageKeyOfParam: 
@@ -8312,6 +8318,8 @@ MonoBehaviour:
     saveMax: 9
   CustomSaveDataObjects: []
   restartSubThread: 0
+  thumbnailType: 0
+  thumbnailParamName: 
 --- !u!114 &456724005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8328,6 +8336,7 @@ MonoBehaviour:
   debugOutPut: 0
   maxFilePreload: 20
   preloadDeep: 5
+  preloadDeepJumpIf: 1
   onBeginScenario:
     m_PersistentCalls:
       m_Calls: []
@@ -8421,6 +8430,7 @@ MonoBehaviour:
   enableSkipSpeedTag: 0
   autoInputOnEffectSkipped: 0
   autoBrPageOnEffectSkipped: 0
+  adjustTypeMessageWindowOnBeginPage: 1
   onBeginPage:
     m_PersistentCalls:
       m_Calls: []
@@ -8569,6 +8579,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableRichTextInParamString: 0
+  autoIndentSettings:
+    indentDataList: []
 --- !u!114 &456724015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8614,6 +8626,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableScenarioVoce: 0
+  almightyLabel: 
+  lipSyncVolumeMin: 0.3
 --- !u!114 &456724018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16098,6 +16112,9 @@ MonoBehaviour:
   iconWaitInput: {fileID: 136622325}
   iconBrPage: {fileID: 2033263234}
   isLinkPositionIconBrPage: 1
+  onPreChangeText:
+    m_PersistentCalls:
+      m_Calls: []
   onPostChangeText:
     m_PersistentCalls:
       m_Calls: []
@@ -19833,6 +19850,9 @@ MonoBehaviour:
   disableMouseWheelBackLog: 0
   filterInputUtilDisable: -1
   enableInputKeyOnHideMessage: 0
+  onChangeStatus:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1083959043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20887,6 +20907,7 @@ MonoBehaviour:
   isStopScroolWithAllInnner: 0
   isAutoCenteringOnRepostion: 0
   keepContentPosition: 0
+  resetContentPositionType: 0
   minArrow: {fileID: 0}
   maxArrow: {fileID: 0}
 --- !u!114 &1116645037
@@ -22899,6 +22920,7 @@ MonoBehaviour:
   isStopScroolWithAllInnner: 1
   isAutoCenteringOnRepostion: 0
   keepContentPosition: 0
+  resetContentPositionType: 0
   minArrow: {fileID: 0}
   maxArrow: {fileID: 0}
 --- !u!114 &1296615356
@@ -27677,9 +27699,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 0.13132195
     width: 1
-    height: 1
+    height: 0.73735607
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -29889,6 +29911,8 @@ MonoBehaviour:
   checkAuto: {fileID: 579166063}
   mainGame: {fileID: 1683333880}
   config: {fileID: 0}
+  title: {fileID: 0}
+  dialog: {fileID: 0}
 --- !u!225 &1696870227
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -30465,6 +30489,7 @@ MonoBehaviour:
   config: {fileID: 117901427}
   load: {fileID: 382316709}
   gallery: {fileID: 1199967548}
+  resetTabIndexOnOpenGallery: 1
   download: {fileID: 0}
   downloadButton: {fileID: 0}
 --- !u!114 &1733304334

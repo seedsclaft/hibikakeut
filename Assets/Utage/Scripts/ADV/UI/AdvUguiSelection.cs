@@ -14,6 +14,9 @@ namespace Utage
 		[HideIfTMP] public Text text;
 		[SerializeField, HideIfLegacyText] protected TextMeshProNovelText textMeshPro;
 
+		//初期化時に呼ばれるイベント
+		public UnityEvent OnInit => onInit;
+		[SerializeField] UnityEvent onInit = new();
 
 		/// <summary>選択肢データ</summary>
 		public AdvSelection Data { get { return data; } }
@@ -30,6 +33,8 @@ namespace Utage
 
 			UnityEngine.UI.Button button = this.GetComponent<UnityEngine.UI.Button> ();
 			button.onClick.AddListener( ()=>ButtonClickedEvent(this) );
+			
+			OnInit.Invoke();
 		}
 
 		/// 選択済みの場合色を変える

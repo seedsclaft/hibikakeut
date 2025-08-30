@@ -27,6 +27,18 @@ namespace Utage
 			}
 		}
 
+		//登録された指定のイベントCGをクリア(主にデバッグ用)
+		public void RemoveCgLabel(string label)
+		{
+			eventCGLabels.Remove(label);
+		}
+
+		//登録されたイベントCGを全てクリア(主にデバッグ用)
+		public void ClearCgLabels()
+		{
+			eventCGLabels.Clear();
+		}
+
 		/// <summary>
 		/// 回想シーン追加
 		/// </summary>
@@ -37,6 +49,18 @@ namespace Utage
 			{
 				eventSceneLabels.Add(label);
 			}
+		}
+
+		//登録された指定の回想シーンラベルをクリア(主にデバッグ用)
+		public void RemoveSceneLabel(string label)
+		{
+			eventSceneLabels.Remove(label);
+		}
+
+		//登録された回想シーンラベルを全てクリア(主にデバッグ用)
+		public void ClearSceneLabels()
+		{
+			eventSceneLabels.Clear();
 		}
 
 		/// <summary>

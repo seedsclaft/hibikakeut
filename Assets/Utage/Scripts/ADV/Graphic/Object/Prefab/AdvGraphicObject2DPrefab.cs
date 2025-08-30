@@ -33,7 +33,19 @@ namespace Utage
 		{
 			this.sprite = currentObject.GetComponent<SpriteRenderer>();
 			var canvas = this.Layer.Canvas;
-			if (sprite != null && canvas != null)
+			if(canvas==null)
+			{
+				return;
+			}
+			//SortingOrderの上書きのイベントがある場合
+			var eventSortingOrder = currentObject.GetComponent<IAdvGraphicEventSortingOrder>();
+			if ( eventSortingOrder!= null)
+			{
+				eventSortingOrder.SetSortingOrder(canvas.sortingOrder);
+				return;
+			}
+			
+			if (sprite != null)
 			{
 				sprite.sortingOrder = canvas.sortingOrder;
 			}

@@ -260,7 +260,15 @@ namespace Utage
 					{
 						SetLoadError("LoadResource Error");
 					}
-					break;
+					else
+					{
+						//アセットバンドルの場合、
+						//preloadAudioDataがfalseならLoadAudioDataが必要
+						if (!Sound.preloadAudioData && FileInfo.StrageType != AssetFileStrageType.Resources)
+						{
+							Sound.LoadAudioData();
+						}
+					}					break;
 				default:
 				case AssetFileType.UnityObject:     //Unityオブジェクト（プレハブとか）
 					UnityObject = asset;

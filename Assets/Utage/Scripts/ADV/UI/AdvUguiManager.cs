@@ -2,6 +2,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UtageExtensions;
 
@@ -60,7 +61,12 @@ namespace Utage
 		protected InputUtilDisableFilter filterInputUtilDisable = (InputUtilDisableFilter)(-1);
 
 		//メッセージウィンドウを非表示にした時にも、キー入力を有効にするか
-		[SerializeField] protected bool enableInputKeyOnHideMessage = false; 
+		[SerializeField] protected bool enableInputKeyOnHideMessage = false;
+		
+		//現在のステータスが変更されたときのイベント
+		public UnityEvent OnChangeStatus => onChangeStatus;
+		[SerializeField] UnityEvent onChangeStatus = new ();
+		
 
 		//InputUtilが無効の時の設定されたフィルターをチェック
 		protected bool CheckInputUtilDisable(InputUtilDisableFilter flag)
@@ -153,6 +159,7 @@ namespace Utage
 					break;
 			}
 			this.status = newStatus;
+			OnChangeStatus.Invoke();
 		}
 
 		//ウインドウ閉じるボタンが押された

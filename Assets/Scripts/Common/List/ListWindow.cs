@@ -437,7 +437,7 @@ namespace Ryneus
             int startIndex = GetStartIndex(_horizontal);
             int gridIndex = GetStartIndex(!_horizontal);
 
-            if (startIndex != _lastStartIndexX)
+            if (startIndex != _lastStartIndexX && _itemPrefabList.Count > 0)
             {
                 if (startIndex - 1 == _lastStartIndexX && _lastStartIndexX > -1)
                 {
@@ -452,7 +452,7 @@ namespace Ryneus
                     _selectedHandler?.Invoke();
                     return;
                 }
-                UpdateItemPrefab(-1,startIndex % _itemPrefabList.Count);
+                UpdateItemPrefab(-1, startIndex % _itemPrefabList.Count);
                 UpdateAllItems();
                 _lastStartIndexX = startIndex;
                 _selectedHandler?.Invoke();

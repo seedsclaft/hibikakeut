@@ -28,11 +28,15 @@ namespace Utage.RenderPipeline.Urp
             return AssetDataBaseEx.IsExistAssetByGuid(PrefabGuid);
 
         }
-        
+
         public bool SetUp()
         {
-
             var cameraManager = SceneManagerEx.GetComponentInActiveScene<CameraManager>(true);
+            return SetUp(cameraManager);
+        }
+        
+        public bool SetUp(CameraManager cameraManager)
+        {
             if (cameraManager == null)
             {
                 //現在のシーンにCameraManagerがない
@@ -87,7 +91,10 @@ namespace Utage.RenderPipeline.Urp
                 if (postEffectManager)
                 {
                     var builtin = postEffectManager.GetComponent<AdvPostEffectRenderPipelineUsingBuiltin>();
-                    UnityEngine.Object.DestroyImmediate(builtin);
+                    if (builtin != null)
+                    {
+                        UnityEngine.Object.DestroyImmediate(builtin);
+                    }
                     var urp = postEffectManager.GetComponentCreateIfMissing<AdvPostEffectRenderPipelineUsingUniversal>();
                 }
             }

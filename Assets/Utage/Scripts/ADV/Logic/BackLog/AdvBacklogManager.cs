@@ -29,6 +29,11 @@ namespace Utage
 		public bool IgnoreLog { get { return ignoreLog; } set { ignoreLog = value; } }
 		[SerializeField]
 		bool ignoreLog = false;
+		
+		//ゲーム開始終了時のクリア処理時にバックログを無効化しない
+		public bool DontClear { get => dontClear; set => dontClear = value; }
+		[SerializeField]
+		bool dontClear = false;
 
 		//ログのあるページ追加時に呼ばれる
 		public BacklogEvent OnAddPage { get { return onAddPage; } }
@@ -72,6 +77,13 @@ namespace Utage
 		/// クリア処理
 		/// </summary>
 		public void Clear()
+		{
+			if (DontClear) return;
+			ForceClear();
+		}
+		
+		//DontClearを無視して、強制的にクリアする
+		public void ForceClear()
 		{
 			backlogs.Clear();
 		}

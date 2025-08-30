@@ -32,6 +32,7 @@ namespace Utage
 
 		///<summary>ギャラリー画面</summary>
 		public UtageUguiGallery gallery;
+		public bool resetTabIndexOnOpenGallery = false;
 
 		///<summary>ダウンロード画面</summary>
 		public UtageUguiLoadWait download;
@@ -75,7 +76,14 @@ namespace Utage
 		public virtual void OnTapGallery()
 		{
 			Close();
-			gallery.Open(this);
+			if (resetTabIndexOnOpenGallery)
+			{
+				gallery.OpenAndResetAllTabIndex(this);
+			}
+			else
+			{
+				gallery.Open(this);
+			}
 		}
 
 		//「ダウンロード」ボタンが押された

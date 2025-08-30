@@ -15,7 +15,6 @@ namespace Utage
 		[SerializeField]
 		protected AdvEngine engine;
 
-		[SerializeField]
 		public AdvGuiManager GuiManager
 		{
 			get { return this.gameObject.GetComponentCacheCreateIfMissing< AdvGuiManager >(ref guiManager); }

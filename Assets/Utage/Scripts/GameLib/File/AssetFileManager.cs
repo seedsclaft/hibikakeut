@@ -111,6 +111,7 @@ namespace Utage
 		List<AssetFileBase> loadingFileList = new List<AssetFileBase>();		//ロード中ファイルリスト
 		List<AssetFileBase> loadWaitFileList = new List<AssetFileBase>();		//ロード待ちファイルリスト
 		List<AssetFileBase> usingFileList = new List<AssetFileBase>();			//使用中のファイルリスト
+		public Dictionary<string, AssetFileBase> FileTbl => fileTbl;
 		Dictionary<string, AssetFileBase> fileTbl= new Dictionary<string, AssetFileBase>(); //管理中のファイルリスト
 
 		//カスタムロードのマネージャー

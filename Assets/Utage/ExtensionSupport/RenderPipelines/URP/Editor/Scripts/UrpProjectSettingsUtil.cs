@@ -18,15 +18,6 @@ namespace Utage.RenderPipeline.Urp
         const string RendererDataListPropertyName = "m_RendererDataList";
         const string DefaultRendererIndexPropertyName = "m_DefaultRendererIndex";
 
-        public static UniversalRenderPipelineAsset GetCurrentRendererPipeLine()
-        {
-#if URP_17_OR_NEWER
-            return GraphicsSettings.defaultRenderPipeline as UniversalRenderPipelineAsset;
-#else
-            return GraphicsSettings.renderPipelineAsset as UniversalRenderPipelineAsset; 
-#endif
-        }
-
         public static int SetRenderer(ScriptableRendererData renderer)
         {
             if (renderer == null)
@@ -35,7 +26,7 @@ namespace Utage.RenderPipeline.Urp
                 return -1;
             }
 
-            UniversalRenderPipelineAsset urpAsset = GetCurrentRendererPipeLine();
+            UniversalRenderPipelineAsset urpAsset = UrpUtil.GetCurrentRendererPipeLine();
             if (urpAsset == null)
             {
                 Debug.LogError("Not found UniversalRenderPipelineAsset");
@@ -75,7 +66,7 @@ namespace Utage.RenderPipeline.Urp
 
         public static (ScriptableRendererData,int) GetDefaultRendererData()
         {
-            UniversalRenderPipelineAsset urpAsset = GetCurrentRendererPipeLine();
+            UniversalRenderPipelineAsset urpAsset = UrpUtil.GetCurrentRendererPipeLine();
             if (urpAsset == null)
             {
                 Debug.LogError("Not found UniversalRenderPipelineAsset");

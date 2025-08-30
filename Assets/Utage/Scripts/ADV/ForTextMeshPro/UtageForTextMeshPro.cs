@@ -13,6 +13,7 @@ namespace Utage
 		, ICustomTextParser
 	{
 		[SerializeField] bool enableRichTextInParamString = false;
+		[SerializeField] TextMeshProAutoIndentSettings autoIndentSettings = new();
 		
 		void Awake()
 		{
@@ -46,18 +47,28 @@ namespace Utage
 				//いったんparamタグだけ変換し、その他のタグは残したままのテキストを生成
 				var parseParamOnlyString = new TextParser(text, true).NoneMetaString;
 				//改めてテキストの解析処理
-				return new TextMeshProTextParser(parseParamOnlyString);
+				return ParseText(parseParamOnlyString);
 			}
 			else
 			{
-				return new TextMeshProTextParser(text);
+				return ParseText(text);
 			}
 		}
 
 		//ログテキスト作成をカスタム
 		string MakeCustomLogText(string text)
 		{
-			return new TextMeshProTextParser(text,true).NoneMetaString;
+			return ParseText(text,true).NoneMetaString;
+		}
+
+		TextMeshProTextParser ParseText(string text, bool isParseParamOnly = false)
+		{
+			var parser = new TextMeshProTextParser(text, isParseParamOnly);
+			if(autoIndentSettings.EnableSettings)
+			{
+				parser.AutoIndent(autoIndentSettings);
+			}
+			return parser;
 		}
 	}
 }

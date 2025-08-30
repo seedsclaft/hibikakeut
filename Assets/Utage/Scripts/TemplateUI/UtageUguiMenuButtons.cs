@@ -37,7 +37,11 @@ namespace Utage
 		[SerializeField] protected UtageUguiMainGame mainGame;
 		//コンフィグ画面（ノベルゲーム以外で直接開く場合）
 		[SerializeField] protected UtageUguiConfig config;
-
+		
+		//タイトル画面（ノベルゲームで使用しているばあい）
+		[SerializeField] UtageUguiTitle title;
+		//確認ダイアログの表示。設定してないときは表示しない
+		public SystemUiDialog2Button dialog;
 
 		public virtual void Open()
 		{
@@ -127,6 +131,25 @@ namespace Utage
 				config.Open();
 			}
 		}
-
+		
+		//タイトルに戻るボタンが押された
+		public virtual void OnClickBackTitle()
+		{
+			void BackTitle()
+			{
+				Engine.EndScenario();
+				mainGame.Close();
+				title.Open();
+			}
+			if (dialog!=null)
+			{
+				dialog.OpenYesNo(LanguageSystemText.LocalizeText(SystemText.UtageDialogMessageBackTitleConfirm),
+					BackTitle, () => { });
+			}
+			else
+			{
+				BackTitle();
+			}
+		}
 	}
 }

@@ -192,7 +192,7 @@ namespace Utage
             if (_isInitialized == false)
             {
                 engine.MessageWindowManager.OnTextChange.AddListener(OnBeginCommand);
-                engine.GraphicManager.CharacterManager.SetBalloonEvent(BalloonEndEvent);
+                //engine.GraphicManager.CharacterManager.SetBalloonEvent(BalloonEndEvent);
                 _isInitialized = true;
             }
         }

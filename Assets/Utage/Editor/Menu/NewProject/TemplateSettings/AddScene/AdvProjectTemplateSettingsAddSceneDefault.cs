@@ -23,6 +23,7 @@ namespace Utage
                 , IAdvProjectCreatorSecurity
                 , IAdvProjectCreatorLayerNames
                 , IAdvProjectCreatorFont
+                , IAdvProjectCreatorUrpGraphicSettings
             where T : AdvProjectTemplateSettingsAddSceneDefault
         {
             protected T Settings => TemplateSettings as T;
@@ -40,6 +41,8 @@ namespace Utage
             [field: SerializeField] public string LayerNameUI { get; set; } = "UtageUI";
 
             public string DefaultLayerNameUI => "UI";
+
+            [field: SerializeField] public bool AutoClearUrpVolumes { get; set; } = true;
 
             protected AdvProjectCreatorNewSceneDefault(T settings)
                 :base(settings)

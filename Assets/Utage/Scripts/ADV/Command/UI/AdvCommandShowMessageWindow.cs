@@ -15,6 +15,7 @@ namespace Utage
 
 		public override void DoCommand(AdvEngine engine)
 		{
+			engine.Page.OnMessageWindowCommand(); 
 			engine.UiManager.ShowMessageWindow();
 		}
 	}

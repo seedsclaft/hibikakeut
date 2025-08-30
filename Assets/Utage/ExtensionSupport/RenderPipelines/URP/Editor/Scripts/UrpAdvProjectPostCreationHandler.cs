@@ -60,6 +60,25 @@ namespace Utage.RenderPipeline.Urp
 					//UTAGEで必要になるRendererを追加する
 					new UrpRendererConverter().AddRenderFeatures(renderer);
 				}
+				
+#if URP_17_OR_NEWER
+				if (project is IAdvProjectCreatorUrpGraphicSettings urpGraphicSettings)
+				{
+					if (urpGraphicSettings.AutoClearUrpVolumes)
+					{
+						//現在のRendererにVolumeProfileが設定されている場合は、VolumeProfileを削除する
+						UniversalRenderPipelineAsset currentRendererPipeLine = UrpUtil.GetCurrentRendererPipeLine();
+						if (currentRendererPipeLine == null)
+						{
+							Debug.LogError("Not found UniversalRenderPipelineAsset");
+						}
+						else if (currentRendererPipeLine.volumeProfile !=null)
+						{
+							currentRendererPipeLine.volumeProfile = null;
+						}
+					}
+				}
+#endif
 			}
 
 			//現在のシーンをURPのシーンとしてコンバート

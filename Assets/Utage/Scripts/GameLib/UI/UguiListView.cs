@@ -63,7 +63,7 @@ namespace Utage
 		[SerializeField]
 		bool isAutoCenteringOnRepostion = false;
 
-		//スクロール対象の位置を保持する
+		//開くときにスクロール対象の位置を保持する
 		public bool KeepContentPosition
 		{
 			get { return keepContentPosition; }
@@ -71,6 +71,23 @@ namespace Utage
 		}
 		[SerializeField]
 		bool keepContentPosition = false;
+		
+		//開くときにコンテンツ位置をリセットする場合のタイプ
+		public enum ResetContentPositionType
+		{
+			ResetXY,	//XY両方リセット
+			ResetX,		//Xのみリセット（Yは保持）
+			ResetY,		//Yのみリセット（Xは保持）
+			ResetNone,	//リセットしない(KeepContentPositionをtrueにした場合とおなじ)
+		}
+		public ResetContentPositionType ResetContentPosition
+		{
+			get => resetContentPositionType;
+			set => resetContentPositionType = value;
+		}
+		[SerializeField]
+		ResetContentPositionType resetContentPositionType = ResetContentPositionType.ResetXY;
+
 
 		//
 		public UguiAlignGroup PositionGroup
@@ -157,7 +174,21 @@ namespace Utage
 		{
 			if (!KeepContentPosition)
 			{
-				Content.anchoredPosition = Vector2.zero;				
+				switch (ResetContentPosition)
+				{
+					case ResetContentPositionType.ResetXY:
+						Content.anchoredPosition = Vector2.zero;
+						break;
+					case ResetContentPositionType.ResetX:
+						Content.anchoredPosition = new Vector2(0, Content.anchoredPosition.y);
+						break;
+					case ResetContentPositionType.ResetY:
+						Content.anchoredPosition = new Vector2(Content.anchoredPosition.x, 0);
+						break;
+					case ResetContentPositionType.ResetNone:
+					default:
+						break;
+				}
 			}
 			ScrollRect.velocity = Vector2.zero;
 			if(PositionGroup!=null)PositionGroup.Reposition();

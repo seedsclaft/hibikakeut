@@ -32,6 +32,12 @@ namespace Utage
         {
             HasRead = true;
         }
+        
+        //未読に戻す（表示内容を変える処理をしているときなど）
+        public virtual void UnRead()
+        {
+            HasRead = false;
+        }
 
         const int Version = 0;
 

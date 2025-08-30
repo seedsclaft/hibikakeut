@@ -167,6 +167,12 @@ namespace Utage
 			}
 		}
 
+		//キャラクターラベルの取得（1ページ内に複数設定されている場合は、一番最初に設定されているキャラクターラベルを返す）
+		public string GetCharacterLabel()
+		{
+			return DataList.Find(x => !string.IsNullOrEmpty(x.CharacterLabel))?.CharacterLabel;
+		}
+
 		public string FindCharacerLabel(string voiceFileName)
 		{
 			foreach (AdvBacklogDataInPage item in dataList)

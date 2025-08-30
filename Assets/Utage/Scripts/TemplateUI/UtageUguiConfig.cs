@@ -5,6 +5,7 @@ using Utage;
 using UtageExtensions;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 
 namespace Utage
@@ -89,6 +90,26 @@ namespace Utage
 
 		//確認ダイアログの表示。設定してないときは表示しない
 		public SystemUiDialog2Button dialog;
+
+
+		//開く時にタブをリセットする
+		public bool ResetTabIndexOnOpen
+		{
+			get => resetTabIndexOnOpen;
+			set => resetTabIndexOnOpen = value;
+		}
+		[SerializeField] bool resetTabIndexOnOpen;
+
+		//開く時にタブをリセットする際のタブへの参照
+		[SerializeField] UguiToggleGroupIndexed tabToggleGroup;
+
+
+		//コンフィグの値全体をロードした際に呼ばれるイベント
+		//表示開始時や、初期設定に戻したときに呼ばれ、各UIに値を反映された時に呼ばれるので
+		//コンフィグUIを拡張して、値を反映する処理を追加する場合は、このイベントを使う
+		public UnityEvent OnLoadValues => onLoadValues;
+		[SerializeField] UnityEvent onLoadValues = new();
+        
 
 		//文字送り速度
 		public virtual float MessageSpeed
@@ -260,7 +281,37 @@ namespace Utage
 				Engine.SaveManager.ClearCaptureTexture();
 			}
 
+			if (ResetTabIndexOnOpen)
+			{
+				ResetTabIndex();
+			}
+
 			StartCoroutine(CoWaitOpen());
+		}
+
+		public void ResetTabIndex()
+		{
+			if (tabToggleGroup == null)
+			{
+				Debug.LogWarning("tabToggleGroup is null", this);
+				return;
+			}
+			
+			//トグル変更のアニメーションをいったん無効化
+			var toggles = tabToggleGroup.TogglesToArray;
+			List<Toggle.ToggleTransition> toggleTransitions = new List<Toggle.ToggleTransition>();  
+			foreach (var toggle in toggles)
+			{
+				toggleTransitions.Add(toggle.toggleTransition);
+				toggle.toggleTransition = Toggle.ToggleTransition.None;
+			}
+			//タブインデックスを0にリセット
+			tabToggleGroup.CurrentIndex = 0;
+			//トグル変更のアニメーションを戻しておく
+			for (var i = 0; i < toggles.Length; i++)
+			{
+				toggles[i].toggleTransition = toggleTransitions[i];
+			}
 		}
 
 
@@ -354,7 +405,8 @@ namespace Utage
 					}
 				}
 			}
-
+			
+			OnLoadValues.Invoke();
 			isInit = true;
 		}
 

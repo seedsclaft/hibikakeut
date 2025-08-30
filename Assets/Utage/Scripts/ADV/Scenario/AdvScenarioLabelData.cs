@@ -239,6 +239,14 @@ namespace Utage
 					data.PreloadDeep(dataManager, page, fileSet, maxFilePreload, preloadDeep);
 					break;
 				}
+				if(data==this)
+				{
+					//現在のシナリオラベルデータの場合は、条件つきジャンプ先もプリロードする
+					if (dataManager.Engine.ScenarioPlayer.PreloadDeepJumpIf)
+					{
+						data.PreloadDeep(dataManager, fileSet, maxFilePreload, preloadDeep);
+					}
+				}
 				page = 0;
 				data = data.Next;
 			} while (data != null);

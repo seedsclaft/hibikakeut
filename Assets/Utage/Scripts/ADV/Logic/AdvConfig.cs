@@ -38,8 +38,11 @@ namespace Utage
 		/// <summary>
 		/// スキップ中の演出速度の倍率
 		/// </summary>
-		public float SkipSpped { get { return skipSpeed; } }
-
+		public float SkipSpped
+		{
+			get => skipSpeed;
+			set => skipSpeed = value;
+		}
 		[UnityEngine.Serialization.FormerlySerializedAs("skipSpped"), SerializeField]
 		float skipSpeed = 20.0f;
 

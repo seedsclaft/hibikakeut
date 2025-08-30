@@ -200,12 +200,33 @@ namespace Utage
 		//起動時に非同期で
 		[SerializeField]
 		bool bootAsync = false;
-
+		
+		//開始時にサウンドを止めるか
+		public bool IsStopSoundOnStart
+		{
+			get => isStopSoundOnStart;
+			set => isStopSoundOnStart = value;
+		} 
 		[SerializeField]
 		bool isStopSoundOnStart = true;
 
+		//終了時にサウンドを止めるか
+		public bool IsStopSoundOnEnd
+		{
+			get => isStopSoundOnEnd;
+			set => isStopSoundOnEnd = value;
+		} 
 		[SerializeField]
 		bool isStopSoundOnEnd = true;
+
+		//ロード時にサウンドを止めるか
+		public bool IsStopSoundOnLoad
+		{
+			get => isStopSoundOnLoad;
+			set => isStopSoundOnLoad = value;
+		} 
+		[SerializeField]
+		bool isStopSoundOnLoad = true;
 
 		[SerializeField]
 		bool isStopVoiceOnSoundStop = true;
@@ -529,7 +550,7 @@ namespace Utage
 
 		void ClearOnLaod()
 		{
-			ClearSub(true);
+			ClearSub(isStopSoundOnLoad);
 		}
 
 
@@ -797,7 +818,7 @@ namespace Utage
 			}
 		}
 
-		void StartScenario(string label, int page)
+		public void StartScenario(string label, int page)
 		{
 			StartCoroutine( CoStartScenario(label, page));
 		}

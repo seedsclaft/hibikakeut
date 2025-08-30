@@ -19,6 +19,8 @@ namespace Utage
 		internal AdvGraphicLayer DefaultLayer { get; set; }
 		protected AdvGraphicManager manager;
 
+		//すべての管理対象のレイヤー
+		public Dictionary<string, AdvGraphicLayer> Layers => layers;
 		Dictionary<string, AdvGraphicLayer> layers = new Dictionary<string, AdvGraphicLayer>();
 
 		//起動時の初期化
@@ -139,19 +141,6 @@ namespace Utage
 					break;
 				}
 			}
-			// 別Layerに表示していたら非表示にする
-			foreach ( var layer1 in layers)
-			{
-				if (layer1.Key == layerName)
-				{
-					continue;
-				}
-				var deleteObject = OtherSameActorObject(layer1.Key,name);
-				if (deleteObject != null)
-				{
-					layers[layer1.Key].FadeOut(deleteObject.name,0);
-				}
-			}
 
 			//レイヤー名の指定がある場合、そのレイヤーを探す
 			AdvGraphicLayer layer = FindLayer(layerName);
@@ -197,7 +186,7 @@ namespace Utage
 		}
 
 		//現在描画オブジェクトのある全てのレイヤー
-		internal List<AdvGraphicLayer> AllGraphicsLayers()
+		public List<AdvGraphicLayer> AllGraphicsLayers()
 		{
 			List<AdvGraphicLayer> list = new List<AdvGraphicLayer>();
 			foreach (var keyValue in layers)
@@ -225,8 +214,6 @@ namespace Utage
 			{
 				keyValue.Value.FadeOutAll(fadeTime);
 			}
-			// バルーンを消す
-			_balloonEndEvent?.Invoke();
 		}
 
 		//指定名のパーティクルを非表示にする
@@ -273,20 +260,6 @@ namespace Utage
 			{
 				AdvGraphicLayer layer = FindLayer(layerName);
 				return (layer != null && layer.Find(name) != null);
-			}
-		}
-
-		//指定Actor名グラフィックオブジェクトを持つか
-		internal AdvGraphicObject OtherSameActorObject(string layerName, string name)
-		{
-			if (string.IsNullOrEmpty(layerName))
-			{
-				return null;
-			}
-			else
-			{
-				AdvGraphicLayer layer = FindLayer(layerName);
-				return layer != null ? layer.ContainActorName(name) : null;
 			}
 		}
 
@@ -342,7 +315,7 @@ namespace Utage
 		}
 
 		//全てのグラフィックオブジェクトを取得
-		internal List<AdvGraphicObject> AllGraphics()
+		public List<AdvGraphicObject> AllGraphics()
 		{
 			List<AdvGraphicObject> allGraphics = new List<AdvGraphicObject>();
 			foreach (var keyValue in layers)
@@ -392,7 +365,6 @@ namespace Utage
 				keyValue.Value.SkipFade();
 			}
 		}
-		
 				
 		//指定のタイプのオブジェクトのみ全て削除
 		internal void FadeOutAllObjects(AdvGraphicObjectType objectType, float fadeTime)
@@ -469,12 +441,6 @@ namespace Utage
 					reader.SkipBuffer();
 				}
 			}
-		}
-
-		private Action _balloonEndEvent = null;
-		public void SetBalloonEvent(Action balloonEndEvent)
-		{
-			_balloonEndEvent = balloonEndEvent;
 		}
 	}
 }

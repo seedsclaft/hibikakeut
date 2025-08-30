@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Pool;
 using UtageExtensions;
 namespace Utage
 {
@@ -344,16 +345,6 @@ namespace Utage
 			return false;
 		}
 
-		//デフォルトグラフィックオブジェクトの名前が指定名と同じかチェック
-		internal bool IsEqualDefaultActorGraphicName(string name)
-		{
-			if (DefaultObject!=null)
-			{
-				return DefaultObject.name == name;
-			}
-			return false;
-		}
-
 		//指定名のオブジェクトがあるか
 		internal bool Contains(string name)
 		{
@@ -367,21 +358,6 @@ namespace Utage
 			if(currentGraphics.TryGetValue(name,out obj))
 			{
 				return obj;
-			}
-			return null;
-		}
-
-		//指定名のオブジェクトがあれば返す
-		internal AdvGraphicObject ContainActorName(string name)
-		{
-			var conditionName = name[..7];
-			foreach (var currentGraphic in currentGraphics)
-			{
-				var conditionName2 = currentGraphic.Key[..7];
-				if (conditionName == conditionName2)
-				{
-					return currentGraphic.Value;
-				}
 			}
 			return null;
 		}
@@ -519,6 +495,10 @@ namespace Utage
 			{
 				Destroy(tweenPlayer);
 			}
+			foreach (var tween in this.GetComponents<iTween>())
+			{
+				Destroy(tween);
+			}
 		}
 
 
@@ -532,29 +512,33 @@ namespace Utage
 			writer.WriteBuffer((x)=>AdvITweenPlayer.WriteSaveData (x,this.gameObject));
 			writer.WriteBuffer((x) => AdvAnimationPlayer.WriteSaveData(x, this.gameObject));
 
-			int count = 0;
+			//いったんセーブ対象のオブジェクトのリストを作成し、描画順にソートする
+			var targetObjects = ListPool<AdvGraphicObject>.Get();
 			foreach (var keyValue in CurrentGraphics)
 			{
 				if (!keyValue.Value.EnableSaveObject())
 				{
 					continue;
 				}
-				++count;
+				targetObjects.Add(keyValue.Value);
 			}
+			targetObjects.Sort(SortByRenderOrder);
 
-			writer.Write(count);
-			foreach (var keyValue in CurrentGraphics)
+			writer.Write(targetObjects.Count);
+			foreach (var target in targetObjects)
 			{
-				if (!keyValue.Value.EnableSaveObject())
-				{
-					continue;
-				}
-
-				writer.Write(keyValue.Key);
-				writer.WriteBuffer(keyValue.Value.LastResource.OnWrite);
-				writer.WriteBuffer(keyValue.Value.Write);
+				writer.Write(target.name);
+				writer.WriteBuffer(target.LastResource.OnWrite);
+				writer.WriteBuffer(target.Write);
 			}
 			writer.Write(DefaultObject == null ? "" : DefaultObject.name);
+			
+			ListPool<AdvGraphicObject>.Release(targetObjects);
+			return;
+			int SortByRenderOrder(AdvGraphicObject a, AdvGraphicObject b)
+			{
+				return a.rectTransform.GetSiblingIndex() - b.rectTransform.GetSiblingIndex();
+			}
 		}
 
 		//セーブデータ用のバイナリ読み込み

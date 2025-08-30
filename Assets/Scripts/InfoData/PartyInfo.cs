@@ -502,7 +502,7 @@ namespace Ryneus
                     target.GainSkillMastary(getItemInfo.Param2);
                     break;
                 case GetItemType.AddReliefCommandCount:
-                    ReleaseCommandCount.GainValue(-1, 0);
+                    ReliefCommandCount.GainValue(-1, 0);
                     break;
                 default:
                     CheckAddActor();

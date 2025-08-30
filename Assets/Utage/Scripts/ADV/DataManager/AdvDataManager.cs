@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Profiling;
+using UtageExtensions;
 
 namespace Utage
 {
@@ -62,6 +63,8 @@ namespace Utage
 		public AdvMacroManager MacroManager { get { return this.macroManager; } }
 		AdvMacroManager macroManager = new AdvMacroManager();
 
+		public AdvEngine Engine => this.GetAdvEngineCacheFindIfMissing(ref engine);
+		AdvEngine engine;
 
 		/// <summary>
 		/// 起動時の初期化

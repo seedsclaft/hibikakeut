@@ -38,6 +38,15 @@ namespace Utage
 			set { introTime = value; }
 		}
 
+		//再生時のフェード時間
+		[SerializeField]
+		float fadeInTime = 0;
+		public float FadeInTime
+		{
+			get => fadeInTime;
+			set => fadeInTime = value;
+		}
+
 		//BGMが設定されていない場合に、鳴っている曲を止めるか
 		[SerializeField]
 		bool isStopBgmIfNoneBgm;
@@ -244,11 +253,11 @@ namespace Utage
 				{
 					if (IntroTime > 0)
 					{
-						SoundManager.GetInstance().PlayBgm(bgm, IntroTime);
+						SoundManager.GetInstance().PlayBgm(bgm, IntroTime, FadeInTime);
 					}
 					else
 					{
-						SoundManager.GetInstance().PlayBgm(bgm, true);
+						SoundManager.GetInstance().PlayBgm(bgm, true, FadeInTime);
 					}
 				}
 			}

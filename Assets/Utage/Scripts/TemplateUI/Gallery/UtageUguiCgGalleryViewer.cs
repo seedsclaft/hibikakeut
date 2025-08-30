@@ -1,10 +1,7 @@
 ﻿// UTAGE: Unity Text Adventure Game Engine (c) Ryohei Tokimura
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Utage;
 using UtageExtensions;
 
 namespace Utage
@@ -62,7 +59,10 @@ namespace Utage
 		protected bool isEnableClick;
 		protected bool isLoadEnd;
 
+		public AdvCgGalleryData Data => data;
 		protected AdvCgGalleryData data;
+
+		public int CurrentIndex => currentIndex;
 		protected int currentIndex = 0;
 
 		protected virtual void Awake()
@@ -111,16 +111,7 @@ namespace Utage
 		{
 			if (!isEnableClick) return;
 
-			++currentIndex;
-			if (currentIndex >= data.NumOpen)
-			{
-				Back();
-				return;
-			}
-			else
-			{
-				LoadCurrentTexture();
-			}
+			ChangeCurrentIndex(currentIndex+1);
 		}
 
 
@@ -149,6 +140,49 @@ namespace Utage
 				var graphic = data.GetDataOpened(currentIndex).Graphic.Main;
 				texture.transform.localPosition = graphic.Position;
 			}
+		}
+
+		public void ChangeCurrentIndex(int index)
+		{
+			if (index < 0)
+			{
+				//0未満になる場合、ギャラリー画面に戻る
+				Back();
+				return;
+			}
+			if (index >= Data.NumOpen)
+			{
+				//インデックスを超える場合はギャラリー画面に戻る
+				Back();
+				return;
+			}
+			//インデックスが変わった場合は、テクスチャを読み込む
+			currentIndex = index;
+			LoadCurrentTexture();
+		}
+		
+		//インデックスを一つ進める
+		public void ShitUpIndex()
+		{
+			ChangeCurrentIndex(CurrentIndex + 1);
+		}
+		
+		//インデックスを一つ戻る
+		public void ShitDownIndex()
+		{
+			ChangeCurrentIndex(CurrentIndex - 1);
+		}
+		
+		//インデックスを最初に戻す
+		public void JumpToFirstIndex()
+		{
+			ChangeCurrentIndex(0);
+		}
+		
+		//インデックスを最後に飛ばす
+		public void JumpToLastIndex()
+		{
+			ChangeCurrentIndex(Data.NumOpen-1);
 		}
 	}
 }

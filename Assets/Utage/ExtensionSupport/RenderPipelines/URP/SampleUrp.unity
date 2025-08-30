@@ -1515,6 +1515,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -1583,6 +1584,7 @@ MonoBehaviour:
   categoryTabPrefab: {fileID: 100000, guid: 7ff474e68a4d33445aa5d0e17444c736, type: 3}
   rootItems: {fileID: 1794832745}
   gridItemPrefab: {fileID: 100000, guid: cb49fa321cbb56c4ea5b2507070d7b26, type: 3}
+  keepCurrentIndexOnOpen: 0
 --- !u!1 &54531953
 GameObject:
   m_ObjectHideFlags: 0
@@ -3207,6 +3209,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -3237,6 +3240,11 @@ MonoBehaviour:
   - tag: "\u3053\u306F\u304F"
     volumeSlider: {fileID: 642189590}
   dialog: {fileID: 735806397}
+  resetTabIndexOnOpen: 0
+  tabToggleGroup: {fileID: 0}
+  onLoadValues:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &117901429
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5418,6 +5426,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -6445,6 +6454,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -7131,9 +7141,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 0.23512554
     width: 1
-    height: 1
+    height: 0.5297489
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -8368,6 +8378,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -8410,6 +8421,7 @@ MonoBehaviour:
   categoryTabPrefab: {fileID: 100000, guid: 7ff474e68a4d33445aa5d0e17444c736, type: 3}
   rootItems: {fileID: 620883970}
   gridItemPrefab: {fileID: 100002, guid: 487e355e74c2b8f4d991574fb6a7c729, type: 3}
+  keepCurrentIndexOnOpen: 0
 --- !u!114 &349589138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9315,6 +9327,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -10492,6 +10505,7 @@ MonoBehaviour:
   bootAsync: 0
   isStopSoundOnStart: 1
   isStopSoundOnEnd: 1
+  isStopSoundOnLoad: 1
   isStopVoiceOnSoundStop: 1
   isStopSeOnSoundStop: 0
   languageKeyOfParam: language
@@ -10576,6 +10590,7 @@ MonoBehaviour:
   debugOutPut: 0
   maxFilePreload: 20
   preloadDeep: 5
+  preloadDeepJumpIf: 1
   onBeginScenario:
     m_PersistentCalls:
       m_Calls: []
@@ -10669,6 +10684,7 @@ MonoBehaviour:
   enableSkipSpeedTag: 0
   autoInputOnEffectSkipped: 0
   autoBrPageOnEffectSkipped: 0
+  adjustTypeMessageWindowOnBeginPage: 1
   onBeginPage:
     m_PersistentCalls:
       m_Calls: []
@@ -10817,6 +10833,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableRichTextInParamString: 0
+  autoIndentSettings:
+    indentDataList: []
 --- !u!114 &456724015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14341,6 +14359,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -16574,9 +16593,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 0.23512554
     width: 1
-    height: 1
+    height: 0.5297489
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -20362,6 +20381,9 @@ MonoBehaviour:
   iconWaitInput: {fileID: 136622325}
   iconBrPage: {fileID: 2033263234}
   isLinkPositionIconBrPage: 1
+  onPreChangeText:
+    m_PersistentCalls:
+      m_Calls: []
   onPostChangeText:
     m_PersistentCalls:
       m_Calls: []
@@ -21206,6 +21228,9 @@ MonoBehaviour:
   iconWaitInput: {fileID: 1090962844}
   iconBrPage: {fileID: 22863514}
   isLinkPositionIconBrPage: 1
+  onPreChangeText:
+    m_PersistentCalls:
+      m_Calls: []
   onPostChangeText:
     m_PersistentCalls:
       m_Calls: []
@@ -23522,6 +23547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0bb4d58f1481e544adb552ec33045b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkRendererFeatures: 1
 --- !u!1 &1042958118
 GameObject:
   m_ObjectHideFlags: 0
@@ -24302,6 +24328,9 @@ MonoBehaviour:
   disableMouseWheelBackLog: 0
   filterInputUtilDisable: -1
   enableInputKeyOnHideMessage: 0
+  onChangeStatus:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1083959043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25554,6 +25583,7 @@ MonoBehaviour:
   isStopScroolWithAllInnner: 0
   isAutoCenteringOnRepostion: 0
   keepContentPosition: 0
+  resetContentPositionType: 0
   minArrow: {fileID: 0}
   maxArrow: {fileID: 0}
 --- !u!114 &1116645037
@@ -25836,6 +25866,9 @@ MonoBehaviour:
   iconWaitInput: {fileID: 913430702}
   iconBrPage: {fileID: 425438502}
   isLinkPositionIconBrPage: 1
+  onPreChangeText:
+    m_PersistentCalls:
+      m_Calls: []
   onPostChangeText:
     m_PersistentCalls:
       m_Calls: []
@@ -26979,6 +27012,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -28218,6 +28252,7 @@ MonoBehaviour:
   isStopScroolWithAllInnner: 1
   isAutoCenteringOnRepostion: 0
   keepContentPosition: 0
+  resetContentPositionType: 0
   minArrow: {fileID: 0}
   maxArrow: {fileID: 0}
 --- !u!114 &1296615356
@@ -32054,6 +32089,7 @@ GameObject:
   - component: {fileID: 1484478248}
   - component: {fileID: 1484478247}
   - component: {fileID: 1484478246}
+  - component: {fileID: 1484478249}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -32111,6 +32147,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1484478249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484478244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b522862a62006e4449934e92037210e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1488857468
 GameObject:
   m_ObjectHideFlags: 0
@@ -33964,8 +34012,8 @@ Camera:
   m_GameObject: {fileID: 1561513542}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -33975,9 +34023,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 0.23512554
     width: 1
-    height: 1
+    height: 0.5297489
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -36225,6 +36273,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -36397,6 +36446,8 @@ MonoBehaviour:
   checkAuto: {fileID: 579166063}
   mainGame: {fileID: 1683333880}
   config: {fileID: 0}
+  title: {fileID: 0}
+  dialog: {fileID: 0}
 --- !u!225 &1696870227
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -37143,6 +37194,7 @@ MonoBehaviour:
   masterVolume: 1
   taggedMasterVolumes:
   - tag: "\u3053\u306F\u304F"
+    labels: []
     volume: 0
     audioMixerGroup: {fileID: -4309507989473708490, guid: e3d1911cfe398de4e83a80e89d2a7912,
       type: 2}
@@ -37354,6 +37406,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -37366,6 +37419,7 @@ MonoBehaviour:
   config: {fileID: 117901427}
   load: {fileID: 382316709}
   gallery: {fileID: 1199967548}
+  resetTabIndexOnOpenGallery: 0
   download: {fileID: 0}
   downloadButton: {fileID: 0}
 --- !u!114 &1733304334
@@ -38192,6 +38246,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -38205,6 +38260,9 @@ MonoBehaviour:
   prefabTipsButton: {fileID: 2880054277238576527, guid: 8e5feb77e2b9d54478e742c5d71d0592,
     type: 3}
   tipsDetail: {fileID: 1815172450}
+  onInit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!225 &1788322657
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -38903,6 +38961,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -39745,6 +39804,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:

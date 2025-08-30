@@ -20,6 +20,10 @@ namespace Utage
 		[HideIfTMP] public Text title;
 		[HideIfLegacyText] public TextMeshProUGUI titleTmp;
 		[SerializeField] bool keepTextureActive; //テクスチャのアクティブのオンオフを切り替えるか
+		
+		//初期化時に呼ばれるイベント
+		public UnityEvent OnInit => onInit;
+		[SerializeField] UnityEvent onInit = new();
 
 		public AdvSceneGallerySettingData Data
 		{
@@ -59,6 +63,7 @@ namespace Utage
 				texture.LoadTextureFile(data.ThumbnailPath);
 				SetTextTitle(data.LocalizedTitle);
 			}
+			OnInit.Invoke();
 		}
 
 		//クリックイベントを登録しない場合はこちら経由で

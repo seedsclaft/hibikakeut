@@ -44,6 +44,9 @@ namespace Utage
 
 		// シナリオ実行中か
 		public bool IsPlaying { get; set; }
+		
+		//強制中断中
+		public bool IsForceBreaking { get; set; }
 
 		//If文制御のマネージャー
 		internal AdvIfManager IfManager { get { return this.ifManager; } }
@@ -173,6 +176,7 @@ namespace Utage
 		{
 			IsPlaying = true;
 			SkipPageHeaerOnSave = false;
+			IsForceBreaking = false;
 			//ジャンプ先のシナリオラベルのログを出力
 			if (ScenarioPlayer.DebugOutputLog) Debug.Log("Jump : " + label + " :" + page);
 
@@ -226,9 +230,15 @@ namespace Utage
 					{
 						yield return pageCoroutine;
 					}
+					if (IsForceBreaking)
+					{
+						//強制中断された場合は、ページの終了処理を行わずに終了
+						yield break;
+					}
 					currentCommand = null;
 					returnToCommand = null;
 					skipPageHeaer = false;
+					
 					//ページ終了処理
 					if (IsMainThread)
 					{
@@ -380,6 +390,7 @@ namespace Utage
 					if (ScenarioPlayer.DebugOutputWaiting) Debug.Log("Wait..." + command.GetType());
 					ScenarioPlayer.OnUpdateWaitingCommand.Invoke(command);
 					command.CurrentTread = null;
+					Engine.Page.OnWaitingCommand();
 					yield return null;
 				}
 				command.CurrentTread = this;

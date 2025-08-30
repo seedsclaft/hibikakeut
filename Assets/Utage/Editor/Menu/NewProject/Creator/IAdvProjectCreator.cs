@@ -44,6 +44,13 @@ namespace Utage
         string SecretKey { get; }
     }
 
+    //プロジェクト作成時URPのグラフィック設定を行うインターフェース
+    public interface IAdvProjectCreatorUrpGraphicSettings : IAdvProjectCreator
+    {
+        //現在のUnityがデフォルトで使用しているUniversalRenderPipelineAssetのVolumesをクリアするか
+        bool AutoClearUrpVolumes   { get; }
+    }
+
     public static class AdvProjectCreatorGuiExtensions
     {
         //プロジェクト作成可能かチェック

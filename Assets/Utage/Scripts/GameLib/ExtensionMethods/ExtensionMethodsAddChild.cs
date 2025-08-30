@@ -258,7 +258,7 @@ namespace UtageExtensions
 		/// </summary>
 		/// <typeparam name="T">コンポーネントの型</typeparam>
 		/// <param name="count">子の数</param>
-		public static void InitCloneChildren<TComponent,TList>(this Transform t, List<TList> list, Action<TComponent, TList> callback) where TComponent : Component
+		public static void InitCloneChildren<TComponent,TList>(this Transform t, IReadOnlyList<TList> list, Action<TComponent, TList> callback) where TComponent : Component
 		{
 			t.InitCloneChildren<TComponent>(
 				Mathf.Max( list.Count,1),

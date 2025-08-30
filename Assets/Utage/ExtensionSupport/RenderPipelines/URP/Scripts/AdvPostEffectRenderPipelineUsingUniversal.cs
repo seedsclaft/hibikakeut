@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UtageExtensions;
 
 namespace Utage.RenderPipeline.Urp
@@ -16,6 +17,43 @@ namespace Utage.RenderPipeline.Urp
 		AdvPostEffectManager AdvPostEffectManager => this.GetComponentCache(ref postEffectManager);
 		AdvPostEffectManager postEffectManager;
 		AdvEngine Engine => AdvPostEffectManager.Engine;
+		
+		[SerializeField] bool checkRendererFeatures = true;
+
+		void Awake()
+		{
+			//UniversalRenderPipelineAssetが設定されているかチェック
+			UniversalRenderPipelineAsset currentRendererPipeLine = UrpUtil.GetCurrentRendererPipeLine();
+			if (currentRendererPipeLine == null)
+			{
+				Debug.LogError("Not found UniversalRenderPipelineAsset");
+				return;
+			}
+#if URP_17_OR_NEWER
+			if (checkRendererFeatures)
+			{
+				bool isFound = false;
+				foreach (var item in currentRendererPipeLine.rendererDataList)
+				{
+					foreach (var scriptableRendererFeature in item.rendererFeatures)
+					{
+						if (scriptableRendererFeature is ColorFadeRenderFeature)
+						{
+							isFound = true;
+							break;
+						}
+					}
+				}
+				if (!isFound)
+				{
+					var url = @"https://madnesslabo.net/utage/?page_id=14418#RendererRenderFeature";
+					var msg = @"Not found ColorFadeRenderFeature in UniversalRenderPipelineAsset. "
+						+ @"Select the Renderer → right click → 'Utage > AddRenderFeatures' to add a RenderFeature for Utage.";
+					Debug.LogError($"{msg}\n Document {StringTagUtil.HyperLinkTag(url)}", currentRendererPipeLine);
+				}
+			}
+#endif
+		}
 
 		public virtual (IPostEffectStrength effect, float start, float end) DoCommandColorFade(Camera targetCamera, IAdvCommandFade command)
 		{

@@ -25,6 +25,7 @@ namespace Utage
 		{
 			GetInstance().OnGuiViewerInEditorSub(index);
 		}
+
 		//エディター上でビュワー描画として呼び出す
 		void OnGuiViewerInEditorSub(int index)
 		{
@@ -59,7 +60,7 @@ namespace Utage
 			EditorGUILayout.EndHorizontal();
 		}
 
-		enum Status
+		public enum Status
 		{
 			WaitingToLoad,
 			Loading,
@@ -68,7 +69,7 @@ namespace Utage
 			NotLoaded,
 			NeedsToCache,
 		}
-		Status GetFileStatus(AssetFileBase file)
+		public Status GetFileStatus(AssetFileBase file)
 		{
 			if (loadingFileList.Contains(file)) return Status.Loading;
 			if (loadWaitFileList.Contains(file)) return Status.WaitingToLoad;

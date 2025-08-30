@@ -24,7 +24,11 @@ namespace Utage
         [SerializeField] bool keepTextureActive;    //テクスチャのアクティブのオンオフを切り替えるか
 
         [SerializeField] string formatCount = "{0,2}/{1,2}";
-
+        
+        //初期化時に呼ばれるイベント
+        public UnityEvent OnInit => onInit;
+        [SerializeField] UnityEvent onInit = new();
+        
         public AdvCgGalleryData Data
         {
             get { return data; }
@@ -64,6 +68,7 @@ namespace Utage
                 if (!keepTextureActive) texture.gameObject.SetActive(false);
                 SetCountText("");
             }
+            OnInit.Invoke();
         }
 
         //クリックイベントを登録しない場合はこちら経由で

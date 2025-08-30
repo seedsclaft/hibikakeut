@@ -17,19 +17,19 @@ namespace Utage
 	[AddComponentMenu("Utage/ADV/Extra/AdvVideoLoadPathChanger")]
 	public class AdvVideoLoadPathChanger : MonoBehaviour
 	{
-		public string RootPath { get { return rootPath; } }
+		//Videoのルートパス
+		public string RootPath => rootPath;
+		[SerializeField] string rootPath = "";
 
-		[SerializeField]
-		string rootPath = "";
 
 		//ファイルのロードを上書きするコールバックを登録
-		void Awake()
+		protected virtual void Awake()
 		{
 			AssetFileManager.GetCustomLoadManager().OnFindAsset += FindAsset;
 		}
 
 		//ファイルのロードを上書き
-		void FindAsset(AssetFileManager mangager, AssetFileInfo fileInfo, IAssetFileSettingData settingData, ref AssetFileBase asset)
+		protected virtual void FindAsset(AssetFileManager mangager, AssetFileInfo fileInfo, IAssetFileSettingData settingData, ref AssetFileBase asset)
 		{
 			if (IsVideoType(fileInfo, settingData))
 			{
@@ -38,16 +38,17 @@ namespace Utage
 			}
 		}
 
-		bool IsVideoType(AssetFileInfo fileInfo, IAssetFileSettingData settingData)
+		protected virtual bool IsVideoType(AssetFileInfo fileInfo, IAssetFileSettingData settingData)
 		{
 			if (fileInfo.FileType != AssetFileType.UnityObject) return false;
-			if (settingData is AdvCommandSetting)
+			if (settingData is AdvCommandSetting setting)
 			{
-				AdvCommandSetting setting = settingData as AdvCommandSetting;
+				//Videoコマンドか？
 				return setting.Command is AdvCommandVideo;
 			}
 			else
 			{
+				//Videoオブジェクトか？
 				AdvGraphicInfo info = settingData as AdvGraphicInfo;
 				return (info != null && info.FileType == AdvGraphicInfo.FileTypeVideo);
 			}
@@ -61,17 +62,21 @@ namespace Utage
 			: base(assetFileManager, fileInfo, settingData)
 		{
 			fileInfo.StrageType = AssetFileStrageType.Resources;
-			if (settingData is AdvCommandSetting)
+			if (settingData is AdvCommandSetting setting)
 			{
-				AdvCommandSetting setting = settingData as AdvCommandSetting;
+				//Videoコマンド用
 				string fileName = setting.Command.ParseCell<string>(AdvColumnName.Arg1);
+				this.LoadPath = FilePathUtil.Combine(pathChanger.RootPath, fileName);
+			}
+			else if( settingData is AdvGraphicInfo info)
+			{
+				//Videoオブジェクト用
+				string fileName = info.FileName;
 				this.LoadPath = FilePathUtil.Combine(pathChanger.RootPath, fileName);
 			}
 			else
 			{
-				AdvGraphicInfo info = settingData as AdvGraphicInfo;
-				string fileName = info.FileName;
-				this.LoadPath = FilePathUtil.Combine(pathChanger.RootPath, fileName);
+				Debug.LogError("AdvLocalVideoFile: Invalid settingData type. Expected AdvCommandSetting or AdvGraphicInfo, but got " + settingData.GetType());
 			}
 		}
 	}

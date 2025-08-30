@@ -55,6 +55,11 @@ namespace Utage
 		[SerializeField]
 		int preloadDeep = 5;
 
+		public bool PreloadDeepJumpIf => preloadDeepJumpIf;  
+		[SerializeField]
+		bool preloadDeepJumpIf = true;
+		
+
 		/// <summary>
 		///　シナリオ開始時に呼ばれる
 		/// </summary>
@@ -339,6 +344,13 @@ namespace Utage
 				engine.SystemSaveData.GalleryData.AddSceneLabel(CurrentGallerySceneLabel);
 				CurrentGallerySceneLabel = "";
 			}
+		}
+		
+		//今のページのシナリオ進行を強制的に中断
+		public void ForceBreakCurrentPage()
+		{
+			Engine.Page.Clear();
+			MainThread.Clear();
 		}
 	}
 }

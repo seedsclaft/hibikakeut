@@ -47,8 +47,8 @@ namespace Ryneus
                 SoundManager.Instance.FadeOutBgm();
                 _view.ClearMainMenuStart();
                 var chapter = _model.PartyInfo.Chapter.Value;
-                var period = Math.Min(_model.PartyInfo.Period.Value, 4);
-                _view.MainMenuStartAnim(chapter, period, 4, 24 - (((_model.PartyInfo.Chapter.Value - 1) * 4) + period));
+                var period = Math.Min(_model.PartyInfo.Period.Value, DataSystem.System.PeriodTurns);
+                _view.MainMenuStartAnim(chapter, period, DataSystem.System.PeriodTurns, (DataSystem.System.PeriodTurns * 6) - (((_model.PartyInfo.Chapter.Value - 1) * DataSystem.System.PeriodTurns) + period));
                 _view.SetActiveCommandList(false);
                 _view.UpdateBattleFieldNotice(_model.HasBattleField());
                 CommandRefresh();

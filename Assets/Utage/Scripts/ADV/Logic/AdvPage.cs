@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine.Serialization;
 using UtageExtensions;
 
 namespace Utage
@@ -55,6 +56,18 @@ namespace Utage
 		//エフェクトスキップ時に自動で改ページ入力をする
 		public bool AutoBrPageOnEffectSkipped { get { return autoBrPageOnEffectSkipped; } set { autoBrPageOnEffectSkipped = value; } }
 		[SerializeField] private bool autoBrPageOnEffectSkipped;
+
+		//ページ冒頭でのメッセージウィンドウの調整処理のタイプ
+		public enum AdjustTypeMessageWindowOnBeginPage
+		{
+			Legacy,				//古いやり方。テキストコマンドが実行されるまで非表示にする
+			ShowMessageWindow,	//コマンド待機処理か、メッセージウィンドウ操作コマンドが実行されるまではメッセージウィンドウを表示する
+		}
+		[SerializeField] AdjustTypeMessageWindowOnBeginPage adjustTypeMessageWindowOnBeginPage = AdjustTypeMessageWindowOnBeginPage.ShowMessageWindow;
+		//現在のページが始まってから、メッセージウィンドウの調整に関わるコマンドが実行されたか
+		bool DidAdjustMessageWindowCommand { get; set; }
+		//直前のフレームでメッセージウィンドウが表示状態だったか
+		bool ShowMessageWindowInLastFrame { get; set; }
 
 		//ページの開始
 		public AdvPageEvent OnBeginPage { get { return onBeginPage; } }
@@ -373,6 +386,7 @@ namespace Utage
 			this.CurrentTextLength = 0;
 			this.CurrentTextLengthMax = 0;
 			this.deltaTimeSendMessage = 0;
+			this.ShowMessageWindowInLastFrame = false;
 			this.Contoller.Clear();
 		}
 
@@ -392,6 +406,7 @@ namespace Utage
 			this.Contoller.Clear();
 			this.TextData = new TextData("");
 			this.TextDataList.Clear();
+			this.DidAdjustMessageWindowCommand = false;
 			UpdateText();
 			RemakeTextData();
 			this.SaveDataTitle = CurrentData.ScenarioLabelData.SaveTitle;
@@ -417,6 +432,7 @@ namespace Utage
 
 			this.OnBeginPage.Invoke(this);
 			Engine.UiManager.OnBeginPage();
+			AdjustTextPageTop();
 			if (!currentPageData.ExistsWindowInitCommand())
 			{
 				Engine.MessageWindowManager.ChangeCurrentWindow(currentPageData.MessageWindowName);
@@ -427,6 +443,53 @@ namespace Utage
 				Engine.BacklogManager.AddPage();
 			}
 		}
+		
+		//ページの冒頭の表示調整（メッセージウィンドウをいったん強制表示にするかどうか）
+		protected virtual void AdjustTextPageTop()
+		{
+			//Legacyのテキスト調整処理　なにもしない
+			if(adjustTypeMessageWindowOnBeginPage == AdjustTypeMessageWindowOnBeginPage.Legacy) return;
+			
+			//テキストがないなら何もしない
+			if( this.CurrentData.IsEmptyText) return;
+			
+			//直前のフレームでテキストを表示していたら、いったんメッセージウィンドウを再表示する
+			if (ShowMessageWindowInLastFrame)
+			{
+				ShowMessageWindow();
+			}
+		}
+
+		protected virtual void ShowMessageWindow()
+		{
+			Engine.UiManager.ShowMessageWindow();
+		} 
+
+		protected virtual void HideMessageWindow()
+		{
+			Engine.UiManager.HideMessageWindow();
+		} 
+
+		//コマンドによる待機処理があった場合
+		public void OnWaitingCommand()
+		{
+			//Legacyのテキスト調整処理　なにもしない
+			if(adjustTypeMessageWindowOnBeginPage == AdjustTypeMessageWindowOnBeginPage.Legacy) return;
+			
+			//すでに処理済みならなにもしない
+			if( DidAdjustMessageWindowCommand) return;
+
+			DidAdjustMessageWindowCommand = true;
+			//テキスト表示前にコマンド待機処理がされたので、メッセージウィンドウを非表示にする
+			HideMessageWindow();
+		}
+		
+		//メッセージウィンドウ系のコマンドを実行
+		public void OnMessageWindowCommand()
+		{
+			DidAdjustMessageWindowCommand = true;
+		}
+
 
 		/// <summary>
 		/// ページ終了
@@ -476,7 +539,8 @@ namespace Utage
 			{
 				return;
 			}
-			Engine.UiManager.ShowMessageWindow();
+			DidAdjustMessageWindowCommand = true;
+			ShowMessageWindow();
 		}
 
 		/// <summary>
@@ -493,7 +557,8 @@ namespace Utage
 			if (isLastBr) ++CurrentTextLengthMax;
 
 			RemakeText();
-			Engine.UiManager.ShowMessageWindow();
+			DidAdjustMessageWindowCommand = true;
+			ShowMessageWindow();
 			Engine.BacklogManager.AddCurrentPageLog(CurrentTextDataInPage, CharacterInfo);
 		}
 
@@ -957,6 +1022,8 @@ namespace Utage
 				}
 			}
 			lastSkippedSpeed = this.SkippedSpeed;
+			
+			ShowMessageWindowInLastFrame = Engine.UiManager.IsShowingMessageWindow;
 		}
 	}
 }

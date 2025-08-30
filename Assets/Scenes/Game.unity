@@ -4418,6 +4418,7 @@ MonoBehaviour:
   bootAsync: 0
   isStopSoundOnStart: 1
   isStopSoundOnEnd: 1
+  isStopSoundOnLoad: 1
   isStopVoiceOnSoundStop: 1
   isStopSeOnSoundStop: 0
   languageKeyOfParam: 
@@ -4502,6 +4503,7 @@ MonoBehaviour:
   debugOutPut: 0
   maxFilePreload: 20
   preloadDeep: 5
+  preloadDeepJumpIf: 1
   onBeginScenario:
     m_PersistentCalls:
       m_Calls: []
@@ -4608,6 +4610,7 @@ MonoBehaviour:
   enableSkipSpeedTag: 0
   autoInputOnEffectSkipped: 0
   autoBrPageOnEffectSkipped: 0
+  adjustTypeMessageWindowOnBeginPage: 1
   onBeginPage:
     m_PersistentCalls:
       m_Calls: []
@@ -4696,6 +4699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLog: 10
   ignoreLog: 0
+  dontClear: 0
   onAddPage:
     m_PersistentCalls:
       m_Calls: []
@@ -4756,6 +4760,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableRichTextInParamString: 0
+  autoIndentSettings:
+    indentDataList: []
 --- !u!114 &456724015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11949,6 +11955,9 @@ MonoBehaviour:
   disableMouseWheelBackLog: 1
   filterInputUtilDisable: -1
   enableInputKeyOnHideMessage: 0
+  onChangeStatus:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1083959043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12335,6 +12344,7 @@ MonoBehaviour:
   isStopScroolWithAllInnner: 1
   isAutoCenteringOnRepostion: 0
   keepContentPosition: 0
+  resetContentPositionType: 0
   minArrow: {fileID: 0}
   maxArrow: {fileID: 0}
 --- !u!114 &1116645037
@@ -13605,6 +13615,7 @@ MonoBehaviour:
   isStopScroolWithAllInnner: 1
   isAutoCenteringOnRepostion: 0
   keepContentPosition: 0
+  resetContentPositionType: 0
   minArrow: {fileID: 0}
   maxArrow: {fileID: 0}
 --- !u!114 &1296615356
@@ -23672,7 +23683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0de51f5a4eb6d43a019f404ad730a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testMode: 1
+  testMode: 0
   sceneAssign: {fileID: 1848313491}
   mapAssign: {fileID: 425995391}
   popupAssign: {fileID: 847318506}

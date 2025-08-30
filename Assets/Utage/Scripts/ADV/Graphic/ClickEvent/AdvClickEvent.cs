@@ -1,7 +1,5 @@
 ﻿// UTAGE: Unity Text Adventure Game Engine (c) Ryohei Tokimurausing System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -21,14 +19,7 @@ namespace Utage
 
 		StringGridRow Row { get; set; }
 		UnityAction<BaseEventData> action { get; set; }
-
-		void Awake()
-		{
-/*			if (GetComponent<Graphic>() == null)
-			{
-				this.gameObject.AddComponent<EventTrigger>();
-			}*/
-		}
+		
 
 		public void OnPointerClick(PointerEventData eventData)
 		{
@@ -46,6 +37,10 @@ namespace Utage
 			this.Row = row;
 			this.action = action;
 			SetEnableCanvasRaycaster(true);
+			foreach (var advClickEventCustom in this.GetComponentsInChildren<IAdvClickEventCustom>(true))
+			{
+				advClickEventCustom.OnAddClickEvent();
+			}
 		}
 
 		/// <summary>
@@ -56,6 +51,10 @@ namespace Utage
 			this.Row = null;
 			this.action = null;
 			SetEnableCanvasRaycaster(false);
+			foreach (var advClickEventCustom in this.GetComponentsInChildren<IAdvClickEventCustom>(true))
+			{
+				advClickEventCustom.OnRemoveClickEvent();
+			}
 		}
 
 		void SetEnableCanvasRaycaster(bool enable)

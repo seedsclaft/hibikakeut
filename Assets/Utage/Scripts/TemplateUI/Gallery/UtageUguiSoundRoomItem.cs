@@ -19,7 +19,10 @@ namespace Utage
 		[HideIfTMP] public Text title;
 
 		[HideIfLegacyText] public TextMeshProUGUI titleTmp;
-
+		
+		//初期化時に呼ばれるイベント
+		public UnityEvent OnInit => onInit;
+		[SerializeField] UnityEvent onInit = new();
 
 		public AdvSoundSettingData Data
 		{
@@ -40,6 +43,7 @@ namespace Utage
 
 			UnityEngine.UI.Button button = this.GetComponent<UnityEngine.UI.Button>();
 			button.onClick.AddListener(() => ButtonClickedEvent(this));
+			OnInit.Invoke();
 		}
 
 		public virtual void SetTextTitle(string text)

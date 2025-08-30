@@ -58,8 +58,7 @@ namespace UtageExtensions
 		//コンポーネントを取得。なかったら作成
 		public static T GetComponentCreateIfMissing<T>(this GameObject go) where T : Component
 		{
-			T component = go.GetComponent<T>();
-			if (component == null)
+			if (!go.TryGetComponent(out T component))
 			{
 				component = go.AddComponent<T>();
 			}
@@ -253,70 +252,6 @@ namespace UtageExtensions
 
 			return component;
 		}
-
-        
-        //子以下のコンポーネントをブロッカー付きで取得
-        //ブロッカーに指定した型のコンポーネントを持つものが見つかったら、それ以降の子は検索しない
-        public static void GetComponentsWithBlocker<TComponent,TBlocker>(this Transform t, List<TComponent> components, bool includeBlocker = true) 
-	        where TComponent : class
-	        where TBlocker : class
-        {
-	        t.gameObject.GetComponentsWithBlocker<TComponent,TBlocker>(components, includeBlocker);
-        }
-        public static void GetComponentsWithBlocker<TComponent,TBlocker>(this GameObject gameObject, List<TComponent> components, bool includeBlocker = true) 
-	        where TComponent : class
-	        where TBlocker : class
-        {
-	        components.Clear();
-	        //自身はブロッカーの検知をせずに取得
-	        gameObject.GetComponents(components);
-	        //子以下はブロッカーの検知して取得
-	        foreach (Transform child in gameObject.transform)
-	        {
-		        child.GetComponentsWithBlockerSub<TComponent, TBlocker>(components,includeBlocker);
-	        }
-        }
-
-        //子以下のコンポーネントをブロッカー付きで取得
-        static void GetComponentsWithBlockerSub<TComponent, TBlocker>(this Transform t,
-	        List<TComponent> list, bool includeBlocker )
-	        where TComponent : class
-	        where TBlocker : class
-        {
-	        t.gameObject.GetComponentsWithBlockerSub<TComponent, TBlocker>(list, includeBlocker);
-        }
-        static void GetComponentsWithBlockerSub<TComponent, TBlocker>(this GameObject gameObject,
-	        List<TComponent> list, bool includeBlocker )
-	        where TComponent : class
-	        where TBlocker : class
-        {
-	        using (ListPool<Component>.Get(out List<Component> components))
-	        {
-		        gameObject.GetComponents(components);
-		        bool isBlocker = components.Exists(x => x is TBlocker or IGetComponentBlockerWild);  
-		        if (isBlocker && !includeBlocker)
-		        {
-			        //ブロッカーがあるのでここまで
-			        return;
-		        }
-		        foreach (var component in components)
-		        {
-			        if (component is TComponent comp)
-			        {
-				        list.Add(comp);
-			        }
-		        }
-		        if (isBlocker)
-		        {
-			        //ブロッカーがあるのでここまで
-			        return;
-		        }
-	        }
-	        foreach (Transform child in gameObject.transform)
-	        {
-		        child.GetComponentsWithBlockerSub<TComponent, TBlocker>(list,includeBlocker);
-	        }
-        }
 
         //指定の名前のオブジェクトを子供以下の全ての階層から取得して、そのコンポーネントをGetする
         public static T Find<T>(this Transform t, string name) where T : Component

@@ -1,3 +1,4 @@
+#if false
 namespace Utage
 {
     //どんなメッセージ送信においてもブロッカーにもなるインターフェース
@@ -5,3 +6,4 @@ namespace Utage
     {
     }
 }
+#endif

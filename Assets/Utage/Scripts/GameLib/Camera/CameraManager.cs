@@ -51,7 +51,7 @@ namespace Utage
 		}
 
 
-		internal Camera FindCameraByLayer(int layer)
+		public Camera FindCameraByLayer(int layer)
 		{
 			int layerMask = 1 << layer;
 			foreach (var item in CameraList )

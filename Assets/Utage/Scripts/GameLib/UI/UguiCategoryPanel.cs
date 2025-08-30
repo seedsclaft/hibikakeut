@@ -28,6 +28,9 @@ namespace Utage
 
 		public int CategoryCount => Categories.Count;
 
+		//開くときの前回のインデックスを維持する（falseなら0にリセット）
+		public bool keepCurrentIndexOnOpen = false;
+
 		//現在のカテゴリ
 		public string CurrentCategory
 		{
@@ -68,7 +71,13 @@ namespace Utage
 					}
 				}
 				categoryToggleGroup.AddToggles(CreateToggles());
-				categoryToggleGroup.CurrentIndex = 0;
+
+				int index = 0;
+				if (keepCurrentIndexOnOpen && categoryToggleGroup.CurrentIndex >= 0 && categoryToggleGroup.CurrentIndex < categoryList.Length)
+				{
+					index = categoryToggleGroup.CurrentIndex;
+				}
+				categoryToggleGroup.CurrentIndex = index;
 			}
 
 			categoryToggleGroup.OnValueChanged.AddListener((int index) => onOpenCurrentCategory(this) );

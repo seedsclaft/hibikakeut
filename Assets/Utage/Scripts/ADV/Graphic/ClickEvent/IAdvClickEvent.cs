@@ -1,8 +1,5 @@
 ﻿// UTAGE: Unity Text Adventure Game Engine (c) Ryohei Tokimura
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -13,7 +10,7 @@ namespace Utage
 	/// <summary>
 	/// グラフィックオブジェクトのデータ
 	/// </summary>
-	internal interface IAdvClickEvent
+	public interface IAdvClickEvent
 	{
 		GameObject gameObject { get; }
 

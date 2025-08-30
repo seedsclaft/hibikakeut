@@ -32,13 +32,14 @@ namespace Utage
 		[RuntimeInitializeStaticField] public static Func<string, string> MakeCustomLogText = null;
 
 		//ログ用のテキストを作成
-		internal static string MakeLogText(string text)
+		public static string MakeLogText(string text)
 		{
 			if (MakeCustomLogText == null)
 			{
 				//数値タグだけテキストに変換し、その他のタグは残したままのテキストを生成
 				return new TextParser(text, true).NoneMetaString;
 			}
+			
 			else
 			{
 				return MakeCustomLogText(text);

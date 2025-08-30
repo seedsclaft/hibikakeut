@@ -107,7 +107,7 @@ namespace Utage
 			MasterVolumeExposedName = string.Format(SoundManager.MasterVolumeFormat,AudioMixerGroup.name);
 			this.CurrentGroupVolume = this.GroupVolume;
 		}
-
+/*
 		internal float GetVolume(string volumeTag)
 		{
 			return GetGroupVolume(volumeTag) * this.MasterVolume * SoundManager.MasterVolume;
@@ -124,7 +124,7 @@ namespace Utage
 			}
 			return volume;
 		}
-		
+*/		
 						
 		void UpdateAudioMixerVolume()
 		{
