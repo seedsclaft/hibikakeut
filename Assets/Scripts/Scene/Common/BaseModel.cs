@@ -126,7 +126,7 @@ namespace Ryneus
                 {
                     continue;
                 }
-                if (changeAbleSkills.Find(a => a.Id.Value == learnSkillId) != null)
+                if (changeAbleSkills.Find(a => a.Id.Value == learnSkillId && a.LearningState == LearningState.Learned) != null)
                 {
                     continue;
                 }

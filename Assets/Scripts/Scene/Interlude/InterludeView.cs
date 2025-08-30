@@ -24,18 +24,12 @@ namespace Ryneus
         [SerializeField] private Button lvUpStatusButton = null;
         [SerializeField] private GameObject animRoot = null;
         [SerializeField] private GameObject animPrefab = null;
-        [SerializeField] private GameObject saveHumanObj = null;
-        [SerializeField] private TextMeshProUGUI saveHumanText = null;
         [SerializeField] private GameObject rankScoreObj = null;
         [SerializeField] private TextMeshProUGUI rankScoreText = null;
         [SerializeField] private GameObject claerStageNumObj = null;
         [SerializeField] private TextMeshProUGUI claerStageNumText = null;
         [SerializeField] private GameObject partyEvaluateObj = null;
         [SerializeField] private TextMeshProUGUI partyEvaluateText = null;
-        [SerializeField] private GameObject battleAttackPerObj = null;
-        [SerializeField] private TextMeshProUGUI battleAttackPerText = null;
-        [SerializeField] private GameObject battleDefeatedCountObj = null;
-        [SerializeField] private TextMeshProUGUI battleDefeatedCountText = null;
 
         private BattleStartAnim _battleStartAnim = null;
         private bool _animationBusy = false;
@@ -61,12 +55,9 @@ namespace Ryneus
             actorInfoComponent.MainThumb.DOFade(0,0);
 
             strategyResultCanvasGroup.alpha = 0;
-            saveHumanObj?.SetActive(false);
             claerStageNumObj?.SetActive(false);
             rankScoreObj?.SetActive(false);
             partyEvaluateObj?.SetActive(false);
-            battleAttackPerObj?.SetActive(false);
-            battleDefeatedCountObj?.SetActive(false);
             if (rightParts != null)
             {
                 rightParts.SetActive(false);
@@ -198,18 +189,12 @@ namespace Ryneus
                 rightParts.SetActive(true);
             }
             strategyResultCanvasGroup.alpha = 1;
-            saveHumanObj?.SetActive(saveHuman != null);
             claerStageNumObj?.SetActive(claerStageNum != null);
             rankScoreObj?.SetActive(rankScore != null);
             partyEvaluateObj?.SetActive(partyEvaluate != null);
-            battleAttackPerObj?.SetActive(attackPer != null);
-            battleDefeatedCountObj?.SetActive(defeatedCount != null);
-            saveHumanText?.SetText(saveHuman);
             claerStageNumText?.SetText(claerStageNum);
             rankScoreText?.SetText(rankScore);
             partyEvaluateText?.SetText(partyEvaluate);
-            battleDefeatedCountText?.SetText(defeatedCount);
-            battleAttackPerText?.SetText(attackPer);
             commandList.gameObject.SetActive(true);
             SetActivate(commandList);
             strategyResultList.gameObject.SetActive(true);

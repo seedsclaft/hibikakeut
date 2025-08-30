@@ -14,6 +14,7 @@ namespace Ryneus
     public class ItemData
     {
         public int Id;
+        public int IconIndex;
         public ItemType ItemType;
         public int Param1;
         public int Param2;

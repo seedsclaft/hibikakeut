@@ -178,5 +178,6 @@ namespace Ryneus
     public class MainMenuSceneInfo
     {
         public int CommandIndex;
+        public bool PeriodAnimation = false;
     }
 }

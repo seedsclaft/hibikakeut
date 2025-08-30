@@ -180,6 +180,10 @@ namespace Ryneus
             {
                 _actorInfo = new ActorInfo(DataSystem.FindActor(enemyData.Id - 1000));
             }
+            // apにばらつきをのせる
+            var rand = UnityEngine.Random.Range(-20, 20);
+            var ap = Ap.Value + rand;
+            Ap.SetValue(Math.Max(ap, 200));
         }
 
         public void InitParamInfos(EnemyData enemyData)

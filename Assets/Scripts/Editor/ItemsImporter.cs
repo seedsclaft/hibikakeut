@@ -63,6 +63,7 @@ namespace Ryneus
                         var ItemData = new ItemData
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
+                            IconIndex = AssetPostImporter.ImportNumeric(BaseRow, "IconIndex"),
                             ItemType = (ItemType)AssetPostImporter.ImportNumeric(BaseRow, "ItemType"),
                             Param1 = AssetPostImporter.ImportNumeric(BaseRow, "Param1"),
                             Param2 = AssetPostImporter.ImportNumeric(BaseRow, "Param2"),

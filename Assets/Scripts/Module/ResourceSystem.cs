@@ -211,6 +211,26 @@ namespace Ryneus
                 case AttributeType.Dark:
                     iconIndex = 14;
                     break;
+                default:
+                    iconIndex = 32;
+                    break;
+            }
+            return LoadSpellIconBases()[iconIndex];
+        }
+
+        public static Sprite LoadItemIconBase(ItemType itemType, AttributeType attributeType = AttributeType.None)
+        {
+            var iconIndex = 0;
+            switch (itemType)
+            {
+                case ItemType.RandumAddSkill:
+                    return LoadSpellIconBase(attributeType);
+                case ItemType.Artifact:
+                    iconIndex = 15;
+                    break;
+                case ItemType.Currency:
+                    iconIndex = 38;
+                    break;
             }
             return LoadSpellIconBases()[iconIndex];
         }

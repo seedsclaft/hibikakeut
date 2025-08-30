@@ -134,7 +134,7 @@ namespace Ryneus
 
         public void StartStatePopup(DamageType damageType, string stateName, bool buff, bool debuff, float delay,System.Action endEvent = null)
         {
-            var prefab = Instantiate(GetPrefabType(damageType,buff,debuff));
+            var prefab = Instantiate(GetPrefabType(damageType, buff, debuff));
             prefab.transform.SetParent(GetRootType(damageType).transform, false);
             var textMeshProUGUI = prefab.GetComponent<TextMeshProUGUI>();
             textMeshProUGUI.text = stateName;

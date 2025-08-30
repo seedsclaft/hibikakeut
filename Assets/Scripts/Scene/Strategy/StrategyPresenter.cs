@@ -328,7 +328,7 @@ namespace Ryneus
             {
                 if (_model.SceneParam.ReturnMainMenuSceneParam != null)
                 {
-                    _view.CommandGotoSceneChange(_model.ReturnScene,_model.SceneParam.ReturnMainMenuSceneParam);
+                    _view.CommandGotoSceneChange(_model.ReturnScene, _model.SceneParam.ReturnMainMenuSceneParam);
                 } else
                 {
                     _view.CommandGotoSceneChange(_model.ReturnScene);

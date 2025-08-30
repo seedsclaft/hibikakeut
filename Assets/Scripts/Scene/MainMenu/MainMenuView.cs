@@ -39,6 +39,7 @@ namespace Ryneus
             if (mainMenuStartAnim != null)
             {
                 mainMenuStartAnim.Reset();
+                mainMenuStartAnim.gameObject.SetActive(false);
             }
             if (startAnimButton != null)
             {
@@ -53,6 +54,7 @@ namespace Ryneus
             commandList.SetInputHandler(InputKeyType.Decide, () => CallMainMenuCommand());
             commandList.SetInputHandler(InputKeyType.SideLeft1, () => CallViewEvent(CommandType.Aritifact));
             commandList.SetInputHandler(InputKeyType.Option2, () => CallSideMenu());
+            AddViewActives(commandList);
         }
 
         public void UpdateCommandList(List<ListData> listDatas)
@@ -126,7 +128,7 @@ namespace Ryneus
             sideMenuBatch.SetActive(isActive);
         }
 
-        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
             if (InputSystem.GetInputDate(InputKeyType.Decide).IsDownTrigger())
             {
@@ -137,6 +139,7 @@ namespace Ryneus
         public void MainMenuStartAnim(int chapter, int period, int periodMax, int remain)
         {
             mainMenuStartAnim.SetText(chapter, period, periodMax, remain);
+            mainMenuStartAnim.gameObject.SetActive(true);
             mainMenuStartAnim.StartAnim(0);
         }
 
@@ -146,9 +149,16 @@ namespace Ryneus
             {
                 return;
             }
-            startAnimButton.gameObject.SetActive(false);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            ClearMainMenuStart();
             CallViewEvent(CommandType.EndAnimation);
+        }
+
+        public void ClearMainMenuStart()
+        {
             mainMenuStartAnim.EndAnimation();
+            mainMenuStartAnim.gameObject.SetActive(false);
+            startAnimButton.gameObject.SetActive(false);
         }
     }
 

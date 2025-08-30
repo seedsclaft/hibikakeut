@@ -24,7 +24,6 @@ namespace Ryneus
         {
             _view.SetHelpWindow();
             _view.SetEvent((type) => UpdateCommand(type));
-            SoundManager.Instance.FadeOutBgm();
 
             if (_model.IsEnding())
             {
@@ -43,9 +42,18 @@ namespace Ryneus
             }
 
             _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
-            _view.MainMenuStartAnim(_model.PartyInfo.Chapter.Value, _model.PartyInfo.Period.Value, 4, 24 - (((_model.PartyInfo.Chapter.Value - 1) * 4) + _model.PartyInfo.Period.Value));
-            CommandRefresh();
-            _view.SetActiveCommandList(false);
+            if (_model.SceneParam != null && _model.SceneParam.PeriodAnimation)
+            {
+                SoundManager.Instance.FadeOutBgm();
+                _view.MainMenuStartAnim(_model.PartyInfo.Chapter.Value, _model.PartyInfo.Period.Value, 4, 24 - (((_model.PartyInfo.Chapter.Value - 1) * 4) + _model.PartyInfo.Period.Value));
+                _view.SetActiveCommandList(false);
+                CommandRefresh();
+                _view.ClearMainMenuStart();
+                _busy = true;
+            } else
+            {
+                CommandEndAnimation();
+            }
         }
 
         private void UpdateCommand(ViewEvent viewEvent)
@@ -80,7 +88,6 @@ namespace Ryneus
 
         private async void CommandEndAnimation()
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _view.UpdateBattleFieldNotice(_model.HasBattleField());
 
             await _model.PlayMainStageBgmData();
@@ -98,6 +105,7 @@ namespace Ryneus
                 return;
             }
             _view.SetActiveCommandList(true);
+            CommandRefresh();
             _busy = false;
         }
 

@@ -663,7 +663,7 @@ namespace Ryneus
             {
                 return;
             }
-            _battlerComps[targetIndex].StartStatePopup(damageType,stateName,buff,debuff);
+            _battlerComps[targetIndex].StartStatePopup(damageType, stateName, buff, debuff);
         }
 
         public void StartDeathAnimation(int targetIndex)

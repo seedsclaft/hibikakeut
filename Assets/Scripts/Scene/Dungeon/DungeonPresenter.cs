@@ -198,12 +198,17 @@ namespace Ryneus
             var periodItemInfos = _model.PeriodGetItemInfos();
             if (periodItemInfos.Count > 0)
             {
+                var mainMenuSceneInfo = new MainMenuSceneInfo
+                {
+                    PeriodAnimation = true
+                };
                 var strategySceneInfo = new StrategySceneInfo
                 {
                     ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
                     InBattle = false,
                     GetItemInfos = periodItemInfos,
                     ReturnScene = Scene.MainMenu,
+                    ReturnMainMenuSceneParam = mainMenuSceneInfo
                 };
                 _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
                 return;
@@ -217,6 +222,7 @@ namespace Ryneus
             var directionEvent = _model.CheckDirectionEvent();
             if (!directionEvent)
             {
+                _thisTurnStageEvents.Clear();
                 var currentPositionEvent = _model.CheckCurrentPositionEvent();
                 if (currentPositionEvent)
                 {
