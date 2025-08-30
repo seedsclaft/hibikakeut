@@ -150,13 +150,13 @@ namespace Ryneus
                 return;
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            mainMenuStartAnim.EndAnimation();
             ClearMainMenuStart();
             CallViewEvent(CommandType.EndAnimation);
         }
 
         public void ClearMainMenuStart()
         {
-            mainMenuStartAnim.EndAnimation();
             mainMenuStartAnim.gameObject.SetActive(false);
             startAnimButton.gameObject.SetActive(false);
         }

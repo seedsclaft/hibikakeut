@@ -45,10 +45,13 @@ namespace Ryneus
             if (_model.SceneParam != null && _model.SceneParam.PeriodAnimation)
             {
                 SoundManager.Instance.FadeOutBgm();
-                _view.MainMenuStartAnim(_model.PartyInfo.Chapter.Value, _model.PartyInfo.Period.Value, 4, 24 - (((_model.PartyInfo.Chapter.Value - 1) * 4) + _model.PartyInfo.Period.Value));
-                _view.SetActiveCommandList(false);
-                CommandRefresh();
                 _view.ClearMainMenuStart();
+                var chapter = _model.PartyInfo.Chapter.Value;
+                var period = Math.Min(_model.PartyInfo.Period.Value, 4);
+                _view.MainMenuStartAnim(chapter, period, 4, 24 - (((_model.PartyInfo.Chapter.Value - 1) * 4) + period));
+                _view.SetActiveCommandList(false);
+                _view.UpdateBattleFieldNotice(_model.HasBattleField());
+                CommandRefresh();
                 _busy = true;
             } else
             {
