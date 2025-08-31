@@ -1948,6 +1948,15 @@ namespace Ryneus
                     return false;
                 }
             }
+            // period中〇回以下使用
+            var inPeriodUseCountUnder = triggerDates.Find(a => a.TriggerType == TriggerType.InPeriodUseCountUnder);
+            if (inPeriodUseCountUnder != null)
+            {
+                if (inPeriodUseCountUnder.Param1 <= passiveInfo.UseCount.Value)
+                {
+                    return false;
+                }
+            }
             // ターン中〇回以下使用
             var inTurnUseCountUnder = triggerDates.Find(a => a.TriggerType == TriggerType.InTurnUseCountUnder);
             if (inTurnUseCountUnder != null)
@@ -2787,13 +2796,14 @@ namespace Ryneus
             {
                 exp = 40f / 3f;
             }
+            var battleScore = PartyInfo.BattleScore.Value;
             // 経験値アイテムを作る
             foreach (var actorInfo in UnitBattlerActors())
             {
                 var gainExp = 0f;
                 foreach (var enemyInfo in enemyInfos)
                 {
-                    gainExp += exp + (enemyInfo.Level.Value - actorInfo.Level.Value) * 3;
+                    gainExp += exp + ((enemyInfo.Level.Value - actorInfo.Level.Value) * 2);
                 }
                 /*
                 if (_battleRecords[actorInfo.Index.Value].MaxDamage > 0 || _battleRecords[actorInfo.Index.Value].HealValue > 0)
@@ -2809,6 +2819,7 @@ namespace Ryneus
                 {
                     upperRate += expRateUp.FeatureDates[0].Param1 * 0.01f;
                 }
+                /*
                 // 施設効果経験値アップ付与
                 var expRateUpBuildings = PartyInfo.BuildingSkills().FindAll(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.GetExpRateUp) != null);
                 // 重複はしない
@@ -2826,9 +2837,15 @@ namespace Ryneus
                     }
                 }
                 upperRate += upperBuildingsRate;
+                */
                 if (upperRate > 0)
                 {
-                    gainExp *= 1 + (int)(upperRate);
+                    gainExp *= (1 + upperRate);
+                }
+
+                if (battleScore > 0)
+                {
+                    gainExp = (int)(gainExp * (1 + (battleScore * 0.0001f)));
                 }
 
                 if (gainExp <= 0)
@@ -2838,11 +2855,6 @@ namespace Ryneus
                 if (gainExp > 100)
                 {
                     gainExp = 100;
-                }
-
-                if (PartyInfo.BattleScore.Value > 0)
-                {
-                    gainExp = (int)(gainExp * (1 + (PartyInfo.BattleScore.Value * 0.0001f)));
                 }
 
                 var expData = new GetItemData
@@ -2923,6 +2935,14 @@ namespace Ryneus
                 actorIdDict[actorInfo.BattleIndex.Value] = actorInfo.ActorId.Value;
                 //battler.GainMp(battler.MaxMp);
                 battler.SetAwaken(false);
+                // Period回数制限の使用回数を設定
+                foreach (var skill in battler.Skills)
+                {
+                    if (skill.Master.TriggerDates.Find(a => a.TriggerType == TriggerType.InPeriodUseCountUnder) != null)
+                    {
+                        actorInfo.AddSkillUseCount(skill.Id.Value, skill.UseCount.Value);
+                    }
+                }
             }
             CurrentDeckInfo.SetActorIdDict(actorIdDict);
             SaveSystem.SaveOptionStart(GameSystem.OptionData);

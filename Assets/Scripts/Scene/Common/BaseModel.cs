@@ -771,6 +771,7 @@ namespace Ryneus
                 }
                 PartyInfo.EvaluationValue.GainValue(-4 * artifactNum, 0);
             }
+            PartyInfo.ClearSkillUseCount();
         }
 
         public List<GetItemInfo> PeriodGetItemInfos()

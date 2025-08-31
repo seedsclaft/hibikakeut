@@ -485,13 +485,12 @@ namespace Ryneus
             };
             if (_model.CheckDefeat())
             {
-                /*
                 _view.StartBattleStartAnim(DataSystem.GetText(16110));
                 await UniTask.DelayFrame((int)(150f / GameSystem.OptionData.BattleSpeed));
                 _view.CallSystemCommand(Base.CommandType.MapClear);
                 _view.CommandGotoSceneChange(Scene.Title);
                 return;
-                */
+                /*
                 _view.StartBattleStartAnim(DataSystem.GetText(16110));
                 strategySceneInfo.GetItemInfos = new List<GetItemInfo>();
                 _model.MakeBattleScore(false, strategySceneInfo);
@@ -500,6 +499,7 @@ namespace Ryneus
                 strategySceneInfo.ReturnScene = Scene.MainMenu;
                 CheckAchievements();
                 //_model.CurrentStage.GainLoseCount();
+                */
             }
             else
             if (_model.CheckVictory())

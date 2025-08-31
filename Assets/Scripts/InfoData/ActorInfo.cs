@@ -520,6 +520,35 @@ namespace Ryneus
             return total;
         }
 
+        // Period間の魔法使用回数
+        private Dictionary<int, int> _useSkillCountDict = new();
+        public void InitSkillUseCount()
+        {
+            if (_useSkillCountDict == null)
+            {
+                _useSkillCountDict = new();
+            }
+        }
+        public int GetSkillUseCount(int skillId)
+        {
+            InitSkillUseCount();
+            return !_useSkillCountDict.ContainsKey(skillId) ? 0 : _useSkillCountDict[skillId];
+        }
+        public void AddSkillUseCount(int skillId, int count)
+        {
+            InitSkillUseCount();
+            if (!_useSkillCountDict.ContainsKey(skillId))
+            {
+                _useSkillCountDict[skillId] = 0;
+            }
+            _useSkillCountDict[skillId] += count;
+        }
+        public void ClearSkillUseCount()
+        {
+            InitSkillUseCount();
+            _useSkillCountDict.Clear();
+        }
+
         public ParameterBool Transfer = new();
 
         public int TransferGetItem()

@@ -267,7 +267,7 @@ namespace Ryneus
                     }
                 }
                 listItem.SetListData(_listDates[itemIndex], itemIndex);
-                Debug.Log("itemIndex:" + i + "がobjectIndex: " + itemIndex);
+                //Debug.Log("itemIndex:" + i + "がobjectIndex: " + itemIndex);
                 itemPrefab.transform.SetParent(_objectList[itemIndex].transform, false);
                 itemPrefab.SetActive(true);
             }
@@ -485,7 +485,7 @@ namespace Ryneus
             {
                 return;
             }
-            Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
+            //Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
             UpdateListItem(itemIndex, objectIndex);
         }
 
@@ -828,13 +828,13 @@ namespace Ryneus
             var plusKey = GetPlusKey();
             var minusKey = GetMinusKey();
             var selectItem = _objectList[_index];
-            var itemPosition = GetCornerPosition(selectItem, 0, false);
+            var itemPosition = Math.Round(GetCornerPosition(selectItem, 0, false));
             float verticalCount = GetVerticalCount();
             var p = ObjectListCount - verticalCount;
             var verticalNormalizedPosition = -1f;
             if (!_horizontal)
             {
-                var viewPortPosition = GetCornerPosition(_scrollRect.viewport.gameObject, 0, false);
+                var viewPortPosition = Math.Round(GetCornerPosition(_scrollRect.viewport.gameObject, 0, false));
                 if (keyTypes.Contains(plusKey))
                 {
                     if (itemPosition < viewPortPosition)
@@ -851,11 +851,17 @@ namespace Ryneus
                 } else
                 if (keyTypes.Contains(minusKey))
                 {
+                    var v = GetViewPortHeight();
+                    var ip = itemPosition;
+                    var vp = viewPortPosition;
+                    Debug.Log("height = " + v);
+                    Debug.Log("itemPosition = " + ip);
+                    Debug.Log("viewPortPosition = " + vp);
                     if (warpMode && _index == (GetGridRowCount() - 1))
                     {
                         verticalNormalizedPosition = 0;
                     } else
-                    if (itemPosition > (GetViewPortHeight() + viewPortPosition))
+                    if (itemPosition >= (GetViewPortHeight() + viewPortPosition))
                     {
                         var c = _index;
                         var per = 1f - (c / p);

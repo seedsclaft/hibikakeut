@@ -160,6 +160,14 @@ namespace Ryneus
             }
             InitKindTypes(actorInfo.Master.Kinds);
             InitSkillCount();
+            // Period回数制限の使用回数を設定
+            foreach (var skill in _skills)
+            {
+                if (skill.Master.TriggerDates.Find(a => a.TriggerType == TriggerType.InPeriodUseCountUnder) != null)
+                {
+                    skill.UseCount.SetValue(actorInfo.GetSkillUseCount(skill.Id.Value));
+                }
+            }
             ResetAp();
             //GainMp(MaxMp);
         }
@@ -193,7 +201,7 @@ namespace Ryneus
             statusInfo.SetParameter(
                 (int)(enemyData.BaseStatus.Hp + plusHpParam + (Level.Value * enemyData.HpGrowth * 0.015f)),
                 0,
-                (int)(enemyData.BaseStatus.Atk + (Level.Value * enemyData.AtkGrowth * 0.02f)),
+                (int)(enemyData.BaseStatus.Atk + (Level.Value * enemyData.AtkGrowth * 0.015f)),
                 (int)(enemyData.BaseStatus.Def + (Level.Value * enemyData.DefGrowth * 0.01f)),
                 Math.Min(100, (int)(enemyData.BaseStatus.Spd + (Level.Value * enemyData.SpdGrowth * 0.015f))),
                 enemyData.BaseStatus.Mov,

@@ -140,6 +140,10 @@ namespace Ryneus
                 {
                     attr = 4;
                 } else
+                if (cell.Contains("Ba"))
+                {
+                    attr = 5;
+                } else
                 if (cell.Contains("Tr"))
                 {
                     attr = 6;

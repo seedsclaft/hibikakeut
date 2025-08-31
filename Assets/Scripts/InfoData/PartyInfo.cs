@@ -667,6 +667,15 @@ namespace Ryneus
             Cursed.SetValue(cursed);
         }
 
+        public void ClearSkillUseCount()
+        {
+            // Period回数制限の使用回数を初期化
+            foreach (var actorInfo in _actorInfos)
+            {
+                actorInfo.ClearSkillUseCount();
+            }
+        }
+
         public int PartyEvaluate()
         {
             return _actorInfos.Sum(a => a.Evaluate());
