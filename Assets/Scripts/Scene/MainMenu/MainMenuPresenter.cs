@@ -45,7 +45,6 @@ namespace Ryneus
             if (_model.SceneParam != null && _model.SceneParam.PeriodAnimation)
             {
                 SoundManager.Instance.FadeOutBgm();
-                _view.ClearMainMenuStart();
                 var chapter = _model.PartyInfo.Chapter.Value;
                 var period = Math.Min(_model.PartyInfo.Period.Value, DataSystem.System.PeriodTurns);
                 _view.MainMenuStartAnim(chapter, period, DataSystem.System.PeriodTurns, (DataSystem.System.PeriodTurns * 6) - (((_model.PartyInfo.Chapter.Value - 1) * DataSystem.System.PeriodTurns) + period));
@@ -55,6 +54,7 @@ namespace Ryneus
                 _busy = true;
             } else
             {
+                _view.ClearMainMenuStart();
                 CommandEndAnimation();
             }
         }
@@ -245,7 +245,7 @@ namespace Ryneus
                 _model.PartyInfo.AlartStage(find.Master.StageNo);
                 _busy = true;
                 _view.SetBusy(true);
-                SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                //SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 var confirmInfo = new ConfirmInfo(DataSystem.GetText(32100), (a) =>
                 {
                     var find = _model.StageInfos().Find(a => !a.Alarted.Value);

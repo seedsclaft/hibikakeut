@@ -57,7 +57,12 @@ namespace Ryneus
                 idx++;
             }
             fromBattlerInfo?.Index.SetValue(toIndex);
+            fromBattlerInfo?.SetLineIndex(toIndex > 3 ? LineType.Back : LineType.Front);
+
             toBattlerInfo?.Index.SetValue(fromIndex);
+            toBattlerInfo?.SetLineIndex(fromIndex > 3 ? LineType.Back : LineType.Front);
+
+            _party.SetBattlers(FieldBattlerInfos().FindAll(a => a.IsActor));
             SelectIndex.SetValue(-1);
         }
 

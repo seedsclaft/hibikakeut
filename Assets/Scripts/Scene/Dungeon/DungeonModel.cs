@@ -212,6 +212,20 @@ namespace Ryneus
             return stageEvent.Count > 0 && (stageEvent[0].Type == StageEventType.ExitDungeon || stageEvent[0].Type == StageEventType.MoveDungeonFloor || stageEvent[0].Type == StageEventType.AdvStart);
         }
 
+        public bool BattleFieldEncountZero()
+        {
+            if (CurrentStage == null)
+            {
+                return false;
+            }
+            if (CurrentStage.Master.Category != StageCategory.BattleField)
+            {
+                return false;
+            }
+            var stageEvents = StageEvents(EventTiming.Dungeon);
+            return stageEvents.Find(a => a.Type == StageEventType.ForceBattle || a.Type == StageEventType.ForceBossBattle) == null;
+        }
+
         public bool EndDungeonByTurnCount()
         {
             if (CurrentStage == null)

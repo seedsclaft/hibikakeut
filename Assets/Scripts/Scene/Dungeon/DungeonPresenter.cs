@@ -44,6 +44,12 @@ namespace Ryneus
             // 未読の非表示マスを管理
             _model.AddEventNotFlag();
             _model.SaveAutoFile();
+            // 戦場ステージでバトルイベントが0になった時
+            if (_model.BattleFieldEncountZero())
+            {
+                CommandEncountZero();
+                return;
+            }
             _busy = false;
         }
 
@@ -164,6 +170,18 @@ namespace Ryneus
             //_view.ChangeUIActive(false);
             _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
             SoundManager.Instance.PlayStaticSe(SEType.BattleStart);
+        }
+
+        private void CommandEncountZero()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
+            _model.DungeonBusy(true);
+            var confirmInfo = new ConfirmInfo("すべての敵を撃破しました！", (a) =>
+            {
+                RetunrDungeon();
+            });
+            confirmInfo.SetIsNoChoice(true);
+            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CommandTurnOver(bool moved)

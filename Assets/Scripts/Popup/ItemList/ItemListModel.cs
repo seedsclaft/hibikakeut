@@ -105,5 +105,35 @@ namespace Ryneus
             return getItemInfos;
         }
 
+        public List<SkillInfo> GetRandumAddSkillInfos(ItemInfo itemInfo)
+        {
+            var list = new List<SkillInfo>();
+            var rank = itemInfo.Master.Param1;
+            var attribute = itemInfo.Master.Param2;
+            if (attribute > 0)
+            {
+                var attributeSkillDates = DataSystem.Skills.Where(a => (int)a.Value.Attribute == attribute && (int)a.Value.Rank == rank);
+                foreach (var attributeSkillData in attributeSkillDates)
+                {
+                    if (PartyInfo.LearningSkillIds.Contains(attributeSkillData.Key))
+                    {
+                        continue;
+                    }
+                    list.Add(new SkillInfo(attributeSkillData.Key));
+                }
+            } else
+            {
+                var skillDates = DataSystem.Skills.Where(a => (int)a.Value.Rank == rank);
+                foreach (var skillData in skillDates)
+                {
+                    if (PartyInfo.LearningSkillIds.Contains(skillData.Key))
+                    {
+                        continue;
+                    }
+                    list.Add(new SkillInfo(skillData.Key));
+                }
+            }
+            return list;
+        }
     }
 }

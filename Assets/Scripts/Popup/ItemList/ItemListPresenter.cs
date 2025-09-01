@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Ryneus.ItemList;
+using UnityEditor.Recorder;
 
 namespace Ryneus
 {
@@ -26,6 +27,7 @@ namespace Ryneus
             _view.SetEvent((type) => UpdateCommand(type));
             _view.SetItemList(MakeListData(_model.ItemInfos(), 0));
             _view.OpenAnimation();
+            _view.ActivateItemList(true);
             _busy = false;
         }
 
@@ -56,7 +58,10 @@ namespace Ryneus
                     {
                         return;
                     }
-                    CommandMinusUseNum((int)viewEvent?.Template);
+                    CommandMinusUseNum((int)viewEvent.Template);
+                    break;
+                case CommandType.DetailItem:
+                    CommandDetailItem((ItemInfo)viewEvent.Template);
                     break;
             }
         }
@@ -66,6 +71,7 @@ namespace Ryneus
             if (_model.CanPresent())
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                _view.ActivateItemList(false);
                 _busy = true;
                 var confirmInfo = new ConfirmInfo(DataSystem.GetText(34040), (a) =>
                 {
@@ -92,34 +98,66 @@ namespace Ryneus
                         }
                     }
                     _busy = false;
+                    _view.ActivateItemList(true);
                 });
                 _view.CommandCallConfirm(confirmInfo);
-            } else
-            {
-                SoundManager.Instance.PlayStaticSe(SEType.Deny);
-                var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle(DataSystem.GetText(34050));
-                _view.CommandCallCaution(cautionInfo);
+                return;
             }
+            SoundManager.Instance.PlayStaticSe(SEType.Deny);
+            var cautionInfo = new CautionInfo();
+            cautionInfo.SetTitle(DataSystem.GetText(34050));
+            _view.CommandCallCaution(cautionInfo);
         }
 
         private void CommandPlusUseNum(int itemId)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
-            _model.ChangeUseNum(itemId,true);
+            _model.ChangeUseNum(itemId, true);
             CommandRefresh();
         }
 
         private void CommandMinusUseNum(int itemId)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
-            _model.ChangeUseNum(itemId,false);
+            _model.ChangeUseNum(itemId, false);
             CommandRefresh();
+        }
+
+        private void CommandDetailItem(ItemInfo itemInfo)
+        {
+            switch (itemInfo.Master.ItemType)
+            {
+                case ItemType.RandumAddSkill:
+                    CommandDetailSkill(itemInfo);
+                    break;
+            }
+        }
+
+        private void CommandDetailSkill(ItemInfo itemInfo)
+        {
+            _busy = true;
+            _view.ActivateItemList(false);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var skillInfos = _model.GetRandumAddSkillInfos(itemInfo);
+            var confirmInfo = new ConfirmInfo("いずれかの魔法が入手できます", (a) =>
+            {
+                _busy = false;
+                _view.ActivateItemList(true);
+            }, ConfirmType.SkillDetail);
+            confirmInfo.SetBackEvent(() =>
+            {
+                _busy = false;
+                _view.ActivateItemList(true);
+            });
+            confirmInfo.SetSkillInfo(skillInfos);
+            confirmInfo.SetIsNoChoice(true);
+            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CommandRefresh()
         {
             _view.SetItemList(MakeListData(_model.ItemInfos()));
+            _view.CheckItemDetailButtonActive();
         }
 
         private void CheckTutorialState(object commandType = null)
