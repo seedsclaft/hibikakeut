@@ -657,6 +657,17 @@ namespace Ryneus
             var effect = 0;
             foreach (var stateInfo in GetStateInfoAll(stateType))
             {
+                if (stateInfo.BaseCountTurns.Value > 0)
+                {
+                    if (stateInfo.CountTurns.Value == 0)
+                    {
+                        stateInfo.CountTurns.SetValue(stateInfo.BaseCountTurns.Value);
+                    } else
+                    {
+                        stateInfo.CountTurns.GainValue(-1);
+                        continue;
+                    }
+                }
                 effect += stateInfo.Effect.Value;
             }
             return effect;

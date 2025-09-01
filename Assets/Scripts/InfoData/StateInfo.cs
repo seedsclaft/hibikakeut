@@ -13,6 +13,9 @@ namespace Ryneus
         public ParameterInt BattlerId = new();
         public ParameterInt TargetIndex = new();
         public ParameterInt SkillId = new();
+        // ターン毎に効果を発揮する場合のカウント
+        public ParameterInt CountTurns = new();
+        public ParameterInt BaseCountTurns = new();
         private RemovalTiming _removeTiming = 0;
         public RemovalTiming RemovalTiming => _removeTiming;
         public void SetRemoveTiming(RemovalTiming removalTiming)
@@ -30,7 +33,7 @@ namespace Ryneus
             return false;
         }
 
-        public StateInfo(StateType stateType,int turns,int effect,int battlerId,int targetIndex,int skillId)
+        public StateInfo(StateType stateType, int turns, int effect, int battlerId, int targetIndex, int skillId)
         {
             _stateType = stateType;
             Turns.SetValue(turns);
@@ -39,6 +42,12 @@ namespace Ryneus
             BattlerId.SetValue(battlerId);
             TargetIndex.SetValue(targetIndex);
             SkillId.SetValue(skillId);
+            var skillData = DataSystem.FindSkill(SkillId.Value);
+            if (skillData != null && skillData.CountTurn > 0 && _stateType == StateType.Regenerate)
+            {
+                BaseCountTurns.SetValue(skillData.CountTurn);
+                CountTurns.SetValue(0);
+            }
             _removeTiming = Master.RemovalTiming;
         }
 

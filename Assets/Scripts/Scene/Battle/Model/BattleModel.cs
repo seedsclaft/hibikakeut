@@ -2859,7 +2859,7 @@ namespace Ryneus
                 } else
                 if (gainExp > 100)
                 {
-                    gainExp = 100;
+                    //gainExp = 100;
                 }
 
                 var expData = new GetItemData

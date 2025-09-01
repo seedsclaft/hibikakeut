@@ -102,6 +102,7 @@ namespace Ryneus
                 var hpHeal = _model.CheckHpHeal();
                 if (hpHeal > 0)
                 {
+                    _view.StartHeal(hpHeal);
                     _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
                 }
             }
