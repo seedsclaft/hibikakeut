@@ -15,6 +15,7 @@ namespace Ryneus
         {
             return _saveFileInfos.Find(a => a.SaveNo == 0);
         }
+
         public void PushSaveFile(SaveFileInfo saveFileInfo)
         {
             var findIndex = _saveFileInfos.FindIndex(a => a.SaveNo == saveFileInfo.SaveNo);
@@ -28,7 +29,8 @@ namespace Ryneus
                 _saveFileInfos.Add(saveFileInfo);
             }
             _saveFileInfos.Sort((a, b) => a.SaveNo - b.SaveNo > 0 ? 1 : -1);
-            UpdateSaveLastSaveIndex();
+            LastSaveIndex.SetValue(saveFileInfo.SaveNo);
+            //UpdateSaveLastSaveIndex();
         }
 
         public ParameterInt LastSaveIndex = new();

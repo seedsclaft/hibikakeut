@@ -34,7 +34,7 @@ namespace Ryneus
                 stageInfoComponent.UpdateData(DataSystem.FindStage(data.StageNo));
                 saveTime?.SetText(data.SaveTime);
                 var hours = data.PlayTime / 3600;
-                var minutes = data.PlayTime / 60;
+                var minutes = (data.PlayTime / 60) % 60;
                 var seconds = data.PlayTime % 60;
                 playTime?.SetText(hours.ToString("00") + ":" + minutes.ToString("00") + ":" + seconds.ToString("00"));
                 //clearData?.SetActive(data.ClearCount > 0);

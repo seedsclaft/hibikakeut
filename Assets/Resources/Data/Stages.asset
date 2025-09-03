@@ -1603,30 +1603,30 @@ MonoBehaviour:
       Param2: 8
       Param3: 5
       ReadFlag: 0
-    - EventKey: 54_6_7DungeonGetArtifact2130
+    - EventKey: 54_6_7DungeonGetArtifact2060
       Timing: 3010
       Type: 3010
       PositionX: 6
       PositionY: 7
-      Param: 2130
+      Param: 2060
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 54_8_9DungeonGetItem1200
+    - EventKey: 54_8_9DungeonGetArtifact2070
       Timing: 3010
-      Type: 3020
+      Type: 3010
       PositionX: 8
       PositionY: 9
-      Param: 1200
+      Param: 2070
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 54_10_7DungeonGetArtifact2130
+    - EventKey: 54_10_7DungeonGetArtifact2080
       Timing: 3010
       Type: 3010
       PositionX: 10
       PositionY: 7
-      Param: 2130
+      Param: 2080
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -1798,7 +1798,7 @@ MonoBehaviour:
     BossTroopId: 0
     BGMId: 1210
     BossBGMId: 3010
-    BattleBGMId: 2010
+    BattleBGMId: 2030
     SkyboxName: '""'
     StageEvents:
     - EventKey: 1030_1_13DungeonExitDungeon0
@@ -1835,247 +1835,5 @@ MonoBehaviour:
       PositionY: 8
       Param: 30030
       Param2: 0
-      Param3: 0
-      ReadFlag: 1
-  - Id: 2010
-    StageNo: 201
-    Category: 2
-    Name: "\u30A2\u30B9\u30AC\u30EB\u30C9\u306E\u57CE\u58C1\u30FB\u4EA4\u6226\u5730"
-    Selectable: 1
-    Chapter: 3
-    Help: "\u30A2\u30FC\u30B9\u795E\u65CF\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
-    StageLv: 10
-    OnlyOnce: 1
-    DisplayRank: 1
-    RandomTroopWeight: 30
-    RandomTroopEnemyRates:
-    - EnemyId: 1
-      Weight: 10
-    - EnemyId: 2
-      Weight: 10
-    - EnemyId: 3
-      Weight: 10
-    - EnemyId: 4
-      Weight: 10
-    - EnemyId: 5
-      Weight: 10
-    - EnemyId: 6
-      Weight: 10
-    - EnemyId: 7
-      Weight: 10
-    - EnemyId: 8
-      Weight: 10
-    - EnemyId: 9
-      Weight: 10
-    - EnemyId: 10
-      Weight: 10
-    EncountMin: 0
-    EncountMax: 0
-    BackGround: NA_background image_3D like_204
-    BossTroopId: 20010
-    BGMId: 2020
-    BossBGMId: 2020
-    BattleBGMId: 2020
-    SkyboxName: CloudedSunGlow
-    StageEvents:
-    - EventKey: 2010_7_8DungeonForceBossBattle20010
-      Timing: 3010
-      Type: 5020
-      PositionX: 7
-      PositionY: 8
-      Param: 20010
-      Param2: 40020
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2010_7_10DungeonAdvStart150
-      Timing: 3010
-      Type: 1010
-      PositionX: 7
-      PositionY: 10
-      Param: 150
-      Param2: 0
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2010_7_10DungeonEventEnd0
-      Timing: 3010
-      Type: 9010
-      PositionX: 7
-      PositionY: 10
-      Param: 0
-      Param2: 0
-      Param3: 0
-      ReadFlag: 0
-    - EventKey: 2010_7_12DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 7
-      PositionY: 12
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2010_5_14DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 5
-      PositionY: 14
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2010_5_19DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 5
-      PositionY: 19
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2010_9_14DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 9
-      PositionY: 14
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2010_9_19DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 9
-      PositionY: 19
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-  - Id: 2020
-    StageNo: 202
-    Category: 2
-    Name: "\u30D5\u30A1\u30ED\u30B9\u7826\u30FB\u4EA4\u6226\u5730"
-    Selectable: 1
-    Chapter: 5
-    Help: "\u30A2\u30FC\u30B9\u795E\u65CF\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
-    StageLv: 25
-    OnlyOnce: 1
-    DisplayRank: 1
-    RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
-    EncountMin: 0
-    EncountMax: 0
-    BackGround: NA_background image_3D like_204
-    BossTroopId: 20020
-    BGMId: 2020
-    BossBGMId: 2020
-    BattleBGMId: 2020
-    SkyboxName: CloudedSunGlow
-    StageEvents:
-    - EventKey: 2020_6_10DungeonForceBossBattle20020
-      Timing: 3010
-      Type: 5020
-      PositionX: 6
-      PositionY: 10
-      Param: 20020
-      Param2: 40020
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2020_6_13DungeonAdvStart150
-      Timing: 3010
-      Type: 1010
-      PositionX: 6
-      PositionY: 13
-      Param: 150
-      Param2: 0
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2020_6_13DungeonEventEnd0
-      Timing: 3010
-      Type: 9010
-      PositionX: 6
-      PositionY: 13
-      Param: 0
-      Param2: 0
-      Param3: 0
-      ReadFlag: 0
-    - EventKey: 2020_2_19DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 2
-      PositionY: 19
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2020_6_19DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 6
-      PositionY: 19
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2020_10_19DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 10
-      PositionY: 19
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2020_6_15DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 6
-      PositionY: 15
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2020_10_15DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 10
-      PositionY: 15
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2020_10_9DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 10
-      PositionY: 9
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2020_2_5DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 2
-      PositionY: 5
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2020_6_5DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 6
-      PositionY: 5
-      Param: -1
-      Param2: 40030
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 2020_10_5DungeonForceBattle-1
-      Timing: 3010
-      Type: 5010
-      PositionX: 10
-      PositionY: 5
-      Param: -1
-      Param2: 40030
       Param3: 0
       ReadFlag: 1
