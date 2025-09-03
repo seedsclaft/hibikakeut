@@ -92,6 +92,7 @@ namespace Ryneus
         AlcanaList,
         SlotSave,
         LearnSkill,
+        ClassChange,
         Rankup,
         SkillTrigger,
         SkillLog,

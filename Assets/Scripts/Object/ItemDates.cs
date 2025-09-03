@@ -39,5 +39,6 @@ namespace Ryneus
         Exp = 10,
         AttributeUp = 20,
         StatusUp = 30,
+        ClassChange = 40,
     }
 }

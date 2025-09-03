@@ -367,6 +367,15 @@ namespace Ryneus
             return keyTypes;
         }
 
+        public static bool IsMouseLeftButtonDown()
+        {
+            if (IsPlatformStandAloneOrEditor() || EnableWebGLInput())
+            {
+                return Input.GetMouseButtonDown(0);
+            }
+            return false;
+        }
+
         public static bool IsMouseRightButtonDown()
         {
             if (IsPlatformStandAloneOrEditor() || EnableWebGLInput())

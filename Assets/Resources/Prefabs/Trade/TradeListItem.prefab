@@ -526,6 +526,7 @@ GameObject:
   - component: {fileID: 421292866703826318}
   - component: {fileID: 2323935433351725155}
   - component: {fileID: 79426839325533706}
+  - component: {fileID: 8970442723564021539}
   m_Layer: 5
   m_Name: GetItem
   m_TagString: Untagged
@@ -578,6 +579,7 @@ MonoBehaviour:
   textUguiList: []
   imageUguiList: []
   skillInfoComponent: {fileID: 79426839325533706}
+  itemInfoComponent: {fileID: 8970442723564021539}
   titleName: {fileID: 1148880156354821206}
 --- !u!114 &79426839325533706
 MonoBehaviour:
@@ -614,6 +616,24 @@ MonoBehaviour:
   selectedAlcana: {fileID: 0}
   skillExpGauge: {fileID: 0}
   shinyReflect: {fileID: 0}
+--- !u!114 &8970442723564021539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3272975755161347249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69681b76513c6c14c99fe986d67fb699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 5385578104189654708}
+  iconBack: {fileID: 8386201565619810485}
+  itemName: {fileID: 0}
+  description: {fileID: 0}
+  ownNum: {fileID: 0}
+  useNum: {fileID: 0}
 --- !u!1 &4085702797751479852
 GameObject:
   m_ObjectHideFlags: 0

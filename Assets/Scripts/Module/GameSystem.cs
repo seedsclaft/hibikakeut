@@ -341,6 +341,12 @@ namespace Ryneus
                 var rankup = prefab.GetComponent<RankupView>();
                 rankup.SetRankupInfo((RankupInfo)popupInfo.template);
             }
+            else
+            if (popupInfo.PopupType == PopupType.ClassChange)
+            {
+                var classChange = prefab.GetComponent<ClassChangeView>();
+                classChange.SetClassChangeInfo((ClassChangeInfo)popupInfo.template);
+            }
             SetIsBusyMainAndStatus();
         }
 

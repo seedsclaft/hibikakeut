@@ -108,9 +108,14 @@ namespace Ryneus
             equipSkillList.SetData(skillInfos,false);
         }
 
-        public void SetActorInfo(ActorInfo actorInfo,List<ActorInfo> partyInfo)
+        public void SetActorInfo(ActorInfo actorInfo, List<ActorInfo> partyInfo)
         {
-            selectingActorInfoComponent.UpdateInfo(actorInfo,partyInfo);
+            selectingActorInfoComponent.UpdateInfo(actorInfo, partyInfo);
+        }
+
+        public void SetActiveActorInfo(bool isActive)
+        {
+            selectingActorInfoComponent.gameObject.SetActive(isActive);
         }
 
         private void OnSelectEquipSkill()

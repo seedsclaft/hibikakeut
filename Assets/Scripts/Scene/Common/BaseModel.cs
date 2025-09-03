@@ -181,9 +181,9 @@ namespace Ryneus
                 }
                 equipSkills.Add(skillInfo);
             }
-            if (equipSkills.Count < 8)
+            if (equipSkills.Count < actorInfo.EquipSlotCount())
             {
-                var count = 8 - equipSkills.Count;
+                var count = actorInfo.EquipSlotCount() - equipSkills.Count;
                 for (int i = 0; i < count; i++)
                 {
                     var skillInfo = new SkillInfo(0);

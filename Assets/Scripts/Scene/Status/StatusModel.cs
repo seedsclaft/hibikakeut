@@ -193,5 +193,22 @@ namespace Ryneus
             };
             return strategySceneInfo;
         }
+
+        public bool CanUseItem(ItemInfo itemInfo)
+        {
+            switch (itemInfo.Master.Param1)
+            {
+                case (int)UseItemType.Exp:
+                    return CurrentActor.Level < CurrentActor.Master.MaxLv;
+                case (int)UseItemType.AttributeUp:
+                    var getAttibute = (AttributeType)itemInfo.Master.Param2;
+                    return CurrentActor.AttributeRanks(PartyInfo.ActorInfos)[(int)getAttibute] != AttributeRank.S;
+                case (int)UseItemType.StatusUp:
+                    return true;
+                case (int)UseItemType.ClassChange:
+                    return !CurrentActor.IsClassChenged.Value;
+            }
+            return true;
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace Ryneus
             }
         }
 
-        private void UpdateDate(ItemData itemData)
+        public void UpdateDate(ItemData itemData)
         {
             if (icon != null)
             {

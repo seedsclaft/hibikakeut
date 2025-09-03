@@ -8,6 +8,7 @@ namespace Ryneus
     public class GetItem : ListItem, IListViewItem
     {
         [SerializeField] private SkillInfoComponent skillInfoComponent;
+        [SerializeField] private ItemInfoComponent itemInfoComponent;
         [SerializeField] private TextMeshProUGUI titleName;
 
         public void UpdateViewItem()
@@ -30,6 +31,13 @@ namespace Ryneus
                     skillId = data.Param1;
                 }
                 skillInfoComponent.UpdateData(skillId);
+            }
+            if (itemInfoComponent != null)
+            {
+                if (data.IsItem())
+                {
+                    itemInfoComponent.UpdateDate(DataSystem.Items.Find(a => a.Id == data.Param1));
+                }
             }
             if (titleName != null)
             {

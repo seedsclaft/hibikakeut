@@ -256,6 +256,10 @@ namespace Ryneus
             {
                 return;
             }
+            if (!_model.CanUseItem(itemInfo))
+            {
+                return;
+            }
             _model.PartyInfo.ConsuneItemNum(itemInfo.Id.Value, 1);
             // 経験値付与
             switch (itemInfo.Master.Param1)
@@ -268,6 +272,9 @@ namespace Ryneus
                     break;
                 case (int)UseItemType.StatusUp:
                     UseItemStatusUp(itemInfo);
+                    break;
+                case (int)UseItemType.ClassChange:
+                    UseItemClassChange(itemInfo);
                     break;
             }
         }
@@ -319,6 +326,31 @@ namespace Ryneus
                 _view.SetBusy(false);
                 CommandRefresh();
             });
+            CommandRefreshuseItemList();
+        }
+
+        private void UseItemClassChange(ItemInfo itemInfo)
+        {
+            _busy = true;
+            _view.SetBusy(true);
+            SoundManager.Instance.PlayStaticSe(SEType.LevelUp);
+            var beforeStatus = new StatusInfo();
+            beforeStatus.SetParameter(_model.CurrentActor.CurrentStatus);
+            var ClassChangeInfo = new ClassChangeInfo(_model.CurrentActor, beforeStatus);
+            _model.CurrentActor.IsClassChenged.SetValue(true);
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.ClassChange,
+                EndEvent = () =>
+                {
+                    CheckAchievements();
+                    _busy = false;
+                    _view.SetBusy(false);
+                    CommandRefreshMagicList();
+                },
+                template = ClassChangeInfo
+            };
+            _view.CommandCallPopup(popupInfo);
             CommandRefreshuseItemList();
         }
 

@@ -312,6 +312,15 @@ namespace Ryneus
             return 1;
         }
 
+        public int EquipSlotCount()
+        {
+            if (IsClassChenged == null)
+            {
+                IsClassChenged = new();
+            }
+            return IsClassChenged.Value ? 12 : 8;
+        }
+
         public LevelUpInfo LevelUp(int useCost, int stageId)
         {
             var levelUpInfo = new LevelUpInfo
@@ -353,6 +362,16 @@ namespace Ryneus
                 statusInfo.AddParameter(StatusParamType.Mov, LevelGrowthRate(StatusParamType.Mov, level));
                 statusInfo.AddParameter(StatusParamType.Cost, LevelGrowthRate(StatusParamType.Cost, level));
 
+                if (IsClassChenged.Value)
+                {
+                    // 1割増し
+                    statusInfo.AddParameter(StatusParamType.Hp, statusInfo.Hp * 0.1f);
+                    statusInfo.AddParameter(StatusParamType.Mp, statusInfo.Mp * 0.1f);
+                    statusInfo.AddParameter(StatusParamType.Atk, statusInfo.Atk * 0.1f);
+                    statusInfo.AddParameter(StatusParamType.Def, statusInfo.Def * 0.1f);
+                    statusInfo.AddParameter(StatusParamType.Spd, statusInfo.Spd * 0.1f);
+                    statusInfo.AddParameter(StatusParamType.Cost, statusInfo.Cost * 0.1f);
+                }
                 statusInfo.AddParameter(StatusParamType.Hp, _plusStatus.GetParameter(StatusParamType.Hp));
                 statusInfo.AddParameter(StatusParamType.Mp, _plusStatus.GetParameter(StatusParamType.Mp));
                 statusInfo.AddParameter(StatusParamType.Atk, _plusStatus.GetParameter(StatusParamType.Atk));
@@ -529,11 +548,13 @@ namespace Ryneus
                 _useSkillCountDict = new();
             }
         }
+
         public int GetSkillUseCount(int skillId)
         {
             InitSkillUseCount();
             return !_useSkillCountDict.ContainsKey(skillId) ? 0 : _useSkillCountDict[skillId];
         }
+
         public void AddSkillUseCount(int skillId, int count)
         {
             InitSkillUseCount();
@@ -543,6 +564,7 @@ namespace Ryneus
             }
             _useSkillCountDict[skillId] += count;
         }
+
         public void ClearSkillUseCount()
         {
             InitSkillUseCount();
@@ -560,6 +582,8 @@ namespace Ryneus
         {
             return "評価値+" + TransferGetItem().ToString();
         }
+
+        public ParameterBool IsClassChenged = new();
 
         private List<SkillTriggerInfo> _skillTriggerInfos = new();
         public List<SkillTriggerInfo> SkillTriggerInfos => _skillTriggerInfos;

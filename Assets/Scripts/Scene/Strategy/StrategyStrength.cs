@@ -15,7 +15,7 @@ namespace Ryneus
             }
 
             var data = ListItemData<StrategyStrengthInfo>();
-            strengthComponent.UpdateInfo(data.ActorInfo,data.StatusParamType);
+            strengthComponent.UpdateInfo(data.ActorInfo, data.StatusParamType);
         }
     }
 

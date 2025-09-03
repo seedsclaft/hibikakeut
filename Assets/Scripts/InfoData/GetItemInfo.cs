@@ -104,6 +104,11 @@ namespace Ryneus
             return _getItemType == GetItemType.Skill || (_getItemType == GetItemType.SelectRelic && Param1 > 1000);
         }
 
+        public bool IsItem()
+        {
+            return _getItemType == GetItemType.Item;
+        }
+
         public bool IsAttributeSkill()
         {
             return false;//(int)_getItemType >= (int)GetItemType.AttributeFire && (int)_getItemType <= (int)GetItemType.AttributeDark;
