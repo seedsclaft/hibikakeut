@@ -114,7 +114,7 @@ namespace Ryneus
 
         public bool IsBattlePassiveSkill()
         {
-            return Master.SkillType is SkillType.Passive or SkillType.Unique or SkillType.Relic;
+            return Master.SkillType is SkillType.Passive or SkillType.Unique or SkillType.Artifact;
         }
 
         public bool IsBattleSpecialSkill()

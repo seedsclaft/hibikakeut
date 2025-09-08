@@ -1633,10 +1633,10 @@ MonoBehaviour:
   - Id: 60
     StageNo: 6
     Category: 1
-    Name: "\u937E\u4E73\u6D1E\u306E\u907A\u8DE1"
+    Name: "\u5929\u7A7A\u57CE"
     Selectable: 1
     Chapter: 1
-    Help: "\u304B\u3064\u3066\u6C34\u6676\u3092\u63A1\u77F3\u3057\u3066\u3044\u305F\u937E\u4E73\u6D1E\u3002\n\u3042\u308B\u6642\u3092\u5883\u306B\u8AB0\u4E00\u4EBA\u3068\u3057\u3066\u8A2A\u308C\u308B\u3053\u3068\u306F\u306A\u304F\u306A\u3063\u305F\u3002"
+    Help: "\u304B\u3064\u3066\u6226\u4E59\u5973\u306B\u3088\u3063\u3066\u5C01\u5370\u3055\u308C\u305F\u4E0D\u6B7B\u8005\u306E\u57CE\u3002\n\u6DF7\u4E71\u306B\u4E57\u3058\u4F55\u8005\u304B\u304C\u6D6E\u4E0A\u3055\u305B\u305F\u3088\u3046\u3060\u3002"
     StageLv: 20
     OnlyOnce: 0
     DisplayRank: 8
@@ -1704,7 +1704,7 @@ MonoBehaviour:
     Name: "\u5FD8\u5374\u306E\u68EE"
     Selectable: 1
     Chapter: 2
-    Help: "\u4E8C\u5EA6\u3068\u306F\u5165\u308B\u3053\u3068\u304C\u3067\u304D\u306A\u3044\u4E0D\u601D\u8B70\u306A\u6D1E\u7A9F\u3002\n\u8CB4\u91CD\u306A\u9B54\u6CD5\u66F8\u304C\u96A0\u3055\u308C\u3066\u3044\u308B\u3068\u8A00\u308F\u308C\u3066\u3044\u308B\u3002"
+    Help: "\u4E8C\u5EA6\u3068\u306F\u5165\u308B\u3053\u3068\u304C\u3067\u304D\u306A\u3044\u4E0D\u601D\u8B70\u306A\u68EE\u3002\n\u8CB4\u91CD\u306A\u9B54\u6CD5\u66F8\u304C\u96A0\u3055\u308C\u3066\u3044\u308B\u3068\u8A00\u308F\u308C\u3066\u3044\u308B\u3002"
     StageLv: 7
     OnlyOnce: 1
     DisplayRank: 4
@@ -1778,7 +1778,7 @@ MonoBehaviour:
     Name: "\u5FD8\u5374\u306E\u5EC3\u589F"
     Selectable: 1
     Chapter: 3
-    Help: "\u4E8C\u5EA6\u3068\u306F\u5165\u308B\u3053\u3068\u304C\u3067\u304D\u306A\u3044\u4E0D\u601D\u8B70\u306A\u6D1E\u7A9F\u3002\n\u8CB4\u91CD\u306A\u9B54\u6CD5\u66F8\u304C\u96A0\u3055\u308C\u3066\u3044\u308B\u3068\u8A00\u308F\u308C\u3066\u3044\u308B\u3002"
+    Help: "\u4E8C\u5EA6\u3068\u306F\u5165\u308B\u3053\u3068\u304C\u3067\u304D\u306A\u3044\u4E0D\u601D\u8B70\u306A\u5EC3\u589F\u3002\n\u8CB4\u91CD\u306A\u9B54\u6CD5\u66F8\u304C\u96A0\u3055\u308C\u3066\u3044\u308B\u3068\u8A00\u308F\u308C\u3066\u3044\u308B\u3002"
     StageLv: 15
     OnlyOnce: 1
     DisplayRank: 5
@@ -1837,3 +1837,287 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
+  - Id: 1040
+    StageNo: 104
+    Category: 11
+    Name: "\u5FD8\u5374\u306E\u5854"
+    Selectable: 1
+    Chapter: 4
+    Help: "\u4E8C\u5EA6\u3068\u306F\u5165\u308B\u3053\u3068\u304C\u3067\u304D\u306A\u3044\u4E0D\u601D\u8B70\u306A\u5854\u3002\n\u8CB4\u91CD\u306A\u9B54\u6CD5\u66F8\u304C\u96A0\u3055\u308C\u3066\u3044\u308B\u3068\u8A00\u308F\u308C\u3066\u3044\u308B\u3002"
+    StageLv: 20
+    OnlyOnce: 1
+    DisplayRank: 7
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates: []
+    EncountMin: 8
+    EncountMax: 12
+    BackGround: Ruins2
+    BossTroopId: 0
+    BGMId: 1210
+    BossBGMId: 3010
+    BattleBGMId: 2030
+    SkyboxName: '""'
+    StageEvents: []
+  - Id: 2010
+    StageNo: 201
+    Category: 2
+    Name: "\u30A2\u30B9\u30AC\u30EB\u30C9\u306E\u57CE\u58C1\u30FB\u4EA4\u6226\u5730"
+    Selectable: 1
+    Chapter: 3
+    Help: "\u30A2\u30FC\u30B9\u795E\u65CF\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
+    StageLv: 10
+    OnlyOnce: 1
+    DisplayRank: 1
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 10
+    - EnemyId: 2
+      Weight: 10
+    - EnemyId: 3
+      Weight: 10
+    - EnemyId: 4
+      Weight: 10
+    - EnemyId: 5
+      Weight: 10
+    - EnemyId: 6
+      Weight: 10
+    - EnemyId: 7
+      Weight: 10
+    - EnemyId: 8
+      Weight: 10
+    - EnemyId: 9
+      Weight: 10
+    - EnemyId: 10
+      Weight: 10
+    EncountMin: 0
+    EncountMax: 0
+    BackGround: NA_background image_3D like_204
+    BossTroopId: 20010
+    BGMId: 2020
+    BossBGMId: 2020
+    BattleBGMId: 2020
+    SkyboxName: CloudedSunGlow
+    StageEvents:
+    - EventKey: 2010_7_8DungeonForceBossBattle20010
+      Timing: 3010
+      Type: 5020
+      PositionX: 7
+      PositionY: 8
+      Param: 20010
+      Param2: 40020
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2010_7_10DungeonAdvStart150
+      Timing: 3010
+      Type: 1010
+      PositionX: 7
+      PositionY: 10
+      Param: 150
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2010_7_10DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 7
+      PositionY: 10
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 2010_7_12DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 7
+      PositionY: 12
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2010_5_14DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 5
+      PositionY: 14
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2010_5_19DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 5
+      PositionY: 19
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2010_9_14DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 9
+      PositionY: 14
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2010_9_19DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 9
+      PositionY: 19
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+  - Id: 2020
+    StageNo: 202
+    Category: 2
+    Name: "\u30D5\u30A1\u30ED\u30B9\u7826\u30FB\u4EA4\u6226\u5730"
+    Selectable: 1
+    Chapter: 5
+    Help: "\u30A2\u30FC\u30B9\u795E\u65CF\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
+    StageLv: 25
+    OnlyOnce: 1
+    DisplayRank: 1
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates: []
+    EncountMin: 0
+    EncountMax: 0
+    BackGround: NA_background image_3D like_204
+    BossTroopId: 20020
+    BGMId: 2020
+    BossBGMId: 2020
+    BattleBGMId: 2020
+    SkyboxName: CloudedSunGlow
+    StageEvents:
+    - EventKey: 2020_6_10DungeonForceBossBattle20020
+      Timing: 3010
+      Type: 5020
+      PositionX: 6
+      PositionY: 10
+      Param: 20020
+      Param2: 40020
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2020_6_13DungeonAdvStart150
+      Timing: 3010
+      Type: 1010
+      PositionX: 6
+      PositionY: 13
+      Param: 150
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2020_6_13DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 6
+      PositionY: 13
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 2020_2_19DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 2
+      PositionY: 19
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2020_6_19DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 6
+      PositionY: 19
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2020_10_19DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 10
+      PositionY: 19
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2020_6_15DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 6
+      PositionY: 15
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2020_10_15DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 10
+      PositionY: 15
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2020_10_9DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 10
+      PositionY: 9
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2020_2_5DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 2
+      PositionY: 5
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2020_6_5DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 6
+      PositionY: 5
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 2020_10_5DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 10
+      PositionY: 5
+      Param: -1
+      Param2: 40030
+      Param3: 0
+      ReadFlag: 1
+  - Id: 2030
+    StageNo: 203
+    Category: 2
+    Name: "\u30E9\u30B0\u30CA\u30ED\u30AF\u30FB\u4EA4\u6226\u5730"
+    Selectable: 1
+    Chapter: 7
+    Help: "\u30ED\u30AD\u3068\u4EA4\u6226\u72B6\u614B\u306B\u3042\u308B\u6226\u5834\u3078\u3068\u8D74\u304F\u3002\n\u51FA\u6483\u3057\u305F\u3089\u3082\u3046\u5F8C\u623B\u308A\u306F\u3067\u304D\u306A\u3044\u3002"
+    StageLv: 30
+    OnlyOnce: 1
+    DisplayRank: 1
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates: []
+    EncountMin: 0
+    EncountMax: 0
+    BackGround: NA_background image_3D like_204
+    BossTroopId: 20030
+    BGMId: 2020
+    BossBGMId: 2020
+    BattleBGMId: 2020
+    SkyboxName: CloudedSunGlow
+    StageEvents: []

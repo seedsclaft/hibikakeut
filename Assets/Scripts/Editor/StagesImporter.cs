@@ -71,10 +71,10 @@ namespace Ryneus
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             StageNo = AssetPostImporter.ImportNumeric(BaseRow, "StageNo"),
                             Category = (StageCategory)AssetPostImporter.ImportNumeric(BaseRow, "Category"),
-                            Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
+                            Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId"))?.Text,
                             Selectable = AssetPostImporter.ImportNumeric(BaseRow, "Selectable") == 1,
                             Chapter = AssetPostImporter.ImportNumeric(BaseRow, "Chapter"),
-                            Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,
+                            Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId"))?.Help,
                             StageLv = AssetPostImporter.ImportNumeric(BaseRow, "StageLv"),
                             OnlyOnce = AssetPostImporter.ImportBool(BaseRow, "OnlyOnce"),
                             DisplayRank = AssetPostImporter.ImportNumeric(BaseRow, "DisplayRank"),
@@ -90,7 +90,6 @@ namespace Ryneus
                             SkyboxName = AssetPostImporter.ImportString(BaseRow, "SkyboxName"),
                             StageEvents = new List<StageEventData>()
                         };
-
                         KeyRow = EventSheet.GetRow(0);
                         AssetPostImporter.SetKeyNames(KeyRow.Cells);
                         for (int j = 1; j <= EventSheet.LastRowNum; j++)

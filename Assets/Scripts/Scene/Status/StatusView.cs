@@ -105,7 +105,7 @@ namespace Ryneus
 
         public void SetEquipSkillList(List<ListData> skillInfos)
         {
-            equipSkillList.SetData(skillInfos,false);
+            equipSkillList.SetData(skillInfos, false);
         }
 
         public void SetActorInfo(ActorInfo actorInfo, List<ActorInfo> partyInfo)
@@ -129,7 +129,7 @@ namespace Ryneus
             var data = equipSkillList.ListItemData<SkillInfo>();
             if (data != null)
             {
-                CallViewEvent(CommandType.SelectEquipSkill,data);
+                CallViewEvent(CommandType.SelectEquipSkill ,data);
             }
         }
 
@@ -141,8 +141,8 @@ namespace Ryneus
         private void InitializeChangeSkillList()
         {
             changeSkillList.Initialize();
-            changeSkillList.SetInputHandler(InputKeyType.Decide,OnSelectChangeSkill);
-            changeSkillList.SetInputHandler(InputKeyType.Cancel,OnCancelEquipSkill);
+            changeSkillList.SetInputHandler(InputKeyType.Decide, OnSelectChangeSkill);
+            changeSkillList.SetInputHandler(InputKeyType.Cancel, OnCancelEquipSkill);
             //changeSkillList.SetInputHandler(InputKeyType.SideLeft1,() => CallViewEvent(CommandType.FilterMinus));
             //changeSkillList.SetInputHandler(InputKeyType.SideRight1,() => CallViewEvent(CommandType.FilterPlus));
             AddViewActives(changeSkillList);
@@ -162,7 +162,7 @@ namespace Ryneus
             var data = changeSkillList.ListItemData<SkillInfo>();
             if (data != null)
             {
-                CallViewEvent(CommandType.SelectChangeSkill,data);
+                CallViewEvent(CommandType.SelectChangeSkill, data);
             }
         }
 
@@ -271,10 +271,10 @@ namespace Ryneus
             var canvasGroup = decideAnimation.GetComponent<CanvasGroup>();
             var duration = 1f;
             DOTween.Sequence()
-                .Append(rect.DOScaleX(1.25f,duration))
-                .Join(rect.DOScaleY(1.1f,duration))
-                .Join(canvasGroup.DOFade(0,duration))
-                .Append(canvasGroup.DOFade(0,duration)
+                .Append(rect.DOScaleX(1.25f, duration))
+                .Join(rect.DOScaleY(1.1f, duration))
+                .Join(canvasGroup.DOFade(0, duration))
+                .Append(canvasGroup.DOFade(0, duration)
                 .SetEase(Ease.InOutQuad))
                 .SetLoops(-1);
         }
@@ -288,13 +288,13 @@ namespace Ryneus
             statusLevelUpRoot.SetActive(isActive);
         }
 
-        public void SetLvUpInfo(int cost,int currency)
+        public void SetLvUpInfo(int cost, int currency)
         {
             if (statusLevelUp == null)
             {
                 return;
             }
-            statusLevelUp.SetLvUpInfo(cost,currency);
+            statusLevelUp.SetLvUpInfo(cost, currency);
         }
 
         public void SetLvUpExpInfo(int before, int after)
@@ -345,7 +345,7 @@ namespace Ryneus
             */
         }
 
-        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
             if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
             {

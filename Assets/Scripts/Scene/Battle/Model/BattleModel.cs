@@ -482,7 +482,7 @@ namespace Ryneus
             {
                 return false;
             }
-            if (skillInfo.Master.SkillType == SkillType.Relic)
+            if (skillInfo.Master.SkillType == SkillType.Artifact)
             {
                 return false;
             }

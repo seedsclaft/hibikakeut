@@ -26,6 +26,7 @@ namespace Ryneus
             _view.SetEvent((type) => UpdateCommand(type));
             _view.SetTrade(MakeListData(_model.TradeGetItemInfos(), 0));
             _view.OpenAnimation();
+            CommandRefresh();
             _busy = false;
         }
 
@@ -51,7 +52,7 @@ namespace Ryneus
                     CommandSelectTradeItem((TradeItemInfo)viewEvent.Template);
                     break;
                 case CommandType.CommandBack:
-                    CommandBack();
+                    CommandBack((TradeItemInfo)viewEvent.Template);
                     break;
             }
         }
@@ -156,8 +157,13 @@ namespace Ryneus
             }
         }
 
-        private void CommandBack()
+        private void CommandBack(TradeItemInfo tradeItemInfo)
         {
+            if (tradeItemInfo != null && _model.GetItems.Contains(tradeItemInfo))
+            {
+                CommandRemoveTradeItem(tradeItemInfo);
+                return;
+            }
             _view.BackEvent();
         }
 

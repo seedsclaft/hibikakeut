@@ -40,7 +40,7 @@ namespace Ryneus
         private void InitializeTrade()
         {
             tradeList.Initialize();
-            tradeList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.CommandBack));
+            tradeList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.CommandBack, tradeList.ListItemData<TradeItemInfo>()));
             tradeList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectTradeItem, tradeList.ListItemData<TradeItemInfo>()));
             tradeList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.TradeItemDetail, tradeList.ListItemData<TradeItemInfo>()));
             tradeList.SetInputHandler(InputKeyType.Start, () => CallViewEvent(CommandType.DecideTrade));
@@ -72,6 +72,7 @@ namespace Ryneus
         public void RefreshTradeList(List<ListData> getItemInfos)
         {
             tradeList.RefreshListData(getItemInfos);
+            partyInfoComponent.UpdateCurrentInfo();
         }
 
         public void UpdateAfterCurrency(int currency)

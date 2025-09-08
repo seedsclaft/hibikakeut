@@ -187,6 +187,14 @@ namespace Ryneus
 
         private void CommandTurnOver(bool moved)
         {
+            // 評価値が減少
+            _model.TurnOver();
+            _view.MinusVictoryBonus(-0.2f);
+            var cautionInfo = new CautionInfo();
+            cautionInfo.SetTitle("ターン数超過のため評価値ダウン");
+            _view.CommandCallCaution(cautionInfo);
+            // 強制帰還
+            /*
             if (_model.PartyInfo.Cursed.Value)
             {
                 if (moved)
@@ -208,6 +216,7 @@ namespace Ryneus
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
+            */
         }
 
         private void RetunrDungeon()

@@ -6,6 +6,7 @@ namespace Ryneus
     public class AchievementInfoComponent : BaseInfoComponent
     {
         [SerializeField] private GameObject categoryMain;
+        [SerializeField] private GameObject categoryNormal;
         [SerializeField] private TextMeshProUGUI rank;
         [SerializeField] private TextMeshProUGUI description;
         [SerializeField] private TextMeshProUGUI count;
@@ -53,6 +54,10 @@ namespace Ryneus
             if (categoryMain != null)
             {
                 categoryMain.SetActive(achievementData.Category == AchievementCategory.Main);
+            }
+            if (categoryNormal != null)
+            {
+                categoryNormal.SetActive(achievementData.Category == AchievementCategory.Normal);
             }
             if (rank != null)
             {

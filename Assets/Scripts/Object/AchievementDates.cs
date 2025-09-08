@@ -42,6 +42,7 @@ namespace Ryneus
         TacticsLvupCount = 1040,
         BattleScore = 1050,
         TotalDamage = 1060,
+        ClassChangeCount = 1070,
         ClearStage = 2010,
         UseAwakeSkillCount = 3010,
         UseChangeLineCount = 3020,

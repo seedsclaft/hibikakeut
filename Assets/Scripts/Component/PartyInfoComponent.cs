@@ -10,6 +10,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI chapter;
         [SerializeField] private TextMeshProUGUI currency;
         [SerializeField] private TextMeshProUGUI evaluationValue;
+        [SerializeField] private TextMeshProUGUI evaluationAddictValue;
         [SerializeField] private TextMeshProUGUI turnCount;
         [SerializeField] private TextMeshProUGUI missionRank;
         [SerializeField] private StatusGaugeAnimation evaluationValueGauge;
@@ -52,6 +53,12 @@ namespace Ryneus
             if (evaluationValue != null)
             {
                 evaluationValue.SetText(partyInfo.EvaluationValue.Value.ToString());
+            }
+            if (evaluationAddictValue != null)
+            {
+                var evaluationAddict = partyInfo.EvaluationAddictValue();
+                evaluationAddictValue.gameObject.SetActive(evaluationAddict != 0);
+                evaluationAddictValue.SetText("(" + evaluationAddict.ToString() + ")");
             }
             if (evaluationValueGauge != null)
             {

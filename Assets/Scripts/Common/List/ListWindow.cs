@@ -854,6 +854,7 @@ namespace Ryneus
                     var v = GetViewPortHeight();
                     var ip = itemPosition;
                     var vp = viewPortPosition;
+                    var isize = _itemSize.y;
                     Debug.Log("height = " + v);
                     Debug.Log("itemPosition = " + ip);
                     Debug.Log("viewPortPosition = " + vp);
@@ -861,7 +862,7 @@ namespace Ryneus
                     {
                         verticalNormalizedPosition = 0;
                     } else
-                    if (itemPosition >= (GetViewPortHeight() + viewPortPosition))
+                    if (itemPosition >= (GetViewPortHeight() + viewPortPosition - _itemSize.y))
                     {
                         var c = _index;
                         var per = 1f - (c / p);

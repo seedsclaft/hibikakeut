@@ -210,7 +210,7 @@ namespace Ryneus
         Passive = 2, // パッシブ
         Unique = 3, // ユニーク
         Awaken = 4, // 覚醒
-        Relic = 5, // レリック
+        Artifact = 5, // アーティファクト
         Enhance = 6, // 強化
         Equip = 7, // 装備
         UseAlcana = 11, // アルカナ使用

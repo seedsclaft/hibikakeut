@@ -300,6 +300,11 @@ namespace Ryneus
             PartyInfo.BattleScore.GainValue(-20, 0);
         }
 
+        public void TurnOver()
+        {
+            PartyInfo.BattleScore.GainValue(-20, 0);
+        }
+
         public void SaveBgmTiming()
         {
             var timeStamp = SoundManager.Instance.CurrentTimeStamp();

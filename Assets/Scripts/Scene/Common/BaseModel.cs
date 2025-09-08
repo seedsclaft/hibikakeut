@@ -760,16 +760,7 @@ namespace Ryneus
             PartyInfo.ClearTradeItemInfos();
             if (PartyInfo.Chapter.Value >= 2)
             {
-                // アーティファクト所持数分評価値を減らす
-                var artifactNum = 0;
-                foreach (var item in PartyInfo.Items)
-                {
-                    if (item.Key > 2000 && item.Value.Value > 0)
-                    {
-                        artifactNum++;
-                    }
-                }
-                PartyInfo.EvaluationValue.GainValue(-4 * artifactNum, 0);
+                PartyInfo.EvaluationValue.GainValue(PartyInfo.EvaluationAddictValue(), 0);
             }
             PartyInfo.ClearSkillUseCount();
         }
