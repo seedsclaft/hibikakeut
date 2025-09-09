@@ -53,6 +53,7 @@ namespace Ryneus
         Transfer,
         ReleaseList,
         Trade,
+        UseItem,
         SideMenu,
         Option,
         TutorialStage,

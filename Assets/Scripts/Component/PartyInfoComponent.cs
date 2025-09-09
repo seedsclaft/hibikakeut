@@ -17,6 +17,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI victoryBonus;
         [SerializeField] private AchievementInfoComponent achievementInfoComponent;
         [SerializeField] private TextMeshProUGUI dungeonCompletionRate;
+        [SerializeField] private GameObject encountRateRoot;
+        [SerializeField] private TextMeshProUGUI encountRate;
         public void UpdateCurrentInfo()
         {
             var current = PartyInfo;
@@ -79,6 +81,14 @@ namespace Ryneus
             if (dungeonCompletionRate != null)
             {
                 dungeonCompletionRate.SetText(partyInfo.DungeonCompletionRate().ToString("F2") + "%");
+            }
+            if (encountRateRoot != null)
+            {
+                encountRateRoot.SetActive(partyInfo.CurrentDeckInfo.EncountRate.Value != 1);
+            }
+            if (encountRate != null)
+            {
+                encountRate.SetText(partyInfo.CurrentDeckInfo.EncountRateText());
             }
         }
     }

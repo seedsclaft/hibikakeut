@@ -90,6 +90,7 @@ namespace Ryneus
         ReleaseList,
         Trade,
         AlcanaList,
+        UseItem,
         SlotSave,
         LearnSkill,
         ClassChange,

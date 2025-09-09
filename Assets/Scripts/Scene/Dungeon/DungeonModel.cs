@@ -144,7 +144,13 @@ namespace Ryneus
                 {
                     // ランダムエンカウントフラグ加算
                     int flag = Random.Range(CurrentStage.Master.EncountMin, CurrentStage.Master.EncountMax);
-                    CurrentDeckInfo.Encount.GainValue(flag, 0, 100);
+                    var encountValue = (int)(flag * CurrentDeckInfo.EncountRate.Value);
+                    CurrentDeckInfo.Encount.GainValue(encountValue, 0, 100);
+                    CurrentDeckInfo.EncountRateTurn.GainValue(-1, 0);
+                    if (CurrentDeckInfo.EncountRateTurn.Value == 0)
+                    {
+                        CurrentDeckInfo.EncountRate.SetValue(0);
+                    }
 
                     // 残りターン数を減算
                     PartyInfo.TurnCount.GainValue(-1);

@@ -31,6 +31,7 @@ namespace Ryneus
         Currency = 30,
         UseItem = 40,
         RandumAddItem = 41,
+        DungeonItem = 50,
     }
 
     [Serializable]
@@ -40,5 +41,6 @@ namespace Ryneus
         AttributeUp = 20,
         StatusUp = 30,
         ClassChange = 40,
+        EncountRate = 50,
     }
 }

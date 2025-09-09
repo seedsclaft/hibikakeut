@@ -37,6 +37,17 @@ namespace Ryneus
 
         // ランダムエンカウント値
         public ParameterInt Encount = new();
+        public ParameterFloat EncountRate = new(1);
+        public ParameterFloat EncountRateTurn = new(0);
+        public string EncountRateText()
+        {
+            if (EncountRate.Value != 1)
+            {
+
+                return EncountRateTurn.Value + "ターン Encount率 x" + EncountRate.Value;
+            }
+            return "";
+        }
 
         // 編成情報
         private Dictionary<int, int> _actorIdDict = new();

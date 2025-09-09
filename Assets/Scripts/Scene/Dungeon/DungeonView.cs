@@ -19,6 +19,7 @@ namespace Ryneus
         [SerializeField] private OnOffButton formationButton = null;
         [SerializeField] private OnOffButton healButton = null;
         [SerializeField] private OnOffButton decideButton = null;
+        [SerializeField] private OnOffButton useItemButton = null;
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent;
         [SerializeField] private OnOffButton alcanaInfoButton;
         [SerializeField] private TextMeshProUGUI minusVictoryBonus;
@@ -52,6 +53,13 @@ namespace Ryneus
                 formationButton.OnClickAddListener(() =>
                 {
                     CallFormation();
+                });
+            }
+            if (useItemButton != null)
+            {
+                useItemButton.OnClickAddListener(() =>
+                {
+                    CallViewEvent(CommandType.UseItem);
                 });
             }
             if (alcanaInfoButton != null)
@@ -159,7 +167,7 @@ namespace Ryneus
             }
             if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
             {
-                CallViewEvent(CommandType.Aritifact);
+                CallViewEvent(CommandType.UseItem);
             }
             if (keyTypes.Contains(InputKeyType.Option2))
             {
@@ -204,6 +212,15 @@ namespace Ryneus
                 return;
             }
             formationButton.gameObject.SetActive(isActive);
+        }
+
+        public void SetActiveUseItemButton(bool isActive)
+        {
+            if (useItemButton == null)
+            {
+                return;
+            }
+            useItemButton.gameObject.SetActive(isActive);
         }
 
         public void SetActiveStageInfo(bool isActive)
@@ -327,6 +344,7 @@ namespace Ryneus
             DecideDirectEvent,
             Heal,
             Formation,
+            UseItem,
             SelectCharacter,
             EndFormation,
             Aritifact,

@@ -78,6 +78,9 @@ namespace Ryneus
                 case CommandType.Formation:
                     CommandFormation();
                     break;
+                case CommandType.UseItem:
+                    CommandUseItem();
+                    break;
                 case CommandType.SelectCharacter:
                     CommandSelectCharacter((int)viewEvent.Template);
                     break;
@@ -750,6 +753,29 @@ namespace Ryneus
             _view.StartFormation();
         }
 
+        private void CommandUseItem()
+        {
+            if (!_model.IsActiveDungeon())
+            {
+                return;
+            }
+            _busy = true;
+            _model.DungeonBusy(true);
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.UseItem,
+                template = null,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    _model.DungeonBusy(false);
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                    CommandRefresh();
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
+        }
+
         private void CommandSelectCharacter(int selectIndex)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
@@ -794,7 +820,7 @@ namespace Ryneus
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
-            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
+            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
         }
 
         private void CommandSelectSideMenu()
