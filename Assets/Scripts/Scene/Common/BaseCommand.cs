@@ -18,7 +18,7 @@ namespace Ryneus
             commandName.SetText(data.Name);
             if (Disable != null)
             {
-                Disable.SetActive(!ListData.Enable);
+                Disable.SetActive(!ListData.Enable.Value);
             }
             if (Batch != null)
             {

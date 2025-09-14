@@ -16,7 +16,7 @@ namespace Ryneus
             component.UpdateInfo(data,null);
             if (Disable != null)
             {
-                Disable.SetActive(!ListData.Enable);
+                Disable.SetActive(!ListData.Enable.Value);
             }
         }
     }

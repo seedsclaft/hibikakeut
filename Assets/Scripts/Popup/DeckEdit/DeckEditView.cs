@@ -41,7 +41,7 @@ namespace Ryneus
         {
             if (partyUnitList.Index > -1)
             {
-                listDatas[partyUnitList.Index].SetSelected(true);
+                listDatas[partyUnitList.Index].Selected.SetValue(true);
             }
             partyUnitList.SetData(listDatas);
         }

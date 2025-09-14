@@ -18,9 +18,9 @@ namespace Ryneus
             _value = value;
         }
 
-        public void SetValue(int value,int minValue,int maxValue)
+        public void SetValue(int value, int minValue, int maxValue)
         {
-            var result = Math.Min(Math.Max(value,minValue),maxValue);
+            var result = Math.Min(Math.Max(value, minValue), maxValue);
             SetValue(result);
         }
 
@@ -29,19 +29,19 @@ namespace Ryneus
             _value += value;
         }
 
-        public void GainValue(int value,int minValue)
+        public void GainValue(int value, int minValue)
         {
             _value += value;
-            _value = Math.Max(_value,minValue);
+            _value = Math.Max(_value, minValue);
         }
 
-        public void GainValue(int value,int minValue,int maxValue)
+        public void GainValue(int value, int minValue, int maxValue)
         {
             _value += value;
-            _value = Math.Min(Math.Max(_value,minValue),maxValue);
+            _value = Math.Min(Math.Max(_value, minValue), maxValue);
         }
 
-        public void GainValue(int value,int minValue,int maxValue,bool wrap = false)
+        public void GainValue(int value, int minValue, int maxValue, bool wrap = false)
         {
             _value += value;
             if (wrap)
@@ -56,7 +56,7 @@ namespace Ryneus
                 }
             } else
             {
-                _value = Math.Min(Math.Max(_value,minValue),maxValue);
+                _value = Math.Min(Math.Max(_value, minValue), maxValue);
             }
         }
     }

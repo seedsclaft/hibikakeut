@@ -63,8 +63,8 @@ namespace Ryneus
         {
             if (ListData == null) return;
             var data = ListItemData<TacticsActorInfo>();
-            tacticsComponent.UpdateInfo(data.ActorInfo,data.TacticsCommandType);
-            Disable?.SetActive(!ListData.Enable);
+            tacticsComponent.UpdateInfo(data.ActorInfo, data.TacticsCommandType);
+            Disable?.SetActive(!ListData.Enable.Value);
             if (data.DisableText != null)
             {
                 disableText?.SetText(data.DisableText);

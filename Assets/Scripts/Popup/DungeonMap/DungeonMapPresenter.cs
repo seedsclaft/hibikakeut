@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Ryneus.DungeonMap;
-using UnityEditor.Recorder;
 
 namespace Ryneus
 {
@@ -52,19 +51,8 @@ namespace Ryneus
         private void CommandDecideItem(MapCellInfo mapInfo)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            LogOutput.Log(mapInfo.MapInfo.eventId);
-            return;
-            _view.ActivateDungeonMap(false);
-            _busy = true;
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(34040), (a) =>
-            {
-                if (a == ConfirmCommandType.Yes)
-                {
-                }
-                _busy = false;
-                _view.ActivateDungeonMap(true);
-            });
-            _view.CommandCallConfirm(confirmInfo);
+            _model.FindPath(mapInfo);
+            _view.UpdateDungeonMap(MakeListData(_model.MapCellInfos(), 0));
         }
 
         private void CheckTutorialState(object commandType = null)

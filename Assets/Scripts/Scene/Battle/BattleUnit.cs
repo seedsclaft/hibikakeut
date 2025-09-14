@@ -38,7 +38,7 @@ namespace Ryneus
             var unitInfo = ListItemData<UnitInfo>();
             _unitInfo = unitInfo;
             unitInfoComponent.UpdateInfo(unitInfo);
-            if (!ListData.Enable)
+            if (!ListData.Enable.Value)
             {
                 SetDisable();
             }

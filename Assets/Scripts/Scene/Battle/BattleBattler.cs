@@ -55,7 +55,7 @@ namespace Ryneus
             //UpdateLocalPosition(battlerInfo);
             if (Disable != null)
             {
-                Disable.SetActive(!ListData.Enable);
+                Disable.SetActive(!ListData.Enable.Value);
             }
         }
 

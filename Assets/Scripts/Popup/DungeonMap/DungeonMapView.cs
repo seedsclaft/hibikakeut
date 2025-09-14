@@ -40,6 +40,12 @@ namespace Ryneus
             });
         }
 
+        public void UpdateDungeonMap(List<ListData> achievementLists)
+        {
+            mapCellList.RefreshListData(achievementLists);
+            mapCellList.UpdateAllItems();
+        }
+
         public void CheckItemDetailButtonActive()
         {
         }

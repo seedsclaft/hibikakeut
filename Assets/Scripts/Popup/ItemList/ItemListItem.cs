@@ -48,7 +48,7 @@ namespace Ryneus
             component.UpdateInfo(data);
             if (Disable != null)
             {
-                Disable.SetActive(!ListData.Enable);
+                Disable.SetActive(!ListData.Enable.Value);
             }
             if (detailButton != null)
             {

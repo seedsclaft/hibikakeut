@@ -502,8 +502,7 @@ namespace Ryneus
                 var battlerInfo = battlerInfos.Find(a => item.Key == ((BattlerInfo)a.Data).Index.Value);
                 if (battlerInfo != null)
                 {
-                    var selectable = battlerInfo.Enable;
-                    item.Value.SetThumbAlpha(selectable);
+                    item.Value.SetThumbAlpha(battlerInfo.Enable.Value);
                 }
             }
         }
@@ -516,8 +515,7 @@ namespace Ryneus
                 var battlerInfo = battlerInfos.Find(a => item.Key == ((BattlerInfo)a.Data).Index.Value);
                 if (battlerInfo != null)
                 {
-                    var selectable = battlerInfo.Enable;
-                    item.Value.SetThumbAlpha(selectable);
+                    item.Value.SetThumbAlpha(battlerInfo.Enable.Value);
                 }
             }
         }

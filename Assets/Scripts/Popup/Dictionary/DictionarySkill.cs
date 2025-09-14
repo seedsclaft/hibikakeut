@@ -23,7 +23,7 @@ namespace Ryneus
             AwakenObj?.SetActive(data.Master.SkillType == SkillType.Awaken);
             MessiahObj?.SetActive(data.Master.SkillType == SkillType.Unique);
             BgObj?.SetActive(data.Master.SkillType != SkillType.Unique && data.Master.SkillType != SkillType.Awaken);
-            if (ListData.Enable == false)
+            if (!ListData.Enable.Value)
             {
                 var question = data.Master.Name.Length - 1;
                 skillInfoComponent.SetName(DataSystem.GetText(121010 + question));

@@ -35,7 +35,7 @@ namespace Ryneus
             }
             if (Disable != null)
             {
-                Disable.SetActive(!ListData.Enable);
+                Disable.SetActive(!ListData.Enable.Value);
             }
         }
 

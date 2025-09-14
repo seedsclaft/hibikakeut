@@ -9,6 +9,7 @@ namespace Ryneus
         [SerializeField] private Image roadImage;
         [SerializeField] private Image cellImage;
         [SerializeField] private GameObject playerPointer;
+        [SerializeField] private Image pathImage;
 
         public void UpdateViewItem()
         {
@@ -20,20 +21,22 @@ namespace Ryneus
             if (roadImage != null)
             {
                 roadImage.gameObject.SetActive(data.MapInfo.mapAttr == 0 || data.MapInfo.mapAttr > 1 && data.MapInfo.mapAttr < 99);
-                //cellImage.sprite = ResourceSystem.LoadMapCell(data.mapAttr);
             }
             if (cellImage != null)
             {
                 cellImage.gameObject.SetActive(data.MapInfo.mapAttr > 1 && data.MapInfo.mapAttr < 99);
-                //cellImage.sprite = ResourceSystem.LoadMapCell(data.mapAttr);
             }
             if (playerPointer != null)
             {
                 playerPointer.SetActive(GameSystem.GameInfo.PartyInfo.CurrentDeckInfo.ExistPlayerPosition(data.MapInfo.eventId));
             }
+            if (pathImage != null)
+            {
+                pathImage.gameObject.SetActive(data.IsPathSelect);
+            }
             if (Disable != null)
             {
-                Disable.SetActive(!ListData.Enable);
+                Disable.SetActive(!ListData.Enable.Value);
             }
         }
     }

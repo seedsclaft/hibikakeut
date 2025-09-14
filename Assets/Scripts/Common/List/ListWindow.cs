@@ -113,7 +113,7 @@ namespace Ryneus
         {
             if (EnableValueChanged())
             {
-                UpdateListItem();
+                UpdateListGridItem();
                 UpdateSelectIndex(Index);
             }
         }
@@ -212,11 +212,11 @@ namespace Ryneus
             }
         }
 
-        public void UpdateItemPrefab(int selectIndex = -1,int itemStartIndex = -1)
+        public void UpdateItemPrefab(int selectIndex = -1, int itemStartIndex = -1)
         {
             if (_grid)
             {
-                UpdateListItem();
+                UpdateListGridItem(selectIndex, itemStartIndex);
                 return;
             }
             var horizontalCount = GetHorizonalCount();
@@ -424,7 +424,7 @@ namespace Ryneus
             return Math.Max(0, index);
         }
 
-        public void UpdateListItem()
+        public void UpdateListGridItem(int selectIndex = -1, int itemStartIndex = -1)
         {
             if (_grid)
             {
@@ -434,6 +434,46 @@ namespace Ryneus
                     return;
                 }
             }
+            var horizontalCount = GetHorizonalCount();
+            var verticalCount = GetVerticalCount();
+            horizontalCount += 1;
+            var startIndex = selectIndex == -1 ? GetStartIndex(_horizontal) : selectIndex;
+            var gridIndex = selectIndex == -1 ? GetStartIndex(!_horizontal) : selectIndex;
+
+            for (int i = 0; i < _itemPrefabList.Count; i++)
+            {
+                var itemPrefab = _itemPrefabList[i];
+                if (itemStartIndex > -1)
+                {
+                    //
+                    var tempIndex = (i + itemStartIndex) % _itemPrefabList.Count;
+                    itemPrefab = _itemPrefabList[tempIndex];
+                }
+                var itemIndex = i + startIndex;
+                /*
+                if (_grid)
+                {
+                    if (gridIndex > 0)
+                    {
+                        itemIndex += gridIndex * _gridColumnCount;
+                    }
+                    var plusIndex = i / horizontalCount;
+                    if (plusIndex > 0)
+                    {
+                        itemIndex += plusIndex * (_gridColumnCount - horizontalCount);
+                    }
+                }
+                */
+                if (_listDates.Count > itemIndex)
+                {
+                    var listItem = itemPrefab.GetComponent<ListItem>();
+                    listItem.SetListData(_listDates[itemIndex], itemIndex);
+                    Debug.Log("itemIndex:" + i + "がobjectIndex: " + itemIndex);
+                    itemPrefab.transform.SetParent(_objectList[itemIndex].transform, false);
+                    itemPrefab.SetActive(true);
+                }
+            }
+            /*
             int startIndex = GetStartIndex(_horizontal);
             int gridIndex = GetStartIndex(!_horizontal);
 
@@ -457,6 +497,7 @@ namespace Ryneus
                 _lastStartIndexX = startIndex;
                 _selectedHandler?.Invoke();
             }
+            */
         }
 
         private void UpdateListDown(int startIndex)
@@ -625,7 +666,7 @@ namespace Ryneus
                     {
                         break;
                     }
-                    if (listItem.Disable != null && listItem.Disable.activeSelf == false)
+                    if (listItem.Disable != null && !listItem.Disable.activeSelf)
                     {
                         break;
                     }

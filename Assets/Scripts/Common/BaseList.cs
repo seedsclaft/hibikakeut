@@ -62,7 +62,7 @@ namespace Ryneus
                 selectIndex = Index;
             } else
             {
-                selectIndex = listData.FindIndex(a => a.Selected);
+                selectIndex = listData.FindIndex(a => a.Selected.Value);
                 if (selectIndex == -1 && !unselect)
                 {
                     //selectIndex = 0;
@@ -167,7 +167,7 @@ namespace Ryneus
             {
                 if (disableIds.Contains(i))
                 {
-                    ListDates[i].SetEnable(false);
+                    ListDates[i].Enable.SetValue(false);
                 }
             }
         }
