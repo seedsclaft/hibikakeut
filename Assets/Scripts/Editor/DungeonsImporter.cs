@@ -66,7 +66,7 @@ namespace Ryneus
                         IRow SymbolRow = DungeonSheet.GetRow(j);
                         for (int i = 1;i <= cols;i++)
                         {
-                            var map = CreateCells(SymbolRow, i.ToString());
+                            var map = CreateCells(SymbolRow, i.ToString(), (i-1) + (j-1) * Data.Data.Width);
                             MapInfos.Add(map);
                         }
                     }
@@ -112,7 +112,7 @@ namespace Ryneus
             EditorUtility.SetDirty(Data);
         }
 
-        private static Ariadne.MapInfo CreateCells(IRow SymbolRow, string cellText)
+        private static Ariadne.MapInfo CreateCells(IRow SymbolRow, string cellText, int cellIndex)
         {
             var cell = AssetPostImporter.ImportString(SymbolRow, cellText);
             Debug.Log(cell);
@@ -196,7 +196,7 @@ namespace Ryneus
             }
             var map = new Ariadne.MapInfo
             {
-                eventId = 0,
+                eventId = cellIndex,
                 mapAttr = attr,
                 objectTypeId = 0,
                 objectFront = (Ariadne.DungeonDir)front

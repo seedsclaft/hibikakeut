@@ -105,6 +105,7 @@ namespace Ryneus
         SideMenu,
         Dictionary,
         FileList,
+        DungeonMap,
         TutorialStage,
     }
 

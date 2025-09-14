@@ -34,6 +34,11 @@ namespace Ryneus
             PositionY.SetValue(y);
             Direction.SetValue(direction);
         }
+        public bool ExistPlayerPosition(int eventId)
+        {
+            var floor = DataSystem.FindDungeonFloor(DungeonId.Value);
+            return eventId == PositionX.Value + (PositionY.Value * floor.floorSizeVertical);
+        }
 
         // ランダムエンカウント値
         public ParameterInt Encount = new();

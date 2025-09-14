@@ -275,6 +275,16 @@ namespace Ryneus
             return LoadResource<Sprite>("Texture/Guide/" + path);
         }
 
+        public static Sprite[] LoadMapCellIcons()
+        {
+            return LoadResources<Sprite>("Texture/MapCellIcons");
+        }
+
+        public static Sprite LoadMapCell(int iconIndex)
+        {
+            return LoadMapCellIcons()[iconIndex];
+        }
+
         public static Ariadne.DungeonMasterData LoadDungeonMaster(string path)
         {
             return LoadResource<Ariadne.DungeonMasterData>("Data/Dungeon" + path);

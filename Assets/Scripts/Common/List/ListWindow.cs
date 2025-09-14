@@ -494,9 +494,12 @@ namespace Ryneus
             var itemPrefab = _itemPrefabList[itemIndex];
             itemPrefab.transform.SetParent(_objectList[objectIndex].transform, false);
             var listItem = itemPrefab.GetComponent<ListItem>();
-            listItem.SetListData(_listDates[objectIndex], objectIndex);
-            var view = itemPrefab.GetComponent<IListViewItem>();
-            view.UpdateViewItem();
+            if (listItem != null)
+            {
+                listItem.SetListData(_listDates[objectIndex], objectIndex);
+                var view = itemPrefab.GetComponent<IListViewItem>();
+                view.UpdateViewItem();
+            }
         }
 
         public void UpdateAllItems()

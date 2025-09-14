@@ -573,10 +573,10 @@ namespace Ryneus
             _view.CommandCallConfirm(confirmInfo);
         }
 
-        private void CommandMoveDungeonFloor(int floorId,int x,int y)
+        private void CommandMoveDungeonFloor(int floorId, int x, int y)
         {
             _model.MakeStageInfo(floorId,false);
-            _model.CurrentDeckInfo.SetPosition(floorId,x,y,_model.CurrentDeckInfo.Direction.Value);
+            _model.CurrentDeckInfo.SetPosition(floorId, x, y, _model.CurrentDeckInfo.Direction.Value);
             _view.CommandGotoSceneChange(Scene.Dungeon);
         }
 
@@ -750,7 +750,20 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.DungeonBusy(true);
-            _view.StartFormation();
+            //_view.StartFormation();
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.DungeonMap,
+                template = null,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    _model.DungeonBusy(false);
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                    CommandRefresh();
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
         }
 
         private void CommandUseItem()

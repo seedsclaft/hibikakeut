@@ -37,8 +37,8 @@ namespace Ryneus
                     list.Add(stageInfo);
                 }
             }
-            claerList.Sort((a,b) => a.Master.Category - b.Master.Category > 1 ? 1 : -1);
-            list.Sort((a,b) => a.Master.Category - b.Master.Category > 1 ? 1 : -1);
+            claerList.Sort((a, b) => a.Master.Category - b.Master.Category > 1 ? 1 : -1);
+            list.Sort((a, b) => a.Master.Category - b.Master.Category > 1 ? 1 : -1);
             list.AddRange(claerList);
             return list;
         }

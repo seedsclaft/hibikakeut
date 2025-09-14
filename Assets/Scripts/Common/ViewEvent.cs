@@ -54,6 +54,7 @@ namespace Ryneus
         ReleaseList,
         Trade,
         UseItem,
+        DungeonMap,
         SideMenu,
         Option,
         TutorialStage,
