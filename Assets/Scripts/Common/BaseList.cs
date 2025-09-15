@@ -42,7 +42,7 @@ namespace Ryneus
             _isInit = true;
         }
 
-        public async void SetData(List<ListData> listData,bool resetScrollRect = true,Action initializeAfterEvent = null,bool unselect = false)
+        public async void SetData(List<ListData> listData, bool resetScrollRect = true, Action initializeAfterEvent = null, bool unselect = false)
         {
             if (resetScrollRect && listData != ListDates)
             {

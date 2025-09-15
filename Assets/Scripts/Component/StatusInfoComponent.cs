@@ -150,7 +150,7 @@ namespace Ryneus
             }
         }
 
-        public void UpdateMp(int currentMp,int maxStatusMp)
+        public void UpdateMp(int currentMp, int maxStatusMp)
         {
             if (currentMp < 0)
             {
@@ -207,7 +207,7 @@ namespace Ryneus
             }
         }
 
-        public void UpdateMpAnimation(int fromMp,int currentMp,int maxStatusMp)
+        public void UpdateMpAnimation(int fromMp, int currentMp, int maxStatusMp)
         {
             if (mpGaugeAnimation != null)
             {

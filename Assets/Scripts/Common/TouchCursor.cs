@@ -27,18 +27,18 @@ namespace Ryneus
             pos.x = target.x;
             pos.y = target.y;
             pos.z = 10f;
-                
+
             touchCursorRect.transform.position = pos;
             gameObject.SetActive(false);
             gameObject.SetActive(true);
             particle.Play();
 
-            circle.DOFade(1,0);
-            circle.transform.DOScale(0,0);
+            circle.DOFade(1, 0);
+            circle.transform.DOScale(0, 0);
 
             var duration = 0.4f;
-            circle.DOFade(0,duration);
-            circle.transform.DOScale(1,duration);
+            circle.DOFade(0, duration);
+            circle.transform.DOScale(1, duration);
         }
     }
 }

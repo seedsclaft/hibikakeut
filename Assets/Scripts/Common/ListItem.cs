@@ -17,7 +17,7 @@ namespace Ryneus
         }
         private ListData _listData;
         public ListData ListData => _listData;
-        public void SetListData(ListData listData,int index)
+        public void SetListData(ListData listData, int index)
         {
             _listData = listData;
             _index = index;
@@ -65,7 +65,7 @@ namespace Ryneus
             {
                 return;
             }
-            if (clickButton.enabled == false)
+            if (!clickButton.enabled)
             {
                 return;
             }
@@ -96,7 +96,7 @@ namespace Ryneus
             }
         }
 
-        public void SetSelectHandler(Action<int> handler,Action exitAction = null)
+        public void SetSelectHandler(Action<int> handler, Action exitAction = null)
         {
             if (clickButton == null || _addListenHandler)
             {
@@ -132,14 +132,14 @@ namespace Ryneus
                 return;
             }
             var images = cursor.GetComponentsInChildren<Image>();
-            var cursorColor = new Color(224/255f,144/255f,24/255f);
+            var cursorColor = new Color(224 / 255f, 144 / 255f, 24 / 255f);
             //var cursorColor = new Color(255/255f,255/255f,255/255f);
             foreach (var image in images)
             {
                 if (image.sprite == null)
                 {
                     var alpha = image.color.a;
-                    image.color = new Color(cursorColor.r,cursorColor.g,cursorColor.b,alpha);
+                    image.color = new Color(cursorColor.r, cursorColor.g, cursorColor.b, alpha);
                 }
             }
         }

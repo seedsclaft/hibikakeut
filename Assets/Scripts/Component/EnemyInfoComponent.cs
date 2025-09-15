@@ -36,8 +36,8 @@ namespace Ryneus
             {
                 HideActorOnly();
                 statusInfoComponent.UpdateInfo(battlerInfo.Status);
-                statusInfoComponent.UpdateHp(battlerInfo.Hp.Value,battlerInfo.MaxHp);
-                statusInfoComponent.UpdateMp(battlerInfo.Mp.Value,battlerInfo.MaxMp);
+                statusInfoComponent.UpdateHp(battlerInfo.Hp.Value, battlerInfo.MaxHp);
+                statusInfoComponent.UpdateMp(battlerInfo.Mp.Value, battlerInfo.MaxMp);
             }
             if (needStatusInfoComponent != null)
             {
@@ -53,7 +53,7 @@ namespace Ryneus
             }
         }
 
-        private void UpdateMainThumb(Image image,string imagePath,int x,int y,float scale,bool nativeSize)
+        private void UpdateMainThumb(Image image, string imagePath, int x, int y, float scale, bool nativeSize)
         {
             var handle = ResourceSystem.LoadEnemySprite(imagePath);
             if (image != null)
@@ -70,7 +70,7 @@ namespace Ryneus
             }
         }
 
-        private void UpdateFaceThumb(Image image,string imagePath,int x,int y,float scale,bool nativeSize)
+        private void UpdateFaceThumb(Image image, string imagePath, int x, int y, float scale, bool nativeSize)
         {
             //var handle = await ResourceSystem.LoadAsset<Sprite>("Enemies/" + imagePath);
             var handle = ResourceSystem.LoadEnemySprite(imagePath);
@@ -97,16 +97,16 @@ namespace Ryneus
             }
             if (mainThumb != null)
             {
-                UpdateMainThumb(mainThumb,enemyData.ImagePath,0,0,1.0f,false);
+                UpdateMainThumb(mainThumb, enemyData.ImagePath, 0, 0, 1.0f, false);
                 mainThumb.gameObject.GetComponent<RectTransform>().localScale = new Vector2(enemyData.ImageScale,enemyData.ImageScale);
             }
             if (faceThumb != null)
             {
-                UpdateFaceThumb(faceThumb,enemyData.ImagePath,0,0,1.0f,true);
+                UpdateFaceThumb(faceThumb, enemyData.ImagePath, 0, 0, 1.0f, true);
             }
             if (gridThumb != null)
             {
-                UpdateMainThumb(gridThumb,enemyData.ImagePath,0,0,1.0f,true);
+                UpdateMainThumb(gridThumb, enemyData.ImagePath, 0, 0, 1.0f, true);
             }
             if (enemySpriteSize != null)
             {
@@ -118,7 +118,7 @@ namespace Ryneus
         public void UpdateGridKey(int index)
         {
             var textId = 16800 + index;
-            gridKey.text = DataSystem.GetText(textId);
+            gridKey.SetText(DataSystem.GetText(textId));
         }
 
         private void UpdateWeakPoints(List<KindType> kindTypes)
@@ -130,7 +130,7 @@ namespace Ryneus
                 {
                     continue;
                 }
-                weakPoints[i].SetListData(new ListData(kindTypes[i]),i);
+                weakPoints[i].SetListData(new ListData(kindTypes[i]), i);
                 weakPoints[i].UpdateViewItem();
                 weakPoints[i].SetUnSelect();
             }

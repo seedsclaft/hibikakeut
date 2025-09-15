@@ -27,6 +27,12 @@ namespace Ryneus
         public ParameterInt PositionX = new();
         public ParameterInt PositionY = new();
         public ParameterInt Direction = new(); // 0=North, 1=East , 2=South , 3=West
+        private List<RoutePath> _routePaths = new();
+        public List<RoutePath> RoutePaths => _routePaths;
+        public void SetRoutePaths(List<RoutePath> routePaths)
+        {
+            _routePaths = routePaths;
+        }
         public void SetPosition(int dungeonId, int x, int y, int direction)
         {
             DungeonId.SetValue(dungeonId);

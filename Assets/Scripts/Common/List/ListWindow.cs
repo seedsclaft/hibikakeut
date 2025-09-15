@@ -631,6 +631,7 @@ namespace Ryneus
         {
             if (_grid)
             {
+                InputSelectGridIndex(keyTypes);
                 return;
             }
             var currentIndex = Index;

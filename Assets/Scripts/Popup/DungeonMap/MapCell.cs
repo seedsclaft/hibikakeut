@@ -20,19 +20,39 @@ namespace Ryneus
             var data = ListItemData<MapCellInfo>();
             if (roadImage != null)
             {
-                roadImage.gameObject.SetActive(data.MapInfo.mapAttr == 0 || data.MapInfo.mapAttr > 1 && data.MapInfo.mapAttr < 99);
+                roadImage.gameObject.SetActive(data.Opened && data.IsRoad());
             }
             if (cellImage != null)
             {
-                cellImage.gameObject.SetActive(data.MapInfo.mapAttr > 1 && data.MapInfo.mapAttr < 99);
+                cellImage.gameObject.SetActive(data.Opened && data.IsCellImage());
             }
             if (playerPointer != null)
             {
-                playerPointer.SetActive(GameSystem.GameInfo.PartyInfo.CurrentDeckInfo.ExistPlayerPosition(data.MapInfo.eventId));
+                var open = data.IsPlayerPosition;
+                if (open)
+                {
+                    var direction = Ariadne.PlayerPosition.Instance.direction;
+                    switch (direction)
+                    {
+                        case Ariadne.DungeonDir.North:
+                            playerPointer.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 180);
+                            break;
+                        case Ariadne.DungeonDir.East:
+                            playerPointer.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 90);
+                            break;
+                        case Ariadne.DungeonDir.South:
+                            playerPointer.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
+                            break;
+                        case Ariadne.DungeonDir.West:
+                            playerPointer.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 270);
+                            break;
+                    }
+                }
+                playerPointer.SetActive(open);
             }
             if (pathImage != null)
             {
-                pathImage.gameObject.SetActive(data.IsPathSelect);
+                pathImage.gameObject.SetActive(data.Opened && data.IsPathSelect);
             }
             if (Disable != null)
             {

@@ -19,6 +19,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI dungeonCompletionRate;
         [SerializeField] private GameObject encountRateRoot;
         [SerializeField] private TextMeshProUGUI encountRate;
+        [SerializeField] private GameObject routeModeRoot;
+        [SerializeField] private TextMeshProUGUI routeMode;
         public void UpdateCurrentInfo()
         {
             var current = PartyInfo;
@@ -89,6 +91,10 @@ namespace Ryneus
             if (encountRate != null)
             {
                 encountRate.SetText(partyInfo.CurrentDeckInfo.EncountRateText());
+            }
+            if (routeModeRoot != null)
+            {
+                routeModeRoot.SetActive(partyInfo.CurrentDeckInfo.RoutePaths.Count > 0);
             }
         }
     }

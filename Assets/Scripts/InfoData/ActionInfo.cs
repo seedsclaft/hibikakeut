@@ -152,7 +152,7 @@ namespace Ryneus
             }
             foreach (var actionResult in _actionResults)
             {
-                if (actionResult.NoAnimation.Value == false)
+                if (!actionResult.NoAnimation.Value)
                 {
                     targetIndexList.Add(actionResult.TargetIndex.Value);
                 }

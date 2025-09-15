@@ -11,6 +11,7 @@ namespace Ariadne
     public class DungeonPostMoveChecker : AriadneSystemBase, IPostMoveNotify
     {
         private System.Action _moveEndEvent = null;
+        private System.Action _moveEndFinishEvent = null;
         private MoveController _moveController = null;
 
         public void SetMoveController(MoveController controller)
@@ -54,6 +55,7 @@ namespace Ariadne
         {
             _moveEndEvent?.Invoke();
             inf.OnFinishedPostMoveEvent();
+            _moveEndFinishEvent?.Invoke();
         }
 
         public void SetMoveEndEvent(System.Action moveEndEvent)
@@ -62,6 +64,10 @@ namespace Ariadne
             _moveEndEvent = moveEndEvent;
         }
 
+        public void SetMoveEndFinishEvent(System.Action moveEndEvent)
+        {
+            _moveEndFinishEvent = moveEndEvent;
+        }
 
         public void OnPostGameEvent()
         {

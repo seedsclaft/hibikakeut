@@ -346,6 +346,113 @@ namespace Ryneus
             return PartyUnit().Find(a => a.Hp.Value > 0) == null;
         }
 
+        public bool IsRouteMode()
+        {
+            return CurrentDeckInfo.RoutePaths.Count > 0;
+        }
+
+        public void ClearRoute()
+        {
+            if (IsRouteMode())
+            {
+                CurrentDeckInfo.RoutePaths.RemoveAt(CurrentDeckInfo.RoutePaths.Count - 1);
+            }
+        }
+
+        public void ClearRouteAll()
+        {
+            if (IsRouteMode())
+            {
+                CurrentDeckInfo.RoutePaths.Clear();
+            }
+        }
+
+        public InputKeyType RouteModeInputKeyType()
+        {
+            if (IsRouteMode())
+            {
+                var position = GetCurrentPosition();
+                var direction = PlayerPosition.Instance.direction;
+                var route = CurrentDeckInfo.RoutePaths[^1];
+                switch (direction)
+                {
+                    case DungeonDir.North:
+                        if (position.y + 1 == route.Y)
+                        {
+                            return InputKeyType.Up;
+                        }
+                        if (position.y - 1 == route.Y)
+                        {
+                            return InputKeyType.Down;
+                        }
+                        if (position.x + 1 == route.X)
+                        {
+                            return InputKeyType.Right;
+                        }
+                        if (position.x - 1 == route.X)
+                        {
+                            return InputKeyType.Left;
+                        }
+                        break;
+                    case DungeonDir.East:
+                        if (position.y + 1 == route.Y)
+                        {
+                            return InputKeyType.Left;
+                        }
+                        if (position.y - 1 == route.Y)
+                        {
+                            return InputKeyType.Right;
+                        }
+                        if (position.x + 1 == route.X)
+                        {
+                            return InputKeyType.Up;
+                        }
+                        if (position.x - 1 == route.X)
+                        {
+                            return InputKeyType.Down;
+                        }
+                        break;
+                    case DungeonDir.South:
+                        if (position.y - 1 == route.Y)
+                        {
+                            return InputKeyType.Up;
+                        }
+                        if (position.y + 1 == route.Y)
+                        {
+                            return InputKeyType.Down;
+                        }
+                        if (position.x - 1 == route.X)
+                        {
+                            return InputKeyType.Right;
+                        }
+                        if (position.x + 1 == route.X)
+                        {
+                            return InputKeyType.Left;
+                        }
+                        break;
+                    case DungeonDir.West:
+                        if (position.y + 1 == route.Y)
+                        {
+                            return InputKeyType.Right;
+                        }
+                        if (position.y - 1 == route.Y)
+                        {
+                            return InputKeyType.Left;
+                        }
+                        if (position.x + 1 == route.X)
+                        {
+                            return InputKeyType.Down;
+                        }
+                        if (position.x - 1 == route.X)
+                        {
+                            return InputKeyType.Up;
+                        }
+                        break;
+                }
+            }
+            return InputKeyType.None;
+        }
+
         public List<SystemData.CommandData> SideMenu()
         {
             var list = new List<SystemData.CommandData>();

@@ -45,6 +45,9 @@ namespace Ryneus
                 case CommandType.DecideItem:
                     CommandDecideItem((MapCellInfo)viewEvent.Template);
                     break;
+                case CommandType.Back:
+                    CommandBack();
+                    break;
             }
         }
 
@@ -53,6 +56,12 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.FindPath(mapInfo);
             _view.UpdateDungeonMap(MakeListData(_model.MapCellInfos(), 0));
+        }
+
+        private void CommandBack()
+        {
+            _model.SetRoutePaths();
+            _view.BackEvent();
         }
 
         private void CheckTutorialState(object commandType = null)

@@ -133,5 +133,14 @@ namespace Ariadne
             }
             postMoveChecker.SetMoveEndEvent(playerPosition);
         }
+
+        public void SetMoveEndFinishEvent(System.Action playerPosition)
+        {
+            if (postMoveChecker == null)
+            {
+                return;
+            }
+            postMoveChecker.SetMoveEndFinishEvent(playerPosition);
+        }
     }
 }

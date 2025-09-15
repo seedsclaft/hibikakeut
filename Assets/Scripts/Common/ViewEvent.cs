@@ -20,7 +20,7 @@ namespace Ryneus
     {
         public ViewCommandSceneType ViewCommandSceneType;
         public object CommandType;
-        public ViewCommandType(ViewCommandSceneType viewCommandSceneType,object template)
+        public ViewCommandType(ViewCommandSceneType viewCommandSceneType, object template)
         {
             ViewCommandSceneType = viewCommandSceneType;
             CommandType = template;
@@ -69,7 +69,7 @@ namespace Ryneus
 
     public interface IInputHandlerEvent
     {
-        void InputHandler(List<InputKeyType> keyType,bool pressed);
+        void InputHandler(List<InputKeyType> keyType, bool pressed);
         void MouseCancelHandler();
         void MouseMoveHandler(Vector3 position);
         void MouseWheelHandler(Vector2 position);

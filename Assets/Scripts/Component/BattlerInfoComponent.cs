@@ -53,13 +53,13 @@ namespace Ryneus
                 if (battlerInfo.IsActor || battlerInfo.IsActorView)
                 {
                     var handle = ResourceSystem.LoadActorMainFaceSprite(battlerInfo.ActorInfo.Master.ImagePath);
-                    if (additiveFaceThumb != null) 
+                    if (additiveFaceThumb != null)
                     {
                         additiveFaceThumb.sprite = handle;
                     }
                 } else
                 {
-                    UpdateMainThumb(battlerInfo.EnemyData.ImagePath,0,0,1.0f);
+                    UpdateMainThumb(battlerInfo.EnemyData.ImagePath, 0, 0, 1.0f);
                     additiveFaceThumb.gameObject.GetComponent<RectTransform>().localScale = new Vector2(battlerInfo.EnemyData.ImageScale,battlerInfo.EnemyData.ImageScale);
                     additiveFaceThumb.SetNativeSize();
                 }

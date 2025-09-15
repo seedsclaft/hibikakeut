@@ -80,6 +80,7 @@ namespace Ryneus
             dungeonViewManager.Initialize();
             dungeonViewManager.SetMoveController(moveController);
             dungeonViewManager.SetMoveEndEvent(() => CallViewEvent(CommandType.MoveEnd));
+            dungeonViewManager.SetMoveEndFinishEvent(() => CallViewEvent(CommandType.MoveEndFinish));
         }
 
         private void InitializePartyUnitList()
@@ -184,7 +185,16 @@ namespace Ryneus
                     CallViewEvent(CommandType.DecideDirectEvent);
                 }
             }
+            if (keyTypes.Contains(InputKeyType.Cancel))
+            {
+                CallViewEvent(CommandType.RouteModeEnd);
+            }
             moveController.UpdateKey(keyTypes);
+        }
+
+        public override void MouseCancelHandler()
+        {
+            CallViewEvent(CommandType.RouteModeEnd);
         }
 
         public void SetActiveDisplayEventKey(bool isActive)
@@ -341,6 +351,8 @@ namespace Ryneus
         {
             None = 0,
             MoveEnd,
+            MoveEndFinish,
+            RouteModeEnd,
             DecideDirectEvent,
             Heal,
             Formation,

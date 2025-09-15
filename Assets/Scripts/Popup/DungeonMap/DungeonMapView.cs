@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Ryneus.DungeonMap;
 
 namespace Ryneus
@@ -28,21 +27,21 @@ namespace Ryneus
         private void InitializeDungeonMap()
         {
             mapCellList.Initialize();
-            mapCellList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
+            mapCellList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
             mapCellList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.DecideItem, mapCellList.ListItemData<MapCellInfo>()));
             AddViewActives(mapCellList);
         }
 
-        public void SetDungeonMap(List<ListData> achievementLists)
+        public void SetDungeonMap(List<ListData> mapCellInfos)
         {
-            mapCellList.SetData(achievementLists, false, () =>
+            mapCellList.SetData(mapCellInfos, false, () =>
             {
             });
         }
 
-        public void UpdateDungeonMap(List<ListData> achievementLists)
+        public void UpdateDungeonMap(List<ListData> mapCellInfos)
         {
-            mapCellList.RefreshListData(achievementLists);
+            mapCellList.RefreshListData(mapCellInfos);
             mapCellList.UpdateAllItems();
         }
 
@@ -61,7 +60,7 @@ namespace Ryneus
         public enum CommandType
         {
             DecideItem = 0,
-            DetailItem,
+            Back,
         }
     }
 }

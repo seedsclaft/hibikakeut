@@ -13,6 +13,8 @@ namespace Ryneus
         DungeonView _view = null;
 
         private bool _busy = true;
+        private bool _routeMode = true;
+        private int _routeMoveFailCount = 0;
 
         private List<StageEventData> _thisTurnStageEvents = new();
         public DungeonPresenter(DungeonView view)
@@ -58,6 +60,18 @@ namespace Ryneus
             LogOutput.Log(viewEvent.ViewCommandType.CommandType);
             if (_busy || _view.AnimationBusy)
             {
+                switch (viewEvent.ViewCommandType.CommandType)
+                {
+                    case CommandType.MoveEnd:
+                        CommandRouteMoveEnd();
+                        break;
+                    case CommandType.MoveEndFinish:
+                        CommandRouteMoveEndFinish();
+                        break;
+                    case CommandType.RouteModeEnd:
+                        CommandRouteModeEnd();
+                        break;
+                }
                 return;
             }
             if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Dungeon)
@@ -137,6 +151,75 @@ namespace Ryneus
             CheckEncount();
         }
 
+        private void CommandRouteMoveEnd()
+        {
+            // 移動したか
+            var moved = _model.CommandMoveEnd();
+            if (moved)
+            {
+                _model.ClearRoute();
+                _routeMoveFailCount = 0;
+                var hpHeal = _model.CheckHpHeal();
+                if (hpHeal > 0)
+                {
+                    _view.StartHeal(hpHeal);
+                    _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
+                }
+            } else
+            {
+                if (_routeMode)
+                {
+                    _routeMoveFailCount++;
+                    if (_routeMoveFailCount > 1)
+                    {
+                        _routeMoveFailCount = 0;
+                        _model.ClearRouteAll();
+                    }
+                }
+            }
+
+            _model.AddDungeonTraverse();
+            CommandRefresh();
+            // 未読の非表示マスを管理
+            _model.AddEventNotFlag();
+
+            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+            var stageEvent = GetStageEventData(EventTiming.Dungeon, playerPosition.x, playerPosition.y);
+
+            _thisTurnStageEvents.Clear();
+            // イベントがある場合
+            if (stageEvent != null)
+            {
+                CheckStageEvent(moved);
+                return;
+            }
+
+            // ターン数が0の場合
+            if (_model.EndDungeonByTurnCount())
+            {
+                CommandTurnOver(moved);
+                return;
+            }
+
+            // エンカウントした場合
+            CheckEncount();
+        }
+
+        private void CommandRouteMoveEndFinish()
+        {
+            CheckRouteMode();
+        }
+
+        private void CommandRouteModeEnd()
+        {
+            if (_routeMode)
+            {
+                _routeMoveFailCount = 0;
+                _model.ClearRouteAll();
+                CheckRouteMode();
+            }
+        }
+
         private void CheckStageEvent(bool moved)
         {
             _model.DungeonBusy(true);
@@ -149,6 +232,10 @@ namespace Ryneus
                 if (_model.EndDungeonByTurnCount())
                 {
                     CommandTurnOver(moved);
+                }
+                if (_routeMode)
+                {
+                    CheckRouteMode();
                 }
             });
         }
@@ -761,6 +848,8 @@ namespace Ryneus
                     _model.DungeonBusy(false);
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                     CommandRefresh();
+                    // 自動移動モード切替
+                    CheckRouteMode();
                 }
             };
             _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
@@ -866,7 +955,26 @@ namespace Ryneus
             {
                 _view.SetActiveFormationButton(false);
                 _view.SetActiveHealButton(false);
+                _view.SetActiveUseItemButton(false);
+                _view.SetActiveDisplayEventKey(false);
                 _view.SideMenuButton.gameObject.SetActive(false);
+            }
+        }
+
+        private void CheckRouteMode()
+        {
+            if (_model.IsRouteMode())
+            {
+                _busy = true;
+                //_model.DungeonBusy(true);
+                // 方向を見て進む。MoveEndまで待つ
+                _routeMode = true;
+                _view.InputHandler(new List<InputKeyType>(){_model.RouteModeInputKeyType()}, false);
+            } else
+            {
+                _busy = false;
+                //_model.DungeonBusy(false);
+                _routeMode = false;
             }
         }
 

@@ -19,8 +19,8 @@ namespace Ryneus
         private int _goalColX = 0;
         private int _goalRowY = 0;
         private int _moveCost = 0;
-        private List<HexPath> _pathlist = new();
-        public List<HexPath> Pathlist => _pathlist;
+        private List<RoutePath> _pathlist = new();
+        public List<RoutePath> Pathlist => _pathlist;
         private bool _searchUnit = false;
 
         public HexRoute(int mapX, int mapY, List<MapCellInfo> hexUnitInfos)
@@ -328,11 +328,11 @@ namespace Ryneus
             }
         }
 
-        public HexPath GetPath(HexField node)
+        public RoutePath GetPath(HexField node)
         {
             _pathlist = new();
 
-            var path = new HexPath
+            var path = new RoutePath
             {
                 X = node.X,
                 Y = node.Y,
@@ -347,7 +347,7 @@ namespace Ryneus
                     return path;
                 }
                 node = node.Parent;
-                path = new HexPath
+                path = new RoutePath
                 {
                     X = node.X,
                     Y = node.Y,
@@ -378,7 +378,7 @@ namespace Ryneus
             _closedList.Clear();
         }
 
-        public HexPath FindRoute(MoveType moveType, HexField startHex, HexField goalHex, bool searchUnit)
+        public RoutePath FindRoute(MoveType moveType, HexField startHex, HexField goalHex, bool searchUnit)
         {
             _hexMode = HexMode.Route; // ルート探索モードをセット
 
@@ -492,7 +492,8 @@ namespace Ryneus
         public HexField Parent = null;
     }
 
-    public class HexPath
+    [Serializable]
+    public class RoutePath
     {
         public int X = -1;
         public int Y = -1;

@@ -346,7 +346,7 @@ namespace Ryneus
             _testBattleMode = isTest;
         }
 
-        public void MouseCancelHandler()
+        public virtual void MouseCancelHandler()
         {
 
         }

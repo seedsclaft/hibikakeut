@@ -270,6 +270,104 @@ namespace Ryneus
             return objectIndex >= 0 && objectIndex < _objectList.Count;
         }
 
+        public void InputSelectGridIndex(List<InputKeyType> keyTypes)
+        {
+            var currentIndex = Index;
+            var selectIndex = Index;
+            var plusKey = GetPlusKey();
+            var minusKey = GetMinusKey();
+            var pageUpKey = GetPageUpKey();
+            var pageDownKey = GetPageDownKey();
+            var nextIndex = Index;
+            if (keyTypes.Contains(plusKey) || keyTypes.Contains(minusKey))
+            {
+                for (int i = 0; i < _listDates.Count; i++)
+                {
+                    if (keyTypes.Contains(plusKey))
+                    {
+                        nextIndex = Index + i + 1;
+                        if (nextIndex >= _listDates.Count)
+                        {
+                            nextIndex -= _listDates.Count;
+                        }
+                    }
+                    else
+                    if (keyTypes.Contains(minusKey))
+                    {
+                        nextIndex = Index - i - 1;
+                        if (nextIndex < 0)
+                        {
+                            nextIndex += _listDates.Count;
+                        }
+                    }
+                    var listItem = _objectList[nextIndex].GetComponent<ListItem>();
+                    if (listItem == null || listItem.Disable == null)
+                    {
+                        break;
+                    }
+                    if (listItem.Disable != null && !listItem.Disable.activeSelf)
+                    {
+                        break;
+                    }
+                }
+            } else
+            if (keyTypes.Contains(pageUpKey) || keyTypes.Contains(pageDownKey))
+            {
+                // 列移動
+                var lines = _horizontal ? Cols() : Rows();
+                var singleLine = _horizontal ? Rows() : Cols();
+                if (lines > 1 && singleLine > 1)
+                {
+                    for (int i = 0; i < lines; i++)
+                    {
+                        if (keyTypes.Contains(pageUpKey))
+                        {
+                            nextIndex = Index + (i + 1) * lines;
+                        }
+                        else
+                        if (keyTypes.Contains(pageDownKey))
+                        {
+                            nextIndex = Index + (i + 1) * -1 * lines;
+                        }
+                        if (nextIndex < 0 || nextIndex > _listDates.Count - 1)
+                        {
+                            nextIndex = Index;
+                            break;
+                        }
+                        var listItem = _objectList[nextIndex].GetComponent<ListItem>();
+                        if (listItem == null || listItem.Disable == null)
+                        {
+                            break;
+                        }
+                        if (listItem.Disable != null && listItem.Disable.activeSelf == false)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            selectIndex = nextIndex;
+            if (warpMode)
+            {
+                if (selectIndex >= _listDates.Count)
+                {
+                    selectIndex = 0;
+                }
+                else
+                if (selectIndex < 0)
+                {
+                    selectIndex = _listDates.Count - 1;
+                }
+            }
+
+            if (currentIndex != selectIndex)
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.CursorMove);
+                UpdateSelectIndex(selectIndex);
+            }
+        }
+
 /*
         private void UpdateGridDown()
         {

@@ -46,7 +46,7 @@ namespace Ryneus
                 description?.SetText(convertHelpText);
                 if (descriptionListObj != null && descriptionListTarget != null)
                 {
-                    var length = Math.Max(3,convertHelpText.Split("\n").Length);
+                    var length = Math.Max(3, convertHelpText.Split("\n").Length);
                     var height = 32 + 24 * length;
                     descriptionListObj.GetComponent<RectTransform>().sizeDelta = new Vector2(440,height);
                     LayoutRebuilder.ForceRebuildLayoutImmediate(descriptionListTarget.GetComponent<RectTransform>());
@@ -77,7 +77,7 @@ namespace Ryneus
                 if (skillInfo.LearningState == LearningState.NotLearn)
                 {
                     learningText.transform.parent.gameObject.SetActive(skillInfo.LearningState == LearningState.NotLearn);
-                    learningText.SetText(DataSystem.GetReplaceText(2500,skillInfo.LearningLv.Value.ToString()));
+                    learningText.SetText(DataSystem.GetReplaceText(2500, skillInfo.LearningLv.Value.ToString()));
                 } else
                 {
                     learningText.transform.parent.gameObject.SetActive(false);

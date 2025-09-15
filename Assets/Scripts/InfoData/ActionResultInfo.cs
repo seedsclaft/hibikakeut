@@ -892,7 +892,7 @@ namespace Ryneus
         private void MakeRemoveAbnormalState(BattlerInfo subject, BattlerInfo target, SkillData.FeatureData featureData)
         {
             // skillId -1のRemoveは強制で解除する
-            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Abnormal == true && a.BattlerId.Value != target.Index.Value);
+            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Abnormal && a.BattlerId.Value != target.Index.Value);
             foreach (var abnormalState in abnormalStates)
             {
                 bool IsRemoved = target.RemoveState(abnormalState, false);
@@ -906,7 +906,7 @@ namespace Ryneus
         private void MakeRemoveBuffState(BattlerInfo subject, BattlerInfo target)
         {
             // skillId -1のRemoveは強制で解除する
-            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Buff == true && a.BattlerId.Value != target.Index.Value);
+            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Buff && a.BattlerId.Value != target.Index.Value);
             foreach (var abnormalState in abnormalStates)
             {
                 bool IsRemoved = target.RemoveState(abnormalState, false);
@@ -920,7 +920,7 @@ namespace Ryneus
         private void MakeRemoveDeBuffState(BattlerInfo subject, BattlerInfo target, SkillData.FeatureData featureData)
         {
             // skillId -1のRemoveは強制で解除する
-            var abnormalStates = target.StateInfos.FindAll(a => a.Master.DeBuff == true && a.BattlerId.Value != target.Index.Value);
+            var abnormalStates = target.StateInfos.FindAll(a => a.Master.DeBuff && a.BattlerId.Value != target.Index.Value);
             foreach (var abnormalState in abnormalStates)
             {
                 bool IsRemoved = target.RemoveState(abnormalState, false);

@@ -41,7 +41,7 @@ namespace Ryneus
             }
             var stageData = stageInfo.Master;
             UpdateData(stageData);
-            help?.SetText(stageData.Help.Replace("\\p",CurrentData.PlayerInfo.PlayerName.Value));
+            help?.SetText(stageData.Help.Replace("\\p", CurrentData.PlayerInfo.PlayerName.Value));
             if (cleared != null)
             {
                 cleared.SetActive(stageInfo.Cleared.Value);
@@ -94,7 +94,7 @@ namespace Ryneus
             }
             nameText?.SetText(stageData.Name);
             stageLv?.SetText(stageData.StageLv.ToString());
-            stageNoText?.SetText(DataSystem.GetReplaceText(15010,stageData.StageNo.ToString()));
+            stageNoText?.SetText(DataSystem.GetReplaceText(15010, stageData.StageNo.ToString()));
             needStageRank?.SetText(stageData.DisplayRank.ToString() + "～");
             if (stageImage != null)
             {
