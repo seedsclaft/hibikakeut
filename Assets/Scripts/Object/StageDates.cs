@@ -136,6 +136,7 @@ namespace Ryneus
         DamageFloor = 7010, // ダメージ床
         CurseFloor = 7020, // 怨嗟床
         EndCurseFloor = 7021, // 怨嗟解消
+        TraverseRegeon = 8010,
         EventEnd = 9010,
     }
 

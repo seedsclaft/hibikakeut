@@ -420,6 +420,9 @@ namespace Ryneus
                     case StageEventType.EndCurseFloor:
                         StageEventEndCurseFloor(stageEvent, endEvent);
                         return;
+                    case StageEventType.TraverseRegeon:
+                        StageEventTraverseRegeon(stageEvent, endEvent);
+                        return;
                     case StageEventType.None:
                     case StageEventType.EventEnd:
                         _model.DungeonBusy(false);
@@ -638,6 +641,21 @@ namespace Ryneus
             _model.EndCursedParty();
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
             CheckEventData(false,playerPosition,endEvent);
+        }
+
+        private void StageEventTraverseRegeon(StageEventData stageEvent, Action endEvent)
+        {
+            _model.AddEventReadFlag(stageEvent);
+            _model.TraverseRegeon(stageEvent.Param);
+            CommandRefresh();
+            // 未読の非表示マスを管理
+            _model.AddEventNotFlag();
+            _model.DungeonBusy(false);
+            // ターン数が0の場合
+            if (_model.EndDungeonByTurnCount())
+            {
+                CommandTurnOver(false);
+            }
         }
 
         private void CommandReturn()

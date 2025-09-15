@@ -279,11 +279,11 @@ namespace Ryneus
             var pageUpKey = GetPageUpKey();
             var pageDownKey = GetPageDownKey();
             var nextIndex = Index;
-            if (keyTypes.Contains(plusKey) || keyTypes.Contains(minusKey))
+            if (keyTypes.Contains(pageUpKey) || keyTypes.Contains(pageDownKey))
             {
                 for (int i = 0; i < _listDates.Count; i++)
                 {
-                    if (keyTypes.Contains(plusKey))
+                    if (keyTypes.Contains(pageDownKey))
                     {
                         nextIndex = Index + i + 1;
                         if (nextIndex >= _listDates.Count)
@@ -292,7 +292,7 @@ namespace Ryneus
                         }
                     }
                     else
-                    if (keyTypes.Contains(minusKey))
+                    if (keyTypes.Contains(pageUpKey))
                     {
                         nextIndex = Index - i - 1;
                         if (nextIndex < 0)
@@ -311,7 +311,7 @@ namespace Ryneus
                     }
                 }
             } else
-            if (keyTypes.Contains(pageUpKey) || keyTypes.Contains(pageDownKey))
+            if (keyTypes.Contains(plusKey) || keyTypes.Contains(minusKey))
             {
                 // 列移動
                 var lines = _horizontal ? Cols() : Rows();
@@ -320,12 +320,12 @@ namespace Ryneus
                 {
                     for (int i = 0; i < lines; i++)
                     {
-                        if (keyTypes.Contains(pageUpKey))
+                        if (keyTypes.Contains(plusKey))
                         {
                             nextIndex = Index + (i + 1) * lines;
                         }
                         else
-                        if (keyTypes.Contains(pageDownKey))
+                        if (keyTypes.Contains(minusKey))
                         {
                             nextIndex = Index + (i + 1) * -1 * lines;
                         }

@@ -20,8 +20,7 @@ namespace Ariadne
         public int eventId;
         public int mapAttr;
         public DungeonDir objectFront;
-        [Obsolete("Use objectType instead.")]
-        public int messengerType;
+        public int regeonNo;
         public int objectTypeId;
     }
 

@@ -71,6 +71,24 @@ namespace Ryneus
             }
         }
 
+        public void TraverseRegeon(int regeonNo)
+        {
+            var dungeonFloor = DataSystem.FindDungeonFloor(CurrentStage.StageId.Value);
+            var playerDungeonId = PlayerPosition.Instance.currentDungeonId;
+            var traverses = TraverseManager.Instance.GetDungeonTraverseData(playerDungeonId);
+            foreach (var mapInfo in dungeonFloor.mapInfo)
+            {
+                if (mapInfo.regeonNo == regeonNo)
+                {
+                    var X = mapInfo.eventId % dungeonFloor.floorSizeHorizontal;
+                    var Y = mapInfo.eventId / dungeonFloor.floorSizeHorizontal;
+                    string key = dungeonFloor.floorId.ToString() + "-" + X.ToString() + "-" + Y.ToString();
+                    traverses.traverseDict[key] = true;
+                }
+            }
+            AddDungeonTraverse();
+        }
+
         public void SetPlayerPosition()
         {
             // 位置保存情報を復帰
@@ -149,7 +167,7 @@ namespace Ryneus
                     CurrentDeckInfo.EncountRateTurn.GainValue(-1, 0);
                     if (CurrentDeckInfo.EncountRateTurn.Value == 0)
                     {
-                        CurrentDeckInfo.EncountRate.SetValue(0);
+                        CurrentDeckInfo.EncountRate.SetValue(1);
                     }
 
                     // 残りターン数を減算

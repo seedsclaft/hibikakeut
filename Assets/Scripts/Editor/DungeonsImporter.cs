@@ -51,8 +51,8 @@ namespace Ryneus
                 {
                     // エクセルブックを作成
                     AssetPostImporter.CreateBook(asset, Mainstream, out IWorkbook Book);
-                    
-                    CreateDungeonMain(Book,Data);
+
+                    CreateDungeonMain(Book, Data);
 
                     Data.FloorData.Clear();
                     ISheet DungeonSheet = Book.GetSheetAt(1);
@@ -72,9 +72,26 @@ namespace Ryneus
                     }
                     Data.FloorData = MapInfos;
 
+                    ISheet RegeonSheet = Book.GetSheetAt(2);
+                    var KeyRow2 = RegeonSheet.GetRow(0);
+                    AssetPostImporter.SetKeyNames(KeyRow2.Cells);
+                    for (int j = 1; j <= Data.Data.Width; j++)
+                    {
+                        IRow SymbolRow = RegeonSheet.GetRow(j);
+                        for (int i = 1;i <= cols;i++)
+                        {
+                            var reageonNo = CreateRegeons(SymbolRow, i.ToString(), (i-1) + (j-1) * Data.Data.Width);
+                            var map = Data.FloorData.Find(a => a.eventId == (i-1) + (j-1) * Data.Data.Width);
+                            if (map != null && reageonNo > 0)
+                            {
+                                map.regeonNo = reageonNo;
+                            }
+                        }
+                    }
+
                     // 専用データを作成
-                    var floorData = ConvertFloorData(Data,FileName);
-                    
+                    var floorData = ConvertFloorData(Data, FileName);
+
                     // ダンジョンマスタ更新
                     string AriadoneExportPath = $"{Path.Combine(AssetPostImporter.ExportExcelPath, "Dungeon"+ Data.Data.Id.ToString("D4") + "")}.asset";
                     var AriadoneMasterData = AssetDatabase.LoadAssetAtPath<Ariadne.DungeonMasterData>(AriadoneExportPath);
@@ -82,7 +99,7 @@ namespace Ryneus
                     {
                         // データがなければ作成
                         AriadoneMasterData = ScriptableObject.CreateInstance<Ariadne.DungeonMasterData>();
-                        
+
                         AssetDatabase.CreateAsset(AriadoneMasterData, AriadoneExportPath);
                     }
                     AriadoneMasterData.hideFlags = HideFlags.NotEditable;
@@ -202,6 +219,33 @@ namespace Ryneus
                 objectFront = (Ariadne.DungeonDir)front
             };
             return map;
+        }
+
+        private static int CreateRegeons(IRow SymbolRow, string cellText, int cellIndex)
+        {
+            var cell = AssetPostImporter.ImportString(SymbolRow, cellText);
+            Debug.Log(cell);
+            var regeon = 0;
+            if (cell != "")
+            {
+                if (cell.Contains("①"))
+                {
+                    regeon = 1;
+                } else
+                if (cell.Contains("②"))
+                {
+                    regeon = 2;
+                } else
+                if (cell.Contains("③"))
+                {
+                    regeon = 3;
+                } else
+                if (cell.Contains("④"))
+                {
+                    regeon = 4;
+                }
+            }
+            return regeon;
         }
 
         private static void CreateDungeonMain(IWorkbook Book,DungeonDates Data)

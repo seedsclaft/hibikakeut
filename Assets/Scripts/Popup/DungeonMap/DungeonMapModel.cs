@@ -50,12 +50,18 @@ namespace Ryneus
 
         public void FindPath(MapCellInfo mapCellInfo)
         {
+            var dungeonFloor = FindDungeonFloor(CurrentStage.StageId.Value);
+            var traversDates = PartyInfo.GetDungeonTraverse(CurrentStage.StageId.Value);
+            string key = dungeonFloor.floorId.ToString() + "-" + mapCellInfo.HexField.X.ToString() + "-" + mapCellInfo.HexField.Y.ToString();
+            if (!traversDates.Contains(key))
+            {
+                return;
+            }
             var startHex = new HexField
             {
                 X = CurrentDeckInfo.PositionX.Value,
                 Y = CurrentDeckInfo.PositionY.Value
             };
-            var dungeonFloor = FindDungeonFloor(CurrentStage.StageId.Value);
             var goalHex = new HexField
             {
                 X = mapCellInfo.MapInfo.eventId % dungeonFloor.floorSizeHorizontal,
