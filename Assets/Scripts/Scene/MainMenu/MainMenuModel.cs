@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace Ryneus
 {
@@ -132,7 +131,7 @@ namespace Ryneus
             var artifact = new SystemData.CommandData
             {
                 Id = 1,
-                Name = "アーティファクト",
+                Name = DataSystem.GetText(37000),
                 Key = "Artifact"
             };
             list.Add(artifact);

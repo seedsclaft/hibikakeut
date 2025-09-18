@@ -129,7 +129,7 @@ namespace Ryneus
             var data = equipSkillList.ListItemData<SkillInfo>();
             if (data != null)
             {
-                CallViewEvent(CommandType.SelectEquipSkill ,data);
+                CallViewEvent(CommandType.SelectEquipSkill, data);
             }
         }
 

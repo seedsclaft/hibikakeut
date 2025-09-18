@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -20,7 +19,7 @@ namespace Ryneus
 
         public void SwapBattler(int toActorId)
         {
-            CurrentDeckInfo.SwapBattler(FromEditIndex.Value,toActorId);
+            CurrentDeckInfo.SwapBattler(FromEditIndex.Value, toActorId);
         }
 
         public int FromEditSelectIndex()

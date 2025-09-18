@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -131,7 +130,7 @@ namespace Ryneus
                 var resultInfo = new StrategyResultViewInfo();
                 var skillData = DataSystem.FindSkill(skillGetItemInfo.Param1);
                 resultInfo.SetSkillId(skillData.Id);
-                resultInfo.SetTitle(skillData.Name + "を入手！");
+                resultInfo.SetTitle(DataSystem.GetReplaceText(20100, skillData.Name));
                 _resultInfos.Add(resultInfo);
             }
             foreach (var evaluateGetItemInfo in evaluateGetItemInfos)
@@ -181,7 +180,7 @@ namespace Ryneus
                         break;
                     case GetItemType.AddReliefCommandCount:
                         var addReliefCommandCount = new StrategyResultViewInfo();
-                        addReliefCommandCount.SetTitle("招聘コマンド回数+1");
+                        addReliefCommandCount.SetTitle(DataSystem.GetText(20420));
                         _resultInfos.Add(addReliefCommandCount);
                         break;
                 }
@@ -251,7 +250,7 @@ namespace Ryneus
                     clearStageNum++;
                 }
             }
-            return clearStageNum.ToString() + "体";
+            return DataSystem.GetReplaceText(20430, clearStageNum.ToString());
         }
 
         public List<SystemData.CommandData> ResultCommand()

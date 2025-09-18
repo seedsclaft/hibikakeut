@@ -44,7 +44,7 @@ namespace Ryneus
         public int From => _from;
         private int _to = 0;
         public int To => _to;
-        public RankupInfo(int from,int to)
+        public RankupInfo(int from, int to)
         {
             _from = from;
             _to = to;

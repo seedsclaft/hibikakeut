@@ -189,7 +189,18 @@ namespace Ryneus
             {
                 CallViewEvent(CommandType.RouteModeEnd);
             }
-            moveController.UpdateKey(keyTypes);
+            if (keyTypes.Contains(InputKeyType.Up))
+            {
+                CallViewEvent(CommandType.CheckRemainTurn);
+            } else
+            {
+                moveController.UpdateKey(keyTypes);
+            }
+        }
+
+        public void ForwardMove()
+        {
+            moveController.UpdateKey(new List<InputKeyType>(){InputKeyType.Up});
         }
 
         public override void MouseCancelHandler()
@@ -354,6 +365,7 @@ namespace Ryneus
             MoveEndFinish,
             RouteModeEnd,
             DecideDirectEvent,
+            CheckRemainTurn,
             Heal,
             Formation,
             UseItem,

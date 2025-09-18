@@ -707,7 +707,7 @@ namespace Ryneus
             var artifactNum = 0;
             foreach (var item in _items)
             {
-                if (item.Key > 2000 && item.Value.Value > 0)
+                if ((item.Key > 2000 && item.Key < 3000) && item.Value.Value > 0)
                 {
                     artifactNum++;
                 }

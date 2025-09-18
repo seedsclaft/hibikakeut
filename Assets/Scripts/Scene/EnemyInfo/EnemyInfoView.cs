@@ -70,7 +70,7 @@ namespace Ryneus
         {
             magicListRoot.SetActive(true);
             conditionListRoot.SetActive(false);
-            displayCategory.SetText("魔法");
+            displayCategory.SetText(DataSystem.GetText(15010));
             SetActivate(magicList);
         }
 
@@ -78,7 +78,7 @@ namespace Ryneus
         {
             magicListRoot.SetActive(false);
             conditionListRoot.SetActive(true);
-            displayCategory.SetText("ステート");
+            displayCategory.SetText(DataSystem.GetText(15020));
             SetActivate(conditionList);
         }
 

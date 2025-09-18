@@ -293,7 +293,7 @@ namespace Ryneus
 
         private void CommandCallEnemyInfo()
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);  
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             /*
             var enemyIndex = _model.CurrentStage.CurrentSeekIndex;
             var enemyInfos = _model.TacticsSymbols()[enemyIndex].SymbolInfo.BattlerInfos();

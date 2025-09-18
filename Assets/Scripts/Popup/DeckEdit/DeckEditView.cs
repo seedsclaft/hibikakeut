@@ -25,7 +25,7 @@ namespace Ryneus
 
         public void OpenAnimation()
         {
-            popupAnimation.OpenAnimation(UiRoot.transform,() => CallViewEvent(CommandType.EndOpenAnimation));
+            popupAnimation.OpenAnimation(UiRoot.transform, () => CallViewEvent(CommandType.EndOpenAnimation));
         }
 
         private void InitializePartyUnitList()

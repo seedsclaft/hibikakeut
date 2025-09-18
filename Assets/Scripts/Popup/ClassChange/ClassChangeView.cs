@@ -37,7 +37,7 @@ namespace Ryneus
             prefab.transform.SetParent(animRoot.transform, false);
             _battleStartAnim = prefab.GetComponent<BattleStartAnim>();
             _battleStartAnim.gameObject.SetActive(false);
-            _battleStartAnim.SetText("Class Change!");
+            _battleStartAnim.SetText(DataSystem.GetText(41010));
             _battleStartAnim.StartAnim(false, 0, ShowLvUpActor);
             _battleStartAnim.gameObject.SetActive(true);
             _animationBusy = true;

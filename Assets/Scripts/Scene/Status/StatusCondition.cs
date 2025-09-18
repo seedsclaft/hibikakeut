@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 namespace Ryneus
 {
-    public class StatusCondition : ListItem,IListViewItem
+    public class StatusCondition : ListItem, IListViewItem
     {
         [SerializeField] private StateInfoComponent stateInfoComponent;
 

@@ -25,7 +25,7 @@ namespace Ryneus
 
         public List<SystemData.CommandData> ResultCommand()
         {
-            return BaseConfirmCommand(3040,19040);
+            return BaseConfirmCommand(3040, 19040);
         }
     }
 }

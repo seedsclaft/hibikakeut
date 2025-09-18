@@ -5,7 +5,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class StrategyResult : ListItem ,IListViewItem 
+    public class StrategyResult : ListItem, IListViewItem
     {
         [SerializeField] private SkillInfoComponent skillInfoComponent;
         [SerializeField] private TextMeshProUGUI titleName;

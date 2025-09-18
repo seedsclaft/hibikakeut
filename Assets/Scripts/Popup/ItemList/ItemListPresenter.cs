@@ -138,7 +138,7 @@ namespace Ryneus
             _view.ActivateItemList(false);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var skillInfos = _model.GetRandumAddSkillInfos(itemInfo);
-            var confirmInfo = new ConfirmInfo("いずれかの魔法が入手できます", (a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(34060), (a) =>
             {
                 _busy = false;
                 _view.ActivateItemList(true);

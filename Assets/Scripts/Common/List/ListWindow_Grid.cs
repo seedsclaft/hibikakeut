@@ -42,6 +42,43 @@ namespace Ryneus
             return ObjectListCount / _gridColumnCount;
         }
 
+        public void UpdateListGridItem(int selectIndex = -1, int itemStartIndex = -1)
+        {
+            if (_grid)
+            {
+                var update = UpdateListGrid();
+                if (update)
+                {
+                    return;
+                }
+            }
+            var horizontalCount = GetHorizonalCount();
+            var verticalCount = GetVerticalCount();
+            horizontalCount += 1;
+            var startIndex = selectIndex == -1 ? GetStartIndex(_horizontal) : selectIndex;
+            var gridIndex = selectIndex == -1 ? GetStartIndex(!_horizontal) : selectIndex;
+
+            for (int i = 0; i < _itemPrefabList.Count; i++)
+            {
+                var itemPrefab = _itemPrefabList[i];
+                if (itemStartIndex > -1)
+                {
+                    //
+                    var tempIndex = (i + itemStartIndex) % _itemPrefabList.Count;
+                    itemPrefab = _itemPrefabList[tempIndex];
+                }
+                var itemIndex = i + startIndex;
+                if (_listDates.Count > itemIndex)
+                {
+                    var listItem = itemPrefab.GetComponent<ListItem>();
+                    listItem.SetListData(_listDates[itemIndex], itemIndex);
+                    Debug.Log("itemIndex:" + i + "がobjectIndex: " + itemIndex);
+                    itemPrefab.transform.SetParent(_objectList[itemIndex].transform, false);
+                    itemPrefab.SetActive(true);
+                }
+            }
+        }
+
         private void UpdateGridScrollRect(List<InputKeyType> keyTypes)
         {
             /*

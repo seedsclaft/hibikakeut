@@ -15,6 +15,7 @@ namespace Ryneus
         private bool _busy = true;
         private bool _routeMode = true;
         private int _routeMoveFailCount = 0;
+        private bool _checkTurnOver = false;
 
         private List<StageEventData> _thisTurnStageEvents = new();
         public DungeonPresenter(DungeonView view)
@@ -86,6 +87,9 @@ namespace Ryneus
                 case CommandType.DecideDirectEvent:
                     CommandDecideDirectEvent();
                     break;
+                case CommandType.CheckRemainTurn:
+                    CommandCheckRemainTurn();
+                    break;
                 case CommandType.Heal:
                     CommandHeal();
                     break;
@@ -140,12 +144,8 @@ namespace Ryneus
                 return;
             }
 
-            // ターン数が0の場合
-            if (_model.EndDungeonByTurnCount())
-            {
-                CommandTurnOver(moved);
-                return;
-            }
+            // ターン数確認
+            CommandTurnOverEvent(moved);
 
             // エンカウントした場合
             CheckEncount();
@@ -194,12 +194,8 @@ namespace Ryneus
                 return;
             }
 
-            // ターン数が0の場合
-            if (_model.EndDungeonByTurnCount())
-            {
-                CommandTurnOver(moved);
-                return;
-            }
+            // ターン数確認
+            CommandTurnOverEvent(moved);
 
             // エンカウントした場合
             CheckEncount();
@@ -228,11 +224,8 @@ namespace Ryneus
             CheckEventData(moved, playerPosition, () =>
             {
                 _model.DungeonBusy(false);
-                // ターン数が0の場合
-                if (_model.EndDungeonByTurnCount())
-                {
-                    CommandTurnOver(moved);
-                }
+                // ターン数確認
+                CommandTurnOverEvent(moved);
                 if (_routeMode)
                 {
                     CheckRouteMode();
@@ -267,12 +260,35 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
             _model.DungeonBusy(true);
-            var confirmInfo = new ConfirmInfo("すべての敵を撃破しました！", (a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10190), (a) =>
             {
-                RetunrDungeon();
+                ReturnDungeon();
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void CommandTurnOverEvent(bool moved)
+        {
+            // ターン数が10の場合
+            if (_model.EndDungeonByTurnCountValue(10))
+            {
+                CommandTurnOverBeforeTen(moved);
+            }
+
+            // ターン数が0の場合
+            if (_model.EndDungeonByTurnCount())
+            {
+                CommandTurnOver(moved);
+            }
+        }
+
+        private void CommandTurnOverBeforeTen(bool moved)
+        {
+            // 評価値が減少まであと10ターン
+            var cautionInfo = new CautionInfo();
+            cautionInfo.SetTitle(DataSystem.GetText(10181));
+            _view.CommandCallCaution(cautionInfo);
         }
 
         private void CommandTurnOver(bool moved)
@@ -281,7 +297,7 @@ namespace Ryneus
             _model.TurnOver();
             _view.MinusVictoryBonus(-0.2f);
             var cautionInfo = new CautionInfo();
-            cautionInfo.SetTitle("ターン数超過のため評価値ダウン");
+            cautionInfo.SetTitle(DataSystem.GetText(10180));
             _view.CommandCallCaution(cautionInfo);
             // 強制帰還
             /*
@@ -309,7 +325,7 @@ namespace Ryneus
             */
         }
 
-        private void RetunrDungeon()
+        private void ReturnDungeon()
         {
             _model.ReturnDungeon();
             _view.CallSystemCommand(Base.CommandType.MapClear);
@@ -384,7 +400,7 @@ namespace Ryneus
                         StageEventExitDungeon(moved, endEvent);
                         return;
                     case StageEventType.MoveDungeonFloor:
-                        StageEventMoveDungeonFloor(moved,stageEvent,endEvent);
+                        StageEventMoveDungeonFloor(moved, stageEvent, endEvent);
                         return;
                     case StageEventType.GetArtifact:
                         StageEventGetArtifact(stageEvent);
@@ -427,11 +443,8 @@ namespace Ryneus
                     case StageEventType.EventEnd:
                         _model.DungeonBusy(false);
                         CommandRefresh();
-                        // ターン数が0の場合
-                        if (_model.EndDungeonByTurnCount())
-                        {
-                            CommandTurnOver(false);
-                        }
+                        // ターン数確認
+                        CommandTurnOverEvent(false);
                         return;
                 }
             }
@@ -629,7 +642,7 @@ namespace Ryneus
             {
                 _model.CursedParty();
                 var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-                CheckEventData(false,playerPosition,endEvent);
+                CheckEventData(false, playerPosition, endEvent);
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
@@ -640,7 +653,7 @@ namespace Ryneus
             _model.AddEventReadFlag(stageEvent);
             _model.EndCursedParty();
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-            CheckEventData(false,playerPosition,endEvent);
+            CheckEventData(false, playerPosition, endEvent);
         }
 
         private void StageEventTraverseRegeon(StageEventData stageEvent, Action endEvent)
@@ -651,11 +664,35 @@ namespace Ryneus
             // 未読の非表示マスを管理
             _model.AddEventNotFlag();
             _model.DungeonBusy(false);
-            // ターン数が0の場合
-            if (_model.EndDungeonByTurnCount())
+            // ターン数確認
+            CommandTurnOverEvent(false);
+        }
+
+        private void CommandCheckRemainTurn()
+        {
+            // 移動したら評価値が減る場合に確認
+            if (_model.EndDungeonByTurnCountValue(0) && !_checkTurnOver)
             {
-                CommandTurnOver(false);
+                _model.DungeonBusy(true);
+                _busy = true;
+                var confirmInfo = new ConfirmInfo(DataSystem.GetText(10182), (a) =>
+                {
+                    if (a == ConfirmCommandType.Yes)
+                    {
+                        _model.DungeonBusy(false);
+                        _busy = false;
+                        _checkTurnOver = true;
+                    } else
+                    {
+                        _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
+                        ReturnDungeon();
+                        return;
+                    }
+                });
+                _view.CommandCallConfirm(confirmInfo);
+                return;
             }
+            _view.ForwardMove();
         }
 
         private void CommandReturn()
@@ -668,7 +705,7 @@ namespace Ryneus
                 if (a == ConfirmCommandType.Yes)
                 {
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
-                    RetunrDungeon();
+                    ReturnDungeon();
                 } else
                 {
                     _model.DungeonBusy(false);
@@ -694,7 +731,7 @@ namespace Ryneus
             }
             _busy = true;
             var skillId = item.Param1;
-            var learnSkillInfo = new LearnSkillInfo(0,0,new SkillInfo(skillId));
+            var learnSkillInfo = new LearnSkillInfo(0, 0, new SkillInfo(skillId));
             SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
             var popupInfo = new PopupInfo
             {
@@ -710,7 +747,7 @@ namespace Ryneus
 
         private void PresentArtifact(int itemId)
         {
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10140),(a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10140), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
@@ -788,7 +825,7 @@ namespace Ryneus
             _view.CommandCallPopup(popupInfo);
         }
 
-        private void CommandCallAddActorInfo(bool freeSelect,bool addCommand)
+        private void CommandCallAddActorInfo(bool freeSelect, bool addCommand)
         {
             List<ActorInfo> actorInfos = null;
             if (freeSelect)

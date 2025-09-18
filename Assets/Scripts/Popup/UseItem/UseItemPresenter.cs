@@ -82,7 +82,7 @@ namespace Ryneus
             _busy = true;
             _view.SetBusy(true);
 
-            var confirmInfo = new ConfirmInfo("エンカウント率がアップ！", (a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(42010), (a) =>
             {
                 _busy = false;
                 _view.SetBusy(false);

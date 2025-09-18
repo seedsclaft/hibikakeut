@@ -44,7 +44,7 @@ namespace Ryneus
                 skillInfos = CurrentEnemy.Skills;
             }
             skillInfos.ForEach(a => a.SetEnable(true));
-            skillInfos.Sort((a,b) => {return a.Id.Value - b.Id.Value;});
+            skillInfos.Sort((a, b) => {return a.Id.Value - b.Id.Value;});
             return skillInfos;
         }
 
@@ -65,7 +65,7 @@ namespace Ryneus
             {
                 skillInfos = CurrentEnemy.Skills;
             }
-            skillInfos.Sort((a,b) => a.Weight > b.Weight ? -1:1);
+            skillInfos.Sort((a, b) => a.Weight > b.Weight ? -1 : 1);
             var skillTriggerInfos = new List<SkillTriggerInfo>();
             foreach (var skillInfo in skillInfos)
             {

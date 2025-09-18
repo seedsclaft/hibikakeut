@@ -250,13 +250,22 @@ namespace Ryneus
             return stageEvents.Find(a => a.Type == StageEventType.ForceBattle || a.Type == StageEventType.ForceBossBattle) == null;
         }
 
+        public bool EndDungeonByTurnCountValue(int value)
+        {
+            if (CurrentStage == null)
+            {
+                return false;
+            }
+            return PartyInfo.TurnCount.Value == value;
+        }
+
         public bool EndDungeonByTurnCount()
         {
             if (CurrentStage == null)
             {
                 return false;
             }
-            return PartyInfo.TurnCount.Value <= 0;
+            return PartyInfo.TurnCount.Value < 0;
         }
 
         public bool EncountEnemy()
@@ -484,7 +493,7 @@ namespace Ryneus
             var artifact = new SystemData.CommandData
             {
                 Id = 1,
-                Name = "アーティファクト",
+                Name = DataSystem.GetText(37000),
                 Key = "Artifact"
             };
             list.Add(artifact);

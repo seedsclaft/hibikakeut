@@ -89,7 +89,7 @@ namespace Ryneus
         private void InitializeStatusList()
         {
             statusList.Initialize();
-            statusList.SetInputHandler(InputKeyType.Decide,CallLvUpNext);
+            statusList.SetInputHandler(InputKeyType.Decide, CallLvUpNext);
             AddViewActives(strategyActorList);
         }
 
@@ -98,13 +98,13 @@ namespace Ryneus
             lvUpStatusButton.gameObject.SetActive(true);
             actorInfoComponent.gameObject.SetActive(true);
             actorInfoComponent.Clear();
-            actorInfoComponent.UpdateInfo(actorInfo,null);
+            actorInfoComponent.UpdateInfo(actorInfo, null);
 
             var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
-            rect.localPosition = new Vector3(0,0,0);
-            actorInfoComponent.MainThumb.DOFade(0,0);
+            rect.localPosition = new Vector3(0, 0, 0);
+            actorInfoComponent.MainThumb.DOFade(0, 0);
 
-            BaseAnimation.MoveAndFade(rect,actorInfoComponent.MainThumb,24,1);
+            BaseAnimation.MoveAndFade(rect, actorInfoComponent.MainThumb, 24, 1);
 
             HelpWindow.SetInputInfo("LEVELUP");
             statusList.gameObject.SetActive(true);
@@ -127,7 +127,7 @@ namespace Ryneus
             {
                 if (LearnSelectSkillInfo() != null)
                 {
-                    CallViewEvent(CommandType.SelectLearnSkillList,LearnSelectSkillInfo());
+                    CallViewEvent(CommandType.SelectLearnSkillList, LearnSelectSkillInfo());
                 }
             });
             AddViewActives(alcanaSelectList);
@@ -217,7 +217,7 @@ namespace Ryneus
 
         public void FadeOut()
         {
-            backgroundImage.DOFade(0,0.4f);
+            backgroundImage.DOFade(0, 0.4f);
         }
 
         public void HideLearnSkillList()

@@ -6,16 +6,16 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class MainMenuStage : ListItem ,IListViewItem  
-    {   
+    public class MainMenuStage : ListItem, IListViewItem
+    {
         [SerializeField] private StageInfoComponent component;
         [SerializeField] private Button rankingButton;
         private bool IsInit = false;
-        
+
         public void SetRankingDetailHandler(System.Action<int> callEvent)
         {
             if (IsInit) return;
-            rankingButton.onClick.AddListener(() => 
+            rankingButton.onClick.AddListener(() =>
             {
                 if (ListData == null) return;
                 var data = (StageInfo)ListData.Data;

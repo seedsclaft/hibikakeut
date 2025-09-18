@@ -98,7 +98,7 @@ namespace Ryneus
                 _busy = true;
                 _view.SetBusy(true);
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                var confirmInfo = new ConfirmInfo("途中まで進んだところから再開しますか？", (a) =>
+                var confirmInfo = new ConfirmInfo(DataSystem.GetText(32110), (a) =>
                 {
                     if (a == ConfirmCommandType.Yes)
                     {

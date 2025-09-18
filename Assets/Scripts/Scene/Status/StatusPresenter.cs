@@ -148,7 +148,7 @@ namespace Ryneus
                 SceneType = (int)StatusType.Status + 200,
                 CheckEndMethod = checkEnd,
                 CheckMethod = enable,
-                EndEvent = () => 
+                EndEvent = () =>
                 {
                     _busy = false;
                     CheckTutorialState(commandType);
@@ -364,14 +364,14 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var characterListInfo = new CharacterListInfo((a) => 
+            var characterListInfo = new CharacterListInfo((a) =>
             {
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 _model.SelectActor(a);
                 CommandRefresh();
                 _busy = false;
             },
-            () => 
+            () =>
             {
                 CommandRefresh();
                 _busy = false;
@@ -388,7 +388,7 @@ namespace Ryneus
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
-            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
+            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
             CheckTutorialState();
         }
 
@@ -439,7 +439,7 @@ namespace Ryneus
 
         private void CommandLearnMagic(SkillInfo skillInfo)
         {
-            CommandLearnMagic(_model.CurrentActor,skillInfo,() =>
+            CommandLearnMagic(_model.CurrentActor, skillInfo, () =>
             {
                 _view.CommandRefresh();
                 CommandShowLearnMagic();
@@ -456,14 +456,14 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _model.ChangeFilterAttribute(true);
-            _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills(),0), _model.FilterText());
+            _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills(), 0), _model.FilterText());
         }
 
         public void CommandFilterMinus()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _model.ChangeFilterAttribute(false);
-            _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills(),0), _model.FilterText());
+            _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills(), 0), _model.FilterText());
         }
 
         private void CommandSelectSkillTrigger(int actorId)
@@ -545,9 +545,9 @@ namespace Ryneus
         private void CommandRefresh()
         {
             _model.UpdateActorRemainCost();
-            _view.SetActorInfo(_model.CurrentActor,_model.ActorInfos);
-            _view.SetLvUpInfo(_model.LevelUpCost(),_model.Currency);
-            _view.SetLvUpExpInfo(_model.LevelUpBeforeExp(),_model.LevelUpAfterExp());
+            _view.SetActorInfo(_model.CurrentActor, _model.ActorInfos);
+            _view.SetLvUpInfo(_model.LevelUpCost(), _model.Currency);
+            _view.SetLvUpExpInfo(_model.LevelUpBeforeExp(), _model.LevelUpAfterExp());
             _view.CommandRefresh();
         }
 

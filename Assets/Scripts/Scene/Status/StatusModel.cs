@@ -117,7 +117,7 @@ namespace Ryneus
 
         public void ChangeActorIndex(int value)
         {
-            CurrentIndex.GainValue(value,0,_actorInfos.Count-1,true);
+            CurrentIndex.GainValue(value, 0, _actorInfos.Count - 1, true);
         }
 
         public void SetActorLastSkillId(int selectSkillId)

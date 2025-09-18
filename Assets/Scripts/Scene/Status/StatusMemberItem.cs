@@ -17,7 +17,7 @@ namespace Ryneus
 
             var data = ListItemData<ActorInfo>();
             actorInfoComponent.Clear();
-            actorInfoComponent.UpdateInfo(data,null);
+            actorInfoComponent.UpdateInfo(data, null);
         }
     }
 }
