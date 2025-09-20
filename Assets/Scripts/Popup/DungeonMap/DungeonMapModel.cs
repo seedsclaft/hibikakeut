@@ -28,8 +28,8 @@ namespace Ryneus
                 {
                     var hexField = new HexField
                     {
-                        X = mapInfo.eventId % dungeonFloor.floorSizeHorizontal,
-                        Y = mapInfo.eventId / dungeonFloor.floorSizeHorizontal
+                        X = mapInfo.eventId % dungeonFloor.floorSizeVertical,
+                        Y = mapInfo.eventId / dungeonFloor.floorSizeVertical
                     };
                     var traversDates = PartyInfo.GetDungeonTraverse(CurrentStage.StageId.Value);
                     string key = dungeonFloor.floorId.ToString() + "-" + hexField.X.ToString() + "-" + hexField.Y.ToString();
@@ -63,8 +63,8 @@ namespace Ryneus
             };
             var goalHex = new HexField
             {
-                X = mapCellInfo.MapInfo.eventId % dungeonFloor.floorSizeHorizontal,
-                Y = mapCellInfo.MapInfo.eventId / dungeonFloor.floorSizeHorizontal
+                X = mapCellInfo.MapInfo.eventId % dungeonFloor.floorSizeVertical,
+                Y = mapCellInfo.MapInfo.eventId / dungeonFloor.floorSizeVertical
             };
             _hexRoute.FindRoute(MoveType.Normal, startHex, goalHex, false);
             _hexPaths = _hexRoute.Pathlist;

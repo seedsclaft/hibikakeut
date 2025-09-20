@@ -329,13 +329,13 @@ namespace Ryneus
         {
             _model.ReturnDungeon();
             _view.CallSystemCommand(Base.CommandType.MapClear);
+            var mainMenuSceneInfo = new MainMenuSceneInfo
+            {
+                PeriodAnimation = true
+            };
             var periodItemInfos = _model.PeriodGetItemInfos();
             if (periodItemInfos.Count > 0)
             {
-                var mainMenuSceneInfo = new MainMenuSceneInfo
-                {
-                    PeriodAnimation = true
-                };
                 var strategySceneInfo = new StrategySceneInfo
                 {
                     ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
@@ -347,7 +347,7 @@ namespace Ryneus
                 _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
                 return;
             }
-            _view.CommandSceneChange(Scene.MainMenu);
+            _view.CommandSceneChange(Scene.MainMenu, mainMenuSceneInfo);
         }
 
         private void CommandDecideDirectEvent()
@@ -410,6 +410,9 @@ namespace Ryneus
                         return;
                     case StageEventType.GetSkill:
                         StageEventGetSkill(stageEvent);
+                        return;
+                    case StageEventType.AddActor:
+                        StageEventAddActor(stageEvent, endEvent);
                         return;
                     case StageEventType.SelectAddActor:
                         StageEventSelectAddActor(stageEvent);
@@ -506,13 +509,25 @@ namespace Ryneus
             CommandGetSkill(stageEvent.Param);
         }
 
+        private void StageEventAddActor(StageEventData stageEvent, Action endEvent)
+        {
+            var getItemData = new GetItemData
+            {
+                Type = GetItemType.AddActor,
+                Param1 = stageEvent.Param
+            };
+            var getItemInfo = new GetItemInfo(getItemData);
+            _model.AddGetItemInfo(getItemInfo);
+            endEvent?.Invoke();
+        }
+
         private void StageEventSelectAddActor(StageEventData stageEvent)
         {
             // 選択して仲間を加入
             // 確認後仲間選択
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(10120), (a) =>
             {
-                CommandCallAddActorInfo(true, true);
+                CommandCallAddActorInfo(new List<int>(){stageEvent.Param});
             });
             confirmInfo.SetIsNoChoice(true);
             confirmInfo.SetBackEvent(() => {});
@@ -825,39 +840,14 @@ namespace Ryneus
             _view.CommandCallPopup(popupInfo);
         }
 
-        private void CommandCallAddActorInfo(bool freeSelect, bool addCommand)
+        private void CommandCallAddActorInfo(List<int> limitRanks)
         {
-            List<ActorInfo> actorInfos = null;
-            if (freeSelect)
+            List<ActorInfo> actorInfos = _model.AddSelectActorInfos(limitRanks);
+            // 加入する用
+            CommandAddActorStatusInfo(actorInfos,() =>
             {
-                actorInfos = _model.AddSelectActorInfos();
-            } else
-            {
-                //actorInfos = _model.AddSelectActorGetItemInfos(symbolResultInfo.SymbolInfo.GetItemInfos);
-            }
-            if (addCommand)
-            {
-                // 加入する用
-                CommandAddActorStatusInfo(actorInfos,() =>
-                {
-                    CommandRefresh();
-                });
-            } else
-            {
-                /*
-                var selectActorId = -1;
-                var getItemInfo = _view.SymbolGetItemInfo;
-                if (getItemInfo != null)
-                {
-                    selectActorId = getItemInfo.Param1;
-                }
-                // 確認する用
-                CommandStatusInfo(actorInfos,false,true,false,false,selectActorId,() => 
-                {
-
-                });
-                */
-            }
+                CommandRefresh();
+            });
         }
 
         private void CommandHeal()

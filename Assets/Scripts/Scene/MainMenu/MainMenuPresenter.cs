@@ -41,7 +41,7 @@ namespace Ryneus
                 return;
             }
 
-            _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
+            _view.SetCharaLayer(_model.MainMenuActorInfos());
             if (_model.SceneParam != null && _model.SceneParam.PeriodAnimation)
             {
                 SoundManager.Instance.FadeOutBgm();
@@ -207,7 +207,7 @@ namespace Ryneus
                     UpdateCommandSelecting(true);
                     CommandRefresh();
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                    _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
+                    _view.SetCharaLayer(_model.MainMenuActorInfos());
                 }
             };
             _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
@@ -321,7 +321,7 @@ namespace Ryneus
                     _busy = false;
                     UpdateCommandSelecting(true);
                     CommandRefresh();
-                    _view.SetCharaLayer(_model.PartyInfo.CurrentDeckActorInfos());
+                    _view.SetCharaLayer(_model.MainMenuActorInfos());
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };

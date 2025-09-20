@@ -17,7 +17,7 @@ namespace Ryneus
         public string Name;
         public string SubName;
         public string Profile;
-        public int ClassId;
+        public int Rank;
         //public UnitType UnitType;
         public string ImagePath;
         public int InitLv;

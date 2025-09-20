@@ -150,7 +150,7 @@ namespace Ryneus
             Mp.SetValue(actorInfo.CurrentMp.Value);
             _lineIndex = actorInfo.LineIndex;
 
-            if (actorInfo.LastSelectSkillId == 0)
+            if (actorInfo.LastSelectSkillId == 0 && _skills.Count > 0)
             {
                 LastSelectSkill.SetValue(_skills.Find(a => a.Id.Value > 100).Id.Value);
             }

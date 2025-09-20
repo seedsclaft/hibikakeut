@@ -72,7 +72,7 @@ namespace Ryneus
                             SubName = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,
                             Profile = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Feature,
 
-                            ClassId = AssetPostImporter.ImportNumeric(BaseRow, "ClassId"),
+                            Rank = AssetPostImporter.ImportNumeric(BaseRow, "Rank"),
                             //UnitType = (UnitType)AssetPostImporter.ImportNumeric(BaseRow, "UnitType"),
                             ImagePath = AssetPostImporter.ImportString(BaseRow, "ImagePath"),
                             InitLv = AssetPostImporter.ImportNumeric(BaseRow, "InitLv"),

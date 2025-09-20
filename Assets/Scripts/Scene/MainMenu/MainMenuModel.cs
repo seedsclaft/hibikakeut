@@ -73,6 +73,11 @@ namespace Ryneus
             return StageInfos().Count == 0;
         }
 
+        public List<ActorInfo> MainMenuActorInfos()
+        {
+            return PartyInfo.CurrentDeckActorInfos().FindAll(a => a.Master.Rank != 10);
+        }
+
         public List<ListData> MainMenuCommand()
         {
             var selectIndex = _sceneParam != null ? _sceneParam.CommandIndex : 0;

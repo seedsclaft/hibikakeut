@@ -80,13 +80,15 @@ namespace Ryneus
             {
                 if (mapInfo.regeonNo == regeonNo)
                 {
-                    var X = mapInfo.eventId % dungeonFloor.floorSizeHorizontal;
-                    var Y = mapInfo.eventId / dungeonFloor.floorSizeHorizontal;
+                    var X = mapInfo.eventId % dungeonFloor.floorSizeVertical;
+                    var Y = mapInfo.eventId / dungeonFloor.floorSizeVertical;
                     string key = dungeonFloor.floorId.ToString() + "-" + X.ToString() + "-" + Y.ToString();
+                    LogOutput.Log(key);
                     traverses.traverseDict[key] = true;
                 }
             }
             AddDungeonTraverse();
+            UpdateTraverses();
         }
 
         public void SetPlayerPosition()
@@ -304,13 +306,17 @@ namespace Ryneus
             return RandumTroopInfos(plusLv);
         }
 
-        public List<ActorInfo> AddSelectActorInfos()
+        public List<ActorInfo> AddSelectActorInfos(List<int> limitRanks)
         {
             // 未加入の仲間
             var actorDates = DataSystem.Actors.Where(a => PartyInfo.ActorInfos.Find(b => a.Value.Id == b.ActorId.Value) == null).ToList();
             var actorInfos = new List<ActorInfo>();
             foreach (var actorDate in actorDates)
             {
+                if (limitRanks.Count > 0 && !limitRanks.Contains(actorDate.Value.Rank))
+                {
+                    continue;
+                }
                 actorInfos.Add(new ActorInfo(actorDate.Value));
             }
             return actorInfos;
