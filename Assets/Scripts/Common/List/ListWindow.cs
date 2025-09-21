@@ -890,6 +890,7 @@ namespace Ryneus
             {
                 return;
             }
+            var update = selectIndex != _index;
             LayoutRebuilder.ForceRebuildLayoutImmediate(ScrollRect.content);
             UpdateSelectIndex(selectIndex);
             if (_grid)
@@ -907,7 +908,7 @@ namespace Ryneus
                 // 移動する数
                 listIndex = selectIndex - lastIndex + 1;
             }
-            if (listIndex > 0)
+            if (update)
             {
                 float verticalCount = GetVerticalCount();
                 var p = ObjectListCount - verticalCount;
