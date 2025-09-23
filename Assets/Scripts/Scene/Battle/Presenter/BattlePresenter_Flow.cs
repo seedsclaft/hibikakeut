@@ -344,7 +344,6 @@ namespace Ryneus
             if (actionInfo != null)
             {
                 _view.BattlerBattleClearSelect();
-                // かばうによりターゲットを変更
 
                 // 自分,味方,相手の行動前パッシブ
                 CheckBeforeActionInfo(actionInfo);
@@ -352,33 +351,11 @@ namespace Ryneus
                 // 開始行動アクションの結果を生成
                 _model.MakeActionResultInfo(actionInfo, indexList);
 
+                // 自分,味方,相手の対象決定後パッシブ
+                // CheckAfterActionInfo(actionInfo);
+
                 // 行動決定後の割り込みスキル判定
                 CheckInterruptActionInfoTriggerTimings(actionInfo);
-                /*
-                var current = _model.CurrentActionInfo;
-                // かばう専用割り込み判定
-                CheckPrimaryInterruptActionInfoTriggerTimings();
-
-                // かばうが成立する場合
-                if (current != _model.CurrentActionInfo)
-                {
-                    // 先にかばう結果を設定する
-                    var beforeActionInfos = _model.BeforeActionInfo(current);
-                    foreach (var beforeActionInfo in beforeActionInfos)
-                    {
-                        await ExecActionResultInfos(beforeActionInfo.ActionResults);
-                    }
-                    beforeActionInfos.Reverse();
-                    
-                    foreach (var beforeActionInfo in beforeActionInfos)
-                    {
-                        _model.RemoveActionInfo(beforeActionInfo);
-                    }
-                    // 強制的に再生成
-                    _model.MakeActionResultInfo(current,indexList,false,true);
-                }
-
-                */
             }
         }
 
@@ -396,15 +373,20 @@ namespace Ryneus
                 _model.CheckTriggerPassiveInfos(BattleUtility.BeforeActionInfoTriggerTimings(), actionInfo, actionInfo.ActionResults);
             }
         }
-        
+
         /// <summary>
-        /// かばう割り込みトリガー確認
+        /// 行動前パッシブを確認
         /// </summary>
-        private void CheckPrimaryInterruptActionInfoTriggerTimings()
+        /// <param name="indexList"></param>
+        private void CheckAfterActionInfo(ActionInfo actionInfo)
         {
-            var actionInfo = _model.ReceiveActionInfo;
-            _model.CheckTriggerActiveInfos(TriggerTiming.PrimaryInterrupt, actionInfo, actionInfo.ActionResults, true);
-            _model.CheckTriggerPassiveInfos(new List<TriggerTiming>(){TriggerTiming.PrimaryInterrupt}, actionInfo, actionInfo.ActionResults);
+            if (actionInfo != null)
+            {
+                _view.BattlerBattleClearSelect();
+
+                // 自分,味方,相手の行動前パッシブを確認
+                _model.CheckTriggerPassiveInfos(BattleUtility.AfterActionInfoTriggerTimings(), actionInfo, actionInfo.ActionResults);
+            }
         }
 
         /// <summary>

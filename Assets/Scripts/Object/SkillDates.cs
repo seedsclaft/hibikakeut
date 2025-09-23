@@ -368,6 +368,8 @@ namespace Ryneus
         InBattleUseCountUnder = 11010, // バトル中使用回数が〇以下
         InPeriodUseCountUnder = 11011, // Period中使用回数が〇以下
         InTurnUseCountUnder = 11020, // ターン中使用回数が〇以下
+        Coverable = 12010, // かばうが成立する
+        AfterCoverable = 12011, // かばう成立後かばった対象
         ActionMpCost = 12030, // 行動Magicの消費Mpが〇
         TargetHpRateUnder = 12040, // 攻撃を受けた対象のHpが〇%以下
         TargetDeath = 12041, // 攻撃を受けた対象が戦闘不能になった
@@ -440,6 +442,7 @@ namespace Ryneus
         BeforeOpponentUse = 32,
         BeforeFriendUse = 33,
         PrimaryInterrupt = 41,
+        AfterOpponentUse = 42,
         BeforeTacticsTurn = 51,
         CurrentTacticsTurn = 52
     }

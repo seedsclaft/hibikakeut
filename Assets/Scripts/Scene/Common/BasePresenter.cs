@@ -424,16 +424,14 @@ namespace Ryneus
                 // 新規魔法取得があるか
                 var from = actorInfo.Evaluate();
                 var beforeLv = actorInfo.Level;
-                var beforeSkills = actorInfo.LearningSkills();
-
+                var afterSkills = actorInfo.LearningSkills(1);
                 actorInfo.Exp.GainValue(getExp);
 
                 var to = actorInfo.Evaluate();
                 var afterLv = actorInfo.Level;
-                var afterSkills = actorInfo.LearningSkills();
                 if (afterLv > beforeLv)
                 {
-                    if (afterSkills.Count > beforeSkills.Count)
+                    if (afterSkills.Count > 0)
                     {
                         //_busy = true;
                         _view.SetBusy(true);

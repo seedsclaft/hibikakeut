@@ -12,6 +12,12 @@ namespace Ryneus
             var isTrigger = false;
             switch (triggerData.TriggerType)
             {
+                case TriggerType.Coverable:
+                    isTrigger = CheckCoverable(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
+                    break;
+                case TriggerType.AfterCoverable:
+                    isTrigger = CheckAfterCoverable(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
+                    break;
                 case TriggerType.TargetHpRateUnder:
                     isTrigger = CheckTargetHpRateUnder(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
                     break;
@@ -173,6 +179,9 @@ namespace Ryneus
         {
             switch (triggerData.TriggerType)
             {
+                case TriggerType.AfterCoverable:
+                    targetIndexList.AddRange(CheckAfterCoverable(triggerData, battlerInfo, checkTriggerInfo));
+                    break;
                 case TriggerType.TargetHpRateUnder:
                     targetIndexList.AddRange(CheckTargetHpRateUnder(triggerData, battlerInfo, checkTriggerInfo));
                     break;
@@ -188,6 +197,48 @@ namespace Ryneus
                     break;
             }
         }
+
+        private List<int> CheckCoverable(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
+        {
+            var list = new List<int>();
+            if (!battlerInfo.IsAlive() && triggerData.Param2 == 0 || checkTriggerInfo.CoverTargetIndex == -1)
+            {
+                return list;
+            }
+            var targetBattlerInfo = checkTriggerInfo.GetBattlerInfo(checkTriggerInfo.CoverTargetIndex);
+            if (targetBattlerInfo != null && battlerInfo.Index.Value != targetBattlerInfo.Index.Value && battlerInfo.IsActor == targetBattlerInfo.IsActor)
+            {
+                list.Add(targetBattlerInfo.Index.Value);
+            }
+            return list;
+        }
+
+        private List<int> CheckAfterCoverable(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
+        {
+            var list = new List<int>();
+            if (!battlerInfo.IsAlive())
+            {
+                return list;
+            }
+            if (checkTriggerInfo.ActionInfo == null || checkTriggerInfo.ActionInfo.ActionResults == null)
+            {
+                return list;
+            }
+            if (checkTriggerInfo.ActionInfo.Master.TriggerDates.Find(a => a.TriggerType == TriggerType.Coverable) == null)
+            {
+                return list;
+            }
+
+            foreach (var candidateTargetIndexList in checkTriggerInfo.ActionInfo.CandidateTargetIndexList)
+            {
+                if (checkTriggerInfo.ActionResultInfos.Find(a => a.TargetIndex.Value == candidateTargetIndexList) != null)
+                {
+                    list.Add(candidateTargetIndexList);
+                }
+            }
+            return list;
+        }
+
 
         private List<int> CheckTargetHpRateUnder(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {

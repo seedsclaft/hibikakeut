@@ -2591,12 +2591,12 @@ MonoBehaviour:
     AnimationId: 51
     AnimationType: 1
     MpCost: 0
-    CountTurn: 2
+    CountTurn: 3
     Rank: 20
     Attribute: 3
-    Scope: 4
+    Scope: 11
     SkillType: 2
-    TargetType: 4
+    TargetType: 2
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B\n\u5BFE\u8C61\u306EDEF\u30924\u30A2\u30C3\u30D7"
     Range: 1
     RepeatTime: 1
@@ -2617,7 +2617,7 @@ MonoBehaviour:
       Rate: 100
     TriggerDates:
     - SkillId: 13100
-      TriggerType: 12060
+      TriggerType: 12010
       TriggerTiming: 41
       Param1: 0
       Param2: 13
@@ -2629,7 +2629,7 @@ MonoBehaviour:
     AnimationId: 51
     AnimationType: 1
     MpCost: 0
-    CountTurn: 2
+    CountTurn: 3
     Rank: 0
     Attribute: 3
     Scope: 1
@@ -2647,7 +2647,13 @@ MonoBehaviour:
       Param2: 999
       Param3: 4
       Rate: 100
-    TriggerDates: []
+    TriggerDates:
+    - SkillId: 13101
+      TriggerType: 12011
+      TriggerTiming: 2
+      Param1: 0
+      Param2: 0
+      Param3: 0
     ScopeTriggers: []
   - Id: 14010
     Name: "\u30C7\u30A3\u30D0\u30A4\u30F3\u30B7\u30FC\u30EB\u30C9"

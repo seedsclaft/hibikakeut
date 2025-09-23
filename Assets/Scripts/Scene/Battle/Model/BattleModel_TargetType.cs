@@ -157,7 +157,7 @@ namespace Ryneus
                     }
                     break;
                 case TargetType.AttackTarget:
-                    if (actionInfo != null && actionResultInfos.Count > 0)
+                    if (actionInfo != null && actionResultInfos != null && actionResultInfos.Count > 0)
                     {
                         foreach (var actionResultInfo in actionResultInfos)
                         {

@@ -617,10 +617,16 @@ namespace Ryneus
                     targetIndexList = targetIndexList.FindAll(a => GetBattlerInfo(a).LineIndex == TargetBattler.LineIndex);
                     break;
                 case ScopeType.One:
-                case ScopeType.WithoutSelfOne:
                 case ScopeType.Self:
                     targetIndexList.Clear();
                     targetIndexList.Add(selectIndex);
+                    break;
+                case ScopeType.WithoutSelfOne:
+                    targetIndexList.Clear();
+                    if (subject.Index.Value != selectIndex)
+                    {
+                        targetIndexList.Add(selectIndex);
+                    }
                     break;
                 case ScopeType.OneAndNeighbor:
                 case ScopeType.Neighbor:
@@ -672,38 +678,7 @@ namespace Ryneus
                 }
             }
             */
-            // かばう
-            CalcCoverTargetIndexes(targetIndexList, GetBattlerInfo(actionInfo.SubjectIndex.Value).IsActor);
             return targetIndexList;
-        }
-
-        public void CalcCoverTargetIndexes(List<int> targetIndexList,bool subjectIsActor)
-        {
-            /*
-            var coverBattlerId = -1;
-            var coveredBattlerId = -1;
-            foreach (var coverTargetIndex in targetIndexList)
-            {
-                var friends = GetBattlerInfo(coverTargetIndex).IsActor ? _party : _troop;
-                var coverBattlerInfo = friends.AliveBattlerInfos.Find(a => a.IsState(StateType.Cover));
-                if (coverBattlerInfo != null && coverBattlerId == -1 && coverBattlerInfo.IsActor != subjectIsActor)
-                {
-                    if (coverBattlerInfo.Index != coverTargetIndex)
-                    {
-                        coverBattlerId = coverBattlerInfo.Index;
-                        coveredBattlerId = coverTargetIndex;
-                    }
-                }
-            }
-            if (coverBattlerId > -1 && coveredBattlerId > -1)
-            {
-                if (!targetIndexList.Contains(coverBattlerId))
-                {
-                    targetIndexList.Add(coverBattlerId);
-                }
-                targetIndexList.Remove(coveredBattlerId);
-            }
-            */
         }
 
         public bool CanUseCondition(int skillId, BattlerInfo subject, int targetIndex, ActionInfo actionInfo = null)
@@ -953,38 +928,14 @@ namespace Ryneus
             {
                 return;
             }
-            // かばう判定
-            /*
-            var newIndexList = new List<int>();
-            if (needCheckCover)
+
+            // かばうによるターゲット変更
+            if (!actionInfo.TriggeredSkill)
             {
-                var coverBattlerIds = new List<int>();
-                foreach (var targetIndex in indexList)
-                {
-                    var target = GetBattlerInfo(targetIndex);
-                    var friends = target.IsActor ? _party : _troop;
-                    var coverBattlerInfo = friends.AliveBattlerInfos.Find(a => a.IsState(StateType.Cover) && !coverBattlerIds.Contains(a.Index));
-                    if (coverBattlerInfo != null && coverBattlerInfo.IsActor != subject.IsActor && coverBattlerInfo.Index != targetIndex)
-                    {
-                        // かばう成立
-                        coverBattlerIds.Add(coverBattlerInfo.Index);
-                        if (!newIndexList.Contains(coverBattlerInfo.Index))
-                        {
-                            newIndexList.Add(coverBattlerInfo.Index);
-                        }
-                    } else
-                    {
-                        if (!newIndexList.Contains(targetIndex))
-                        {
-                            newIndexList.Add(targetIndex);
-                        }
-                    }
-                }
-            } else
-            {
-                newIndexList = indexList;
+                indexList = CheckCoverIndexList(actionInfo, indexList);
+                actionInfo.SetCandidateTargetIndexList(indexList);
             }
-            */
+
             var actionResultInfos = new List<ActionResultInfo>();
 
             foreach (var targetIndex in indexList)
@@ -1016,6 +967,91 @@ namespace Ryneus
             }
             AdjustActionResultInfo(actionResultInfos);
             actionInfo.SetActionResult(actionResultInfos);
+        }
+
+        private List<int> CheckCoverIndexList(ActionInfo actionInfo, List<int> indexList)
+        {
+            var newIndexList = new List<int>();
+            var coverBattlerIds = new List<int>();
+            var subject = GetBattlerInfo(actionInfo.SubjectIndex.Value);
+            var triggerTimings = new List<TriggerTiming>(){TriggerTiming.PrimaryInterrupt};
+            foreach (var targetIndex in indexList)
+            {
+                var target = GetBattlerInfo(targetIndex);
+                var friends = target.IsActor ? _party : _troop;
+                BattlerInfo coverableBattlerInfo = null;
+                var coverableBattlerInfos = friends.CoverableBattlerInfo(target);
+                foreach (var battlerInfo in coverableBattlerInfos)
+                {
+                    if (battlerInfo.IsState(StateType.NoPassive))
+                    {
+                        continue;
+                    }
+                    foreach (var passiveInfo in battlerInfo.PassiveSkills())
+                    {
+                        if (!CheckCanPassiveSkill(battlerInfo, passiveInfo, triggerTimings))
+                        {
+                            continue;
+                        }
+                        var triggerDates = passiveInfo.Master.TriggerDates.FindAll(a => triggerTimings.Contains(a.TriggerTiming));
+
+                        if (!IsTriggeredSkillInfo(battlerInfo, triggerDates, actionInfo, null, target.Index.Value))
+                        {
+                            continue;
+                        }
+                        //bool usable = CanUsePassiveCount(battlerInfo,passiveInfo.Id,triggerDates);
+                        // 元の条件が成立
+                        // 作戦で可否判定
+                        var selectSkill = -1;
+                        var selectTarget = -1;
+                        var skillTriggerInfos = battlerInfo.SkillTriggerInfos;
+                        var skillTriggerInfo = skillTriggerInfos.Find(a => a.SkillId == passiveInfo.Id.Value);
+                        if (skillTriggerInfo == null)
+                        {
+                            skillTriggerInfo = new SkillTriggerInfo(battlerInfo.Index.Value,passiveInfo);
+                            skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>());
+                        }
+                        (selectSkill, selectTarget) = SelectSkillTargetBySkillTriggerDates(battlerInfo, new List<SkillTriggerInfo>(){skillTriggerInfo},actionInfo, null);
+                        if (selectSkill != passiveInfo.Id.Value)
+                        {
+                            continue;
+                        }
+                        if (selectTarget == -1)
+                        {
+                            continue;
+                        }
+                        var IsInterrupt = true;
+                        var result = MakePassiveSkillActionResults(battlerInfo, passiveInfo, IsInterrupt, selectTarget, actionInfo, null, triggerDates[0]);
+                        coverableBattlerInfo = battlerInfo;
+                        if (result != null && result.ActionResults.Count > 0)
+                        {
+                            //checkedSkillIds.Add(passiveInfo.Id.Value);
+                            // 継続パッシブは保存
+                            var addPassive = passiveInfo.FeatureDates.Find(a => a.FeatureType == FeatureType.AddState);
+                            if (addPassive != null && addPassive.Param2 == 999 && passiveInfo.Master.SkillType == SkillType.Passive)
+                            {
+                                AddPassiveSkillId(battlerInfo, addPassive.Param1, passiveInfo.Id.Value);
+                            }
+                        }
+                    }
+                }
+                if (coverableBattlerInfo != null && !coverBattlerIds.Contains(coverableBattlerInfo.Index.Value) && coverableBattlerInfo.IsActor != subject.IsActor && coverableBattlerInfo.Index.Value != targetIndex)
+                {
+                    // かばう成立
+                    coverBattlerIds.Add(coverableBattlerInfo.Index.Value);
+                    if (!newIndexList.Contains(coverableBattlerInfo.Index.Value))
+                    {
+                        newIndexList.Add(coverableBattlerInfo.Index.Value);
+                    }
+                } else
+                {
+                    if (!newIndexList.Contains(targetIndex))
+                    {
+                        newIndexList.Add(targetIndex);
+                    }
+                }
+            }
+            return newIndexList;
         }
 
         private List<ActionResultInfo> CalcDamageHealParty(BattlerInfo subject, List<SkillData.FeatureData> featureDates, int hpDamage)
@@ -1654,49 +1690,56 @@ namespace Ryneus
 
         public void CheckPlusSkill(ActionInfo actionInfo)
         {
-            if (actionInfo != null)
+            if (actionInfo == null)
             {
-                var plusActionInfos = actionInfo.CheckPlusSkill();
-                foreach (var plusActionInfo in plusActionInfos)
+                return;
+            }
+            var subject = GetBattlerInfo(actionInfo.SubjectIndex.Value);
+            var plusActionInfos = actionInfo.CheckPlusSkill();
+            foreach (var plusActionInfo in plusActionInfos)
+            {
+                plusActionInfo.SetRangeType(CalcRangeType(plusActionInfo.Master,GetBattlerInfo(actionInfo.SubjectIndex.Value)));
+            }
+            foreach (var plusActionInfo in plusActionInfos)
+            {
+                if (plusActionInfo.Master.SkillType == SkillType.Passive)
                 {
-                    plusActionInfo.SetRangeType(CalcRangeType(plusActionInfo.Master,GetBattlerInfo(actionInfo.SubjectIndex.Value)));
+                    if (!subject.ContainsPassiveSkillId(plusActionInfo.Master.Id))
+                    {
+                        subject.AddPassiveSkillId(plusActionInfo.Master.Id);
+                    }
                 }
-                foreach (var plusActionInfo in plusActionInfos)
+                var selectIndexList = MakeAutoSelectIndex(plusActionInfo, -1, -1, actionInfo, actionInfo.ActionResults);
+                if (selectIndexList.Count == 0 && plusActionInfo.Master.TargetType == TargetType.IsTriggerTarget)
                 {
-                    if (plusActionInfo.Master.SkillType == SkillType.Passive)
-                    {
-                        if (!GetBattlerInfo(actionInfo.SubjectIndex.Value).ContainsPassiveSkillId(plusActionInfo.Master.Id))
-                        {
-                            GetBattlerInfo(actionInfo.SubjectIndex.Value).AddPassiveSkillId(plusActionInfo.Master.Id);
-                        }
-                    }
-                    var selectIndexList = MakeAutoSelectIndex(plusActionInfo,-1);
-                    if (selectIndexList.Count == 0)
-                    {
-                        continue;
-                    }
-                    AddReceiveActionInfo(plusActionInfo,ActionInfoTargetIndexes(plusActionInfo,selectIndexList[0],-1,actionInfo),false);
+                    var triggerDates = plusActionInfo.Master.TriggerDates;
+                    selectIndexList = TriggerTargetList(subject, triggerDates[0], actionInfo, actionInfo.ActionResults, plusActionInfo.Master.AliveType);
                 }
+                if (selectIndexList.Count == 0)
+                {
+                    continue;
+                }
+                AddReceiveActionInfo(plusActionInfo, ActionInfoTargetIndexes(plusActionInfo,selectIndexList[0],-1,actionInfo),false);
+            }
 
-                var plusTriggerSkillInfos = actionInfo.CheckPlusSkillTrigger();
-                foreach (var skillInfo in plusTriggerSkillInfos)
+            var plusTriggerSkillInfos = actionInfo.CheckPlusSkillTrigger();
+            foreach (var skillInfo in plusTriggerSkillInfos)
+            {
+                var triggerDates = skillInfo.Master.TriggerDates;
+                if (IsTriggeredSkillInfo(GetBattlerInfo(actionInfo.SubjectIndex.Value), triggerDates, actionInfo, actionInfo.ActionResults))
                 {
-                    var triggerDates = skillInfo.Master.TriggerDates;
-                    if (IsTriggeredSkillInfo(GetBattlerInfo(actionInfo.SubjectIndex.Value),triggerDates,actionInfo,actionInfo.ActionResults))
+                    if (skillInfo.Master.SkillType == SkillType.Passive)
                     {
-                        if (skillInfo.Master.SkillType == SkillType.Passive)
+                        if (!GetBattlerInfo(actionInfo.SubjectIndex.Value).ContainsPassiveSkillId(skillInfo.Master.Id))
                         {
-                            if (!GetBattlerInfo(actionInfo.SubjectIndex.Value).ContainsPassiveSkillId(skillInfo.Master.Id))
-                            {
-                                GetBattlerInfo(actionInfo.SubjectIndex.Value).AddPassiveSkillId(skillInfo.Master.Id);
-                            }
+                            GetBattlerInfo(actionInfo.SubjectIndex.Value).AddPassiveSkillId(skillInfo.Master.Id);
                         }
-                        var plusTriggerActionInfo = new ActionInfo(skillInfo,_actionIndex,actionInfo.SubjectIndex.Value,-1,null);
-                        plusTriggerActionInfo.SetTriggerSkill(true);
-                        AddActionInfo(plusTriggerActionInfo,false);
-                        AddTurnActionInfos(plusTriggerActionInfo,false);
-                        plusTriggerActionInfo.SetRangeType(CalcRangeType(plusTriggerActionInfo.Master,GetBattlerInfo(actionInfo.SubjectIndex.Value)));
                     }
+                    var plusTriggerActionInfo = new ActionInfo(skillInfo, _actionIndex, actionInfo.SubjectIndex.Value, -1, null);
+                    plusTriggerActionInfo.SetTriggerSkill(true);
+                    AddActionInfo(plusTriggerActionInfo, false);
+                    AddTurnActionInfos(plusTriggerActionInfo, false);
+                    plusTriggerActionInfo.SetRangeType(CalcRangeType(plusTriggerActionInfo.Master, GetBattlerInfo(actionInfo.SubjectIndex.Value)));
                 }
             }
         }
@@ -1881,7 +1924,7 @@ namespace Ryneus
             return madeActionInfos;
         }
 
-        public void CheckTriggerPassiveInfos(List<TriggerTiming> triggerTimings,ActionInfo actionInfo = null,List<ActionResultInfo> actionResultInfos = null)
+        public void CheckTriggerPassiveInfos(List<TriggerTiming> triggerTimings, ActionInfo actionInfo = null, List<ActionResultInfo> actionResultInfos = null)
         {
             // 同時発動制限管理
             var checkedSkillIds = new List<int>();
@@ -2117,12 +2160,12 @@ namespace Ryneus
             return actionResultInfos;
         }
 
-        private bool IsTriggeredSkillInfo(BattlerInfo battlerInfo, List<SkillData.TriggerData> triggerDates, ActionInfo actionInfo, List<ActionResultInfo> actionResultInfos)
+        private bool IsTriggeredSkillInfo(BattlerInfo battlerInfo, List<SkillData.TriggerData> triggerDates, ActionInfo actionInfo, List<ActionResultInfo> actionResultInfos, int coverTargetIndex = -1)
         {
             var friends = battlerInfo.IsActor ? _party : _troop;
             var opponents = battlerInfo.IsActor ? _troop : _party;
             bool IsTriggered = false;
-            var checkTriggerInfo = new CheckTriggerInfo(_turnCount, battlerInfo, BattlerActors(), BattlerEnemies(), _reserveBattlers, actionInfo, actionResultInfos);
+            var checkTriggerInfo = new CheckTriggerInfo(_turnCount, battlerInfo, BattlerActors(), BattlerEnemies(), _reserveBattlers, actionInfo, actionResultInfos, coverTargetIndex);
             if (triggerDates.Count > 0)
             {
                 foreach (var triggerData in triggerDates)
@@ -2386,7 +2429,7 @@ namespace Ryneus
             return IsTriggered;
         }
 
-        private List<int> TriggerTargetList(BattlerInfo battlerInfo,SkillData.TriggerData triggerData,ActionInfo actionInfo, List<ActionResultInfo> actionResultInfos,AliveType aliveType)
+        private List<int> TriggerTargetList(BattlerInfo battlerInfo, SkillData.TriggerData triggerData,ActionInfo actionInfo, List<ActionResultInfo> actionResultInfos,AliveType aliveType)
         {
             var list = new List<int>();
             var opponents = battlerInfo.IsActor ? _troop : _party;
@@ -2468,11 +2511,9 @@ namespace Ryneus
                         indexList.Add(actionResultInfo.TargetIndex.Value);
                     }
                 }
-                // かばう判定
-                CalcCoverTargetIndexes(indexList,GetBattlerInfo(actionInfo.SubjectIndex.Value).IsActor);
                 return indexList;
             }
-            var targetIndexList = GetSkillTargetIndexList(actionInfo.Master.Id,actionInfo.SubjectIndex.Value,true,counterSubjectIndex,baseActionInfo,baseActionResultInfos);
+            var targetIndexList = GetSkillTargetIndexList(actionInfo.Master.Id, actionInfo.SubjectIndex.Value, true, counterSubjectIndex, baseActionInfo, baseActionResultInfos);
             if (targetIndexList.Count == 0)
             {
                 return targetIndexList;

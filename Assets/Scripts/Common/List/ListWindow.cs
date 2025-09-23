@@ -918,6 +918,10 @@ namespace Ryneus
                 }
                 var c = _index - visibleCount + 1;
                 float per = 1f - (c / p);
+                if (_index == -1)
+                {
+                    per = 1;
+                }
                 //var per = (float)1 / (dataCount - listCount);
                 //var normalizedPosition = 1 - per * (selectIndex - listCount + 1);
                 if (_horizontal)

@@ -72,6 +72,15 @@ namespace Ryneus
                 TriggerTiming.BeforeOpponentUse,
             };
         }
+
+        // 対象決定後パッシブ
+        public static List<TriggerTiming> AfterActionInfoTriggerTimings()
+        {
+            return new List<TriggerTiming>()
+            {
+                TriggerTiming.AfterOpponentUse,
+            };
+        }
         // 計算メソッドなど
 
         /// <summary>

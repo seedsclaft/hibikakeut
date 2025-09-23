@@ -15,8 +15,9 @@ namespace Ryneus
         public List<BattlerInfo> OpponentsFrontBattlerInfos;
         public List<BattlerInfo> OpponentsBackBattlerInfos;
         public List<BattlerInfo> ReserveMembers;
+        public int CoverTargetIndex;
         public int Turns;
-        public CheckTriggerInfo(int turns, BattlerInfo battlerInfo, List<BattlerInfo> party, List<BattlerInfo> troops, List<BattlerInfo> reserveMembers, ActionInfo actionInfo = null, List<ActionResultInfo> actionResultInfos = null)
+        public CheckTriggerInfo(int turns, BattlerInfo battlerInfo, List<BattlerInfo> party, List<BattlerInfo> troops, List<BattlerInfo> reserveMembers, ActionInfo actionInfo = null, List<ActionResultInfo> actionResultInfos = null, int coverTargetIndex = -1)
         {
             BattlerInfo = battlerInfo;
             Friends = battlerInfo.IsActor ? party : troops;
@@ -29,6 +30,7 @@ namespace Ryneus
             ActionResultInfos = actionResultInfos;
             Turns = turns;
             ReserveMembers = reserveMembers;
+            CoverTargetIndex = coverTargetIndex;
         }
 
         public BattlerInfo GetBattlerInfo(int index)

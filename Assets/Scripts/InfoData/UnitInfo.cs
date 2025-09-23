@@ -173,6 +173,12 @@ namespace Ryneus
             return AliveBattlerInfos.Count == 1;
         }
 
+        public List<BattlerInfo> CoverableBattlerInfo(BattlerInfo target)
+        {
+            var coverableBattlerInfos = AliveBattlerInfos.FindAll(a => a != target);
+            return coverableBattlerInfos;
+        }
+
         public UnitInfo CopyData()
         {
             var copyData = new UnitInfo();
