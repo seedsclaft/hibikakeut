@@ -19,6 +19,8 @@ namespace Ryneus
         [SerializeField] private GameObject battleFieldNotice;
         [SerializeField] private GameObject sideMenuBatch;
         [SerializeField] private InputInfoComponent sideMenuInput = null;
+        [SerializeField] private OnOffButton partyInfoButton = null;
+        [SerializeField] private OnOffButton saveButton = null;
 
         public override void Initialize()
         {
@@ -33,6 +35,20 @@ namespace Ryneus
             if (alcanaInfoButton != null)
             {
                 alcanaInfoButton.OnClickAddListener(() => CallViewEvent(CommandType.Aritifact));
+            }
+            if (partyInfoButton != null)
+            {
+                partyInfoButton.OnClickAddListener(() =>
+                {
+                    CallPartyInfo();
+                });
+            }
+            if (saveButton != null)
+            {
+                saveButton.OnClickAddListener(() =>
+                {
+                    CallSaveCommand();
+                });
             }
             SetInputHandler(gameObject);
             CommandRefresh();
@@ -54,6 +70,8 @@ namespace Ryneus
             commandList.SetInputHandler(InputKeyType.Decide, () => CallMainMenuCommand());
             commandList.SetInputHandler(InputKeyType.SideLeft1, () => CallViewEvent(CommandType.Aritifact));
             commandList.SetInputHandler(InputKeyType.Option2, () => CallSideMenu());
+            commandList.SetInputHandler(InputKeyType.Option1, () => CallPartyInfo());
+            commandList.SetInputHandler(InputKeyType.SideRight1, () => CallSaveCommand());
             AddViewActives(commandList);
         }
 
@@ -79,6 +97,16 @@ namespace Ryneus
         private void CallSideMenu()
         {
             CallViewEvent(CommandType.SelectSideMenu);
+        }
+
+        private void CallPartyInfo()
+        {
+            CallViewEvent(CommandType.PartyInfo);
+        }
+
+        private void CallSaveCommand()
+        {
+            CallViewEvent(CommandType.SaveCommand);
         }
 
         public void SetInitHelpText()
@@ -171,6 +199,8 @@ namespace Ryneus
             EndAnimation,
             MainMenuCommand,
             SelectSideMenu,
+            PartyInfo,
+            SaveCommand,
             Aritifact
         }
     }

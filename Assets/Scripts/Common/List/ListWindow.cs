@@ -910,10 +910,14 @@ namespace Ryneus
             }
             if (update)
             {
-                float verticalCount = GetVerticalCount();
-                var p = ObjectListCount - verticalCount;
-                var c = _index - verticalCount + 1;
-                var per = 1f - (c / p);
+                float visibleCount = _horizontal ? GetHorizonalCount() : GetVerticalCount();
+                var p = ObjectListCount - visibleCount;
+                if (p == 0)
+                {
+                    return;
+                }
+                var c = _index - visibleCount + 1;
+                float per = 1f - (c / p);
                 //var per = (float)1 / (dataCount - listCount);
                 //var normalizedPosition = 1 - per * (selectIndex - listCount + 1);
                 if (_horizontal)

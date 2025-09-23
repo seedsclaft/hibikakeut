@@ -83,6 +83,12 @@ namespace Ryneus
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu();
                     break;
+                case CommandType.PartyInfo:
+                    CommandPartyInfo();
+                    break;
+                case CommandType.SaveCommand:
+                    CommandSaveCommand();
+                    break;
                 case CommandType.Aritifact:
                     CommandAritifact();
                     break;
@@ -405,6 +411,43 @@ namespace Ryneus
             });
             _view.CommandCallConfirm(confirmInfo);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
+        }
+
+        private void CommandPartyInfo()
+        {
+            _busy = true;
+            UpdateCommandSelecting(false);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var actorInfos = _model.CurrentDeckActorInfos();
+            CommandStatusInfo(actorInfos, false, true, true, false, actorInfos[0].ActorId.Value, () =>
+            {
+                _busy = false;
+                UpdateCommandSelecting(true);
+                CommandRefresh();
+            });
+        }
+
+        private void CommandSaveCommand()
+        {
+            _busy = true;
+            UpdateCommandSelecting(false);
+            var sceneParam = new FileListSceneInfo
+            {
+                IsLoad = false
+            };
+            var popupInfo = new PopupInfo()
+            {
+                PopupType = PopupType.FileList,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    UpdateCommandSelecting(true);
+                    CommandRefresh();
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                },
+                template = sceneParam
+            };
+            _view.CommandCallPopup(popupInfo);
         }
 
         private void CommandSelectSideMenu()

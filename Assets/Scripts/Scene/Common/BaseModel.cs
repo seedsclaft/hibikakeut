@@ -341,6 +341,16 @@ namespace Ryneus
             return DataSystem.GetReplaceText(textId, actorName);
         }
 
+        public List<ActorInfo> CurrentDeckActorInfos()
+        {
+            var actorInfos = new List<ActorInfo>();
+            if (CurrentDeckInfo != null)
+            {
+                actorInfos = PartyInfo.CurrentDeckActorInfos();
+            }
+            return actorInfos;
+        }
+
         /// <summary>
         /// 加入歴あるキャラも含めたステータスメンバー
         /// </summary>

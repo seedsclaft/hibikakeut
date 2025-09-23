@@ -19,15 +19,5 @@ namespace Ryneus
         {
             SaveSystem.DeleteStageData();
         }
-
-        public List<ActorInfo> CurrentDeckActorInfos()
-        {
-            var actorInfos = new List<ActorInfo>();
-            if (CurrentDeckInfo != null)
-            {
-                actorInfos = PartyInfo.CurrentDeckActorInfos();
-            }
-            return actorInfos;
-        }
     }
 }
