@@ -303,7 +303,6 @@ namespace Ryneus
 
         public void MinusVictoryBonus(float minus)
         {
-            SeekTweens();
             var lastY = 334;//minusVictoryBonus.transform.localPosition.y;
             minusVictoryBonus.transform.DOLocalMoveY(lastY, 0);
             minusVictoryBonus.SetText(minus.ToString());
@@ -322,8 +321,7 @@ namespace Ryneus
 
         public void MinusEvaluate(int minus)
         {
-            SeekTweens();
-            var lastY = 224;//minusEvaluate.transform.localPosition.y;
+            var lastY = 334;//minusEvaluate.transform.localPosition.y;
             minusEvaluate.transform.DOLocalMoveY(lastY, 0);
             minusEvaluate.SetText(minus.ToString());
             minusEvaluate.DOFade(1f, 0);
@@ -339,7 +337,7 @@ namespace Ryneus
             _sequences.Add(sequence);
         }
 
-        private void SeekTweens()
+        public void SeekTweens()
         {
             foreach (var sequences in _sequences)
             {

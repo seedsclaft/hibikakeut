@@ -42,5 +42,6 @@ namespace Ryneus
         StatusUp = 30,
         ClassChange = 40,
         EncountRate = 50,
+        DungeonTurn = 60,
     }
 }

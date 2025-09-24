@@ -605,7 +605,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
   - Id: 10180
-    Text: "\u30BF\u30FC\u30F3\u6570\u8D85\u904E\u306E\u305F\u3081\u8A55\u4FA1\u5024\u30C0\u30A6\u30F3"
+    Text: "\u30BF\u30FC\u30F3\u6570\u8D85\u904E\u306E\u305F\u3081\u8A55\u4FA1\u5024\u3068\u4FE1\u4EF0\u5EA6\u30C0\u30A6\u30F3"
     Help: '""'
     Feature: 
   - Id: 10181
@@ -613,7 +613,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
   - Id: 10182
-    Text: "\u9032\u3080\u3068\u30BF\u30FC\u30F3\u6570\u8D85\u904E\u306B\u3088\u308A\u8A55\u4FA1\u5024\u304C\u30C0\u30A6\u30F3\u3057\u307E\u3059\u3002\\n\u305D\u308C\u3067\u3082\u9032\u307F\u307E\u3059\u304B\uFF1F"
+    Text: "\u9032\u3080\u3068\u30BF\u30FC\u30F3\u6570\u8D85\u904E\u306B\u3088\u308A\u8A55\u4FA1\u5024\u3068\u4FE1\u4EF0\u5EA6\u304C\u30C0\u30A6\u30F3\u3057\u307E\u3059\u3002\\n\u305D\u308C\u3067\u3082\u9032\u307F\u307E\u3059\u304B\uFF1F"
     Help: '""'
     Feature: 
   - Id: 10190
@@ -656,7 +656,7 @@ MonoBehaviour:
   - Id: 13210
     Text: "\u65B0\u3057\u304F\u30B2\u30FC\u30E0\u3092\u59CB\u3081\u308B"
     Help: '""'
-    Feature: Title
+    Feature: 
   - Id: 13220
     Text: "\u4EE5\u524D\u306E\u7D9A\u304D\u304B\u3089\u30D7\u30EC\u30A4\u3059\u308B"
     Help: '""'
@@ -1250,9 +1250,17 @@ MonoBehaviour:
     Help: '""'
     Feature: ClassChange
   - Id: 42010
-    Text: "\u30A8\u30F3\u30AB\u30A6\u30F3\u30C8\u7387\u304C\u30A2\u30C3\u30D7\uFF01"
+    Text: "\u30A8\u30F3\u30AB\u30A6\u30F3\u30C8\u7387\u304C\u30C0\u30A6\u30F3\uFF01"
     Help: '""'
     Feature: UseItem
+  - Id: 42011
+    Text: "\u30A8\u30F3\u30AB\u30A6\u30F3\u30C8\u7387\u304C\u30A2\u30C3\u30D7\uFF01"
+    Help: '""'
+    Feature: 
+  - Id: 42020
+    Text: "\u7336\u4E88\u30BF\u30FC\u30F3\u6570\u304C\u5897\u3048\u307E\u3057\u305F"
+    Help: '""'
+    Feature: 
   InputDataList:
   - Key: _TITLE
     KeyId: 4

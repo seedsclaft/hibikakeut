@@ -918,20 +918,13 @@ namespace Ryneus
                 }
                 var c = _index - visibleCount + 1;
                 float per = 1f - (c / p);
-                if (_index == -1)
+                if (_index == -1 || per > 1)
                 {
                     per = 1;
                 }
                 //var per = (float)1 / (dataCount - listCount);
                 //var normalizedPosition = 1 - per * (selectIndex - listCount + 1);
-                if (_horizontal)
-                {
-                    ScrollRect.normalizedPosition = new Vector2(per, 0);
-                }
-                else
-                {
-                    ScrollRect.normalizedPosition = new Vector2(0, per);
-                }
+                ScrollRect.normalizedPosition = _horizontal ? new Vector2(per, 0) : new Vector2(0, per);
             }
         }
 
@@ -972,14 +965,7 @@ namespace Ryneus
 
         public void ResetScrollRect()
         {
-            if (_horizontal)
-            {
-                ScrollRect.normalizedPosition = new Vector2(1, 0);
-            }
-            else
-            {
-                ScrollRect.normalizedPosition = new Vector2(0, 1);
-            }
+            ScrollRect.normalizedPosition = _horizontal ? new Vector2(1, 0) : new Vector2(0, 1);
             _lastStartIndexX = -1;
         }
 

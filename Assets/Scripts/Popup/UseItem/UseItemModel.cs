@@ -14,10 +14,15 @@ namespace Ryneus
             return PartyInfo.DungeonUseItemInfos();
         }
 
-        public void ChangeEncountRate(int rate, int turn)
+        public void ChangeEncountRate(int rate, int turns)
         {
             CurrentDeckInfo.EncountRate.SetValue(rate);
-            CurrentDeckInfo.EncountRateTurn.SetValue(turn);
+            CurrentDeckInfo.EncountRateTurn.SetValue(turns);
+        }
+
+        public void ChangeDungeonTurn(int turns)
+        {
+            PartyInfo.TurnCount.GainValue(turns);
         }
     }
 }

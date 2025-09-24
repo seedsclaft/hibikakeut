@@ -295,7 +295,10 @@ namespace Ryneus
         {
             // 評価値が減少
             _model.TurnOver();
+            _view.SeekTweens();
             _view.MinusVictoryBonus(-0.2f);
+            _view.MinusEvaluate(-1);
+            _model.PartyInfo.EvaluationValue.GainValue(-1, 0);
             var cautionInfo = new CautionInfo();
             cautionInfo.SetTitle(DataSystem.GetText(10180));
             _view.CommandCallCaution(cautionInfo);
@@ -860,6 +863,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Heal);
                 _model.UseCurrencyHeal();
+                _view.SeekTweens();
                 _view.StartHeal(10);
                 _view.MinusVictoryBonus(-0.2f);
                 _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));

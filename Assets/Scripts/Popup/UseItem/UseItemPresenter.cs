@@ -70,6 +70,9 @@ namespace Ryneus
                 case (int)UseItemType.EncountRate:
                     UseItemEncountRate(itemInfo);
                     break;
+                case (int)UseItemType.DungeonTurn:
+                    UseItemDungeonTurn(itemInfo);
+                    break;
             }
             CommandRefresh();
         }
@@ -82,7 +85,24 @@ namespace Ryneus
             _busy = true;
             _view.SetBusy(true);
 
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(42010), (a) =>
+            var textId = encountRate > 100 ? 42010 : 42011;
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(textId), (a) =>
+            {
+                _busy = false;
+                _view.SetBusy(false);
+            });
+            confirmInfo.SetIsNoChoice(true);
+            _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void UseItemDungeonTurn(ItemInfo itemInfo)
+        {
+            var turns = itemInfo.Master.Param1;
+            _model.ChangeDungeonTurn(turns);
+            _busy = true;
+            _view.SetBusy(true);
+
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(42020), (a) =>
             {
                 _busy = false;
                 _view.SetBusy(false);

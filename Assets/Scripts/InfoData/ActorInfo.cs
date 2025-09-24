@@ -256,7 +256,7 @@ namespace Ryneus
             var rankCost = ConvertRankCost(skillData.Rank);
             var param = AttributeRanks(stageMembers)[(int)skillData.Attribute - 1];
             var cost = TacticsUtility.EquipAttributeRankCost(param);
-            int result = Mathf.FloorToInt(cost * rankCost);
+            int result = cost + rankCost;
             // 会得済みなら-1
             if (_mastarySkillIds.Contains(skillId))
             {
@@ -288,7 +288,7 @@ namespace Ryneus
             var param = AttributeRanks(stageMembers)[(int)attributeType - 1];
             var cost = TacticsUtility.EquipAttributeRankCost(param);
 
-            return Mathf.FloorToInt(cost * rankCost);
+            return cost + rankCost;
         }
 
         private int ConvertRankCost(RankType rankType)
