@@ -88,7 +88,7 @@ namespace Ryneus
                 null,
                 _model.ClearStageNum(),
                 _model.PartyInfo.MissionRank.Value.ToString(),
-                _model.PartyInfo.PartyEvaluate().ToString(),
+                DataSystem.GetReplaceDecimalText(_model.PartyInfo.PartyEvaluate()),
                 null,
                 null
             );

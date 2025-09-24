@@ -22,14 +22,14 @@ namespace Ryneus
 
         public void OpenAnimation()
         {
-            confirmAnimation.OpenAnimation(UiRoot.transform,null);
+            confirmAnimation.OpenAnimation(UiRoot.transform, null);
         }
 
         public void SetLearnSkillInfo(LearnSkillInfo learnSkillInfo)
         {
-            evaluateObj?.SetActive(learnSkillInfo.From !=  learnSkillInfo.To);
-            evaluateText?.SetText(learnSkillInfo.From.ToString());
-            afterEvaluateText?.SetText(learnSkillInfo.To.ToString());
+            evaluateObj?.SetActive(learnSkillInfo.From != learnSkillInfo.To);
+            evaluateText?.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.From));
+            afterEvaluateText?.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.To));
             skillInfoComponent.UpdateInfo(learnSkillInfo.SkillInfo);
         }
 
@@ -51,7 +51,7 @@ namespace Ryneus
         public int To => _to;
         private SkillInfo _skillInfo;
         public SkillInfo SkillInfo => _skillInfo;
-        public LearnSkillInfo(int from,int to,SkillInfo skillInfo)
+        public LearnSkillInfo(int from, int to, SkillInfo skillInfo)
         {
             _from = from;
             _to = to;

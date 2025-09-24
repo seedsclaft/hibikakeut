@@ -21,7 +21,7 @@ namespace Ryneus
                     continue;
                 }
                 var itemInfo = new ItemInfo(item.Key, item.Value.Value);
-                if (itemInfo.Master.ItemType == ItemType.UseItem)
+                if (itemInfo.Master.ItemType == ItemType.UseItem || itemInfo.Master.ItemType == ItemType.DungeonItem)
                 {
                     continue;
                 }

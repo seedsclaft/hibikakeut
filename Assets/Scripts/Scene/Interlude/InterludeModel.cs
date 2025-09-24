@@ -226,6 +226,8 @@ namespace Ryneus
                 case AchievementConditionType.ClearStage:
                     // ステージクリア
                     return PartyInfo.ClearedStages.Contains(evaluatePrize.Param1);
+                default:
+                    return true;
             }
             return false;
         }

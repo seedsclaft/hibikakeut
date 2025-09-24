@@ -203,7 +203,7 @@ namespace Ryneus
                 0,
                 (int)(enemyData.BaseStatus.Atk + (Level.Value * enemyData.AtkGrowth * 0.015f)),
                 (int)(enemyData.BaseStatus.Def + (Level.Value * enemyData.DefGrowth * 0.01f)),
-                Math.Min(100, (int)(enemyData.BaseStatus.Spd + (Level.Value * enemyData.SpdGrowth * 0.015f))),
+                Math.Min(100, (int)(enemyData.BaseStatus.Spd + (Level.Value * enemyData.SpdGrowth * 0.01f))),
                 enemyData.BaseStatus.Mov,
                 0
             );

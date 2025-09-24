@@ -259,6 +259,11 @@ namespace Ryneus
             CurrentGameInfo.AddEventReadFlag(stageEventDates.EventKey);
         }
 
+        public void AddEventReadFlagForce(StageEventData stageEventDates)
+        {
+            CurrentGameInfo.AddEventReadFlag(stageEventDates.EventKey);
+        }
+
         public async UniTask<List<AudioClip>> GetBgmData(string bgmKey)
         {
             return await ResourceSystem.LoadBGMAsset(bgmKey);
@@ -790,7 +795,7 @@ namespace Ryneus
             foreach (var item in PartyInfo.Items)
             {
                 var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
-                if (itemData != null && itemData.ItemType == ItemType.Artifact)
+                if (itemData != null && itemData.ItemType == ItemType.Artifact && item.Value.Value > 0)
                 {
                     var skillData = DataSystem.FindSkill(itemData.Param1);
                     if (skillData.TriggerDates.Find(a => a.TriggerType == TriggerType.NextPeriod) != null)
@@ -899,6 +904,10 @@ namespace Ryneus
                     if (itemData.Param2 != -1)
                     {
                         candidateSkills = candidateSkills.Where(a => (int)a.Value.Attribute == itemData.Param2).ToList();
+                    }
+                    if (candidateSkills.Count == 0)
+                    {
+                        return MakeGetItemInfo(GetItemType.Currency, 4);
                     }
                     var rand = UnityEngine.Random.Range(0, candidateSkills.Count);
                     // 報酬設定

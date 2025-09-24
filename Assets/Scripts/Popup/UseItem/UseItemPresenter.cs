@@ -97,7 +97,7 @@ namespace Ryneus
 
         private void UseItemDungeonTurn(ItemInfo itemInfo)
         {
-            var turns = itemInfo.Master.Param1;
+            var turns = itemInfo.Master.Param2;
             _model.ChangeDungeonTurn(turns);
             _busy = true;
             _view.SetBusy(true);

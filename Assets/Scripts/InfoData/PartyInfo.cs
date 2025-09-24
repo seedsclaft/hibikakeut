@@ -261,8 +261,8 @@ namespace Ryneus
         // フェーズ終了までのピリオド
         public ParameterInt Period = new();
 
-        // 転送できるか
-        public ParameterBool EnableTransfer = new();
+        // 救済できる回数
+        public ParameterInt ReliefItemCount = new(1);
 
         // 評価値
         public ParameterInt EvaluationValue = new();
@@ -522,7 +522,7 @@ namespace Ryneus
                     target.GainSkillMastary(getItemInfo.Param2);
                     break;
                 case GetItemType.AddReliefCommandCount:
-                    ReliefCommandCount.GainValue(-1, 0);
+                    ReliefItemCount.GainValue(1, 0);
                     break;
                 default:
                     CheckAddActor();

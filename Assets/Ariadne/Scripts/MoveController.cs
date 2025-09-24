@@ -1609,7 +1609,7 @@ namespace Ariadne
             return drawDungeonWall;
         }
 
-        public void SetDeactiveParentObj(int positionX,int positionY)
+        public void SetDeactiveParentObj(int positionX, int positionY)
         {
             GameObject eventObj = GetDrawDungeonWall()?.GetWallObjectByAxis(positionX, positionY);
             if (eventObj != null)

@@ -93,16 +93,16 @@ namespace Ryneus
 
         public void StartTitleAnimation()
         {
-            _battleStartAnim.SetText("定期報告");
-            _battleStartAnim.StartAnim(false,0,() => CallViewEvent(CommandType.EndAnimation));
+            _battleStartAnim.SetText(DataSystem.GetText(20411));
+            _battleStartAnim.StartAnim(false, 0, () => CallViewEvent(CommandType.EndAnimation));
             _battleStartAnim.gameObject.SetActive(true);
             _animationBusy = true;
         }
 
         public void StartResultAnimation()
         {
-            _battleStartAnim.SetText("報酬授与");
-            _battleStartAnim.StartAnim(false,0,() => CallViewEvent(CommandType.EndAnimation));
+            _battleStartAnim.SetText(DataSystem.GetText(20410));
+            _battleStartAnim.StartAnim(false, 0, () => CallViewEvent(CommandType.EndAnimation));
             _battleStartAnim.gameObject.SetActive(true);
             _animationBusy = true;
         }

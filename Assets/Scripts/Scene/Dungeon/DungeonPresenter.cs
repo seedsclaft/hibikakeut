@@ -146,9 +146,6 @@ namespace Ryneus
 
             // ターン数確認
             CommandTurnOverEvent(moved);
-
-            // エンカウントした場合
-            CheckEncount();
         }
 
         private void CommandRouteMoveEnd()
@@ -196,9 +193,6 @@ namespace Ryneus
 
             // ターン数確認
             CommandTurnOverEvent(moved);
-
-            // エンカウントした場合
-            CheckEncount();
         }
 
         private void CommandRouteMoveEndFinish()
@@ -281,6 +275,11 @@ namespace Ryneus
             {
                 CommandTurnOver(moved);
             }
+
+            if (moved)
+            {
+                CheckEncount();
+            }
         }
 
         private void CommandTurnOverBeforeTen(bool moved)
@@ -293,6 +292,10 @@ namespace Ryneus
 
         private void CommandTurnOver(bool moved)
         {
+            if (!moved)
+            {
+                return;
+            }
             // 評価値が減少
             _model.TurnOver();
             _view.SeekTweens();
@@ -396,8 +399,14 @@ namespace Ryneus
                 switch (stageEvent.Type)
                 {
                     case StageEventType.AdvStart:
-                        _model.AddEventReadFlag(stageEvent);
-                        StageEventAdvEvent(moved, stageEvent.Param, endEvent);
+                        if (moved)
+                        {
+                            _model.AddEventReadFlag(stageEvent);
+                            StageEventAdvEvent(moved, stageEvent.Param, endEvent);
+                        } else
+                        {
+                            endEvent?.Invoke();
+                        }
                         return;
                     case StageEventType.ExitDungeon:
                         StageEventExitDungeon(moved, endEvent);
@@ -588,7 +597,7 @@ namespace Ryneus
             // 同じParam値のイベントを既読にする
             foreach (var item in findAll)
             {
-                _model.AddEventReadFlag(item);
+                _model.AddEventReadFlagForce(item);
             }
             _model.UpdateEventObjects();
             CheckStageEvent(moved);
@@ -626,13 +635,27 @@ namespace Ryneus
                 _model.AddEventReadFlag(stageEvent);
                 StageEventAddEventFlag(false, stageEvent, null);
                 _model.UpdateEventObjects();
-                return;
             }
-            CheckStageEvent(moved);
+            endEvent?.Invoke();
         }
 
         private void StageEventDamageFloor(StageEventData stageEvent, Action endEvent)
         {
+            var endStageEvents = _model.EndStageEvents();
+            var findAll = _model.StageEvents(EventTiming.Dungeon, stageEvent.PositionX, stageEvent.PositionY);
+            var closed = false;
+            foreach (var item in findAll)
+            {
+                if (endStageEvents.Find(a => a.Type == 0 && item.PositionX == a.PositionX && item.PositionY == a.PositionY) != null)
+                {
+                    closed = true;
+                }
+            }
+            if (closed)
+            {
+                endEvent?.Invoke();
+                return;
+            }
             SoundManager.Instance.PlayStaticSe(SEType.Damage);
             _model.DamageFloor(stageEvent.Param);
             _view.StartDamage(stageEvent.Param);

@@ -99,7 +99,7 @@ namespace Ryneus
                     case "Mission":
                         return PartyInfo.IsRankUpBefore();
                     case "Relief":
-                        return PartyInfo.ReliefCommandCount.Value < PartyInfo.Chapter.Value;
+                        return PartyInfo.ReliefItemCount.Value > 0;
                     case "Present":
                         return PartyInfo.IsOwnItem();
                 }
