@@ -111,10 +111,10 @@ namespace Ryneus
                 {
                     PopupActionResult(actionResultInfo, actionResultInfo.TargetIndex.Value, true, true);
                 }
-                var waitFrame = _model.WaitFrameTime(48);
+                var waitFrame = _model.WaitFrameTime(60);
                 if (!actionInfo.LastAttack() && waitFrame > 1)
                 {
-                    waitFrame = 24;
+                    waitFrame = 30;
                 }
                 await UniTask.DelayFrame(waitFrame);
             } else
@@ -123,10 +123,10 @@ namespace Ryneus
                 {
                     PopupActionResult(actionResultInfo, actionResultInfo.TargetIndex.Value, true, true);
                 }
-                var waitFrame = _model.WaitFrameTime(30);
+                var waitFrame = _model.WaitFrameTime(48);
                 if (!actionInfo.LastAttack() && waitFrame > 1)
                 {
-                    waitFrame = 16;
+                    waitFrame = 24;
                 }
                 await UniTask.DelayFrame(waitFrame);
             }
@@ -277,14 +277,14 @@ namespace Ryneus
                 if (actionInfo.Master.IsDisplayBattleSkill() && subject.IsActor)
                 {
                     _view.ShowCutinBattleThumb(subject);
-                    await UniTask.DelayFrame(_model.WaitFrameTime(16));
+                    await UniTask.DelayFrame(_model.WaitFrameTime(30));
                 }
             }
             return true;
         }
 
         private async void RepeatAnimationSkill(ActionInfo actionInfo)
-        {           
+        {
             if (actionInfo.ActionResults.Count == 0 || !_model.CurrentActionBattler.IsAlive())
             {
                 CommandEndAnimation();
@@ -301,7 +301,7 @@ namespace Ryneus
             {
                 PopupActionResult(actionResultInfo, actionResultInfo.TargetIndex.Value, true, true);
             }
-            await UniTask.DelayFrame(_model.WaitFrameTime(16));
+            await UniTask.DelayFrame(_model.WaitFrameTime(30));
             CommandEndAnimation();
         }
 
@@ -335,7 +335,7 @@ namespace Ryneus
                     }
                     // ダメージ表現をしない
                     PopupActionResult(resultInfo, resultInfo.TargetIndex.Value, true, false);
-                    await UniTask.DelayFrame(_model.WaitFrameTime(16));
+                    await UniTask.DelayFrame(_model.WaitFrameTime(30));
                 }
             }
             _model.ExecActionResultInfos(resultInfos, true);

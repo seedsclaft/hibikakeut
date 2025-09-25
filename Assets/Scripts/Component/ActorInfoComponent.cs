@@ -127,7 +127,7 @@ namespace Ryneus
 
             recoveryCost?.SetText(TacticsUtility.RemainRecoveryCost(actorInfo,true).ToString());
             resourceGain?.SetText(TacticsUtility.ResourceGain(actorInfo).ToString());
-            evaluate?.SetText(actorInfo.Evaluate().ToString());
+            evaluate?.SetText(DataSystem.GetReplaceDecimalText(actorInfo.Evaluate()));
             if (battlePosition != null)
             {
                 var textId = actorInfo.LineIndex == LineType.Front ? 2012 : 2013;

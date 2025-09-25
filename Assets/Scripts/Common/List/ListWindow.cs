@@ -212,19 +212,15 @@ namespace Ryneus
             }
         }
 
-        public void UpdateItemPrefab(int selectIndex = -1, int itemStartIndex = -1)
+        public void UpdateItemPrefab()
         {
+            var startIndex = GetStartIndex(_horizontal);
+            var itemStartIndex = startIndex % _itemPrefabList.Count;
             if (_grid)
             {
-                UpdateListGridItem(selectIndex, itemStartIndex);
+                UpdateListGridItem(itemStartIndex);
                 return;
             }
-            var horizontalCount = GetHorizonalCount();
-            var verticalCount = GetVerticalCount();
-            horizontalCount += 1;
-            var startIndex = selectIndex == -1 ? GetStartIndex(_horizontal) : selectIndex;
-            var gridIndex = selectIndex == -1 ? GetStartIndex(!_horizontal) : selectIndex;
-
             for (int i = 0; i < _itemPrefabList.Count; i++)
             {
                 var itemPrefab = _itemPrefabList[i];
@@ -235,18 +231,6 @@ namespace Ryneus
                     itemPrefab = _itemPrefabList[tempIndex];
                 }
                 var itemIndex = i + startIndex;
-                if (_grid)
-                {
-                    if (gridIndex > 0)
-                    {
-                        itemIndex += gridIndex * _gridColumnCount;
-                    }
-                    var plusIndex = i / horizontalCount;
-                    if (plusIndex > 0)
-                    {
-                        itemIndex += plusIndex * (_gridColumnCount - horizontalCount);
-                    }
-                }
                 var listItem = itemPrefab.GetComponent<ListItem>();
                 if (_listDates.Count <= itemIndex || ObjectListCount <= itemIndex || itemIndex < 0)
                 {
@@ -346,6 +330,11 @@ namespace Ryneus
             return _scrollRect.viewport.rect.height;
         }
 
+        private float GetVisibleRectHeight()
+        {
+            return _scrollRect.content.rect.height - GetViewPortHeight();
+        }
+
         private float GetScrolledWidth()
         {
             return (_scrollRect.content.rect.width - GetViewPortWidth()) * _scrollRect.normalizedPosition.x;
@@ -420,7 +409,7 @@ namespace Ryneus
             var listMargin = ListMargin(horizontal);
             var itemSize = horizontal ? _itemSize.x : _itemSize.y;
             var rectSize = horizontal ? GetScrolledWidth() : Math.Max(0, GetScrolledHeight());
-            var index = (int)Math.Floor((rectSize - itemSpace - listMargin + 4) / (itemSize + itemSpace));
+            var index = (int)Math.Floor((rectSize - 0 - listMargin + 0) / (itemSize + itemSpace));
             return Math.Max(0, index);
         }
 
@@ -455,7 +444,7 @@ namespace Ryneus
                     _selectedHandler?.Invoke();
                     return;
                 }
-                UpdateItemPrefab(-1, startIndex % _itemPrefabList.Count);
+                UpdateItemPrefab();
                 UpdateAllItems();
                 _lastStartIndexX = startIndex;
                 _selectedHandler?.Invoke();
@@ -849,6 +838,14 @@ namespace Ryneus
                         var c = _index - verticalCount + 1;
                         var per = 1f - (c / p);
 
+                        // 均等に収まらないリストのズレを直す
+                        if (!IsExtraHeightRectSize(verticalCount))
+                        {
+                            var rectIndex = _index - verticalCount;
+                            var rectSize = (_itemSize.y + ItemSpace(false)) * rectIndex;
+                            per = 1f - (rectSize / GetVisibleRectHeight());
+                        }
+
                         verticalNormalizedPosition = Math.Max(per, 0);
                     } else
                     if (warpMode && _index == 0)
@@ -858,6 +855,7 @@ namespace Ryneus
                 } else
                 if (keyTypes.Contains(minusKey))
                 {
+                    /*
                     var v = GetViewPortHeight();
                     var ip = itemPosition;
                     var vp = viewPortPosition;
@@ -865,6 +863,7 @@ namespace Ryneus
                     Debug.Log("height = " + v);
                     Debug.Log("itemPosition = " + ip);
                     Debug.Log("viewPortPosition = " + vp);
+                    */
                     if (warpMode && _index == (GetGridRowCount() - 1))
                     {
                         verticalNormalizedPosition = 0;
@@ -874,6 +873,13 @@ namespace Ryneus
                         var c = _index;
                         var per = 1f - (c / p);
 
+                        if (!IsExtraHeightRectSize(verticalCount))
+                        {
+                            var rectIndex = _index;
+                            var rectSize = (_itemSize.y + ItemSpace(false)) * rectIndex;
+                            per = 1f - (rectSize / GetVisibleRectHeight());
+                        }
+
                         verticalNormalizedPosition = Math.Min(1, per);
                     }
                 }
@@ -882,6 +888,15 @@ namespace Ryneus
             {
                 ScrollRect.verticalNormalizedPosition = verticalNormalizedPosition;
             }
+        }
+
+        /// <summary>
+        /// 高さが均等に収まるリストか
+        /// </summary>
+        /// <returns></returns>
+        private bool IsExtraHeightRectSize(float verticalCount)
+        {
+            return GetViewPortHeight() == (_itemSize.y + ItemSpace(false)) * verticalCount;
         }
 
         public void UpdateScrollRect(int selectIndex)

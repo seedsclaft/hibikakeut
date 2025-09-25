@@ -42,7 +42,7 @@ namespace Ryneus
             return ObjectListCount / _gridColumnCount;
         }
 
-        public void UpdateListGridItem(int selectIndex = -1, int itemStartIndex = -1)
+        public void UpdateListGridItem(int itemStartIndex = -1)
         {
             if (_grid)
             {
@@ -52,11 +52,7 @@ namespace Ryneus
                     return;
                 }
             }
-            var horizontalCount = GetHorizonalCount();
-            var verticalCount = GetVerticalCount();
-            horizontalCount += 1;
-            var startIndex = selectIndex == -1 ? GetStartIndex(_horizontal) : selectIndex;
-            var gridIndex = selectIndex == -1 ? GetStartIndex(!_horizontal) : selectIndex;
+            var startIndex = GetStartIndex(_horizontal);
 
             for (int i = 0; i < _itemPrefabList.Count; i++)
             {
