@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Ryneus.DungeonMap;
 
 namespace Ryneus
@@ -9,6 +10,7 @@ namespace Ryneus
     {
         [SerializeField] private BaseList mapCellList = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
+        [SerializeField] private GridLayoutGroup gridLayoutGroup = null;
 
         public override void Initialize()
         {
@@ -32,8 +34,9 @@ namespace Ryneus
             AddViewActives(mapCellList);
         }
 
-        public void SetDungeonMap(List<ListData> mapCellInfos)
+        public void SetDungeonMap(List<ListData> mapCellInfos, int constraintCount)
         {
+            gridLayoutGroup.constraintCount = constraintCount;
             mapCellList.SetData(mapCellInfos, false, () =>
             {
             });

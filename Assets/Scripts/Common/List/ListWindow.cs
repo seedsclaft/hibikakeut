@@ -47,8 +47,8 @@ namespace Ryneus
         }
         public int DataCount => _listDates.Count;
         private Vector2 _itemSize;
-        private int _lastStartIndexX = 999;
-        private int _lastStartIndexY = 999;
+        private int _lastStartIndexX = 0;
+        private int _lastStartIndexY = 0;
         private LinkedList<IListViewItem> _itemList = new();
         private List<GameObject> _objectList = new();
         public List<GameObject> ObjectList => _objectList;
@@ -354,6 +354,28 @@ namespace Ryneus
         private int Rows()
         {
             var rows = (int)Math.Floor(GetViewPortHeight() / _itemSize.y);
+            return rows > 0 ? rows : 1;
+        }
+
+        private int GridCols()
+        {
+            var cols = (int)Math.Floor(GetViewPortWidth() / _itemSize.x);
+            var gridLayoutGroup = GetComponentInChildren<GridLayoutGroup>();
+            if (gridLayoutGroup != null)
+            {
+                return gridLayoutGroup.constraintCount;
+            }
+            return cols > 0 ? cols : 1;
+        }
+
+        private int GridRows()
+        {
+            var rows = (int)Math.Floor(GetViewPortHeight() / _itemSize.y);
+            var gridLayoutGroup = GetComponentInChildren<GridLayoutGroup>();
+            if (gridLayoutGroup != null)
+            {
+                return gridLayoutGroup.constraintCount;
+            }
             return rows > 0 ? rows : 1;
         }
 

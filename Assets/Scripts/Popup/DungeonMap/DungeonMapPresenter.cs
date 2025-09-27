@@ -24,7 +24,7 @@ namespace Ryneus
         private void Initialize()
         {
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetDungeonMap(MakeListData(_model.MapCellInfos(), 0));
+            _view.SetDungeonMap(MakeListData(_model.MapCellInfos(), 0), _model.ConstraintCount());
             _view.OpenAnimation();
             _view.ActivateDungeonMap(true);
             _busy = false;

@@ -77,5 +77,11 @@ namespace Ryneus
                 CurrentDeckInfo.SetRoutePaths(_hexPaths);
             }
         }
+
+        public int ConstraintCount()
+        {
+            var dungeonFloor = FindDungeonFloor(CurrentStage.StageId.Value);
+            return dungeonFloor.floorSizeHorizontal;
+        }
     }
 }

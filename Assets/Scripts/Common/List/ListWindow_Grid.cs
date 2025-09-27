@@ -9,7 +9,7 @@ namespace Ryneus
     public abstract partial class ListWindow : MonoBehaviour
     {
         [SerializeField] private bool _grid = false;
-        private int _gridColumnCount = 1;
+        private int _gridColumnCount = 16;
         public void SetGridColumnCount(int columnCount)
         {
             _gridColumnCount = columnCount;
@@ -68,7 +68,7 @@ namespace Ryneus
                 {
                     var listItem = itemPrefab.GetComponent<ListItem>();
                     listItem.SetListData(_listDates[itemIndex], itemIndex);
-                    Debug.Log("itemIndex:" + i + "がobjectIndex: " + itemIndex);
+                    //Debug.Log("itemIndex:" + i + "がobjectIndex: " + itemIndex);
                     itemPrefab.transform.SetParent(_objectList[itemIndex].transform, false);
                     itemPrefab.SetActive(true);
                 }
@@ -77,25 +77,93 @@ namespace Ryneus
 
         private void UpdateGridScrollRect(List<InputKeyType> keyTypes)
         {
-            /*
             if (keyTypes.Contains(InputKeyType.Down))
             {
-                UpdateGridDown();
+                var selectItem = _objectList[_index];
+                var itemPosition = Math.Round(GetCornerPosition(selectItem, 0, false));
+                float verticalCount = GetVerticalCount();
+                float horizonalCount = GetHorizonalCount();
+                var p = ObjectListCount / verticalCount - verticalCount;
+                var verticalNormalizedPosition = -1f;
+                var viewPortPosition = Math.Round(GetCornerPosition(_scrollRect.viewport.gameObject, 0, false));
+
+                if (itemPosition < viewPortPosition)
+                {
+                    var c = (_index / verticalCount) - verticalCount + 1;
+                    var per = 1f - (c / p);
+
+                    // 均等に収まらないリストのズレを直す
+                    /*
+                    if (!IsExtraHeightRectSize(verticalCount))
+                    {
+                        var rectIndex = _index - verticalCount;
+                        var rectSize = (_itemSize.y + ItemSpace(false)) * rectIndex;
+                        per = 1f - (rectSize / GetVisibleRectHeight());
+                    }
+                    */
+
+                    verticalNormalizedPosition = Math.Max(per, 0);
+                } else
+                if (warpMode && _index == 0)
+                {
+                    verticalNormalizedPosition = 1;
+                }
+                if (verticalNormalizedPosition >= 0)
+                {
+                    ScrollRect.verticalNormalizedPosition = verticalNormalizedPosition;
+                }
+            }
+            if (keyTypes.Contains(InputKeyType.Up))
+            {
+                var selectItem = _objectList[_index];
+                var itemPosition = Math.Round(GetCornerPosition(selectItem, 0, false));
+
+                float verticalCount = GetVerticalCount();
+                float horizonalCount = GetHorizonalCount();
+                var p = ObjectListCount / verticalCount - verticalCount;
+                var verticalNormalizedPosition = -1f;
+                var viewPortPosition = Math.Round(GetCornerPosition(_scrollRect.viewport.gameObject, 0, false));
+                if (itemPosition >= (GetViewPortHeight() + viewPortPosition - _itemSize.y))
+                {
+                    var c = (_index / verticalCount);
+                    var per = 1f - (c / p);
+                    /*
+                    if (!IsExtraHeightRectSize(verticalCount))
+                    {
+                        var rectIndex = _index;
+                        var rectSize = (_itemSize.y + ItemSpace(false)) * rectIndex;
+                        per = 1f - (rectSize / GetVisibleRectHeight());
+                    }
+                    */
+
+                    verticalNormalizedPosition = Math.Min(1, per);
+                }
+                if (verticalNormalizedPosition >= 0)
+                {
+                    ScrollRect.verticalNormalizedPosition = verticalNormalizedPosition;
+                }
+            }
+            /*
+            int startIndex = GetStartIndex(_horizontal);
+            int gridIndex = GetStartIndex(!_horizontal);
+            if (keyTypes.Contains(InputKeyType.Down))
+            {
+                UpdateListDownGrid(gridIndex + 1);
             }
             else
             if (keyTypes.Contains(InputKeyType.Up))
             {
-                UpdateGridUp();
+                UpdateListUpGrid(gridIndex);
             }
 
             if (keyTypes.Contains(InputKeyType.Right))
             {
-                UpdateGridRight();
+                UpdateListRightGrid(startIndex);
             }
             else
             if (keyTypes.Contains(InputKeyType.Left))
             {
-                UpdateGridLeft();
+                UpdateListLeftGrid(startIndex);
             }
             */
         }
@@ -109,25 +177,25 @@ namespace Ryneus
             {
                 if (gridIndex > _lastStartIndexY && gridIndex > 0)
                 {
-                    UpdateListDownGrid(gridIndex);
+                    //UpdateListDownGrid(gridIndex);
                     update = true;
                 }
                 else
                 if (gridIndex < _lastStartIndexY && gridIndex >= 0)
                 {
-                    UpdateListUpGrid(gridIndex);
+                    //UpdateListUpGrid(gridIndex);
                     update = true;
                 }
             }
-            if (startIndex > _lastStartIndexX)
+            if (startIndex > _lastStartIndexY)
             {
-                UpdateListRightGrid(startIndex);
+                UpdateListDownGrid(startIndex);
                 update = true;
             }
             else
-            if (startIndex < _lastStartIndexX)
+            if (startIndex < _lastStartIndexY)
             {
-                UpdateListLeftGrid(startIndex);
+                UpdateListUpGrid(startIndex);
                 update = true;
             }
             if (update)
@@ -137,29 +205,32 @@ namespace Ryneus
             return update;
         }
 
-        private void UpdateListDownGrid(int gridIndex)
+        private void UpdateListDownGrid(int startIndex)
         {
-            var lineIndex = gridIndex - _lastStartIndexY;
-            _lastStartIndexY = gridIndex;
-            int startIndex = GetStartIndex(_horizontal);
+            var lineIndex = startIndex - _lastStartIndexY;
+            var lastStartIndexY = _lastStartIndexY;
+            _lastStartIndexY = startIndex;
+            //int startIndex = GetStartIndex(_horizontal);
             var verticalCount = GetVerticalCount();
             var horizontalCount = GetHorizonalCount();
+            int gridIndex = GetStartIndex(!_horizontal);
             var itemPerIndex = (gridIndex - 1) / (verticalCount + 1);
             var objectPerIndex = startIndex / (horizontalCount + 1);
             for (int j = 0; j < lineIndex; j++)
             {
                 for (int i = 0; i <= horizontalCount; i++)
                 {
-                    var itemIndex = ((gridIndex - 1 - j) * (horizontalCount + 1)) + i;
+                    var itemIndex = (lastStartIndexY * verticalCount) + (j * verticalCount) + i;
                     if (itemPerIndex > 0)
                     {
-                        itemIndex -= itemPerIndex * (verticalCount + 1) * (horizontalCount + 1);
+                        //itemIndex -= itemPerIndex * (verticalCount + 1) * (horizontalCount + 1);
                     }
                     if (!WithinItemIndex(itemIndex))
                     {
                         continue;
                     }
-                    var objectIndex = (_gridColumnCount * verticalCount) + ((gridIndex - j) * _gridColumnCount) + i;
+                    var objectIndex = ((verticalCount + 1) * (horizontalCount + 1)) + (lastStartIndexY * verticalCount) + (j * verticalCount) + i;
+                    /*
                     if (startIndex - (objectPerIndex * (horizontalCount + 1)) > i)
                     {
                         objectIndex += ((objectPerIndex + 1) * horizontalCount) + 1 + objectPerIndex;
@@ -168,6 +239,7 @@ namespace Ryneus
                     {
                         objectIndex += objectPerIndex * (horizontalCount + 1);
                     }
+                    */
                     if (!WithinObjectIndex(objectIndex))
                     {
                         continue;
@@ -178,29 +250,32 @@ namespace Ryneus
             }
         }
 
-        private void UpdateListUpGrid(int gridIndex)
+        private void UpdateListUpGrid(int startIndex)
         {
-            var lineIndex = _lastStartIndexY - gridIndex;
-            _lastStartIndexY = gridIndex;
-            int startIndex = GetStartIndex(_horizontal);
+            var lineIndex = _lastStartIndexY - startIndex;
+            var lastStartIndexY = _lastStartIndexY;
+            _lastStartIndexY = startIndex;
+            //int startIndex = GetStartIndex(_horizontal);
             var verticalCount = GetVerticalCount();
             var horizontalCount = GetHorizonalCount();
+            int gridIndex = GetStartIndex(!_horizontal);
             var itemPerIndex = gridIndex / (verticalCount + 1);
             var objectPerIndex = startIndex / (horizontalCount + 1);
             for (int j = 0; j < lineIndex; j++)
             {
                 for (int i = 0; i <= horizontalCount; i++)
                 {
-                    var itemIndex = ((gridIndex + j) * (horizontalCount + 1)) + i;
+                    var itemIndex = ((lastStartIndexY - lineIndex) * verticalCount) + (j * verticalCount) + i;
                     if (itemPerIndex > 0)
                     {
-                        itemIndex -= itemPerIndex * (verticalCount + 1) * (horizontalCount + 1);
+                        //itemIndex -= itemPerIndex * (verticalCount + 1) * (horizontalCount + 1);
                     }
                     if (!WithinItemIndex(itemIndex))
                     {
                         continue;
                     }
-                    var objectIndex = ((gridIndex + j) * _gridColumnCount) + i;
+                    var objectIndex = ((lastStartIndexY - lineIndex) * verticalCount) + (j * verticalCount) + i;
+                    /*
                     if (startIndex - (objectPerIndex * (horizontalCount + 1)) > i)
                     {
                         objectIndex += ((objectPerIndex + 1) * horizontalCount) + 1 + objectPerIndex;
@@ -209,6 +284,7 @@ namespace Ryneus
                     {
                         objectIndex += objectPerIndex * (horizontalCount + 1);
                     }
+                    */
                     if (!WithinObjectIndex(objectIndex))
                     {
                         continue;
@@ -250,7 +326,7 @@ namespace Ryneus
                     {
                         continue;
                     }
-                    //Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
+                    Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
                     UpdateListItem(itemIndex, objectIndex);
                 }
             }
@@ -347,8 +423,8 @@ namespace Ryneus
             if (keyTypes.Contains(plusKey) || keyTypes.Contains(minusKey))
             {
                 // 列移動
-                var lines = _horizontal ? Cols() : Rows();
-                var singleLine = _horizontal ? Rows() : Cols();
+                var lines = _horizontal ? GridCols() : GridRows();
+                var singleLine = _horizontal ? GridRows() : GridCols();
                 if (lines > 1 && singleLine > 1)
                 {
                     for (int i = 0; i < lines; i++)
