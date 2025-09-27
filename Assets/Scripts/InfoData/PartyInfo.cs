@@ -47,21 +47,23 @@ namespace Ryneus
         public List<ActorInfo> ActorInfos => _actorInfos;
         // リーダーキャラId
         public ParameterInt LeaderActorId = new();
-        // 転送済みアクターリスト
-        [SerializeField] private List<ActorInfo> _transferActorInfos = new();
 
         public List<ActorInfo> EditableActorInfos()
         {
-            return _actorInfos.FindAll(a => !_transferActorInfos.Contains(a));
+            return _actorInfos.FindAll(a => !a.Transfer.Value);
         }
 
         public void AddTransferActorInfos(ActorInfo actorInfo)
         {
-            if (_transferActorInfos.Find(a => a.ActorId.Value == actorInfo.ActorId.Value) == null)
+            if (_actorInfos.Find(a => a.ActorId.Value == actorInfo.ActorId.Value) != null)
             {
-                _transferActorInfos.Add(actorInfo);
                 CurrentDeckInfo.TransferActorInfo(actorInfo.ActorId.Value);
             }
+        }
+
+        public void EndTransfer()
+        {
+            _actorInfos.ForEach(a => a.Transfer.SetValue(false));
         }
 
         // 現在のステージ場所
@@ -555,7 +557,7 @@ namespace Ryneus
                 {
                     // 新規加入
                     var actorData = DataSystem.FindActor(addActorInfo.Param1);
-                    if (_transferActorInfos.Find(a => a.ActorId.Value == actorData.Id) != null)
+                    if (_actorInfos.Find(a => a.ActorId.Value == actorData.Id) != null)
                     {
                         return;
                     }

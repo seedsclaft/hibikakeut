@@ -105,12 +105,14 @@ namespace Ryneus
             if (_model.InterludePhase())
             {
                 _busy = true;
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(11020), (a) =>
+                // 転送を解除
+                if (_model.PartyInfo.ActorInfos.Find(a => a.Transfer.Value) != null)
                 {
-                    _view.CommandGotoSceneChange(Scene.Interlude);
-                });
-                confirmInfo.SetIsNoChoice(true);
-                _view.CommandCallConfirm(confirmInfo);
+                    _model.EndTransfer();
+                    ReturnTransfer();
+                    return;
+                }
+                SendInterlude();
                 return;
             }
             _view.SetActiveCommandList(true);
@@ -157,6 +159,26 @@ namespace Ryneus
                     },false,true);
                     break;
             }
+        }
+
+        private void ReturnTransfer()
+        {
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(11040), (a) =>
+            {
+                SendInterlude();
+            });
+            confirmInfo.SetIsNoChoice(true);
+            _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void SendInterlude()
+        {
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(11020), (a) =>
+            {
+                _view.CommandGotoSceneChange(Scene.Interlude);
+            });
+            confirmInfo.SetIsNoChoice(true);
+            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CommandDepature()

@@ -35,6 +35,10 @@ namespace Ryneus
 
         private void UpdateCommand(ViewEvent viewEvent)
         {
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Transfer)
+            {
+                return;
+            }
             if (_busy || _view.AnimationBusy)
             {
                 switch (viewEvent.ViewCommandType.CommandType)
@@ -43,10 +47,6 @@ namespace Ryneus
                         CommandEndOpenAnimation();
                         break;
                 }
-                return;
-            }
-            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Transfer)
-            {
                 return;
             }
             switch (viewEvent.ViewCommandType.CommandType)
@@ -63,11 +63,12 @@ namespace Ryneus
             {
                 return;
             }
-            if (actorInfo.ActorId.Value == _model.PartyInfo.ActorInfos[0].ActorId.Value)
+            if (!_model.EnableTransfer(actorInfo))
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle(DataSystem.GetText(35020));
+                var textId = actorInfo.Master.Id > 100 ? 35020 : 35021;
+                cautionInfo.SetTitle(DataSystem.GetText(textId));
                 _view.CommandCallCaution(cautionInfo);
                 return;
             }
@@ -88,9 +89,9 @@ namespace Ryneus
                     };
                     var strategySceneInfo = new StrategySceneInfo
                     {
-                        ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
+                        ActorInfos = new List<ActorInfo>(){actorInfo},
                         InBattle = false,
-                        GetItemInfos = new List<GetItemInfo>(){_model.MakeGetItemInfo(GetItemType.Evaluate, actorInfo.TransferGetItem())},
+                        GetItemInfos = _model.TransferGetItemInfos(actorInfo),
                         ReturnMainMenuSceneParam = sceneParam
                     };
                     _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);

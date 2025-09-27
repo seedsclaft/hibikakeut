@@ -123,6 +123,11 @@ namespace Ryneus
             return PartyInfo.AchievementInfos.Find(a => !a.Achieved.Value && (a.Master.ConditionType == AchievementConditionType.TacticsLvupCount || a.Master.ConditionType == AchievementConditionType.StatusSkillChangeCount)) != null;
         }
 
+        public void EndTransfer()
+        {
+            PartyInfo.EndTransfer();
+        }
+
         public List<SystemData.CommandData> SideMenu()
         {
             var list = new List<SystemData.CommandData>();

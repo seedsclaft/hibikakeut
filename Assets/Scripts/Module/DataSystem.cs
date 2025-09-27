@@ -88,20 +88,12 @@ namespace Ryneus
 
         public static ActorData FindActor(int id)
         {
-            if (Actors.ContainsKey(id))
-            {
-                return Actors[id];
-            }
-            return null;
+            return Actors.ContainsKey(id) ? Actors[id] : null;
         }
 
         public static SkillData FindSkill(int id)
         {
-            if (Skills.ContainsKey(id))
-            {
-                return Skills[id];
-            }
-            return null;
+            return Skills.ContainsKey(id) ? Skills[id] : null;
         }
 
         public static StageData FindStage(int id)

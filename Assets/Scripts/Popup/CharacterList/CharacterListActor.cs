@@ -13,7 +13,7 @@ namespace Ryneus
                 return;
             }
             var data = ListItemData<ActorInfo>();
-            component.UpdateInfo(data,null);
+            component.UpdateInfo(data, null);
             if (Disable != null)
             {
                 Disable.SetActive(!ListData.Enable.Value);

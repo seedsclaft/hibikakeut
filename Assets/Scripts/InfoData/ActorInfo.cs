@@ -573,14 +573,40 @@ namespace Ryneus
 
         public ParameterBool Transfer = new();
 
-        public int TransferGetItem()
+        public int TransferGetItem(int perPeriod)
         {
-            return Level * 2;
+            return (Level * 2) / (perPeriod + 1);
         }
 
-        public string TransferGetItemText()
+        public string TransferGetItemText(int perPeriod)
         {
-            return "評価値+" + TransferGetItem().ToString();
+            return "+" + TransferGetItem(perPeriod).ToString();
+        }
+
+        public int TransferGetExp(int chapter, int turns)
+        {
+            var baseLv = (chapter * 5) - Level;
+            var baseExp = 100 + (baseLv * 10);
+            var turnCount = turns + 1;
+            return baseExp * turnCount;
+        }
+
+        public string TransferGetExpText(int chapter, int turns)
+        {
+            return "+" + TransferGetExp(chapter, turns);
+        }
+
+        public int TransferGetCurrency(int chapter, int turns)
+        {
+            var baseLv = Level - (chapter * 5);
+            var baseExp = baseLv * 2;
+            var turnCount = turns + 1;
+            return Math.Max(1, baseExp) * turnCount;
+        }
+
+        public string TransferGetCurrencyText(int chapter, int turns)
+        {
+            return "+" + TransferGetCurrency(chapter, turns) + DataSystem.GetText(1000);
         }
 
         public ParameterBool IsClassChenged = new();

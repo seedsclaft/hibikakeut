@@ -6,7 +6,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class ActorInfoComponent : MonoBehaviour
+    public class ActorInfoComponent : BaseInfoComponent
     {
         [SerializeField] private Image mainThumb;
         public Image MainThumb => mainThumb;
@@ -51,6 +51,8 @@ namespace Ryneus
         [SerializeField] private Image unitTypeImage;
         [SerializeField] private Image unitTypeImageBack;
         [SerializeField] private TextMeshProUGUI transferGetItemText;
+        [SerializeField] private TextMeshProUGUI transferGetExpText;
+        [SerializeField] private TextMeshProUGUI transferGetCurrencyText;
 
         public void UpdateInfo(ActorInfo actorInfo, List<ActorInfo> actorInfos)
         {
@@ -86,9 +88,9 @@ namespace Ryneus
             {
                 statusInfoComponent.gameObject.SetActive(true);
                 statusInfoComponent.UpdateInfo(actorInfo.CurrentStatus);
-                statusInfoComponent.UpdateHp(actorInfo.CurrentHp.Value,actorInfo.MaxHp);
-                statusInfoComponent.UpdateMp(actorInfo.CurrentMp.Value,actorInfo.MaxMp);
-                statusInfoComponent.UpdateCost(actorInfo.CurrentCost.Value,actorInfo.MaxCost);
+                statusInfoComponent.UpdateHp(actorInfo.CurrentHp.Value, actorInfo.MaxHp);
+                statusInfoComponent.UpdateMp(actorInfo.CurrentMp.Value, actorInfo.MaxMp);
+                statusInfoComponent.UpdateCost(actorInfo.CurrentCost.Value, actorInfo.MaxCost);
             }
             if (needStatusInfoComponent != null)
             {
@@ -96,36 +98,36 @@ namespace Ryneus
             }
             if (element1 != null)
             {
-                UpdateAttributeRank(element1,actorInfo,AttributeType.Fire,actorInfos);
+                UpdateAttributeRank(element1, actorInfo, AttributeType.Fire, actorInfos);
             }
             if (element2 != null)
             {
-                UpdateAttributeRank(element2,actorInfo,AttributeType.Thunder,actorInfos);
+                UpdateAttributeRank(element2, actorInfo, AttributeType.Thunder, actorInfos);
             }
             if (element3 != null)
             {
-                UpdateAttributeRank(element3,actorInfo,AttributeType.Ice,actorInfos);
+                UpdateAttributeRank(element3, actorInfo, AttributeType.Ice, actorInfos);
             }
             if (element4 != null)
             {
-                UpdateAttributeRank(element4,actorInfo,AttributeType.Shine,actorInfos);
+                UpdateAttributeRank(element4, actorInfo, AttributeType.Shine, actorInfos);
             }
             if (element5 != null)
             {
-                UpdateAttributeRank(element5,actorInfo,AttributeType.Dark,actorInfos);
+                UpdateAttributeRank(element5, actorInfo, AttributeType.Dark, actorInfos);
             }
             if (element6 != null)
             {
-                UpdateAttributeRank(element6,actorInfo,AttributeType.Dark,actorInfos);
+                UpdateAttributeRank(element6, actorInfo, AttributeType.Dark, actorInfos);
             }
-            element1Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Fire,actorInfos).ToString());
-            element2Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Thunder,actorInfos).ToString());
-            element3Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Ice,actorInfos).ToString());
-            element4Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Shine,actorInfos).ToString());
-            element5Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Dark,actorInfos).ToString());
-            element6Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Void,actorInfos).ToString());
+            element1Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Fire, actorInfos).ToString());
+            element2Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Thunder, actorInfos).ToString());
+            element3Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Ice, actorInfos).ToString());
+            element4Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Shine, actorInfos).ToString());
+            element5Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Dark, actorInfos).ToString());
+            element6Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Void, actorInfos).ToString());
 
-            recoveryCost?.SetText(TacticsUtility.RemainRecoveryCost(actorInfo,true).ToString());
+            recoveryCost?.SetText(TacticsUtility.RemainRecoveryCost(actorInfo, true).ToString());
             resourceGain?.SetText(TacticsUtility.ResourceGain(actorInfo).ToString());
             evaluate?.SetText(DataSystem.GetReplaceDecimalText(actorInfo.Evaluate()));
             if (battlePosition != null)
@@ -135,18 +137,26 @@ namespace Ryneus
             }
             if (transferGetItemText != null)
             {
-                transferGetItemText.SetText(actorInfo.TransferGetItemText());
+                transferGetItemText.SetText(actorInfo.TransferGetItemText(PartyInfo.Period.Value));
+            }
+            if (transferGetExpText != null)
+            {
+                transferGetExpText.SetText(actorInfo.TransferGetExpText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
+            }
+            if (transferGetCurrencyText != null)
+            {
+                transferGetCurrencyText.SetText(actorInfo.TransferGetCurrencyText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
             }
         }
 
-        private void UpdateAttributeRank(TextMeshProUGUI text,ActorInfo actorInfo,AttributeType attributeType,List<ActorInfo> actorInfos)
+        private void UpdateAttributeRank(TextMeshProUGUI text, ActorInfo actorInfo, AttributeType attributeType, List<ActorInfo> actorInfos)
         {
             if (actorInfos != null)
             {
-                UpdateAttributeParam(text,actorInfo.AttributeRanks(actorInfos)[(int)attributeType-1]);
+                UpdateAttributeParam(text, actorInfo.AttributeRanks(actorInfos)[(int)attributeType-1]);
             } else
             {
-                UpdateAttributeParam(text,actorInfo.GetAttributeRank()[(int)attributeType-1]);
+                UpdateAttributeParam(text, actorInfo.GetAttributeRank()[(int)attributeType-1]);
             }
         }
 
@@ -157,8 +167,8 @@ namespace Ryneus
                 Clear();
                 return;
             }
-            UpdateMainThumb(actorData.ImagePath,actorData.X,actorData.Y,actorData.Scale);
-            UpdateAwakenThumb(actorData.ImagePath,actorData.AwakenX,actorData.AwakenY,actorData.AwakenScale);
+            UpdateMainThumb(actorData.ImagePath, actorData.X, actorData.Y, actorData.Scale);
+            UpdateAwakenThumb(actorData.ImagePath, actorData.AwakenX, actorData.AwakenY, actorData.AwakenScale);
             UpdateClipThumb(actorData.ImagePath);
             UpdateMainFaceThumb(actorData.ImagePath);
             UpdateAwakenFaceThumb(actorData.ImagePath);
@@ -169,7 +179,7 @@ namespace Ryneus
             //UpdateUnitTypeBack(actorData.UnitType);
         }
 
-        private void UpdateMainThumb(string imagePath,int x,int y,float scale)
+        private void UpdateMainThumb(string imagePath, int x, int y, float scale)
         {
             if (mainThumb == null)
             {
@@ -183,7 +193,7 @@ namespace Ryneus
             rect.sizeDelta = new Vector3(mainThumb.mainTexture.width, mainThumb.mainTexture.height, 1);
         }
 
-        private void UpdateAwakenThumb(string imagePath,int x,int y,float scale)
+        private void UpdateAwakenThumb(string imagePath, int x, int y, float scale)
         {
             if (awakenThumb == null)
             {
@@ -199,7 +209,7 @@ namespace Ryneus
 
         private void UpdateClipThumb(string imagePath)
         {
-            if (clipThumb == null) 
+            if (clipThumb == null)
             {
                 return;
             }

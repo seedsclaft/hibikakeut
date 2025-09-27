@@ -9,7 +9,6 @@ namespace Ryneus
         [SerializeField] private BaseList characterList = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
 
-
         public override void Initialize()
         {
             base.Initialize();
