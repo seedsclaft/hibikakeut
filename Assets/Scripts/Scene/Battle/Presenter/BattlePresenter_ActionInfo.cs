@@ -32,7 +32,7 @@ namespace Ryneus
 
         private async void StartAnimation(ActionInfo actionInfo)
         {
-            if (actionInfo.FirstAttack() && actionInfo.Master.AnimationId > 0)
+            if (/*actionInfo.FirstAttack() && */actionInfo.Master.AnimationId > 0)
             {
                 if (actionInfo.Master.SkillType == SkillType.Unique)
                 {

@@ -601,19 +601,19 @@ namespace Ryneus
             effekseerEmitter.Play(effekseerEffectAsset);
         }
 
-        public void StartAnimationDemigod(BattlerInfo battlerInfo,SkillData skillData,float speedRate)
+        public void StartAnimationDemigod(BattlerInfo battlerInfo, SkillData skillData, float speedRate)
         {
-            battleCutinAnimation.StartAnimation(battlerInfo,skillData,speedRate);
+            battleCutinAnimation.StartAnimation(battlerInfo, skillData, speedRate);
             //var handle = EffekseerSystem.PlayEffect(effekseerEffectAsset, centerAnimPosition.transform.position);
         }
 
-        public async UniTask StartAnimationMessiah(BattlerInfo battlerInfo,Sprite actorSprite)
+        public async UniTask StartAnimationMessiah(BattlerInfo battlerInfo, Sprite actorSprite)
         {
             var speed = GameSystem.OptionData.BattleSpeed;
             if (!GameSystem.OptionData.BattleAnimationSkip)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Demigod);
-                battleAwakenAnimation.StartAnimation(battlerInfo,actorSprite,speed);
+                battleAwakenAnimation.StartAnimation(battlerInfo, actorSprite, speed);
                 HideStateOverlay();
                 SetAnimationBusy(true);
                 await UniTask.DelayFrame((int)(60 / speed));

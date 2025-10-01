@@ -76,7 +76,7 @@ namespace Ryneus
             actionInfo.HpCost.SetValue(hpCost);
 
             //var isPrism = PrismRepeatTime(subject,actionInfo) > 0;
-            var repeatTime = CalcRepeatTime(subject,actionInfo);
+            var repeatTime = CalcRepeatTime(subject, actionInfo);
             //repeatTime += PrismRepeatTime(subject,actionInfo);
             actionInfo.SetRepeatTime(repeatTime);
             actionInfo.BaseRepeatTime.SetValue(repeatTime);

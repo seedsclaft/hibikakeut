@@ -13,7 +13,7 @@ namespace Ryneus
         static readonly string ExportPath = "Assets/MakerEffect/Resources/Animations/";
         
         static readonly string SoundPath = "Assets/MakerEffect/Resources/Se/";
-        static readonly string FileName = "Genfulew_Effect.json";
+        static readonly string FileName = "Genfulew_Effect5.json";
 
         // Fileがあったら呼ばれる
         static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) 
@@ -60,7 +60,7 @@ namespace Ryneus
             var MakerEffectDates = JsonUtility.FromJson<MakerEffectDates>(convert);
             foreach (var effectData in MakerEffectDates.data)
             {
-    			var effectAsset = AssetDatabase.LoadAssetAtPath<EffekseerEffectAsset>("Assets/MakerEffect/Resources/" + effectData.effectName + ".asset");
+    			var effectAsset = AssetDatabase.LoadAssetAtPath<EffekseerEffectAsset>("Assets/MakerEffect/Resources/temp/" + effectData.effectName + ".asset");
                 if (effectAsset != null)
                 {
                     effectAsset.soundResources = new Effekseer.Internal.EffekseerSoundResource[effectData.soundTimings.Count];
@@ -78,7 +78,7 @@ namespace Ryneus
                     if (d == null)
                     {
                         d = ScriptableObject.CreateInstance<MakerEffectAsset>();
-                        AssetDatabase.CreateAsset(d, "Assets/MakerEffect/Resources/" + effectData.effectName + ".asset");
+                        AssetDatabase.CreateAsset(d, ExportPath + effectData.effectName + ".asset");
                     }
                     d.hideFlags = HideFlags.NotEditable;    
                     d.efkBytes = effectAsset.efkBytes;
