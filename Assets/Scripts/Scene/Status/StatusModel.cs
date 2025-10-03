@@ -46,12 +46,12 @@ namespace Ryneus
 
         public void ChangeEquipSkill(int changeSkillId)
         {
-            CurrentActor.ChangeEquipSkill(changeSkillId,_selectSkillInfo.Id.Value);
+            CurrentActor.ChangeEquipSkill(changeSkillId, _selectSkillInfo.Id.Value);
         }
 
-        public void RemoveEquipSkill(ActorInfo actorInfo,int removeSkillId)
+        public void RemoveEquipSkill(ActorInfo actorInfo, int removeSkillId)
         {
-            actorInfo.ChangeEquipSkill(0,removeSkillId);
+            actorInfo.ChangeEquipSkill(0, removeSkillId);
         }
 
         public void UpdateActorRemainCost()

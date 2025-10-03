@@ -4,7 +4,15 @@ namespace Ryneus
 {
     public class SceneAssign : MonoBehaviour
     {
-        public GameObject CreateScene(Scene scene,HelpWindow helpWindow)
+        public void Initilize()
+        {
+            foreach (Transform child in gameObject.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        public GameObject CreateScene(Scene scene, HelpWindow helpWindow)
         {
             var prefab = Instantiate(GetSceneObject(scene));
             prefab.transform.SetParent(transform, false);

@@ -24,6 +24,10 @@ namespace Ryneus
         public List<Action<ViewEvent>> _commandData = new();
         public void SetEvent(Action<ViewEvent> commandData)
         {
+            if (_commandData.Contains(commandData))
+            {
+                return;
+            }
             _commandData.Add(commandData);
         }
 

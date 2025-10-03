@@ -20,10 +20,10 @@ namespace Ryneus
             _selectIndexes = selectIndexes;
         }
 
-        private int _listMoveInputFrameFirst = 8;
-        private int _listMoveGamePadFrameFirst = 8;
-        private int _listMoveInputFrame = 4;
-        private int _listMoveGamePadFrame = 4;
+        private int _listMoveInputFrameFirst = 6;
+        private int _listMoveGamePadFrameFirst = 6;
+        private int _listMoveInputFrame = 3;
+        private int _listMoveGamePadFrame = 3;
         private int _inputBusyFrame = 0;
         [SerializeField] private bool reverse = false;
         [SerializeField] private bool warpMode = true;
@@ -431,7 +431,7 @@ namespace Ryneus
             var listMargin = ListMargin(horizontal);
             var itemSize = horizontal ? _itemSize.x : _itemSize.y;
             var rectSize = horizontal ? GetScrolledWidth() : Math.Max(0, GetScrolledHeight());
-            var index = (int)Math.Floor((rectSize - 0 - listMargin + 0) / (itemSize + itemSpace));
+            var index = (int)Math.Floor((Math.Round(rectSize) - 0 - listMargin + 0) / (itemSize + itemSpace));
             return Math.Max(0, index);
         }
 
@@ -886,10 +886,6 @@ namespace Ryneus
                     Debug.Log("itemPosition = " + ip);
                     Debug.Log("viewPortPosition = " + vp);
                     */
-                    if (warpMode && _index == (GetGridRowCount() - 1))
-                    {
-                        verticalNormalizedPosition = 0;
-                    } else
                     if (itemPosition >= (GetViewPortHeight() + viewPortPosition - _itemSize.y))
                     {
                         var c = _index;
@@ -903,6 +899,10 @@ namespace Ryneus
                         }
 
                         verticalNormalizedPosition = Math.Min(1, per);
+                    } else
+                    if (warpMode && _index == _objectList.Count - 1)
+                    {
+                        verticalNormalizedPosition = 0;
                     }
                 }
             }

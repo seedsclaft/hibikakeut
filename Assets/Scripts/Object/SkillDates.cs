@@ -92,6 +92,11 @@ namespace Ryneus
             return SkillType is SkillType.Unique or SkillType.Awaken;
         }
 
+        public bool IsBattlePassiveSkill()
+        {
+            return SkillType is SkillType.Passive or SkillType.Unique or SkillType.Artifact or SkillType.Equip;
+        }
+
         public string TargetTypeText()
         {
             return TargetType switch

@@ -90,6 +90,36 @@ namespace Ryneus
             }
             GainSkillExp(changeSkillId, 0);
             RecommendActiveSkill();
+            SortEquipmentSkillIds();
+        }
+
+        private void SortEquipmentSkillIds()
+        {
+            // Active > Awaken > Unique > Passive
+            var sortIds = new List<ParameterInt>();
+            var sortIds1 = new List<ParameterInt>();
+            var sortIds2 = new List<ParameterInt>();
+            var sortIds3 = new List<ParameterInt>();
+            foreach (var equipmentSkillId in _equipmentSkillIds)
+            {
+                var skill = DataSystem.FindSkill(equipmentSkillId.Value);
+                if (!skill.IsBattlePassiveSkill() && !skill.IsBattleSpecialSkill())
+                {
+                    sortIds1.Add(equipmentSkillId);
+                }
+                if (!skill.IsBattlePassiveSkill() && skill.IsBattleSpecialSkill())
+                {
+                    sortIds2.Add(equipmentSkillId);
+                }
+                if (skill.IsBattlePassiveSkill())
+                {
+                    sortIds3.Add(equipmentSkillId);
+                }
+            }
+            sortIds.AddRange(sortIds1);
+            sortIds.AddRange(sortIds2);
+            sortIds.AddRange(sortIds3);
+            _equipmentSkillIds = sortIds;
         }
 
         public StatusInfo CurrentStatus => LevelUpStatus(Level);

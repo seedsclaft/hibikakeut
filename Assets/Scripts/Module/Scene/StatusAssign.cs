@@ -8,6 +8,15 @@ namespace Ryneus
     {
         public GameObject StatusRoot => gameObject;
         private BaseView _statusView;
+
+        public void Initilize()
+        {
+            foreach (Transform child in gameObject.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
         public GameObject CreatePopup(StatusType statusType,HelpWindow helpWindow)
         {
             var prefab = Instantiate(GetStatusObject(statusType));

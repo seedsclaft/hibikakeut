@@ -64,6 +64,9 @@ namespace Ryneus
             tutorialView.Initialize();
             statusAssign.CloseStatus();
             InputSystem.Initialize();
+            sceneAssign.Initilize();
+            popupAssign.Initilize();
+            statusAssign.Initilize();
             UiCanvas = uiCanvas;
             TempData = new TempInfo();
             _model = new BaseModel();
