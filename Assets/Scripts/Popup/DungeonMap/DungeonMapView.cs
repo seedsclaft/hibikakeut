@@ -14,6 +14,11 @@ namespace Ryneus
 
         public override void Initialize()
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.DungeonMap);
             InitializeDungeonMap();
@@ -62,7 +67,8 @@ namespace Ryneus
     {
         public enum CommandType
         {
-            DecideItem = 0,
+            Initialize,
+            DecideItem,
             Back,
         }
     }

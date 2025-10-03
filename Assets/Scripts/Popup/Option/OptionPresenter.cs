@@ -14,18 +14,18 @@ namespace Ryneus
         public OptionPresenter(OptionView view)
         {
             _view = view;
-            _model = new OptionModel();
-            _model.ChangeTempInputType(GameSystem.OptionData.InputType);
 
             SetView(_view);
-            SetModel(_model);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
             _busy = false;
         }
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
+            _model = new OptionModel();
+            _model.ChangeTempInputType(GameSystem.OptionData.InputType);
+            SetModel(_model);
             _view.SetOptionCategoryList(MakeListData(_model.OptionCategoryList(), 0));
             _view.SetHelpWindow();
             CommandSelectCategory();
@@ -44,6 +44,9 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case CommandType.Initialize:
+                    Initialize();
+                    break;
                 case CommandType.ChangeOptionValue:
                     CommandOptionValue((OptionInfo)viewEvent.Template);
                     break;

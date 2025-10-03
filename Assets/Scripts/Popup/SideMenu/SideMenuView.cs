@@ -14,6 +14,11 @@ namespace Ryneus
 
         public override void Initialize()
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.SideMenu);
             sideMenuInfoList.Initialize();
@@ -68,7 +73,7 @@ namespace Ryneus
     {
         public enum CommandType
         {
-            None = 0,
+            Initialize,
             SelectSideMenu,
         }
     }

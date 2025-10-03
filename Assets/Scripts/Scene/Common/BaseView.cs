@@ -7,6 +7,9 @@ namespace Ryneus
 {
     abstract public class BaseView : MonoBehaviour
     {
+        private bool _isIntialized = false;
+        public bool IsInitilized => _isIntialized;
+        public void SetIsInitilized(bool isIntialized) => _isIntialized = isIntialized;
         private bool _testMode = false;
         public bool TestMode => _testMode;
         private bool _testBattleMode = false;
@@ -110,9 +113,14 @@ namespace Ryneus
 
         public virtual void Initialize()
         {
+            if (_isIntialized)
+            {
+                return;
+            }
             _inputSystemModel = new InputSystemModel();
             InitializeInput();
             SetInputHandler(gameObject);
+            _isIntialized = true;
         }
 
         public void InitializeInput()
@@ -371,13 +379,18 @@ namespace Ryneus
             _waitEndEvent = waitEndEvent;
         }
 
-        private void OnDestroy() 
+        private void OnDestroy()
         {
             var listViews = GetComponentsInChildren<ListWindow>();
             for (int i = listViews.Length-1;i >= 0;i--)
             {
                 listViews[i].Release();
             }
+        }
+
+        public void Dispose()
+        {
+            //_commandData.Clear();
         }
 
     }

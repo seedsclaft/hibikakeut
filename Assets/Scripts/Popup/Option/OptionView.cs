@@ -15,6 +15,11 @@ namespace Ryneus
 
         public override void Initialize()
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Option);
             SetBaseAnimation(popupAnimation);
@@ -149,7 +154,7 @@ namespace Option
 {
     public enum CommandType
     {
-        None = 0,
+        Initialize = 0,
         SelectCategory = 101,
         SelectOptionList = 102,
         CancelOptionList = 103,

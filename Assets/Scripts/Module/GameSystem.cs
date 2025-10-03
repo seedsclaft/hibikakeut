@@ -313,20 +313,27 @@ namespace Ryneus
         private void CommandPopupView(PopupInfo popupInfo)
         {
             _sceneStackManager.PushPopupInfo(popupInfo);
-            var prefab = popupAssign.CreatePopup(popupInfo.PopupType, helpWindow);
+            var first = popupAssign.CreatePopup(popupInfo.PopupType, helpWindow);
+            var prefab = popupAssign.LastPopupPrefab;
             var baseView = prefab.GetComponent<BaseView>();
-            baseView.SetEvent((type) => UpdateCommand(type));
-            baseView.Initialize();
-            baseView.SetBackEvent(() =>
+            if (first)
             {
-                var endPopupInfo = _sceneStackManager.LastPopupInfo;
-                baseView.CallSystemCommand(Base.CommandType.ClosePopup);
-                if (endPopupInfo != null && !baseView.Busy)
+                baseView.SetEvent((type) => UpdateCommand(type));
+            }
+            baseView.Initialize();
+            if (first)
+            {
+                baseView.SetBackEvent(() =>
                 {
-                    endPopupInfo.EndEvent?.Invoke();
-                    _sceneStackManager.RemovePopupInfo(endPopupInfo);
-                }
+                    var endPopupInfo = _sceneStackManager.LastPopupInfo;
+                    baseView.CallSystemCommand(Base.CommandType.ClosePopup);
+                    if (endPopupInfo != null && !baseView.Busy)
+                    {
+                        endPopupInfo.EndEvent?.Invoke();
+                        _sceneStackManager.RemovePopupInfo(endPopupInfo);
+                    }
             });
+            }
             if (popupInfo.PopupType == PopupType.LearnSkill)
             {
                 var learnSkill = prefab.GetComponent<LearnSkillView>();
@@ -355,7 +362,8 @@ namespace Ryneus
 
         private void CommandOptionView(Action endEvent)
         {
-            var prefab = popupAssign.CreatePopup(PopupType.Option, helpWindow);
+            var first = popupAssign.CreatePopup(PopupType.Option, helpWindow);
+            var prefab = popupAssign.LastPopupPrefab;
             var optionView = prefab.GetComponent<OptionView>();
             optionView.SetEvent((type) => UpdateCommand(type));
             optionView.Initialize();
@@ -376,7 +384,8 @@ namespace Ryneus
 
         private void CommandSkillTriggerView(SkillTriggerViewInfo skillTriggerViewInfo)
         {
-            var prefab = popupAssign.CreatePopup(PopupType.SkillTrigger, helpWindow);
+            var first = popupAssign.CreatePopup(PopupType.SkillTrigger, helpWindow);
+            var prefab = popupAssign.LastPopupPrefab;
             var skillTriggerView = prefab.GetComponent<SkillTriggerView>();
             skillTriggerView.SetSkillTriggerViewInfo(skillTriggerViewInfo);
             skillTriggerView.SetEvent((type) => UpdateCommand(type));
@@ -391,7 +400,8 @@ namespace Ryneus
 
         private void CommandCallSkillLogView(SkillLogViewInfo skillLogViewInfo)
         {
-            var prefab = popupAssign.CreatePopup(PopupType.SkillLog, helpWindow);
+            var first = popupAssign.CreatePopup(PopupType.SkillLog, helpWindow);
+            var prefab = popupAssign.LastPopupPrefab;
             var skillLogView = prefab.GetComponent<SkillLogView>();
             skillLogView.SetEvent((type) => UpdateCommand(type));
             skillLogView.Initialize();
@@ -406,7 +416,8 @@ namespace Ryneus
 
         private void CommandRankingView(RankingViewInfo rankingViewInfo)
         {
-            var prefab = popupAssign.CreatePopup(PopupType.Ranking, helpWindow);
+            var first = popupAssign.CreatePopup(PopupType.Ranking, helpWindow);
+            var prefab = popupAssign.LastPopupPrefab;
             var rankingView = prefab.GetComponent<RankingView>();
             rankingView.SetEvent((type) => UpdateCommand(type));
             rankingView.Initialize();
@@ -421,7 +432,8 @@ namespace Ryneus
 
         private void CommandHelpView(List<ListData> helpTextList)
         {
-            var prefab = popupAssign.CreatePopup(PopupType.Help, helpWindow);
+            var first = popupAssign.CreatePopup(PopupType.Help, helpWindow);
+            var prefab = popupAssign.LastPopupPrefab;
             var helpView = prefab.GetComponent<HelpView>();
             helpView.SetEvent((type) => UpdateCommand(type));
             helpView.Initialize();

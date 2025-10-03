@@ -12,9 +12,14 @@ namespace Ryneus
         [SerializeField] private BaseList actorInfoList = null;
         [SerializeField] private ActorInfoComponent actorInfoComponent = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
-        
+
         public override void Initialize()
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.DeckEdit);
             InitializeActorInfoList();
@@ -94,7 +99,7 @@ namespace Ryneus
     {
         public enum CommandType
         {
-            None = 0,
+            Initialize,
             SelectBattler,
             DecideBattlerInfo,
             SelectingActorInfo,

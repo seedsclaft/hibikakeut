@@ -13,18 +13,18 @@ namespace Ryneus
         private bool _busy = true;
         public SideMenuPresenter(SideMenuView view)
         {
-            _model = new SideMenuModel();
             _view = view;
-            SetModel(_model);
             SetView(_view);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
         }
 
         private void Initialize()
         {
+            _model = new SideMenuModel();
+            SetModel(_model);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             ClosePopup();
-            _view.SetEvent((type) => UpdateCommand(type));
             CommandRefresh();
             _view.SetSideMenuViewInfo(_model.SceneParam);
             _view.OpenAnimation();
@@ -42,6 +42,9 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case CommandType.Initialize:
+                    Initialize();
+                    break;
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu((SystemData.CommandData)viewEvent.Template);
                     break;

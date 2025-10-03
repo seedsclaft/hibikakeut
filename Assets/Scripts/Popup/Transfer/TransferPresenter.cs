@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ryneus.Transfer;
 
 namespace Ryneus
 {
@@ -13,16 +14,16 @@ namespace Ryneus
         public TransferPresenter(TransferView view)
         {
             _view = view;
-            _model = new TransferModel();
 
             SetView(_view);
-            SetModel(_model);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
         }
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
+            _model = new TransferModel();
+            SetModel(_model);
             _view.SetCharacterList(MakeListData(_model.PartyInfo.EditableActorInfos(), 0));
             _view.OpenAnimation();
         }
@@ -43,7 +44,7 @@ namespace Ryneus
             {
                 switch (viewEvent.ViewCommandType.CommandType)
                 {
-                    case Transfer.CommandType.EndOpenAnimation:
+                    case CommandType.EndOpenAnimation:
                         CommandEndOpenAnimation();
                         break;
                 }
@@ -51,7 +52,10 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
-                case Transfer.CommandType.DecideActor:
+                case CommandType.Initialize:
+                    Initialize();
+                    break;
+                case CommandType.DecideActor:
                     CommandDecideActor((ActorInfo)viewEvent.Template);
                     break;
             }

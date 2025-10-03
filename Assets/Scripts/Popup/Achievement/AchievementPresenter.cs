@@ -14,16 +14,16 @@ namespace Ryneus
         public AchievementPresenter(AchievementView view)
         {
             _view = view;
-            _model = new AchievementModel();
 
             SetView(_view);
-            SetModel(_model);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
         }
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
+            _model = new AchievementModel();
+            SetModel(_model);
             _view.SetAchievement(MakeListData(_model.AchivementDates(), 0));
             _view.OpenAnimation();
         }
@@ -40,6 +40,9 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case CommandType.Initialize:
+                    Initialize();
+                    break;
             }
         }
 

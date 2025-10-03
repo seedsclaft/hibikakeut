@@ -13,6 +13,11 @@ namespace Ryneus
 
         public override void Initialize()
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.ArtifactList);
             InitializeArtifactList();
@@ -43,6 +48,7 @@ namespace Ryneus
     {
         public enum CommandType
         {
+            Initialize,
         }
     }
 }

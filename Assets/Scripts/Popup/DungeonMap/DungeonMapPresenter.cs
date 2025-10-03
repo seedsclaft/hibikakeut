@@ -14,16 +14,16 @@ namespace Ryneus
         public DungeonMapPresenter(DungeonMapView view)
         {
             _view = view;
-            _model = new DungeonMapModel();
 
             SetView(_view);
-            SetModel(_model);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
         }
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
+            _model = new DungeonMapModel();
+            SetModel(_model);
             _view.SetDungeonMap(MakeListData(_model.MapCellInfos(), 0), _model.ConstraintCount());
             _view.OpenAnimation();
             _view.ActivateDungeonMap(true);
@@ -42,6 +42,9 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case CommandType.Initialize:
+                    Initialize();
+                    break;
                 case CommandType.DecideItem:
                     CommandDecideItem((MapCellInfo)viewEvent.Template);
                     break;

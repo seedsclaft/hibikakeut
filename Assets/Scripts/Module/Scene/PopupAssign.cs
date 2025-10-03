@@ -22,8 +22,10 @@ namespace Ryneus
             }
         }
 
-        public GameObject CreatePopup(PopupType popupType, HelpWindow helpWindow)
+        public bool CreatePopup(PopupType popupType, HelpWindow helpWindow)
         {
+            bool first = false;
+            BaseView view;
             GameObject prefab;
             if (!_createdPopupPrefabs.ContainsKey(popupType))
             {
@@ -31,14 +33,18 @@ namespace Ryneus
                 prefab.transform.SetParent(transform, false);
                 //view?.SetHelpWindow(helpWindow);
                 _createdPopupPrefabs[popupType] = prefab;
+                first = true;
+                //view = prefab.GetComponent<BaseView>();
+                //view.Initialize();
             }
             gameObject.SetActive(true);
             prefab = _createdPopupPrefabs[popupType];
-            var view = prefab.GetComponent<BaseView>();
+            view = prefab.GetComponent<BaseView>();
             _stackPopupView.Add(view);
             _stackPopupPrefab.Add(prefab);
             prefab.SetActive(true);
-            return prefab;
+            prefab.transform.SetAsLastSibling();
+            return first;
         }
 
         private GameObject GetPopupObject(PopupType popupType)
@@ -50,6 +56,8 @@ namespace Ryneus
         {
             if (_stackPopupView.Count > 0)
             {
+                LastPopupView.Dispose();
+                LastPopupPrefab.SetActive(false);
                 _stackPopupView.Remove(LastPopupView);
                 _stackPopupPrefab.Remove(LastPopupPrefab);
                 //Destroy(lastPopupView.gameObject);
@@ -72,6 +80,10 @@ namespace Ryneus
                 {
                     createdPopupPrefab.Value.SetActive(false);
                 }
+            }
+            foreach (var stackPopupView in _stackPopupView)
+            {
+                stackPopupView.Dispose();
             }
             _stackPopupView.Clear();
             gameObject.SetActive(false);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ryneus.CharacterList;
 
 namespace Ryneus
 {
@@ -13,17 +14,17 @@ namespace Ryneus
         public CharacterListPresenter(CharacterListView view)
         {
             _view = view;
-            _model = new CharacterListModel();
 
             SetView(_view);
-            SetModel(_model);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
         }
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetHelpInputInfo("CHARACTER_LIST");
+            _model = new CharacterListModel();
+            SetModel(_model);
+            //_view.SetHelpInputInfo("CHARACTER_LIST");
             Func<ActorInfo, bool> enable = (actorInfo) =>
             {
                 // 既に出撃中か
@@ -45,7 +46,7 @@ namespace Ryneus
             {
                 switch (viewEvent.ViewCommandType.CommandType)
                 {
-                    case CharacterList.CommandType.EndOpenAnimation:
+                    case CommandType.EndOpenAnimation:
                         CommandEndOpenAnimation();
                         break;
                 }
@@ -57,7 +58,10 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
-                case CharacterList.CommandType.DecideActor:
+                case CommandType.Initialize:
+                    Initialize();
+                    break;
+                case CommandType.DecideActor:
                     CommandDecideActor((ActorInfo)viewEvent.Template);
                     break;
             }

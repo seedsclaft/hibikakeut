@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ryneus.CharacterList;
 
 namespace Ryneus
 {
@@ -12,6 +13,11 @@ namespace Ryneus
 
         public override void Initialize()
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.CharacterList);
             InitializeCharacterList();
@@ -43,7 +49,7 @@ namespace Ryneus
     {
         public enum CommandType
         {
-            None = 0,
+            Initialize,
             DecideActor = 1,
             EndOpenAnimation = 2,
         }

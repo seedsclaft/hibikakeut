@@ -14,16 +14,16 @@ namespace Ryneus
         public ItemListPresenter(ItemListView view)
         {
             _view = view;
-            _model = new ItemListModel();
 
             SetView(_view);
-            SetModel(_model);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
         }
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
+            _model = new ItemListModel();
+            SetModel(_model);
             _view.SetItemList(MakeListData(_model.ItemInfos(), 0));
             _view.OpenAnimation();
             _view.ActivateItemList(true);
@@ -42,6 +42,9 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case CommandType.Initialize:
+                    Initialize();
+                    break;
                 case CommandType.DecideItem:
                     CommandDecideItem();
                     break;

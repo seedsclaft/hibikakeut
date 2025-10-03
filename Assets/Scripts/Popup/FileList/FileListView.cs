@@ -13,8 +13,12 @@ namespace Ryneus
 
 
         public override void Initialize()
-
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.FileList);
             SetBaseAnimation(popupAnimation);
@@ -62,6 +66,7 @@ namespace FileList
 {
     public enum CommandType
     {
+        Initialize = 0,
         DecideFile = 1,
     }
 }

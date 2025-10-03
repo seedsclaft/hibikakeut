@@ -14,17 +14,17 @@ namespace Ryneus
         public DeckEditPresenter(DeckEditView view)
         {
             _view = view;
-            _model = new DeckEditModel();
 
             SetView(_view);
-            SetModel(_model);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
             _busy = false;
         }
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
+            _model = new DeckEditModel();
+            SetModel(_model);
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             _view.SetActorList(MakeListData(_model.PartyInfo.EditableActorInfos(), -1));
             _view.SelectChangeBattler(-1);
@@ -45,6 +45,9 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case CommandType.Initialize:
+                    Initialize();
+                    break;
                 case CommandType.SelectBattler:
                     CommandSelectBattler((int)viewEvent.Template);
                     break;

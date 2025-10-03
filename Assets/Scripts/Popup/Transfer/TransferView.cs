@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ryneus.Transfer;
 
 namespace Ryneus
 {
@@ -11,6 +12,11 @@ namespace Ryneus
 
         public override void Initialize()
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Transfer);
             InitializeTransfer();
@@ -42,7 +48,7 @@ namespace Ryneus
     {
         public enum CommandType
         {
-            None = 0,
+            Initialize = 0,
             DecideActor = 1,
             EndOpenAnimation = 2,
         }

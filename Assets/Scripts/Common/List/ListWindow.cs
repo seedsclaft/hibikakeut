@@ -20,8 +20,8 @@ namespace Ryneus
             _selectIndexes = selectIndexes;
         }
 
-        private int _listMoveInputFrameFirst = 6;
-        private int _listMoveGamePadFrameFirst = 6;
+        private int _listMoveInputFrameFirst = 8;
+        private int _listMoveGamePadFrameFirst = 8;
         private int _listMoveInputFrame = 3;
         private int _listMoveGamePadFrame = 3;
         private int _inputBusyFrame = 0;

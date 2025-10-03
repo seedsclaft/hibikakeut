@@ -14,16 +14,16 @@ namespace Ryneus
         public UseItemPresenter(UseItemView view)
         {
             _view = view;
-            _model = new UseItemModel();
 
             SetView(_view);
-            SetModel(_model);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
         }
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
+            _model = new UseItemModel();
+            SetModel(_model);
             _view.SetUseItem(MakeListData(_model.DungeonUseItemInfos(), 0));
             _view.OpenAnimation();
             CommandRefresh();
@@ -42,6 +42,9 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case CommandType.Initialize:
+                    Initialize();
+                    break;
                 case CommandType.DecideUseItem:
                     CommandDecideUseItem((ItemInfo)viewEvent.Template);
                     break;

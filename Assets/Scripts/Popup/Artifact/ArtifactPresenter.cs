@@ -14,17 +14,17 @@ namespace Ryneus
         public ArtifactListPresenter(ArtifactListView view)
         {
             _view = view;
-            _model = new ArtifactListModel();
 
             SetView(_view);
-            SetModel(_model);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
         }
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetHelpInputInfo("CHARACTER_LIST");
+            _model = new ArtifactListModel();
+            SetModel(_model);
+            //_view.SetHelpInputInfo("CHARACTER_LIST");
             _view.SetArtifactList(MakeListData(_model.ArtifactSkills(), 0));
             _view.OpenAnimation();
             _busy = false;
@@ -42,6 +42,9 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case CommandType.Initialize:
+                    Initialize();
+                    break;
             }
         }
     }

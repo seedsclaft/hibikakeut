@@ -17,6 +17,11 @@ namespace Ryneus
 
         public override void Initialize()
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Trade);
             InitializeTrade();
@@ -85,7 +90,8 @@ namespace Ryneus
     {
         public enum CommandType
         {
-            DecideTrade = 0,
+            Initialize,
+            DecideTrade,
             TradeItemDetail,
             SelectTradeItem,
             CommandBack

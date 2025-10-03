@@ -14,18 +14,18 @@ namespace Ryneus
         public FileListPresenter(FileListView view)
         {
             _view = view;
-            _model = new FileListModel();
 
             SetView(_view);
-            SetModel(_model);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
             _busy = false;
         }
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetFileList(MakeListData(_model.SaveFileInfos(),_model.SaveFileLastIndex()));
+            _model = new FileListModel();
+            SetModel(_model);
+            _view.SetFileList(MakeListData(_model.SaveFileInfos(), _model.SaveFileLastIndex()));
             _view.OpenAnimation();
         }
 
@@ -41,6 +41,9 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case CommandType.Initialize:
+                    Initialize();
+                    break;
                 case CommandType.DecideFile:
                     CommandDecideFile((SaveFileInfo)viewEvent.Template);
                     break;
@@ -53,11 +56,11 @@ namespace Ryneus
             var isLoad = _model.IsLoad;
             if (success)
             {
-                _view.CommandEnd();
                 if (isLoad)
                 {
                     _view.CommandGotoSceneChange(_model.PartyInfo.ResumeScene);
                 }
+                _view.CommandEnd();
             }
         }
     }

@@ -15,6 +15,11 @@ namespace Ryneus
 
         public override void Initialize()
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.ItemList);
             InitializeItemList();
@@ -100,7 +105,8 @@ namespace Ryneus
     {
         public enum CommandType
         {
-            DecideItem = 0,
+            Initialize,
+            DecideItem,
             PlusUseNum,
             MinusUseNum,
             DetailItem,
