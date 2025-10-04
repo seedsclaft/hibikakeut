@@ -547,6 +547,7 @@ MonoBehaviour:
   descriptionScrollRect: {fileID: 0}
   range: {fileID: 0}
   learningCost: {fileID: 0}
+  countTurnRoot: {fileID: 0}
   countTurn: {fileID: 0}
   battleCountTurn: {fileID: 0}
   learningText: {fileID: 0}
@@ -1085,7 +1086,7 @@ MonoBehaviour:
   TimingOfUpdate: 0
   EmitterScale: 0
   TimeScale: 0
-  effectAsset: {fileID: 11400000, guid: 05305ed6833d2ef4896b972bf147663b, type: 2}
+  effectAsset: {fileID: 11400000, guid: 80ac2d149301fdc439099121e95d053b, type: 2}
   playOnStart: 0
   isLooping: 0
 --- !u!1 &2727187015436785644
@@ -1192,6 +1193,7 @@ MonoBehaviour:
   descriptionScrollRect: {fileID: 0}
   range: {fileID: 0}
   learningCost: {fileID: 0}
+  countTurnRoot: {fileID: 0}
   countTurn: {fileID: 0}
   battleCountTurn: {fileID: 0}
   learningText: {fileID: 0}
@@ -2920,6 +2922,8 @@ MonoBehaviour:
   unitTypeImage: {fileID: 0}
   unitTypeImageBack: {fileID: 0}
   transferGetItemText: {fileID: 0}
+  transferGetExpText: {fileID: 0}
+  transferGetCurrencyText: {fileID: 0}
 --- !u!225 &2909970338903588826
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -7234,12 +7238,12 @@ PrefabInstance:
     - target: {fileID: 7187095086115161012, guid: d5599006df18b854da9c26a6320968f7,
         type: 3}
       propertyPath: m_Size
-      value: 1
+      value: 0.9999999
       objectReference: {fileID: 0}
     - target: {fileID: 7187095086115161012, guid: d5599006df18b854da9c26a6320968f7,
         type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7352431210279228070, guid: d5599006df18b854da9c26a6320968f7,
         type: 3}

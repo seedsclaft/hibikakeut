@@ -26,6 +26,7 @@ namespace Ryneus
             SetModel(_model);
             _view.SetAchievement(MakeListData(_model.AchivementDates(), 0));
             _view.OpenAnimation();
+            _busy = false;
         }
 
         private void UpdateCommand(ViewEvent viewEvent)

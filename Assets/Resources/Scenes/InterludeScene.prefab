@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 82, y: 82, z: 1}
+  m_LocalScale: {x: 72, y: 72, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 959589710805263744}
@@ -1496,6 +1496,8 @@ MonoBehaviour:
   unitTypeImage: {fileID: 0}
   unitTypeImageBack: {fileID: 0}
   transferGetItemText: {fileID: 0}
+  transferGetExpText: {fileID: 0}
+  transferGetCurrencyText: {fileID: 0}
 --- !u!1 &2699470280746815561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2019,18 +2021,12 @@ MonoBehaviour:
   animRoot: {fileID: 5663505830104682485}
   animPrefab: {fileID: 4528099191295616540, guid: f995e7f6f504de94092347d3d2b7dbfd,
     type: 3}
-  saveHumanObj: {fileID: 0}
-  saveHumanText: {fileID: 0}
   rankScoreObj: {fileID: 4659402970734788645}
   rankScoreText: {fileID: 2090524717544854363}
   claerStageNumObj: {fileID: 4761461701168846287}
   claerStageNumText: {fileID: 988541839567107592}
   partyEvaluateObj: {fileID: 1948514774067841116}
   partyEvaluateText: {fileID: 5060669567432092348}
-  battleAttackPerObj: {fileID: 0}
-  battleAttackPerText: {fileID: 0}
-  battleDefeatedCountObj: {fileID: 0}
-  battleDefeatedCountText: {fileID: 0}
 --- !u!1 &3712616141698925772
 GameObject:
   m_ObjectHideFlags: 0
@@ -4489,7 +4485,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 16}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8357010624499521235

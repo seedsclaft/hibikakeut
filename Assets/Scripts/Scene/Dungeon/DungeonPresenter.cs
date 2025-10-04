@@ -933,6 +933,7 @@ namespace Ryneus
             {
                 return;
             }
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
             _model.DungeonBusy(true);
             var popupInfo = new PopupInfo

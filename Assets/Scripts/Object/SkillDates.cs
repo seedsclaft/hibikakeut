@@ -97,6 +97,40 @@ namespace Ryneus
             return SkillType is SkillType.Passive or SkillType.Unique or SkillType.Artifact or SkillType.Equip;
         }
 
+        public bool IsRandumAddSkill()
+        {
+            return SkillType is SkillType.Active or SkillType.Passive;
+        }
+
+        public static int ConvertRankCost(RankType rank)
+        {
+            switch (rank)
+            {
+                case RankType.None:
+                case RankType.ActiveRank1:
+                    return 0;
+                case RankType.PassiveRank1:
+                case RankType.EnhanceRank1:
+                case RankType.EquipmentRank1:
+                    return 1;
+                case RankType.ActiveRank2:
+                case RankType.PassiveRank2:
+                case RankType.EnhanceRank2:
+                case RankType.EquipmentRank2:
+                    return 2;
+                case RankType.ActiveRank3:
+                case RankType.PassiveRank3:
+                case RankType.EnhanceRank3:
+                case RankType.EquipmentRank3:
+                    return 3;
+                case RankType.RelicRank1:
+                case RankType.RelicRank2:
+                case RankType.Uniq:
+                    return 10;
+            }
+            return 1;
+        }
+
         public string TargetTypeText()
         {
             return TargetType switch
@@ -237,10 +271,13 @@ namespace Ryneus
         None = 0,
         ActiveRank1 = 1,
         ActiveRank2 = 2,
+        ActiveRank3 = 3,
         PassiveRank1 = 10,
         PassiveRank2 = 20,
+        PassiveRank3 = 30,
         EnhanceRank1 = 100,
         EnhanceRank2 = 110,
+        EnhanceRank3 = 120,
         RelicRank1 = 200,
         RelicRank2 = 210,
         EquipmentRank1 = 310,

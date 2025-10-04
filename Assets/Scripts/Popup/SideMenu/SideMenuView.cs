@@ -21,6 +21,7 @@ namespace Ryneus
             }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.SideMenu);
+            InitializeSideMenuInfo();
             sideMenuInfoList.Initialize();
             closeButton.onClick.AddListener(() =>
             {
@@ -41,9 +42,8 @@ namespace Ryneus
             CallViewEvent(CommandType.SelectSideMenu,sideMenuInfoList.ListItemData<SystemData.CommandData>());
         }
 
-        public void SetSideMenuViewInfo(SideMenuViewInfo sideMenuViewInfo)
+        private void InitializeSideMenuInfo()
         {
-            sideMenuInfoList.SetData(sideMenuViewInfo.CommandLists);
             sideMenuInfoList.SetInputHandler(InputKeyType.Decide, () =>
             {
                 sideMenuInfoList.Deactivate();
@@ -57,6 +57,11 @@ namespace Ryneus
             SetInputHandler(sideMenuInfoList.gameObject);
         }
 
+        public void SetSideMenuViewInfo(SideMenuViewInfo sideMenuViewInfo)
+        {
+            sideMenuInfoList.SetData(sideMenuViewInfo.CommandLists);
+        }
+
         public void ActivateSideMenu()
         {
             sideMenuInfoList.Activate();
@@ -66,7 +71,6 @@ namespace Ryneus
     public class SideMenuViewInfo
     {
         public List<ListData> CommandLists;
-        public System.Action EndEvent;
     }
 
     namespace SideMenu

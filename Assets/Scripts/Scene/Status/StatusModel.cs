@@ -66,6 +66,11 @@ namespace Ryneus
 
         public List<SkillInfo> EquipSkills()
         {
+            if (_sceneParam.AddActor.Value)
+            {
+                // 加入の時は未習得魔法を表示
+                return CurrentActor.LearningSkillInfos();
+            }
             return EquipSkills(CurrentActor);
         }
 

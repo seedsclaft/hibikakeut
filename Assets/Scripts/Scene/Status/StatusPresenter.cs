@@ -28,7 +28,7 @@ namespace Ryneus
 
             _view.SetActiveArrows(_model.ActorInfos.Count > 1);
             _view.SetActiveLvUpInfo(_model.SceneParam.DisplayLvUpInfo.Value);
-            _view.SetActiveDecide(_model.SceneParam.DisplayDecideButton.Value);
+            _view.SetActiveDecide(_model.SceneParam.AddActor.Value);
             _view.SetActiveCharacterList(_model.SceneParam.DisplayCharacterList.Value);
             _view.ChangeBackCommandActive(_model.SceneParam.DisplayBackButton.Value);
             CommandRefresh();
@@ -180,7 +180,7 @@ namespace Ryneus
 
         private void CommandCancelSkill()
         {
-            if (_model.SceneParam.DisplayDecideButton.Value)
+            if (_model.SceneParam.AddActor.Value)
             {
                 return;
             }
@@ -195,7 +195,7 @@ namespace Ryneus
 
         private void CommandSelectChangeSkill(SkillInfo skillInfo)
         {
-            if (_model.SceneParam.DisplayDecideButton.Value)
+            if (_model.SceneParam.AddActor.Value)
             {
                 return;
             }
@@ -400,7 +400,7 @@ namespace Ryneus
 
         private void CommandLevelUp()
         {
-            if (_model.SceneParam.DisplayDecideButton.Value)
+            if (_model.SceneParam.AddActor.Value)
             {
                 return;
             }

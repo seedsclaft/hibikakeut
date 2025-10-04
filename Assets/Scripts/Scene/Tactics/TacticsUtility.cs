@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Ryneus
 {
-    public class TacticsUtility 
+    public class TacticsUtility
     {
         private static int TacticsCostRate(ActorInfo actorInfo)
         {
@@ -27,12 +27,12 @@ namespace Ryneus
             return baseValue * currency;
         }
 
-        public static int TrainCost(int level,ActorInfo actorInfo)
+        public static int TrainCost(int level, ActorInfo actorInfo)
         {
             return level * TacticsCostRate(actorInfo);
         }
 
-        public static int RecoveryCost(ActorInfo actorInfo,bool checkAlcana = false)
+        public static int RecoveryCost(ActorInfo actorInfo, bool checkAlcana = false)
         {
             return (int)Mathf.Ceil(actorInfo.Level * 0.1f) * TacticsCostRate(actorInfo);
         }

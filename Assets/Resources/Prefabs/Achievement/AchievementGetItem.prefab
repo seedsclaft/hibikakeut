@@ -217,11 +217,13 @@ MonoBehaviour:
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
   disable: {fileID: 8028975194894864904}
+  batch: {fileID: 0}
   selectColor: {r: 0, g: 0, b: 0, a: 0}
   unSelectColor: {r: 0, g: 0, b: 0, a: 0}
   textUguiList: []
   imageUguiList: []
   skillInfoComponent: {fileID: 5380408428125419088}
+  itemInfoComponent: {fileID: 0}
   titleName: {fileID: 4618186837337061016}
 --- !u!114 &5380408428125419088
 MonoBehaviour:
@@ -241,6 +243,7 @@ MonoBehaviour:
   nameText: {fileID: 0}
   mpCost: {fileID: 0}
   lineImage: {fileID: 0}
+  skillTypeBgRoot: {fileID: 0}
   type: {fileID: 0}
   value: {fileID: 0}
   description: {fileID: 0}
@@ -249,11 +252,14 @@ MonoBehaviour:
   descriptionScrollRect: {fileID: 0}
   range: {fileID: 0}
   learningCost: {fileID: 0}
+  countTurnRoot: {fileID: 0}
   countTurn: {fileID: 0}
+  battleCountTurn: {fileID: 0}
   learningText: {fileID: 0}
   rank: {fileID: 0}
   selectable: {fileID: 0}
   selectedAlcana: {fileID: 0}
+  skillExpGauge: {fileID: 0}
   shinyReflect: {fileID: 0}
 --- !u!1 &2679502425299569838
 GameObject:
@@ -540,7 +546,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 184, y: 32}
+  m_SizeDelta: {x: 200, y: 32}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &4847169720667532634
 CanvasRenderer:

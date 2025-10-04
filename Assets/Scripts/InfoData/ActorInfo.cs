@@ -252,15 +252,14 @@ namespace Ryneus
                 if (Level >= learningData.Level)
                 {
                     skillInfo.SetLearningState(LearningState.Learned);
-                    skillInfo.SetEnable(true);
                     skillInfo.PrimitiveLearned.SetValue(true);
                 }
                 else
                 {
                     skillInfo.LearningLv.SetValue(learningData.Level);
                     skillInfo.SetLearningState(LearningState.NotLearn);
-                    skillInfo.SetEnable(false);
                 }
+                skillInfo.SetEnable(Level >= learningData.Level);
                 list.Add(skillInfo);
             }
             return list;
@@ -272,7 +271,7 @@ namespace Ryneus
             // 装備スキルなら
             if (skillData.SkillType == SkillType.Equip)
             {
-                return ConvertRankCost(skillData.Rank);
+                return SkillData.ConvertRankCost(skillData.Rank);
             }
             if (skillData.Attribute == AttributeType.None)
             {
@@ -283,7 +282,7 @@ namespace Ryneus
             {
                 return 0;
             }
-            var rankCost = ConvertRankCost(skillData.Rank);
+            var rankCost = SkillData.ConvertRankCost(skillData.Rank);
             var param = AttributeRanks(stageMembers)[(int)skillData.Attribute - 1];
             var cost = TacticsUtility.EquipAttributeRankCost(param);
             int result = cost + rankCost - 1;
@@ -314,32 +313,11 @@ namespace Ryneus
             {
                 return 0;
             }
-            var rankCost = ConvertRankCost(rank);
+            var rankCost = SkillData.ConvertRankCost(rank);
             var param = AttributeRanks(stageMembers)[(int)attributeType - 1];
             var cost = TacticsUtility.EquipAttributeRankCost(param);
 
             return cost + rankCost - 1;
-        }
-
-        private int ConvertRankCost(RankType rankType)
-        {
-            switch (rankType)
-            {
-                case RankType.ActiveRank1:
-                    return 0;
-                case RankType.PassiveRank1:
-                case RankType.EnhanceRank1:
-                case RankType.EquipmentRank1:
-                    return 1;
-                case RankType.ActiveRank2:
-                case RankType.PassiveRank2:
-                case RankType.EnhanceRank2:
-                case RankType.EquipmentRank2:
-                    return 2;
-                case RankType.EquipmentRank3:
-                    return 3;
-            }
-            return 1;
         }
 
         public int EquipSlotCount()

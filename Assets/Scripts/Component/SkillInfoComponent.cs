@@ -23,6 +23,7 @@ namespace Ryneus
         [SerializeField] private ScrollRect descriptionScrollRect;
         [SerializeField] private TextMeshProUGUI range;
         [SerializeField] private TextMeshProUGUI learningCost;
+        [SerializeField] private GameObject countTurnRoot;
         [SerializeField] private TextMeshProUGUI countTurn;
         [SerializeField] private TextMeshProUGUI battleCountTurn;
         [SerializeField] private TextMeshProUGUI learningText;
@@ -136,7 +137,10 @@ namespace Ryneus
                         count++;
                     }
                 }
-                countTurn?.gameObject?.SetActive(skillData.SkillType == SkillType.Active || (skillData.SkillType == SkillType.Passive && skillData.CountTurn > 0));
+                if (countTurnRoot != null)
+                {
+                    countTurnRoot.SetActive(skillData.SkillType == SkillType.Active || (skillData.SkillType == SkillType.Passive && skillData.CountTurn > 0));
+                }
                 countTurn?.SetText(skillData.CountTurn.ToString());
                 rank?.gameObject?.SetActive(true);
                 UpdateSkillRank(skillData.Rank);
@@ -191,7 +195,11 @@ namespace Ryneus
 
         private void UpdateSkillRank(RankType rankType)
         {
-            var textId = 2310;
+            var textId = 2300 + (SkillData.ConvertRankCost(rankType) * 10);
+            if (rankType == RankType.ActiveRank1)
+            {
+                textId = 2310;
+            } else
             if (rankType >= RankType.Uniq)
             {
                 textId = 2340;
@@ -199,10 +207,6 @@ namespace Ryneus
             if (rankType >= RankType.RelicRank1)
             {
                 textId = 2330;
-            } else
-            if (rankType == RankType.ActiveRank2 || rankType == RankType.PassiveRank2)
-            {
-                textId = 2320;
             }
             rank?.SetText(DataSystem.GetText(textId));
         }

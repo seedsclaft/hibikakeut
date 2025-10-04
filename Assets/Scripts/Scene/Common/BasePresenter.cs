@@ -274,7 +274,7 @@ namespace Ryneus
             {
                 statusViewInfo.StartIndex.SetValue(startIndex);
             }
-            statusViewInfo.DisplayDecideButton.SetValue(addActor);
+            statusViewInfo.AddActor.SetValue(addActor);
             statusViewInfo.DisplayCharacterList.SetValue(characterList);
             statusViewInfo.DisplayLvUpInfo.SetValue(levelUpObj);
             statusViewInfo.DisplayBackButton.SetValue(backButton);
@@ -297,7 +297,7 @@ namespace Ryneus
                 closeEvent?.Invoke();
             });
             statusViewInfo.SetActorInfos(actorInfos, false);
-            statusViewInfo.DisplayDecideButton.SetValue(true);
+            statusViewInfo.AddActor.SetValue(true);
             statusViewInfo.DisplayCharacterList.SetValue(true);
             statusViewInfo.DisplayLvUpInfo.SetValue(false);
             statusViewInfo.DisplayBackButton.SetValue(false);
@@ -329,10 +329,6 @@ namespace Ryneus
             //sideMenuCommands[0].SetSelected(true);
             var sideMenuViewInfo = new SideMenuViewInfo
             {
-                EndEvent = () =>
-                {
-                    closeEvent?.Invoke();
-                },
                 CommandLists = sideMenuCommands
             };
             var popupInfo = new PopupInfo

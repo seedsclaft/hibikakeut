@@ -152,11 +152,11 @@ namespace Ryneus
                 case "Status":
                     UpdateCommandSelecting(false);
                     var actorInfos = _model.PartyInfo.ActorInfos;
-                    CommandStatusInfo(actorInfos,false,true,true,false,actorInfos[0].ActorId.Value,() => 
+                    CommandStatusInfo(actorInfos, false, true, true, false, actorInfos[0].ActorId.Value, () =>
                     {
                         UpdateCommandSelecting(true);
                         CommandRefresh();
-                    },false,true);
+                    }, false, true);
                     break;
             }
         }
@@ -415,7 +415,7 @@ namespace Ryneus
                     _model.PartyInfo.ReliefCommandCount.GainValue(1);
                     //_model.PartyNextPeriod(true);
                     List<ActorInfo> actorInfos = _model.AddSelectActorInfos();
-                    CommandAddActorStatusInfo(actorInfos,() =>
+                    CommandAddActorStatusInfo(actorInfos, () =>
                     {
                         CheckAchievements();
                     });

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 
 namespace Ryneus
 {
@@ -110,28 +111,15 @@ namespace Ryneus
             var list = new List<SkillInfo>();
             var rank = itemInfo.Master.Param1;
             var attribute = itemInfo.Master.Param2;
+            var skillDates = DataSystem.Skills.Where(a => SkillData.ConvertRankCost(a.Value.Rank) == itemInfo.Master.Param1 && a.Value.IsRandumAddSkill() && !PartyInfo.LearningSkillIds.Contains(a.Key)).ToList();
             if (attribute > 0)
             {
-                var attributeSkillDates = DataSystem.Skills.Where(a => (int)a.Value.Attribute == attribute && (int)a.Value.Rank == rank);
-                foreach (var attributeSkillData in attributeSkillDates)
-                {
-                    if (PartyInfo.LearningSkillIds.Contains(attributeSkillData.Key))
-                    {
-                        continue;
-                    }
-                    list.Add(new SkillInfo(attributeSkillData.Key));
-                }
-            } else
+                skillDates = skillDates.FindAll(a => (int)a.Value.Attribute == attribute);
+            }
+
+            foreach (var skillData in skillDates)
             {
-                var skillDates = DataSystem.Skills.Where(a => (int)a.Value.Rank == rank);
-                foreach (var skillData in skillDates)
-                {
-                    if (PartyInfo.LearningSkillIds.Contains(skillData.Key))
-                    {
-                        continue;
-                    }
-                    list.Add(new SkillInfo(skillData.Key));
-                }
+                list.Add(new SkillInfo(skillData.Key));
             }
             return list;
         }

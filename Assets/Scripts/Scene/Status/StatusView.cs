@@ -384,7 +384,7 @@ namespace Ryneus
     {
         private Action _backEvent = null;
         public Action BackEvent => _backEvent;
-        public ParameterBool DisplayDecideButton = new();
+        public ParameterBool AddActor = new();
         public ParameterBool DisplayBackButton = new(true);
         public ParameterBool DisplayCharacterList = new();
         public ParameterBool DisplayLvUpInfo = new();
