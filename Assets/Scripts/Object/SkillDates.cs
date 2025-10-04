@@ -558,6 +558,7 @@ namespace Ryneus
         AttributeRateUp = 40050, // 属性適正アップ
         StageTurnUp = 40060, // ステージ探索猶予アップ
         TrafeRateDown = 40070, // 取引コストダウン
+        NotSeekPeriod = 40080, // ダンジョンから離れる時にPeriodが進まない
         Numinous = 301,
         TacticsCost = 302,
         EnemyLv = 303,

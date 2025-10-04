@@ -131,6 +131,13 @@ namespace Ryneus
             {
                 if (a == ConfirmCommandType.Yes)
                 {
+                    var checkNotSeekPeriod = _model.CheckNotSeekPeriod();
+                    if (checkNotSeekPeriod != null)
+                    {
+                        var cautionInfo = new CautionInfo();
+                        cautionInfo.SetTitle(DataSystem.GetReplaceText(10200, checkNotSeekPeriod.Master.Name));
+                        _view.CommandCallCaution(cautionInfo);
+                    }
                     _model.ReturnDungeon();
                     ClosePopup();
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);

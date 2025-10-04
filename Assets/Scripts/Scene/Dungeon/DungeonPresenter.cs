@@ -297,6 +297,7 @@ namespace Ryneus
                 return;
             }
             // 評価値が減少
+            SoundManager.Instance.PlayStaticSe(SEType.Deny);
             _model.TurnOver();
             _view.SeekTweens();
             _view.MinusVictoryBonus(-0.2f);
@@ -333,6 +334,13 @@ namespace Ryneus
 
         private void ReturnDungeon()
         {
+            var checkNotSeekPeriod = _model.CheckNotSeekPeriod();
+            if (checkNotSeekPeriod != null)
+            {
+                var cautionInfo = new CautionInfo();
+                cautionInfo.SetTitle(DataSystem.GetReplaceText(10200, checkNotSeekPeriod.Master.Name));
+                _view.CommandCallCaution(cautionInfo);
+            }
             _model.ReturnDungeon();
             _view.CallSystemCommand(Base.CommandType.MapClear);
             var mainMenuSceneInfo = new MainMenuSceneInfo
@@ -725,6 +733,17 @@ namespace Ryneus
                         _checkTurnOver = true;
                     } else
                     {
+                        // 帰還できない
+                        if (_model.PartyInfo.Cursed.Value)
+                        {
+                            _model.DungeonBusy(false);
+                            _busy = false;
+                            _checkTurnOver = true;
+                            var cautionInfo = new CautionInfo();
+                            cautionInfo.SetTitle(DataSystem.GetText(10131));
+                            _view.CommandCallCaution(cautionInfo);
+                            return;
+                        }
                         _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                         ReturnDungeon();
                         return;

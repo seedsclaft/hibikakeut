@@ -771,13 +771,28 @@ namespace Ryneus
                 return;
             }
             SaveAutoFile();
-            PartyInfo.Period.GainValue(1);
+            // NotSeekPeriod効果判定
+            var notSeekPeriod = PartyInfo.AritifactSkills().Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.NotSeekPeriod) != null);
+            if (notSeekPeriod == null)
+            {
+                PartyInfo.Period.GainValue(1);
+            } else
+            {
+                var artifact = PartyInfo.GetOwnItemInfos(ItemType.Artifact).Find(a => a.Master.Param1 == notSeekPeriod.Id.Value);
+                PartyInfo.ConsuneItemNum(artifact.Master.Id, 1);
+            }
             PartyInfo.ClearTradeItemInfos();
             if (PartyInfo.Chapter.Value >= 2)
             {
                 PartyInfo.EvaluationValue.GainValue(PartyInfo.EvaluationAddictValue(), 0);
             }
             PartyInfo.ClearSkillUseCount();
+        }
+
+        public SkillInfo CheckNotSeekPeriod()
+        {
+            var notSeekPeriod = PartyInfo.AritifactSkills().Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.NotSeekPeriod) != null);
+            return notSeekPeriod;
         }
 
         public List<GetItemInfo> PeriodGetItemInfos()

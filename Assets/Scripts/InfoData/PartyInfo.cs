@@ -190,14 +190,13 @@ namespace Ryneus
             return false;
         }
 
-        // 使用できるアイテムを取得
-        public List<ItemInfo> UseItemInfos()
+        public List<ItemInfo> GetOwnItemInfos(ItemType itemType)
         {
             var list = new List<ItemInfo>();
             foreach (var item in _items)
             {
                 var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
-                if (itemData.ItemType == ItemType.UseItem && item.Value.Value > 0)
+                if (itemData.ItemType == itemType && item.Value.Value > 0)
                 {
                     list.Add(new ItemInfo(itemData.Id, item.Value.Value));
                 }
@@ -205,19 +204,22 @@ namespace Ryneus
             return list;
         }
 
+        // 使用できるアイテムを取得
+        public List<ItemInfo> UseItemInfos()
+        {
+            return GetOwnItemInfos(ItemType.UseItem);
+        }
+
         // ダンジョンで使用できるアイテムを取得
         public List<ItemInfo> DungeonUseItemInfos()
         {
-            var list = new List<ItemInfo>();
-            foreach (var item in _items)
-            {
-                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
-                if (itemData.ItemType == ItemType.DungeonItem && item.Value.Value > 0)
-                {
-                    list.Add(new ItemInfo(itemData.Id, item.Value.Value));
-                }
-            }
-            return list;
+            return GetOwnItemInfos(ItemType.DungeonItem);
+        }
+
+        // アーティファクトアイテムを取得
+        public List<ItemInfo> ArtifactItemInfos()
+        {
+            return GetOwnItemInfos(ItemType.Artifact);
         }
 
         // 所持解放
@@ -246,13 +248,9 @@ namespace Ryneus
         public List<SkillInfo> AritifactSkills()
         {
             var list = new List<SkillInfo>();
-            foreach (var item in _items)
+            foreach (var artifactItemInfo in ArtifactItemInfos())
             {
-                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
-                if (itemData.ItemType == ItemType.Artifact && item.Value.Value > 0)
-                {
-                    list.Add(new SkillInfo(itemData.Param1));
-                }
+                list.Add(new SkillInfo(artifactItemInfo.Master.Param1));
             }
             return list;
         }

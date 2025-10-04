@@ -900,7 +900,7 @@ namespace Ryneus
 
                         verticalNormalizedPosition = Math.Min(1, per);
                     } else
-                    if (warpMode && _index == _objectList.Count - 1)
+                    if (warpMode && _index == _listDates.Count - 1)
                     {
                         verticalNormalizedPosition = 0;
                     }

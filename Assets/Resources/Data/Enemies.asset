@@ -1044,6 +1044,10 @@ MonoBehaviour:
       Level: 1
       Weight: 50
       TriggerDates: []
+    - SkillId: 5020
+      Level: 1
+      Weight: 100
+      TriggerDates: []
     - SkillId: 15050
       Level: 1
       Weight: 0
@@ -1063,6 +1067,9 @@ MonoBehaviour:
     SkillTriggerDates:
     - SkillId: 5010
       Trigger1: 0
+      Trigger2: 0
+    - SkillId: 5020
+      Trigger1: 1013
       Trigger2: 0
     - SkillId: 15050
       Trigger1: 0
