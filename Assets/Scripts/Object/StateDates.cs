@@ -53,6 +53,7 @@ namespace Ryneus
         DefPerDown = 1052,
         SpdUp = 1060,
         CriticalRateUp = 1070,
+        CriticalRateDown = 1071,
         CriticalDamageRateUp = 1074,
         HitUp = 1080,
         HitUpOver = 1081,
@@ -62,8 +63,9 @@ namespace Ryneus
         EvaUpOver = 1092,
         DamageCutRate = 1100,
         DamageCut = 1101,
-        BurnDamage = 2010, // 火傷(ダメージ固定)
-        BurnDamagePer = 2011, // 火傷(ダメージ割合)
+        PoisunDamage = 2010, // 火傷(ダメージ固定)
+        PoisunDamagePer = 2011, // 火傷(ダメージ割合)
+        BurnDamage = 2012, // 火傷(ダメージ固定)
         Darkness = 2020, // 暗闇
         CounterAura = 2030, // CA
         CounterAuraDamage = 2031,

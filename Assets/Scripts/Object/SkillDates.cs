@@ -408,7 +408,10 @@ namespace Ryneus
         SelfTargetNotOnly = 9120, // 自身を対象にしない
         AttackState = 10010, // 攻撃成功時〇%で
         Percent = 10020, // 〇%で
+        AttackCriticalState = 10030, // 会心攻撃成功時〇%で
         AttackStateNoFreeze = 10110, // 攻撃成功時対象が凍結ではない%で
+        AttackStateNoBurn = 10120, // 攻撃成功時対象が火傷ではない%で
+        AttackStateNoSubstitute = 10130, // 攻撃成功時対象が挑発ではない%で
         InBattleUseCountUnder = 11010, // バトル中使用回数が〇以下
         InPeriodUseCountUnder = 11011, // Period中使用回数が〇以下
         InTurnUseCountUnder = 11020, // ターン中使用回数が〇以下
@@ -424,6 +427,7 @@ namespace Ryneus
         SelfAbnormalAction = 12063, // 自身が状態異常を受ける
         FriendAbnormalAction = 12064, // 味方が状態異常を受ける
         SelfPassiveAction = 12066, // 自身がパッシブを受ける
+        SelfDebuffAction = 12067, // 自身がデバフを受ける
         FriendAction = 12070, // 味方が行動を成功する
         FriendAttackAction = 12071, // 味方が攻撃を成功する
         FriendPassiveAction = 12072, // 味方がPassive魔法を成功する

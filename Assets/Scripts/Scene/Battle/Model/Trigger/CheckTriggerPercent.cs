@@ -27,12 +27,45 @@ namespace Ryneus
                         isTrigger = true;
                     }
                     break;
+                case TriggerType.AttackCriticalState:
+                    if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && checkTriggerInfo.ActionInfo.SubjectIndex.Value == battlerInfo.Index.Value && checkTriggerInfo.ActionInfo.ActionResults.Find(a => a.HpDamage.Value > 0 && a.Critical) != null)
+                    {
+                        if (triggerData.Param1 > Random.Range(0, 100))
+                        {
+                            isTrigger = true;
+                        }
+                    }
+                    break;
                 case TriggerType.AttackStateNoFreeze:
                     if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && checkTriggerInfo.ActionInfo.SubjectIndex.Value == battlerInfo.Index.Value && checkTriggerInfo.ActionInfo.ActionResults.Find(a => a.HpDamage.Value > 0) != null)
                     {
                         if (checkTriggerInfo.ActionInfo.ActionResults.Count > 0)
                         {
                             if (checkTriggerInfo.ActionInfo.ActionResults.Find(a => checkTriggerInfo.GetBattlerInfo(a.TargetIndex.Value)?.GetStateInfo(StateType.Freeze) == null) != null)
+                            {
+                                isTrigger = true;
+                            }
+                        }
+                    }
+                    break;
+                case TriggerType.AttackStateNoBurn:
+                    if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && checkTriggerInfo.ActionInfo.SubjectIndex.Value == battlerInfo.Index.Value && checkTriggerInfo.ActionInfo.ActionResults.Find(a => a.HpDamage.Value > 0) != null)
+                    {
+                        if (checkTriggerInfo.ActionInfo.ActionResults.Count > 0)
+                        {
+                            if (checkTriggerInfo.ActionInfo.ActionResults.Find(a => checkTriggerInfo.GetBattlerInfo(a.TargetIndex.Value)?.GetStateInfo(StateType.BurnDamage) == null) != null)
+                            {
+                                isTrigger = true;
+                            }
+                        }
+                    }
+                    break;
+                case TriggerType.AttackStateNoSubstitute:
+                    if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && checkTriggerInfo.ActionInfo.SubjectIndex.Value == battlerInfo.Index.Value && checkTriggerInfo.ActionInfo.ActionResults.Find(a => a.HpDamage.Value > 0) != null)
+                    {
+                        if (checkTriggerInfo.ActionInfo.ActionResults.Count > 0)
+                        {
+                            if (checkTriggerInfo.ActionInfo.ActionResults.Find(a => checkTriggerInfo.GetBattlerInfo(a.TargetIndex.Value)?.GetStateInfo(StateType.Substitute) == null) != null)
                             {
                                 isTrigger = true;
                             }

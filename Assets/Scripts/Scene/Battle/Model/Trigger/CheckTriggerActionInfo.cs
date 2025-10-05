@@ -84,6 +84,23 @@ namespace Ryneus
                         }
                     }
                     break;
+                case TriggerType.SelfDebuffAction:
+                    if (battlerInfo.IsAlive())
+                    {
+                        if (actionInfo != null && actionInfo.ActionResults != null)
+                        {
+                            // 自分で発動したパッシブは除く
+                            var results = actionInfo.ActionResults.FindAll(a => a.TargetIndex.Value == battlerInfo.Index.Value && a.SubjectIndex.Value != battlerInfo.Index.Value);
+                            if (results.Count > 0)
+                            {
+                                if (results.Find(a => a.AddedStates.Find(b => b.Master.DeBuff) != null) != null)
+                                {
+                                    isTrigger = true;
+                                }
+                            }
+                        }
+                    }
+                    break;
                 case TriggerType.FriendAction:
                     if (battlerInfo.IsAlive())
                     {
