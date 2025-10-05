@@ -158,7 +158,8 @@ namespace Ryneus
         public GetItemData MakeSkillGetItemInfo()
         {
             int rand = Random.Range(0, 100);
-            GetItemData getItemData;
+            GetItemData getItemData = null;
+            /*
             if (rand < 70)
             {
                 getItemData = AddSkillGetItemData(RankType.PassiveRank1);
@@ -187,6 +188,7 @@ namespace Ryneus
             {
                 return MakeSkillGetItemInfo();
             }
+            */
             return getItemData;
         }
 

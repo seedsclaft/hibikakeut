@@ -132,7 +132,7 @@ namespace Ryneus
                 foreach (var split in splits)
                 {
                     var paramText = "";
-                    var array = split.ToString().Substring(1,5).Split(",");
+                    var array = split.ToString().Substring(1, 5).Split(",");
                     var p1 = array[0];
                     var p2 = int.Parse(array[1]);
                     var p3 = int.Parse(array[2]);
@@ -152,14 +152,14 @@ namespace Ryneus
                             paramText = targetFeature.Param3.ToString();
                         }
                         Regex reg1 = new Regex("/f");
-                        help = reg1.Replace(help,paramText,1);
+                        help = reg1.Replace(help, paramText, 1);
                     }
-                    help = help.Replace(split.ToString(),"");
+                    help = help.Replace(split.ToString(), "");
                 }
             }
             if (Master.Name.Contains("+"))
             {
-                help = help.Replace("/n",Master.Name.Replace("+",""));
+                help = help.Replace("/n", Master.Name.Replace("+", ""));
             }
             // ステート説明挿入
             var state = FeatureDates.Find(a => a.FeatureType == FeatureType.AddState);
@@ -170,13 +170,13 @@ namespace Ryneus
                 if (battlerInfo != null)
                 {
                     var effect = battlerInfo.GetStateEffectAll(stateMaster.StateType);
-                    effectText = effectText.Replace("\\d",effect.ToString());
+                    effectText = effectText.Replace("\\d", effect.ToString());
                 } else
                 {
                     var effect = state.Param3;
                     effectText = effectText.Replace("\\d",effect.ToString());
                 }
-                help = help.Replace("/s","【" + stateMaster.Name + "】" + "\n" + effectText);
+                help = help.Replace("/s", "【" + stateMaster.Name + "】" + "\n" + effectText);
             }
             return help;
         }

@@ -110,6 +110,7 @@ namespace Ryneus
                 case RankType.ActiveRank1:
                     return 0;
                 case RankType.PassiveRank1:
+                case RankType.PassiveEnhanceRank1:
                 case RankType.EnhanceRank1:
                 case RankType.EquipmentRank1:
                     return 1;
@@ -273,6 +274,7 @@ namespace Ryneus
         ActiveRank2 = 2,
         ActiveRank3 = 3,
         PassiveRank1 = 10,
+        PassiveEnhanceRank1 = 11,
         PassiveRank2 = 20,
         PassiveRank3 = 30,
         EnhanceRank1 = 100,
@@ -424,6 +426,7 @@ namespace Ryneus
         SelfPassiveAction = 12066, // 自身がパッシブを受ける
         FriendAction = 12070, // 味方が行動を成功する
         FriendAttackAction = 12071, // 味方が攻撃を成功する
+        FriendPassiveAction = 12072, // 味方がPassive魔法を成功する
         OpponentHealAction = 12082, // 相手が回復を成功する
         OpponentDamageShieldAction = 12092, // 相手が攻撃無効を発動する
         FriendHasKind = 13010, // 〇のKindを持っている

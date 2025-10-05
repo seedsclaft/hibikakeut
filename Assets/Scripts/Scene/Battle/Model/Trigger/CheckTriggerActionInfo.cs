@@ -118,6 +118,23 @@ namespace Ryneus
                         }
                     }
                     break;
+                case TriggerType.FriendPassiveAction:
+                    if (battlerInfo.IsAlive())
+                    {
+                        if (actionInfo != null && actionInfo.ActionResults != null && actionInfo.Master.IsBattlePassiveSkill())
+                        {
+                            var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
+                            if (subject != null && battlerInfo.IsActor == subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
+                            {
+                                var results = actionInfo.ActionResults.FindAll(a => a.HpDamage.Value > 0);
+                                if (results.Count > 0)
+                                {
+                                    isTrigger = true;
+                                }
+                            }
+                        }
+                    }
+                    break;
                 case TriggerType.OpponentHealAction:
                     if (battlerInfo.IsAlive())
                     {

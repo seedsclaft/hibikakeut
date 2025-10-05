@@ -217,6 +217,7 @@ namespace Ryneus
                     resultInfo.SetTitle(DataSystem.GetReplaceText(20110, target.Master.Name) + DataSystem.GetReplaceText(20111, skillData.Name));
                     _resultInfos.Add(resultInfo);
                 }
+
             }
 
             var evaluateGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Evaluate);
