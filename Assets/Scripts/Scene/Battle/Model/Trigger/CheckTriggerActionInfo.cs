@@ -136,21 +136,7 @@ namespace Ryneus
                     }
                     break;
                 case TriggerType.FriendPassiveAction:
-                    if (battlerInfo.IsAlive())
-                    {
-                        if (actionInfo != null && actionInfo.ActionResults != null && actionInfo.Master.IsBattlePassiveSkill())
-                        {
-                            var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-                            if (subject != null && battlerInfo.IsActor == subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
-                            {
-                                var results = actionInfo.ActionResults.FindAll(a => a.HpDamage.Value > 0);
-                                if (results.Count > 0)
-                                {
-                                    isTrigger = true;
-                                }
-                            }
-                        }
-                    }
+                    isTrigger = CheckFriendPassiveAction(triggerData, battlerInfo,checkTriggerInfo).Count > 0;
                     break;
                 case TriggerType.OpponentHealAction:
                     if (battlerInfo.IsAlive())
@@ -205,8 +191,6 @@ namespace Ryneus
 
         public void AddTargetIndexList(List<int> targetIndexList, List<int> targetIndexes, BattlerInfo targetBattler, SkillData.TriggerData triggerData, SkillData skillData, CheckTriggerInfo checkTriggerInfo)
         {
-
-
         }
 
         public void AddTriggerTargetList(List<int> targetIndexList, SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
@@ -228,6 +212,9 @@ namespace Ryneus
                 case TriggerType.FriendAttackedAction:
                     var selectIndex = CheckFriendAttackedAction(triggerData, battlerInfo, checkTriggerInfo);
                     targetIndexList.AddRange(selectIndex);
+                    break;
+                case TriggerType.FriendPassiveAction:
+                    targetIndexList.AddRange(CheckFriendPassiveAction(triggerData, battlerInfo, checkTriggerInfo));
                     break;
             }
         }
@@ -462,6 +449,34 @@ namespace Ryneus
                 else
                 {
                     list.Add(result.TargetIndex.Value);
+                }
+            }
+            return list;
+        }
+
+        private List<int> CheckFriendPassiveAction(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
+        {
+            var list = new List<int>();
+            var actionInfo = checkTriggerInfo.ActionInfo;
+            var actionResultInfos = checkTriggerInfo.ActionResultInfos;
+            if (!battlerInfo.IsAlive())
+            {
+                return list;
+            }
+            if (actionInfo == null || actionResultInfos == null)
+            {
+                return list;
+            }
+            if (!actionInfo.Master.IsBattlePassiveSkill())
+            {
+                return list;
+            }
+            var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
+            if (subject != null && battlerInfo.IsActor == subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
+            {
+                if (actionResultInfos.Count > 0)
+                {
+                    list.Add(subject.Index.Value);
                 }
             }
             return list;

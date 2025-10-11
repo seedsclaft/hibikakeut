@@ -151,6 +151,11 @@ namespace Ryneus
                             {
                                 var learnSkillInfo = new LearnSkillInfo(from, to, skill);
                                 _learnSkillInfo.Add(learnSkillInfo);
+                                // 装備可能であれば装備する
+                                if (target.EquipmentSkillIds.Find(a => a.Value == 0) != null)
+                                {
+                                    target.ChangeEquipSkill(0, skill.Id.Value);
+                                }
                             }
                         } else
                         {

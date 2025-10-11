@@ -13,6 +13,7 @@ namespace Ryneus
         DungeonView _view = null;
 
         private bool _busy = true;
+        private bool _battleBusy = false;
         private bool _routeMode = true;
         private int _routeMoveFailCount = 0;
         private bool _checkTurnOver = false;
@@ -116,6 +117,7 @@ namespace Ryneus
 
         private void CommandMoveEnd()
         {
+            _busy = false;
             // 移動したか
             var moved = _model.CommandMoveEnd();
             if (moved)
@@ -234,6 +236,7 @@ namespace Ryneus
                 return;
             }
             _busy = true;
+            _battleBusy = true;
             _model.DungeonBusy(true);
             _model.ResetEncountValue();
             // ダンジョンの再開時間を記憶
@@ -752,6 +755,7 @@ namespace Ryneus
                 _view.CommandCallConfirm(confirmInfo);
                 return;
             }
+            _busy = true;
             _view.ForwardMove();
         }
 
@@ -1055,13 +1059,17 @@ namespace Ryneus
 
         private void CheckRouteMode()
         {
+            if (_battleBusy)
+            {
+                return;
+            }
             if (_model.IsRouteMode())
             {
                 _busy = true;
                 //_model.DungeonBusy(true);
                 // 方向を見て進む。MoveEndまで待つ
                 _routeMode = true;
-                _view.InputHandler(new List<InputKeyType>(){_model.RouteModeInputKeyType()}, false);
+                _view.InputHandler(new List<InputKeyType>(){ _model.RouteModeInputKeyType()}, false);
             } else
             {
                 _busy = false;

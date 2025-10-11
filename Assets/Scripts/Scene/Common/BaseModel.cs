@@ -915,7 +915,7 @@ namespace Ryneus
             {
                 case ItemType.RandumAddSkill:
                     // ランダムでparam2属性のparam1Rankを入手
-                    var candidateSkills = DataSystem.Skills.Where(a => SkillData.ConvertRankCost(a.Value.Rank) == itemData.Param1 && a.Value.IsRandumAddSkill() && !PartyInfo.LearningSkillIds.Contains(a.Key)).ToList();
+                    var candidateSkills = DataSystem.Skills.Where(a => SkillData.ConvertRankCost(a.Value.Rank) == itemData.Param1 && a.Value.Rank != RankType.PassiveEnhanceRank1 && a.Value.IsRandumAddSkill() && !PartyInfo.LearningSkillIds.Contains(a.Key)).ToList();
                     if (itemData.Param2 != -1)
                     {
                         candidateSkills = candidateSkills.Where(a => (int)a.Value.Attribute == itemData.Param2).ToList();

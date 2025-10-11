@@ -434,6 +434,14 @@ namespace Ryneus
                         var learnSkillInfo = new LearnSkillInfo(from, to, afterSkills[0]);
                         SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 
+                        // 装備可能であれば装備する
+                        foreach (var afterSkill in afterSkills)
+                        {
+                            if (actorInfo.EquipmentSkillIds.Find(a => a.Value == 0) != null)
+                            {
+                                actorInfo.ChangeEquipSkill(0, afterSkill.Id.Value);
+                            }
+                        }
                         var popupInfo = new PopupInfo
                         {
                             PopupType = PopupType.LearnSkill,
