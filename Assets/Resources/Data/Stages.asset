@@ -1707,12 +1707,12 @@ MonoBehaviour:
     RandomTroopEnemyRates: []
     EncountMin: 0
     EncountMax: 0
-    BackGround: Paved
-    BossTroopId: 4010
+    BackGround: Clouds
+    BossTroopId: 5010
     BGMId: 1050
     BossBGMId: 3010
     BattleBGMId: 2040
-    SkyboxName: '""'
+    SkyboxName: DayInTheClouds
     StageEvents:
     - EventKey: 60_6_10DungeonExitDungeon0
       Timing: 3010
@@ -1752,7 +1752,7 @@ MonoBehaviour:
       Weight: 10
     EncountMin: 8
     EncountMax: 12
-    BackGround: Paved
+    BackGround: 040-Tower02
     BossTroopId: 0
     BGMId: 1050
     BossBGMId: 3010
@@ -1923,12 +1923,12 @@ MonoBehaviour:
       Weight: 10
     EncountMin: 8
     EncountMax: 12
-    BackGround: Paved
+    BackGround: Clouds
     BossTroopId: 0
     BGMId: 1050
     BossBGMId: 3010
     BattleBGMId: 2040
-    SkyboxName: '""'
+    SkyboxName: DayInTheClouds
     StageEvents:
     - EventKey: 62_2_6DungeonMoveDungeonFloor61
       Timing: 3010
@@ -2058,7 +2058,7 @@ MonoBehaviour:
       Weight: 10
     EncountMin: 8
     EncountMax: 12
-    BackGround: Paved
+    BackGround: 040-Tower02
     BossTroopId: 0
     BGMId: 1050
     BossBGMId: 3010
@@ -2178,7 +2178,7 @@ MonoBehaviour:
     RandomTroopEnemyRates: []
     EncountMin: 0
     EncountMax: 0
-    BackGround: Paved
+    BackGround: 040-Tower02
     BossTroopId: 0
     BGMId: 1050
     BossBGMId: 3010
@@ -2221,6 +2221,534 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
+  - Id: 70
+    StageNo: 7
+    Category: 1
+    Name: 
+    Selectable: 1
+    Chapter: 1
+    Help: 
+    StageLv: 30
+    OnlyOnce: 0
+    DisplayRank: 1
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 2
+      Weight: 10
+    - EnemyId: 4
+      Weight: 10
+    - EnemyId: 9
+      Weight: 10
+    - EnemyId: 12
+      Weight: 10
+    - EnemyId: 13
+      Weight: 10
+    - EnemyId: 14
+      Weight: 10
+    - EnemyId: 15
+      Weight: 10
+    EncountMin: 8
+    EncountMax: 12
+    BackGround: Lava2
+    BossTroopId: 5010
+    BGMId: 1060
+    BossBGMId: 3010
+    BattleBGMId: 2040
+    SkyboxName: '""'
+    StageEvents:
+    - EventKey: 70_6_8DungeonExitDungeon0
+      Timing: 3010
+      Type: 2010
+      PositionX: 6
+      PositionY: 8
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 70_6_4DungeonMoveDungeonFloor71
+      Timing: 3010
+      Type: 2020
+      PositionX: 6
+      PositionY: 4
+      Param: 71
+      Param2: 12
+      Param3: 12
+      ReadFlag: 0
+    - EventKey: 70_2_6DungeonMoveDungeonFloor71
+      Timing: 3010
+      Type: 2020
+      PositionX: 2
+      PositionY: 6
+      Param: 71
+      Param2: 8
+      Param3: 14
+      ReadFlag: 0
+  - Id: 71
+    StageNo: 7
+    Category: 1
+    Name: 
+    Selectable: 1
+    Chapter: 1
+    Help: 
+    StageLv: 30
+    OnlyOnce: 0
+    DisplayRank: 1
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 2
+      Weight: 10
+    - EnemyId: 4
+      Weight: 10
+    - EnemyId: 7
+      Weight: 10
+    - EnemyId: 8
+      Weight: 10
+    - EnemyId: 13
+      Weight: 10
+    - EnemyId: 11
+      Weight: 10
+    - EnemyId: 15
+      Weight: 10
+    EncountMin: 8
+    EncountMax: 12
+    BackGround: Lava2
+    BossTroopId: 0
+    BGMId: 1060
+    BossBGMId: 3010
+    BattleBGMId: 2040
+    SkyboxName: '""'
+    StageEvents:
+    - EventKey: 71_12_12DungeonMoveDungeonFloor70
+      Timing: 3010
+      Type: 2020
+      PositionX: 12
+      PositionY: 12
+      Param: 70
+      Param2: 6
+      Param3: 4
+      ReadFlag: 0
+    - EventKey: 71_2_2DungeonMoveDungeonFloor72
+      Timing: 3010
+      Type: 2020
+      PositionX: 2
+      PositionY: 2
+      Param: 72
+      Param2: 14
+      Param3: 2
+      ReadFlag: 0
+    - EventKey: 71_4_14DungeonMoveDungeonFloor72
+      Timing: 3010
+      Type: 2020
+      PositionX: 4
+      PositionY: 14
+      Param: 72
+      Param2: 6
+      Param3: 13
+      ReadFlag: 0
+    - EventKey: 71_8_14DungeonMoveDungeonFloor70
+      Timing: 3010
+      Type: 2020
+      PositionX: 8
+      PositionY: 14
+      Param: 70
+      Param2: 2
+      Param3: 6
+      ReadFlag: 0
+    - EventKey: 71_13_2DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 13
+      PositionY: 2
+      Param: -1
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 71_13_4DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 13
+      PositionY: 4
+      Param: -1
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 71_12_3DungeonAddEventFlagEndForceBattle103
+      Timing: 3010
+      Type: 6020
+      PositionX: 12
+      PositionY: 3
+      Param: 103
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 71_10_3DungeonNone103
+      Timing: 3010
+      Type: 0
+      PositionX: 10
+      PositionY: 3
+      Param: 103
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 71_12_3DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 12
+      PositionY: 3
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 71_13_3DungeonAddEventFlagEndForceBattle103
+      Timing: 3010
+      Type: 6020
+      PositionX: 13
+      PositionY: 3
+      Param: 103
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 71_10_3DungeonNone103
+      Timing: 3010
+      Type: 0
+      PositionX: 10
+      PositionY: 3
+      Param: 103
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 71_13_3DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 13
+      PositionY: 3
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+  - Id: 72
+    StageNo: 7
+    Category: 1
+    Name: 
+    Selectable: 1
+    Chapter: 1
+    Help: 
+    StageLv: 30
+    OnlyOnce: 0
+    DisplayRank: 1
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 4
+      Weight: 10
+    - EnemyId: 9
+      Weight: 10
+    - EnemyId: 12
+      Weight: 10
+    - EnemyId: 13
+      Weight: 10
+    - EnemyId: 14
+      Weight: 10
+    - EnemyId: 15
+      Weight: 10
+    EncountMin: 8
+    EncountMax: 12
+    BackGround: Lava2
+    BossTroopId: 0
+    BGMId: 1060
+    BossBGMId: 3010
+    BattleBGMId: 2040
+    SkyboxName: '""'
+    StageEvents:
+    - EventKey: 72_14_2DungeonMoveDungeonFloor71
+      Timing: 3010
+      Type: 2020
+      PositionX: 14
+      PositionY: 2
+      Param: 71
+      Param2: 2
+      Param3: 2
+      ReadFlag: 0
+    - EventKey: 72_10_2DungeonMoveDungeonFloor73
+      Timing: 3010
+      Type: 2020
+      PositionX: 10
+      PositionY: 2
+      Param: 73
+      Param2: 13
+      Param3: 4
+      ReadFlag: 0
+    - EventKey: 72_2_13DungeonMoveDungeonFloor73
+      Timing: 3010
+      Type: 2020
+      PositionX: 2
+      PositionY: 13
+      Param: 73
+      Param2: 5
+      Param3: 14
+      ReadFlag: 0
+    - EventKey: 72_6_13DungeonMoveDungeonFloor71
+      Timing: 3010
+      Type: 2020
+      PositionX: 6
+      PositionY: 13
+      Param: 71
+      Param2: 4
+      Param3: 14
+      ReadFlag: 0
+  - Id: 73
+    StageNo: 7
+    Category: 1
+    Name: 
+    Selectable: 1
+    Chapter: 1
+    Help: 
+    StageLv: 30
+    OnlyOnce: 0
+    DisplayRank: 1
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 2
+      Weight: 10
+    - EnemyId: 4
+      Weight: 10
+    - EnemyId: 7
+      Weight: 10
+    - EnemyId: 8
+      Weight: 10
+    - EnemyId: 13
+      Weight: 10
+    - EnemyId: 11
+      Weight: 10
+    - EnemyId: 15
+      Weight: 10
+    EncountMin: 8
+    EncountMax: 12
+    BackGround: Lava2
+    BossTroopId: 0
+    BGMId: 1060
+    BossBGMId: 3010
+    BattleBGMId: 2040
+    SkyboxName: '""'
+    StageEvents:
+    - EventKey: 73_13_4DungeonMoveDungeonFloor72
+      Timing: 3010
+      Type: 2020
+      PositionX: 13
+      PositionY: 4
+      Param: 72
+      Param2: 10
+      Param3: 4
+      ReadFlag: 0
+    - EventKey: 73_9_10DungeonMoveDungeonFloor74
+      Timing: 3010
+      Type: 2020
+      PositionX: 9
+      PositionY: 10
+      Param: 74
+      Param2: 8
+      Param3: 2
+      ReadFlag: 0
+    - EventKey: 73_1_11DungeonMoveDungeonFloor74
+      Timing: 3010
+      Type: 2020
+      PositionX: 1
+      PositionY: 11
+      Param: 74
+      Param2: 10
+      Param3: 5
+      ReadFlag: 0
+    - EventKey: 73_5_14DungeonMoveDungeonFloor72
+      Timing: 3010
+      Type: 2020
+      PositionX: 5
+      PositionY: 14
+      Param: 72
+      Param2: 2
+      Param3: 13
+      ReadFlag: 0
+    - EventKey: 73_7_1DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 7
+      PositionY: 1
+      Param: -1
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 73_7_7DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 7
+      PositionY: 7
+      Param: -1
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 73_11_1DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 11
+      PositionY: 1
+      Param: -1
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 73_11_7DungeonForceBattle-1
+      Timing: 3010
+      Type: 5010
+      PositionX: 11
+      PositionY: 7
+      Param: -1
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 73_-1_-1DungeonAddEventFlagEndForceBattle94
+      Timing: 3010
+      Type: 6020
+      PositionX: -1
+      PositionY: -1
+      Param: 94
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 73_9_4DungeonNone94
+      Timing: 3010
+      Type: 0
+      PositionX: 9
+      PositionY: 4
+      Param: 94
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 73_9_4DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 9
+      PositionY: 4
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 73_9_4DungeonAdvStart140
+      Timing: 3010
+      Type: 1010
+      PositionX: 9
+      PositionY: 4
+      Param: 140
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 73_9_4DungeonAddEventFlag98
+      Timing: 3010
+      Type: 6010
+      PositionX: 9
+      PositionY: 4
+      Param: 98
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 73_9_8DungeonNone98
+      Timing: 3010
+      Type: 0
+      PositionX: 9
+      PositionY: 8
+      Param: 98
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 73_9_4DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 9
+      PositionY: 4
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+  - Id: 74
+    StageNo: 7
+    Category: 1
+    Name: 
+    Selectable: 1
+    Chapter: 1
+    Help: 
+    StageLv: 30
+    OnlyOnce: 0
+    DisplayRank: 1
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates: []
+    EncountMin: 0
+    EncountMax: 0
+    BackGround: Lava2
+    BossTroopId: 0
+    BGMId: 1060
+    BossBGMId: 3030
+    BattleBGMId: 2040
+    SkyboxName: '""'
+    StageEvents:
+    - EventKey: 74_8_2DungeonMoveDungeonFloor73
+      Timing: 3010
+      Type: 2020
+      PositionX: 8
+      PositionY: 2
+      Param: 73
+      Param2: 9
+      Param3: 10
+      ReadFlag: 0
+    - EventKey: 74_10_5DungeonMoveDungeonFloor73
+      Timing: 3010
+      Type: 2020
+      PositionX: 10
+      PositionY: 5
+      Param: 73
+      Param2: 1
+      Param3: 11
+      ReadFlag: 0
+    - EventKey: 74_8_9DungeonForceBossBattle6010
+      Timing: 3010
+      Type: 5020
+      PositionX: 8
+      PositionY: 9
+      Param: 6010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 74_8_10DungeonAdvStart140
+      Timing: 3010
+      Type: 1010
+      PositionX: 8
+      PositionY: 10
+      Param: 140
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 74_10_5DungeonAddEventFlag105
+      Timing: 3010
+      Type: 6010
+      PositionX: 10
+      PositionY: 5
+      Param: 105
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 74_10_5DungeonNone105
+      Timing: 3010
+      Type: 0
+      PositionX: 10
+      PositionY: 5
+      Param: 105
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 74_8_10DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 8
+      PositionY: 10
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
   - Id: 1010
     StageNo: 101
     Category: 11
@@ -2354,17 +2882,15 @@ MonoBehaviour:
     DisplayRank: 6
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
-    - EnemyId: 1
+    - EnemyId: 2
       Weight: 15
-    - EnemyId: 7
+    - EnemyId: 12
       Weight: 15
-    - EnemyId: 9
-      Weight: 15
-    - EnemyId: 13
+    - EnemyId: 14
       Weight: 15
     EncountMin: 8
     EncountMax: 12
-    BackGround: DirtCave
+    BackGround: Ruins2
     BossTroopId: 0
     BGMId: 1210
     BossBGMId: 3010
@@ -2418,10 +2944,47 @@ MonoBehaviour:
     OnlyOnce: 1
     DisplayRank: 8
     RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
+    RandomTroopEnemyRates:
+    - EnemyId: 3
+      Weight: 15
+    - EnemyId: 4
+      Weight: 15
+    - EnemyId: 6
+      Weight: 15
+    - EnemyId: 8
+      Weight: 15
+    - EnemyId: 11
+      Weight: 15
     EncountMin: 8
     EncountMax: 12
-    BackGround: Ruins2
+    BackGround: Paved
+    BossTroopId: 0
+    BGMId: 1210
+    BossBGMId: 3010
+    BattleBGMId: 2040
+    SkyboxName: '""'
+    StageEvents: []
+  - Id: 1050
+    StageNo: 105
+    Category: 11
+    Name: "\u5FD8\u5374\u306E\u57CE"
+    Selectable: 1
+    Chapter: 5
+    Help: "\u4E8C\u5EA6\u3068\u306F\u5165\u308B\u3053\u3068\u304C\u3067\u304D\u306A\u3044\u4E0D\u601D\u8B70\u306A\u57CE\u3002\n\u8CB4\u91CD\u306A\u9B54\u6CD5\u66F8\u304C\u96A0\u3055\u308C\u3066\u3044\u308B\u3068\u8A00\u308F\u308C\u3066\u3044\u308B\u3002"
+    StageLv: 25
+    OnlyOnce: 1
+    DisplayRank: 9
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates:
+    - EnemyId: 5
+      Weight: 15
+    - EnemyId: 13
+      Weight: 15
+    - EnemyId: 15
+      Weight: 15
+    EncountMin: 8
+    EncountMax: 12
+    BackGround: 040-Tower02
     BossTroopId: 0
     BGMId: 1210
     BossBGMId: 3010
