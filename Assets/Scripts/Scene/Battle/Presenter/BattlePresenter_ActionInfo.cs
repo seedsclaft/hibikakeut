@@ -36,12 +36,11 @@ namespace Ryneus
             {
                 if (actionInfo.Master.SkillType == SkillType.Unique)
                 {
-                    var isActor = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value).IsActorView;
-                    await StartAnimationMessiah(actionInfo, isActor);
+                    _ = await StartAnimationMessiah(actionInfo);
                 } else
                 if (actionInfo.Master.SkillType == SkillType.Awaken)
                 {
-                    await StartAnimationAwaken(actionInfo);
+                    _ = await StartAnimationAwaken(actionInfo);
                 }
             }
             StartAnimationSkill(actionInfo);
@@ -50,19 +49,10 @@ namespace Ryneus
         /// <summary>
         /// 覚醒アニメーション再生してからアニメーション再生
         /// </summary>
-        private async UniTask<bool> StartAnimationMessiah(ActionInfo actionInfo, bool isActor)
+        private async UniTask<bool> StartAnimationMessiah(ActionInfo actionInfo)
         {
             var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            Sprite sprite;
-            if (isActor)
-            {
-                var actorId = subject.ActorInfo != null ? subject.ActorInfo.ActorId.Value : subject.EnemyData.Id - 1000;
-                sprite = _model.AwakenSprite(actorId);
-            } else
-            {
-                sprite = _model.AwakenEnemySprite(subject.EnemyData.Id);
-            }
-            await _view.StartAnimationMessiah(subject, sprite);
+            await _view.StartAnimationMessiah(subject);
             return true;
         }
 
@@ -90,10 +80,10 @@ namespace Ryneus
 
             if (actionInfo.FirstAttack())
             {
-                await SelfAnimation(actionInfo);
+                _ = await SelfAnimation(actionInfo);
             }
 
-            await ShowCutinBattleThumb(actionInfo);
+            _ = await ShowCutinBattleThumb(actionInfo);
 
             //if (actionInfo.Master.IsDisplayBattleSkill())
             //{
@@ -308,7 +298,7 @@ namespace Ryneus
         private async UniTask RemovePassiveInfos()
         {
             var RemovePassiveResults = _model.CheckRemovePassiveInfos();
-            await ExecActionResultInfos(RemovePassiveResults, true);
+            _ = await ExecActionResultInfos(RemovePassiveResults, true);
         }
 
         public async UniTask<bool> ExecActionResultInfos(List<ActionResultInfo> resultInfos, bool removePassive = false)
@@ -349,7 +339,7 @@ namespace Ryneus
         private async void StartAnimationSlipDamage(List<ActionResultInfo> slipDamageResults)
         {
             var actionInfo = _model.ActiveActionInfo;
-            await ExecActionResultInfos(slipDamageResults);
+            _ = await ExecActionResultInfos(slipDamageResults);
             if (!_skipBattle)
             {
                 _view.StartAnimationSlipDamage(ActionResultInfo.ConvertIndexes(slipDamageResults));
@@ -380,7 +370,7 @@ namespace Ryneus
 
         private async void StartAnimationRegenerate(List<ActionResultInfo> regenerateActionResults)
         {
-            await ExecActionResultInfos(regenerateActionResults);
+            _ = await ExecActionResultInfos(regenerateActionResults);
             if (!_skipBattle)
             {
                 _view.StartAnimationRegenerate(ActionResultInfo.ConvertIndexes(regenerateActionResults));

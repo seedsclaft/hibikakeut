@@ -30,19 +30,6 @@ namespace Ryneus
             }
         }
 
-        public void Show()
-        {
-            gameObject.SetActive(true);
-            itemInfoComponent.gameObject.SetActive(true);
-            UpdateItemHelp();
-        }
-
-        public void Hide()
-        {
-            gameObject.SetActive(false);
-            itemInfoComponent.gameObject.SetActive(false);
-        }
-
         public override void UpdateHelpWindow()
         {
             UpdateItemHelp();

@@ -113,12 +113,14 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
+            _view.SetActivateItemList(false);
             if (tradeItemInfo.GetItemInfo.Master.Type == GetItemType.Skill)
             {
                 var skillInfo = new SkillInfo(tradeItemInfo.GetItemInfo.Param1);
                 var confirmInfo = new ConfirmInfo("", (a) =>
                 {
                     _busy = false;
+                    _view.SetActivateItemList(true);
                 }, ConfirmType.SkillDetail);
                 confirmInfo.SetBackEvent(() =>
                 {
@@ -131,9 +133,27 @@ namespace Ryneus
             if (tradeItemInfo.GetItemInfo.Master.Type == GetItemType.Item)
             {
                 var itemInfo = new ItemInfo(tradeItemInfo.GetItemInfo.Param1, 1);
+                if (itemInfo.Master.ItemType == ItemType.RandumAddSkill)
+                {
+                    var skillInfos = _model.GetRandumAddSkillInfos(itemInfo);
+                    var rconfirmInfo = new ConfirmInfo(DataSystem.GetText(34060), (a) =>
+                    {
+                        _view.SetActivateItemList(true);
+                        _busy = false;
+                    }, ConfirmType.SkillDetail);
+                    rconfirmInfo.SetBackEvent(() =>
+                    {
+                        _busy = false;
+                    });
+                    rconfirmInfo.SetSkillInfo(skillInfos);
+                    rconfirmInfo.SetIsNoChoice(true);
+                    _view.CommandCallConfirm(rconfirmInfo);
+                    return;
+                }
                 var confirmInfo = new ConfirmInfo("", (a) =>
                 {
                     _busy = false;
+                    _view.SetActivateItemList(true);
                 }, ConfirmType.ItemDetail);
                 confirmInfo.SetBackEvent(() =>
                 {

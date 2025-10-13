@@ -607,13 +607,13 @@ namespace Ryneus
             //var handle = EffekseerSystem.PlayEffect(effekseerEffectAsset, centerAnimPosition.transform.position);
         }
 
-        public async UniTask StartAnimationMessiah(BattlerInfo battlerInfo, Sprite actorSprite)
+        public async UniTask StartAnimationMessiah(BattlerInfo battlerInfo)
         {
             var speed = GameSystem.OptionData.BattleSpeed;
             if (!GameSystem.OptionData.BattleAnimationSkip)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Demigod);
-                battleAwakenAnimation.StartAnimation(battlerInfo, actorSprite, speed);
+                battleAwakenAnimation.StartAnimation(battlerInfo, speed);
                 HideStateOverlay();
                 SetAnimationBusy(true);
                 await UniTask.DelayFrame((int)(60 / speed));
@@ -789,10 +789,10 @@ namespace Ryneus
         public async UniTask StartAnimationDemigod(BattlerInfo battlerInfo,SkillData skillData)
         {
             var speed = GameSystem.OptionData.BattleSpeed;
-            if (GameSystem.OptionData.BattleAnimationSkip == false)
+            if (!GameSystem.OptionData.BattleAnimationSkip)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Demigod);
-                StartAnimationDemigod(battlerInfo,skillData,speed);
+                StartAnimationDemigod(battlerInfo, skillData, speed);
                 HideStateOverlay();
                 SetAnimationBusy(true);
                 await UniTask.DelayFrame((int)(20f / speed));

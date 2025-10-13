@@ -16,13 +16,13 @@ namespace Ryneus
         [SerializeField] private GameObject enemyMainObject;
         [SerializeField] private EffekseerEmitter emitter;
         [SerializeField] private CanvasGroup canvasGroup;
-        public void StartAnimation(BattlerInfo battlerInfo, Sprite actorSprite, float speedRate)
+        public void StartAnimation(BattlerInfo battlerInfo, float speedRate)
         {
             canvasGroup.alpha = 0;
             emitter.transform.DOScaleY(2.0f, 0);
             if (battlerInfo.IsActorView)
             {
-                actorMain.sprite = actorSprite;
+                actorMain.sprite = AwakenSprite(battlerInfo.ActorInfo.ActorId.Value);
             } else
             {
                 battlerInfoComponent.UpdateInfo(battlerInfo);
@@ -30,6 +30,16 @@ namespace Ryneus
             actorMain.gameObject.SetActive(battlerInfo.IsActorView);
             enemyMainObject.SetActive(!battlerInfo.IsActorView);
             StartEmitterAnimation(speedRate);
+        }
+
+        public Sprite AwakenSprite(int actorId)
+        {
+            var result = ResourceSystem.LoadActorCutinSprite(DataSystem.FindActor(actorId).ImagePath);
+            if (result != null)
+            {
+                return result;
+            }
+            return null;
         }
 
         private async void StartEmitterAnimation(float speedRate)
@@ -40,10 +50,10 @@ namespace Ryneus
             var time2 = 0.5f / speedRate;
             gameObject.SetActive(true);
             DOTween.Sequence()
-                .Append(emitter.transform.DOScaleY(4f,time1))
+                .Append(emitter.transform.DOScaleY(4f, time1))
                 .SetEase(Ease.InOutQuad);
             DOTween.Sequence()
-                .Append(canvasGroup.DOFade(1,time2))
+                .Append(canvasGroup.DOFade(1, time2))
                 .SetEase(Ease.InOutCubic);
             await UniTask.DelayFrame((int)(48f / speedRate));
             //await UniTask.WaitUntil(() => !emit.exists);

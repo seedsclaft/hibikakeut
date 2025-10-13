@@ -8,7 +8,7 @@ namespace Ryneus
 {
     public class TradeView : BaseView
     {
-        [SerializeField] private BaseList tradeList = null;
+        [SerializeField] private TradeItemList itemList = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
         [SerializeField] private PartyInfoComponent partyInfoComponent;
         [SerializeField] private TextMeshProUGUI afterCurrency;
@@ -28,11 +28,11 @@ namespace Ryneus
             SetBaseAnimation(popupAnimation);
             if (tradeButton != null)
             {
-                tradeButton.OnClickAddListener(() => CallViewEvent(CommandType.DecideTrade, tradeList.ListItemData<TradeItemInfo>()));
+                tradeButton.OnClickAddListener(() => CallViewEvent(CommandType.DecideTrade, itemList.ListItemData<TradeItemInfo>()));
             }
             if (detailButton != null)
             {
-                detailButton.OnClickAddListener(() => CallViewEvent(CommandType.TradeItemDetail, tradeList.ListItemData<TradeItemInfo>()));
+                detailButton.OnClickAddListener(() => CallViewEvent(CommandType.TradeItemDetail, itemList.ListItemData<TradeItemInfo>()));
             }
             _ = new TradePresenter(this);
         }
@@ -44,21 +44,21 @@ namespace Ryneus
 
         private void InitializeTrade()
         {
-            tradeList.Initialize();
-            tradeList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.CommandBack, tradeList.ListItemData<TradeItemInfo>()));
-            tradeList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectTradeItem, tradeList.ListItemData<TradeItemInfo>()));
-            tradeList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.TradeItemDetail, tradeList.ListItemData<TradeItemInfo>()));
-            tradeList.SetInputHandler(InputKeyType.Start, () => CallViewEvent(CommandType.DecideTrade));
-            //tradeList.SetInputHandler(InputKeyType.Right, () => CallViewEvent(CommandType.AddTradeItem, tradeList.ListItemData<TradeItemInfo>()));
-            //tradeList.SetInputHandler(InputKeyType.Left, () => CallViewEvent(CommandType.RemoveTradeItem, tradeList.ListItemData<TradeItemInfo>()));
-            SetInputHandler(tradeList.gameObject);
+            itemList.Initialize();
+            itemList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.CommandBack, itemList.ListItemData<TradeItemInfo>()));
+            itemList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectTradeItem, itemList.ListItemData<TradeItemInfo>()));
+            itemList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.TradeItemDetail, itemList.ListItemData<TradeItemInfo>()));
+            itemList.SetInputHandler(InputKeyType.Start, () => CallViewEvent(CommandType.DecideTrade));
+            AddViewActives(itemList);
         }
 
         public void SetTrade(List<ListData> getItemInfos)
         {
-            tradeList.SetData(getItemInfos, true, () =>
+            partyInfoComponent.UpdateCurrentInfo();
+
+            itemList.SetData(getItemInfos, true, () =>
             {
-                foreach (var itemPrefab in tradeList.ItemPrefabList)
+                foreach (var itemPrefab in itemList.ItemPrefabList)
                 {
                     var comp = itemPrefab.GetComponent<TradeItemInfoComponent>();
                     if (comp != null)
@@ -70,19 +70,29 @@ namespace Ryneus
                     }
                 }
             });
-            tradeList.Activate();
-            partyInfoComponent.UpdateCurrentInfo();
+            SetActivateItemList(true);
         }
 
         public void RefreshTradeList(List<ListData> getItemInfos)
         {
-            tradeList.RefreshListData(getItemInfos);
+            itemList.RefreshListData(getItemInfos);
             partyInfoComponent.UpdateCurrentInfo();
         }
 
         public void UpdateAfterCurrency(int currency)
         {
             afterCurrency.SetText(currency.ToString());
+        }
+
+        public void SetActivateItemList(bool isActivate)
+        {
+            if (isActivate)
+            {
+                SetActivate(itemList);
+            } else
+            {
+                SetActivate(null);
+            }
         }
     }
 

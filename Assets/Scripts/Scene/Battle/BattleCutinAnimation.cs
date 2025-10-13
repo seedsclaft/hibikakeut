@@ -25,7 +25,6 @@ namespace Ryneus
 
 
         public void Initialize()
-
         {
             skillUnMask.transform.DOLocalMove(new Vector3(0, 0, 0), 0);
             skillCanvasGroup.gameObject.transform.DOLocalMove(new Vector3(0, -144, 0), 0);
@@ -134,7 +133,6 @@ namespace Ryneus
         }
 
         private void Update()
-
         {
             if (mainBack.gameObject.activeSelf)
             {

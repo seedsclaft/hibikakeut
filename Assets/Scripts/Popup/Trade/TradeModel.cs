@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ryneus
 {
@@ -111,6 +112,24 @@ namespace Ryneus
         {
             PartyInfo.Currency.GainValue(-1 * PayCost.Value);
             PartyInfo.RemoveTradeItemInfos(_getItems);
+        }
+
+        public List<SkillInfo> GetRandumAddSkillInfos(ItemInfo itemInfo)
+        {
+            var list = new List<SkillInfo>();
+            var rank = itemInfo.Master.Param1;
+            var attribute = itemInfo.Master.Param2;
+            var skillDates = DataSystem.Skills.Where(a => SkillData.ConvertRankCost(a.Value.Rank) == itemInfo.Master.Param1 && a.Value.Rank != RankType.PassiveEnhanceRank1 && a.Value.IsRandumAddSkill() && !PartyInfo.LearningSkillIds.Contains(a.Key)).ToList();
+            if (attribute > 0)
+            {
+                skillDates = skillDates.FindAll(a => (int)a.Value.Attribute == attribute);
+            }
+
+            foreach (var skillData in skillDates)
+            {
+                list.Add(new SkillInfo(skillData.Key));
+            }
+            return list;
         }
     }
 }

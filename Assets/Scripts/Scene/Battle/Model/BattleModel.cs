@@ -1203,26 +1203,6 @@ namespace Ryneus
             return null;
         }
 
-        public Sprite AwakenSprite(int actorId)
-        {
-            var result = ResourceSystem.LoadActorCutinSprite(DataSystem.FindActor(actorId).ImagePath);
-            if (result != null)
-            {
-                return result;
-            }
-            return null;
-        }
-
-        public Sprite AwakenEnemySprite(int enemyId)
-        {
-            var result = ResourceSystem.LoadEnemySprite(DataSystem.Enemies.Find(a => a.Id == enemyId).ImagePath);
-            if (result != null)
-            {
-                return result;
-            }
-            return null;
-        }
-
         public void ExecCurrentAction(ActionInfo actionInfo, bool addSaveData)
         {
             if (actionInfo != null)

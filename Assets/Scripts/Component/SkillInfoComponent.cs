@@ -250,6 +250,10 @@ namespace Ryneus
             range?.gameObject.SetActive(false);
             range?.SetText("");
             countTurn?.gameObject?.SetActive(false);
+            if (countTurnRoot != null)
+            {
+                countTurnRoot.SetActive(false);
+            }
             rank?.gameObject?.SetActive(false);
             rank?.gameObject?.transform.parent.gameObject.SetActive(false);
             if (learningText != null)
