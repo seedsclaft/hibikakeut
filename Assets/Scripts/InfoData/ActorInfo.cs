@@ -359,7 +359,7 @@ namespace Ryneus
                 statusInfo.AddParameter(StatusParamType.Atk, Master.InitStatus.Atk);
                 statusInfo.AddParameter(StatusParamType.Def, Master.InitStatus.Def);
                 statusInfo.AddParameter(StatusParamType.Spd, Master.InitStatus.Spd);
-                statusInfo.AddParameter(StatusParamType.Mov, Master.InitStatus.Mov);
+                //statusInfo.AddParameter(StatusParamType.Mov, Master.InitStatus.Mov);
                 statusInfo.AddParameter(StatusParamType.Cost, Master.InitStatus.Cost);
 
                 statusInfo.AddParameter(StatusParamType.Hp, LevelGrowthRate(StatusParamType.Hp, level));
@@ -367,7 +367,7 @@ namespace Ryneus
                 statusInfo.AddParameter(StatusParamType.Atk, LevelGrowthRate(StatusParamType.Atk, level));
                 statusInfo.AddParameter(StatusParamType.Def, LevelGrowthRate(StatusParamType.Def, level));
                 statusInfo.AddParameter(StatusParamType.Spd, LevelGrowthRate(StatusParamType.Spd, level));
-                statusInfo.AddParameter(StatusParamType.Mov, LevelGrowthRate(StatusParamType.Mov, level));
+                //statusInfo.AddParameter(StatusParamType.Mov, LevelGrowthRate(StatusParamType.Mov, level));
                 statusInfo.AddParameter(StatusParamType.Cost, LevelGrowthRate(StatusParamType.Cost, level));
 
                 if (IsClassChenged.Value)
@@ -385,7 +385,7 @@ namespace Ryneus
                 statusInfo.AddParameter(StatusParamType.Atk, _plusStatus.GetParameter(StatusParamType.Atk));
                 statusInfo.AddParameter(StatusParamType.Def, _plusStatus.GetParameter(StatusParamType.Def));
                 statusInfo.AddParameter(StatusParamType.Spd, _plusStatus.GetParameter(StatusParamType.Spd));
-                statusInfo.AddParameter(StatusParamType.Mov, _plusStatus.GetParameter(StatusParamType.Mov));
+                //statusInfo.AddParameter(StatusParamType.Mov, _plusStatus.GetParameter(StatusParamType.Mov));
                 statusInfo.AddParameter(StatusParamType.Cost, _plusStatus.GetParameter(StatusParamType.Cost));
             }
             return statusInfo;

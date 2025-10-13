@@ -8,26 +8,15 @@ namespace Ryneus
 {
     public class StatusInfoComponent : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI maxHp;
-        [SerializeField] private TextMeshProUGUI hp;
-        [SerializeField] private TextMeshProUGUI maxMp;
-        [SerializeField] private TextMeshProUGUI mp;
-        [SerializeField] private TextMeshProUGUI atk;
-        [SerializeField] private TextMeshProUGUI def;
-        [SerializeField] private TextMeshProUGUI spd;
-        [SerializeField] private TextMeshProUGUI mov;
-        [SerializeField] private TextMeshProUGUI maxCost;
-        [SerializeField] private TextMeshProUGUI cost;
+        [SerializeField] private StatusParameter hpParam;
+        [SerializeField] private StatusParameter mpParam;
+        [SerializeField] private StatusParameter atkParam;
+        [SerializeField] private StatusParameter defParam;
+        [SerializeField] private StatusParameter spdParam;
+        [SerializeField] private StatusParameter costParam;
 
         [SerializeField] private StatusGaugeAnimation hpGaugeAnimation;
         [SerializeField] private StatusGaugeAnimation mpGaugeAnimation;
-        [SerializeField] private TextMeshProUGUI hpCaption;
-        [SerializeField] private TextMeshProUGUI mpCaption;
-        [SerializeField] private TextMeshProUGUI atkCaption;
-        [SerializeField] private TextMeshProUGUI defCaption;
-        [SerializeField] private TextMeshProUGUI spdCaption;
-        [SerializeField] private TextMeshProUGUI movCaption;
-        [SerializeField] private TextMeshProUGUI costCaption;
         [SerializeField] private Color normalColor;
         [SerializeField] private Color upperColor;
         [SerializeField] private Color downColor;
@@ -40,75 +29,45 @@ namespace Ryneus
             {
                 return;
             }
-            maxHp?.SetText(statusInfo.Hp.ToString());
-            maxMp?.SetText(statusInfo.Mp.ToString());
-            if (atk != null)
+            if (hpParam != null)
             {
-                atk.SetText(statusInfo.Atk.ToString());
+                hpParam.UpdateInfo(statusInfo.HpParam);
+            }
+            if (mpParam != null)
+            {
+                mpParam.UpdateInfo(statusInfo.MpParam);
+            }
+            if (atkParam != null)
+            {
+                atkParam.UpdateInfo(statusInfo.AtkParam);
                 if (baseStatus != null)
                 {
-                    ChangeTextColor(atk, statusInfo.Atk, baseStatus.Atk);
+                    //ChangeTextColor(atk, statusInfo.Atk, baseStatus.Atk);
                 }
             }
-            if (def != null)
+            if (defParam != null)
             {
-                def.SetText(statusInfo.Def.ToString());
+                defParam.UpdateInfo(statusInfo.DefParam);
                 if (baseStatus != null)
                 {
-                    ChangeTextColor(def, statusInfo.Def, baseStatus.Def);
+                    //ChangeTextColor(atk, statusInfo.Atk, baseStatus.Atk);
                 }
             }
-            if (spd != null)
+            if (spdParam != null)
             {
-                spd.SetText(statusInfo.Spd.ToString());
+                spdParam.UpdateInfo(statusInfo.SpdParam);
                 if (baseStatus != null)
                 {
-                    ChangeTextColor(spd, statusInfo.Spd, baseStatus.Spd);
+                    //ChangeTextColor(atk, statusInfo.Atk, baseStatus.Atk);
                 }
             }
-            if (mov != null)
+            if (costParam != null)
             {
-                mov.SetText(statusInfo.Mov.ToString());
+                costParam.UpdateInfo(statusInfo.CostParam);
                 if (baseStatus != null)
                 {
-                    ChangeTextColor(mov, statusInfo.Mov, baseStatus.Mov);
+                    //ChangeTextColor(atk, statusInfo.Atk, baseStatus.Atk);
                 }
-            }
-            if (cost != null)
-            {
-                cost.SetText(statusInfo.Cost.ToString());
-                if (baseStatus != null)
-                {
-                    ChangeTextColor(cost, statusInfo.Cost, baseStatus.Cost);
-                }
-            }
-            if (hpCaption != null)
-            {
-                UpdateCaption(StatusParamType.Hp, hpCaption);
-            }
-            if (mpCaption != null)
-            {
-                UpdateCaption(StatusParamType.Mp, mpCaption);
-            }
-            if (atkCaption != null)
-            {
-                UpdateCaption(StatusParamType.Atk, atkCaption);
-            }
-            if (defCaption != null)
-            {
-                UpdateCaption(StatusParamType.Def, defCaption);
-            }
-            if (spdCaption != null)
-            {
-                UpdateCaption(StatusParamType.Spd, spdCaption);
-            }
-            if (movCaption != null)
-            {
-                UpdateCaption(StatusParamType.Mov, movCaption);
-            }
-            if (costCaption != null)
-            {
-                UpdateCaption(StatusParamType.Cost, costCaption);
             }
         }
 
@@ -137,8 +96,10 @@ namespace Ryneus
             {
                 currentHp = maxStatusHp;
             }
-            hp?.SetText(currentHp.ToString());
-            maxHp?.SetText(maxStatusHp.ToString());
+            if (hpParam != null)
+            {
+                hpParam.UpdateParamter(currentHp, maxStatusHp);
+            }
             if (hpGaugeAnimation != null)
             {
                 var rate = 0f;
@@ -160,8 +121,10 @@ namespace Ryneus
             {
                 currentMp = maxStatusMp;
             }
-            mp?.SetText(currentMp.ToString());
-            maxMp?.SetText(maxStatusMp.ToString());
+            if (mpParam != null)
+            {
+                mpParam.UpdateParamter(currentMp, maxStatusMp);
+            }
             if (mpGaugeAnimation != null)
             {
                 var rate = 0f;
@@ -184,8 +147,10 @@ namespace Ryneus
             {
                 currentCost = maxStatusCost;
             }
-            cost?.SetText(currentCost.ToString());
-            maxCost?.SetText(maxStatusCost.ToString());
+            if (costParam != null)
+            {
+                costParam.UpdateParamter(currentCost, maxStatusCost);
+            }
         }
 
         public void UpdateHpAnimation(int fromHp, int currentHp, int maxStatusHp)
@@ -228,17 +193,26 @@ namespace Ryneus
 
         public void UpdateAtk(int value)
         {
-            atk?.SetText(value.ToString());
+            if (atkParam != null)
+            {
+                atkParam.UpdateParamter(value, value);
+            }
         }
 
         public void UpdateDef(int value)
         {
-            def?.SetText(value.ToString());
+            if (defParam != null)
+            {
+                defParam.UpdateParamter(value, value);
+            }
         }
 
         public void UpdateSpd(int value)
         {
-            spd?.SetText(value.ToString());
+            if (spdParam != null)
+            {
+                spdParam.UpdateParamter(value, value);
+            }
         }
 
         public void ShowStatus()
@@ -255,12 +229,6 @@ namespace Ryneus
             {
                 canvasGroup.alpha = 0f;
             }
-        }
-
-        private void UpdateCaption(StatusParamType statusParamType, TextMeshProUGUI caption)
-        {
-            var textId = 2100 + (int)statusParamType;
-            caption?.SetText(DataSystem.GetText(textId));
         }
     }
 }

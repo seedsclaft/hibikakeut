@@ -452,6 +452,7 @@ namespace Ryneus
 
         private void CommandSaveCommand()
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
             UpdateCommandSelecting(false);
             var sceneParam = new FileListSceneInfo

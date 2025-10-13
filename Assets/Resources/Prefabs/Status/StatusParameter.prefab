@@ -100,7 +100,6 @@ GameObject:
   - component: {fileID: 1147461788299944351}
   - component: {fileID: 201470762686998570}
   - component: {fileID: 1772472219228990612}
-  - component: {fileID: 8287720774707631070}
   m_Layer: 5
   m_Name: Current
   m_TagString: Untagged
@@ -227,21 +226,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &8287720774707631070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5682176710553020148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e1d633c6a85e040a3eeb66ccca5432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _entryId:
-    _value: 547d6d0d-14c3-48f0-8385-10503450facd
-  _component: {fileID: 1772472219228990612}
 --- !u!1 &6669807532041503369
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +237,6 @@ GameObject:
   - component: {fileID: 4768910195533662597}
   - component: {fileID: 5811072388386539341}
   - component: {fileID: 2163997030476983142}
-  - component: {fileID: 737257809121527753}
   m_Layer: 5
   m_Name: /
   m_TagString: Untagged
@@ -380,21 +363,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &737257809121527753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6669807532041503369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e1d633c6a85e040a3eeb66ccca5432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _entryId:
-    _value: 547d6d0d-14c3-48f0-8385-10503450facd
-  _component: {fileID: 2163997030476983142}
 --- !u!1 &7249300670323831026
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,7 +374,6 @@ GameObject:
   - component: {fileID: 4945099063819172314}
   - component: {fileID: 5125414473609558520}
   - component: {fileID: 2481346456681606858}
-  - component: {fileID: 8655204978429614589}
   m_Layer: 5
   m_Name: Caption
   m_TagString: Untagged
@@ -533,21 +500,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &8655204978429614589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7249300670323831026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e1d633c6a85e040a3eeb66ccca5432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _entryId:
-    _value: 547d6d0d-14c3-48f0-8385-10503450facd
-  _component: {fileID: 2481346456681606858}
 --- !u!1 &7735415086007309092
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,7 +511,6 @@ GameObject:
   - component: {fileID: 1286830233986634143}
   - component: {fileID: 127960654972668006}
   - component: {fileID: 7251615357902000605}
-  - component: {fileID: 5822174170694295915}
   m_Layer: 5
   m_Name: Max
   m_TagString: Untagged
@@ -686,21 +637,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5822174170694295915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7735415086007309092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e1d633c6a85e040a3eeb66ccca5432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _entryId:
-    _value: 547d6d0d-14c3-48f0-8385-10503450facd
-  _component: {fileID: 7251615357902000605}
 --- !u!1 &7870466616299302399
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,6 +647,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3399958237826593424}
   - component: {fileID: 6920916581808420555}
+  - component: {fileID: 3718053159207759007}
   m_Layer: 5
   m_Name: StatusParameter
   m_TagString: Untagged
@@ -747,3 +684,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7870466616299302399}
   m_CullTransparentMesh: 1
+--- !u!114 &3718053159207759007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7870466616299302399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6eba919d1ce5a4096217edb61c1a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.StatusParameter
+  clickButton: {fileID: 0}
+  cursor: {fileID: 0}
+  changeCursorColor: 1
+  cursorRectAnimation: {fileID: 0}
+  disable: {fileID: 0}
+  batch: {fileID: 0}
+  selectColor: {r: 0, g: 0, b: 0, a: 0}
+  unSelectColor: {r: 0, g: 0, b: 0, a: 0}
+  textUguiList: []
+  imageUguiList: []
+  statusParamType: 0
+  captionText: {fileID: 2481346456681606858}
+  maxParam: {fileID: 7251615357902000605}
+  currentParam: {fileID: 1772472219228990612}

@@ -550,6 +550,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2840216410371156953}
   - component: {fileID: 8665568618673001589}
+  - component: {fileID: 5549742443914203999}
   m_Layer: 5
   m_Name: HpStatus
   m_TagString: Untagged
@@ -605,6 +606,22 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &5549742443914203999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2311814274516646833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6eba919d1ce5a4096217edb61c1a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.StatusParameter
+  statusParamType: 0
+  captionText: {fileID: 0}
+  maxParam: {fileID: 179539537493795997}
+  currentParam: {fileID: 4946289050677183715}
 --- !u!1 &2392626844248463342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1429,25 +1446,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2402955de89268e4e84a86b325832163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: {fileID: 179539537493795997}
-  hp: {fileID: 4946289050677183715}
-  maxMp: {fileID: 0}
-  mp: {fileID: 5779447987755640375}
-  atk: {fileID: 0}
-  def: {fileID: 0}
-  spd: {fileID: 0}
-  mov: {fileID: 0}
-  maxCost: {fileID: 0}
-  cost: {fileID: 0}
+  hpParam: {fileID: 5549742443914203999}
+  mpParam: {fileID: 0}
+  atkParam: {fileID: 0}
+  defParam: {fileID: 0}
+  spdParam: {fileID: 0}
+  costParam: {fileID: 0}
   hpGaugeAnimation: {fileID: 6196833071486028664}
   mpGaugeAnimation: {fileID: 0}
-  hpCaption: {fileID: 0}
-  mpCaption: {fileID: 0}
-  atkCaption: {fileID: 0}
-  defCaption: {fileID: 0}
-  spdCaption: {fileID: 0}
-  movCaption: {fileID: 0}
-  costCaption: {fileID: 0}
   normalColor: {r: 0, g: 0, b: 0, a: 0}
   upperColor: {r: 0, g: 0, b: 0, a: 0}
   downColor: {r: 0, g: 0, b: 0, a: 0}
@@ -2424,6 +2430,8 @@ MonoBehaviour:
   unitTypeImage: {fileID: 0}
   unitTypeImageBack: {fileID: 0}
   transferGetItemText: {fileID: 0}
+  transferGetExpText: {fileID: 0}
+  transferGetCurrencyText: {fileID: 0}
 --- !u!114 &6210809427047181281
 MonoBehaviour:
   m_ObjectHideFlags: 0

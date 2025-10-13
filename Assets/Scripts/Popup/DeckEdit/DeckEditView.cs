@@ -36,9 +36,9 @@ namespace Ryneus
         private void InitializePartyUnitList()
         {
             partyUnitList.Initialize();
-            partyUnitList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.SelectBattler,partyUnitList.Index));
-            partyUnitList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
-            partyUnitList.SetSelectedHandler(() => CallViewEvent(CommandType.SelectingBattlerInfo,partyUnitList.ListItemData<BattlerInfo>()?.ActorInfo));
+            partyUnitList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectBattler, partyUnitList.Index));
+            partyUnitList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
+            partyUnitList.SetSelectedHandler(() => CallViewEvent(CommandType.SelectingBattlerInfo, partyUnitList.ListItemData<BattlerInfo>()?.ActorInfo));
             AddViewActives(partyUnitList);
         }
 
@@ -54,9 +54,9 @@ namespace Ryneus
         private void InitializeActorInfoList()
         {
             actorInfoList.Initialize();
-            actorInfoList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.DecideBattlerInfo,actorInfoList.ListItemData<ActorInfo>()));
-            actorInfoList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.Back));
-            actorInfoList.SetSelectedHandler(() => CallViewEvent(CommandType.SelectingActorInfo,actorInfoList.ListItemData<ActorInfo>()));
+            actorInfoList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.DecideBattlerInfo, actorInfoList.ListItemData<ActorInfo>()));
+            actorInfoList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
+            actorInfoList.SetSelectedHandler(() => CallViewEvent(CommandType.SelectingActorInfo, actorInfoList.ListItemData<ActorInfo>()));
             //unitInfoList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(UnitInfoList.CommandType.DecideUnit,unitInfoList.ListItemData<UnitInfo>()));
             SetInputHandler(actorInfoList);
             AddViewActives(actorInfoList);
@@ -92,6 +92,12 @@ namespace Ryneus
                 CallViewEvent(CommandType.CallStatus,unitInfo.BattlerInfos);
             }
             */
+        }
+
+        public void EndPopup()
+        {
+            partyUnitList.UpdateSelectIndex(0);
+            actorInfoList.UpdateSelectIndex(-1);
         }
     }
 

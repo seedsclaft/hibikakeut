@@ -204,7 +204,7 @@ namespace Ryneus
                 (int)(enemyData.BaseStatus.Atk + (Level.Value * enemyData.AtkGrowth * 0.015f)),
                 (int)(enemyData.BaseStatus.Def + (Level.Value * enemyData.DefGrowth * 0.01f)),
                 Math.Min(100, (int)(enemyData.BaseStatus.Spd + (Level.Value * enemyData.SpdGrowth * 0.01f))),
-                enemyData.BaseStatus.Mov,
+                0,
                 0
             );
             _demigodParam = Level.Value / 2;
@@ -942,7 +942,7 @@ namespace Ryneus
 
         public int CurrentMov(bool isNoEffect = false)
         {
-            return Status.Mov;
+            return 0;
         }
 
         public int CurrentHit()

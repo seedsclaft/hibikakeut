@@ -143,6 +143,7 @@ namespace Ryneus
                 }
                 countTurn?.SetText(skillData.CountTurn.ToString());
                 rank?.gameObject?.SetActive(true);
+                rank?.gameObject?.transform.parent.gameObject.SetActive(true);
                 UpdateSkillRank(skillData.Rank);
             } else
             {
@@ -250,6 +251,7 @@ namespace Ryneus
             range?.SetText("");
             countTurn?.gameObject?.SetActive(false);
             rank?.gameObject?.SetActive(false);
+            rank?.gameObject?.transform.parent.gameObject.SetActive(false);
             if (learningText != null)
             {
                 learningText.transform.parent.gameObject.SetActive(false);

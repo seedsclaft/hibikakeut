@@ -1,0 +1,14 @@
+namespace Ryneus
+{
+    [System.Serializable]
+    public class StatusParamInfo
+    {
+        public StatusParamInfo(StatusParamType statusParamType)
+        {
+            paramType = statusParamType;
+        }
+        public StatusParamType paramType = StatusParamType.Hp;
+        public ParameterFloat curernt = new();
+        public ParameterFloat max = new();
+    }
+}

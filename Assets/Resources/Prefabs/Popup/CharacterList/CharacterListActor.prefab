@@ -252,6 +252,7 @@ MonoBehaviour:
   profileText: {fileID: 3794515255855035023}
   evaluate: {fileID: 0}
   demigod: {fileID: 0}
+  lvCation: {fileID: 0}
   lv: {fileID: 0}
   exp: {fileID: 0}
   expGauge: {fileID: 0}
@@ -275,6 +276,9 @@ MonoBehaviour:
   battlePosition: {fileID: 0}
   unitTypeImage: {fileID: 0}
   unitTypeImageBack: {fileID: 0}
+  transferGetItemText: {fileID: 0}
+  transferGetExpText: {fileID: 0}
+  transferGetCurrencyText: {fileID: 0}
 --- !u!114 &32383096565484287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,25 +291,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2402955de89268e4e84a86b325832163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: {fileID: 2961072845481355850}
-  hp: {fileID: 0}
-  maxMp: {fileID: 0}
-  mp: {fileID: 0}
-  atk: {fileID: 8423888810844449321}
-  def: {fileID: 744757550073161267}
-  spd: {fileID: 2372388722952320854}
-  mov: {fileID: 1333364520439440839}
-  maxCost: {fileID: 8538331653964668618}
-  cost: {fileID: 0}
+  hpParam: {fileID: 7724310399665273789}
+  mpParam: {fileID: 0}
+  atkParam: {fileID: 8659657130317068114}
+  defParam: {fileID: 29909207780813671}
+  spdParam: {fileID: 843571129885704698}
+  costParam: {fileID: 8193982515429642285}
   hpGaugeAnimation: {fileID: 0}
   mpGaugeAnimation: {fileID: 0}
-  hpCaption: {fileID: 0}
-  mpCaption: {fileID: 0}
-  atkCaption: {fileID: 0}
-  defCaption: {fileID: 0}
-  spdCaption: {fileID: 0}
-  movCaption: {fileID: 0}
-  costCaption: {fileID: 0}
   normalColor: {r: 0, g: 0, b: 0, a: 0}
   upperColor: {r: 0, g: 0, b: 0, a: 0}
   downColor: {r: 0, g: 0, b: 0, a: 0}
@@ -372,6 +365,7 @@ MonoBehaviour:
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
   disable: {fileID: 8785741312829789861}
+  batch: {fileID: 0}
   selectColor: {r: 0, g: 0, b: 0, a: 0}
   unSelectColor: {r: 0, g: 0, b: 0, a: 0}
   textUguiList: []
@@ -635,6 +629,7 @@ GameObject:
   - component: {fileID: 8525434393688034781}
   - component: {fileID: 89465012147047879}
   - component: {fileID: 2961072845481355850}
+  - component: {fileID: 7724310399665273789}
   m_Layer: 5
   m_Name: Name (1)
   m_TagString: Untagged
@@ -761,6 +756,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7724310399665273789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3764811448822270759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6eba919d1ce5a4096217edb61c1a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.StatusParameter
+  statusParamType: 0
+  captionText: {fileID: 0}
+  maxParam: {fileID: 0}
+  currentParam: {fileID: 2961072845481355850}
 --- !u!1 &4132635001487731859
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,6 +858,7 @@ GameObject:
   - component: {fileID: 2823221012588894266}
   - component: {fileID: 8456027690202851419}
   - component: {fileID: 744757550073161267}
+  - component: {fileID: 29909207780813671}
   m_Layer: 5
   m_Name: Name (4)
   m_TagString: Untagged
@@ -973,6 +985,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &29909207780813671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4177285812916098998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6eba919d1ce5a4096217edb61c1a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.StatusParameter
+  statusParamType: 0
+  captionText: {fileID: 0}
+  maxParam: {fileID: 0}
+  currentParam: {fileID: 744757550073161267}
 --- !u!1 &4258454759724297783
 GameObject:
   m_ObjectHideFlags: 0
@@ -1059,6 +1087,7 @@ GameObject:
   - component: {fileID: 5119806740784268645}
   - component: {fileID: 4176739316156653983}
   - component: {fileID: 8423888810844449321}
+  - component: {fileID: 8659657130317068114}
   m_Layer: 5
   m_Name: Name (3)
   m_TagString: Untagged
@@ -1185,6 +1214,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8659657130317068114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4425487419668731179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6eba919d1ce5a4096217edb61c1a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.StatusParameter
+  statusParamType: 0
+  captionText: {fileID: 0}
+  maxParam: {fileID: 0}
+  currentParam: {fileID: 8423888810844449321}
 --- !u!1 &4813046853999022931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1506,6 +1551,7 @@ GameObject:
   - component: {fileID: 8168591977882918604}
   - component: {fileID: 7296549397641046842}
   - component: {fileID: 2372388722952320854}
+  - component: {fileID: 843571129885704698}
   m_Layer: 5
   m_Name: Name (5)
   m_TagString: Untagged
@@ -1632,6 +1678,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &843571129885704698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6248998871725624643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6eba919d1ce5a4096217edb61c1a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.StatusParameter
+  statusParamType: 0
+  captionText: {fileID: 0}
+  maxParam: {fileID: 0}
+  currentParam: {fileID: 2372388722952320854}
 --- !u!1 &7317974272085918268
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,6 +1910,7 @@ GameObject:
   - component: {fileID: 1829616904202332132}
   - component: {fileID: 8115215416494950251}
   - component: {fileID: 8538331653964668618}
+  - component: {fileID: 8193982515429642285}
   m_Layer: 5
   m_Name: Name (2)
   m_TagString: Untagged
@@ -1974,6 +2037,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8193982515429642285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8056283265020351552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6eba919d1ce5a4096217edb61c1a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.StatusParameter
+  statusParamType: 0
+  captionText: {fileID: 0}
+  maxParam: {fileID: 0}
+  currentParam: {fileID: 8538331653964668618}
 --- !u!1 &8125962463592287724
 GameObject:
   m_ObjectHideFlags: 0

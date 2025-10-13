@@ -18,20 +18,42 @@ MonoBehaviour:
     ImagePath: Jelslime
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 36
-      _mp:
-        _value: 0
-      _atk:
-        _value: 19
-      _def:
-        _value: 13
-      _spd:
-        _value: 18
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 36
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 19
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 13
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 18
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 020000000b000000
     HpGrowth: 160
     MpGrowth: 0
@@ -81,20 +103,42 @@ MonoBehaviour:
     ImagePath: Cursed
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 32
-      _mp:
-        _value: 0
-      _atk:
-        _value: 28
-      _def:
-        _value: 6
-      _spd:
-        _value: 14
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 32
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 28
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 6
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 14
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 040000000b000000
     HpGrowth: 130
     MpGrowth: 0
@@ -144,20 +188,42 @@ MonoBehaviour:
     ImagePath: Bee
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 34
-      _mp:
-        _value: 0
-      _atk:
-        _value: 21
-      _def:
-        _value: 7
-      _spd:
-        _value: 27
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 34
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 21
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 7
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 27
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 010000000b000000
     HpGrowth: 135
     MpGrowth: 0
@@ -207,20 +273,42 @@ MonoBehaviour:
     ImagePath: Wolf
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 45
-      _mp:
-        _value: 0
-      _atk:
-        _value: 26
-      _def:
-        _value: 9
-      _spd:
-        _value: 22
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 45
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 26
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 9
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 22
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 030000000b000000
     HpGrowth: 140
     MpGrowth: 0
@@ -270,20 +358,42 @@ MonoBehaviour:
     ImagePath: Crow
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 40
-      _mp:
-        _value: 0
-      _atk:
-        _value: 16
-      _def:
-        _value: 12
-      _spd:
-        _value: 17
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 40
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 16
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 12
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 17
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 010000000b000000
     HpGrowth: 140
     MpGrowth: 0
@@ -333,20 +443,42 @@ MonoBehaviour:
     ImagePath: Nameless
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 42
-      _mp:
-        _value: 0
-      _atk:
-        _value: 18
-      _def:
-        _value: 14
-      _spd:
-        _value: 20
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 42
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 18
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 14
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 20
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 010000000b000000
     HpGrowth: 150
     MpGrowth: 0
@@ -396,20 +528,42 @@ MonoBehaviour:
     ImagePath: Seacher
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 36
-      _mp:
-        _value: 0
-      _atk:
-        _value: 20
-      _def:
-        _value: 9
-      _spd:
-        _value: 27
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 36
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 20
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 9
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 27
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 020000000b000000
     HpGrowth: 130
     MpGrowth: 0
@@ -459,20 +613,42 @@ MonoBehaviour:
     ImagePath: Shiled
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 37
-      _mp:
-        _value: 0
-      _atk:
-        _value: 15
-      _def:
-        _value: 19
-      _spd:
-        _value: 15
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 37
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 15
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 19
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 15
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 020000000b000000
     HpGrowth: 170
     MpGrowth: 0
@@ -522,20 +698,42 @@ MonoBehaviour:
     ImagePath: Dryad
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 48
-      _mp:
-        _value: 0
-      _atk:
-        _value: 18
-      _def:
-        _value: 12
-      _spd:
-        _value: 15
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 48
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 18
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 12
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 15
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 030000000b000000
     HpGrowth: 140
     MpGrowth: 0
@@ -585,20 +783,42 @@ MonoBehaviour:
     ImagePath: Scorpion
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 35
-      _mp:
-        _value: 0
-      _atk:
-        _value: 22
-      _def:
-        _value: 10
-      _spd:
-        _value: 28
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 35
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 22
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 10
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 28
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 010000000b000000
     HpGrowth: 130
     MpGrowth: 0
@@ -648,20 +868,42 @@ MonoBehaviour:
     ImagePath: Squid
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 44
-      _mp:
-        _value: 0
-      _atk:
-        _value: 21
-      _def:
-        _value: 15
-      _spd:
-        _value: 25
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 44
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 21
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 15
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 25
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 050000000b000000
     HpGrowth: 130
     MpGrowth: 0
@@ -711,20 +953,42 @@ MonoBehaviour:
     ImagePath: Creeper
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 40
-      _mp:
-        _value: 0
-      _atk:
-        _value: 21
-      _def:
-        _value: 10
-      _spd:
-        _value: 23
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 40
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 21
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 10
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 23
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 040000000b000000
     HpGrowth: 150
     MpGrowth: 0
@@ -774,20 +1038,42 @@ MonoBehaviour:
     ImagePath: Imp
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 42
-      _mp:
-        _value: 0
-      _atk:
-        _value: 21
-      _def:
-        _value: 6
-      _spd:
-        _value: 28
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 42
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 21
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 6
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 28
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 050000000b000000
     HpGrowth: 130
     MpGrowth: 0
@@ -843,20 +1129,42 @@ MonoBehaviour:
     ImagePath: Armor
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 50
-      _mp:
-        _value: 0
-      _atk:
-        _value: 20
-      _def:
-        _value: 16
-      _spd:
-        _value: 13
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 50
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 20
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 16
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 13
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 030000000b000000
     HpGrowth: 140
     MpGrowth: 0
@@ -906,20 +1214,42 @@ MonoBehaviour:
     ImagePath: Sword
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 35
-      _mp:
-        _value: 0
-      _atk:
-        _value: 30
-      _def:
-        _value: 12
-      _spd:
-        _value: 23
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 35
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 30
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 12
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 23
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 030000000b000000
     HpGrowth: 130
     MpGrowth: 0
@@ -969,20 +1299,42 @@ MonoBehaviour:
     ImagePath: Ammon
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 100
-      _mp:
-        _value: 0
-      _atk:
-        _value: 30
-      _def:
-        _value: 10
-      _spd:
-        _value: 20
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 100
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 30
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 10
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 20
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 030000000c000000
     HpGrowth: 160
     MpGrowth: 0
@@ -1018,20 +1370,42 @@ MonoBehaviour:
     ImagePath: Berith
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 100
-      _mp:
-        _value: 0
-      _atk:
-        _value: 25
-      _def:
-        _value: 15
-      _spd:
-        _value: 15
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 100
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 25
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 15
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 15
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 040000000c000000
     HpGrowth: 160
     MpGrowth: 0
@@ -1088,20 +1462,42 @@ MonoBehaviour:
     ImagePath: Paimon
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 100
-      _mp:
-        _value: 0
-      _atk:
-        _value: 20
-      _def:
-        _value: 12
-      _spd:
-        _value: 27
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 100
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 20
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 12
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 27
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 050000000c000000
     HpGrowth: 180
     MpGrowth: 0
@@ -1158,20 +1554,42 @@ MonoBehaviour:
     ImagePath: Andras
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 100
-      _mp:
-        _value: 0
-      _atk:
-        _value: 18
-      _def:
-        _value: 8
-      _spd:
-        _value: 35
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 100
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 18
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 8
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 35
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 010000000c000000
     HpGrowth: 160
     MpGrowth: 0
@@ -1214,20 +1632,42 @@ MonoBehaviour:
     ImagePath: Bifrons
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 100
-      _mp:
-        _value: 0
-      _atk:
-        _value: 15
-      _def:
-        _value: 20
-      _spd:
-        _value: 17
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 100
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 15
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 20
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 17
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 020000000c000000
     HpGrowth: 170
     MpGrowth: 0
@@ -1284,20 +1724,42 @@ MonoBehaviour:
     ImagePath: Cyaegha
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 100
-      _mp:
-        _value: 0
-      _atk:
-        _value: 30
-      _def:
-        _value: 20
-      _spd:
-        _value: 30
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 100
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 30
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 20
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 30
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 050000000c000000
     HpGrowth: 200
     MpGrowth: 0
@@ -1382,20 +1844,42 @@ MonoBehaviour:
     ImagePath: Actor0001
     ImageScale: 1.5
     BaseStatus:
-      _hp:
-        _value: 39
-      _mp:
-        _value: 0
-      _atk:
-        _value: 30
-      _def:
-        _value: 15
-      _spd:
-        _value: 15
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 39
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 30
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 15
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 15
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 
     HpGrowth: 55
     MpGrowth: 0
@@ -1466,20 +1950,42 @@ MonoBehaviour:
     ImagePath: Actor0002
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 29
-      _mp:
-        _value: 0
-      _atk:
-        _value: 21
-      _def:
-        _value: 5
-      _spd:
-        _value: 28
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 29
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 21
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 5
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 28
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 
     HpGrowth: 60
     MpGrowth: 0
@@ -1557,20 +2063,42 @@ MonoBehaviour:
     ImagePath: Actor0003
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 35
-      _mp:
-        _value: 0
-      _atk:
-        _value: 17
-      _def:
-        _value: 12
-      _spd:
-        _value: 9
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 35
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 17
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 12
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 9
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 
     HpGrowth: 85
     MpGrowth: 0
@@ -1648,20 +2176,42 @@ MonoBehaviour:
     ImagePath: Actor0004
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 32
-      _mp:
-        _value: 0
-      _atk:
-        _value: 15
-      _def:
-        _value: 7
-      _spd:
-        _value: 21
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 32
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 15
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 7
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 21
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 
     HpGrowth: 85
     MpGrowth: 0
@@ -1739,20 +2289,42 @@ MonoBehaviour:
     ImagePath: Actor0005
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 29
-      _mp:
-        _value: 0
-      _atk:
-        _value: 12
-      _def:
-        _value: 9
-      _spd:
-        _value: 12
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 29
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 12
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 9
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 12
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 
     HpGrowth: 70
     MpGrowth: 0
@@ -1830,20 +2402,42 @@ MonoBehaviour:
     ImagePath: Actor0006
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 30
-      _mp:
-        _value: 0
-      _atk:
-        _value: 20
-      _def:
-        _value: 19
-      _spd:
-        _value: 20
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 30
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 20
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 19
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 20
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 
     HpGrowth: 40
     MpGrowth: 0
@@ -1921,20 +2515,42 @@ MonoBehaviour:
     ImagePath: Actor0007
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 40
-      _mp:
-        _value: 0
-      _atk:
-        _value: 22
-      _def:
-        _value: 18
-      _spd:
-        _value: 16
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 40
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 22
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 18
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 16
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 
     HpGrowth: 65
     MpGrowth: 0
@@ -2012,20 +2628,42 @@ MonoBehaviour:
     ImagePath: Actor0008
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 37
-      _mp:
-        _value: 0
-      _atk:
-        _value: 15
-      _def:
-        _value: 21
-      _spd:
-        _value: 16
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 37
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 15
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 21
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 16
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 
     HpGrowth: 80
     MpGrowth: 0
@@ -2103,20 +2741,42 @@ MonoBehaviour:
     ImagePath: Actor0009
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 34
-      _mp:
-        _value: 0
-      _atk:
-        _value: 25
-      _def:
-        _value: 12
-      _spd:
-        _value: 24
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 34
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 25
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 12
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 24
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 
     HpGrowth: 25
     MpGrowth: 0
@@ -2194,20 +2854,42 @@ MonoBehaviour:
     ImagePath: Actor0010
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 30
-      _mp:
-        _value: 0
-      _atk:
-        _value: 17
-      _def:
-        _value: 7
-      _spd:
-        _value: 31
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 30
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 17
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 7
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 31
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 
     HpGrowth: 45
     MpGrowth: 0
@@ -2285,20 +2967,42 @@ MonoBehaviour:
     ImagePath: Actor0011
     ImageScale: 1
     BaseStatus:
-      _hp:
-        _value: 33
-      _mp:
-        _value: 0
-      _atk:
-        _value: 18
-      _def:
-        _value: 17
-      _spd:
-        _value: 18
-      _mov:
-        _value: 3
-      _cost:
-        _value: 0
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 33
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 18
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 17
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 18
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
     Kinds: 
     HpGrowth: 65
     MpGrowth: 0

@@ -26,8 +26,8 @@ namespace Ryneus
             _model = new DeckEditModel();
             SetModel(_model);
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
-            _view.SetActorList(MakeListData(_model.PartyInfo.EditableActorInfos(), -1));
-            _view.SelectChangeBattler(-1);
+            _view.SetActorList(MakeListData(_model.PartyInfo.EditableActorInfos(), 0));
+            _view.SelectChangeBattler(0);
             _view.UpdateActorInfo(_model.PartyInfo.EditableActorInfos().Find(a => _model.PartyUnit()[0].ActorInfo != null && a.ActorId.Value == _model.PartyUnit()[0].ActorInfo.ActorId.Value));
             _view.EndSelectChangeBattler();
             _view.OpenAnimation();
@@ -96,6 +96,7 @@ namespace Ryneus
                 CommandRefresh();
                 return;
             }
+            _view.EndPopup();
             _view.BackEvent();
         }
 
