@@ -157,6 +157,43 @@ RectTransform:
   m_AnchoredPosition: {x: 242, y: 0}
   m_SizeDelta: {x: 400, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2265057709585818627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7293931336702629662}
+  m_Layer: 5
+  m_Name: Size
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7293931336702629662
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2265057709585818627}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8599337947720470401}
+  - {fileID: 7944662595949297062}
+  m_Father: {fileID: 448105371277580059}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 960, y: 540}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3105113124107388443
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,13 +319,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   period: {fileID: 0}
+  periodLimit: {fileID: 0}
   chapter: {fileID: 0}
   currency: {fileID: 0}
   evaluationValue: {fileID: 0}
+  evaluationAddictValue: {fileID: 0}
   turnCount: {fileID: 0}
   missionRank: {fileID: 1539382232039196487}
   evaluationValueGauge: {fileID: 0}
   victoryBonus: {fileID: 0}
+  achievementInfoComponent: {fileID: 0}
+  dungeonCompletionRate: {fileID: 0}
+  encountRateRoot: {fileID: 0}
+  encountRate: {fileID: 0}
+  routeModeRoot: {fileID: 0}
+  routeMode: {fileID: 0}
 --- !u!1 &4359550172613870922
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +584,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4566879168112829660}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -547,7 +592,7 @@ RectTransform:
   - {fileID: 3440673142357585153}
   - {fileID: 4226077817985761844}
   - {fileID: 3700117219833161012}
-  m_Father: {fileID: 448105371277580059}
+  m_Father: {fileID: 7293931336702629662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -823,14 +868,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8599337947720470401}
-  - {fileID: 7944662595949297062}
+  - {fileID: 7293931336702629662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 960, y: 540}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8847918859146682006
 MonoBehaviour:
@@ -1060,8 +1104,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 618476412604434710}
   m_HandleRect: {fileID: 2256694058140607876}
   m_Direction: 2
-  m_Value: 1.0000004
-  m_Size: 0.8431374
+  m_Value: 1
+  m_Size: 0.84313726
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1095,7 +1139,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8602545440437541780}
-  m_Father: {fileID: 448105371277580059}
+  m_Father: {fileID: 7293931336702629662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

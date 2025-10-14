@@ -144,7 +144,7 @@ namespace Ryneus
             {
                 if (changeAbleSkill.Master != null && !changeAbleSkill.IsBattleSpecialSkill())
                 {
-                    var cost = actorInfo.EquipSkillCost(changeAbleSkill.Master.Id, PartyInfo.ActorInfos, PartyInfo.BuildingSkills());
+                    var cost = actorInfo.EquipSkillCost(changeAbleSkill.Master.Id, PartyInfo.ActorInfos, null);
                     changeAbleSkill.LearningCost.SetValue(cost);
                     if (changeAbleSkill.Enable)
                     {
@@ -176,7 +176,7 @@ namespace Ryneus
                 skillInfo.ExpRate.SetValue(actorInfo.MastarySkillRate(equipSkillId.Value));
                 if (!skillInfo.IsBattleSpecialSkill())
                 {
-                    var cost = actorInfo.EquipSkillCost(skillInfo.Master.Id, PartyInfo.ActorInfos, PartyInfo.BuildingSkills());
+                    var cost = actorInfo.EquipSkillCost(skillInfo.Master.Id, PartyInfo.ActorInfos, null);
                     skillInfo.LearningCost.SetValue(cost);
                 }
                 equipSkills.Add(skillInfo);
@@ -800,7 +800,6 @@ namespace Ryneus
             // ピリオド超える度にアイテム入手
             var getItemInfos = new List<GetItemInfo>();
             getItemInfos.AddRange(CheckItemGetSkill());
-            getItemInfos.AddRange(CheckBuildingGetSkill());
             return getItemInfos;
         }
 
@@ -831,73 +830,6 @@ namespace Ryneus
                                 var getItemInfo = MakeGetItemInfo(GetItemType.Item, categoryItems[rand].Id, 1);
                                 getItemInfos.Add(getItemInfo);
                             }
-                        }
-                    }
-                }
-            }
-            foreach (var getItemInfo in getItemInfos)
-            {
-                //AddGetItemInfo(getItemInfo);
-            }
-            return getItemInfos;
-        }
-
-        private List<GetItemInfo> CheckBuildingGetSkill()
-        {
-            var getItemInfos = new List<GetItemInfo>();
-            foreach (var item in PartyInfo.BuildingIds)
-            {
-                var buildingsData = DataSystem.Buildings.Find(a => a.Id == item);
-                if (buildingsData == null)
-                {
-                    continue;
-                }
-                var skillData = DataSystem.FindSkill(buildingsData.SkillId);
-                if (skillData == null)
-                {
-                    continue;
-                }
-                if (skillData.TriggerDates.Find(a => a.TriggerType == TriggerType.NextPeriod) != null)
-                {
-                    foreach (var featureData in skillData.FeatureDates)
-                    {
-                        if (featureData.FeatureType == FeatureType.GetExp)
-                        {
-                            // 対象決定
-                            var targetActorInfos = new List<ActorInfo>();
-                            var tempActorInfos = new List<ActorInfo>();
-                            foreach (var actorInfo in PartyInfo.ActorInfos)
-                            {
-                                tempActorInfos.Add(actorInfo);
-                            }
-                            if (skillData.ScopeTriggers.Count > 0)
-                            {
-                                if (skillData.ScopeTriggers[0].TriggerType == TriggerType.FriendLvUnder)
-                                {
-                                    // Param1が最大数
-                                    var maxCount = skillData.ScopeTriggers[0].Param1;
-                                    tempActorInfos.Sort((a,b) => a.Level - b.Level > 0 ? 1 : -1);
-                                    for (int i = 0;i < tempActorInfos.Count;i++)
-                                    {
-                                        if (i >= maxCount)
-                                        {
-                                            continue;
-                                        }
-                                        targetActorInfos.Add(tempActorInfos[i]);
-                                    }
-
-                                    foreach (var targetActorInfo in targetActorInfos)
-                                    {
-                                        var expItem = MakeGetItemInfo(GetItemType.Exp, targetActorInfo.ActorId.Value, featureData.Param1);
-                                        getItemInfos.Add(expItem);
-                                    }
-                                }
-                            }
-                        }
-                        if (featureData.FeatureType == FeatureType.GetCurrency)
-                        {
-                            var currency = MakeGetItemInfo(GetItemType.Currency, featureData.Param1, 0);
-                            getItemInfos.Add(currency);
                         }
                     }
                 }

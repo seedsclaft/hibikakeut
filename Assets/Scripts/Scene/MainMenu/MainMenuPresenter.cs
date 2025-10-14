@@ -143,9 +143,6 @@ namespace Ryneus
                 case "Transfer":
                     CommandTransfer();
                     break;
-                case "Release":
-                    CommandRelease();
-                    break;
                 case "Trade":
                     CommandTrade();
                     break;
@@ -354,25 +351,6 @@ namespace Ryneus
                 }
             };
             _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
-        }
-
-        private void CommandRelease()
-        {
-            _busy = true;
-            UpdateCommandSelecting(false);
-            var popupInfo = new PopupInfo
-            {
-                PopupType = PopupType.ReleaseList,
-                template = null,
-                EndEvent = () =>
-                {
-                    _busy = false;
-                    UpdateCommandSelecting(true);
-                    CommandRefresh();
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                }
-            };
-            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
         }
 
         private void CommandTrade()

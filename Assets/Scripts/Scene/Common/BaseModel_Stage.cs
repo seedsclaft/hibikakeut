@@ -52,17 +52,6 @@ namespace Ryneus
             if (startStage)
             {
                 PartyInfo.TurnCount.SetValue(50);
-                var buildingSkills = PartyInfo.BuildingSkills().FindAll(a => a.FeatureDates.Find(b => b.FeatureType == FeatureType.StageTurnUp) != null);
-                foreach (var buildingSkill in buildingSkills)
-                {
-                    foreach (var featureData in buildingSkill.FeatureDates)
-                    {
-                        if (featureData.FeatureType == FeatureType.StageTurnUp)
-                        {
-                            PartyInfo.TurnCount.GainValue(featureData.Param1);
-                        }
-                    }
-                }
             }
             CurrentGameInfo.SetStageInfo(stageInfo);
             PartyInfo.StageId.SetValue(stageId);

@@ -20,8 +20,6 @@ namespace Ryneus
         [SerializeField] private StageInfoComponent stageInfoComponent;
         [SerializeField] private bool useItemInfoComponent = false;
         [SerializeField] private ItemInfoComponent itemInfoComponent;
-        [SerializeField] private bool useBuildingInfoComponent = false;
-        [SerializeField] private BuildingInfoComponent buildingInfoComponent;
 
 
         public void UpdateViewItem()
@@ -64,11 +62,6 @@ namespace Ryneus
             {
                 var itemInfo = ListItemData<ItemInfo>();
                 itemInfoComponent.UpdateInfo(itemInfo);
-            }
-            if (buildingInfoComponent != null && useBuildingInfoComponent)
-            {
-                var buildingInfo = ListItemData<BuildingInfo>();
-                buildingInfoComponent.UpdateInfo(buildingInfo);
             }
             if (Disable != null)
             {

@@ -222,29 +222,6 @@ namespace Ryneus
             return GetOwnItemInfos(ItemType.Artifact);
         }
 
-        // 所持解放
-        private List<int> _buildingIds = new();
-        public List<int> BuildingIds => _buildingIds;
-        private void GainBuilding(int buildingId)
-        {
-            if (_buildingIds.Contains(buildingId))
-            {
-                return;
-            }
-            _buildingIds.Add(buildingId);
-        }
-
-        public List<SkillInfo> BuildingSkills()
-        {
-            var list = new List<SkillInfo>();
-            foreach (var buildingId in _buildingIds)
-            {
-                var buildingsData = DataSystem.Buildings.Find(a => a.Id == buildingId);
-                list.Add(new SkillInfo(buildingsData.SkillId));
-            }
-            return list;
-        }
-
         public List<SkillInfo> AritifactSkills()
         {
             var list = new List<SkillInfo>();
@@ -506,7 +483,6 @@ namespace Ryneus
                     GainItemNum(getItemInfo.Param1, getItemInfo.Param2);
                     break;
                 case GetItemType.Building:
-                    GainBuilding(getItemInfo.Param1);
                     break;
                 case GetItemType.RankUp:
                     MissionRank.GainValue(1);
