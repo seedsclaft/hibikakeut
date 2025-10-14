@@ -215,5 +215,17 @@ namespace Ryneus
             }
             return true;
         }
+
+        public bool IsUseItemBatch()
+        {
+            var achievements = PartyInfo.AchievementInfos;
+            return achievements.Find(a => !a.Achieved.Value && a.Master.ConditionType == AchievementConditionType.TacticsLvupCount) != null;
+        }
+
+        public bool IsChangeSkillBatch()
+        {
+            var achievements = PartyInfo.AchievementInfos;
+            return achievements.Find(a => !a.Achieved.Value && a.Master.ConditionType == AchievementConditionType.StatusSkillChangeCount) != null;
+        }
     }
 }

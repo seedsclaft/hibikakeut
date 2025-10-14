@@ -234,6 +234,7 @@ namespace Ryneus
             ResetSelectSkill();
             _model.PartyInfo.StatusSkillChangeCount.GainValue(1);
             CheckAchievements();
+            CommandRefresh();
         }
 
         private void ResetSelectSkill()
@@ -294,7 +295,7 @@ namespace Ryneus
                 CheckAchievements();
                 _busy = false;
                 _view.SetBusy(false);
-                CommandRefresh();
+                CommandRefreshMagicList();
             });
             CommandRefreshuseItemList();
         }
@@ -309,7 +310,7 @@ namespace Ryneus
                 CheckAchievements();
                 _busy = false;
                 _view.SetBusy(false);
-                CommandRefresh();
+                CommandRefreshMagicList();
             });
             CommandRefreshuseItemList();
         }
@@ -423,7 +424,7 @@ namespace Ryneus
             _busy = true;
             _view.SetBusy(true);
             _model.PartyInfo.TacticsLvupCount.GainValue(1);
-            CommandExpUp(_model.CurrentActor, 20,() =>
+            CommandExpUp(_model.CurrentActor, 20, () =>
             {
                 CheckAchievements();
                 _busy = false;
@@ -548,6 +549,8 @@ namespace Ryneus
             _view.SetActorInfo(_model.CurrentActor, _model.ActorInfos);
             _view.SetLvUpInfo(_model.LevelUpCost(), _model.Currency);
             _view.SetLvUpExpInfo(_model.LevelUpBeforeExp(), _model.LevelUpAfterExp());
+            _view.UpdateUseItemBatch(_model.IsUseItemBatch());
+            _view.UpdateChangeSkillBatch(_model.IsChangeSkillBatch());
             _view.CommandRefresh();
         }
 

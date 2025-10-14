@@ -410,7 +410,7 @@ namespace Ryneus
             });
         }
 
-        public void CommandExpUp(ActorInfo actorInfo,int getExp, Action endEvent = null)
+        public void CommandExpUp(ActorInfo actorInfo, int getExp, Action endEvent = null)
         {
             //var getExp = _model.ActorGetExpCurrency(actorInfo);
             if (getExp > 0)
@@ -420,11 +420,13 @@ namespace Ryneus
                 // 新規魔法取得があるか
                 var from = actorInfo.Evaluate();
                 var beforeLv = actorInfo.Level;
+                var beforeHp = actorInfo.MaxHp;
                 var afterSkills = actorInfo.LearningSkills(1);
                 actorInfo.Exp.GainValue(getExp);
 
                 var to = actorInfo.Evaluate();
                 var afterLv = actorInfo.Level;
+                var afterHp = actorInfo.MaxHp;
                 if (afterLv > beforeLv)
                 {
                     if (afterSkills.Count > 0)
@@ -437,9 +439,9 @@ namespace Ryneus
                         // 装備可能であれば装備する
                         foreach (var afterSkill in afterSkills)
                         {
-                            if (actorInfo.EquipmentSkillIds.Find(a => a.Value == 0) != null)
+                            if (actorInfo.EquipmentSkillIds.Count < actorInfo.EquipSlotCount())
                             {
-                                actorInfo.ChangeEquipSkill(0, afterSkill.Id.Value);
+                                actorInfo.ChangeEquipSkill(afterSkill.Id.Value, 0);
                             }
                         }
                         var popupInfo = new PopupInfo
@@ -459,7 +461,7 @@ namespace Ryneus
                         endEvent?.Invoke();
                         SoundManager.Instance.PlayStaticSe(SEType.CountUp);
                     }
-                    actorInfo.ChangeHp(actorInfo.CurrentStatus.Hp);
+                    actorInfo.ChangeHp(actorInfo.CurrentStatus.Hp + afterHp - beforeHp);
                     return;
                 }
             }

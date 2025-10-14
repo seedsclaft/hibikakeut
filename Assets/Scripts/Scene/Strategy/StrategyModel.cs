@@ -152,9 +152,9 @@ namespace Ryneus
                                 var learnSkillInfo = new LearnSkillInfo(from, to, skill);
                                 _learnSkillInfo.Add(learnSkillInfo);
                                 // 装備可能であれば装備する
-                                if (target.EquipmentSkillIds.Find(a => a.Value == 0) != null)
+                                if (target.EquipmentSkillIds.Count < target.EquipSlotCount())
                                 {
-                                    target.ChangeEquipSkill(0, skill.Id.Value);
+                                    target.ChangeEquipSkill(skill.Id.Value, 0);
                                 }
                             }
                         } else
@@ -328,7 +328,10 @@ namespace Ryneus
                 var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == expGetItemInfo.Param1);
                 if (target != null)
                 {
+                    var beforeHp = target.MaxHp;
                     target.Exp.GainValue(expGetItemInfo.Param2);
+                    var afterHp = target.MaxHp;
+                    target.ChangeHp(target.CurrentHp.Value + afterHp - beforeHp);
                 }
             }
             _displayLevelUpInfos.Clear();

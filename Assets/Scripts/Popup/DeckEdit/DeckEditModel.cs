@@ -20,6 +20,7 @@ namespace Ryneus
         public void SwapBattler(int toActorId)
         {
             CurrentDeckInfo.SwapBattler(FromEditIndex.Value, toActorId);
+            FromEditIndex.SetValue(-1);
         }
 
         public int FromEditSelectIndex()

@@ -33,6 +33,8 @@ namespace Ryneus
         [SerializeField] private Button decideButton = null;
         [SerializeField] private GameObject decideAnimation = null;
         [SerializeField] private OnOffButton characterListButton = null;
+        [SerializeField] private GameObject useItemBatch = null;
+        [SerializeField] private GameObject changeSkillBatch = null;
 
         private Action _backEvent = null;
         private string _helpText;
@@ -377,6 +379,24 @@ namespace Ryneus
 
         public new void MouseCancelHandler()
         {
+        }
+
+        public void UpdateUseItemBatch(bool isActive)
+        {
+            if (useItemBatch == null)
+            {
+                return;
+            }
+            useItemBatch.SetActive(isActive);
+        }
+
+        public void UpdateChangeSkillBatch(bool isActive)
+        {
+            if (changeSkillBatch == null)
+            {
+                return;
+            }
+            changeSkillBatch.SetActive(isActive);
         }
     }
 
