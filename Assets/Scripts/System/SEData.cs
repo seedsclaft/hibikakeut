@@ -24,4 +24,6 @@ public enum SEType
     LearnSkill,
     CursorMove,
     PlayStart,
+    Artifact,
+    Alert,
 }

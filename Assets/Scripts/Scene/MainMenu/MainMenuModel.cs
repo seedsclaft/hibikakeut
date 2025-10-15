@@ -88,12 +88,12 @@ namespace Ryneus
                     return PartyInfo.Chapter.Value > 3;
                 }
                 return true;
-            },null,(a) =>
+            }, null, (a) =>
             {
                 switch (a.Key)
                 {
                     case "Departure":
-                        return StageInfos().Find(a => PartyInfo.GetDungeonTraverse(a.StageId.Value) == null) != null;
+                        return StageInfos().Find(a => PartyInfo.GetDungeonTraverse(a.StageId.Value) == null) != null || IsDepatureBatch();
                     case "DeckEdit":
                         return CheckBeforeDepature();
                     case "Mission":
@@ -104,7 +104,7 @@ namespace Ryneus
                         return PartyInfo.IsOwnItem();
                 }
                 return false;
-            },selectIndex);
+            }, selectIndex);
         }
 
         public bool HasBattleField()
@@ -121,6 +121,12 @@ namespace Ryneus
         public bool IsStatusBatch()
         {
             return PartyInfo.AchievementInfos.Find(a => !a.Achieved.Value && (a.Master.ConditionType == AchievementConditionType.TacticsLvupCount || a.Master.ConditionType == AchievementConditionType.StatusSkillChangeCount)) != null;
+        }
+
+        private bool IsDepatureBatch()
+        {
+            var achievement = PartyInfo.NearAchievementInfo();
+            return !achievement.Achieved.Value && (achievement.Master.ConditionType == AchievementConditionType.ClearStage);
         }
 
         public void EndTransfer()

@@ -70,6 +70,7 @@ namespace Ryneus
                             Key = AssetPostImporter.ImportString(BaseRow, "Key"),
                             FileName = AssetPostImporter.ImportString(BaseRow, "FileName"),
                             Volume = AssetPostImporter.ImportFloat(BaseRow, "Volume"),
+                            Pitch = AssetPostImporter.ImportFloat(BaseRow, "Pitch"),
                             //Loop = AssetPostImporter.ImportBool(BaseRow, "Loop"),
                             //CrossFade = AssetPostImporter.ImportString(BaseRow, "CrossFade")
                         };

@@ -249,6 +249,17 @@ namespace Ryneus
             }
         }
 
+        public async UniTask PlayStaticSeAsync(SEType sEType, float volume = 1.0f)
+        {
+            var seIndex = DataSystem.SE.FindIndex(a => a.Id == (int)sEType);
+            if (seIndex > -1)
+            {
+                _staticSe[seIndex].Play();
+                await UniTask.WaitUntil(() => _staticSe[seIndex].isPlaying);
+                await UniTask.WaitWhile(() => _staticSe[seIndex].isPlaying);
+            }
+        }
+
         public void AllPause()
         {
             foreach (var data in _staticSe)

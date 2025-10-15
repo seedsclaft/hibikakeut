@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Ryneus.Dungeon;
 using UnityEngine;
 
@@ -786,17 +787,19 @@ namespace Ryneus
             _view.CommandGotoSceneChange(Scene.Dungeon);
         }
 
-        private void CommandGetArtifact(int itemId)
+        private async Task CommandGetArtifact(int itemId)
         {
             var item = DataSystem.Items.Find(a => a.Id == itemId);
             if (item == null)
             {
                 return;
             }
+            _model.SaveBgmTiming();
+            SoundManager.Instance.FadeOutBgm();
+            SoundManager.Instance.PlayStaticSe(SEType.Artifact);
             _busy = true;
             var skillId = item.Param1;
             var learnSkillInfo = new LearnSkillInfo(0, 0, new SkillInfo(skillId));
-            SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.LearnSkill,
@@ -811,6 +814,7 @@ namespace Ryneus
 
         private void PresentArtifact(int itemId)
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Alert);
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(10140), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
@@ -821,6 +825,8 @@ namespace Ryneus
                 {
                     GetArtifact(itemId);
                 }
+                var timeStamp = SoundManager.Instance.CurrentTimeStamp();
+                PlayDungeonBgm(_model.DungeonBgmTimeStamp());
             });
             confirmInfo.IsArtifact.SetValue(true);
             _view.CommandCallConfirm(confirmInfo);
