@@ -51,6 +51,5 @@ namespace Ryneus
     {
         Status,
         EnemyInfo,
-        TacticsStatus,
     }
 }

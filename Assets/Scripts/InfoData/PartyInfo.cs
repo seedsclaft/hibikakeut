@@ -243,6 +243,8 @@ namespace Ryneus
 
         // 評価値
         public ParameterInt EvaluationValue = new();
+        // 信仰度の警告を受けたか
+        public ParameterBool EvaluationCaution = new();
 
         // 出撃回数
         public ParameterInt DepartureCount = new();

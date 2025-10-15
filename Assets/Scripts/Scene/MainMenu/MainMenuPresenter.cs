@@ -115,6 +115,32 @@ namespace Ryneus
                 SendInterlude();
                 return;
             }
+            // 信仰度がマイナス1回目
+            if (_model.PartyInfo.EvaluationValue.Value < 0 && !_model.PartyInfo.EvaluationCaution.Value)
+            {
+                _busy = true;
+                _model.PartyInfo.EvaluationValue.SetValue(1);
+                _model.PartyInfo.EvaluationCaution.SetValue(true);
+                // イベントを再生
+                CheckStageAdvEvent(20010, 0, () =>
+                {
+                    _busy = false;
+                    _view.CommandGotoSceneChange(Scene.MainMenu);
+                });
+                return;
+            }
+            // 信仰度がマイナス2回目
+            if (_model.PartyInfo.EvaluationValue.Value < 0 && _model.PartyInfo.EvaluationCaution.Value)
+            {
+                _busy = true;
+                // イベントを再生
+                CheckStageAdvEvent(20020, 0, () =>
+                {
+                    _busy = false;
+                    _view.CommandGotoSceneChange(Scene.Title);
+                });
+                return;
+            }
             _view.SetActiveCommandList(true);
             CommandRefresh();
             _busy = false;

@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ryneus
 {
     public class MagicList : BaseList
     {
         [SerializeField] private SkillInfoComponent skillInfoComponent;
+        [SerializeField] private ScrollRect scrollHelp;
         public new void Initialize()
         {
             base.Initialize();
@@ -52,6 +54,28 @@ namespace Ryneus
         public override void UpdateHelpWindow()
         {
             UpdateSkillHelp();
+        }
+
+        public void ScrollUpSkillHelp()
+        {
+            if (scrollHelp == null)
+            {
+                return;
+            }
+            var y = scrollHelp.verticalNormalizedPosition;
+            y += 0.1f;
+            scrollHelp.verticalNormalizedPosition = y;
+        }
+
+        public void ScrollDownSkillHelp()
+        {
+            if (scrollHelp == null)
+            {
+                return;
+            }
+            var y = scrollHelp.verticalNormalizedPosition;
+            y -= 0.1f;
+            scrollHelp.verticalNormalizedPosition = y;
         }
     }
 }

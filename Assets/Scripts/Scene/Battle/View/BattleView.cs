@@ -215,7 +215,9 @@ namespace Ryneus
         private void InitializeMagicList()
         {
             magicList.Initialize();
-            magicList.SetInputHandler(InputKeyType.Decide,OnDecideSkill);
+            magicList.SetInputHandler(InputKeyType.Decide, OnDecideSkill);
+            magicList.SetInputHandler(InputKeyType.SideLeft2, CommandScrollUpSkillHelp);
+            magicList.SetInputHandler(InputKeyType.SideRight2, CommandScrollDownSkillHelp);
             //magicList.SetInputHandler(InputKeyType.Right,() => OnSelectTarget(InputKeyType.Right));
             //magicList.SetInputHandler(InputKeyType.Left,() => OnSelectTarget(InputKeyType.Left));
             magicList.gameObject.SetActive(false);
@@ -827,6 +829,22 @@ namespace Ryneus
             foreach (var targetIndex in targetIndexes)
             {
                 StartAnimation(targetIndex,animation,0);
+            }
+        }
+
+        public void CommandScrollUpSkillHelp()
+        {
+            if (magicList.Active)
+            {
+                magicList.ScrollUpSkillHelp();
+            }
+        }
+
+        public void CommandScrollDownSkillHelp()
+        {
+            if (magicList.Active)
+            {
+                magicList.ScrollDownSkillHelp();
             }
         }
     }

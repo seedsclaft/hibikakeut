@@ -194,12 +194,6 @@ namespace Ryneus
                     enemyInfoView.SetBackEvent(enemyStatusInfo.BackEvent);
                     _currentScene.SetBusy(true);
                     break;
-                case Base.CommandType.CallTacticsStatusView:
-                    var tacticsStatusInfo = (StatusViewInfo)viewEvent.Template;
-                    var tacticsStatusInfoView = CreateStatus(StatusType.TacticsStatus, tacticsStatusInfo) as TacticsStatusView;
-                    tacticsStatusInfoView.SetBackEvent(tacticsStatusInfo.BackEvent);
-                    _currentScene.SetBusy(true);
-                    break;
                 case Base.CommandType.CallAdvScene:
                     SetIsBusyMainAndStatus();
                     var advCallInfo = (AdvCallInfo)viewEvent.Template;

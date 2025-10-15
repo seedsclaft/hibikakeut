@@ -420,7 +420,6 @@ namespace Ryneus
             CloseStatus,
             CallAdvScene,
             CallEnemyInfoView,
-            CallTacticsStatusView,
             CallSkillTriggerView,
             CallSkillLogView,
             DecidePlayerName,

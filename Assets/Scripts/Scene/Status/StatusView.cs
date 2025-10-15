@@ -101,6 +101,8 @@ namespace Ryneus
             equipSkillList.SetInputHandler(InputKeyType.Cancel, () => BackEvent?.Invoke());
             equipSkillList.SetInputHandler(InputKeyType.SideLeft1, () => CallViewEvent(CommandType.LeftActor));
             equipSkillList.SetInputHandler(InputKeyType.SideRight1, () => CallViewEvent(CommandType.RightActor));
+            equipSkillList.SetInputHandler(InputKeyType.SideLeft2, CommandScrollUpSkillHelp);
+            equipSkillList.SetInputHandler(InputKeyType.SideRight2, CommandScrollDownSkillHelp);
             //equipSkillList.SetInputHandler(InputKeyType.Option1,() => CallViewEvent(CommandType.LevelUp));
             AddViewActives(equipSkillList);
         }
@@ -145,6 +147,8 @@ namespace Ryneus
             changeSkillList.Initialize();
             changeSkillList.SetInputHandler(InputKeyType.Decide, OnSelectChangeSkill);
             changeSkillList.SetInputHandler(InputKeyType.Cancel, OnCancelEquipSkill);
+            changeSkillList.SetInputHandler(InputKeyType.SideLeft2, CommandScrollUpSkillHelp);
+            changeSkillList.SetInputHandler(InputKeyType.SideRight2, CommandScrollDownSkillHelp);
             //changeSkillList.SetInputHandler(InputKeyType.SideLeft1,() => CallViewEvent(CommandType.FilterMinus));
             //changeSkillList.SetInputHandler(InputKeyType.SideRight1,() => CallViewEvent(CommandType.FilterPlus));
             AddViewActives(changeSkillList);
@@ -397,6 +401,30 @@ namespace Ryneus
                 return;
             }
             changeSkillBatch.SetActive(isActive);
+        }
+
+        public void CommandScrollUpSkillHelp()
+        {
+            if (equipSkillList.Active)
+            {
+                equipSkillList.ScrollUpSkillHelp();
+            }
+            if (changeSkillList.Active)
+            {
+                changeSkillList.ScrollUpSkillHelp();
+            }
+        }
+
+        public void CommandScrollDownSkillHelp()
+        {
+            if (equipSkillList.Active)
+            {
+                equipSkillList.ScrollDownSkillHelp();
+            }
+            if (changeSkillList.Active)
+            {
+                changeSkillList.ScrollDownSkillHelp();
+            }
         }
     }
 

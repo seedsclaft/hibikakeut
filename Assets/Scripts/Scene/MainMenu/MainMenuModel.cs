@@ -126,7 +126,7 @@ namespace Ryneus
         private bool IsDepatureBatch()
         {
             var achievement = PartyInfo.NearAchievementInfo();
-            return !achievement.Achieved.Value && (achievement.Master.ConditionType == AchievementConditionType.ClearStage);
+            return !achievement.Achieved.Value && achievement.Master.ConditionType == AchievementConditionType.ClearStage && StageInfos().Find(a => a.Master.Id == achievement.Master.Param1) != null;
         }
 
         public void EndTransfer()
