@@ -1618,7 +1618,7 @@ namespace Ariadne
             }
         }
 
-        public void SetDeactiveChildObj(int positionX,int positionY)
+        public void SetDeactiveChildObj(int positionX, int positionY)
         {
             GameObject eventObj = GetDrawDungeonWall()?.GetWallObjectByAxis(positionX, positionY);
             if (eventObj != null)
@@ -1648,13 +1648,16 @@ namespace Ariadne
                 if (animator != null)
                 {
                     animator.enabled = true;
-                    animator.Play("Take 001",0,0.3f);
+                    animator.Play("Take 001", 0, 0.3f);
                     animator.speed = 0;
                 }
-                var emitter = eventObj.GetComponentInChildren<Effekseer.EffekseerEmitter>();
-                if (emitter != null)
+                var emitters = eventObj.GetComponentsInChildren<Effekseer.EffekseerEmitter>();
+                if (emitters != null)
                 {
-                    emitter.enabled = false;
+                    foreach (var emitter in emitters)
+                    {
+                        emitter.enabled = false;
+                    }
                 }
             }
         }

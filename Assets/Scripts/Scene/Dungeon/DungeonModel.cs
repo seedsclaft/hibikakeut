@@ -110,7 +110,7 @@ namespace Ryneus
                 if (endStageEvent.Type == (StageEventType)0)
                 {
                     _moveController.SetDeactiveParentObj(endStageEvent.PositionX, endStageEvent.PositionY);
-                } else
+                }else
                 {
                     _moveController.SetDeactiveChildObj(endStageEvent.PositionX, endStageEvent.PositionY);
                 }
