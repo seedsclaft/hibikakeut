@@ -17,8 +17,10 @@ MonoBehaviour:
   dungeonParts: {fileID: 0}
   dungeonBasePartsData: {fileID: 11400000, guid: ccd9d75125d1e374cb5ab2ad6dc56028,
     type: 2}
-  dungeonPartsDataList: []
-  mapAttributeDataList: []
+  dungeonPartsDataList:
+  - {fileID: 11400000, guid: 74575997aa68e44448a8c1d88b68fd38, type: 2}
+  mapAttributeDataList:
+  - {fileID: 11400000, guid: f9cae1f9abc134182870d8a76e009a9c, type: 2}
   floorSizeHorizontal: 12
   floorSizeVertical: 12
   entrancePos: {x: 6, y: 8}
@@ -400,7 +402,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 75
-    mapAttr: 0
+    mapAttr: 8
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0

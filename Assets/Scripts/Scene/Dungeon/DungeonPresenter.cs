@@ -657,7 +657,8 @@ namespace Ryneus
                 StageEventAddEventFlag(false, stageEvent, null);
                 _model.UpdateEventObjects();
             }
-            endEvent?.Invoke();
+            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+            CheckEventData(moved, playerPosition, endEvent);
         }
 
         private void StageEventDamageFloor(StageEventData stageEvent, Action endEvent)

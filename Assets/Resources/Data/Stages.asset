@@ -2224,10 +2224,10 @@ MonoBehaviour:
   - Id: 70
     StageNo: 7
     Category: 1
-    Name: 
+    Name: "\u30B0\u30CB\u30BF\u8352\u91CE"
     Selectable: 1
     Chapter: 1
-    Help: 
+    Help: "\u30C9\u30E9\u30B4\u30F3\u304C\u68F2\u307F\u3064\u3044\u3066\u3044\u308B\u3002\n\u6700\u5965\u90E8\u306B\u306F\u708E\u304C\u7ACB\u3061\u8FBC\u3081\u3066\u3044\u308B\u3002"
     StageLv: 30
     OnlyOnce: 0
     DisplayRank: 10
@@ -2254,7 +2254,7 @@ MonoBehaviour:
     BGMId: 1060
     BossBGMId: 3010
     BattleBGMId: 2040
-    SkyboxName: '""'
+    SkyboxName: UnearthlyRed
     StageEvents:
     - EventKey: 70_6_8DungeonExitDungeon0
       Timing: 3010
@@ -2283,13 +2283,49 @@ MonoBehaviour:
       Param2: 8
       Param3: 14
       ReadFlag: 0
+    - EventKey: 70_3_6DungeonAdvStart140
+      Timing: 3010
+      Type: 1010
+      PositionX: 3
+      PositionY: 6
+      Param: 140
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 70_3_6DungeonAddEventFlag46
+      Timing: 3010
+      Type: 6010
+      PositionX: 3
+      PositionY: 6
+      Param: 46
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 70_4_6DungeonNone46
+      Timing: 3010
+      Type: 0
+      PositionX: 4
+      PositionY: 6
+      Param: 46
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 70_3_6DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 3
+      PositionY: 6
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
   - Id: 71
     StageNo: 7
     Category: 1
-    Name: 
+    Name: "\u30B0\u30CB\u30BF\u8352\u91CE"
     Selectable: 0
     Chapter: 1
-    Help: 
+    Help: '""'
     StageLv: 30
     OnlyOnce: 0
     DisplayRank: 10
@@ -2316,7 +2352,7 @@ MonoBehaviour:
     BGMId: 1060
     BossBGMId: 3010
     BattleBGMId: 2040
-    SkyboxName: '""'
+    SkyboxName: UnearthlyRed
     StageEvents:
     - EventKey: 71_12_12DungeonMoveDungeonFloor70
       Timing: 3010
@@ -2429,10 +2465,10 @@ MonoBehaviour:
   - Id: 72
     StageNo: 7
     Category: 1
-    Name: 
+    Name: "\u30B0\u30CB\u30BF\u8352\u91CE"
     Selectable: 0
     Chapter: 1
-    Help: 
+    Help: '""'
     StageLv: 30
     OnlyOnce: 0
     DisplayRank: 10
@@ -2457,7 +2493,7 @@ MonoBehaviour:
     BGMId: 1060
     BossBGMId: 3010
     BattleBGMId: 2040
-    SkyboxName: '""'
+    SkyboxName: UnearthlyRed
     StageEvents:
     - EventKey: 72_14_2DungeonMoveDungeonFloor71
       Timing: 3010
@@ -2498,10 +2534,10 @@ MonoBehaviour:
   - Id: 73
     StageNo: 7
     Category: 1
-    Name: 
+    Name: "\u30B0\u30CB\u30BF\u8352\u91CE"
     Selectable: 0
     Chapter: 1
-    Help: 
+    Help: '""'
     StageLv: 30
     OnlyOnce: 0
     DisplayRank: 10
@@ -2528,7 +2564,7 @@ MonoBehaviour:
     BGMId: 1060
     BossBGMId: 3010
     BattleBGMId: 2040
-    SkyboxName: '""'
+    SkyboxName: UnearthlyRed
     StageEvents:
     - EventKey: 73_13_4DungeonMoveDungeonFloor72
       Timing: 3010
@@ -2602,11 +2638,11 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 73_-1_-1DungeonAddEventFlagEndForceBattle94
+    - EventKey: 73_9_4DungeonAddEventFlagEndForceBattle94
       Timing: 3010
       Type: 6020
-      PositionX: -1
-      PositionY: -1
+      PositionX: 9
+      PositionY: 4
       Param: 94
       Param2: 0
       Param3: 0
@@ -2665,13 +2701,22 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 0
+    - EventKey: 73_11_4DungeonTraverseRegeon1
+      Timing: 3010
+      Type: 8010
+      PositionX: 11
+      PositionY: 4
+      Param: 1
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
   - Id: 74
     StageNo: 7
     Category: 1
-    Name: 
+    Name: "\u30B0\u30CB\u30BF\u8352\u91CE"
     Selectable: 0
     Chapter: 1
-    Help: 
+    Help: '""'
     StageLv: 30
     OnlyOnce: 0
     DisplayRank: 10
@@ -2684,7 +2729,7 @@ MonoBehaviour:
     BGMId: 1060
     BossBGMId: 3030
     BattleBGMId: 2040
-    SkyboxName: '""'
+    SkyboxName: UnearthlyRed
     StageEvents:
     - EventKey: 74_8_2DungeonMoveDungeonFloor73
       Timing: 3010
@@ -2712,7 +2757,7 @@ MonoBehaviour:
       Param: 6010
       Param2: 0
       Param3: 0
-      ReadFlag: 0
+      ReadFlag: 1
     - EventKey: 74_8_10DungeonAdvStart140
       Timing: 3010
       Type: 1010
@@ -2722,21 +2767,21 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 74_10_5DungeonAddEventFlag105
+    - EventKey: 74_8_10DungeonAddEventFlag95
       Timing: 3010
       Type: 6010
-      PositionX: 10
-      PositionY: 5
-      Param: 105
+      PositionX: 8
+      PositionY: 10
+      Param: 95
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 74_10_5DungeonNone105
+    - EventKey: 74_9_5DungeonNone95
       Timing: 3010
       Type: 0
-      PositionX: 10
+      PositionX: 9
       PositionY: 5
-      Param: 105
+      Param: 95
       Param2: 0
       Param3: 0
       ReadFlag: 1
