@@ -36,8 +36,6 @@ namespace Ryneus
         [SerializeField] private GameObject useItemBatch = null;
         [SerializeField] private GameObject changeSkillBatch = null;
 
-        private Action _backEvent = null;
-        private string _helpText;
         public override void Initialize()
         {
             base.Initialize();
@@ -98,7 +96,7 @@ namespace Ryneus
         {
             equipSkillList.Initialize();
             equipSkillList.SetInputHandler(InputKeyType.Decide, OnSelectEquipSkill);
-            equipSkillList.SetInputHandler(InputKeyType.Cancel, () => BackEvent?.Invoke());
+            equipSkillList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
             equipSkillList.SetInputHandler(InputKeyType.SideLeft1, () => CallViewEvent(CommandType.LeftActor));
             equipSkillList.SetInputHandler(InputKeyType.SideRight1, () => CallViewEvent(CommandType.RightActor));
             equipSkillList.SetInputHandler(InputKeyType.SideLeft2, CommandScrollUpSkillHelp);
@@ -244,12 +242,11 @@ namespace Ryneus
 
         public void SetHelpWindow(string helpText)
         {
-            _helpText = helpText;
         }
 
         public void CommandBack()
         {
-            _backEvent?.Invoke();
+            BackEvent?.Invoke();
         }
 
         public void SetActiveDecide(bool isActive)

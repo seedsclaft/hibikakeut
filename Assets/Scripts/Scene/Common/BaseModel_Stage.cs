@@ -51,10 +51,10 @@ namespace Ryneus
             // ダンジョンターン数を設定
             if (startStage)
             {
-                PartyInfo.TurnCount.SetValue(50);
+                PartyInfo.CurrentDeckInfo.TurnCount.SetValue(50);
             }
             CurrentGameInfo.SetStageInfo(stageInfo);
-            PartyInfo.StageId.SetValue(stageId);
+            PartyInfo.CurrentDeckInfo.StageNo.SetValue(stageId);
         }
     }
 }

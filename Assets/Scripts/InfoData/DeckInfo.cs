@@ -14,6 +14,7 @@ namespace Ryneus
         public ParameterInt Index = new();
         // 現在位置
         public ParameterInt StageNo = new();
+        public ParameterInt TurnCount = new();
         public ParameterFloat GetDungeonBgmTimeStamp()
         {
             if (DungeonBgmTimeStamp == null)

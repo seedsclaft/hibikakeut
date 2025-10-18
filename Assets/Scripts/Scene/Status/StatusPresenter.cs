@@ -159,8 +159,8 @@ namespace Ryneus
 
         private void CommandBack()
         {
-            _view.CommandBack();
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            _view.CommandBack();
         }
 
         private void CommandSelectEquipSkill(SkillInfo skillInfo)
@@ -219,7 +219,7 @@ namespace Ryneus
                         _model.RemoveEquipSkill(equipmentActor,skillInfo.Id.Value);
                         _model.ChangeEquipSkill(skillInfo.Id.Value);
                         ResetSelectSkill();
-                        _model.PartyInfo.StatusSkillChangeCount.GainValue(1);
+                        _model.PartyInfo.PartyStatInfo.StatusSkillChangeCount.GainValue(1);
                         CheckAchievements();
                     } else
                     {
@@ -232,7 +232,7 @@ namespace Ryneus
 
             _model.ChangeEquipSkill(skillInfo.Id.Value);
             ResetSelectSkill();
-            _model.PartyInfo.StatusSkillChangeCount.GainValue(1);
+            _model.PartyInfo.PartyStatInfo.StatusSkillChangeCount.GainValue(1);
             CheckAchievements();
             CommandRefresh();
         }
@@ -289,7 +289,7 @@ namespace Ryneus
             }
             _busy = true;
             _view.SetBusy(true);
-            _model.PartyInfo.TacticsLvupCount.GainValue(1);
+            _model.PartyInfo.PartyStatInfo.TacticsLvupCount.GainValue(1);
             CommandExpUp(_model.CurrentActor, getExp, () =>
             {
                 CheckAchievements();
@@ -423,7 +423,7 @@ namespace Ryneus
             }
             _busy = true;
             _view.SetBusy(true);
-            _model.PartyInfo.TacticsLvupCount.GainValue(1);
+            _model.PartyInfo.PartyStatInfo.TacticsLvupCount.GainValue(1);
             CommandExpUp(_model.CurrentActor, 20, () =>
             {
                 CheckAchievements();

@@ -22,7 +22,7 @@ namespace Ryneus
 
         public void ChangeDungeonTurn(int turns)
         {
-            PartyInfo.TurnCount.GainValue(turns);
+            PartyInfo.CurrentDeckInfo.TurnCount.GainValue(turns);
         }
     }
 }

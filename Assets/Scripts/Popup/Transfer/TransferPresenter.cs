@@ -84,7 +84,7 @@ namespace Ryneus
                 if (a == ConfirmCommandType.Yes)
                 {
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
-                    _model.PartyInfo.TransferCommandCount.GainValue(1);
+                    _model.PartyInfo.PartyStatInfo.TransferCommandCount.GainValue(1);
                     CheckAchievements();
                     var evaluate = _model.TransferGetItem(actorInfo);
                     var sceneParam = new MainMenuSceneInfo

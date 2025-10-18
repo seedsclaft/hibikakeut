@@ -173,7 +173,7 @@ namespace Ryneus
                     }
 
                     // 残りターン数を減算
-                    PartyInfo.TurnCount.GainValue(-1);
+                    PartyInfo.CurrentDeckInfo.TurnCount.GainValue(-1);
                 }
                 //SaveAutoFile();
                 return true;
@@ -191,7 +191,7 @@ namespace Ryneus
                 {
                     var skillData = DataSystem.FindSkill(itemData.Param1);
                     var trigger = skillData.TriggerDates.Find(a => a.TriggerType == TriggerType.DungeonMoveEnd);
-                    if (trigger != null && trigger.Param1 == (PartyInfo.TurnCount.Value % trigger.Param2))
+                    if (trigger != null && trigger.Param1 == (PartyInfo.CurrentDeckInfo.TurnCount.Value % trigger.Param2))
                     {
                         foreach (var featureData in skillData.FeatureDates)
                         {
@@ -258,7 +258,7 @@ namespace Ryneus
             {
                 return false;
             }
-            return PartyInfo.TurnCount.Value == value;
+            return PartyInfo.CurrentDeckInfo.TurnCount.Value == value;
         }
 
         public bool EndDungeonByTurnCount()
@@ -267,7 +267,7 @@ namespace Ryneus
             {
                 return false;
             }
-            return PartyInfo.TurnCount.Value < 0;
+            return PartyInfo.CurrentDeckInfo.TurnCount.Value < 0;
         }
 
         public bool EncountEnemy()
@@ -336,12 +336,12 @@ namespace Ryneus
             }
             PartyInfo.Currency.GainValue(-1, 0);
             PartyInfo.UseCurrencyHeal();
-            PartyInfo.BattleScore.GainValue(-20, 0);
+            PartyInfo.PartyStatInfo.BattleScore.GainValue(-20, 0);
         }
 
         public void TurnOver()
         {
-            PartyInfo.BattleScore.GainValue(-20, 0);
+            PartyInfo.PartyStatInfo.BattleScore.GainValue(-20, 0);
         }
 
         public void SaveBgmTiming()

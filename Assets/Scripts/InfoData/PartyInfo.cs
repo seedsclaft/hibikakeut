@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Ryneus
 {
-    [System.Serializable]
+    [Serializable]
     public class PartyInfo
     {
         public PartyInfo()
@@ -66,29 +66,22 @@ namespace Ryneus
             _actorInfos.ForEach(a => a.Transfer.SetValue(false));
         }
 
-        // 現在のステージ場所
-        public StageData StageMaster => DataSystem.FindStage(StageId.Value);
-        public ParameterInt StageId = new();
-        public ParameterInt TurnCount = new();
-
-        private List<int> _clearedStages = new();
-        public List<int> ClearedStages => _clearedStages;
+        public List<ParameterInt> ClearedStages = new();
         public void ClearStage(int stageId)
         {
             if (IsClaeredStage(stageId))
             {
                 return;
             }
-            _clearedStages.Add(stageId);
+            ClearedStages.Add(new ParameterInt(stageId));
         }
 
         public bool IsClaeredStage(int stageId)
         {
-            return _clearedStages.Contains(stageId);
+            return ClearedStages.Find(a => a.Value == stageId) != null;
         }
 
         private List<int> _alartedStages = new();
-        public List<int> AlartedStages => _alartedStages;
         public void AlartStage(int stageNo)
         {
             if (IsAlartedStage(stageNo))
@@ -137,7 +130,7 @@ namespace Ryneus
 
         public float DungeonCompletionRate()
         {
-            var stageId = StageId.Value;
+            var stageId = CurrentDeckInfo.StageNo.Value;
             if (stageId > 0 && _traverseDict.ContainsKey(stageId))
             {
                 var dungeon = DataSystem.FindDungeonFloor(stageId);
@@ -240,44 +233,13 @@ namespace Ryneus
 
         // 救済できる回数
         public ParameterInt ReliefItemCount = new(1);
+        // 行動実績
+        public PartyStatInfo PartyStatInfo = new();
 
         // 評価値
         public ParameterInt EvaluationValue = new();
         // 信仰度の警告を受けたか
         public ParameterBool EvaluationCaution = new();
-
-        // 出撃回数
-        public ParameterInt DepartureCount = new();
-        public ParameterInt DepartureBattleFieldCount = new();
-        // 勝利回数
-        public ParameterInt BattleVictoryCount = new();
-        // Nu消費レベルアップ回数
-        public ParameterInt TacticsLvupCount = new();
-        // バトル評価値
-        public ParameterInt BattleScore = new();
-        // 与ダメージ
-        public ParameterInt TotalDamage = new();
-
-        // 編成コマンド回数
-        public ParameterInt DeckEditCommandCount = new();
-        // 献上コマンド回数
-        public ParameterInt PresentCommandCount = new();
-        // 救済コマンド回数
-        public ParameterInt ReliefCommandCount = new();
-        // 転送コマンド回数
-        public ParameterInt TransferCommandCount = new();
-        // 解放コマンド回数
-        public ParameterInt ReleaseCommandCount = new();
-        // 取引コマンド回数
-        public ParameterInt TradeCommandCount = new();
-        // 魔法編成回数
-        public ParameterInt StatusSkillChangeCount = new();
-
-        // 覚醒スキル使用回数
-        public ParameterInt UseAwakeSkillCount = new();
-        // 交代スキル使用回数
-        public ParameterInt UseChangeLineCount = new();
-
         // 帰還できるかのフラグ
         public ParameterBool Cursed = new();
 
@@ -378,15 +340,15 @@ namespace Ryneus
                     break;
                 case AchievementConditionType.DepartureCount:
                     // 出撃回数
-                    achievementInfo.SetCondition(DepartureCount.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.DepartureCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.DepartureBattleFieldCount:
                     // 出撃回数
-                    achievementInfo.SetCondition(DepartureBattleFieldCount.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.DepartureBattleFieldCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.BattleVictory:
                     // 勝利回数
-                    achievementInfo.SetCondition(BattleVictoryCount.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.BattleVictoryCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.CharacterLevel:
                     // キャラLv　Param2がActorId,-1なら任意
@@ -407,15 +369,15 @@ namespace Ryneus
                     break;
                 case AchievementConditionType.TacticsLvupCount:
                     // Nu消費レベルアップ回数
-                    achievementInfo.SetCondition(TacticsLvupCount.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.TacticsLvupCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.BattleScore:
                     // バトル評価値
-                    achievementInfo.SetCondition(BattleScore.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.BattleScore.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.TotalDamage:
                     // 与ダメージ
-                    achievementInfo.SetCondition(TotalDamage.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.TotalDamage.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.ClassChangeCount:
                     // クラスチェンジ数
@@ -424,40 +386,40 @@ namespace Ryneus
                     break;
                 case AchievementConditionType.ClearStage:
                     // ステージクリア
-                    var cleared = _clearedStages.Contains(achievementInfo.Master.Param1);
+                    var cleared = ClearedStages.Find(a => a.Value == achievementInfo.Master.Param1) != null;
                     achievementInfo.SetCondition(cleared ? 1 : 0, 1);
                     break;
                 case AchievementConditionType.UseAwakeSkillCount:
                     // 覚醒スキル使用回数
-                    achievementInfo.SetCondition(UseAwakeSkillCount.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.UseAwakeSkillCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.UseChangeLineCount:
                     // 交代スキル使用回数
-                    achievementInfo.SetCondition(UseChangeLineCount.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.UseChangeLineCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.DeckEditCommandCount:
                     // 編成コマンド回数
-                    achievementInfo.SetCondition(DeckEditCommandCount.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.DeckEditCommandCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.PresentCommandCount:
                     // 献上コマンド回数
-                    achievementInfo.SetCondition(PresentCommandCount.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.PresentCommandCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.ReliefCommandCount:
                     // 救済コマンド回数
-                    achievementInfo.SetCondition(ReliefCommandCount.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.ReliefCommandCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.TransferCommandCount:
                     // 転送コマンド回数
-                    achievementInfo.SetCondition(TransferCommandCount.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.TransferCommandCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.ReleaseCommandCount:
                     // 解放コマンド回数
-                    achievementInfo.SetCondition(ReleaseCommandCount.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.ReleaseCommandCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.StatusSkillChangeCount:
                     // 魔法編成回数
-                    achievementInfo.SetCondition(StatusSkillChangeCount.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.StatusSkillChangeCount.Value, achievementInfo.Master.Param1);
                     break;
             }
         }
@@ -516,11 +478,16 @@ namespace Ryneus
             var addSkillInfos = _getItemInfos.FindAll(a => a.GetFlag && a.GetItemType == GetItemType.Skill);
             foreach (var addSkillInfo in addSkillInfos)
             {
-                if (!_learningSkillIds.Contains(addSkillInfo.Param1))
-                {
-                    // 新規魔法入手
-                    _learningSkillIds.Add(addSkillInfo.Param1);
-                }
+                AddLearningSkill(addSkillInfo.Param1);
+            }
+        }
+
+        public void AddLearningSkill(int skillId)
+        {
+            if (!_learningSkillIds.Contains(skillId))
+            {
+                // 新規魔法入手
+                _learningSkillIds.Add(skillId);
             }
         }
 

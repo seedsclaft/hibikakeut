@@ -52,7 +52,7 @@ namespace Ryneus
             }
             if (turnCount != null)
             {
-                turnCount.SetText(partyInfo.TurnCount.Value.ToString());
+                turnCount.SetText(partyInfo.CurrentDeckInfo.TurnCount.Value.ToString());
             }
             if (evaluationValue != null)
             {
@@ -74,7 +74,7 @@ namespace Ryneus
             }
             if (victoryBonus != null)
             {
-                victoryBonus.SetText((partyInfo.BattleScore.Value * 0.01f).ToString("F2") + "%");
+                victoryBonus.SetText((partyInfo.PartyStatInfo.BattleScore.Value * 0.01f).ToString("F2") + "%");
             }
             if (achievementInfoComponent != null)
             {

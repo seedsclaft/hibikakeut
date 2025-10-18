@@ -102,6 +102,10 @@ namespace Ryneus
             var sortIds3 = new List<ParameterInt>();
             foreach (var equipmentSkillId in _equipmentSkillIds)
             {
+                if (equipmentSkillId.Value < 1000)
+                {
+                    continue;
+                }
                 var skill = DataSystem.FindSkill(equipmentSkillId.Value);
                 if (!skill.IsBattlePassiveSkill() && !skill.IsBattleSpecialSkill())
                 {
@@ -208,7 +212,11 @@ namespace Ryneus
             SkillInfo selectSkill = null;
             foreach (var skillInfo in LearningSkillInfos())
             {
-                if (selectSkill != null && skillInfo.Id.Value > 1000)
+                if (skillInfo.Id.Value < 1000)
+                {
+                    continue;
+                }
+                if (selectSkill != null)
                 {
                     _lastSelectSkillId = selectSkill.Id.Value;
                 }

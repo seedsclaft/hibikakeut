@@ -2280,6 +2280,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   encountZero: 0
+  dungeonTurnMax: 0
+  allLearnSkills: 0
   partyInfo:
     ResumeScene: 0
     _actorInfos:
@@ -2305,10 +2307,7 @@ MonoBehaviour:
         _value: 0
     LeaderActorId:
       _value: 0
-    StageId:
-      _value: 0
-    TurnCount:
-      _value: 0
+    ClearedStages: []
     Currency:
       _value: 0
     Chapter:
@@ -2317,37 +2316,40 @@ MonoBehaviour:
       _value: 1
     ReliefItemCount:
       _value: 1
+    PartyStatInfo:
+      DepartureCount:
+        _value: 0
+      DepartureBattleFieldCount:
+        _value: 0
+      BattleVictoryCount:
+        _value: 0
+      TacticsLvupCount:
+        _value: 0
+      BattleScore:
+        _value: 0
+      TotalDamage:
+        _value: 0
+      DeckEditCommandCount:
+        _value: 0
+      PresentCommandCount:
+        _value: 0
+      ReliefCommandCount:
+        _value: 0
+      TransferCommandCount:
+        _value: 0
+      ReleaseCommandCount:
+        _value: 0
+      TradeCommandCount:
+        _value: 0
+      StatusSkillChangeCount:
+        _value: 0
+      UseAwakeSkillCount:
+        _value: 0
+      UseChangeLineCount:
+        _value: 0
     EvaluationValue:
       _value: 100
-    DepartureCount:
-      _value: 0
-    DepartureBattleFieldCount:
-      _value: 0
-    BattleVictoryCount:
-      _value: 0
-    TacticsLvupCount:
-      _value: 0
-    BattleScore:
-      _value: 0
-    TotalDamage:
-      _value: 0
-    DeckEditCommandCount:
-      _value: 0
-    PresentCommandCount:
-      _value: 0
-    ReliefCommandCount:
-      _value: 0
-    TransferCommandCount:
-      _value: 0
-    ReleaseCommandCount:
-      _value: 0
-    TradeCommandCount:
-      _value: 0
-    StatusSkillChangeCount:
-      _value: 0
-    UseAwakeSkillCount:
-      _value: 0
-    UseChangeLineCount:
+    EvaluationCaution:
       _value: 0
     Cursed:
       _value: 0
@@ -2359,6 +2361,8 @@ MonoBehaviour:
     Index:
       _value: 0
     StageNo:
+      _value: 0
+    TurnCount:
       _value: 0
     DungeonBgmTimeStamp:
       _value: 0

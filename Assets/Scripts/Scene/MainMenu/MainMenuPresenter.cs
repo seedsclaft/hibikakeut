@@ -416,7 +416,7 @@ namespace Ryneus
                 if (a == ConfirmCommandType.Yes)
                 {
                     _model.PartyInfo.ReliefItemCount.GainValue(-1);
-                    _model.PartyInfo.ReliefCommandCount.GainValue(1);
+                    _model.PartyInfo.PartyStatInfo.ReliefCommandCount.GainValue(1);
                     //_model.PartyNextPeriod(true);
                     List<ActorInfo> actorInfos = _model.AddSelectActorInfos();
                     CommandAddActorStatusInfo(actorInfos, () =>

@@ -494,6 +494,15 @@ namespace Ryneus
         {
             if (moved)
             {
+                // 帰還できない
+                if (_model.PartyInfo.Cursed.Value)
+                {
+                    var cautionInfo = new CautionInfo();
+                    cautionInfo.SetTitle(DataSystem.GetText(10131));
+                    _view.CommandCallCaution(cautionInfo);
+                    endEvent?.Invoke();
+                    return;
+                }
                 CommandReturn();
             } else
             {

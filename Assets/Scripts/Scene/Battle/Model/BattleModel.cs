@@ -1223,11 +1223,11 @@ namespace Ryneus
                     subject.GainUseCount(actionInfo.SkillInfo.Id.Value);
                     if (actionInfo.SkillInfo.Master.SkillType == SkillType.Awaken)
                     {
-                        PartyInfo.UseAwakeSkillCount.GainValue(1);
+                        PartyInfo.PartyStatInfo.UseAwakeSkillCount.GainValue(1);
                     }
                     if (actionInfo.SkillInfo.Master.FeatureDates.Find(a => a.FeatureType == FeatureType.ActionAfterChange) != null)
                     {
-                        PartyInfo.UseChangeLineCount.GainValue(1);
+                        PartyInfo.PartyStatInfo.UseChangeLineCount.GainValue(1);
                     }
                     _battleRecords[subject.Index.Value].GainUseSkillCount(actionInfo.SkillInfo.Id.Value, 1);
                 }
@@ -2801,8 +2801,8 @@ namespace Ryneus
             battleScore.DefeatedCount = defeated;
             battleScore.WeakAttackCount = weakAttackCount;
             battleScore.AwakenCount = awakeCount;
-            PartyInfo.BattleScore.GainValue((int)score);
-            PartyInfo.TotalDamage.GainValue(attack);
+            PartyInfo.PartyStatInfo.BattleScore.GainValue((int)score);
+            PartyInfo.PartyStatInfo.TotalDamage.GainValue(attack);
             CheckAchievements();
             battleScore.ResultScore = (int)score;
         }
@@ -2821,7 +2821,7 @@ namespace Ryneus
             {
                 exp = 40f / 3f;
             }
-            var battleScore = PartyInfo.BattleScore.Value;
+            var battleScore = PartyInfo.PartyStatInfo.BattleScore.Value;
             // 経験値アイテムを作る
             foreach (var actorInfo in UnitBattlerActors())
             {

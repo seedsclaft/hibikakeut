@@ -618,7 +618,7 @@ namespace Ryneus
             var stageKey = new System.Text.StringBuilder();
             if (PartyInfo != null)
             {
-                stageKey.Append(string.Format(PartyInfo.StageId.Value.ToString("00")));
+                stageKey.Append(string.Format(PartyInfo.CurrentDeckInfo.StageNo.Value.ToString("00")));
             }
             return stageKey.ToString();
         }
@@ -629,7 +629,7 @@ namespace Ryneus
             //PartyInfo.Currency.GainValue(-cost);
             // 新規魔法取得があるか
             var skills = actorInfo.LearningSkills(1);
-            var levelUpInfo = actorInfo.LevelUp(0, PartyInfo.StageId.Value);
+            var levelUpInfo = actorInfo.LevelUp(0, PartyInfo.CurrentDeckInfo.StageNo.Value);
             foreach (var skill in skills)
             {
                 actorInfo.AddSkillTriggerSkill(skill.Id.Value);

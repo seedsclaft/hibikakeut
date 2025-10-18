@@ -32,10 +32,10 @@ namespace Ryneus
             CurrentDeckInfo.EncountRate.SetValue(1);
             CurrentDeckInfo.EncountRateTurn.SetValue(0);
             MakeStageInfo(stageId, true);
-            PartyInfo.DepartureCount.GainValue(1);
+            PartyInfo.PartyStatInfo.DepartureCount.GainValue(1);
             if (CurrentStage.Master.Category == StageCategory.BattleField)
             {
-                PartyInfo.DepartureBattleFieldCount.GainValue(1);
+                PartyInfo.PartyStatInfo.DepartureBattleFieldCount.GainValue(1);
             }
         }
 

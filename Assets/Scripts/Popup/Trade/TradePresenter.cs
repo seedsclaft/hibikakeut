@@ -82,7 +82,7 @@ namespace Ryneus
                     if (getItemInfos.Count > 0)
                     {
                         _model.PayCostTrade();
-                        _model.PartyInfo.TradeCommandCount.GainValue(1);
+                        _model.PartyInfo.PartyStatInfo.TradeCommandCount.GainValue(1);
                         CheckAchievements();
                         _view.CallSystemCommand(Base.CommandType.ClosePopup);
                         var sceneParam = new MainMenuSceneInfo

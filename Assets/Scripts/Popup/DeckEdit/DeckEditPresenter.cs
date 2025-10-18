@@ -78,7 +78,7 @@ namespace Ryneus
         private void CommandDecideBattlerInfo(ActorInfo actorInfo)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            _model.PartyInfo.DeckEditCommandCount.GainValue(1);
+            _model.PartyInfo.PartyStatInfo.DeckEditCommandCount.GainValue(1);
             CheckAchievements();
             _model.SwapBattler(actorInfo.ActorId.Value);
             _view.EndSelectChangeBattler();
