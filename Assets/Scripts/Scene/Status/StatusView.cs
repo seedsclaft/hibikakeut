@@ -260,7 +260,9 @@ namespace Ryneus
             {
                 SetDecideAnimation();
                 magicListButton.gameObject.SetActive(false);
+                changeSkillBatch.gameObject.SetActive(false);
                 useItemButton.gameObject.SetActive(false);
+                useItemBatch.gameObject.SetActive(false);
             }
         }
 

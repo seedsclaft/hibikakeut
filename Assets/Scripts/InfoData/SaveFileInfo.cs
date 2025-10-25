@@ -15,5 +15,6 @@ namespace Ryneus
         public int Rank = 0;
         public int StageNo;
         public int ClearCount = 0;
+        public string State;
     }
 }

@@ -75,13 +75,14 @@ namespace Ryneus
             saveFileInfo.SaveTimeLong = DateTime.Now.ToFileTime();
             saveFileInfo.SaveTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             saveFileInfo.PlayTime = (int)TempInfo.PlayingTime;
-            if (CurrentGameInfo.PartyInfo.ActorInfos != null && CurrentGameInfo.PartyInfo.ActorInfos.Count > 0)
+            if (PartyInfo.ActorInfos != null && PartyInfo.ActorInfos.Count > 0)
             {
-                saveFileInfo.ActorId = CurrentGameInfo.PartyInfo.LeaderActorId.Value;
+                saveFileInfo.ActorId = PartyInfo.LeaderActorId.Value;
             }
             saveFileInfo.Chapter = PartyInfo.Chapter.Value;
             saveFileInfo.Period = PartyInfo.Period.Value;
             saveFileInfo.Rank = PartyInfo.MissionRank.Value;
+            saveFileInfo.State = PartyInfo.ResumeScene == Scene.Dungeon ? DataSystem.GetReplaceText(31060, DataSystem.FindStage(CurrentStage.StageId.Value).Name) : DataSystem.GetText(31061);
             CurrentData.PushSaveFile(saveFileInfo);
             SavePlayerData();
             SavePlayerStageData(true, GameSystem.SceneStackManager.Current);

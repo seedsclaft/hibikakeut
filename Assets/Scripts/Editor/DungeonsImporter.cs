@@ -61,12 +61,12 @@ namespace Ryneus
                     // 全て平面にする
                     var MapInfos = new List<Ariadne.MapInfo>();
                     var cols = Data.Data.Height;
-                    for (int j = 1; j <= Data.Data.Width; j++)
+                    for (int j = 1; j <= cols; j++)
                     {
                         IRow SymbolRow = DungeonSheet.GetRow(j);
-                        for (int i = 1;i <= cols;i++)
+                        for (int i = 1;i <= Data.Data.Width;i++)
                         {
-                            var map = CreateCells(SymbolRow, i.ToString(), (i-1) + (j-1) * Data.Data.Width);
+                            var map = CreateCells(SymbolRow, i.ToString(), (i-1) + (j-1) * cols);
                             MapInfos.Add(map);
                         }
                     }
@@ -75,13 +75,13 @@ namespace Ryneus
                     ISheet RegeonSheet = Book.GetSheetAt(2);
                     var KeyRow2 = RegeonSheet.GetRow(0);
                     AssetPostImporter.SetKeyNames(KeyRow2.Cells);
-                    for (int j = 1; j <= Data.Data.Width; j++)
+                    for (int j = 1; j <= cols; j++)
                     {
                         IRow SymbolRow = RegeonSheet.GetRow(j);
-                        for (int i = 1;i <= cols;i++)
+                        for (int i = 1;i <= Data.Data.Width;i++)
                         {
-                            var reageonNo = CreateRegeons(SymbolRow, i.ToString(), (i-1) + (j-1) * Data.Data.Width);
-                            var map = Data.FloorData.Find(a => a.eventId == (i-1) + (j-1) * Data.Data.Width);
+                            var reageonNo = CreateRegeons(SymbolRow, i.ToString(), (i-1) + (j-1) * cols);
+                            var map = Data.FloorData.Find(a => a.eventId == (i-1) + (j-1) * cols);
                             if (map != null && reageonNo > 0)
                             {
                                 map.regeonNo = reageonNo;
@@ -292,8 +292,8 @@ namespace Ryneus
             }
             AriadoneFloorData.hideFlags = HideFlags.None;
             //AriadoneFloorData.hideFlags = HideFlags.None;
-            AriadoneFloorData.floorSizeVertical = Data.Data.Width;
-            AriadoneFloorData.floorSizeHorizontal = Data.Data.Height;
+            AriadoneFloorData.floorSizeVertical = Data.Data.Height;
+            AriadoneFloorData.floorSizeHorizontal = Data.Data.Width;
             AriadoneFloorData.floorId = Data.Data.FloorId;
             AriadoneFloorData.floorName = Data.Data.Name;
             AriadoneFloorData.entrancePos = new Vector2Int(Data.Data.InitX,Data.Data.InitY);

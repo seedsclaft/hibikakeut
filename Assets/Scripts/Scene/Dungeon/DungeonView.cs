@@ -198,9 +198,9 @@ namespace Ryneus
             }
         }
 
-        public void ForwardMove()
+        public void UpdateMoveKeys(List<InputKeyType> KeyTypes)
         {
-            moveController.UpdateKey(new List<InputKeyType>(){InputKeyType.Up});
+            moveController.UpdateKey(KeyTypes);
         }
 
         public override void MouseCancelHandler()

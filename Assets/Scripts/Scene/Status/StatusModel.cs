@@ -218,12 +218,20 @@ namespace Ryneus
 
         public bool IsUseItemBatch()
         {
+            if (_sceneParam.AddActor.Value)
+            {
+                return false;
+            }
             var achievements = PartyInfo.AchievementInfos;
             return achievements.Find(a => !a.Achieved.Value && a.Master.ConditionType == AchievementConditionType.TacticsLvupCount) != null;
         }
 
         public bool IsChangeSkillBatch()
         {
+            if (_sceneParam.AddActor.Value)
+            {
+                return false;
+            }
             var achievements = PartyInfo.AchievementInfos;
             return achievements.Find(a => !a.Achieved.Value && a.Master.ConditionType == AchievementConditionType.StatusSkillChangeCount) != null;
         }

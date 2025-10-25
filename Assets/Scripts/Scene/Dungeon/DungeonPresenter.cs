@@ -733,6 +733,16 @@ namespace Ryneus
 
         private void CommandCheckRemainTurn()
         {
+            if (CheckRemainTurn())
+            {
+                return;
+            }
+            _busy = true;
+            _view.UpdateMoveKeys(new List<InputKeyType>(){InputKeyType.Up});
+        }
+
+        private bool CheckRemainTurn()
+        {
             // 移動したら評価値が減る場合に確認
             if (_model.EndDungeonByTurnCountValue(0) && !_checkTurnOver)
             {
@@ -760,14 +770,12 @@ namespace Ryneus
                         }
                         _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                         ReturnDungeon();
-                        return;
                     }
                 });
                 _view.CommandCallConfirm(confirmInfo);
-                return;
+                return true;
             }
-            _busy = true;
-            _view.ForwardMove();
+            return false;
         }
 
         private void CommandReturn()
@@ -1081,11 +1089,15 @@ namespace Ryneus
             }
             if (_model.IsRouteMode())
             {
+                if (CheckRemainTurn())
+                {
+                    return;
+                }
                 _busy = true;
                 //_model.DungeonBusy(true);
                 // 方向を見て進む。MoveEndまで待つ
                 _routeMode = true;
-                _view.InputHandler(new List<InputKeyType>(){ _model.RouteModeInputKeyType()}, false);
+                _view.UpdateMoveKeys(new List<InputKeyType>(){ _model.RouteModeInputKeyType()});
             } else
             {
                 _busy = false;

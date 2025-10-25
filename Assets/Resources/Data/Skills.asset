@@ -4557,7 +4557,7 @@ MonoBehaviour:
     Scope: 4
     SkillType: 7
     TargetType: 4
-    Help: "(\u6761\u4EF6)\u6226\u95D8\u4E0D\u80FD\u6642\n\u4E00\u5EA6\u3060\u3051Hp1\u3067\u751F\u304D\u6B8B\u308B"
+    Help: "\\s\u306B\u4E0D\u6B7B\u3092\u4ED8\u4E0E\n/s"
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4569,7 +4569,13 @@ MonoBehaviour:
       Param2: 1
       Param3: 1
       Rate: 100
-    TriggerDates: []
+    TriggerDates:
+    - SkillId: 30030
+      TriggerType: 0
+      TriggerTiming: 4
+      Param1: 0
+      Param2: 0
+      Param3: 0
     ScopeTriggers: []
   - Id: 100110
     Name: "\u30BD\u30FC\u30A4\u30F3\u30B0\u30A2\u30FC\u30E0\u30C9"
@@ -5503,6 +5509,71 @@ MonoBehaviour:
       Param3: 2140
       Rate: 100
     - SkillId: 101120
+      FeatureType: 7010
+      Param1: 21
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 110110
+    Name: "\u30A6\u30A3\u30D3\u30F3\u30B0\u30D2\u30B9\u30C8\u30EA\u30FC"
+    IconIndex: 10
+    AnimationId: 51
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 1000
+    Attribute: 3
+    Scope: 4
+    SkillType: 3
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\u653B\u6483\u3092\u53D7\u3051\u308B\u524D\n\\s\u306B\u4E0D\u6B7B\u3092\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 110110
+      FeatureType: 3010
+      Param1: 2450
+      Param2: 1
+      Param3: 0
+      Rate: 100
+    - SkillId: 110110
+      FeatureType: 7010
+      Param1: 11
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 110120
+    Name: "\u30A2\u30F3\u30E9\u30A4\u30D0\u30EB\u30C9"
+    IconIndex: 11
+    AnimationId: 1003
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 1000
+    Attribute: 3
+    Scope: 1
+    SkillType: 4
+    TargetType: 1
+    Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306B\u81EA\u8EAB\u306EHp\u304C\u5C11\u306A\u3044\u307B\u3069\u5927\u30C0\u30E1\u30FC\u30B8
+      \u899A\u9192\u89E3\u9664"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 110120
+      FeatureType: 1110
+      Param1: 100
+      Param2: 0
+      Param3: 50
+      Rate: 100
+    - SkillId: 110120
       FeatureType: 7010
       Param1: 21
       Param2: 0

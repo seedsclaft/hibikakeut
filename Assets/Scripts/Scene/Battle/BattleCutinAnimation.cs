@@ -17,6 +17,9 @@ namespace Ryneus
         [SerializeField] private Image enemyMain;
         [SerializeField] private CanvasGroup actorCanvasGroup;
         [SerializeField] private CanvasGroup enemyCanvasGroup;
+        [SerializeField] private Image actorMainBack;
+        [SerializeField] private CanvasGroup mainBackCanvasGroup;
+        [SerializeField] private GameObject actorMainBackObject;
         [SerializeField] private GameObject skillUnMask;
         [SerializeField] private CanvasGroup skillCanvasGroup;
         [SerializeField] private CanvasGroup skillNameCanvasGroup;
@@ -31,6 +34,7 @@ namespace Ryneus
             skillCanvasGroup.alpha = 0;
             skillNameCanvasGroup.alpha = 0;
             baseCanvasGroup.alpha = 0;
+            mainBackCanvasGroup.alpha = 0;
         }
 
         public void StartAnimation(BattlerInfo battlerInfo, SkillData skillData, float speedRate)
@@ -38,6 +42,7 @@ namespace Ryneus
             if (battlerInfo != null)
             {
                 battlerInfoComponent.UpdateInfo(battlerInfo);
+                actorMainBack.sprite = ResourceSystem.LoadActorMainSprite(battlerInfo.ActorInfo.Master.ImagePath);
             }
             if (skillData != null)
             {
@@ -97,13 +102,24 @@ namespace Ryneus
                 .Join(targetCanvas.DOFade(0, time4))
                 .SetEase(Ease.InOutCubic)
                 .OnComplete(() =>
-
                 {
                     mainBack.gameObject.SetActive(false);
                     baseCanvasGroup.alpha = 0;
                 });
 
-
+            RectTransform mainBackTargetRect = actorMainBackObject.GetComponent<RectTransform>();
+            var actorMainBackAnimation = DOTween.Sequence()
+                .SetDelay(delay)
+                .Append(mainBackTargetRect.DOLocalMove(new Vector3(0, mainBackTargetRect.localPosition.y, 0), time2 - delay))
+                .Join(mainBackCanvasGroup.DOFade(0.2f, time2 - delay))
+                .Append(mainBackTargetRect.DOLocalMove(new Vector3(-48, mainBackTargetRect.localPosition.y, 0), time3))
+                .Append(mainBackTargetRect.DOLocalMove(new Vector3(-1280, mainBackTargetRect.localPosition.y, 0), time4))
+                .Join(mainBackCanvasGroup.DOFade(0, time4))
+                .SetEase(Ease.InOutCubic)
+                .OnComplete(() =>
+                {
+                    mainBackCanvasGroup.alpha = 0;
+                });
 
 
             skillUnMask.transform.DOLocalMove(new Vector3(0, 0, 0), time1);

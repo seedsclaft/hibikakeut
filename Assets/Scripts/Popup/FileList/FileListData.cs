@@ -13,6 +13,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI chapter;
         [SerializeField] private TextMeshProUGUI period;
         [SerializeField] private TextMeshProUGUI rank;
+        [SerializeField] private TextMeshProUGUI state;
         [SerializeField] private GameObject clearData;
         [SerializeField] private GameObject saveData;
         [SerializeField] private GameObject newGame;
@@ -45,11 +46,15 @@ namespace Ryneus
             }
             if (data.Period > 0)
             {
-                period.SetText(data.Period.ToString());
+                period.SetText(data.Period > DataSystem.System.PeriodTurns ? DataSystem.System.PeriodTurns.ToString() : data.Period.ToString());
             }
             if (data.Rank > 0)
             {
                 rank.SetText(data.Rank.ToString());
+            }
+            if (data.State != null)
+            {
+                state.SetText(data.State);
             }
         }
     }
