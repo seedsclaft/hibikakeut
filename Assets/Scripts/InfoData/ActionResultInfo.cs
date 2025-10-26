@@ -1027,7 +1027,7 @@ namespace Ryneus
         {
             // 即代入
             var skillInfo = subject.Skills.Find(a => a.Id.Value == featureData.Param1);
-            if (skillInfo != null)
+            if (skillInfo != null && subject.ActorInfo != null && subject.ActorInfo.MastarySkillIds.Contains(skillInfo.Id.Value))
             {
                 // featureのIndex
                 var feature = skillInfo.FeatureDates.Count >= featureData.Param2 ? skillInfo.FeatureDates[featureData.Param2] : null;
@@ -1045,6 +1045,7 @@ namespace Ryneus
                             feature.Param3 = featureData.Param3;
                             break;
                     }
+                    skillInfo.FeatureDates.Remove(feature);
                 }
             }
         }
@@ -1053,7 +1054,7 @@ namespace Ryneus
         {
             // 即代入
             var skillInfo = subject.Skills.Find(a => a.Id.Value == featureData.Param1);
-            if (skillInfo != null)
+            if (skillInfo != null && subject.ActorInfo != null && subject.ActorInfo.MastarySkillIds.Contains(skillInfo.Id.Value))
             {
                 // featureのIndex
                 var feature = skillInfo.FeatureDates.Count >= featureData.Param2 ? skillInfo.FeatureDates[featureData.Param2] : null;
@@ -1072,6 +1073,7 @@ namespace Ryneus
                             feature.Param3 += winCount * featureData.Param3;
                             break;
                     }
+                    skillInfo.FeatureDates.Remove(feature);
                 }
             }
         }
@@ -1080,7 +1082,7 @@ namespace Ryneus
         {
             // 即代入
             var skillInfo = subject.Skills.Find(a => a.Id.Value == featureData.Param1);
-            if (skillInfo != null)
+            if (skillInfo != null && subject.ActorInfo != null && subject.ActorInfo.MastarySkillIds.Contains(skillInfo.Id.Value))
             {
                 skillInfo.SetMinusCountTurn(featureData.Param3);
             }
@@ -1090,13 +1092,14 @@ namespace Ryneus
         {
             // 即代入
             var skillInfo = subject.Skills.Find(a => a.Id.Value == featureData.Param1);
-            if (skillInfo != null)
+            if (skillInfo != null && subject.ActorInfo != null && subject.ActorInfo.MastarySkillIds.Contains(skillInfo.Id.Value))
             {
                 // featureのIndex
                 var feature = skillInfo.FeatureDates.Count >= featureData.Param2 ? skillInfo.FeatureDates[featureData.Param2] : null;
                 if (feature != null)
                 {
                     feature.Rate = featureData.Param3;
+                    skillInfo.FeatureDates.Remove(feature);
                 }
             }
         }
@@ -1105,7 +1108,7 @@ namespace Ryneus
         {
             // 即代入
             var skillInfo = subject.Skills.Find(a => a.Id.Value == featureData.Param1);
-            if (skillInfo != null)
+            if (skillInfo != null && subject.ActorInfo != null && subject.ActorInfo.MastarySkillIds.Contains(skillInfo.Id.Value))
             {
                 var plusSkill = DataSystem.FindSkill(featureData.Param3);
                 // plusSkillのfeatureを追加する

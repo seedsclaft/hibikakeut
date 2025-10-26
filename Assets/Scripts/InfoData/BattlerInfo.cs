@@ -136,7 +136,16 @@ namespace Ryneus
             var enhanceSkills = _skills.FindAll(a => a.IsEnhanceSkill());
             foreach (var enhanceSkill in enhanceSkills)
             {
-                var result = new ActionResultInfo(this, this, enhanceSkill.FeatureDates, enhanceSkill.Id.Value);
+                var skillInfo = new SkillInfo(enhanceSkill.Id.Value);
+                var featureDates = new List<SkillData.FeatureData>();
+                foreach (var featureData in skillInfo.FeatureDates)
+                {
+                    if (featureData.FeatureType >= FeatureType.ChangeFeatureParam1 && featureData.FeatureType <= FeatureType.AddSkillPlusSkill)
+                    {
+                        featureDates.Add(featureData.CopyData());
+                    }
+                }
+                var result = new ActionResultInfo(this, this, featureDates, enhanceSkill.Id.Value);
             }
             _enhanceSkills = enhanceSkills;
 
