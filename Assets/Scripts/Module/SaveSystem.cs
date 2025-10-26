@@ -10,7 +10,7 @@ namespace Ryneus
 {
     public class SaveSystem : MonoBehaviour
     {
-        private static string _gameKey = "norm_m";
+        private static string _gameKey = "kagiroi";
 
 #if !UNITY_WEBGL
         private static FileStream TempFileStream = null;

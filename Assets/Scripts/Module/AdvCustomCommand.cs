@@ -10,7 +10,7 @@ namespace Utage
     {
         public override void OnBootInit()
         {
-            AdvCommandParser.OnCreateCustomCommandFromID+= CreateCustomCommand;
+            AdvCommandParser.OnCreateCustomCommandFromID += CreateCustomCommand;
         }
 
         //AdvEnginのクリア処理のときに呼ばれる

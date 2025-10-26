@@ -23,7 +23,8 @@ public class ContentPressListener : MonoBehaviour, IPointerDownHandler, IPointer
         _pressAction = pressAction;
     }
 
-    void Update() {
+    void Update()
+    {
         if (_pressed)
         {
             _duration += 1;

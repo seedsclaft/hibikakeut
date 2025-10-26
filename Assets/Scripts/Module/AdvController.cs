@@ -18,10 +18,13 @@ namespace Ryneus
         private string _lastKey = "";
         private List<OnOffButton> _onOffButtons = new();
         private int _selectIndex = -1;
-        public override void Initialize() 
+        public override void Initialize()
         {
             base.Initialize();
-            advInputButton.onClick.AddListener(() => {advUguiManager.OnInput();});
+            advInputButton.onClick.AddListener(() =>
+            {
+                advUguiManager.OnInput();
+            });
             autoButtonList.ForEach(a => a.SetCallHandler(() =>
             {
                 OnClickAuto();
@@ -67,7 +70,7 @@ namespace Ryneus
             advInputButton.gameObject.SetActive(false);
         }
 
-        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
             if (!_advPlaying)
             {
@@ -80,14 +83,15 @@ namespace Ryneus
                     advUguiManager.Engine.SelectionManager.Select(_selectIndex);
                     SoundManager.Instance.PlayStaticSe(SEType.Decide);
                     _selectIndex = -1;
-                } else
+                }
+                else
                 {
                     advUguiManager.OnInput();
                 }
             }
             if (keyTypes.Contains(InputKeyType.Option1))
             {
-                advUguiManager.Engine.Config.ToggleSkip();        
+                advUguiManager.Engine.Config.ToggleSkip();
                 GameSystem.OptionData.EventTextSkipIndex = advUguiManager.Engine.Config.IsSkip;
             }
             // 選択肢操作
@@ -100,7 +104,8 @@ namespace Ryneus
                     SoundManager.Instance.PlayStaticSe(SEType.Cursor);
                     _selectIndex = 1;
                 }
-            } else
+            }
+            else
             if (keyTypes.Contains(InputKeyType.Up))
             {
                 if (_onOffButtons.Count > 0)
@@ -116,19 +121,20 @@ namespace Ryneus
         private new void Update()
         {
             base.Update();
-            if (advUguiManager.Engine.SelectionManager.IsWaitInput == true && (HelpWindow.LastKey != "ADV_SELECTING" || HelpWindow.LastKey != "ADV_SELECTING_ONE"))
+            if (advUguiManager.Engine.SelectionManager.IsWaitInput && (HelpWindow.LastKey != "ADV_SELECTING" || HelpWindow.LastKey != "ADV_SELECTING_ONE"))
             {
                 _lastKey = HelpWindow.LastKey;
                 if (advUguiManager.Engine.SelectionManager.TotalCount == 1)
                 {
                     HelpWindow.SetInputInfo("ADV_SELECTING_ONE");
 
-                } else
+                }
+                else
                 {
                     HelpWindow.SetInputInfo("ADV_SELECTING");
                 }
             }
-            if (advUguiManager.Engine.SelectionManager.IsWaitInput == false && HelpWindow.LastKey != "ADV_READING")
+            if (!advUguiManager.Engine.SelectionManager.IsWaitInput && HelpWindow.LastKey != "ADV_READING")
             {
                 _lastKey = HelpWindow.LastKey;
                 HelpWindow.SetInputInfo("ADV_READING");

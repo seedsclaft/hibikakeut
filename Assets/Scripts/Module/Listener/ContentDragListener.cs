@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class ContentDragListener : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Vector2 _startPos;
-    private System.Action<int,int> _dragMoveAction;
+    private System.Action<int, int> _dragMoveAction;
     private System.Action _dragEndAction;
     private bool _endDrag;
     public void OnBeginDrag(PointerEventData eventData)
@@ -37,13 +37,13 @@ public class ContentDragListener : MonoBehaviour, IBeginDragHandler, IDragHandle
         if (_dragMoveAction != null)
         {
             var endPosition = eventData.position;
-            var posx = (float)(_startPos.x - endPosition.x) / (float)Screen.width;
-            var posy = (float)(_startPos.y - endPosition.y) / (float)Screen.height;
-            _dragMoveAction((int)(posx * 100),(int)(posy * 100));
+            var posx = (float)(_startPos.x - endPosition.x) / Screen.width;
+            var posy = (float)(_startPos.y - endPosition.y) / Screen.height;
+            _dragMoveAction((int)(posx * 100), (int)(posy * 100));
         }
     }
 
-    public void SetDragMoveEvent(System.Action<int,int> dragMoveAction)
+    public void SetDragMoveEvent(System.Action<int, int> dragMoveAction)
     {
         _dragMoveAction = dragMoveAction;
     }

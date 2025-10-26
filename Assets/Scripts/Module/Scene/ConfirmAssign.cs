@@ -6,7 +6,7 @@ namespace Ryneus
 {
     public class ConfirmAssign : MonoBehaviour
     {
-        public GameObject CreateConfirm(ConfirmType popupType,HelpWindow helpWindow)
+        public GameObject CreateConfirm(ConfirmType popupType, HelpWindow helpWindow)
         {
             if (transform.childCount > 0)
             {

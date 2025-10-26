@@ -23,7 +23,7 @@ namespace Ryneus
             _value += value;
         }
 
-        public void GainValue(float value,float minValue)
+        public void GainValue(float value, float minValue)
         {
             _value += value;
             if (_value < minValue)
@@ -32,7 +32,7 @@ namespace Ryneus
             }
         }
 
-        public void GainValue(float value,float minValue,float maxValue)
+        public void GainValue(float value, float minValue, float maxValue)
         {
             _value += value;
             if (_value < minValue)

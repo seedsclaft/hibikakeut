@@ -1,10 +1,5 @@
 using System;
 using UnityEngine;
-using System.Linq;
-using System.Collections;
-using UnityEngine.Networking;
-using System.IO;
-using UnityEditor;
 
 public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBehaviour<T>
 {
@@ -16,10 +11,12 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBe
             if (_instance == null)
             {
                 Type t = typeof(T);
-                _instance = (T)FindObjectOfType(t);
+                _instance = (T)FindFirstObjectByType(t);
 
-                if(_instance != null) return _instance;
-                
+                if(_instance != null)
+                {
+                    return _instance;
+                }
                 var obj = new GameObject(typeof(T).Name);
                 _instance = obj.AddComponent<T>();
                 DontDestroyOnLoad(obj);

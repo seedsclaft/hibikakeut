@@ -23,7 +23,7 @@ namespace Ryneus
             _inputBusyFrame = frame;
         }
 
-        private void InputHandler(List<InputKeyType> keyTypes,bool pressed)
+        private void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
             if (_inputBusyFrame >= 0)
             {
@@ -32,7 +32,7 @@ namespace Ryneus
             foreach (var handler in _inputHandler)
             {
                 //LogOutput.Log(keyType);
-                handler?.InputHandler(keyTypes,pressed);
+                handler?.InputHandler(keyTypes, pressed);
             }
         }
 
@@ -81,12 +81,13 @@ namespace Ryneus
             if (sequenceEqual)
             {
                 _pressedFrame += 1;
-            } else
+            }
+            else
             {
                 _lastInputKeys = keyTypes;
                 _pressedFrame = 0;
             }
-            InputHandler(keyTypes,_pressedFrame > _pressFrame);
+            InputHandler(keyTypes, _pressedFrame > _pressFrame);
             if (InputSystem.IsMouseRightButtonDown())
             {
                 CallMouseCancel();
