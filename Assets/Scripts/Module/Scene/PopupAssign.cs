@@ -137,7 +137,6 @@ namespace Ryneus
         Dictionary,
         FileList,
         DungeonMap,
-        TutorialStage,
     }
 
     public class PopupInfo

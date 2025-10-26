@@ -27,97 +27,97 @@ using Cysharp.Threading.Tasks;
 
 public class Fade : MonoBehaviour
 {
-	IFade fade;
+    IFade fade;
 
-	float cutoutRange;
+    float cutoutRange;
 
-	private CancellationTokenSource _cancellationTokenSource;
+    private CancellationTokenSource _cancellationTokenSource;
 
-	public void Init ()
-	{
-		fade = GetComponent<IFade> ();
-		fade.Range = cutoutRange;
-	}
+    public void Init()
+    {
+        fade = GetComponent<IFade>();
+        fade.Range = cutoutRange;
+    }
 
-	IEnumerator FadeoutCoroutine (float time, System.Action action)
-	{
-		float endTime = Time.timeSinceLevelLoad + time * cutoutRange;
+    IEnumerator FadeoutCoroutine(float time, System.Action action)
+    {
+        float endTime = Time.timeSinceLevelLoad + time * cutoutRange;
 
-		var endFrame = new WaitForEndOfFrame ();
+        var endFrame = new WaitForEndOfFrame();
 
-		while (Time.timeSinceLevelLoad <= endTime) 
-		{
-			cutoutRange = (endTime - Time.timeSinceLevelLoad) / time;
-			fade.Range = cutoutRange;
-			yield return endFrame;
-		}
-		cutoutRange = 0;
-		fade.Range = cutoutRange;
+        while (Time.timeSinceLevelLoad <= endTime)
+        {
+            cutoutRange = (endTime - Time.timeSinceLevelLoad) / time;
+            fade.Range = cutoutRange;
+            yield return endFrame;
+        }
+        cutoutRange = 0;
+        fade.Range = cutoutRange;
 
-		action?.Invoke();
-	}
+        action?.Invoke();
+    }
 
-/*
-	IEnumerator FadeinCoroutine (float time, System.Action action)
-	{
-		float endTime = Time.timeSinceLevelLoad + time * (1 - cutoutRange);
-		var endFrame = new WaitForEndOfFrame ();
+    /*
+        IEnumerator FadeinCoroutine (float time, System.Action action)
+        {
+            float endTime = Time.timeSinceLevelLoad + time * (1 - cutoutRange);
+            var endFrame = new WaitForEndOfFrame ();
 
-		while (Time.timeSinceLevelLoad <= endTime) {
-			cutoutRange = 1 - ((endTime - Time.timeSinceLevelLoad) / time);
-			fade.Range = cutoutRange;
-			yield return endFrame;
-		}
-		cutoutRange = 1;
-		fade.Range = cutoutRange;
+            while (Time.timeSinceLevelLoad <= endTime) {
+                cutoutRange = 1 - ((endTime - Time.timeSinceLevelLoad) / time);
+                fade.Range = cutoutRange;
+                yield return endFrame;
+            }
+            cutoutRange = 1;
+            fade.Range = cutoutRange;
 
-		if (action != null) {
-			action ();
-		}
-	}
-*/
+            if (action != null) {
+                action ();
+            }
+        }
+    */
 
-	public Coroutine FadeOut (float time, System.Action action)
-	{
-		StopAllCoroutines ();
-		return StartCoroutine (FadeoutCoroutine (time, action));
-	}
+    public Coroutine FadeOut(float time, System.Action action)
+    {
+        StopAllCoroutines();
+        return StartCoroutine(FadeoutCoroutine(time, action));
+    }
 
-	public Coroutine FadeOut (float time)
-	{
-		return FadeOut (time, null);
-	}
+    public Coroutine FadeOut(float time)
+    {
+        return FadeOut(time, null);
+    }
 
-/*
-	public Coroutine FadeIn (float time, System.Action action)
-	{
-		StopAllCoroutines ();
-		return StartCoroutine (FadeinCoroutine (time, action));
-	}
+    /*
+        public Coroutine FadeIn (float time, System.Action action)
+        {
+            StopAllCoroutines ();
+            return StartCoroutine (FadeinCoroutine (time, action));
+        }
 
-	public Coroutine FadeIn (float time)
-	{
-		return FadeIn (time, null);
-	}
-*/
-	
-	public void FadeIn (float time, System.Action action)
-	{
-		_cancellationTokenSource = new CancellationTokenSource();  
-        UpdateLoop(time,action).Forget();
-	}
+        public Coroutine FadeIn (float time)
+        {
+            return FadeIn (time, null);
+        }
+    */
 
-	private async UniTaskVoid UpdateLoop(float time,System.Action action)
+    public void FadeIn(float time, System.Action action)
+    {
+        _cancellationTokenSource = new CancellationTokenSource();
+        UpdateLoop(time, action).Forget();
+    }
+
+    private async UniTaskVoid UpdateLoop(float time, System.Action action)
     {
         while (true)
         {
             await FadeIn(time);
-			if (action != null) 
-			{
-				action ();
-				_cancellationTokenSource.Cancel();
-				break;
-			}
+            if (action != null)
+            {
+                action();
+                _cancellationTokenSource.Cancel();
+                break;
+            }
         }
     }
 
@@ -125,8 +125,8 @@ public class Fade : MonoBehaviour
     {
         for (var time = 0.0f; time < fadeTime; time += Time.deltaTime)
         {
-			cutoutRange = 1 - (fadeTime - time);
-			fade.Range = cutoutRange;
+            cutoutRange = 1 - (fadeTime - time);
+            fade.Range = cutoutRange;
             await UniTask.Yield(PlayerLoopTiming.Update, _cancellationTokenSource.Token);
         }
     }

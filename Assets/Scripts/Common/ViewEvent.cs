@@ -54,7 +54,6 @@ namespace Ryneus
         DungeonMap,
         SideMenu,
         Option,
-        TutorialStage,
         Confirm,
     }
 
