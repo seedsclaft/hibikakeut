@@ -21,6 +21,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI encountRate;
         [SerializeField] private GameObject routeModeRoot;
         [SerializeField] private TextMeshProUGUI routeMode;
+        [SerializeField] private TextMeshProUGUI recoveryCount;
         public void UpdateCurrentInfo()
         {
             var current = PartyInfo;
@@ -52,7 +53,7 @@ namespace Ryneus
             }
             if (turnCount != null)
             {
-                turnCount.SetText(partyInfo.CurrentDeckInfo.TurnCount.Value.ToString());
+                //turnCount.SetText(partyInfo.CurrentDeckInfo.TurnCount.Value.ToString());
             }
             if (evaluationValue != null)
             {
@@ -95,6 +96,10 @@ namespace Ryneus
             if (routeModeRoot != null)
             {
                 routeModeRoot.SetActive(partyInfo.CurrentDeckInfo.RoutePaths.Count > 0);
+            }
+            if (recoveryCount != null)
+            {
+                recoveryCount.SetText(partyInfo.CurrentDeckInfo.RecoveryCount.Value.ToString());
             }
         }
     }

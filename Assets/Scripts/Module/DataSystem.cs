@@ -39,6 +39,8 @@ namespace Ryneus
         public static List<SystemData.CommandData> StatusCommand => System.StatusCommandData;
         public static List<SystemData.OptionCommand> OptionCommand => System.OptionCommandData;
 
+        public static Dictionary<int, TextData> TextDates = new();
+
         public static Color PowerUpColor => new(128, 255, 128);
         public static string PowerUpColorTag => "<color=#80FF80>";
         public static Color PowerDownColor => new(255, 128, 64);
@@ -63,6 +65,11 @@ namespace Ryneus
             Stages = Resources.Load<StageDates>("Data/Stages").Data;
             States = Resources.Load<StateDates>("Data/States").Data;
             System = Resources.Load<SystemData>("Data/System");
+            TextDates = new();
+            foreach (var SystemText in System.SystemTextData)
+            {
+                TextDates[SystemText.Id] = SystemText;
+            }
             Troops = Resources.Load<TroopDates>("Data/Troops").Data;
             PrizeSets = Resources.Load<PrizeSetDates>("Data/PrizeSets").Data;
             Animations = Resources.Load<AnimationDates>("Data/Animations").Data;
@@ -115,7 +122,11 @@ namespace Ryneus
 
         public static TextData GetTextData(int id)
         {
-            return System.GetTextData(id);
+            if (TextDates.ContainsKey(id))
+            {
+                return TextDates[id];
+            }
+            return null;
         }
 
         public static string GetText(int id)
@@ -132,16 +143,18 @@ namespace Ryneus
         public static string GetHelp(int id)
         {
             var textData = GetTextData(id);
-            if (textData != null)
-            {
-                return textData.Help;
-            }
-            return "";
+            return textData != null ? textData.Help : "";
         }
 
         public static string GetReplaceText(int id, string replace)
         {
-            return System.GetReplaceText(id, replace);
+            var textData = TextDates[id];
+            if (textData != null)
+            {
+                var text = textData.Text.Replace("\\c", GetTextData(1000).Text);
+                return text.Replace("\\d", replace);
+            }
+            return "";
         }
 
         public static string GetReplaceDecimalText(int value)

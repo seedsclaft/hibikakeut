@@ -17,11 +17,7 @@ namespace Ryneus
         public Material DungeonSkyboxMaterial()
         {
             var skyboxName = DungeonSkyboxName();
-            if (skyboxName != "")
-            {
-                return ResourceSystem.LoadSkyboxMaterial(skyboxName);
-            }
-            return null;
+            return skyboxName != "" ? ResourceSystem.LoadSkyboxMaterial(skyboxName) : null;
         }
 
         public int SelectedCharacterIndex()
@@ -61,13 +57,15 @@ namespace Ryneus
         // 開示マスを復帰
         public void UpdateTraverses()
         {
-            if (CurrentStage != null)
+            if (CurrentStage == null)
             {
-                var traversDates = PartyInfo.GetDungeonTraverse(CurrentStage.StageId.Value);
-                if (traversDates != null)
-                {
-                    TraverseManager.Instance.UpdateTraverses(CurrentStage.StageId.Value,traversDates);
-                }
+                return;
+            }
+
+            var traversDates = PartyInfo.GetDungeonTraverse(CurrentStage.StageId.Value);
+            if (traversDates != null)
+            {
+                TraverseManager.Instance.UpdateTraverses(CurrentStage.StageId.Value,traversDates);
             }
         }
 
@@ -165,6 +163,11 @@ namespace Ryneus
                     // ランダムエンカウントフラグ加算
                     int flag = Random.Range(CurrentStage.Master.EncountMin, CurrentStage.Master.EncountMax);
                     var encountValue = (int)(flag * CurrentDeckInfo.EncountRate.Value);
+                    // 歩数が50を超えたらエンカウント率を下げる
+                    if (CurrentDeckInfo.TurnCount.Value > 50)
+                    {
+                        encountValue -= (int)(CurrentDeckInfo.TurnCount.Value * 0.1f);
+                    }
                     CurrentDeckInfo.Encount.GainValue(encountValue, 0, 100);
                     CurrentDeckInfo.EncountRateTurn.GainValue(-1, 0);
                     if (CurrentDeckInfo.EncountRateTurn.Value == 0)
@@ -172,8 +175,8 @@ namespace Ryneus
                         CurrentDeckInfo.EncountRate.SetValue(1);
                     }
 
-                    // 残りターン数を減算
-                    PartyInfo.CurrentDeckInfo.TurnCount.GainValue(-1);
+                    // 歩数を加算
+                    CurrentDeckInfo.TurnCount.GainValue(1);
                 }
                 //SaveAutoFile();
                 return true;
@@ -183,26 +186,7 @@ namespace Ryneus
 
         public int CheckHpHeal()
         {
-            var hpHeal = 0;
-            foreach (var item in PartyInfo.Items)
-            {
-                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
-                if (itemData != null && itemData.ItemType == ItemType.Artifact)
-                {
-                    var skillData = DataSystem.FindSkill(itemData.Param1);
-                    var trigger = skillData.TriggerDates.Find(a => a.TriggerType == TriggerType.DungeonMoveEnd);
-                    if (trigger != null && trigger.Param1 == (PartyInfo.CurrentDeckInfo.TurnCount.Value % trigger.Param2))
-                    {
-                        foreach (var featureData in skillData.FeatureDates)
-                        {
-                            if (featureData.FeatureType == FeatureType.HpHeal)
-                            {
-                                hpHeal += featureData.Param1;
-                            }
-                        }
-                    }
-                }
-            }
+            var hpHeal = PartyInfo.MoveHpHealValue();
             foreach (var actorInfo in PartyInfo.CurrentDeckActorInfos())
             {
                 if (actorInfo == null)
@@ -254,20 +238,26 @@ namespace Ryneus
 
         public bool EndDungeonByTurnCountValue(int value)
         {
+            return false;
+            /* ターン制御しない
             if (CurrentStage == null)
             {
                 return false;
             }
             return PartyInfo.CurrentDeckInfo.TurnCount.Value == value;
+            */
         }
 
         public bool EndDungeonByTurnCount()
         {
+            return false;
+            /* ターン制御しない
             if (CurrentStage == null)
             {
                 return false;
             }
             return PartyInfo.CurrentDeckInfo.TurnCount.Value < 0;
+            */
         }
 
         public bool EncountEnemy()
@@ -322,21 +312,20 @@ namespace Ryneus
             return actorInfos;
         }
 
-        public bool CanUseCurrencyHeal()
+        public bool CanUseRecoveryHeal()
         {
             var notLimited = PartyInfo.CurrentDeckActorInfos().FindAll(a => a.CurrentHp.Value < a.MaxHp);
-            return notLimited.Count > 0 && PartyInfo.Currency.Value > 0;
+            return notLimited.Count > 0 && CurrentDeckInfo.RecoveryCount.Value > 0;
         }
 
-        public void UseCurrencyHeal()
+        public void UseRecoveryHeal()
         {
-            if (PartyInfo.Currency.Value <= 0)
+            if (CurrentDeckInfo.RecoveryCount.Value <= 0)
             {
                 return;
             }
-            PartyInfo.Currency.GainValue(-1, 0);
-            PartyInfo.UseCurrencyHeal();
-            PartyInfo.PartyStatInfo.BattleScore.GainValue(-20, 0);
+            PartyInfo.UseRecoveryHeal();
+            CurrentDeckInfo.RecoveryCount.GainValue(-1, 0);
         }
 
         public void TurnOver()

@@ -929,20 +929,20 @@ namespace Ryneus
             {
                 return;
             }
-            if (_model.CanUseCurrencyHeal())
+            if (_model.CanUseRecoveryHeal())
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Heal);
-                _model.UseCurrencyHeal();
+                _model.UseRecoveryHeal();
                 _view.SeekTweens();
-                _view.StartHeal(10);
-                _view.MinusVictoryBonus(-0.2f);
+                _view.StartHeal(_model.PartyInfo.HpHealValue());
+                //_view.MinusVictoryBonus(-0.2f);
                 _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
                 CommandRefresh();
             } else
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
-                var textId = (_model.PartyInfo.Currency.Value <= 0) ? 10100 : 10101;
+                var textId = (_model.CurrentDeckInfo.RecoveryCount.Value <= 0) ? 10100 : 10101;
                 cautionInfo.SetTitle(DataSystem.GetText(textId));
                 _view.CommandCallCaution(cautionInfo);
             }

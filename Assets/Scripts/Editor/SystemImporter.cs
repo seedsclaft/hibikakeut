@@ -63,7 +63,7 @@ namespace Ryneus
                 {
                     // エクセルブックを作成
                     AssetPostImporter.CreateBook(asset, Mainstream, out IWorkbook Book);
-                    List<TextData> textData = AssetPostImporter.CreateText(Book.GetSheetAt(7));
+                    List<TextData> textData = AssetPostImporter.CreateText(Book.GetSheetAt(6));
 
                     // 情報の初期化
                     Data.TacticsCommandData = new();
@@ -178,33 +178,13 @@ namespace Ryneus
                         {
                             Data.InitCurrency = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
                         }
-                        if (KeyName == "trainCount")
+                        if (KeyName == "PartyMemberNum")
                         {
-                            Data.TrainCount = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
+                            Data.PartyMemberNum = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
                         }
-                        if (KeyName == "alchemyCount")
+                        if (KeyName == "HpHealValue")
                         {
-                            Data.AlchemyCount = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
-                        }
-                        if (KeyName == "recoveryCount")
-                        {
-                            Data.RecoveryCount = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
-                        }
-                        if (KeyName == "battleCount")
-                        {
-                            Data.BattleCount = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
-                        }
-                        if (KeyName == "resourceCount")
-                        {
-                            Data.ResourceCount = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
-                        }
-                        if (KeyName == "alcanaSelectCount")
-                        {
-                            Data.AlcanaSelectCount = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
-                        }
-                        if (KeyName == "battleBonusValue")
-                        {
-                            Data.BattleBonusValue = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
+                            Data.HpHealValue = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
                         }
                         if (KeyName == "WeakPointRate")
                         {
@@ -217,6 +197,10 @@ namespace Ryneus
                         if (KeyName == "PeriodTurns")
                         {
                             Data.PeriodTurns = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
+                        }
+                        if (KeyName == "RecoveryCount")
+                        {
+                            Data.RecoveryCount = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
                         }
                     }
                 }

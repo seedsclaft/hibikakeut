@@ -15,7 +15,7 @@ namespace Ryneus
                 ChangeBGMValue(saveOptionInfo.BgmVolume);
                 ChangeSEValue(saveOptionInfo.SeVolume);
                 ChangeScreenMode(saveOptionInfo.ScreenMode);
-                SetResolution(saveOptionInfo.ScreenWidth,saveOptionInfo.ScreenHeight);
+                SetResolution(saveOptionInfo.ScreenWidth, saveOptionInfo.ScreenHeight);
                 ChangeGraphicIndex(saveOptionInfo.GraphicIndex);
                 ChangeEventSkipIndex(saveOptionInfo.EventSkipIndex);
                 ChangeEventTextSkipIndex(saveOptionInfo.EventTextSkipIndex);
@@ -49,18 +49,19 @@ namespace Ryneus
                 if (targetResolutionIndex >= _resolutions.Count)
                 {
                     return;
-                } else
+                }
+                else
                 if (targetResolutionIndex < 0)
                 {
                     return;
                 }
-                SetResolution(_resolutions[targetResolutionIndex].width,_resolutions[targetResolutionIndex].height);
+                SetResolution(_resolutions[targetResolutionIndex].width, _resolutions[targetResolutionIndex].height);
             }
         }
 
-        public static void SetResolution(int width,int height)
+        public static void SetResolution(int width, int height)
         {
-            Screen.SetResolution(width,height,Screen.fullScreen);
+            Screen.SetResolution(width, height, Screen.fullScreen);
             GameSystem.OptionData.ScreenWidth = width;
             GameSystem.OptionData.ScreenHeight = height;
         }
@@ -69,11 +70,11 @@ namespace Ryneus
         {
             SoundManager.Instance.SetBgmVolume(bgmVolume);
             SoundManager.Instance.UpdateBgmVolume();
-            if (bgmVolume > 0 && SoundManager.Instance.BGMMute == false)
+            if (bgmVolume > 0 && !SoundManager.Instance.BGMMute)
             {
                 ChangeBGMMute(false);
             }
-            if (bgmVolume == 0 && SoundManager.Instance.BGMMute == true)
+            if (bgmVolume == 0 && SoundManager.Instance.BGMMute)
             {
                 ChangeBGMMute(true);
             }
@@ -84,17 +85,17 @@ namespace Ryneus
             SoundManager.Instance.BGMMute = bgmMute;
             SoundManager.Instance.UpdateBgmVolume();
         }
-        
+
         public static void ChangeSEValue(float seVolume)
         {
             SoundManager.Instance.SeVolume = seVolume;
             Effekseer.Internal.EffekseerSoundPlayer.SeVolume = seVolume;
             SoundManager.Instance.UpdateSeVolume();
-            if (seVolume > 0 && SoundManager.Instance.SeMute == false)
+            if (seVolume > 0 && !SoundManager.Instance.SeMute)
             {
                 ChangeSEMute(false);
             }
-            if (seVolume == 0 && SoundManager.Instance.SeMute == true)
+            if (seVolume == 0 && SoundManager.Instance.SeMute)
             {
                 ChangeSEMute(true);
             }
@@ -140,13 +141,13 @@ namespace Ryneus
         {
             GameSystem.OptionData.InputType = inputType;
         }
-        
+
         public static void ChangeBattleAuto(bool battleAuto)
         {
             GameSystem.OptionData.BattleAuto = battleAuto;
         }
 
-        public static List<float> SpeedList = new List<float>(){0,1f,2f,3f};
+        public static List<float> SpeedList = new List<float>() { 0, 1f, 2f, 3f };
         public static void SetBattleSpeed(float battleSpeed)
         {
             GameSystem.OptionData.BattleSpeed = battleSpeed;
@@ -158,11 +159,13 @@ namespace Ryneus
             if (next <= 0)
             {
                 GameSystem.OptionData.BattleSpeed = SpeedList[^1];
-            } else
-            if (next > SpeedList.Count-1)
+            }
+            else
+            if (next > SpeedList.Count - 1)
             {
                 GameSystem.OptionData.BattleSpeed = SpeedList[1];
-            } else
+            }
+            else
             {
                 GameSystem.OptionData.BattleSpeed = SpeedList[next];
             }

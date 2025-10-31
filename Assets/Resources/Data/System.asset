@@ -189,16 +189,12 @@ MonoBehaviour:
     Name: "\u30AA\u30D7\u30B7\u30E7\u30F3\u3092\u8A2D\u5B9A\u3059\u308B"
     Help: '""'
   InitCurrency: 0
-  TrainCount: 5
-  AlchemyCount: 3
-  RecoveryCount: 4
-  BattleCount: 5
-  ResourceCount: 3
-  AlcanaSelectCount: 4
-  BattleBonusValue: 4
+  PartyMemberNum: 6
+  HpHealValue: 10
   WeakPointRate: 150
   StartStageId: 10
   PeriodTurns: 4
+  RecoveryCount: 1
   SystemTextData:
   - Id: 0
     Text: '""'
@@ -549,7 +545,7 @@ MonoBehaviour:
     Help: '""'
     Feature: Dungeon
   - Id: 10100
-    Text: "(Nu)\u304C\u4E0D\u8DB3\u3057\u3066\u3044\u308B\u305F\u3081\u56DE\u5FA9\u3067\u304D\u307E\u305B\u3093\uFF01"
+    Text: "\u56DE\u5FA9\u85AC\u304C\u306A\u3044\u305F\u3081\u56DE\u5FA9\u3067\u304D\u307E\u305B\u3093\uFF01"
     Help: '""'
     Feature: 
   - Id: 10101
@@ -1001,20 +997,8 @@ MonoBehaviour:
     Text: "\u9B54\u6CD5\u30921\u3064\u9078\u3093\u3067\u5165\u624B"
     Help: '""'
     Feature: 
-  - Id: 20260
-    Text: "\u30D0\u30C8\u30EB\u8A55\u4FA1\u5024:+\\d%"
-    Help: '""'
-    Feature: 
   - Id: 20270
-    Text: "\u5149\u306E\u6A4B\u3092\u6E21\u308B"
-    Help: '""'
-    Feature: 
-  - Id: 20280
-    Text: "\u30D0\u30C8\u30EB\u52DD\u5229\u6642Nu\u5165\u624B\u91CF+\\d"
-    Help: '""'
-    Feature: 
-  - Id: 20290
-    Text: "\u6575Lv+\\d"
+    Text: "\u30A8\u30F3\u30C7\u30A3\u30F3\u30B0\u7528"
     Help: '""'
     Feature: 
   - Id: 20300

@@ -71,12 +71,6 @@ namespace Ryneus
                     return DataSystem.FindActor(Param1).Name + DataSystem.GetText(20201);
                 case GetItemType.SelectAddActor:
                     return DataSystem.GetText(20240);
-                case GetItemType.BattleScoreBonus:
-                    return DataSystem.GetReplaceText(20260, (_resultParam * 0.01f).ToString()) + "x" + Param1.ToString();
-                case GetItemType.BattleNuminosBonus:
-                    return DataSystem.GetReplaceText(20280, Param1.ToString());
-                case GetItemType.BattleEnemyLvUp:
-                    return DataSystem.GetReplaceText(20290, Param1.ToString());
                 case GetItemType.SelectRelic:
                     if (Param1 < 1000)
                     {
@@ -84,11 +78,6 @@ namespace Ryneus
                     }
                     return DataSystem.FindSkill(Param1).Name;
 
-                //case GetItemType.RemakeHistory:
-                //case GetItemType.ParallelHistory:
-                //case GetItemType.Multiverse:
-                case GetItemType.LvLink:
-                    break;
                 case GetItemType.Item:
                     return DataSystem.Items.Find(a => a.Id == Param1).Name + " x" + Param2.ToString();
                 case GetItemType.Evaluate:

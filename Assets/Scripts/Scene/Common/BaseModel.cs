@@ -269,6 +269,21 @@ namespace Ryneus
             return await ResourceSystem.LoadBGMAsset(bgmKey);
         }
 
+        public List<SystemData.CommandData> ConfirmCommand()
+        {
+            return BaseConfirmCommand(3050,3051);
+        }
+
+        public List<SystemData.CommandData> NoChoiceConfirmCommand()
+        {
+            return new List<SystemData.CommandData>(){BaseConfirmCommand(3052,0)[0]};
+        }
+
+        public List<SkillInfo> SkillActionList(ActorInfo actorInfo)
+        {
+            return new List<SkillInfo>();
+        }
+
         public List<SystemData.CommandData> BaseConfirmCommand(int yesTextId, int noTextId = 0)
         {
             var menuCommandDates = new List<SystemData.CommandData>();
@@ -312,6 +327,17 @@ namespace Ryneus
                 }
             }
             return skillInfos;
+        }
+
+        public GetItemInfo MakeGetItemInfo(GetItemType getItemType, int param1, int param2 = 0)
+        {
+            var getItemData = new GetItemData
+            {
+                Type = getItemType,
+                Param1 = param1,
+                Param2 = param2,
+            };
+            return new GetItemInfo(getItemData);
         }
 
         public List<SkillInfo> BasicSkillGetItemInfos(List<GetItemInfo> getItemInfos)

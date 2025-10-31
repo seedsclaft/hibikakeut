@@ -1,9 +1,9 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Ryneus
 {
-    [System.Serializable]
+    [Serializable]
     public class DeckInfo
     {
         public DeckInfo()
@@ -14,13 +14,11 @@ namespace Ryneus
         public ParameterInt Index = new();
         // 現在位置
         public ParameterInt StageNo = new();
+        // 歩数カウント
         public ParameterInt TurnCount = new();
         public ParameterFloat GetDungeonBgmTimeStamp()
         {
-            if (DungeonBgmTimeStamp == null)
-            {
-                DungeonBgmTimeStamp = new();
-            }
+            DungeonBgmTimeStamp ??= new();
             return DungeonBgmTimeStamp;
         }
         public ParameterFloat DungeonBgmTimeStamp = new();
@@ -53,18 +51,17 @@ namespace Ryneus
         public ParameterFloat EncountRateTurn = new(0);
         public string EncountRateText()
         {
-            if (EncountRate.Value != 1)
-            {
-
-                return EncountRateTurn.Value + "ターン Encount率 x" + EncountRate.Value;
-            }
-            return "";
+            return EncountRate.Value != 1 ? EncountRateTurn.Value + "ターン Encount率 x" + EncountRate.Value : "";
         }
 
         // 編成情報
         private Dictionary<int, int> _actorIdDict = new();
         public Dictionary<int, int> ActorIdDict => _actorIdDict;
-        public void SetActorIdDict(Dictionary<int, int> actorIdDict) => _actorIdDict = actorIdDict;
+        public void SetActorIdDict(Dictionary<int, int> actorIdDict)
+        {
+            _actorIdDict = actorIdDict;
+        }
+
         public void TransferActorInfo(int actorId)
         {
             var removeEditIndex = FindEditIndex(actorId);
@@ -107,16 +104,17 @@ namespace Ryneus
 
         private void InitUnitInfos()
         {
-            for (int i = 1;i <= 6;i++)
+            for (int i = 1; i <= DataSystem.System.PartyMemberNum; i++)
             {
                 _actorIdDict[i] = -1;
             }
-            //_actorIdDict[1] = 1;
         }
 
+        // 回復可能回数
+        public ParameterInt RecoveryCount = new();
     }
 
-    [System.Serializable]
+    [Serializable]
     public class DungeonResumeInfo
     {
         public ParameterInt StageNo = new();

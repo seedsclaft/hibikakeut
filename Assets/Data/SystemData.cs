@@ -12,40 +12,15 @@ namespace Ryneus
         public List<OptionCommand> OptionCommandData;
         public List<CommandData> TitleCommandData;
         public int InitCurrency;
-        public int TrainCount;
-        public int AlchemyCount;
-        public int RecoveryCount;
-        public int BattleCount;
-        public int ResourceCount;
-        public int AlcanaSelectCount;
-        public int BattleBonusValue;
+        public int PartyMemberNum;
+        public int HpHealValue;
         public int WeakPointRate;
         public int StartStageId;
         public int PeriodTurns;
+        public int RecoveryCount;
         public List<TextData> SystemTextData;
 
-
         public List<InputData> InputDataList;
-        public TextData GetTextData(int id)
-        {
-            var textData = SystemTextData.Find(a => a.Id == id);
-            if (textData != null)
-            {
-                return textData;
-            }
-            return null;
-        }
-
-        public string GetReplaceText(int id, string replace)
-        {
-            var textData = SystemTextData.Find(a => a.Id == id);
-            if (textData != null)
-            {
-                var text = textData.Text.Replace("\\c", GetTextData(1000).Text);
-                return text.Replace("\\d", replace);
-            }
-            return "";
-        }
 
         [Serializable]
         public class CommandData
@@ -133,15 +108,9 @@ namespace Ryneus
         Regeneration = 31,
         //LearnSkill = 41,
         SelectAddActor = 52,
-        BattleScoreBonus = 61,
-        BattleNuminosBonus = 62,
-        BattleEnemyLvUp = 63,
         Skill = 100,
         SelectRelic = 101,
         SelectSkill = 102,
-        //ParallelHistory = 102,
-        //Multiverse = 103,
-        LvLink = 104,
         Ending = 210,
         Item = 1010,
         Building = 1020,
@@ -149,6 +118,7 @@ namespace Ryneus
         RankUp = 2010,
         Evaluate = 2020,
         AddReliefCommandCount = 2030,
+        AddRecoveryCount = 2040,
         ClearStage = 3010,
         RandumItem = 4010,
         RandumMagic = 4020,

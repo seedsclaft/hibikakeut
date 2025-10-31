@@ -8,7 +8,7 @@ namespace Ryneus
         public List<ListData> TitleCommand()
         {
             var selectIndex = ExistsLoadFile() ? 1 : 0;
-            return ListData.MakeListData(DataSystem.TitleCommand,(a) =>
+            return ListData.MakeListData(DataSystem.TitleCommand, (a) =>
             {
                 switch (a.Key)
                 {
@@ -16,7 +16,7 @@ namespace Ryneus
                         return ExistsLoadFile();
                 }
                 return true;
-            },selectIndex);
+            }, selectIndex);
         }
 
         public bool ExistsLoadFile()

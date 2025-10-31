@@ -7,7 +7,6 @@ namespace Ryneus
     public class PartyInfoChecker : SingletonMonoBehaviour<PartyInfoChecker>
     {
         [SerializeField] private bool encountZero = false;
-        [SerializeField] private bool dungeonTurnMax = false;
         [SerializeField] private bool allLearnSkills = false;
         [SerializeField] private PartyInfo partyInfo = null;
         [SerializeField] private DeckInfo deckInfo = null;
@@ -22,10 +21,6 @@ namespace Ryneus
             if (deckInfo != null && encountZero)
             {
                 deckInfo.Encount.SetValue(0);
-            }
-            if (deckInfo != null && dungeonTurnMax)
-            {
-                deckInfo.TurnCount.SetValue(50);
             }
             if (partyInfo != null && allLearnSkills)
             {

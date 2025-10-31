@@ -149,6 +149,37 @@ namespace Ryneus
         // 所持金
         public ParameterInt Currency = new();
 
+        // 回復可能加算数
+        public ParameterInt RecoveryCount = new();
+        public int HpHealValue()
+        {
+            return DataSystem.System.HpHealValue;
+        }
+        public int MoveHpHealValue()
+        {
+            var hpHeal = 0;
+            foreach (var item in _items)
+            {
+                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
+                if (itemData != null && itemData.ItemType == ItemType.Artifact)
+                {
+                    var skillData = DataSystem.FindSkill(itemData.Param1);
+                    var trigger = skillData.TriggerDates.Find(a => a.TriggerType == TriggerType.DungeonMoveEnd);
+                    if (trigger != null && trigger.Param1 == (CurrentDeckInfo.TurnCount.Value % trigger.Param2))
+                    {
+                        foreach (var featureData in skillData.FeatureDates)
+                        {
+                            if (featureData.FeatureType == FeatureType.HpHeal)
+                            {
+                                hpHeal += featureData.Param1;
+                            }
+                        }
+                    }
+                }
+            }
+            return hpHeal;
+        }
+
         // 所持アイテム
         private Dictionary<int, ParameterInt> _items = new();
         public Dictionary<int, ParameterInt> Items => _items;
@@ -464,6 +495,9 @@ namespace Ryneus
                 case GetItemType.AddReliefCommandCount:
                     ReliefItemCount.GainValue(1, 0);
                     break;
+                case GetItemType.AddRecoveryCount:
+                    RecoveryCount.GainValue(1, 0);
+                    break;
                 default:
                     CheckAddActor();
                     CheckLearningSkillId();
@@ -609,12 +643,12 @@ namespace Ryneus
             return actorInfos;
         }
 
-        public void UseCurrencyHeal()
+        public void UseRecoveryHeal()
         {
             foreach (var actorId in CurrentDeckInfo.ActorIdDict)
             {
                 var find = _actorInfos.Find(a => a.ActorId.Value == actorId.Value);
-                find?.ChangeHp(find.CurrentHp.Value + 10);
+                find?.ChangeHp(find.CurrentHp.Value + DataSystem.System.HpHealValue);
             }
         }
 
