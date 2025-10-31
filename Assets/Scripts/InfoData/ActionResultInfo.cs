@@ -1045,7 +1045,7 @@ namespace Ryneus
                             feature.Param3 = featureData.Param3;
                             break;
                     }
-                    skillInfo.FeatureDates.Remove(feature);
+                    skillInfo.FeatureDates.Remove(featureData);
                 }
             }
         }
@@ -1073,7 +1073,7 @@ namespace Ryneus
                             feature.Param3 += winCount * featureData.Param3;
                             break;
                     }
-                    skillInfo.FeatureDates.Remove(feature);
+                    skillInfo.FeatureDates.Remove(featureData);
                 }
             }
         }
@@ -1099,7 +1099,7 @@ namespace Ryneus
                 if (feature != null)
                 {
                     feature.Rate = featureData.Param3;
-                    skillInfo.FeatureDates.Remove(feature);
+                    skillInfo.FeatureDates.Remove(featureData);
                 }
             }
         }

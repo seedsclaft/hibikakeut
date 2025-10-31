@@ -205,6 +205,11 @@ namespace Ryneus
                 };
                 return feature;
             }
+
+            public bool EnhanceFeature()
+            {
+                return FeatureType is >= FeatureType.ChangeFeatureParam1 and <= FeatureType.AddSkillPlusSkill;
+            }
         }
 
         [Serializable]

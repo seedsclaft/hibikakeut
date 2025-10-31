@@ -6,8 +6,8 @@ namespace Ryneus
 {
     public class TradeModel : BaseModel
     {
-        private List<TradeItemInfo> _getItems = new();
-        public List<TradeItemInfo> GetItems => _getItems;
+        private Dictionary<TradeItemInfo, int> _getTradeItems = new();
+        public Dictionary<TradeItemInfo, int> GetTradeItems => _getTradeItems;
         public ParameterInt PayCost = new();
         public TradeModel()
         {
@@ -73,6 +73,7 @@ namespace Ryneus
 
         public void AddTradeItem(TradeItemInfo getItemInfo)
         {
+            /*
             if (!_getItems.Contains(getItemInfo))
             {
                 getItemInfo.Selected.SetValue(true);
@@ -80,10 +81,19 @@ namespace Ryneus
                 PayCost.GainValue((int)cost);
                 _getItems.Add(getItemInfo);
             }
+            */
         }
 
-        public void RemoveTradeItem(TradeItemInfo getItemInfo)
+        public void RemoveTradeItem(TradeItemInfo tradeItemInfo)
         {
+            if (_getTradeItems.ContainsKey(tradeItemInfo))
+            {
+                var cost = (int)(tradeItemInfo.Cost.Value * PartyInfo.TradeDownRate());
+                PayCost.GainValue((int)cost * -1 * _getTradeItems[tradeItemInfo]);
+                _getTradeItems[tradeItemInfo] = 0;
+                tradeItemInfo.GetCount.SetValue(0);
+            }
+            /*
             if (_getItems.Contains(getItemInfo))
             {
                 getItemInfo.Selected.SetValue(false);
@@ -91,14 +101,39 @@ namespace Ryneus
                 PayCost.GainValue((int)cost * -1);
                 _getItems.Remove(getItemInfo);
             }
+            */
+        }
+
+        public void ChangeTradeItemNum(TradeItemInfo tradeItemInfo, bool plus)
+        {
+            var num = 0;
+            if (_getTradeItems.ContainsKey(tradeItemInfo))
+            {
+                num = _getTradeItems[tradeItemInfo];
+            } else
+            {
+                _getTradeItems[tradeItemInfo] = 0;
+            }
+            num += plus ? 1 : -1;
+            if (num >= 0)
+            {
+                var cost = (int)(tradeItemInfo.Cost.Value * PartyInfo.TradeDownRate());
+                cost *= plus ? 1 : -1;
+                PayCost.GainValue((int)cost);
+                _getTradeItems[tradeItemInfo] = num;
+                tradeItemInfo.GetCount.SetValue(num);
+            }
         }
 
         public List<GetItemInfo> GetTradeGetItemInfos()
         {
             var list = new List<GetItemInfo>();
-            foreach (var getItem in _getItems)
+            foreach (var getTradeItems in _getTradeItems)
             {
-                list.Add(getItem.GetItemInfo);
+                for (int i = 0; i < getTradeItems.Value;i++)
+                {
+                    list.Add(getTradeItems.Key.GetItemInfo);
+                }
             }
             return list;
         }
@@ -111,7 +146,8 @@ namespace Ryneus
         public void PayCostTrade()
         {
             PartyInfo.Currency.GainValue(-1 * PayCost.Value);
-            PartyInfo.RemoveTradeItemInfos(_getItems);
+            PartyInfo.TradeItemInfos.ForEach(a => a.GetCount.SetValue(0));
+            //PartyInfo.RemoveTradeItemInfos(_getTradeItems);
         }
 
         public List<SkillInfo> GetRandumAddSkillInfos(ItemInfo itemInfo)

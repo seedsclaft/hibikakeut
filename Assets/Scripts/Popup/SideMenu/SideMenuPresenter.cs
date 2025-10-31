@@ -221,7 +221,6 @@ namespace Ryneus
             }
             ClosePopup();
             //_view.ActivateCommandList();
-            _view.CallSystemCommand(Base.CommandType.CloseConfirm);
         }
 
 
@@ -306,7 +305,6 @@ namespace Ryneus
             {
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 _model.DeletePlayerData();
-                _view.CallSystemCommand(Base.CommandType.CloseConfirm);
                 var confirmInfo = new ConfirmInfo(DataSystem.GetText(13310), (a) =>
 
                 {
@@ -330,7 +328,6 @@ namespace Ryneus
             {
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 _model.DeleteStageData();
-                _view.CallSystemCommand(Base.CommandType.CloseConfirm);
                 var confirmInfo = new ConfirmInfo(DataSystem.GetText(13310), (a) =>
 
                 {

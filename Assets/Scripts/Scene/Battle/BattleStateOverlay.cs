@@ -187,6 +187,12 @@ namespace Ryneus
             }
         }
 
+        public void StopOverlayAnimation()
+        {
+            _overlayEffectPath = null;
+            effekseerEmitter.Stop();
+        }
+
         private EffekseerEffectAsset UpdateStateOverlay()
         {
             string path = "Animations/" + _overlayEffectPath;

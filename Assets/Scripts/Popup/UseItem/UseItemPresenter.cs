@@ -76,6 +76,9 @@ namespace Ryneus
                 case (int)UseItemType.DungeonTurn:
                     UseItemDungeonTurn(itemInfo);
                     break;
+                case (int)UseItemType.Heal:
+                    UseItemHeal(itemInfo);
+                    break;
             }
             CommandRefresh();
         }
@@ -112,6 +115,33 @@ namespace Ryneus
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
+        }
+
+        private void UseItemHeal(ItemInfo itemInfo)
+        {
+            if (!_model.CanUseRecoveryHeal())
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                var cautionInfo = new CautionInfo();
+                var textId = 10101;
+                cautionInfo.SetTitle(DataSystem.GetText(textId));
+                _view.CommandCallCaution(cautionInfo);
+                return;
+            }
+            var heal = itemInfo.Master.Param2;
+            SoundManager.Instance.PlayStaticSe(SEType.Heal);
+            _model.UseItemHeal(heal);
+            _busy = true;
+            _view.SetBusy(true);
+
+            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(42030, heal.ToString()), (a) =>
+            {
+                _busy = false;
+                _view.SetBusy(false);
+            });
+            confirmInfo.SetIsNoChoice(true);
+            _view.CommandCallConfirm(confirmInfo);
+            _view.UseItemHeal(heal);
         }
 
         private void CommandBack()

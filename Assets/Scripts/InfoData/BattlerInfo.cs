@@ -133,27 +133,35 @@ namespace Ryneus
             }
 
             // _skills確定後に強化する
-            var enhanceSkills = _skills.FindAll(a => a.IsEnhanceSkill());
-            foreach (var enhanceSkill in enhanceSkills)
+            //var enhanceSkills = _skills.FindAll(a => a.IsEnhanceSkill());
+            _actorInfo = actorInfo;
+            foreach (var enhanceSkill in _skills)
             {
-                var skillInfo = new SkillInfo(enhanceSkill.Id.Value);
-                var featureDates = new List<SkillData.FeatureData>();
-                foreach (var featureData in skillInfo.FeatureDates)
+                // 会得しているか
+                if (!actorInfo.MastarySkillIds.Contains(enhanceSkill.Id.Value))
                 {
-                    if (featureData.FeatureType >= FeatureType.ChangeFeatureParam1 && featureData.FeatureType <= FeatureType.AddSkillPlusSkill)
+                    continue;
+                }
+                var featureDates = new List<SkillData.FeatureData>();
+                foreach (var featureData in enhanceSkill.FeatureDates)
+                {
+                    if (featureData.EnhanceFeature())
                     {
                         featureDates.Add(featureData.CopyData());
                     }
                 }
+                if (featureDates.Count == 0)
+                {
+                    continue;
+                }
                 var result = new ActionResultInfo(this, this, featureDates, enhanceSkill.Id.Value);
             }
-            _enhanceSkills = enhanceSkills;
+            //_enhanceSkills = enhanceSkills;
 
             _demigodParam = actorInfo.DemigodParam;
             _isActor = true;
             _isAlcana = false;
 
-            _actorInfo = actorInfo;
             _isActorView = true;
             Hp.SetValue(actorInfo.CurrentHp.Value);
             Mp.SetValue(actorInfo.CurrentMp.Value);

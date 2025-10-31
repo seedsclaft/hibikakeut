@@ -6,6 +6,7 @@ namespace Ryneus
         private GetItemInfo _getItemInfo = null;
         public GetItemInfo GetItemInfo => _getItemInfo;
         public ParameterInt Cost = new();
+        public ParameterInt GetCount = new();
         public ParameterBool Selected = new();
         public TradeItemInfo(GetItemData getItemData, int cost)
         {

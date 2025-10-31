@@ -943,6 +943,10 @@ namespace Ryneus
                 var featureDates = new List<SkillData.FeatureData>();
                 foreach (var featureData in actionInfo.SkillInfo.FeatureDates)
                 {
+                    if (featureData.EnhanceFeature())
+                    {
+                        continue;
+                    }
                     featureDates.Add(featureData);
                 }
 

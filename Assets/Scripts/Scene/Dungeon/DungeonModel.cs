@@ -163,11 +163,6 @@ namespace Ryneus
                     // ランダムエンカウントフラグ加算
                     int flag = Random.Range(CurrentStage.Master.EncountMin, CurrentStage.Master.EncountMax);
                     var encountValue = (int)(flag * CurrentDeckInfo.EncountRate.Value);
-                    // 歩数が50を超えたらエンカウント率を下げる
-                    if (CurrentDeckInfo.TurnCount.Value > 50)
-                    {
-                        encountValue -= (int)(CurrentDeckInfo.TurnCount.Value * 0.1f);
-                    }
                     CurrentDeckInfo.Encount.GainValue(encountValue, 0, 100);
                     CurrentDeckInfo.EncountRateTurn.GainValue(-1, 0);
                     if (CurrentDeckInfo.EncountRateTurn.Value == 0)

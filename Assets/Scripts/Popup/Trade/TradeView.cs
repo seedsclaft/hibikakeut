@@ -46,9 +46,10 @@ namespace Ryneus
         {
             itemList.Initialize();
             itemList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.CommandBack, itemList.ListItemData<TradeItemInfo>()));
-            itemList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectTradeItem, itemList.ListItemData<TradeItemInfo>()));
             itemList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.TradeItemDetail, itemList.ListItemData<TradeItemInfo>()));
             itemList.SetInputHandler(InputKeyType.Start, () => CallViewEvent(CommandType.DecideTrade));
+            itemList.SetInputHandler(InputKeyType.Left, () => CallViewEvent(CommandType.MinusTradeItem, itemList.ListItemData<TradeItemInfo>()));
+            itemList.SetInputHandler(InputKeyType.Right, () => CallViewEvent(CommandType.PlusTradeItem, itemList.ListItemData<TradeItemInfo>()));
             AddViewActives(itemList);
         }
 
@@ -63,7 +64,20 @@ namespace Ryneus
                     var comp = itemPrefab.GetComponent<TradeItemInfoComponent>();
                     if (comp != null)
                     {
-                        comp.SetDetailEvent((a) =>
+                        comp.SetUseCountEvent((a) =>
+                        {
+                            var itemData = itemList.ListItemData<TradeItemInfo>();
+                            if (itemData != null)
+                            {
+                                if (a)
+                                {
+                                    CallViewEvent(CommandType.PlusTradeItem, itemData);
+                                } else
+                                {
+                                    CallViewEvent(CommandType.MinusTradeItem, itemData);
+                                }
+                            }
+                        },(a) =>
                         {
                             CallViewEvent(CommandType.TradeItemDetail, a);
                         });
@@ -103,7 +117,8 @@ namespace Ryneus
             Initialize,
             DecideTrade,
             TradeItemDetail,
-            SelectTradeItem,
+            PlusTradeItem,
+            MinusTradeItem,
             CommandBack
         }
     }

@@ -365,6 +365,7 @@ namespace Ryneus
             DecideDirectEvent,
             CheckRemainTurn,
             Heal,
+            UseItemHeal,
             Formation,
             UseItem,
             SelectCharacter,

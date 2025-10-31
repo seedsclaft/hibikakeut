@@ -6,18 +6,28 @@ namespace Ryneus
 {
     public class ConfirmAssign : MonoBehaviour
     {
-        public GameObject CreateConfirm(ConfirmType popupType, HelpWindow helpWindow)
+        private Dictionary<ConfirmType, GameObject> _createdPopupPrefabs = new();
+        public List<GameObject> _stackPopupPrefab = new();
+        public GameObject LastPopupPrefab => _stackPopupPrefab.Count > 0 ? _stackPopupPrefab[_stackPopupPrefab.Count - 1] : null;
+
+        public bool CreateConfirm(ConfirmType popupType, HelpWindow helpWindow)
         {
-            if (transform.childCount > 0)
+            bool first = false;
+            GameObject prefab;
+            if (!_createdPopupPrefabs.ContainsKey(popupType))
             {
+                prefab = Instantiate(GetConfirmObject(popupType));
+                prefab.transform.SetParent(transform, false);
+                _createdPopupPrefabs[popupType] = prefab;
+                first = true;
                 //CloseConfirm();
             }
-            var prefab = Instantiate(GetConfirmObject(popupType));
-            prefab.transform.SetParent(transform, false);
             gameObject.SetActive(true);
-            var view = prefab.GetComponent<BaseView>();
-            view?.SetHelpWindow(helpWindow);
-            return prefab;
+            prefab = _createdPopupPrefabs[popupType];
+            _stackPopupPrefab.Add(prefab);
+            prefab.SetActive(true);
+            prefab.transform.SetAsLastSibling();
+            return first;
         }
 
         private GameObject GetConfirmObject(ConfirmType popupType)

@@ -24,5 +24,16 @@ namespace Ryneus
         {
             PartyInfo.CurrentDeckInfo.TurnCount.GainValue(turns);
         }
+
+        public bool CanUseRecoveryHeal()
+        {
+            var notLimited = PartyInfo.CurrentDeckActorInfos().FindAll(a => a.CurrentHp.Value < a.MaxHp);
+            return notLimited.Count > 0 && CurrentDeckInfo.RecoveryCount.Value > 0;
+        }
+
+        public void UseItemHeal(int heal)
+        {
+            PartyInfo.UseItemHeal(heal);
+        }
     }
 }

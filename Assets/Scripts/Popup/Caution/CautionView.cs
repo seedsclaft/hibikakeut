@@ -13,8 +13,8 @@ namespace Ryneus
         [SerializeField] private CanvasGroup canvasGroup = null;
 
         public override void Initialize()
-
         {
+            AnimationUtility.Clear();
             base.Initialize();
         }
 

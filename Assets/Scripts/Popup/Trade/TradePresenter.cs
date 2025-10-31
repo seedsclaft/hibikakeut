@@ -51,8 +51,19 @@ namespace Ryneus
                 case CommandType.TradeItemDetail:
                     CommandTradeItemDetail((TradeItemInfo)viewEvent.Template);
                     break;
-                case CommandType.SelectTradeItem:
-                    CommandSelectTradeItem((TradeItemInfo)viewEvent.Template);
+                case CommandType.PlusTradeItem:
+                    if (viewEvent.Template == null)
+                    {
+                        return;
+                    }
+                    CommandPlusTradeItem((TradeItemInfo)viewEvent.Template);
+                    break;
+                case CommandType.MinusTradeItem:
+                    if (viewEvent.Template == null)
+                    {
+                        return;
+                    }
+                    CommandMinusTradeItem((TradeItemInfo)viewEvent.Template);
                     break;
                 case CommandType.CommandBack:
                     CommandBack((TradeItemInfo)viewEvent.Template);
@@ -62,7 +73,7 @@ namespace Ryneus
 
         private void CommandDecideTrade()
         {
-            if (_model.GetItems.Count == 0)
+            if (_model.GetTradeItems.Count == 0)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();
@@ -165,24 +176,31 @@ namespace Ryneus
             }
         }
 
-        private void CommandSelectTradeItem(TradeItemInfo tradeItemInfo)
+        private void CommandPlusTradeItem(TradeItemInfo tradeItemInfo)
         {
-            if (tradeItemInfo == null)
+            if (!_model.CanPayCost(tradeItemInfo))
             {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                var cautionInfo = new CautionInfo();
+                cautionInfo.SetTitle(DataSystem.GetText(39050));
+                _view.CommandCallCaution(cautionInfo);
                 return;
             }
-            if (_model.GetItems.Contains(tradeItemInfo))
-            {
-                CommandRemoveTradeItem(tradeItemInfo);
-            } else
-            {
-                CommandAddTradeItem(tradeItemInfo);
-            }
+            SoundManager.Instance.PlayStaticSe(SEType.Cursor);
+            _model.ChangeTradeItemNum(tradeItemInfo, true);
+            CommandRefresh();
+        }
+
+        private void CommandMinusTradeItem(TradeItemInfo tradeItemInfo)
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Cursor);
+            _model.ChangeTradeItemNum(tradeItemInfo, false);
+            CommandRefresh();
         }
 
         private void CommandBack(TradeItemInfo tradeItemInfo)
         {
-            if (tradeItemInfo != null && _model.GetItems.Contains(tradeItemInfo))
+            if (tradeItemInfo != null && _model.GetTradeItems.ContainsKey(tradeItemInfo))
             {
                 CommandRemoveTradeItem(tradeItemInfo);
                 return;

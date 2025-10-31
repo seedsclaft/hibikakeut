@@ -43,5 +43,6 @@ namespace Ryneus
         ClassChange = 40,
         EncountRate = 50,
         DungeonTurn = 60,
+        Heal = 70,
     }
 }

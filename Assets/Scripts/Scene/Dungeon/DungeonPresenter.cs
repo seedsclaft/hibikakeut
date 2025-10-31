@@ -74,6 +74,9 @@ namespace Ryneus
                     case CommandType.RouteModeEnd:
                         CommandRouteModeEnd();
                         break;
+                    case CommandType.UseItemHeal:
+                        CommandUseItemHeal((int)viewEvent.Template);
+                        break;
                 }
                 return;
             }
@@ -211,6 +214,13 @@ namespace Ryneus
                 _model.ClearRouteAll();
                 CheckRouteMode();
             }
+        }
+
+        private void CommandUseItemHeal(int heal)
+        {
+            _view.StartHeal(heal);
+            _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
+            CommandRefresh();
         }
 
         private void CheckStageEvent(bool moved)

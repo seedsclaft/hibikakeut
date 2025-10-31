@@ -652,6 +652,15 @@ namespace Ryneus
             }
         }
 
+        public void UseItemHeal(int heal)
+        {
+            foreach (var actorId in CurrentDeckInfo.ActorIdDict)
+            {
+                var find = _actorInfos.Find(a => a.ActorId.Value == actorId.Value);
+                find?.ChangeHp(find.CurrentHp.Value + heal);
+            }
+        }
+
         public void DamageFloor(int damage)
         {
             foreach (var actorId in CurrentDeckInfo.ActorIdDict)

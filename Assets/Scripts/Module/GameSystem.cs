@@ -262,9 +262,13 @@ namespace Ryneus
 
         private void CommandConfirmView(ConfirmInfo confirmInfo)
         {
-            var prefab = confirmAssign.CreateConfirm(confirmInfo.ConfirmType, helpWindow);
+            var first = confirmAssign.CreateConfirm(confirmInfo.ConfirmType, helpWindow);
+            var prefab = confirmAssign.LastPopupPrefab;
             var confirmView = prefab.GetComponent<ConfirmView>();
-            confirmView.SetEvent((type) => UpdateCommand(type));
+            if (first)
+            {
+                confirmView.SetEvent((type) => UpdateCommand(type));
+            }
             confirmView.Initialize();
             confirmView.SetViewInfo(confirmInfo);
             confirmView.SetBackEvent(() =>
@@ -277,9 +281,13 @@ namespace Ryneus
 
         private void CommandCautionView(CautionInfo confirmInfo)
         {
-            var prefab = confirmAssign.CreateConfirm(ConfirmType.Caution, helpWindow);
+            var first = confirmAssign.CreateConfirm(ConfirmType.Caution, helpWindow);
+            var prefab = confirmAssign.LastPopupPrefab;
             var confirmView = prefab.GetComponent<CautionView>();
-            confirmView.SetEvent((type) => UpdateCommand(type));
+            if (first)
+            {
+                confirmView.SetEvent((type) => UpdateCommand(type));
+            }
             confirmView.Initialize();
             if (confirmInfo.Title != null)
             {
@@ -294,9 +302,13 @@ namespace Ryneus
 
         private void CommandMissionClearView(MissionClearInfo confirmInfo)
         {
-            var prefab = confirmAssign.CreateConfirm(ConfirmType.MissionClear, helpWindow);
+            var first = confirmAssign.CreateConfirm(ConfirmType.MissionClear, helpWindow);
+            var prefab = confirmAssign.LastPopupPrefab;
             var missionClearView = prefab.GetComponent<MissionClearView>();
-            missionClearView.SetEvent((type) => UpdateCommand(type));
+            if (first)
+            {
+                missionClearView.SetEvent((type) => UpdateCommand(type));
+            }
             missionClearView.Initialize();
             if (confirmInfo.Title != null)
             {

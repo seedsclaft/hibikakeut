@@ -184,7 +184,13 @@ namespace Ryneus
             }
             if (battleStateOverlay != null)
             {
-                battleStateOverlay.SetStates(_battlerInfo.IconStateInfos());
+                if (_battlerInfo.IsAlive())
+                {
+                    battleStateOverlay.SetStates(_battlerInfo.IconStateInfos());
+                } else
+                {
+                    battleStateOverlay.StopOverlayAnimation();
+                }
             }
             var image = BattleImage();
             if (image != null && canvasGroup != null)

@@ -819,7 +819,7 @@ namespace Ryneus
             var animation = ResourceSystem.LoadResourceEffect("NA_Effekseer/NA_Fire_001");
             foreach (var targetIndex in targetIndexes)
             {
-                StartAnimation(targetIndex,animation,0);
+                StartAnimation(targetIndex, animation, 0, 0.5f);
             }
         }
 

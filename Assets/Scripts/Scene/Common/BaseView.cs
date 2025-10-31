@@ -72,13 +72,29 @@ namespace Ryneus
 
         private ViewCommandSceneType _viewCommandSceneType = ViewCommandSceneType.None;
         public void SetViewCommandSceneType(ViewCommandSceneType viewCommandSceneType) => _viewCommandSceneType = viewCommandSceneType;
-        public void CallViewEvent(object template,object sendData = null)
+        public void CallViewEvent(object template, object sendData = null)
         {
             if (_viewCommandSceneType == ViewCommandSceneType.None)
             {
                 return;
             }
-            var commandType = new ViewCommandType(_viewCommandSceneType,template);
+            var commandType = new ViewCommandType(_viewCommandSceneType, template);
+            var eventData = new ViewEvent(commandType)
+            {
+                Template = sendData
+            };
+            foreach (var commandData in _commandData)
+            {
+                commandData(eventData);
+            }
+        }
+        public void CallOtherViewEvent(ViewCommandSceneType sceneType, object template, object sendData = null)
+        {
+            if (sceneType == ViewCommandSceneType.None)
+            {
+                return;
+            }
+            var commandType = new ViewCommandType(sceneType, template);
             var eventData = new ViewEvent(commandType)
             {
                 Template = sendData
@@ -238,17 +254,17 @@ namespace Ryneus
 
         public void CommandCallConfirm(ConfirmInfo popupInfo)
         {
-            CallSystemCommand(Base.CommandType.CallConfirmView,popupInfo);
+            CallSystemCommand(Base.CommandType.CallConfirmView, popupInfo);
         }
 
         public void CommandCallSkillDetail(ConfirmInfo popupInfo)
         {
-            CallSystemCommand(Base.CommandType.CallSkillDetailView,popupInfo);
+            CallSystemCommand(Base.CommandType.CallSkillDetailView, popupInfo);
         }
 
         public void CommandCallCaution(CautionInfo popupInfo)
         {
-            CallSystemCommand(Base.CommandType.CallCautionView,popupInfo);
+            CallSystemCommand(Base.CommandType.CallCautionView, popupInfo);
         }
 
         public void CommandCallMissionClear(MissionClearInfo popupInfo)
