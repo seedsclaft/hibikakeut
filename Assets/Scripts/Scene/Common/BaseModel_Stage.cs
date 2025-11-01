@@ -46,7 +46,8 @@ namespace Ryneus
         public void MakeStageInfo(int stageId, bool startStage, int clearCount = 0)
         {
             SaveDungeonPlayerData();
-            var stageInfo = new StageInfo(stageId);
+            var cleared = PartyInfo.IsClaeredStage(stageId);
+            var stageInfo = new StageInfo(stageId, cleared);
 
             // ダンジョンターン数を設定
             if (startStage)

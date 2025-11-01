@@ -208,6 +208,11 @@ MonoBehaviour:
       Type: 1010
       Param1: 5040
       Param2: 1
+  - Id: 15050
+    GetItem:
+      Type: 1010
+      Param1: 5050
+      Param2: 1
   - Id: 20010
     GetItem:
       Type: 2010
@@ -247,7 +252,7 @@ MonoBehaviour:
     GetItem:
       Type: 1010
       Param1: 5050
-      Param2: 4
+      Param2: 5
   - Id: 50020
     GetItem:
       Type: 1010
@@ -256,9 +261,39 @@ MonoBehaviour:
   - Id: 50020
     GetItem:
       Type: 1010
-      Param1: 5050
-      Param2: 4
+      Param1: 4020
+      Param2: 8
   - Id: 50020
+    GetItem:
+      Type: 1010
+      Param1: 5050
+      Param2: 5
+  - Id: 50020
+    GetItem:
+      Type: 4010
+      Param1: 20
+      Param2: 20
+  - Id: 50030
+    GetItem:
+      Type: 1010
+      Param1: 4010
+      Param2: 4
+  - Id: 50030
+    GetItem:
+      Type: 1010
+      Param1: 4020
+      Param2: 8
+  - Id: 50030
+    GetItem:
+      Type: 1010
+      Param1: 5050
+      Param2: 5
+  - Id: 50030
+    GetItem:
+      Type: 1010
+      Param1: 5060
+      Param2: 8
+  - Id: 50030
     GetItem:
       Type: 4010
       Param1: 20
@@ -267,117 +302,82 @@ MonoBehaviour:
     GetItem:
       Type: 1010
       Param1: 1010
-      Param2: 15
+      Param2: 10
   - Id: 50030
     GetItem:
       Type: 1010
       Param1: 1020
-      Param2: 15
+      Param2: 10
   - Id: 50030
     GetItem:
       Type: 1010
       Param1: 1030
-      Param2: 15
+      Param2: 10
   - Id: 50030
     GetItem:
       Type: 1010
       Param1: 1040
-      Param2: 15
+      Param2: 10
   - Id: 50030
     GetItem:
       Type: 1010
       Param1: 1050
-      Param2: 15
-  - Id: 50030
-    GetItem:
-      Type: 1010
-      Param1: 4010
-      Param2: 4
-  - Id: 50030
-    GetItem:
-      Type: 1010
-      Param1: 4020
-      Param2: 8
-  - Id: 50030
-    GetItem:
-      Type: 4010
-      Param1: 20
-      Param2: 20
-  - Id: 50030
-    GetItem:
-      Type: 1010
-      Param1: 5010
-      Param2: 5
-  - Id: 50030
-    GetItem:
-      Type: 1010
-      Param1: 5020
-      Param2: 5
-  - Id: 50040
-    GetItem:
-      Type: 1010
-      Param1: 1110
-      Param2: 15
-  - Id: 50040
-    GetItem:
-      Type: 1010
-      Param1: 1120
-      Param2: 15
-  - Id: 50040
-    GetItem:
-      Type: 1010
-      Param1: 1130
-      Param2: 15
-  - Id: 50040
-    GetItem:
-      Type: 1010
-      Param1: 1140
-      Param2: 15
-  - Id: 50040
-    GetItem:
-      Type: 1010
-      Param1: 1150
-      Param2: 15
-  - Id: 50040
-    GetItem:
-      Type: 1010
-      Param1: 4010
-      Param2: 4
-  - Id: 50040
-    GetItem:
-      Type: 1010
-      Param1: 4020
-      Param2: 8
-  - Id: 50040
-    GetItem:
-      Type: 1010
-      Param1: 4020
-      Param2: 8
-  - Id: 50040
-    GetItem:
-      Type: 4010
-      Param1: 20
-      Param2: 20
-  - Id: 50040
-    GetItem:
-      Type: 1010
-      Param1: 5010
-      Param2: 5
-  - Id: 50040
-    GetItem:
-      Type: 1010
-      Param1: 5020
-      Param2: 5
-  - Id: 50040
-    GetItem:
-      Type: 1010
-      Param1: 5040
       Param2: 10
+  - Id: 50040
+    GetItem:
+      Type: 1010
+      Param1: 4010
+      Param2: 4
+  - Id: 50040
+    GetItem:
+      Type: 1010
+      Param1: 4020
+      Param2: 8
+  - Id: 50040
+    GetItem:
+      Type: 1010
+      Param1: 5050
+      Param2: 5
+  - Id: 50040
+    GetItem:
+      Type: 1010
+      Param1: 5060
+      Param2: 8
+  - Id: 50040
+    GetItem:
+      Type: 4010
+      Param1: 20
+      Param2: 20
   - Id: 50040
     GetItem:
       Type: 1010
       Param1: 4310
       Param2: 30
+  - Id: 50040
+    GetItem:
+      Type: 1010
+      Param1: 1010
+      Param2: 10
+  - Id: 50040
+    GetItem:
+      Type: 1010
+      Param1: 1020
+      Param2: 10
+  - Id: 50040
+    GetItem:
+      Type: 1010
+      Param1: 1030
+      Param2: 10
+  - Id: 50040
+    GetItem:
+      Type: 1010
+      Param1: 1040
+      Param2: 10
+  - Id: 50040
+    GetItem:
+      Type: 1010
+      Param1: 1050
+      Param2: 10
   - Id: 50050
     GetItem:
       Type: 1010
@@ -448,11 +448,6 @@ MonoBehaviour:
       Type: 1010
       Param1: 5020
       Param2: 5
-  - Id: 50050
-    GetItem:
-      Type: 1010
-      Param1: 5040
-      Param2: 10
   - Id: 50060
     GetItem:
       Type: 1010
@@ -528,8 +523,3 @@ MonoBehaviour:
       Type: 1010
       Param1: 5020
       Param2: 5
-  - Id: 50060
-    GetItem:
-      Type: 1010
-      Param1: 5040
-      Param2: 10

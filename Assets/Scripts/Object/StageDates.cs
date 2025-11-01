@@ -123,6 +123,7 @@ namespace Ryneus
         AdvStart = 1010,
         ExitDungeon = 2010,
         MoveDungeonFloor = 2020,
+        DungeonClear = 2030,
         GetArtifact = 3010, // アーティファクト取得
         GetItem = 3020, // アイテム取得
         GetSkill = 3030, // 魔法取得

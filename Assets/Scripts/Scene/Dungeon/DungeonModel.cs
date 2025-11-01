@@ -158,7 +158,7 @@ namespace Ryneus
             {
                 CurrentDeckInfo.SetPosition(playerDungeonId, playerPosition.x, playerPosition.y, (int)playerDirection);
                 PartyInfo.UpdateDungeonResumeInfo(CurrentStage.Master.StageNo, playerDungeonId, playerPosition.x, playerPosition.y, (int)playerDirection);
-                if (IsActiveDungeon())
+                if (IsActiveDungeon() && !CurrentStage.Cleared.Value)
                 {
                     // ランダムエンカウントフラグ加算
                     int flag = Random.Range(CurrentStage.Master.EncountMin, CurrentStage.Master.EncountMax);
@@ -257,11 +257,7 @@ namespace Ryneus
 
         public bool EncountEnemy()
         {
-            if (CurrentDeckInfo == null)
-            {
-                return false;
-            }
-            return CurrentDeckInfo.Encount.Value >= 100;
+            return CurrentDeckInfo == null ? false : CurrentDeckInfo.Encount.Value >= 100;
         }
 
         public void ResetEncountValue()
@@ -331,14 +327,14 @@ namespace Ryneus
         public void SaveBgmTiming()
         {
             var timeStamp = SoundManager.Instance.CurrentTimeStamp();
-            CurrentDeckInfo.GetDungeonBgmTimeStamp().SetValue(timeStamp);
+            CurrentDeckInfo.DungeonBgmTimeStamp.SetValue(timeStamp);
         }
 
         public float DungeonBgmTimeStamp()
         {
             if (CurrentDeckInfo != null && CurrentDeckInfo.DungeonBgmTimeStamp != null)
             {
-                return CurrentDeckInfo.GetDungeonBgmTimeStamp().Value;
+                return CurrentDeckInfo.DungeonBgmTimeStamp.Value;
             }
             return 0;
         }

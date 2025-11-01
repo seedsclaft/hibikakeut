@@ -406,7 +406,7 @@ namespace Ryneus
             if (actionInfo != null)
             {
                 // 待機か戦闘不能なら何もしない
-                if (actionInfo.IsWait() || (_model.CurrentActionBattler != null && !_model.CurrentActionBattler.IsAlive()))
+                if (actionInfo.IsWait() || (_model.CurrentActionBattler != null && !_model.CurrentActionBattler.IsAlive() && actionInfo.SubjectIndex.Value == _model.CurrentActionBattler.Index.Value))
                 {
                     StartWaitCommand(actionInfo);
                 } else

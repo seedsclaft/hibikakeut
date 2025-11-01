@@ -167,5 +167,14 @@ namespace Ryneus
             }
             return list;
         }
+
+        public int ItemOwnCount(TradeItemInfo tradeItemInfo)
+        {
+            if (tradeItemInfo == null)
+            {
+                return 0;
+            }
+            return PartyInfo.OwnItemCount(tradeItemInfo.GetItemInfo.Param1);
+        }
     }
 }

@@ -1,3 +1,5 @@
+using System;
+
 namespace Ryneus
 {
     [System.Serializable]
@@ -9,6 +11,7 @@ namespace Ryneus
         }
         public StatusParamType paramType = StatusParamType.Hp;
         public ParameterFloat curernt = new();
+        public int StatusCurernt => (int)Math.Ceiling(curernt.Value);
         public ParameterFloat max = new();
     }
 }

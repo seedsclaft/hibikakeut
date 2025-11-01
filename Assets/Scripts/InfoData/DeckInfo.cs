@@ -16,11 +16,6 @@ namespace Ryneus
         public ParameterInt StageNo = new();
         // 歩数カウント
         public ParameterInt TurnCount = new();
-        public ParameterFloat GetDungeonBgmTimeStamp()
-        {
-            DungeonBgmTimeStamp ??= new();
-            return DungeonBgmTimeStamp;
-        }
         public ParameterFloat DungeonBgmTimeStamp = new();
         public ParameterInt DungeonId = new();
         public ParameterInt PositionX = new();

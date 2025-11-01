@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
 
 namespace Ryneus
 {
     public class ClassChangeView : BaseView, IInputHandlerEvent
     {
         [SerializeField] private ActorInfoComponent actorInfoComponent = null;
+        [SerializeField] private StatusInfoComponent afterStatusInfoComponent = null;
         [SerializeField] private StatusInfoComponent beforeStatusInfoComponent = null;
         [SerializeField] private ConfirmAnimation confirmAnimation = null;
         [SerializeField] private GameObject animRoot = null;
@@ -49,6 +49,7 @@ namespace Ryneus
             actorInfoComponent.gameObject.SetActive(true);
             actorInfoComponent.Clear();
             actorInfoComponent.UpdateInfo(_classChangeInfo.ActorInfo, null);
+            afterStatusInfoComponent.UpdateInfo(_classChangeInfo.ActorInfo.CurrentStatus);
 
             var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
             rect.localPosition = new Vector3(0, 0, 0);

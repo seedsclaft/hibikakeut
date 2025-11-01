@@ -65,6 +65,9 @@ namespace Ryneus
                     }
                     CommandMinusTradeItem((TradeItemInfo)viewEvent.Template);
                     break;
+                case CommandType.SelectIndex:
+                    _view.UpdateItemOwnCount(_model.ItemOwnCount(_view.CurrentTradeItemInfo));
+                    break;
                 case CommandType.CommandBack:
                     CommandBack((TradeItemInfo)viewEvent.Template);
                     break;
@@ -200,7 +203,7 @@ namespace Ryneus
 
         private void CommandBack(TradeItemInfo tradeItemInfo)
         {
-            if (tradeItemInfo != null && _model.GetTradeItems.ContainsKey(tradeItemInfo))
+            if (tradeItemInfo != null && _model.GetTradeItems.ContainsKey(tradeItemInfo) && _model.GetTradeItems[tradeItemInfo] > 0)
             {
                 CommandRemoveTradeItem(tradeItemInfo);
                 return;
@@ -239,6 +242,7 @@ namespace Ryneus
             };
             _view.RefreshTradeList(MakeListDataFunc(_model.TradeGetItemInfos(), 0, enable));
             _view.UpdateAfterCurrency(_model.AfterCurrency());
+            _view.UpdateItemOwnCount(_model.ItemOwnCount(_view.CurrentTradeItemInfo));
         }
 
         private void CheckTutorialState(object commandType = null)

@@ -103,7 +103,9 @@ namespace Ryneus
 
         public List<ItemInfo> UseItemInfos()
         {
-            return PartyInfo.UseItemInfos();
+            var list = PartyInfo.UseItemInfos();
+            list.AddRange(PartyInfo.DungeonUseItemInfos());
+            return list;
         }
 
         public string HelpText()
@@ -201,6 +203,10 @@ namespace Ryneus
 
         public bool CanUseItem(ItemInfo itemInfo)
         {
+            if (itemInfo.Master.ItemType != ItemType.UseItem)
+            {
+                return false;
+            }
             switch (itemInfo.Master.Param1)
             {
                 case (int)UseItemType.Exp:

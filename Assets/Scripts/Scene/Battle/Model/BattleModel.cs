@@ -473,9 +473,18 @@ namespace Ryneus
             {
                 return false;
             }
-            if (CalcMpCost(battlerInfo,skillInfo.Master.MpCost) > battlerInfo.Mp.Value)
+            if (CalcMpCost(battlerInfo, skillInfo.Master.MpCost) > battlerInfo.Mp.Value)
             {
                 //return false;
+            }
+            // period中〇回以下使用
+            var inPeriodUseCountUnder = skillInfo.Master.TriggerDates.Find(a => a.TriggerType == TriggerType.InPeriodUseCountUnder);
+            if (inPeriodUseCountUnder != null)
+            {
+                if (inPeriodUseCountUnder.Param1 <= skillInfo.UseCount.Value)
+                {
+                    return false;
+                }
             }
             if (skillInfo.Master.SkillType == SkillType.Passive)
             {

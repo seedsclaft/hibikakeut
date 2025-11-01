@@ -33,6 +33,13 @@ namespace Ryneus
             }
             _commandData.Add(commandData);
         }
+        public void SetEvent(List<Action<ViewEvent>> commandDates)
+        {
+            foreach (var commandData in commandDates)
+            {
+                SetEvent(commandData);
+            }
+        }
 
         [SerializeField] private Button _backCommand = null;
         [SerializeField] private SpriteRenderer _backGround = null;

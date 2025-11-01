@@ -259,6 +259,7 @@ namespace Ryneus
             }
             if (!_model.CanUseItem(itemInfo))
             {
+                CommandCautionInfo(DataSystem.GetText(14160));
                 return;
             }
             _model.PartyInfo.ConsuneItemNum(itemInfo.Id.Value, 1);

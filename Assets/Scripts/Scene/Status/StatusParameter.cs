@@ -12,10 +12,10 @@ namespace Ryneus
         public void UpdateInfo(StatusParamInfo statusParamInfo)
         {
             UpdateCaptionText(statusParamInfo.paramType);
-            UpdateParamter(statusParamInfo.curernt.Value, statusParamInfo.max.Value);
+            UpdateParamter(statusParamInfo.StatusCurernt, (int)statusParamInfo.max.Value);
         }
 
-        public void UpdateParamter(float current, float max)
+        public void UpdateParamter(int current, int max)
         {
             if (maxParam != null)
             {

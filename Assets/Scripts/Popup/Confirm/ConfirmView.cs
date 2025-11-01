@@ -21,6 +21,11 @@ namespace Ryneus
 
         public override void Initialize()
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Confirm);
             InitializeCommandList();
@@ -172,6 +177,7 @@ namespace Confirm
     public enum CommandType
     {
         None = 0,
+        Initialize,
         IsChoice = 100,
         IsNoChoice = 101,
         DisableIds = 102,

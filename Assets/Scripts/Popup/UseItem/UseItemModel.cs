@@ -25,10 +25,23 @@ namespace Ryneus
             PartyInfo.CurrentDeckInfo.TurnCount.GainValue(turns);
         }
 
+        public bool CanUseItem(ItemInfo itemInfo)
+        {
+            switch (itemInfo.Master.Param1)
+            {
+                case (int)UseItemType.EncountRate:
+                case (int)UseItemType.DungeonTurn:
+                    return true;
+                case (int)UseItemType.Heal:
+                    return CanUseRecoveryHeal();
+            }
+            return false;
+        }
+
         public bool CanUseRecoveryHeal()
         {
             var notLimited = PartyInfo.CurrentDeckActorInfos().FindAll(a => a.CurrentHp.Value < a.MaxHp);
-            return notLimited.Count > 0 && CurrentDeckInfo.RecoveryCount.Value > 0;
+            return notLimited.Count > 0;
         }
 
         public void UseItemHeal(int heal)

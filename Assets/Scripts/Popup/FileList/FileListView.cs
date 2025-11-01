@@ -29,7 +29,7 @@ namespace Ryneus
         private void InitializeFileList()
         {
             fileList.Initialize();
-            fileList.SetInputHandler(InputKeyType.Cancel, () => BackEvent?.Invoke());
+            fileList.SetInputHandler(InputKeyType.Cancel, CommandEnd);
             fileList.SetInputHandler(InputKeyType.Decide, CallFileData);
             AddViewActives(fileList);
         }
@@ -57,6 +57,8 @@ namespace Ryneus
 
         public void CommandEnd()
         {
+            // 更新フラグを作るために位置初期化
+            fileList.UpdateSelectIndex(0);
             BackEvent?.Invoke();
         }
     }

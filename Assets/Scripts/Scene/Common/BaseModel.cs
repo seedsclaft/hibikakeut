@@ -200,6 +200,10 @@ namespace Ryneus
             {
                 int bgmId;
                 bgmId = CurrentStage.Master.BGMId;
+                if (CurrentStage.Cleared.Value)
+                {
+                    bgmId = 1510;
+                }
                 return DataSystem.BGM.Find(a => a.Id == bgmId);
             }
             return null;
@@ -786,7 +790,7 @@ namespace Ryneus
                 actorInfo.ChangeHp(actorInfo.MaxHp);
             }
             PartyNextPeriod();
-            CurrentDeckInfo.GetDungeonBgmTimeStamp().SetValue(0);
+            CurrentDeckInfo.DungeonBgmTimeStamp.SetValue(0);
             SaveDungeonPlayerData();
         }
 
@@ -849,7 +853,7 @@ namespace Ryneus
                                 var categoryItems = DataSystem.Items.FindAll(a => (int)a.ItemType == featureData.Param1);
                                 if (featureData.Param2 != -1)
                                 {
-                                    categoryItems = categoryItems.FindAll(a => a.Id == featureData.Param2);
+                                    categoryItems = categoryItems.FindAll(a => a.Param1 == featureData.Param2);
                                 }
                                 var rand = UnityEngine.Random.Range(0, categoryItems.Count);
                                 // 報酬設定

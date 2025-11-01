@@ -12,19 +12,20 @@ namespace Ryneus
         public ConfirmPresenter(ConfirmView view)
         {
             _view = view;
-            _model = new ConfirmModel();
 
             SetView(_view);
-            SetModel(_model);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
+            _busy = false;
         }
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
+            _model = new ConfirmModel();
+            SetModel(_model);
             _view.OpenAnimation();
-            _busy = false;
         }
+
         private void UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
@@ -37,6 +38,9 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case CommandType.Initialize:
+                    Initialize();
+                    break;
                 case CommandType.IsNoChoice:
                     CommandIsNoChoice();
                     break;

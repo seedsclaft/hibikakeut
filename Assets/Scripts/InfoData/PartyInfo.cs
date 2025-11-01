@@ -214,6 +214,25 @@ namespace Ryneus
             return false;
         }
 
+        public int OwnItemCount(int itemId)
+        {
+            return _items.ContainsKey(itemId) ? _items[itemId].Value : 0;
+        }
+
+        public List<ItemInfo> GetOwnItemInfos()
+        {
+            var list = new List<ItemInfo>();
+            foreach (var item in _items)
+            {
+                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
+                if (item.Value.Value > 0)
+                {
+                    list.Add(new ItemInfo(itemData.Id, item.Value.Value));
+                }
+            }
+            return list;
+        }
+
         public List<ItemInfo> GetOwnItemInfos(ItemType itemType)
         {
             var list = new List<ItemInfo>();

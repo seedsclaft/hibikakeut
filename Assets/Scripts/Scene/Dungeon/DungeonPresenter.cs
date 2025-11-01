@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using Ryneus.Dungeon;
 using UnityEngine;
 
@@ -127,7 +126,7 @@ namespace Ryneus
             if (moved)
             {
                 var hpHeal = _model.CheckHpHeal();
-                if (hpHeal > 0)
+                if (hpHeal > 0 && !_model.PartyInfo.Cursed.Value)
                 {
                     _view.StartHeal(hpHeal);
                     _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
@@ -163,7 +162,7 @@ namespace Ryneus
                 _model.ClearRoute();
                 _routeMoveFailCount = 0;
                 var hpHeal = _model.CheckHpHeal();
-                if (hpHeal > 0)
+                if (hpHeal > 0 && !_model.PartyInfo.Cursed.Value)
                 {
                     _view.StartHeal(hpHeal);
                     _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
@@ -218,6 +217,14 @@ namespace Ryneus
 
         private void CommandUseItemHeal(int heal)
         {
+            // 回復できない
+            if (_model.PartyInfo.Cursed.Value)
+            {
+                var cautionInfo = new CautionInfo();
+                cautionInfo.SetTitle(DataSystem.GetText(10131));
+                _view.CommandCallCaution(cautionInfo);
+                return;
+            }
             _view.StartHeal(heal);
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             CommandRefresh();
@@ -436,6 +443,9 @@ namespace Ryneus
                     case StageEventType.MoveDungeonFloor:
                         StageEventMoveDungeonFloor(moved, stageEvent, endEvent);
                         return;
+                    case StageEventType.DungeonClear:
+                        StageEventDungeonClear(moved, stageEvent, endEvent);
+                        return;
                     case StageEventType.GetArtifact:
                         StageEventGetArtifact(stageEvent);
                         return;
@@ -504,15 +514,6 @@ namespace Ryneus
         {
             if (moved)
             {
-                // 帰還できない
-                if (_model.PartyInfo.Cursed.Value)
-                {
-                    var cautionInfo = new CautionInfo();
-                    cautionInfo.SetTitle(DataSystem.GetText(10131));
-                    _view.CommandCallCaution(cautionInfo);
-                    endEvent?.Invoke();
-                    return;
-                }
                 CommandReturn();
             } else
             {
@@ -529,6 +530,19 @@ namespace Ryneus
             {
                 endEvent?.Invoke();
             }
+        }
+
+        private void StageEventDungeonClear(bool moved, StageEventData stageEvent, Action endEvent)
+        {
+            _model.AddEventReadFlag(stageEvent);
+            _model.CurrentStage.Cleared.SetValue(true);
+            var stages = DataSystem.Stages.FindAll(a => a.StageNo == DataSystem.FindStage(_model.CurrentDeckInfo.StageNo.Value).StageNo);
+            foreach (var stage in stages)
+            {
+                _model.PartyInfo.ClearStage(stage.Id);
+            }
+            _model.CurrentDeckInfo.DungeonBgmTimeStamp.SetValue(0);
+            CheckStageEvent(moved);
         }
 
         private void StageEventGetArtifact(StageEventData stageEvent)
@@ -666,9 +680,10 @@ namespace Ryneus
                 _model.AddEventReadFlag(stageEvent);
                 StageEventAddEventFlag(false, stageEvent, null);
                 _model.UpdateEventObjects();
+                var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+                CheckEventData(moved, playerPosition, endEvent);
             }
-            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-            CheckEventData(moved, playerPosition, endEvent);
+            endEvent?.Invoke();
         }
 
         private void StageEventDamageFloor(StageEventData stageEvent, Action endEvent)
@@ -853,7 +868,7 @@ namespace Ryneus
                 {
                     GetArtifact(itemId);
                 }
-                var timeStamp = SoundManager.Instance.CurrentTimeStamp();
+                //var timeStamp = SoundManager.Instance.CurrentTimeStamp();
                 PlayDungeonBgm(_model.DungeonBgmTimeStamp());
             });
             confirmInfo.IsArtifact.SetValue(true);
@@ -937,6 +952,14 @@ namespace Ryneus
         {
             if (!_model.IsActiveDungeon())
             {
+                return;
+            }
+            // 回復できない
+            if (_model.PartyInfo.Cursed.Value)
+            {
+                var cautionInfo = new CautionInfo();
+                cautionInfo.SetTitle(DataSystem.GetText(10131));
+                _view.CommandCallCaution(cautionInfo);
                 return;
             }
             if (_model.CanUseRecoveryHeal())

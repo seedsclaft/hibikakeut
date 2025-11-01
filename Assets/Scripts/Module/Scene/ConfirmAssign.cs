@@ -37,9 +37,16 @@ namespace Ryneus
 
         public void CloseConfirm()
         {
+            if (_stackPopupPrefab != null)
+            {
+                foreach (var stackPopupPrefab in _stackPopupPrefab)
+                {
+                    stackPopupPrefab.gameObject.SetActive(false);
+                }
+            }
             foreach(Transform child in transform)
             {
-                Destroy(child.gameObject);
+                //Destroy(child.gameObject);
             }
             gameObject.SetActive(false);
         }

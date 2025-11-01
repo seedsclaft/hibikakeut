@@ -325,6 +325,10 @@ namespace Ryneus
             if (first)
             {
                 baseView.SetEvent((type) => UpdateCommand(type));
+                if (popupInfo.PopupType == PopupType.UseItem)
+                {
+                    baseView.SetEvent(_currentScene.gameObject.GetComponent<BaseView>()._commandData);
+                }
             }
             baseView.Initialize();
             if (first)

@@ -60,13 +60,10 @@ namespace Ryneus
             {
                 return;
             }
-            /*
-            if (!_model.CanUseItem(itemInfo))
+            if (_model.CanUseItem(itemInfo))
             {
-                return;
+                _model.PartyInfo.ConsuneItemNum(itemInfo.Id.Value, 1);
             }
-            */
-            _model.PartyInfo.ConsuneItemNum(itemInfo.Id.Value, 1);
 
             switch (itemInfo.Master.Param1)
             {

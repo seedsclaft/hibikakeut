@@ -39,7 +39,7 @@ namespace Ryneus
 
         public void StartAnimation(BattlerInfo battlerInfo, SkillData skillData, float speedRate)
         {
-            if (battlerInfo != null)
+            if (battlerInfo != null && battlerInfo.ActorInfo != null)
             {
                 battlerInfoComponent.UpdateInfo(battlerInfo);
                 actorMainBack.sprite = ResourceSystem.LoadActorMainSprite(battlerInfo.ActorInfo.Master.ImagePath);

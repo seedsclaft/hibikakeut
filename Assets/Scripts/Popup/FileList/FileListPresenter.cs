@@ -5,7 +5,7 @@ namespace Ryneus
 {
     using System.Threading.Tasks;
     using FileList;
-    public class FileListPresenter :BasePresenter
+    public class FileListPresenter : BasePresenter
     {
         FileListModel _model = null;
         FileListView _view = null;

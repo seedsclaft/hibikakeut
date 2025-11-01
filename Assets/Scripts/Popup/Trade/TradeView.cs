@@ -9,9 +9,11 @@ namespace Ryneus
     public class TradeView : BaseView
     {
         [SerializeField] private TradeItemList itemList = null;
+        public TradeItemInfo CurrentTradeItemInfo => itemList.ListItemData<TradeItemInfo>();
         [SerializeField] private PopupAnimation popupAnimation = null;
         [SerializeField] private PartyInfoComponent partyInfoComponent;
         [SerializeField] private TextMeshProUGUI afterCurrency;
+        [SerializeField] private TextMeshProUGUI itemOwnCount;
         [SerializeField] private OnOffButton tradeButton = null;
         [SerializeField] private OnOffButton detailButton = null;
 
@@ -47,9 +49,10 @@ namespace Ryneus
             itemList.Initialize();
             itemList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.CommandBack, itemList.ListItemData<TradeItemInfo>()));
             itemList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.TradeItemDetail, itemList.ListItemData<TradeItemInfo>()));
-            itemList.SetInputHandler(InputKeyType.Start, () => CallViewEvent(CommandType.DecideTrade));
+            itemList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.DecideTrade));
             itemList.SetInputHandler(InputKeyType.Left, () => CallViewEvent(CommandType.MinusTradeItem, itemList.ListItemData<TradeItemInfo>()));
             itemList.SetInputHandler(InputKeyType.Right, () => CallViewEvent(CommandType.PlusTradeItem, itemList.ListItemData<TradeItemInfo>()));
+            itemList.SetSelectedHandler(() => CallViewEvent(CommandType.SelectIndex));
             AddViewActives(itemList);
         }
 
@@ -98,6 +101,11 @@ namespace Ryneus
             afterCurrency.SetText(currency.ToString());
         }
 
+        public void UpdateItemOwnCount(int own)
+        {
+            itemOwnCount.SetText(own.ToString());
+        }
+
         public void SetActivateItemList(bool isActivate)
         {
             if (isActivate)
@@ -119,6 +127,7 @@ namespace Ryneus
             TradeItemDetail,
             PlusTradeItem,
             MinusTradeItem,
+            SelectIndex,
             CommandBack
         }
     }
