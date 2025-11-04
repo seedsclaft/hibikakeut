@@ -64,6 +64,7 @@ namespace Ryneus
             }
             return default;
         }
+
         private static async UniTask<T> LoadFileAsync<T>(string key)
         {
             try
@@ -135,6 +136,12 @@ namespace Ryneus
         public static bool ExistsStageFile(int fileId = 0)
         {
             return ExistsLoadFile(PlayerStageDataKey(fileId));
+        }
+
+        public static bool DeleteStageInfo(int fileId = 0)
+        {
+            ES3.DeleteKey(PlayerStageDataKey(fileId));
+            return true;
         }
 
         public static void SaveOptionStart(SaveOptionInfo userSaveInfo)

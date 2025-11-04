@@ -47,11 +47,18 @@ namespace Ryneus
                 case CommandType.DecideFile:
                     CommandDecideFile((SaveFileInfo)viewEvent.Template);
                     break;
+                case CommandType.DeleteFile:
+                    CommandDeleteFile((SaveFileInfo)viewEvent.Template);
+                    break;
             }
         }
 
         private async Task CommandDecideFile(SaveFileInfo saveFileInfo)
         {
+            if (saveFileInfo == null)
+            {
+                return;
+            }
             var success = await _model.DecideFile(saveFileInfo);
             var isLoad = _model.IsLoad;
             if (success)
@@ -62,6 +69,28 @@ namespace Ryneus
                 }
                 _view.CommandEnd();
             }
+        }
+
+        private async Task CommandDeleteFile(SaveFileInfo saveFileInfo)
+        {
+            if (saveFileInfo == null)
+            {
+                return;
+            }
+            _busy = true;
+            _view.SetBusy(true);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(31071), (a) =>
+            {
+                if (a == ConfirmCommandType.Yes)
+                {
+                    _model.DeleteFile(saveFileInfo);
+                    Initialize();
+                }
+                _busy = false;
+                _view.SetBusy(false);
+            });
+            _view.CommandCallConfirm(confirmInfo);
         }
     }
 }

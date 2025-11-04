@@ -25,28 +25,23 @@ namespace Ryneus
             _ = new TitlePresenter(this);
         }
 
+        public new void SetBusy(bool busy)
+        {
+            SetActivate(busy ? null : titleCommandList);
+        }
+
         private void InitializeTitleCommand()
         {
             titleCommandList.Initialize();
-            SetInputHandler(titleCommandList.gameObject);
             titleCommandList.SetInputHandler(InputKeyType.Decide, OnClickTitle);
             titleCommandList.SetInputHandler(InputKeyType.Option2, CallSideMenu);
+            AddViewActives(titleCommandList);
         }
 
         public void SetTitleCommand(List<ListData> titleCommand)
         {
             titleCommandList.SetData(titleCommand);
-            ActivateTitleCommand();
-        }
-
-        public void ActivateTitleCommand()
-        {
-            titleCommandList.Activate();
-        }
-
-        public void DeactivateTitleCommand()
-        {
-            titleCommandList.Deactivate();
+            SetActivate(titleCommandList);
         }
 
         public void SetVersion(string text)

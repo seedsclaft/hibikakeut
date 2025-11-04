@@ -330,11 +330,8 @@ namespace Ryneus
 
         public int EquipSlotCount()
         {
-            if (IsClassChenged == null)
-            {
-                IsClassChenged = new();
-            }
-            return IsClassChenged.Value ? 12 : 8;
+            IsClassChenged ??= new();
+            return IsClassChenged.Value ? (DataSystem.System.EquipSkillCount + DataSystem.System.ClassChangePlusSkill) : DataSystem.System.EquipSkillCount;
         }
 
         public LevelUpInfo LevelUp(int useCost, int stageId)

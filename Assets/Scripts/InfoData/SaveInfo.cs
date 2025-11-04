@@ -33,6 +33,15 @@ namespace Ryneus
             //UpdateSaveLastSaveIndex();
         }
 
+        public void DeleteSaveFile(int saveFileNo)
+        {
+            var file = _saveFileInfos.Find(a => a.SaveNo == saveFileNo);
+            if (file != null)
+            {
+                _saveFileInfos.Remove(file);
+            }
+        }
+
         public ParameterInt LastSaveIndex = new();
         private void UpdateSaveLastSaveIndex()
         {

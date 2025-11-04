@@ -195,6 +195,8 @@ MonoBehaviour:
   StartStageId: 10
   PeriodTurns: 4
   RecoveryCount: 1
+  EquipSkillCount: 10
+  ClassChangePlusSkill: 4
   SystemTextData:
   - Id: 0
     Text: '""'
@@ -1087,6 +1089,14 @@ MonoBehaviour:
     Feature: 
   - Id: 31061
     Text: "\u30D3\u30D5\u30EC\u30B9\u30C8\u306B\u3066\u5F85\u6A5F\u4E2D"
+    Help: '""'
+    Feature: 
+  - Id: 31070
+    Text: "\u30D5\u30A1\u30A4\u30EB\u524A\u9664"
+    Help: '""'
+    Feature: 
+  - Id: 31071
+    Text: "\u9078\u629E\u4E2D\u306E\u30D5\u30A1\u30A4\u30EB\u3092\u524A\u9664\u3057\u307E\u3059\u304B\uFF1F\n\uFF01\u524A\u9664\u3057\u305F\u30D5\u30A1\u30A4\u30EB\u306F\u5FA9\u5143\u3067\u304D\u307E\u305B\u3093\uFF01"
     Help: '""'
     Feature: 
   - Id: 32010

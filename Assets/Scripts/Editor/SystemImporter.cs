@@ -202,6 +202,14 @@ namespace Ryneus
                         {
                             Data.RecoveryCount = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
                         }
+                        if (KeyName == "EquipSkillCount")
+                        {
+                            Data.EquipSkillCount = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
+                        }
+                        if (KeyName == "ClassChangePlusSkill")
+                        {
+                            Data.ClassChangePlusSkill = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
+                        }
                     }
                 }
             }

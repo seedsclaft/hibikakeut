@@ -121,6 +121,8 @@ namespace Ryneus
             _view.CommandGotoSceneChange(_model.PartyInfo.ResumeScene);
 
 */
+            _busy = true;
+            _view.SetBusy(true);
             var sceneParam = new FileListSceneInfo
             {
                 IsLoad = true
@@ -130,6 +132,7 @@ namespace Ryneus
                 PopupType = PopupType.FileList,
                 EndEvent = () =>
                 {
+                    _view.SetBusy(false);
                     _busy = false;
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 },
@@ -141,9 +144,11 @@ namespace Ryneus
         private void CommandOption()
         {
             _busy = true;
+            _view.SetBusy(true);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _view.CommandCallOption(() =>
             {
+                _view.SetBusy(false);
                 _busy = false;
                 CommandRefresh();
             });

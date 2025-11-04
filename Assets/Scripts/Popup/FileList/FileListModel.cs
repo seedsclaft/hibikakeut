@@ -95,6 +95,13 @@ namespace Ryneus
             PartyInfoChecker.Instance.UpdateInfo();
             TempInfo.SetPlayingTime(saveFileInfo.PlayTime);
         }
+
+        public void DeleteFile(SaveFileInfo saveFileInfo)
+        {
+            CurrentData.DeleteSaveFile(saveFileInfo.SaveNo);
+            SaveSystem.DeleteStageInfo(saveFileInfo.SaveNo);
+            SavePlayerData();
+        }
     }
 
     public class FileListSceneInfo

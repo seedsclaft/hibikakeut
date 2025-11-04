@@ -18,6 +18,8 @@ namespace Ryneus
         public int StartStageId;
         public int PeriodTurns;
         public int RecoveryCount;
+        public int EquipSkillCount;
+        public int ClassChangePlusSkill;
         public List<TextData> SystemTextData;
 
         public List<InputData> InputDataList;

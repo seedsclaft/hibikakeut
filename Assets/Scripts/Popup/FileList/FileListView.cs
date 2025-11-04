@@ -10,6 +10,7 @@ namespace Ryneus
     {
         [SerializeField] private BaseList fileList = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
+        [SerializeField] private OnOffButton deleteButton = null;
 
 
         public override void Initialize()
@@ -23,7 +24,16 @@ namespace Ryneus
             SetViewCommandSceneType(ViewCommandSceneType.FileList);
             SetBaseAnimation(popupAnimation);
             InitializeFileList();
+            if (deleteButton != null)
+            {
+                deleteButton.OnClickAddListener(CallFileDelete);
+            }
             _ = new FileListPresenter(this);
+        }
+
+        public new void SetBusy(bool busy)
+        {
+            SetActivate(busy ? null : fileList);
         }
 
         private void InitializeFileList()
@@ -31,6 +41,7 @@ namespace Ryneus
             fileList.Initialize();
             fileList.SetInputHandler(InputKeyType.Cancel, CommandEnd);
             fileList.SetInputHandler(InputKeyType.Decide, CallFileData);
+            fileList.SetInputHandler(InputKeyType.Option1, CallFileDelete);
             AddViewActives(fileList);
         }
 
@@ -47,12 +58,12 @@ namespace Ryneus
 
         private void CallFileData()
         {
-            var listData = fileList.ListData;
-            if (listData != null)
-            {
-                var data = (SaveFileInfo)listData.Data;
-                CallViewEvent(CommandType.DecideFile, data);
-            }
+            CallViewEvent(CommandType.DecideFile, fileList.ListItemData<SaveFileInfo>());
+        }
+
+        private void CallFileDelete()
+        {
+            CallViewEvent(CommandType.DeleteFile, fileList.ListItemData<SaveFileInfo>());
         }
 
         public void CommandEnd()
@@ -70,5 +81,6 @@ namespace FileList
     {
         Initialize = 0,
         DecideFile = 1,
+        DeleteFile,
     }
 }
