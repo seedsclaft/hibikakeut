@@ -1,38 +1,46 @@
 ﻿#if EFFEKSEER_URP_SUPPORT
 
 using Effekseer.Internal;
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
+#if UNITY_6000_0_OR_NEWER
+using UnityEngine.Rendering.RenderGraphModule;
+#endif
+
 public class UrpBlitter : IEffekseerBlitter
-{	
-	public static readonly int sourceTex = Shader.PropertyToID("_SourceTex");
-	private Material blitMaterial;
-
-	public UrpBlitter()
-	{
-		this.blitMaterial = CoreUtils.CreateEngineMaterial("Hidden/Universal Render Pipeline/Blit");
-	}
-
+{
 	public void Blit(CommandBuffer cmd, RenderTargetIdentifier source, RenderTargetIdentifier dest, bool xrRendering)
 	{
-		if(xrRendering)
+		if (xrRendering)
 		{
-			CoreUtils.SetRenderTarget(
-				cmd,
-				dest,
-				RenderBufferLoadAction.Load,
-				RenderBufferStoreAction.Store,
-				ClearFlag.None,
-				Color.black);
-			cmd.SetGlobalTexture(sourceTex, source);
-			cmd.DrawProcedural(Matrix4x4.identity, blitMaterial, 0, MeshTopology.Quads, 4);
+			CoreUtils.SetRenderTarget(cmd, dest);
+			// FIXME: Scaling is ignored.
+			//        The interface should take RTHandle instead of RenderTargetIdentifier and use Blitter.BlitCameraTexture.
+			//        However, this will cause issues in terms of compatibility with Built-in RP support.
+			Blitter.BlitTexture(cmd, source, Vector2.one, Blitter.GetBlitMaterial(TextureXR.dimension), 0);
 		}
 		else
 		{
 			cmd.Blit(source, dest);
 		}
+	}
+
+	public void Blit(CommandBuffer cmd, RenderTargetIdentifier source, RenderTargetIdentifier dest, Material material, bool xrRendering)
+	{
+		cmd.Blit(source, dest, material);
+	}
+
+	public void SetRenderTarget(CommandBuffer cmd, RenderTargetIdentifier color, bool xrRendering)
+	{
+		CoreUtils.SetRenderTarget(cmd, color);
+	}
+
+	public void SetRenderTarget(CommandBuffer cmd, RenderTargetIdentifier color, RenderTargetIdentifier depth, bool xrRendering)
+	{
+		CoreUtils.SetRenderTarget(cmd, color, depth);
 	}
 }
 
@@ -96,21 +104,33 @@ public class EffekseerURPRenderPassFeature : ScriptableRendererFeature
 		}
 #endif
 
+#if UNITY_6000_0_OR_NEWER
+		[Obsolete]
+#endif
 		public override void Execute(ScriptableRenderContext context, ref UnityEngine.Rendering.Universal.RenderingData renderingData)
 		{
 			if (Effekseer.EffekseerSystem.Instance == null) return;
 #if EFFEKSEER_URP_DEPTHTARGET_FIX
 			var renderer = renderingData.cameraData.renderer;
+#if UNITY_2022_3_OR_NEWER
+			prop.colorTargetIdentifier = renderer.cameraColorTargetHandle;
+#else
 			prop.colorTargetIdentifier = renderer.cameraColorTarget;
+#endif
 
 			// NOTE: We need to know whether the depth in cameraDepthTarget is valid or not since if it is valid,
 			//       we need to pass cameraDepthTarget to SetRenderTarget() later on. If it isn't valid, the depth in
 			//       cameraColorTarget is used instead.
-			var isValidDepth = IsValidCameraDepthTarget(renderer.cameraDepthTarget);
+#if UNITY_2022_3_OR_NEWER
+			var cameraDepthTarget = renderer.cameraDepthTargetHandle;
+#else
+			var cameraDepthTarget = renderer.cameraDepthTarget;
+#endif
+			var isValidDepth = IsValidCameraDepthTarget(cameraDepthTarget);
 
 			if (isValidDepth)
 			{
-				prop.depthTargetIdentifier = renderer.cameraDepthTarget;
+				prop.depthTargetIdentifier = cameraDepthTarget;
 			}
 			else
 			{
@@ -118,7 +138,7 @@ public class EffekseerURPRenderPassFeature : ScriptableRendererFeature
 			}
 #endif
 			prop.colorTargetDescriptor = renderingData.cameraData.cameraTargetDescriptor;
-			
+
 			// Linear and native renderer makes a result white.
 			prop.colorTargetDescriptor.sRGB = false;
 
@@ -128,7 +148,7 @@ public class EffekseerURPRenderPassFeature : ScriptableRendererFeature
 			prop.xrRendering = renderingData.cameraData.xrRendering;
 #endif
 			prop.canGrabDepth = renderingData.cameraData.requiresDepthTexture;
-			Effekseer.EffekseerSystem.Instance.renderer.Render(renderingData.cameraData.camera, prop, null, blitter);
+			Effekseer.EffekseerSystem.Instance.renderer.Render(renderingData.cameraData.camera, prop, null, true, blitter);
 			var commandBuffer = Effekseer.EffekseerSystem.Instance.renderer.GetCameraCommandBuffer(renderingData.cameraData.camera);
 
 			if (commandBuffer != null)
@@ -136,6 +156,87 @@ public class EffekseerURPRenderPassFeature : ScriptableRendererFeature
 				context.ExecuteCommandBuffer(commandBuffer);
 			}
 		}
+
+#if UNITY_6000_0_OR_NEWER
+		class PassData
+		{
+			public TextureHandle colorTexture;
+			public TextureHandle depthTexture;
+
+			public Effekseer.Internal.RenderTargetProperty prop = new();
+			public IEffekseerBlitter blitter = new UrpBlitter();
+		}
+
+		class DummyPassData
+		{
+		}
+
+		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
+		{
+			if (Effekseer.EffekseerSystem.Instance == null) return;
+
+			string profilerTag = "EffekseerPath";
+			string profilerDummyTag = "EffekseerDummyPath";
+
+			UniversalCameraData cameraData = frameData.Get<UniversalCameraData>();
+
+			using (var builder = renderGraph.AddUnsafePass<PassData>(profilerTag, out var passData))
+			{
+				UniversalResourceData resourceData = frameData.Get<UniversalResourceData>();
+
+				passData.blitter = this.blitter;
+
+				//passData.prop.colorTargetIdentifier = resourceData.activeColorTexture;
+				//passData.prop.depthTargetIdentifier = resourceData.activeDepthTexture;
+				passData.colorTexture = resourceData.activeColorTexture;
+				passData.depthTexture = resourceData.activeDepthTexture;
+				passData.prop.colorTargetDescriptor = cameraData.cameraTargetDescriptor;
+
+				// Linear and native renderer makes a result white.
+				passData.prop.colorTargetDescriptor.sRGB = false;
+
+				passData.prop.isRequiredToCopyBackground = true;
+				passData.prop.renderFeature = Effekseer.Internal.RenderFeature.URP;
+#if EFFEKSEER_URP_XRRENDERING
+				passData.prop.xrRendering = cameraData.xrRendering;
+#endif
+				passData.prop.canGrabDepth = cameraData.requiresDepthTexture;
+
+				builder.AllowPassCulling(false);
+				builder.AllowGlobalStateModification(true);
+
+				builder.SetRenderFunc((PassData passData, UnsafeGraphContext context) =>
+				{
+					using (new ProfilingScope(context.cmd, profilingSampler))
+					{
+						var commandBuffer = CommandBufferHelpers.GetNativeCommandBuffer(context.cmd);
+						passData.prop.colorTargetIdentifier = passData.colorTexture;
+						passData.prop.depthTargetIdentifier = passData.depthTexture;
+
+						Effekseer.EffekseerSystem.Instance.renderer.Render(cameraData.camera, passData.prop, commandBuffer, true, passData.blitter);
+					}
+				});
+			}
+
+			// HACK : Dummy pass to ensure that the render graph is executed
+			using (var builder = renderGraph.AddRasterRenderPass<DummyPassData>(profilerDummyTag, out var passData))
+			{
+				UniversalResourceData resourceData = frameData.Get<UniversalResourceData>();
+				builder.SetRenderAttachment(resourceData.activeColorTexture, 0);
+				builder.AllowPassCulling(false);
+				builder.AllowGlobalStateModification(true);
+
+				builder.SetRenderFunc((DummyPassData passData, RasterGraphContext context) =>
+				{
+					using (new ProfilingScope(context.cmd, profilingSampler))
+					{
+						context.cmd.BeginSample(profilerDummyTag);
+						context.cmd.EndSample(profilerDummyTag);
+					}
+				});
+			}
+		}
+#endif
 	}
 
 	EffekseerRenderPassURP m_ScriptablePass;

@@ -99,6 +99,10 @@ namespace Ryneus
 
         private void InitUnitInfos()
         {
+            if (DataSystem.System == null)
+            {
+                return;
+            }
             for (int i = 1; i <= DataSystem.System.PartyMemberNum; i++)
             {
                 _actorIdDict[i] = -1;
