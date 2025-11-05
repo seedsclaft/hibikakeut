@@ -25,7 +25,7 @@ namespace Ryneus
             if (listData != null)
             {
                 var skillInfo = (SkillInfo)listData.Data;
-                if (skillInfo.FeatureDates.Count > 0)
+                if (skillInfo.FeatureDates.Count > 0 || skillInfo.Master.SkillType == SkillType.Kind)
                 {
                     skillInfoComponent.UpdateInfo(skillInfo);
                 } else

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Ryneus.DeckEdit;
 
 namespace Ryneus
@@ -95,6 +94,11 @@ namespace Ryneus
                 _view.EndSelectChangeBattler();
                 CommandRefresh();
                 return;
+            }
+            // 整列が必要であれば整列する
+            if (_model.AdjustEditIndexes())
+            {
+                CommandCautionInfo(DataSystem.GetText(43010));
             }
             _view.EndPopup();
             _view.BackEvent();

@@ -294,6 +294,30 @@ namespace Ryneus
             }
             lv?.SetText("");
             nameText?.SetText("");
+            if (element1 != null)
+            {
+                element1.SetText("");
+            }
+            if (element2 != null)
+            {
+                element2.SetText("");
+            }
+            if (element3 != null)
+            {
+                element3.SetText("");
+            }
+            if (element4 != null)
+            {
+                element4.SetText("");
+            }
+            if (element5 != null)
+            {
+                element5.SetText("");
+            }
+            if (element6 != null)
+            {
+                element6.SetText("");
+            }
         }
 
         private void UpdateUnitType(UnitType unitType)

@@ -52,7 +52,7 @@ namespace Ryneus
             switch (_getItemType)
             {
                 case GetItemType.Currency:
-                    return "+" + Param1.ToString() + DataSystem.GetText(1000);
+                    return Param1.ToString() + DataSystem.GetText(1000);
                 case GetItemType.Skill:
                     return DataSystem.FindSkill(Param1).Name;
                 case GetItemType.Demigod:

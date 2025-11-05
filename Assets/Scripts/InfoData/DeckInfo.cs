@@ -97,6 +97,27 @@ namespace Ryneus
             return -1;
         }
 
+        public bool AdjustEditIndexes()
+        {
+            var backOnlyEdit = new List<int>();
+            foreach (var actorIdDict in _actorIdDict)
+            {
+                if (actorIdDict.Key < 4)
+                {
+                    continue;
+                }
+                if (actorIdDict.Value != -1 && _actorIdDict[actorIdDict.Key - 3] == -1)
+                {
+                    backOnlyEdit.Add(actorIdDict.Key);
+                }
+            }
+            foreach (var backOnly in backOnlyEdit)
+            {
+                SwapBattler(backOnly - 3, _actorIdDict[backOnly]);
+            }
+            return backOnlyEdit.Count > 0;
+        }
+
         private void InitUnitInfos()
         {
             if (DataSystem.System == null)

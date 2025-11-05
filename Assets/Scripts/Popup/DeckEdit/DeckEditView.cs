@@ -80,18 +80,7 @@ namespace Ryneus
 
         public void UpdateActorInfo(ActorInfo actorInfo)
         {
-            actorInfoComponent.UpdateInfo(actorInfo,null);
-        }
-
-        public void CallStatus()
-        {
-            /*
-            var unitInfo = unitInfoList.ListItemData<UnitInfo>();
-            if (unitInfo != null)
-            {
-                CallViewEvent(CommandType.CallStatus,unitInfo.BattlerInfos);
-            }
-            */
+            actorInfoComponent.UpdateInfo(actorInfo, null);
         }
 
         public void EndPopup()

@@ -11,16 +11,16 @@ namespace Ryneus
         [SerializeField] private CanvasGroup canvasGroup = null;
 
         public override void Initialize()
-
         {
+            AnimationUtility.Clear();
+            ClearText();
+            canvasGroup.alpha = 1;
             base.Initialize();
         }
 
         public void SetTitle(string title)
         {
-            ClearText();
             titleText?.SetText(title);
-            canvasGroup.alpha = 1;
             var basePosition = canvasGroup.GetComponent<RectTransform>().localPosition;
             var from = new Vector3(basePosition.x-320,basePosition.y,0);
             var to = new Vector3(basePosition.x,basePosition.y,0);

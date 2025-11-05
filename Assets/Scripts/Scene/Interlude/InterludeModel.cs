@@ -115,14 +115,14 @@ namespace Ryneus
             if (gainCurrency > 0)
             {
                 var resultInfo = new StrategyResultViewInfo();
-                resultInfo.SetTitle("+" + gainCurrency.ToString() + DataSystem.GetText(1000) + "を入手！");
+                resultInfo.Title.SetValue(resultInfo.GetCurrencyText(gainCurrency));
                 _resultInfos.Add(resultInfo);
             }
             foreach (var itemGetItemInfo in itemGetItemInfos)
             {
                 var resultInfo = new StrategyResultViewInfo();
                 var itemData = DataSystem.Items.Find(a => a.Id == itemGetItemInfo.Param1);
-                resultInfo.SetTitle(itemData.Name + " x" + itemGetItemInfo.Param2);
+                resultInfo.Title.SetValue(itemData.Name + " x" + itemGetItemInfo.Param2);
                 _resultInfos.Add(resultInfo);
             }
             foreach (var skillGetItemInfo in skillGetItemInfos)
@@ -130,13 +130,13 @@ namespace Ryneus
                 var resultInfo = new StrategyResultViewInfo();
                 var skillData = DataSystem.FindSkill(skillGetItemInfo.Param1);
                 resultInfo.SetSkillId(skillData.Id);
-                resultInfo.SetTitle(DataSystem.GetReplaceText(20100, skillData.Name));
+                resultInfo.Title.SetValue(resultInfo.GetSkillText(skillData));
                 _resultInfos.Add(resultInfo);
             }
             foreach (var evaluateGetItemInfo in evaluateGetItemInfos)
             {
                 var resultInfo = new StrategyResultViewInfo();
-                resultInfo.SetTitle(DataSystem.GetText(3210) + " +" + evaluateGetItemInfo.Param1);
+                resultInfo.Title.SetValue(DataSystem.GetText(3210) + " +" + evaluateGetItemInfo.Param1);
                 _resultInfos.Add(resultInfo);
             }
 
@@ -156,7 +156,7 @@ namespace Ryneus
                         AddPlayerInfoActorSkillId(getItemInfo.Param1);
                         // キャラ加入
                         var actorData = DataSystem.FindActor(getItemInfo.Param1);
-                        resultInfo.SetTitle(DataSystem.GetReplaceText(20200,actorData.Name));
+                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(20200,actorData.Name));
                         _resultInfos.Add(resultInfo);
                         break;
                     case GetItemType.SelectAddActor:
@@ -164,7 +164,7 @@ namespace Ryneus
                         AddPlayerInfoActorSkillId(getItemInfo.ResultParam);
                         // キャラ加入
                         var actorData2 = DataSystem.FindActor(getItemInfo.ResultParam);
-                        resultInfo.SetTitle(DataSystem.GetReplaceText(20200,actorData2.Name));
+                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(20200,actorData2.Name));
                         _resultInfos.Add(resultInfo);
                         break;
                     case GetItemType.SelectRelic:
@@ -180,7 +180,7 @@ namespace Ryneus
                         break;
                     case GetItemType.AddReliefCommandCount:
                         var addReliefCommandCount = new StrategyResultViewInfo();
-                        addReliefCommandCount.SetTitle(DataSystem.GetText(20420));
+                        addReliefCommandCount.Title.SetValue(DataSystem.GetText(20420));
                         _resultInfos.Add(addReliefCommandCount);
                         break;
                 }

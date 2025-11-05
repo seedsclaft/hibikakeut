@@ -66,12 +66,29 @@ namespace Ryneus
 
         public List<SkillInfo> EquipSkills()
         {
+            var list = new List<SkillInfo>();
             if (_sceneParam.AddActor.Value)
             {
                 // 加入の時は未習得魔法を表示
-                return CurrentActor.LearningSkillInfos();
+                list.AddRange(CurrentActor.LearningSkillInfos());
+            } else
+            {
+                list.AddRange(EquipSkills(CurrentActor));
             }
-            return EquipSkills(CurrentActor);
+
+            var insertIndex = list.FindAll(a => a.Id.Value > 1000).Count;
+            // カインドを追加
+            foreach (var kind in CurrentActor.Master.Kinds)
+            {
+                if (kind > 0 && (int)kind < 10)
+                {
+                    var skillInfo = new SkillInfo((int)kind * 10 + 10100);
+                    skillInfo.SetEnable(true);
+                    list.Insert(insertIndex, skillInfo);
+                    insertIndex++;
+                }
+            }
+            return list;
         }
 
         public List<SkillInfo> ChangeAbleSkills()

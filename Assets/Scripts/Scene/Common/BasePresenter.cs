@@ -461,7 +461,7 @@ namespace Ryneus
                         endEvent?.Invoke();
                         SoundManager.Instance.PlayStaticSe(SEType.CountUp);
                     }
-                    actorInfo.ChangeHp(actorInfo.CurrentStatus.Hp + afterHp - beforeHp);
+                    actorInfo.ChangeHp(actorInfo.CurrentHp.Value + afterHp - beforeHp);
                     return;
                 }
             }

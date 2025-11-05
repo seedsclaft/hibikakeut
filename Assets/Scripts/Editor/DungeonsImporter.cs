@@ -299,7 +299,7 @@ namespace Ryneus
             AriadoneFloorData.entrancePos = new Vector2Int(Data.Data.InitX,Data.Data.InitY);
             AriadoneFloorData.enteringDir = (Ariadne.DungeonDir)Data.Data.InitDir;
             AriadoneFloorData.mapInfo = Data.FloorData;
-            AriadoneFloorData.DungeonCompletion = Data.FloorData.FindAll(a => a.mapAttr is 0 or 2 or 3 or 8 or 10 or 11).Count;
+            AriadoneFloorData.DungeonCompletion = Data.FloorData.FindAll(a => a.mapAttr is 0 or 2 or 3 or 8 or 10 or 11 or 12 or 13).Count;
             EditorUtility.SetDirty(AriadoneFloorData);
             return AriadoneFloorData;
         }

@@ -32,5 +32,10 @@ namespace Ryneus
             }
             return 0;
         }
+
+        public bool AdjustEditIndexes()
+        {
+            return CurrentDeckInfo.AdjustEditIndexes();
+        }
     }
 }

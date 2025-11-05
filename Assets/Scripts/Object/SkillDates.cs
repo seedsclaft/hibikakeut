@@ -258,6 +258,7 @@ namespace Ryneus
         Artifact = 5, // アーティファクト
         Enhance = 6, // 強化
         Equip = 7, // 装備
+        Kind = 8, // カインド
         UseAlcana = 11, // アルカナ使用
     }
 

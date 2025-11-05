@@ -165,7 +165,7 @@ namespace Ryneus
 
         private void CommandSelectEquipSkill(SkillInfo skillInfo)
         {
-            if (skillInfo.IsBattleSpecialSkill())
+            if (skillInfo.IsBattleSpecialSkill() || skillInfo.Master.SkillType == SkillType.Kind)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 CommandCautionInfo(DataSystem.GetText(14010));
@@ -259,6 +259,7 @@ namespace Ryneus
             }
             if (!_model.CanUseItem(itemInfo))
             {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 CommandCautionInfo(DataSystem.GetText(14160));
                 return;
             }

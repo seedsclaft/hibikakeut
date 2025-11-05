@@ -23,8 +23,8 @@ namespace Ryneus
             skillInfoComponent?.UpdateData(data.SkillId);
             if (titleName != null)
             {
-                titleName.gameObject.SetActive(data.Title != "");
-                titleName.SetText(data.Title);
+                titleName.gameObject.SetActive(data.Title.Value != "");
+                titleName.SetText(data.Title.Value);
                 titleName.rectTransform.sizeDelta = new Vector2(titleName.preferredWidth,titleName.preferredHeight);
             }
         }
@@ -35,8 +35,16 @@ namespace Ryneus
         private int _skillId;
         public int SkillId => _skillId;
         public void SetSkillId(int skillId) => _skillId = skillId;
-        private string _title;
-        public string Title => _title;
-        public void SetTitle(string title) => _title = title;
+        public ParameterString Title = new();
+
+        public string GetCurrencyText(int gainCurrency)
+        {
+            return gainCurrency.ToString() + DataSystem.GetText(1000);
+        }
+
+        public string GetSkillText(SkillData skillData)
+        {
+            return DataSystem.GetReplaceText(20100, skillData.Name);
+        }
     }
 }
