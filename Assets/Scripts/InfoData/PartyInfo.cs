@@ -480,7 +480,10 @@ namespace Ryneus
             var achievements = AchievementInfos.FindAll(a => !a.Presented.Value && a.Achieved.Value);
             foreach (var achievement in achievements)
             {
-                list.AddRange(achievement.GetItemInfos);
+                foreach (var prizeSetsMaster in achievement.PrizeSetsMaster)
+                {
+                    list.Add(new GetItemInfo(prizeSetsMaster.GetItem));
+                }
                 achievement.Presented.SetValue(true);
             }
             return list;

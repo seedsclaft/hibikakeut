@@ -2931,7 +2931,7 @@ namespace Ryneus
                         list.Add(skillMastaryItem);
                         // 進化スキルがあれば習得する
                         var nextSkill = DataSystem.FindSkill(skillData.Id + 1);
-                        if (nextSkill != null && !PartyInfo.LearningSkillIds.Contains(nextSkill.Id))
+                        if (nextSkill != null && nextSkill.Rank > 0 && !PartyInfo.LearningSkillIds.Contains(nextSkill.Id))
                         {
                             list.Add(MakeGetItemInfo(GetItemType.Skill, nextSkill.Id));
                         }

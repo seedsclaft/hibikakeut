@@ -84,6 +84,8 @@ namespace Ryneus
                     return DataSystem.GetText(3210) + Param1;
                 case GetItemType.RankUp:
                     return DataSystem.GetText(20120);
+                case GetItemType.AddRecoveryCount:
+                    return DataSystem.GetText(20280);
             }
             return "";
         }

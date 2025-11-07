@@ -42,10 +42,10 @@ namespace Ryneus
             {
                 achivePer.UpdateGauge(achievementInfo.AchievePer);
             }
-            if (getItem != null && achievementInfo.GetItemInfos.Count > 0)
+            if (getItem != null && achievementInfo.Master.PriseSetId > 0)
             {
                 getItem.gameObject.SetActive(true);
-                getItem.SetItemData(achievementInfo.GetItemInfos[0]);
+                getItem.SetItemData(new GetItemInfo(achievementInfo.PrizeSetsMaster[0].GetItem));
             }
         }
 

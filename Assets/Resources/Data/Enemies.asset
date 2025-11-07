@@ -1294,6 +1294,70 @@ MonoBehaviour:
     - SkillId: 401050
       Trigger1: 0
       Trigger2: 0
+  - Id: 51
+    Name: "\u30AA\u30FC\u30AC"
+    ImagePath: Orga
+    ImageScale: 1
+    BaseStatus:
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 45
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 24
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 11
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 16
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+    Kinds: 030000000b000000
+    HpGrowth: 160
+    MpGrowth: 0
+    AtkGrowth: 110
+    DefGrowth: 40
+    SpdGrowth: 40
+    MovGrouth: 0
+    LearningSkills:
+    - SkillId: 1010
+      Level: 1
+      Weight: 50
+      TriggerDates: []
+    - SkillId: 1060
+      Level: 11
+      Weight: 100
+      TriggerDates: []
+    SkillTriggerDates:
+    - SkillId: 1010
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 1060
+      Trigger1: 0
+      Trigger2: 0
   - Id: 101
     Name: "\u30A2\u30E2\u30F3"
     ImagePath: Ammon

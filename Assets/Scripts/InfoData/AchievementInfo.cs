@@ -15,8 +15,7 @@ namespace Ryneus
         public ParameterBool Achieved = new(false);
         public ParameterBool Presented = new(false);
 
-        private List<GetItemInfo> _getItemInfos = new();
-        public List<GetItemInfo> GetItemInfos => _getItemInfos;
+        public List<PrizeSetData> PrizeSetsMaster => DataSystem.PrizeSets.FindAll(a => a.Id == Master.PriseSetId);
 
         public float AchievePer => AchieveCount.Value > 0 ? (float)Count.Value / (float)AchieveCount.Value : 0;
 
@@ -34,18 +33,9 @@ namespace Ryneus
         public AchievementInfo(AchievementData achievementData)
         {
             Id.SetValue(achievementData.Id);
-            var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == achievementData.PriseSetId);
-            if (prizeSets != null)
-            {
-                foreach (var prizeSet in prizeSets)
-                {
-                    var getItemInfo = new GetItemInfo(prizeSet.GetItem);
-                    _getItemInfos.Add(getItemInfo);
-                }
-            }
         }
 
-        public void SetCondition(int count,int achieveCount)
+        public void SetCondition(int count, int achieveCount)
         {
             if (count > achieveCount)
             {
