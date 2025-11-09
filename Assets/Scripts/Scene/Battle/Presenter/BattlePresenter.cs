@@ -303,8 +303,12 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             if (_model.SelectIndex.Value > -1)
             {
-                _model.SwapSelectIndex(selectIndex);
-                _view.SetActors(MakeListData(_model.ViewBattlerActors()));
+                var adjust = _model.SwapSelectIndex(selectIndex);
+                if (adjust)
+                {
+                    CommandCautionInfo(DataSystem.GetText(43010));
+                }
+                _view.SetActors(MakeListData(_model.ViewBattlerActors(), selectIndex));
                 _view.StartFormation();
                 _view.UpdateSelectCursor(new List<int>() { });
                 return;

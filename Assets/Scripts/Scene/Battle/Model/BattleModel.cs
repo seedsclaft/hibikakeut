@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Ryneus
 {
@@ -20,61 +19,15 @@ namespace Ryneus
         private int _turnCount = 1;
         public int TurnCount => _turnCount;
         public void SeekTurnCount(){_turnCount++;}
-        public ParameterInt SelectIndex = new(-1);
-
-        public int SelectedCharacterIndex()
-        {
-            var index = 0;
-            var idx = 0;
-            foreach (var battlerInfo in ViewBattlerActors())
-            {
-                if (SelectIndex.Value == idx && battlerInfo.ActorInfo != null)
-                {
-                    index = battlerInfo.Index.Value;
-                }
-                idx++;
-            }
-            return index;
-        }
-
-        public void SwapSelectIndex(int selectIndex)
-        {
-            BattlerInfo fromBattlerInfo = null;
-            var fromIndex = SelectIndex.Value + 1;
-            BattlerInfo toBattlerInfo = null;
-            var toIndex = selectIndex + 1;
-            var idx = 0;
-            foreach (var battlerInfo in ViewBattlerActors())
-            {
-                if (selectIndex == idx)
-                {
-                    toBattlerInfo = battlerInfo;
-                } else
-                if (SelectIndex.Value == idx)
-                {
-                    fromBattlerInfo = battlerInfo;
-                }
-                idx++;
-            }
-            fromBattlerInfo?.Index.SetValue(toIndex);
-            fromBattlerInfo?.SetLineIndex(toIndex > 3 ? LineType.Back : LineType.Front);
-
-            toBattlerInfo?.Index.SetValue(fromIndex);
-            toBattlerInfo?.SetLineIndex(fromIndex > 3 ? LineType.Back : LineType.Front);
-
-            _party.SetBattlers(FieldBattlerInfos().FindAll(a => a.IsActor));
-            SelectIndex.SetValue(-1);
-        }
 
         //private List<SkillLogListInfo> _skillLogs = new ();
         //public List<SkillLogListInfo> SkillLogs => _skillLogs;
 
         //private SaveBattleInfo _saveBattleInfo = new SaveBattleInfo();
 
-        private List<BattlerInfo> _battlers = new List<BattlerInfo>();
+        private List<BattlerInfo> _battlers = new();
         public List<BattlerInfo> Battlers => _battlers;
-        private List<BattlerInfo> _reserveBattlers = new List<BattlerInfo>();
-        public List<BattlerInfo> ReserveBattlers => _reserveBattlers;
+        private List<BattlerInfo> _reserveBattlers = new();
 
         private UnitInfo _party = null;
         private UnitInfo _troop = null;
@@ -85,18 +38,10 @@ namespace Ryneus
         {
             if (aliveOnly)
             {
-                if (targetIndex < 100)
-                {
-                    return friends ? _party.AliveBattlerInfos : _troop.AliveBattlerInfos;
-                }
-                return friends ? _troop.AliveBattlerInfos : _party.AliveBattlerInfos;
+                return _battlers.FindAll(a => a.IsActor == friends && a.IsAlive());
             } else
             {
-                if (targetIndex < 100)
-                {
-                    return friends ? _party.BattlerInfos : _troop.BattlerInfos;
-                }
-                return friends ? _troop.BattlerInfos : _party.BattlerInfos;
+                return _battlers.FindAll(a => a.IsActor);
             }
         }
 
@@ -133,120 +78,6 @@ namespace Ryneus
                 }
             }
             return 0;
-        }
-
-        public void CreateBattleData()
-        {
-            _actionIndex = 0;
-            _battlers.Clear();
-            _reserveBattlers.Clear();
-            _battleRecords.Clear();
-/*
-            var actorUnitInfos = _sceneParam.ActorUnitInfos;
-            foreach (var actorUnitInfo in actorUnitInfos)
-            {
-                foreach (var battlerInfo in actorUnitInfo.BattlerInfos)
-                {
-                    if (battlerInfo.ActorInfo == null)
-                    {
-                        continue;
-                    }
-                    battlerInfo.SetUnitMp(actorUnitInfo.UnitMp());
-                    _battlers.Add(battlerInfo);
-                    _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
-                }
-            }
-*/
-            var actorInfos = _sceneParam.ActorInfos;
-            var idx = 1;
-            foreach (var actorInfo in actorInfos)
-            {
-                var battlerInfo = new BattlerInfo(actorInfo, actorInfo.BattleIndex.Value);
-                if (battlerInfo.ActorInfo == null)
-                {
-                    continue;
-                }
-                /*
-                var unitMp = battlerInfo.MaxMp;
-                var sub = actorInfos.Find(a => a.Index.Value == battlerInfo.Index.Value + 3);
-                if (sub != null)
-                {
-                    unitMp += sub.MaxMp;
-                }
-                battlerInfo.SetUnitMp(unitMp);
-                */
-                _battlers.Add(battlerInfo);
-                idx++;
-            }
-/*
-            var enemyUnitInfos = _sceneParam.EnemyUnitInfos;
-            foreach (var enemyUnitInfo in enemyUnitInfos)
-            {
-                foreach (var battlerInfo in enemyUnitInfo.BattlerInfos)
-                {
-                    if (battlerInfo.EnemyData == null)
-                    {
-                        continue;
-                    }
-                    foreach (var kind in battlerInfo.Kinds)
-                    {
-                        if (CurrentData.PlayerInfo.CheckEnemyWeakPointDict(battlerInfo.EnemyData.Id,kind))
-                        {
-                            battlerInfo.SetWeakPoint(kind);
-                        }
-                    }
-                    battlerInfo.SetEnemyMp();
-                    battlerInfo.SetUnitMp(enemyUnitInfo.UnitMp());
-                    _battlers.Add(battlerInfo);
-                    _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
-                }
-            }
-*/
-            var enemies = _sceneParam.EnemyInfos;
-            foreach (var enemy in enemies)
-            {
-                // 最新データに同期
-                //var battlerInfo = new BattlerInfo(enemy.EnemyData,enemy.Level.Value,enemy.Index.Value,enemy.LineIndex,enemy.BossFlag);
-                var battlerInfo = enemy;
-                if (battlerInfo.Index.Value == 0)
-                {
-                    continue;
-                }
-                foreach (var kind in battlerInfo.Kinds)
-                {
-                    if (CurrentData.PlayerInfo.CheckEnemyWeakPointDict(battlerInfo.EnemyData.Id,kind))
-                    {
-                        battlerInfo.SetWeakPoint(kind);
-                    }
-                }
-                /*
-                battlerInfo.SetEnemyMp();
-                var unitMp = battlerInfo.MaxMp;
-                var sub = enemies.Find(a => a.Index.Value == battlerInfo.Index.Value + 3);
-                if (sub != null)
-                {
-                    unitMp += sub.MaxMp;
-                }
-                battlerInfo.SetUnitMp(unitMp);
-                */
-                _battlers.Add(battlerInfo);
-            }
-            // アルカナ
-            if (PartyInfo.AritifactSkills().Count > 0)
-            {
-                var alcanaSkills = new List<SkillInfo>();
-                alcanaSkills.AddRange(PartyInfo.AritifactSkills());
-                var alcana = new BattlerInfo(alcanaSkills, true, 1);
-                _battleRecords[alcana.Index.Value] = new BattleRecord(alcana.Index.Value);
-                _battlers.Add(alcana);
-            }
-
-            _party = new UnitInfo();
-            _party.SetBattlers(FieldBattlerInfos().FindAll(a => a.IsActor));
-            _troop = new UnitInfo();
-            _troop.SetBattlers(FieldBattlerInfos().FindAll(a => !a.IsActor));
-            //_saveBattleInfo.SetParty(_party.CopyData());
-            //_saveBattleInfo.SetTroop(_troop.CopyData());
         }
 
         public void CreateBattleRecords()
@@ -342,79 +173,11 @@ namespace Ryneus
                 }
             }
             return list;
-            /*
-            var list = new List<UnitInfo>();
-            for (int i = 1;i <= 3;i++)
-            {
-                var find = _sceneParam.ActorUnitInfos.Find(a => a.BattlerInfos.Find(b => b != null && b.Index.Value == i) != null);
-                if (find != null)
-                {
-                    find.Index.SetValue(i);
-                    list.Add(find);
-                } else
-                {
-                    var newUnitInfo = new UnitInfo();
-                    newUnitInfo.Index.SetValue(i);
-                    list.Add(newUnitInfo);
-                }
-            }
-            return list;
-            //return _sceneParam.ActorUnitInfos;
-            /*
-            var list = new List<BattlerInfo>();
-            var battlerInfos = _battlers.FindAll(a => a.isAlcana == false && a.IsActor == true);
-            for (int i = 1;i <= 6;i++)
-            {
-                var find = battlerInfos.Find(a => a.Index.Value == i);
-                if (find != null)
-                {
-                    list.Add(find);
-                } else
-                {
-                    var newBattlerInfo = new BattlerInfo();
-                    newBattlerInfo.Index.SetValue(0);
-                    newBattlerInfo.SetIsActor(true);
-                    list.Add(newBattlerInfo);
-                }
-            }
-            return list;
-            */
         }
 
         public List<BattlerInfo> ViewBattlerEnemies()
         {
             return _troop.BattlerInfos;
-            /*
-            var list = new List<UnitInfo>();
-            for (int i = 101;i <= 103;i++)
-            {
-                var find = _sceneParam.EnemyUnitInfos.Find(a => a.BattlerInfos.Find(b => b != null && b.Index.Value == i) != null);
-                if (find != null)
-                {
-                    find.Index.SetValue(i-100);
-                    list.Add(find);
-                }
-            }
-            return list;
-            //return _sceneParam.EnemyUnitInfos;
-            /*
-            var list = new List<BattlerInfo>();
-            var battlerInfos = _battlers.FindAll(a => a.isAlcana == false && a.IsActor == false);
-            for (int i = 101;i <= 106;i++)
-            {
-                var find = battlerInfos.Find(a => a.Index.Value == i);
-                if (find != null)
-                {
-                    list.Add(find);
-                } else
-                {
-                    var newBattlerInfo = new BattlerInfo();
-                    newBattlerInfo.Index.SetValue(0);
-                    list.Add(newBattlerInfo);
-                }
-            }
-            return list;
-            */
         }
 
         public List<BattlerInfo> UnitBattlerActors()
@@ -429,7 +192,7 @@ namespace Ryneus
 
         public List<BattlerInfo> BattlerEnemies()
         {
-            return FieldBattlerInfos().FindAll(a => a.IsActor == false);
+            return FieldBattlerInfos().FindAll(a => !a.IsActor);
         }
 
         public BattlerInfo GetBattlerInfo(int index)
@@ -439,24 +202,26 @@ namespace Ryneus
 
         public List<SkillInfo> SkillActionList(BattlerInfo battlerInfo)
         {
-            var skillInfos = battlerInfo.ActiveSkills().FindAll(a => a.Master.Id > 100);
+            var skillInfos = battlerInfo.Skills.FindAll(a => a.Master.Id > 100);
             foreach (var skillInfo in skillInfos)
             {
-                skillInfo.SetEnable(CheckCanUse(skillInfo,battlerInfo));
+                skillInfo.SetEnable(CheckCanUse(skillInfo, battlerInfo));
             }
+            var insert = skillInfos.FindIndex(a => a.Master.SkillType == SkillType.Passive);
             var changeSkill = new SkillInfo(6020);
-            changeSkill.SetEnable(GetBattlerInfo(battlerInfo.Index.Value + 3) != null);
-            skillInfos.Add(changeSkill);
+            // 交代できる対象がいるか
+            changeSkill.SetEnable(_battlers.Find(a => a.IsAlive() && a.Index.Value != battlerInfo.Index.Value) != null);
+            skillInfos.Insert(insert, changeSkill);
             var noCommandSkill = new SkillInfo(6010);
             noCommandSkill.SetEnable(true);
-            skillInfos.Add(noCommandSkill);
+            skillInfos.Insert(insert + 1, noCommandSkill);
             return skillInfos;
         }
 
         public int SelectSkillIndex(List<SkillInfo> skillInfos)
         {
             int selectIndex = 0;
-            if (_currentBattler != null && _currentBattler.IsActor == true)
+            if (_currentBattler != null && _currentBattler.IsActor)
             {
                 var skillIndex = skillInfos.FindIndex(a => a.Id.Value == _currentBattler.LastSelectSkill.Value);
                 if (skillIndex > -1)
@@ -481,7 +246,7 @@ namespace Ryneus
             var inPeriodUseCountUnder = skillInfo.Master.TriggerDates.Find(a => a.TriggerType == TriggerType.InPeriodUseCountUnder);
             if (inPeriodUseCountUnder != null)
             {
-                if (inPeriodUseCountUnder.Param1 <= skillInfo.UseCount.Value)
+                if (inPeriodUseCountUnder.Param1 <= skillInfo.PeriodUseCount.Value)
                 {
                     return false;
                 }
@@ -1535,7 +1300,7 @@ namespace Ryneus
             if (chenage)
             {
                 var subject = GetBattlerInfo(actionInfo.SubjectIndex.Value);
-                var changeBattler = _battlers.Find(a => a.IsActor == subject.IsActor && a.Index.Value == (subject.Index.Value + 3));
+                var changeBattler = GetBattlerInfo(actionInfo.ActionResults[0].TargetIndex.Value);
                 if (subject != null && changeBattler != null && changeBattler.IsAlive())
                 {
                     ChangeUnitLineType(subject, changeBattler);
@@ -1568,10 +1333,19 @@ namespace Ryneus
 
         public void ChangeUnitLineType(BattlerInfo subject, BattlerInfo changeBattler)
         {
-            subject.Index.GainValue(3);
-            changeBattler.Index.GainValue(-3);
-            subject.SetLineIndex(LineType.Back);
-            changeBattler.SetLineIndex(LineType.Front);
+            CurrentDeckInfo.SwapBattler(subject.Index.Value, changeBattler.ActorInfo != null ? changeBattler.ActorInfo.ActorId.Value : -1, changeBattler.Index.Value);
+            bool adjust = CurrentDeckInfo.AdjustEditIndexes();
+
+            foreach (var actorIdDict in CurrentDeckInfo.ActorIdDict)
+            {
+                var battlerInfo = _battlers.Find(a => a.ActorInfo != null && a.ActorInfo.ActorId.Value == actorIdDict.Value);
+                if (battlerInfo != null)
+                {
+                    battlerInfo.Index.SetValue(actorIdDict.Key);
+                    battlerInfo.SetLineIndex(actorIdDict.Key > 3 ? LineType.Back : LineType.Front);
+                }
+            }
+            _party.SetBattlers(FieldBattlerInfos().FindAll(a => a.IsActor));
         }
 
         public void ActionAfterGainAp(int gainAp)
@@ -1992,7 +1766,7 @@ namespace Ryneus
             var inPeriodUseCountUnder = triggerDates.Find(a => a.TriggerType == TriggerType.InPeriodUseCountUnder);
             if (inPeriodUseCountUnder != null)
             {
-                if (inPeriodUseCountUnder.Param1 <= passiveInfo.UseCount.Value)
+                if (inPeriodUseCountUnder.Param1 <= passiveInfo.PeriodUseCount.Value)
                 {
                     return false;
                 }
@@ -2962,12 +2736,7 @@ namespace Ryneus
             {
                 TempInfo.SetInReplay(false);
             }
-            // ActorIdDict並び替えをする
-            var actorIdDict = new Dictionary<int, int>();
-            for (int i = 1;i <= 6;i++)
-            {
-                actorIdDict[i] = -1;
-            }
+            // Hp等を同期
             foreach (var battler in _battlers)
             {
                 if (battler.ActorInfo == null)
@@ -2976,19 +2745,16 @@ namespace Ryneus
                 }
                 var actorInfo = PartyInfo.ActorInfos.Find(a => a.ActorId == battler.ActorInfo.ActorId);
                 actorInfo.ChangeHp(battler.Hp.Value);
-                actorIdDict[actorInfo.BattleIndex.Value] = actorInfo.ActorId.Value;
-                //battler.GainMp(battler.MaxMp);
                 battler.SetAwaken(false);
                 // Period回数制限の使用回数を設定
                 foreach (var skill in battler.Skills)
                 {
                     if (skill.Master.TriggerDates.Find(a => a.TriggerType == TriggerType.InPeriodUseCountUnder) != null)
                     {
-                        actorInfo.AddSkillUseCount(skill.Id.Value, skill.UseCount.Value);
+                        actorInfo.AddSkillUseCount(skill.Id.Value, skill.PeriodUseCount.Value);
                     }
                 }
             }
-            CurrentDeckInfo.SetActorIdDict(actorIdDict);
             SaveSystem.SaveOptionStart(GameSystem.OptionData);
         }
 

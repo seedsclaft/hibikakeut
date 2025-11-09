@@ -180,9 +180,9 @@ namespace Ryneus
             // Period回数制限の使用回数を設定
             foreach (var skill in _skills)
             {
-                if (skill.Master.TriggerDates.Find(a => a.TriggerType == TriggerType.InPeriodUseCountUnder) != null)
+                if (skill.Master.IsPeriodUseCount())
                 {
-                    skill.UseCount.SetValue(actorInfo.GetSkillUseCount(skill.Id.Value));
+                    skill.PeriodUseCount.SetValue(actorInfo.GetSkillUseCount(skill.Id.Value));
                 }
             }
             ResetAp();
@@ -623,7 +623,11 @@ namespace Ryneus
         public void GainUseCount(int skillId)
         {
             var skill = _skills.Find(a => a.Id.Value == skillId);
-            skill?.UseCount.GainValue(1);
+            if (skill != null)
+            {
+                skill.UseCount.GainValue(1);
+                skill.PeriodUseCount.GainValue(1);
+            }
         }
 
         public bool IsAlive()

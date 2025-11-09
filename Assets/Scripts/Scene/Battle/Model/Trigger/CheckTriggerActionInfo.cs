@@ -222,12 +222,13 @@ namespace Ryneus
         private List<int> CheckCoverable(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
             var list = new List<int>();
-            if (!battlerInfo.IsAlive() && triggerData.Param2 == 0 || checkTriggerInfo.CoverTargetIndex == -1)
+            if ((!battlerInfo.IsAlive() && triggerData.Param2 == 0) || checkTriggerInfo.CoverTargetIndex == -1)
             {
                 return list;
             }
+            var subject = checkTriggerInfo.GetBattlerInfo(checkTriggerInfo.ActionInfo.SubjectIndex.Value);
             var targetBattlerInfo = checkTriggerInfo.GetBattlerInfo(checkTriggerInfo.CoverTargetIndex);
-            if (targetBattlerInfo != null && battlerInfo.Index.Value != targetBattlerInfo.Index.Value && battlerInfo.IsActor == targetBattlerInfo.IsActor)
+            if (targetBattlerInfo != null && subject.IsActor != targetBattlerInfo.IsActor && battlerInfo.Index.Value != targetBattlerInfo.Index.Value && battlerInfo.IsActor == targetBattlerInfo.IsActor)
             {
                 list.Add(targetBattlerInfo.Index.Value);
             }

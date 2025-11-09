@@ -16,7 +16,7 @@ namespace Ryneus
         [SerializeField] private Image lineImage;
         [SerializeField] private Transform skillTypeBgRoot;
         [SerializeField] private TextMeshProUGUI type;
-        [SerializeField] private TextMeshProUGUI value;
+        [SerializeField] private TextMeshProUGUI useCount;
         [SerializeField] private TextMeshProUGUI description;
         [SerializeField] private GameObject descriptionListObj;
         [SerializeField] private GameObject descriptionListTarget;
@@ -44,7 +44,7 @@ namespace Ryneus
             if (description != null)
             {
                 var convertHelpText = skillInfo.ConvertHelpText();
-                description?.SetText(convertHelpText);
+                description.SetText(convertHelpText);
                 if (descriptionListObj != null && descriptionListTarget != null)
                 {
                     var length = Math.Max(3, convertHelpText.Split("\n").Length);
@@ -94,6 +94,11 @@ namespace Ryneus
                     learningCost.text = DataSystem.PowerUpColorTag + learningCost.text + "</color>";
                 }
             }
+            if (useCount != null && skillInfo.RemainUseCount() > -1)
+            {
+                useCount.gameObject.SetActive(true);
+                useCount.SetText(DataSystem.GetReplaceText(2610, skillInfo.RemainUseCount().ToString()));
+            }
         }
 
         public void UpdateData(int skillId)
@@ -104,50 +109,58 @@ namespace Ryneus
                 return;
             }
             var skillData = DataSystem.FindSkill(skillId);
-            if (skillData != null)
-            {
-                if (icon != null)
-                {
-                    icon.gameObject.SetActive(true);
-                    UpdateSkillIcon(skillData.IconIndex);
-                }
-                if (iconBack != null)
-                {
-                    iconBack.gameObject.SetActive(true);
-                    UpdateSkillIconBack(skillData.Attribute);
-                }
-                if (nameText != null)
-                {
-                    nameText.SetText(skillData.Name);
-                    if (nameAndMpCost)
-                    {
-                        nameText.rectTransform.sizeDelta = new Vector2(nameText.preferredWidth,nameText.preferredHeight);
-                    }
-                }
-                var mpCostText = skillData.SkillType == SkillType.Active ? "(" + skillData.MpCost.ToString() + ")" : "";
-                mpCost?.SetText(mpCostText);
-                type?.SetText(skillData.SkillType.ToString());
-                if (skillTypeBgRoot != null)
-                {
-                    var count = 1;
-                    var skillType = (int)skillData.SkillType;
-                    foreach (Transform child in skillTypeBgRoot.transform)
-                    {
-                        child.gameObject.SetActive(skillType == count);
-                        count++;
-                    }
-                }
-                if (countTurnRoot != null)
-                {
-                    countTurnRoot.SetActive(skillData.SkillType == SkillType.Active || (skillData.SkillType == SkillType.Passive && skillData.CountTurn > 0));
-                }
-                countTurn?.SetText(skillData.CountTurn.ToString());
-                rank?.gameObject?.SetActive(true);
-                rank?.gameObject?.transform.parent.gameObject.SetActive(true);
-                UpdateSkillRank(skillData.Rank);
-            } else
+            if (skillData == null)
             {
                 Clear();
+            }
+            if (icon != null)
+            {
+                icon.gameObject.SetActive(true);
+                UpdateSkillIcon(skillData.IconIndex);
+            }
+            if (iconBack != null)
+            {
+                iconBack.gameObject.SetActive(true);
+                UpdateSkillIconBack(skillData.Attribute);
+            }
+            if (nameText != null)
+            {
+                nameText.SetText(skillData.Name);
+                if (nameAndMpCost)
+                {
+                    nameText.rectTransform.sizeDelta = new Vector2(nameText.preferredWidth,nameText.preferredHeight);
+                }
+            }
+            var mpCostText = skillData.SkillType == SkillType.Active ? "(" + skillData.MpCost.ToString() + ")" : "";
+            mpCost?.SetText(mpCostText);
+            type?.SetText(skillData.SkillType.ToString());
+            if (skillTypeBgRoot != null)
+            {
+                var count = 1;
+                var skillType = (int)skillData.SkillType;
+                foreach (Transform child in skillTypeBgRoot.transform)
+                {
+                    child.gameObject.SetActive(skillType == count);
+                    count++;
+                }
+            }
+            if (countTurnRoot != null)
+            {
+                countTurnRoot.SetActive(skillData.SkillType == SkillType.Active || (skillData.SkillType == SkillType.Passive && skillData.CountTurn > 0));
+            }
+            if (countTurn != null)
+            {
+                countTurn.SetText(skillData.CountTurn.ToString());
+            }
+            if (rank != null)
+            {
+                rank.gameObject.SetActive(true);
+                rank.gameObject.transform.parent.gameObject.SetActive(true);
+                if (useCount != null)
+                {
+                    useCount.gameObject.SetActive(false);
+                }
+                UpdateSkillRank(skillData.Rank);
             }
             if (lineImage != null)
             {
@@ -249,7 +262,6 @@ namespace Ryneus
             }
             range?.gameObject.SetActive(false);
             range?.SetText("");
-            countTurn?.gameObject?.SetActive(false);
             if (countTurnRoot != null)
             {
                 countTurnRoot.SetActive(false);

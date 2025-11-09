@@ -115,12 +115,12 @@ namespace Ryneus
         private void InitializeActorList()
         {
             battleActorList.Initialize();
-            battleActorList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(CommandType.SelectCharacter,battleActorList.Index));
-            battleActorList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.EndFormation));
-            battleActorList.SetInputHandler(InputKeyType.Up,() => OnSelectTarget(InputKeyType.Up));
-            battleActorList.SetInputHandler(InputKeyType.Down,() => OnSelectTarget(InputKeyType.Down));
-            battleActorList.SetInputHandler(InputKeyType.Right,() => OnSelectTarget(InputKeyType.Right));
-            battleActorList.SetInputHandler(InputKeyType.Left,() => OnSelectTarget(InputKeyType.Left));
+            battleActorList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectCharacter, battleActorList.Index));
+            battleActorList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.EndFormation));
+            battleActorList.SetInputHandler(InputKeyType.Up, () => OnSelectTarget(InputKeyType.Up));
+            battleActorList.SetInputHandler(InputKeyType.Down, () => OnSelectTarget(InputKeyType.Down));
+            battleActorList.SetInputHandler(InputKeyType.Right, () => OnSelectTarget(InputKeyType.Right));
+            battleActorList.SetInputHandler(InputKeyType.Left, () => OnSelectTarget(InputKeyType.Left));
             AddViewActives(battleActorList);
         }
 
@@ -434,12 +434,12 @@ namespace Ryneus
             SetInputFrame(1);
         }
 
-        public void ShowMagicList(List<ListData> skillInfos,bool resetScrollRect,int selectIndex)
+        public void ShowMagicList(List<ListData> skillInfos, bool resetScrollRect, int selectIndex)
         {
             SetActivate(magicList);
             battleActorList.gameObject.SetActive(true);
             magicList.gameObject.SetActive(true);
-            magicList.SetData(skillInfos,resetScrollRect);
+            magicList.SetData(skillInfos, resetScrollRect);
             if (resetScrollRect)
             {
                 magicList.UpdateSelectIndex(selectIndex);

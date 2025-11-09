@@ -52,9 +52,20 @@ namespace Ryneus
         // 編成情報
         private Dictionary<int, int> _actorIdDict = new();
         public Dictionary<int, int> ActorIdDict => _actorIdDict;
-        public void SetActorIdDict(Dictionary<int, int> actorIdDict)
+
+        // 回復可能回数
+        public ParameterInt RecoveryCount = new();
+
+        private void InitUnitInfos()
         {
-            _actorIdDict = actorIdDict;
+            if (DataSystem.System == null)
+            {
+                return;
+            }
+            for (int i = 1; i <= DataSystem.System.PartyMemberNum; i++)
+            {
+                _actorIdDict[i] = -1;
+            }
         }
 
         public void TransferActorInfo(int actorId)
@@ -117,21 +128,6 @@ namespace Ryneus
             }
             return backOnlyEdit.Count > 0;
         }
-
-        private void InitUnitInfos()
-        {
-            if (DataSystem.System == null)
-            {
-                return;
-            }
-            for (int i = 1; i <= DataSystem.System.PartyMemberNum; i++)
-            {
-                _actorIdDict[i] = -1;
-            }
-        }
-
-        // 回復可能回数
-        public ParameterInt RecoveryCount = new();
     }
 
     [Serializable]

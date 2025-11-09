@@ -49,6 +49,19 @@ namespace Ryneus
         }
 
         public ParameterInt UseCount = new();
+        public ParameterInt PeriodUseCount = new();
+        public int RemainUseCount()
+        {
+            if (Master.IsPeriodUseCount())
+            {
+                return Master.PeriodUseCount() - PeriodUseCount.Value;
+            } else
+            if (Master.IsBattleUseCount())
+            {
+                return Master.BattleUseCount() - UseCount.Value;
+            }
+            return -1;
+        }
 
         private int _minusCountTurn = 0;
         public void SetMinusCountTurn(int countTurn)

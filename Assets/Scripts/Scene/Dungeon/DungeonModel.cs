@@ -49,7 +49,7 @@ namespace Ryneus
             }
             //if (toActorId > -1)
             {
-                CurrentDeckInfo.SwapBattler(SelectIndex.Value+1,toActorId,selectIndex+1);
+                CurrentDeckInfo.SwapBattler(SelectIndex.Value + 1, toActorId, selectIndex + 1);
             }
             SelectIndex.SetValue(-1);
         }

@@ -102,6 +102,26 @@ namespace Ryneus
             return SkillType is SkillType.Active or SkillType.Passive;
         }
 
+        public bool IsPeriodUseCount()
+        {
+            return TriggerDates.Find(a => a.TriggerType == TriggerType.InPeriodUseCountUnder) != null;
+        }
+
+        public int PeriodUseCount()
+        {
+            return TriggerDates.Find(a => a.TriggerType == TriggerType.InPeriodUseCountUnder).Param1;
+        }
+
+        public bool IsBattleUseCount()
+        {
+            return TriggerDates.Find(a => a.TriggerType == TriggerType.InBattleUseCountUnder) != null;
+        }
+
+        public int BattleUseCount()
+        {
+            return TriggerDates.Find(a => a.TriggerType == TriggerType.InBattleUseCountUnder).Param1;
+        }
+
         public static int ConvertRankCost(RankType rank)
         {
             switch (rank)

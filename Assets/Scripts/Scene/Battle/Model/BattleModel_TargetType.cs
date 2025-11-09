@@ -14,7 +14,7 @@ namespace Ryneus
             return _troop.BattlerInfos;
         }
 
-        private RangeType CalcRangeType(SkillData skillData,BattlerInfo battlerInfo)
+        private RangeType CalcRangeType(SkillData skillData, BattlerInfo battlerInfo)
         {
             var rangeType = skillData.Range;
             if (battlerInfo.IsState(StateType.Extension))
@@ -60,6 +60,19 @@ namespace Ryneus
             return targetIndexList;
         }
 
+        private List<int> TargetIndexReserve(bool isActor)
+        {
+            var targetIndexList = new List<int>();
+            foreach (var battlerInfo in _battlers)
+            {
+                if (battlerInfo.Index.Value % 100 > 3 && battlerInfo.IsActor == isActor)
+                {
+                    targetIndexList.Add(battlerInfo.Index.Value);
+                }
+            }
+            return targetIndexList;
+        }
+
         private List<int> WithinRangeTargetList(BattlerInfo battlerInfo, RangeType skillRangeType)
         {
             var targetIndexList = new List<int>();
@@ -77,6 +90,7 @@ namespace Ryneus
                 {
                     targetIndexList.Add(opponent.Index.Value);
                 }
+                targetIndexList.AddRange(TargetIndexReserve(isActor));
                 return targetIndexList;
             }
 
@@ -137,6 +151,11 @@ namespace Ryneus
                     break;
                 case TargetType.Friend:
                     targetIndexList.AddRange(TargetIndexFriend(subject.IsActor));
+                    if (rangeType == RangeType.L)
+                    {
+                        // 控えも加える
+                        targetIndexList.AddRange(TargetIndexReserve(subject.IsActor));
+                    }
                     if (skillData.Scope == ScopeType.WithoutSelfOne || skillData.Scope == ScopeType.WithoutSelfLine || skillData.Scope == ScopeType.WithoutSelfAll)
                     {
                         targetIndexList.Remove(subject.Index.Value);

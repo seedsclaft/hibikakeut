@@ -19,6 +19,7 @@ namespace Ryneus
         public void SetBattlers(List<BattlerInfo> battlerInfos)
         {
             _battlerInfos = battlerInfos;
+            SortBattlerInfos();
         }
 
         public void AddBattlerInfo(BattlerInfo battlerInfos)
@@ -28,6 +29,7 @@ namespace Ryneus
             {
                 _battlerInfos.Add(battlerInfos);
             }
+            SortBattlerInfos();
         }
 
         public void RemoveBattlerInfo(BattlerInfo battlerInfos)
@@ -37,6 +39,11 @@ namespace Ryneus
             {
                 _battlerInfos.RemoveAt(findIndex);
             }
+        }
+
+        public void SortBattlerInfos()
+        {
+            _battlerInfos.Sort((a, b) => a.Index.Value - b.Index.Value > 0 ? 1 : -1);
         }
 
         public void UpdateBattlerInfo(BattlerInfo battlerInfo)
@@ -99,65 +106,6 @@ namespace Ryneus
                 return null;
             }
             return _battlerInfos[1];
-        }
-
-        //LineIndexを整列する
-        public void SetLineIndexes(int battleIndex)
-        {
-            if (_battlerInfos.Count > 0 && _battlerInfos[0].Index.Value > 0)
-            {
-                _battlerInfos[0].Index.SetValue(battleIndex);
-                _battlerInfos[0].SetLineIndex(LineType.Front);
-            }
-            if (_battlerInfos.Count > 1 && _battlerInfos[1].Index.Value > 0)
-            {
-                _battlerInfos[1].Index.SetValue(battleIndex+3);
-                _battlerInfos[1].SetLineIndex(LineType.Back);
-            }
-        }
-
-        /// バトル終了時の状態で整列する
-        public void BattleEndSetLineIndexes()
-        {
-            if (_battlerInfos == null)
-            {
-                return;
-            }
-
-            if (_battlerInfos.Count > 1)
-            {
-                var frontBattler = _battlerInfos.Find(a => a.LineIndex == LineType.Front);
-                var backBattler = _battlerInfos.Find(a => a.LineIndex == LineType.Back);
-                _battlerInfos.Clear();
-                _battlerInfos.Add(frontBattler);
-                _battlerInfos.Add(backBattler);
-            }
-        }
-
-        public int UnitMp()
-        {
-            var maxMp = 0;
-            foreach (var battlerInfo in _battlerInfos)
-            {
-                if (battlerInfo.IsActor && battlerInfo.ActorInfo != null)
-                {
-                    maxMp += battlerInfo.ActorInfo.MaxMp;
-                } else
-                if (!battlerInfo.IsActor && battlerInfo.EnemyData != null)
-                {
-                    maxMp += battlerInfo.MaxMp;
-                }
-            }
-            return maxMp;
-        }
-
-        public int CurrentMov()
-        {
-            if (_battlerInfos.Count > 0 && _battlerInfos[0].Index.Value != 0)
-            {
-                return _battlerInfos[0].CurrentMov();
-            }
-            return 0;
         }
 
         public bool DeadWithoutSelf(BattlerInfo battlerInfo)
