@@ -24,6 +24,7 @@ namespace Ryneus
         public int DisplayRank;
         public int RandomTroopWeight;
         public List<StageEnemyRate> RandomTroopEnemyRates;
+        public int EncountTimes;
         public int EncountMin;
         public int EncountMax;
         public string BackGround;

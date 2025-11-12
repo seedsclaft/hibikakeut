@@ -249,7 +249,7 @@ namespace Ryneus
 
         private void CheckEncount()
         {
-            if (!_model.EncountEnemy())
+            if (!_model.IsEncountEnemy())
             {
                 return;
             }
@@ -259,6 +259,7 @@ namespace Ryneus
             _model.ResetEncountValue();
             // ダンジョンの再開時間を記憶
             _model.SaveBgmTiming();
+            _model.EncountEnemy();
             var battleSceneInfo = new BattleSceneInfo
             {
                 ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),

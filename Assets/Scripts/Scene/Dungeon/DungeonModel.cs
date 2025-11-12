@@ -255,9 +255,23 @@ namespace Ryneus
             */
         }
 
-        public bool EncountEnemy()
+        public bool IsEncountEnemy()
         {
-            return CurrentDeckInfo == null ? false : CurrentDeckInfo.Encount.Value >= 100;
+            if (CurrentDeckInfo != null && CurrentDeckInfo.Encount.Value >= 100)
+            {
+                if (CurrentStage.Master.EncountTimes != -1)
+                {
+                    // 最大エンカウント制限アリ
+                    return CurrentDeckInfo.RemainEncountTimes() > 0;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public void EncountEnemy()
+        {
+            CurrentDeckInfo.EncountTimes.GainValue(-1);
         }
 
         public void ResetEncountValue()

@@ -44,6 +44,16 @@ namespace Ryneus
         public ParameterInt Encount = new();
         public ParameterFloat EncountRate = new(1);
         public ParameterFloat EncountRateTurn = new(0);
+        public ParameterInt EncountTimes = new();
+        public void SetEncountTimes(int times)
+        {
+            EncountTimes ??= new();
+            EncountTimes.SetValue(times);
+        }
+        public int RemainEncountTimes()
+        {
+            return EncountTimes.Value;
+        }
         public string EncountRateText()
         {
             return EncountRate.Value != 1 ? EncountRateTurn.Value + "ターン Encount率 x" + EncountRate.Value : "";

@@ -80,6 +80,7 @@ namespace Ryneus
                             DisplayRank = AssetPostImporter.ImportNumeric(BaseRow, "DisplayRank"),
                             RandomTroopEnemyRates = new List<StageEnemyRate>(),
                             RandomTroopWeight = AssetPostImporter.ImportNumeric(BaseRow, "RandomTroopWeight"),
+                            EncountTimes = AssetPostImporter.ImportNumeric(BaseRow, "EncountTimes"),
                             EncountMin = AssetPostImporter.ImportNumeric(BaseRow, "EncountMin"),
                             EncountMax = AssetPostImporter.ImportNumeric(BaseRow, "EncountMax"),
                             BackGround = AssetPostImporter.ImportString(BaseRow, "BackGround"),

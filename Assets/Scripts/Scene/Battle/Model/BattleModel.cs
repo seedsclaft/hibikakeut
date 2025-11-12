@@ -2543,23 +2543,27 @@ namespace Ryneus
                 }
             }
             var score = 0f;
+            var actorLvMax = _party.BattlerInfos.Max(a => a.Level.Value);
+            var enemyLvMax = _troop.BattlerInfos.Max(a => a.Level.Value);
+            var lvPoint = (enemyLvMax - actorLvMax) * 5;
             // 戦闘不能数の少なさで加算
-            if (defeated == 0)
+            if (defeated == 0 && lvPoint > -20)
             {
-                score += 20;
+                score += 20 + lvPoint;
             }
             // 戦闘不能数の数で減算
             if (defeated > 0)
             {
                 score -= defeated * 20;
             }
-            // ターン数の少なさとLv差で加算
-            var actorLvMax = _party.BattlerInfos.Max(a => a.Level.Value);
-            var enemyLvMax = _troop.BattlerInfos.Max(a => a.Level.Value);
-            totalTurnCount += (enemyLvMax - actorLvMax) * 5;
             if (totalTurnCount <= 30)
             {
-                score += 30 - totalTurnCount;
+                // ターン数の少なさとLv差で加算
+                var turnValue = 30 - totalTurnCount + lvPoint;
+                if (turnValue > 0)
+                {
+                    score += turnValue;
+                }
             }
             // 覚醒したキャラ数
             if (awakeCount > 0)

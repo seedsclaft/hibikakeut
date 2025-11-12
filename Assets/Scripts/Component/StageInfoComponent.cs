@@ -81,6 +81,10 @@ namespace Ryneus
             if (dungeonEnemySymbolNum != null && dungeonEnemySymbolRoot != null)
             {
                 var symbolNum = CurrentStage.DungeonEnemySymbolNum(CurrentGameInfo.ReadEventKeys);
+                if (CurrentStage.Master.EncountTimes != -1)
+                {
+                    symbolNum += CurrentDeckInfo.RemainEncountTimes();
+                }
                 dungeonEnemySymbolRoot.SetActive(symbolNum > 0);
                 dungeonEnemySymbolNum.SetText("x" + symbolNum.ToString());
             }
