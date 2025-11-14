@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Ryneus
 {
-    abstract public class BaseView : MonoBehaviour
+    public abstract class BaseView : MonoBehaviour
     {
         private bool _isIntialized = false;
         public bool IsInitilized => _isIntialized;

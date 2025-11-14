@@ -127,6 +127,10 @@ namespace Ryneus
 
         private void CommandDetailItem(ItemInfo itemInfo)
         {
+            if (itemInfo == null)
+            {
+                return;
+            }
             switch (itemInfo.Master.ItemType)
             {
                 case ItemType.RandumAddSkill:
