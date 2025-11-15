@@ -208,6 +208,10 @@ namespace Ryneus
                 skillInfo.SetEnable(CheckCanUse(skillInfo, battlerInfo));
             }
             var insert = skillInfos.FindIndex(a => a.Master.SkillType == SkillType.Passive);
+            if (insert == -1)
+            {
+                insert = skillInfos.Count;
+            }
             var changeSkill = new SkillInfo(6020);
             // 交代できる対象がいるか
             changeSkill.SetEnable(_battlers.Find(a => a.IsAlive() && a.Index.Value != battlerInfo.Index.Value) != null);

@@ -220,15 +220,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -325,7 +327,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 6619372991391813222}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -382,7 +384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8335471234323529875
 RectTransform:
   m_ObjectHideFlags: 0
@@ -461,7 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.63382745, b: 0.22327036, a: 1}
+  m_Color: {r: 0.8784314, g: 0.8156863, b: 0.6901961, a: 0.78431374}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -657,12 +659,18 @@ MonoBehaviour:
   clickButton: {fileID: 1443063722799211723}
   cursor: {fileID: 4497671529759625114}
   changeCursorColor: 1
+  cursorRectAnimation: {fileID: 0}
   disable: {fileID: 3852009855900979615}
+  batch: {fileID: 0}
   selectColor: {r: 0, g: 0, b: 0, a: 1}
   unSelectColor: {r: 1, g: 1, b: 1, a: 1}
   textUguiList: []
   imageUguiList: []
   commandName: {fileID: 4282052407561421632}
+  inputInfoComponent: {fileID: 0}
+  inputKeyType: 0
+  inputInfoComponent2: {fileID: 0}
+  inputKeyType2: 0
 --- !u!222 &5161186008718301260
 CanvasRenderer:
   m_ObjectHideFlags: 0
