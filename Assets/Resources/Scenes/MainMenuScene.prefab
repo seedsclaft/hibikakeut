@@ -1618,7 +1618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5727361115611400775}
   - component: {fileID: 4353815346884267298}
-  - component: {fileID: 4257041507488604656}
+  - component: {fileID: 2001079252766621574}
   m_Layer: 5
   m_Name: Bg
   m_TagString: Untagged
@@ -1666,7 +1666,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1699,22 +1699,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4257041507488604656
+--- !u!114 &2001079252766621574
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5667879424559383101}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b588e800cbc03d84687131f7dc1e9517, type: 3}
+  m_Script: {fileID: 11500000, guid: c7ef90af565ae2c49b149538722fb134, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::_2dxFX_SkyCloud
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
-  _EffectAmount: 1
+  __MainTex2: {fileID: 2800000, guid: 359a96e0e6e397c45b356aef72e49763, type: 3}
+  _OffsetX: 0
+  _OffsetY: 0
+  _Zoom: 0.49
+  _Intensity: 0.12
+  _AutoScrollX: 1
+  _AutoScrollSpeedX: 0.01
+  _AutoScrollY: 0
+  _AutoScrollSpeedY: 0.02
   ShaderChange: 0
   ActiveUpdate: 1
 --- !u!1 &5699339305711578151

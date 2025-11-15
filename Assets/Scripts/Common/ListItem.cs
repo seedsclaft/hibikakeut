@@ -24,6 +24,8 @@ namespace Ryneus
         }
         [SerializeField] private GameObject cursor;
         public GameObject Cursor => cursor;
+        [SerializeField] private GameObject selectArrow;
+        public GameObject SelectArrow => selectArrow;
         [SerializeField] private bool changeCursorColor = true;
         [SerializeField] private CursorRectAnimation cursorRectAnimation = null;
         [SerializeField] private GameObject disable = null;
@@ -72,6 +74,10 @@ namespace Ryneus
             //if (disable != null && disable.activeSelf) return;
 
             cursor.SetActive(true);
+            if (selectArrow != null)
+            {
+                selectArrow.SetActive(true);
+            }
             foreach (var text in textUguiList)
             {
                 text.color = selectColor;
@@ -84,8 +90,15 @@ namespace Ryneus
 
         public void SetUnSelect()
         {
-            if (cursor == null) return;
+            if (cursor == null)
+            {
+                return;
+            }
             cursor.SetActive(false);
+            if (selectArrow != null)
+            {
+                selectArrow.SetActive(false);
+            }
             foreach (var text in textUguiList)
             {
                 text.color = unSelectColor;

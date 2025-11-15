@@ -11,7 +11,6 @@ namespace Ryneus
     {
         [SerializeField] private bool beforeSelect = true;
         private bool _isInit = false;
-        public bool IsInit => _isInit;
         private int _beforeSelectIndex = -1;
         public ListData ListData
         {
@@ -95,16 +94,6 @@ namespace Ryneus
             }
         }
 
-        /*
-        private void InitializeRefresh(int selectIndex)
-        {
-            UpdateItemPrefab(selectIndex);
-            UpdateAllItems();
-            UpdateSelectIndex(selectIndex);
-            _beforeSelectIndex = selectIndex;
-        }
-        */
-
         private void SetListCallHandler()
         {
             for (int i = 0; i < ItemPrefabList.Count;i++)
@@ -150,20 +139,9 @@ namespace Ryneus
             CallListInputHandler(InputKeyType.Decide);
         }
 
-        /*
-        public void RefreshListData(ListData listData)
-        {
-            var findIndex = ListDates.FindIndex(a => a.Index == listData.Index);
-            if (findIndex > -1)
-            {
-                ListDates[findIndex] = listData;
-            }
-        }
-        */
-
         public void SetDisableIds(List<int> disableIds)
         {
-            for (int i = 0; i < ListDates.Count;i++)
+            for (int i = 0; i < ListDates.Count; i++)
             {
                 if (disableIds.Contains(i))
                 {
