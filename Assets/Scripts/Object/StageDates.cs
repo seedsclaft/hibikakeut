@@ -116,6 +116,7 @@ namespace Ryneus
         BeforeMainMenu = 2010,
         BattleVictory = 2020,
         Dungeon = 3010,
+        DungeonMoved = 3020,
     }
 
     public enum StageEventType
@@ -129,6 +130,7 @@ namespace Ryneus
         GetItem = 3020, // アイテム取得
         GetSkill = 3030, // 魔法取得
         AddActor = 4010, // 仲間を増やす
+        RemoveActor = 4011,
         SelectAddActor = 4020, // 選択して仲間を増やす
         ForceBattle = 5010, // 強制戦闘
         ForceBossBattle = 5020, // 強制ボス戦闘

@@ -436,6 +436,11 @@ namespace Ryneus
             }
         }
 
+        public void RemoveGetItemInfo(GetItemInfo getItemInfo)
+        {
+            PartyInfo.RemoveGetItemInfo(getItemInfo);
+        }
+
         public void ClearGame()
         {
             CurrentData.PlayerInfo.GainClearCount();

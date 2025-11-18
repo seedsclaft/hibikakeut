@@ -231,6 +231,13 @@ namespace Ryneus
             return stageEvents.Find(a => a.Type == StageEventType.ForceBattle || a.Type == StageEventType.ForceBossBattle) == null;
         }
 
+        public StageEventData CheckEnterDungeonEvent()
+        {
+            var stageEvents = StageEvents(EventTiming.DungeonMoved, 0, 0);
+            stageEvents = stageEvents.FindAll(a => a.Type == StageEventType.AdvStart);
+            return stageEvents.Count > 0 ? stageEvents[0] : null;
+        }
+
         public bool EndDungeonByTurnCountValue(int value)
         {
             return false;

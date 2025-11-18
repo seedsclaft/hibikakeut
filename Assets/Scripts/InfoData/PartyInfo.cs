@@ -527,6 +527,35 @@ namespace Ryneus
             }
         }
 
+        public void RemoveGetItemInfo(GetItemInfo getItemInfo)
+        {
+            var remove = _getItemInfos.Find(a => a.GetItemType == getItemInfo.GetItemType && a.Param1 == getItemInfo.Param1);
+            if (remove != null)
+            {
+                _getItemInfos.Remove(remove);
+                if (remove.GetItemType == GetItemType.AddActor)
+                {
+                    var removeActor = _actorInfos.Find(a => a.ActorId.Value == remove.Param1);
+                    if (removeActor != null)
+                    {
+                        _actorInfos.Remove(removeActor);
+                        var removeIndex = -1;
+                        foreach (var actorDict in CurrentDeckInfo.ActorIdDict)
+                        {
+                            if (actorDict.Value == remove.Param1)
+                            {
+                                removeIndex = actorDict.Key;
+                            }
+                        }
+                        if (removeIndex > -1)
+                        {
+                            CurrentDeckInfo.ActorIdDict[removeIndex] = -1;
+                        }
+                    }
+                }
+            }
+        }
+
         private List<int> _learningSkillIds = new();
         public List<int> LearningSkillIds => _learningSkillIds;
         private void CheckLearningSkillId()

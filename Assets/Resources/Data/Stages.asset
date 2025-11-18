@@ -62,28 +62,6 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 0
-  - Id: 11
-    StageNo: 1
-    Category: 0
-    Name: "\u59CB\u307E\u308A\u306E\u6642"
-    Selectable: 0
-    Chapter: 1
-    Help: '""'
-    StageLv: 0
-    OnlyOnce: 0
-    DisplayRank: 0
-    RandomTroopWeight: 30
-    RandomTroopEnemyRates: []
-    EncountTimes: -1
-    EncountMin: 0
-    EncountMax: 0
-    BackGround: Lava2
-    BossTroopId: 0
-    BGMId: 0
-    BossBGMId: 2040
-    BattleBGMId: 2040
-    SkyboxName: UnearthlyRed
-    StageEvents: []
   - Id: 20
     StageNo: 2
     Category: 1
@@ -3575,3 +3553,245 @@ MonoBehaviour:
     BattleBGMId: 3020
     SkyboxName: CloudedSunGlow
     StageEvents: []
+  - Id: 3010
+    StageNo: 1
+    Category: 0
+    Name: "\u30B0\u30CB\u30BF\u8352\u91CE"
+    Selectable: 0
+    Chapter: 1
+    Help: '""'
+    StageLv: 0
+    OnlyOnce: 0
+    DisplayRank: 0
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates: []
+    EncountTimes: -1
+    EncountMin: 0
+    EncountMax: 0
+    BackGround: Lava2
+    BossTroopId: 0
+    BGMId: 1060
+    BossBGMId: 2010
+    BattleBGMId: 1060
+    SkyboxName: UnearthlyRed
+    StageEvents:
+    - EventKey: 3010_9_10DungeonMoveDungeonFloor3011
+      Timing: 3010
+      Type: 2020
+      PositionX: 9
+      PositionY: 10
+      Param: 3011
+      Param2: 8
+      Param3: 2
+      ReadFlag: 0
+    - EventKey: 3010_0_0DungeonMovedAdvStart30010
+      Timing: 3020
+      Type: 1010
+      PositionX: 0
+      PositionY: 0
+      Param: 30010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3010_0_0DungeonMovedEventEnd0
+      Timing: 3020
+      Type: 9010
+      PositionX: 0
+      PositionY: 0
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 3010_9_6DungeonAddActor102
+      Timing: 3010
+      Type: 4010
+      PositionX: 9
+      PositionY: 6
+      Param: 102
+      Param2: 1
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3010_9_6DungeonAddActor103
+      Timing: 3010
+      Type: 4010
+      PositionX: 9
+      PositionY: 6
+      Param: 103
+      Param2: 2
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3010_9_6DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 9
+      PositionY: 6
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 3010_9_5DungeonForceBattle1010
+      Timing: 3010
+      Type: 5010
+      PositionX: 9
+      PositionY: 5
+      Param: 1010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3010_0_0DungeonMovedAdvStart30011
+      Timing: 3020
+      Type: 1010
+      PositionX: 0
+      PositionY: 0
+      Param: 30011
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3010_0_0DungeonMovedEventEnd0
+      Timing: 3020
+      Type: 9010
+      PositionX: 0
+      PositionY: 0
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 3010_9_3DungeonAdvStart140
+      Timing: 3010
+      Type: 1010
+      PositionX: 9
+      PositionY: 3
+      Param: 140
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3010_9_3DungeonAddEventFlag93
+      Timing: 3010
+      Type: 6010
+      PositionX: 9
+      PositionY: 3
+      Param: 93
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3010_9_8DungeonNone93
+      Timing: 3010
+      Type: 0
+      PositionX: 9
+      PositionY: 8
+      Param: 93
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3010_9_3DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 9
+      PositionY: 3
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 3010_9_9DungeonAdvStart30012
+      Timing: 3010
+      Type: 1010
+      PositionX: 9
+      PositionY: 9
+      Param: 30012
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3010_9_9DungeonRemoveActor103
+      Timing: 3010
+      Type: 4011
+      PositionX: 9
+      PositionY: 9
+      Param: 103
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3010_9_9DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 9
+      PositionY: 9
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+  - Id: 3011
+    StageNo: 1
+    Category: 0
+    Name: "\u30B0\u30CB\u30BF\u8352\u91CE"
+    Selectable: 0
+    Chapter: 1
+    Help: '""'
+    StageLv: 0
+    OnlyOnce: 0
+    DisplayRank: 0
+    RandomTroopWeight: 30
+    RandomTroopEnemyRates: []
+    EncountTimes: -1
+    EncountMin: 0
+    EncountMax: 0
+    BackGround: Lava2
+    BossTroopId: 0
+    BGMId: 1060
+    BossBGMId: 2010
+    BattleBGMId: 1060
+    SkyboxName: UnearthlyRed
+    StageEvents:
+    - EventKey: 3011_8_2DungeonMoveDungeonFloor3010
+      Timing: 3010
+      Type: 2020
+      PositionX: 8
+      PositionY: 2
+      Param: 3010
+      Param2: 9
+      Param3: 10
+      ReadFlag: 0
+    - EventKey: 3011_8_7DungeonAdvStart30013
+      Timing: 3010
+      Type: 1010
+      PositionX: 8
+      PositionY: 7
+      Param: 30013
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3011_8_7DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 8
+      PositionY: 7
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0
+    - EventKey: 3011_8_9DungeonForceBossBattle6010
+      Timing: 3010
+      Type: 5020
+      PositionX: 8
+      PositionY: 9
+      Param: 6010
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3011_8_10DungeonAdvStart30014
+      Timing: 3010
+      Type: 1010
+      PositionX: 8
+      PositionY: 10
+      Param: 30014
+      Param2: 0
+      Param3: 0
+      ReadFlag: 1
+    - EventKey: 3011_8_10DungeonEventEnd0
+      Timing: 3010
+      Type: 9010
+      PositionX: 8
+      PositionY: 10
+      Param: 0
+      Param2: 0
+      Param3: 0
+      ReadFlag: 0

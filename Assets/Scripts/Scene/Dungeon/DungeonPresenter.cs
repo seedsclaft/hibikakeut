@@ -34,9 +34,10 @@ namespace Ryneus
             //_view.SetHelpWindow();
             _view.SetEvent((type) => UpdateCommand(type));
 
+            var ev = CheckEnterDungeonEvent();
+
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             _view.SetActiveStageInfo(_model.IsActiveDungeon());
-            await PlayDungeonBgm(_model.DungeonBgmTimeStamp());
             // ダンジョン生成
             _view.CommandChangeDungeon(_model.DungeonPrefabName());
             _view.ChangeSkybox(_model.DungeonSkyboxMaterial());
@@ -48,6 +49,12 @@ namespace Ryneus
             // 未読の非表示マスを管理
             _model.AddEventNotFlag();
             _model.SaveAutoFile();
+            // 移動したあとのイベント
+            if (ev)
+            {
+                return;
+            }
+            await PlayDungeonBgm(_model.DungeonBgmTimeStamp());
             // 戦場ステージでバトルイベントが0になった時
             if (_model.BattleFieldEncountZero())
             {
@@ -284,6 +291,25 @@ namespace Ryneus
             _view.CommandCallConfirm(confirmInfo);
         }
 
+        private bool CheckEnterDungeonEvent()
+        {
+            var enterDungeonEvent = _model.CheckEnterDungeonEvent();
+            if (enterDungeonEvent != null)
+            {
+                _model.AddEventReadFlag(enterDungeonEvent);
+                _view.CallSystemCommand(Base.CommandType.SceneHideUI);
+                CheckStageAdvEvent(enterDungeonEvent.Param, 0, () =>
+                {
+                    var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+                    CheckEventData(false, playerPosition, () =>
+                    {
+                        _view.CommandSceneChange(Scene.Dungeon);
+                    });
+                });
+            }
+            return enterDungeonEvent != null;
+        }
+
         private void CommandTurnOverEvent(bool moved)
         {
             // ターン数が10の場合
@@ -459,6 +485,9 @@ namespace Ryneus
                     case StageEventType.AddActor:
                         StageEventAddActor(stageEvent, endEvent);
                         return;
+                    case StageEventType.RemoveActor:
+                        StageEventRemoveActor(stageEvent, endEvent);
+                        return;
                     case StageEventType.SelectAddActor:
                         StageEventSelectAddActor(stageEvent);
                         return;
@@ -489,6 +518,7 @@ namespace Ryneus
                         return;
                     case StageEventType.None:
                     case StageEventType.EventEnd:
+                        _view.CallSystemCommand(Base.CommandType.SceneShowUI);
                         _model.DungeonBusy(false);
                         CommandRefresh();
                         // ターン数確認
@@ -576,7 +606,25 @@ namespace Ryneus
             };
             var getItemInfo = new GetItemInfo(getItemData);
             _model.AddGetItemInfo(getItemInfo);
-            endEvent?.Invoke();
+            if (stageEvent.Param2 > 0)
+            {
+                _model.CurrentDeckInfo.ActorIdDict[stageEvent.Param2] = stageEvent.Param;
+                _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
+            }
+            CheckStageEvent(false);
+        }
+
+        private void StageEventRemoveActor(StageEventData stageEvent, Action endEvent)
+        {
+            var getItemData = new GetItemData
+            {
+                Type = GetItemType.AddActor,
+                Param1 = stageEvent.Param
+            };
+            var getItemInfo = new GetItemInfo(getItemData);
+            _model.RemoveGetItemInfo(getItemInfo);
+            _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
+            CheckStageEvent(false);
         }
 
         private void StageEventSelectAddActor(StageEventData stageEvent)

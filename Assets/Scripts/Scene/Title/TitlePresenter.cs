@@ -77,7 +77,7 @@ namespace Ryneus
 
         private void CommandSelectTitle(SystemData.CommandData titleCommand)
         {
-            switch (titleCommand?.Key)
+            switch (titleCommand.Key)
             {
                 case "NEWGAME":
                     CommandNewGame();
@@ -101,6 +101,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
             _view.WaitFrame(2, () =>
             {
+                _busy = false;
                 _view.CommandGotoSceneChange(Scene.Dungeon);
                 //_view.CommandGotoSceneChange(Scene.Tactics);
                 //_view.CommandGotoSceneChange(Scene.NameEntry);
