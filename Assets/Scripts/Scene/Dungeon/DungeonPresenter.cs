@@ -483,10 +483,10 @@ namespace Ryneus
                         StageEventGetSkill(stageEvent);
                         return;
                     case StageEventType.AddActor:
-                        StageEventAddActor(stageEvent, endEvent);
+                        StageEventAddActor(moved, stageEvent, endEvent);
                         return;
                     case StageEventType.RemoveActor:
-                        StageEventRemoveActor(stageEvent, endEvent);
+                        StageEventRemoveActor(moved, stageEvent, endEvent);
                         return;
                     case StageEventType.SelectAddActor:
                         StageEventSelectAddActor(stageEvent);
@@ -518,7 +518,9 @@ namespace Ryneus
                         return;
                     case StageEventType.None:
                     case StageEventType.EventEnd:
+                        _model.AddEventReadFlag(stageEvent);
                         _view.CallSystemCommand(Base.CommandType.SceneShowUI);
+                        _busy = false;
                         _model.DungeonBusy(false);
                         CommandRefresh();
                         // ターン数確認
@@ -597,8 +599,9 @@ namespace Ryneus
             CommandGetSkill(stageEvent.Param);
         }
 
-        private void StageEventAddActor(StageEventData stageEvent, Action endEvent)
+        private void StageEventAddActor(bool moved, StageEventData stageEvent, Action endEvent)
         {
+            _model.AddEventReadFlag(stageEvent);
             var getItemData = new GetItemData
             {
                 Type = GetItemType.AddActor,
@@ -611,11 +614,12 @@ namespace Ryneus
                 _model.CurrentDeckInfo.ActorIdDict[stageEvent.Param2] = stageEvent.Param;
                 _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             }
-            CheckStageEvent(false);
+            CheckStageEvent(moved);
         }
 
-        private void StageEventRemoveActor(StageEventData stageEvent, Action endEvent)
+        private void StageEventRemoveActor(bool moved, StageEventData stageEvent, Action endEvent)
         {
+            _model.AddEventReadFlag(stageEvent);
             var getItemData = new GetItemData
             {
                 Type = GetItemType.AddActor,
@@ -624,7 +628,7 @@ namespace Ryneus
             var getItemInfo = new GetItemInfo(getItemData);
             _model.RemoveGetItemInfo(getItemInfo);
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
-            CheckStageEvent(false);
+            CheckStageEvent(moved);
         }
 
         private void StageEventSelectAddActor(StageEventData stageEvent)
@@ -874,7 +878,7 @@ namespace Ryneus
 
         private void CommandMoveDungeonFloor(int floorId, int x, int y)
         {
-            _model.MakeStageInfo(floorId,false);
+            _model.MakeStageInfo(floorId, false);
             _model.CurrentDeckInfo.SetPosition(floorId, x, y, _model.CurrentDeckInfo.Direction.Value);
             _view.CommandGotoSceneChange(Scene.Dungeon);
         }

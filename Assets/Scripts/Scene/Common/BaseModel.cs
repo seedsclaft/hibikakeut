@@ -263,6 +263,11 @@ namespace Ryneus
             CurrentGameInfo.AddEventReadFlag(stageEventDates.EventKey);
         }
 
+        public void AddEventReadFlag(string eventKey)
+        {
+            CurrentGameInfo.AddEventReadFlag(eventKey);
+        }
+
         public void AddEventReadFlagForce(StageEventData stageEventDates)
         {
             CurrentGameInfo.AddEventReadFlag(stageEventDates.EventKey);

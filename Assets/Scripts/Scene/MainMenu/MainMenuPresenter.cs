@@ -141,6 +141,19 @@ namespace Ryneus
                 });
                 return;
             }
+            // メインメニューイベント再生
+            var findEvent = _model.MainmenuEvent();
+            if (findEvent != null)
+            {
+                _model.AddEventReadFlag(findEvent.EventKey);
+                // イベントを再生
+                CheckStageAdvEvent(findEvent.Id, 0, () =>
+                {
+                    _busy = false;
+                    _view.CommandGotoSceneChange(Scene.MainMenu);
+                });
+                return;
+            }
             _view.SetActiveCommandList(true);
             CommandRefresh();
             _busy = false;
@@ -411,18 +424,27 @@ namespace Ryneus
             _busy = true;
             UpdateCommandSelecting(false);
             var countText = DataSystem.GetReplaceText(11010, enableCount.ToString());
-            var confirmInfo = new ConfirmInfo(countText, (a) =>
+            var confirmInfo = new ConfirmInfo(countText, async (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
                     _model.PartyInfo.ReliefItemCount.GainValue(-1);
                     _model.PartyInfo.PartyStatInfo.ReliefCommandCount.GainValue(1);
-                    //_model.PartyNextPeriod(true);
-                    List<ActorInfo> actorInfos = _model.AddSelectActorInfos();
-                    CommandAddActorStatusInfo(actorInfos, () =>
+                    _view.CallSystemCommand(Base.CommandType.SceneHideUI);
+                    await _model.PlayReliefBgmData();
+                    _view.StartReliefAnimation(async () =>
                     {
-                        CheckAchievements();
-                    });
+                        await _model.PlayReliefBgmData2();
+                        _view.CallSystemCommand(Base.CommandType.SceneShowUI);
+                        List<ActorInfo> actorInfos = _model.AddSelectActorInfos();
+                        CommandAddActorStatusInfo(actorInfos, async () =>
+                        {
+                            await _model.PlayMainStageBgmData();
+                            CheckAchievements();
+                        });
+                    }, _model.PartyInfo.ActorInfos[0]);
+
+                    //_model.PartyNextPeriod(true);
                 } else
                 {
                     _busy = false;

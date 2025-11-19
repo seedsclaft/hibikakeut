@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Ryneus.MainMenu;
+using System;
 
 namespace Ryneus
 {
@@ -14,6 +15,7 @@ namespace Ryneus
         [SerializeField] private AlcanaInfoComponent alcanaInfoComponent;
         [SerializeField] private OnOffButton alcanaInfoButton;
         [SerializeField] private MainMenuStartAnim mainMenuStartAnim;
+        [SerializeField] private MainMenuReliefAnimation reliefAnim;
         [SerializeField] private Button startAnimButton = null;
         [SerializeField] private GameObject particleObject;
         [SerializeField] private GameObject battleFieldNotice;
@@ -60,6 +62,10 @@ namespace Ryneus
             if (startAnimButton != null)
             {
                 startAnimButton.onClick.AddListener(() => EndAnimation());
+            }
+            if (reliefAnim != null)
+            {
+                reliefAnim.Initialize();
             }
             _ = new MainMenuPresenter(this);
         }
@@ -187,6 +193,11 @@ namespace Ryneus
         {
             mainMenuStartAnim.gameObject.SetActive(false);
             startAnimButton.gameObject.SetActive(false);
+        }
+
+        public void StartReliefAnimation(Action endEvent, ActorInfo actorInfo)
+        {
+            reliefAnim.PlayAnimation(endEvent, actorInfo);
         }
     }
 

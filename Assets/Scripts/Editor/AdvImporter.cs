@@ -68,10 +68,14 @@ namespace Ryneus
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             AdvName = AssetPostImporter.ImportString(BaseRow, "AdvName"),
-                            EndJump = (Scene)AssetPostImporter.ImportNumeric(BaseRow, "EndJump"),
+                            Timing = (EventTiming)AssetPostImporter.ImportNumeric(BaseRow, "Timing"),
+                            Param1 = AssetPostImporter.ImportNumeric(BaseRow, "Param1"),
+                            Param2 = AssetPostImporter.ImportNumeric(BaseRow, "Param3"),
+                            Param3 = AssetPostImporter.ImportNumeric(BaseRow, "Param3"),
+                            ReadFlag = AssetPostImporter.ImportBool(BaseRow, "ReadFlag"),
                             PrizeSetId = AssetPostImporter.ImportNumeric(BaseRow, "PrizeSetId")
                         };
-
+                        AdvData.EventKey = AdvData.Id.ToString() + "_" + AdvData.AdvName;
                         Data.Data.Add(AdvData);
                     }
                 }

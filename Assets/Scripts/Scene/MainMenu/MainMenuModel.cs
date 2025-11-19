@@ -26,6 +26,22 @@ namespace Ryneus
             SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true);
         }
 
+        public async UniTask PlayReliefBgmData()
+        {
+            var key = "Relief1";
+            var bgmData = DataSystem.BGM.Find(a => a.Key == key);
+            var bgm = await ResourceSystem.LoadBGMAsset(key);
+            SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true);
+        }
+
+        public async UniTask PlayReliefBgmData2()
+        {
+            var key = "Relief2";
+            var bgmData = DataSystem.BGM.Find(a => a.Key == key);
+            var bgm = await ResourceSystem.LoadBGMAsset(key);
+            SoundManager.Instance.ChangeCrossFade(bgm, bgmData.Volume, true);
+        }
+
         public bool InterludePhase()
         {
             return PartyInfo.Period.Value > DataSystem.System.PeriodTurns;
@@ -66,6 +82,13 @@ namespace Ryneus
                 }
             }
             return false;
+        }
+
+        public AdvData MainmenuEvent()
+        {
+            var eventKeys = CurrentGameInfo.ReadEventKeys;
+            var events = DataSystem.Adventures.FindAll(a => a.Timing == EventTiming.BeforeMainMenu && a.Param1 == PartyInfo.Chapter.Value && a.Param2 == PartyInfo.Period.Value && !eventKeys.Contains(a.EventKey));
+            return events.Count > 0 ? events[0] : null;
         }
 
         public bool CheckDepatureDungeon()

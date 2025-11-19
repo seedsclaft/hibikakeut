@@ -64,7 +64,6 @@ namespace Ryneus
             {
                 _toFadeSequence.Kill();
                 _toFadeSequence = null;
-                return;
             }
             _audioSource.Stop();
             _isPlay = false;

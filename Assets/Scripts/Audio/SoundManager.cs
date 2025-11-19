@@ -154,10 +154,29 @@ namespace Ryneus
             _bgsTrack.FadeVolume(volume * _bgmVolume, 1);
         }
 
-        public void ChangeCrossFade(float volume = 1.0f)
+        public void ChangeCrossFade(List<AudioClip> clips, float volume = 1.0f, bool loop = true)
         {
-            if (_crossFadeMode == false) return;
+            var timeStamp = CurrentTimeStamp();
+            _lastBgmVolume = volume;
+            _lastPlayAudio = clips[0].name;
+            // これから再生するTrackを停止して再生
+            var playTrack = _playingIsMain ? _bgmSub : _bgmMain;
+            playTrack.Stop();
+            playTrack.SetClip(clips, loop);
+            playTrack.Play(timeStamp + 28000);
+            playTrack.FadeVolume(volume * _bgmVolume, 4);
+
+            // 再生中の方をフェードアウト
+            var playingTrack = _playingIsMain ? _bgmMain : _bgmSub;
+            playingTrack.FadeVolume(0, 4);
+            //UpdateBgmVolume();
+            _crossFadeMode = false;
+            _playingIsMain = !_playingIsMain;
             /*
+            if (!_crossFadeMode)
+            {
+                return;
+            }
             var playingTrack = _bgmMain;
             var resumeTrack = _bgmSub;
 
@@ -166,7 +185,7 @@ namespace Ryneus
             _lastBgmVolume = volume;
 
             _playingIsMain = !_playingIsMain;
-            playingTrack.FadeVolume(0,1);
+            playingTrack.FadeVolume(0, 1);
             UpdateBgmVolume();
             resumeTrack.Play(timeStamp);
             var playVolume = _bgmVolume * _lastBgmVolume;
