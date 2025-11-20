@@ -195,9 +195,9 @@ namespace Ryneus
             startAnimButton.gameObject.SetActive(false);
         }
 
-        public void StartReliefAnimation(Action endEvent, ActorInfo actorInfo)
+        public void StartReliefAnimation(Action endEvent, ActorInfo actorInfo, List<ActorInfo> releifActorInfos)
         {
-            reliefAnim.PlayAnimation(endEvent, actorInfo);
+            reliefAnim.PlayAnimation(endEvent, actorInfo, releifActorInfos);
         }
     }
 

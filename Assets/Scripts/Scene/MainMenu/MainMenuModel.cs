@@ -101,6 +101,62 @@ namespace Ryneus
             return PartyInfo.CurrentDeckActorInfos().FindAll(a => a.Master.Rank != 10);
         }
 
+        public List<ActorInfo> ReleifActoInfos()
+        {
+            // 初回はRank20
+            // 2回目以降はRank30
+            var limitRank = 20;
+            if (PartyInfo.ActorInfos.Count > 2)
+            {
+                limitRank = 30;
+            }
+            // 未加入の仲間
+            var actorDates = DataSystem.Actors.Where(a => PartyInfo.ActorInfos.Find(b => a.Value.Id == b.ActorId.Value) == null).ToList();
+            var actorInfos = new List<ActorInfo>();
+            foreach (var actorDate in actorDates)
+            {
+                if (actorDate.Value.Rank < limitRank)
+                {
+                    continue;
+                }
+                actorInfos.Add(new ActorInfo(actorDate.Value));
+            }
+            // 3名までに絞る
+            if (actorInfos.Count > 3)
+            {
+                var minusCount = actorInfos.Count - 3;
+                var removedIds = new List<int>();
+                while (minusCount != 0)
+                {
+                    var rand = UnityEngine.Random.Range(0, actorInfos.Count);
+                    if (!removedIds.Contains(actorInfos[rand].ActorId.Value))
+                    {
+                        removedIds.Add(actorInfos[rand].ActorId.Value);
+                        minusCount--;
+                    }
+                }
+                for (int i = actorInfos.Count - 1; i >= 0; i--)
+                {
+                    if (removedIds.Contains(actorInfos[i].ActorId.Value))
+                    {
+                        actorInfos.Remove(actorInfos[i]);
+                    }
+                }
+            }
+            return actorInfos;
+        }
+
+        public List<GetItemInfo> ReleifGetItemInfos(List<ActorInfo> actorInfos)
+        {
+            var getItemInfos = new List<GetItemInfo>();
+            foreach (var actorInfo in actorInfos)
+            {
+                var getItemInfo = MakeGetItemInfo(GetItemType.SelectAddActor, actorInfo.ActorId.Value, 0);
+                getItemInfos.Add(getItemInfo);
+            }
+            return getItemInfos;
+        }
+
         public List<ListData> MainMenuCommand()
         {
             var selectIndex = _sceneParam != null ? _sceneParam.CommandIndex : 0;

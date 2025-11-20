@@ -37,7 +37,7 @@ namespace Ryneus
                     case StageEventType.AdvStart:
                         // TimeStampを取得してBgmをフェードアウト
                         var timeStamp = SoundManager.Instance.CurrentTimeStamp();
-                        if (CheckAdvEvent(EventTiming.BattleVictory,timeStamp,() => CheckEventData(() => Initialize())))
+                        if (CheckAdvEvent(EventTiming.BattleVictory, timeStamp, () => CheckEventData(() => Initialize())))
                         {
                             return true;
                         }
@@ -243,13 +243,28 @@ namespace Ryneus
 
         private void CommandResultClose(SystemData.CommandData commandData)
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var battledMembers = _model.DisplayActorInfos;
             if (battledMembers != null && battledMembers.Count > 0)
             {
                 //_model.ClearSceneParam();
             }
+            if (_model.ReleifScene())
+            {
+                var confirmInfo = new ConfirmInfo("仲間にするエインフェリアを選定してください", (a) =>
+                {
+                    // 仲間選択確認
+                    List<ActorInfo> actorInfos = _model.AddSelectActorInfos();
+                    CommandAddActorStatusInfo(actorInfos, () =>
+                    {
+                    });
+
+                });
+                confirmInfo.SetIsNoChoice(true);
+                _view.CommandCallConfirm(confirmInfo);
+                return;
+            }
             EndStrategy();
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 
         private void CommandSelectLearnSkillList(SkillInfo skillInfo)

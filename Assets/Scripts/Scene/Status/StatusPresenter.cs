@@ -492,10 +492,19 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
             // 確認後結果表示
-            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(14030, _model.CurrentActor.Master.Name),(a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(14030, _model.CurrentActor.Master.Name), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
+                    _model.DecideActor();
+                    // Mainmenuに遷移
+                    _view.CallSystemCommand(Base.CommandType.CloseStatus);
+                    var sceneParam = new MainMenuSceneInfo
+                    {
+                        CommandIndex = 3
+                    };
+                    _view.CommandGotoSceneChange(Scene.MainMenu, sceneParam);
+                    /*
                     _view.CallSystemCommand(Base.CommandType.CloseStatus);
                     var strategySceneInfo = _model.DecideActor();
                     strategySceneInfo.ReturnScene = GameSystem.SceneStackManager.Current;
@@ -505,6 +514,7 @@ namespace Ryneus
                     };
                     strategySceneInfo.ReturnMainMenuSceneParam = sceneParam;
                     _view.CommandGotoSceneChange(Scene.Strategy, strategySceneInfo);
+                    */
                 } else
                 {
                     _busy = false;

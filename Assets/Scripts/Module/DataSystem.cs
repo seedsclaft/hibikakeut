@@ -237,5 +237,6 @@ namespace Ryneus
         public string Text;
         public string Help;
         public string Feature;
+        public string Relief;
     }
 }

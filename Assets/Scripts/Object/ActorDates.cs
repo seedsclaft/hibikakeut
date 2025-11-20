@@ -16,6 +16,7 @@ namespace Ryneus
         public int Id;
         public string Name;
         public string SubName;
+        public string Relief;
         public string Profile;
         public int Rank;
         //public UnitType UnitType;

@@ -201,21 +201,10 @@ namespace Ryneus
             return ActorLevelUpAfterExp(CurrentActor);
         }
 
-        public StrategySceneInfo DecideActor()
+        public void DecideActor()
         {
             var getItemInfo = MakeGetItemInfo(GetItemType.AddActor, CurrentActor.ActorId.Value);
             AddGetItemInfo(getItemInfo);
-            var strategySceneInfo = new StrategySceneInfo
-            {
-                ActorInfos = StageMembers().FindAll(a => a.ActorId.Value == CurrentActor.ActorId.Value),
-                InBattle = false,
-                ReturnScene = Scene.Dungeon,
-                GetItemInfos = new List<GetItemInfo>
-                {
-                    getItemInfo
-                }
-            };
-            return strategySceneInfo;
         }
 
         public bool CanUseItem(ItemInfo itemInfo)

@@ -428,21 +428,7 @@ namespace Ryneus
             {
                 if (a == ConfirmCommandType.Yes)
                 {
-                    _model.PartyInfo.ReliefItemCount.GainValue(-1);
-                    _model.PartyInfo.PartyStatInfo.ReliefCommandCount.GainValue(1);
-                    _view.CallSystemCommand(Base.CommandType.SceneHideUI);
-                    await _model.PlayReliefBgmData();
-                    _view.StartReliefAnimation(async () =>
-                    {
-                        await _model.PlayReliefBgmData2();
-                        _view.CallSystemCommand(Base.CommandType.SceneShowUI);
-                        List<ActorInfo> actorInfos = _model.AddSelectActorInfos();
-                        CommandAddActorStatusInfo(actorInfos, async () =>
-                        {
-                            await _model.PlayMainStageBgmData();
-                            CheckAchievements();
-                        });
-                    }, _model.PartyInfo.ActorInfos[0]);
+                    StartRelief();
 
                     //_model.PartyNextPeriod(true);
                 } else
@@ -460,6 +446,36 @@ namespace Ryneus
             });
             _view.CommandCallConfirm(confirmInfo);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
+        }
+
+        private async void StartRelief()
+        {
+            _model.PartyInfo.ReliefItemCount.GainValue(-1);
+            _model.PartyInfo.PartyStatInfo.ReliefCommandCount.GainValue(1);
+            _view.CallSystemCommand(Base.CommandType.SceneHideUI);
+            await _model.PlayReliefBgmData();
+            // 結果を表示する
+            var releifActorInfos = _model.ReleifActoInfos();
+            _view.StartReliefAnimation(async () =>
+            {
+                await _model.PlayReliefBgmData2();
+                var strategySceneInfo = new StrategySceneInfo
+                {
+                    ActorInfos = releifActorInfos,
+                    InBattle = false
+                };
+                strategySceneInfo.GetItemInfos = _model.ReleifGetItemInfos(releifActorInfos);
+                _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
+                /*
+                _view.CallSystemCommand(Base.CommandType.SceneShowUI);
+                List<ActorInfo> actorInfos = _model.AddSelectActorInfos();
+                CommandAddActorStatusInfo(actorInfos, async () =>
+                {
+                    await _model.PlayMainStageBgmData();
+                    CheckAchievements();
+                });
+                */
+            }, _model.PartyInfo.ActorInfos[0], releifActorInfos);
         }
 
         private void CommandPartyInfo()

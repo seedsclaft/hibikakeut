@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Effekseer;
 using TMPro;
+using System.Collections.Generic;
 
 namespace Ryneus
 {
@@ -11,7 +12,7 @@ namespace Ryneus
     {
         [SerializeField] private EffekseerEmitter emitter1;
         [SerializeField] private EffekseerEmitter emitter2;
-        [SerializeField] private TextMeshProUGUI serif;
+        [SerializeField] private List<TextMeshProUGUI> serifs;
         [SerializeField] private ActorInfoComponent actorInfoComponent;
         [SerializeField] private Image valkilyImage;
         [SerializeField] private Button decideButton;
@@ -27,13 +28,17 @@ namespace Ryneus
             });
         }
 
-        public void PlayAnimation(Action endEvent, ActorInfo actorInfo)
+        public void PlayAnimation(Action endEvent, ActorInfo actorInfo, List<ActorInfo> releifActorInfos)
         {
             actorInfoComponent.UpdateInfo(actorInfo, null);
             valkilyImage.DOFade(0f, 0);
-            serif.SetText("「立場に縛られて……\n　　　　　　　　私は…」");
-            serif.DOFade(0f, 0);
-            serif.DOScale(1f, 0);
+            ClearReleifSerif();
+            var idx = 0;
+            foreach (var releifActorInfo in releifActorInfos)
+            {
+                SetReleifSerif(releifActorInfo.Master.Relief, idx);
+                idx++;
+            }
             _endEvent = endEvent;
             decideButton.gameObject.SetActive(false);
             emitter1.speed = 0.5f;
@@ -44,6 +49,12 @@ namespace Ryneus
                 .Append(emitter1.transform.DOScaleY(1f, time1))
                 .OnComplete(() =>
                 {
+                    var idx = 0;
+                    foreach (var releifActorInfo in releifActorInfos)
+                    {
+                        PlayReliefSerif(idx);
+                        idx++;
+                    }
                     PlayAnimationAfter(endEvent);
                 });
 
@@ -56,7 +67,36 @@ namespace Ryneus
                     valkilyImage.DOFade(0f, time2);
                 });
         }
-        
+
+        private void ClearReleifSerif()
+        {
+            foreach (var serif in serifs)
+            {
+                serif.SetText("");
+            }
+        }
+
+        private void SetReleifSerif(string relief, int index)
+        {
+            serifs[index].SetText(relief);
+            serifs[index].DOFade(0f, 0);
+            serifs[index].DOScale(1f, 0);
+        }
+
+        private void PlayReliefSerif(int index)
+        {
+            var selif = serifs[index];
+            var time1 = 1f;
+            DOTween.Sequence()
+                .Append(emitter1.transform.DOScaleY(1f, time1))
+                .Join(selif.DOFade(1f, 0.5f))
+                .Join(selif.DOScale(1.05f, 1.5f))
+                .OnComplete(() =>
+                {
+                    selif.DOFade(0, 0.5f).SetDelay(1f);
+                });
+        }
+
         private void PlayAnimationAfter(Action endEvent)
         {
             DOTween.Sequence()
@@ -74,8 +114,6 @@ namespace Ryneus
             
             DOTween.Sequence()
                 .Append(emitter1.transform.DOScaleY(1f, time1))
-                .Join(serif.DOFade(1f, 0.5f))
-                .Join(serif.DOScale(1.05f, 1.5f))
                 .OnComplete(() =>
                 {
                     emitter2.speed = 0.25f;
@@ -83,10 +121,9 @@ namespace Ryneus
                         .Append(emitter1.transform.DOScaleY(1f, time2))
                         .OnComplete(() =>
                         {
-                            serif.DOFade(0, 0.5f);
-                            endEvent?.Invoke();
                             _targetAlpha = -1f;
                             skyCloud._Alpha = 1;
+                            endEvent?.Invoke();
                             //decideButton.gameObject.SetActive(true);
                         });
                 });

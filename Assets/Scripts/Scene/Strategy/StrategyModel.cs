@@ -51,6 +51,23 @@ namespace Ryneus
             return false;
         }
 
+        public bool ReleifScene()
+        {
+            return _sceneParam.GetItemInfos.Find(a => a.GetItemType == GetItemType.SelectAddActor) != null;
+        }
+
+        public List<ActorInfo> AddSelectActorInfos()
+        {
+            // 未加入の仲間
+            var actorGetItemInfos = _sceneParam.GetItemInfos.FindAll(a => a.GetItemType == GetItemType.SelectAddActor);
+            var actorInfos = new List<ActorInfo>();
+            foreach (var actorGetItemInfo in actorGetItemInfos)
+            {
+                actorInfos.Add(new ActorInfo(DataSystem.Actors[actorGetItemInfo.Param1]));
+            }
+            return actorInfos;
+        }
+
         private List<StrategyResultViewInfo> _resultInfos = new();
         public List<StrategyResultViewInfo> ResultViewInfos => _resultInfos;
 
@@ -252,11 +269,13 @@ namespace Ryneus
                         _resultInfos.Add(resultInfo);
                         break;
                     case GetItemType.SelectAddActor:
+                        /*
                         AddGetItemInfo(getItemInfo);
                         AddPlayerInfoActorSkillId(getItemInfo.ResultParam);
+                        */
                         // キャラ加入
-                        var actorData2 = DataSystem.FindActor(getItemInfo.ResultParam);
-                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(20200,actorData2.Name));
+                        var actorData2 = DataSystem.FindActor(getItemInfo.Param1);
+                        resultInfo.Title.SetValue("候補者" + actorData2.Name + "を選定");
                         _resultInfos.Add(resultInfo);
                         break;
                     case GetItemType.SelectRelic:
