@@ -92,21 +92,30 @@ namespace Ryneus
             var sortList1 = new List<SkillInfo>();
             var sortList2 = new List<SkillInfo>();
             var sortList3 = new List<SkillInfo>();
+            var sortList4 = new List<SkillInfo>();
             skillInfos.Sort((a, b) => { return a.Master.Id > b.Master.Id ? 1 : -1; });
             foreach (var skillInfo in skillInfos)
             {
-                if (skillInfo.LearningState == LearningState.Learned && skillInfo.Master.SkillType == SkillType.Active || skillInfo.IsBattleSpecialSkill())
+                if (skillInfo.LearningState == LearningState.Learned && (skillInfo.Master.SkillType == SkillType.Active || skillInfo.IsBattleSpecialSkill()))
                 {
-                    sortList1.Add(skillInfo);
+                    if (skillInfo.Master.SkillType == SkillType.Active || skillInfo.IsBattleSpecialSkill())
+                    {
+                        sortList1.Add(skillInfo);
+                    } else
+                    if (skillInfo.Master.SkillType == SkillType.Passive)
+                    {
+                        sortList2.Add(skillInfo);
+                    }
                 }
                 else
-                if (skillInfo.LearningState == LearningState.Learned && skillInfo.Master.SkillType == SkillType.Passive)
                 {
-                    sortList2.Add(skillInfo);
-                }
-                else
-                {
-                    sortList3.Add(skillInfo);
+                    if (skillInfo.LearningLv.Value < 0)
+                    {
+                        sortList4.Add(skillInfo);
+                    } else
+                    {
+                        sortList3.Add(skillInfo);
+                    }
                 }
             }
             skillInfos.Clear();
@@ -114,6 +123,7 @@ namespace Ryneus
             skillInfos.AddRange(sortList2);
             sortList3.Sort((a, b) => { return a.LearningLv.Value > b.LearningLv.Value ? 1 : -1; });
             skillInfos.AddRange(sortList3);
+            skillInfos.AddRange(sortList4);
             return skillInfos;
         }
 

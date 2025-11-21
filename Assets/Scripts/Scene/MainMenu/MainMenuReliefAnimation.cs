@@ -109,7 +109,7 @@ namespace Ryneus
             emitter2.speed = 0.5f;
             emitter2.Play();
             var time1 = 1f;
-            var time2 = 1.8f;
+            var time2 = 3f;
             _targetAlpha = 0f;
             
             DOTween.Sequence()

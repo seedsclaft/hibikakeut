@@ -78,7 +78,13 @@ namespace Ryneus
                 if (skillInfo.LearningState == LearningState.NotLearn)
                 {
                     learningText.transform.parent.gameObject.SetActive(skillInfo.LearningState == LearningState.NotLearn);
-                    learningText.SetText(DataSystem.GetReplaceText(2500, skillInfo.LearningLv.Value.ToString()));
+                    if (skillInfo.LearningLv.Value >= 0)
+                    {
+                        learningText.SetText(DataSystem.GetReplaceText(2500, skillInfo.LearningLv.Value.ToString()));
+                    } else
+                    {
+                        learningText.SetText(DataSystem.GetText(2510));
+                    }
                 } else
                 {
                     learningText.transform.parent.gameObject.SetActive(false);

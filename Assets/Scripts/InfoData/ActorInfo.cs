@@ -257,7 +257,7 @@ namespace Ryneus
                 }
 
                 var skillInfo = new SkillInfo(learningData.SkillId);
-                if (Level >= learningData.Level)
+                if (Level >= learningData.Level && learningData.Level >= 0)
                 {
                     skillInfo.SetLearningState(LearningState.Learned);
                     skillInfo.PrimitiveLearned.SetValue(true);
@@ -267,7 +267,7 @@ namespace Ryneus
                     skillInfo.LearningLv.SetValue(learningData.Level);
                     skillInfo.SetLearningState(LearningState.NotLearn);
                 }
-                skillInfo.SetEnable(Level >= learningData.Level);
+                skillInfo.SetEnable(Level >= learningData.Level && learningData.Level >= 0);
                 list.Add(skillInfo);
             }
             return list;
