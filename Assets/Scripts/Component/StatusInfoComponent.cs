@@ -230,5 +230,33 @@ namespace Ryneus
                 canvasGroup.alpha = 0f;
             }
         }
+
+        public void Clear()
+        {
+            if (hpParam != null)
+            {
+                hpParam.UpdateParamter(0, 0);
+            }
+            if (mpParam != null)
+            {
+                mpParam.UpdateParamter(0, 0);
+            }
+            if (atkParam != null)
+            {
+                atkParam.UpdateParamter(0, 0);
+            }
+            if (defParam != null)
+            {
+                defParam.UpdateParamter(0, 0);
+            }
+            if (spdParam != null)
+            {
+                spdParam.UpdateParamter(0, 0);
+            }
+            if (costParam != null)
+            {
+                costParam.UpdateParamter(0, 0);
+            }
+        }
     }
 }

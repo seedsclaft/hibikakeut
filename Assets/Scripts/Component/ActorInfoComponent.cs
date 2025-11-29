@@ -286,7 +286,7 @@ namespace Ryneus
             }
             if (statusInfoComponent != null)
             {
-                statusInfoComponent.gameObject.SetActive(false);
+                statusInfoComponent.Clear();
             }
             if (lvCation != null)
             {
@@ -317,6 +317,10 @@ namespace Ryneus
             if (element6 != null)
             {
                 element6.SetText("");
+            }
+            if (evaluate != null)
+            {
+                evaluate.SetText("");
             }
         }
 

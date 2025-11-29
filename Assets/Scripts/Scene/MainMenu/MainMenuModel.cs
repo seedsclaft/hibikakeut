@@ -86,8 +86,12 @@ namespace Ryneus
 
         public AdvData MainmenuEvent()
         {
-            var eventKeys = CurrentGameInfo.ReadEventKeys;
-            var events = DataSystem.Adventures.FindAll(a => a.Timing == EventTiming.BeforeMainMenu && a.Param1 == PartyInfo.Chapter.Value && a.Param2 == PartyInfo.Period.Value && !eventKeys.Contains(a.EventKey));
+            System.Func<AdvData, bool> enable = (advData) =>
+            {
+                // 出撃可能か
+                return advData.Param1 == PartyInfo.Chapter.Value && advData.Param2 == PartyInfo.Period.Value;
+            };
+            var events = GetAdvDates(EventTiming.BeforeMainMenu, true, enable);
             return events.Count > 0 ? events[0] : null;
         }
 
@@ -115,7 +119,7 @@ namespace Ryneus
             var actorInfos = new List<ActorInfo>();
             foreach (var actorDate in actorDates)
             {
-                if (actorDate.Value.Rank < limitRank)
+                if (actorDate.Value.Rank != limitRank)
                 {
                     continue;
                 }

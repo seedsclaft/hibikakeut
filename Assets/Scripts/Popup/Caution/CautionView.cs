@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 namespace Ryneus
 {
@@ -12,9 +13,10 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI levelPlusText = null;
         [SerializeField] private CanvasGroup canvasGroup = null;
 
+        private List<Sequence> _sequences = new();
         public override void Initialize()
         {
-            AnimationUtility.Clear();
+            AnimationUtility.Clear(_sequences);
             base.Initialize();
         }
 
@@ -24,11 +26,12 @@ namespace Ryneus
             ClearText();
             titleText?.SetText(title);
             canvasGroup.alpha = 1;
-            AnimationUtility.AlphaToTransform(canvasGroup,
+            var sequence = AnimationUtility.AlphaToTransform(canvasGroup,
                 1f,
                 0,
                 1,
                 3);
+            _sequences.Add(sequence);
         }
 
         public void SetLevelup(int from, int to)
@@ -37,11 +40,12 @@ namespace Ryneus
             levelPlusText?.SetText("+" + (to - from).ToString());
             AnimationUtility.CountUpText(evaluateText, from, to);
             canvasGroup.alpha = 1;
-            AnimationUtility.AlphaToTransform(canvasGroup,
+            var sequence = AnimationUtility.AlphaToTransform(canvasGroup,
                 1f,
                 0,
                 1,
                 3);
+            _sequences.Add(sequence);
         }
 
         private void ClearText()

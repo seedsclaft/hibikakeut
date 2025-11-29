@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 namespace Ryneus
 {
@@ -10,9 +11,10 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI titleText = null;
         [SerializeField] private CanvasGroup canvasGroup = null;
 
+        private List<Sequence> _sequences = new();
         public override void Initialize()
         {
-            AnimationUtility.Clear();
+            AnimationUtility.Clear(_sequences);
             ClearText();
             canvasGroup.alpha = 1;
             base.Initialize();
@@ -24,15 +26,17 @@ namespace Ryneus
             var basePosition = canvasGroup.GetComponent<RectTransform>().localPosition;
             var from = new Vector3(basePosition.x-320,basePosition.y,0);
             var to = new Vector3(basePosition.x,basePosition.y,0);
-            AnimationUtility.LocalMoveToTransform(canvasGroup.gameObject,
+            var sequence = AnimationUtility.LocalMoveToTransform(canvasGroup.gameObject,
                 from,
                 to,
                 1f);
-            AnimationUtility.AlphaToTransform(canvasGroup,
+            _sequences.Add(sequence);
+            var sequence2 = AnimationUtility.AlphaToTransform(canvasGroup,
                 1f,
                 0,
                 1,
                 5);
+            _sequences.Add(sequence2);
         }
 
 

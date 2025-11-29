@@ -403,7 +403,7 @@ namespace Ryneus
 
         public List<SkillInfo> LearningSkills(int plusLv = 0)
         {
-            return LearningSkillInfos().FindAll(a => a.LearningState == LearningState.NotLearn && a.LearningLv.Value <= (Level + plusLv));
+            return LearningSkillInfos().FindAll(a => a.LearningState == LearningState.NotLearn && a.LearningLv.Value != -1 && a.LearningLv.Value <= (Level + plusLv));
         }
 
         public bool IsLearnedSkill(int skillId)

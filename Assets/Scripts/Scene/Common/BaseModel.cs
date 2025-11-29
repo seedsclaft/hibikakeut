@@ -256,14 +256,6 @@ namespace Ryneus
             return StageEventDates.FindAll(a => !eventKeys.Contains(a.EventKey));
         }
 
-        public void AddEventsReadFlag(List<StageEventData> stageEventDates)
-        {
-            foreach (var eventData in stageEventDates)
-            {
-                AddEventReadFlag(eventData);
-            }
-        }
-
         public void AddEventReadFlag(StageEventData stageEventDates)
         {
             if (!stageEventDates.ReadFlag)
@@ -416,6 +408,21 @@ namespace Ryneus
             }
             stageMembers.Sort((a, b) => a.Level - b.Level > 0 ? -1 : 1);
             return stageMembers;
+        }
+
+        public List<AdvData> GetAdvDates(EventTiming eventTiming, bool checkReadKeys = true, Func<AdvData, bool> func = null)
+        {
+            var eventKeys = CurrentGameInfo.ReadEventKeys;
+            if (!checkReadKeys)
+            {
+                eventKeys = new List<string>();
+            }
+            var events = DataSystem.Adventures.FindAll(a => a.Timing == eventTiming && !eventKeys.Contains(a.EventKey));
+            if (func != null)
+            {
+                events = events.FindAll(a => func(a));
+            }
+            return events;
         }
 
         public string GetAdvFile(int id)

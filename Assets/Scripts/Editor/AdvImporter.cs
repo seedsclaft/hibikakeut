@@ -70,7 +70,7 @@ namespace Ryneus
                             AdvName = AssetPostImporter.ImportString(BaseRow, "AdvName"),
                             Timing = (EventTiming)AssetPostImporter.ImportNumeric(BaseRow, "Timing"),
                             Param1 = AssetPostImporter.ImportNumeric(BaseRow, "Param1"),
-                            Param2 = AssetPostImporter.ImportNumeric(BaseRow, "Param3"),
+                            Param2 = AssetPostImporter.ImportNumeric(BaseRow, "Param2"),
                             Param3 = AssetPostImporter.ImportNumeric(BaseRow, "Param3"),
                             ReadFlag = AssetPostImporter.ImportBool(BaseRow, "ReadFlag"),
                             PrizeSetId = AssetPostImporter.ImportNumeric(BaseRow, "PrizeSetId")

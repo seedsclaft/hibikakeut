@@ -34,14 +34,14 @@ namespace Ryneus
         /// <summary>
         /// Indexから取得
         /// </summary>
-        public List<BattlerInfo> GetBattlerInfoByIndex(int targetIndex, bool friends, bool aliveOnly)
+        public List<BattlerInfo> GetBattlerInfoByIndex(bool friends, bool aliveOnly)
         {
             if (aliveOnly)
             {
                 return _battlers.FindAll(a => a.IsActor == friends && a.IsAlive());
             } else
             {
-                return _battlers.FindAll(a => a.IsActor);
+                return _battlers.FindAll(a => a.IsActor == friends);
             }
         }
 

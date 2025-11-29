@@ -71,7 +71,7 @@ namespace Ryneus
             if (advInfo != null)
             {
                 BeforeStageAdv();
-                _view.WaitFrame(10,() =>
+                _view.WaitFrame(10, () =>
                 {
                     advInfo.SetCallEvent(() =>
                     {

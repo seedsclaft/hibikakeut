@@ -124,43 +124,43 @@ namespace Ryneus
                 SelectSkillSelectTarget();
                 return;
             }
-            var friends = _model.GetBattlerInfoByIndex(_model.TargetBattler.Index.Value, true, false);
+            var targetBattlerInfo = _model.TargetBattler;
+            var friends = _model.GetBattlerInfoByIndex(targetBattlerInfo.IsActor, false);
             friends = friends.FindAll(a => candidateTargetIndexes.Contains(a.Index.Value));
-            var opponents = _model.GetBattlerInfoByIndex(_model.TargetBattler.Index.Value, false, false);
+            var opponents = _model.GetBattlerInfoByIndex(!targetBattlerInfo.IsActor, false);
             opponents = opponents.FindAll(a => candidateTargetIndexes.Contains(a.Index.Value));
 
-            var battlerInfo = _model.TargetBattler;
             var nextIndex = 0;
             switch (inputKeyType)
             {
                 case InputKeyType.Right:
-                    findIndex = friends.FindIndex(a => a.Index.Value == _model.TargetBattler.Index.Value);
+                    findIndex = friends.FindIndex(a => a.Index.Value == targetBattlerInfo.Index.Value);
                     nextIndex = friends.Count > (findIndex + 1) ? (findIndex + 1) : 0;
-                    battlerInfo = friends[nextIndex];
+                    targetBattlerInfo = friends[nextIndex];
                     break;
                 case InputKeyType.Left:
-                    findIndex = friends.FindIndex(a => a.Index.Value == _model.TargetBattler.Index.Value);
+                    findIndex = friends.FindIndex(a => a.Index.Value == targetBattlerInfo.Index.Value);
                     nextIndex = (findIndex - 1) < 0 ? friends.Count - 1 : findIndex - 1;
-                    battlerInfo = friends[nextIndex];
+                    targetBattlerInfo = friends[nextIndex];
                     break;
                 case InputKeyType.Up:
-                    if (_model.TargetBattler.IsActor && opponents.Count > 0)
+                    if (targetBattlerInfo.IsActor && opponents.Count > 0)
                     {
-                        battlerInfo = opponents[0];
+                        targetBattlerInfo = opponents[0];
                     }
                     break;
                 case InputKeyType.Down:
-                    if (!_model.TargetBattler.IsActor && opponents.Count > 0)
+                    if (!targetBattlerInfo.IsActor && opponents.Count > 0)
                     {
-                        battlerInfo = opponents[0];
+                        targetBattlerInfo = opponents[0];
                     }
                     break;
             }
-            if (battlerInfo == null)
+            if (targetBattlerInfo == null)
             {
                 return;
             }
-            _model.SetTargetBattler(battlerInfo);
+            _model.SetTargetBattler(targetBattlerInfo);
             SelectSkillSelectTarget();
         }
 

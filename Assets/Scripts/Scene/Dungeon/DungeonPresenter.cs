@@ -452,12 +452,12 @@ namespace Ryneus
             if (stageEvent != null)
             {
                 _thisTurnStageEvents.Add(stageEvent);
+                _model.AddEventReadFlag(stageEvent);
                 switch (stageEvent.Type)
                 {
                     case StageEventType.AdvStart:
                         if (moved)
                         {
-                            _model.AddEventReadFlag(stageEvent);
                             StageEventAdvEvent(moved, stageEvent.Param, endEvent);
                         } else
                         {
@@ -518,7 +518,6 @@ namespace Ryneus
                         return;
                     case StageEventType.None:
                     case StageEventType.EventEnd:
-                        _model.AddEventReadFlag(stageEvent);
                         _view.CallSystemCommand(Base.CommandType.SceneShowUI);
                         _busy = false;
                         _model.DungeonBusy(false);
@@ -567,7 +566,6 @@ namespace Ryneus
 
         private void StageEventDungeonClear(bool moved, StageEventData stageEvent, Action endEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             _model.CurrentStage.Cleared.SetValue(true);
             var stages = DataSystem.Stages.FindAll(a => a.StageNo == DataSystem.FindStage(_model.CurrentDeckInfo.StageNo.Value).StageNo);
             foreach (var stage in stages)
@@ -580,28 +578,24 @@ namespace Ryneus
 
         private void StageEventGetArtifact(StageEventData stageEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             _model.UpdateEventObjects();
             CommandGetArtifact(stageEvent.Param);
         }
 
         private void StageEventGetItem(StageEventData stageEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             _model.UpdateEventObjects();
             CommandGetItem(stageEvent.Param);
         }
 
         private void StageEventGetSkill(StageEventData stageEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             _model.UpdateEventObjects();
             CommandGetSkill(stageEvent.Param);
         }
 
         private void StageEventAddActor(bool moved, StageEventData stageEvent, Action endEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             var getItemData = new GetItemData
             {
                 Type = GetItemType.AddActor,
@@ -619,7 +613,6 @@ namespace Ryneus
 
         private void StageEventRemoveActor(bool moved, StageEventData stageEvent, Action endEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             var getItemData = new GetItemData
             {
                 Type = GetItemType.AddActor,
@@ -642,14 +635,12 @@ namespace Ryneus
             confirmInfo.SetIsNoChoice(true);
             confirmInfo.SetBackEvent(() => {});
             _view.CommandCallConfirm(confirmInfo);
-            _model.AddEventReadFlag(stageEvent);
             _model.UpdateEventObjects();
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 
         private void StageEventForceBattle(StageEventData stageEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             _model.UpdateEventObjects();
             var battleSceneInfo = new BattleSceneInfo
             {
@@ -690,7 +681,6 @@ namespace Ryneus
 
         private void StageEventAddEventFlag(bool moved, StageEventData stageEvent, Action endEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             var findAll = _model.StageEvents(EventTiming.Dungeon).FindAll(a => a.Param == stageEvent.Param);
             // 同じParam値のイベントを既読にする
             foreach (var item in findAll)
@@ -703,7 +693,6 @@ namespace Ryneus
 
         private void StageEventAddEventNotFlag(StageEventData stageEvent, Action endEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             var findAll = _model.StageEvents(EventTiming.Dungeon).FindAll(a => a.Param == stageEvent.Param);
             // 同じParam値のイベントを既読にする
             foreach (var item in findAll)
@@ -778,7 +767,6 @@ namespace Ryneus
 
         private void StageEventCurseFloor(StageEventData stageEvent, Action endEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(10160), (a) =>
             {
                 _model.CursedParty();
@@ -791,7 +779,6 @@ namespace Ryneus
 
         private void StageEventEndCurseFloor(StageEventData stageEvent, Action endEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             _model.EndCursedParty();
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
             CheckEventData(false, playerPosition, endEvent);
@@ -799,7 +786,6 @@ namespace Ryneus
 
         private void StageEventTraverseRegeon(StageEventData stageEvent, Action endEvent)
         {
-            _model.AddEventReadFlag(stageEvent);
             _model.TraverseRegeon(stageEvent.Param);
             CommandRefresh();
             // 未読の非表示マスを管理
