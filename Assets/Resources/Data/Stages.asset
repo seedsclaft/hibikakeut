@@ -35,12 +35,12 @@ MonoBehaviour:
     BattleBGMId: 2010
     SkyboxName: DayInTheClouds
     StageEvents:
-    - EventKey: 10_0_0DungeonMovedAdvStart30015
+    - EventKey: 10_0_0DungeonMovedAdvStart30060
       Timing: 3020
       Type: 1010
       PositionX: 0
       PositionY: 0
-      Param: 30015
+      Param: 30060
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -3584,21 +3584,12 @@ MonoBehaviour:
       Param2: 8
       Param3: 2
       ReadFlag: 0
-    - EventKey: 3010_0_0DungeonMovedAdvStart30010
+    - EventKey: 3010_0_0DungeonMovedAdvStart30011
       Timing: 3020
       Type: 1010
       PositionX: 0
       PositionY: 0
-      Param: 30010
-      Param2: 0
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 3010_0_0DungeonMovedEventEnd0
-      Timing: 3020
-      Type: 9010
-      PositionX: 0
-      PositionY: 0
-      Param: 0
+      Param: 30011
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -3609,7 +3600,7 @@ MonoBehaviour:
       PositionY: 6
       Param: 102
       Param2: 1
-      Param3: 0
+      Param3: 30
       ReadFlag: 1
     - EventKey: 3010_9_6DungeonAddActor103
       Timing: 3010
@@ -3618,16 +3609,7 @@ MonoBehaviour:
       PositionY: 6
       Param: 103
       Param2: 2
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 3010_9_6DungeonEventEnd0
-      Timing: 3010
-      Type: 9010
-      PositionX: 9
-      PositionY: 6
-      Param: 0
-      Param2: 0
-      Param3: 0
+      Param3: 30
       ReadFlag: 1
     - EventKey: 3010_9_5DungeonForceBattle1010
       Timing: 3010
@@ -3638,21 +3620,12 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 3010_0_0DungeonMovedAdvStart30011
-      Timing: 3020
+    - EventKey: 3010_9_5DungeonBattleVictoryAdvStart30020
+      Timing: 3030
       Type: 1010
-      PositionX: 0
-      PositionY: 0
-      Param: 30011
-      Param2: 0
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 3010_9_5DungeonEventEnd0
-      Timing: 3010
-      Type: 9010
       PositionX: 9
       PositionY: 5
-      Param: 0
+      Param: 30020
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -3683,39 +3656,21 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 3010_9_3DungeonEventEnd0
-      Timing: 3010
-      Type: 9010
-      PositionX: 9
-      PositionY: 3
-      Param: 0
-      Param2: 0
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 3010_9_9DungeonAdvStart30012
+    - EventKey: 3010_9_3DungeonAdvStart30030
       Timing: 3010
       Type: 1010
       PositionX: 9
-      PositionY: 9
-      Param: 30012
+      PositionY: 3
+      Param: 30030
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 3010_9_9DungeonRemoveActor103
+    - EventKey: 3010_9_3DungeonRemoveActor103
       Timing: 3010
       Type: 4011
       PositionX: 9
-      PositionY: 9
+      PositionY: 3
       Param: 103
-      Param2: 0
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 3010_9_9DungeonEventEnd0
-      Timing: 3010
-      Type: 9010
-      PositionX: 9
-      PositionY: 9
-      Param: 0
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -3750,21 +3705,12 @@ MonoBehaviour:
       Param2: 9
       Param3: 10
       ReadFlag: 0
-    - EventKey: 3011_8_7DungeonAdvStart30013
+    - EventKey: 3011_8_7DungeonAdvStart30040
       Timing: 3010
       Type: 1010
       PositionX: 8
       PositionY: 7
-      Param: 30013
-      Param2: 0
-      Param3: 0
-      ReadFlag: 1
-    - EventKey: 3011_8_7DungeonEventEnd0
-      Timing: 3010
-      Type: 9010
-      PositionX: 8
-      PositionY: 7
-      Param: 0
+      Param: 30040
       Param2: 0
       Param3: 0
       ReadFlag: 1
@@ -3777,39 +3723,39 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 3011_8_10DungeonAdvStart30014
-      Timing: 3010
+    - EventKey: 3011_8_9DungeonBattleVictoryAdvStart30050
+      Timing: 3030
       Type: 1010
       PositionX: 8
-      PositionY: 10
-      Param: 30014
+      PositionY: 9
+      Param: 30050
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 3011_8_10DungeonRemoveActor102
-      Timing: 3010
+    - EventKey: 3011_8_9DungeonBattleVictoryRemoveActor102
+      Timing: 3030
       Type: 4011
       PositionX: 8
-      PositionY: 10
+      PositionY: 9
       Param: 102
       Param2: 0
       Param3: 0
       ReadFlag: 1
-    - EventKey: 3011_8_10DungeonAddActor101
-      Timing: 3010
+    - EventKey: 3011_8_9DungeonBattleVictoryAddActor101
+      Timing: 3030
       Type: 4010
       PositionX: 8
-      PositionY: 10
+      PositionY: 9
       Param: 101
       Param2: 1
-      Param3: 0
+      Param3: 1
       ReadFlag: 1
-    - EventKey: 3011_8_10DungeonMoveDungeonFloor10
-      Timing: 3010
-      Type: 2020
+    - EventKey: 3011_8_9DungeonBattleVictoryMoveDungeonFloorForce10
+      Timing: 3030
+      Type: 2021
       PositionX: 8
-      PositionY: 10
+      PositionY: 9
       Param: 10
       Param2: 7
       Param3: 4
-      ReadFlag: 0
+      ReadFlag: 1

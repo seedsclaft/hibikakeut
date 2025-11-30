@@ -354,12 +354,14 @@ namespace Ryneus
             } else
             if (_model.InBattleResult && _model.BattleResultVictory)
             {
-                _view.CommandGotoSceneChange(Scene.Dungeon);
+                var dungeonSceneInfo = new DungeonSceneInfo();
+                dungeonSceneInfo.BattleVictory = true;
+                _view.CommandSceneChange(Scene.Dungeon, dungeonSceneInfo);
             } else
             {
                 if (_model.SceneParam.ReturnMainMenuSceneParam != null)
                 {
-                    _view.CommandGotoSceneChange(Scene.MainMenu,_model.SceneParam.ReturnMainMenuSceneParam);
+                    _view.CommandGotoSceneChange(Scene.MainMenu, _model.SceneParam.ReturnMainMenuSceneParam);
                 } else
                 {
                     _view.CommandGotoSceneChange(Scene.MainMenu);

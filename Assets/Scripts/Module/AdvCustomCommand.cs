@@ -45,6 +45,9 @@ namespace Utage
                 case "Balloon":
                     command = new AdvCommandBalloon(row);
                     break;
+                case "MoveToTargetDirection":
+                    command = new AdvCommandMoveToTargetDirection(row);
+                    break;
             }
         }
     }
@@ -111,7 +114,7 @@ namespace Utage
         public override async void DoCommand(AdvEngine engine)
         {
             var se = await ResourceSystem.LoadSeAsset(fileName);
-            Ryneus.SoundManager.Instance.PlaySe(se,(int)volume * 0.01f,(int)pitch * 0.01f);
+            Ryneus.SoundManager.Instance.PlaySe(se, (int)volume * 0.01f, (int)pitch * 0.01f);
         }
     }
 
@@ -230,6 +233,27 @@ namespace Utage
                     _animationBalloons.Remove(_animationBalloons[i]);
                 }
             }
+        }
+    }
+
+    public class AdvCommandMoveToTargetDirection : AdvCommand
+    {
+        private int? direction = -1;
+
+        public AdvCommandMoveToTargetDirection(StringGridRow row)
+            :base(row)
+        {
+            direction = ParseCell<int>(AdvColumnName.Arg1);
+        }
+
+        public override void DoCommand(AdvEngine engine)
+        {
+            var scene = GameSystem.SceneStackManager.Current;
+            if (scene != Scene.Dungeon)
+            {
+                return;
+            }
+            GameSystem.Instance.CurrentScene.CallViewEvent(Ryneus.Dungeon.CommandType.MoveDirection, direction);
         }
     }
 }

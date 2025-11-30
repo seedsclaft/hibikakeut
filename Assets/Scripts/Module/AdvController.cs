@@ -46,11 +46,11 @@ namespace Ryneus
             {
                 _onOffButtons.Add(item);
             }
+            _selectIndex = 0;
+            _onOffButtons[0].SetSelect();
             if (_onOffButtons.Count > 1)
             {
                 _onOffButtons[1].SetUnSelect();
-                _onOffButtons[0].SetSelect();
-                _selectIndex = 0;
             }
         }
 

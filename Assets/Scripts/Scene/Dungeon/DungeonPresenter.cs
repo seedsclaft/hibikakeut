@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ryneus.Dungeon;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Ryneus
@@ -34,7 +35,11 @@ namespace Ryneus
             //_view.SetHelpWindow();
             _view.SetEvent((type) => UpdateCommand(type));
 
-            var ev = CheckEnterDungeonEvent();
+            var ev = CheckEnterDungeonEvents();
+            if (!ev && _model.BattleVictory.Value)
+            {
+                ev = CheckBattleVictoryEvents();
+            }
 
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             _view.SetActiveStageInfo(_model.IsActiveDungeon());
@@ -82,6 +87,9 @@ namespace Ryneus
                         break;
                     case CommandType.UseItemHeal:
                         CommandUseItemHeal((int)viewEvent.Template);
+                        break;
+                    case CommandType.MoveDirection:
+                        CommandMoveDirection((int)viewEvent.Template);
                         break;
                 }
                 return;
@@ -291,23 +299,49 @@ namespace Ryneus
             _view.CommandCallConfirm(confirmInfo);
         }
 
-        private bool CheckEnterDungeonEvent()
+        private void StartEventProcesses(List<StageEventData> enterDungeonEvents, int count, int index, bool moved)
         {
-            var enterDungeonEvent = _model.CheckEnterDungeonEvent();
-            if (enterDungeonEvent != null)
+            var stageEventCount = count;
+            var stageEventIndex = index;
+            CommandStageEvent(enterDungeonEvents[stageEventIndex], moved, () =>
             {
-                _model.AddEventReadFlag(enterDungeonEvent);
-                _view.CallSystemCommand(Base.CommandType.SceneHideUI);
-                CheckStageAdvEvent(enterDungeonEvent.Param, 0, () =>
+                stageEventCount--;
+                stageEventIndex++;
+                if (stageEventCount > 0)
                 {
-                    var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-                    CheckEventData(false, playerPosition, () =>
-                    {
-                        _view.CommandSceneChange(Scene.Dungeon);
-                    });
-                });
+                    StartEventProcesses(enterDungeonEvents, stageEventCount, stageEventIndex, moved);
+                } else
+                {
+                    _view.CallSystemCommand(Base.CommandType.SceneShowUI);
+                    _busy = false;
+                    _model.DungeonBusy(false);
+                    CommandRefresh();
+                    // ターン数確認
+                    CommandTurnOverEvent(false);
+                }
+            });
+        }
+
+        private bool CheckEnterDungeonEvents()
+        {
+            var enterDungeonEvents = _model.CheckEnterDungeonEvents();
+            if (enterDungeonEvents.Count > 0)
+            {
+                _view.CallSystemCommand(Base.CommandType.SceneHideUI);
+                StartEventProcesses(enterDungeonEvents, enterDungeonEvents.Count, 0, false);
             }
-            return enterDungeonEvent != null;
+            return enterDungeonEvents.Count > 0;
+        }
+
+        private bool CheckBattleVictoryEvents()
+        {
+            var battleVictoryEvents = _model.CheckBattleVictoryEvents();
+            if (battleVictoryEvents.Count > 0)
+            {
+                _view.CallSystemCommand(Base.CommandType.SceneHideUI);
+                StartEventProcesses(battleVictoryEvents, battleVictoryEvents.Count, 0, false);
+            }
+            return battleVictoryEvents.Count > 0;
         }
 
         private void CommandTurnOverEvent(bool moved)
@@ -446,86 +480,95 @@ namespace Ryneus
             return null;
         }
 
+        public List<StageEventData> GetStageEventsData(EventTiming eventTiming, int positionX, int positionY)
+        {
+            var timingEvents = _model.StageEvents(eventTiming, positionX, positionY);
+            timingEvents = timingEvents.FindAll(a => !_thisTurnStageEvents.Contains(a));
+            return timingEvents;
+        }
+
         private void CheckEventData(bool moved, Vector2Int position, Action endEvent = null)
         {
-            var stageEvent = GetStageEventData(EventTiming.Dungeon, position.x, position.y);
-            if (stageEvent != null)
+            var stageEvent = GetStageEventsData(EventTiming.Dungeon, position.x, position.y);
+            if (stageEvent.Count > 0)
             {
-                _thisTurnStageEvents.Add(stageEvent);
-                _model.AddEventReadFlag(stageEvent);
-                switch (stageEvent.Type)
-                {
-                    case StageEventType.AdvStart:
-                        if (moved)
-                        {
-                            StageEventAdvEvent(moved, stageEvent.Param, endEvent);
-                        } else
-                        {
-                            endEvent?.Invoke();
-                        }
-                        return;
-                    case StageEventType.ExitDungeon:
-                        StageEventExitDungeon(moved, endEvent);
-                        return;
-                    case StageEventType.MoveDungeonFloor:
-                        StageEventMoveDungeonFloor(moved, stageEvent, endEvent);
-                        return;
-                    case StageEventType.DungeonClear:
-                        StageEventDungeonClear(moved, stageEvent, endEvent);
-                        return;
-                    case StageEventType.GetArtifact:
-                        StageEventGetArtifact(stageEvent);
-                        return;
-                    case StageEventType.GetItem:
-                        StageEventGetItem(stageEvent);
-                        return;
-                    case StageEventType.GetSkill:
-                        StageEventGetSkill(stageEvent);
-                        return;
-                    case StageEventType.AddActor:
-                        StageEventAddActor(moved, stageEvent, endEvent);
-                        return;
-                    case StageEventType.RemoveActor:
-                        StageEventRemoveActor(moved, stageEvent, endEvent);
-                        return;
-                    case StageEventType.SelectAddActor:
-                        StageEventSelectAddActor(stageEvent);
-                        return;
-                    case StageEventType.ForceBattle:
-                    case StageEventType.ForceBossBattle:
-                        StageEventForceBattle(stageEvent);
-                        return;
-                    case StageEventType.AddEventFlag:
-                        StageEventAddEventFlag(moved, stageEvent, endEvent);
-                        return;
-                    case StageEventType.AddEventNotFlag:
-                        StageEventAddEventNotFlag(stageEvent, endEvent);
-                        return;
-                    case StageEventType.AddEventFlagEndForceBattle:
-                        StageEventAddEventFlagEndForceBattle(moved, stageEvent, endEvent);
-                        return;
-                    case StageEventType.DamageFloor:
-                        StageEventDamageFloor(stageEvent, endEvent);
-                        return;
-                    case StageEventType.CurseFloor:
-                        StageEventCurseFloor(stageEvent, endEvent);
-                        return;
-                    case StageEventType.EndCurseFloor:
-                        StageEventEndCurseFloor(stageEvent, endEvent);
-                        return;
-                    case StageEventType.TraverseRegeon:
-                        StageEventTraverseRegeon(stageEvent, endEvent);
-                        return;
-                    case StageEventType.None:
-                    case StageEventType.EventEnd:
-                        _view.CallSystemCommand(Base.CommandType.SceneShowUI);
-                        _busy = false;
-                        _model.DungeonBusy(false);
-                        CommandRefresh();
-                        // ターン数確認
-                        CommandTurnOverEvent(false);
-                        return;
-                }
+                StartEventProcesses(stageEvent, stageEvent.Count, 0, moved);
+            }
+        }
+
+        private void CommandStageEvent(StageEventData stageEvent, bool moved, Action endEvent)
+        {
+            _thisTurnStageEvents.Add(stageEvent);
+            _model.AddEventReadFlag(stageEvent);
+            switch (stageEvent.Type)
+            {
+                case StageEventType.AdvStart:
+                    StageEventAdvEvent(moved, stageEvent.Param, endEvent);
+                    return;
+                case StageEventType.ExitDungeon:
+                    StageEventExitDungeon(moved, endEvent);
+                    return;
+                case StageEventType.MoveDungeonFloor:
+                    StageEventMoveDungeonFloor(moved, stageEvent, endEvent);
+                    return;
+                case StageEventType.MoveDungeonFloorForce:
+                    StageEventMoveDungeonFloorForce(moved, stageEvent, endEvent);
+                    return;
+                case StageEventType.DungeonClear:
+                    StageEventDungeonClear(moved, stageEvent, endEvent);
+                    return;
+                case StageEventType.GetArtifact:
+                    StageEventGetArtifact(stageEvent);
+                    return;
+                case StageEventType.GetItem:
+                    StageEventGetItem(stageEvent);
+                    return;
+                case StageEventType.GetSkill:
+                    StageEventGetSkill(stageEvent);
+                    return;
+                case StageEventType.AddActor:
+                    StageEventAddActor(moved, stageEvent, endEvent);
+                    return;
+                case StageEventType.RemoveActor:
+                    StageEventRemoveActor(moved, stageEvent, endEvent);
+                    return;
+                case StageEventType.SelectAddActor:
+                    StageEventSelectAddActor(stageEvent);
+                    return;
+                case StageEventType.ForceBattle:
+                case StageEventType.ForceBossBattle:
+                    StageEventForceBattle(stageEvent);
+                    return;
+                case StageEventType.AddEventFlag:
+                    StageEventAddEventFlag(moved, stageEvent, endEvent);
+                    return;
+                case StageEventType.AddEventNotFlag:
+                    StageEventAddEventNotFlag(stageEvent, endEvent);
+                    return;
+                case StageEventType.AddEventFlagEndForceBattle:
+                    StageEventAddEventFlagEndForceBattle(moved, stageEvent, endEvent);
+                    return;
+                case StageEventType.DamageFloor:
+                    StageEventDamageFloor(stageEvent, endEvent);
+                    return;
+                case StageEventType.CurseFloor:
+                    StageEventCurseFloor(stageEvent, endEvent);
+                    return;
+                case StageEventType.EndCurseFloor:
+                    StageEventEndCurseFloor(stageEvent, endEvent);
+                    return;
+                case StageEventType.TraverseRegeon:
+                    StageEventTraverseRegeon(stageEvent, endEvent);
+                    return;
+                case StageEventType.None:
+                case StageEventType.EventEnd:
+                    _view.CallSystemCommand(Base.CommandType.SceneShowUI);
+                    _busy = false;
+                    _model.DungeonBusy(false);
+                    CommandRefresh();
+                    // ターン数確認
+                    CommandTurnOverEvent(false);
+                    return;
             }
         }
 
@@ -535,10 +578,10 @@ namespace Ryneus
             _model.UpdateEventObjects();
             var timeStamp = SoundManager.Instance.CurrentTimeStamp();
             var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
-            CheckStageAdvEvent(advId, timeStamp, () =>
+            CallAdvEvent(advId, timeStamp, () =>
             {
                 _view.CallSystemCommand(Base.CommandType.SceneShowUI);
-                CheckStageEvent(moved);
+                endEvent?.Invoke();
             });
         }
 
@@ -562,6 +605,12 @@ namespace Ryneus
             {
                 endEvent?.Invoke();
             }
+        }
+
+        private void StageEventMoveDungeonFloorForce(bool moved, StageEventData stageEvent, Action endEvent)
+        {
+            endEvent?.Invoke();
+            CommandMoveDungeonFloor(stageEvent.Param, stageEvent.Param2, stageEvent.Param3);
         }
 
         private void StageEventDungeonClear(bool moved, StageEventData stageEvent, Action endEvent)
@@ -599,7 +648,8 @@ namespace Ryneus
             var getItemData = new GetItemData
             {
                 Type = GetItemType.AddActor,
-                Param1 = stageEvent.Param
+                Param1 = stageEvent.Param,
+                Param2 = stageEvent.Param3
             };
             var getItemInfo = new GetItemInfo(getItemData);
             _model.AddGetItemInfo(getItemInfo);
@@ -608,7 +658,7 @@ namespace Ryneus
                 _model.CurrentDeckInfo.ActorIdDict[stageEvent.Param2] = stageEvent.Param;
                 _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             }
-            CheckStageEvent(moved);
+            endEvent?.Invoke();
         }
 
         private void StageEventRemoveActor(bool moved, StageEventData stageEvent, Action endEvent)
@@ -621,7 +671,7 @@ namespace Ryneus
             var getItemInfo = new GetItemInfo(getItemData);
             _model.RemoveGetItemInfo(getItemInfo);
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
-            CheckStageEvent(moved);
+            endEvent?.Invoke();
         }
 
         private void StageEventSelectAddActor(StageEventData stageEvent)
@@ -1068,6 +1118,11 @@ namespace Ryneus
                 }
             };
             _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
+        }
+
+        private void CommandMoveDirection(int direction)
+        {
+            _view.UpdateMoveKeys(new List<InputKeyType>(){(InputKeyType)direction});
         }
 
         private void CommandSelectCharacter(int selectIndex)

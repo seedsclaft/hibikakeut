@@ -204,9 +204,9 @@ namespace Ryneus
             _helpWindow.SetHelpText(DataSystem.GetHelp(19700));
         }
 
-        public void CallSystemCommand(object template,object sendData = null)
+        public void CallSystemCommand(object template, object sendData = null)
         {
-            var commandType = new ViewCommandType(ViewCommandSceneType.System,template);
+            var commandType = new ViewCommandType(ViewCommandSceneType.System, template);
             var eventData = new ViewEvent(commandType)
             {
                 Template = sendData

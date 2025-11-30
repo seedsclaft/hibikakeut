@@ -65,7 +65,7 @@ namespace Ryneus
             return null;
         }
 
-        private void CheckStageEvent(int advId, Action<bool> callEvent = null)
+        private void CallAdvScene(int advId, Action<bool> callEvent = null)
         {
             var advInfo = CheckAdvStageEvent(advId);
             if (advInfo != null)
@@ -89,9 +89,15 @@ namespace Ryneus
             return advInfo;
         }
 
-        public void CheckStageAdvEvent(int advId, float timeStamp = 0, Action endEvent = null)
+        public void CallAdvEvent(AdvData advData, float timeStamp = 0, Action endEvent = null)
         {
-            CheckStageEvent(advId, (a) => endEvent?.Invoke());
+            _model.AddEventReadFlag(advData.EventKey);
+            CallAdvScene(advData.Id, (a) => endEvent?.Invoke());
+        }
+
+        public void CallAdvEvent(int advId, float timeStamp = 0, Action endEvent = null)
+        {
+            CallAdvScene(advId, (a) => endEvent?.Invoke());
         }
 
         public bool CheckAdvEvent(EventTiming eventTiming, float timeStamp = 0, Action endEvent = null)

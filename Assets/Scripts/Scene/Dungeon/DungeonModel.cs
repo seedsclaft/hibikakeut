@@ -9,8 +9,14 @@ namespace Ryneus
     {
         private MoveController _moveController;
         public ParameterInt SelectIndex = new(-1);
+        public ParameterBool BattleVictory = new(false);
         public DungeonModel(MoveController moveController)
         {
+            var sceneParam = (DungeonSceneInfo)GameSystem.SceneStackManager.LastSceneParam;
+            if (sceneParam != null)
+            {
+                BattleVictory.SetValue(sceneParam.BattleVictory);
+            }
             _moveController = moveController;
         }
 
@@ -231,11 +237,17 @@ namespace Ryneus
             return stageEvents.Find(a => a.Type == StageEventType.ForceBattle || a.Type == StageEventType.ForceBossBattle) == null;
         }
 
-        public StageEventData CheckEnterDungeonEvent()
+        public List<StageEventData> CheckEnterDungeonEvents()
         {
             var stageEvents = StageEvents(EventTiming.DungeonMoved, 0, 0);
-            stageEvents = stageEvents.FindAll(a => a.Type == StageEventType.AdvStart);
-            return stageEvents.Count > 0 ? stageEvents[0] : null;
+            return stageEvents;
+        }
+
+        public List<StageEventData> CheckBattleVictoryEvents()
+        {
+            var position = GetCurrentPosition();
+            var stageEvents = StageEvents(EventTiming.DungeonBattleVictory, position.x, position.y);
+            return stageEvents;
         }
 
         public bool EndDungeonByTurnCountValue(int value)
@@ -548,5 +560,10 @@ namespace Ryneus
             list.Add(titleCommand);
             return list;
         }
+    }
+
+    public class DungeonSceneInfo
+    {
+        public bool BattleVictory = false;
     }
 }

@@ -117,6 +117,7 @@ namespace Ryneus
         BattleVictory = 2020,
         Dungeon = 3010,
         DungeonMoved = 3020,
+        DungeonBattleVictory = 3030,
     }
 
     public enum StageEventType
@@ -125,6 +126,7 @@ namespace Ryneus
         AdvStart = 1010,
         ExitDungeon = 2010,
         MoveDungeonFloor = 2020,
+        MoveDungeonFloorForce = 2021,
         DungeonClear = 2030,
         GetArtifact = 3010, // アーティファクト取得
         GetItem = 3020, // アイテム取得

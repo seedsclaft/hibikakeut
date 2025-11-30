@@ -592,6 +592,10 @@ namespace Ryneus
                     var actorInfo = new ActorInfo(actorData);
                     actorInfo.BattleIndex.SetValue(_actorInfos.Count + 1);
                     actorInfo.SetLevel(actorData.InitLv);
+                    if (addActorInfo.Param2 > 0)
+                    {
+                        actorInfo.SetLevel(addActorInfo.Param2);
+                    }
                     actorInfo.ChangeHp(actorInfo.MaxHp);
                     // 最初に加入したキャラは自動編成
                     if (_actorInfos.Count == 0)

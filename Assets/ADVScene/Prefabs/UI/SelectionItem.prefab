@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 11400004}
   - component: {fileID: 11400008}
   - component: {fileID: 5120519482691566258}
-  - component: {fileID: 1665492438149170030}
+  - component: {fileID: 2989293889339872973}
   m_Layer: 5
   m_Name: SelectionItem
   m_TagString: Untagged
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 54d08e472ddea3e4aa39cfa5fea696a3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -158,7 +158,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 0}
   textMeshPro: {fileID: 6848610553521863982}
---- !u!114 &1665492438149170030
+  onInit:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2989293889339872973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,17 +172,23 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52c2e7ae1c9d147439d29de33ce077db, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.OnOffButton
   clickButton: {fileID: 11400004}
   cursor: {fileID: 3842600558889641482}
+  selectArrow: {fileID: 0}
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
   disable: {fileID: 0}
+  batch: {fileID: 0}
   selectColor: {r: 0, g: 0, b: 0, a: 0}
   unSelectColor: {r: 0, g: 0, b: 0, a: 0}
   textUguiList: []
   imageUguiList: []
   commandName: {fileID: 0}
+  inputInfoComponent: {fileID: 0}
+  inputKeyType: 0
+  inputInfoComponent2: {fileID: 0}
+  inputKeyType2: 0
 --- !u!1 &3062097945516408047
 GameObject:
   m_ObjectHideFlags: 0

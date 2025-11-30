@@ -107,5 +107,11 @@ namespace Ryneus
             _ = await SaveSystem.LoadStageInfo(0);
             //TempInfo.SetPlayingTime(saveFileInfo.PlayTime);
         }
+
+        public AdvData GameStartEventAdv()
+        {
+            var events = GetAdvDates(EventTiming.GameStart, true);
+            return events.Count > 0 ? events[0] : null;
+        }
     }
 }

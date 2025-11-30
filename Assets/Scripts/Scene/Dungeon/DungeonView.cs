@@ -370,6 +370,7 @@ namespace Ryneus
             UseItem,
             SelectCharacter,
             EndFormation,
+            MoveDirection,
             Aritifact,
             SelectSideMenu
         }

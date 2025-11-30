@@ -272,7 +272,7 @@ namespace Ryneus
 
         public void AddEventReadFlagForce(StageEventData stageEventDates)
         {
-            CurrentGameInfo.AddEventReadFlag(stageEventDates.EventKey);
+            AddEventReadFlag(stageEventDates.EventKey);
         }
 
         public async UniTask<List<AudioClip>> GetBgmData(string bgmKey)

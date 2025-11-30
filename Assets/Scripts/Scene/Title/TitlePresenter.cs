@@ -102,6 +102,16 @@ namespace Ryneus
             _view.WaitFrame(2, () =>
             {
                 _busy = false;
+                var gameStartEvent = _model.GameStartEventAdv();
+                if (gameStartEvent != null)
+                {
+                    // イベントを再生
+                    CallAdvEvent(gameStartEvent, 0, () =>
+                    {
+                        _view.CommandGotoSceneChange(Scene.Dungeon);
+                    });
+                    return;
+                }
                 _view.CommandGotoSceneChange(Scene.Dungeon);
                 //_view.CommandGotoSceneChange(Scene.Tactics);
                 //_view.CommandGotoSceneChange(Scene.NameEntry);

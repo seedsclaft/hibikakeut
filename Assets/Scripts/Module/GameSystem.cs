@@ -31,6 +31,7 @@ namespace Ryneus
         [SerializeField] private GameObject dungeonObjects = null;
 
         private BaseView _currentScene = null;
+        public BaseView CurrentScene => _currentScene;
 
         private BaseModel _model = null;
 
