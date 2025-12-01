@@ -55,6 +55,7 @@ namespace Ryneus
         SideMenu,
         Option,
         Confirm,
+        Tutorial,
     }
 
     public interface IListViewItem

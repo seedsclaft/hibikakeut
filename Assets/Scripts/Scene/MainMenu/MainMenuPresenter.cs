@@ -156,6 +156,7 @@ namespace Ryneus
             }
             _view.SetActiveCommandList(true);
             CommandRefresh();
+            CheckTutorialState(null);
             _busy = false;
         }
 
@@ -570,6 +571,36 @@ namespace Ryneus
             _view.UpdateCommandList(_model.MainMenuCommand());
             _view.CommandRefresh();
             _view.UpdateSidemenuBatch(_model.IsSideManuBatch());
+        }
+
+        private void CheckTutorialState(object commandType = null)
+        {
+            Func<TutorialData, bool> enable = (tutorialData) =>
+            {
+                var checkFlag = false;
+                if (tutorialData.Param1 == 0 || tutorialData.Param1 == 100)
+                {
+                    // 出撃選択
+                    checkFlag = true;
+                }
+                return checkFlag;
+            };
+            Func<TutorialData, bool> checkEnd = (tutorialData) =>
+            {
+                return true;
+            };
+            var tutorialViewInfo = new TutorialViewInfo
+            {
+                SceneType = (int)Scene.MainMenu,
+                CheckEndMethod = checkEnd,
+                CheckMethod = enable,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    CheckTutorialState(commandType);
+                }
+            };
+            _view.CommandCheckTutorialState(tutorialViewInfo);
         }
     }
 }

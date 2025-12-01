@@ -553,6 +553,10 @@ namespace Ryneus
             {
                 return false;
             }
+            if (GameSystem.Instance.TutorialBusy)
+            {
+                return false;
+            }
             if (_inputBusyFrame > 0 || !_active || !gameObject || !gameObject.activeSelf)
             {
                 return false;

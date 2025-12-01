@@ -17,27 +17,26 @@ namespace Ryneus
         }
 
         private void Initialize()
-        { 
-            _view.SetUIButton();
+        {
             _view.SetEvent((type) => UpdateCommand(type));
 
             CommandRefresh();
         }
 
-        private void UpdateCommand(TutorialViewEvent viewEvent)
+        private void UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
             {
                 return;
             }
-            UnityEngine.Debug.Log(viewEvent.commandType);
-            switch (viewEvent.commandType)
+            UnityEngine.Debug.Log(viewEvent.ViewCommandType.CommandType);
+            switch (viewEvent.ViewCommandType.CommandType)
             {
                 case Tutorial.CommandType.Back:
                     CommandBack();
                     return;
                 case Tutorial.CommandType.CallTutorialData:
-                    CommandCallTutorialData((TutorialData)viewEvent.template);
+                    CommandCallTutorialData((TutorialData)viewEvent.Template);
                     return;
             }
         }
@@ -59,28 +58,6 @@ namespace Ryneus
 
         private void CommandRefresh()
         {
-        }
-
-        private void SetBusy(bool busy)
-        {
-            _busy = busy;
-            _view.SetBusy(busy);
-        }
-
-        private void CommandCallHelp()
-        {
-            _busy = true;
-            var popupInfo = new PopupInfo
-            {
-                PopupType = PopupType.Guide,
-                template = "Tutorial",
-                EndEvent = () =>
-                {
-                    _busy = false;
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                }
-            };
-            _view.CommandCallPopup(popupInfo);
         }
     }
 }

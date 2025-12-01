@@ -16,7 +16,7 @@ namespace Ryneus
 
         public int Id;
         public Scene SceneType;
-        public int Type;
+        public FrameType Type;
         public int Param1;
         public int Param2;
         public int Param3;
@@ -26,10 +26,14 @@ namespace Ryneus
         public int Height;
         public int FocusX;
         public int FocusY;
-        public int FocusWidth;
-        public int FocusHeight;
         public string Name;
         public string Help;
     }
 
+    [Serializable]
+    public enum FrameType
+    {
+        Window = 1,
+        Focus = 2,
+    }
 }

@@ -311,7 +311,7 @@ namespace Ryneus
 
         public void CommandCheckTutorialState(TutorialViewInfo tutorialViewInfo)
         {
-            CallSystemCommand(Base.CommandType.CheckTutorialState,tutorialViewInfo);
+            CallSystemCommand(Base.CommandType.CheckTutorialState, tutorialViewInfo);
         }
 
         public void CommandCloseTutorialFocus()

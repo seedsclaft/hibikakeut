@@ -42,6 +42,7 @@ namespace Ryneus
         private static TutorialData _lastTutorialData = null;
         private bool _busy = false;
         public bool Busy => _busy;
+        public bool TutorialBusy => tutorialView.gameObject.activeSelf;
 
         public static string Version;
         public static DebugBattleData DebugBattleData;
@@ -583,43 +584,40 @@ namespace Ryneus
 
         private void CheckTutorialState(TutorialViewInfo tutorialViewInfo)
         {
-            if (OptionData.TutorialCheck == false)
+            if (!OptionData.TutorialCheck)
             {
                 return;
             }
-            var TutorialDates = _model.SceneTutorialDates(tutorialViewInfo.SceneType);
-            var tutorialData = TutorialDates.Count > 0 ? TutorialDates[0] : null;
+            var tutorialDates = _model.SceneTutorialDates(tutorialViewInfo.SceneType);
+            var tutorialData = tutorialDates.Count > 0 ? tutorialDates[0] : null;
+            if (tutorialData == null)
+            {
+                return;
+            }
             var checkEndFlag = _lastTutorialData != null && tutorialViewInfo.CheckEndMethod != null ? tutorialViewInfo.CheckEndMethod(_lastTutorialData) : false;
             if (checkEndFlag)
             {
                 tutorialView.gameObject.SetActive(false);
             }
-            if (tutorialData != null)
+            var checkFlag = tutorialViewInfo.CheckMethod(tutorialData);
+            if (!checkFlag)
             {
-                var checkFlag = tutorialViewInfo.CheckMethod(tutorialData);
-                if (!checkFlag)
-                {
-                    return;
-                }
-                if (_lastTutorialData?.Id == tutorialData.Id)
-                {
-                    return;
-                }
+                return;
             }
-            if (tutorialData != null)
+            if (_lastTutorialData?.Id == tutorialData.Id)
             {
-                tutorialViewInfo.CheckTrueAction?.Invoke();
-                _lastTutorialData = tutorialData;
-                tutorialView.gameObject.SetActive(true);
-                tutorialView.SetTutorialData(tutorialData);
-                tutorialView.SetBackEvent(() =>
-                {
-                    tutorialView.OnClickBack();
-                    tutorialView.gameObject.SetActive(false);
-                    tutorialViewInfo.EndEvent?.Invoke();
-                });
-                _model.ReadTutorialData(tutorialData);
+                return;
             }
+            tutorialViewInfo.CheckTrueAction?.Invoke();
+            _lastTutorialData = tutorialData;
+            tutorialView.gameObject.SetActive(true);
+            tutorialView.SetTutorialData(tutorialData);
+            tutorialView.SetBackEvent(() =>
+            {
+                tutorialView.gameObject.SetActive(false);
+                tutorialViewInfo.EndEvent?.Invoke();
+            });
+            _model.ReadTutorialData(tutorialData);
         }
 
         private void Update()

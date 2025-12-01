@@ -315,21 +315,16 @@ namespace Ryneus
 
     public enum Scene
     {
-        None,
-        Base,
-        Map,
-        Boot,
-        Title,
-        NameEntry,
-        MainMenu,
-        Battle,
-        Status,
-        Tactics,
-        Strategy,
-        Dungeon,
-        Interlude,
-        Slot,
-        FastBattle,
-        Result,
+        None = 0,
+        Boot = 10,
+        Title = 20,
+        NameEntry = 30,
+        MainMenu = 40,
+        Battle = 50,
+        Tactics = 60,
+        Strategy = 70,
+        Dungeon = 80,
+        Interlude = 90,
+        Result = 100,
     }
 }
