@@ -326,5 +326,6 @@ namespace Ryneus
         Dungeon = 80,
         Interlude = 90,
         Result = 100,
+        Demo = 110,
     }
 }

@@ -557,7 +557,7 @@ namespace Ryneus
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
             };
-            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
+            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
         }
 
         private void UpdateCommandSelecting(bool isSelecting)

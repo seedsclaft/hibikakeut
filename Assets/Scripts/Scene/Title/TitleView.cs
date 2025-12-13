@@ -61,6 +61,10 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
+            if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
+            {
+                CommandSceneChange(Scene.Demo);
+            }
         }
     }
 

@@ -99,6 +99,7 @@ namespace Ryneus
             equipSkillList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
             equipSkillList.SetInputHandler(InputKeyType.SideLeft1, () => CallViewEvent(CommandType.LeftActor));
             equipSkillList.SetInputHandler(InputKeyType.SideRight1, () => CallViewEvent(CommandType.RightActor));
+            equipSkillList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.CharacterList));
             equipSkillList.SetInputHandler(InputKeyType.SideLeft2, CommandScrollUpSkillHelp);
             equipSkillList.SetInputHandler(InputKeyType.SideRight2, CommandScrollDownSkillHelp);
             //equipSkillList.SetInputHandler(InputKeyType.Option1,() => CallViewEvent(CommandType.LevelUp));
