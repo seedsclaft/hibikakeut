@@ -29,6 +29,19 @@ namespace Ryneus
         [SerializeField] private TweensController seventhTween3;
         [SerializeField] private TweensController seventhTween4;
         [SerializeField] private List<TweensController> eighthTweens;
+        [SerializeField] private GameObject eighthRoot;
+        [SerializeField] private TweensController eighthBgTween;
+        [SerializeField] private TweensController ninethTween;
+        [SerializeField] private TweensController ninethTween2;
+        [SerializeField] private TweensController ninethTween3;
+        [SerializeField] private TweensController ninethTween4;
+        [SerializeField] private TweensController tenthTween;
+        [SerializeField] private TweensController tenthTween2;
+        [SerializeField] private TweensController tenthTween3;
+        [SerializeField] private TweensController tenthTween4;
+        [SerializeField] private TweensController elevenTween;
+        [SerializeField] private TweensController elevenTween2;
+
         [SerializeField] private float BPM = 120;
         [SerializeField] private float idelTime = 0.1f;
 
@@ -94,7 +107,7 @@ namespace Ryneus
                     }
                     if (_lastMiniCount == 8)
                     {
-                        var actor = new ActorInfo(DataSystem.FindActor(1));
+                        var actor = new ActorInfo(DataSystem.FindActor(101));
                         reliefAnimation.PlayAnimation(() => {}, new ActorInfo(DataSystem.FindActor(102)), new List<ActorInfo>(){actor});
                     }
                     if (_lastMiniCount == 9)
@@ -185,10 +198,53 @@ namespace Ryneus
 
                     if (_lastMiniCount == 49)
                     {
+                        eighthRoot.SetActive(true);
+                        PlayTween(eighthBgTween, miniTiming);
                         foreach (var eighthTween in eighthTweens)
                         {
                             PlayTween(eighthTween, miniTiming);
                         }
+                    }
+
+                    if (_lastMiniCount == 53)
+                    {
+                        eighthRoot.SetActive(false);
+                        PlayTween(ninethTween, miniTiming);
+                    }
+                    if (_lastMiniCount == 54)
+                    {
+                        PlayTween(ninethTween2, miniTiming);
+                    }
+                    if (_lastMiniCount == 55)
+                    {
+                        PlayTween(ninethTween3, miniTiming);
+                    }
+                    if (_lastMiniCount == 56)
+                    {
+                        PlayTween(ninethTween4, miniTiming);
+                    }
+
+                    if (_lastMiniCount == 57)
+                    {
+                        PlayTween(tenthTween, miniTiming);
+                    }
+                    if (_lastMiniCount == 58)
+                    {
+                        PlayTween(tenthTween2, miniTiming);
+                    }
+                    if (_lastMiniCount == 59)
+                    {
+                        PlayTween(tenthTween3, miniTiming);
+                    }
+                    if (_lastMiniCount == 60)
+                    {
+                        PlayTween(tenthTween4, miniTiming);
+                    }
+
+                    if (_lastMiniCount == 61)
+                    {
+                        PlayTween(elevenTween, miniTiming);
+                        PlayTween(elevenTween2, miniTiming);
                     }
                     _lastMiniCount++;
                 }
