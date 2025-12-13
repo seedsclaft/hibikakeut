@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
-using TMPro;
 
 namespace Ryneus
 {
@@ -22,10 +20,18 @@ namespace Ryneus
         [SerializeField] private TweensController fifthTween2;
         [SerializeField] private TweensController fifthTween3;
         [SerializeField] private TweensController fifthTween4;
+        [SerializeField] private TweensController sixthTween;
+        [SerializeField] private TweensController sixthTween2;
+        [SerializeField] private TweensController sixthTween3;
+        [SerializeField] private TweensController sixthTween4;
+        [SerializeField] private TweensController seventhTween;
+        [SerializeField] private TweensController seventhTween2;
+        [SerializeField] private TweensController seventhTween3;
+        [SerializeField] private TweensController seventhTween4;
+        [SerializeField] private List<TweensController> eighthTweens;
         [SerializeField] private float BPM = 120;
         [SerializeField] private float idelTime = 0.1f;
 
-        private Ease _ease = Ease.OutQuad;
         private float _time = -1;
         private float _lastCount = 1;
         private float _lastMiniCount = 1;
@@ -143,6 +149,47 @@ namespace Ryneus
                         PlayTween(fifthTween4, miniTiming);
                     }
 
+                    if (_lastMiniCount == 41)
+                    {
+                        PlayTween(sixthTween, miniTiming);
+                    }
+                    if (_lastMiniCount == 42)
+                    {
+                        PlayTween(sixthTween2, miniTiming);
+                    }
+                    if (_lastMiniCount == 43)
+                    {
+                        PlayTween(sixthTween3, miniTiming);
+                    }
+                    if (_lastMiniCount == 44)
+                    {
+                        PlayTween(sixthTween4, miniTiming);
+                    }
+                    
+                    if (_lastMiniCount == 45)
+                    {
+                        PlayTween(seventhTween, miniTiming);
+                    }
+                    if (_lastMiniCount == 46)
+                    {
+                        PlayTween(seventhTween2, miniTiming);
+                    }
+                    if (_lastMiniCount == 47)
+                    {
+                        PlayTween(seventhTween3, miniTiming);
+                    }
+                    if (_lastMiniCount == 48)
+                    {
+                        PlayTween(seventhTween4, miniTiming);
+                    }
+
+                    if (_lastMiniCount == 49)
+                    {
+                        foreach (var eighthTween in eighthTweens)
+                        {
+                            PlayTween(eighthTween, miniTiming);
+                        }
+                    }
                     _lastMiniCount++;
                 }
             }

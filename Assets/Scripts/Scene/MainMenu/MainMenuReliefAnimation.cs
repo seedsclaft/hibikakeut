@@ -11,12 +11,18 @@ namespace Ryneus
     public class MainMenuReliefAnimation : MonoBehaviour
     {
         [SerializeField] private EffekseerEmitter emitter1;
+        [SerializeField] private float emitter1Speed = 0.5f;
         [SerializeField] private EffekseerEmitter emitter2;
+        [SerializeField] private float emitter2Speed = 0.5f;
         [SerializeField] private List<TextMeshProUGUI> serifs;
         [SerializeField] private ActorInfoComponent actorInfoComponent;
         [SerializeField] private Image valkilyImage;
         [SerializeField] private Button decideButton;
         [SerializeField] private _2dxFX_SkyCloud skyCloud;
+        [SerializeField] private float firstDuration = 3.7f;
+        [SerializeField] private float secondDuration = 1.4f;
+        [SerializeField] private float thirdDuration = 1f;
+        [SerializeField] private float fourthDuration = 3f;
         private Action _endEvent;
 
         private float _targetAlpha = -1;
@@ -41,10 +47,10 @@ namespace Ryneus
             }
             _endEvent = endEvent;
             decideButton.gameObject.SetActive(false);
-            emitter1.speed = 0.5f;
+            emitter1.speed = emitter1Speed;
             emitter1.Play();
 
-            var time1 = 3.7f;
+            var time1 = firstDuration;
             DOTween.Sequence()
                 .Append(emitter1.transform.DOScaleY(1f, time1))
                 .OnComplete(() =>
@@ -58,7 +64,7 @@ namespace Ryneus
                     PlayAnimationAfter(endEvent);
                 });
 
-            var time2 = 1.4f;
+            var time2 = secondDuration;
             DOTween.Sequence()
                 .Append(emitter1.transform.DOScaleY(1f, time2))
                 .Append(valkilyImage.DOFade(0.5f, time2))
@@ -106,17 +112,17 @@ namespace Ryneus
                     emitter1.Stop();
                 });
 
-            emitter2.speed = 0.5f;
+            emitter2.speed = emitter2Speed;
             emitter2.Play();
-            var time1 = 1f;
-            var time2 = 3f;
+            var time1 = thirdDuration;
+            var time2 = fourthDuration;
             _targetAlpha = 0f;
             
             DOTween.Sequence()
                 .Append(emitter1.transform.DOScaleY(1f, time1))
                 .OnComplete(() =>
                 {
-                    emitter2.speed = 0.25f;
+                    emitter2.speed = emitter2Speed / 2;
                     DOTween.Sequence()
                         .Append(emitter1.transform.DOScaleY(1f, time2))
                         .OnComplete(() =>

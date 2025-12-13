@@ -17,6 +17,11 @@ namespace Ryneus
             _tweens.ForEach(a => a.tween.Play());
         }
 
+        public void PlayTweenOnly()
+        {
+            _tweens.ForEach(a => a.tween.Play());
+        }
+
         public void ConvertDurationTiming(float timing)
         {
             _tweens = new List<DOTweenAnimation>();
