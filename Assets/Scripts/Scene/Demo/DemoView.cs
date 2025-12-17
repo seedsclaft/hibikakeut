@@ -116,6 +116,10 @@ namespace Ryneus
                     }
                     if (_lastMiniCount == 21)
                     {
+                        if (particlObject != null)
+                        {
+                            particlObject.SetActive(false);
+                        }
                         if (secondImage != null)
                         {
                             secondImage.DOFade(0, miniTiming);
@@ -128,20 +132,31 @@ namespace Ryneus
                     }
                     if (_lastMiniCount == 35)
                     {
+                        if (particlObject != null)
+                        {
+                            particlObject.SetActive(true);
+                        }
+                    }
+                    if (_lastMiniCount == 35)
+                    {
                         PlayTween(fourthTween, miniTiming);
+                    }
+                    if (_lastMiniCount == 37)
+                    {
+                        if (particlObject != null)
+                        {
+                            particlObject.SetActive(false);
+                        }
+                        if (secondImage != null)
+                        {
+                            secondImage.DOFade(1, 0);
+                        }
                     }
                     if (_lastMiniCount == 38)
                     {
                         if (particlObject != null)
                         {
                             particlObject.SetActive(false);
-                        }
-                    }
-                    if (_lastMiniCount == 37)
-                    {
-                        if (secondImage != null)
-                        {
-                            secondImage.DOFade(1, 0);
                         }
                     }
 
@@ -245,6 +260,10 @@ namespace Ryneus
                     {
                         PlayTween(elevenTween, miniTiming);
                         PlayTween(elevenTween2, miniTiming);
+                        if (particlObject != null)
+                        {
+                            particlObject.SetActive(true);
+                        }
                     }
                     _lastMiniCount++;
                 }

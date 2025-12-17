@@ -12,6 +12,7 @@ namespace Ryneus
         public Image MainThumb => mainThumb;
         [SerializeField] private Image awakenThumb;
         public Image AwakenThumb => awakenThumb;
+        [SerializeField] private Image reliefThumb;
         [SerializeField] private Material grayscale;
         [SerializeField] private Image faceThumb;
         public Image FaceThumb => faceThumb;
@@ -169,6 +170,7 @@ namespace Ryneus
             }
             UpdateMainThumb(actorData.ImagePath, actorData.X, actorData.Y, actorData.Scale);
             UpdateAwakenThumb(actorData.ImagePath, actorData.AwakenX, actorData.AwakenY, actorData.AwakenScale);
+            UpdateReliefThumb(actorData.ImagePath);
             UpdateClipThumb(actorData.ImagePath);
             UpdateMainFaceThumb(actorData.ImagePath);
             UpdateAwakenFaceThumb(actorData.ImagePath);
@@ -205,6 +207,16 @@ namespace Ryneus
             rect.localScale = new Vector3(scale, scale, 1);
             awakenThumb.sprite = handle;
             rect.sizeDelta = new Vector3(mainThumb.mainTexture.width, mainThumb.mainTexture.height, 1);
+        }
+
+        private void UpdateReliefThumb(string imagePath)
+        {
+            if (reliefThumb == null)
+            {
+                return;
+            }
+            var handle = ResourceSystem.LoadActorReliefSprite(imagePath);
+            reliefThumb.sprite = handle;
         }
 
         private void UpdateClipThumb(string imagePath)

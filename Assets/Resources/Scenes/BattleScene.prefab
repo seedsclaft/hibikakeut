@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.ActorInfoComponent
   mainThumb: {fileID: 8483535635316524598}
   awakenThumb: {fileID: 0}
+  reliefThumb: {fileID: 0}
   grayscale: {fileID: 0}
   faceThumb: {fileID: 0}
   awakenFaceThumb: {fileID: 0}
@@ -643,7 +644,7 @@ MonoBehaviour:
   lineImage: {fileID: 0}
   skillTypeBgRoot: {fileID: 0}
   type: {fileID: 0}
-  value: {fileID: 0}
+  useCount: {fileID: 0}
   description: {fileID: 8087131676355356565}
   descriptionListObj: {fileID: 0}
   descriptionListTarget: {fileID: 0}
@@ -1364,7 +1365,7 @@ MonoBehaviour:
   lineImage: {fileID: 0}
   skillTypeBgRoot: {fileID: 0}
   type: {fileID: 0}
-  value: {fileID: 0}
+  useCount: {fileID: 0}
   description: {fileID: 0}
   descriptionListObj: {fileID: 0}
   descriptionListTarget: {fileID: 0}
@@ -3141,6 +3142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainThumb: {fileID: 1223425748450664496}
   awakenThumb: {fileID: 6747726565811030458}
+  reliefThumb: {fileID: 0}
   grayscale: {fileID: 0}
   faceThumb: {fileID: 0}
   awakenFaceThumb: {fileID: 0}
@@ -3541,7 +3543,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -133,6 +133,11 @@ namespace Ryneus
             return LoadResource<Sprite>(ActorTexturePath + path + "/Awaken");
         }
 
+        public static Sprite LoadActorReliefSprite(string path)
+        {
+            return LoadResource<Sprite>(ActorTexturePath + path + "/Relief");
+        }
+
         public static Sprite LoadActorAwakenFaceSprite(string path)
         {
             return LoadResource<Sprite>(ActorTexturePath + path + "/AwakenFace");
