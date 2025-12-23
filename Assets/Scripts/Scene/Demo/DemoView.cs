@@ -17,27 +17,18 @@ namespace Ryneus
         [SerializeField] private TweensController thirdTween2;
         [SerializeField] private TweensController fourthTween;
         [SerializeField] private TweensController fifthTween;
-        [SerializeField] private TweensController fifthTween2;
-        [SerializeField] private TweensController fifthTween3;
         [SerializeField] private TweensController fifthTween4;
         [SerializeField] private TweensController sixthTween;
-        [SerializeField] private TweensController sixthTween2;
-        [SerializeField] private TweensController sixthTween3;
         [SerializeField] private TweensController sixthTween4;
         [SerializeField] private TweensController seventhTween;
-        [SerializeField] private TweensController seventhTween2;
-        [SerializeField] private TweensController seventhTween3;
         [SerializeField] private TweensController seventhTween4;
         [SerializeField] private List<TweensController> eighthTweens;
         [SerializeField] private GameObject eighthRoot;
         [SerializeField] private TweensController eighthBgTween;
         [SerializeField] private TweensController ninethTween;
-        [SerializeField] private TweensController ninethTween2;
-        [SerializeField] private TweensController ninethTween3;
         [SerializeField] private TweensController ninethTween4;
         [SerializeField] private TweensController tenthTween;
-        [SerializeField] private TweensController tenthTween2;
-        [SerializeField] private TweensController tenthTween3;
+
         [SerializeField] private TweensController tenthTween4;
         [SerializeField] private TweensController elevenTween;
         [SerializeField] private TweensController elevenTween2;
@@ -164,14 +155,6 @@ namespace Ryneus
                     {
                         PlayTween(fifthTween, miniTiming);
                     }
-                    if (_lastMiniCount == 38)
-                    {
-                        PlayTween(fifthTween2, miniTiming);
-                    }
-                    if (_lastMiniCount == 39)
-                    {
-                        PlayTween(fifthTween3, miniTiming);
-                    }
                     if (_lastMiniCount == 40)
                     {
                         PlayTween(fifthTween4, miniTiming);
@@ -181,14 +164,6 @@ namespace Ryneus
                     {
                         PlayTween(sixthTween, miniTiming);
                     }
-                    if (_lastMiniCount == 42)
-                    {
-                        PlayTween(sixthTween2, miniTiming);
-                    }
-                    if (_lastMiniCount == 43)
-                    {
-                        PlayTween(sixthTween3, miniTiming);
-                    }
                     if (_lastMiniCount == 44)
                     {
                         PlayTween(sixthTween4, miniTiming);
@@ -197,14 +172,6 @@ namespace Ryneus
                     if (_lastMiniCount == 45)
                     {
                         PlayTween(seventhTween, miniTiming);
-                    }
-                    if (_lastMiniCount == 46)
-                    {
-                        PlayTween(seventhTween2, miniTiming);
-                    }
-                    if (_lastMiniCount == 47)
-                    {
-                        PlayTween(seventhTween3, miniTiming);
                     }
                     if (_lastMiniCount == 48)
                     {
@@ -226,14 +193,6 @@ namespace Ryneus
                         eighthRoot.SetActive(false);
                         PlayTween(ninethTween, miniTiming);
                     }
-                    if (_lastMiniCount == 54)
-                    {
-                        PlayTween(ninethTween2, miniTiming);
-                    }
-                    if (_lastMiniCount == 55)
-                    {
-                        PlayTween(ninethTween3, miniTiming);
-                    }
                     if (_lastMiniCount == 56)
                     {
                         PlayTween(ninethTween4, miniTiming);
@@ -242,14 +201,6 @@ namespace Ryneus
                     if (_lastMiniCount == 57)
                     {
                         PlayTween(tenthTween, miniTiming);
-                    }
-                    if (_lastMiniCount == 58)
-                    {
-                        PlayTween(tenthTween2, miniTiming);
-                    }
-                    if (_lastMiniCount == 59)
-                    {
-                        PlayTween(tenthTween3, miniTiming);
                     }
                     if (_lastMiniCount == 60)
                     {
