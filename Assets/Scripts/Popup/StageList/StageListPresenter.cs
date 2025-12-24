@@ -96,28 +96,7 @@ namespace Ryneus
         private void CheckResumeStage(int stageNo, int stageId)
         {
             var resume = _model.GetDungeonResumeInfo(stageNo);
-            if (resume != null)
-            {
-                _busy = true;
-                _view.SetBusy(true);
-                SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(32110), (a) =>
-                {
-                    if (a == ConfirmCommandType.Yes)
-                    {
-                        StartStage(resume.DungeonId.Value, true);
-                    } else
-                    {
-                        StartStage(stageId, false);
-                    }
-                    _busy = false;
-                    _view.SetBusy(false);
-                });
-                confirmInfo.SetSelectIndex(1);
-                _view.CommandCallConfirm(confirmInfo);
-                return;
-            }
-            StartStage(stageId, false);
+            StartStage(resume != null ? resume.DungeonId.Value : stageId, resume != null);
         }
 
         private void StartStage(int stageId, bool resumeStart)

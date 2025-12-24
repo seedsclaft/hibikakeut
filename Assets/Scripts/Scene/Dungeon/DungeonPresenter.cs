@@ -52,7 +52,7 @@ namespace Ryneus
             CommandRefresh();
             // 未読の非表示マスを管理
             _model.AddEventNotFlag();
-            _model.SaveAutoFile();
+            //_model.SaveAutoFile();
             // 移動したあとのイベント
             if (ev)
             {
@@ -695,7 +695,8 @@ namespace Ryneus
             {
                 ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
                 EnemyInfos = _model.ForceBattleTroopInfos(stageEvent.Param, stageEvent.Param3),
-                GetItemInfos = new()
+                GetItemInfos = new(),
+                IsEnableDefeat = stageEvent.Param3 == 1,
             };
             if (stageEvent.Type == StageEventType.ForceBattle)
             {

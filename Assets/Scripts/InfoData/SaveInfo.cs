@@ -13,7 +13,15 @@ namespace Ryneus
         public List<SaveFileInfo> SaveFileInfos => _saveFileInfos;
         public SaveFileInfo AutoSave()
         {
-            return _saveFileInfos.Find(a => a.SaveNo == 0);
+            var autoSave = _saveFileInfos.Find(a => a.SaveNo == 0);
+            if (autoSave == null)
+            {
+                autoSave = new SaveFileInfo
+                {
+                    SaveNo = 0
+                };
+            }
+            return autoSave;
         }
 
         public void PushSaveFile(SaveFileInfo saveFileInfo)

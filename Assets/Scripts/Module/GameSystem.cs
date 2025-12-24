@@ -42,7 +42,7 @@ namespace Ryneus
         private static TutorialData _lastTutorialData = null;
         private bool _busy = false;
         public bool Busy => _busy;
-        public bool TutorialBusy => tutorialView.gameObject.activeSelf;
+        public bool TutorialBusy => tutorialView != null ? tutorialView.gameObject.activeSelf : false;
 
         public static string Version;
         public static DebugBattleData DebugBattleData;

@@ -553,7 +553,7 @@ namespace Ryneus
             {
                 return false;
             }
-            if (GameSystem.Instance.TutorialBusy)
+            if (GameSystem.Instance != null && GameSystem.Instance.TutorialBusy)
             {
                 return false;
             }

@@ -33,13 +33,6 @@ namespace Ryneus
         public void SaveAutoFile()
         {
             var saveFileInfo = CurrentData.AutoSave();
-            if (saveFileInfo == null)
-            {
-                saveFileInfo = new SaveFileInfo
-                {
-                    SaveNo = 0
-                };
-            }
             saveFileInfo.StageNo = CurrentStage.StageId.Value;
             saveFileInfo.SaveTimeLong = DateTime.Now.ToFileTime();
             saveFileInfo.SaveTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
@@ -80,11 +73,6 @@ namespace Ryneus
             var members = StageMembers().FindAll(a => a.BattleIndex.Value >= 0);
             members.Sort((a, b) => a.BattleIndex.Value > b.BattleIndex.Value ? 1 : -1);
             return members;
-        }
-
-        public void SaveTempBattleMembers()
-        {
-            TempInfo.CashBattleActors(BattleMembers());
         }
 
         public List<SkillInfo> SortSkillInfos(List<SkillInfo> skillInfos)
@@ -218,7 +206,6 @@ namespace Ryneus
             }
             return null;
         }
-
 
         public string PlayerName()
         {

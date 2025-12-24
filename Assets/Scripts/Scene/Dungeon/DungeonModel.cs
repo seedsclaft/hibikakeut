@@ -15,7 +15,7 @@ namespace Ryneus
             var sceneParam = (DungeonSceneInfo)GameSystem.SceneStackManager.LastSceneParam;
             if (sceneParam != null)
             {
-                BattleVictory.SetValue(sceneParam.BattleVictory);
+                BattleVictory.SetValue(sceneParam.BattleEnd);
             }
             _moveController = moveController;
         }
@@ -564,6 +564,6 @@ namespace Ryneus
 
     public class DungeonSceneInfo
     {
-        public bool BattleVictory = false;
+        public bool BattleEnd = false;
     }
 }

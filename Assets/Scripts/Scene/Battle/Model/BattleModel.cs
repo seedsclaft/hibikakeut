@@ -2733,6 +2733,15 @@ namespace Ryneus
             return isDefeat;
         }
 
+        public bool IsEnableDefeat()
+        {
+            if (_sceneParam != null)
+            {
+                return _sceneParam.IsEnableDefeat;
+            }
+            return false;
+        }
+
         public bool EnableEscape()
         {
             return false;
@@ -2889,5 +2898,6 @@ namespace Ryneus
         public List<UnitInfo> EnemyUnitInfos;
         public List<GetItemInfo> GetItemInfos;
         public bool BossBattle;
+        public bool IsEnableDefeat;
     }
 }

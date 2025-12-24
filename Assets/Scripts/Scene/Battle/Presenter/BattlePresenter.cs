@@ -491,6 +491,16 @@ namespace Ryneus
             {
                 _view.StartBattleStartAnim(DataSystem.GetText(16110));
                 await UniTask.DelayFrame((int)(150f / GameSystem.OptionData.BattleSpeed));
+                // 敗北可のバトルの場合
+                if (_model.IsEnableDefeat())
+                {
+                    var dungeonSceneInfo = new DungeonSceneInfo
+                    {
+                        BattleEnd = true
+                    };
+                    _view.CommandSceneChange(Scene.Dungeon, dungeonSceneInfo);
+                    return;
+                }
                 _view.CallSystemCommand(Base.CommandType.MapClear);
                 _view.CommandGotoSceneChange(Scene.Title);
                 return;

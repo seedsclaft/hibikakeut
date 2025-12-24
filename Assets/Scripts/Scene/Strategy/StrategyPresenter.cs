@@ -355,7 +355,7 @@ namespace Ryneus
             if (_model.InBattleResult && _model.BattleResultVictory)
             {
                 var dungeonSceneInfo = new DungeonSceneInfo();
-                dungeonSceneInfo.BattleVictory = true;
+                dungeonSceneInfo.BattleEnd = true;
                 _view.CommandSceneChange(Scene.Dungeon, dungeonSceneInfo);
             } else
             {
