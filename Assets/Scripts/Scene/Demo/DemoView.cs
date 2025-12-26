@@ -123,14 +123,14 @@ namespace Ryneus
                     }
                     if (_lastMiniCount == 35)
                     {
+                        PlayTween(fourthTween, miniTiming);
+                    }
+                    if (_lastMiniCount == 35)
+                    {
                         if (particlObject != null)
                         {
                             particlObject.SetActive(true);
                         }
-                    }
-                    if (_lastMiniCount == 35)
-                    {
-                        PlayTween(fourthTween, miniTiming);
                     }
                     if (_lastMiniCount == 37)
                     {
