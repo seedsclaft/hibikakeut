@@ -600,6 +600,9 @@ namespace Ryneus
                 {
                     plusValue = pressed ? _listMoveInputFrame : _listMoveInputFrameFirst;
                 }
+            } else
+            {
+                plusValue = 0;
             }
             ResetInputFrame(plusValue);
         }

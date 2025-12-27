@@ -54,6 +54,7 @@ namespace Ryneus
             _model.AddEventNotFlag();
             //_model.SaveAutoFile();
             // 移動したあとのイベント
+            _view.CallSystemCommand(Base.CommandType.CloseLoading);
             if (ev)
             {
                 return;
@@ -111,8 +112,8 @@ namespace Ryneus
                 case CommandType.Heal:
                     CommandHeal();
                     break;
-                case CommandType.Formation:
-                    CommandFormation();
+                case CommandType.DungeonMap:
+                    CommandDungeonMap();
                     break;
                 case CommandType.UseItem:
                     CommandUseItem();
@@ -1070,7 +1071,7 @@ namespace Ryneus
             }
         }
 
-        private void CommandFormation()
+        private void CommandDungeonMap()
         {
             if (!_model.IsActiveDungeon())
             {

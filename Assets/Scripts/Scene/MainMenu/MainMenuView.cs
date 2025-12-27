@@ -33,7 +33,7 @@ namespace Ryneus
             {
                 CallSideMenu();
             });
-            sideMenuInput.UpdateGuideIcon(InputKeyType.Option2);
+            sideMenuInput.UpdateGuideIcon(InputKeyType.SideRight1);
             if (alcanaInfoButton != null)
             {
                 alcanaInfoButton.OnClickAddListener(() => CallViewEvent(CommandType.Aritifact));
@@ -74,10 +74,10 @@ namespace Ryneus
         {
             commandList.Initialize();
             commandList.SetInputHandler(InputKeyType.Decide, () => CallMainMenuCommand());
-            commandList.SetInputHandler(InputKeyType.SideLeft1, () => CallViewEvent(CommandType.Aritifact));
-            commandList.SetInputHandler(InputKeyType.Option2, () => CallSideMenu());
-            commandList.SetInputHandler(InputKeyType.Option1, () => CallPartyInfo());
-            commandList.SetInputHandler(InputKeyType.SideRight1, () => CallSaveCommand());
+            //commandList.SetInputHandler(InputKeyType.SideLeft1, () => CallViewEvent(CommandType.Aritifact));
+            commandList.SetInputHandler(InputKeyType.SideRight1, () => CallSideMenu());
+            commandList.SetInputHandler(InputKeyType.Option2, () => CallPartyInfo());
+            commandList.SetInputHandler(InputKeyType.Option1, () => CallSaveCommand());
             AddViewActives(commandList);
         }
 

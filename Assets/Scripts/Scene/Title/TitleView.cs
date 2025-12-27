@@ -21,7 +21,7 @@ namespace Ryneus
             {
                 CallSideMenu();
             });
-            sideMenuInput.UpdateGuideIcon(InputKeyType.Option2);
+            sideMenuInput.UpdateGuideIcon(InputKeyType.SideRight1);
             _ = new TitlePresenter(this);
         }
 
@@ -34,7 +34,7 @@ namespace Ryneus
         {
             titleCommandList.Initialize();
             titleCommandList.SetInputHandler(InputKeyType.Decide, OnClickTitle);
-            titleCommandList.SetInputHandler(InputKeyType.Option2, CallSideMenu);
+            titleCommandList.SetInputHandler(InputKeyType.SideRight1, CallSideMenu);
             AddViewActives(titleCommandList);
         }
 
@@ -61,7 +61,7 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
+            if (InputSystem.GetInputDate(InputKeyType.SideLeft2).IsDownTrigger())
             {
                 CommandSceneChange(Scene.Demo);
             }

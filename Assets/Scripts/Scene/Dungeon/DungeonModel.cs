@@ -509,13 +509,13 @@ namespace Ryneus
                 Key = "Status"
             };
             list.Add(status);
-            var artifact = new SystemData.CommandData
+            var saveCommand = new SystemData.CommandData
             {
-                Id = 1,
-                Name = DataSystem.GetText(37000),
-                Key = "Artifact"
+                Id = 4,
+                Name = DataSystem.GetText(19104),
+                Key = "Save"
             };
-            list.Add(artifact);
+            list.Add(saveCommand);
             var @return = new SystemData.CommandData
             {
                 Id = 1,
@@ -530,6 +530,13 @@ namespace Ryneus
                 Key = "Option"
             };
             list.Add(option);
+            var artifact = new SystemData.CommandData
+            {
+                Id = 1,
+                Name = DataSystem.GetText(37000),
+                Key = "Artifact"
+            };
+            list.Add(artifact);
             var menuCommand = new SystemData.CommandData
             {
                 Id = 3,
@@ -544,13 +551,6 @@ namespace Ryneus
                 Key = "Dictionary"
             };
             list.Add(dictionaryCommand);
-            var saveCommand = new SystemData.CommandData
-            {
-                Id = 4,
-                Name = DataSystem.GetText(19104),
-                Key = "Save"
-            };
-            list.Add(saveCommand);
             var titleCommand = new SystemData.CommandData
             {
                 Id = 5,

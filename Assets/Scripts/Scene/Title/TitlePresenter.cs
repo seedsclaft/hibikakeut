@@ -177,10 +177,12 @@ namespace Ryneus
         private void CommandSelectSideMenu()
         {
             _busy = true;
+            _view.SetBusy(true);
             CommandCallSideMenu(MakeListData(_model.SideMenu(), 0), () =>
             {
-                CommandRefresh();
                 _busy = false;
+                _view.SetBusy(false);
+                CommandRefresh();
             });
         }
 

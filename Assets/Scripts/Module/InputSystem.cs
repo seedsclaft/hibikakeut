@@ -115,12 +115,12 @@ namespace Ryneus
             UpdateInputGamePadData(InputKeyType.Right, gamePad.dpad.right, null);
             UpdateInputGamePadData(InputKeyType.Decide, gamePad.bButton, null);
             UpdateInputGamePadData(InputKeyType.Cancel, gamePad.aButton, null);
-            UpdateInputGamePadData(InputKeyType.Option1, gamePad.yButton, null);
-            UpdateInputGamePadData(InputKeyType.Option2, gamePad.xButton, null);
-            UpdateInputGamePadData(InputKeyType.SideLeft1, gamePad.leftTrigger, null);
-            UpdateInputGamePadData(InputKeyType.SideRight1, gamePad.rightTrigger, null);
-            UpdateInputGamePadData(InputKeyType.SideLeft2, gamePad.leftShoulder, null);
-            UpdateInputGamePadData(InputKeyType.SideRight2, gamePad.rightShoulder, null);
+            UpdateInputGamePadData(InputKeyType.Option1, gamePad.xButton, null);
+            UpdateInputGamePadData(InputKeyType.Option2, gamePad.yButton, null);
+            UpdateInputGamePadData(InputKeyType.SideLeft2, gamePad.leftTrigger, null);
+            UpdateInputGamePadData(InputKeyType.SideRight2, gamePad.rightTrigger, null);
+            UpdateInputGamePadData(InputKeyType.SideLeft1, gamePad.leftShoulder, null);
+            UpdateInputGamePadData(InputKeyType.SideRight1, gamePad.rightShoulder, null);
             UpdateInputGamePadData(InputKeyType.Start, gamePad.startButton, null);
             UpdateInputGamePadData(InputKeyType.Select, gamePad.selectButton, null);
             UpdateInputStickGamePadData(InputKeyType.LeftStickUp, gamePad.leftStick);
@@ -329,21 +329,21 @@ namespace Ryneus
 
 
             // L1,R1
-            if (gamePad.leftTrigger.wasPressedThisFrame)
+            if (gamePad.leftShoulder.wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.SideLeft1);
             }
-            if (gamePad.rightTrigger.wasPressedThisFrame)
+            if (gamePad.rightShoulder.wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.SideRight1);
             }
 
             // L2,R2
-            if (gamePad.leftShoulder.isPressed)
+            if (gamePad.leftTrigger.wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.SideLeft2);
             }
-            if (gamePad.rightShoulder.isPressed)
+            if (gamePad.rightTrigger.wasPressedThisFrame)
             {
                 keyTypes.Add(InputKeyType.SideRight2);
             }
@@ -363,6 +363,10 @@ namespace Ryneus
             if (gamePad.leftStick.value.x > 0)
             {
                 keyTypes.Add(InputKeyType.LeftStickRight);
+            }
+            foreach (var keyType in keyTypes)
+            {
+                LogOutput.Log(keyType);
             }
             return keyTypes;
         }
@@ -447,7 +451,7 @@ namespace Ryneus
         RightStickDown,
         RightStickLeft,
         RightStickRight,
-        Select,
+        Select = 13,
         UpLeft,
         UpRight,
         DownLeft,

@@ -52,7 +52,7 @@ namespace Ryneus
             {
                 formationButton.OnClickAddListener(() =>
                 {
-                    CallFormation();
+                    CallDungeonMap();
                 });
             }
             if (useItemButton != null)
@@ -70,7 +70,7 @@ namespace Ryneus
             {
                 CallSideMenu();
             });
-            sideMenuInput.UpdateGuideIcon(InputKeyType.Option2);
+            sideMenuInput.UpdateGuideIcon(InputKeyType.SideRight1);
             CommandRefresh();
             _ = new DungeonPresenter(this);
         }
@@ -117,13 +117,13 @@ namespace Ryneus
             partyUnitList.UpdateSelectIndexList(targetIndexes);
         }
 
-        private void CallFormation()
+        private void CallDungeonMap()
         {
             if (partyUnitList.Active)
             {
                 return;
             }
-            CallViewEvent(CommandType.Formation);
+            CallViewEvent(CommandType.DungeonMap);
         }
 
         private void CallSideMenu()
@@ -162,21 +162,21 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            if (InputSystem.GetInputDate(InputKeyType.SideRight1).IsDownTrigger())
+            if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
             {
                 CallViewEvent(CommandType.Heal);
             }
-            if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
+            if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
             {
                 CallViewEvent(CommandType.UseItem);
             }
-            if (keyTypes.Contains(InputKeyType.Option2))
+            if (keyTypes.Contains(InputKeyType.SideRight1))
             {
                 CallSideMenu();
             } else
-            if (keyTypes.Contains(InputKeyType.Option1))
+            if (keyTypes.Contains(InputKeyType.Option2))
             {
-                CallFormation();
+                CallDungeonMap();
             } else
             if (keyTypes.Contains(InputKeyType.Decide))
             {
@@ -366,7 +366,7 @@ namespace Ryneus
             CheckRemainTurn,
             Heal,
             UseItemHeal,
-            Formation,
+            DungeonMap,
             UseItem,
             SelectCharacter,
             EndFormation,

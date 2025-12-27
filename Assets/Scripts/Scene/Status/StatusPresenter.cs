@@ -535,7 +535,7 @@ namespace Ryneus
             _model.ChangeActorIndex(-1);
             CommandRefreshMagicList();
             CommandRefresh();
-            await UniTask.DelayFrame(16);
+            //await UniTask.DelayFrame(16);
             _busy = false;
         }
 
@@ -551,7 +551,7 @@ namespace Ryneus
             _model.ChangeActorIndex(1);
             CommandRefreshMagicList();
             CommandRefresh();
-            await UniTask.DelayFrame(16);
+            //await UniTask.DelayFrame(16);
             _busy = false;
         }
 

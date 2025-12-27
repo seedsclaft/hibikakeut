@@ -110,7 +110,7 @@ namespace Ryneus
             // 初回はRank20
             // 2回目以降はRank30
             var limitRank = 20;
-            if (PartyInfo.ActorInfos.Count > 2)
+            if (PartyInfo.ActorInfos.Count >= 2)
             {
                 limitRank = 30;
             }
@@ -125,10 +125,10 @@ namespace Ryneus
                 }
                 actorInfos.Add(new ActorInfo(actorDate.Value));
             }
-            // 3名までに絞る
-            if (actorInfos.Count > 3)
+            // 2名までに絞る
+            if (actorInfos.Count > 2)
             {
-                var minusCount = actorInfos.Count - 3;
+                var minusCount = actorInfos.Count - 2;
                 var removedIds = new List<int>();
                 while (minusCount != 0)
                 {

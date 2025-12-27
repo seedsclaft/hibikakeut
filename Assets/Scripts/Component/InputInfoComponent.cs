@@ -19,7 +19,7 @@ namespace Ryneus
             {
                 guideText.text = inputData.Name;
                 var sizeDelta = guideText.GetComponent<RectTransform>().sizeDelta;
-                guideText.GetComponent<RectTransform>().sizeDelta = new Vector2(guideText.preferredWidth,sizeDelta.y);
+                guideText.GetComponent<RectTransform>().sizeDelta = new Vector2(guideText.preferredWidth, sizeDelta.y);
             }
             if (inputData.Name == "\"\"")
             {
@@ -30,7 +30,7 @@ namespace Ryneus
                 {
                     space = -4;
                 }
-                guideText.GetComponent<RectTransform>().sizeDelta = new Vector2(space,sizeDelta.y);
+                guideText.GetComponent<RectTransform>().sizeDelta = new Vector2(space, sizeDelta.y);
             }
             if (guideIcon != null)
             {

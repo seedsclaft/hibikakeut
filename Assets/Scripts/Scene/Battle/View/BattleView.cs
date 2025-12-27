@@ -753,11 +753,11 @@ namespace Ryneus
             {
                 CallViewEvent(CommandType.DecideBattle);
             } else
-            if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
+            if (InputSystem.GetInputDate(InputKeyType.Option2).IsDownTrigger())
             {
                 CallViewEvent(CommandType.Formation);
             } else
-            if (InputSystem.GetInputDate(InputKeyType.Option2).IsDownTrigger())
+            if (InputSystem.GetInputDate(InputKeyType.Select).IsDownTrigger())
             {
                 if (!battleAutoButton.gameObject.activeSelf)
                 {
