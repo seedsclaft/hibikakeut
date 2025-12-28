@@ -76,7 +76,7 @@ namespace Ryneus
 
         private void CommandDecideTrade()
         {
-            if (_model.GetTradeItems.Count == 0)
+            if (_model.IsNotSelectTradeItem())
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var cautionInfo = new CautionInfo();

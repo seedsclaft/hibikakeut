@@ -241,7 +241,7 @@ namespace Ryneus
         {
             _model.SetSelectSkillInfo(null);
             _view.CallEquipSkillList();
-            CommandRefreshMagicList();
+            CommandRefreshMagicList(false);
         }
 
         private void CommandShowUseItem()
@@ -297,7 +297,7 @@ namespace Ryneus
                 CheckAchievements();
                 _busy = false;
                 _view.SetBusy(false);
-                CommandRefreshMagicList();
+                CommandRefreshMagicList(false);
             });
             CommandRefreshuseItemList();
         }
@@ -312,7 +312,7 @@ namespace Ryneus
                 CheckAchievements();
                 _busy = false;
                 _view.SetBusy(false);
-                CommandRefreshMagicList();
+                CommandRefreshMagicList(false);
             });
             CommandRefreshuseItemList();
         }
@@ -349,7 +349,7 @@ namespace Ryneus
                     CheckAchievements();
                     _busy = false;
                     _view.SetBusy(false);
-                    CommandRefreshMagicList();
+                    CommandRefreshMagicList(false);
                 },
                 template = ClassChangeInfo
             };
@@ -533,7 +533,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             SaveSelectedSkillId();
             _model.ChangeActorIndex(-1);
-            CommandRefreshMagicList();
+            CommandRefreshMagicList(true);
             CommandRefresh();
             //await UniTask.DelayFrame(16);
             _busy = false;
@@ -549,7 +549,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             SaveSelectedSkillId();
             _model.ChangeActorIndex(1);
-            CommandRefreshMagicList();
+            CommandRefreshMagicList(true);
             CommandRefresh();
             //await UniTask.DelayFrame(16);
             _busy = false;
@@ -566,10 +566,10 @@ namespace Ryneus
             _view.CommandRefresh();
         }
 
-        private void CommandRefreshMagicList()
+        private void CommandRefreshMagicList(bool resetListIndex)
         {
             CommandRefresh();
-            _view.SetEquipSkillList(MakeListData(_model.EquipSkills(), 0));
+            _view.SetEquipSkillList(MakeListData(_model.EquipSkills(), 0), resetListIndex);
         }
 
         private void SaveSelectedSkillId()

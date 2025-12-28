@@ -176,5 +176,17 @@ namespace Ryneus
             }
             return PartyInfo.OwnItemCount(tradeItemInfo.GetItemInfo.Param1);
         }
+
+        public bool IsNotSelectTradeItem()
+        {
+            foreach (var getTradeItem in _getTradeItems)
+            {
+                if (getTradeItem.Value > 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

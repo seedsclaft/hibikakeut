@@ -106,9 +106,9 @@ namespace Ryneus
             AddViewActives(equipSkillList);
         }
 
-        public void SetEquipSkillList(List<ListData> skillInfos)
+        public void SetEquipSkillList(List<ListData> skillInfos, bool resetListIndex)
         {
-            equipSkillList.SetData(skillInfos, false);
+            equipSkillList.SetData(skillInfos, resetListIndex);
         }
 
         public void SetActorInfo(ActorInfo actorInfo, List<ActorInfo> partyInfo)

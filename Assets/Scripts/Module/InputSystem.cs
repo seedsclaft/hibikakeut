@@ -366,7 +366,7 @@ namespace Ryneus
             }
             foreach (var keyType in keyTypes)
             {
-                LogOutput.Log(keyType);
+                //LogOutput.Log(keyType);
             }
             return keyTypes;
         }

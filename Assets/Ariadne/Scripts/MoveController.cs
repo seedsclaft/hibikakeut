@@ -61,6 +61,7 @@ namespace Ariadne
 
         Vector3 unitSize;
 
+        [SerializeField]
         List<GameObject> mapParts;
         bool isExecutingEvent = false;
         bool isEventReady = false;
@@ -242,12 +243,14 @@ namespace Ariadne
         /// </Summary>
         protected virtual void SetMapObjList()
         {
+            /*
             GameObject mapBackground = GameObject.Find(AriadneMapPartsName.MapBackground);
             GameObject mapBase = GameObject.Find(AriadneMapPartsName.MapBase);
             GameObject mapHall = GameObject.Find(AriadneMapPartsName.MapHall);
             GameObject mapIcon = GameObject.Find(AriadneMapPartsName.MapIcon);
             GameObject mapGrid = GameObject.Find(AriadneMapPartsName.MapGrid);
             mapParts = new List<GameObject>(){mapBackground, mapBase, mapHall, mapIcon, mapGrid};
+            */
         }
 
         /// <Summary>

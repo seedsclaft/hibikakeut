@@ -557,7 +557,11 @@ namespace Ryneus
             {
                 return false;
             }
-            if (_inputBusyFrame > 0 || !_active || !gameObject || !gameObject.activeSelf)
+            if (!_active || !gameObject || !gameObject.activeSelf)
+            {
+                return false;
+            }
+            if (_inputBusyFrame > 0)
             {
                 return false;
             }
@@ -579,6 +583,10 @@ namespace Ryneus
             if (keyTypes == null)
             {
                 //ResetInputOneFrame();
+            }
+            if (_inputBusyFrame > 0 && keyTypes.Count == 0)
+            {
+                _inputBusyFrame = 0;
             }
             if (!IsInputEnable())
             {
