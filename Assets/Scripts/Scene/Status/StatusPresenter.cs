@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Ryneus.Status;
+using Unity.VisualScripting;
 
 namespace Ryneus
 {
@@ -246,9 +247,34 @@ namespace Ryneus
 
         private void CommandShowUseItem()
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _busy = true;
             _view.CallUseItemList();
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var useItemSceneInfo = new UseItemSceneInfo();
+            useItemSceneInfo.UsableItemTypes = new()
+            {
+                UseItemType.Exp,
+                UseItemType.AttributeUp,
+                UseItemType.ClassChange,
+                UseItemType.StatusUp
+            };
+            useItemSceneInfo.CurrentActor = _model.CurrentActor;
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.UseItem,
+                template = useItemSceneInfo,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    _view.CallEquipSkillList();
+                    CommandRefresh();
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }
+            };
+            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
+            /*
             CommandRefreshuseItemList();
+            */
         }
 
         private void CommandUseItem(ItemInfo itemInfo)

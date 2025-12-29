@@ -1106,10 +1106,17 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
             _model.DungeonBusy(true);
+            var useItemSceneInfo = new UseItemSceneInfo();
+            useItemSceneInfo.UsableItemTypes = new()
+            {
+                UseItemType.Heal,
+                UseItemType.DungeonTurn,
+                UseItemType.EncountRate
+            };
             var popupInfo = new PopupInfo
             {
                 PopupType = PopupType.UseItem,
-                template = null,
+                template = useItemSceneInfo,
                 EndEvent = () =>
                 {
                     _busy = false;

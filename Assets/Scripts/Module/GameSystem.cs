@@ -104,6 +104,7 @@ namespace Ryneus
             {
                 return;
             }
+            LogOutput.Log(viewEvent.ViewCommandType.CommandType);
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case Base.CommandType.SceneChange:
@@ -327,7 +328,7 @@ namespace Ryneus
             if (first)
             {
                 baseView.SetEvent((type) => UpdateCommand(type));
-                if (popupInfo.PopupType == PopupType.UseItem)
+                if (popupInfo.PopupType == PopupType.UseItem && _sceneStackManager.Current == Scene.Dungeon)
                 {
                     baseView.SetEvent(_currentScene.gameObject.GetComponent<BaseView>()._commandData);
                 }

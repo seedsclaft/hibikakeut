@@ -233,6 +233,11 @@ namespace Ryneus
             return list;
         }
 
+        public List<ItemInfo> GetOwnUseItemInfos(List<UseItemType> itemTypes)
+        {
+            return UseItemInfos().FindAll(a => itemTypes.Contains((UseItemType)a.Master.Param1));
+        }
+
         public List<ItemInfo> GetOwnItemInfos(ItemType itemType)
         {
             var list = new List<ItemInfo>();

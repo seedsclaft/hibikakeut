@@ -76,6 +76,18 @@ namespace Ryneus
                 case (int)UseItemType.Heal:
                     UseItemHeal(itemInfo);
                     break;
+                case (int)UseItemType.Exp:
+                    UseItemExp(itemInfo);
+                    break;
+                case (int)UseItemType.AttributeUp:
+                    UseItemAttributeUp(itemInfo);
+                    break;
+                case (int)UseItemType.StatusUp:
+                    UseItemStatusUp(itemInfo);
+                    break;
+                case (int)UseItemType.ClassChange:
+                    UseItemClassChange(itemInfo);
+                    break;
             }
             CommandRefresh();
         }
@@ -139,6 +151,81 @@ namespace Ryneus
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
             _view.UseItemHeal(heal);
+        }
+
+        private void UseItemExp(ItemInfo itemInfo)
+        {
+            var getExp = itemInfo.Master.Param2;
+            if (_model.CurrentActor.Level <= itemInfo.Master.Param3)
+            {
+                getExp *= 2;
+            }
+            _busy = true;
+            _view.SetBusy(true);
+            _model.PartyInfo.PartyStatInfo.TacticsLvupCount.GainValue(1);
+            CommandExpUp(_model.CurrentActor, getExp, () =>
+            {
+                CheckAchievements();
+                _busy = false;
+                _view.SetBusy(false);
+                //CommandRefreshMagicList(false);
+            });
+            //CommandRefreshuseItemList();
+        }
+
+        private void UseItemAttributeUp(ItemInfo itemInfo)
+        {
+            var getAttibute = (AttributeType)itemInfo.Master.Param2;
+            _busy = true;
+            _view.SetBusy(true);
+            CommandAttributeUp(_model.CurrentActor, getAttibute, () =>
+            {
+                CheckAchievements();
+                _busy = false;
+                _view.SetBusy(false);
+                //CommandRefreshMagicList(false);
+            });
+            //CommandRefreshuseItemList();
+        }
+
+        private void UseItemStatusUp(ItemInfo itemInfo)
+        {
+            var statusType = (StatusParamType)itemInfo.Master.Param2;
+            _busy = true;
+            _view.SetBusy(true);
+            CommandStatusUp(_model.CurrentActor, statusType, itemInfo.Master.Param2, () =>
+            {
+                CheckAchievements();
+                _busy = false;
+                _view.SetBusy(false);
+                CommandRefresh();
+            });
+            //CommandRefreshuseItemList();
+        }
+
+        private void UseItemClassChange(ItemInfo itemInfo)
+        {
+            _busy = true;
+            _view.SetBusy(true);
+            SoundManager.Instance.PlayStaticSe(SEType.LevelUp);
+            var beforeStatus = new StatusInfo();
+            beforeStatus.SetParameter(_model.CurrentActor.CurrentStatus);
+            var ClassChangeInfo = new ClassChangeInfo(_model.CurrentActor, beforeStatus);
+            _model.CurrentActor.IsClassChenged.SetValue(true);
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.ClassChange,
+                EndEvent = () =>
+                {
+                    CheckAchievements();
+                    _busy = false;
+                    _view.SetBusy(false);
+                    //CommandRefreshMagicList(false);
+                },
+                template = ClassChangeInfo
+            };
+            _view.CommandCallPopup(popupInfo);
+            //CommandRefreshuseItemList();
         }
 
         private void CommandBack()
