@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UtageExtensions;
 
 namespace Ryneus
 {
@@ -377,6 +378,27 @@ namespace Ryneus
                 return gridLayoutGroup.constraintCount;
             }
             return rows > 0 ? rows : 1;
+        }
+
+        private float ItemSpaceTop(bool isHorizontal)
+        {
+            if (isHorizontal)
+            {
+                var horizontal = GetComponentInChildren<HorizontalLayoutGroup>();
+                if (horizontal != null)
+                {
+                    return horizontal.padding.left;
+                }
+            }
+            else
+            {
+                var vertical = GetComponentInChildren<VerticalLayoutGroup>();
+                if (vertical != null)
+                {
+                    return vertical.padding.top;
+                }
+            }
+            return 0;
         }
 
         private float ItemSpace(bool isHorizontal)
@@ -858,21 +880,84 @@ namespace Ryneus
                 UpdateGridScrollRect(keyTypes);
                 return;
             }
+            if (_horizontal)
+            {
+                // 並行は未実装
+                return;
+            }
             var plusKey = GetPlusKey();
             var minusKey = GetMinusKey();
             var selectItem = _objectList[_index];
             var itemPosition = Math.Round(GetCornerPosition(selectItem, 0, false));
             float verticalCount = GetVerticalCount();
-            var p = ObjectListCount - verticalCount;
-            var verticalNormalizedPosition = -1f;
+            var positionY = 0f;
+            var viewPortPosition = Math.Round(GetCornerPosition(_scrollRect.viewport.gameObject, 0, false));
+            var update = false;
+            if (keyTypes.Contains(plusKey))
+            {
+                // 位置を更新する
+                if (itemPosition < viewPortPosition)
+                {
+                    // 最下段
+                    if (_index == _listDates.Count - 1)
+                    {
+                        positionY = ScrollRect.content.GetHeight() - ScrollRect.viewport.GetHeight();
+                    }
+                    else
+                    {
+                        var c = _index - verticalCount + 1;
+                        positionY = c * (_itemSize.y + ItemSpace(false));
+                    }
+                    update = true;
+                }
+                else
+                if (warpMode && _index == 0)
+                {
+                    positionY = 0;
+                    update = true;
+                }
+            }
+            else
+            if (keyTypes.Contains(minusKey))
+            {
+                // 位置を更新する
+                if (itemPosition >= (GetViewPortHeight() + viewPortPosition - _itemSize.y))
+                {
+                    var c = _index;
+                    positionY = c * (_itemSize.y + ItemSpace(false));
+                    update = true;
+                }
+                else
+                if (warpMode && _index == _listDates.Count - 1)
+                {
+                    positionY = ScrollRect.content.GetHeight() - ScrollRect.viewport.GetHeight();
+                    update = true;
+                }
+            }
+            if (!update)
+            {
+                return;
+            }
+            ScrollRect.content.SetAnchoredPositionY(positionY);
+            //ScrollRect.content.localPosition = new Vector2(0, positionY);
+            /*
             if (!_horizontal)
             {
+                // 最上部
+                if (_index == 0)
+                {
+                    ScrollRect.content.localPosition = new Vector2(0, 0);
+                    return;
+                }
                 var viewPortPosition = Math.Round(GetCornerPosition(_scrollRect.viewport.gameObject, 0, false));
                 if (keyTypes.Contains(plusKey))
                 {
+                    // 位置を更新する
                     if (itemPosition < viewPortPosition)
                     {
                         var c = _index - verticalCount + 1;
+                        ScrollRect.content.localPosition = new Vector2(0, c * (_itemSize.y + ItemSpace(false)));
+                        /*
                         var per = 1f - (c / p);
 
                         // 均等に収まらないリストのズレを直す
@@ -889,7 +974,8 @@ namespace Ryneus
                     {
                         verticalNormalizedPosition = 1;
                     }
-                } else
+                }
+                else
                 if (keyTypes.Contains(minusKey))
                 {
                     /*
@@ -901,9 +987,12 @@ namespace Ryneus
                     Debug.Log("itemPosition = " + ip);
                     Debug.Log("viewPortPosition = " + vp);
                     */
+                    /*
                     if (itemPosition >= (GetViewPortHeight() + viewPortPosition - _itemSize.y))
                     {
                         var c = _index;
+                        ScrollRect.content.localPosition = new Vector2(0, c * (_itemSize.y + ItemSpace(false)));
+                        return;
                         var per = 1f - (c / p);
 
                         if (!IsExtraHeightRectSize(verticalCount))
@@ -921,10 +1010,7 @@ namespace Ryneus
                     }
                 }
             }
-            if (verticalNormalizedPosition >= 0)
-            {
-                ScrollRect.verticalNormalizedPosition = verticalNormalizedPosition;
-            }
+            */
         }
 
         /// <summary>
@@ -950,33 +1036,21 @@ namespace Ryneus
                 UpdateGridScrollRect(selectIndex);
                 return;
             }
-            var listCount = ListItemCount();
-            var dataCount = _listDates.Count;
-            // 表示可能な最下部
-            var lastIndex = listCount - 2;
-            var listIndex = 0;
-            if (/*dataCount > listCount && */selectIndex > lastIndex)
+            if (!update)
             {
-                // 移動する数
-                listIndex = selectIndex - lastIndex + 1;
+                return;
             }
-            if (update)
+            float visibleCount = _horizontal ? GetHorizonalCount() : GetVerticalCount();
+            var p = ObjectListCount - visibleCount;
+            if (p == 0)
             {
-                float visibleCount = _horizontal ? GetHorizonalCount() : GetVerticalCount();
-                var p = ObjectListCount - visibleCount;
-                if (p == 0)
-                {
-                    return;
-                }
-                var c = _index - visibleCount + 1;
-                float per = 1f - (c / p);
-                if (_index == -1 || per > 1)
-                {
-                    per = 1;
-                }
-                //var per = (float)1 / (dataCount - listCount);
-                //var normalizedPosition = 1 - per * (selectIndex - listCount + 1);
-                ScrollRect.normalizedPosition = _horizontal ? new Vector2(per, 0) : new Vector2(0, per);
+                return;
+            }
+            var c = _index - visibleCount + 1;
+            if (_horizontal)
+            {
+                var positionY = c * (_itemSize.y + ItemSpace(false));
+                ScrollRect.content.SetAnchoredPositionY(positionY);
             }
         }
 

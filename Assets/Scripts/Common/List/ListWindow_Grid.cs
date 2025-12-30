@@ -10,6 +10,7 @@ namespace Ryneus
     {
         [SerializeField] private bool _grid = false;
         private int _gridColumnCount = 16;
+        private int _calcVerticalCount = -1;
         public void SetGridColumnCount(int columnCount)
         {
             _gridColumnCount = columnCount;
@@ -23,10 +24,29 @@ namespace Ryneus
 
         public int GetVerticalCount()
         {
+            if (_calcVerticalCount != -1)
+            {
+                return _calcVerticalCount;
+            }
             var height = GetViewPortHeight();
             var listMargin = ListMargin(false);
-            var space = ItemSpace(false);
-            return (int)Math.Floor((height - listMargin) / (_itemSize.y + space));
+            height -= listMargin;
+            var itemHeight = 0f;
+            var count = 0;
+            while (itemHeight < height)
+            {
+                if (count == 0)
+                {
+                    itemHeight += _itemSize.y;
+                }
+                else
+                {
+                    itemHeight += _itemSize.y + ItemSpace(false);
+                }
+                count++;
+            }
+            _calcVerticalCount = count;
+            return count;
         }
 
         public int GetHorizonalCount()
