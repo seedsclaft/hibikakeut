@@ -63,6 +63,17 @@ namespace Ryneus
             GameSystem.OptionData = new SaveOptionInfo();
         }
 
+        public void UpdateOptionData()
+        {
+            GameSystem.OptionData.UpdateSoundParameter(
+                SoundManager.Instance.BgmVolume,
+                SoundManager.Instance.BGMMute,
+                SoundManager.Instance.SeVolume,
+                SoundManager.Instance.SeMute
+            );
+            SaveSystem.SaveOptionStart(GameSystem.OptionData);
+        }
+
         public List<ActorInfo> StageMembers()
         {
             return PartyInfo.ActorInfos;

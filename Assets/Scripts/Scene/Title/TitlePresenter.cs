@@ -138,18 +138,12 @@ namespace Ryneus
             {
                 IsLoad = true
             };
-            var popupInfo = new PopupInfo()
+            CallPopupView(PopupType.FileList, () =>
             {
-                PopupType = PopupType.FileList,
-                EndEvent = () =>
-                {
-                    _view.SetBusy(false);
-                    _busy = false;
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                },
-                template = sceneParam
-            };
-            _view.CommandCallPopup(popupInfo);
+                _view.SetBusy(false);
+                _busy = false;
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            }, sceneParam);
         }
 
         private void CommandOption()
@@ -157,8 +151,9 @@ namespace Ryneus
             _busy = true;
             _view.SetBusy(true);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            _view.CommandCallOption(() =>
+            CallPopupView(PopupType.Option, () =>
             {
+                _model.UpdateOptionData();
                 _view.SetBusy(false);
                 _busy = false;
                 CommandRefresh();

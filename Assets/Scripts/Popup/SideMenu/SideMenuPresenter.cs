@@ -165,27 +165,21 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
-            var popupInfo = new PopupInfo
+            CallPopupView(PopupType.ArtifactList, () =>
             {
-                PopupType = PopupType.ArtifactList,
-                template = null,
-                EndEvent = () =>
-                {
-                    ClosePopup();
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                }
-            };
-            _view.CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
+                ClosePopup();
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            });
         }
 
         private void CommandOption()
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            _view.CommandCallOption(() =>
+            CallPopupView(PopupType.Option, () =>
             {
+                _model.UpdateOptionData();
                 ClosePopup();
-                //_view.CommandGameSystem(Base.CommandType.ClosePopup);
             });
         }
 
@@ -218,16 +212,11 @@ namespace Ryneus
         {
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var popupInfo = new PopupInfo
+            CallPopupView(PopupType.Ruling, () =>
             {
-                PopupType = PopupType.Ruling,
-                EndEvent = () =>
-                {
-                    ClosePopup();
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                }
-            };
-            _view.CommandCallPopup(popupInfo);
+                ClosePopup();
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            });
         }
 
         public void CommandSave()
@@ -238,31 +227,20 @@ namespace Ryneus
             {
                 IsLoad = false
             };
-            var popupInfo = new PopupInfo()
+            CallPopupView(PopupType.FileList, () =>
             {
-                PopupType = PopupType.FileList,
-                EndEvent = () =>
-                {
-                    ClosePopup();
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                },
-                template = sceneParam
-            };
-            _view.CommandCallPopup(popupInfo);
+                ClosePopup();
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            }, sceneParam);
         }
 
         private void CommandCredit()
         {
             _busy = true;
-            var popupInfo = new PopupInfo
+            CallPopupView(PopupType.Credit, () =>
             {
-                PopupType = PopupType.Credit,
-                EndEvent = () =>
-                {
-                    ClosePopup();
-                }
-            };
-            _view.CommandCallPopup(popupInfo);
+                ClosePopup();
+            });
         }
 
         private void CommandInitializeData()
@@ -357,15 +335,10 @@ namespace Ryneus
         private void CommandDictionary()
         {
             _busy = true;
-            var popupInfo = new PopupInfo
+            CallPopupView(PopupType.Dictionary, () =>
             {
-                PopupType = PopupType.Dictionary,
-                EndEvent = () =>
-                {
-                    ClosePopup();
-                }
-            };
-            _view.CommandCallPopup(popupInfo);
+                ClosePopup();
+            });
         }
 
         private void ClosePopup()

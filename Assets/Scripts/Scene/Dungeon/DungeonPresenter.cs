@@ -933,16 +933,10 @@ namespace Ryneus
             _busy = true;
             var skillId = item.Param1;
             var learnSkillInfo = new LearnSkillInfo(0, 0, new SkillInfo(skillId));
-            var popupInfo = new PopupInfo
+            CallLearnSkillPopupView(() =>
             {
-                PopupType = PopupType.LearnSkill,
-                EndEvent = () =>
-                {
-                    PresentArtifact(item.Id);
-                },
-                template = learnSkillInfo
-            };
-            _view.CommandCallPopup(popupInfo);
+                PresentArtifact(item.Id);
+            }, learnSkillInfo);
         }
 
         private void PresentArtifact(int itemId)
@@ -1012,20 +1006,15 @@ namespace Ryneus
             }
             var learnSkillInfo = new LearnSkillInfo(0, 0, new SkillInfo(skillId));
             SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
-            var popupInfo = new PopupInfo
+
+            CallLearnSkillPopupView(() =>
             {
-                PopupType = PopupType.LearnSkill,
-                EndEvent = () =>
-                {
-                    var getItemInfo = _model.MakeGetItemInfo(GetItemType.Skill, skill.Id);
-                    _model.AddGetItemInfo(getItemInfo);
-                    _busy = false;
-                    CommandRefresh();
-                    _model.DungeonBusy(false);
-                },
-                template = learnSkillInfo
-            };
-            _view.CommandCallPopup(popupInfo);
+                var getItemInfo = _model.MakeGetItemInfo(GetItemType.Skill, skill.Id);
+                _model.AddGetItemInfo(getItemInfo);
+                _busy = false;
+                CommandRefresh();
+                _model.DungeonBusy(false);
+            }, learnSkillInfo);
         }
 
         private void CommandCallAddActorInfo(List<int> limitRanks)
@@ -1079,22 +1068,16 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.DungeonBusy(true);
-            //_view.StartFormation();
-            var popupInfo = new PopupInfo
+            
+            CallPopupView(PopupType.DungeonMap, () =>
             {
-                PopupType = PopupType.DungeonMap,
-                template = null,
-                EndEvent = () =>
-                {
-                    _busy = false;
-                    _model.DungeonBusy(false);
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                    CommandRefresh();
-                    // 自動移動モード切替
-                    CheckRouteMode();
-                }
-            };
-            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
+                _busy = false;
+                _model.DungeonBusy(false);
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                CommandRefresh();
+                // 自動移動モード切替
+                CheckRouteMode();
+            });
         }
 
         private void CommandUseItem()
@@ -1113,19 +1096,13 @@ namespace Ryneus
                 UseItemType.DungeonTurn,
                 UseItemType.EncountRate
             };
-            var popupInfo = new PopupInfo
+            CallPopupView(PopupType.UseItem, () =>
             {
-                PopupType = PopupType.UseItem,
-                template = useItemSceneInfo,
-                EndEvent = () =>
-                {
-                    _busy = false;
-                    _model.DungeonBusy(false);
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                    CommandRefresh();
-                }
-            };
-            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
+                _busy = false;
+                _model.DungeonBusy(false);
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                CommandRefresh();
+            }, useItemSceneInfo);
         }
 
         private void CommandMoveDirection(int direction)
@@ -1166,18 +1143,12 @@ namespace Ryneus
             }
             _busy = true;
             _model.DungeonBusy(true);
-            var popupInfo = new PopupInfo
+            CallPopupView(PopupType.ArtifactList, () =>
             {
-                PopupType = PopupType.ArtifactList,
-                template = null,
-                EndEvent = () =>
-                {
-                    _busy = false;
-                    _model.DungeonBusy(false);
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                }
-            };
-            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
+                _busy = false;
+                _model.DungeonBusy(false);
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            });
         }
 
         private void CommandSelectSideMenu()

@@ -281,22 +281,17 @@ namespace Ryneus
 
         public void CommandCallPopup(PopupInfo popupInfo)
         {
-            CallSystemCommand(Base.CommandType.CallPopupView,popupInfo);
-        }
-
-        public void CommandCallOption(Action endEvent)
-        {
-            CallSystemCommand(Base.CommandType.CallOptionView,endEvent);
+            CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
         }
 
         public void CommandCallSkillTrigger(SkillTriggerViewInfo skillTriggerViewInfo)
         {
-            CallSystemCommand(Base.CommandType.CallSkillTriggerView,skillTriggerViewInfo);
+            CallSystemCommand(Base.CommandType.CallSkillTriggerView, skillTriggerViewInfo);
         }
 
         public void CommandCallAdv(AdvCallInfo advCallInfo)
         {
-            CallSystemCommand(Base.CommandType.CallAdvScene,advCallInfo);
+            CallSystemCommand(Base.CommandType.CallAdvScene, advCallInfo);
         }
 
         public void CommandChangeViewToTransition(Action<string> endEvent)
@@ -436,7 +431,6 @@ namespace Ryneus
             ClosePopup,
             ClosePopupAll,
             CloseConfirm,
-            CallOptionView,
             CallRankingView,
             CallHelpView,
             CallStatusView,

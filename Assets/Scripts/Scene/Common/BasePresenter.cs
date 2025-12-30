@@ -20,6 +20,29 @@ namespace Ryneus
             _model = model;
         }
 
+        public void CallPopupView(PopupType popupType, Action endEvent = null, object templateData = null)
+        {
+            var popupInfo = new PopupInfo
+            {
+                PopupType = popupType,
+                template = templateData,
+                EndEvent = endEvent,
+            };
+            _view.CommandCallPopup(popupInfo);
+        }
+
+        public void CallLearnSkillPopupView(Action endEvent = null, object templateData = null)
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.LearnSkill,
+                template = templateData,
+                EndEvent = endEvent,
+            };
+            _view.CommandCallPopup(popupInfo);
+        }
+
         public List<ListData> MakeListData<T>(List<T> dataList)
         {
             return ListData.MakeListData(dataList);
@@ -209,16 +232,10 @@ namespace Ryneus
             {
                 IsLoad = false
             };
-            var popupInfo = new PopupInfo()
+            CallPopupView(PopupType.FileList, () =>
             {
-                PopupType = PopupType.FileList,
-                EndEvent = () =>
-                {
-                    //SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                },
-                template = sceneParam
-            };
-            _view.CommandCallPopup(popupInfo);
+
+            }, sceneParam);
             /*
 #if UNITY_ANDROID
             var savePopupTitle = _model.SavePopupTitle();
@@ -337,16 +354,10 @@ namespace Ryneus
             {
                 CommandLists = sideMenuCommands
             };
-            var popupInfo = new PopupInfo
+            CallPopupView(PopupType.SideMenu, () =>
             {
-                PopupType = PopupType.SideMenu,
-                template = sideMenuViewInfo,
-                EndEvent = () =>
-                {
-                    closeEvent?.Invoke();
-                }
-            };
-            _view.CallSystemCommand(Base.CommandType.CallPopupView, popupInfo);
+                closeEvent?.Invoke();
+            }, sideMenuViewInfo);
         }
 
         public void CloseConfirm()
@@ -380,19 +391,11 @@ namespace Ryneus
                     //_busy = true;
                     _view.SetBusy(true);
                     var learnSkillInfo = new LearnSkillInfo(from, to, skills[0]);
-                    SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
-
-                    var popupInfo = new PopupInfo
+                    CallLearnSkillPopupView(() =>
                     {
-                        PopupType = PopupType.LearnSkill,
-                        EndEvent = () =>
-                        {
-                            endEvent?.Invoke();
-                            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                        },
-                        template = learnSkillInfo
-                    };
-                    _view.CommandCallPopup(popupInfo);
+                        endEvent?.Invoke();
+                        SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                    }, learnSkillInfo);
                 } else
                 {
                     CommandCautionInfo("", from, to);
@@ -440,8 +443,6 @@ namespace Ryneus
                         //_busy = true;
                         _view.SetBusy(true);
                         var learnSkillInfo = new LearnSkillInfo(from, to, afterSkills[0]);
-                        SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
-
                         // 装備可能であれば装備する
                         foreach (var afterSkill in afterSkills)
                         {
@@ -450,17 +451,11 @@ namespace Ryneus
                                 actorInfo.ChangeEquipSkill(afterSkill.Id.Value, 0);
                             }
                         }
-                        var popupInfo = new PopupInfo
+                        CallLearnSkillPopupView(() =>
                         {
-                            PopupType = PopupType.LearnSkill,
-                            EndEvent = () =>
-                            {
-                                endEvent?.Invoke();
-                                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                            },
-                            template = learnSkillInfo
-                        };
-                        _view.CommandCallPopup(popupInfo);
+                            endEvent?.Invoke();
+                            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                        }, learnSkillInfo);
                     } else
                     {
                         CommandCautionInfo("", from, to);
@@ -509,19 +504,11 @@ namespace Ryneus
                 var to = actorInfo.Evaluate();
 
                 var learnSkillInfo = new LearnSkillInfo(from, to, skillInfo);
-                SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
-
-                var popupInfo = new PopupInfo
+                CallLearnSkillPopupView(() =>
                 {
-                    PopupType = PopupType.LearnSkill,
-                    EndEvent = () =>
-                    {
-                        endEvent?.Invoke();
-                        SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                    },
-                    template = learnSkillInfo
-                };
-                _view.CommandCallPopup(popupInfo);
+                    endEvent?.Invoke();
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                }, learnSkillInfo);
             }
         }
 
@@ -553,17 +540,11 @@ namespace Ryneus
                 var rankupInfo = new RankupInfo(currentRank, afterRank);
                 SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 
-                var popupInfo = new PopupInfo
+                CallPopupView(PopupType.Rankup, () =>
                 {
-                    PopupType = PopupType.Rankup,
-                    EndEvent = () =>
-                    {
-                        SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                        endEvent?.Invoke();
-                    },
-                    template = rankupInfo
-                };
-                _view.CommandCallPopup(popupInfo);
+                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                    endEvent?.Invoke();
+                }, rankupInfo);
             }
             return checkMissionRank && afterRank > currentRank;
         }

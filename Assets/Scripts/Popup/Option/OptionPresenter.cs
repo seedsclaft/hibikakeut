@@ -233,16 +233,27 @@ namespace Ryneus
             {
                 switch (data.OptionCommand.Key)
                 {
+                    case "SCREEN_MODE":
+                        if (toggleIndex == 1)
+                        {
+                            OptionUtility.ChangeScreenMode(true);
+                        }
+                        else
+                        if (toggleIndex == 0)
+                        {
+                            OptionUtility.ChangeScreenMode(false);
+                        }
+                        break;
                     case "GRAPHIC_QUALITY":
                         if (toggleIndex == 1)
                         {
                             OptionUtility.ChangeGraphicIndex(1);
                         }
+                        else
                         if (toggleIndex == 0)
                         {
                             OptionUtility.ChangeGraphicIndex(2);
-                        }
-                        ;
+                        };
                         break;
                     case "EVENT_SKIP":
                         OptionUtility.ChangeEventSkipIndex(toggleIndex == 1);

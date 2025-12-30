@@ -163,9 +163,6 @@ namespace Ryneus
                 case Base.CommandType.CallPopupView:
                     CommandPopupView((PopupInfo)viewEvent.Template);
                     break;
-                case Base.CommandType.CallOptionView:
-                    CommandOptionView((System.Action)viewEvent.Template);
-                    break;
                 case Base.CommandType.CallRankingView:
                     CommandRankingView((RankingViewInfo)viewEvent.Template);
                     break;
@@ -370,28 +367,6 @@ namespace Ryneus
                 var classChange = prefab.GetComponent<ClassChangeView>();
                 classChange.SetClassChangeInfo((ClassChangeInfo)popupInfo.template);
             }
-            SetIsBusyMainAndStatus();
-        }
-
-        private void CommandOptionView(Action endEvent)
-        {
-            var first = popupAssign.CreatePopup(PopupType.Option, helpWindow);
-            var prefab = popupAssign.LastPopupPrefab;
-            var optionView = prefab.GetComponent<OptionView>();
-            optionView.SetEvent((type) => UpdateCommand(type));
-            optionView.Initialize();
-            optionView.SetBackEvent(() =>
-            {
-                OptionData.UpdateSoundParameter(
-                    SoundManager.Instance.BgmVolume,
-                    SoundManager.Instance.BGMMute,
-                    SoundManager.Instance.SeVolume,
-                    SoundManager.Instance.SeMute
-                );
-                SaveSystem.SaveOptionStart(OptionData);
-                optionView.CallSystemCommand(Base.CommandType.ClosePopup);
-                endEvent?.Invoke();
-            });
             SetIsBusyMainAndStatus();
         }
 

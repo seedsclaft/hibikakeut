@@ -212,20 +212,12 @@ namespace Ryneus
             beforeStatus.SetParameter(_model.CurrentActor.CurrentStatus);
             var ClassChangeInfo = new ClassChangeInfo(_model.CurrentActor, beforeStatus);
             _model.CurrentActor.IsClassChenged.SetValue(true);
-            var popupInfo = new PopupInfo
+            CallPopupView(PopupType.ClassChange, () =>
             {
-                PopupType = PopupType.ClassChange,
-                EndEvent = () =>
-                {
-                    CheckAchievements();
-                    _busy = false;
-                    _view.SetBusy(false);
-                    //CommandRefreshMagicList(false);
-                },
-                template = ClassChangeInfo
-            };
-            _view.CommandCallPopup(popupInfo);
-            //CommandRefreshuseItemList();
+                CheckAchievements();
+                _busy = false;
+                _view.SetBusy(false);
+            }, ClassChangeInfo);
         }
 
         private void CommandBack()

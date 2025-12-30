@@ -189,17 +189,11 @@ namespace Ryneus
                 learnSkillInfo.SetToValue(_model.LevelUpActorInfos[0].Evaluate());
                 SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 
-                var popupInfo = new PopupInfo
+                CallLearnSkillPopupView(() =>
                 {
-                    PopupType = PopupType.LearnSkill,
-                    EndEvent = () =>
-                    {
-                        _model.RemoveLevelUpData();
-                        NextSeekResult();
-                    },
-                    template = learnSkillInfo
-                };
-                _view.CommandCallPopup(popupInfo);
+                    _model.RemoveLevelUpData();
+                    NextSeekResult();
+                }, learnSkillInfo);
             } else
             {
                 _model.RemoveLevelUpData();
