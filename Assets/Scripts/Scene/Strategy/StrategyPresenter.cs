@@ -237,7 +237,6 @@ namespace Ryneus
 
         private void CommandResultClose(SystemData.CommandData commandData)
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var battledMembers = _model.DisplayActorInfos;
             if (battledMembers != null && battledMembers.Count > 0)
             {
@@ -245,17 +244,14 @@ namespace Ryneus
             }
             if (_model.ReleifScene())
             {
-                var confirmInfo = new ConfirmInfo("仲間にするエインフェリアを選定してください", (a) =>
+                CallConfirmNoChoiceView(DataSystem.GetText(11012), (a) =>
                 {
                     // 仲間選択確認
                     List<ActorInfo> actorInfos = _model.AddSelectActorInfos();
                     CommandAddActorStatusInfo(actorInfos, () =>
                     {
                     });
-
                 });
-                confirmInfo.SetIsNoChoice(true);
-                _view.CommandCallConfirm(confirmInfo);
                 return;
             }
             EndStrategy();

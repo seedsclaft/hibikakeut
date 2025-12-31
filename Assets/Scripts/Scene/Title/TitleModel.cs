@@ -76,8 +76,9 @@ namespace Ryneus
 
         public void InitializeNewGame()
         {
+            var stageId = DataSystem.System.StartStageId;
             InitSaveStageInfo();
-            MakeStageInfo(DataSystem.System.StartStageId, true);
+            MakeStageInfo(stageId, true);
             // ステージ開始時アイテム入手
             var stageEventDates = StageEvents(EventTiming.GameStart);
             foreach (var stageEventDate in stageEventDates)
@@ -95,9 +96,38 @@ namespace Ryneus
                         break;
                 }
             }
-            var stageData = DataSystem.FindStage(DataSystem.System.StartStageId);
-            var floor = DataSystem.FindDungeonFloor(DataSystem.System.StartStageId);
-            CurrentDeckInfo.SetPosition(DataSystem.System.StartStageId, floor.entrancePos.x, floor.entrancePos.y, (int)floor.enteringDir);
+            var stageData = DataSystem.FindStage(stageId);
+            var floor = DataSystem.FindDungeonFloor(stageId);
+            CurrentDeckInfo.SetPosition(stageId, floor.entrancePos.x, floor.entrancePos.y, (int)floor.enteringDir);
+            CurrentDeckInfo.StageNo.SetValue(stageData.StageNo);
+            PartyInfo.SetAchievementRank(DataSystem.Achievements);
+        }
+
+        public void InitializeNewGameSkipOpening()
+        {
+            var stageId = 10;
+            InitSaveStageInfo();
+            MakeStageInfo(stageId, true);
+            // ステージ開始時アイテム入手
+            var stageEventDates = StageEvents(EventTiming.GameStart);
+            foreach (var stageEventDate in stageEventDates)
+            {
+                switch (stageEventDate.Type)
+                {
+                    case StageEventType.AddActor:
+                        var getItemData = new GetItemData
+                        {
+                            Type = GetItemType.AddActor,
+                            Param1 = stageEventDate.Param
+                        };
+                        var getItemInfo = new GetItemInfo(getItemData);
+                        AddGetItemInfo(getItemInfo);
+                        break;
+                }
+            }
+            var stageData = DataSystem.FindStage(stageId);
+            var floor = DataSystem.FindDungeonFloor(stageId);
+            CurrentDeckInfo.SetPosition(stageId, floor.entrancePos.x, floor.entrancePos.y, (int)floor.enteringDir);
             CurrentDeckInfo.StageNo.SetValue(stageData.StageNo);
             PartyInfo.SetAchievementRank(DataSystem.Achievements);
         }

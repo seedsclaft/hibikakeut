@@ -88,15 +88,16 @@ namespace Ryneus
 
         public void UpdateBgmVolume()
         {
-            var playingTrack = _bgmMain;
             if (BGMMute)
             {
-                playingTrack.ChangeVolume(0);
+                _bgmMain.ChangeVolume(0);
+                _bgmSub.ChangeVolume(0);
             }
             else
             {
-                //var volume = _bgmVolume * _lastBgmVolume;
-                //playingTrack.ChangeVolume(volume);
+                var volume = _bgmVolume * _lastBgmVolume;
+                _bgmMain.ChangeVolume(volume);
+                _bgmSub.ChangeVolume(volume);
             }
         }
 

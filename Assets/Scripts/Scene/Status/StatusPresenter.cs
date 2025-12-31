@@ -207,13 +207,12 @@ namespace Ryneus
             }
 
             // 変更する
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
 
             // だれかが装備している
             var equipmentActor = _model.EquipmentSkill(skillInfo);
             if (equipmentActor != null && equipmentActor.ActorId.Value != _model.CurrentActor.ActorId.Value)
             {
-                var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(14020, skillInfo.Master.Name) + DataSystem.GetReplaceText(14021, equipmentActor.Master.Name),(a) =>
+                CallConfirmView(DataSystem.GetReplaceText(14020, skillInfo.Master.Name) + DataSystem.GetReplaceText(14021, equipmentActor.Master.Name),(a) =>
                 {
                     if (a == ConfirmCommandType.Yes)
                     {
@@ -227,7 +226,6 @@ namespace Ryneus
                     }
                     _busy = false;
                 });
-                _view.CommandCallConfirm(confirmInfo);
                 return;
             }
 
@@ -494,10 +492,9 @@ namespace Ryneus
 
         private void CommandDecideActor()
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _busy = true;
             // 確認後結果表示
-            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(14030, _model.CurrentActor.Master.Name), (a) =>
+            CallConfirmView(DataSystem.GetReplaceText(14030, _model.CurrentActor.Master.Name), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
@@ -525,7 +522,6 @@ namespace Ryneus
                     _busy = false;
                 }
             });
-            _view.CommandCallConfirm(confirmInfo);
         }
 
         private async Task CommandLeftActor()

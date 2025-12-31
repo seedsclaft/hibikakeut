@@ -43,6 +43,21 @@ namespace Ryneus
             _view.CommandCallPopup(popupInfo);
         }
 
+        public void CallConfirmView(string title, Action<ConfirmCommandType> returnEvent, Action endEvent = null)
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var confirmInfo = new ConfirmInfo(title, returnEvent);
+            _view.CommandCallConfirm(confirmInfo);
+        }
+
+        public void CallConfirmNoChoiceView(string title, Action<ConfirmCommandType> returnEvent, Action endEvent = null)
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var confirmInfo = new ConfirmInfo(title, returnEvent);
+            confirmInfo.SetIsNoChoice(true);
+            _view.CommandCallConfirm(confirmInfo);
+        }
+
         public List<ListData> MakeListData<T>(List<T> dataList)
         {
             return ListData.MakeListData(dataList);

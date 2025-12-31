@@ -42,9 +42,7 @@ namespace Ryneus
                 var loadSuccess = await SaveSystem.LoadPlayerInfo();
                 if (!loadSuccess)
                 {
-                    var confirmInfo = new ConfirmInfo(DataSystem.GetText(13330), (a) => UpdatePopup(a));
-                    confirmInfo.SetIsNoChoice(true);
-                    _view.CommandCallConfirm(confirmInfo);
+                    CallConfirmNoChoiceView(DataSystem.GetText(13330), (a) => UpdatePopup(a));
                     return;
                 }
                 // プレイヤーネームを設定しなおし
@@ -97,24 +95,35 @@ namespace Ryneus
         private void CommandNewGame()
         {
             _busy = true;
-            _model.InitializeNewGame();
-            SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
-            _view.WaitFrame(2, () =>
+            CallConfirmView("オープニングスキップ?",(a) =>
             {
-                _busy = false;
-                var gameStartEvent = _model.GameStartEventAdv();
-                if (gameStartEvent != null)
+                if (a == ConfirmCommandType.Yes)
                 {
-                    // イベントを再生
-                    CallAdvEvent(gameStartEvent, 0, () =>
-                    {
-                        _view.CommandGotoSceneChange(Scene.Dungeon);
-                    });
-                    return;
+                    _model.InitializeNewGameSkipOpening();
+                    _view.CommandGotoSceneChange(Scene.Dungeon);
                 }
-                _view.CommandGotoSceneChange(Scene.Dungeon);
-                //_view.CommandGotoSceneChange(Scene.Tactics);
-                //_view.CommandGotoSceneChange(Scene.NameEntry);
+                else
+                {
+                    _model.InitializeNewGame();
+                    SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
+                    _view.WaitFrame(2, () =>
+                    {
+                        _busy = false;
+                        var gameStartEvent = _model.GameStartEventAdv();
+                        if (gameStartEvent != null)
+                        {
+                            // イベントを再生
+                            CallAdvEvent(gameStartEvent, 0, () =>
+                            {
+                                _view.CommandGotoSceneChange(Scene.Dungeon);
+                            });
+                            return;
+                        }
+                        _view.CommandGotoSceneChange(Scene.Dungeon);
+                        //_view.CommandGotoSceneChange(Scene.Tactics);
+                        //_view.CommandGotoSceneChange(Scene.NameEntry);
+                    });
+                }
             });
         }
 
@@ -153,6 +162,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CallPopupView(PopupType.Option, () =>
             {
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 _model.UpdateOptionData();
                 _view.SetBusy(false);
                 _busy = false;

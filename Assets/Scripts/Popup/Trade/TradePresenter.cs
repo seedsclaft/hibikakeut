@@ -79,16 +79,13 @@ namespace Ryneus
             if (_model.IsNotSelectTradeItem())
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
-                var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle(DataSystem.GetText(39030));
-                _view.CommandCallCaution(cautionInfo);
+                CommandCautionInfo(DataSystem.GetText(39030));
                 return;
             }
 
             _busy = true;
             _view.SetBusy(true);
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(39040), (a) =>
+            CallConfirmView(DataSystem.GetText(39040), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
@@ -116,7 +113,6 @@ namespace Ryneus
                 _busy = false;
                 _view.SetBusy(false);
             });
-            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CommandTradeItemDetail(TradeItemInfo tradeItemInfo)
@@ -184,9 +180,7 @@ namespace Ryneus
             if (!_model.CanPayCost(tradeItemInfo))
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
-                var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle(DataSystem.GetText(39050));
-                _view.CommandCallCaution(cautionInfo);
+                CommandCautionInfo(DataSystem.GetText(39050));
                 return;
             }
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
@@ -216,9 +210,7 @@ namespace Ryneus
             if (!_model.CanPayCost(getItemInfo))
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
-                var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle(DataSystem.GetText(39050));
-                _view.CommandCallCaution(cautionInfo);
+                CommandCautionInfo(DataSystem.GetText(39050));
                 return;
             }
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);

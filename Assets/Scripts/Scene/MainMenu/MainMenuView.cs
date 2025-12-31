@@ -164,7 +164,7 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            if (InputSystem.GetInputDate(InputKeyType.Decide).IsDownTrigger())
+            if (InputSystem.GetInputDate(InputKeyType.Decide).IsDownTrigger() || InputSystem.GetInputDate(InputKeyType.Cancel).IsDownTrigger())
             {
                 EndAnimation();
             }

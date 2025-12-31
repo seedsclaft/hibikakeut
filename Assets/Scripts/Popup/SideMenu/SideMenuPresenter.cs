@@ -117,16 +117,14 @@ namespace Ryneus
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var textId = _model.CurrentStage.Master.OnlyOnce ? 10133 : 10130;
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(textId), (a) =>
+            CallConfirmView(DataSystem.GetText(textId), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
                     var checkNotSeekPeriod = _model.CheckNotSeekPeriod();
                     if (checkNotSeekPeriod != null)
                     {
-                        var cautionInfo = new CautionInfo();
-                        cautionInfo.SetTitle(DataSystem.GetReplaceText(10200, checkNotSeekPeriod.Master.Name));
-                        _view.CommandCallCaution(cautionInfo);
+                        CommandCautionInfo(DataSystem.GetReplaceText(10200, checkNotSeekPeriod.Master.Name));
                     }
                     _model.ReturnDungeon();
                     ClosePopup();
@@ -149,7 +147,6 @@ namespace Ryneus
                     }
                 }
             });
-            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CommandAritifact()
@@ -157,10 +154,8 @@ namespace Ryneus
             if (_model.PartyInfo.AritifactSkills().Count == 0)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
-                var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle(DataSystem.GetText(37020));
+                CommandCautionInfo(DataSystem.GetText(37020));
                 ClosePopup();
-                _view.CommandCallCaution(cautionInfo);
                 return;
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
@@ -178,6 +173,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CallPopupView(PopupType.Option, () =>
             {
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 _model.UpdateOptionData();
                 ClosePopup();
             });
@@ -186,9 +182,7 @@ namespace Ryneus
         private void CommandDropout()
         {
             _busy = true;
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(1100), (a) => UpdatePopupDropout(a));
-            _view.CommandCallConfirm(confirmInfo);
+            CallConfirmView(DataSystem.GetText(1100), (a) => UpdatePopupDropout(a));
         }
 
         private void UpdatePopupDropout(ConfirmCommandType confirmCommandType)
@@ -246,25 +240,19 @@ namespace Ryneus
         private void CommandInitializeData()
         {
             _busy = true;
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(13300), (a) => UpdatePopupDeletePlayerData(a));
-            _view.CommandCallConfirm(confirmInfo);
+            CallConfirmView(DataSystem.GetText(13300), (a) => UpdatePopupDeletePlayerData(a));
         }
 
         private void CommandDeleteStage()
         {
             _busy = true;
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(13301), (a) => UpdatePopupDeleteStageData(a));
-            _view.CommandCallConfirm(confirmInfo);
+            CallConfirmView(DataSystem.GetText(13301), (a) => UpdatePopupDeleteStageData(a));
         }
 
         private void CommandTitle()
         {
             _busy = true;
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(13320), (a) => UpdatePopupTitle((ConfirmCommandType)a));
-            _view.CommandCallConfirm(confirmInfo);
+            CallConfirmView(DataSystem.GetText(13320), (a) => UpdatePopupTitle((ConfirmCommandType)a));
         }
 
         private void UpdatePopupDeletePlayerData(ConfirmCommandType confirmCommandType)

@@ -425,7 +425,7 @@ namespace Ryneus
             {
                 return;
             }
-            changeSkillBatch.SetActive(isActive);
+            //changeSkillBatch.SetActive(isActive);
         }
 
         public void CommandScrollUpSkillHelp()

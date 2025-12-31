@@ -114,7 +114,7 @@ namespace Ryneus
             {
                 return;
             }
-            SoundManager.Instance.PlayStaticSe(SEType.Cursor);
+            SoundManager.Instance.PlayStaticSe(SEType.CursorMove);
             var optionResultInfo = (OptionInfo)listData.Data;
             var optionInfo = new OptionInfo
             {

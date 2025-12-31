@@ -72,10 +72,9 @@ namespace Ryneus
         {
             if (_model.CanPresent())
             {
-                SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 _view.ActivateItemList(false);
                 _busy = true;
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(34040), (a) =>
+                CallConfirmView(DataSystem.GetText(34040), (a) =>
                 {
                     if (a == ConfirmCommandType.Yes)
                     {
@@ -102,13 +101,10 @@ namespace Ryneus
                     _busy = false;
                     _view.ActivateItemList(true);
                 });
-                _view.CommandCallConfirm(confirmInfo);
                 return;
             }
             SoundManager.Instance.PlayStaticSe(SEType.Deny);
-            var cautionInfo = new CautionInfo();
-            cautionInfo.SetTitle(DataSystem.GetText(34050));
-            _view.CommandCallCaution(cautionInfo);
+            CommandCautionInfo(DataSystem.GetText(34050));
         }
 
         private void CommandPlusUseNum(int itemId)

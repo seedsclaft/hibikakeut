@@ -70,16 +70,14 @@ namespace Ryneus
             if (!_model.EnableTransfer(actorInfo))
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
-                var cautionInfo = new CautionInfo();
                 var textId = actorInfo.Master.Id > 100 ? 35020 : 35021;
-                cautionInfo.SetTitle(DataSystem.GetText(textId));
-                _view.CommandCallCaution(cautionInfo);
+                CommandCautionInfo(DataSystem.GetText(textId));
                 return;
             }
             _busy = true;
             _view.SetBusy(true);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(actorInfo.Master.Name + DataSystem.GetText(35010), (a) =>
+            CallConfirmView(actorInfo.Master.Name + DataSystem.GetText(35010), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
@@ -103,7 +101,6 @@ namespace Ryneus
                 _busy = false;
                 _view.SetBusy(false);
             });
-            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CheckTutorialState(object commandType = null)

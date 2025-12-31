@@ -72,9 +72,7 @@ namespace Ryneus
             if (_model.IsLimitedRank(stageInfo))
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
-                var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle(DataSystem.GetText(32040));
-                _view.CommandCallCaution(cautionInfo);
+                CommandCautionInfo(DataSystem.GetText(32040));
                 return;
             }
             _busy = true;

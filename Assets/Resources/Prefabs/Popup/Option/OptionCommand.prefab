@@ -1555,9 +1555,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickButton: {fileID: 2870967830608860246}
   cursor: {fileID: 7255158710444670945}
+  selectArrow: {fileID: 0}
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
   disable: {fileID: 9063329344441436139}
+  batch: {fileID: 0}
   selectColor: {r: 0, g: 0, b: 0, a: 0}
   unSelectColor: {r: 0, g: 0, b: 0, a: 0}
   textUguiList: []
@@ -2137,7 +2139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5263659582676933041
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3065,7 +3067,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 19.999992, y: 0}
+  m_AnchoredPosition: {x: 20, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1179177035295902486

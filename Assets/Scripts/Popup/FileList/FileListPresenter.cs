@@ -79,8 +79,7 @@ namespace Ryneus
             }
             _busy = true;
             _view.SetBusy(true);
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(31071), (a) =>
+            CallConfirmView(DataSystem.GetText(31071), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
@@ -90,7 +89,6 @@ namespace Ryneus
                 _busy = false;
                 _view.SetBusy(false);
             });
-            _view.CommandCallConfirm(confirmInfo);
         }
     }
 }

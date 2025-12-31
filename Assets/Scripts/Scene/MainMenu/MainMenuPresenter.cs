@@ -200,22 +200,18 @@ namespace Ryneus
 
         private void ReturnTransfer()
         {
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(11040), (a) =>
+            CallConfirmNoChoiceView(DataSystem.GetText(11040), (a) =>
             {
                 SendInterlude();
             });
-            confirmInfo.SetIsNoChoice(true);
-            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void SendInterlude()
         {
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(11020), (a) =>
+            CallConfirmNoChoiceView(DataSystem.GetText(11020), (a) =>
             {
                 _view.CommandGotoSceneChange(Scene.Interlude);
             });
-            confirmInfo.SetIsNoChoice(true);
-            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void ClosePopupView()
@@ -230,23 +226,19 @@ namespace Ryneus
             // 未編成のキャラがいる
             if (_model.CheckBeforeDepature())
             {
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(11030),(a) =>
+                CallConfirmView(DataSystem.GetText(11030),(a) =>
                 {
                     if (a == ConfirmCommandType.Yes)
                     {
                         CommandDepature();
                     }
                 });
-                confirmInfo.SetBackEvent(() => {});
-                _view.CommandCallConfirm(confirmInfo);
                 return;
             }
             // 出撃できるステージがない
             if (_model.CheckDepatureDungeon())
             {
-                var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle(DataSystem.GetText(32050));
-                _view.CommandCallCaution(cautionInfo);
+                CommandCautionInfo(DataSystem.GetText(32050));
                 return;
             }
             _busy = true;
@@ -377,36 +369,25 @@ namespace Ryneus
             var enableCount = _model.PartyInfo.ReliefItemCount.Value;
             if (enableCount <= 0)
             {
-                var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle(DataSystem.GetText(11011));
-                _view.CommandCallCaution(cautionInfo);
+                CommandCautionInfo(DataSystem.GetText(11011));
                 return;
             }
             _busy = true;
             UpdateCommandSelecting(false);
             var countText = DataSystem.GetReplaceText(11010, enableCount.ToString());
-            var confirmInfo = new ConfirmInfo(countText, async (a) =>
+            CallConfirmView(countText, (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
                     StartRelief();
-
-                    //_model.PartyNextPeriod(true);
-                } else
+                }
+                else
                 {
                     _busy = false;
                     UpdateCommandSelecting(true);
                     CommandRefresh();
                 }
             });
-            confirmInfo.SetBackEvent(() =>
-            {
-                _busy = false;
-                UpdateCommandSelecting(true);
-                CommandRefresh();
-            });
-            _view.CommandCallConfirm(confirmInfo);
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 
         private async void StartRelief()

@@ -101,13 +101,11 @@ namespace Ryneus
             _view.SetBusy(true);
 
             var textId = encountRate > 100 ? 42010 : 42011;
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(textId), (a) =>
+            CallConfirmNoChoiceView(DataSystem.GetText(textId), (a) =>
             {
                 _busy = false;
                 _view.SetBusy(false);
             });
-            confirmInfo.SetIsNoChoice(true);
-            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void UseItemDungeonTurn(ItemInfo itemInfo)
@@ -131,10 +129,7 @@ namespace Ryneus
             if (!_model.CanUseRecoveryHeal())
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
-                var cautionInfo = new CautionInfo();
-                var textId = 10101;
-                cautionInfo.SetTitle(DataSystem.GetText(textId));
-                _view.CommandCallCaution(cautionInfo);
+                CommandCautionInfo(DataSystem.GetText(10101));
                 return;
             }
             var heal = itemInfo.Master.Param2;

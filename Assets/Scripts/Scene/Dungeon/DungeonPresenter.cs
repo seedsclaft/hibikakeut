@@ -235,9 +235,7 @@ namespace Ryneus
             // 回復できない
             if (_model.PartyInfo.Cursed.Value)
             {
-                var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle(DataSystem.GetText(10131));
-                _view.CommandCallCaution(cautionInfo);
+                CommandCautionInfo(DataSystem.GetText(10131));
                 return;
             }
             _view.StartHeal(heal);
@@ -367,9 +365,7 @@ namespace Ryneus
         private void CommandTurnOverBeforeTen(bool moved)
         {
             // 評価値が減少まであと10ターン
-            var cautionInfo = new CautionInfo();
-            cautionInfo.SetTitle(DataSystem.GetText(10181));
-            _view.CommandCallCaution(cautionInfo);
+            CommandCautionInfo(DataSystem.GetText(10181));
         }
 
         private void CommandTurnOver(bool moved)
@@ -385,9 +381,7 @@ namespace Ryneus
             _view.MinusVictoryBonus(-0.2f);
             _view.MinusEvaluate(-1);
             _model.PartyInfo.EvaluationValue.GainValue(-1, 0);
-            var cautionInfo = new CautionInfo();
-            cautionInfo.SetTitle(DataSystem.GetText(10180));
-            _view.CommandCallCaution(cautionInfo);
+            CommandCautionInfo(DataSystem.GetText(10180));
             // 強制帰還
             /*
             if (_model.PartyInfo.Cursed.Value)
@@ -419,9 +413,7 @@ namespace Ryneus
             var checkNotSeekPeriod = _model.CheckNotSeekPeriod();
             if (checkNotSeekPeriod != null)
             {
-                var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle(DataSystem.GetReplaceText(10200, checkNotSeekPeriod.Master.Name));
-                _view.CommandCallCaution(cautionInfo);
+                CommandCautionInfo(DataSystem.GetReplaceText(10200, checkNotSeekPeriod.Master.Name));
             }
             _model.ReturnDungeon();
             _view.CallSystemCommand(Base.CommandType.MapClear);
@@ -678,15 +670,11 @@ namespace Ryneus
         {
             // 選択して仲間を加入
             // 確認後仲間選択
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10120), (a) =>
+            CallConfirmNoChoiceView(DataSystem.GetText(10120), (a) =>
             {
                 CommandCallAddActorInfo(new List<int>(){stageEvent.Param});
             });
-            confirmInfo.SetIsNoChoice(true);
-            confirmInfo.SetBackEvent(() => {});
-            _view.CommandCallConfirm(confirmInfo);
             _model.UpdateEventObjects();
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 
         private void StageEventForceBattle(StageEventData stageEvent)
@@ -802,14 +790,11 @@ namespace Ryneus
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             if (_model.CheckGameover())
             {
-                var confirmInfo2 = new ConfirmInfo(DataSystem.GetText(10150), (a) =>
+                CallConfirmNoChoiceView(DataSystem.GetText(10150), (a) =>
                 {
                     _view.CallSystemCommand(Base.CommandType.MapClear);
                     _view.CommandGotoSceneChange(Scene.Title);
                 });
-                confirmInfo2.SetIsNoChoice(true);
-                confirmInfo2.SetBackEvent(() => {});
-                _view.CommandCallConfirm(confirmInfo2);
             } else
             {
                 endEvent?.Invoke();
@@ -818,14 +803,12 @@ namespace Ryneus
 
         private void StageEventCurseFloor(StageEventData stageEvent, Action endEvent)
         {
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10160), (a) =>
+            CallConfirmNoChoiceView(DataSystem.GetText(10160), (a) =>
             {
                 _model.CursedParty();
                 var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
                 CheckEventData(false, playerPosition, endEvent);
             });
-            confirmInfo.SetIsNoChoice(true);
-            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void StageEventEndCurseFloor(StageEventData stageEvent, Action endEvent)
@@ -878,9 +861,7 @@ namespace Ryneus
                             _model.DungeonBusy(false);
                             _busy = false;
                             _checkTurnOver = true;
-                            var cautionInfo = new CautionInfo();
-                            cautionInfo.SetTitle(DataSystem.GetText(10131));
-                            _view.CommandCallCaution(cautionInfo);
+                            CommandCautionInfo(DataSystem.GetText(10131));
                             return;
                         }
                         _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
@@ -896,9 +877,8 @@ namespace Ryneus
         private void CommandReturn()
         {
             _busy = true;
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var textId = _model.CurrentStage.Master.OnlyOnce ? 10133 : 10130;
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(textId), (a) =>
+            CallConfirmView(DataSystem.GetText(textId), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
@@ -910,7 +890,6 @@ namespace Ryneus
                     _busy = false;
                 }
             });
-            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CommandMoveDungeonFloor(int floorId, int x, int y)
@@ -965,14 +944,12 @@ namespace Ryneus
             _model.AddGetItemInfo(getItemInfo);
             _view.MinusEvaluate(-10);
             _model.PartyInfo.EvaluationValue.GainValue(-10, 0);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(10141, 10.ToString()),(a) =>
+            CallConfirmNoChoiceView(DataSystem.GetReplaceText(10141, 10.ToString()),(a) =>
             {
                 _busy = false;
                 _model.DungeonBusy(false);
                 CommandRefresh();
             });
-            confirmInfo.SetIsNoChoice(true);
-            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CommandGetItem(int itemId)
@@ -1036,9 +1013,7 @@ namespace Ryneus
             // 回復できない
             if (_model.PartyInfo.Cursed.Value)
             {
-                var cautionInfo = new CautionInfo();
-                cautionInfo.SetTitle(DataSystem.GetText(10131));
-                _view.CommandCallCaution(cautionInfo);
+                CommandCautionInfo(DataSystem.GetText(10131));
                 return;
             }
             if (_model.CanUseRecoveryHeal())
@@ -1053,10 +1028,8 @@ namespace Ryneus
             } else
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
-                var cautionInfo = new CautionInfo();
                 var textId = (_model.CurrentDeckInfo.RecoveryCount.Value <= 0) ? 10100 : 10101;
-                cautionInfo.SetTitle(DataSystem.GetText(textId));
-                _view.CommandCallCaution(cautionInfo);
+                CommandCautionInfo(DataSystem.GetText(textId));
             }
         }
 
