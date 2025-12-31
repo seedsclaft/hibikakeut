@@ -885,11 +885,16 @@ namespace Ryneus
                 // 並行は未実装
                 return;
             }
+            float verticalCount = GetVerticalCount();
+            // 全てリスト内に収まる
+            if (verticalCount > _listDates.Count)
+            {
+                return;
+            }
             var plusKey = GetPlusKey();
             var minusKey = GetMinusKey();
             var selectItem = _objectList[_index];
             var itemPosition = Math.Round(GetCornerPosition(selectItem, 0, false));
-            float verticalCount = GetVerticalCount();
             var positionY = 0f;
             var viewPortPosition = Math.Round(GetCornerPosition(_scrollRect.viewport.gameObject, 0, false));
             var update = false;
@@ -1040,6 +1045,10 @@ namespace Ryneus
             {
                 return;
             }
+            if (_horizontal)
+            {
+                return;
+            }
             float visibleCount = _horizontal ? GetHorizonalCount() : GetVerticalCount();
             var p = ObjectListCount - visibleCount;
             if (p == 0)
@@ -1047,11 +1056,12 @@ namespace Ryneus
                 return;
             }
             var c = _index - visibleCount + 1;
-            if (_horizontal)
+            if (c < 0)
             {
-                var positionY = c * (_itemSize.y + ItemSpace(false));
-                ScrollRect.content.SetAnchoredPositionY(positionY);
+                c = 0;
             }
+            var positionY = c * (_itemSize.y + ItemSpace(false));
+            ScrollRect.content.SetAnchoredPositionY(positionY);
         }
 
         private int ListItemCount()

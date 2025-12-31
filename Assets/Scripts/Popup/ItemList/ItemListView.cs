@@ -48,7 +48,8 @@ namespace Ryneus
             itemList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.DetailItem, itemList.ListItemData<ItemInfo>()));
             itemList.SetInputHandler(InputKeyType.Right, () => CallViewEvent(CommandType.PlusUseNum, itemList.ListItemData<ItemInfo>()?.Id.Value));
             itemList.SetInputHandler(InputKeyType.Left, () => CallViewEvent(CommandType.MinusUseNum, itemList.ListItemData<ItemInfo>()?.Id.Value));
-            itemList.SetInputHandler(InputKeyType.Select, CheckItemDetailButtonActive);
+            itemList.SetInputHandler(InputKeyType.Down, CheckItemDetailButtonActive);
+            itemList.SetInputHandler(InputKeyType.Up, CheckItemDetailButtonActive);
             AddViewActives(itemList);
         }
 

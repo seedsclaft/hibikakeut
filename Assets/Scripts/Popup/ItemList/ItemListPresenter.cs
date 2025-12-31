@@ -25,6 +25,7 @@ namespace Ryneus
             _model = new ItemListModel();
             SetModel(_model);
             _view.SetItemList(MakeListData(_model.ItemInfos(), 0));
+            _view.CheckItemDetailButtonActive();
             _view.OpenAnimation();
             _view.ActivateItemList(true);
             _busy = false;

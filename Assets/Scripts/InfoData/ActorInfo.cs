@@ -561,13 +561,13 @@ namespace Ryneus
             return !_useSkillCountDict.ContainsKey(skillId) ? 0 : _useSkillCountDict[skillId];
         }
 
-        public void AddSkillUseCount(int skillId, int count)
+        public void SetSkillUseCount(int skillId, int count)
         {
             if (!_useSkillCountDict.ContainsKey(skillId))
             {
                 _useSkillCountDict[skillId] = 0;
             }
-            _useSkillCountDict[skillId] += count;
+            _useSkillCountDict[skillId] = count;
         }
 
         public void ClearSkillUseCount()

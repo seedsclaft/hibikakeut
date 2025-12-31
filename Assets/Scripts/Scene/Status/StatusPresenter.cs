@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Ryneus.Status;
-using Unity.VisualScripting;
 
 namespace Ryneus
 {
@@ -228,7 +227,7 @@ namespace Ryneus
                 });
                 return;
             }
-
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.ChangeEquipSkill(skillInfo.Id.Value);
             ResetSelectSkill();
             _model.PartyInfo.PartyStatInfo.StatusSkillChangeCount.GainValue(1);
@@ -239,7 +238,7 @@ namespace Ryneus
         private void ResetSelectSkill()
         {
             _model.SetSelectSkillInfo(null);
-            _view.CallEquipSkillList();
+            _view.CallEquipSkillList(_model.SceneParam.AddActor.Value);
             CommandRefreshMagicList(false);
         }
 
@@ -260,8 +259,9 @@ namespace Ryneus
             CallPopupView(PopupType.UseItem, () =>
             {
                 _busy = false;
-                _view.CallEquipSkillList();
+                _view.CallEquipSkillList(_model.SceneParam.AddActor.Value);
                 CommandRefresh();
+                CommandRefreshMagicList(false);
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             }, useItemSceneInfo);
         }
@@ -369,7 +369,7 @@ namespace Ryneus
         private void CommandCancelUseItem()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-            _view.CallEquipSkillList();
+            _view.CallEquipSkillList(_model.SceneParam.AddActor.Value);
         }
 
         private void CommandCharacterList()

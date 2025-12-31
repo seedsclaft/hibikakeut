@@ -60,7 +60,7 @@ namespace Ryneus
             {
                 return Master.BattleUseCount() - UseCount.Value;
             }
-            return -1;
+            return 99;
         }
 
         private int _minusCountTurn = 0;

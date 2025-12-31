@@ -113,8 +113,8 @@ namespace Ryneus
             UpdateInputGamePadData(InputKeyType.Down, gamePad.dpad.down, null);
             UpdateInputGamePadData(InputKeyType.Left, gamePad.dpad.left, null);
             UpdateInputGamePadData(InputKeyType.Right, gamePad.dpad.right, null);
-            UpdateInputGamePadData(InputKeyType.Decide, gamePad.bButton, null);
-            UpdateInputGamePadData(InputKeyType.Cancel, gamePad.aButton, null);
+            UpdateInputGamePadData(InputKeyType.Decide, gamePad.aButton, null);
+            UpdateInputGamePadData(InputKeyType.Cancel, gamePad.bButton, null);
             UpdateInputGamePadData(InputKeyType.Option1, gamePad.xButton, null);
             UpdateInputGamePadData(InputKeyType.Option2, gamePad.yButton, null);
             UpdateInputGamePadData(InputKeyType.SideLeft2, gamePad.leftTrigger, null);
@@ -300,53 +300,27 @@ namespace Ryneus
                 keyTypes.Add(InputKeyType.Left);
             }
 
-            if (gamePad.aButton.wasPressedThisFrame || gamePad.crossButton.wasPressedThisFrame)
+            var checkSelectInputTypes = new List<InputKeyType>
             {
-                keyTypes.Add(InputKeyType.Decide);
-            }
-            if (gamePad.bButton.wasPressedThisFrame || gamePad.buttonEast.wasPressedThisFrame || gamePad.circleButton.wasPressedThisFrame)
+                InputKeyType.Decide,
+                InputKeyType.Cancel,
+                InputKeyType.Option1,
+                InputKeyType.Option2,
+                InputKeyType.SideLeft1,
+                InputKeyType.SideRight1,
+                InputKeyType.SideLeft2,
+                InputKeyType.SideRight2,
+                InputKeyType.Start,
+                InputKeyType.Select
+            };
+            foreach (var checkSelectInputType in checkSelectInputTypes)
             {
-                keyTypes.Add(InputKeyType.Cancel);
-            }
-            if (gamePad.xButton.wasPressedThisFrame || gamePad.buttonWest.wasPressedThisFrame || gamePad.squareButton.wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.Option1);
-            }
-            if (gamePad.yButton.wasPressedThisFrame || gamePad.buttonNorth.wasPressedThisFrame || gamePad.triangleButton.wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.Option2);
-            }
-
-            // start,select
-            if (gamePad.startButton.wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.Start);
-            }
-            if (gamePad.selectButton.wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.Select);
+                if (GetInputDate(checkSelectInputType).IsDownTrigger())
+                {
+                    keyTypes.Add(checkSelectInputType);
+                }
             }
 
-
-            // L1,R1
-            if (gamePad.leftShoulder.wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.SideLeft1);
-            }
-            if (gamePad.rightShoulder.wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.SideRight1);
-            }
-
-            // L2,R2
-            if (gamePad.leftTrigger.wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.SideLeft2);
-            }
-            if (gamePad.rightTrigger.wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.SideRight2);
-            }
             if (gamePad.leftStick.value.y > 0)
             {
                 keyTypes.Add(InputKeyType.LeftStickUp);

@@ -65,7 +65,12 @@ namespace Ryneus
             {
                 if (isLoad)
                 {
-                    _view.CommandGotoSceneChange(_model.PartyInfo.ResumeScene);
+                    var resumeScene = _model.PartyInfo.ResumeScene;
+                    if (resumeScene == Scene.None)
+                    {
+                        resumeScene = Scene.MainMenu;
+                    }
+                    _view.CommandGotoSceneChange(resumeScene);
                 }
                 _view.CommandEnd();
             }

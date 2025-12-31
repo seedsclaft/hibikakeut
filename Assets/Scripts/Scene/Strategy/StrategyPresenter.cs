@@ -254,6 +254,7 @@ namespace Ryneus
                 });
                 return;
             }
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             EndStrategy();
         }
 

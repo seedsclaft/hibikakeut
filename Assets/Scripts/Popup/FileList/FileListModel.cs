@@ -60,7 +60,8 @@ namespace Ryneus
                     CurrentData.LastSaveIndex.SetValue(saveFileInfo.SaveNo);
                     return true;
                 }
-            } else
+            }
+            else
             {
                 // セーブ
                 SaveFile(saveFileInfo);

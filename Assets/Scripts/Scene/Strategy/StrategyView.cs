@@ -116,7 +116,7 @@ namespace Ryneus
         {
             commandList.Initialize();
             AddViewActives(commandList);
-            commandList.SetInputHandler(InputKeyType.Decide,CallResultCommand);
+            commandList.SetInputHandler(InputKeyType.Decide, CallResultCommand);
             commandList.gameObject.SetActive(false);
         }
 
@@ -178,7 +178,7 @@ namespace Ryneus
             var data = commandList.ListItemData<SystemData.CommandData>();
             if (data != null)
             {
-                CallViewEvent(CommandType.ResultClose,data);
+                CallViewEvent(CommandType.ResultClose, data);
             }
         }
 

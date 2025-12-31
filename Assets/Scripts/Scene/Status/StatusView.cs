@@ -226,13 +226,16 @@ namespace Ryneus
             rightArrowButton.gameObject.SetActive(isActive);
         }
 
-        public void CallEquipSkillList()
+        public void CallEquipSkillList(bool isDecide)
         {
             magicListRoot.SetActive(true);
             useItemRoot.SetActive(false);
             SetActivate(equipSkillList);
             equipSkillList.gameObject.SetActive(true);
-            useItemButton.gameObject.SetActive(true);
+            if (!isDecide)
+            {
+                useItemButton.gameObject.SetActive(true);
+            }
             changeSkillList.gameObject.SetActive(false);
             //useItemList.gameObject.SetActive(false);
             filterRoot.SetActive(false);

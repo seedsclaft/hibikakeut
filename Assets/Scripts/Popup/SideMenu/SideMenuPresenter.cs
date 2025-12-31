@@ -121,6 +121,10 @@ namespace Ryneus
             {
                 if (a == ConfirmCommandType.Yes)
                 {
+                    var mainMenuSceneInfo = new MainMenuSceneInfo
+                    {
+                        PeriodAnimation = true
+                    };
                     var checkNotSeekPeriod = _model.CheckNotSeekPeriod();
                     if (checkNotSeekPeriod != null)
                     {
@@ -139,11 +143,12 @@ namespace Ryneus
                             InBattle = false,
                             GetItemInfos = periodItemInfos,
                             ReturnScene = Scene.MainMenu,
+                            ReturnMainMenuSceneParam = mainMenuSceneInfo
                         };
                         _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
                     } else
                     {
-                        _view.CommandSceneChange(Scene.MainMenu);
+                        _view.CommandSceneChange(Scene.MainMenu, mainMenuSceneInfo);
                     }
                 }
             });

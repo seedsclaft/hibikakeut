@@ -2768,7 +2768,7 @@ namespace Ryneus
                 {
                     if (skill.Master.TriggerDates.Find(a => a.TriggerType == TriggerType.InPeriodUseCountUnder) != null)
                     {
-                        actorInfo.AddSkillUseCount(skill.Id.Value, skill.PeriodUseCount.Value);
+                        actorInfo.SetSkillUseCount(skill.Id.Value, skill.PeriodUseCount.Value);
                     }
                 }
             }

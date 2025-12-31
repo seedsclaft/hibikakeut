@@ -188,6 +188,7 @@ namespace Ryneus
                     var cost = actorInfo.EquipSkillCost(skillInfo.Master.Id, PartyInfo.ActorInfos, null);
                     skillInfo.LearningCost.SetValue(cost);
                 }
+                skillInfo.PeriodUseCount.SetValue(actorInfo.GetSkillUseCount(equipSkillId.Value));
                 equipSkills.Add(skillInfo);
             }
             if (equipSkills.Count < actorInfo.EquipSlotCount())

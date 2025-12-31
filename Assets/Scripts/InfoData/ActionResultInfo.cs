@@ -988,7 +988,7 @@ namespace Ryneus
         private void MakeApDamage(BattlerInfo subject, BattlerInfo target, SkillData.FeatureData featureData)
         {
             float HealValue = featureData.Param1;
-            ApHeal.SetValue((int)Mathf.Round(HealValue));
+            ApDamage.SetValue((int)Mathf.Round(HealValue));
         }
 
         private void MakeLearnSkill(BattlerInfo subject, BattlerInfo target, SkillData.FeatureData featureData)

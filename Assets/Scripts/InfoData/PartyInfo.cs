@@ -235,7 +235,9 @@ namespace Ryneus
 
         public List<ItemInfo> GetOwnUseItemInfos(List<UseItemType> itemTypes)
         {
-            return UseItemInfos().FindAll(a => itemTypes.Contains((UseItemType)a.Master.Param1));
+            var useItemInfos = UseItemInfos();
+            useItemInfos.AddRange(DungeonUseItemInfos());
+            return useItemInfos.FindAll(a => itemTypes.Contains((UseItemType)a.Master.Param1));
         }
 
         public List<ItemInfo> GetOwnItemInfos(ItemType itemType)

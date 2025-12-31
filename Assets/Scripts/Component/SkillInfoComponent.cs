@@ -100,7 +100,7 @@ namespace Ryneus
                     learningCost.text = DataSystem.PowerUpColorTag + learningCost.text + "</color>";
                 }
             }
-            if (useCount != null && skillInfo.RemainUseCount() > -1)
+            if (useCount != null && skillInfo.RemainUseCount() != 99)
             {
                 useCount.gameObject.SetActive(true);
                 useCount.SetText(DataSystem.GetReplaceText(2610, skillInfo.RemainUseCount().ToString()));
