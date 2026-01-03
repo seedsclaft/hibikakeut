@@ -871,4 +871,50 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 4
+  DungeonCompletion: 7
+  stageEvents:
+  - EventKey: 64_9_6DungeonMoveDungeonFloor63
+    Timing: 3010
+    Type: 2020
+    PositionX: 9
+    PositionY: 6
+    Param: 63
+    Param2: 9
+    Param3: 6
+    ReadFlag: 0
+  - EventKey: 64_4_5DungeonMoveDungeonFloor63
+    Timing: 3010
+    Type: 2020
+    PositionX: 4
+    PositionY: 5
+    Param: 63
+    Param2: 4
+    Param3: 5
+    ReadFlag: 0
+  - EventKey: 64_4_7DungeonGetArtifact2040
+    Timing: 3010
+    Type: 3010
+    PositionX: 4
+    PositionY: 7
+    Param: 2040
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 64_5_6DungeonDungeonClear0
+    Timing: 3010
+    Type: 2030
+    PositionX: 5
+    PositionY: 6
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 64_5_6DungeonForceBossBattle5010
+    Timing: 3010
+    Type: 5020
+    PositionX: 5
+    PositionY: 6
+    Param: 5010
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1

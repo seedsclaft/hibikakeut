@@ -229,7 +229,7 @@ namespace Ryneus
             return CurrentData.PlayerInfo?.UserId.ToString();
         }
 
-        public List<StageEventData> StageEventDates => CurrentStage.Master.StageEvents;
+        public List<StageEventData> StageEventDates => CurrentStage.GetStageEvents();
 
         public List<StageEventData> StageEvents(EventTiming eventTiming)
         {

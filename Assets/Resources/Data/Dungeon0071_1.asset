@@ -1182,7 +1182,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 231
-    mapAttr: 8
+    mapAttr: 0
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -1306,4 +1306,113 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 27
+  DungeonCompletion: 31
+  stageEvents:
+  - EventKey: 71_12_12DungeonMoveDungeonFloor70
+    Timing: 3010
+    Type: 2020
+    PositionX: 12
+    PositionY: 12
+    Param: 70
+    Param2: 6
+    Param3: 4
+    ReadFlag: 0
+  - EventKey: 71_2_2DungeonMoveDungeonFloor72
+    Timing: 3010
+    Type: 2020
+    PositionX: 2
+    PositionY: 2
+    Param: 72
+    Param2: 14
+    Param3: 2
+    ReadFlag: 0
+  - EventKey: 71_4_14DungeonMoveDungeonFloor72
+    Timing: 3010
+    Type: 2020
+    PositionX: 4
+    PositionY: 14
+    Param: 72
+    Param2: 6
+    Param3: 13
+    ReadFlag: 0
+  - EventKey: 71_8_14DungeonMoveDungeonFloor70
+    Timing: 3010
+    Type: 2020
+    PositionX: 8
+    PositionY: 14
+    Param: 70
+    Param2: 2
+    Param3: 6
+    ReadFlag: 0
+  - EventKey: 71_13_2DungeonForceBattle-1
+    Timing: 3010
+    Type: 5010
+    PositionX: 13
+    PositionY: 2
+    Param: -1
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 71_13_4DungeonForceBattle-1
+    Timing: 3010
+    Type: 5010
+    PositionX: 13
+    PositionY: 4
+    Param: -1
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 71_12_3DungeonAddEventFlagEndForceBattle103
+    Timing: 3010
+    Type: 6020
+    PositionX: 12
+    PositionY: 3
+    Param: 103
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 71_10_3DungeonNone103
+    Timing: 3010
+    Type: 0
+    PositionX: 10
+    PositionY: 3
+    Param: 103
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 71_12_3DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 12
+    PositionY: 3
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 71_13_3DungeonAddEventFlagEndForceBattle103
+    Timing: 3010
+    Type: 6020
+    PositionX: 13
+    PositionY: 3
+    Param: 103
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 71_10_3DungeonNone103
+    Timing: 3010
+    Type: 0
+    PositionX: 10
+    PositionY: 3
+    Param: 103
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 71_13_3DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 13
+    PositionY: 3
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0

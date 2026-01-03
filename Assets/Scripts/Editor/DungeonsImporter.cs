@@ -91,6 +91,28 @@ namespace Ryneus
 
                     // 専用データを作成
                     var floorData = ConvertFloorData(Data, FileName);
+                    // ステージイベント生成
+                    var stageEvents = new List<StageEventData>();
+                    ISheet StageEventSheet = Book.GetSheetAt(3);
+                    var KeyRow3 = StageEventSheet.GetRow(0);
+                    AssetPostImporter.SetKeyNames(KeyRow3.Cells);
+                    for (int j = 1; j <= StageEventSheet.LastRowNum; j++)
+                    {
+                        IRow StageEventRow = StageEventSheet.GetRow(j);
+                        var EventData = new StageEventData();
+                        EventData.PositionX = AssetPostImporter.ImportNumeric(StageEventRow, "PositionX");
+                        EventData.PositionY = AssetPostImporter.ImportNumeric(StageEventRow, "PositionY");
+                        EventData.Timing = (EventTiming)AssetPostImporter.ImportNumeric(StageEventRow, "Timing");
+                        EventData.Type = (StageEventType)AssetPostImporter.ImportNumeric(StageEventRow, "Type");
+                        EventData.Param = AssetPostImporter.ImportNumeric(StageEventRow, "Param");
+                        EventData.Param2 = AssetPostImporter.ImportNumeric(StageEventRow, "Param2");
+                        EventData.Param3 = AssetPostImporter.ImportNumeric(StageEventRow, "Param3");
+                        EventData.ReadFlag = AssetPostImporter.ImportBool(StageEventRow, "ReadFlag");
+                        EventData.EventKey = AssetPostImporter.ImportNumeric(StageEventRow, "Id").ToString() + "_" + EventData.PositionX.ToString() + "_" + EventData.PositionY.ToString() + EventData.Timing.ToString() + EventData.Type.ToString() + EventData.Param.ToString();
+
+                        stageEvents.Add(EventData);
+                    }
+                    floorData.stageEvents = stageEvents;
 
                     // ダンジョンマスタ更新
                     string AriadoneExportPath = $"{Path.Combine(AssetPostImporter.ExportExcelPath, "Dungeon"+ Data.Data.Id.ToString("D4") + "")}.asset";
@@ -300,6 +322,7 @@ namespace Ryneus
             AriadoneFloorData.enteringDir = (Ariadne.DungeonDir)Data.Data.InitDir;
             AriadoneFloorData.mapInfo = Data.FloorData;
             AriadoneFloorData.DungeonCompletion = Data.FloorData.FindAll(a => a.mapAttr is 0 or 2 or 3 or 8 or 10 or 11 or 12 or 13).Count;
+
             EditorUtility.SetDirty(AriadoneFloorData);
             return AriadoneFloorData;
         }

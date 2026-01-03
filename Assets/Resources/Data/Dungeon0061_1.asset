@@ -871,4 +871,149 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 2
+  DungeonCompletion: 5
+  stageEvents:
+  - EventKey: 61_6_2DungeonMoveDungeonFloor60
+    Timing: 3010
+    Type: 2020
+    PositionX: 6
+    PositionY: 2
+    Param: 60
+    Param2: 6
+    Param3: 2
+    ReadFlag: 0
+  - EventKey: 61_2_6DungeonMoveDungeonFloor62
+    Timing: 3010
+    Type: 2020
+    PositionX: 2
+    PositionY: 6
+    Param: 62
+    Param2: 2
+    Param3: 6
+    ReadFlag: 0
+  - EventKey: 61_6_5DungeonMoveDungeonFloor62
+    Timing: 3010
+    Type: 2020
+    PositionX: 6
+    PositionY: 5
+    Param: 62
+    Param2: 6
+    Param3: 5
+    ReadFlag: 0
+  - EventKey: 61_7_7DungeonAdvStart140
+    Timing: 3010
+    Type: 1010
+    PositionX: 7
+    PositionY: 7
+    Param: 140
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_8_3DungeonAddEventFlag82
+    Timing: 3010
+    Type: 6010
+    PositionX: 8
+    PositionY: 3
+    Param: 82
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_8_2DungeonNone82
+    Timing: 3010
+    Type: 0
+    PositionX: 8
+    PositionY: 2
+    Param: 82
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_8_3DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 8
+    PositionY: 3
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 61_6_1DungeonAdvStart110
+    Timing: 3010
+    Type: 1010
+    PositionX: 6
+    PositionY: 1
+    Param: 110
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_6_1DungeonCurseFloor0
+    Timing: 3010
+    Type: 7020
+    PositionX: 6
+    PositionY: 1
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_6_1DungeonAdvStart120
+    Timing: 3010
+    Type: 1010
+    PositionX: 6
+    PositionY: 1
+    Param: 120
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_6_1DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 6
+    PositionY: 1
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 61_1_6DungeonAdvStart130
+    Timing: 3010
+    Type: 1010
+    PositionX: 1
+    PositionY: 6
+    Param: 130
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_1_6DungeonEndCurseFloor0
+    Timing: 3010
+    Type: 7021
+    PositionX: 1
+    PositionY: 6
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_1_6DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 1
+    PositionY: 6
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 61_1_1DungeonGetItem420
+    Timing: 3010
+    Type: 3020
+    PositionX: 1
+    PositionY: 1
+    Param: 420
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_8_6DungeonGetItem420
+    Timing: 3010
+    Type: 3020
+    PositionX: 8
+    PositionY: 6
+    Param: 420
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1

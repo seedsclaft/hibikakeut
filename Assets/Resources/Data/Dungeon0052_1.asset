@@ -1646,4 +1646,77 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 113
+  DungeonCompletion: 115
+  stageEvents:
+  - EventKey: 52_2_10DungeonMoveDungeonFloor51
+    Timing: 3010
+    Type: 2020
+    PositionX: 2
+    PositionY: 10
+    Param: 51
+    Param2: 2
+    Param3: 1
+    ReadFlag: 0
+  - EventKey: 52_15_5DungeonMoveDungeonFloor53
+    Timing: 3010
+    Type: 2020
+    PositionX: 15
+    PositionY: 5
+    Param: 53
+    Param2: 4
+    Param3: 11
+    ReadFlag: 0
+  - EventKey: 52_5_9DungeonDamageFloor20
+    Timing: 3010
+    Type: 7010
+    PositionX: 5
+    PositionY: 9
+    Param: 20
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 52_8_10DungeonDamageFloor20
+    Timing: 3010
+    Type: 7010
+    PositionX: 8
+    PositionY: 10
+    Param: 20
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 52_7_5DungeonForceBattle-1
+    Timing: 3010
+    Type: 5010
+    PositionX: 7
+    PositionY: 5
+    Param: -1
+    Param2: 40020
+    Param3: 2
+    ReadFlag: 1
+  - EventKey: 52_9_5DungeonForceBattle-1
+    Timing: 3010
+    Type: 5010
+    PositionX: 9
+    PositionY: 5
+    Param: -1
+    Param2: 40020
+    Param3: 2
+    ReadFlag: 1
+  - EventKey: 52_5_5DungeonAdvStart1060
+    Timing: 3010
+    Type: 1010
+    PositionX: 5
+    PositionY: 5
+    Param: 1060
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 52_5_5DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 5
+    PositionY: 5
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0

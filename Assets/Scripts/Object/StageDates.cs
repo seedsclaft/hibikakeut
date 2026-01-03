@@ -33,7 +33,6 @@ namespace Ryneus
         public int BossBGMId;
         public int BattleBGMId;
         public string SkyboxName;
-        public List<StageEventData> StageEvents;
     }
 
     public enum StageCategory

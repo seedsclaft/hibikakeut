@@ -746,4 +746,68 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 12
+  DungeonCompletion: 14
+  stageEvents:
+  - EventKey: 70_6_8DungeonExitDungeon0
+    Timing: 3010
+    Type: 2010
+    PositionX: 6
+    PositionY: 8
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 70_6_4DungeonMoveDungeonFloor71
+    Timing: 3010
+    Type: 2020
+    PositionX: 6
+    PositionY: 4
+    Param: 71
+    Param2: 12
+    Param3: 12
+    ReadFlag: 0
+  - EventKey: 70_2_6DungeonMoveDungeonFloor71
+    Timing: 3010
+    Type: 2020
+    PositionX: 2
+    PositionY: 6
+    Param: 71
+    Param2: 8
+    Param3: 14
+    ReadFlag: 0
+  - EventKey: 70_3_6DungeonAdvStart140
+    Timing: 3010
+    Type: 1010
+    PositionX: 3
+    PositionY: 6
+    Param: 140
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 70_3_6DungeonAddEventFlag46
+    Timing: 3010
+    Type: 6010
+    PositionX: 3
+    PositionY: 6
+    Param: 46
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 70_4_6DungeonNone46
+    Timing: 3010
+    Type: 0
+    PositionX: 4
+    PositionY: 6
+    Param: 46
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 70_3_6DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 3
+    PositionY: 6
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0

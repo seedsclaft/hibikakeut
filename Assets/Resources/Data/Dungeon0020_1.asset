@@ -1306,4 +1306,77 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 55
+  DungeonCompletion: 56
+  stageEvents:
+  - EventKey: 20_2_1DungeonExitDungeon0
+    Timing: 3010
+    Type: 2010
+    PositionX: 2
+    PositionY: 1
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 20_10_9DungeonAdvStart140
+    Timing: 3010
+    Type: 1010
+    PositionX: 10
+    PositionY: 9
+    Param: 140
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 20_10_9DungeonAddEventFlag79
+    Timing: 3010
+    Type: 6010
+    PositionX: 10
+    PositionY: 9
+    Param: 79
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 20_7_9DungeonNone79
+    Timing: 3010
+    Type: 0
+    PositionX: 7
+    PositionY: 9
+    Param: 79
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 20_10_9DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 10
+    PositionY: 9
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 20_7_0DungeonMoveDungeonFloor21
+    Timing: 3010
+    Type: 2020
+    PositionX: 7
+    PositionY: 0
+    Param: 21
+    Param2: 1
+    Param3: 15
+    ReadFlag: 0
+  - EventKey: 20_6_11DungeonTraverseRegeon1
+    Timing: 3010
+    Type: 8010
+    PositionX: 6
+    PositionY: 11
+    Param: 1
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 20_11_7DungeonTraverseRegeon2
+    Timing: 3010
+    Type: 8010
+    PositionX: 11
+    PositionY: 7
+    Param: 2
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0

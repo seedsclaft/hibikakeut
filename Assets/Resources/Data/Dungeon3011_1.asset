@@ -1307,3 +1307,67 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   DungeonCompletion: 14
+  stageEvents:
+  - EventKey: 3011_8_2DungeonMoveDungeonFloor3010
+    Timing: 3010
+    Type: 2020
+    PositionX: 8
+    PositionY: 2
+    Param: 3010
+    Param2: 9
+    Param3: 10
+    ReadFlag: 0
+  - EventKey: 3011_8_7DungeonAdvStart30040
+    Timing: 3010
+    Type: 1010
+    PositionX: 8
+    PositionY: 7
+    Param: 30040
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 3011_8_9DungeonForceBossBattle6010
+    Timing: 3010
+    Type: 5020
+    PositionX: 8
+    PositionY: 9
+    Param: 6010
+    Param2: 0
+    Param3: 1
+    ReadFlag: 1
+  - EventKey: 3011_8_9DungeonBattleVictoryAdvStart30050
+    Timing: 3030
+    Type: 1010
+    PositionX: 8
+    PositionY: 9
+    Param: 30050
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 3011_8_9DungeonBattleVictoryRemoveActor102
+    Timing: 3030
+    Type: 4011
+    PositionX: 8
+    PositionY: 9
+    Param: 102
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 3011_8_9DungeonBattleVictoryAddActor101
+    Timing: 3030
+    Type: 4010
+    PositionX: 8
+    PositionY: 9
+    Param: 101
+    Param2: 1
+    Param3: 1
+    ReadFlag: 1
+  - EventKey: 3011_8_9DungeonBattleVictoryMoveDungeonFloorForce10
+    Timing: 3030
+    Type: 2021
+    PositionX: 8
+    PositionY: 9
+    Param: 10
+    Param2: 7
+    Param3: 4
+    ReadFlag: 1

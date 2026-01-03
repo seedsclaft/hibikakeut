@@ -89,31 +89,9 @@ namespace Ryneus
                             BossBGMId = AssetPostImporter.ImportNumeric(BaseRow, "BossBGMId"),
                             BattleBGMId = AssetPostImporter.ImportNumeric(BaseRow, "BattleBGMId"),
                             SkyboxName = AssetPostImporter.ImportString(BaseRow, "SkyboxName"),
-                            StageEvents = new List<StageEventData>()
                         };
                         KeyRow = EventSheet.GetRow(0);
                         AssetPostImporter.SetKeyNames(KeyRow.Cells);
-                        for (int j = 1; j <= EventSheet.LastRowNum; j++)
-                        {
-                            IRow EventRow = EventSheet.GetRow(j);
-                            var EventData = new StageEventData();
-                            var StageId = AssetPostImporter.ImportNumeric(EventRow, "Id");
-
-                            if (StageId == StageData.Id)
-                            {
-                                EventData.PositionX = AssetPostImporter.ImportNumeric(EventRow, "PositionX");
-                                EventData.PositionY = AssetPostImporter.ImportNumeric(EventRow, "PositionY");
-                                EventData.Timing = (EventTiming)AssetPostImporter.ImportNumeric(EventRow, "Timing");
-                                EventData.Type = (StageEventType)AssetPostImporter.ImportNumeric(EventRow, "Type");
-                                EventData.Param = AssetPostImporter.ImportNumeric(EventRow, "Param");
-                                EventData.Param2 = AssetPostImporter.ImportNumeric(EventRow, "Param2");
-                                EventData.Param3 = AssetPostImporter.ImportNumeric(EventRow, "Param3");
-                                EventData.ReadFlag = AssetPostImporter.ImportBool(EventRow, "ReadFlag");
-                                EventData.EventKey = StageId.ToString() + "_" + EventData.PositionX.ToString() + "_" + EventData.PositionY.ToString() + EventData.Timing.ToString() + EventData.Type.ToString() + EventData.Param.ToString();
-
-                                StageData.StageEvents.Add(EventData);
-                            }
-                        }
 
                         KeyRow = EnemyRateSheet.GetRow(0);
                         AssetPostImporter.SetKeyNames(KeyRow.Cells);

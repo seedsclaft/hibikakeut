@@ -42,5 +42,6 @@ namespace Ariadne
         public DungeonDir enteringDir;
         public List<MapInfo> mapInfo;
         public int DungeonCompletion;
+        public List<Ryneus.StageEventData> stageEvents;
     }
 }

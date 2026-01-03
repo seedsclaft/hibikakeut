@@ -746,4 +746,41 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 25
+  DungeonCompletion: 26
+  stageEvents:
+  - EventKey: 50_9_10DungeonExitDungeon0
+    Timing: 3010
+    Type: 2010
+    PositionX: 9
+    PositionY: 10
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 50_2_1DungeonMoveDungeonFloor51
+    Timing: 3010
+    Type: 2020
+    PositionX: 2
+    PositionY: 1
+    Param: 51
+    Param2: 1
+    Param3: 12
+    ReadFlag: 0
+  - EventKey: 50_5_2DungeonGetItem1100
+    Timing: 3010
+    Type: 3020
+    PositionX: 5
+    PositionY: 2
+    Param: 1100
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 50_9_3DungeonGetItem4020
+    Timing: 3010
+    Type: 3020
+    PositionX: 9
+    PositionY: 3
+    Param: 4020
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1

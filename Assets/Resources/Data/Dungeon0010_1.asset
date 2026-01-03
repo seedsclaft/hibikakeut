@@ -1307,3 +1307,40 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   DungeonCompletion: 1
+  stageEvents:
+  - EventKey: 10_0_0DungeonMovedAddActor101
+    Timing: 3020
+    Type: 4010
+    PositionX: 0
+    PositionY: 0
+    Param: 101
+    Param2: 1
+    Param3: 1
+    ReadFlag: 1
+  - EventKey: 10_0_0DungeonMovedAdvStart30060
+    Timing: 3020
+    Type: 1010
+    PositionX: 0
+    PositionY: 0
+    Param: 30060
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 10_7_4DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 7
+    PositionY: 4
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 10_7_13DungeonExitDungeon0
+    Timing: 3010
+    Type: 2010
+    PositionX: 7
+    PositionY: 13
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
