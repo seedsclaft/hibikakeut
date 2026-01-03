@@ -233,7 +233,7 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            if (InputSystem.GetInputDate(InputKeyType.Option2).IsDownTrigger())
+            if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
             {
                 SoundManager.Instance.StopBgm();
                 CommandSceneChange(Scene.Demo);
