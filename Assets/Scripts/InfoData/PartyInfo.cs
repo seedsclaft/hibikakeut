@@ -47,10 +47,23 @@ namespace Ryneus
         public List<ActorInfo> ActorInfos => _actorInfos;
         // リーダーキャラId
         public ParameterInt LeaderActorId = new();
+        // エンフェリアの加入順
+        private List<int> _releifActorIndexes = new();
+        public List<int> ReleifActorIndexes => _releifActorIndexes;
 
         public List<ActorInfo> EditableActorInfos()
         {
             return _actorInfos.FindAll(a => !a.Transfer.Value);
+        }
+
+        public ActorInfo GetReleifActorInfo(int index)
+        {
+            if (_releifActorIndexes.Count < index)
+            {
+                return null;
+            }
+            var actorIndex = _releifActorIndexes[index - 1];
+            return _actorInfos.Find(a => a.ActorId.Value == actorIndex);
         }
 
         public void AddTransferActorInfos(ActorInfo actorInfo)

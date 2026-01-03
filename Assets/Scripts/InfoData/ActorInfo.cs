@@ -406,6 +406,11 @@ namespace Ryneus
             return LearningSkillInfos().FindAll(a => a.LearningState == LearningState.NotLearn && a.LearningLv.Value != -1 && a.LearningLv.Value <= (Level + plusLv));
         }
 
+        public List<SkillInfo> SealedSkills()
+        {
+            return LearningSkillInfos().FindAll(a => a.LearningState == LearningState.NotLearn && a.LearningLv.Value == -1);
+        }
+
         public bool IsLearnedSkill(int skillId)
         {
             var learnedSkill = LearningSkillInfos().FindAll(a => a.LearningState == LearningState.Learned);

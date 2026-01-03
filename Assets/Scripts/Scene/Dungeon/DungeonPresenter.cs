@@ -497,6 +497,9 @@ namespace Ryneus
                 case StageEventType.AdvStart:
                     StageEventAdvEvent(moved, stageEvent.Param, endEvent);
                     return;
+                case StageEventType.ActorEvent:
+                    StageEventActorEvent(moved, stageEvent, endEvent);
+                    return;
                 case StageEventType.ExitDungeon:
                     StageEventExitDungeon(moved, endEvent);
                     return;
@@ -569,11 +572,50 @@ namespace Ryneus
             // TimeStampを取得してBgmをフェードアウト
             _model.UpdateEventObjects();
             var timeStamp = SoundManager.Instance.CurrentTimeStamp();
-            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
             CallAdvEvent(advId, timeStamp, () =>
             {
                 _view.CallSystemCommand(Base.CommandType.SceneShowUI);
                 endEvent?.Invoke();
+            });
+        }
+
+        private void StageEventActorEvent(bool moved, StageEventData stageEventData, Action endEvent)
+        {
+            var actorIndex = stageEventData.Param;
+            var seek = stageEventData.Param2;
+            var actorInfo = _model.PartyInfo.GetReleifActorInfo(actorIndex);
+            SkillInfo skillInfo = null;
+            if (actorInfo != null)
+            {
+                var learnSkillInfos = actorInfo.SealedSkills();
+                if (seek == 2 && learnSkillInfos.Count > 0)
+                {
+                    skillInfo = learnSkillInfos[0];
+                }
+                else
+                if (seek == 3 && learnSkillInfos.Count > 1)
+                {
+                    skillInfo = learnSkillInfos[1];
+                }
+            }
+            var advId = 10000 + (actorIndex * 100) + (seek * 10);
+            // TimeStampを取得してBgmをフェードアウト
+            _model.UpdateEventObjects();
+            var timeStamp = SoundManager.Instance.CurrentTimeStamp();
+            CallAdvEvent(advId, timeStamp, () =>
+            {
+                _view.CallSystemCommand(Base.CommandType.SceneShowUI);
+                if (skillInfo != null)
+                {
+                    CommandLearnMagic(actorInfo, skillInfo, () =>
+                    {
+                        endEvent?.Invoke();
+                    });
+                }
+                else
+                {
+                    endEvent?.Invoke();
+                }
             });
         }
 
