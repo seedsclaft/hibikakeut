@@ -174,7 +174,8 @@ namespace Ryneus
                                     target.ChangeEquipSkill(skill.Id.Value, 0);
                                 }
                             }
-                        } else
+                        }
+                        else
                         {
                             _learnSkillInfo.Add(null);
                         }
@@ -275,7 +276,7 @@ namespace Ryneus
                         */
                         // キャラ加入
                         var actorData2 = DataSystem.FindActor(getItemInfo.Param1);
-                        resultInfo.Title.SetValue("候補者" + actorData2.Name + "を選定");
+                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(11013, actorData2.Name));
                         _resultInfos.Add(resultInfo);
                         break;
                     case GetItemType.SelectRelic:

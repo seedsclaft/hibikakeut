@@ -11,7 +11,8 @@ namespace Ryneus
 
         private int _lastTargetIndex = 0;
         public int LastTargetIndex => _lastTargetIndex;
-        public SkillData Master => DataSystem.FindSkill(_skillInfo.Id.Value);
+        public SkillData _master = null;
+        public SkillData Master => _master != null ? _master : DataSystem.FindSkill(_skillInfo.Id.Value);
         private SkillInfo _skillInfo = null;
         public SkillInfo SkillInfo => _skillInfo;
 
@@ -80,6 +81,7 @@ namespace Ryneus
         {
             _index = index;
             _skillInfo = skillInfo;
+            _master = Master;
             _scopeType = Master.Scope;
             _rangeType = Master.Range;
             _targetType = Master.TargetType;

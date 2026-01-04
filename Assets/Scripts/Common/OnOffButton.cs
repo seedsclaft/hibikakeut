@@ -62,14 +62,15 @@ namespace Ryneus
 
         public void SetActiveCursor(bool isActive)
         {
-            if (Disable != null && Disable?.activeSelf == true)
+            if (Disable != null && Disable.activeSelf)
             {
                 Cursor.SetActive(isActive);
             }
             if (isActive)
             {
                 SetSelect();
-            } else
+            }
+            else
             {
                 SetUnSelect();
             }

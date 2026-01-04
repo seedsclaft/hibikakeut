@@ -10,15 +10,15 @@ namespace Ryneus
         [SerializeField] private GameObject tabPrefab;
         [SerializeField] private GameObject tabRoot;
         [SerializeField] private ToggleGroup toggleGroup;
-        [SerializeField] private List<GameObject> _viewObjs = new ();
+        [SerializeField] private List<GameObject> _viewObjs = new();
         private List<Toggle> _selectTabs = new ();
-        private List<CanvasGroup> _selectTabCanvasGroup = new ();
+        private List<CanvasGroup> _selectTabCanvasGroup = new();
 
         private int _selectTabIndex = -1;
         public int SelectTabIndex => _selectTabIndex;
         private int _busyFrame = -1;
 
-        public void SetSelectTabIndex(int selectIndex,bool needSe = true)
+        public void SetSelectTabIndex(int selectIndex, bool needSe = true)
         {
             if (_selectTabIndex != selectIndex)
             {
@@ -60,10 +60,10 @@ namespace Ryneus
             foreach (var selectTab in _selectTabs)
             {
                 var tabIndex = idx;
-                selectTab.onValueChanged.AddListener((a) => 
+                selectTab.onValueChanged.AddListener((a) =>
                 {
                     SetSelectTabIndex(tabIndex);
-                    if (a == true)
+                    if (a)
                     {
                         SoundManager.Instance.PlayStaticSe(SEType.Cursor);
                         clickEvent?.Invoke();
@@ -72,9 +72,9 @@ namespace Ryneus
                 idx++;
             }
         }
-        
+
         public void SetActiveTab(int selectCharacterTabType,bool isActive)
-        {    
+        {
             _selectTabs[selectCharacterTabType].gameObject.SetActive(isActive);
         }
 
@@ -91,15 +91,17 @@ namespace Ryneus
                 for (int i = 0;i < _selectTabs.Count;i++)
                 {
                     if (_selectTabs[i].gameObject.activeSelf)
-                    {            
+                    {
                         nextIndex = i;
                     }
                 }
-            } else
+            }
+            else
             if (nextIndex >= displayTabs.Count)
             {
                 nextIndex = _selectTabs.FindIndex(a => a.gameObject.activeSelf);
-            } else
+            }
+            else
             {
                 if (index > 0)
                 {
@@ -110,7 +112,8 @@ namespace Ryneus
                             nextIndex++;
                         }
                     }
-                } else
+                }
+                else
                 {
                     for (int i = _selectTabs.Count-1;i >= 0;i--)
                     {
@@ -155,7 +158,7 @@ namespace Ryneus
             if (_busyFrame > -1)
             {
                 _busyFrame--;
-            }    
+            }
         }
     }
 }

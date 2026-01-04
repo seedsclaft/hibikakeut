@@ -27,7 +27,8 @@ namespace Ryneus
                 {
                     achieveCount.SetText((achievementInfo.AchieveCount.Value*0.01f).ToString());
                 }
-            } else
+            }
+            else
             {
                 if (count != null)
                 {

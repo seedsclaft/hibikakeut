@@ -63,7 +63,7 @@ namespace Ryneus
             }
             if (characterListButton != null)
             {
-                characterListButton.OnClickAddListener(() => CallViewEvent(CommandType.CharacterList));
+                characterListButton.OnClickAddListener(CallCharacterList);
             }
             if (filterPlusButton != null)
             {
@@ -99,7 +99,7 @@ namespace Ryneus
             equipSkillList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
             equipSkillList.SetInputHandler(InputKeyType.SideLeft1, CallLeftActor);
             equipSkillList.SetInputHandler(InputKeyType.SideRight1, CallRightActor);
-            equipSkillList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.CharacterList));
+            equipSkillList.SetInputHandler(InputKeyType.Option1, CallCharacterList);
             equipSkillList.SetInputHandler(InputKeyType.SideLeft2, CommandScrollUpSkillHelp);
             equipSkillList.SetInputHandler(InputKeyType.SideRight2, CommandScrollDownSkillHelp);
             //equipSkillList.SetInputHandler(InputKeyType.Option1,() => CallViewEvent(CommandType.LevelUp));
@@ -122,6 +122,15 @@ namespace Ryneus
                 return;
             }
             CallViewEvent(CommandType.RightActor);
+        }
+
+        private void CallCharacterList()
+        {
+            if (!characterListButton.gameObject.activeSelf)
+            {
+                return;
+            }
+            CallViewEvent(CommandType.CharacterList);
         }
 
         public void SetEquipSkillList(List<ListData> skillInfos, bool resetListIndex)

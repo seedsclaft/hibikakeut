@@ -85,7 +85,8 @@ namespace Ryneus
             {
                 expGauge.fillAmount = actorInfo.Exp.Value % 100 * 0.01f;
             }
-            if (sp != null){
+            if (sp != null)
+            {
             }
             if (statusInfoComponent != null && actorInfo.Master != null)
             {

@@ -25,7 +25,6 @@ namespace Ryneus
         [SerializeField] private GameObject cursor;
         public GameObject Cursor => cursor;
         [SerializeField] private GameObject selectArrow;
-        public GameObject SelectArrow => selectArrow;
         [SerializeField] private bool changeCursorColor = true;
         [SerializeField] private CursorRectAnimation cursorRectAnimation = null;
         [SerializeField] private GameObject disable = null;

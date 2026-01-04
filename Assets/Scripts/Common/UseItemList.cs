@@ -24,7 +24,8 @@ namespace Ryneus
             {
                 var itemInfo = (ItemInfo)listData.Data;
                 itemInfoComponent.UpdateInfo(itemInfo);
-            } else
+            }
+            else
             {
                 itemInfoComponent.Clear();
             }

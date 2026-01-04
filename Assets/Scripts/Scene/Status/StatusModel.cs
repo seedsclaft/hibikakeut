@@ -24,7 +24,8 @@ namespace Ryneus
             if (plus)
             {
                 _filterAttribute += 1;
-            } else
+            }
+            else
             {
                 _filterAttribute -= 1;
             }
@@ -71,7 +72,8 @@ namespace Ryneus
             {
                 // 加入の時は未習得魔法を表示
                 list.AddRange(CurrentActor.LearningSkillInfos());
-            } else
+            }
+            else
             {
                 list.AddRange(EquipSkills(CurrentActor));
             }
@@ -151,7 +153,7 @@ namespace Ryneus
 
         public List<ActorInfo> MakeSelectActorInfos()
         {
-            return new List<ActorInfo>(){CurrentActor};
+            return new List<ActorInfo>() { CurrentActor };
         }
 
         public List<GetItemInfo> MakeSelectGetItemInfos()
@@ -171,7 +173,7 @@ namespace Ryneus
                 return getItemInfos;
             }
             */
-            return new List<GetItemInfo>(){};
+            return new List<GetItemInfo>() { };
         }
 
 

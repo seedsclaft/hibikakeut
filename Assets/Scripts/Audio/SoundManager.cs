@@ -234,7 +234,7 @@ namespace Ryneus
             int audioSourceIndex = -1;
             for (int i = 0; i < _seAudioSourceNum; i++)
             {
-                if (!_se[i].isPlaying && _playingSe.Contains(_se[i]) == false)
+                if (!_se[i].isPlaying && !_playingSe.Contains(_se[i]))
                 {
                     audioSourceIndex = i;
                     break;

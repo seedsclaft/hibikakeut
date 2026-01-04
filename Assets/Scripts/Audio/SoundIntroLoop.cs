@@ -150,7 +150,10 @@ namespace Ryneus
         public void Play(float timeStamp = 1)
         {
             // クリップが設定されていない場合は何もしない
-            if (_introAudioSource == null || _loopAudioSource == null) return;
+            if (_introAudioSource == null || _loopAudioSource == null)
+            {
+                return;
+            }
 
             // Pause 中は isPlaying は false
             // 標準機能だけでは一時停止中か判別不可能

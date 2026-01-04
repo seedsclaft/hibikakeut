@@ -6,13 +6,15 @@ namespace Ryneus
     [Serializable]
     public class StageInfo
     {
-        public StageData Master => DataSystem.FindStage(StageId.Value);
+        public StageData _master = null;
+        public StageData Master => _master != null ? _master : DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
         public ParameterBool Cleared = new();
         public ParameterBool Alarted = new();
         public StageInfo(int id, bool cleared = false, bool alarted = false)
         {
             StageId.SetValue(id);
+            _master = Master;
             Cleared.SetValue(cleared);
             Alarted.SetValue(alarted);
         }

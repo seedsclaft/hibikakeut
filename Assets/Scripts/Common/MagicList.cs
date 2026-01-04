@@ -28,11 +28,13 @@ namespace Ryneus
                 if (skillInfo.FeatureDates.Count > 0 || skillInfo.Master.SkillType == SkillType.Kind)
                 {
                     skillInfoComponent.UpdateInfo(skillInfo);
-                } else
+                }
+                else
                 {
                     skillInfoComponent.Clear();
                 }
-            } else
+            }
+            else
             {
                 skillInfoComponent.Clear();
             }

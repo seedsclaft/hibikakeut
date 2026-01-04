@@ -39,8 +39,9 @@ namespace Ryneus
             }
             if (battlerInfo.IsActor || battlerInfo.IsActorView)
             {
-                actorInfoComponent.UpdateInfo(battlerInfo.ActorInfo,null);
-            } else
+                actorInfoComponent.UpdateInfo(battlerInfo.ActorInfo, null);
+            }
+            else
             {
                 enemyInfoComponent.UpdateInfo(battlerInfo);
             }
@@ -57,17 +58,18 @@ namespace Ryneus
                     {
                         additiveFaceThumb.sprite = handle;
                     }
-                } else
+                }
+                else
                 {
                     UpdateMainThumb(battlerInfo.EnemyData.ImagePath, 0, 0, 1.0f);
-                    additiveFaceThumb.gameObject.GetComponent<RectTransform>().localScale = new Vector2(battlerInfo.EnemyData.ImageScale,battlerInfo.EnemyData.ImageScale);
+                    additiveFaceThumb.gameObject.GetComponent<RectTransform>().localScale = new Vector2(battlerInfo.EnemyData.ImageScale, battlerInfo.EnemyData.ImageScale);
                     additiveFaceThumb.SetNativeSize();
                 }
             }
             RefreshStatus();
         }
 
-        private void UpdateMainThumb(string imagePath,int x,int y,float scale)
+        private void UpdateMainThumb(string imagePath,  int x , int  y, float scale)
         {
             var handle = ResourceSystem.LoadEnemySprite(imagePath);
             if (additiveFaceThumb != null)
@@ -97,7 +99,7 @@ namespace Ryneus
                 return;
             }
             _statusRoot = statusRoot;
-            statusInfoComponent.gameObject.transform.SetParent(statusRoot.transform,false);
+            statusInfoComponent.gameObject.transform.SetParent(statusRoot.transform, false);
             //statusInfoComponent.HideStatus();
         }
 
@@ -107,17 +109,17 @@ namespace Ryneus
             {
                 return;
             }
-            statusInfoComponent.UpdateHp(value,_battlerInfo.MaxHp);
+            statusInfoComponent.UpdateHp(value, _battlerInfo.MaxHp);
         }
 
-        private void ChangeHpAnimation(int fromValue,int toValue)
+        private void ChangeHpAnimation(int fromValue, int toValue)
         {
             if (statusInfoComponent == null)
             {
                 return;
             }
-            statusInfoComponent.UpdateHp(toValue,_battlerInfo.MaxHp);
-            statusInfoComponent.UpdateHpAnimation(fromValue,toValue,_battlerInfo.MaxHp);
+            statusInfoComponent.UpdateHp(toValue, _battlerInfo.MaxHp);
+            statusInfoComponent.UpdateHpAnimation(fromValue, toValue, _battlerInfo.MaxHp);
         }
 
         public void ChangeMp(int value)
@@ -126,17 +128,17 @@ namespace Ryneus
             {
                 return;
             }
-            statusInfoComponent.UpdateMp(value,_battlerInfo.MaxMp);
+            statusInfoComponent.UpdateMp(value, _battlerInfo.MaxMp);
         }
 
-        private void ChangeMpAnimation(int fromValue,int toValue)
+        private void ChangeMpAnimation(int fromValue, int toValue)
         {
             if (statusInfoComponent == null)
             {
                 return;
             }
-            statusInfoComponent.UpdateMp(toValue,_battlerInfo.MaxMp);
-            statusInfoComponent.UpdateMpAnimation(fromValue,toValue,_battlerInfo.MaxMp);
+            statusInfoComponent.UpdateMp(toValue, _battlerInfo.MaxMp);
+            statusInfoComponent.UpdateMpAnimation(fromValue, toValue, _battlerInfo.MaxMp);
         }
 
         public void ChangeAtk(int value)
@@ -166,9 +168,10 @@ namespace Ryneus
             }
             if (_battlerInfo.IsActor || _battlerInfo.IsActorView)
             {
-                actorInfoComponent.UpdateInfo(_battlerInfo.ActorInfo,null);
+                actorInfoComponent.UpdateInfo(_battlerInfo.ActorInfo, null);
                 actorInfoComponent.SetAwakeMode(_battlerInfo.IsState(StateType.Demigod));
-            } else
+            }
+            else
             {
                 enemyInfoComponent.UpdateInfo(_battlerInfo);
             }
@@ -187,7 +190,8 @@ namespace Ryneus
                 if (_battlerInfo.IsAlive())
                 {
                     battleStateOverlay.SetStates(_battlerInfo.IconStateInfos());
-                } else
+                }
+                else
                 {
                     battleStateOverlay.StopOverlayAnimation();
                 }
@@ -198,7 +202,8 @@ namespace Ryneus
                 if (!_battlerInfo.IsAlive())
                 {
                     canvasGroup.alpha = 0;
-                } else
+                }
+                else
                 {
                     canvasGroup.alpha = _battlerInfo.LineIndex == LineType.Front ? 1 : 0.75f;
                 }
@@ -255,13 +260,14 @@ namespace Ryneus
                 }
             });
             _battleDamages.Add(battleDamage);
-            if (damageType == DamageType.HpDamage || damageType == DamageType.HpCritical)
+            if (damageType is DamageType.HpDamage or DamageType.HpCritical)
             {
-                ChangeHpAnimation(_battlerInfo.Hp.Value,(value * -1) + _battlerInfo.Hp.Value);
-            } else
+                ChangeHpAnimation(_battlerInfo.Hp.Value, (value * -1) + _battlerInfo.Hp.Value);
+            }
+            else
             if (damageType == DamageType.MpDamage)
             {
-                ChangeMpAnimation(_battlerInfo.Mp.Value,(value * -1) + _battlerInfo.Mp.Value);
+                ChangeMpAnimation(_battlerInfo.Mp.Value, (value * -1) + _battlerInfo.Mp.Value);
             }
         }
 
@@ -299,7 +305,8 @@ namespace Ryneus
                 if (damageType == DamageType.HpHeal)
                 {
                     ChangeHpAnimation(_battlerInfo.Hp.Value, value + _battlerInfo.Hp.Value);
-                } else
+                }
+                else
                 if (damageType == DamageType.MpHeal)
                 {
                     ChangeMpAnimation(_battlerInfo.Mp.Value, value + _battlerInfo.Mp.Value);
@@ -349,7 +356,8 @@ namespace Ryneus
             if (_battlerInfo.IsActorView)
             {
                 actorInfoComponent.FaceThumb.material = null;
-            } else
+            }
+            else
             {
                 if (enemyInfoComponent.MainThumb != null)
                 {
@@ -382,23 +390,26 @@ namespace Ryneus
                 if (animationPosition == AnimationPosition.Center)
                 {
                     effectRect.localPosition = new Vector2(0, 0);
-                } else
+                }
+                else
                 if (animationPosition == AnimationPosition.Down)
                 {
                     effectRect.localPosition = new Vector2(0, -imageRect.sizeDelta.y);
                 }
-            } else
+            }
+            else
             {
                 if (animationPosition == AnimationPosition.Center)
                 {
                     effectRect.localPosition = new Vector2(0, imageRect.sizeDelta.y / 2);
-                } else
+                }
+                else
                 if (animationPosition == AnimationPosition.Down)
                 {
                     effectRect.localPosition = new Vector2(0, imageRect.sizeDelta.y / 2 - 48);
                 }
             }
-            effectRect.localScale = new Vector3(animationScale,animationScale,animationScale);
+            effectRect.localScale = new Vector3(animationScale, animationScale, animationScale);
             effekseerEmitter.enabled = true;
             effekseerEmitter.Stop();
             effekseerEmitter.speed = animationSpeed;
@@ -438,7 +449,8 @@ namespace Ryneus
                 if (isSelectable)
                 {
                     statusInfoComponent.ShowStatus();
-                } else
+                }
+                else
                 {
                     statusInfoComponent.HideStatus();
                 }
@@ -492,7 +504,8 @@ namespace Ryneus
                 deathAnimation.enabled = false;
                 deathAnimation.Destroyed = 0;
                 ResetDeathMaterial();
-            } else
+            }
+            else
             {
                 _deathAnimation += 0.01f;
             }

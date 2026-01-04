@@ -4,7 +4,8 @@ namespace Ryneus
     [System.Serializable]
     public class StateInfo
     {
-        public StateData Master => DataSystem.States.Find(a => a.StateType == _stateType);
+        public StateData _master = null;
+        public StateData Master => _master != null ? _master : DataSystem.States.Find(a => a.StateType == _stateType);
         private StateType _stateType = 0;
         public StateType StateType => _stateType;
         public ParameterInt Turns = new();
@@ -36,6 +37,7 @@ namespace Ryneus
         public StateInfo(StateType stateType, int turns, int effect, int battlerId, int targetIndex, int skillId)
         {
             _stateType = stateType;
+            _master = Master;
             Turns.SetValue(turns);
             BaseTurns.SetValue(turns);
             Effect.SetValue(effect);

@@ -22,10 +22,7 @@ public class ContentDragListener : MonoBehaviour, IBeginDragHandler, IDragHandle
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (_dragEndAction != null)
-        {
-            _dragEndAction();
-        }
+        _dragEndAction?.Invoke();
     }
 
     private void SendDragPosition(PointerEventData eventData)
