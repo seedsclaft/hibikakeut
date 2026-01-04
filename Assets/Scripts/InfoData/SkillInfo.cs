@@ -8,7 +8,8 @@ namespace Ryneus
     [Serializable]
     public class SkillInfo
     {
-        public SkillData Master => DataSystem.FindSkill(Id.Value);
+        public SkillData _master = null;
+        public SkillData Master => _master != null ? _master : DataSystem.FindSkill(Id.Value);
         public ParameterInt Id = new();
 
         private bool _enable;
@@ -55,7 +56,8 @@ namespace Ryneus
             if (Master.IsPeriodUseCount())
             {
                 return Master.PeriodUseCount() - PeriodUseCount.Value;
-            } else
+            }
+            else
             if (Master.IsBattleUseCount())
             {
                 return Master.BattleUseCount() - UseCount.Value;
@@ -80,6 +82,7 @@ namespace Ryneus
         public SkillInfo(int id)
         {
             Id.SetValue(id);
+            _master = Master;
             _learningState = LearningState.None;
             if (Master != null && Master.FeatureDates != null)
             {
@@ -155,11 +158,13 @@ namespace Ryneus
                         if (p3 == 1)
                         {
                             paramText = targetFeature.Param1.ToString();
-                        } else
+                        }
+                        else
                         if (p3 == 2)
                         {
                             paramText = targetFeature.Param2.ToString();
-                        } else
+                        }
+                        else
                         if (p3 == 3)
                         {
                             paramText = targetFeature.Param3.ToString();
@@ -184,14 +189,44 @@ namespace Ryneus
                 {
                     var effect = battlerInfo.GetStateEffectAll(stateMaster.StateType);
                     effectText = effectText.Replace("\\d", effect.ToString());
-                } else
+                }
+                else
                 {
                     var effect = state.Param3;
-                    effectText = effectText.Replace("\\d",effect.ToString());
+                    effectText = effectText.Replace("\\d", effect.ToString());
                 }
                 help = help.Replace("/s", "【" + stateMaster.Name + "】" + "\n" + effectText);
             }
             return help;
+        }
+
+        public int SortKeyId()
+        {
+            var sortKeyId = -1;
+            if (LearningState == LearningState.Learned && (Master.SkillType == SkillType.Active || IsBattleSpecialSkill()))
+            {
+                if (Master.SkillType == SkillType.Active || IsBattleSpecialSkill())
+                {
+                    sortKeyId += 1000;
+                }
+                else
+                if (Master.SkillType == SkillType.Passive)
+                {
+                    sortKeyId += 2000;
+                }
+            }
+            else
+            {
+                if (LearningLv.Value >= 0)
+                {
+                    sortKeyId += 3000 + LearningLv.Value;
+                }
+                else
+                {
+                    sortKeyId += 4000;
+                }
+            }
+            return sortKeyId;
         }
     }
 }

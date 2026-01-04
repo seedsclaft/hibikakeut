@@ -23,6 +23,7 @@ namespace Ryneus
         public string ImagePath;
         public int InitLv;
         public int MaxLv;
+        public AttributeType AttributeType;
         public StatusInfo InitStatus;
         public StatusInfo PlusStatus;
         public StatusInfo NeedStatus;

@@ -25,55 +25,6 @@ namespace Ryneus
         //public int RemainTurns => CurrentStage.Master.StageSymbols.Max(a => a.Seek) - CurrentStage.Seek + 1;
 
         public CancellationTokenSource _cancellationTokenSource;
-        public void InitSaveInfo()
-        {
-            GameSystem.CurrentData = new SaveInfo();
-        }
-
-        public void SaveAutoFile()
-        {
-            var saveFileInfo = CurrentData.AutoSave();
-            saveFileInfo.StageNo = CurrentStage.StageId.Value;
-            saveFileInfo.SaveTimeLong = DateTime.Now.ToFileTime();
-            saveFileInfo.SaveTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            saveFileInfo.PlayTime = (int)TempInfo.PlayingTime;
-            if (CurrentGameInfo.PartyInfo.ActorInfos != null && CurrentGameInfo.PartyInfo.ActorInfos.Count > 0)
-            {
-                saveFileInfo.ActorId = CurrentGameInfo.PartyInfo.LeaderActorId.Value;
-            }
-            saveFileInfo.Chapter = PartyInfo.Chapter.Value;
-            saveFileInfo.Period = PartyInfo.Period.Value;
-            saveFileInfo.Rank = PartyInfo.MissionRank.Value;
-            CurrentData.PushSaveFile(saveFileInfo);
-            SavePlayerData();
-            SavePlayerStageData(true, GameSystem.SceneStackManager.Current);
-            SaveSystem.SaveStageInfo(GameSystem.GameInfo, saveFileInfo.SaveNo);
-        }
-
-        public void InitSaveStageInfo()
-        {
-            var saveGameInfo = new SaveGameInfo();
-            saveGameInfo.Initialize();
-            GameSystem.GameInfo = saveGameInfo;
-            PartyInfoChecker.Instance.UpdateInfo();
-        }
-
-        public void InitOptionInfo()
-        {
-            GameSystem.OptionData = new SaveOptionInfo();
-        }
-
-        public void UpdateOptionData()
-        {
-            GameSystem.OptionData.UpdateSoundParameter(
-                SoundManager.Instance.BgmVolume,
-                SoundManager.Instance.BGMMute,
-                SoundManager.Instance.SeVolume,
-                SoundManager.Instance.SeMute
-            );
-            SaveSystem.SaveOptionStart(GameSystem.OptionData);
-        }
-
         public List<ActorInfo> StageMembers()
         {
             return PartyInfo.ActorInfos;
@@ -88,41 +39,8 @@ namespace Ryneus
 
         public List<SkillInfo> SortSkillInfos(List<SkillInfo> skillInfos)
         {
-            var sortList1 = new List<SkillInfo>();
-            var sortList2 = new List<SkillInfo>();
-            var sortList3 = new List<SkillInfo>();
-            var sortList4 = new List<SkillInfo>();
             skillInfos.Sort((a, b) => { return a.Master.Id > b.Master.Id ? 1 : -1; });
-            foreach (var skillInfo in skillInfos)
-            {
-                if (skillInfo.LearningState == LearningState.Learned && (skillInfo.Master.SkillType == SkillType.Active || skillInfo.IsBattleSpecialSkill()))
-                {
-                    if (skillInfo.Master.SkillType == SkillType.Active || skillInfo.IsBattleSpecialSkill())
-                    {
-                        sortList1.Add(skillInfo);
-                    } else
-                    if (skillInfo.Master.SkillType == SkillType.Passive)
-                    {
-                        sortList2.Add(skillInfo);
-                    }
-                }
-                else
-                {
-                    if (skillInfo.LearningLv.Value < 0)
-                    {
-                        sortList4.Add(skillInfo);
-                    } else
-                    {
-                        sortList3.Add(skillInfo);
-                    }
-                }
-            }
-            skillInfos.Clear();
-            skillInfos.AddRange(sortList1);
-            skillInfos.AddRange(sortList2);
-            sortList3.Sort((a, b) => { return a.LearningLv.Value > b.LearningLv.Value ? 1 : -1; });
-            skillInfos.AddRange(sortList3);
-            skillInfos.AddRange(sortList4);
+            skillInfos.Sort((a, b) => { return a.SortKeyId() > b.SortKeyId() ? 1 : -1; });
             return skillInfos;
         }
 
@@ -204,76 +122,6 @@ namespace Ryneus
             return equipSkills;
         }
 
-        public SoundData DungeonBgmData()
-        {
-            if (CurrentStage != null && PartyInfo != null)
-            {
-                int bgmId;
-                bgmId = CurrentStage.Master.BGMId;
-                if (CurrentStage.Cleared.Value)
-                {
-                    bgmId = 1510;
-                }
-                return DataSystem.BGM.Find(a => a.Id == bgmId);
-            }
-            return null;
-        }
-
-        public string PlayerName()
-        {
-            return CurrentData.PlayerInfo?.PlayerName.Value;
-        }
-
-        public string PlayerId()
-        {
-            return CurrentData.PlayerInfo?.UserId.ToString();
-        }
-
-        public List<StageEventData> StageEventDates => CurrentStage.GetStageEvents();
-
-        public List<StageEventData> StageEvents(EventTiming eventTiming)
-        {
-            var eventKeys = CurrentGameInfo.ReadEventKeys;
-            return StageEventDates.FindAll(a => a.Timing == eventTiming && !eventKeys.Contains(a.EventKey));
-        }
-
-        public List<StageEventData> StageEvents(EventTiming eventTiming, int positionX, int positionY)
-        {
-            var eventKeys = CurrentGameInfo.ReadEventKeys;
-            return StageEventDates.FindAll(a => a.Timing == eventTiming && a.PositionX == positionX && a.PositionY == positionY && !eventKeys.Contains(a.EventKey));
-        }
-
-        public List<StageEventData> EndStageEvents()
-        {
-            var eventKeys = CurrentGameInfo.ReadEventKeys;
-            return StageEventDates.FindAll(a => eventKeys.Contains(a.EventKey));
-        }
-
-        public List<StageEventData> NotEndStageEvents()
-        {
-            var eventKeys = CurrentGameInfo.ReadEventKeys;
-            return StageEventDates.FindAll(a => !eventKeys.Contains(a.EventKey));
-        }
-
-        public void AddEventReadFlag(StageEventData stageEventDates)
-        {
-            if (!stageEventDates.ReadFlag)
-            {
-                return;
-            }
-            CurrentGameInfo.AddEventReadFlag(stageEventDates.EventKey);
-        }
-
-        public void AddEventReadFlag(string eventKey)
-        {
-            CurrentGameInfo.AddEventReadFlag(eventKey);
-        }
-
-        public void AddEventReadFlagForce(StageEventData stageEventDates)
-        {
-            AddEventReadFlag(stageEventDates.EventKey);
-        }
-
         public async UniTask<List<AudioClip>> GetBgmData(string bgmKey)
         {
             return await ResourceSystem.LoadBGMAsset(bgmKey);
@@ -281,12 +129,12 @@ namespace Ryneus
 
         public List<SystemData.CommandData> ConfirmCommand()
         {
-            return BaseConfirmCommand(3050,3051);
+            return BaseConfirmCommand(3050, 3051);
         }
 
         public List<SystemData.CommandData> NoChoiceConfirmCommand()
         {
-            return new List<SystemData.CommandData>(){BaseConfirmCommand(3052,0)[0]};
+            return new List<SystemData.CommandData>() { BaseConfirmCommand(3052, 0)[0] };
         }
 
         public List<SkillInfo> SkillActionList(ActorInfo actorInfo)
@@ -350,38 +198,6 @@ namespace Ryneus
             return new GetItemInfo(getItemData);
         }
 
-        public List<SkillInfo> BasicSkillGetItemInfos(List<GetItemInfo> getItemInfos)
-        {
-            var skillInfos = new List<SkillInfo>();
-            foreach (var getItemInfo in getItemInfos)
-            {
-                if (getItemInfo.IsSkill())
-                {
-                    var skillInfo = new SkillInfo(getItemInfo.Param1);
-                    skillInfo.SetEnable(true);
-                    skillInfos.Add(skillInfo);
-                }
-                if (getItemInfo.IsAttributeSkill())
-                {
-                    var skillDates = DataSystem.Skills.Where(a => a.Value.Rank == (RankType)getItemInfo.ResultParam && a.Value.Attribute == (AttributeType)((int)getItemInfo.GetItemType - 10));
-                    foreach (var skillData in skillDates)
-                    {
-                        var skillInfo = new SkillInfo(skillData.Key);
-                        skillInfo.SetEnable(true);
-                        skillInfos.Add(skillInfo);
-                    }
-                }
-            }
-            return skillInfos;
-        }
-
-
-        public string SelectAddActorConfirmText(string actorName)
-        {
-            int textId = 14180;
-            return DataSystem.GetReplaceText(textId, actorName);
-        }
-
         public List<ActorInfo> CurrentDeckActorInfos()
         {
             var actorInfos = new List<ActorInfo>();
@@ -409,40 +225,6 @@ namespace Ryneus
             return stageMembers;
         }
 
-        public List<AdvData> GetAdvDates(EventTiming eventTiming, bool checkReadKeys = true, Func<AdvData, bool> func = null)
-        {
-            var eventKeys = CurrentGameInfo.ReadEventKeys;
-            if (!checkReadKeys)
-            {
-                eventKeys = new List<string>();
-            }
-            var events = DataSystem.Adventures.FindAll(a => a.Timing == eventTiming && !eventKeys.Contains(a.EventKey));
-            if (func != null)
-            {
-                events = events.FindAll(a => func(a));
-            }
-            return events;
-        }
-
-        public string GetAdvFile(int id)
-        {
-            var adventureFile = DataSystem.Adventures.Find(a => a.Id == id);
-            if (adventureFile == null)
-            {
-                return "";
-            }
-            if (adventureFile.PrizeSetId > 0)
-            {
-                var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == adventureFile.PrizeSetId);
-                foreach (var prizeSet in prizeSets)
-                {
-                    var getItemInfo = new GetItemInfo(prizeSet.GetItem);
-                    AddGetItemInfo(getItemInfo);
-                }
-            }
-            return adventureFile.AdvName;
-        }
-
         public void AddGetItemInfo(GetItemInfo getItemInfo)
         {
             getItemInfo.SetGetFlag(true);
@@ -460,21 +242,6 @@ namespace Ryneus
         public void RemoveGetItemInfo(GetItemInfo getItemInfo)
         {
             PartyInfo.RemoveGetItemInfo(getItemInfo);
-        }
-
-        public void ClearGame()
-        {
-            CurrentData.PlayerInfo.GainClearCount();
-        }
-
-        public bool IsActiveDungeon()
-        {
-            if (CurrentStage != null)
-            {
-                // stageLvが0はダンジョン以外の扱い
-                return CurrentStage.Master.StageLv > 0;
-            }
-            return false;
         }
 
         public async UniTask LoadBattleResources(List<BattlerInfo> battlers)
@@ -497,138 +264,6 @@ namespace Ryneus
             }
         }
 
-        public void SetResumeStage(bool resumeStage)
-        {
-            //CurrentSaveData.SetResumeStage(resumeStage);
-        }
-
-        public void SavePlayerData()
-        {
-            SaveSystem.SavePlayerInfo(GameSystem.CurrentData);
-        }
-
-        public void SavePlayerStageData(bool isResumeStage, Scene resumeScene)
-        {
-            SaveDungeonPlayerData();
-            TempInfo.ClearRankingInfo();
-            SetResumeStage(isResumeStage);
-            PartyInfo.ResumeScene = resumeScene;
-            SaveSystem.SaveStageInfo(GameSystem.GameInfo);
-            SavePlayerData();
-        }
-
-#if UNITY_ANDROID
-        public List<RankingActorData> RankingActorDates()
-        {
-            var list = new List<RankingActorData>();
-            foreach (var actorInfo in StageMembers())
-            {
-                var skillIds = new List<int>();
-                foreach (var skill in actorInfo.Skills)
-                {
-                    skillIds.Add(skill.Id);
-                }
-                var rankingActorData = new RankingActorData()
-                {
-                    ActorId = actorInfo.ActorId,
-                    Level = actorInfo.Level,
-                    Hp = actorInfo.CurrentParameter(StatusParamType.Hp),
-                    Mp = actorInfo.CurrentParameter(StatusParamType.Mp),
-                    Atk = actorInfo.CurrentParameter(StatusParamType.Atk),
-                    Def = actorInfo.CurrentParameter(StatusParamType.Def),
-                    Spd = actorInfo.CurrentParameter(StatusParamType.Spd),
-                    SkillIds = skillIds,
-                    DemigodParam = actorInfo.DemigodParam,
-                    Lost = actorInfo.Lost
-                };
-                list.Add(rankingActorData);
-            }
-            return list;
-        }
-#endif
-
-        public async void CurrentRankingData(Action<string> endEvent)
-        {
-            var userId = CurrentData.PlayerInfo.UserId.ToString();
-            var rankingText = "";
-#if UNITY_WEBGL || UNITY_ANDROID && !UNITY_EDITOR
-            FirebaseController.Instance.CurrentRankingData(userId);
-            await UniTask.WaitUntil(() => FirebaseController.IsBusy == false);
-            var currentScore = FirebaseController.CurrentScore;
-            var evaluate = TotalScore;
-
-            // 更新あり
-            if (evaluate > currentScore)
-            {
-                var playerScore = (int)(evaluate * 100);
-                FirebaseController.Instance.WriteRankingData(
-                    CurrentStage.Id,
-                    userId,
-                    playerScore,
-                    CurrentData.PlayerInfo.PlayerName,
-                    StageMembers()
-                );
-                await UniTask.WaitUntil(() => FirebaseController.IsBusy == false);
-
-                FirebaseController.Instance.ReadRankingData();
-                await UniTask.WaitUntil(() => FirebaseController.IsBusy == false);
-                var results = FirebaseController.RankingInfos;
-                var rank = 1;
-                var include = false;
-                foreach (var result in results)
-                {
-                    if (result.Score == playerScore)
-                    {
-                        include = true;
-                    }
-                    if (result.Score > playerScore)
-                    {
-                        rank++;
-                    }
-                }
-
-                if (include == true)
-                {
-                    // 〇位
-                    rankingText = DataSystem.GetReplaceText(23030, rank.ToString());
-                } else
-                {
-                    // 圏外
-                    rankingText = DataSystem.GetText(23031);
-                }
-            } else
-            {          
-                // 記録更新なし  
-                rankingText = DataSystem.GetText(23032);
-            }
-#endif
-            endEvent(rankingText);
-        }
-
-        public string SavePopupTitle()
-        {
-            return DataSystem.GetText(19500);
-        }
-
-        public string FailedSavePopupTitle()
-        {
-            var baseText = DataSystem.GetText(11082);
-            return baseText;
-        }
-
-        public bool NeedAdsSave()
-        {
-            var needAds = false;
-#if UNITY_ANDROID
-            needAds = (CurrentStage.SavedCount + 1) >= CurrentStage.Master.SaveLimit;
-#endif
-            return needAds;
-        }
-
-        public void GainSaveCount()
-        {
-        }
-
         public bool EnableContinue()
         {
             return false;
@@ -639,7 +274,6 @@ namespace Ryneus
             var enable = true;
             return enable;
         }
-
 
         public bool NeedAdsContinue()
         {
@@ -652,11 +286,6 @@ namespace Ryneus
 
         public void GainContinueCount()
         {
-        }
-
-        public List<int> SaveAdsCommandTextIds()
-        {
-            return new List<int>() { 3053, 3051 };
         }
 
         public int PartyEvaluate()
@@ -719,21 +348,7 @@ namespace Ryneus
 
         public void ActorLearnMagic(ActorInfo actorInfo, int skillId)
         {
-            var skillInfo = new SkillInfo(skillId);
             actorInfo.AddSkillTriggerSkill(skillId);
-        }
-
-        public void AddPlayerInfoActorSkillId(int actorId)
-        {
-            foreach (var skillInfo in StageMembers().Find(a => a.ActorId.Value == actorId).ChangeAbleSkills())
-            {
-                AddPlayerInfoSkillId(skillInfo.Id.Value);
-            }
-        }
-
-        public void AddPlayerInfoSkillId(int skillId)
-        {
-            CurrentData.PlayerInfo.AddSkillId(skillId);
         }
 
         public List<TutorialData> SceneTutorialDates(int scene)
@@ -806,43 +421,6 @@ namespace Ryneus
                 AddGetItemInfo(getItemInfo);
             }
             return getItemInfos;
-        }
-
-        public void ReturnDungeon()
-        {
-            // 全回復
-            foreach (var actorInfo in PartyInfo.CurrentDeckActorInfos())
-            {
-                actorInfo.ChangeHp(actorInfo.MaxHp);
-            }
-            PartyNextPeriod();
-            CurrentDeckInfo.DungeonBgmTimeStamp.SetValue(0);
-            SaveDungeonPlayerData();
-        }
-
-        public void PartyNextPeriod(bool force = false)
-        {
-            if (!IsActiveDungeon() && !force)
-            {
-                return;
-            }
-            SaveAutoFile();
-            // NotSeekPeriod効果判定
-            var notSeekPeriod = PartyInfo.AritifactSkills().Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.NotSeekPeriod) != null);
-            if (notSeekPeriod == null)
-            {
-                PartyInfo.Period.GainValue(1);
-            } else
-            {
-                var artifact = PartyInfo.GetOwnItemInfos(ItemType.Artifact).Find(a => a.Master.Param1 == notSeekPeriod.Id.Value);
-                PartyInfo.ConsuneItemNum(artifact.Master.Id, 1);
-            }
-            PartyInfo.ClearTradeItemInfos();
-            if (PartyInfo.Chapter.Value >= 2)
-            {
-                PartyInfo.EvaluationValue.GainValue(PartyInfo.EvaluationAddictValue(), 0);
-            }
-            PartyInfo.ClearSkillUseCount();
         }
 
         public SkillInfo CheckNotSeekPeriod()
@@ -927,24 +505,6 @@ namespace Ryneus
                     return MakeGetItemInfo(GetItemType.Currency, itemData.Param1);
             }
             return null;
-        }
-
-        public string DungeonPrefabName()
-        {
-            if (CurrentStage != null)
-            {
-                return CurrentStage.Master.Id.ToString("D4");
-            }
-            return "";
-        }
-
-        public string DungeonSkyboxName()
-        {
-            if (CurrentStage != null)
-            {
-                return CurrentStage.Master.SkyboxName;
-            }
-            return "";
         }
     }
 }

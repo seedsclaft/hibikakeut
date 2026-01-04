@@ -59,5 +59,86 @@ namespace Ryneus
             CurrentGameInfo.SetStageInfo(stageInfo);
             CurrentDeckInfo.StageNo.SetValue(stageId);
         }
+    
+        public void ReturnDungeon()
+        {
+            // 全回復
+            foreach (var actorInfo in PartyInfo.CurrentDeckActorInfos())
+            {
+                actorInfo.ChangeHp(actorInfo.MaxHp);
+            }
+            PartyNextPeriod();
+            CurrentDeckInfo.DungeonBgmTimeStamp.SetValue(0);
+            SaveDungeonPlayerData();
+        }
+
+        public bool IsActiveDungeon()
+        {
+            if (CurrentStage != null)
+            {
+                // stageLvが0はダンジョン以外の扱い
+                return CurrentStage.Master.StageLv > 0;
+            }
+            return false;
+        }
+
+        public SoundData DungeonBgmData()
+        {
+            if (CurrentStage != null && PartyInfo != null)
+            {
+                int bgmId;
+                bgmId = CurrentStage.Master.BGMId;
+                if (CurrentStage.Cleared.Value)
+                {
+                    bgmId = 1510;
+                }
+                return DataSystem.BGM.Find(a => a.Id == bgmId);
+            }
+            return null;
+        }
+
+        public void PartyNextPeriod(bool force = false)
+        {
+            if (!IsActiveDungeon() && !force)
+            {
+                return;
+            }
+            SaveAutoFile();
+            // NotSeekPeriod効果判定
+            var notSeekPeriod = PartyInfo.AritifactSkills().Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.NotSeekPeriod) != null);
+            if (notSeekPeriod == null)
+            {
+                PartyInfo.Period.GainValue(1);
+            }
+            else
+            {
+                var artifact = PartyInfo.GetOwnItemInfos(ItemType.Artifact).Find(a => a.Master.Param1 == notSeekPeriod.Id.Value);
+                PartyInfo.ConsuneItemNum(artifact.Master.Id, 1);
+            }
+            PartyInfo.ClearTradeItemInfos();
+            if (PartyInfo.Chapter.Value >= 2)
+            {
+                PartyInfo.EvaluationValue.GainValue(PartyInfo.EvaluationAddictValue(), 0);
+            }
+            PartyInfo.ClearSkillUseCount();
+        }
+
+        public string DungeonPrefabName()
+        {
+            if (CurrentStage != null)
+            {
+                return CurrentStage.Master.Id.ToString("D4");
+            }
+            return "";
+        }
+
+        public string DungeonSkyboxName()
+        {
+            if (CurrentStage != null)
+            {
+                return CurrentStage.Master.SkyboxName;
+            }
+            return "";
+        }
     }
 }

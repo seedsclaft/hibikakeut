@@ -100,7 +100,7 @@ namespace Ryneus
             _view.UpdateBattleFieldNotice(_model.HasBattleField());
 
             await _model.PlayMainStageBgmData();
-            _model.SaveAutoFile();
+            //_model.SaveAutoFile();
             // 幕間に移動
             if (_model.InterludePhase())
             {

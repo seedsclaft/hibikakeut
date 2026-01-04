@@ -6,7 +6,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class SkillListItem : ListItem,IListViewItem
+    public class SkillListItem : ListItem, IListViewItem
     {
         [SerializeField] private SkillInfoComponent skillInfoComponent1;
 

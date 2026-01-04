@@ -54,6 +54,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI transferGetItemText;
         [SerializeField] private TextMeshProUGUI transferGetExpText;
         [SerializeField] private TextMeshProUGUI transferGetCurrencyText;
+        [SerializeField] private Image kindIcon;
+        [SerializeField] private TextMeshProUGUI kindText;
 
         public void UpdateInfo(ActorInfo actorInfo, List<ActorInfo> actorInfos)
         {
@@ -177,6 +179,20 @@ namespace Ryneus
             nameText?.SetText(actorData.Name);
             subNameText?.SetText(actorData.SubName);
             profileText?.SetText(actorData.Profile);
+            if (kindIcon != null)
+            {
+                var kind = (int)actorData.AttributeType;
+                if (kind > 0)
+                {
+                    kindIcon.gameObject.SetActive(true);
+                    kindIcon.sprite = ResourceSystem.LoadElementIcon()[kind-1];
+                }
+                if (kindText != null)
+                {
+                    kindText.gameObject.SetActive(true);
+                    kindText.SetText(DataSystem.GetText(400 + kind-1));
+                }
+            }
             //UpdateUnitType(actorData.UnitType);
             //UpdateUnitTypeBack(actorData.UnitType);
         }
@@ -333,6 +349,14 @@ namespace Ryneus
             if (evaluate != null)
             {
                 evaluate.SetText("");
+            }
+            if (kindIcon != null)
+            {
+                kindIcon.gameObject.SetActive(false);
+            }
+            if (kindText != null)
+            {
+                kindText.SetText("");
             }
         }
 

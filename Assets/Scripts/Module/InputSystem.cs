@@ -9,6 +9,8 @@ namespace Ryneus
         public static bool IsGamePad = false;
 
         public static List<InputData> _inputDates = new();
+        private static List<InputKeyType> _checkInputKeyTypes = new();
+
         public static void Initialize()
         {
             _inputDates.Clear();
@@ -18,6 +20,19 @@ namespace Ryneus
                 var keyData = new InputData((InputKeyType)e);
                 _inputDates.Add(keyData);
             }
+            _checkInputKeyTypes = new List<InputKeyType>()
+            {
+                InputKeyType.Decide,
+                InputKeyType.Cancel,
+                InputKeyType.Option1,
+                InputKeyType.Option2,
+                InputKeyType.SideLeft1,
+                InputKeyType.SideRight1,
+                InputKeyType.SideLeft2,
+                InputKeyType.SideRight2,
+                InputKeyType.Start,
+                InputKeyType.Select
+            };
         }
 
         public static InputData GetInputDate(InputKeyType inputKeyType)
@@ -152,45 +167,12 @@ namespace Ryneus
             {
                 keyTypes.Add(InputKeyType.Right);
             }
-            if (Keyboard.current[Key.Space].wasPressedThisFrame)
+            foreach (var checkSelectInputType in _checkInputKeyTypes)
             {
-                keyTypes.Add(InputKeyType.Decide);
-            }
-            if (Keyboard.current[Key.LeftShift].wasPressedThisFrame || Keyboard.current[Key.Escape].wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.Cancel);
-            }
-            if (Keyboard.current[Key.R].wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.Option1);
-            }
-            if (Keyboard.current[Key.T].wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.Option2);
-            }
-            if (Keyboard.current[Key.Q].isPressed)
-            {
-                keyTypes.Add(InputKeyType.SideLeft1);
-            }
-            if (Keyboard.current[Key.E].isPressed)
-            {
-                keyTypes.Add(InputKeyType.SideRight1);
-            }
-            if (Keyboard.current[Key.PageDown].isPressed)
-            {
-                keyTypes.Add(InputKeyType.SideLeft2);
-            }
-            if (Keyboard.current[Key.PageUp].isPressed)
-            {
-                keyTypes.Add(InputKeyType.SideRight2);
-            }
-            if (Keyboard.current[Key.Enter].wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.Start);
-            }
-            if (Keyboard.current[Key.RightShift].wasPressedThisFrame)
-            {
-                keyTypes.Add(InputKeyType.Select);
+                if (GetInputDate(checkSelectInputType).IsDownTrigger())
+                {
+                    keyTypes.Add(checkSelectInputType);
+                }
             }
             if (keyTypes.Count > 0)
             {
@@ -300,20 +282,7 @@ namespace Ryneus
                 keyTypes.Add(InputKeyType.Left);
             }
 
-            var checkSelectInputTypes = new List<InputKeyType>
-            {
-                InputKeyType.Decide,
-                InputKeyType.Cancel,
-                InputKeyType.Option1,
-                InputKeyType.Option2,
-                InputKeyType.SideLeft1,
-                InputKeyType.SideRight1,
-                InputKeyType.SideLeft2,
-                InputKeyType.SideRight2,
-                InputKeyType.Start,
-                InputKeyType.Select
-            };
-            foreach (var checkSelectInputType in checkSelectInputTypes)
+            foreach (var checkSelectInputType in _checkInputKeyTypes)
             {
                 if (GetInputDate(checkSelectInputType).IsDownTrigger())
                 {

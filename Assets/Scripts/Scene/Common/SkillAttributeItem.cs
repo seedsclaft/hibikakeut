@@ -6,7 +6,7 @@ using TMPro;
 
 namespace Ryneus
 {
-    public class SkillAttributeItem : ListItem,IListViewItem
+    public class SkillAttributeItem : ListItem, IListViewItem
     {
         [SerializeField] private Image icon;
         [SerializeField] private List<Sprite> iconSprites;

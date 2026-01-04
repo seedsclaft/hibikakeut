@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Utage;
 
 namespace Ryneus
@@ -16,8 +15,6 @@ namespace Ryneus
         [SerializeField] private StatusAssign statusAssign = null;
         [SerializeField] private ConfirmAssign confirmAssign = null;
 
-        [SerializeField] private Canvas uiCanvas = null;
-        public static Canvas UiCanvas;
         [SerializeField] private GameObject transitionRoot = null;
         [SerializeField] private Fade transitionFade = null;
         [SerializeField] private LoadingView loadingView = null;
@@ -41,7 +38,6 @@ namespace Ryneus
         public static TempInfo TempData = null;
         private static TutorialData _lastTutorialData = null;
         private bool _busy = false;
-        public bool Busy => _busy;
         public bool TutorialBusy => tutorialView != null ? tutorialView.gameObject.activeSelf : false;
 
         public static string Version;
@@ -69,7 +65,6 @@ namespace Ryneus
             sceneAssign.Initilize();
             popupAssign.Initilize();
             statusAssign.Initilize();
-            UiCanvas = uiCanvas;
             TempData = new TempInfo();
             _model = new BaseModel();
             _lastTutorialData = null;
@@ -132,10 +127,6 @@ namespace Ryneus
                     break;
                 case Base.CommandType.MapClear:
                     CommandMapClear();
-                    break;
-                case Base.CommandType.CreateMapObject:
-                    var mapObject = (GameObject)viewEvent.Template;
-                    CommandCreateMapObject(mapObject);
                     break;
                 case Base.CommandType.CallConfirmView:
                 case Base.CommandType.CallSkillDetailView:
@@ -512,7 +503,7 @@ namespace Ryneus
 
             mapAssign.ClearMap();
             var prefab = Instantiate(dungeonObjects);
-            prefab.transform.SetParent(mapAssign.transform,false);
+            prefab.transform.SetParent(mapAssign.transform, false);
             var dungeonSettings = prefab.GetComponentInChildren<Ariadne.DungeonSettings>();
             mapAssign.gameObject.SetActive(true);
             var dungeonData = ResourceSystem.LoadDungeonMaster(mapName);
@@ -525,12 +516,6 @@ namespace Ryneus
             mapAssign.SetLastMapName("");
             mapAssign.ClearMap();
         }
-
-        private void CommandCreateMapObject(GameObject mapObject)
-        {
-            mapAssign.CreateMapObject(mapObject);
-        }
-
 
         private void SetIsBusyMainAndStatus()
         {

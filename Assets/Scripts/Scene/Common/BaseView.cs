@@ -69,7 +69,8 @@ namespace Ryneus
                 if (viewActives == find)
                 {
                     find.Activate();
-                } else
+                }
+                else
                 {
                     viewActives.Deactivate();
                 }
@@ -95,6 +96,7 @@ namespace Ryneus
                 commandData(eventData);
             }
         }
+
         public void CallOtherViewEvent(ViewCommandSceneType sceneType, object template, object sendData = null)
         {
             if (sceneType == ViewCommandSceneType.None)
@@ -198,12 +200,6 @@ namespace Ryneus
             }
         }
 
-        public void CommandOpenSideMenu()
-        {
-            _helpWindow.SetInputInfo("SIDEMENU");
-            _helpWindow.SetHelpText(DataSystem.GetHelp(19700));
-        }
-
         public void CallSystemCommand(object template, object sendData = null)
         {
             var commandType = new ViewCommandType(ViewCommandSceneType.System, template);
@@ -217,7 +213,7 @@ namespace Ryneus
             }
         }
 
-        public void CommandSceneChange(Scene scene,object sceneParam = null,SceneChangeType sceneChangeType = SceneChangeType.Push)
+        public void CommandSceneChange(Scene scene, object sceneParam = null, SceneChangeType sceneChangeType = SceneChangeType.Push)
         {
             var sceneInfo = new SceneInfo()
             {
@@ -225,17 +221,12 @@ namespace Ryneus
                 SceneChangeType = sceneChangeType,
                 SceneParam = sceneParam
             };
-            CallSystemCommand(Base.CommandType.SceneChange,sceneInfo);
+            CallSystemCommand(Base.CommandType.SceneChange, sceneInfo);
         }
 
         public void CommandChangeDungeon(string mapName)
         {
-            CallSystemCommand(Base.CommandType.ChangeDungeon,mapName);
-        }
-
-        public void CommandCreateMapObject(GameObject mapObject)
-        {
-            CallSystemCommand(Base.CommandType.CreateMapObject,mapObject);
+            CallSystemCommand(Base.CommandType.ChangeDungeon, mapName);
         }
 
         public void CommandPopSceneChange(object sceneParam = null)
@@ -245,7 +236,7 @@ namespace Ryneus
                 SceneChangeType = SceneChangeType.Pop,
                 SceneParam = sceneParam
             };
-            CallSystemCommand(Base.CommandType.SceneChange,sceneInfo);
+            CallSystemCommand(Base.CommandType.SceneChange, sceneInfo);
         }
 
         public void CommandGotoSceneChange(Scene scene, object sceneParam = null)
@@ -276,7 +267,7 @@ namespace Ryneus
 
         public void CommandCallMissionClear(MissionClearInfo popupInfo)
         {
-            CallSystemCommand(Base.CommandType.CallMissionClearView,popupInfo);
+            CallSystemCommand(Base.CommandType.CallMissionClearView, popupInfo);
         }
 
         public void CommandCallPopup(PopupInfo popupInfo)
@@ -296,12 +287,12 @@ namespace Ryneus
 
         public void CommandChangeViewToTransition(Action<string> endEvent)
         {
-            CallSystemCommand(Base.CommandType.ChangeViewToTransition,endEvent);
+            CallSystemCommand(Base.CommandType.ChangeViewToTransition, endEvent);
         }
 
         public void CommandStartTransition(Action endEvent)
         {
-            CallSystemCommand(Base.CommandType.StartTransition,endEvent);
+            CallSystemCommand(Base.CommandType.StartTransition, endEvent);
         }
 
         public void CommandCheckTutorialState(TutorialViewInfo tutorialViewInfo)
@@ -355,7 +346,11 @@ namespace Ryneus
 
         public void ChangeBackCommandActive(bool IsActive)
         {
-            _backCommand?.gameObject.SetActive(IsActive);
+            if (_backCommand == null)
+            {
+                return;
+            }
+            _backCommand.gameObject.SetActive(IsActive);
         }
 
         public void ChangeUIActive(bool IsActive)
@@ -391,7 +386,7 @@ namespace Ryneus
 
         }
 
-        public void WaitFrame(int frame,Action waitEndEvent)
+        public void WaitFrame(int frame, Action waitEndEvent)
         {
             _wait = frame;
             _waitEndEvent = waitEndEvent;
@@ -400,7 +395,7 @@ namespace Ryneus
         private void OnDestroy()
         {
             var listViews = GetComponentsInChildren<ListWindow>();
-            for (int i = listViews.Length-1;i >= 0;i--)
+            for (int i = listViews.Length - 1; i >= 0; i--)
             {
                 listViews[i].Release();
             }
@@ -420,9 +415,7 @@ namespace Ryneus
             None = 0,
             SceneChange,
             ChangeDungeon,
-            BusyDungeon,
             MapClear,
-            CreateMapObject,
             CallConfirmView,
             CallSkillDetailView,
             CallCautionView,

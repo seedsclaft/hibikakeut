@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Ryneus
 {
+    /*
     public class Battle3DStatusView : MonoBehaviour
     {
         [SerializeField] private GameObject statusPrefab = null;
@@ -87,4 +88,5 @@ namespace Ryneus
             }
         }
     }
+    */
 }

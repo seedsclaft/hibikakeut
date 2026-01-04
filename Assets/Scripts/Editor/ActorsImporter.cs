@@ -77,7 +77,8 @@ namespace Ryneus
                             //UnitType = (UnitType)AssetPostImporter.ImportNumeric(BaseRow, "UnitType"),
                             ImagePath = AssetPostImporter.ImportString(BaseRow, "ImagePath"),
                             InitLv = AssetPostImporter.ImportNumeric(BaseRow, "InitLv"),
-                            MaxLv = AssetPostImporter.ImportNumeric(BaseRow, "MaxLv")
+                            MaxLv = AssetPostImporter.ImportNumeric(BaseRow, "MaxLv"),
+                            AttributeType = (AttributeType)AssetPostImporter.ImportNumeric(BaseRow, "AttributeType"),
                         };
 
                         int InitHp = AssetPostImporter.ImportNumeric(BaseRow, "InitHp");

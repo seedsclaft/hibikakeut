@@ -68,7 +68,7 @@ namespace Ryneus
             return ListData.MakeListData(dataList, selectIndex);
         }
 
-        public List<ListData> MakeListDataFunc<T>(List<T> dataList, int selectIndex, Func<T,bool> enableFunc)
+        public List<ListData> MakeListDataFunc<T>(List<T> dataList, int selectIndex, Func<T, bool> enableFunc)
         {
             return ListData.MakeListData(dataList, selectIndex, enableFunc);
         }
@@ -143,14 +143,15 @@ namespace Ryneus
             if (CheckEvent(eventTiming, (a) => CheckAdvEvent(eventTiming, timeStamp, endEvent)))
             {
                 return true;
-            } else
+            }
+            else
             {
                 endEvent?.Invoke();
             }
             return false;
         }
 
-        private bool CheckEvent(EventTiming eventTiming,Action<bool> callEvent = null)
+        private bool CheckEvent(EventTiming eventTiming, Action<bool> callEvent = null)
         {
             var advInfo = CheckAdvStageEvent(eventTiming);
             if (advInfo != null)
@@ -211,7 +212,8 @@ namespace Ryneus
             {
                 var bgm = await _model.GetBgmData(bgmData.Key);
                 SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true, timeStamp);
-            } else
+            }
+            else
             {
                 SoundManager.Instance.FadeOutBgm();
             }
@@ -278,14 +280,15 @@ namespace Ryneus
             // ロード非表示
             _view.CallSystemCommand(Base.CommandType.CloseLoading);
             _model.GainSaveCount();
-            _model.SavePlayerStageData(true,GameSystem.SceneStackManager.Current);
+            _model.SavePlayerStageData(GameSystem.SceneStackManager.Current);
             // 成功表示
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(19500), (a) =>
             {
                 if (isReturnScene)
                 {
                     _view.CommandGotoSceneChange(Scene.Tactics);
-                } else
+                }
+                else
                 {
                     _view.ChangeUIActive(true);
                 }
@@ -298,7 +301,7 @@ namespace Ryneus
         /// ステータス詳細を表示
         /// </summary>
         /// <param name="actorInfos"></param>
-        public void CommandStatusInfo(List<ActorInfo> actorInfos, bool inBattle, bool backButton = true,bool levelUpObj = true,bool addActor = false,int startIndex = -1,Action closeEvent = null,bool isRanking = false,bool characterList = false)
+        public void CommandStatusInfo(List<ActorInfo> actorInfos, bool inBattle, bool backButton = true, bool levelUpObj = true, bool addActor = false, int startIndex = -1, Action closeEvent = null, bool isRanking = false, bool characterList = false)
         {
             var statusViewInfo = new StatusViewInfo(() =>
             {
@@ -307,7 +310,7 @@ namespace Ryneus
                 _view.ChangeUIActive(true);
                 closeEvent?.Invoke();
             });
-            statusViewInfo.SetActorInfos(actorInfos,inBattle);
+            statusViewInfo.SetActorInfos(actorInfos, inBattle);
             if (startIndex > -1)
             {
                 statusViewInfo.StartIndex.SetValue(startIndex);
@@ -375,11 +378,6 @@ namespace Ryneus
             }, sideMenuViewInfo);
         }
 
-        public void CloseConfirm()
-        {
-            _view.CallSystemCommand(Base.CommandType.CloseConfirm);
-        }
-
         public void CommandCautionInfo(string title, int from = -1, int to = -1)
         {
             var cautionInfo = new CautionInfo();
@@ -411,13 +409,15 @@ namespace Ryneus
                         endEvent?.Invoke();
                         SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                     }, learnSkillInfo);
-                } else
+                }
+                else
                 {
                     CommandCautionInfo("", from, to);
                     endEvent?.Invoke();
                     SoundManager.Instance.PlayStaticSe(SEType.CountUp);
                 }
-            } else
+            }
+            else
             {
                 var textId = _model.ActorLevelLinked(actorInfo) ? 19420 : 19410;
                 CommandCautionInfo(DataSystem.GetText(textId));
@@ -471,7 +471,8 @@ namespace Ryneus
                             endEvent?.Invoke();
                             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                         }, learnSkillInfo);
-                    } else
+                    }
+                    else
                     {
                         CommandCautionInfo("", from, to);
                         endEvent?.Invoke();
@@ -506,11 +507,11 @@ namespace Ryneus
         public void CommandLearnMagic(ActorInfo actorInfo, SkillInfo skillInfo, Action endEvent = null)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(19510, skillInfo.LearningCost.Value.ToString()) + DataSystem.GetReplaceText(19520,skillInfo.Master.Name),(a) => UpdatePopupLearnSkill(a,actorInfo,skillInfo,endEvent));
+            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(19510, skillInfo.LearningCost.Value.ToString()) + DataSystem.GetReplaceText(19520, skillInfo.Master.Name), (a) => UpdatePopupLearnSkill(a, actorInfo, skillInfo, endEvent));
             _view.CommandCallConfirm(confirmInfo);
         }
 
-        private void UpdatePopupLearnSkill(ConfirmCommandType confirmCommandType, ActorInfo actorInfo,SkillInfo skillInfo,System.Action endEvent = null)
+        private void UpdatePopupLearnSkill(ConfirmCommandType confirmCommandType, ActorInfo actorInfo, SkillInfo skillInfo, System.Action endEvent = null)
         {
             if (confirmCommandType == ConfirmCommandType.Yes)
             {

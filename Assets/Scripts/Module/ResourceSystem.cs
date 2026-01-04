@@ -255,6 +255,11 @@ namespace Ryneus
             return LoadBuffIcons()[iconIndex];
         }
 
+        public static Sprite[] LoadElementIcon()
+        {
+            return LoadResources<Sprite>(SystemTexturePath + "ElementIcon");
+        }
+
         public static SpriteAtlas LoadUnitTypeIcons()
         {
             return LoadResource<SpriteAtlas>("Texture/UnitType");
