@@ -68,8 +68,8 @@ namespace Ryneus
             return actorInfos;
         }
 
-        private List<StrategyResultViewInfo> _resultInfos = new();
-        public List<StrategyResultViewInfo> ResultViewInfos => _resultInfos;
+        private List<GetItemResultViewInfo> _resultInfos = new();
+        public List<GetItemResultViewInfo> ResultViewInfos => _resultInfos;
 
         private List<SkillInfo> _selectLearnSkills = new();
         public List<SkillInfo> SelectLearnSkills => _selectLearnSkills;
@@ -134,6 +134,8 @@ namespace Ryneus
         public void MakeResult()
         {
             var getItemInfos = _sceneParam.GetItemInfos;
+            _resultInfos.Clear();
+            _resultInfos = MakeGetItemResultViewInfos(getItemInfos);
 
             var lvUpList = new List<ActorInfo>();
             // Expを付与する
@@ -193,92 +195,11 @@ namespace Ryneus
                 _beforeLevelUpAnimation = true;
             }
 
-            // エナジー獲得
-            var gainCurrency = 0;
-            var currencyGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Currency);
-            foreach (var currencyGetItemInfo in currencyGetItemInfos)
-            {
-                AddGetItemInfo(currencyGetItemInfo);
-                gainCurrency += currencyGetItemInfo.Param1;
-            }
-
-            // 魔法入手
-            var skillGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Skill);
-            foreach (var skillGetItemInfo in skillGetItemInfos)
-            {
-                AddPlayerInfoSkillId(skillGetItemInfo.Param1);
-                AddGetItemInfo(skillGetItemInfo);
-            }
-
-            // 獲得エナジー、魔法情報を生成
-            _resultInfos.Clear();
-            if (gainCurrency > 0)
-            {
-                var resultInfo = new StrategyResultViewInfo();
-                resultInfo.Title.SetValue(resultInfo.GetCurrencyText(gainCurrency));
-                _resultInfos.Add(resultInfo);
-            }
-
-            foreach (var skillGetItemInfo in skillGetItemInfos)
-            {
-                var resultInfo = new StrategyResultViewInfo();
-                var skillData = DataSystem.FindSkill(skillGetItemInfo.Param1);
-                resultInfo.SetSkillId(skillData.Id);
-                resultInfo.Title.SetValue(resultInfo.GetSkillText(skillData));
-                _resultInfos.Add(resultInfo);
-            }
-
-            //
-            var skillExpGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.SkillMastary);
-            foreach (var skillExpGetItemInfo in skillExpGetItemInfos)
-            {
-                var resultInfo = new StrategyResultViewInfo();
-                var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == skillExpGetItemInfo.Param1);
-                var skillData = DataSystem.FindSkill(skillExpGetItemInfo.Param2);
-                if (skillData.Id > 1000 && skillData.Rank > RankType.ActiveRank1 && !target.MastarySkillIds.Contains(skillExpGetItemInfo.Param2))
-                {
-                    resultInfo.Title.SetValue(DataSystem.GetReplaceText(20110, target.Master.Name) + DataSystem.GetReplaceText(20111, skillData.Name));
-                    _resultInfos.Add(resultInfo);
-                }
-
-            }
-
-            var evaluateGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Evaluate);
-            foreach (var evaluateGetItemInfo in evaluateGetItemInfos)
-            {
-                var resultInfo = new StrategyResultViewInfo();
-                resultInfo.Title.SetValue(DataSystem.GetText(3210) + " +" + evaluateGetItemInfo.Param1);
-                _resultInfos.Add(resultInfo);
-            }
-
+            MakeGetItemResults(getItemInfos);
             foreach (var getItemInfo in getItemInfos)
             {
-                var resultInfo = new StrategyResultViewInfo();
                 switch (getItemInfo.GetItemType)
                 {
-                    case GetItemType.Regeneration:
-                    case GetItemType.Demigod:
-                    case GetItemType.StatusUp:
-                        break;
-                    case GetItemType.AddActor:
-                        getItemInfo.SetResultParam(getItemInfo.Param1);
-                        AddGetItemInfo(getItemInfo);
-                        AddPlayerInfoActorSkillId(getItemInfo.Param1);
-                        // キャラ加入
-                        var actorData = DataSystem.FindActor(getItemInfo.Param1);
-                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(20200,actorData.Name));
-                        _resultInfos.Add(resultInfo);
-                        break;
-                    case GetItemType.SelectAddActor:
-                        /*
-                        AddGetItemInfo(getItemInfo);
-                        AddPlayerInfoActorSkillId(getItemInfo.ResultParam);
-                        */
-                        // キャラ加入
-                        var actorData2 = DataSystem.FindActor(getItemInfo.Param1);
-                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(11013, actorData2.Name));
-                        _resultInfos.Add(resultInfo);
-                        break;
                     case GetItemType.SelectRelic:
                         if (getItemInfo.Param1 > 1000)
                         {
@@ -286,21 +207,6 @@ namespace Ryneus
                             skillInfo.SetEnable(true);
                             _selectLearnSkills.Add(skillInfo);
                         }
-                        break;
-                    case GetItemType.Evaluate:
-                        AddGetItemInfo(getItemInfo);
-                        break;
-                    case GetItemType.ClearStage:
-                    case GetItemType.Ending:
-                    case GetItemType.SkillMastary:
-                        AddGetItemInfo(getItemInfo);
-                        break;
-                    case GetItemType.Item:
-                        var itemResultInfo = new StrategyResultViewInfo();
-                        var itemData = DataSystem.Items.Find(a => a.Id == getItemInfo.Param1);
-                        itemResultInfo.Title.SetValue(itemData.Name + " x" + getItemInfo.Param2);
-                        _resultInfos.Add(itemResultInfo);
-                        AddGetItemInfo(getItemInfo);
                         break;
                 }
             }
@@ -315,7 +221,7 @@ namespace Ryneus
             foreach (var selectRelicInfo in selectRelicInfos)
             {
                 selectRelicInfo.SetGetFlag(false);
-                var remove =_resultInfos.Find(a => a.SkillId == selectRelicInfo.Param1);
+                var remove = _resultInfos.Find(a => a.SkillId == selectRelicInfo.Param1);
                 _resultInfos.Remove(remove);
             }
             var learnGetItemInfo = getItemInfos.Find(a => a.GetItemType == GetItemType.SelectRelic && skillId == a.Param1);
@@ -323,7 +229,7 @@ namespace Ryneus
             var getItemInfo = MakeGetItemInfo(GetItemType.Skill,skillId);
             AddPlayerInfoSkillId(skillId);
             AddGetItemInfo(getItemInfo);
-            var resultInfo = new StrategyResultViewInfo();
+            var resultInfo = new GetItemResultViewInfo();
             resultInfo.SetSkillId(skillId);
             resultInfo.Title.SetValue(DataSystem.FindSkill(skillId).Name);
             _resultInfos.Add(resultInfo);

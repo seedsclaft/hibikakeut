@@ -222,17 +222,17 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 47
-    mapAttr: 99
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 48
-    mapAttr: 99
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 49
-    mapAttr: 99
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -302,17 +302,17 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 67
-    mapAttr: 99
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 68
-    mapAttr: 99
+    mapAttr: 7
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 69
-    mapAttr: 99
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -382,17 +382,17 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 87
-    mapAttr: 99
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 88
-    mapAttr: 99
+    mapAttr: 2
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 89
-    mapAttr: 99
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -462,17 +462,17 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 107
-    mapAttr: 99
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 108
-    mapAttr: 99
+    mapAttr: 0
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 109
-    mapAttr: 99
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -547,7 +547,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 128
-    mapAttr: 1
+    mapAttr: 8
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -627,7 +627,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 148
-    mapAttr: 7
+    mapAttr: 0
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -1626,7 +1626,7 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 21
+  DungeonCompletion: 25
   stageEvents:
   - EventKey: 42_8_18DungeonMoveDungeonFloor41
     Timing: 3010
@@ -1637,11 +1637,11 @@ MonoBehaviour:
     Param2: 9
     Param3: 4
     ReadFlag: 0
-  - EventKey: 42_8_7DungeonGetArtifact2040
+  - EventKey: 42_8_3DungeonGetArtifact2040
     Timing: 3010
     Type: 3010
     PositionX: 8
-    PositionY: 7
+    PositionY: 3
     Param: 2040
     Param2: 0
     Param3: 0
@@ -1672,7 +1672,7 @@ MonoBehaviour:
     Param: 0
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1
   - EventKey: 42_4_8DungeonAdvStart100
     Timing: 3010
     Type: 1010
@@ -1744,7 +1744,7 @@ MonoBehaviour:
     Param: 0
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1
   - EventKey: 42_10_8DungeonAddEventFlagEndForceBattle89
     Timing: 3010
     Type: 6020
@@ -1771,4 +1771,49 @@ MonoBehaviour:
     Param: 0
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1
+  - EventKey: 42_8_6DungeonAdvStart140
+    Timing: 3010
+    Type: 1010
+    PositionX: 8
+    PositionY: 6
+    Param: 140
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 42_8_6DungeonAddEventFlag86
+    Timing: 3010
+    Type: 6010
+    PositionX: 8
+    PositionY: 6
+    Param: 86
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 42_8_4DungeonNone86
+    Timing: 3010
+    Type: 0
+    PositionX: 8
+    PositionY: 4
+    Param: 86
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 42_8_6DungeonActorEvent3
+    Timing: 3010
+    Type: 1020
+    PositionX: 8
+    PositionY: 6
+    Param: 3
+    Param2: 3
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 42_8_6DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 8
+    PositionY: 6
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1

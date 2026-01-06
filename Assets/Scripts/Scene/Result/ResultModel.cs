@@ -9,8 +9,8 @@ namespace Ryneus
         {
         }
 
-        private List<StrategyResultViewInfo> _resultInfos = new();
-        public List<StrategyResultViewInfo> ResultViewInfos => _resultInfos;
+        private List<GetItemResultViewInfo> _resultInfos = new();
+        public List<GetItemResultViewInfo> ResultViewInfos => _resultInfos;
 
 
         public List<ActorInfo> TacticsActors()

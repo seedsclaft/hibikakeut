@@ -1087,7 +1087,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 212
-    mapAttr: 0
+    mapAttr: 3
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -1097,7 +1097,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 214
-    mapAttr: 0
+    mapAttr: 8
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -1362,6 +1362,15 @@ MonoBehaviour:
     Param2: 0
     Param3: 0
     ReadFlag: 1
+  - EventKey: 21_11_5DungeonActorEvent1
+    Timing: 3010
+    Type: 1020
+    PositionX: 11
+    PositionY: 5
+    Param: 1
+    Param2: 2
+    Param3: 0
+    ReadFlag: 1
   - EventKey: 21_11_5DungeonEventEnd0
     Timing: 3010
     Type: 9010
@@ -1370,7 +1379,7 @@ MonoBehaviour:
     Param: 0
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1
   - EventKey: 21_9_5DungeonGetArtifact2010
     Timing: 3010
     Type: 3010
@@ -1406,4 +1415,49 @@ MonoBehaviour:
     Param: 1
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1
+  - EventKey: 21_6_13DungeonAdvStart140
+    Timing: 3010
+    Type: 1010
+    PositionX: 6
+    PositionY: 13
+    Param: 140
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 21_6_13DungeonAddEventFlag413
+    Timing: 3010
+    Type: 6010
+    PositionX: 6
+    PositionY: 13
+    Param: 413
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 21_4_13DungeonNone413
+    Timing: 3010
+    Type: 0
+    PositionX: 4
+    PositionY: 13
+    Param: 413
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 21_6_13DungeonActorEvent1
+    Timing: 3010
+    Type: 1020
+    PositionX: 6
+    PositionY: 13
+    Param: 1
+    Param2: 3
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 21_6_13DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 6
+    PositionY: 13
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1

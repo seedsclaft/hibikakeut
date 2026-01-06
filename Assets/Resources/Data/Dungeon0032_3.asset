@@ -774,7 +774,7 @@ MonoBehaviour:
     Param: 33
     Param2: 2
     Param3: 1
-    ReadFlag: 1
+    ReadFlag: 0
   - EventKey: 32_4_6DungeonForceBattle2020
     Timing: 3010
     Type: 5010
@@ -820,6 +820,15 @@ MonoBehaviour:
     Param2: 0
     Param3: 0
     ReadFlag: 1
+  - EventKey: 32_8_7DungeonActorEvent2
+    Timing: 3010
+    Type: 1020
+    PositionX: 8
+    PositionY: 7
+    Param: 2
+    Param2: 2
+    Param3: 0
+    ReadFlag: 1
   - EventKey: 32_8_7DungeonEventEnd0
     Timing: 3010
     Type: 9010
@@ -828,7 +837,7 @@ MonoBehaviour:
     Param: 0
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1
   - EventKey: 32_4_5DungeonTraverseRegeon1
     Timing: 3010
     Type: 8010
@@ -837,4 +846,4 @@ MonoBehaviour:
     Param: 1
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1

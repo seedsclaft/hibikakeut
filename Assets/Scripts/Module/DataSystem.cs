@@ -213,17 +213,6 @@ namespace Ryneus
             return result;
         }
 
-        public static List<ListData> HelpText(string key)
-        {
-            var data = Helps.Find(a => a.Key == key);
-            if (data != null)
-            {
-                var texts = data.Help.Split("\n").ToList();
-                return ListData.MakeListData(texts);
-            }
-            return null;
-        }
-
         public static List<ListData> HelpText(int id)
         {
             var data = Helps.Find(a => a.Id == id);

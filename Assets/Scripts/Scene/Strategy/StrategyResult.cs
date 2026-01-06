@@ -15,7 +15,7 @@ namespace Ryneus
             {
                 return;
             }
-            var data = ListItemData<StrategyResultViewInfo>();
+            var data = ListItemData<GetItemResultViewInfo>();
             if (data == null)
             {
                 return;
@@ -30,7 +30,7 @@ namespace Ryneus
         }
     }
 
-    public class StrategyResultViewInfo
+    public class GetItemResultViewInfo
     {
         private int _skillId;
         public int SkillId => _skillId;

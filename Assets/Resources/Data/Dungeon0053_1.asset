@@ -352,7 +352,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 65
-    mapAttr: 0
+    mapAttr: 8
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -437,7 +437,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 82
-    mapAttr: 1
+    mapAttr: 0
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -527,7 +527,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 100
-    mapAttr: 1
+    mapAttr: 2
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -617,7 +617,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 118
-    mapAttr: 1
+    mapAttr: 0
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -1646,7 +1646,7 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 118
+  DungeonCompletion: 121
   stageEvents:
   - EventKey: 53_4_11DungeonMoveDungeonFloor52
     Timing: 3010
@@ -1738,3 +1738,48 @@ MonoBehaviour:
     Param2: 0
     Param3: 0
     ReadFlag: 0
+  - EventKey: 53_11_3DungeonAdvStart140
+    Timing: 3010
+    Type: 1010
+    PositionX: 11
+    PositionY: 3
+    Param: 140
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 53_11_3DungeonAddEventFlag105
+    Timing: 3010
+    Type: 6010
+    PositionX: 11
+    PositionY: 3
+    Param: 105
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 53_10_5DungeonNone105
+    Timing: 3010
+    Type: 0
+    PositionX: 10
+    PositionY: 5
+    Param: 105
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 53_11_3DungeonActorEvent4
+    Timing: 3010
+    Type: 1020
+    PositionX: 11
+    PositionY: 3
+    Param: 4
+    Param2: 2
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 53_11_3DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 11
+    PositionY: 3
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1

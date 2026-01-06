@@ -437,6 +437,138 @@ namespace Ryneus
             return getItemInfos;
         }
 
+        public void MakeGetItemResults(List<GetItemInfo> getItemInfos)
+        {
+            foreach (var getItemInfo in getItemInfos)
+            {
+                switch (getItemInfo.GetItemType)
+                {
+                    case GetItemType.Currency:
+                    case GetItemType.Item:
+                    case GetItemType.Evaluate:
+                    case GetItemType.ClearStage:
+                    case GetItemType.Ending:
+                    case GetItemType.SkillMastary:
+                    case GetItemType.RankUp:
+                    case GetItemType.AddReliefCommandCount:
+                        AddGetItemInfo(getItemInfo);
+                        break;
+                    case GetItemType.Skill:
+                        AddGetItemInfo(getItemInfo);
+                        AddPlayerInfoSkillId(getItemInfo.Param1);
+                        break;
+                    case GetItemType.AddActor:
+                        getItemInfo.SetResultParam(getItemInfo.Param1);
+                        AddGetItemInfo(getItemInfo);
+                        AddPlayerInfoActorSkillId(getItemInfo.Param1);
+                        break;
+                }
+            }
+        }
+
+        public List<GetItemResultViewInfo> MakeGetItemResultViewInfos(List<GetItemInfo> getItemInfos)
+        {
+            var list = new List<GetItemResultViewInfo>();
+            // 獲得ゴールド合計
+            var gainCurrency = 0;
+            var currencyGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Currency);
+            foreach (var currencyGetItemInfo in currencyGetItemInfos)
+            {
+                gainCurrency += currencyGetItemInfo.Param1;
+            }
+            if (gainCurrency > 0)
+            {
+                var resultInfo = new GetItemResultViewInfo();
+                resultInfo.Title.SetValue(resultInfo.GetCurrencyText(gainCurrency));
+                list.Add(resultInfo);
+            }
+
+            // 魔法入手
+            var skillGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Skill);
+            foreach (var skillGetItemInfo in skillGetItemInfos)
+            {
+                if (list.Find(a => a.SkillId == skillGetItemInfo.Param1) != null)
+                {
+                    continue;
+                }
+                var resultInfo = new GetItemResultViewInfo();
+                var skillData = DataSystem.FindSkill(skillGetItemInfo.Param1);
+                resultInfo.SetSkillId(skillData.Id);
+                resultInfo.Title.SetValue(resultInfo.GetSkillText(skillData));
+                list.Add(resultInfo);
+            }
+
+            // 魔法会得
+            var skillExpGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.SkillMastary);
+            foreach (var skillExpGetItemInfo in skillExpGetItemInfos)
+            {
+                var resultInfo = new GetItemResultViewInfo();
+                var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == skillExpGetItemInfo.Param1);
+                var skillData = DataSystem.FindSkill(skillExpGetItemInfo.Param2);
+                if (skillData.Id > 1000 && skillData.Rank > RankType.ActiveRank1 && !target.MastarySkillIds.Contains(skillExpGetItemInfo.Param2))
+                {
+                    resultInfo.Title.SetValue(DataSystem.GetReplaceText(20110, target.Master.Name) + DataSystem.GetReplaceText(20111, skillData.Name));
+                    list.Add(resultInfo);
+                }
+            }
+
+            // アイテム
+            var gainItems = new Dictionary<int, int>();
+            var itemGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Item);
+            foreach (var itemGetItemInfo in itemGetItemInfos)
+            {
+                if (!gainItems.ContainsKey(itemGetItemInfo.Param1))
+                {
+                    gainItems[itemGetItemInfo.Param1] = 0;
+                }
+                gainItems[itemGetItemInfo.Param1] += itemGetItemInfo.Param2;
+            }
+            if (gainItems.Count > 0)
+            {
+                foreach (var gainItem in gainItems)
+                {
+                    var resultInfo = new GetItemResultViewInfo();
+                    var itemData = DataSystem.Items.Find(a => a.Id == gainItem.Key);
+                    resultInfo.Title.SetValue(itemData.Name + " x" + gainItem.Value);
+                    list.Add(resultInfo);
+                }
+            }
+
+            // 評価値
+            var evaluateGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Evaluate);
+            foreach (var evaluateGetItemInfo in evaluateGetItemInfos)
+            {
+                var resultInfo = new GetItemResultViewInfo();
+                resultInfo.Title.SetValue(DataSystem.GetText(3210) + " +" + evaluateGetItemInfo.Param1);
+                list.Add(resultInfo);
+            }
+
+            // その他
+            foreach (var getItemInfo in getItemInfos)
+            {
+                var resultInfo = new GetItemResultViewInfo();
+                switch (getItemInfo.GetItemType)
+                {
+                    case GetItemType.AddActor:
+                        // キャラ加入
+                        var actorData = DataSystem.FindActor(getItemInfo.Param1);
+                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(20200, actorData.Name));
+                        list.Add(resultInfo);
+                        break;
+                    case GetItemType.SelectAddActor:
+                        var actorData2 = DataSystem.FindActor(getItemInfo.Param1);
+                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(11013, actorData2.Name));
+                        list.Add(resultInfo);
+                        break;
+                    case GetItemType.AddReliefCommandCount:
+                        resultInfo.Title.SetValue(DataSystem.GetText(20420));
+                        list.Add(resultInfo);
+                        break;
+                }
+            }
+            return list;
+        }
+
         private List<GetItemInfo> CheckItemGetSkill()
         {
             var getItemInfos = new List<GetItemInfo>();

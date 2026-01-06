@@ -602,19 +602,19 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 91
-    mapAttr: 9
+    mapAttr: 1
     objectFront: 0
-    regeonNo: 1
+    regeonNo: 0
     objectTypeId: 0
   - eventId: 92
-    mapAttr: 9
+    mapAttr: 8
     objectFront: 0
-    regeonNo: 1
+    regeonNo: 0
     objectTypeId: 0
   - eventId: 93
-    mapAttr: 9
+    mapAttr: 1
     objectFront: 0
-    regeonNo: 1
+    regeonNo: 0
     objectTypeId: 0
   - eventId: 94
     mapAttr: 1
@@ -697,7 +697,7 @@ MonoBehaviour:
     regeonNo: 1
     objectTypeId: 0
   - eventId: 106
-    mapAttr: 9
+    mapAttr: 2
     objectFront: 0
     regeonNo: 1
     objectTypeId: 0
@@ -1286,7 +1286,7 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 15
+  DungeonCompletion: 17
   stageEvents:
   - EventKey: 54_8_5DungeonMoveDungeonFloor53
     Timing: 3010
@@ -1324,12 +1324,57 @@ MonoBehaviour:
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 54_8_6DungeonTraverseRegeon1
+  - EventKey: 54_8_8DungeonTraverseRegeon1
     Timing: 3010
     Type: 8010
     PositionX: 8
-    PositionY: 6
+    PositionY: 8
     Param: 1
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1
+  - EventKey: 54_8_6DungeonAdvStart140
+    Timing: 3010
+    Type: 1010
+    PositionX: 8
+    PositionY: 6
+    Param: 140
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 54_8_6DungeonAddEventFlag87
+    Timing: 3010
+    Type: 6010
+    PositionX: 8
+    PositionY: 6
+    Param: 87
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 54_8_7DungeonNone87
+    Timing: 3010
+    Type: 0
+    PositionX: 8
+    PositionY: 7
+    Param: 87
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 54_8_6DungeonActorEvent4
+    Timing: 3010
+    Type: 1020
+    PositionX: 8
+    PositionY: 6
+    Param: 4
+    Param2: 3
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 54_8_6DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 8
+    PositionY: 6
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1

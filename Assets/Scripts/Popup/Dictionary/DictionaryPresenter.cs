@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ryneus
 {
-    public class DictionaryPresenter 
+    public class DictionaryPresenter : BasePresenter
     {
         DictionaryModel _model = null;
         DictionaryView _view = null;
@@ -21,7 +21,7 @@ namespace Ryneus
         {
             _view.SetEvent((type) => UpdateCommand(type));
             _view.OpenAnimation();
-            _view.SetCategoryList(ListData.MakeListData(_model.SkillCategory()));
+            _view.SetCategoryList(MakeListData(_model.SkillCategory()));
             CommandDictionary(SkillType.Active);
             _view.SetCompleteRateText(_model.CompeteRate);
             _busy = false;
@@ -43,10 +43,10 @@ namespace Ryneus
 
         private void CommandDictionary(SkillType skillType)
         {
-            var skillList = ListData.MakeListData(_model.CategorySkillList(skillType),(a) => 
-            { 
+            var skillList = ListData.MakeListData(_model.CategorySkillList(skillType), (a) => 
+            {
                 return _model.CurrentData.PlayerInfo.SkillIds.Contains(a.Id.Value);
-            },0);
+            }, 0);
             _view.SetMagicList(skillList);
         }
     }

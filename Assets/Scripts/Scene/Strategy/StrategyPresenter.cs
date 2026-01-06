@@ -224,7 +224,7 @@ namespace Ryneus
             }
             if (_model.SelectLearnSkills.Count > 0)
             {
-                _view.SetLearnSkillInfos(ListData.MakeListData(_model.SelectLearnSkills));
+                _view.SetLearnSkillInfos(MakeListData(_model.SelectLearnSkills));
                 return;
             }
             ShowResultList();

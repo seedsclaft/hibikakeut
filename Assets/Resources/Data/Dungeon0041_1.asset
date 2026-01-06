@@ -1077,7 +1077,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 262
-    mapAttr: 10
+    mapAttr: 8
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -1717,7 +1717,7 @@ MonoBehaviour:
     Param: 0
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1
   - EventKey: 41_4_4DungeonAdvStart100
     Timing: 3010
     Type: 1010
@@ -1762,7 +1762,7 @@ MonoBehaviour:
     Param: 0
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1
   - EventKey: 41_4_13DungeonDamageFloor20
     Timing: 3010
     Type: 7010
@@ -1834,7 +1834,7 @@ MonoBehaviour:
     Param: 0
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1
   - EventKey: 41_2_13DungeonAdvStart130
     Timing: 3010
     Type: 1010
@@ -1853,6 +1853,15 @@ MonoBehaviour:
     Param2: 0
     Param3: 0
     ReadFlag: 1
+  - EventKey: 41_2_13DungeonActorEvent3
+    Timing: 3010
+    Type: 1020
+    PositionX: 2
+    PositionY: 13
+    Param: 3
+    Param2: 2
+    Param3: 0
+    ReadFlag: 1
   - EventKey: 41_2_13DungeonEventEnd0
     Timing: 3010
     Type: 9010
@@ -1861,7 +1870,7 @@ MonoBehaviour:
     Param: 0
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1
   - EventKey: 41_7_13DungeonTraverseRegeon1
     Timing: 3010
     Type: 8010
@@ -1870,4 +1879,4 @@ MonoBehaviour:
     Param: 1
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1

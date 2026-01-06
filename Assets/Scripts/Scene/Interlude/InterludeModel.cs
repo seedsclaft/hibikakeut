@@ -4,8 +4,8 @@ namespace Ryneus
 {
     public class InterludeModel : BaseModel
     {
-        private List<StrategyResultViewInfo> _resultInfos = new();
-        public List<StrategyResultViewInfo> ResultViewInfos => _resultInfos;
+        private List<GetItemResultViewInfo> _resultInfos = new();
+        public List<GetItemResultViewInfo> ResultViewInfos => _resultInfos;
         private List<SkillInfo> _selectLearnSkills = new();
         public List<SkillInfo> SelectLearnSkills => _selectLearnSkills;
 
@@ -58,115 +58,14 @@ namespace Ryneus
                 }
             }
 
-            // エナジー獲得
-            var gainCurrency = 0;
-            var currencyGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Currency);
-            foreach (var currencyGetItemInfo in currencyGetItemInfos)
-            {
-                AddGetItemInfo(currencyGetItemInfo);
-                gainCurrency += currencyGetItemInfo.Param1;
-            }
-
-            // 魔法入手
-            var skillGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Skill);
-            foreach (var skillGetItemInfo in skillGetItemInfos)
-            {
-                AddPlayerInfoSkillId(skillGetItemInfo.Param1);
-                AddGetItemInfo(skillGetItemInfo);
-            }
-
-            // アイテム入手
-            var itemGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Item);
-            foreach (var itemGetItemInfo in itemGetItemInfos)
-            {
-                AddGetItemInfo(itemGetItemInfo);
-            }
-
-            // RankUp
-            var rankUpgetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.RankUp);
-            foreach (var rankUpgetItemInfo in rankUpgetItemInfos)
-            {
-                AddGetItemInfo(rankUpgetItemInfo);
-            }
-
-            // 評価値加算
-            var evaluateGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Evaluate);
-            foreach (var evaluateGetItemInfo in evaluateGetItemInfos)
-            {
-                AddGetItemInfo(evaluateGetItemInfo);
-            }
-
-            // 招聘コマンド回数増加
-            var addReliefCommandCountGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.AddReliefCommandCount);
-            foreach (var addReliefCommandCountGetItemInfo in addReliefCommandCountGetItemInfos)
-            {
-                AddGetItemInfo(addReliefCommandCountGetItemInfo);
-            }
-
-            // ステージクリア
-            var claerStageGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.ClearStage);
-            foreach (var claerStageGetItemInfo in claerStageGetItemInfos)
-            {
-                AddGetItemInfo(claerStageGetItemInfo);
-            }
-
-            // 獲得エナジー、魔法情報を生成
             _resultInfos.Clear();
-            if (gainCurrency > 0)
-            {
-                var resultInfo = new StrategyResultViewInfo();
-                resultInfo.Title.SetValue(resultInfo.GetCurrencyText(gainCurrency));
-                _resultInfos.Add(resultInfo);
-            }
-            foreach (var itemGetItemInfo in itemGetItemInfos)
-            {
-                var resultInfo = new StrategyResultViewInfo();
-                var itemData = DataSystem.Items.Find(a => a.Id == itemGetItemInfo.Param1);
-                resultInfo.Title.SetValue(itemData.Name + " x" + itemGetItemInfo.Param2);
-                _resultInfos.Add(resultInfo);
-            }
-            foreach (var skillGetItemInfo in skillGetItemInfos)
-            {
-                var resultInfo = new StrategyResultViewInfo();
-                var skillData = DataSystem.FindSkill(skillGetItemInfo.Param1);
-                resultInfo.SetSkillId(skillData.Id);
-                resultInfo.Title.SetValue(resultInfo.GetSkillText(skillData));
-                _resultInfos.Add(resultInfo);
-            }
-            foreach (var evaluateGetItemInfo in evaluateGetItemInfos)
-            {
-                var resultInfo = new StrategyResultViewInfo();
-                resultInfo.Title.SetValue(DataSystem.GetText(3210) + " +" + evaluateGetItemInfo.Param1);
-                _resultInfos.Add(resultInfo);
-            }
+            _resultInfos = MakeGetItemResultViewInfos(getItemInfos);
 
-
+            MakeGetItemResults(getItemInfos);
             foreach (var getItemInfo in getItemInfos)
             {
-                var resultInfo = new StrategyResultViewInfo();
                 switch (getItemInfo.GetItemType)
                 {
-                    case GetItemType.Regeneration:
-                    case GetItemType.Demigod:
-                    case GetItemType.StatusUp:
-                        break;
-                    case GetItemType.AddActor:
-                        getItemInfo.SetResultParam(getItemInfo.Param1);
-                        AddGetItemInfo(getItemInfo);
-                        AddPlayerInfoActorSkillId(getItemInfo.Param1);
-                        // キャラ加入
-                        var actorData = DataSystem.FindActor(getItemInfo.Param1);
-                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(20200,actorData.Name));
-                        _resultInfos.Add(resultInfo);
-                        break;
-                    case GetItemType.SelectAddActor:
-                        AddGetItemInfo(getItemInfo);
-                        AddPlayerInfoActorSkillId(getItemInfo.ResultParam);
-                        // キャラ加入
-                        var actorData2 = DataSystem.FindActor(getItemInfo.ResultParam);
-                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(20200,actorData2.Name));
-                        _resultInfos.Add(resultInfo);
-                        break;
                     case GetItemType.SelectRelic:
                         if (getItemInfo.Param1 > 1000)
                         {
@@ -175,16 +74,9 @@ namespace Ryneus
                             _selectLearnSkills.Add(skillInfo);
                         }
                         break;
-                    case GetItemType.Ending:
-                        getItemInfo.SetGetFlag(true);
-                        break;
-                    case GetItemType.AddReliefCommandCount:
-                        var addReliefCommandCount = new StrategyResultViewInfo();
-                        addReliefCommandCount.Title.SetValue(DataSystem.GetText(20420));
-                        _resultInfos.Add(addReliefCommandCount);
-                        break;
                 }
             }
+
             // 評価値を決定
             if (score >= 5)
             {
