@@ -43,6 +43,7 @@ namespace Ryneus
         BattleScore = 1050,
         TotalDamage = 1060,
         ClassChangeCount = 1070,
+        LearnSkillCount = 1080,
         ClearStage = 2010,
         UseAwakeSkillCount = 3010,
         UseChangeLineCount = 3020,

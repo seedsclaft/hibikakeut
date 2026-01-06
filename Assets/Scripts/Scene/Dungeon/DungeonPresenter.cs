@@ -588,14 +588,9 @@ namespace Ryneus
             if (actorInfo != null)
             {
                 var learnSkillInfos = actorInfo.SealedSkills();
-                if (seek == 2 && learnSkillInfos.Count > 0)
+                if (seek >= 2 && learnSkillInfos.Count > 0)
                 {
                     skillInfo = learnSkillInfos[0];
-                }
-                else
-                if (seek == 3 && learnSkillInfos.Count > 1)
-                {
-                    skillInfo = learnSkillInfos[1];
                 }
             }
             var advId = 10000 + (actorIndex * 100) + (seek * 10);
@@ -607,7 +602,16 @@ namespace Ryneus
                 _view.CallSystemCommand(Base.CommandType.SceneShowUI);
                 if (skillInfo != null)
                 {
-                    CommandLearnMagic(actorInfo, skillInfo, () =>
+                    // 装備可能であれば装備する
+                    if (actorInfo.EquipmentSkillIds.Count < actorInfo.EquipSlotCount())
+                    {
+                        actorInfo.ChangeEquipSkill(skillInfo.Id.Value, 0);
+                    }
+                    var from = actorInfo.Evaluate();
+                    actorInfo.LearnSkill(skillInfo.Id.Value);
+                    var to = actorInfo.Evaluate();
+                    var learnSkillInfo = new LearnSkillInfo(from, to, skillInfo, actorInfo);
+                    CommandLearnMagic(learnSkillInfo, () =>
                     {
                         endEvent?.Invoke();
                     });

@@ -50,6 +50,24 @@ namespace Ryneus
         // エンフェリアの加入順
         private List<int> _releifActorIndexes = new();
         public List<int> ReleifActorIndexes => _releifActorIndexes;
+        public void AddReleifActorIndexes(int index)
+        {
+            if (index > 100)
+            {
+                return;
+            }
+            if (!_releifActorIndexes.Contains(index))
+            {
+                _releifActorIndexes.Add(index);
+            }
+        }
+        public void RemoveReleifActorIndexes(int index)
+        {
+            if (_releifActorIndexes.Contains(index))
+            {
+                _releifActorIndexes.Remove(index);
+            }
+        }
 
         public List<ActorInfo> EditableActorInfos()
         {
@@ -454,6 +472,15 @@ namespace Ryneus
                     var classChange = _actorInfos.FindAll(a => a.IsClassChenged.Value).Count;
                     achievementInfo.SetCondition(classChange, achievementInfo.Master.Param1);
                     break;
+                case AchievementConditionType.LearnSkillCount:
+                    // 封印魔法解放数
+                    var learnSkillCount = 0;
+                    foreach (var actorInfo in _actorInfos)
+                    {
+                        learnSkillCount += actorInfo.LearnSkillIds.Count;
+                    }
+                    achievementInfo.SetCondition(learnSkillCount, achievementInfo.Master.Param1);
+                    break;
                 case AchievementConditionType.ClearStage:
                     // ステージクリア
                     var cleared = ClearedStages.Find(a => a.Value == achievementInfo.Master.Param1) != null;
@@ -559,6 +586,7 @@ namespace Ryneus
                     if (removeActor != null)
                     {
                         _actorInfos.Remove(removeActor);
+                        RemoveReleifActorIndexes(removeActor.ActorId.Value);
                         var removeIndex = -1;
                         foreach (var actorDict in CurrentDeckInfo.ActorIdDict)
                         {
@@ -628,6 +656,7 @@ namespace Ryneus
                         LeaderActorId.SetValue(actorInfo.ActorId.Value);
                     }
                     _actorInfos.Add(actorInfo);
+                    AddReleifActorIndexes(actorInfo.ActorId.Value);
                     // 整列
                     _actorInfos.Sort((a,b) => a.BattleIndex.Value - b.BattleIndex.Value > 0 ? 1 : -1);
 

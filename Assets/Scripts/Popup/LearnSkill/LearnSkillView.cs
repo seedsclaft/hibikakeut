@@ -12,7 +12,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI afterEvaluateText = null;
         [SerializeField] private SkillInfoComponent skillInfoComponent = null;
         [SerializeField] private ConfirmAnimation confirmAnimation = null;
-
+        [SerializeField] private ActorInfoComponent actorInfoComponent = null;
         public override void Initialize()
         {
             base.Initialize();
@@ -28,9 +28,13 @@ namespace Ryneus
         public void SetLearnSkillInfo(LearnSkillInfo learnSkillInfo)
         {
             evaluateObj?.SetActive(learnSkillInfo.From != learnSkillInfo.To);
-            evaluateText?.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.From));
-            afterEvaluateText?.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.To));
+            evaluateText?.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.From.Value));
+            afterEvaluateText?.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.To.Value));
             skillInfoComponent.UpdateInfo(learnSkillInfo.SkillInfo);
+            if (actorInfoComponent != null && learnSkillInfo.ActoInfo != null)
+            {
+                actorInfoComponent.UpdateInfo(learnSkillInfo.ActoInfo, null);
+            }
         }
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
@@ -45,22 +49,23 @@ namespace Ryneus
 
     public class LearnSkillInfo
     {
-        private int _from = 0;
-        public int From => _from;
-        private int _to = 0;
-        public int To => _to;
+        public ParameterInt From = new();
+        public ParameterInt To = new();
+        private ActorInfo _actoInfo;
+        public ActorInfo ActoInfo => _actoInfo;
         private SkillInfo _skillInfo;
         public SkillInfo SkillInfo => _skillInfo;
-        public LearnSkillInfo(int from, int to, SkillInfo skillInfo)
+        public LearnSkillInfo(int from, int to, SkillInfo skillInfo, ActorInfo actorInfo = null)
         {
-            _from = from;
-            _to = to;
+            From.SetValue(from);
+            To.SetValue(to);
             _skillInfo = skillInfo;
+            _actoInfo = actorInfo;
         }
 
         public void SetToValue(int to)
         {
-            _to = to;
+            To.SetValue(to);
         }
 
     }

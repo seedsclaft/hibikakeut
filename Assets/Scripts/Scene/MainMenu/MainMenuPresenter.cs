@@ -302,9 +302,24 @@ namespace Ryneus
                         CheckNewStage();
                         return;
                     }
-                    _busy = false;
-                    _view.SetBusy(false);
-                    CommandAchievement();
+                    // 招聘コマンド回数が増えたらアナウンス
+                    if (_model.PartyInfo.ReliefItemCount.Value > 0)
+                    {
+                        var reliefConfirmInfo = new ConfirmInfo(DataSystem.GetText(11014), (a) =>
+                        {
+                            _busy = false;
+                            _view.SetBusy(false);
+                            CommandAchievement();
+                        });
+                        reliefConfirmInfo.SetIsNoChoice(true);
+                        _view.CommandCallConfirm(reliefConfirmInfo);
+                    }
+                    else
+                    {
+                        _busy = false;
+                        _view.SetBusy(false);
+                        CommandAchievement();
+                    }
                 }, ConfirmType.NewStageAlert);
                 confirmInfo.SetStageInfo(find);
                 confirmInfo.SetIsNoChoice(true);

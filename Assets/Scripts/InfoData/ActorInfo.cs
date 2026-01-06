@@ -8,8 +8,7 @@ namespace Ryneus
     [Serializable]
     public class ActorInfo
     {
-        public ActorData _master = null;
-        public ActorData Master => _master != null ? _master : DataSystem.FindActor(ActorId.Value);
+        public ActorData Master => DataSystem.FindActor(ActorId.Value);
         public ParameterInt ActorId = new();
 
         public ParameterInt Exp = new();
@@ -134,11 +133,14 @@ namespace Ryneus
         public ParameterInt CurrentHp = new();
         public ParameterInt CurrentMp = new();
         public ParameterInt CurrentCost = new();
-
-        public List<int> LearnSkillIds()
+        private List<int> _learnSkillIds = new();
+        public List<int> LearnSkillIds => _learnSkillIds;
+        public void LearnSkill(int skillId)
         {
-            var list = new List<int>();
-            return list;
+            if (!_learnSkillIds.Contains(skillId))
+            {
+                _learnSkillIds.Add(skillId);
+            }
         }
 
         private int _lastSelectSkillId = 0;
@@ -169,7 +171,6 @@ namespace Ryneus
                 return;
             }
             ActorId.SetValue(actorData.Id);
-            _master = Master;
             SetInitialParameter(actorData);
             CurrentHp.SetValue(Master.InitStatus.Hp);
             CurrentMp.SetValue(Master.InitStatus.Mp);
@@ -253,13 +254,13 @@ namespace Ryneus
                 {
                     continue;
                 }
-                if (LearnSkillIds().Contains(learningData.SkillId))
-                {
-                    continue;
-                }
 
                 var skillInfo = new SkillInfo(learningData.SkillId);
-                if (Level >= learningData.Level && learningData.Level >= 0)
+                if (_learnSkillIds == null)
+                {
+                    _learnSkillIds = new();
+                }
+                if (Level >= learningData.Level && learningData.Level >= 0 || _learnSkillIds.Contains(learningData.SkillId))
                 {
                     skillInfo.SetLearningState(LearningState.Learned);
                     skillInfo.PrimitiveLearned.SetValue(true);
@@ -269,7 +270,7 @@ namespace Ryneus
                     skillInfo.LearningLv.SetValue(learningData.Level);
                     skillInfo.SetLearningState(LearningState.NotLearn);
                 }
-                skillInfo.SetEnable(Level >= learningData.Level && learningData.Level >= 0);
+                skillInfo.SetEnable(Level >= learningData.Level && learningData.Level >= 0 || _learnSkillIds.Contains(learningData.SkillId));
                 list.Add(skillInfo);
             }
             return list;
@@ -416,7 +417,7 @@ namespace Ryneus
         public bool IsLearnedSkill(int skillId)
         {
             var learnedSkill = LearningSkillInfos().FindAll(a => a.LearningState == LearningState.Learned);
-            return LearnSkillIds().Contains(skillId) || learnedSkill.Find(a => a.Id.Value == skillId) != null;
+            return _learnSkillIds.Contains(skillId) || learnedSkill.Find(a => a.Id.Value == skillId) != null;
         }
 
         public LevelUpInfo LearnSkill(int skillId, int cost, int stageId)

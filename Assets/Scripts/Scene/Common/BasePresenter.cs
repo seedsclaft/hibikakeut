@@ -504,11 +504,13 @@ namespace Ryneus
             endEvent?.Invoke();
         }
 
-        public void CommandLearnMagic(ActorInfo actorInfo, SkillInfo skillInfo, Action endEvent = null)
+        public void CommandLearnMagic(LearnSkillInfo learnSkillInfo, Action endEvent = null)
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(19510, skillInfo.LearningCost.Value.ToString()) + DataSystem.GetReplaceText(19520, skillInfo.Master.Name), (a) => UpdatePopupLearnSkill(a, actorInfo, skillInfo, endEvent));
-            _view.CommandCallConfirm(confirmInfo);
+            SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+            CallLearnSkillPopupView(() =>
+            {
+                endEvent?.Invoke();
+            }, learnSkillInfo);
         }
 
         private void UpdatePopupLearnSkill(ConfirmCommandType confirmCommandType, ActorInfo actorInfo, SkillInfo skillInfo, System.Action endEvent = null)
