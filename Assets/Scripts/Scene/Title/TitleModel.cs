@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -101,6 +100,7 @@ namespace Ryneus
             CurrentDeckInfo.SetPosition(stageId, floor.entrancePos.x, floor.entrancePos.y, (int)floor.enteringDir);
             CurrentDeckInfo.StageNo.SetValue(stageData.StageNo);
             PartyInfo.SetAchievementRank(DataSystem.Achievements);
+            TempInfo.LastStartTime.SetValue((int)TempInfo.LocalEpochTime());
         }
 
         public void InitializeNewGameSkipOpening()
@@ -130,12 +130,7 @@ namespace Ryneus
             CurrentDeckInfo.SetPosition(stageId, floor.entrancePos.x, floor.entrancePos.y, (int)floor.enteringDir);
             CurrentDeckInfo.StageNo.SetValue(stageData.StageNo);
             PartyInfo.SetAchievementRank(DataSystem.Achievements);
-        }
-
-        public async Task LoadFile()
-        {
-            _ = await SaveSystem.LoadStageInfo(0);
-            //TempInfo.SetPlayingTime(saveFileInfo.PlayTime);
+            TempInfo.LastStartTime.SetValue((int)TempInfo.LocalEpochTime());
         }
 
         public AdvData GameStartEventAdv()

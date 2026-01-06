@@ -146,13 +146,19 @@ namespace Ryneus
             return textData != null ? textData.Help : "";
         }
 
-        public static string GetReplaceText(int id, string replace)
+        public static string GetReplaceText(int id, params object[] args)
         {
             var textData = TextDates[id];
             if (textData != null)
             {
-                var text = textData.Text.Replace("\\c", GetTextData(1000).Text);
-                return text.Replace("\\d", replace);
+                try
+                {
+                    return string.Format(textData.Text, args);
+                }
+                catch
+                {
+                    return textData.Text;
+                }
             }
             return "";
         }

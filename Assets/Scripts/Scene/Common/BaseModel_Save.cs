@@ -22,17 +22,19 @@ namespace Ryneus
         public void SaveAutoFile()
         {
             var saveFileInfo = CurrentData.AutoSave();
+            SaveFile(saveFileInfo);
+        }
+
+        public void SaveFile(SaveFileInfo saveFileInfo)
+        {
             saveFileInfo.StageNo = CurrentStage.StageId.Value;
-            saveFileInfo.SaveTimeLong = DateTime.Now.ToFileTime();
-            saveFileInfo.SaveTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            saveFileInfo.PlayTime = (int)TempInfo.PlayingTime;
+            saveFileInfo.UpdateTimeData(TempInfo);
             if (CurrentGameInfo.PartyInfo.ActorInfos != null && CurrentGameInfo.PartyInfo.ActorInfos.Count > 0)
             {
                 saveFileInfo.ActorId = CurrentGameInfo.PartyInfo.LeaderActorId.Value;
             }
-            saveFileInfo.Chapter = PartyInfo.Chapter.Value;
-            saveFileInfo.Period = PartyInfo.Period.Value;
-            saveFileInfo.Rank = PartyInfo.MissionRank.Value;
+            saveFileInfo.UpdatePartyData(PartyInfo);
+            saveFileInfo.State = PartyInfo.ResumeScene == Scene.Dungeon ? DataSystem.GetReplaceText(31060, DataSystem.FindStage(CurrentStage.StageId.Value).Name) : DataSystem.GetText(31061);
             CurrentData.PushSaveFile(saveFileInfo);
             SavePlayerData();
             SavePlayerStageData(GameSystem.SceneStackManager.Current);

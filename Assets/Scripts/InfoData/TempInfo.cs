@@ -6,11 +6,29 @@ namespace Ryneus
     // セーブデータに保存しないデータ類を管理
     public class TempInfo
     {
-        // プレイ加算時間
-        private float _playingTime = 0;
-        public float PlayingTime => _playingTime;
-        public void SetPlayingTime(float time) => _playingTime = time;
-        public void AddPlayingTime(float time) => _playingTime += time;
+        // プレイ時間
+        public ParameterInt PlayingTime = new();
+        public ParameterInt LastStartTime = new();
+        private static DateTime BaseDateTime()
+        {
+            return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        }
+
+        public long LocalEpochTime()
+        {
+            return DateTimeToEpochTime(DateTime.UtcNow);
+        }
+
+        public static long DateTimeToEpochTime(DateTime dateTime)
+        {
+            return (long)(dateTime - BaseDateTime()).TotalSeconds;
+        }
+
+        public long NowEpochTime()
+        {
+            long diffTime = LocalEpochTime() - LastStartTime.Value;
+            return diffTime;
+        }
 
         private List<ActorInfo> _tempActorInfos = new();
         // バトル前のアクターデータを設定

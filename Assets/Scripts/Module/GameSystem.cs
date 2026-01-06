@@ -580,20 +580,6 @@ namespace Ryneus
             });
             _model.ReadTutorialData(tutorialData);
         }
-
-        private void Update()
-        {
-            UpdatePlayingTime();
-        }
-
-        public static void UpdatePlayingTime()
-        {
-            if (TempData == null)
-            {
-                return;
-            }
-            TempData?.AddPlayingTime(Time.deltaTime);
-        }
     }
 
 

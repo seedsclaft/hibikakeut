@@ -16,5 +16,26 @@ namespace Ryneus
         public int StageNo;
         public int ClearCount = 0;
         public string State;
+
+        public void UpdateTimeData(TempInfo tempInfo)
+        {
+            SaveTimeLong = DateTime.Now.ToFileTime();
+            SaveTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            if (tempInfo != null)
+            {
+                PlayTime = tempInfo.PlayingTime.Value + tempInfo.NowEpochTime();
+            }
+        }
+
+        public void UpdatePartyData(PartyInfo partyInfo)
+        {
+            if (partyInfo == null)
+            {
+                return;
+            }
+            Chapter = partyInfo.Chapter.Value;
+            Period = partyInfo.Period.Value;
+            Rank = partyInfo.MissionRank.Value;
+        }
     }
 }
