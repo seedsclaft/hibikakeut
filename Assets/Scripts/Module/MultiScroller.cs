@@ -28,7 +28,7 @@ namespace Ryneus
             {
                 return;
             }
-            foreach(var dr in parentDragHandlers)
+            foreach (var dr in parentDragHandlers)
             {
                 dr.OnDrag(ped);
             }
@@ -40,7 +40,7 @@ namespace Ryneus
             {
                 return;
             }
-            foreach(var dr in parentBeginDragHandlers)
+            foreach (var dr in parentBeginDragHandlers)
             {
                 dr.OnBeginDrag(ped);
             }
@@ -52,7 +52,7 @@ namespace Ryneus
             {
                 return;
             }
-            foreach(var dr in parentEndDragHandlers)
+            foreach (var dr in parentEndDragHandlers)
             {
                 dr.OnEndDrag(ped);
             }

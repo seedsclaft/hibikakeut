@@ -40,7 +40,8 @@ namespace Ryneus
             if (SaveSystem.ExistsOptionFile())
             {
                 SaveSystem.LoadOptionStart();
-            } else
+            }
+            else
             {
                 _model.InitOptionInfo();
             }
@@ -48,7 +49,8 @@ namespace Ryneus
             {
                 _model.InitSaveInfo();
                 _view.CommandGotoSceneChange(Scene.Battle);
-            } else
+            }
+            else
             {
                 _view.SetTitleCaution(DataSystem.GetText(12010));
                 _view.SetEvent((type) => UpdateCommand(type));

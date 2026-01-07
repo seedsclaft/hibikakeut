@@ -12,12 +12,13 @@ namespace Ryneus
         [SerializeField] private Image spriteImage = null;
         [SerializeField] private TMP_Text tipsText = null;
         [SerializeField] private TMP_Text loadingText = null;
-        public override void Initialize(){
-            new LoadingPresenter(this);
+        public override void Initialize()
+        {
+            _ = new LoadingPresenter(this);
             LoadingAnimation();
         }
 
-        public void SetTips(Sprite tipsSprite,string tips)
+        public void SetTips(Sprite tipsSprite, string tips)
         {
             spriteImage.sprite = tipsSprite;
             tipsText.text = tips;
@@ -26,8 +27,8 @@ namespace Ryneus
         private void LoadingAnimation()
         {
             Sequence main = DOTween.Sequence()
-                .Append(loadingText.DOFade(1f,0.4f))
-                .Append(loadingText.DOFade(0f,0.4f)).SetLoops(-1, LoopType.Yoyo);
+                .Append(loadingText.DOFade(1f, 0.4f))
+                .Append(loadingText.DOFade(0f, 0.4f)).SetLoops(-1, LoopType.Yoyo);
         }
     }
 }

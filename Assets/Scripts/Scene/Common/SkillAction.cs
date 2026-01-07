@@ -26,7 +26,7 @@ namespace Ryneus
             AwakenObj?.SetActive(data != null && data.Master.SkillType == SkillType.Awaken);
             MessiahObj?.SetActive(data != null && data.Master.SkillType == SkillType.Unique);
             BgObj?.SetActive(data != null && data.Master.SkillType != SkillType.Unique && data.Master.SkillType != SkillType.Awaken);
-            DisableSkill?.SetActive(data != null && data.Enable == false);
+            DisableSkill?.SetActive(data != null && !data.Enable);
         }
 
         public void Clear()

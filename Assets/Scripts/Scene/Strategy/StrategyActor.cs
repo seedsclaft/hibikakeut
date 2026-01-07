@@ -32,9 +32,9 @@ namespace Ryneus
         {
             KillShinyReflect();
             var initPosy = (animId % 2 == 1) ? -80 : 80;
-            innerObj.transform.DOLocalMoveY(initPosy,0.0f);
+            innerObj.transform.DOLocalMoveY(initPosy, 0.0f);
             var sequence = DOTween.Sequence()
-                .Append(innerObj.transform.DOLocalMoveY(0,0.8f))
+                .Append(innerObj.transform.DOLocalMoveY(0, 0.8f))
                 .SetEase(Ease.OutQuart)
                 .OnComplete(() =>
                 {
@@ -48,12 +48,12 @@ namespace Ryneus
 
         private void StartBonusAnimation()
         {
-            var rand = Random.Range(1,100);
-            bonusImage.transform.DOScaleY(0,0.0f);
+            var rand = Random.Range(1, 100);
+            bonusImage.transform.DOScaleY(0, 0.0f);
             var sequence = DOTween.Sequence()
-                .Append(bonusImage.transform.DOScaleY(1.5f,0.4f))
-                .Join(bonusImage.DOFade(0.75f,0.1f))
-                .Append(bonusImage.DOFade(0.0f,0.3f))
+                .Append(bonusImage.transform.DOScaleY(1.5f, 0.4f))
+                .Join(bonusImage.DOFade(0.75f, 0.1f))
+                .Append(bonusImage.DOFade(0.0f, 0.3f))
                 .SetEase(Ease.OutQuart)
                 .OnComplete(() =>
                 {

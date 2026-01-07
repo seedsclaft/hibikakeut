@@ -12,7 +12,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI count;
         [SerializeField] private TextMeshProUGUI achieveCount;
         [SerializeField] private StatusGaugeAnimation achivePer;
-        [SerializeField] private GetItem getItem;
+        [SerializeField] private GetItemInfoComponent getItemInfoComponent;
 
         public void UpdateInfo(AchievementInfo achievementInfo)
         {
@@ -43,10 +43,10 @@ namespace Ryneus
             {
                 achivePer.UpdateGauge(achievementInfo.AchievePer);
             }
-            if (getItem != null && achievementInfo.Master.PriseSetId > 0)
+            if (getItemInfoComponent != null && achievementInfo.Master.PriseSetId > 0)
             {
-                getItem.gameObject.SetActive(true);
-                getItem.SetItemData(new GetItemInfo(achievementInfo.PrizeSetsMaster[0].GetItem));
+                getItemInfoComponent.gameObject.SetActive(true);
+                getItemInfoComponent.UpdateInfo(new GetItemInfo(achievementInfo.PrizeSetsMaster[0].GetItem));
             }
         }
 

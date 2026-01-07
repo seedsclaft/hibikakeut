@@ -44,7 +44,7 @@ namespace Ryneus
             _lastLoadAssets.Clear();
         }
 
-        public static async UniTask<List<AudioClip>>LoadBGMAsset(string bgmKey)
+        public static async UniTask<List<AudioClip>> LoadBGMAsset(string bgmKey)
         {
             var bGMData = DataSystem.BGM.Find(a => a.Key == bgmKey);
             var data = new List<string>();
@@ -52,12 +52,14 @@ namespace Ryneus
             {
                 data.Add(_bgmPath + bGMData.FileName + "");
                 data.Add(_bgmPath + DataSystem.BGM.Find(a => a.Key == bGMData.CrossFade).FileName + "");
-            } else
+            }
+            else
             if (bGMData.Loop)
             {
                 data.Add(_bgmPath + bGMData.FileName + "_intro");
                 data.Add(_bgmPath + bGMData.FileName + "_loop");
-            } else
+            }
+            else
             {
                 data.Add(_bgmPath + bGMData.FileName + "");
             }
@@ -73,14 +75,14 @@ namespace Ryneus
             };
         }
 
-        public static async UniTask<AudioClip>LoadBGSAsset(string fileName)
+        public static async UniTask<AudioClip> LoadBGSAsset(string fileName)
         {
             var data = _bgsPath + fileName;
             AudioClip result = await LoadAssetResources<AudioClip>(data);
             return result;
         }
 
-        public static async UniTask<AudioClip>LoadSeAsset(string fileName)
+        public static async UniTask<AudioClip> LoadSeAsset(string fileName)
         {
             var data = _sePath + fileName;
             AudioClip result = await LoadAssetResources<AudioClip>(data);

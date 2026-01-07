@@ -436,7 +436,6 @@ GameObject:
   - component: {fileID: 299474744807856207}
   - component: {fileID: 7752692521968574461}
   - component: {fileID: 5384210162115889724}
-  - component: {fileID: 6680062689779970591}
   - component: {fileID: 580420277965021529}
   m_Layer: 5
   m_Name: TacticsGetItem
@@ -549,29 +548,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6680062689779970591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6145794166525957040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2588796a0bdff1489539ad6eac38350, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clickButton: {fileID: 5384210162115889724}
-  cursor: {fileID: 702760494030004619}
-  changeCursorColor: 1
-  cursorRectAnimation: {fileID: 0}
-  disable: {fileID: 3299374605709772033}
-  selectColor: {r: 0, g: 0, b: 0, a: 0}
-  unSelectColor: {r: 0, g: 0, b: 0, a: 0}
-  textUguiList: []
-  imageUguiList: []
-  skillInfoComponent: {fileID: 580420277965021529}
-  titleName: {fileID: 194223962735714705}
 --- !u!114 &580420277965021529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,19 +566,23 @@ MonoBehaviour:
   nameText: {fileID: 0}
   mpCost: {fileID: 0}
   lineImage: {fileID: 0}
+  skillTypeBgRoot: {fileID: 0}
   type: {fileID: 0}
-  value: {fileID: 0}
+  useCount: {fileID: 0}
   description: {fileID: 0}
   descriptionListObj: {fileID: 0}
   descriptionListTarget: {fileID: 0}
   descriptionScrollRect: {fileID: 0}
   range: {fileID: 0}
   learningCost: {fileID: 0}
+  countTurnRoot: {fileID: 0}
   countTurn: {fileID: 0}
+  battleCountTurn: {fileID: 0}
   learningText: {fileID: 0}
   rank: {fileID: 0}
   selectable: {fileID: 0}
   selectedAlcana: {fileID: 0}
+  skillExpGauge: {fileID: 0}
   shinyReflect: {fileID: 0}
 --- !u!1 &7621463082344638061
 GameObject:

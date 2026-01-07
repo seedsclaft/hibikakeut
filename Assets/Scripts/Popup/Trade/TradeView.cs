@@ -75,12 +75,13 @@ namespace Ryneus
                                 if (a)
                                 {
                                     CallViewEvent(CommandType.PlusTradeItem, itemData);
-                                } else
+                                }
+                                else
                                 {
                                     CallViewEvent(CommandType.MinusTradeItem, itemData);
                                 }
                             }
-                        },(a) =>
+                        }, (a) =>
                         {
                             CallViewEvent(CommandType.TradeItemDetail, a);
                         });
@@ -111,7 +112,8 @@ namespace Ryneus
             if (isActivate)
             {
                 SetActivate(itemList);
-            } else
+            }
+            else
             {
                 SetActivate(null);
             }

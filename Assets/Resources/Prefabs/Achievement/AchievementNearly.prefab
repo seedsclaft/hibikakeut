@@ -899,6 +899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickButton: {fileID: 4052242719259063829}
   cursor: {fileID: 4311385090294343910}
+  selectArrow: {fileID: 0}
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
   disable: {fileID: 0}
@@ -927,7 +928,8 @@ MonoBehaviour:
   count: {fileID: 618689119576197593}
   achieveCount: {fileID: 9101440698902144977}
   achivePer: {fileID: 8075312060169017817}
-  getItem: {fileID: 3358107992378684180}
+  getItem: {fileID: 0}
+  getItemInfoComponent: {fileID: 0}
 --- !u!1 &3125903214022568472
 GameObject:
   m_ObjectHideFlags: 0
@@ -2617,15 +2619,3 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3497926014869853698}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3358107992378684180 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2166587938178852118, guid: fbf99203e5ee7bf4b9f614545503addf,
-    type: 3}
-  m_PrefabInstance: {fileID: 3497926014869853698}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2588796a0bdff1489539ad6eac38350, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

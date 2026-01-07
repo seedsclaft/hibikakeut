@@ -8,7 +8,7 @@ namespace Ryneus
     public class DemoActorEffect : MonoBehaviour
     {
         private _2dxFX_NewTeleportation2 fadeEffect;
-        
+
         private float _time = 0;
 
         public void PlayAnimation()

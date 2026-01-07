@@ -11,18 +11,19 @@ namespace Ryneus
 
         public void Awake()
         {
-            if (id != 0 && enabled)
+            if (id == 0 || !enabled)
             {
-                var textData = DataSystem.GetText(id);
-                if (textData == null)
-                {
-                    Debug.Log("error" + gameObject.name);
-                }
-                var textMeshPro = gameObject.GetComponent<TextMeshProUGUI>();
-                if (textMeshPro != null)
-                {
-                    textMeshPro.SetText(textData);
-                }
+                return;
+            }
+            var textData = DataSystem.GetText(id);
+            if (textData == null)
+            {
+                Debug.Log("error" + gameObject.name);
+            }
+            var textMeshPro = gameObject.GetComponent<TextMeshProUGUI>();
+            if (textMeshPro != null)
+            {
+                textMeshPro.SetText(textData);
             }
         }
     }

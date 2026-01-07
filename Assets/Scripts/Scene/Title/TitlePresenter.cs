@@ -95,7 +95,7 @@ namespace Ryneus
         private void CommandNewGame()
         {
             _busy = true;
-            CallConfirmView("オープニングスキップ?",(a) =>
+            CallConfirmView("オープニングスキップ?", (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {

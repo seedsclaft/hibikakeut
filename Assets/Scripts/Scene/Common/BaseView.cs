@@ -9,7 +9,6 @@ namespace Ryneus
     {
         private bool _isIntialized = false;
         public bool IsInitilized => _isIntialized;
-        public void SetIsInitilized(bool isIntialized) => _isIntialized = isIntialized;
         private bool _testMode = false;
         public bool TestMode => _testMode;
         private bool _testBattleMode = false;

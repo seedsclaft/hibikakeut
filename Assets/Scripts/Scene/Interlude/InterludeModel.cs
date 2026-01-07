@@ -81,11 +81,13 @@ namespace Ryneus
             if (score >= 5)
             {
                 return 3;
-            } else
+            }
+            else
             if (score >= 3)
             {
                 return 2;
-            } else
+            }
+            else
             if (score >= 1)
             {
                 return 1;
@@ -95,7 +97,7 @@ namespace Ryneus
 
         private bool CheckAchieved(EvaluatePrizeData evaluatePrize)
         {
-            switch(evaluatePrize.ConditionType)
+            switch (evaluatePrize.ConditionType)
             {
                 case AchievementConditionType.MissionRank:
                     if (PartyInfo.MissionRank.Value >= evaluatePrize.Param1)
@@ -154,7 +156,6 @@ namespace Ryneus
 
         public bool EndInterludePhase()
         {
-            // 6ピリオドでチャプター切り替え
             if (PartyInfo.Period.Value > DataSystem.System.PeriodTurns)
             {
                 PartyInfo.Period.SetValue(1);

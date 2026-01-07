@@ -15,12 +15,12 @@ namespace Ryneus
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Boot);
-            new BootPresenter(this);
-            if (TestMode == false)
+            _ = new BootPresenter(this);
+            if (!TestMode)
             {
                 logoButton.onClick.AddListener(() => CallLogoClick());
             }
-            logoButton.gameObject.SetActive(TestMode == false);
+            logoButton.gameObject.SetActive(!TestMode);
         }
 
         private void CallLogoClick()

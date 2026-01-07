@@ -120,7 +120,7 @@ namespace Ryneus
             return master.floorList[0];
         }
 
-        public static TextData GetTextData(int id)
+        private static TextData GetTextData(int id)
         {
             if (TextDates.ContainsKey(id))
             {

@@ -48,7 +48,8 @@ namespace Ryneus
             if (IsFriend)
             {
                 return Friends.FindAll(a => a.IsAlive());
-            } else
+            }
+            else
             {
                 return Opponents.FindAll(a => a.IsAlive());
             }

@@ -87,8 +87,9 @@ GameObject:
   - component: {fileID: 5080886585606410054}
   - component: {fileID: 2968440715373480180}
   - component: {fileID: 584785438381727029}
-  - component: {fileID: 2166587938178852118}
+  - component: {fileID: 7444477506659964509}
   - component: {fileID: 5380408428125419088}
+  - component: {fileID: 5957736347645346803}
   m_Layer: 5
   m_Name: AchievementGetItem
   m_TagString: Untagged
@@ -200,7 +201,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2166587938178852118
+--- !u!114 &7444477506659964509
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -209,21 +210,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1724635545324586169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2588796a0bdff1489539ad6eac38350, type: 3}
+  m_Script: {fileID: 11500000, guid: d0955dbc5c1daf7478f2b7665028f6a8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  clickButton: {fileID: 584785438381727029}
-  cursor: {fileID: 5432934539195397762}
-  changeCursorColor: 1
-  cursorRectAnimation: {fileID: 0}
-  disable: {fileID: 8028975194894864904}
-  batch: {fileID: 0}
-  selectColor: {r: 0, g: 0, b: 0, a: 0}
-  unSelectColor: {r: 0, g: 0, b: 0, a: 0}
-  textUguiList: []
-  imageUguiList: []
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.GetItemInfoComponent
   skillInfoComponent: {fileID: 5380408428125419088}
-  itemInfoComponent: {fileID: 0}
+  itemInfoComponent: {fileID: 5957736347645346803}
   titleName: {fileID: 4618186837337061016}
 --- !u!114 &5380408428125419088
 MonoBehaviour:
@@ -261,6 +252,24 @@ MonoBehaviour:
   selectedAlcana: {fileID: 0}
   skillExpGauge: {fileID: 0}
   shinyReflect: {fileID: 0}
+--- !u!114 &5957736347645346803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724635545324586169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69681b76513c6c14c99fe986d67fb699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.ItemInfoComponent
+  icon: {fileID: 796709969650121418}
+  iconBack: {fileID: 6388118834420252329}
+  itemName: {fileID: 0}
+  description: {fileID: 0}
+  ownNum: {fileID: 0}
+  useNum: {fileID: 0}
 --- !u!1 &2679502425299569838
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3610354777920203632
 RectTransform:
   m_ObjectHideFlags: 0
