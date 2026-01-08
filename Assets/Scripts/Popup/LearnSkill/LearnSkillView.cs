@@ -13,6 +13,7 @@ namespace Ryneus
         [SerializeField] private SkillInfoComponent skillInfoComponent = null;
         [SerializeField] private ConfirmAnimation confirmAnimation = null;
         [SerializeField] private ActorInfoComponent actorInfoComponent = null;
+        [SerializeField] private BattleStartAnim battleStartAnim = null;
         public override void Initialize()
         {
             base.Initialize();
@@ -22,23 +23,48 @@ namespace Ryneus
 
         public void OpenAnimation()
         {
-            confirmAnimation.OpenAnimation(UiRoot.transform, null);
+            SetBusy(true);
+            battleStartAnim.StartAnim(false, 0, () =>
+            {
+                confirmAnimation.OpenAnimation(UiRoot.transform, () => SetBusy(false));
+            });
+            battleStartAnim.gameObject.SetActive(true);
         }
 
         public void SetLearnSkillInfo(LearnSkillInfo learnSkillInfo)
         {
-            evaluateObj?.SetActive(learnSkillInfo.From != learnSkillInfo.To);
-            evaluateText?.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.From.Value));
-            afterEvaluateText?.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.To.Value));
-            skillInfoComponent.UpdateInfo(learnSkillInfo.SkillInfo);
-            if (actorInfoComponent != null && learnSkillInfo.ActoInfo != null)
+            if (evaluateObj != null)
             {
-                actorInfoComponent.UpdateInfo(learnSkillInfo.ActoInfo, null);
+                evaluateObj.SetActive(learnSkillInfo.From != learnSkillInfo.To);
+            }
+            if (evaluateText != null)
+            {
+                evaluateText.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.From.Value));
+            }
+            if (afterEvaluateText != null)
+            {
+                afterEvaluateText.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.To.Value));
+            }
+            if (skillInfoComponent != null && learnSkillInfo.SkillInfo != null)
+            {
+                skillInfoComponent.UpdateInfo(learnSkillInfo.SkillInfo);
+            }
+            if (actorInfoComponent != null && learnSkillInfo.ActorInfo != null)
+            {
+                actorInfoComponent.UpdateInfo(learnSkillInfo.ActorInfo, null);
+            }
+            if (battleStartAnim != null)
+            {
+                battleStartAnim.SetText(learnSkillInfo.Title.Value);
             }
         }
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
+            if (Busy)
+            {
+                return;
+            }
             if (keyTypes.Count > 0)
             {
                 BackEvent?.Invoke();
@@ -51,8 +77,9 @@ namespace Ryneus
     {
         public ParameterInt From = new();
         public ParameterInt To = new();
-        private ActorInfo _actoInfo;
-        public ActorInfo ActoInfo => _actoInfo;
+        public ParameterString Title = new();
+        private ActorInfo _actorInfo;
+        public ActorInfo ActorInfo => _actorInfo;
         private SkillInfo _skillInfo;
         public SkillInfo SkillInfo => _skillInfo;
         public LearnSkillInfo(int from, int to, SkillInfo skillInfo, ActorInfo actorInfo = null)
@@ -60,7 +87,7 @@ namespace Ryneus
             From.SetValue(from);
             To.SetValue(to);
             _skillInfo = skillInfo;
-            _actoInfo = actorInfo;
+            _actorInfo = actorInfo;
         }
 
         public void SetToValue(int to)

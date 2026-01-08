@@ -26,6 +26,7 @@ namespace Ryneus
             InitializePartyUnitList();
             SetBaseAnimation(popupAnimation);
             _ = new DeckEditPresenter(this);
+            SetBackEvent(() => CallViewEvent(CommandType.Back));
         }
 
         public void OpenAnimation()
@@ -87,6 +88,7 @@ namespace Ryneus
         {
             partyUnitList.UpdateSelectIndex(0);
             actorInfoList.UpdateSelectIndex(-1);
+            PopupClose();
         }
     }
 

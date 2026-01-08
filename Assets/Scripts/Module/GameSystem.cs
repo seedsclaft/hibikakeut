@@ -169,10 +169,6 @@ namespace Ryneus
                 case Base.CommandType.CallStatusView:
                     var statusViewInfo = (StatusViewInfo)viewEvent.Template;
                     var statusView = CreateStatus(StatusType.Status, statusViewInfo) as StatusView;
-                    if (statusViewInfo.DisplayBackButton.Value)
-                    {
-                        statusView.SetBackEvent(statusViewInfo.BackEvent);
-                    }
                     _currentScene.SetBusy(true);
                     break;
                 case Base.CommandType.CloseStatus:
@@ -324,16 +320,7 @@ namespace Ryneus
             baseView.Initialize();
             if (first)
             {
-                baseView.SetBackEvent(() =>
-                {
-                    var endPopupInfo = _sceneStackManager.LastPopupInfo;
-                    baseView.CallSystemCommand(Base.CommandType.ClosePopup);
-                    if (endPopupInfo != null && !baseView.Busy)
-                    {
-                        endPopupInfo.EndEvent?.Invoke();
-                        _sceneStackManager.RemovePopupInfo(endPopupInfo);
-                    }
-            });
+                baseView.SetPopupCloseBackEvent();
             }
             if (popupInfo.PopupType == PopupType.LearnSkill)
             {

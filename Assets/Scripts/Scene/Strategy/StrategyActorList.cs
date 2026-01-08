@@ -5,15 +5,16 @@ namespace Ryneus
 {
     public class StrategyActorList : BaseList
     {
-        public void StartResultAnimation(int actorCount, List<bool> isBonusList, Action callEvent)
+        public void StartResultAnimation(int actorCount, List<ActorInfo> bonusActorInfos, Action callEvent)
         {
             for (int i = 0; i < ItemPrefabList.Count;i++)
             {
-                var isBonus = isBonusList != null && isBonusList.Count > i && isBonusList[i];
                 ItemPrefabList[i].SetActive(false);
                 if (i < actorCount)
                 {
                     var StrategyActor = ItemPrefabList[i].GetComponent<StrategyActor>();
+                    var actorInfo = StrategyActor.ListItemData<ActorInfo>();
+                    var isBonus = bonusActorInfos.Find(a => a.ActorId.Value == actorInfo.ActorId.Value) != null;
                     StrategyActor.gameObject.SetActive(true);
                     StrategyActor.StartResultAnimation(i, isBonus);
                     if (i == actorCount-1)

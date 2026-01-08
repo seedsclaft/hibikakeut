@@ -151,7 +151,7 @@ namespace Ryneus
             var displayActorInfos = _model.DisplayActorInfos;
             if (displayActorInfos.Count > 0)
             {
-                _view.StartResultAnimation(MakeListData(displayActorInfos));
+                _view.StartResultAnimation(MakeListData(displayActorInfos), _model.LevelUpActorInfos);
             } else
             {
                 NextSeekResult();
@@ -189,11 +189,11 @@ namespace Ryneus
                 learnSkillInfo.SetToValue(_model.LevelUpActorInfos[0].Evaluate());
                 SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 
-                CallLearnSkillPopupView(() =>
+                CallLearnSkillPopupView(learnSkillInfo, () =>
                 {
                     _model.RemoveLevelUpData();
                     NextSeekResult();
-                }, learnSkillInfo);
+                });
             } else
             {
                 _model.RemoveLevelUpData();

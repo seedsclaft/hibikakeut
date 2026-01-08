@@ -159,8 +159,7 @@ namespace Ryneus
 
         private void CommandBack()
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-            _view.CommandBack();
+            CommandCancelSkill();
         }
 
         private void CommandSelectEquipSkill(SkillInfo skillInfo)
@@ -175,6 +174,7 @@ namespace Ryneus
             _model.SetSelectSkillInfo(skillInfo);
             // 選択する
             _view.CallChangeSkillList();
+            _view.UpdateUseItemBatch(false);
             _view.SetChangeSkillList(MakeListData(_model.ChangeAbleSkills(), 0), _model.FilterText());
         }
 
@@ -184,13 +184,14 @@ namespace Ryneus
             {
                 return;
             }
+            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             if (_model.SelectSkillInfo != null)
             {
-                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 // 選択魔法のキャンセル
                 ResetSelectSkill();
                 return;
             }
+            _view.CommandBack(_model.SceneParam.BackEvent);
         }
 
         private void CommandSelectChangeSkill(SkillInfo skillInfo)

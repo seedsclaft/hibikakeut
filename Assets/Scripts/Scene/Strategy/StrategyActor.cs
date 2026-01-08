@@ -28,7 +28,7 @@ namespace Ryneus
             component.UpdateInfo(data, null);
         }
 
-        public void StartResultAnimation(int animId,bool isBonus)
+        public void StartResultAnimation(int animId, bool isBonus)
         {
             KillShinyReflect();
             var initPosy = (animId % 2 == 1) ? -80 : 80;

@@ -31,7 +31,7 @@ namespace Ryneus
             _view.CommandCallPopup(popupInfo);
         }
 
-        public void CallLearnSkillPopupView(Action endEvent = null, object templateData = null)
+        public void CallLearnSkillPopupView(object templateData, Action endEvent = null)
         {
             SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
             var popupInfo = new PopupInfo
@@ -403,12 +403,13 @@ namespace Ryneus
                 {
                     //_busy = true;
                     _view.SetBusy(true);
-                    var learnSkillInfo = new LearnSkillInfo(from, to, skills[0]);
-                    CallLearnSkillPopupView(() =>
+                    var learnSkillInfo = new LearnSkillInfo(from, to, skills[0], actorInfo);
+                    learnSkillInfo.Title.SetValue(DataSystem.GetText(2530));
+                    CallLearnSkillPopupView(learnSkillInfo, () =>
                     {
                         endEvent?.Invoke();
                         SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                    }, learnSkillInfo);
+                    });
                 }
                 else
                 {
@@ -457,7 +458,8 @@ namespace Ryneus
                     {
                         //_busy = true;
                         _view.SetBusy(true);
-                        var learnSkillInfo = new LearnSkillInfo(from, to, afterSkills[0]);
+                        var learnSkillInfo = new LearnSkillInfo(from, to, afterSkills[0], actorInfo);
+                        learnSkillInfo.Title.SetValue(DataSystem.GetText(2530));
                         // 装備可能であれば装備する
                         foreach (var afterSkill in afterSkills)
                         {
@@ -466,11 +468,11 @@ namespace Ryneus
                                 actorInfo.ChangeEquipSkill(afterSkill.Id.Value, 0);
                             }
                         }
-                        CallLearnSkillPopupView(() =>
+                        CallLearnSkillPopupView(learnSkillInfo, () =>
                         {
                             endEvent?.Invoke();
                             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                        }, learnSkillInfo);
+                        });
                     }
                     else
                     {
@@ -507,10 +509,10 @@ namespace Ryneus
         public void CommandLearnMagic(LearnSkillInfo learnSkillInfo, Action endEvent = null)
         {
             SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
-            CallLearnSkillPopupView(() =>
+            CallLearnSkillPopupView(learnSkillInfo, () =>
             {
                 endEvent?.Invoke();
-            }, learnSkillInfo);
+            });
         }
 
         private void UpdatePopupLearnSkill(ConfirmCommandType confirmCommandType, ActorInfo actorInfo, SkillInfo skillInfo, System.Action endEvent = null)
@@ -522,11 +524,12 @@ namespace Ryneus
                 var to = actorInfo.Evaluate();
 
                 var learnSkillInfo = new LearnSkillInfo(from, to, skillInfo);
-                CallLearnSkillPopupView(() =>
+                learnSkillInfo.Title.SetValue(DataSystem.GetText(2530));
+                CallLearnSkillPopupView(learnSkillInfo, () =>
                 {
                     endEvent?.Invoke();
                     SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                }, learnSkillInfo);
+                });
             }
         }
 

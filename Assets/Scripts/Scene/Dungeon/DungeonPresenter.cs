@@ -611,6 +611,7 @@ namespace Ryneus
                     actorInfo.LearnSkill(skillInfo.Id.Value);
                     var to = actorInfo.Evaluate();
                     var learnSkillInfo = new LearnSkillInfo(from, to, skillInfo, actorInfo);
+                    learnSkillInfo.Title.SetValue(DataSystem.GetText(2520));
                     CommandLearnMagic(learnSkillInfo, () =>
                     {
                         endEvent?.Invoke();
@@ -958,10 +959,10 @@ namespace Ryneus
             _busy = true;
             var skillId = item.Param1;
             var learnSkillInfo = new LearnSkillInfo(0, 0, new SkillInfo(skillId));
-            CallLearnSkillPopupView(() =>
+            CallLearnSkillPopupView(learnSkillInfo, () =>
             {
                 PresentArtifact(item.Id);
-            }, learnSkillInfo);
+            });
         }
 
         private void PresentArtifact(int itemId)
@@ -1030,14 +1031,14 @@ namespace Ryneus
             var learnSkillInfo = new LearnSkillInfo(0, 0, new SkillInfo(skillId));
             SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 
-            CallLearnSkillPopupView(() =>
+            CallLearnSkillPopupView(learnSkillInfo, () =>
             {
                 var getItemInfo = _model.MakeGetItemInfo(GetItemType.Skill, skill.Id);
                 _model.AddGetItemInfo(getItemInfo);
                 _busy = false;
                 CommandRefresh();
                 _model.DungeonBusy(false);
-            }, learnSkillInfo);
+            });
         }
 
         private void CommandCallAddActorInfo(List<int> limitRanks)

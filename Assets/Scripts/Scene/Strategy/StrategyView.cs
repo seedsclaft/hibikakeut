@@ -59,11 +59,11 @@ namespace Ryneus
             strategyActorList.gameObject.SetActive(false);
         }
 
-        public void StartResultAnimation(List<ListData> actorInfos, List<bool> isBonusList = null)
+        public void StartResultAnimation(List<ListData> actorInfos, List<ActorInfo> bonusActorInfos = null)
         {
             SetActivate(null);
             strategyActorList.SetData(actorInfos);
-            strategyActorList.StartResultAnimation(actorInfos.Count, isBonusList, () =>
+            strategyActorList.StartResultAnimation(actorInfos.Count, bonusActorInfos, () =>
             {
                 CallEndAnimation();
             });

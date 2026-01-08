@@ -89,6 +89,7 @@ namespace Ryneus
             {
                 magicListButton.OnClickAddListener(() => CallViewEvent(CommandType.CancelUseItem));
             }
+            SetBackCommand(() => OnClickBack());
             _ = new StatusPresenter(this);
         }
 
@@ -282,9 +283,9 @@ namespace Ryneus
         {
         }
 
-        public void CommandBack()
+        public void CommandBack(Action endEvent)
         {
-            BackEvent?.Invoke();
+            endEvent?.Invoke();
         }
 
         public void SetActiveDecide(bool isActive)

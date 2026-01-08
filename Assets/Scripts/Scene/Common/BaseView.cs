@@ -331,6 +331,31 @@ namespace Ryneus
             _backEvent = callEvent;
         }
 
+        public void SetPopupCloseBackEvent()
+        {
+            // 既に登録済みであれば上書きしない
+            if (_backEvent != null)
+            {
+                return;
+            }
+            SetBackCommand(PopupClose);
+        }
+
+        public void PopupClose()
+        {
+            if (_busy)
+            {
+                return;
+            }
+            var endPopupInfo = GameSystem.SceneStackManager.LastPopupInfo;
+            CallSystemCommand(Base.CommandType.ClosePopup);
+            if (endPopupInfo != null && !Busy)
+            {
+                endPopupInfo.EndEvent?.Invoke();
+                GameSystem.SceneStackManager.RemovePopupInfo(endPopupInfo);
+            }
+        }
+
         public void SetBackEvent(Action backEvent)
         {
             SetBackCommand(() =>

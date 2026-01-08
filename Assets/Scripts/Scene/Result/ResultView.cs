@@ -81,12 +81,12 @@ namespace Ryneus
             _commandData = commandData;
         }
 
-        public void StartResultAnimation(List<ListData> actorInfos,List<bool> isBonusList = null)
+        public void StartResultAnimation(List<ListData> actorInfos, List<ActorInfo> isBonusList = null)
         {
             DeactivateAll();
             strategyActorList.gameObject.SetActive(false);
             strategyActorList.SetData(actorInfos);
-            strategyActorList.StartResultAnimation(actorInfos.Count,isBonusList,() => 
+            strategyActorList.StartResultAnimation(actorInfos.Count, isBonusList, () =>
             {
                 CallEndAnimation();
             });

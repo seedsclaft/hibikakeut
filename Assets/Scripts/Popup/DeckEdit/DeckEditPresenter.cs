@@ -101,7 +101,6 @@ namespace Ryneus
                 CommandCautionInfo(DataSystem.GetText(43010));
             }
             _view.EndPopup();
-            _view.BackEvent();
         }
 
         private void CommandRefresh()
