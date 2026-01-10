@@ -128,6 +128,7 @@ namespace Ryneus
         AlcanaList,
         UseItem,
         LearnSkill,
+        LevelUp,
         ClassChange,
         Rankup,
         SkillTrigger,

@@ -1,4 +1,5 @@
 // Lvアップステータスで使用
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Ryneus
@@ -23,5 +24,37 @@ namespace Ryneus
     {
         public ActorInfo ActorInfo;
         public StatusParamType StatusParamType;
+        public static List<StrategyStrengthInfo> BasicStrategyStrengthInfos(ActorInfo actorInfo)
+        {
+            var strategyStrengthInfos = new List<StrategyStrengthInfo>
+            {
+                new()
+                {
+                    ActorInfo = actorInfo,
+                    StatusParamType = StatusParamType.Hp,
+                },
+                new()
+                {
+                    ActorInfo = actorInfo,
+                    StatusParamType = StatusParamType.Atk,
+                },
+                new()
+                {
+                    ActorInfo = actorInfo,
+                    StatusParamType = StatusParamType.Def,
+                },
+                new()
+                {
+                    ActorInfo = actorInfo,
+                    StatusParamType = StatusParamType.Spd,
+                },
+                new()
+                {
+                    ActorInfo = actorInfo,
+                    StatusParamType = StatusParamType.Cost,
+                }
+            };
+            return strategyStrengthInfos;
+        }
     }
 }

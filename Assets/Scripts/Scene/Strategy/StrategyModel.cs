@@ -85,34 +85,7 @@ namespace Ryneus
         public List<LearnSkillInfo> LearnSkillInfo => _learnSkillInfo;
         public List<ListData> LevelUpActorStatus()
         {
-            var strategyStrengthInfos = new List<StrategyStrengthInfo>
-            {
-                new StrategyStrengthInfo()
-                {
-                    ActorInfo = _levelUpActorInfos[0],
-                    StatusParamType = StatusParamType.Hp,
-                },
-                new StrategyStrengthInfo()
-                {
-                    ActorInfo = _levelUpActorInfos[0],
-                    StatusParamType = StatusParamType.Atk,
-                },
-                new StrategyStrengthInfo()
-                {
-                    ActorInfo = _levelUpActorInfos[0],
-                    StatusParamType = StatusParamType.Def,
-                },
-                new StrategyStrengthInfo()
-                {
-                    ActorInfo = _levelUpActorInfos[0],
-                    StatusParamType = StatusParamType.Spd,
-                },
-                new StrategyStrengthInfo()
-                {
-                    ActorInfo = _levelUpActorInfos[0],
-                    StatusParamType = StatusParamType.Cost,
-                }
-            };
+            var strategyStrengthInfos = StrategyStrengthInfo.BasicStrategyStrengthInfos(_levelUpActorInfos[0]);
             var list = new List<ListData>();
             foreach (var strategyStrengthInfo in strategyStrengthInfos)
             {

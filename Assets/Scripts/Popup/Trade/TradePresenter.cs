@@ -84,7 +84,6 @@ namespace Ryneus
             }
 
             _busy = true;
-            _view.SetBusy(true);
             CallConfirmView(DataSystem.GetText(39040), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
@@ -111,7 +110,6 @@ namespace Ryneus
                     }
                 }
                 _busy = false;
-                _view.SetBusy(false);
             });
         }
 

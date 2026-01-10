@@ -52,6 +52,7 @@ namespace Ryneus
         Trade,
         UseItem,
         DungeonMap,
+        LevelUp,
         SideMenu,
         Option,
         Confirm,

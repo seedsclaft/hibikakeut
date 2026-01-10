@@ -182,6 +182,10 @@ namespace Ryneus
             {
                 return;
             }
+            if (_busy)
+            {
+                return;
+            }
             Debug.LogError(name + "Inputable");
             _inputSystemModel.UpdateInputKeyType(_inputSystem.Update());
             UpdateWait();
@@ -350,10 +354,6 @@ namespace Ryneus
 
         public void PopupClose()
         {
-            if (_busy)
-            {
-                return;
-            }
             var endPopupInfo = GameSystem.SceneStackManager.LastPopupInfo;
             CallSystemCommand(Base.CommandType.ClosePopup);
             if (endPopupInfo != null && !Busy)

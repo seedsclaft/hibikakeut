@@ -294,7 +294,6 @@ namespace Ryneus
             {
                 _model.PartyInfo.AlartStage(find.Master.StageNo);
                 _busy = true;
-                _view.SetBusy(true);
                 //SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 var confirmInfo = new ConfirmInfo(DataSystem.GetText(32100), (a) =>
                 {
@@ -310,7 +309,6 @@ namespace Ryneus
                         var reliefConfirmInfo = new ConfirmInfo(DataSystem.GetText(11014), (a) =>
                         {
                             _busy = false;
-                            _view.SetBusy(false);
                             CommandAchievement();
                         });
                         reliefConfirmInfo.SetIsNoChoice(true);
@@ -319,7 +317,6 @@ namespace Ryneus
                     else
                     {
                         _busy = false;
-                        _view.SetBusy(false);
                         CommandAchievement();
                     }
                 }, ConfirmType.NewStageAlert);

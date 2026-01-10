@@ -402,7 +402,6 @@ namespace Ryneus
                 if (skills.Count > 0)
                 {
                     //_busy = true;
-                    _view.SetBusy(true);
                     var learnSkillInfo = new LearnSkillInfo(from, to, skills[0], actorInfo);
                     learnSkillInfo.Title.SetValue(DataSystem.GetText(2530));
                     CallLearnSkillPopupView(learnSkillInfo, () =>
@@ -452,37 +451,45 @@ namespace Ryneus
                 var to = actorInfo.Evaluate();
                 var afterLv = actorInfo.Level;
                 var afterHp = actorInfo.MaxHp;
+                var levelUpViewInfo = new LevelUpViewInfo();
+                levelUpViewInfo.SetActorInfo(actorInfo);
+                levelUpViewInfo.From.SetValue(from);
+                levelUpViewInfo.To.SetValue(to);
+                // LevelUp
                 if (afterLv > beforeLv)
                 {
-                    if (afterSkills.Count > 0)
-                    {
-                        //_busy = true;
-                        _view.SetBusy(true);
-                        var learnSkillInfo = new LearnSkillInfo(from, to, afterSkills[0], actorInfo);
-                        learnSkillInfo.Title.SetValue(DataSystem.GetText(2530));
-                        // 装備可能であれば装備する
-                        foreach (var afterSkill in afterSkills)
-                        {
-                            if (actorInfo.EquipmentSkillIds.Count < actorInfo.EquipSlotCount())
-                            {
-                                actorInfo.ChangeEquipSkill(afterSkill.Id.Value, 0);
-                            }
-                        }
-                        CallLearnSkillPopupView(learnSkillInfo, () =>
-                        {
-                            endEvent?.Invoke();
-                            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                        });
-                    }
-                    else
-                    {
-                        CommandCautionInfo("", from, to);
-                        endEvent?.Invoke();
-                        SoundManager.Instance.PlayStaticSe(SEType.CountUp);
-                    }
+                    levelUpViewInfo.Title.SetValue("LevelUp!");
+                    // LevelUpDates
+                    var strategyStrengthInfos = StrategyStrengthInfo.BasicStrategyStrengthInfos(actorInfo);
+                    levelUpViewInfo.StrategyStrengthInfos = strategyStrengthInfos;
                     actorInfo.ChangeHp(actorInfo.CurrentHp.Value + afterHp - beforeHp);
+                }
+                // 魔法新規取得
+                if (afterSkills.Count > 0)
+                {
+                    levelUpViewInfo.SetSkillInfo(afterSkills[0]);
+                    levelUpViewInfo.LearnSkill.SetValue(DataSystem.GetText(2530));
+                    // 装備可能であれば装備する
+                    foreach (var afterSkill in afterSkills)
+                    {
+                        if (actorInfo.EquipmentSkillIds.Count < actorInfo.EquipSlotCount())
+                        {
+                            actorInfo.ChangeEquipSkill(afterSkill.Id.Value, 0);
+                        }
+                    }
+                }
+                if (afterLv > beforeLv || afterSkills.Count > 0)
+                {
+                    CallPopupView(PopupType.LevelUp, () =>
+                    {
+                        endEvent?.Invoke();
+                        SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                    }, levelUpViewInfo);
                     return;
                 }
+                CommandCautionInfo("", from, to);
+                endEvent?.Invoke();
+                SoundManager.Instance.PlayStaticSe(SEType.CountUp);
             }
             endEvent?.Invoke();
         }

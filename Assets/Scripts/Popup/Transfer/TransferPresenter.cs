@@ -75,7 +75,6 @@ namespace Ryneus
                 return;
             }
             _busy = true;
-            _view.SetBusy(true);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CallConfirmView(actorInfo.Master.Name + DataSystem.GetText(35010), (a) =>
             {
@@ -99,7 +98,6 @@ namespace Ryneus
                     _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
                 }
                 _busy = false;
-                _view.SetBusy(false);
             });
         }
 

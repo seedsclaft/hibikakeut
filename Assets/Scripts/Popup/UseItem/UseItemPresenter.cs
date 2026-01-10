@@ -98,13 +98,11 @@ namespace Ryneus
             var encountTurn = itemInfo.Master.Param3;
             _model.ChangeEncountRate(encountRate, encountTurn);
             _busy = true;
-            _view.SetBusy(true);
 
             var textId = encountRate > 100 ? 42010 : 42011;
             CallConfirmNoChoiceView(DataSystem.GetText(textId), (a) =>
             {
                 _busy = false;
-                _view.SetBusy(false);
             });
         }
 
@@ -113,12 +111,10 @@ namespace Ryneus
             var turns = itemInfo.Master.Param2;
             _model.ChangeDungeonTurn(turns);
             _busy = true;
-            _view.SetBusy(true);
 
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(42020), (a) =>
             {
                 _busy = false;
-                _view.SetBusy(false);
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
@@ -136,12 +132,10 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Heal);
             _model.UseItemHeal(heal);
             _busy = true;
-            _view.SetBusy(true);
 
             var confirmInfo = new ConfirmInfo(DataSystem.GetReplaceText(42030, heal.ToString()), (a) =>
             {
                 _busy = false;
-                _view.SetBusy(false);
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
@@ -156,13 +150,11 @@ namespace Ryneus
                 getExp *= 2;
             }
             _busy = true;
-            _view.SetBusy(true);
             _model.PartyInfo.PartyStatInfo.TacticsLvupCount.GainValue(1);
             CommandExpUp(_model.CurrentActor, getExp, () =>
             {
                 CheckAchievements();
                 _busy = false;
-                _view.SetBusy(false);
                 //CommandRefreshMagicList(false);
             });
             //CommandRefreshuseItemList();
@@ -172,12 +164,10 @@ namespace Ryneus
         {
             var getAttibute = (AttributeType)itemInfo.Master.Param2;
             _busy = true;
-            _view.SetBusy(true);
             CommandAttributeUp(_model.CurrentActor, getAttibute, () =>
             {
                 CheckAchievements();
                 _busy = false;
-                _view.SetBusy(false);
                 //CommandRefreshMagicList(false);
             });
             //CommandRefreshuseItemList();
@@ -187,12 +177,10 @@ namespace Ryneus
         {
             var statusType = (StatusParamType)itemInfo.Master.Param2;
             _busy = true;
-            _view.SetBusy(true);
             CommandStatusUp(_model.CurrentActor, statusType, itemInfo.Master.Param2, () =>
             {
                 CheckAchievements();
                 _busy = false;
-                _view.SetBusy(false);
                 CommandRefresh();
             });
             //CommandRefreshuseItemList();
@@ -201,7 +189,6 @@ namespace Ryneus
         private void UseItemClassChange(ItemInfo itemInfo)
         {
             _busy = true;
-            _view.SetBusy(true);
             SoundManager.Instance.PlayStaticSe(SEType.LevelUp);
             var beforeStatus = new StatusInfo();
             beforeStatus.SetParameter(_model.CurrentActor.CurrentStatus);
@@ -211,7 +198,6 @@ namespace Ryneus
             {
                 CheckAchievements();
                 _busy = false;
-                _view.SetBusy(false);
             }, ClassChangeInfo);
         }
 

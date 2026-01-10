@@ -320,12 +320,10 @@ namespace Ryneus
         {
             var getAttibute = (AttributeType)itemInfo.Master.Param2;
             _busy = true;
-            _view.SetBusy(true);
             CommandAttributeUp(_model.CurrentActor, getAttibute, () =>
             {
                 CheckAchievements();
                 _busy = false;
-                _view.SetBusy(false);
                 CommandRefreshMagicList(false);
             });
             CommandRefreshuseItemList();
@@ -335,12 +333,10 @@ namespace Ryneus
         {
             var statusType = (StatusParamType)itemInfo.Master.Param2;
             _busy = true;
-            _view.SetBusy(true);
             CommandStatusUp(_model.CurrentActor, statusType, itemInfo.Master.Param2, () =>
             {
                 CheckAchievements();
                 _busy = false;
-                _view.SetBusy(false);
                 CommandRefresh();
             });
             CommandRefreshuseItemList();
@@ -349,7 +345,6 @@ namespace Ryneus
         private void UseItemClassChange(ItemInfo itemInfo)
         {
             _busy = true;
-            _view.SetBusy(true);
             SoundManager.Instance.PlayStaticSe(SEType.LevelUp);
             var beforeStatus = new StatusInfo();
             beforeStatus.SetParameter(_model.CurrentActor.CurrentStatus);
@@ -359,7 +354,6 @@ namespace Ryneus
             {
                 CheckAchievements();
                 _busy = false;
-                _view.SetBusy(false);
                 CommandRefreshMagicList(false);
             }, ClassChangeInfo);
             CommandRefreshuseItemList();
@@ -426,13 +420,11 @@ namespace Ryneus
                 return;
             }
             _busy = true;
-            _view.SetBusy(true);
             _model.PartyInfo.PartyStatInfo.TacticsLvupCount.GainValue(1);
             CommandExpUp(_model.CurrentActor, 20, () =>
             {
                 CheckAchievements();
                 _busy = false;
-                _view.SetBusy(false);
                 CommandRefresh();
             });
         }
