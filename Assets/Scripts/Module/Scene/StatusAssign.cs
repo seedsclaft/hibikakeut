@@ -8,6 +8,7 @@ namespace Ryneus
     {
         public GameObject StatusRoot => gameObject;
         private BaseView _statusView;
+        public BaseView StatusView => _statusView;
 
         public void Initilize()
         {
@@ -38,12 +39,13 @@ namespace Ryneus
             {
                 Destroy(child.gameObject);
             }
+            _statusView = null;
             gameObject.SetActive(false);
         }
 
         public void SetBusy(bool isBusy)
         {
-            _statusView?.SetBusy(isBusy);
+            //_statusView?.SetBusy(isBusy);
         }
     }
 

@@ -119,6 +119,7 @@ namespace Ryneus
             var textId = _model.CurrentStage.Master.OnlyOnce ? 10133 : 10130;
             CallConfirmView(DataSystem.GetText(textId), (a) =>
             {
+                ClosePopup();
                 if (a == ConfirmCommandType.Yes)
                 {
                     var mainMenuSceneInfo = new MainMenuSceneInfo
@@ -131,7 +132,6 @@ namespace Ryneus
                         CommandCautionInfo(DataSystem.GetReplaceText(10200, checkNotSeekPeriod.Master.Name));
                     }
                     _model.ReturnDungeon();
-                    ClosePopup();
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                     _view.CallSystemCommand(Base.CommandType.MapClear);
                     var periodItemInfos = _model.PeriodGetItemInfos();

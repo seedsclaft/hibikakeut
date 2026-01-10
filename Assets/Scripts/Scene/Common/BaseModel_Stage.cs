@@ -103,7 +103,6 @@ namespace Ryneus
             {
                 return;
             }
-            SaveAutoFile();
             // NotSeekPeriod効果判定
             var notSeekPeriod = PartyInfo.AritifactSkills().Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.NotSeekPeriod) != null);
             if (notSeekPeriod == null)

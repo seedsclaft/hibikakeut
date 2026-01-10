@@ -76,7 +76,6 @@ namespace Ryneus
                 return;
             }
             _busy = true;
-            _view.SetBusy(true);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(32030), (a) =>
             {
@@ -85,7 +84,6 @@ namespace Ryneus
                     CheckResumeStage(stageInfo.Master.StageNo, stageInfo.StageId.Value);
                 }
                 _busy = false;
-                _view.SetBusy(false);
             }, ConfirmType.StageConfirm);
             confirmInfo.SetStageInfo(stageInfo);
             _view.CommandCallConfirm(confirmInfo);

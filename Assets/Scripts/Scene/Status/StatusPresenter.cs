@@ -306,13 +306,11 @@ namespace Ryneus
                 getExp *= 2;
             }
             _busy = true;
-            _view.SetBusy(true);
             _model.PartyInfo.PartyStatInfo.TacticsLvupCount.GainValue(1);
             CommandExpUp(_model.CurrentActor, getExp, () =>
             {
                 CheckAchievements();
                 _busy = false;
-                _view.SetBusy(false);
                 CommandRefreshMagicList(false);
             });
             CommandRefreshuseItemList();

@@ -20,6 +20,7 @@ namespace Ryneus
         public bool Busy => _busy;
         public void SetBusy(bool isBusy)
         {
+            Debug.LogError(this.name + " isBusy = " + isBusy);
             _busy = isBusy;
         }
 
@@ -173,10 +174,16 @@ namespace Ryneus
 
         public void LateUpdate()
         {
-            if (_inputSystem != null && !_busy)
+            if (_inputSystem == null)
             {
-                _inputSystemModel.UpdateInputKeyType(_inputSystem.Update());
+                return;
             }
+            if (this != GameSystem.Instance.LaseInputableBaseView)
+            {
+                return;
+            }
+            Debug.LogError(name + "Inputable");
+            _inputSystemModel.UpdateInputKeyType(_inputSystem.Update());
             UpdateWait();
         }
 

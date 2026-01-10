@@ -44,6 +44,8 @@ namespace Ryneus
             _view.SetCharaLayer(_model.MainMenuActorInfos());
             if (_model.SceneParam != null && _model.SceneParam.PeriodAnimation)
             {
+                _model.SavePlayerStageData(Scene.MainMenu);
+                _model.SaveAutoFile();
                 SoundManager.Instance.FadeOutBgm();
                 var chapter = _model.PartyInfo.Chapter.Value;
                 var period = Math.Min(_model.PartyInfo.Period.Value, DataSystem.System.PeriodTurns);

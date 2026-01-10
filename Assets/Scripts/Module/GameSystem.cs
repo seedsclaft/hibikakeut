@@ -46,6 +46,8 @@ namespace Ryneus
         private static SceneStackManager _sceneStackManager = new();
         public static SceneStackManager SceneStackManager => _sceneStackManager;
 
+        private List<BaseView> _inputableBaseViews = new();
+        public BaseView LaseInputableBaseView => _inputableBaseViews.Count > 0 ? _inputableBaseViews[^1] : null;
 
         private void Awake()
         {
@@ -86,6 +88,7 @@ namespace Ryneus
             var baseView = prefab.GetComponent<BaseView>();
             baseView.SetEvent((type) => UpdateCommand(type));
             baseView.Initialize();
+            _inputableBaseViews.Add(baseView);
             return baseView;
         }
 
@@ -139,17 +142,16 @@ namespace Ryneus
                     CommandMissionClearView((MissionClearInfo)viewEvent.Template);
                     break;
                 case Base.CommandType.ClosePopup:
+                    _inputableBaseViews.Remove(popupAssign.LastPopupView);
                     popupAssign.ClosePopup();
-                    SetIsNotBusyMainAndStatus();
                     break;
                 case Base.CommandType.ClosePopupAll:
                     _sceneStackManager.ClearPopupInfo();
                     popupAssign.ClosePopupAll();
-                    SetIsNotBusyMainAndStatus();
+                    _inputableBaseViews.Clear();
                     break;
                 case Base.CommandType.CloseConfirm:
                     confirmAssign.CloseConfirm();
-                    SetIsNotBusyMainAndStatus();
                     break;
                 case Base.CommandType.CallPopupView:
                     CommandPopupView((PopupInfo)viewEvent.Template);
@@ -169,20 +171,17 @@ namespace Ryneus
                 case Base.CommandType.CallStatusView:
                     var statusViewInfo = (StatusViewInfo)viewEvent.Template;
                     var statusView = CreateStatus(StatusType.Status, statusViewInfo) as StatusView;
-                    _currentScene.SetBusy(true);
                     break;
                 case Base.CommandType.CloseStatus:
+                    _inputableBaseViews.Remove(statusAssign.StatusView);
                     statusAssign.CloseStatus();
-                    _currentScene.SetBusy(false);
                     break;
                 case Base.CommandType.CallEnemyInfoView:
                     var enemyStatusInfo = (StatusViewInfo)viewEvent.Template;
                     var enemyInfoView = CreateStatus(StatusType.EnemyInfo, enemyStatusInfo) as EnemyInfoView;
                     enemyInfoView.SetBackEvent(enemyStatusInfo.BackEvent);
-                    _currentScene.SetBusy(true);
                     break;
                 case Base.CommandType.CallAdvScene:
-                    SetIsBusyMainAndStatus();
                     var advCallInfo = (AdvCallInfo)viewEvent.Template;
                     _ = Instance.StartCoroutine(JumpScenarioAsync(advCallInfo.Label.Value, advCallInfo.CallEvent));
                     break;
@@ -196,11 +195,9 @@ namespace Ryneus
                     break;
                 case Base.CommandType.CallLoading:
                     loadingView.gameObject.SetActive(true);
-                    SetIsBusyMainAndStatus();
                     break;
                 case Base.CommandType.CloseLoading:
                     loadingView.gameObject.SetActive(false);
-                    SetIsNotBusyMainAndStatus();
                     break;
                 case Base.CommandType.SetRouteSelect:
                     //int routeSelect = (int)advEngine.Param.GetParameter("RouteSelect");
@@ -260,10 +257,11 @@ namespace Ryneus
             confirmView.SetViewInfo(confirmInfo);
             confirmView.SetBackEvent(() =>
             {
+                _inputableBaseViews.Remove(confirmView);
                 confirmView.CallSystemCommand(Base.CommandType.CloseConfirm);
                 confirmInfo.BackEvent?.Invoke();
             });
-            SetIsBusyMainAndStatus();
+            _inputableBaseViews.Add(confirmView);
         }
 
         private void CommandCautionView(CautionInfo confirmInfo)
@@ -345,7 +343,8 @@ namespace Ryneus
                 var classChange = prefab.GetComponent<ClassChangeView>();
                 classChange.SetClassChangeInfo((ClassChangeInfo)popupInfo.template);
             }
-            SetIsBusyMainAndStatus();
+            _inputableBaseViews.Add(baseView);
+            //SetIsBusyMainAndStatus();
         }
 
         private void CommandSkillTriggerView(SkillTriggerViewInfo skillTriggerViewInfo)
@@ -361,7 +360,6 @@ namespace Ryneus
                 skillTriggerView.CallSystemCommand(Base.CommandType.ClosePopup);
                 skillTriggerViewInfo.EndEvent?.Invoke();
             });
-            SetIsBusyMainAndStatus();
         }
 
         private void CommandCallSkillLogView(SkillLogViewInfo skillLogViewInfo)
@@ -377,7 +375,6 @@ namespace Ryneus
                 skillLogView.CallSystemCommand(Base.CommandType.ClosePopup);
                 skillLogViewInfo.EndEvent?.Invoke();
             });
-            SetIsBusyMainAndStatus();
         }
 
         private void CommandRankingView(RankingViewInfo rankingViewInfo)
@@ -393,7 +390,6 @@ namespace Ryneus
                 rankingView.CallSystemCommand(Base.CommandType.ClosePopup);
                 rankingViewInfo.EndEvent?.Invoke();
             });
-            SetIsBusyMainAndStatus();
         }
 
         private void CommandHelpView(List<ListData> helpTextList)
@@ -408,7 +404,6 @@ namespace Ryneus
             {
                 helpView.CallSystemCommand(Base.CommandType.ClosePopup);
             });
-            SetIsBusyMainAndStatus();
         }
 
         IEnumerator JumpScenarioAsync(string label, Action onComplete)
@@ -427,12 +422,13 @@ namespace Ryneus
             advEngine.JumpScenario(label);
             advEngine.Config.IsSkip = false;//OptionData.EventTextSkipIndex;
             advController.StartAdv();
+            _inputableBaseViews.Add(advController);
             while (!advEngine.IsEndOrPauseScenario)
             {
                 yield return null;
             }
-            SetIsNotBusyMainAndStatus();
             advController.EndAdv();
+            _inputableBaseViews.Remove(advController);
             //advHelpWindow.SetInputInfo("");
 
             _busy = false;
@@ -477,6 +473,8 @@ namespace Ryneus
             _currentScene.SetEvent((type) => UpdateCommand(type));
             _sceneStackManager.PushSceneInfo(sceneInfo);
             _currentScene.Initialize();
+            _inputableBaseViews.Clear();
+            _inputableBaseViews.Add(_currentScene);
             //tutorialView.HideFocusImage();
         }
 
@@ -502,22 +500,6 @@ namespace Ryneus
         {
             mapAssign.SetLastMapName("");
             mapAssign.ClearMap();
-        }
-
-        private void SetIsBusyMainAndStatus()
-        {
-            _currentScene.SetBusy(true);
-            statusAssign.SetBusy(true);
-        }
-
-        private void SetIsNotBusyMainAndStatus()
-        {
-            if (!statusAssign.StatusRoot.gameObject.activeSelf)
-            {
-                _currentScene.SetBusy(false);
-            }
-
-            statusAssign.SetBusy(false);
         }
 
         private void SceneShowUI()
@@ -566,6 +548,27 @@ namespace Ryneus
                 tutorialViewInfo.EndEvent?.Invoke();
             });
             _model.ReadTutorialData(tutorialData);
+        }
+
+        public void CheckInputableBaseview()
+        {
+            // Confirm
+            // Popup
+            var popupBaseView = popupAssign.LastPopupView;
+            if (popupBaseView != null)
+            {
+                //_inputableBaseView = popupBaseView;
+                return;
+            }
+            // Status
+            var statusBaseView = statusAssign.gameObject.activeSelf;
+            if (statusBaseView && statusAssign.StatusView != null)
+            {
+                //_inputableBaseView = statusAssign.StatusView;
+                return;
+            }
+            // Scene
+            //_inputableBaseView = _currentScene;
         }
     }
 

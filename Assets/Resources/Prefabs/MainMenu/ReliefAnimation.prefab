@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 2085391453454119140}
   - component: {fileID: 5539679826661446795}
   - component: {fileID: 3964309364352928712}
+  - component: {fileID: 3752911049461032357}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -248,6 +249,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3752911049461032357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803306678383834256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f40d78aeafe77db4c9191438047f3e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_2dxFX_Liquid
+  ForceMaterial: {fileID: 0}
+  ActiveChange: 1
+  _Alpha: 1
+  Heat: 0
+  Speed: 0.37
+  EValue: 0.025
+  Light: 0.16
+  ShaderChange: 0
+  ActiveUpdate: 1
 --- !u!1 &2485397837487475905
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,6 +638,8 @@ MonoBehaviour:
   transferGetItemText: {fileID: 0}
   transferGetExpText: {fileID: 0}
   transferGetCurrencyText: {fileID: 0}
+  kindIcon: {fileID: 0}
+  kindText: {fileID: 0}
 --- !u!1 &4018286552435336108
 GameObject:
   m_ObjectHideFlags: 0
