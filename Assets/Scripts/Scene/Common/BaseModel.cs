@@ -321,6 +321,48 @@ namespace Ryneus
             }
         }
 
+        public LevelUpViewInfo MakeLevelUpViewInfo(ActorInfo actorInfo, int getExp)
+        {
+            // 新規魔法取得があるか
+            var from = actorInfo.Evaluate();
+            var beforeLv = actorInfo.Level;
+            var beforeHp = actorInfo.MaxHp;
+            var afterSkills = actorInfo.LearningSkills(1);
+            actorInfo.Exp.GainValue(getExp);
+
+            var to = actorInfo.Evaluate();
+            var afterLv = actorInfo.Level;
+            var afterHp = actorInfo.MaxHp;
+            var levelUpViewInfo = new LevelUpViewInfo();
+            levelUpViewInfo.SetActorInfo(actorInfo);
+            levelUpViewInfo.From.SetValue(from);
+            levelUpViewInfo.To.SetValue(to);
+            // LevelUp
+            if (afterLv > beforeLv)
+            {
+                levelUpViewInfo.Title.SetValue(DataSystem.GetText(20030));
+                // LevelUpDates
+                var strategyStrengthInfos = StrategyStrengthInfo.BasicStrategyStrengthInfos(actorInfo);
+                levelUpViewInfo.StrategyStrengthInfos = strategyStrengthInfos;
+                actorInfo.ChangeHp(actorInfo.CurrentHp.Value + afterHp - beforeHp);
+            }
+            // 魔法新規取得
+            if (afterSkills.Count > 0)
+            {
+                levelUpViewInfo.SetSkillInfo(afterSkills[0]);
+                levelUpViewInfo.LearnSkill.SetValue(DataSystem.GetText(2530));
+                // 装備可能であれば装備する
+                foreach (var afterSkill in afterSkills)
+                {
+                    if (actorInfo.EquipmentSkillIds.Count < actorInfo.EquipSlotCount())
+                    {
+                        actorInfo.ChangeEquipSkill(afterSkill.Id.Value, 0);
+                    }
+                }
+            }
+            return levelUpViewInfo;
+        }
+
         public int ActorLevelUpCost(ActorInfo actorInfo)
         {
             return TacticsUtility.TrainCost(actorInfo);

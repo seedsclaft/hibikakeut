@@ -19,7 +19,8 @@ namespace Ryneus
         public List<ActorInfo> DisplayActorInfos => _displayActorInfos;
         private List<StrategyActorLevelUpInfo> _displayLevelUpInfos = new();
         public List<StrategyActorLevelUpInfo> DisplayLevelUpInfos => _displayLevelUpInfos;
-        private List<HexUnitInfo> _lostUnitInfos = new();
+        private List<LevelUpViewInfo> _levelUpViewInfos = new();
+        public List<LevelUpViewInfo> LevelUpViewInfos => _levelUpViewInfos;
 
         public StrategyModel()
         {
@@ -73,16 +74,13 @@ namespace Ryneus
 
         private List<SkillInfo> _selectLearnSkills = new();
         public List<SkillInfo> SelectLearnSkills => _selectLearnSkills;
-
+/*
         private List<ActorInfo> _levelUpActorInfos = new();
         public List<ActorInfo> LevelUpActorInfos => _levelUpActorInfos;
-        private bool _beforeLevelUpAnimation = false;
-        public bool BeforeLevelUpAnimation => _beforeLevelUpAnimation;
-        public void SetBeforeLevelUpAnimation(bool beforeLevelUpAnimation) => _beforeLevelUpAnimation = beforeLevelUpAnimation;
-
 
         private List<LearnSkillInfo> _learnSkillInfo = new();
         public List<LearnSkillInfo> LearnSkillInfo => _learnSkillInfo;
+        /*
         public List<ListData> LevelUpActorStatus()
         {
             var strategyStrengthInfos = StrategyStrengthInfo.BasicStrategyStrengthInfos(_levelUpActorInfos[0]);
@@ -94,6 +92,7 @@ namespace Ryneus
             }
             return list;
         }
+        */
 
         public string BackGround()
         {
@@ -110,62 +109,36 @@ namespace Ryneus
             _resultInfos.Clear();
             _resultInfos = MakeGetItemResultViewInfos(getItemInfos);
 
-            var lvUpList = new List<ActorInfo>();
             // Expを付与する
             var expGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Exp);
+            _levelUpViewInfos = new List<LevelUpViewInfo>();
             foreach (var expGetItemInfo in expGetItemInfos)
             {
                 var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == expGetItemInfo.Param1);
-                if (target != null)
+                if (target == null)
                 {
-                    var beforeLv = target.Level;
-                    var from = target.Evaluate();
-                    var beforeRate = target.Exp.Value % 100 * 0.01f;
-                    // 新規魔法取得があるか
-                    var skills = target.LearningSkills(1);
-                    target.Exp.GainValue(expGetItemInfo.Param2);
-                    var afterLv = target.Level;
-                    var afterRate = target.Exp.Value % 100 * 0.01f;
-                    _displayLevelUpInfos.Add(new StrategyActorLevelUpInfo()
-                    {
-                        IsLevelUp = beforeLv != target.Level,
-                        AfterRate = afterRate,
-                        BeforeRate = beforeRate,
-                        PlusLv = target.Level - beforeLv,
-                        PlusExp = expGetItemInfo.Param2
-                    });
-                    if (beforeLv < afterLv)
-                    {
-                        var to = target.Evaluate();
-                        if (skills.Count > 0)
-                        {
-                            foreach (var skill in skills)
-                            {
-                                var learnSkillInfo = new LearnSkillInfo(from, to, skill);
-                                _learnSkillInfo.Add(learnSkillInfo);
-                                // 装備可能であれば装備する
-                                if (target.EquipmentSkillIds.Count < target.EquipSlotCount())
-                                {
-                                    target.ChangeEquipSkill(skill.Id.Value, 0);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            _learnSkillInfo.Add(null);
-                        }
-                        if (!lvUpList.Contains(target))
-                        {
-                            lvUpList.Add(target);
-                        }
-                    }
-                    target.Exp.GainValue(expGetItemInfo.Param2 * -1);
+                    continue;
                 }
-            }
-            _levelUpActorInfos = lvUpList;
-            if (lvUpList.Count > 0)
-            {
-                _beforeLevelUpAnimation = true;
+                var beforeLv = target.Level;
+                var from = target.Evaluate();
+                var beforeRate = target.Exp.Value % 100 * 0.01f;
+                var levelUpInfoView = MakeLevelUpViewInfo(target, expGetItemInfo.Param2);
+                // 新規魔法取得があるか
+                var afterLv = target.Level;
+                var afterRate = target.Exp.Value % 100 * 0.01f;
+                _displayLevelUpInfos.Add(new StrategyActorLevelUpInfo()
+                {
+                    IsLevelUp = levelUpInfoView.StrategyStrengthInfos.Count > 0,
+                    AfterRate = afterRate,
+                    BeforeRate = beforeRate,
+                    PlusLv = target.Level - beforeLv,
+                    PlusExp = expGetItemInfo.Param2
+                });
+                if (levelUpInfoView.StrategyStrengthInfos.Count > 0 || levelUpInfoView.SkillInfo != null)
+                {
+                    _levelUpViewInfos.Add(levelUpInfoView);
+                }
+                target.Exp.GainValue(expGetItemInfo.Param2 * -1);
             }
 
             MakeGetItemResults(getItemInfos);
@@ -209,10 +182,14 @@ namespace Ryneus
             _selectLearnSkills.Clear();
         }
 
-        public void RemoveLevelUpData()
+        public List<ActorInfo> LevelUpActorInfos()
         {
-            _levelUpActorInfos.RemoveAt(0);
-            _learnSkillInfo.RemoveAt(0);
+            var actorInfos = new List<ActorInfo>();
+            foreach (var levelUpViewInfos in _levelUpViewInfos)
+            {
+                actorInfos.Add(levelUpViewInfos.ActorInfo);
+            }
+            return actorInfos;
         }
 
         public void ClearExpDict()

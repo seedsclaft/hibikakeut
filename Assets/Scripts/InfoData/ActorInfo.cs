@@ -137,10 +137,11 @@ namespace Ryneus
         public List<int> LearnSkillIds => _learnSkillIds;
         public void LearnSkill(int skillId)
         {
-            if (!_learnSkillIds.Contains(skillId))
+            if (_learnSkillIds.Contains(skillId))
             {
-                _learnSkillIds.Add(skillId);
+                return;
             }
+            _learnSkillIds.Add(skillId);
         }
 
         private int _lastSelectSkillId = 0;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Ryneus
 {
@@ -38,6 +39,7 @@ namespace Ryneus
 
         public void RemovePopupInfo(PopupInfo popupInfo)
         {
+            UnityEngine.Debug.LogError("RemovePopupInfo " + popupInfo.PopupType);
             _popupInfo.Remove(popupInfo);
         }
 

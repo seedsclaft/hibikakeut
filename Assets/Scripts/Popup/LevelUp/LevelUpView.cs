@@ -18,6 +18,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI beforeEvaluate = null;
         [SerializeField] private TextMeshProUGUI afterEvaluate = null;
         [SerializeField] private TextMeshProUGUI learnSkillText = null;
+        private bool _busy = false;
         public override void Initialize()
         {
             if (IsInitilized)
@@ -33,6 +34,7 @@ namespace Ryneus
 
         public void OpenAnimation(string title)
         {
+            _busy = false;
             UiRoot.SetActive(false);
             learnSkillRoot.SetActive(false);
             actorInfoComponent.gameObject.SetActive(false);
@@ -86,6 +88,8 @@ namespace Ryneus
             {
                 actorInfoComponent.UpdateInfo(actorInfo, null);
                 actorInfoComponent.gameObject.SetActive(true);
+                var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
+                BaseAnimation.MoveAndFade(rect, actorInfoComponent.MainThumb, -280, 1, 0.5f);
             }
             if (skillInfoComponent != null)
             {
@@ -117,8 +121,17 @@ namespace Ryneus
             {
                 return;
             }
+            if (_busy)
+            {
+                return;
+            }
+            if (statusList.gameObject.activeSelf)
+            {
+                return;
+            }
             if (keyTypes.Count > 0)
             {
+                _busy = true;
                 CallLevelUpNext();
             }
         }

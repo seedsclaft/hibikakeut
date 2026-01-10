@@ -15,11 +15,8 @@ namespace Ryneus
         [SerializeField] private BaseList strategyResultList = null;
         public bool StrategyResultListActive => strategyResultList.gameObject.activeSelf;
         [SerializeField] private BaseList commandList = null;
-        [SerializeField] private BaseList statusList = null;
         [SerializeField] private MagicList alcanaSelectList = null;
         [SerializeField] private TextMeshProUGUI title = null;
-        [SerializeField] private ActorInfoComponent actorInfoComponent = null;
-        [SerializeField] private Button lvUpStatusButton = null;
         [SerializeField] private GameObject animRoot = null;
         [SerializeField] private GameObject animPrefab = null;
         [SerializeField] private BattleScoreComponent battleScoreComponent = null;
@@ -32,7 +29,7 @@ namespace Ryneus
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Strategy);
             InitializeActorList();
-            InitializeStatusList();
+            //InitializeStatusList();
             InitializeCommandList();
             InitializeLearnSkillList();
 
@@ -40,12 +37,7 @@ namespace Ryneus
             prefab.transform.SetParent(animRoot.transform, false);
             _battleStartAnim = prefab.GetComponent<BattleStartAnim>();
             _battleStartAnim.gameObject.SetActive(false);
-            lvUpStatusButton.onClick.AddListener(() => CallLvUpNext());
-            lvUpStatusButton.gameObject.SetActive(false);
 
-            var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
-            rect.localPosition = new Vector3(0,0,0);
-            actorInfoComponent.MainThumb.DOFade(0,0);
 
             strategyResultCanvasGroup.alpha = 0;
             battleScoreComponent?.UpdateEmpty();
@@ -68,48 +60,6 @@ namespace Ryneus
                 CallEndAnimation();
             });
             strategyActorList.gameObject.SetActive(true);
-        }
-
-        private void CallLvUpNext()
-        {
-            lvUpStatusButton.gameObject.SetActive(false);
-            actorInfoComponent.gameObject.SetActive(false);
-            statusList.gameObject.SetActive(false);
-            CallViewEvent(CommandType.LvUpNext);
-        }
-
-        public void StartLvUpAnimation()
-        {
-            _battleStartAnim.SetText(DataSystem.GetText(20030));
-            _battleStartAnim.StartAnim(false);
-            _battleStartAnim.gameObject.SetActive(true);
-            _animationBusy = true;
-        }
-
-        private void InitializeStatusList()
-        {
-            statusList.Initialize();
-            statusList.SetInputHandler(InputKeyType.Decide, CallLvUpNext);
-            AddViewActives(strategyActorList);
-        }
-
-        public void ShowLvUpActor(ActorInfo actorInfo,List<ListData> status)
-        {
-            lvUpStatusButton.gameObject.SetActive(true);
-            actorInfoComponent.gameObject.SetActive(true);
-            actorInfoComponent.Clear();
-            actorInfoComponent.UpdateInfo(actorInfo, null);
-
-            var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
-            rect.localPosition = new Vector3(0, 0, 0);
-            actorInfoComponent.MainThumb.DOFade(0, 0);
-
-            BaseAnimation.MoveAndFade(rect, actorInfoComponent.MainThumb, 24, 1);
-
-            HelpWindow.SetInputInfo("LEVELUP");
-            statusList.gameObject.SetActive(true);
-            statusList.SetData(status);
-            SetActivate(statusList);
         }
 
         private void InitializeCommandList()
@@ -248,13 +198,6 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            if (lvUpStatusButton.gameObject.activeSelf)
-            {
-                if (keyTypes.Contains(InputKeyType.Decide) || keyTypes.Contains(InputKeyType.Cancel))
-                {
-                    CallLvUpNext();
-                }
-            }
         }
     }
 }

@@ -304,7 +304,7 @@ namespace Ryneus
                         return;
                     }
                     // 招聘コマンド回数が増えたらアナウンス
-                    if (_model.PartyInfo.ReliefItemCount.Value > 0)
+                    if (false && _model.PartyInfo.ReliefItemCount.Value > 0)
                     {
                         var reliefConfirmInfo = new ConfirmInfo(DataSystem.GetText(11014), (a) =>
                         {

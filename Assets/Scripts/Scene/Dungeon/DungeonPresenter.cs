@@ -602,20 +602,17 @@ namespace Ryneus
                 _view.CallSystemCommand(Base.CommandType.SceneShowUI);
                 if (skillInfo != null)
                 {
-                    // 装備可能であれば装備する
-                    if (actorInfo.EquipmentSkillIds.Count < actorInfo.EquipSlotCount())
-                    {
-                        actorInfo.ChangeEquipSkill(skillInfo.Id.Value, 0);
-                    }
-                    var from = actorInfo.Evaluate();
+                    var levelUpViewInfo = _model.MakeLevelUpViewInfo(actorInfo, 0);
+                    levelUpViewInfo.SetSkillInfo(skillInfo);
+                    levelUpViewInfo.SetActorInfo(actorInfo);
                     actorInfo.LearnSkill(skillInfo.Id.Value);
-                    var to = actorInfo.Evaluate();
-                    var learnSkillInfo = new LearnSkillInfo(from, to, skillInfo, actorInfo);
-                    learnSkillInfo.Title.SetValue(DataSystem.GetText(2520));
-                    CommandLearnMagic(learnSkillInfo, () =>
+                    levelUpViewInfo.LearnSkill.SetValue(DataSystem.GetText(2520));
+                    SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+                    CallPopupView(PopupType.LevelUp, () =>
                     {
+                        CheckAchievements();
                         endEvent?.Invoke();
-                    });
+                    }, levelUpViewInfo);
                 }
                 else
                 {

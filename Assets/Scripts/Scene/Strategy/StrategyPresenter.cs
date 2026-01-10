@@ -151,28 +151,11 @@ namespace Ryneus
             var displayActorInfos = _model.DisplayActorInfos;
             if (displayActorInfos.Count > 0)
             {
-                _view.StartResultAnimation(MakeListData(displayActorInfos), _model.LevelUpActorInfos);
-            } else
+                _view.StartResultAnimation(MakeListData(displayActorInfos), _model.LevelUpActorInfos());
+            }
+            else
             {
                 NextSeekResult();
-            }
-        }
-
-        private void CheckTacticsActors()
-        {
-            var tacticsActors = _model.DisplayActorInfos;
-            if (tacticsActors != null && tacticsActors.Count > 0)
-            {
-                var bonusList = new List<bool>();
-                foreach (var item in tacticsActors)
-                {
-                    bonusList.Add(_model.IsBonusTactics(item.ActorId.Value));
-                }
-                _view.SetTitle(DataSystem.GetText(20040));
-                //_view.SetResultActorList(_model.MakeListData(tacticsActors));
-            } else
-            {
-                EndStrategy();
             }
         }
 
@@ -183,6 +166,7 @@ namespace Ryneus
 
         private void CommandLvUpNext()
         {
+            /*
             var learnSkillInfo = _model.LearnSkillInfo.Count > 0 ? _model.LearnSkillInfo[0] : null;
             if (learnSkillInfo != null && learnSkillInfo.SkillInfo != null)
             {
@@ -199,6 +183,7 @@ namespace Ryneus
                 _model.RemoveLevelUpData();
                 NextSeekResult();
             }
+            */
         }
 
         private void NextSeekResult()
@@ -210,16 +195,14 @@ namespace Ryneus
                 return;
             }
             // Lvアップ演出スタート
-            if (_model.BeforeLevelUpAnimation)
+            if (_model.LevelUpViewInfos.Count > 0)
             {
                 _view.HideResultList();
-                _model.SetBeforeLevelUpAnimation(false);
-                _view.StartLvUpAnimation();
-                return;
-            }
-            if (_model.LevelUpActorInfos.Count > 0)
-            {
-                _view.ShowLvUpActor(_model.LevelUpActorInfos[0],_model.LevelUpActorStatus());
+                CallPopupView(PopupType.LevelUp, () =>
+                {
+                    NextSeekResult();
+                }, _model.LevelUpViewInfos[0]);
+                _model.LevelUpViewInfos.RemoveAt(0);
                 return;
             }
             if (_model.SelectLearnSkills.Count > 0)

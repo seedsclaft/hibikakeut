@@ -389,96 +389,14 @@ namespace Ryneus
             _view.CommandCallCaution(cautionInfo);
         }
 
-        public void CommandActorLevelUp(ActorInfo actorInfo, Action endEvent = null)
-        {
-            if (_model.EnableActorLevelUp(actorInfo))
-            {
-                SoundManager.Instance.PlayStaticSe(SEType.LevelUp);
-                // 新規魔法取得があるか
-                var skills = actorInfo.LearningSkills(1);
-                var from = actorInfo.Evaluate();
-                _model.ActorLevelUp(actorInfo);
-                var to = actorInfo.Evaluate();
-                if (skills.Count > 0)
-                {
-                    //_busy = true;
-                    var learnSkillInfo = new LearnSkillInfo(from, to, skills[0], actorInfo);
-                    learnSkillInfo.Title.SetValue(DataSystem.GetText(2530));
-                    CallLearnSkillPopupView(learnSkillInfo, () =>
-                    {
-                        endEvent?.Invoke();
-                        SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                    });
-                }
-                else
-                {
-                    CommandCautionInfo("", from, to);
-                    endEvent?.Invoke();
-                    SoundManager.Instance.PlayStaticSe(SEType.CountUp);
-                }
-            }
-            else
-            {
-                var textId = _model.ActorLevelLinked(actorInfo) ? 19420 : 19410;
-                CommandCautionInfo(DataSystem.GetText(textId));
-                endEvent?.Invoke();
-                SoundManager.Instance.PlayStaticSe(SEType.Deny);
-            }
-        }
-
-        public void CommandLevelUp(ActorInfo actorInfo, Action endEvent = null)
-        {
-            CommandActorLevelUp(actorInfo, () =>
-            {
-                endEvent?.Invoke();
-            });
-        }
-
         public void CommandExpUp(ActorInfo actorInfo, int getExp, Action endEvent = null)
         {
-            //var getExp = _model.ActorGetExpCurrency(actorInfo);
             if (getExp > 0)
             {
                 //_model.PartyInfo.Currency.GainValue(-1);
                 SoundManager.Instance.PlayStaticSe(SEType.LevelUp);
-                // 新規魔法取得があるか
-                var from = actorInfo.Evaluate();
-                var beforeLv = actorInfo.Level;
-                var beforeHp = actorInfo.MaxHp;
-                var afterSkills = actorInfo.LearningSkills(1);
-                actorInfo.Exp.GainValue(getExp);
-
-                var to = actorInfo.Evaluate();
-                var afterLv = actorInfo.Level;
-                var afterHp = actorInfo.MaxHp;
-                var levelUpViewInfo = new LevelUpViewInfo();
-                levelUpViewInfo.SetActorInfo(actorInfo);
-                levelUpViewInfo.From.SetValue(from);
-                levelUpViewInfo.To.SetValue(to);
-                // LevelUp
-                if (afterLv > beforeLv)
-                {
-                    levelUpViewInfo.Title.SetValue("LevelUp!");
-                    // LevelUpDates
-                    var strategyStrengthInfos = StrategyStrengthInfo.BasicStrategyStrengthInfos(actorInfo);
-                    levelUpViewInfo.StrategyStrengthInfos = strategyStrengthInfos;
-                    actorInfo.ChangeHp(actorInfo.CurrentHp.Value + afterHp - beforeHp);
-                }
-                // 魔法新規取得
-                if (afterSkills.Count > 0)
-                {
-                    levelUpViewInfo.SetSkillInfo(afterSkills[0]);
-                    levelUpViewInfo.LearnSkill.SetValue(DataSystem.GetText(2530));
-                    // 装備可能であれば装備する
-                    foreach (var afterSkill in afterSkills)
-                    {
-                        if (actorInfo.EquipmentSkillIds.Count < actorInfo.EquipSlotCount())
-                        {
-                            actorInfo.ChangeEquipSkill(afterSkill.Id.Value, 0);
-                        }
-                    }
-                }
-                if (afterLv > beforeLv || afterSkills.Count > 0)
+                var levelUpViewInfo = _model.MakeLevelUpViewInfo(actorInfo, getExp);
+                if (levelUpViewInfo.StrategyStrengthInfos.Count > 0 || levelUpViewInfo.SkillInfo != null)
                 {
                     CallPopupView(PopupType.LevelUp, () =>
                     {
@@ -487,12 +405,13 @@ namespace Ryneus
                     }, levelUpViewInfo);
                     return;
                 }
-                CommandCautionInfo("", from, to);
+                CommandCautionInfo("", levelUpViewInfo.From.Value, levelUpViewInfo.To.Value);
                 endEvent?.Invoke();
                 SoundManager.Instance.PlayStaticSe(SEType.CountUp);
             }
             endEvent?.Invoke();
         }
+
 
         public void CommandAttributeUp(ActorInfo actorInfo, AttributeType attributeType, Action endEvent = null)
         {
@@ -520,24 +439,6 @@ namespace Ryneus
             {
                 endEvent?.Invoke();
             });
-        }
-
-        private void UpdatePopupLearnSkill(ConfirmCommandType confirmCommandType, ActorInfo actorInfo, SkillInfo skillInfo, System.Action endEvent = null)
-        {
-            if (confirmCommandType == ConfirmCommandType.Yes)
-            {
-                var from = actorInfo.Evaluate();
-                _model.ActorLearnMagic(actorInfo, skillInfo.Id.Value);
-                var to = actorInfo.Evaluate();
-
-                var learnSkillInfo = new LearnSkillInfo(from, to, skillInfo);
-                learnSkillInfo.Title.SetValue(DataSystem.GetText(2530));
-                CallLearnSkillPopupView(learnSkillInfo, () =>
-                {
-                    endEvent?.Invoke();
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                });
-            }
         }
 
         public bool CheckAchievements(bool checkMissionRank = false, Action endEvent = null)

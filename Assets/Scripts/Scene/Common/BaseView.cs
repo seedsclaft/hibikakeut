@@ -182,13 +182,13 @@ namespace Ryneus
             {
                 return;
             }
+            UpdateWait();
             if (_busy)
             {
                 return;
             }
             Debug.LogError(name + "Inputable");
             _inputSystemModel.UpdateInputKeyType(_inputSystem.Update());
-            UpdateWait();
         }
 
         public void Update()

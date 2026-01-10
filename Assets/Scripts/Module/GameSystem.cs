@@ -295,10 +295,7 @@ namespace Ryneus
                 missionClearView.SetEvent((type) => UpdateCommand(type));
             }
             missionClearView.Initialize();
-            if (confirmInfo.Title != null)
-            {
-                missionClearView.SetTitle(confirmInfo.Title);
-            }
+            missionClearView.SetTitle(confirmInfo.Title);
         }
 
         private void CommandPopupView(PopupInfo popupInfo)

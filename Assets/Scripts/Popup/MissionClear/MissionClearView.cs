@@ -22,10 +22,14 @@ namespace Ryneus
 
         public void SetTitle(string title)
         {
-            titleText?.SetText(title);
+            if (titleText == null)
+            {
+                return;
+            }
+            titleText.SetText(title);
             var basePosition = canvasGroup.GetComponent<RectTransform>().localPosition;
-            var from = new Vector3(basePosition.x-320,basePosition.y,0);
-            var to = new Vector3(basePosition.x,basePosition.y,0);
+            var from = new Vector3(basePosition.x-320, basePosition.y, 0);
+            var to = new Vector3(basePosition.x, basePosition.y, 0);
             var sequence = AnimationUtility.LocalMoveToTransform(canvasGroup.gameObject,
                 from,
                 to,

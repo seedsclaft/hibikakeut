@@ -12,8 +12,6 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI afterEvaluateText = null;
         [SerializeField] private SkillInfoComponent skillInfoComponent = null;
         [SerializeField] private ConfirmAnimation confirmAnimation = null;
-        [SerializeField] private ActorInfoComponent actorInfoComponent = null;
-        [SerializeField] private BattleStartAnim battleStartAnim = null;
         public override void Initialize()
         {
             base.Initialize();
@@ -23,12 +21,7 @@ namespace Ryneus
 
         public void OpenAnimation()
         {
-            SetBusy(true);
-            battleStartAnim.StartAnim(false, 0, () =>
-            {
-                confirmAnimation.OpenAnimation(UiRoot.transform, () => SetBusy(false));
-            });
-            battleStartAnim.gameObject.SetActive(true);
+            confirmAnimation.OpenAnimation(UiRoot.transform, null);
         }
 
         public void SetLearnSkillInfo(LearnSkillInfo learnSkillInfo)
@@ -48,14 +41,6 @@ namespace Ryneus
             if (skillInfoComponent != null && learnSkillInfo.SkillInfo != null)
             {
                 skillInfoComponent.UpdateInfo(learnSkillInfo.SkillInfo);
-            }
-            if (actorInfoComponent != null && learnSkillInfo.ActorInfo != null)
-            {
-                actorInfoComponent.UpdateInfo(learnSkillInfo.ActorInfo, null);
-            }
-            if (battleStartAnim != null)
-            {
-                battleStartAnim.SetText(learnSkillInfo.Title.Value);
             }
         }
 
