@@ -151,6 +151,7 @@ namespace Ryneus
                     _inputableBaseViews.Clear();
                     break;
                 case Base.CommandType.CloseConfirm:
+                    _inputableBaseViews.Remove(confirmAssign.LastPopupPrefab.GetComponent<ConfirmView>());
                     confirmAssign.CloseConfirm();
                     break;
                 case Base.CommandType.CallPopupView:

@@ -42,7 +42,7 @@ namespace Ryneus
         public static Dictionary<int, TextData> TextDates = new();
 
         public static Color PowerUpColor => new(128, 255, 128);
-        public static string PowerUpColorTag => "<color=#80FF80>";
+        public static string PowerUpColorTag => "<color=#E09018>";
         public static Color PowerDownColor => new(255, 128, 64);
 
         public static async UniTask<bool> LoadData()

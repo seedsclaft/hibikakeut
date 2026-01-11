@@ -996,7 +996,7 @@ MonoBehaviour:
     Param: 32
     Param2: 4
     Param3: 3
-    ReadFlag: 1
+    ReadFlag: 0
   - EventKey: 33_13_5DungeonDungeonClear0
     Timing: 3010
     Type: 2030
@@ -1051,6 +1051,15 @@ MonoBehaviour:
     Param2: 0
     Param3: 0
     ReadFlag: 1
+  - EventKey: 33_2_5DungeonActorEvent2
+    Timing: 3010
+    Type: 1020
+    PositionX: 2
+    PositionY: 5
+    Param: 2
+    Param2: 3
+    Param3: 0
+    ReadFlag: 1
   - EventKey: 33_2_5DungeonEventEnd0
     Timing: 3010
     Type: 9010
@@ -1059,7 +1068,7 @@ MonoBehaviour:
     Param: 0
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1
   - EventKey: 33_8_6DungeonTraverseRegeon1
     Timing: 3010
     Type: 8010
@@ -1068,4 +1077,4 @@ MonoBehaviour:
     Param: 1
     Param2: 0
     Param3: 0
-    ReadFlag: 0
+    ReadFlag: 1

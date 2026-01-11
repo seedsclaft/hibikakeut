@@ -227,7 +227,6 @@ namespace Ryneus
                 var itemPrefab = _itemPrefabList[i];
                 if (itemStartIndex > -1)
                 {
-                    //
                     var tempIndex = (i + itemStartIndex) % _itemPrefabList.Count;
                     itemPrefab = _itemPrefabList[tempIndex];
                 }
@@ -243,7 +242,8 @@ namespace Ryneus
                         {
                             continue;
                         }
-                    } else
+                    }
+                    else
                     {
                         itemPrefab.SetActive(false);
                         listItem.SetListData(null, -1);
@@ -630,7 +630,8 @@ namespace Ryneus
                 {
                     plusValue = pressed ? _listMoveInputFrame : _listMoveInputFrameFirst;
                 }
-            } else
+            }
+            else
             {
                 plusValue = 0;
             }
@@ -682,7 +683,8 @@ namespace Ryneus
                         break;
                     }
                 }
-            } else
+            }
+            else
             if (keyTypes.Contains(pageUpKey) || keyTypes.Contains(pageDownKey))
             {
                 // 列移動
@@ -992,30 +994,30 @@ namespace Ryneus
                     Debug.Log("itemPosition = " + ip);
                     Debug.Log("viewPortPosition = " + vp);
                     */
-                    /*
-                    if (itemPosition >= (GetViewPortHeight() + viewPortPosition - _itemSize.y))
-                    {
-                        var c = _index;
-                        ScrollRect.content.localPosition = new Vector2(0, c * (_itemSize.y + ItemSpace(false)));
-                        return;
-                        var per = 1f - (c / p);
+            /*
+            if (itemPosition >= (GetViewPortHeight() + viewPortPosition - _itemSize.y))
+            {
+                var c = _index;
+                ScrollRect.content.localPosition = new Vector2(0, c * (_itemSize.y + ItemSpace(false)));
+                return;
+                var per = 1f - (c / p);
 
-                        if (!IsExtraHeightRectSize(verticalCount))
-                        {
-                            var rectIndex = _index;
-                            var rectSize = (_itemSize.y + ItemSpace(false)) * rectIndex;
-                            per = 1f - (rectSize / GetVisibleRectHeight());
-                        }
-
-                        verticalNormalizedPosition = Math.Min(1, per);
-                    } else
-                    if (warpMode && _index == _listDates.Count - 1)
-                    {
-                        verticalNormalizedPosition = 0;
-                    }
+                if (!IsExtraHeightRectSize(verticalCount))
+                {
+                    var rectIndex = _index;
+                    var rectSize = (_itemSize.y + ItemSpace(false)) * rectIndex;
+                    per = 1f - (rectSize / GetVisibleRectHeight());
                 }
+
+                verticalNormalizedPosition = Math.Min(1, per);
+            } else
+            if (warpMode && _index == _listDates.Count - 1)
+            {
+                verticalNormalizedPosition = 0;
             }
-            */
+        }
+    }
+    */
         }
 
         /// <summary>
@@ -1081,23 +1083,23 @@ namespace Ryneus
             return (verticalCount + 1) * Cols();
         }
 
-/*
-        private int ListItemCount(bool horizontal)
-        {
-            var width = GetViewPortWidth();
-            var height = GetViewPortHeight();
-            var listMargin = ListMargin(horizontal);
-            var space = ItemSpace(horizontal);
-            if (horizontal)
-            {
-                return ((int)Math.Floor((width - listMargin) / (_itemSize.x + space))) * Cols();
-            }
-            else
-            {
-                return ((int)Math.Floor((height - listMargin) / (_itemSize.y + space))) * Rows();
-            }
-        }
-*/
+        /*
+                private int ListItemCount(bool horizontal)
+                {
+                    var width = GetViewPortWidth();
+                    var height = GetViewPortHeight();
+                    var listMargin = ListMargin(horizontal);
+                    var space = ItemSpace(horizontal);
+                    if (horizontal)
+                    {
+                        return ((int)Math.Floor((width - listMargin) / (_itemSize.x + space))) * Cols();
+                    }
+                    else
+                    {
+                        return ((int)Math.Floor((height - listMargin) / (_itemSize.y + space))) * Rows();
+                    }
+                }
+        */
 
         public void ResetScrollRect()
         {

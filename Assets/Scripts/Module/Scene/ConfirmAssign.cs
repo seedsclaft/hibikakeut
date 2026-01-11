@@ -20,7 +20,6 @@ namespace Ryneus
                 prefab.transform.SetParent(transform, false);
                 _createdPopupPrefabs[popupType] = prefab;
                 first = true;
-                //CloseConfirm();
             }
             gameObject.SetActive(true);
             prefab = _createdPopupPrefabs[popupType];

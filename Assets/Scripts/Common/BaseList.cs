@@ -59,7 +59,8 @@ namespace Ryneus
             if (!resetScrollRect)
             {
                 selectIndex = Index;
-            } else
+            }
+            else
             {
                 selectIndex = listData.FindIndex(a => a.Selected.Value);
                 if (selectIndex == -1 && !unselect)
@@ -96,25 +97,26 @@ namespace Ryneus
 
         private void SetListCallHandler()
         {
-            for (int i = 0; i < ItemPrefabList.Count;i++)
+            foreach (var itemPrefab in ItemPrefabList)
             {
-                if (ItemPrefabList.Count > i && ItemPrefabList[i] != null)
+                if (itemPrefab == null)
                 {
-                    var listItem = ItemPrefabList[i].GetComponent<ListItem>();
-                    if (listItem == null)
-                    {
-                        continue;
-                    }
-                    listItem.SetCallHandler(CallListInputHandlerDecide);
-                    listItem.SetSelectHandler((index) =>
-                    {
-                        if (Active)
-                        {
-                            UpdateSelectIndex(index);
-                        }
-                    });
-                    listItem.SetAddListenHandler(true);
+                    continue;
                 }
+                var listItem = itemPrefab.GetComponent<ListItem>();
+                if (listItem == null)
+                {
+                    continue;
+                }
+                listItem.SetCallHandler(CallListInputHandlerDecide);
+                listItem.SetSelectHandler((index) =>
+                {
+                    if (Active)
+                    {
+                        UpdateSelectIndex(index);
+                    }
+                });
+                listItem.SetAddListenHandler(true);
             }
         }
 

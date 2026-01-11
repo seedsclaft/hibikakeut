@@ -49,7 +49,7 @@ namespace Ryneus
                 {
                     var length = Math.Max(3, convertHelpText.Split("\n").Length);
                     var height = 32 + 24 * length;
-                    descriptionListObj.GetComponent<RectTransform>().sizeDelta = new Vector2(440,height);
+                    descriptionListObj.GetComponent<RectTransform>().sizeDelta = new Vector2(440, height);
                     LayoutRebuilder.ForceRebuildLayoutImmediate(descriptionListTarget.GetComponent<RectTransform>());
                     descriptionScrollRect.vertical = length > 3;
                 }
@@ -63,7 +63,8 @@ namespace Ryneus
                 learningCost.gameObject.SetActive(skillInfo.LearningCost.Value > 0);
                 learningCost.SetText(skillInfo.LearningCost.Value.ToString());
                 battleCountTurn?.gameObject?.SetActive(false);
-            } else
+            }
+            else
             {
                 battleCountTurn?.gameObject?.SetActive(skillInfo.Master.SkillType == SkillType.Active || (skillInfo.Master.SkillType == SkillType.Passive && skillInfo.Master.CountTurn > 0));
                 battleCountTurn?.SetText(skillInfo.CountTurn.Value.ToString());
@@ -74,18 +75,21 @@ namespace Ryneus
                 {
                     learningText.transform.parent.gameObject.SetActive(skillInfo.LearningState == LearningState.NotLearnedByAlchemy);
                     learningText.SetText(DataSystem.GetText(381));
-                } else
+                }
+                else
                 if (skillInfo.LearningState == LearningState.NotLearn)
                 {
                     learningText.transform.parent.gameObject.SetActive(skillInfo.LearningState == LearningState.NotLearn);
                     if (skillInfo.LearningLv.Value >= 0)
                     {
                         learningText.SetText(DataSystem.GetReplaceText(2500, skillInfo.LearningLv.Value.ToString()));
-                    } else
+                    }
+                    else
                     {
                         learningText.SetText(DataSystem.GetText(2510));
                     }
-                } else
+                }
+                else
                 {
                     learningText.transform.parent.gameObject.SetActive(false);
                 }
@@ -134,7 +138,7 @@ namespace Ryneus
                 nameText.SetText(skillData.Name);
                 if (nameAndMpCost)
                 {
-                    nameText.rectTransform.sizeDelta = new Vector2(nameText.preferredWidth,nameText.preferredHeight);
+                    nameText.rectTransform.sizeDelta = new Vector2(nameText.preferredWidth, nameText.preferredHeight);
                 }
             }
             var mpCostText = skillData.SkillType == SkillType.Active ? "(" + skillData.MpCost.ToString() + ")" : "";
@@ -208,8 +212,8 @@ namespace Ryneus
             lineImage.gameObject.SetActive(true);
             if (nameAndMpCost)
             {
-                nameText.rectTransform.sizeDelta = new Vector2(nameText.preferredWidth,nameText.preferredHeight);
-                lineImage.rectTransform.sizeDelta = new Vector2(nameText.rectTransform.sizeDelta.x,lineImage.rectTransform.sizeDelta.y);
+                nameText.rectTransform.sizeDelta = new Vector2(nameText.preferredWidth, nameText.preferredHeight);
+                lineImage.rectTransform.sizeDelta = new Vector2(nameText.rectTransform.sizeDelta.x, lineImage.rectTransform.sizeDelta.y);
             }
         }
 
@@ -219,11 +223,13 @@ namespace Ryneus
             if (rankType == RankType.ActiveRank1)
             {
                 textId = 2310;
-            } else
+            }
+            else
             if (rankType >= RankType.Uniq)
             {
                 textId = 2340;
-            } else
+            }
+            else
             if (rankType >= RankType.RelicRank1)
             {
                 textId = 2330;

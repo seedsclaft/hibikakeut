@@ -593,7 +593,7 @@ namespace Ryneus
                     skillInfo = learnSkillInfos[0];
                 }
             }
-            var advId = 10000 + (actorIndex * 100) + (seek * 10);
+            var advId = 10000 + (actorInfo.ActorId.Value * 100) + (seek * 10);
             // TimeStampを取得してBgmをフェードアウト
             _model.UpdateEventObjects();
             var timeStamp = SoundManager.Instance.CurrentTimeStamp();
@@ -604,6 +604,7 @@ namespace Ryneus
                 {
                     var levelUpViewInfo = _model.MakeLevelUpViewInfo(actorInfo, 0);
                     levelUpViewInfo.SetSkillInfo(skillInfo);
+                    actorInfo.ChangeEquipSkill(skillInfo.Id.Value, 0);
                     levelUpViewInfo.SetActorInfo(actorInfo);
                     actorInfo.LearnSkill(skillInfo.Id.Value);
                     levelUpViewInfo.LearnSkill.SetValue(DataSystem.GetText(2520));

@@ -347,7 +347,7 @@ namespace Ryneus
                 actorInfo.ChangeHp(actorInfo.CurrentHp.Value + afterHp - beforeHp);
             }
             // 魔法新規取得
-            if (afterSkills.Count > 0)
+            if (afterLv > beforeLv && afterSkills.Count > 0)
             {
                 levelUpViewInfo.SetSkillInfo(afterSkills[0]);
                 levelUpViewInfo.LearnSkill.SetValue(DataSystem.GetText(2530));

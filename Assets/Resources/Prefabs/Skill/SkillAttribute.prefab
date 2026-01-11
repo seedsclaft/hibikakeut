@@ -55,6 +55,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickButton: {fileID: 3694375418275320458}
   cursor: {fileID: 8969887319480949761}
+  selectArrow: {fileID: 0}
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
   disable: {fileID: 0}
@@ -67,10 +68,11 @@ MonoBehaviour:
   iconSprites:
   - {fileID: 21300000, guid: c4d59280377ca7c4684a7d306f2f33fe, type: 3}
   - {fileID: 226074713, guid: 91c7e120bb6b9084ab8f6639ed9db9b5, type: 3}
-  - {fileID: 1468831942, guid: 91c7e120bb6b9084ab8f6639ed9db9b5, type: 3}
-  - {fileID: -900922403, guid: 91c7e120bb6b9084ab8f6639ed9db9b5, type: 3}
-  - {fileID: 1898069420, guid: 91c7e120bb6b9084ab8f6639ed9db9b5, type: 3}
-  - {fileID: -938853518, guid: 91c7e120bb6b9084ab8f6639ed9db9b5, type: 3}
+  - {fileID: -1725807610, guid: 91c7e120bb6b9084ab8f6639ed9db9b5, type: 3}
+  - {fileID: 1615079212, guid: 91c7e120bb6b9084ab8f6639ed9db9b5, type: 3}
+  - {fileID: -1779575319, guid: 91c7e120bb6b9084ab8f6639ed9db9b5, type: 3}
+  - {fileID: 1854944043, guid: 91c7e120bb6b9084ab8f6639ed9db9b5, type: 3}
+  - {fileID: 648745175, guid: 91c7e120bb6b9084ab8f6639ed9db9b5, type: 3}
 --- !u!114 &3694375418275320458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,13 +363,14 @@ MonoBehaviour:
   lineImage: {fileID: 0}
   skillTypeBgRoot: {fileID: 0}
   type: {fileID: 0}
-  value: {fileID: 0}
+  useCount: {fileID: 0}
   description: {fileID: 0}
   descriptionListObj: {fileID: 0}
   descriptionListTarget: {fileID: 0}
   descriptionScrollRect: {fileID: 0}
   range: {fileID: 0}
   learningCost: {fileID: 0}
+  countTurnRoot: {fileID: 0}
   countTurn: {fileID: 0}
   battleCountTurn: {fileID: 0}
   learningText: {fileID: 0}
