@@ -71,7 +71,8 @@ namespace Ryneus
                             FileName = AssetPostImporter.ImportString(BaseRow, "FileName"),
                             Volume = AssetPostImporter.ImportFloat(BaseRow, "Volume"),
                             Loop = AssetPostImporter.ImportBool(BaseRow, "Loop"),
-                            CrossFade = AssetPostImporter.ImportString(BaseRow, "CrossFade")
+                            CrossFade = AssetPostImporter.ImportString(BaseRow, "CrossFade"),
+                            ResourceType = AssetPostImporter.ImportNumeric(BaseRow, "ResourceType")
                         };
                         Data.Data.Add(BGM);
                     }

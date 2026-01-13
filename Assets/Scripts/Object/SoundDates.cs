@@ -20,5 +20,6 @@ namespace Ryneus
         public bool Loop;
         public string CrossFade;
         public float Pitch = 1;
+        public int ResourceType;
     }
 }
