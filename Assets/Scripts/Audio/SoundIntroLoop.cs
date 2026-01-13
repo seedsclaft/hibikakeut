@@ -99,8 +99,8 @@ namespace Ryneus
                 _loopAudioSource.SetAudioData(clips[1], clips[1] == null ? false : isLoop);
 
 #if UNITY_WEBGL
-                _loopWebGLAudioSource.SetAudioData(clip[1]);
-                if (clip[1] != null)
+                _loopWebGLAudioSource.SetAudioData(clips[1]);
+                if (clips[1] != null)
                 {
                     _loopAudioSource.SetReserveTimestamp();
                     _loopWebGLAudioSource.SetReserveTimestamp();
@@ -133,13 +133,13 @@ namespace Ryneus
             {
                 if (_nowPlayIndex == 0 && _loopAudioSource.IsLoopEnded(_reservedTime))
                 {
-                    float reserve = _loopAudioSource.ReserveTimeSample - _loopAudioSource.timeSamples();
+                    float reserve = _loopAudioSource.ReserveTimeSample - _loopAudioSource.TimeSamples();
                     _nowPlayIndex = 1;
                     _loopWebGLAudioSource.PlayDelay((reserve) / 44100);
                 }
                 else if (_nowPlayIndex == 1 && _loopWebGLAudioSource.IsLoopEnded(_reservedTime))
                 {
-                    float reserve = _loopWebGLAudioSource.ReserveTimeSample - _loopWebGLAudioSource.timeSamples();
+                    float reserve = _loopWebGLAudioSource.ReserveTimeSample - _loopWebGLAudioSource.TimeSamples();
                     _nowPlayIndex = 0;
                     _loopAudioSource.PlayDelay((reserve) / 44100);
                 }

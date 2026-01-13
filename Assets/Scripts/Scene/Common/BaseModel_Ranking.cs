@@ -40,7 +40,7 @@ namespace Ryneus
         {
             var userId = CurrentData.PlayerInfo.UserId.ToString();
             var rankingText = "";
-#if UNITY_WEBGL || UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
             FirebaseController.Instance.CurrentRankingData(userId);
             await UniTask.WaitUntil(() => FirebaseController.IsBusy == false);
             var currentScore = FirebaseController.CurrentScore;
