@@ -70,6 +70,16 @@ namespace Ryneus
         {
             PartyInfo.UseItemHeal(heal);
         }
+
+        public int GetExpValue(ItemInfo itemInfo)
+        {
+            var getExp = itemInfo.Master.Param2;
+            if (CurrentActor.Level <= itemInfo.Master.Param3)
+            {
+                getExp *= 2;
+            }
+            return getExp;
+        }
     }
 
     public class UseItemSceneInfo

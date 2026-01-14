@@ -106,7 +106,7 @@ namespace Ryneus
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var actorInfos = _model.CurrentDeckActorInfos();
-            CommandStatusInfo(actorInfos,false,true,true,false,actorInfos[0].ActorId.Value,() => 
+            CommandActorStatusInfo(actorInfos, false, actorInfos[0].ActorId.Value, () =>
             {
                 ClosePopup();
             });
@@ -266,15 +266,12 @@ namespace Ryneus
             {
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 _model.DeletePlayerData();
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(13310), (a) =>
-
+                CallConfirmNoChoiceView(DataSystem.GetText(13310), (a) =>
                 {
                     SoundManager.Instance.StopBgm();
                     _view.CallSystemCommand(Base.CommandType.CloseStatus);
                     _view.CommandGotoSceneChange(Scene.Boot);
                 });
-                confirmInfo.SetIsNoChoice(true);
-                _view.CommandCallConfirm(confirmInfo);
             }
             else
             {
@@ -289,15 +286,12 @@ namespace Ryneus
             {
                 _view.CallSystemCommand(Base.CommandType.ClosePopup);
                 _model.DeleteStageData();
-                var confirmInfo = new ConfirmInfo(DataSystem.GetText(13310), (a) =>
-
+                CallConfirmNoChoiceView(DataSystem.GetText(13310), (a) =>
                 {
                     SoundManager.Instance.StopBgm();
                     _view.CallSystemCommand(Base.CommandType.CloseStatus);
                     _view.CommandGotoSceneChange(Scene.Boot);
                 });
-                confirmInfo.SetIsNoChoice(true);
-                _view.CommandCallConfirm(confirmInfo);
             }
             else
             {

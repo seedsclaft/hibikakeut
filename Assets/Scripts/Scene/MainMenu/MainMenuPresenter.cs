@@ -20,7 +20,7 @@ namespace Ryneus
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             _view.SetHelpWindow();
             _view.SetEvent((type) => UpdateCommand(type));
@@ -54,7 +54,8 @@ namespace Ryneus
                 _view.UpdateBattleFieldNotice(_model.HasBattleField());
                 CommandRefresh();
                 _busy = true;
-            } else
+            }
+            else
             {
                 _view.ClearMainMenuStart();
                 CommandEndAnimation();
@@ -191,11 +192,11 @@ namespace Ryneus
                 case "Status":
                     UpdateCommandSelecting(false);
                     var actorInfos = _model.PartyInfo.ActorInfos;
-                    CommandStatusInfo(actorInfos, false, true, true, false, actorInfos[0].ActorId.Value, () =>
+                    CommandActorStatusInfo(actorInfos, false, actorInfos[0].ActorId.Value, () =>
                     {
                         UpdateCommandSelecting(true);
                         CommandRefresh();
-                    }, false, true);
+                    });
                     break;
             }
         }
@@ -228,7 +229,7 @@ namespace Ryneus
             // 未編成のキャラがいる
             if (_model.CheckBeforeDepature())
             {
-                CallConfirmView(DataSystem.GetText(11030),(a) =>
+                CallConfirmView(DataSystem.GetText(11030), (a) =>
                 {
                     if (a == ConfirmCommandType.Yes)
                     {
@@ -358,7 +359,7 @@ namespace Ryneus
             }
             _busy = true;
             UpdateCommandSelecting(false);
-            
+
             CallPopupView(PopupType.Transfer, () =>
             {
                 ClosePopupView();
@@ -440,7 +441,7 @@ namespace Ryneus
             UpdateCommandSelecting(false);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var actorInfos = _model.CurrentDeckActorInfos();
-            CommandStatusInfo(actorInfos, false, true, true, false, actorInfos[0].ActorId.Value, () =>
+            CommandActorStatusInfo(actorInfos, false, actorInfos[0].ActorId.Value, () =>
             {
                 _busy = false;
                 UpdateCommandSelecting(true);

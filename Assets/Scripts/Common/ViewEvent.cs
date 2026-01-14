@@ -27,6 +27,13 @@ namespace Ryneus
         }
     }
 
+    public class OtherViewEvent
+    {
+        public ViewCommandSceneType ViewCommandSceneType;
+        public object CommandType;
+        public object Templete;
+    }
+
     public enum ViewCommandSceneType
     {
         None,

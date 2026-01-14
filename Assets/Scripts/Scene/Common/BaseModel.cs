@@ -25,14 +25,14 @@ namespace Ryneus
         //public int RemainTurns => CurrentStage.Master.StageSymbols.Max(a => a.Seek) - CurrentStage.Seek + 1;
 
         public CancellationTokenSource _cancellationTokenSource;
-        public List<ActorInfo> StageMembers()
+        public List<ActorInfo> PartyMembers()
         {
             return PartyInfo.ActorInfos;
         }
 
         public List<ActorInfo> BattleMembers()
         {
-            var members = StageMembers().FindAll(a => a.BattleIndex.Value >= 0);
+            var members = PartyMembers().FindAll(a => a.BattleIndex.Value >= 0);
             members.Sort((a, b) => a.BattleIndex.Value > b.BattleIndex.Value ? 1 : -1);
             return members;
         }
@@ -213,7 +213,7 @@ namespace Ryneus
         /// </summary>
         public List<ActorInfo> PastActorInfos()
         {
-            var stageMembers = StageMembers();
+            var stageMembers = PartyMembers();
             foreach (var actorInfo in PartyInfo.ActorInfos)
             {
                 if (!stageMembers.Contains(actorInfo))

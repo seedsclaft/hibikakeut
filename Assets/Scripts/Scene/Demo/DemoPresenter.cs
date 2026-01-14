@@ -4,7 +4,6 @@ namespace Ryneus
     {
         DemoView _view = null;
         DemoModel _model = null;
-        private bool _busy = true;
 
         public DemoPresenter(DemoView view)
         {
@@ -17,13 +16,10 @@ namespace Ryneus
 
         private async void Initialize()
         {
-            _busy = true;
-
             var bgmData = DataSystem.BGM.Find(a => a.Key == "Mainmenu");
             var bgm = await _model.GetBgmData("Mainmenu");
             SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true);
             _view.StartAnimation();
-            _busy = false;
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Ryneus
     {
         private StatusModel _model = null;
         private StatusView _view = null;
-        private CommandType _popupCommandType = CommandType.None;
         private bool _busy = false;
         public StatusPresenter(StatusView view)
         {
@@ -517,7 +516,7 @@ namespace Ryneus
             });
         }
 
-        private async Task CommandLeftActor()
+        private void CommandLeftActor()
         {
             if (_model.ActorInfos.Count == 1)
             {
@@ -533,7 +532,7 @@ namespace Ryneus
             _busy = false;
         }
 
-        private async Task CommandRightActor()
+        private void CommandRightActor()
         {
             if (_model.ActorInfos.Count == 1)
             {

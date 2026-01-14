@@ -31,7 +31,7 @@ namespace Ryneus
 
         public void AddPlayerInfoActorSkillId(int actorId)
         {
-            foreach (var skillInfo in StageMembers().Find(a => a.ActorId.Value == actorId).ChangeAbleSkills())
+            foreach (var skillInfo in PartyMembers().Find(a => a.ActorId.Value == actorId).ChangeAbleSkills())
             {
                 AddPlayerInfoSkillId(skillInfo.Id.Value);
             }

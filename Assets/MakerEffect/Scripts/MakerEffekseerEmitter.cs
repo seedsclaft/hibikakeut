@@ -8,8 +8,8 @@ namespace Ryneus
     {
         public ParameterBool SoundPlay = new();
         private List<MakerEffectSound> _effectSounds = new();
-		public new EffekseerHandle Play(EffekseerEffectAsset effectAsset)
-		{
+        public new EffekseerHandle Play(EffekseerEffectAsset effectAsset)
+        {
             if (effectAsset is MakerEffectAsset && SoundPlay.Value)
             {
                 var makerEffectAsset = (MakerEffectAsset)effectAsset;
@@ -19,7 +19,7 @@ namespace Ryneus
                 }
             }
             return base.Play(effectAsset);
-		}
+        }
 
         private void PlayMakerEffectSound(MakerEffectData.SoundTimings soundTimings)
         {
@@ -41,7 +41,7 @@ namespace Ryneus
             {
                 clip = clip
             };
-            SoundManager.Instance.PlaySe(clip,volume,pitch);
+            SoundManager.Instance.PlaySe(clip, volume, pitch);
             /*
             Effekseer.Internal.EffekseerSoundPlayer.Instance.PlaySound(
                 resource,volume,pan,pitch,false,0,0,0,0
@@ -49,16 +49,17 @@ namespace Ryneus
             */
         }
 
-        private void Update() 
+        private new void Update()
         {
             base.Update();
-            for (int i = _effectSounds.Count-1;i >= 0;i--)
+            for (int i = _effectSounds.Count - 1; i >= 0; i--)
             {
                 if (_effectSounds[i].frame == 0)
                 {
                     PlaySound(_effectSounds[i].soundTimings);
                     _effectSounds.RemoveAt(i);
-                } else
+                }
+                else
                 {
                     _effectSounds[i].frame--;
                 }

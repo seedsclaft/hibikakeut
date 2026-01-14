@@ -58,6 +58,17 @@ namespace Ryneus
             _view.CommandCallConfirm(confirmInfo);
         }
 
+        public void CallCommandOther(ViewCommandSceneType sceneType, object commandType, object sendData = null)
+        {
+            var otherViewEvent = new OtherViewEvent
+            {
+                ViewCommandSceneType = sceneType,
+                CommandType = commandType,
+                Templete = sendData
+            };
+            _view.CallSystemCommand(Base.CommandType.CommandOther, otherViewEvent);
+        }
+
         public List<ListData> MakeListData<T>(List<T> dataList)
         {
             return ListData.MakeListData(dataList);
@@ -301,6 +312,24 @@ namespace Ryneus
         /// ステータス詳細を表示
         /// </summary>
         /// <param name="actorInfos"></param>
+        public void CommandActorStatusInfo(List<ActorInfo> actorInfos, bool inBattle, int startIndex = -1, Action closeEvent = null)
+        {
+            CommandStatusInfo(actorInfos, inBattle, true, false, false, startIndex, closeEvent);
+        }
+
+        /// <summary>
+        /// 仲間加入ステータス詳細を表示
+        /// </summary>
+        /// <param name="actorInfos"></param>
+        public void CommandAddActorStatusInfo(List<ActorInfo> actorInfos, Action closeEvent = null)
+        {
+            CommandStatusInfo(actorInfos, false, false, false, true, 0, closeEvent);
+        }
+
+        /// <summary>
+        /// ステータス詳細を表示
+        /// </summary>
+        /// <param name="actorInfos"></param>
         public void CommandStatusInfo(List<ActorInfo> actorInfos, bool inBattle, bool backButton = true, bool levelUpObj = true, bool addActor = false, int startIndex = -1, Action closeEvent = null, bool isRanking = false, bool characterList = false)
         {
             var statusViewInfo = new StatusViewInfo(() =>
@@ -320,29 +349,6 @@ namespace Ryneus
             statusViewInfo.DisplayLvUpInfo.SetValue(levelUpObj);
             statusViewInfo.DisplayBackButton.SetValue(backButton);
             statusViewInfo.IsRanking.SetValue(isRanking);
-            _view.CallSystemCommand(Base.CommandType.CallStatusView, statusViewInfo);
-            _view.ChangeUIActive(false);
-        }
-
-        /// <summary>
-        /// 仲間加入ステータス詳細を表示
-        /// </summary>
-        /// <param name="actorInfos"></param>
-        public void CommandAddActorStatusInfo(List<ActorInfo> actorInfos, Action closeEvent = null)
-        {
-            var statusViewInfo = new StatusViewInfo(() =>
-            {
-                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-                _view.CallSystemCommand(Base.CommandType.CloseStatus);
-                _view.ChangeUIActive(true);
-                closeEvent?.Invoke();
-            });
-            statusViewInfo.SetActorInfos(actorInfos, false);
-            statusViewInfo.AddActor.SetValue(true);
-            statusViewInfo.DisplayCharacterList.SetValue(true);
-            statusViewInfo.DisplayLvUpInfo.SetValue(false);
-            statusViewInfo.DisplayBackButton.SetValue(false);
-            statusViewInfo.IsRanking.SetValue(false);
             _view.CallSystemCommand(Base.CommandType.CallStatusView, statusViewInfo);
             _view.ChangeUIActive(false);
         }

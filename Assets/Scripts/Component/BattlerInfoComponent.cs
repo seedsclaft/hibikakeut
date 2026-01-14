@@ -384,7 +384,6 @@ namespace Ryneus
             }
             var imageRect = image.gameObject.GetComponent<RectTransform>();
             var effectRect = effekseerEmitter.gameObject.GetComponent<RectTransform>();
-            var y = 0;
             if (_battlerInfo.IsActorView)
             {
                 if (animationPosition == AnimationPosition.Center)

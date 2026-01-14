@@ -112,12 +112,10 @@ namespace Ryneus
             _model.ChangeDungeonTurn(turns);
             _busy = true;
 
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(42020), (a) =>
+            CallConfirmNoChoiceView(DataSystem.GetText(42020), (a) =>
             {
                 _busy = false;
             });
-            confirmInfo.SetIsNoChoice(true);
-            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void UseItemHeal(ItemInfo itemInfo)
@@ -139,25 +137,19 @@ namespace Ryneus
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
-            _view.UseItemHeal(heal);
+            CallCommandOther(ViewCommandSceneType.Dungeon, Dungeon.CommandType.UseItemHeal, heal);
         }
 
         private void UseItemExp(ItemInfo itemInfo)
         {
-            var getExp = itemInfo.Master.Param2;
-            if (_model.CurrentActor.Level <= itemInfo.Master.Param3)
-            {
-                getExp *= 2;
-            }
+            var getExpValue = _model.GetExpValue(itemInfo);
             _busy = true;
             _model.PartyInfo.PartyStatInfo.TacticsLvupCount.GainValue(1);
-            CommandExpUp(_model.CurrentActor, getExp, () =>
+            CommandExpUp(_model.CurrentActor, getExpValue, () =>
             {
                 CheckAchievements();
                 _busy = false;
-                //CommandRefreshMagicList(false);
             });
-            //CommandRefreshuseItemList();
         }
 
         private void UseItemAttributeUp(ItemInfo itemInfo)

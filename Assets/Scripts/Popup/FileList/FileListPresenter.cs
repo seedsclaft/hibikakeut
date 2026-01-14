@@ -29,7 +29,7 @@ namespace Ryneus
             _view.OpenAnimation();
         }
 
-        private void UpdateCommand(ViewEvent viewEvent)
+        private async Task UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
             {
@@ -45,10 +45,10 @@ namespace Ryneus
                     Initialize();
                     break;
                 case CommandType.DecideFile:
-                    CommandDecideFile((SaveFileInfo)viewEvent.Template);
+                    await CommandDecideFile((SaveFileInfo)viewEvent.Template);
                     break;
                 case CommandType.DeleteFile:
-                    CommandDeleteFile((SaveFileInfo)viewEvent.Template);
+                    await CommandDeleteFile((SaveFileInfo)viewEvent.Template);
                     break;
             }
         }

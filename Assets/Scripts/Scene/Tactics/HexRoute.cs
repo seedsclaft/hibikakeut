@@ -208,7 +208,7 @@ namespace Ryneus
             // 最小実コストの初期化
             var minACost = 9999999;
             // 最小ノードのID(loopの値)
-            int? minNodeID = null;
+            //int? minNodeID = null;
 
             var listMax = _openList.Count;
             HexField node;

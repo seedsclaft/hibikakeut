@@ -79,6 +79,7 @@ namespace Ryneus
         public BaseList ActivateView => _viewActives.Find(a => a.Active);
 
         private ViewCommandSceneType _viewCommandSceneType = ViewCommandSceneType.None;
+        public ViewCommandSceneType ViewCommandSceneType => _viewCommandSceneType;
         public void SetViewCommandSceneType(ViewCommandSceneType viewCommandSceneType) => _viewCommandSceneType = viewCommandSceneType;
         public void CallViewEvent(object template, object sendData = null)
         {
@@ -87,23 +88,6 @@ namespace Ryneus
                 return;
             }
             var commandType = new ViewCommandType(_viewCommandSceneType, template);
-            var eventData = new ViewEvent(commandType)
-            {
-                Template = sendData
-            };
-            foreach (var commandData in _commandData)
-            {
-                commandData(eventData);
-            }
-        }
-
-        public void CallOtherViewEvent(ViewCommandSceneType sceneType, object template, object sendData = null)
-        {
-            if (sceneType == ViewCommandSceneType.None)
-            {
-                return;
-            }
-            var commandType = new ViewCommandType(sceneType, template);
             var eventData = new ViewEvent(commandType)
             {
                 Template = sendData
@@ -460,6 +444,7 @@ namespace Ryneus
             CallStatusView,
             CloseStatus,
             CallAdvScene,
+            CommandOther,
             CallEnemyInfoView,
             CallSkillTriggerView,
             CallSkillLogView,

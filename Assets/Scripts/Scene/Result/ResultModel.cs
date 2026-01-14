@@ -15,7 +15,7 @@ namespace Ryneus
 
         public List<ActorInfo> TacticsActors()
         {
-            return StageMembers();
+            return PartyMembers();
         }
 
         public string BattleTotalScore()

@@ -34,7 +34,7 @@ namespace Ryneus
             _view.CallSystemCommand(Base.CommandType.SetRouteSelect,route);
             var bgm = await _model.GetBgmData("Interrude");
             SoundManager.Instance.PlayBgm(bgm, 1.0f, true);
-            var displayActorInfos = _model.DisplayActorInfos();
+            var displayActorInfos = _model.PartyMembers();
             _view.StartTitleAnimation();
             _busy = false;
         }

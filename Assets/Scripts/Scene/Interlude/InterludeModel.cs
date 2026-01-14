@@ -126,11 +126,6 @@ namespace Ryneus
             return false;
         }
 
-        public List<ActorInfo> DisplayActorInfos()
-        {
-            return PartyInfo.ActorInfos;
-        }
-
         public string ClearStageNum()
         {
             var clearStageNum = 0;

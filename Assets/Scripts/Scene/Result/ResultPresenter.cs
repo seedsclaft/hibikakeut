@@ -88,11 +88,11 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
-    
+
         private void ShowStatus()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            CommandStatusInfo(_model.StageMembers(),false,true,false,false,-1,() => 
+            CommandStatusInfo(_model.PartyMembers(),false,true,false,false,-1,() => 
             {
                 _view.SetHelpText(DataSystem.GetText(20020));
             });

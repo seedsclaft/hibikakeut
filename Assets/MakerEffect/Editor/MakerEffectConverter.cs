@@ -9,7 +9,7 @@ namespace Ryneus
     public class MakerEffectConverter : AssetPostprocessor
     {
         static readonly string ImportPath = "Assets/MakerEffect/JsonFile";
-        static readonly string EffectPath = "Assets/MakerEffect/Resources/Genfulew_Effect/";
+        //static readonly string EffectPath = "Assets/MakerEffect/Resources/Genfulew_Effect/";
         static readonly string ExportPath = "Assets/MakerEffect/Resources/Animations/";
         
         static readonly string SoundPath = "Assets/MakerEffect/Resources/Se/";

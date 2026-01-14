@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -12,15 +13,18 @@ namespace Ryneus
         [SerializeField] private GameSystem gameSystem = null;
         void Start()
         {
-    #if UNITY_EDITOR
-            consoleInputField.onEndEdit.AddListener((a) => CallConsoleCommand(a));
+#if UNITY_EDITOR
+            consoleInputField.onEndEdit.AddListener(async (a) =>
+            {
+                await CallConsoleCommand(a);
+            });
             gameObject.SetActive(true);
-    #else
+#else
             gameObject.SetActive(false);
-    #endif
+#endif
         }
 
-        void CallConsoleCommand(string inputText)
+        async Task CallConsoleCommand(string inputText)
         {
             /*
             if (consoleInputField.text.Contains("TS"))
@@ -93,46 +97,46 @@ namespace Ryneus
             }
             if (consoleInputField.text == "S0")
             {
-                SaveSystem.SaveStageInfo(GameSystem.GameInfo,0);
+                SaveSystem.SaveStageInfo(GameSystem.GameInfo, 0);
             }
             if (consoleInputField.text == "S1")
             {
-                SaveSystem.SaveStageInfo(GameSystem.GameInfo,1);
+                SaveSystem.SaveStageInfo(GameSystem.GameInfo, 1);
             }
             if (consoleInputField.text == "S2")
             {
-                SaveSystem.SaveStageInfo(GameSystem.GameInfo,2);
+                SaveSystem.SaveStageInfo(GameSystem.GameInfo, 2);
             }
             if (consoleInputField.text == "S3")
             {
-                SaveSystem.SaveStageInfo(GameSystem.GameInfo,3);
+                SaveSystem.SaveStageInfo(GameSystem.GameInfo, 3);
             }
             if (consoleInputField.text == "S4")
             {
-                SaveSystem.SaveStageInfo(GameSystem.GameInfo,4);
+                SaveSystem.SaveStageInfo(GameSystem.GameInfo, 4);
             }
             if (consoleInputField.text == "L1")
             {
-                SaveSystem.LoadStageInfo(1);
-                var sceneInfo = new SceneInfo(){ToScene = Scene.Tactics};
+                await SaveSystem.LoadStageInfo(1);
+                var sceneInfo = new SceneInfo() { ToScene = Scene.Tactics };
                 gameSystem.CommandSceneChange(sceneInfo);
             }
             if (consoleInputField.text == "L2")
             {
-                SaveSystem.LoadStageInfo(2);
-                var sceneInfo = new SceneInfo(){ToScene = Scene.Tactics};
+                await SaveSystem.LoadStageInfo(2);
+                var sceneInfo = new SceneInfo() { ToScene = Scene.Tactics };
                 gameSystem.CommandSceneChange(sceneInfo);
             }
             if (consoleInputField.text == "L3")
             {
-                SaveSystem.LoadStageInfo(3);
-                var sceneInfo = new SceneInfo(){ToScene = Scene.Tactics};
+                await SaveSystem.LoadStageInfo(3);
+                var sceneInfo = new SceneInfo() { ToScene = Scene.Tactics };
                 gameSystem.CommandSceneChange(sceneInfo);
             }
             if (consoleInputField.text == "L4")
             {
-                SaveSystem.LoadStageInfo(4);
-                var sceneInfo = new SceneInfo(){ToScene = Scene.Tactics};
+                await SaveSystem.LoadStageInfo(4);
+                var sceneInfo = new SceneInfo() { ToScene = Scene.Tactics };
                 gameSystem.CommandSceneChange(sceneInfo);
             }
         }

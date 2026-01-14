@@ -34,6 +34,10 @@ namespace Ryneus
         
         public void PushPopupInfo(PopupInfo popupInfo)
         {
+            if (_popupInfo.Contains(popupInfo))
+            {
+                return;
+            }
             _popupInfo.Add(popupInfo);
         }
 

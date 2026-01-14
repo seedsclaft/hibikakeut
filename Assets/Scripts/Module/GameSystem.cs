@@ -71,6 +71,7 @@ namespace Ryneus
             _model = new BaseModel();
             _lastTutorialData = null;
             Version = Application.version;
+            _sceneStackManager.ClearPopupInfo();
 #if UNITY_EDITOR
             DebugBattleData = debugBattleData;
 #endif 
@@ -194,6 +195,22 @@ namespace Ryneus
                         advEngine.Param.SetParameterString("PlayerName", (string)viewEvent.Template);
                     }
                     break;
+                case Base.CommandType.CommandOther:
+                    var otherViewEvent = (OtherViewEvent)viewEvent.Template;
+                    var sceneBaseView = _currentScene.gameObject.GetComponent<BaseView>();
+                    if (sceneBaseView.ViewCommandSceneType == otherViewEvent.ViewCommandSceneType)
+                    {
+                        sceneBaseView.CallViewEvent(otherViewEvent.CommandType, otherViewEvent.Templete);
+                    }
+                    else
+                    {
+                        var popupBaseView = popupAssign.LastPopupView;
+                        if (popupBaseView.ViewCommandSceneType == otherViewEvent.ViewCommandSceneType)
+                        {
+                            popupBaseView.CallViewEvent(otherViewEvent.CommandType, otherViewEvent.Templete);
+                        }
+                    }
+                    break;
                 case Base.CommandType.CallLoading:
                     loadingView.gameObject.SetActive(true);
                     break;
@@ -283,7 +300,6 @@ namespace Ryneus
             {
                 confirmView.SetLevelup(confirmInfo.From, confirmInfo.To);
             }
-            //SetIsBusyMainAndStatus();
         }
 
         private void CommandMissionClearView(MissionClearInfo confirmInfo)
@@ -308,10 +324,6 @@ namespace Ryneus
             if (first)
             {
                 baseView.SetEvent((type) => UpdateCommand(type));
-                if (popupInfo.PopupType == PopupType.UseItem && _sceneStackManager.Current == Scene.Dungeon)
-                {
-                    baseView.SetEvent(_currentScene.gameObject.GetComponent<BaseView>()._commandData);
-                }
             }
             baseView.Initialize();
             if (first)
@@ -342,7 +354,6 @@ namespace Ryneus
                 classChange.SetClassChangeInfo((ClassChangeInfo)popupInfo.template);
             }
             _inputableBaseViews.Add(baseView);
-            //SetIsBusyMainAndStatus();
         }
 
         private void CommandSkillTriggerView(SkillTriggerViewInfo skillTriggerViewInfo)
@@ -404,7 +415,7 @@ namespace Ryneus
             });
         }
 
-        IEnumerator JumpScenarioAsync(string label, Action onComplete)
+        private IEnumerator JumpScenarioAsync(string label, Action onComplete)
         {
             _busy = true;
             //advHelpWindow.SetInputInfo("ADV_READING");
@@ -427,7 +438,6 @@ namespace Ryneus
             }
             advController.EndAdv();
             _inputableBaseViews.Remove(advController);
-            //advHelpWindow.SetInputInfo("");
 
             _busy = false;
             onComplete?.Invoke();
@@ -451,19 +461,7 @@ namespace Ryneus
             {
                 sceneInfo.FromScene = _sceneStackManager.Current;
             }
-            if (true)
-            {
-                mapAssign.gameObject.SetActive(sceneInfo.ToScene == Scene.Dungeon);
-                /*
-                if (sceneInfo.ToScene != Scene.Dungeon)
-                {
-                    _moveController.HideUI();
-                } else
-                {
-                    _moveController.ShowUI();
-                }
-                */
-            }
+            mapAssign.gameObject.SetActive(sceneInfo.ToScene == Scene.Dungeon);
             var prefab = sceneAssign.CreateScene(sceneInfo.ToScene, helpWindow);
             _currentScene = prefab.GetComponent<BaseView>();
             _currentScene.SetTestMode(testMode);
@@ -548,26 +546,6 @@ namespace Ryneus
             _model.ReadTutorialData(tutorialData);
         }
 
-        public void CheckInputableBaseview()
-        {
-            // Confirm
-            // Popup
-            var popupBaseView = popupAssign.LastPopupView;
-            if (popupBaseView != null)
-            {
-                //_inputableBaseView = popupBaseView;
-                return;
-            }
-            // Status
-            var statusBaseView = statusAssign.gameObject.activeSelf;
-            if (statusBaseView && statusAssign.StatusView != null)
-            {
-                //_inputableBaseView = statusAssign.StatusView;
-                return;
-            }
-            // Scene
-            //_inputableBaseView = _currentScene;
-        }
     }
 
 

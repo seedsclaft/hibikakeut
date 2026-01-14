@@ -260,17 +260,6 @@ namespace Ryneus
             }
         }
 
-        private void ShowStatus()
-        {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            CommandStatusInfo(_model.StageMembers(),false,true,false,false,-1,() => 
-            {
-                SetHelpInputSkipEnable();
-                _view.SetHelpText(DataSystem.GetText(20020));
-                _view.SetHelpInputInfo("STRATEGY");
-            });
-        }
-
         private void CommandPopupSkillInfo(GetItemInfo getItemInfo)
         {
             var confirmInfo = new ConfirmInfo("",(a) => {});

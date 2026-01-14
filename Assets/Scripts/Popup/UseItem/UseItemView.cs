@@ -48,11 +48,6 @@ namespace Ryneus
         {
             useItemList.RefreshListData(getItemInfos);
         }
-
-        public void UseItemHeal(int heal)
-        {
-            CallOtherViewEvent(ViewCommandSceneType.Dungeon, Dungeon.CommandType.UseItemHeal, heal);
-        }
     }
 
     namespace UseItem

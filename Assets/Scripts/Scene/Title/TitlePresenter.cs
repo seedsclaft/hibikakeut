@@ -127,20 +127,13 @@ namespace Ryneus
             });
         }
 
-        private async Task CommandContinue()
+        private void CommandContinue()
         {
             if (!_model.ExistsLoadFile())
             {
                 return;
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            /*
-            await _model.LoadFile();
-            _view.CommandChangeDungeon(_model.CurrentStage.Master.Id.ToString("D4"));
-            GameSystem.DungeonViewManager.Initialize();
-            _view.CommandGotoSceneChange(_model.PartyInfo.ResumeScene);
-
-*/
             _busy = true;
             _view.SetBusy(true);
             var sceneParam = new FileListSceneInfo
