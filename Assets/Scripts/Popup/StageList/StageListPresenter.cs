@@ -77,16 +77,14 @@ namespace Ryneus
             }
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(32030), (a) =>
+            CallConfirmStageDetailView(DataSystem.GetText(32030), stageInfo, (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
                     CheckResumeStage(stageInfo.Master.StageNo, stageInfo.StageId.Value);
                 }
                 _busy = false;
-            }, ConfirmType.StageConfirm);
-            confirmInfo.SetStageInfo(stageInfo);
-            _view.CommandCallConfirm(confirmInfo);
+            });
         }
 
         private void CheckResumeStage(int stageNo, int stageId)

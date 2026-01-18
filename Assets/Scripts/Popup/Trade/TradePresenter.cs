@@ -125,51 +125,31 @@ namespace Ryneus
             if (tradeItemInfo.GetItemInfo.Master.Type == GetItemType.Skill)
             {
                 var skillInfo = new SkillInfo(tradeItemInfo.GetItemInfo.Param1);
-                var confirmInfo = new ConfirmInfo("", (a) =>
+                CallConfirmSkillDetailView("", new List<SkillInfo>(){skillInfo}, (a) =>
                 {
                     _busy = false;
                     _view.SetActivateItemList(true);
-                }, ConfirmType.SkillDetail);
-                confirmInfo.SetBackEvent(() =>
-                {
-                    _busy = false;
                 });
-                confirmInfo.SetSkillInfo(new List<SkillInfo>(){skillInfo});
-                confirmInfo.SetIsNoChoice(true);
-                _view.CommandCallConfirm(confirmInfo);
-            } else
+            }
+            else
             if (tradeItemInfo.GetItemInfo.Master.Type == GetItemType.Item)
             {
                 var itemInfo = new ItemInfo(tradeItemInfo.GetItemInfo.Param1, 1);
                 if (itemInfo.Master.ItemType == ItemType.RandumAddSkill)
                 {
                     var skillInfos = _model.GetRandumAddSkillInfos(itemInfo);
-                    var rconfirmInfo = new ConfirmInfo(DataSystem.GetText(34060), (a) =>
+                    CallConfirmSkillDetailView(DataSystem.GetText(34060), skillInfos, (a) =>
                     {
                         _view.SetActivateItemList(true);
                         _busy = false;
-                    }, ConfirmType.SkillDetail);
-                    rconfirmInfo.SetBackEvent(() =>
-                    {
-                        _busy = false;
                     });
-                    rconfirmInfo.SetSkillInfo(skillInfos);
-                    rconfirmInfo.SetIsNoChoice(true);
-                    _view.CommandCallConfirm(rconfirmInfo);
                     return;
                 }
-                var confirmInfo = new ConfirmInfo("", (a) =>
+                CallConfirmItemDetailView("", new List<ItemInfo>(){itemInfo}, (a) =>
                 {
                     _busy = false;
                     _view.SetActivateItemList(true);
-                }, ConfirmType.ItemDetail);
-                confirmInfo.SetBackEvent(() =>
-                {
-                    _busy = false;
                 });
-                confirmInfo.SetItemInfo(new List<ItemInfo>(){itemInfo});
-                confirmInfo.SetIsNoChoice(true);
-                _view.CommandCallConfirm(confirmInfo);
             }
         }
 

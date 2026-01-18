@@ -115,7 +115,7 @@ namespace Ryneus
             }
             else
             {
-                SetActivate(null);
+                SetDeactivate();
             }
         }
     }

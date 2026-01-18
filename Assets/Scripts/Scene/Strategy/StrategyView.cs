@@ -53,7 +53,7 @@ namespace Ryneus
 
         public void StartResultAnimation(List<ListData> actorInfos, List<ActorInfo> bonusActorInfos = null)
         {
-            SetActivate(null);
+            SetDeactivate();
             strategyActorList.SetData(actorInfos);
             strategyActorList.StartResultAnimation(actorInfos.Count, bonusActorInfos, () =>
             {

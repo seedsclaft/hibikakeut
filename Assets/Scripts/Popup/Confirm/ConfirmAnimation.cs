@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Ryneus
 {
-    public class ConfirmAnimation : BaseAnimation , IBaseAnimation
+    public class ConfirmAnimation : BaseAnimation, IBaseAnimation
     {
         private bool _busy;
         public void OpenAnimation(Transform transform, System.Action endEvent, float duration = 0.1f)

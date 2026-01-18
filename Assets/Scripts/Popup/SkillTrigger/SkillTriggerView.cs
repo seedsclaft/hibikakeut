@@ -52,7 +52,7 @@ namespace Ryneus
             skillTriggerList.Initialize();
             skillTriggerList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
             skillTriggerList.SetInputCallHandler();
-            SetInputHandler(skillTriggerList.GetComponent<IInputHandlerEvent>());
+            AddViewActives(skillTriggerList);
             listBlock.onClick.AddListener(() => 
             {
                 CancelSelect();

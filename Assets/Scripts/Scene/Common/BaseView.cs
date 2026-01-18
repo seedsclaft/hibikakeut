@@ -56,11 +56,28 @@ namespace Ryneus
         private int _wait = 0;
         public Action _waitEndEvent = null;
         private List<BaseList> _viewActives = new();
+        private BaseList _lastActiveBaseList = null;
         public void AddViewActives(BaseList baseList)
         {
             SetInputHandler(baseList.gameObject);
             _viewActives.Add(baseList);
         }
+
+        private void SetInputHandler(IInputHandlerEvent handler)
+        {
+            _inputSystemModel.AddInputHandler(handler);
+        }
+
+        public void SetInputHandler(GameObject gameObject)
+        {
+            var handler = gameObject.GetComponent<IInputHandlerEvent>();
+            if (handler == null)
+            {
+                return;
+            }
+            SetInputHandler(handler);
+        }
+
         public void SetActivate(BaseList baseView)
         {
             var find = _viewActives.Find(a => a == baseView);
@@ -69,6 +86,7 @@ namespace Ryneus
                 if (viewActives == find)
                 {
                     find.Activate();
+                    _lastActiveBaseList = find;
                 }
                 else
                 {
@@ -76,7 +94,24 @@ namespace Ryneus
                 }
             }
         }
-        public BaseList ActivateView => _viewActives.Find(a => a.Active);
+
+        public void SetLastActivate()
+        {
+            if (_lastActiveBaseList == null)
+            {
+                return;
+            }
+            SetDeactivate();
+            _lastActiveBaseList.Activate();
+        }
+
+        public void SetDeactivate()
+        {
+            foreach (var viewActives in _viewActives)
+            {
+                viewActives.Deactivate();
+            }
+        }
 
         private ViewCommandSceneType _viewCommandSceneType = ViewCommandSceneType.None;
         public ViewCommandSceneType ViewCommandSceneType => _viewCommandSceneType;
@@ -142,20 +177,6 @@ namespace Ryneus
             _helpWindow = helpWindow;
         }
 
-        public void SetInputHandler(IInputHandlerEvent handler)
-        {
-            _inputSystemModel.AddInputHandler(handler);
-        }
-
-        public void SetInputHandler(GameObject gameObject)
-        {
-            var handler = gameObject.GetComponent<IInputHandlerEvent>();
-            if (handler != null)
-            {
-                SetInputHandler(handler);
-            }
-        }
-
         public void LateUpdate()
         {
             if (_inputSystem == null)
@@ -171,7 +192,7 @@ namespace Ryneus
             {
                 return;
             }
-            Debug.LogError(name + "Inputable");
+            //Debug.LogError(name + "Inputable");
             _inputSystemModel.UpdateInputKeyType(_inputSystem.Update());
         }
 
@@ -244,9 +265,9 @@ namespace Ryneus
             CallSystemCommand(Base.CommandType.SceneChange, sceneInfo);
         }
 
-        public void CommandCallConfirm(ConfirmInfo popupInfo)
+        public void CommandCallConfirm(ConfirmInfo confirmInfo)
         {
-            CallSystemCommand(Base.CommandType.CallConfirmView, popupInfo);
+            CallSystemCommand(Base.CommandType.CallConfirmView, confirmInfo);
         }
 
         public void CommandCallSkillDetail(ConfirmInfo popupInfo)

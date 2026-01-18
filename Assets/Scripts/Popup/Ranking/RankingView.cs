@@ -16,7 +16,7 @@ namespace Ryneus
             rankingInfoList.Initialize();
             new RankingPresenter(this);
             rankingInfoList.SetInputHandler(InputKeyType.Cancel,() => BackEvent());
-            SetInputHandler(rankingInfoList.GetComponent<IInputHandlerEvent>());
+            AddViewActives(rankingInfoList);
         }
 
         public void SetEvent(System.Action<RankingViewEvent> commandData)

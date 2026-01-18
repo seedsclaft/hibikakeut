@@ -139,7 +139,7 @@ namespace Ryneus
                 SetActivate(commandList);
             } else
             {
-                SetActivate(null);
+                SetDeactivate();
             }
         }
 

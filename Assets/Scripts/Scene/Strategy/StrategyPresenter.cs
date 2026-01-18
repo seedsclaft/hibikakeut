@@ -243,9 +243,10 @@ namespace Ryneus
 
         private void CommandSelectLearnSkillList(SkillInfo skillInfo)
         {
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(19200),(a) => UpdateSelectAlcana(a),ConfirmType.SkillDetail);
-            confirmInfo.SetSkillInfo(new List<SkillInfo>(){skillInfo});
-            _view.CommandCallConfirm(confirmInfo);
+            CallConfirmSkillDetailView(DataSystem.GetText(19200), new List<SkillInfo>(){skillInfo}, (a) =>
+            {
+                UpdateSelectAlcana(a);
+            });
         }
 
         private void UpdateSelectAlcana(ConfirmCommandType confirmCommandType)
@@ -262,11 +263,11 @@ namespace Ryneus
 
         private void CommandPopupSkillInfo(GetItemInfo getItemInfo)
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var confirmInfo = new ConfirmInfo("",(a) => {});
             confirmInfo.SetSkillInfo(_model.BasicSkillInfos(getItemInfo));
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallSkillDetail(confirmInfo);
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 
         private void CommandCallEnemyInfo()

@@ -94,7 +94,7 @@ namespace Ryneus
         public void SetPartyUnitList(List<ListData> listDatas)
         {
             partyUnitList.SetData(listDatas);
-            SetActivate(null);
+            SetDeactivate();
             foreach (var battlerInfo in listDatas)
             {
                 var data = (BattlerInfo)battlerInfo.Data;
@@ -151,7 +151,7 @@ namespace Ryneus
         public void EndFormation()
         {
             partyUnitList.UpdateSelectIndex(-1);
-            SetActivate(null);
+            SetDeactivate();
         }
 
         public void SetHelpWindow()

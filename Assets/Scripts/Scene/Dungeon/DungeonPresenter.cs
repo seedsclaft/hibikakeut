@@ -1005,18 +1005,15 @@ namespace Ryneus
                 return;
             }
             SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10170), (a) =>
+            var itemInfo = new ItemInfo(item.Id, 1);
+            CallConfirmItemDetailView(DataSystem.GetText(10170), new List<ItemInfo>(){itemInfo}, (a) =>
             {
                 var getItemInfo = _model.MakeGetItemInfo(GetItemType.Item, item.Id, 1);
                 _model.AddGetItemInfo(getItemInfo);
                 _busy = false;
                 CommandRefresh();
                 _model.DungeonBusy(false);
-            }, ConfirmType.ItemDetail);
-            var itemInfo = new ItemInfo(item.Id, 1);
-            confirmInfo.SetItemInfo(new List<ItemInfo>(){itemInfo});
-            confirmInfo.SetIsNoChoice(true);
-            _view.CommandCallConfirm(confirmInfo);
+            });
         }
 
         private void CommandGetSkill(int skillId)

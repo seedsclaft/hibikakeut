@@ -142,19 +142,11 @@ namespace Ryneus
             _view.ActivateItemList(false);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var skillInfos = _model.GetRandumAddSkillInfos(itemInfo);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(34060), (a) =>
-            {
-                _busy = false;
-                _view.ActivateItemList(true);
-            }, ConfirmType.SkillDetail);
-            confirmInfo.SetBackEvent(() =>
+            CallConfirmSkillDetailView(DataSystem.GetText(34060), skillInfos, (a) =>
             {
                 _busy = false;
                 _view.ActivateItemList(true);
             });
-            confirmInfo.SetSkillInfo(skillInfos);
-            confirmInfo.SetIsNoChoice(true);
-            _view.CommandCallConfirm(confirmInfo);
         }
 
         private void CommandRefresh()

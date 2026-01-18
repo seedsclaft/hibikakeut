@@ -72,12 +72,10 @@ namespace Ryneus
 
     public class ConfirmInfo
     {
-        private string _title = "";
-        public string Title => _title;
+        public ParameterString Title = new();
         private System.Action<ConfirmCommandType> _callEvent = null;
         public System.Action<ConfirmCommandType> CallEvent => _callEvent;
-        private bool _isNoChoice = false;
-        public bool IsNoChoice => _isNoChoice;
+        public ParameterBool IsNoChoice => new();
         private List<SkillInfo> _skillInfos = null;
         public List<ListData> SkillInfos()
         {
@@ -104,8 +102,6 @@ namespace Ryneus
             }
             return list;
         }
-        private int _selectIndex = 0;
-        public int SelectIndex => _selectIndex;
         private List<int> _disableIds = new();
         public List<int> DisableIds => _disableIds;
         private List<int> _commandTextIds = new();
@@ -123,13 +119,13 @@ namespace Ryneus
         public ConfirmInfo(string title, System.Action<ConfirmCommandType> callEvent, ConfirmType confirmType = ConfirmType.Confirm)
         {
             _confirmType = confirmType;
-            _title = title;
+            Title.SetValue(title);
             _callEvent = callEvent;
         }
 
         public void SetIsNoChoice(bool isNoChoice)
         {
-            _isNoChoice = isNoChoice;
+            IsNoChoice.SetValue(isNoChoice);
         }
 
         public void SetDisableIds(List<int> ids)
@@ -145,11 +141,6 @@ namespace Ryneus
         public void SetSkillInfo(List<SkillInfo> skillInfos)
         {
             _skillInfos = skillInfos;
-        }
-
-        public void SetSelectIndex(int selectIndex)
-        {
-            _selectIndex = selectIndex;
         }
 
         public void SetItemInfo(List<ItemInfo> itemInfos)

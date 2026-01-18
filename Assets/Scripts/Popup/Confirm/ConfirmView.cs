@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Confirm;
+using Ryneus.Confirm;
 
 namespace Ryneus
 {
@@ -48,7 +48,7 @@ namespace Ryneus
                 BackEvent();
                 _confirmEvent(ConfirmCommandType.No);
             });
-            SetInputHandler(commandList.GetComponent<IInputHandlerEvent>());
+            AddViewActives(commandList);
         }
 
         public void SetSelectIndex(int selectIndex)
@@ -111,9 +111,8 @@ namespace Ryneus
         public void SetViewInfo(ConfirmInfo confirmInfo)
         {
             _confirmInfo = confirmInfo;
-            SetIsNoChoice(confirmInfo.IsNoChoice);
-            SetSelectIndex(confirmInfo.SelectIndex);
-            SetTitle(confirmInfo.Title);
+            SetIsNoChoice(confirmInfo.IsNoChoice.Value);
+            SetTitle(confirmInfo.Title.Value);
             SetSkillInfo(confirmInfo.SkillInfos());
             SetStageInfo(confirmInfo.StageInfo);
             SetConfirmEvent(confirmInfo.CallEvent);
@@ -160,7 +159,7 @@ namespace Ryneus
 
         public new void MouseCancelHandler()
         {
-            if (_confirmInfo.IsNoChoice)
+            if (_confirmInfo.IsNoChoice.Value)
             {
                 CallConfirmCommand();
             }
@@ -170,16 +169,16 @@ namespace Ryneus
             }
         }
     }
-}
 
-namespace Confirm
-{
-    public enum CommandType
+    namespace Confirm
     {
-        None = 0,
-        Initialize,
-        IsChoice = 100,
-        IsNoChoice = 101,
-        DisableIds = 102,
+        public enum CommandType
+        {
+            None = 0,
+            Initialize,
+            IsChoice = 100,
+            IsNoChoice = 101,
+            DisableIds = 102,
+        }
     }
 }

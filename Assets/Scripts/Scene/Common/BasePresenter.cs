@@ -43,18 +43,51 @@ namespace Ryneus
             _view.CommandCallPopup(popupInfo);
         }
 
-        public void CallConfirmView(string title, Action<ConfirmCommandType> returnEvent, Action endEvent = null)
+        public void CallConfirmView(string title, Action<ConfirmCommandType> returnEvent)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var confirmInfo = new ConfirmInfo(title, returnEvent);
             _view.CommandCallConfirm(confirmInfo);
         }
 
-        public void CallConfirmNoChoiceView(string title, Action<ConfirmCommandType> returnEvent, Action endEvent = null)
+        public void CallConfirmNoChoiceView(string title, Action<ConfirmCommandType> returnEvent)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var confirmInfo = new ConfirmInfo(title, returnEvent);
             confirmInfo.SetIsNoChoice(true);
+            _view.CommandCallConfirm(confirmInfo);
+        }
+
+        public void CallConfirmSkillDetailView(string title, List<SkillInfo> skillInfos, Action<ConfirmCommandType> returnEvent)
+        {
+            var confirmInfo = new ConfirmInfo(title, returnEvent, ConfirmType.SkillDetail);
+            confirmInfo.SetIsNoChoice(true);
+            if (skillInfos != null)
+            {
+                confirmInfo.SetSkillInfo(skillInfos);
+            }
+            _view.CommandCallConfirm(confirmInfo);
+        }
+
+        public void CallConfirmItemDetailView(string title, List<ItemInfo> itemInfos, Action<ConfirmCommandType> returnEvent)
+        {
+            var confirmInfo = new ConfirmInfo(title, returnEvent, ConfirmType.ItemDetail);
+            confirmInfo.SetIsNoChoice(true);
+            if (itemInfos != null)
+            {
+                confirmInfo.SetItemInfo(itemInfos);
+            }
+            _view.CommandCallConfirm(confirmInfo);
+        }
+
+        public void CallConfirmStageDetailView(string title, StageInfo stageInfos, Action<ConfirmCommandType> returnEvent)
+        {
+            var confirmInfo = new ConfirmInfo(title, returnEvent, ConfirmType.StageConfirm);
+            confirmInfo.SetIsNoChoice(true);
+            if (stageInfos != null)
+            {
+                confirmInfo.SetStageInfo(stageInfos);
+            }
             _view.CommandCallConfirm(confirmInfo);
         }
 

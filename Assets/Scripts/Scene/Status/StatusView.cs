@@ -263,7 +263,7 @@ namespace Ryneus
 
         public void CallUseItemList()
         {
-            SetActivate(null);
+            SetDeactivate();
             /*
             magicListRoot.SetActive(false);
             useItemRoot.SetActive(true);

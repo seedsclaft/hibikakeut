@@ -406,16 +406,7 @@ namespace Ryneus
             if (_model.PartyInfo.Currency.Value <= 0)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
-                var confirmInfo2 = new ConfirmInfo(DataSystem.GetText(38020),(a) =>
-                {
-                    _busy = false;
-                });
-                confirmInfo2.SetBackEvent(() =>
-                {
-                    _busy = false;
-                });
-                confirmInfo2.SetIsNoChoice(true);
-                _view.CommandCallConfirm(confirmInfo2);
+                CommandCautionInfo(DataSystem.GetText(38020));
                 return;
             }
             _busy = true;

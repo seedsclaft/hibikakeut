@@ -269,7 +269,7 @@ namespace Ryneus
         public void EndActionSelect()
         {
             UpdateSelectCursor(new List<int>(){});
-            SetActivate(null);
+            SetDeactivate();
             battleThumb.HideThumb();
             magicList.gameObject.SetActive(false);
             battleEnemyList.ClearSelect();
@@ -291,7 +291,7 @@ namespace Ryneus
         public void CancelFormation()
         {
             battleActorList.UpdateSelectIndex(-1);
-            SetActivate(null);
+            SetDeactivate();
         }
 
         public void EndFormation()
@@ -299,7 +299,7 @@ namespace Ryneus
             battleActorList.SetInputHandler(InputKeyType.Decide,() => OnDecideActor());
             battleActorList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.OnCancelActor));
             battleActorList.UpdateSelectIndex(-1);
-            SetActivate(null);
+            SetDeactivate();
         }
 
         private void InitializeSelectCharacter()

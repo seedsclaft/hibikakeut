@@ -59,7 +59,6 @@ namespace Ryneus
             actorInfoList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
             actorInfoList.SetSelectedHandler(() => CallViewEvent(CommandType.SelectingActorInfo, actorInfoList.ListItemData<ActorInfo>()));
             //unitInfoList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(UnitInfoList.CommandType.DecideUnit,unitInfoList.ListItemData<UnitInfo>()));
-            SetInputHandler(actorInfoList);
             AddViewActives(actorInfoList);
         }
 
