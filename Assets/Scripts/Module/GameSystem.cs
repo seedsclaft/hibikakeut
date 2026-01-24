@@ -294,11 +294,11 @@ namespace Ryneus
             confirmView.Initialize();
             if (confirmInfo.Title != null)
             {
-                confirmView.SetTitle(confirmInfo.Title);
+                confirmView.SetTitle(confirmInfo.Title.Value);
             }
-            if (confirmInfo.From > 0 && confirmInfo.To > 0)
+            if (confirmInfo.From.Value > 0 && confirmInfo.To.Value > 0)
             {
-                confirmView.SetLevelup(confirmInfo.From, confirmInfo.To);
+                confirmView.SetLevelup(confirmInfo.From.Value, confirmInfo.To.Value);
             }
         }
 

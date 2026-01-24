@@ -25,8 +25,8 @@ namespace Ryneus
 
         public void SetRankupInfo(RankupInfo rankupInfo)
         {
-            beforeRankText?.SetText(rankupInfo.From.ToString());
-            afterRankText?.SetText(rankupInfo.To.ToString());
+            beforeRankText?.SetText(rankupInfo.From.Value.ToString());
+            afterRankText?.SetText(rankupInfo.To.Value.ToString());
         }
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
@@ -40,14 +40,12 @@ namespace Ryneus
 
     public class RankupInfo
     {
-        private int _from = 0;
-        public int From => _from;
-        private int _to = 0;
-        public int To => _to;
+        public ParameterInt From = new();
+        public ParameterInt To = new();
         public RankupInfo(int from, int to)
         {
-            _from = from;
-            _to = to;
+            From.SetValue(from);
+            To.SetValue(to);
         }
     }
 }

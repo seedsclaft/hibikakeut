@@ -115,7 +115,6 @@ namespace Ryneus
         private void CommandReturn()
         {
             _busy = true;
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var textId = _model.CurrentStage.Master.OnlyOnce ? 10133 : 10130;
             CallConfirmView(DataSystem.GetText(textId), (a) =>
             {
@@ -146,7 +145,8 @@ namespace Ryneus
                             ReturnMainMenuSceneParam = mainMenuSceneInfo
                         };
                         _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
-                    } else
+                    }
+                    else
                     {
                         _view.CommandSceneChange(Scene.MainMenu, mainMenuSceneInfo);
                     }

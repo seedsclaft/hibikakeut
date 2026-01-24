@@ -55,12 +55,12 @@ namespace Ryneus
 
         private void CommandIsChoice()
         {
-            _view.SetConfirmCommand(MakeListData(_model.ConfirmCommand()));
+            _view.SetConfirmCommand(MakeListData(_model.ConfirmCommand(), 0));
         }
 
         private void CommandIsNoChoice()
         {
-            _view.SetConfirmCommand(MakeListData(_model.NoChoiceConfirmCommand()));
+            _view.SetConfirmCommand(MakeListData(_model.NoChoiceConfirmCommand(), 0));
             _view.SetSelectIndex(0);
         }
 
@@ -75,7 +75,7 @@ namespace Ryneus
         public ParameterString Title = new();
         private System.Action<ConfirmCommandType> _callEvent = null;
         public System.Action<ConfirmCommandType> CallEvent => _callEvent;
-        public ParameterBool IsNoChoice => new();
+        public ParameterBool IsNoChoice = new();
         private List<SkillInfo> _skillInfos = null;
         public List<ListData> SkillInfos()
         {

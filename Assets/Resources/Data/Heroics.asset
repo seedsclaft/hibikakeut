@@ -1,0 +1,483 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 524fbbf15eb0afe44b50dfb55bd098e0, type: 3}
+  m_Name: Heroics
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.HeroicDates
+  Data:
+  - Id: 1010
+    Name: "\u52C7\u6562"
+    Help: 
+    Param: 9
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1020
+    Name: "\u30C9\u6839\u6027"
+    Help: 
+    Param: 8
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1030
+    Name: "\u5343\u91CC\u773C"
+    Help: 
+    Param: 8
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1040
+    Name: "\u81EA\u5DF1\u72A0\u7272"
+    Help: 
+    Param: 7
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1050
+    Name: "\u771F\u9762\u76EE"
+    Help: 
+    Param: 7
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1060
+    Name: "\u529B\u81EA\u6162"
+    Help: 
+    Param: 7
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1070
+    Name: "\u6BCD\u6027"
+    Help: 
+    Param: 7
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1080
+    Name: "\u6C17\u4E08"
+    Help: 
+    Param: 6
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1090
+    Name: "\u732E\u8EAB\u7684"
+    Help: 
+    Param: 6
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1100
+    Name: "\u5354\u8ABF\u7684"
+    Help: 
+    Param: 6
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1110
+    Name: "\u6CE8\u610F\u6DF1\u3044"
+    Help: 
+    Param: 6
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1120
+    Name: "\u9952\u820C"
+    Help: 
+    Param: 6
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1130
+    Name: "\u654F\u6377"
+    Help: 
+    Param: 5
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1140
+    Name: "\u65B9\u5411\u611F\u899A"
+    Help: 
+    Param: 5
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1150
+    Name: "\u6CF3\u304E\u5F97\u610F"
+    Help: 
+    Param: 5
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1160
+    Name: "\u697D\u89B3\u7684"
+    Help: 
+    Param: 4
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1170
+    Name: "\u7406\u77E5\u7684"
+    Help: 
+    Param: 4
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1180
+    Name: "\u535A\u611B"
+    Help: 
+    Param: 4
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1190
+    Name: "\u30E2\u30E9\u30EA\u30B9\u30C8"
+    Help: 
+    Param: 3
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1200
+    Name: "\u7F8E\u5F62"
+    Help: 
+    Param: 3
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1210
+    Name: "\u7F8E\u4EBA"
+    Help: 
+    Param: 3
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1220
+    Name: "\u4E00\u9014"
+    Help: 
+    Param: 3
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1230
+    Name: "\u5143\u6C17\u5370"
+    Help: 
+    Param: 3
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1240
+    Name: "\u5065\u5EB7\u7684"
+    Help: 
+    Param: 3
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1250
+    Name: "\u547D\u77E5\u3089\u305A"
+    Help: 
+    Param: 2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1260
+    Name: "\u51E0\u5E33\u9762"
+    Help: 
+    Param: 2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1270
+    Name: "\u614E\u91CD\u6D3E"
+    Help: 
+    Param: 2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1280
+    Name: "\u53EF\u611B\u3052"
+    Help: 
+    Param: 2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1290
+    Name: "\u6C17\u54C1"
+    Help: 
+    Param: 2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1300
+    Name: "\u60C5\u3051\u6DF1\u3044"
+    Help: 
+    Param: 2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1310
+    Name: "\u5996\u8276"
+    Help: 
+    Param: 2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1320
+    Name: "\u73FE\u5B9F\u7684"
+    Help: 
+    Param: 1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1330
+    Name: "\u7236\u60F3\u3044"
+    Help: 
+    Param: 1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1340
+    Name: "\u6BCD\u60F3\u3044"
+    Help: 
+    Param: 1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1350
+    Name: "\u5144\u60F3\u3044"
+    Help: 
+    Param: 1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1360
+    Name: "\u5F1F\u60F3\u3044"
+    Help: 
+    Param: 1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1370
+    Name: "\u59C9\u60F3\u3044"
+    Help: 
+    Param: 1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1380
+    Name: "\u59B9\u60F3\u3044"
+    Help: 
+    Param: 1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1390
+    Name: "\u304A\u3057\u3068\u3084\u304B"
+    Help: 
+    Param: 1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 1400
+    Name: "\u9152\u8C6A"
+    Help: 
+    Param: 1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2010
+    Name: "\u81EA\u5206\u52DD\u624B"
+    Help: 
+    Param: -1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2020
+    Name: "\u9811\u56FA"
+    Help: 
+    Param: -1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2030
+    Name: "\u63A7\u3048\u76EE"
+    Help: 
+    Param: -1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2040
+    Name: "\u5730\u5473\u7CFB"
+    Help: 
+    Param: -1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2050
+    Name: "\u4E0B\u6238"
+    Help: 
+    Param: -1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2060
+    Name: "\u30CA\u30EB\u30B7\u30B9\u30C8"
+    Help: 
+    Param: -1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2070
+    Name: "\u6C17\u304C\u591A\u3044"
+    Help: 
+    Param: -1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2080
+    Name: "\u6D3E\u624B\u597D\u304D"
+    Help: 
+    Param: -1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2090
+    Name: "\u5973\u597D\u304D"
+    Help: 
+    Param: -1
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2100
+    Name: "\u6D45\u306F\u304B"
+    Help: 
+    Param: -2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2110
+    Name: "\u7121\u9244\u7832"
+    Help: 
+    Param: -2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2120
+    Name: "\u30ED\u30DE\u30F3\u30C1\u30B9\u30C8"
+    Help: 
+    Param: -2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2130
+    Name: "\u5927\u58F0"
+    Help: 
+    Param: -2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2140
+    Name: "\u5A9A\u3073\u5A9A\u3073"
+    Help: 
+    Param: -2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2150
+    Name: "\u30D7\u30E9\u30A4\u30C9\u9AD8\u3044"
+    Help: 
+    Param: -2
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2160
+    Name: "\u30BF\u30AB\u30D3\u30FC"
+    Help: 
+    Param: -3
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2170
+    Name: "\u4E16\u9593\u77E5\u3089\u305A"
+    Help: 
+    Param: -3
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2180
+    Name: "\u5BE1\u9ED9"
+    Help: 
+    Param: -3
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2190
+    Name: "\u920D\u611F"
+    Help: 
+    Param: -3
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2200
+    Name: "\u611F\u60C5\u7684"
+    Help: 
+    Param: -4
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2210
+    Name: "\u7537\u5ACC\u3044"
+    Help: 
+    Param: -4
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2220
+    Name: "\u5C0F\u58F0"
+    Help: 
+    Param: -4
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2230
+    Name: "\u8FD1\u773C"
+    Help: 
+    Param: -4
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2240
+    Name: "\u91D1\u3065\u3061"
+    Help: 
+    Param: -5
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2250
+    Name: "\u83EF\u5962"
+    Help: 
+    Param: -5
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2260
+    Name: "\u75C5\u5F31"
+    Help: 
+    Param: -5
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2270
+    Name: "\u81EA\u5206\u52DD\u624B"
+    Help: 
+    Param: -6
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2280
+    Name: "\u30A8\u30B4\u30A4\u30B9\u30C8"
+    Help: 
+    Param: -7
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2290
+    Name: "\u6E07\u671B"
+    Help: 
+    Param: -7
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2300
+    Name: "\u4E0D\u771F\u9762\u76EE"
+    Help: 
+    Param: -7
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2310
+    Name: "\u4E0D\u904B"
+    Help: 
+    Param: -6
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2320
+    Name: "\u81C6\u75C5"
+    Help: 
+    Param: -8
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2330
+    Name: "\u5FC3\u914D\u6027"
+    Help: 
+    Param: -8
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2340
+    Name: "\u6839\u6027\u306A\u3057"
+    Help: 
+    Param: -8
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2350
+    Name: "\u60B2\u89B3\u7684"
+    Help: 
+    Param: -8
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2360
+    Name: "\u6B8B\u8650"
+    Help: 
+    Param: -9
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2370
+    Name: "\u51B7\u5FB9"
+    Help: 
+    Param: -9
+    MinLv: 1
+    MaxLv: 8
+  - Id: 2380
+    Name: "\u76F2\u76EE"
+    Help: 
+    Param: -9
+    MinLv: 1
+    MaxLv: 8

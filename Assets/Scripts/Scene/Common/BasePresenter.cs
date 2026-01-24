@@ -83,7 +83,6 @@ namespace Ryneus
         public void CallConfirmStageDetailView(string title, StageInfo stageInfos, Action<ConfirmCommandType> returnEvent)
         {
             var confirmInfo = new ConfirmInfo(title, returnEvent, ConfirmType.StageConfirm);
-            confirmInfo.SetIsNoChoice(true);
             if (stageInfos != null)
             {
                 confirmInfo.SetStageInfo(stageInfos);
@@ -420,7 +419,7 @@ namespace Ryneus
         public void CommandCautionInfo(string title, int from = -1, int to = -1)
         {
             var cautionInfo = new CautionInfo();
-            cautionInfo.SetTitle(title);
+            cautionInfo.Title.SetValue(title);
             if (from != -1 && to != -1)
             {
                 cautionInfo.SetLevelUp(from, to);

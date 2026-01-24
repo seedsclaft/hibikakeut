@@ -58,21 +58,13 @@ namespace Ryneus
 
     public class CautionInfo
     {
-        private string _title = "";
-        public string Title => _title;
-        public void SetTitle(string title)
-        {
-            _title = title;
-        }
-
-        private int _from = 0;
-        public int From => _from;
-        private int _to = 0;
-        public int To => _to;
+        public ParameterString Title = new();
+        public ParameterInt From = new();
+        public ParameterInt To = new();
         public void SetLevelUp(int from, int to)
         {
-            _from = from;
-            _to = to;
+            From.SetValue(from);
+            To.SetValue(to);
         }
     }
 }
