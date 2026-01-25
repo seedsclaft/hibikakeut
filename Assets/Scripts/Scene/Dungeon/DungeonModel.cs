@@ -377,14 +377,19 @@ namespace Ryneus
             PartyInfo.DamageFloor(damage);
         }
 
+        public bool EnableHeal(int hpHeal)
+        {
+            return hpHeal > 0 && !CurrentDeckInfo.Cursed.Value;
+        }
+
         public void CursedParty()
         {
-            PartyInfo.CursedParty(true);
+            CurrentDeckInfo.Cursed.SetValue(true);
         }
 
         public void EndCursedParty()
         {
-            PartyInfo.CursedParty(false);
+            CurrentDeckInfo.Cursed.SetValue(false);
         }
 
         public bool CheckGameover()

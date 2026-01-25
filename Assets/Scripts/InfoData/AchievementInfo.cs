@@ -1,12 +1,12 @@
+using System;
 using System.Collections.Generic;
 
 namespace Ryneus
 {
-    [System.Serializable]
+    [Serializable]
     public class AchievementInfo
     {
-        public AchievementData _master = null;
-        public AchievementData Master => _master != null ? _master : DataSystem.Achievements.Find(a => a.Id == Id.Value);
+        public AchievementData Master => DataSystem.Achievements.Find(a => a.Id == Id.Value);
         public ParameterInt Id = new();
 
         // 達成値
@@ -34,7 +34,6 @@ namespace Ryneus
         public AchievementInfo(AchievementData achievementData)
         {
             Id.SetValue(achievementData.Id);
-            _master = Master;
         }
 
         public void SetCondition(int count, int achieveCount)

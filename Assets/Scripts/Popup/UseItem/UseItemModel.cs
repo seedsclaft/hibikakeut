@@ -63,7 +63,7 @@ namespace Ryneus
         public bool CanUseRecoveryHeal()
         {
             var notLimited = PartyInfo.CurrentDeckActorInfos().FindAll(a => a.CurrentHp.Value < a.MaxHp);
-            return notLimited.Count > 0 && !PartyInfo.Cursed.Value;
+            return notLimited.Count > 0 && !CurrentDeckInfo.Cursed.Value;
         }
 
         public void UseItemHeal(int heal)

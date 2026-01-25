@@ -15,6 +15,10 @@ namespace Ryneus
             var list = new List<AchievementInfo>();
             foreach (var achievementInfo in PartyInfo.AchievementInfos)
             {
+                if (achievementInfo.Master.Rank != PartyInfo.MissionRank.Value)
+                {
+                    continue;
+                }
                 if (!achievementInfo.Achieved.Value)
                 {
                     list.Add(achievementInfo);

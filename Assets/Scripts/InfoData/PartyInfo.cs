@@ -30,7 +30,8 @@ namespace Ryneus
                 find.PositionX.SetValue(x);
                 find.PositionY.SetValue(y);
                 find.Direction.SetValue(direction);
-            } else
+            }
+            else
             {
                 var resumeInfo = new DungeonResumeInfo();
                 resumeInfo.StageNo.SetValue(stageNo);
@@ -237,7 +238,7 @@ namespace Ryneus
             foreach (var item in _items)
             {
                 var master = DataSystem.Items.Find(a => a.Id == item.Key);
-                if (item.Value.Value > 0 && (master.ItemType == ItemType.RandumAddSkill || master.ItemType == ItemType.Currency))
+                if (master != null && item.Value.Value > 0 && (master.ItemType == ItemType.RandumAddSkill || master.ItemType == ItemType.Currency))
                 {
                     return true;
                 }
@@ -277,7 +278,7 @@ namespace Ryneus
             foreach (var item in _items)
             {
                 var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
-                if (itemData.ItemType == itemType && item.Value.Value > 0)
+                if (itemData != null && itemData.ItemType == itemType && item.Value.Value > 0)
                 {
                     list.Add(new ItemInfo(itemData.Id, item.Value.Value));
                 }
@@ -328,8 +329,6 @@ namespace Ryneus
         public ParameterInt EvaluationValue = new();
         // 信仰度の警告を受けたか
         public ParameterBool EvaluationCaution = new();
-        // 帰還できるかのフラグ
-        public ParameterBool Cursed = new();
 
 
         // 報告リストのRank
@@ -348,6 +347,10 @@ namespace Ryneus
             var list = new List<AchievementInfo>();
             foreach (var achievementInfo in _achievements)
             {
+                if (achievementInfo.Master.Rank != MissionRank.Value)
+                {
+                    continue;
+                }
                 if (!achievementInfo.Achieved.Value)
                 {
                     list.Add(achievementInfo);
@@ -364,23 +367,14 @@ namespace Ryneus
 
         public void SetAchievementRank(List<AchievementData> achievementDatas)
         {
-            // 未受取を引き継ぐ
-            var notClearAchivements = new List<AchievementInfo>();
-            foreach (var achievement in _achievements)
-            {
-                if (!achievement.Presented.Value)
-                {
-                    notClearAchivements.Add(achievement);
-                }
-            }
-            _achievements.Clear();
-            foreach (var notClearAchivement in notClearAchivements)
-            {
-                _achievements.Add(notClearAchivement);
-            }
+            // 全データ作成する
             foreach (var achievementData in achievementDatas)
             {
-                if (achievementData.Rank == MissionRank.Value)
+                var find = _achievements.Find(a => a.Id.Value == achievementData.Id);
+                if (find != null)
+                {
+                }
+                else
                 {
                     var achievementInfo = new AchievementInfo(achievementData);
                     _achievements.Add(achievementInfo);
@@ -396,6 +390,14 @@ namespace Ryneus
                 {
                     continue;
                 }
+                if (achievementInfo.Master.Rank != MissionRank.Value)
+                {
+                    continue;
+                }
+                if (achievementInfo.Achieved.Value)
+                {
+                    continue;
+                }
                 if (!checkMissionRank && achievementInfo.Master.ConditionType == AchievementConditionType.Complete)
                 {
                     continue;
@@ -406,25 +408,25 @@ namespace Ryneus
 
         public bool IsRankUpBefore()
         {
-            var find = _achievements.Find(a => a.Master.ConditionType == AchievementConditionType.Complete);
+            var find = _achievements.Find(a => a.Master.ConditionType == AchievementConditionType.Complete && a.Master.Rank == MissionRank.Value);
             if (find != null)
             {
-                var mains = _achievements.FindAll(a => a.Master != null && a.Master.Category == AchievementCategory.Main);
+                var mains = _achievements.FindAll(a => a.Master != null && a.Master.Category == AchievementCategory.Main && a.Master.Rank == MissionRank.Value);
                 var achived = mains.FindAll(a => a.Achieved.Value).Count;
-                return mains.Count-1 == achived;
+                return mains.Count - 1 == achived;
             }
             return false;
         }
 
         private void CheckAchievementCondition(AchievementInfo achievementInfo)
         {
-            switch(achievementInfo.Master.ConditionType)
+            switch (achievementInfo.Master.ConditionType)
             {
                 case AchievementConditionType.Complete:
                     // 達成数
-                    var mains = _achievements.FindAll(a => a.Master.Category == AchievementCategory.Main);
+                    var mains = _achievements.FindAll(a => a.Master.Category == AchievementCategory.Main && a.Master.Rank == MissionRank.Value);
                     var achived = mains.FindAll(a => a.Achieved.Value).Count;
-                    achievementInfo.SetCondition(achived,mains.Count-1);
+                    achievementInfo.SetCondition(achived, mains.Count - 1);
                     break;
                 case AchievementConditionType.DepartureCount:
                     // 出撃回数
@@ -444,7 +446,8 @@ namespace Ryneus
                     if (achievementInfo.Master.Param2 == -1)
                     {
                         level = ActorInfos.Max(a => a.Level);
-                    } else
+                    }
+                    else
                     {
                         var levelChara = ActorInfos.Find(a => a.ActorId.Value == achievementInfo.Master.Param2);
                         level = levelChara != null ? levelChara.Level : 0;
@@ -521,6 +524,11 @@ namespace Ryneus
             }
         }
 
+        public void RemoveAchievedAchirvements()
+        {
+            _achievements = _achievements.FindAll(a => !a.Achieved.Value);
+        }
+
         public List<GetItemInfo> AchievementGetItemInfos()
         {
             var list = new List<GetItemInfo>();
@@ -540,6 +548,10 @@ namespace Ryneus
         private List<GetItemInfo> _getItemInfos = new();
         public void AddGetItemInfo(GetItemInfo getItemInfo)
         {
+            if (getItemInfo == null)
+            {
+                return;
+            }
             _getItemInfos.Add(getItemInfo);
             switch (getItemInfo.GetItemType)
             {
@@ -658,7 +670,7 @@ namespace Ryneus
                     _actorInfos.Add(actorInfo);
                     AddReleifActorIndexes(actorInfo.ActorId.Value);
                     // 整列
-                    _actorInfos.Sort((a,b) => a.BattleIndex.Value - b.BattleIndex.Value > 0 ? 1 : -1);
+                    _actorInfos.Sort((a, b) => a.BattleIndex.Value - b.BattleIndex.Value > 0 ? 1 : -1);
 
                 }
             }
@@ -702,7 +714,7 @@ namespace Ryneus
         private Dictionary<int, DeckInfo> _deckInfos = new();
         private void InitDeckInfos()
         {
-            for (int i = 1;i <= 5;i++)
+            for (int i = 1; i <= 5; i++)
             {
                 _deckInfos[i] = new DeckInfo();
             }
@@ -714,14 +726,15 @@ namespace Ryneus
         {
             // 空きスロットも表示する
             var battlerInfos = new List<BattlerInfo>();
-            for (int i = 1;i <= 6;i++)
+            for (int i = 1; i <= 6; i++)
             {
                 var dictValue = CurrentDeckInfo.ActorIdDict[i];
                 if (dictValue > -1)
                 {
                     var actorInfo = _actorInfos.Find(a => a.ActorId.Value == dictValue);
-                    battlerInfos.Add(new BattlerInfo(actorInfo,i));
-                } else
+                    battlerInfos.Add(new BattlerInfo(actorInfo, i));
+                }
+                else
                 {
                     battlerInfos.Add(new BattlerInfo());
                 }
@@ -772,11 +785,6 @@ namespace Ryneus
                 var find = _actorInfos.Find(a => a.ActorId.Value == actorId.Value);
                 find?.ChangeHp(find.CurrentHp.Value - damage);
             }
-        }
-
-        public void CursedParty(bool cursed)
-        {
-            Cursed.SetValue(cursed);
         }
 
         public void ClearSkillUseCount()

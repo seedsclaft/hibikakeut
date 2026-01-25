@@ -503,7 +503,8 @@ namespace Ryneus
             var afterRank = _model.PartyInfo.MissionRank.Value;
             if (checkMissionRank && afterRank > currentRank)
             {
-                _model.PartyInfo.SetAchievementRank(DataSystem.Achievements);
+                // 達成済みを破棄する
+                _model.PartyInfo.RemoveAchievedAchirvements();
                 var rankupInfo = new RankupInfo(currentRank, afterRank);
                 SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 

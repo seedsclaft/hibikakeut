@@ -141,7 +141,7 @@ namespace Ryneus
             if (moved)
             {
                 var hpHeal = _model.CheckHpHeal();
-                if (hpHeal > 0 && !_model.PartyInfo.Cursed.Value)
+                if (_model.EnableHeal(hpHeal))
                 {
                     _view.StartHeal(hpHeal);
                     _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
@@ -177,12 +177,13 @@ namespace Ryneus
                 _model.ClearRoute();
                 _routeMoveFailCount = 0;
                 var hpHeal = _model.CheckHpHeal();
-                if (hpHeal > 0 && !_model.PartyInfo.Cursed.Value)
+                if (_model.EnableHeal(hpHeal))
                 {
                     _view.StartHeal(hpHeal);
                     _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
                 }
-            } else
+            }
+            else
             {
                 if (_routeMode)
                 {
@@ -233,7 +234,7 @@ namespace Ryneus
         private void CommandUseItemHeal(int heal)
         {
             // 回復できない
-            if (_model.PartyInfo.Cursed.Value)
+            if (_model.CurrentDeckInfo.Cursed.Value)
             {
                 CommandCautionInfo(DataSystem.GetText(10131));
                 return;
@@ -308,7 +309,8 @@ namespace Ryneus
                 if (stageEventCount > 0)
                 {
                     StartEventProcesses(enterDungeonEvents, stageEventCount, stageEventIndex, moved);
-                } else
+                }
+                else
                 {
                     _view.CallSystemCommand(Base.CommandType.SceneShowUI);
                     _busy = false;
@@ -627,7 +629,8 @@ namespace Ryneus
             if (moved)
             {
                 CommandReturn();
-            } else
+            }
+            else
             {
                 endEvent?.Invoke();
             }
@@ -638,7 +641,8 @@ namespace Ryneus
             if (moved)
             {
                 CommandMoveDungeonFloor(stageEvent.Param, stageEvent.Param2, stageEvent.Param3);
-            } else
+            }
+            else
             {
                 endEvent?.Invoke();
             }
@@ -717,7 +721,7 @@ namespace Ryneus
             // 確認後仲間選択
             CallConfirmNoChoiceView(DataSystem.GetText(10120), (a) =>
             {
-                CommandCallAddActorInfo(new List<int>(){stageEvent.Param});
+                CommandCallAddActorInfo(new List<int>() { stageEvent.Param });
             });
             _model.UpdateEventObjects();
         }
@@ -735,7 +739,8 @@ namespace Ryneus
             if (stageEvent.Type == StageEventType.ForceBattle)
             {
                 PlayBattleBgm();
-            } else
+            }
+            else
             if (stageEvent.Type == StageEventType.ForceBossBattle)
             {
                 // バトルの報酬にステージクリアを足す
@@ -840,7 +845,8 @@ namespace Ryneus
                     _view.CallSystemCommand(Base.CommandType.MapClear);
                     _view.CommandGotoSceneChange(Scene.Title);
                 });
-            } else
+            }
+            else
             {
                 endEvent?.Invoke();
             }
@@ -881,7 +887,7 @@ namespace Ryneus
                 return;
             }
             _busy = true;
-            _view.UpdateMoveKeys(new List<InputKeyType>(){InputKeyType.Up});
+            _view.UpdateMoveKeys(new List<InputKeyType>() { InputKeyType.Up });
         }
 
         private bool CheckRemainTurn()
@@ -898,10 +904,11 @@ namespace Ryneus
                         _model.DungeonBusy(false);
                         _busy = false;
                         _checkTurnOver = true;
-                    } else
+                    }
+                    else
                     {
                         // 帰還できない
-                        if (_model.PartyInfo.Cursed.Value)
+                        if (_model.CurrentDeckInfo.Cursed.Value)
                         {
                             _model.DungeonBusy(false);
                             _busy = false;
@@ -929,7 +936,8 @@ namespace Ryneus
                 {
                     _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
                     ReturnDungeon();
-                } else
+                }
+                else
                 {
                     _model.DungeonBusy(false);
                     _busy = false;
@@ -972,7 +980,8 @@ namespace Ryneus
                 {
                     _busy = false;
                     _model.DungeonBusy(false);
-                } else
+                }
+                else
                 {
                     GetArtifact(itemId);
                 }
@@ -989,7 +998,7 @@ namespace Ryneus
             _model.AddGetItemInfo(getItemInfo);
             _view.MinusEvaluate(-10);
             _model.PartyInfo.EvaluationValue.GainValue(-10, 0);
-            CallConfirmNoChoiceView(DataSystem.GetReplaceText(10141, 10.ToString()),(a) =>
+            CallConfirmNoChoiceView(DataSystem.GetReplaceText(10141, 10.ToString()), (a) =>
             {
                 _busy = false;
                 _model.DungeonBusy(false);
@@ -1006,7 +1015,7 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
             var itemInfo = new ItemInfo(item.Id, 1);
-            CallConfirmItemDetailView(DataSystem.GetText(10170), new List<ItemInfo>(){itemInfo}, (a) =>
+            CallConfirmItemDetailView(DataSystem.GetText(10170), new List<ItemInfo>() { itemInfo }, (a) =>
             {
                 var getItemInfo = _model.MakeGetItemInfo(GetItemType.Item, item.Id, 1);
                 _model.AddGetItemInfo(getItemInfo);
@@ -1040,7 +1049,7 @@ namespace Ryneus
         {
             List<ActorInfo> actorInfos = _model.AddSelectActorInfos(limitRanks);
             // 加入する用
-            CommandAddActorStatusInfo(actorInfos,() =>
+            CommandAddActorStatusInfo(actorInfos, () =>
             {
                 CommandRefresh();
             });
@@ -1053,7 +1062,7 @@ namespace Ryneus
                 return;
             }
             // 回復できない
-            if (_model.PartyInfo.Cursed.Value)
+            if (_model.CurrentDeckInfo.Cursed.Value)
             {
                 CommandCautionInfo(DataSystem.GetText(10131));
                 return;
@@ -1067,7 +1076,8 @@ namespace Ryneus
                 //_view.MinusVictoryBonus(-0.2f);
                 _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
                 CommandRefresh();
-            } else
+            }
+            else
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 var textId = (_model.CurrentDeckInfo.RecoveryCount.Value <= 0) ? 10100 : 10101;
@@ -1083,7 +1093,7 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.DungeonBusy(true);
-            
+
             CallPopupView(PopupType.DungeonMap, () =>
             {
                 _busy = false;
@@ -1122,7 +1132,7 @@ namespace Ryneus
 
         private void CommandMoveDirection(int direction)
         {
-            _view.UpdateMoveKeys(new List<InputKeyType>(){(InputKeyType)direction});
+            _view.UpdateMoveKeys(new List<InputKeyType>() { (InputKeyType)direction });
         }
 
         private void CommandSelectCharacter(int selectIndex)
@@ -1133,17 +1143,17 @@ namespace Ryneus
                 _model.SwapSelectIndex(selectIndex);
                 _view.UpdatePartyUnitList(MakeListData(_model.PartyUnit()));
                 _view.StartFormation();
-                _view.UpdateSelectCursor(new List<int>(){});
+                _view.UpdateSelectCursor(new List<int>() { });
                 return;
             }
             _model.SelectIndex.SetValue(selectIndex);
-            _view.UpdateSelectCursor(new List<int>(){_model.SelectedCharacterIndex()});
+            _view.UpdateSelectCursor(new List<int>() { _model.SelectedCharacterIndex() });
         }
 
         private void CommandEndFormation()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-            _view.UpdateSelectCursor(new List<int>(){});
+            _view.UpdateSelectCursor(new List<int>() { });
             _view.EndFormation();
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             _model.SelectIndex.SetValue(-1);
@@ -1218,8 +1228,9 @@ namespace Ryneus
                 //_model.DungeonBusy(true);
                 // 方向を見て進む。MoveEndまで待つ
                 _routeMode = true;
-                _view.UpdateMoveKeys(new List<InputKeyType>(){ _model.RouteModeInputKeyType()});
-            } else
+                _view.UpdateMoveKeys(new List<InputKeyType>() { _model.RouteModeInputKeyType() });
+            }
+            else
             {
                 _busy = false;
                 //_model.DungeonBusy(false);

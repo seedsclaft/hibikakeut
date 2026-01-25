@@ -16,6 +16,8 @@ namespace Ryneus
         public ParameterInt StageNo = new();
         // 歩数カウント
         public ParameterInt TurnCount = new();
+        // 帰還できるかのフラグ
+        public ParameterBool Cursed = new();
         public ParameterFloat DungeonBgmTimeStamp = new();
         public ParameterInt DungeonId = new();
         public ParameterInt PositionX = new();
