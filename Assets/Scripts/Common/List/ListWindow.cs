@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UtageExtensions;
 
 namespace Ryneus
 {
@@ -203,7 +202,7 @@ namespace Ryneus
             for (var i = 0; i < createCount; i++)
             {
                 var prefab = Instantiate(itemPrefab);
-                prefab.name = i.ToString();
+                prefab.name += "_" + i.ToString();
                 _itemPrefabList.Add(prefab);
                 var view = prefab.GetComponent<IListViewItem>();
                 if (view != null)
@@ -908,7 +907,7 @@ namespace Ryneus
                     // 最下段
                     if (_index == _listDates.Count - 1)
                     {
-                        positionY = ScrollRect.content.GetHeight() - ScrollRect.viewport.GetHeight();
+                        positionY = ScrollRect.content.rect.height - ScrollRect.viewport.rect.height;
                     }
                     else
                     {
@@ -937,7 +936,7 @@ namespace Ryneus
                 else
                 if (warpMode && _index == _listDates.Count - 1)
                 {
-                    positionY = ScrollRect.content.GetHeight() - ScrollRect.viewport.GetHeight();
+                    positionY = ScrollRect.content.rect.height - ScrollRect.viewport.rect.height;
                     update = true;
                 }
             }

@@ -41,7 +41,7 @@ namespace Ryneus
             }
             if (allLearnSkills)
             {
-                var skills = DataSystem.Skills.Where(a => a.Value.Id > 1000);
+                var skills = DataSystem.Skills.Where(a => a.Value.Id > 1000 && a.Value.Rank > 0);
                 foreach (var skill in skills)
                 {
                     partyInfo.AddLearningSkill(skill.Value.Id);

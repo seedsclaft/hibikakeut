@@ -157,10 +157,11 @@ namespace Ryneus
         {
             if (actorInfos != null)
             {
-                UpdateAttributeParam(text, actorInfo.AttributeRanks(actorInfos)[(int)attributeType-1]);
-            } else
+                UpdateAttributeParam(text, actorInfo.AttributeRanks(actorInfos)[(int)attributeType]);
+            }
+            else
             {
-                UpdateAttributeParam(text, actorInfo.GetAttributeRank()[(int)attributeType-1]);
+                UpdateAttributeParam(text, actorInfo.GetAttributeRank()[(int)attributeType]);
             }
         }
 

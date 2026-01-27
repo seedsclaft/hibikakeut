@@ -68,7 +68,7 @@ namespace Ryneus
         // 回復可能回数
         public ParameterInt RecoveryCount = new();
 
-        private void InitUnitInfos()
+        public void InitUnitInfos()
         {
             if (DataSystem.System == null)
             {
@@ -139,6 +139,14 @@ namespace Ryneus
                 SwapBattler(backOnly - 3, _actorIdDict[backOnly]);
             }
             return backOnlyEdit.Count > 0;
+        }
+
+        public void SetAutoDeck(List<ActorInfo> actorInfos)
+        {
+            for (int i = 1; i <= actorInfos.Count; i++)
+            {
+                _actorIdDict[i] = actorInfos[i - 1].ActorId.Value;
+            }
         }
     }
 

@@ -51,6 +51,16 @@ namespace Ryneus
             {
                 return new();
             }
+#if UNITY_EDITOR
+            if (Keyboard.current.fKey.isPressed)
+            {
+                Time.timeScale = 20;
+            }
+            else
+            {
+                Time.timeScale = 1;
+            }
+#endif
             if (IsGamePad)
             {
                 var keyInputs = UpdateKeyBoard();
@@ -58,7 +68,8 @@ namespace Ryneus
                 {
                     IsGamePad = false;
                 }
-            } else
+            }
+            else
             {
                 var gamePadKey = UpdateGamePad();
                 if (gamePadKey != null)

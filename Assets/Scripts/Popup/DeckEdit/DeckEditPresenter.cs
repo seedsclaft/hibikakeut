@@ -57,6 +57,9 @@ namespace Ryneus
                 case CommandType.SelectingBattlerInfo:
                     _view.UpdateActorInfo((ActorInfo)viewEvent.Template);
                     break;
+                case CommandType.AutoDeck:
+                    CommandAutoDeck();
+                    break;
                 case CommandType.Back:
                     CommandBack();
                     break;
@@ -83,6 +86,17 @@ namespace Ryneus
             _view.EndSelectChangeBattler();
             CommandRefresh();
             _view.UpdateActorInfo(actorInfo);
+        }
+
+        private void CommandAutoDeck()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _model.PartyInfo.PartyStatInfo.DeckEditCommandCount.GainValue(1);
+            CheckAchievements();
+            _model.AutoDeck();
+            _view.EndSelectChangeBattler();
+            CommandRefresh();
+            _view.UpdateActorInfo(_model.PartyInfo.ActorInfos[0]);
         }
 
         private void CommandBack()

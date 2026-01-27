@@ -40,7 +40,7 @@ namespace Ryneus
         public List<SkillInfo> SortSkillInfos(List<SkillInfo> skillInfos)
         {
             skillInfos.Sort((a, b) => { return a.Master.Id > b.Master.Id ? 1 : -1; });
-            skillInfos.Sort((a, b) => { return a.SortKeyId() > b.SortKeyId() ? 1 : -1; });
+            skillInfos.Sort((a, b) => { return a.SortKeyId() >= b.SortKeyId() ? 1 : -1; });
             return skillInfos;
         }
 
@@ -58,6 +58,14 @@ namespace Ryneus
                     continue;
                 }
                 var skillInfo = new SkillInfo(learnSkillId);
+                if (skillInfo.IsBattleSpecialSkill())
+                {
+                    continue;
+                }
+                if (skillInfo.Master.SkillType == SkillType.Kind)
+                {
+                    continue;
+                }
                 skillInfo.SetLearningState(LearningState.Learned);
                 skillInfo.SetEnable(true);
                 if (actorInfo.IsLearnedSkill(learnSkillId))

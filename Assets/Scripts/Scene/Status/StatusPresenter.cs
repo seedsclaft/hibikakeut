@@ -86,6 +86,9 @@ namespace Ryneus
                 case CommandType.CancelUseItem:
                     CommandCancelUseItem();
                     return;
+                case CommandType.AutoSetSkill:
+                    CommandAutoSetSkill();
+                    return;
                 case CommandType.CharacterList:
                     CommandCharacterList();
                     return;
@@ -362,6 +365,16 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             _view.CallEquipSkillList(_model.SceneParam.AddActor.Value);
+        }
+
+        private void CommandAutoSetSkill()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _model.AutoSetSkill();
+            ResetSelectSkill();
+            _model.PartyInfo.PartyStatInfo.StatusSkillChangeCount.GainValue(1);
+            CheckAchievements();
+            CommandRefresh();
         }
 
         private void CommandCharacterList()

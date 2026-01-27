@@ -87,7 +87,7 @@ namespace Ryneus
             }
             if (magicListButton != null)
             {
-                magicListButton.OnClickAddListener(() => CallViewEvent(CommandType.CancelUseItem));
+                magicListButton.OnClickAddListener(() => CallViewEvent(CommandType.AutoSetSkill));
             }
             SetBackCommand(() => OnClickBack());
             _ = new StatusPresenter(this);
@@ -395,7 +395,7 @@ namespace Ryneus
             {
                 if (magicListButton.gameObject.activeSelf)
                 {
-                    CallViewEvent(CommandType.CancelUseItem);
+                    CallViewEvent(CommandType.AutoSetSkill);
                 }
             }
             if (InputSystem.GetInputDate(InputKeyType.Option2).IsDownTrigger())
@@ -523,6 +523,7 @@ namespace Ryneus
             ShowUseItem,
             UseItem,
             CancelUseItem,
+            AutoSetSkill,
             CharacterList,
             SelectCharacter,
             SelectCommandList,

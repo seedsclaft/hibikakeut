@@ -325,7 +325,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 120, y: 152}
+  m_SizeDelta: {x: 120, y: 138}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7773501477207853394
 MonoBehaviour:
@@ -365,6 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainThumb: {fileID: 0}
   awakenThumb: {fileID: 0}
+  reliefThumb: {fileID: 0}
   grayscale: {fileID: 0}
   faceThumb: {fileID: 2075147498209572958}
   awakenFaceThumb: {fileID: 0}
@@ -401,6 +402,8 @@ MonoBehaviour:
   transferGetItemText: {fileID: 0}
   transferGetExpText: {fileID: 0}
   transferGetCurrencyText: {fileID: 0}
+  kindIcon: {fileID: 0}
+  kindText: {fileID: 0}
 --- !u!114 &3274609913661717820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,6 +418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickButton: {fileID: 334408933584765036}
   cursor: {fileID: 8451468985824635623}
+  selectArrow: {fileID: 0}
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
   disable: {fileID: 0}

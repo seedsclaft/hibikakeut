@@ -295,7 +295,7 @@ namespace Ryneus
                 return 0;
             }
             var rankCost = SkillData.ConvertRankCost(skillData.Rank);
-            var param = AttributeRanks(stageMembers)[(int)skillData.Attribute - 1];
+            var param = AttributeRanks(stageMembers)[(int)skillData.Attribute];
             var cost = TacticsUtility.EquipAttributeRankCost(param);
             int result = cost + rankCost - 1;
             // 会得済みなら-1
@@ -326,7 +326,7 @@ namespace Ryneus
                 return 0;
             }
             var rankCost = SkillData.ConvertRankCost(rank);
-            var param = AttributeRanks(stageMembers)[(int)attributeType - 1];
+            var param = AttributeRanks(stageMembers)[(int)attributeType];
             var cost = TacticsUtility.EquipAttributeRankCost(param);
 
             return cost + rankCost - 1;
@@ -470,7 +470,7 @@ namespace Ryneus
             return list;
         }
 
-        public List<AttributeRank> AttributeRanks(List<ActorInfo> actorInfos)
+        public Dictionary<int, AttributeRank> AttributeRanks(List<ActorInfo> actorInfos)
         {
             var alchemyFeatures = new List<SkillData.FeatureData>();
             if (actorInfos != null)
@@ -490,7 +490,7 @@ namespace Ryneus
                     }
                 }
             }
-            var attributeValues = new List<AttributeRank>();
+            var attributeValues = new Dictionary<int, AttributeRank>();
             int idx = 1;
             foreach (var attribute in GetAttributeRank())
             {
@@ -510,7 +510,7 @@ namespace Ryneus
                 {
                     attributeValue = AttributeRank.S;
                 }
-                attributeValues.Add(attributeValue);
+                attributeValues[idx] = attributeValue;
                 idx++;
             }
             return attributeValues;
@@ -763,7 +763,7 @@ namespace Ryneus
                             continue;
                         }
                     }
-                    if (isOnlyCheckEnemy == false)
+                    if (!isOnlyCheckEnemy)
                     {
                         _skillTriggerInfos.Insert(findIndex, skillTriggerInfo);
                     }
@@ -773,6 +773,42 @@ namespace Ryneus
                         {
                             _skillTriggerInfos.Insert(findIndex, skillTriggerInfo);
                         }
+                    }
+                }
+            }
+        }
+
+        public void BeforeAutoSetSkill()
+        {
+            ChangeCost(CurrentParameter(StatusParamType.Cost));
+            _equipmentSkillIds.Clear();
+        }
+
+        public void AutoSetSkill(List<SkillInfo> skillInfos, List<ActorInfo> actorInfos, Dictionary<int, int> enqmySkillWeights)
+        {
+            // 初期とLearning習得したものを設定
+            InitSkillInfo();
+            var remainCost = CurrentCost.Value;
+            var enableSkillInfos = skillInfos.FindAll(a => a.Enable);
+            var weightKey = enqmySkillWeights; //skillId, weight
+
+            enableSkillInfos.Sort((a, b) => weightKey[a.Id.Value] - weightKey[b.Id.Value] >= 0 ? 1 : -1);
+            // 得意属性順
+            var attributeRanks = AttributeRanks(actorInfos);
+            var sortAttributeRanks = attributeRanks.OrderBy(i => (int)i.Value).ToDictionary(i => i.Key, i => (int)i.Value);
+            foreach (var attributeRank in sortAttributeRanks)
+            {
+                var findAllSkillInfos = enableSkillInfos.FindAll(a => a.Master.Attribute == (AttributeType)attributeRank.Key);
+                foreach (var skillInfo in findAllSkillInfos)
+                {
+                    if (skillInfo.LearningCost.Value <= remainCost)
+                    {
+                        remainCost -= skillInfo.LearningCost.Value;
+                        ChangeEquipSkill(skillInfo.Id.Value, 0);
+                    }
+                    if (remainCost <= 0)
+                    {
+                        break;
                     }
                 }
             }

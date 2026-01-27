@@ -28,7 +28,7 @@ namespace Ryneus
             string FileName = Path.GetFileNameWithoutExtension(asset);
             string ExportPath = $"{Path.Combine(AssetPostImporter.ExportExcelPath, FileName)}.asset";
 
-			HeroicDates Data = AssetDatabase.LoadAssetAtPath<HeroicDates>(ExportPath);
+            HeroicDates Data = AssetDatabase.LoadAssetAtPath<HeroicDates>(ExportPath);
             if (!Data)
             {
                 // データがなければ作成
@@ -48,7 +48,7 @@ namespace Ryneus
                     // 情報の初期化
                     Data.Data.Clear();
 
-					List<TextData> textData = AssetPostImporter.CreateText(Book.GetSheetAt(1));
+                    List<TextData> textData = AssetPostImporter.CreateText(Book.GetSheetAt(1));
                     ISheet BaseSheet = Book.GetSheetAt(0);
                     var KeyRow = BaseSheet.GetRow(0);
                     AssetPostImporter.SetKeyNames(KeyRow.Cells);
@@ -60,16 +60,16 @@ namespace Ryneus
                         {
                             continue;
                         }
-                        var HeroicData = new HeroicData
+                        var heroicData = new HeroicData
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             Param = AssetPostImporter.ImportNumeric(BaseRow, "Param"),
                             MinLv = AssetPostImporter.ImportNumeric(BaseRow, "MinLv"),
                             MaxLv = AssetPostImporter.ImportNumeric(BaseRow, "MaxLv"),
                         };
-                        HeroicData.Name = textData.Find(a => a.Id == HeroicData.Id)?.Text;
-                        HeroicData.Help = textData.Find(a => a.Id == HeroicData.Id)?.Help;
-                        Data.Data.Add(HeroicData);
+                        heroicData.Name = textData.Find(a => a.Id == heroicData.Id)?.Text;
+                        heroicData.Help = textData.Find(a => a.Id == heroicData.Id)?.Help;
+                        Data.Data.Add(heroicData);
                     }
                 }
             }

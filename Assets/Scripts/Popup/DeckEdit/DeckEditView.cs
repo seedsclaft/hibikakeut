@@ -11,6 +11,7 @@ namespace Ryneus
         [SerializeField] private BattleBattlerList partyUnitList = null;
         [SerializeField] private BaseList actorInfoList = null;
         [SerializeField] private ActorInfoComponent actorInfoComponent = null;
+        [SerializeField] private OnOffButton autoDeckButton = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
 
         public override void Initialize()
@@ -24,6 +25,10 @@ namespace Ryneus
             SetViewCommandSceneType(ViewCommandSceneType.DeckEdit);
             InitializeActorInfoList();
             InitializePartyUnitList();
+            if (autoDeckButton != null)
+            {
+                autoDeckButton.OnClickAddListener(() => CallViewEvent(CommandType.AutoDeck));
+            }
             SetBaseAnimation(popupAnimation);
             _ = new DeckEditPresenter(this);
             SetBackEvent(() => CallViewEvent(CommandType.Back));
@@ -38,6 +43,7 @@ namespace Ryneus
         {
             partyUnitList.Initialize();
             partyUnitList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectBattler, partyUnitList.Index));
+            partyUnitList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.AutoDeck));
             partyUnitList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
             partyUnitList.SetSelectedHandler(() => CallViewEvent(CommandType.SelectingBattlerInfo, partyUnitList.ListItemData<BattlerInfo>()?.ActorInfo));
             AddViewActives(partyUnitList);
@@ -100,6 +106,7 @@ namespace Ryneus
             DecideBattlerInfo,
             SelectingActorInfo,
             SelectingBattlerInfo,
+            AutoDeck,
             EndOpenAnimation,
             Back,
         }

@@ -9,6 +9,8 @@ namespace Ryneus
         public StatusViewInfo SceneParam => _sceneParam;
         private List<ActorInfo> _actorInfos = null;
         public List<ActorInfo> ActorInfos => _actorInfos;
+        public ParameterInt CurrentIndex = new();
+        public ActorInfo CurrentActor => _actorInfos[CurrentIndex.Value];
         public StatusModel()
         {
             _sceneParam = (StatusViewInfo)GameSystem.SceneStackManager.LastStatusViewInfo;
@@ -132,18 +134,22 @@ namespace Ryneus
             return DataSystem.GetText(18010);
         }
 
-        public ParameterInt CurrentIndex = new();
         public void SelectActor(int actorId)
         {
             var index = _actorInfos.FindIndex(a => a.ActorId.Value == actorId);
             CurrentIndex.SetValue(index);
         }
 
-        public ActorInfo CurrentActor => _actorInfos[CurrentIndex.Value];
-
         public void ChangeActorIndex(int value)
         {
             CurrentIndex.GainValue(value, 0, _actorInfos.Count - 1, true);
+        }
+
+        public void AutoSetSkill()
+        {
+            CurrentActor.BeforeAutoSetSkill();
+            var changeAbleSkills = ChangeAbleSkills(CurrentActor, 0);
+            CurrentActor.AutoSetSkill(changeAbleSkills, PartyInfo.CurrentDeckActorInfos(), TempInfo.EnqmySkillWeights(changeAbleSkills));
         }
 
         public void SetActorLastSkillId(int selectSkillId)
@@ -151,41 +157,9 @@ namespace Ryneus
             CurrentActor.SetLastSelectSkillId(selectSkillId);
         }
 
-        public List<ActorInfo> MakeSelectActorInfos()
-        {
-            return new List<ActorInfo>() { CurrentActor };
-        }
-
-        public List<GetItemInfo> MakeSelectGetItemInfos()
-        {
-            /*
-            var getItemInfos = CurrentSelectRecord().SymbolInfo.GetItemInfos.FindAll(a => a.GetItemType == GetItemType.AddActor);
-            var getItemInfo = getItemInfos.Find(a => a.Param1 == CurrentActor.ActorId);
-            if (getItemInfo != null)
-            {
-                getItemInfo.SetResultParam(CurrentActor.ActorId);
-                return new List<GetItemInfo>(){getItemInfo};
-            }
-            getItemInfos = CurrentSelectRecord().SymbolInfo.GetItemInfos.FindAll(a => a.GetItemType == GetItemType.SelectAddActor);
-            if (getItemInfos.Count > 0)
-            {
-                getItemInfos[0].SetResultParam(CurrentActor.ActorId);
-                return getItemInfos;
-            }
-            */
-            return new List<GetItemInfo>() { };
-        }
-
-
-
         public List<SkillTriggerInfo> SkillTrigger(int selectIndex = -1)
         {
             return CurrentActor.SkillTriggerInfos;
-        }
-
-        public List<SystemData.CommandData> StatusCommand()
-        {
-            return DataSystem.StatusCommand;
         }
 
         public int LevelUpCost()

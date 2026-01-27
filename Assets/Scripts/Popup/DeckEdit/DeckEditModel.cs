@@ -37,5 +37,14 @@ namespace Ryneus
         {
             return CurrentDeckInfo.AdjustEditIndexes();
         }
+
+        public void AutoDeck()
+        {
+            // 戦力値順に並べる
+            CurrentDeckInfo.InitUnitInfos();
+            var actorInfos = PartyInfo.EditableActorInfos();
+            actorInfos.Sort((a, b) => a.Evaluate() - b.Evaluate() < 0 ? 1 : -1);
+            CurrentDeckInfo.SetAutoDeck(actorInfos);
+        }
     }
 }

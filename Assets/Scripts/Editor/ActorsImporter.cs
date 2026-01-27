@@ -114,7 +114,7 @@ namespace Ryneus
                             (AttributeRank)Element3,
                             (AttributeRank)Element4,
                             (AttributeRank)Element5,
-                            //(AttributeRank)Element6,
+                            AttributeRank.E,
                         };
 
                         int X = AssetPostImporter.ImportNumeric(BaseRow, "X");

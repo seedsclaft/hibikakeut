@@ -83,5 +83,34 @@ namespace Ryneus
         {
             _inReplay = inReplay;
         }
+
+        private Dictionary<int, int> _weightKey = new();
+        public Dictionary<int, int> EnqmySkillWeights(List<SkillInfo> skillInfos)
+        {
+            var weightKey = _weightKey; //skillId, weight
+            var first = _weightKey.Count == 0;
+            foreach (var enableSkillInfo in skillInfos)
+            {
+                if (!first && weightKey.ContainsKey(enableSkillInfo.Id.Value))
+                {
+                    continue;
+                }
+                foreach (var enemyData in DataSystem.Enemies)
+                {
+                    foreach (var learningSkill in enemyData.LearningSkills)
+                    {
+                        if (!weightKey.ContainsKey(enableSkillInfo.Id.Value) || weightKey[enableSkillInfo.Id.Value] < learningSkill.Weight)
+                        {
+                            weightKey[enableSkillInfo.Id.Value] = learningSkill.Weight;
+                        }
+                    }
+                }
+                if (!weightKey.ContainsKey(enableSkillInfo.Id.Value))
+                {
+                    weightKey[enableSkillInfo.Id.Value] = 0;
+                }
+            }
+            return weightKey;
+        }
     }
 }
