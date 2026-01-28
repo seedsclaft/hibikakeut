@@ -1062,7 +1062,7 @@ namespace Ryneus
                 return;
             }
             // 回復できない
-            if (_model.CurrentDeckInfo.Cursed.Value)
+            if (_model.CurrentDeckInfo.Cursed != null && _model.CurrentDeckInfo.Cursed.Value)
             {
                 CommandCautionInfo(DataSystem.GetText(10131));
                 return;

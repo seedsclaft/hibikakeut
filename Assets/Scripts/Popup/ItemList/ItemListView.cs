@@ -53,9 +53,9 @@ namespace Ryneus
             AddViewActives(itemList);
         }
 
-        public void SetItemList(List<ListData> achievementLists)
+        public void SetItemList(List<ListData> achievementLists, bool updateSelectIndex)
         {
-            itemList.SetData(achievementLists, false, () =>
+            itemList.SetData(achievementLists, updateSelectIndex, () =>
             {
                 foreach (var prefab in itemList.ItemPrefabList)
                 {

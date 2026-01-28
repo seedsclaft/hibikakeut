@@ -24,7 +24,7 @@ namespace Ryneus
         {
             _model = new ItemListModel();
             SetModel(_model);
-            _view.SetItemList(MakeListData(_model.ItemInfos(), 0));
+            _view.SetItemList(MakeListData(_model.ItemInfos(), 0), true);
             _view.CheckItemDetailButtonActive();
             _view.OpenAnimation();
             _view.ActivateItemList(true);
@@ -110,6 +110,10 @@ namespace Ryneus
 
         private void CommandPlusUseNum(int itemId)
         {
+            if (!_model.CanChangeUseNum(itemId, true))
+            {
+                return;
+            }
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _model.ChangeUseNum(itemId, true);
             CommandRefresh();
@@ -117,6 +121,10 @@ namespace Ryneus
 
         private void CommandMinusUseNum(int itemId)
         {
+            if (!_model.CanChangeUseNum(itemId, false))
+            {
+                return;
+            }
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _model.ChangeUseNum(itemId, false);
             CommandRefresh();
@@ -151,7 +159,7 @@ namespace Ryneus
 
         private void CommandRefresh()
         {
-            _view.SetItemList(MakeListData(_model.ItemInfos()));
+            _view.SetItemList(MakeListData(_model.ItemInfos()), false);
             _view.CheckItemDetailButtonActive();
         }
 

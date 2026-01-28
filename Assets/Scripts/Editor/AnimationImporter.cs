@@ -5,6 +5,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using NPOI.SS.UserModel;
+using System.Linq;
 
 namespace Ryneus
 {
@@ -86,5 +87,32 @@ namespace Ryneus
 
             EditorUtility.SetDirty(Data);
         }
+
+#if UNITY_EDITOR
+        [MenuItem("Tools/Ryneus/RepainEffekseerAssets")]
+        public static void RepainEffekseerAssets()
+        {
+
+            var effectPath = "Animations/NA_Effekseer/";
+            var assets = Resources.LoadAll<Effekseer.EffekseerEffectAsset>(effectPath);
+            foreach (var asset in assets)
+            {
+                var update = false;
+                for (int i = asset.textureResources.Count() - 1; i >= 0; i--)
+                {
+                    if (asset.textureResources[i].texture == null)
+                    {
+                        var tex = Resources.Load<Texture2D>(effectPath + asset.textureResources[i].path.Replace(".png", ""));
+                        asset.textureResources[i].texture = tex;
+                        update = true;
+                    }
+                }
+                if (update)
+                {
+                    EditorUtility.SetDirty(asset);
+                }
+            }
+        }
+#endif
     }
 }

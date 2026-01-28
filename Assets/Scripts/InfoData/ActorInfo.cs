@@ -812,6 +812,8 @@ namespace Ryneus
                     }
                 }
             }
+            RecommendActiveSkill();
+            SortEquipmentSkillIds();
         }
 
         public void RecommendActiveSkill()

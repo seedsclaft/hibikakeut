@@ -244,6 +244,7 @@ namespace Ryneus
             equipSkillList.gameObject.SetActive(true);
             if (!isDecide)
             {
+                magicListButton.gameObject.SetActive(true);
                 useItemButton.gameObject.SetActive(true);
             }
             changeSkillList.gameObject.SetActive(false);
@@ -256,6 +257,7 @@ namespace Ryneus
             SetActivate(changeSkillList);
             changeSkillList.gameObject.SetActive(true);
             equipSkillList.gameObject.SetActive(false);
+            magicListButton.gameObject.SetActive(false);
             useItemButton.gameObject.SetActive(false);
             //useItemList.gameObject.SetActive(false);
             filterRoot.SetActive(true);

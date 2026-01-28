@@ -35,6 +35,21 @@ namespace Ryneus
             return list;
         }
 
+        public bool CanChangeUseNum(int itemId, bool plus)
+        {
+            var ownCount = PartyInfo.Items[itemId];
+            if (!_useCount.ContainsKey(itemId))
+            {
+                _useCount[itemId] = new();
+            }
+            var useCount = _useCount[itemId];
+            if (plus)
+            {
+                return ownCount.Value - useCount.Value > 0;
+            }
+            return useCount.Value > 0;
+        }
+
         public void ChangeUseNum(int itemId, bool plus)
         {
             var ownCount = PartyInfo.Items[itemId];
@@ -46,7 +61,8 @@ namespace Ryneus
             if (plus)
             {
                 useCount.GainValue(1, 0, ownCount.Value);
-            } else
+            }
+            else
             {
                 useCount.GainValue(-1, 0, ownCount.Value);
             }
