@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Ryneus.ItemList;
+using Coffee.UIExtensions;
 
 namespace Ryneus
 {
@@ -55,6 +56,7 @@ namespace Ryneus
 
         public void SetItemList(List<ListData> achievementLists, bool updateSelectIndex)
         {
+            UIParticle uIParticle = null;
             itemList.SetData(achievementLists, updateSelectIndex, () =>
             {
                 foreach (var prefab in itemList.ItemPrefabList)

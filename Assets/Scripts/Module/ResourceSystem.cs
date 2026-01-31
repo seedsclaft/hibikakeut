@@ -150,6 +150,11 @@ namespace Ryneus
             return LoadResource<Sprite>(ActorTexturePath + path + "/Clip");
         }
 
+        public static Sprite[] LoadActorAnimation(string path)
+        {
+            return LoadResources<Sprite>(ActorTexturePath + path);
+        }
+
         public static GameObject LoadActor3DModel(string path)
         {
             return LoadResource<GameObject>("3DModels/" + path + "/" + path);
