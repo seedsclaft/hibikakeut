@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Ryneus.Title;
+using UnityEngine.Video;
 
 namespace Ryneus
 {
@@ -11,6 +12,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI versionText = null;
         [SerializeField] private BaseList titleCommandList = null;
         [SerializeField] private InputInfoComponent sideMenuInput = null;
+        [SerializeField] private VideoPlayer videoPlayer = null;
+        [SerializeField] private VideoPlayer webglVideoPlayer = null;
 
         public override void Initialize()
         {
@@ -22,6 +25,11 @@ namespace Ryneus
                 CallSideMenu();
             });
             sideMenuInput.UpdateGuideIcon(InputKeyType.SideRight1);
+#if UNITY_WEBGL
+            webglVideoPlayer.gameObject.SetActive(true);
+#else
+            videoPlayer.gameObject.SetActive(true);
+#endif
             _ = new TitlePresenter(this);
         }
 
