@@ -19,13 +19,11 @@ namespace Ryneus
                 .Join(image.DOColor(new Color(255, 255, 255, fade), duration)
                 .OnComplete(() =>
                 {
-                    if (endEvent != null)
-                    {
-                        endEvent();
-                    }
+                    endEvent?.Invoke();
                 })
                 .SetEase(Ease.InOutQuad));
         }
+
 
         public static void Kill()
         {

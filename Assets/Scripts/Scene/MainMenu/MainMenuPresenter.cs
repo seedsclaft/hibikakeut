@@ -58,7 +58,7 @@ namespace Ryneus
             else
             {
                 _view.ClearMainMenuStart();
-                CommandEndAnimation();
+                CommandEndPeriodAnimation();
             }
         }
 
@@ -68,8 +68,8 @@ namespace Ryneus
             {
                 switch (viewEvent.ViewCommandType.CommandType)
                 {
-                    case CommandType.EndAnimation:
-                        CommandEndAnimation();
+                    case CommandType.EndPeriodAnimation:
+                        CommandEndPeriodAnimation();
                         break;
                 }
                 return;
@@ -98,11 +98,12 @@ namespace Ryneus
             }
         }
 
-        private async void CommandEndAnimation()
+        private async void CommandEndPeriodAnimation()
         {
             _view.UpdateBattleFieldNotice(_model.HasBattleField());
 
             await _model.PlayMainStageBgmData();
+
             //_model.SaveAutoFile();
             // 幕間に移動
             if (_model.InterludePhase())
@@ -158,6 +159,7 @@ namespace Ryneus
                 return;
             }
             _view.SetActiveCommandList(true);
+            _view.OpenAnimation();
             CommandRefresh();
             CheckTutorialState(null);
             _busy = false;

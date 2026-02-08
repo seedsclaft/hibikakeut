@@ -9,6 +9,9 @@ namespace Ryneus
 {
     public class MainMenuView : BaseView, IInputHandlerEvent
     {
+        [SerializeField] private PopupAnimation popupAnimation = null;
+        [SerializeField] private GameObject upperLayer = null;
+        [SerializeField] private GameObject lowerLayer = null;
         [SerializeField] private PartyInfoComponent component;
         [SerializeField] private BaseList commandList;
         [SerializeField] private TacticsCharaLayer tacticsCharaLayer;
@@ -53,6 +56,7 @@ namespace Ryneus
                 });
             }
             SetInputHandler(gameObject);
+            SetBaseAnimation(popupAnimation);
             CommandRefresh();
             if (mainMenuStartAnim != null)
             {
@@ -66,6 +70,18 @@ namespace Ryneus
             if (reliefAnim != null)
             {
                 reliefAnim.Initialize();
+            }
+            if (upperLayer != null)
+            {
+                upperLayer.GetComponent<RectTransform>().localPosition = new Vector3(0, 200, 0);
+            }
+            if (lowerLayer != null)
+            {
+                lowerLayer.GetComponent<RectTransform>().localPosition = new Vector3(0, -200, 0);
+            }
+            if (popupAnimation != null)
+            {
+                popupAnimation.AlphaZero();
             }
             _ = new MainMenuPresenter(this);
         }
@@ -91,7 +107,7 @@ namespace Ryneus
             var command = commandList.ListItemData<SystemData.CommandData>();
             if (command != null)
             {
-                CallViewEvent(CommandType.MainMenuCommand,command);
+                CallViewEvent(CommandType.MainMenuCommand, command);
             }
         }
 
@@ -124,6 +140,12 @@ namespace Ryneus
         public void SetHelpWindow()
         {
             SetInitHelpText();
+        }
+
+        public void OpenAnimation()
+        {
+            popupAnimation.MoveYAndFade(upperLayer.transform, 0, 0.5f);
+            popupAnimation.MoveYAndFade(lowerLayer.transform, 0, 0.5f);
         }
 
         public void CommandRefresh()
@@ -186,7 +208,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             mainMenuStartAnim.EndAnimation();
             ClearMainMenuStart();
-            CallViewEvent(CommandType.EndAnimation);
+            CallViewEvent(CommandType.EndPeriodAnimation);
         }
 
         public void ClearMainMenuStart()
@@ -207,7 +229,7 @@ namespace Ryneus
         {
             None = 0,
             StartAnimation,
-            EndAnimation,
+            EndPeriodAnimation,
             MainMenuCommand,
             SelectSideMenu,
             PartyInfo,
