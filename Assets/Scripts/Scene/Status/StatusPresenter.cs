@@ -560,6 +560,7 @@ namespace Ryneus
             _view.SetLvUpExpInfo(_model.LevelUpBeforeExp(), _model.LevelUpAfterExp());
             _view.UpdateUseItemBatch(_model.IsUseItemBatch());
             _view.UpdateChangeSkillBatch(_model.IsChangeSkillBatch());
+            _view.SetActorTabList(MakeListData(_model.ActorInfos, _model.CurrentIndex.Value), _model.CurrentIndex.Value);
             _view.CommandRefresh();
         }
 

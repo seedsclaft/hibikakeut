@@ -11,7 +11,9 @@ namespace Ryneus
 {
     public class StatusView : BaseView, IInputHandlerEvent
     {
-        [SerializeField] private Button helpButton = null;
+        [SerializeField] private PopupAnimation popupAnimation = null;
+        [SerializeField] private GameObject leftLayer = null;
+        [SerializeField] private GameObject rightLayer = null;
         [SerializeField] private MagicList equipSkillList = null;
         [SerializeField] private MagicList changeSkillList = null;
         [SerializeField] private GameObject filterRoot = null;
@@ -25,6 +27,7 @@ namespace Ryneus
         [SerializeField] private OnOffButton magicListButton = null;
         [SerializeField] private GameObject useItemRoot = null;
         [SerializeField] private OnOffButton useItemButton = null;
+        [SerializeField] private BaseList actorTabList = null;
         [SerializeField] private GameObject statusLevelUpRoot = null;
         [SerializeField] private StatusLevelUp statusLevelUp = null;
         [SerializeField] private ActorInfoComponent selectingActorInfoComponent = null;
@@ -44,6 +47,7 @@ namespace Ryneus
             InitializeEquipSkillList();
             InitializeChangeSkillList();
             InitializeUseItemList();
+            InitializeActorTabList();
             if (statusLevelUp != null)
             {
                 statusLevelUp.Initialize(() => CallViewEvent(CommandType.LevelUp));
@@ -88,6 +92,19 @@ namespace Ryneus
             if (magicListButton != null)
             {
                 magicListButton.OnClickAddListener(() => CallViewEvent(CommandType.AutoSetSkill));
+            }
+            if (leftLayer != null)
+            {
+                leftLayer.GetComponent<RectTransform>().localPosition = new Vector3(-540, 0, 0);
+            }
+            if (rightLayer != null)
+            {
+                rightLayer.GetComponent<RectTransform>().localPosition = new Vector3(540, 0, 0);
+            }
+            if (popupAnimation != null)
+            {
+                SetBaseAnimation(popupAnimation);
+                popupAnimation.AlphaZero();
             }
             SetBackCommand(() => OnClickBack());
             _ = new StatusPresenter(this);
@@ -209,6 +226,18 @@ namespace Ryneus
             */
         }
 
+        private void InitializeActorTabList()
+        {
+            actorTabList.Initialize();
+            //AddViewActives(actorTabList);
+        }
+
+        public void SetActorTabList(List<ListData> actorInfos, int selectIndex)
+        {
+            actorTabList.UpdateSelectIndex(selectIndex);
+            actorTabList.SetData(actorInfos, false);
+        }
+
         public void SetUseItemList(List<ListData> itemInfos)
         {
             //useItemList.SetData(itemInfos, false);
@@ -279,6 +308,8 @@ namespace Ryneus
 
         public void OpenAnimation(Action endEvent)
         {
+            popupAnimation.MoveXAndFade(leftLayer.transform, 0, 0.25f);
+            popupAnimation.MoveXAndFade(rightLayer.transform, 0, 0.25f, endEvent);
         }
 
         public void SetHelpWindow(string helpText)

@@ -22,6 +22,18 @@ namespace Ryneus
                 .SetEase(Ease.InOutQuad));
         }
 
+        public void MoveXAndFade(Transform transform, float moveX, float duration = 0.1f, System.Action endEvent = null)
+        {
+            _ = DOTween.Sequence()
+                .Append(transform.DOLocalMoveX(moveX, duration))
+                .Join(BaseCanvas.DOFade(1, duration)
+                .OnComplete(() =>
+                {
+                    endEvent?.Invoke();
+                })
+                .SetEase(Ease.InOutQuad));
+        }
+
         public void MoveYAndFade(Transform transform, float moveY, float duration = 0.1f, System.Action endEvent = null)
         {
             _ = DOTween.Sequence()
