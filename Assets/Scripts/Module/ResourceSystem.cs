@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Cysharp.Threading.Tasks;
 using Effekseer;
 using UnityEngine.U2D;
+using UnityEngine.AddressableAssets;
 
 namespace Ryneus
 {
@@ -16,7 +17,7 @@ namespace Ryneus
 
         private static string _bgmPath = "Audios/BGM/";
         private static string _bgsPath = "Audios/BGS/";
-        private static string _sePath = "Audios/Se/";
+        private static string _sePath = "Audios/SE/";
 /*
         public static void ReleaseScene()
         {
@@ -83,16 +84,12 @@ namespace Ryneus
 
         public static async UniTask<AudioClip> LoadSeAsset(string fileName)
         {
-            var data = _sePath + fileName;
-            AudioClip result = await LoadAssetResources<AudioClip>(data);
-            return result;
+            return await LoadAssetResources<AudioClip>(_sePath + fileName);
         }
 
         public static async UniTask<AudioClip> LoadAssetResources<T>(string address)
         {
-            var handle = Resources.LoadAsync<AudioClip>(address);
-            await handle;
-            return handle.asset as AudioClip;
+            return await Addressables.LoadAssetAsync<AudioClip>(address);
         }
 
         static string ActorTexturePath => "Texture/Character/Actors/";

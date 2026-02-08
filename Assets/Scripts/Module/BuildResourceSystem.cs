@@ -1,5 +1,10 @@
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Settings;
+using System.IO;
+#endif
 using UnityEngine;
 
 namespace Ryneus
@@ -7,7 +12,88 @@ namespace Ryneus
     public class BuildResourceSystem
     {
 #if UNITY_EDITOR
-        [MenuItem ("Resources/DemoBuild")]
+        [MenuItem("Resources/AutoAssetBundleName")]
+        public static void AutoAssetBundleName()
+        {
+            var strs = new List<string>()
+            {
+                "Assets/AssetBundle/Audios/BGM",
+                "Assets/AssetBundle/Audios/SE",
+            };
+            foreach (var str in strs)
+            {
+                var settings = AddressableAssetSettingsDefaultObject.Settings;
+                if (settings == null)
+                {
+                    return;
+                }
+                string[] files = Directory.GetFiles(str, "*", SearchOption.AllDirectories);
+
+                foreach (var file in files)
+                {
+                    if (file.Contains(".meta"))
+                    {
+                        continue;
+                    }
+                    // アセットを登録
+                    string guid = AssetDatabase.AssetPathToGUID(file);
+                    var entry = settings.CreateOrMoveEntry(guid, settings.FindGroup("Remote"));
+
+                    var address = file;
+                    address = address.Replace("Assets/AssetBundle/", "");
+                    address = address.Replace(".ogg", "");
+                    address = address.Replace(".mp3", "");
+                    address = address.Replace(".wav", "");
+                    address = address.Replace("\\", "/");
+                    entry.address = address;
+                }
+
+            }
+        }
+
+        [MenuItem("Resources/AssetBundleName")]
+        public static void AssetBundleName()
+        {
+            var settings = AddressableAssetSettingsDefaultObject.Settings;
+            if (settings == null)
+            {
+                Debug.LogError("AddressableAssetSettings not found.");
+                return;
+            }
+
+            var groupName = "Remote";
+            var group = settings.FindGroup(groupName);
+            if (group == null)
+            {
+                Debug.LogError($"Group {groupName} not found.");
+                return;
+            }
+
+
+            int count = 0;
+            foreach (var entry in group.entries)
+            {
+                foreach (var subAsset in entry.SubAssets)
+                {
+                    string old = subAsset.address;
+                    string address = subAsset.address;
+                    address = address.Replace(".ogg", "");
+                    address = address.Replace(".mp3", "");
+                    if (old != address)
+                    {
+                        subAsset.SetAddress(address);
+                        count++;
+                    }
+                }
+            }
+            settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryModified, null, true);
+
+
+            AssetDatabase.SaveAssets();
+            Debug.Log($"{count} entries updated in group {groupName}.");
+        }
+
+        [MenuItem("Resources/DemoBuild")]
         public static void DemoBuild()
         {
             // BGM

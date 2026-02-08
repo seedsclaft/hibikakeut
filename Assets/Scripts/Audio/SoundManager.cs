@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -17,7 +18,7 @@ namespace Ryneus
         private List<AudioSource> _se;
         private List<AudioSource> _playingSe = new();
         private int _seAudioSourceNum = 16;
-        private List<AudioSource> _staticSe;
+        private List<AudioSource> _staticSe = new();
         private List<SoundData> _seMaster;
 
         [SerializeField] private SoundIntroLoop _bgmMain;
@@ -31,10 +32,10 @@ namespace Ryneus
         private string _lastPlayAudio = "";
         private float _lastBgmVolume = 0f;
 
-        public void Initialize()
+        public async Task Initialize()
         {
             // 全体シーンで使うサウンドを初期ロード
-            LoadDefaultSound();
+            await LoadStaticSe();
             // SeAudioSourceを生成
             _se = new List<AudioSource>();
             for (int i = 0; i < _seAudioSourceNum; i++)
@@ -44,22 +45,22 @@ namespace Ryneus
             }
         }
 
-        void LoadDefaultSound()
+        private async Task LoadStaticSe()
         {
-            _staticSe = new List<AudioSource>();
+            _staticSe.Clear();
             _seMaster = DataSystem.SE.FindAll(a => a != null);
-            for (int i = 0; i < _seMaster.Count; i++)
+            foreach (var seMaster in _seMaster)
             {
                 var audioSource = gameObject.AddComponent<AudioSource>();
                 _staticSe.Add(audioSource);
-                SetSeAudio(audioSource, _seMaster[i].FileName, _seMaster[i].Volume, _seMaster[i].Pitch);
+                await SetSeAudio(audioSource, seMaster.FileName, seMaster.Volume, seMaster.Pitch);
             }
         }
 
 
-        private void SetSeAudio(AudioSource audioSource, string sePath, float volume, float pitch)
+        private async Task SetSeAudio(AudioSource audioSource, string sePath, float volume, float pitch)
         {
-            var handle = ResourceSystem.LoadSeAudio(sePath);
+            var handle = await ResourceSystem.LoadSeAsset(sePath);
 
             if (audioSource != null)
             {
