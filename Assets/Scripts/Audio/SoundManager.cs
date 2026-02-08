@@ -105,6 +105,10 @@ namespace Ryneus
         {
             foreach (var staticSe in _staticSe)
             {
+                if (staticSe.clip == null)
+                {
+                    continue;
+                }
                 float baseVolume = _seMaster.Find(a => a.FileName == staticSe.clip.name).Volume;
                 staticSe.rolloffMode = AudioRolloffMode.Linear;
                 staticSe.volume = SeVolume * baseVolume;

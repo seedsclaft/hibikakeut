@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using System.Threading;
 using Cysharp.Threading.Tasks;
 using System.Linq;
 
@@ -207,14 +204,14 @@ namespace Ryneus
             }
             return null;
         }
-
+/*
         public static async UniTask<AudioClip> GetSE(string fileName)
         {
             string sePath = "Assets/Audios/SE/" + fileName + ".ogg";
             var result = await Ryneus.ResourceSystem.LoadAsset<AudioClip>(sePath);
             return result;
         }
-
+*/
         public static List<ListData> HelpText(int id)
         {
             var data = Helps.Find(a => a.Id == id);

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using Cysharp.Threading.Tasks;
@@ -18,7 +17,7 @@ namespace Ryneus
         private static string _bgmPath = "Audios/BGM/";
         private static string _bgsPath = "Audios/BGS/";
         private static string _sePath = "Audios/Se/";
-
+/*
         public static void ReleaseScene()
         {
             if (_lastScene != null)
@@ -43,7 +42,7 @@ namespace Ryneus
             }
             _lastLoadAssets.Clear();
         }
-
+*/
         public static async UniTask<List<AudioClip>> LoadBGMAsset(string bgmKey)
         {
             var bGMData = DataSystem.BGM.Find(a => a.Key == bgmKey);

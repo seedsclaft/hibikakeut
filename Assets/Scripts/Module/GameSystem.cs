@@ -448,8 +448,8 @@ namespace Ryneus
             if (_currentScene != null)
             {
                 Destroy(_currentScene.gameObject);
-                ResourceSystem.ReleaseAssets();
-                ResourceSystem.ReleaseScene();
+                //ResourceSystem.ReleaseAssets();
+                //ResourceSystem.ReleaseScene();
                 Resources.UnloadUnusedAssets();
             }
             if (sceneInfo.SceneChangeType == SceneChangeType.Pop)
