@@ -32,10 +32,10 @@ namespace Ryneus
         private string _lastPlayAudio = "";
         private float _lastBgmVolume = 0f;
 
-        public async Task Initialize()
+        public void Initialize()
         {
             // 全体シーンで使うサウンドを初期ロード
-            await LoadStaticSe();
+            LoadStaticSe();
             // SeAudioSourceを生成
             _se = new List<AudioSource>();
             for (int i = 0; i < _seAudioSourceNum; i++)
@@ -45,7 +45,7 @@ namespace Ryneus
             }
         }
 
-        private async Task LoadStaticSe()
+        private void LoadStaticSe()
         {
             _staticSe.Clear();
             _seMaster = DataSystem.SE.FindAll(a => a != null);
@@ -53,7 +53,7 @@ namespace Ryneus
             {
                 var audioSource = gameObject.AddComponent<AudioSource>();
                 _staticSe.Add(audioSource);
-                await SetSeAudio(audioSource, seMaster.FileName, seMaster.Volume, seMaster.Pitch);
+                SetSeAudio(audioSource, seMaster.FileName, seMaster.Volume, seMaster.Pitch);
             }
         }
 

@@ -22,7 +22,7 @@ namespace Ryneus
         private async void Initialize()
         {
             await DataSystem.LoadData();
-            await SoundManager.Instance.Initialize();
+            SoundManager.Instance.Initialize();
             Debug.Log("Boot Success");
             Application.targetFrameRate = 60;
 #if UNITY_ANDROID && !UNITY_EDITOR
