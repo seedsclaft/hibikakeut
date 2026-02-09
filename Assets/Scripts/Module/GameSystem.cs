@@ -51,6 +51,10 @@ namespace Ryneus
 
         private void Awake()
         {
+            if (Instance == null)
+            {
+
+            }
 #if UNITY_WEBGL || UNITY_ANDROID || UNITY_STANDALONE_WIN// && !UNITY_EDITOR
             //FirebaseController.Instance.Initialize();
 #endif

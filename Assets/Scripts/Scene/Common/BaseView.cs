@@ -183,7 +183,15 @@ namespace Ryneus
             {
                 return;
             }
-            if (this != GameSystem.Instance.LaseInputableBaseView)
+            if (InputSystem._inputDates.Count == 0)
+            {
+                return;
+            }
+            if (GameSystem.Instance?.LaseInputableBaseView == null)
+            {
+                return;
+            }
+            if (this != GameSystem.Instance?.LaseInputableBaseView)
             {
                 return;
             }
