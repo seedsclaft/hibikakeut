@@ -102,7 +102,7 @@ namespace Ryneus
                 {
                     SetHelpInputInfo("");
                 }
-                if (backEvent != null) backEvent();
+                backEvent?.Invoke();
             });
             ChangeBackCommandActive(true);
         }

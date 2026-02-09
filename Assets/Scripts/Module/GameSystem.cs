@@ -189,7 +189,7 @@ namespace Ryneus
                     break;
                 case Base.CommandType.CallAdvScene:
                     var advCallInfo = (AdvCallInfo)viewEvent.Template;
-                    _ = Instance.StartCoroutine(JumpScenarioAsync(advCallInfo.Label.Value, advCallInfo.CallEvent));
+                    StartCoroutine(JumpScenarioAsync(advCallInfo.Label.Value, advCallInfo.CallEvent));
                     break;
                 case Base.CommandType.DecidePlayerName:
                     string playerName = (string)advEngine.Param.GetParameter("PlayerName");
