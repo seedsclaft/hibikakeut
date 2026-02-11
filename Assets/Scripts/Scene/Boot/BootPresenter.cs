@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Ryneus.Boot;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -22,7 +23,6 @@ namespace Ryneus
         private async void Initialize()
         {
             await DataSystem.LoadData();
-            SoundManager.Instance.Initialize();
             Debug.Log("Boot Success");
             Application.targetFrameRate = 60;
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -72,13 +72,16 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.LogoClick:
-                    CommandLogoClick();
+                    _ = CommandLogoClick();
                     break;
             }
         }
 
-        private void CommandLogoClick()
+        private async Task CommandLogoClick()
         {
+            _view.CommandCallLoading();
+            await SoundManager.Instance.Initialize();
+            _view.CommandCloseLoading();
             _view.CommandGotoSceneChange(Scene.Title);
         }
     }

@@ -34,7 +34,7 @@ namespace Ryneus
 
         private async Task PlaySound(MakerEffectData.SoundTimings soundTimings)
         {
-            var clip = await ResourceSystem.LoadSeAsset(soundTimings.se.name);
+            var clip = await ResourceSystem.LoadEffectSeAsset(soundTimings.se.name);
             var volume = soundTimings.se.volume * 0.01f;
             var pitch = soundTimings.se.pitch * 0.01f;
             /*

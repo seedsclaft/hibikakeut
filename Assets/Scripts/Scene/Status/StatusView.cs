@@ -229,13 +229,24 @@ namespace Ryneus
         private void InitializeActorTabList()
         {
             actorTabList.Initialize();
+            actorTabList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectActor, actorTabList.ListItemData<ActorInfo>()));
             //AddViewActives(actorTabList);
         }
 
         public void SetActorTabList(List<ListData> actorInfos, int selectIndex)
         {
             actorTabList.UpdateSelectIndex(selectIndex);
-            actorTabList.SetData(actorInfos, false);
+            actorTabList.SetData(actorInfos, false, () =>
+            {
+                foreach (var itemPrefab in actorTabList.ItemPrefabList)
+                {
+                    var listItem = itemPrefab.GetComponent<ListItem>();
+                    if (listItem != null)
+                    {
+                        listItem.SetSelectArrow(selectIndex == listItem.Index);
+                    }
+                }
+            });
         }
 
         public void SetUseItemList(List<ListData> itemInfos)

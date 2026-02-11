@@ -484,6 +484,8 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.SelectActor(actorInfo.ActorId.Value);
+            CommandRefreshMagicList(true);
+            CommandRefresh();
         }
 
         private void CommandDecideActor()

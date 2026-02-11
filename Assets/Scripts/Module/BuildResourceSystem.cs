@@ -30,6 +30,7 @@ namespace Ryneus
                 "Assets/AssetBundle/Animations/MakerEffect",
                 "Assets/AssetBundle/Texture/BG",
                 "Assets/AssetBundle/Texture/Character/Enemies",
+                "Assets/AssetBundle/Texture/Character/Npcs",
             };
             for (int i = 1; i <= 10; i++)
             {

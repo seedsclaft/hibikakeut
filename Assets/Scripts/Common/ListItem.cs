@@ -73,10 +73,7 @@ namespace Ryneus
             //if (disable != null && disable.activeSelf) return;
 
             cursor.SetActive(true);
-            if (selectArrow != null)
-            {
-                selectArrow.SetActive(true);
-            }
+            SetSelectArrow(true);
             foreach (var text in textUguiList)
             {
                 text.color = selectColor;
@@ -94,10 +91,7 @@ namespace Ryneus
                 return;
             }
             cursor.SetActive(false);
-            if (selectArrow != null)
-            {
-                selectArrow.SetActive(false);
-            }
+            SetSelectArrow(false);
             foreach (var text in textUguiList)
             {
                 text.color = unSelectColor;
@@ -155,6 +149,17 @@ namespace Ryneus
                 }
             }
         }
+
+        public void SetSelectArrow(bool isSelect)
+        {
+            if (selectArrow == null)
+            {
+                return;
+            }
+            selectArrow.SetActive(isSelect);
+        }
+
+
 
         void OnDestroy()
         {

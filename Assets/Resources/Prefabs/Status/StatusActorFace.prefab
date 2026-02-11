@@ -156,7 +156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2ea859be3709a5948b948c348c2552f3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 54d08e472ddea3e4aa39cfa5fea696a3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -303,8 +303,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.BaseListComponent
   clickButton: {fileID: 1640069540120815916}
-  cursor: {fileID: 9196826487373225019}
-  selectArrow: {fileID: 0}
+  cursor: {fileID: 0}
+  selectArrow: {fileID: 9196826487373225019}
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
   disable: {fileID: 0}
@@ -392,6 +392,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cursor2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647474468976755302, guid: 6a4541f44b4fc4c4db84b41076279be6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2392939651802937918, guid: 6a4541f44b4fc4c4db84b41076279be6,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 2392939651802937918, guid: 6a4541f44b4fc4c4db84b41076279be6,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.6901961
+      objectReference: {fileID: 0}
+    - target: {fileID: 2392939651802937918, guid: 6a4541f44b4fc4c4db84b41076279be6,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.8156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 2392939651802937918, guid: 6a4541f44b4fc4c4db84b41076279be6,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.8784314
       objectReference: {fileID: 0}
     - target: {fileID: 8554351254191829314, guid: 6a4541f44b4fc4c4db84b41076279be6,
         type: 3}

@@ -144,8 +144,8 @@ namespace Ryneus
 
         public void OpenAnimation()
         {
-            popupAnimation.MoveYAndFade(upperLayer.transform, 0, 0.5f);
-            popupAnimation.MoveYAndFade(lowerLayer.transform, 0, 0.5f);
+            popupAnimation.MoveYAndFade(upperLayer.transform, 0, 0.4f);
+            popupAnimation.MoveYAndFade(lowerLayer.transform, 0, 0.4f);
         }
 
         public void CommandRefresh()

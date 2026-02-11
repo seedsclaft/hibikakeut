@@ -14,10 +14,16 @@ namespace Ryneus
     {
         private static GameObject _lastScene = null;
         private static List<Object> _lastLoadAssets = new();
+        private static Dictionary<string, object> _loadAssets = new();
 
         private static string _bgmPath = "Audios/BGM/";
         private static string _bgsPath = "Audios/BGS/";
         private static string _sePath = "Audios/SE/";
+
+        public static void Initialize()
+        {
+            _loadAssets.Clear();
+        }
 /*
         public static void ReleaseScene()
         {
@@ -64,10 +70,10 @@ namespace Ryneus
                 data.Add(_bgmPath + bGMData.FileName + "");
             }
             AudioClip result2 = null;
-            var result1 = await LoadAssetResources<AudioClip>(data[0]);
+            var result1 = await LoadAsset<AudioClip>(data[0]);
             if (bGMData.Loop || (bGMData.CrossFade != null && bGMData.CrossFade != ""))
             {
-                result2 = await LoadAssetResources<AudioClip>(data[1]);
+                result2 = await LoadAsset<AudioClip>(data[1]);
             }
             return new List<AudioClip>()
             {
@@ -78,28 +84,18 @@ namespace Ryneus
         public static async Task<AudioClip> LoadBGSAsset(string fileName)
         {
             var data = _bgsPath + fileName;
-            AudioClip result = await LoadAssetResources<AudioClip>(data);
+            AudioClip result = await LoadAsset<AudioClip>(data);
             return result;
         }
 
         public static async Task<AudioClip> LoadSeAsset(string fileName)
         {
-            return await LoadAssetResources<AudioClip>(_sePath + fileName);
-        }
-
-        public static async Task<AudioClip> LoadAssetResources<T>(string address)
-        {
-            return await Addressables.LoadAssetAsync<AudioClip>(address);
+            return await LoadAsset<AudioClip>(_sePath + fileName);
         }
 
         static string ActorTexturePath => "Texture/Character/Actors/";
         public static string SystemTexturePath => "Texture/System/";
         public static string PrefabPath => "Prefabs/";
-
-        public static AudioClip LoadSeAudio(string path)
-        {
-            return LoadResource<AudioClip>("Audios/SE/" + path);
-        }
 
         public static T LoadResource<T>(string path) where T : Object
         {
@@ -113,7 +109,13 @@ namespace Ryneus
 
         public static async Task<T> LoadAsset<T>(string path) where T : Object
         {
-            return await Addressables.LoadAssetAsync<T>(path);
+            if (_loadAssets.ContainsKey(path))
+            {
+                return _loadAssets[path] as T;
+            }
+            var task = await Addressables.LoadAssetAsync<T>(path);
+            _loadAssets[path] = task;
+            return task;
         }
 
         public static async Task<Sprite> LoadActorMainSprite(string path)
@@ -189,6 +191,11 @@ namespace Ryneus
         public static async Task<EffekseerEffectAsset> LoadResourceEffectAsset(string path)
         {
             return await Addressables.LoadAssetAsync<EffekseerEffectAsset>("Animations/" + path);
+        }
+
+        public static async Task<AudioClip> LoadEffectSeAsset(string fileName)
+        {
+            return await LoadAsset<AudioClip>("Animations/Sound/" + fileName);
         }
 
         public static Sprite LoadBuildingSprite(string fileName)

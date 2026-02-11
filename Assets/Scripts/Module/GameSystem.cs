@@ -59,6 +59,7 @@ namespace Ryneus
             //FirebaseController.Instance.Initialize();
 #endif
             Application.targetFrameRate = 60;
+            ResourceSystem.Initialize();
             advController.Initialize();
             advController.SetHelpWindow(advHelpWindow);
             transitionRoot.SetActive(false);
