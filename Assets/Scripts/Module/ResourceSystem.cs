@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Cysharp.Threading.Tasks;
 using Effekseer;
 using UnityEngine.U2D;
+using UnityEngine.AddressableAssets;
 
 namespace Ryneus
 {
@@ -88,9 +89,7 @@ namespace Ryneus
 
         public static async Task<AudioClip> LoadAssetResources<T>(string address)
         {
-            var result = Resources.LoadAsync<AudioClip>(address);
-            await result;
-            return result.asset as AudioClip;
+            return await Addressables.LoadAssetAsync<AudioClip>(address);
         }
 
         static string ActorTexturePath => "Texture/Character/Actors/";

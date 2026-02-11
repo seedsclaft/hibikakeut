@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 #if UNITY_EDITOR
 using UnityEditor;
-/*
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using System.IO;
-*/
 #endif
 using UnityEngine;
 
@@ -14,7 +12,6 @@ namespace Ryneus
     public class BuildResourceSystem
     {
 #if UNITY_EDITOR
-/*
         [MenuItem("Resources/AutoAssetBundleName")]
         public static void AutoAssetBundleName()
         {
@@ -95,7 +92,6 @@ namespace Ryneus
             AssetDatabase.SaveAssets();
             Debug.Log($"{count} entries updated in group {groupName}.");
         }
-*/
 
         [MenuItem("Resources/DemoBuild")]
         public static void DemoBuild()
