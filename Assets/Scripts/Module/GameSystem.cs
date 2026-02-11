@@ -188,6 +188,7 @@ namespace Ryneus
                     enemyInfoView.SetBackEvent(enemyStatusInfo.BackEvent);
                     break;
                 case Base.CommandType.CallAdvScene:
+                    Instance.gameObject.SetActive(true);
                     var advCallInfo = (AdvCallInfo)viewEvent.Template;
                     StartCoroutine(JumpScenarioAsync(advCallInfo.Label.Value, advCallInfo.CallEvent));
                     break;
