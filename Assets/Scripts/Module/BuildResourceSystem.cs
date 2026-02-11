@@ -35,6 +35,9 @@ namespace Ryneus
                 return;
             }
             var group = settings.FindGroup("Remote");
+#if UNITY_STANDALONE_WIN
+            group = settings.FindGroup("Windows");
+#endif
             if (group == null)
             {
                 return;
