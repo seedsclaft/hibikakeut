@@ -34,7 +34,7 @@ namespace Ryneus
             ResetSelectSkill();
             _view.OpenAnimation(() =>
             {
-                CheckTutorialState();
+                //CheckTutorialState();
             });
         }
 

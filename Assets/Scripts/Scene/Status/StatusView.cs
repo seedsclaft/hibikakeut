@@ -95,11 +95,11 @@ namespace Ryneus
             }
             if (leftLayer != null)
             {
-                leftLayer.GetComponent<RectTransform>().localPosition = new Vector3(-540, 0, 0);
+                leftLayer.GetComponent<RectTransform>().localPosition = new Vector3(-240, 0, 0);
             }
             if (rightLayer != null)
             {
-                rightLayer.GetComponent<RectTransform>().localPosition = new Vector3(540, 0, 0);
+                rightLayer.GetComponent<RectTransform>().localPosition = new Vector3(240, 0, 0);
             }
             if (popupAnimation != null)
             {
