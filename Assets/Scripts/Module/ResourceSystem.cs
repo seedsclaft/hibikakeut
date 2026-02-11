@@ -181,6 +181,11 @@ namespace Ryneus
             return LoadResource<EffekseerEffectAsset>("Animations/" + path);
         }
 
+        public static async Task<EffekseerEffectAsset> LoadResourceEffectAsset(string path)
+        {
+            return await Addressables.LoadAssetAsync<EffekseerEffectAsset>("Animations/" + path);
+        }
+
         public static Sprite LoadBuildingSprite(string fileName)
         {
             return LoadResource<Sprite>("Texture/Symbol/" + fileName);

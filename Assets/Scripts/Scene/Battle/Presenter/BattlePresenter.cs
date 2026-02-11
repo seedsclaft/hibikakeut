@@ -51,20 +51,12 @@ namespace Ryneus
         {
             _view.SetBattleBusy(true);
             _model.CreateBattleData();
-            //await _model.LoadBattleResources(_model.Battlers);
-            //var bgm = await _model.GetBattleBgm();
-            //SoundManager.Instance.PlayBgm(bgm,1.0f,true);
-            /*
-            if (SoundManager.Instance.CrossFadeMode == false)
-            {
-                var bgm = await _model.GetBattleBgm();
-                SoundManager.Instance.PlayBgm(bgm,1.0f,true);
-            }
-            */
-            _view.CallSystemCommand(Base.CommandType.CloseLoading);
 
             ViewInitialize();
             BattleChecker.Instance.SetModel(_model, _view);
+            _view.CommandCallLoading();
+            await _model.LoadEffects();
+            _view.CommandCloseLoading();
 
             _view.CommandStartTransition(() =>
             {
@@ -545,7 +537,7 @@ namespace Ryneus
             _view.HideStateOverlay();
             if (_skipBattle)
             {
-                _view.CallSystemCommand(Base.CommandType.CallLoading);
+                _view.CommandCallLoading();
             }
             await UniTask.DelayFrame((int)(150f / GameSystem.OptionData.BattleSpeed));
             //_view.SetBattleBusy(false);
@@ -560,7 +552,7 @@ namespace Ryneus
             */
 
             BattleChecker.Instance.SetModel(null, null);
-            _view.CallSystemCommand(Base.CommandType.CloseLoading);
+            _view.CommandCloseLoading();
             //_view.CommandChangeViewToTransition(null);
             _view.CommandGotoSceneChange(Scene.Strategy, strategySceneInfo);
         }
@@ -624,7 +616,7 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             _skipBattle = true;
-            _view.CallSystemCommand(Base.CommandType.CallLoading);
+            _view.CommandCallLoading();
         }
     }
 }

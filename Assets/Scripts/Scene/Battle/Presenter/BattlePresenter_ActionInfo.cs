@@ -125,7 +125,7 @@ namespace Ryneus
 
         private void PlayAnimation(AnimationData animationData, AnimationType animationType, List<int> targetIndexList, bool isCurse = false)
         {
-            var animation = ResourceSystem.LoadResourceEffect(animationData.AnimationPath);
+            var animation = _model.EffectAssets[animationData.AnimationPath];
             _view.ClearDamagePopup();
             // 全体エフェクト
             if (animationType == AnimationType.All)
@@ -136,7 +136,7 @@ namespace Ryneus
             // 個別エフェクト
             foreach (var targetIndex in targetIndexList)
             {
-                var oneAnimation = isCurse ? ResourceSystem.LoadResourceEffect("NA_Effekseer/NA_curse_001") : animation;
+                var oneAnimation = isCurse ? _model.EffectAssets["NA_Effekseer/NA_curse_001"] : animation;
                 _view.StartAnimation(targetIndex, oneAnimation, animationData.Position, animationData.Scale, animationData.Speed, targetIndex == targetIndexList[0]);
             }
         }
@@ -253,7 +253,7 @@ namespace Ryneus
 
         private async UniTask<bool> SelfAnimation(ActionInfo actionInfo)
         {
-            var selfAnimation = ResourceSystem.LoadResourceEffect("MAGICALxSPIRAL/WHead1");
+            var selfAnimation = _model.EffectAssets["MAGICALxSPIRAL/WHead1"];
             _view.StartAnimationBeforeSkill(actionInfo.SubjectIndex.Value,selfAnimation);
             await UniTask.DelayFrame(_model.WaitFrameTime(30));
             return true;
@@ -342,7 +342,7 @@ namespace Ryneus
             _ = await ExecActionResultInfos(slipDamageResults);
             if (!_skipBattle)
             {
-                _view.StartAnimationSlipDamage(ActionResultInfo.ConvertIndexes(slipDamageResults));
+                _view.StartAnimationSlipDamage(ActionResultInfo.ConvertIndexes(slipDamageResults), _model.EffectAssets["NA_Effekseer/NA_Fire_001"]);
             }
             StartDeathAnimation(slipDamageResults);
             //_model.CheckTriggerPassiveInfos(BattleUtility.HpDamagedTriggerTimings(),null,slipDamageResults);
@@ -373,7 +373,7 @@ namespace Ryneus
             _ = await ExecActionResultInfos(regenerateActionResults);
             if (!_skipBattle)
             {
-                _view.StartAnimationRegenerate(ActionResultInfo.ConvertIndexes(regenerateActionResults));
+                _view.StartAnimationRegenerate(ActionResultInfo.ConvertIndexes(regenerateActionResults), _model.EffectAssets["tktk01/Cure1"]);
             }
             EndTurn();
         }

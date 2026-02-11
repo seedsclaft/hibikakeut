@@ -814,21 +814,21 @@ namespace Ryneus
             _battlerComps[subjectIndex].SetActiveBeforeSkillThumb(true);
         }
 
-        public void StartAnimationSlipDamage(List<int> targetIndexes)
+        public void StartAnimationSlipDamage(List<int> targetIndexes, EffekseerEffectAsset effekseerEffect)
         {
-            var animation = ResourceSystem.LoadResourceEffect("NA_Effekseer/NA_Fire_001");
+            //var animation = ResourceSystem.LoadResourceEffect("NA_Effekseer/NA_Fire_001");
             foreach (var targetIndex in targetIndexes)
             {
-                StartAnimation(targetIndex, animation, 0, 0.5f);
+                StartAnimation(targetIndex, effekseerEffect, 0, 0.5f);
             }
         }
 
-        public void StartAnimationRegenerate(List<int> targetIndexes)
+        public void StartAnimationRegenerate(List<int> targetIndexes, EffekseerEffectAsset effekseerEffect)
         {
-            var animation = ResourceSystem.LoadResourceEffect("tktk01/Cure1");
+            //var animation = ResourceSystem.LoadResourceEffect("tktk01/Cure1");
             foreach (var targetIndex in targetIndexes)
             {
-                StartAnimation(targetIndex,animation,0);
+                StartAnimation(targetIndex, effekseerEffect, 0);
             }
         }
 

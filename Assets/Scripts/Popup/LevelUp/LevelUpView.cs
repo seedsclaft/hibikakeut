@@ -45,6 +45,7 @@ namespace Ryneus
             actorInfoComponent.MainThumb.DOFade(0, 0);
             SetBusy(true);
             battleStartAnim.SetText(title);
+            ChangeBackCommandActive(false);
             battleStartAnim.StartAnim(false, 0, () =>
             {
                 confirmAnimation.OpenAnimation(UiRoot.transform, () =>
@@ -52,6 +53,7 @@ namespace Ryneus
                     CallViewEvent(CommandType.EndAnimation);
                     UiRoot.SetActive(true);
                     SetBusy(false);
+                    ChangeBackCommandActive(true);
                 });
             });
             battleStartAnim.gameObject.SetActive(true);

@@ -321,7 +321,7 @@ namespace Ryneus
         private void SuccessSave(bool isReturnScene)
         {
             // ロード非表示
-            _view.CallSystemCommand(Base.CommandType.CloseLoading);
+            _view.CommandCloseLoading();
             _model.GainSaveCount();
             _model.SavePlayerStageData(GameSystem.SceneStackManager.Current);
             // 成功表示

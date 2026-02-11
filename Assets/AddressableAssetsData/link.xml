@@ -1,4 +1,20 @@
 <linker>
+  <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="Effekseer.MakerEffectAsset" preserve="all" />
+    <type fullname="MakerEffectData/Se" preserve="nothing" serialized="true" />
+    <type fullname="MakerEffectData/SoundTimings" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Effekseer, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="Effekseer.EffekseerEffectAsset" preserve="all" />
+    <type fullname="Effekseer.EffekseerMaterialAsset" preserve="all" />
+    <type fullname="Effekseer.EffekseerModelAsset" preserve="all" />
+    <type fullname="Effekseer.Internal.EffekseerTextureResource" preserve="nothing" serialized="true" />
+    <type fullname="Effekseer.Internal.EffekseerModelResource" preserve="nothing" serialized="true" />
+    <type fullname="Effekseer.Internal.EffekseerSoundResource" preserve="nothing" serialized="true" />
+    <type fullname="Effekseer.Internal.EffekseerMaterialResource" preserve="nothing" serialized="true" />
+    <type fullname="Effekseer.EffekseerMaterialAsset/TextureProperty" preserve="nothing" serialized="true" />
+    <type fullname="Effekseer.EffekseerMaterialAsset/TextureType" preserve="nothing" serialized="true" />
+  </assembly>
   <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
     <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />
   </assembly>
@@ -10,5 +26,17 @@
   </assembly>
   <assembly fullname="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.AudioClip" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.GameObject" preserve="all" />
+    <type fullname="UnityEngine.Material" preserve="all" />
+    <type fullname="UnityEngine.Mesh" preserve="all" />
+    <type fullname="UnityEngine.MeshFilter" preserve="all" />
+    <type fullname="UnityEngine.MeshRenderer" preserve="all" />
+    <type fullname="UnityEngine.Object" preserve="all" />
+    <type fullname="UnityEngine.Shader" preserve="all" />
+    <type fullname="UnityEngine.Sprite" preserve="all" />
+    <type fullname="UnityEngine.Texture2D" preserve="all" />
+    <type fullname="UnityEngine.Transform" preserve="all" />
   </assembly>
 </linker>

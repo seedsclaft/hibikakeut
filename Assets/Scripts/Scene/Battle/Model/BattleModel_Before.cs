@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
 
@@ -9,6 +11,7 @@ namespace Ryneus
     public partial class BattleModel : BaseModel
     {
         public ParameterInt SelectIndex = new(-1);
+        public Dictionary<string, Effekseer.EffekseerEffectAsset> EffectAssets = new();
         public void CreateBattleData()
         {
             _actionIndex = 0;
@@ -66,6 +69,45 @@ namespace Ryneus
             //_saveBattleInfo.SetTroop(_troop.CopyData());
         }
 
+        public async Task LoadEffects()
+        {
+            // 必要なアセットをロード
+            var addressPathes = new List<string>
+            {
+                //"NA_Effekseer/NA_curse_001",
+                "MAGICALxSPIRAL/WHead1",
+                "NA_Effekseer/NA_Fire_001",
+                "tktk01/Cure1"
+            };
+
+            // Actor用
+            foreach (var battlerInfo in _battlers)
+            {
+                foreach (var skillInfo in battlerInfo.Skills)
+                {
+                    var animation = DataSystem.Animations.Find(a => a.Id == skillInfo.Master.AnimationId);
+                    if (animation != null && animation.AnimationPath != "" && !addressPathes.Contains(animation.AnimationPath))
+                    {
+                        addressPathes.Add(animation.AnimationPath);
+                    }
+                }
+            }
+            List<Task<Effekseer.EffekseerEffectAsset>> tasks = new();
+            foreach (var addressPath in addressPathes)
+            {
+                var result = ResourceSystem.LoadResourceEffectAsset(addressPath);
+                tasks.Add(result);
+            }
+
+            await UniTask.WaitUntil(() => !tasks.Exists(a => !a.IsCompleted));
+
+            foreach (var addressPath in addressPathes)
+            {
+                var result = ResourceSystem.LoadResourceEffectAsset(addressPath);
+                EffectAssets[addressPath] = result.Result;
+            }
+                
+        }
 
         public int SelectedCharacterIndex()
         {
@@ -94,7 +136,8 @@ namespace Ryneus
                 if (selectIndex == idx)
                 {
                     toBattlerInfo = battlerInfo;
-                } else
+                }
+                else
                 if (SelectIndex.Value == idx)
                 {
                     fromBattlerInfo = battlerInfo;

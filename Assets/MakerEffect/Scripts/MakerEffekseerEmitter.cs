@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Effekseer;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -31,16 +32,18 @@ namespace Ryneus
             _effectSounds.Add(sound);
         }
 
-        private void PlaySound(MakerEffectData.SoundTimings soundTimings)
+        private async Task PlaySound(MakerEffectData.SoundTimings soundTimings)
         {
-            var clip = Resources.Load<AudioClip>("Animations/Sound/" + soundTimings.se.name);
+            var clip = await ResourceSystem.LoadSeAsset(soundTimings.se.name);
             var volume = soundTimings.se.volume * 0.01f;
             var pitch = soundTimings.se.pitch * 0.01f;
+            /*
             var pan = soundTimings.se.pan * 0.01f;
             var resource = new Effekseer.Internal.EffekseerSoundResource
             {
                 clip = clip
             };
+            */
             SoundManager.Instance.PlaySe(clip, volume, pitch);
             /*
             Effekseer.Internal.EffekseerSoundPlayer.Instance.PlaySound(

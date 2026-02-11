@@ -54,7 +54,7 @@ namespace Ryneus
             _model.AddEventNotFlag();
             //_model.SaveAutoFile();
             // 移動したあとのイベント
-            _view.CallSystemCommand(Base.CommandType.CloseLoading);
+            _view.CommandCloseLoading();
             if (ev)
             {
                 return;

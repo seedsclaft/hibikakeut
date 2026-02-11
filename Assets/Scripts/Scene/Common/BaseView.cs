@@ -338,6 +338,16 @@ namespace Ryneus
             CallSystemCommand(Base.CommandType.SceneHideUI);
         }
 
+        public void CommandCallLoading()
+        {
+            CallSystemCommand(Base.CommandType.CallLoading);
+        }
+
+        public void CommandCloseLoading()
+        {
+            CallSystemCommand(Base.CommandType.CloseLoading);
+        }
+
         public void SetBackCommand(Action callEvent)
         {
             if (_backCommand != null)

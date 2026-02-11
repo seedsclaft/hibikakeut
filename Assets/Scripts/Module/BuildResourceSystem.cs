@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.AddressableAssets;
@@ -19,14 +21,32 @@ namespace Ryneus
             {
                 "Assets/AssetBundle/Audios/BGM",
                 "Assets/AssetBundle/Audios/SE",
+                "Assets/AssetBundle/Animations/MAGICALxSPIRAL",
+                "Assets/AssetBundle/Animations/NA_Effekseer",
+                "Assets/AssetBundle/Animations/Sound",
+                "Assets/AssetBundle/Animations/tktk01",
+                "Assets/AssetBundle/Animations/tktk02",
+                "Assets/AssetBundle/Animations/Genfulew_Effect",
+                "Assets/AssetBundle/Animations/MakerEffect",
             };
+            var settings = AddressableAssetSettingsDefaultObject.Settings;
+            if (settings == null)
+            {
+                return;
+            }
+            var group = settings.FindGroup("Remote");
+            if (group == null)
+            {
+                return;
+            }
+            // グループ内の全エントリーを削除
+            var entries = group.entries.ToList();
+            foreach (var entry in entries)
+            {
+                group.RemoveAssetEntry(entry);
+            }
             foreach (var str in strs)
             {
-                var settings = AddressableAssetSettingsDefaultObject.Settings;
-                if (settings == null)
-                {
-                    return;
-                }
                 string[] files = Directory.GetFiles(str, "*", SearchOption.AllDirectories);
 
                 foreach (var file in files)
@@ -35,15 +55,34 @@ namespace Ryneus
                     {
                         continue;
                     }
+                    if (file.Contains(".efkproj"))
+                    {
+                        continue;
+                    }
+                    if (file.Contains(".efkefc"))
+                    {
+                        continue;
+                    }
+                    if (file.Contains(".efkmodel"))
+                    {
+                        continue;
+                    }
+                    if (file.Contains(".efkmat"))
+                    {
+                        continue;
+                    }
                     // アセットを登録
                     string guid = AssetDatabase.AssetPathToGUID(file);
-                    var entry = settings.CreateOrMoveEntry(guid, settings.FindGroup("Remote"));
+                    var entry = settings.CreateOrMoveEntry(guid, group);
 
                     var address = file;
                     address = address.Replace("Assets/AssetBundle/", "");
                     address = address.Replace(".ogg", "");
                     address = address.Replace(".mp3", "");
                     address = address.Replace(".wav", "");
+                    address = address.Replace(".png", "");
+                    address = address.Replace(".asset", "");
+                    address = address.Replace(".efkmodel", "");
                     address = address.Replace("\\", "/");
                     entry.address = address;
                 }
