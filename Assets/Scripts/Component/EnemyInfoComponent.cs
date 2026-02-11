@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -53,42 +54,43 @@ namespace Ryneus
             }
         }
 
-        private void UpdateMainThumb(Image image, string imagePath, int x, int y, float scale, bool nativeSize)
+        private async Task UpdateMainThumb(Image image, string imagePath, int x, int y, float scale, bool nativeSize)
         {
-            var handle = ResourceSystem.LoadEnemySprite(imagePath);
-            if (image != null)
+            if (image == null)
             {
-                image.gameObject.SetActive(true);
-                var rect = image.GetComponent<RectTransform>();
-                rect.localPosition = new Vector3(x, y, 0);
-                rect.localScale = new Vector3(scale, scale, 1);
-                image.sprite = handle;
-                if (nativeSize)
-                {
-                    UpdateNativeSize();
-                }
+                return;
+            }
+            image.gameObject.SetActive(true);
+            var rect = image.GetComponent<RectTransform>();
+            rect.localPosition = new Vector3(x, y, 0);
+            rect.localScale = new Vector3(scale, scale, 1);
+            var sprite = await ResourceSystem.LoadEnemySprite(imagePath);
+            image.sprite = sprite;
+            if (nativeSize)
+            {
+                UpdateNativeSize();
             }
         }
 
-        private void UpdateFaceThumb(Image image, string imagePath, int x, int y, float scale, bool nativeSize)
+        private async Task UpdateFaceThumb(Image image, string imagePath, int x, int y, float scale, bool nativeSize)
         {
-            //var handle = await ResourceSystem.LoadAsset<Sprite>("Enemies/" + imagePath);
-            var handle = ResourceSystem.LoadEnemySprite(imagePath);
-            if (image != null)
+            if (image == null)
             {
-                image.gameObject.SetActive(true);
-                var rect = image.GetComponent<RectTransform>();
-                rect.localPosition = new Vector3(x, y, 0);
-                rect.localScale = new Vector3(scale, scale, 1);
-                image.sprite = handle;
-                if (nativeSize)
-                {
-                    UpdateNativeSize();
-                }
+                return;
+            }
+            image.gameObject.SetActive(true);
+            var rect = image.GetComponent<RectTransform>();
+            rect.localPosition = new Vector3(x, y, 0);
+            rect.localScale = new Vector3(scale, scale, 1);
+            var sprite = await ResourceSystem.LoadEnemySprite(imagePath);
+            image.sprite = sprite;
+            if (nativeSize)
+            {
+                UpdateNativeSize();
             }
         }
 
-        public void UpdateData(EnemyData enemyData)
+        public async Task UpdateData(EnemyData enemyData)
         {
             if (enemyData == null)
             {
@@ -97,16 +99,16 @@ namespace Ryneus
             }
             if (mainThumb != null)
             {
-                UpdateMainThumb(mainThumb, enemyData.ImagePath, 0, 0, 1.0f, false);
+                await UpdateMainThumb(mainThumb, enemyData.ImagePath, 0, 0, 1.0f, false);
                 mainThumb.gameObject.GetComponent<RectTransform>().localScale = new Vector2(enemyData.ImageScale,enemyData.ImageScale);
             }
             if (faceThumb != null)
             {
-                UpdateFaceThumb(faceThumb, enemyData.ImagePath, 0, 0, 1.0f, true);
+                await UpdateFaceThumb(faceThumb, enemyData.ImagePath, 0, 0, 1.0f, true);
             }
             if (gridThumb != null)
             {
-                UpdateMainThumb(gridThumb, enemyData.ImagePath, 0, 0, 1.0f, true);
+                await UpdateMainThumb(gridThumb, enemyData.ImagePath, 0, 0, 1.0f, true);
             }
             if (enemySpriteSize != null)
             {

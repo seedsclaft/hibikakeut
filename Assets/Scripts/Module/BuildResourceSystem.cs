@@ -28,7 +28,17 @@ namespace Ryneus
                 "Assets/AssetBundle/Animations/tktk02",
                 "Assets/AssetBundle/Animations/Genfulew_Effect",
                 "Assets/AssetBundle/Animations/MakerEffect",
+                "Assets/AssetBundle/Texture/BG",
+                "Assets/AssetBundle/Texture/Character/Enemies",
             };
+            for (int i = 1; i <= 10; i++)
+            {
+                strs.Add("Assets/AssetBundle/Texture/Character/Actors/" + i.ToString("D4"));
+            }
+            for (int i = 101; i <= 104; i++)
+            {
+                strs.Add("Assets/AssetBundle/Texture/Character/Actors/" + i.ToString("D4"));
+            }
             var settings = AddressableAssetSettingsDefaultObject.Settings;
             if (settings == null)
             {

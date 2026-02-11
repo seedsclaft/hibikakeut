@@ -111,14 +111,19 @@ namespace Ryneus
             return Resources.LoadAll<T>(path);
         }
 
-        public static Sprite LoadActorMainSprite(string path)
+        public static async Task<T> LoadAsset<T>(string path) where T : Object
         {
-            return LoadResource<Sprite>(ActorTexturePath + path + "/Main");
+            return await Addressables.LoadAssetAsync<T>(path);
         }
 
-        public static Sprite LoadActorMainFaceSprite(string path)
+        public static async Task<Sprite> LoadActorMainSprite(string path)
         {
-            return LoadResource<Sprite>(ActorTexturePath + path + "/MainFace");
+            return await LoadAsset<Sprite>(ActorTexturePath + path + "/Main");
+        }
+
+        public static async Task<Sprite> LoadActorMainFaceSprite(string path)
+        {
+            return await LoadAsset<Sprite>(ActorTexturePath + path + "/MainFace");
         }
 
         public static Sprite LoadActorCutinSprite(string path)
@@ -126,24 +131,24 @@ namespace Ryneus
             return LoadResource<Sprite>(ActorTexturePath + path + "/Cutin");
         }
 
-        public static Sprite LoadActorAwakenSprite(string path)
+        public static async Task<Sprite> LoadActorAwakenSprite(string path)
         {
-            return LoadResource<Sprite>(ActorTexturePath + path + "/Awaken");
+            return await LoadAsset<Sprite>(ActorTexturePath + path + "/Awaken");
         }
 
-        public static Sprite LoadActorReliefSprite(string path)
+        public static async Task<Sprite> LoadActorReliefSprite(string path)
         {
-            return LoadResource<Sprite>(ActorTexturePath + path + "/Relief");
+            return await LoadAsset<Sprite>(ActorTexturePath + path + "/Relief");
         }
 
-        public static Sprite LoadActorAwakenFaceSprite(string path)
+        public static async Task<Sprite> LoadActorAwakenFaceSprite(string path)
         {
-            return LoadResource<Sprite>(ActorTexturePath + path + "/AwakenFace");
+            return await LoadAsset<Sprite>(ActorTexturePath + path + "/AwakenFace");
         }
 
-        public static Sprite LoadActorClipSprite(string path)
+        public static async Task<Sprite> LoadActorClipSprite(string path)
         {
-            return LoadResource<Sprite>(ActorTexturePath + path + "/Clip");
+            return await LoadAsset<Sprite>(ActorTexturePath + path + "/Clip");
         }
 
         public static Sprite[] LoadActorAnimation(string path)
@@ -161,14 +166,14 @@ namespace Ryneus
             return LoadResource<GameObject>("3DModels/Enemy/" + path);
         }
 
-        public static Sprite LoadEnemySprite(string enemyImage)
+        public static async Task<Sprite> LoadEnemySprite(string enemyImage)
         {
-            return LoadResource<Sprite>("Texture/Character/Enemies/" + enemyImage);
+            return await LoadAsset<Sprite>("Texture/Character/Enemies/" + enemyImage);
         }
 
-        public static Sprite LoadBackGround(string fileName)
+        public static async Task<Sprite> LoadBackGround(string fileName)
         {
-            return LoadResource<Sprite>("Texture/BG/" + fileName);
+            return await LoadAsset<Sprite>("Texture/BG/" + fileName);
         }
 
         public static GameObject LoadBattleBackGround(string fileName)

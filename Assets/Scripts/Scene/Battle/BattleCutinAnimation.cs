@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -37,12 +38,12 @@ namespace Ryneus
             mainBackCanvasGroup.alpha = 0;
         }
 
-        public void StartAnimation(BattlerInfo battlerInfo, SkillData skillData, float speedRate)
+        public async Task StartAnimation(BattlerInfo battlerInfo, SkillData skillData, float speedRate)
         {
             if (battlerInfo != null && battlerInfo.ActorInfo != null)
             {
                 battlerInfoComponent.UpdateInfo(battlerInfo);
-                actorMainBack.sprite = ResourceSystem.LoadActorMainSprite(battlerInfo.ActorInfo.Master.ImagePath);
+                actorMainBack.sprite = await ResourceSystem.LoadActorMainSprite(battlerInfo.ActorInfo.Master.ImagePath);
             }
             if (skillData != null)
             {

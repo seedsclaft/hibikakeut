@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -199,13 +200,13 @@ namespace Ryneus
             //UpdateUnitTypeBack(actorData.UnitType);
         }
 
-        private void UpdateMainThumb(string imagePath, int x, int y, float scale)
+        private async Task UpdateMainThumb(string imagePath, int x, int y, float scale)
         {
             if (mainThumb == null)
             {
                 return;
             }
-            var handle = ResourceSystem.LoadActorMainSprite(imagePath);
+            var handle = await ResourceSystem.LoadActorMainSprite(imagePath);
             var rect = mainThumb.GetComponent<RectTransform>();
             rect.localPosition = new Vector3(x, y, 0);
             rect.localScale = new Vector3(scale, scale, 1);
@@ -213,56 +214,58 @@ namespace Ryneus
             rect.sizeDelta = new Vector3(mainThumb.mainTexture.width, mainThumb.mainTexture.height, 1);
         }
 
-        private void UpdateAwakenThumb(string imagePath, int x, int y, float scale)
+        private async Task UpdateAwakenThumb(string imagePath, int x, int y, float scale)
         {
+            /*
             if (awakenThumb == null)
             {
                 return;
             }
-            var handle = ResourceSystem.LoadActorAwakenSprite(imagePath);
+            var handle = await ResourceSystem.LoadActorAwakenSprite(imagePath);
             var rect = awakenThumb.GetComponent<RectTransform>();
             rect.localPosition = new Vector3(x, y, 0);
             rect.localScale = new Vector3(scale, scale, 1);
             awakenThumb.sprite = handle;
             rect.sizeDelta = new Vector3(mainThumb.mainTexture.width, mainThumb.mainTexture.height, 1);
+            */
         }
 
-        private void UpdateReliefThumb(string imagePath)
+        private async Task UpdateReliefThumb(string imagePath)
         {
             if (reliefThumb == null)
             {
                 return;
             }
-            var handle = ResourceSystem.LoadActorReliefSprite(imagePath);
+            var handle = await ResourceSystem.LoadActorReliefSprite(imagePath);
             reliefThumb.sprite = handle;
         }
 
-        private void UpdateClipThumb(string imagePath)
+        private async Task UpdateClipThumb(string imagePath)
         {
             if (clipThumb == null)
             {
                 return;
             }
-            clipThumb.sprite = ResourceSystem.LoadActorClipSprite(imagePath);
+            clipThumb.sprite = await ResourceSystem.LoadActorClipSprite(imagePath);
         }
 
-        private void UpdateMainFaceThumb(string imagePath)
+        private async Task UpdateMainFaceThumb(string imagePath)
         {
             if (faceThumb == null)
             {
                 return;
             }
-            faceThumb.sprite = ResourceSystem.LoadActorMainFaceSprite(imagePath);
+            faceThumb.sprite = await ResourceSystem.LoadActorMainFaceSprite(imagePath);
             faceThumb.gameObject.SetActive(true);
         }
 
-        private void UpdateAwakenFaceThumb(string imagePath)
+        private async Task UpdateAwakenFaceThumb(string imagePath)
         {
             if (awakenFaceThumb == null)
             {
                 return;
             }
-            awakenFaceThumb.sprite = ResourceSystem.LoadActorAwakenFaceSprite(imagePath);
+            awakenFaceThumb.sprite = await ResourceSystem.LoadActorAwakenFaceSprite(imagePath);
             awakenFaceThumb.gameObject.SetActive(true);
         }
 

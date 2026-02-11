@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using Effekseer;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -29,7 +30,7 @@ namespace Ryneus
 
         private List<BattleDamage> _battleDamages = new();
         private float _deathAnimation = 0.0f;
-        public void UpdateInfo(BattlerInfo battlerInfo)
+        public async Task UpdateInfo(BattlerInfo battlerInfo)
         {
             _battlerInfo = battlerInfo;
             if (_battlerInfo == null || _battlerInfo.Index.Value == 0)
@@ -53,7 +54,7 @@ namespace Ryneus
             {
                 if (battlerInfo.IsActor || battlerInfo.IsActorView)
                 {
-                    var handle = ResourceSystem.LoadActorMainFaceSprite(battlerInfo.ActorInfo.Master.ImagePath);
+                    var handle = await ResourceSystem.LoadActorMainFaceSprite(battlerInfo.ActorInfo.Master.ImagePath);
                     if (additiveFaceThumb != null)
                     {
                         additiveFaceThumb.sprite = handle;
@@ -69,17 +70,19 @@ namespace Ryneus
             RefreshStatus();
         }
 
-        private void UpdateMainThumb(string imagePath,  int x , int  y, float scale)
+        private async Task UpdateMainThumb(string imagePath, int x, int y, float scale)
         {
-            var handle = ResourceSystem.LoadEnemySprite(imagePath);
-            if (additiveFaceThumb != null)
+            if (additiveFaceThumb == null)
             {
-                //additiveFaceThumb.gameObject.SetActive(true);
-                var rect = additiveFaceThumb.GetComponent<RectTransform>();
-                rect.localPosition = new Vector3(x, y, 0);
-                rect.localScale = new Vector3(scale, scale, 1);
-                additiveFaceThumb.sprite = handle;
+                return;
             }
+            //additiveFaceThumb.gameObject.SetActive(true);
+            var rect = additiveFaceThumb.GetComponent<RectTransform>();
+            rect.localPosition = new Vector3(x, y, 0);
+            rect.localScale = new Vector3(scale, scale, 1);
+            var sprite = await ResourceSystem.LoadEnemySprite(imagePath);
+            additiveFaceThumb.sprite = sprite;
+            UpdateEnemyImageNativeSize();
         }
 
         public void SetDamageRoot(GameObject damageRoot)

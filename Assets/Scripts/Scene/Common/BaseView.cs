@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -145,9 +146,9 @@ namespace Ryneus
             _helpWindow?.SetHelpText(text);
         }
 
-        public void SetBackGround(string fileName)
+        public async Task SetBackGround(string fileName)
         {
-            _backGround.sprite = ResourceSystem.LoadBackGround(fileName);
+            _backGround.sprite = await ResourceSystem.LoadBackGround(fileName);
         }
 
         public void SetInputFrame(int frame)

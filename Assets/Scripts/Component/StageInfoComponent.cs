@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -33,7 +34,7 @@ namespace Ryneus
             }
         }
 
-        public void UpdateInfo(StageInfo stageInfo)
+        public async Task UpdateInfo(StageInfo stageInfo)
         {
             if (stageInfo == null)
             {
@@ -51,7 +52,7 @@ namespace Ryneus
             {
                 if (bossImage != null)
                 {
-                    bossImage.sprite = ResourceSystem.LoadEnemySprite(stageInfo.BossImage());
+                    bossImage.sprite = await ResourceSystem.LoadEnemySprite(stageInfo.BossImage());
                 }
                 if (bossName != null)
                 {
@@ -61,7 +62,8 @@ namespace Ryneus
                 {
                     bossLv.SetText(DataSystem.GetText(3010) + stageInfo.BossLv().ToString());
                 }
-            } else
+            }
+            else
             {
                 if (bossName != null)
                 {
@@ -90,7 +92,7 @@ namespace Ryneus
             }
         }
 
-        public void UpdateData(StageData stageData)
+        public async Task UpdateData(StageData stageData)
         {
             if (stageData == null)
             {
@@ -102,7 +104,7 @@ namespace Ryneus
             needStageRank?.SetText(stageData.DisplayRank.ToString() + "～");
             if (stageImage != null)
             {
-                stageImage.sprite = ResourceSystem.LoadBackGround(stageData.BackGround);
+                stageImage.sprite = await ResourceSystem.LoadBackGround(stageData.BackGround);
             }
             if (mainStage != null)
             {
