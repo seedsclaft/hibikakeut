@@ -30,7 +30,7 @@ namespace Ryneus
             }
             _tradeItemInfo = data;
 
-            itemInfoComponent.UpdateDate(DataSystem.Items.Find(a => a.Id == data.GetItemInfo.Param1));
+            itemInfoComponent.UpdateDate(DataSystem.FindItem(data.GetItemInfo.Param1));
             var tradeCost = (int)(data.Cost.Value * GameSystem.GameInfo.PartyInfo.TradeDownRate());
             cost.SetText(tradeCost.ToString() + DataSystem.GetText(1000));
             getCount.SetText(data.GetCount.Value.ToString());

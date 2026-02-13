@@ -954,7 +954,7 @@ namespace Ryneus
 
         private async Task CommandGetArtifact(int itemId)
         {
-            var item = DataSystem.Items.Find(a => a.Id == itemId);
+            var item = DataSystem.FindItem(itemId);
             if (item == null)
             {
                 return;
@@ -1008,7 +1008,7 @@ namespace Ryneus
 
         private void CommandGetItem(int itemId)
         {
-            var item = DataSystem.Items.Find(a => a.Id == itemId);
+            var item = DataSystem.FindItem(itemId);
             if (item == null)
             {
                 return;

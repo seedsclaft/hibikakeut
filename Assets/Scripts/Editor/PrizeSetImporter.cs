@@ -20,7 +20,7 @@ namespace Ryneus
         static readonly string ExcelName = "PrizeSets.xlsx";
 
         // アセット更新があると呼ばれる
-        static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+        private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
             foreach (string asset in importedAssets)
             {

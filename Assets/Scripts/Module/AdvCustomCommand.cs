@@ -71,7 +71,7 @@ namespace Utage
         //コマンド実行
         public override async void DoCommand(AdvEngine engine)
         {
-            var bgmData = DataSystem.BGM.Find(a => a.Key == fileName);
+            var bgmData = DataSystem.GetBGMByKey(fileName);
             if (bgmData != null)
             {
                 var bgm = await ResourceSystem.LoadBGMAsset(bgmData.Key);

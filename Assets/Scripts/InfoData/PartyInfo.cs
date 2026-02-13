@@ -192,7 +192,7 @@ namespace Ryneus
             var hpHeal = 0;
             foreach (var item in _items)
             {
-                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
+                var itemData = DataSystem.FindItem(item.Key);
                 if (itemData != null && itemData.ItemType == ItemType.Artifact)
                 {
                     var skillData = DataSystem.FindSkill(itemData.Param1);
@@ -237,7 +237,7 @@ namespace Ryneus
         {
             foreach (var item in _items)
             {
-                var master = DataSystem.Items.Find(a => a.Id == item.Key);
+                var master = DataSystem.FindItem(item.Key);
                 if (master != null && item.Value.Value > 0 && (master.ItemType == ItemType.RandumAddSkill || master.ItemType == ItemType.Currency))
                 {
                     return true;
@@ -256,7 +256,7 @@ namespace Ryneus
             var list = new List<ItemInfo>();
             foreach (var item in _items)
             {
-                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
+                var itemData = DataSystem.FindItem(item.Key);
                 if (item.Value.Value > 0)
                 {
                     list.Add(new ItemInfo(itemData.Id, item.Value.Value));
@@ -277,7 +277,7 @@ namespace Ryneus
             var list = new List<ItemInfo>();
             foreach (var item in _items)
             {
-                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
+                var itemData = DataSystem.FindItem(item.Key);
                 if (itemData != null && itemData.ItemType == itemType && item.Value.Value > 0)
                 {
                     list.Add(new ItemInfo(itemData.Id, item.Value.Value));

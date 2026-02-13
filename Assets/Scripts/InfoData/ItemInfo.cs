@@ -6,7 +6,7 @@ namespace Ryneus
     public class ItemInfo
     {
         public ItemData _master = null;
-        public ItemData Master => _master != null ? _master : DataSystem.Items.Find(a => a.Id == Id.Value);
+        public ItemData Master => _master != null ? _master : DataSystem.FindItem(Id.Value);
         public ParameterInt Id = new();
         public ParameterInt OwnNum = new();
         public ParameterInt UseNum = new();

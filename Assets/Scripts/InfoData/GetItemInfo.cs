@@ -79,7 +79,7 @@ namespace Ryneus
                     return DataSystem.FindSkill(Param1).Name;
 
                 case GetItemType.Item:
-                    return DataSystem.Items.Find(a => a.Id == Param1).Name + " x" + Param2.ToString();
+                    return DataSystem.FindItem(Param1).Name + " x" + Param2.ToString();
                 case GetItemType.Evaluate:
                     return DataSystem.GetText(3210) + Param1;
                 case GetItemType.RankUp:

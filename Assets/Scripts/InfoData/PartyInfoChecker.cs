@@ -63,7 +63,7 @@ namespace Ryneus
                     var getItemData = new GetItemData
                     {
                         Type = GetItemType.Item,
-                        Param1 = item.Id,
+                        Param1 = item.Value.Id,
                         Param2 = 99
                     };
                     var getitemInfo = new GetItemInfo(getItemData);

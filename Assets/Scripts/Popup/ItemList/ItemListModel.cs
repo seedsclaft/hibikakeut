@@ -89,7 +89,7 @@ namespace Ryneus
         public List<GetItemInfo> MakeItemGetItemInfos(int itemId, int num)
         {
             var getItemInfos = new List<GetItemInfo>();
-            var itemData = DataSystem.Items.Find(a => a.Id == itemId);
+            var itemData = DataSystem.FindItem(itemId);
             if (itemData != null)
             {
                 var count = 0;

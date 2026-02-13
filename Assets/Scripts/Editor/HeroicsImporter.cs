@@ -10,7 +10,7 @@ namespace Ryneus
     public class HeroicsImporter : AssetPostprocessor
     {
         static readonly string ExcelName = "Heroics.xlsx";
-        static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+        private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
             foreach (string asset in importedAssets)
             {

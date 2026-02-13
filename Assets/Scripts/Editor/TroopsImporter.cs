@@ -13,7 +13,7 @@ namespace Ryneus
         static readonly string ExcelName = "Troops.xlsx";
 
         // アセット更新があると呼ばれる
-        static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+        private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
             foreach (string asset in importedAssets)
             {
@@ -26,7 +26,7 @@ namespace Ryneus
             }
         }
 
-        static void CreateTroopData(string asset)
+        private static void CreateTroopData(string asset)
         {
             Debug.Log("CreateTroopData");
             // 拡張子なしのファイル名を取得

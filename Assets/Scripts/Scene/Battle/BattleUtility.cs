@@ -27,7 +27,7 @@ namespace Ryneus
 
         public static AnimationData AnimationData(int animationId)
         {
-            return DataSystem.Animations.Find(a => a.Id == animationId);
+            return DataSystem.FindAnimation(animationId);
         }
 
         public static List<TriggerTiming> StartTriggerTimings()

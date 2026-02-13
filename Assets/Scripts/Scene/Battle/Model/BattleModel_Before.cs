@@ -85,7 +85,7 @@ namespace Ryneus
             {
                 foreach (var skillInfo in battlerInfo.Skills)
                 {
-                    var animation = DataSystem.Animations.Find(a => a.Id == skillInfo.Master.AnimationId);
+                    var animation = DataSystem.FindAnimation(skillInfo.Master.AnimationId);
                     if (animation != null && animation.AnimationPath != "" && !addressPathes.Contains(animation.AnimationPath))
                     {
                         addressPathes.Add(animation.AnimationPath);

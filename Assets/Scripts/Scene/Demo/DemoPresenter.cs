@@ -16,7 +16,7 @@ namespace Ryneus
 
         private async void Initialize()
         {
-            var bgmData = DataSystem.BGM.Find(a => a.Key == "Mainmenu");
+            var bgmData = DataSystem.GetBGMByKey("Mainmenu");
             var bgm = await _model.GetBgmData("Mainmenu");
             SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true);
             _view.StartAnimation();

@@ -12,7 +12,7 @@ namespace Ryneus
         static readonly string ExcelName = "Tutorial.xlsx";
 
         // アセット更新があると呼ばれる
-        static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+        private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
             foreach (string asset in importedAssets)
             {
@@ -25,7 +25,7 @@ namespace Ryneus
             }
         }
 
-        static void CreateTutorialInfo(string asset)
+        private static void CreateTutorialInfo(string asset)
         {
             Debug.Log("CreateTutorialInfo");
             // 拡張子なしのファイル名を取得

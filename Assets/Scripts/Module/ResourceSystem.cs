@@ -52,12 +52,12 @@ namespace Ryneus
 */
         public static async UniTask<List<AudioClip>> LoadBGMAsset(string bgmKey)
         {
-            var bGMData = DataSystem.BGM.Find(a => a.Key == bgmKey);
+            var bGMData = DataSystem.GetBGMByKey(bgmKey);
             var data = new List<string>();
             if (bGMData.CrossFade != null && bGMData.CrossFade != "")
             {
                 data.Add(_bgmPath + bGMData.FileName + "");
-                data.Add(_bgmPath + DataSystem.BGM.Find(a => a.Key == bGMData.CrossFade).FileName + "");
+                data.Add(_bgmPath + DataSystem.GetBGMByKey(bGMData.CrossFade).FileName + "");
             }
             else
             if (bGMData.Loop)

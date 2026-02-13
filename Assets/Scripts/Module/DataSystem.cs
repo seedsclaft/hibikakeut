@@ -14,11 +14,11 @@ namespace Ryneus
         public static List<RuleData> Rules = new();
         public static List<HelpData> Helps = new();
         public static Dictionary<int, SkillData> Skills = new();
-        public static List<ItemData> Items = new();
+        public static Dictionary<int, ItemData> Items = new();
         public static List<StageData> Stages = new();
         public static List<StateData> States = new();
         public static List<TroopData> Troops = new();
-        public static List<AnimationData> Animations = new();
+        public static Dictionary<int, AnimationData> Animations = new();
         public static List<PrizeSetData> PrizeSets = new();
         public static List<SkillTriggerData> SkillTriggers = new();
         public static List<AchievementData> Achievements = new();
@@ -59,7 +59,11 @@ namespace Ryneus
             {
                 Skills[skillData.Id] = skillData;
             }
-            Items = Resources.Load<ItemDates>("Data/Items").Data;
+            var ItemDates = Resources.Load<ItemDates>("Data/Items").Data;
+            foreach (var ItemData in ItemDates)
+            {
+                Items[ItemData.Id] = ItemData;
+            }
             Stages = Resources.Load<StageDates>("Data/Stages").Data;
             States = Resources.Load<StateDates>("Data/States").Data;
             System = Resources.Load<SystemData>("Data/System");
@@ -70,7 +74,11 @@ namespace Ryneus
             }
             Troops = Resources.Load<TroopDates>("Data/Troops").Data;
             PrizeSets = Resources.Load<PrizeSetDates>("Data/PrizeSets").Data;
-            Animations = Resources.Load<AnimationDates>("Data/Animations").Data;
+            var AnimationDates = Resources.Load<AnimationDates>("Data/Animations").Data;
+            foreach (var AnimationData in AnimationDates)
+            {
+                Animations[AnimationData.Id] = AnimationData;
+            }
             SkillTriggers = Resources.Load<SkillTriggerDates>("Data/SkillTrigger").Data;
             //DataSystem._alcana = Resources.Load<AlcanaData>("Data/Alcana");
             Achievements = Resources.Load<AchievementDates>("Data/Achievements").Data;
@@ -96,6 +104,16 @@ namespace Ryneus
         public static SkillData FindSkill(int id)
         {
             return Skills.ContainsKey(id) ? Skills[id] : null;
+        }
+
+        public static ItemData FindItem(int id)
+        {
+            return Items.ContainsKey(id) ? Items[id] : null;
+        }
+
+        public static AnimationData FindAnimation(int id)
+        {
+            return Animations.ContainsKey(id) ? Animations[id] : null;
         }
 
         public static StageData FindStage(int id)
@@ -185,7 +203,7 @@ namespace Ryneus
             return text;
         }
 
-        public SoundData GetBGMByKey(string key)
+        public static SoundData GetBGMByKey(string key)
         {
             var bGMData = BGM.Find(a => a.Key == key);
             if (bGMData != null)

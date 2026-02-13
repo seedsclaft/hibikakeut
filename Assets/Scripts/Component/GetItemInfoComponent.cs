@@ -29,7 +29,7 @@ namespace Ryneus
             else
             if (getItemData.Type == GetItemType.Item && itemInfoComponent != null)
             {
-                itemInfoComponent.UpdateDate(DataSystem.Items.Find(a => a.Id == getItemData.Param1));
+                itemInfoComponent.UpdateDate(DataSystem.FindItem(getItemData.Param1));
             }
             else
             {

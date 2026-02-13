@@ -92,7 +92,7 @@ namespace Ryneus
                 {
                     bgmId = 1510;
                 }
-                return DataSystem.BGM.Find(a => a.Id == bgmId);
+                return DataSystem.GetBGM(bgmId);
             }
             return null;
         }

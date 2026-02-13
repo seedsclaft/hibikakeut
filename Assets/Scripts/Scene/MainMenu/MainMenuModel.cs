@@ -21,7 +21,7 @@ namespace Ryneus
             {
                 key = "Mainmenu2";
             }
-            var bgmData = DataSystem.BGM.Find(a => a.Key == key);
+            var bgmData = DataSystem.GetBGMByKey(key);
             var bgm = await ResourceSystem.LoadBGMAsset(key);
             SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true);
         }
@@ -29,7 +29,7 @@ namespace Ryneus
         public async UniTask PlayReliefBgmData()
         {
             var key = "Relief1";
-            var bgmData = DataSystem.BGM.Find(a => a.Key == key);
+            var bgmData = DataSystem.GetBGMByKey(key);
             var bgm = await ResourceSystem.LoadBGMAsset(key);
             SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true);
         }
@@ -37,7 +37,7 @@ namespace Ryneus
         public async UniTask PlayReliefBgmData2()
         {
             var key = "Relief2";
-            var bgmData = DataSystem.BGM.Find(a => a.Key == key);
+            var bgmData = DataSystem.GetBGMByKey(key);
             var bgm = await ResourceSystem.LoadBGMAsset(key);
             SoundManager.Instance.ChangeCrossFade(bgm, bgmData.Volume, true);
         }

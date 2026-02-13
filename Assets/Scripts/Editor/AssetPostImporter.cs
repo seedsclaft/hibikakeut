@@ -42,20 +42,32 @@ namespace Ryneus
         public static bool CheckOnPostprocessAllAssetsDivide(string asset, string ExcelName)
         {
             string ext = Path.GetExtension(asset);
-            if (ext != ".xls" && ext != ".xlsx" && ext != ".xlsm") return false;
+            if (ext is not ".xls" and not ".xlsx" and not ".xlsm")
+            {
+                return false;
+            }
 
             // エクセルを開いているデータはスキップ
             string fileName = Path.GetFileName(asset);
-            if (fileName.StartsWith("~$")) return false;
+            if (fileName.StartsWith("~$"))
+            {
+                return false;
+            }
 
             // 同じパスのみ
             string filePath = Path.GetDirectoryName(asset);
             filePath = filePath.Replace("\\", "/");
-            if (filePath != AssetPostImporter.ExcelPath) return false;
+            if (filePath != ExcelPath)
+            {
+                return false;
+            }
 
             string FileName = Path.GetFileNameWithoutExtension(ExcelName);
             // ファイル名を含む
-            if (!fileName.Contains(FileName)) return false;
+            if (!fileName.Contains(FileName))
+            {
+                return false;
+            }
             return true;
         }
 
@@ -174,7 +186,7 @@ namespace Ryneus
         // 文字列を分解
         static string[] StringSplit(string str, int count)
         {
-            List<string> List = new List<string>();
+            var List = new List<string>();
 
             int Length = (int)Math.Ceiling((double)str.Length / count);
 
@@ -202,7 +214,7 @@ namespace Ryneus
             return List.ToArray();
         }
 
-        private static List<string> _formatKeys = new List<string>();
+        private static List<string> _formatKeys = new();
 
         public static void SetKeyNames(List<ICell> cells)
         {

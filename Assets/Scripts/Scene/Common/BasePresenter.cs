@@ -270,7 +270,7 @@ namespace Ryneus
                 SoundManager.Instance.PlayBgm(bgm, 1);
                 return;
             }
-            var bgmData = DataSystem.BGM.Find(a => a.Id == _model.CurrentStage.Master.BattleBGMId);
+            var bgmData = DataSystem.GetBGM(_model.CurrentStage.Master.BattleBGMId);
             if (bgmData != null)
             {
                 var bgm = await _model.GetBgmData(bgmData.Key);
@@ -280,7 +280,7 @@ namespace Ryneus
 
         public async void PlayBossBgm()
         {
-            var bgmData = DataSystem.BGM.Find(a => a.Id == _model.CurrentStage.Master.BossBGMId);
+            var bgmData = DataSystem.GetBGM(_model.CurrentStage.Master.BossBGMId);
             var bgm = await _model.GetBgmData(bgmData.Key);
             SoundManager.Instance.PlayBgm(bgm, bgmData.Volume);
         }

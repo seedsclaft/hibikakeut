@@ -577,7 +577,7 @@ namespace Ryneus
                 foreach (var gainItem in gainItems)
                 {
                     var resultInfo = new GetItemResultViewInfo();
-                    var itemData = DataSystem.Items.Find(a => a.Id == gainItem.Key);
+                    var itemData = DataSystem.FindItem(gainItem.Key);
                     resultInfo.Title.SetValue(itemData.Name + " x" + gainItem.Value);
                     list.Add(resultInfo);
                 }
@@ -623,7 +623,7 @@ namespace Ryneus
             var getItemInfos = new List<GetItemInfo>();
             foreach (var item in PartyInfo.Items)
             {
-                var itemData = DataSystem.Items.Find(a => a.Id == item.Key);
+                var itemData = DataSystem.FindItem(item.Key);
                 if (itemData != null && itemData.ItemType == ItemType.Artifact && item.Value.Value > 0)
                 {
                     var skillData = DataSystem.FindSkill(itemData.Param1);
@@ -635,14 +635,14 @@ namespace Ryneus
                             {
                                 // Rank = Param1;
                                 // ランダムでRankを入手
-                                var categoryItems = DataSystem.Items.FindAll(a => (int)a.ItemType == featureData.Param1);
+                                var categoryItems = DataSystem.Items.Where(a => (int)a.Value.ItemType == featureData.Param1).ToList();
                                 if (featureData.Param2 != -1)
                                 {
-                                    categoryItems = categoryItems.FindAll(a => a.Param1 == featureData.Param2);
+                                    categoryItems = categoryItems.FindAll(a => a.Value.Param1 == featureData.Param2);
                                 }
-                                var rand = UnityEngine.Random.Range(0, categoryItems.Count);
+                                var rand = UnityEngine.Random.Range(0, categoryItems.Count());
                                 // 報酬設定
-                                var getItemInfo = MakeGetItemInfo(GetItemType.Item, categoryItems[rand].Id, 1);
+                                var getItemInfo = MakeGetItemInfo(GetItemType.Item, categoryItems[rand].Value.Id, 1);
                                 getItemInfos.Add(getItemInfo);
                             }
                         }
@@ -676,10 +676,10 @@ namespace Ryneus
                     return MakeGetItemInfo(GetItemType.Skill, candidateSkills[rand].Value.Id);
                 case ItemType.RandumAddItem:
                     // ランダムでparam1が同じアイテム
-                    var candidateItems = DataSystem.Items.Where(a => a.ItemType == ItemType.UseItem && (int)a.Param1 == itemData.Param1).ToList();
+                    var candidateItems = DataSystem.Items.Where(a => a.Value.ItemType == ItemType.UseItem && (int)a.Value.Param1 == itemData.Param1).ToList();
                     var rand2 = UnityEngine.Random.Range(0, candidateItems.Count);
                     // 報酬設定
-                    return MakeGetItemInfo(GetItemType.Item, candidateItems[rand2].Id, 1);
+                    return MakeGetItemInfo(GetItemType.Item, candidateItems[rand2].Value.Id, 1);
                 case ItemType.Artifact:
                     return MakeGetItemInfo(GetItemType.Evaluate, 5);
                 case ItemType.Currency:
