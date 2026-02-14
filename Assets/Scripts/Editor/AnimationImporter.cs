@@ -93,6 +93,72 @@ namespace Ryneus
         public static void RepainEffekseerAssets()
         {
 
+            var strs = new List<string>()
+            {
+                "Assets/AssetBundle/Animations/Genfulew_Effect",
+                "Assets/AssetBundle/Animations/MAGICALxSPIRAL",
+                "Assets/AssetBundle/Animations/NA_Effekseer",
+                "Assets/AssetBundle/Animations/tktk01",
+                "Assets/AssetBundle/Animations/tktk02",
+                "Assets/AssetBundle/Animations/MakerEffect",
+            };
+            foreach (var str in strs)
+            {
+                string[] files = Directory.GetFiles(str, "*", SearchOption.TopDirectoryOnly);
+
+                foreach (var file in files)
+                {
+                    if (file.Contains(".meta"))
+                    {
+                        continue;
+                    }
+                    if (file.Contains(".efkproj"))
+                    {
+                        continue;
+                    }
+                    if (file.Contains(".efkefc"))
+                    {
+                        continue;
+                    }
+                    if (file.Contains(".efkmodel"))
+                    {
+                        continue;
+                    }
+                    if (file.Contains(".efkmat"))
+                    {
+                        continue;
+                    }
+                    var update = false;
+                    var asset = AssetDatabase.LoadAssetAtPath<Effekseer.EffekseerEffectAsset>(file);
+                    if (asset == null)
+                    {
+                        Debug.Log("load error :" + file);
+                        continue;
+                    }
+                    for (int i = asset.textureResources.Count() - 1; i >= 0; i--)
+                    {
+                        if (asset.textureResources[i].texture == null)
+                        {
+                            var texPath = str + "/" + asset.textureResources[i].path.Replace(".efkproj", "");
+                            texPath = texPath.Replace(".efkproj", "");
+                            var tex = AssetDatabase.LoadAssetAtPath<Texture2D>(texPath);
+                            if (tex == null)
+                            {
+                                Debug.Log("load tex error :" + texPath);
+                                continue;
+                            }
+                            asset.textureResources[i].texture = tex;
+                            update = true;
+                        }
+                    }
+                    if (update)
+                    {
+                        EditorUtility.SetDirty(asset);
+                    }
+                }
+
+            }
+            /*
             var effectPath = "Animations/NA_Effekseer/";
             var assets = Resources.LoadAll<Effekseer.EffekseerEffectAsset>(effectPath);
             foreach (var asset in assets)
@@ -112,6 +178,7 @@ namespace Ryneus
                     EditorUtility.SetDirty(asset);
                 }
             }
+            */
         }
 #endif
     }
