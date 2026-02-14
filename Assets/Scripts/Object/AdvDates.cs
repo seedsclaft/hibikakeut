@@ -10,9 +10,8 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class AdvData
+    public class AdvData : MasterData
     {
-        public int Id;
         public string AdvName;
         public EventTiming Timing;
         public int Param1;

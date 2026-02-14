@@ -11,11 +11,11 @@ namespace Ryneus
         {
             var max = 0;
             var count = 0;
-            foreach (var skill in DataSystem.Skills)
+            foreach (var skill in DataSystem.SkillDates())
             {
-                if (skill.Key < 1000) continue;
-                if (skill.Key % 10 != 0) continue;
-                var skillInfo = new SkillInfo(skill.Key);
+                if (skill.Id < 1000) continue;
+                if (skill.Id % 10 != 0) continue;
+                var skillInfo = new SkillInfo(skill.Id);
                 if (skillInfo.Master.Attribute == AttributeType.None)
                 {
                     continue;
@@ -49,13 +49,13 @@ namespace Ryneus
         public List<SkillInfo> CategorySkillList(SkillType skillType)
         {
             var skillList = new List<SkillInfo>();
-            foreach (var skill in DataSystem.Skills)
+            foreach (var skill in DataSystem.SkillDates())
             {
-                if (skill.Key < 1000) continue;
-                if (skill.Key % 10 != 0) continue;
-                if (skill.Value.SkillType == skillType)
+                if (skill.Id < 1000) continue;
+                if (skill.Id % 10 != 0) continue;
+                if (skill.SkillType == skillType)
                 {
-                    var skillInfo = new SkillInfo(skill.Key);
+                    var skillInfo = new SkillInfo(skill.Id);
                     if (skillInfo.Master.Attribute == AttributeType.None)
                     {
                         continue;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ryneus
 {
@@ -25,7 +26,7 @@ namespace Ryneus
 
         public int MakeEvaluateResults()
         {
-            var evaluatePrizes = DataSystem.EvaluatePrizes.FindAll(a => a.Chapter == PartyInfo.Chapter.Value);
+            var evaluatePrizes = DataSystem.Dates[DataType.EvaluatePrizes].FindAll<EvaluatePrizeData>(a => a.Chapter == PartyInfo.Chapter.Value);
             var evaluatePrizeDates = new List<EvaluatePrizeData>();
             var evaluateDicts = new Dictionary<int, List<EvaluatePrizeData>>();
             foreach (var evaluatePrizeData in evaluatePrizes)
@@ -50,7 +51,7 @@ namespace Ryneus
             var getItemInfos = new List<GetItemInfo>();
             foreach (var evaluatePrize in evaluatePrizeDates)
             {
-                var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == evaluatePrize.PriseSetId);
+                var prizeSets = DataSystem.Dates[DataType.PrizeSets].FindAll<PrizeSetData>(a => a.Id == evaluatePrize.PriseSetId);
                 foreach (var prizeSet in prizeSets)
                 {
                     var getItemInfo = new GetItemInfo(prizeSet.GetItem);
@@ -129,7 +130,7 @@ namespace Ryneus
         public string ClearStageNum()
         {
             var clearStageNum = 0;
-            foreach (var stageData in DataSystem.Stages)
+            foreach (var stageData in DataSystem.Dates[DataType.Stages].ToList<StageData>())
             {
                 if (!stageData.Selectable)
                 {

@@ -11,9 +11,8 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class PrizeSetData
+    public class PrizeSetData : MasterData
     {
-        public int Id;
         public GetItemData GetItem;
     }
 }

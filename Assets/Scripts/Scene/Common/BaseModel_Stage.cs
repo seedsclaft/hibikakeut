@@ -8,7 +8,7 @@ namespace Ryneus
         {
             var claerList = new List<StageInfo>();
             var list = new List<StageInfo>();
-            foreach (var stageData in DataSystem.Stages)
+            foreach (var stageData in DataSystem.Dates[DataType.Stages].ToList<StageData>())
             {
                 if (!stageData.Selectable)
                 {
@@ -32,7 +32,8 @@ namespace Ryneus
                 if (cleared)
                 {
                     claerList.Add(stageInfo);
-                } else
+                }
+                else
                 {
                     list.Add(stageInfo);
                 }

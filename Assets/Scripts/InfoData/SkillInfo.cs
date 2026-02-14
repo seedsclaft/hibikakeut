@@ -183,7 +183,7 @@ namespace Ryneus
             var state = FeatureDates.Find(a => a.FeatureType == FeatureType.AddState);
             if (state != null)
             {
-                var stateMaster = DataSystem.States.Find(a => (int)a.StateType == state.Param1);
+                var stateMaster = DataSystem.FindState(state.Param1);
                 string effectText = stateMaster.Help;
                 if (battlerInfo != null)
                 {

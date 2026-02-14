@@ -11,9 +11,8 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class ItemData
+    public class ItemData : MasterData
     {
-        public int Id;
         public int IconIndex;
         public ItemType ItemType;
         public int Param1;

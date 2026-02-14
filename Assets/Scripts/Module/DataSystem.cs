@@ -6,24 +6,10 @@ using System.Linq;
 
 namespace Ryneus
 {
-    abstract public class DataSystem
+    public abstract class DataSystem
     {
-        public static Dictionary<int, ActorData> Actors = new();
-        public static List<AdvData> Adventures = new();
-        public static List<EnemyData> Enemies = new();
-        public static List<RuleData> Rules = new();
-        public static List<HelpData> Helps = new();
-        public static Dictionary<int, SkillData> Skills = new();
-        public static Dictionary<int, ItemData> Items = new();
-        public static List<StageData> Stages = new();
-        public static List<StateData> States = new();
-        public static List<TroopData> Troops = new();
-        public static Dictionary<int, AnimationData> Animations = new();
-        public static List<PrizeSetData> PrizeSets = new();
+        public static Dictionary<DataType, MasterDates> Dates = new();
         public static List<SkillTriggerData> SkillTriggers = new();
-        public static List<AchievementData> Achievements = new();
-        public static List<EvaluatePrizeData> EvaluatePrizes = new();
-        public static List<HeroicData> Heroics = new();
 
         public static List<TutorialData> TutorialDates = new();
         public static SystemData System;
@@ -37,56 +23,36 @@ namespace Ryneus
         public static List<SystemData.CommandData> StatusCommand => System.StatusCommandData;
         public static List<SystemData.OptionCommand> OptionCommand => System.OptionCommandData;
 
-        public static Dictionary<int, TextData> TextDates = new();
-
         public static Color PowerUpColor => new(128, 255, 128);
         public static string PowerUpColorTag => "<color=#E09018>";
         public static Color PowerDownColor => new(255, 128, 64);
 
         public static async UniTask<bool> LoadData()
         {
-            var ActorsData = Resources.Load<ActorDates>("Data/Actors").Data;
-            foreach (var actorData in ActorsData)
-            {
-                Actors[actorData.Id] = actorData;
-            }
-            Adventures = Resources.Load<AdvDates>("Data/Adventures").Data;
-            Enemies = Resources.Load<EnemyDates>("Data/Enemies").Data;
-            Rules = Resources.Load<RuleDates>("Data/Rules").Data;
-            Helps = Resources.Load<HelpDates>("Data/Helps").Data;
-            var SkillsData = Resources.Load<SkillDates>("Data/Skills").Data;
-            foreach (var skillData in SkillsData)
-            {
-                Skills[skillData.Id] = skillData;
-            }
-            var ItemDates = Resources.Load<ItemDates>("Data/Items").Data;
-            foreach (var ItemData in ItemDates)
-            {
-                Items[ItemData.Id] = ItemData;
-            }
-            Stages = Resources.Load<StageDates>("Data/Stages").Data;
-            States = Resources.Load<StateDates>("Data/States").Data;
-            System = Resources.Load<SystemData>("Data/System");
-            TextDates = new();
-            foreach (var SystemText in System.SystemTextData)
-            {
-                TextDates[SystemText.Id] = SystemText;
-            }
-            Troops = Resources.Load<TroopDates>("Data/Troops").Data;
-            PrizeSets = Resources.Load<PrizeSetDates>("Data/PrizeSets").Data;
-            var AnimationDates = Resources.Load<AnimationDates>("Data/Animations").Data;
-            foreach (var AnimationData in AnimationDates)
-            {
-                Animations[AnimationData.Id] = AnimationData;
-            }
-            SkillTriggers = Resources.Load<SkillTriggerDates>("Data/SkillTrigger").Data;
-            //DataSystem._alcana = Resources.Load<AlcanaData>("Data/Alcana");
-            Achievements = Resources.Load<AchievementDates>("Data/Achievements").Data;
-            EvaluatePrizes = Resources.Load<EvaluatePrizeDates>("Data/EvaluatePrizes").Data;
-            Heroics = Resources.Load<HeroicDates>("Data/Heroics").Data;
-            TutorialDates = Resources.Load<TutorialDates>("Data/Tutorial").Data;
-            BGM = Resources.Load<SoundDates>("Data/BGM").Data;
-            SE = Resources.Load<SoundDates>("Data/SE").Data;
+            Dates[DataType.Actor] = MasterDates.MasterData(ResourceSystem.LoadResource<ActorDates>("Data/Actors").Data);
+            Dates[DataType.Adventure] = MasterDates.MasterData(ResourceSystem.LoadResource<AdvDates>("Data/Adventures").Data);
+            Dates[DataType.Enemies] = MasterDates.MasterData(ResourceSystem.LoadResource<EnemyDates>("Data/Enemies").Data);
+            Dates[DataType.Rules] = MasterDates.MasterData(ResourceSystem.LoadResource<RuleDates>("Data/Rules").Data);
+            Dates[DataType.Helps] = MasterDates.MasterData(ResourceSystem.LoadResource<HelpDates>("Data/Helps").Data);
+            Dates[DataType.Skills] = MasterDates.MasterData(ResourceSystem.LoadResource<SkillDates>("Data/Skills").Data);
+            Dates[DataType.Items] = MasterDates.MasterData(ResourceSystem.LoadResource<ItemDates>("Data/Items").Data);
+            Dates[DataType.Stages] = MasterDates.MasterData(ResourceSystem.LoadResource<StageDates>("Data/Stages").Data);
+            Dates[DataType.States] = MasterDates.MasterData(ResourceSystem.LoadResource<StateDates>("Data/States").Data);
+
+            System = ResourceSystem.LoadResource<SystemData>("Data/System");
+            Dates[DataType.TextDates] = MasterDates.MasterData(System.SystemTextData);
+            Dates[DataType.Troops] = MasterDates.MasterData(ResourceSystem.LoadResource<TroopDates>("Data/Troops").Data);
+            Dates[DataType.PrizeSets] = MasterDates.MasterData(ResourceSystem.LoadResource<PrizeSetDates>("Data/PrizeSets").Data);
+            Dates[DataType.Animations] = MasterDates.MasterData(ResourceSystem.LoadResource<AnimationDates>("Data/Animations").Data);
+
+            SkillTriggers = ResourceSystem.LoadResource<SkillTriggerDates>("Data/SkillTrigger").Data;
+            Dates[DataType.Achievements] = MasterDates.MasterData(ResourceSystem.LoadResource<AchievementDates>("Data/Achievements").Data);
+            Dates[DataType.EvaluatePrizes] = MasterDates.MasterData(ResourceSystem.LoadResource<EvaluatePrizeDates>("Data/EvaluatePrizes").Data);
+            Dates[DataType.Heroics] = MasterDates.MasterData(ResourceSystem.LoadResource<HeroicDates>("Data/Heroics").Data);
+            TutorialDates = ResourceSystem.LoadResource<TutorialDates>("Data/Tutorial").Data;
+            BGM = ResourceSystem.LoadResource<SoundDates>("Data/BGM").Data;
+            SE = ResourceSystem.LoadResource<SoundDates>("Data/SE").Data;
+
             await UniTask.WaitUntil(LoadedDates);
             return true;
         }
@@ -98,52 +64,63 @@ namespace Ryneus
 
         public static ActorData FindActor(int id)
         {
-            return Actors.ContainsKey(id) ? Actors[id] : null;
+            return Dates[DataType.Actor].Find<ActorData>(id);
+        }
+
+        public static EnemyData FindEnemy(int id)
+        {
+            return Dates[DataType.Enemies].Find<EnemyData>(id);
         }
 
         public static SkillData FindSkill(int id)
         {
-            return Skills.ContainsKey(id) ? Skills[id] : null;
+            return Dates[DataType.Skills].Find<SkillData>(id);
+        }
+
+        public static List<SkillData> SkillDates()
+        {
+            return Dates[DataType.Skills].ToList<SkillData>();
         }
 
         public static ItemData FindItem(int id)
         {
-            return Items.ContainsKey(id) ? Items[id] : null;
+            return Dates[DataType.Items].Find<ItemData>(id);
         }
 
         public static AnimationData FindAnimation(int id)
         {
-            return Animations.ContainsKey(id) ? Animations[id] : null;
+            return Dates[DataType.Animations].Find<AnimationData>(id);
         }
 
         public static StageData FindStage(int id)
         {
-            return Stages.Find(a => a.Id == id);
+            return Dates[DataType.Stages].Find<StageData>(id);
         }
 
         public static StageData FindNextStage(int currentStageId)
         {
-            return Stages.Find(a => a.Id > currentStageId);
+            return Dates[DataType.Stages].Find<StageData>(currentStageId);
         }
 
         public static StateData FindState(int id)
         {
-            return States.Find(a => a.StateType == (StateType)id);
+            return Dates[DataType.States].Find<StateData>(id);
         }
 
         public static Ariadne.FloorMapMasterData FindDungeonFloor(int id)
         {
-            var master = Resources.Load<Ariadne.DungeonMasterData>("Data/Dungeon" + id.ToString("D4"));
+            var master = ResourceSystem.LoadResource<Ariadne.DungeonMasterData>("Data/Dungeon" + id.ToString("D4"));
             return master.floorList[0];
+        }
+
+        public static TroopData FindTroop(int id)
+        {
+            return Dates[DataType.Troops].Find<TroopData>(id);
         }
 
         private static TextData GetTextData(int id)
         {
-            if (TextDates.ContainsKey(id))
-            {
-                return TextDates[id];
-            }
-            return null;
+            return Dates[DataType.TextDates].Find<TextData>(id);
         }
 
         public static string GetText(int id)
@@ -165,7 +142,7 @@ namespace Ryneus
 
         public static string GetReplaceText(int id, params object[] args)
         {
-            var textData = TextDates[id];
+            var textData = GetTextData(id);
             if (textData != null)
             {
                 try
@@ -232,7 +209,7 @@ namespace Ryneus
 */
         public static List<ListData> HelpText(int id)
         {
-            var data = Helps.Find(a => a.Id == id);
+            var data = Dates[DataType.Helps].Find(id) as HelpData;
             if (data != null)
             {
                 var texts = data.Help.Split("\n").ToList();
@@ -243,9 +220,8 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class TextData
+    public class TextData : MasterData
     {
-        public int Id;
         public string Text;
         public string Help;
         public string Feature;

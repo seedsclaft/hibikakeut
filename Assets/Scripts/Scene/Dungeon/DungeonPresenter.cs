@@ -657,7 +657,7 @@ namespace Ryneus
         private void StageEventDungeonClear(bool moved, StageEventData stageEvent, Action endEvent)
         {
             _model.CurrentStage.Cleared.SetValue(true);
-            var stages = DataSystem.Stages.FindAll(a => a.StageNo == DataSystem.FindStage(_model.CurrentDeckInfo.StageNo.Value).StageNo);
+            var stages = DataSystem.Dates[DataType.Stages].FindAll<StageData>(a => a.StageNo == DataSystem.FindStage(_model.CurrentDeckInfo.StageNo.Value).StageNo);
             foreach (var stage in stages)
             {
                 _model.PartyInfo.ClearStage(stage.Id);
@@ -751,7 +751,7 @@ namespace Ryneus
             // 報酬設定があれば入れる
             if (stageEvent.Param2 > 0)
             {
-                var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == stageEvent.Param2);
+                var prizeSets = DataSystem.Dates[DataType.PrizeSets].FindAll<PrizeSetData>(a => a.Id == stageEvent.Param2);
                 if (prizeSets != null)
                 {
                     foreach (var prizeSet in prizeSets)

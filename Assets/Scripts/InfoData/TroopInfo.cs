@@ -7,7 +7,7 @@ namespace Ryneus
     [Serializable]
     public class TroopInfo : UnitInfo
     {
-        public TroopData TroopMaster => DataSystem.Troops.Find(a => a.TroopId == _troopId);
+        public TroopData TroopMaster => DataSystem.FindTroop(_troopId);
         private int _troopId = 0;
         public BattlerInfo BossEnemy
         {
@@ -45,7 +45,7 @@ namespace Ryneus
             {
                 if (troopEnemies.StageLv <= plusLevel)
                 {
-                    var enemyData = DataSystem.Enemies.Find(a => a.Id == troopEnemies.EnemyId);
+                    var enemyData = DataSystem.FindEnemy(troopEnemies.EnemyId);
                     var battlerInfo = new BattlerInfo(enemyData, troopEnemies.Lv, BattlerInfos.Count + 1, troopEnemies.Line, troopEnemies.BossFlag);
                     AddEnemy(battlerInfo);
                     if (!enemyIndexKeys.ContainsKey(enemyData.Id))
@@ -64,7 +64,7 @@ namespace Ryneus
             while (weight > 0)
             {
                 var targetIdRand = UnityEngine.Random.Range(0, stageEnemyRates.Count);
-                var enemyData = DataSystem.Enemies.Find(a => a.Id == stageEnemyRates[targetIdRand].EnemyId);
+                var enemyData = DataSystem.FindEnemy(stageEnemyRates[targetIdRand].EnemyId);
                 /*
                 var lineRand = UnityEngine.Random.Range(0,1);
                 // 遠隔持っていない場合は前列

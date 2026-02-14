@@ -323,15 +323,15 @@ namespace Ryneus
         public List<ActorInfo> AddSelectActorInfos(List<int> limitRanks)
         {
             // 未加入の仲間
-            var actorDates = DataSystem.Actors.Where(a => PartyInfo.ActorInfos.Find(b => a.Value.Id == b.ActorId.Value) == null).ToList();
+            var actorDates = DataSystem.Dates[DataType.Actor].FindAll<ActorData>(a => PartyInfo.ActorInfos.Find(b => a.Id == b.ActorId.Value) == null);
             var actorInfos = new List<ActorInfo>();
             foreach (var actorDate in actorDates)
             {
-                if (limitRanks.Count > 0 && !limitRanks.Contains(actorDate.Value.Rank))
+                if (limitRanks.Count > 0 && !limitRanks.Contains(actorDate.Rank))
                 {
                     continue;
                 }
-                actorInfos.Add(new ActorInfo(actorDate.Value));
+                actorInfos.Add(new ActorInfo(actorDate));
             }
             return actorInfos;
         }

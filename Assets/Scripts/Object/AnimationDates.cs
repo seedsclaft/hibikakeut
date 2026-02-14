@@ -11,9 +11,8 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class AnimationData
+    public class AnimationData : MasterData
     {
-        public int Id;
         public string AnimationPath;
         public bool MakerEffect;
         public AnimationPosition Position;

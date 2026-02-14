@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Ryneus
 {
@@ -99,7 +100,7 @@ namespace Ryneus
             var floor = DataSystem.FindDungeonFloor(stageId);
             CurrentDeckInfo.SetPosition(stageId, floor.entrancePos.x, floor.entrancePos.y, (int)floor.enteringDir);
             CurrentDeckInfo.StageNo.SetValue(stageData.StageNo);
-            PartyInfo.SetAchievementRank(DataSystem.Achievements);
+            PartyInfo.SetAchievementRank(DataSystem.Dates[DataType.Achievements].ToList<AchievementData>());
             TempInfo.LastStartTime.SetValue((int)TempInfo.LocalEpochTime());
         }
 
@@ -129,7 +130,7 @@ namespace Ryneus
             var floor = DataSystem.FindDungeonFloor(stageId);
             CurrentDeckInfo.SetPosition(stageId, floor.entrancePos.x, floor.entrancePos.y, (int)floor.enteringDir);
             CurrentDeckInfo.StageNo.SetValue(stageData.StageNo);
-            PartyInfo.SetAchievementRank(DataSystem.Achievements);
+            PartyInfo.SetAchievementRank(DataSystem.Dates[DataType.Achievements].ToList<AchievementData>());
             TempInfo.LastStartTime.SetValue((int)TempInfo.LocalEpochTime());
         }
 

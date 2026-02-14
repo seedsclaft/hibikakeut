@@ -44,7 +44,7 @@ namespace Ryneus
         private ActorInfo _actorInfo;
         public ActorInfo ActorInfo => _actorInfo;
         private ParameterInt EnemyId = new();
-        public EnemyData EnemyData => DataSystem.Enemies.Find(a => a.Id == EnemyId.Value);
+        public EnemyData EnemyData => DataSystem.FindEnemy(EnemyId.Value);
         private List<KindType> _kinds = new();
         public List<KindType> Kinds => _kinds;
         private List<KindType> _weakPoints = new();
@@ -258,7 +258,7 @@ namespace Ryneus
             _skillTriggerInfos.Clear();
             foreach (var skillInfo in _skills)
             {
-                var skillTriggerData = DataSystem.Enemies.Find(a => a.Id == enemyData.Id).SkillTriggerDates.Find(a => a.SkillId == skillInfo.Id.Value);
+                var skillTriggerData = DataSystem.FindEnemy(enemyData.Id).SkillTriggerDates.Find(a => a.SkillId == skillInfo.Id.Value);
                 if (skillTriggerData == null)
                 {
                     continue;

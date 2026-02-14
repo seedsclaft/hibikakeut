@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ryneus
 {
@@ -58,7 +59,7 @@ namespace Ryneus
             {
                 eventKeys = new List<string>();
             }
-            var events = DataSystem.Adventures.FindAll(a => a.Timing == eventTiming && !eventKeys.Contains(a.EventKey));
+            var events = DataSystem.Dates[DataType.Adventure].FindAll<AdvData>(a => a.Timing == eventTiming && !eventKeys.Contains(a.EventKey));
             if (func != null)
             {
                 events = events.FindAll(a => func(a));
@@ -68,14 +69,14 @@ namespace Ryneus
 
         public string GetAdvFile(int id)
         {
-            var adventureFile = DataSystem.Adventures.Find(a => a.Id == id);
+            var adventureFile = DataSystem.Dates[DataType.Adventure].Find<AdvData>(id);
             if (adventureFile == null)
             {
                 return "";
             }
             if (adventureFile.PrizeSetId > 0)
             {
-                var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == adventureFile.PrizeSetId);
+                var prizeSets = DataSystem.Dates[DataType.PrizeSets].FindAll<PrizeSetData>(a => a.Id == adventureFile.PrizeSetId);
                 foreach (var prizeSet in prizeSets)
                 {
                     var getItemInfo = new GetItemInfo(prizeSet.GetItem);

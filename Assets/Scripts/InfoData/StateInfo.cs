@@ -5,7 +5,7 @@ namespace Ryneus
     public class StateInfo
     {
         public StateData _master = null;
-        public StateData Master => _master != null ? _master : DataSystem.States.Find(a => a.StateType == _stateType);
+        public StateData Master => _master != null ? _master : DataSystem.FindState((int)_stateType);
         private StateType _stateType = 0;
         public StateType StateType => _stateType;
         public ParameterInt Turns = new();

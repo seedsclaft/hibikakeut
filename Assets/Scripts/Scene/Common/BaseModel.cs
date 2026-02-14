@@ -183,10 +183,10 @@ namespace Ryneus
             }
             if (getItemInfo.IsAttributeSkill())
             {
-                var skillDates = DataSystem.Skills.Where(a => a.Value.Rank == (RankType)getItemInfo.ResultParam && a.Value.Attribute == (AttributeType)((int)getItemInfo.GetItemType - 10));
+                var skillDates = DataSystem.Dates[DataType.Skills].FindAll<SkillData>(a => a.Rank == (RankType)getItemInfo.ResultParam && a.Attribute == (AttributeType)((int)getItemInfo.GetItemType - 10));
                 foreach (var skillData in skillDates)
                 {
-                    var skillInfo = new SkillInfo(skillData.Key);
+                    var skillInfo = new SkillInfo(skillData.Id);
                     skillInfo.SetEnable(true);
                     skillInfos.Add(skillInfo);
                 }
@@ -635,14 +635,14 @@ namespace Ryneus
                             {
                                 // Rank = Param1;
                                 // ランダムでRankを入手
-                                var categoryItems = DataSystem.Items.Where(a => (int)a.Value.ItemType == featureData.Param1).ToList();
+                                var categoryItems = DataSystem.Dates[DataType.Items].FindAll<ItemData>(a => (int)a.ItemType == featureData.Param1).ToList();
                                 if (featureData.Param2 != -1)
                                 {
-                                    categoryItems = categoryItems.FindAll(a => a.Value.Param1 == featureData.Param2);
+                                    categoryItems = categoryItems.FindAll(a => a.Param1 == featureData.Param2);
                                 }
                                 var rand = UnityEngine.Random.Range(0, categoryItems.Count());
                                 // 報酬設定
-                                var getItemInfo = MakeGetItemInfo(GetItemType.Item, categoryItems[rand].Value.Id, 1);
+                                var getItemInfo = MakeGetItemInfo(GetItemType.Item, categoryItems[rand].Id, 1);
                                 getItemInfos.Add(getItemInfo);
                             }
                         }
@@ -662,10 +662,10 @@ namespace Ryneus
             {
                 case ItemType.RandumAddSkill:
                     // ランダムでparam2属性のparam1Rankを入手
-                    var candidateSkills = DataSystem.Skills.Where(a => SkillData.ConvertRankCost(a.Value.Rank) == itemData.Param1 && a.Value.Rank != RankType.PassiveEnhanceRank1 && a.Value.IsRandumAddSkill() && !PartyInfo.LearningSkillIds.Contains(a.Key)).ToList();
+                    var candidateSkills = DataSystem.Dates[DataType.Skills].FindAll<SkillData>(a => SkillData.ConvertRankCost(a.Rank) == itemData.Param1 && a.Rank != RankType.PassiveEnhanceRank1 && a.IsRandumAddSkill() && !PartyInfo.LearningSkillIds.Contains(a.Id));
                     if (itemData.Param2 != -1)
                     {
-                        candidateSkills = candidateSkills.Where(a => (int)a.Value.Attribute == itemData.Param2).ToList();
+                        candidateSkills = candidateSkills.Where(a => (int)a.Attribute == itemData.Param2).ToList();
                     }
                     if (candidateSkills.Count == 0)
                     {
@@ -673,13 +673,13 @@ namespace Ryneus
                     }
                     var rand = UnityEngine.Random.Range(0, candidateSkills.Count);
                     // 報酬設定
-                    return MakeGetItemInfo(GetItemType.Skill, candidateSkills[rand].Value.Id);
+                    return MakeGetItemInfo(GetItemType.Skill, candidateSkills[rand].Id);
                 case ItemType.RandumAddItem:
                     // ランダムでparam1が同じアイテム
-                    var candidateItems = DataSystem.Items.Where(a => a.Value.ItemType == ItemType.UseItem && (int)a.Value.Param1 == itemData.Param1).ToList();
+                    var candidateItems = DataSystem.Dates[DataType.Items].FindAll<ItemData>(a => a.ItemType == ItemType.UseItem && (int)a.Param1 == itemData.Param1);
                     var rand2 = UnityEngine.Random.Range(0, candidateItems.Count);
                     // 報酬設定
-                    return MakeGetItemInfo(GetItemType.Item, candidateItems[rand2].Value.Id, 1);
+                    return MakeGetItemInfo(GetItemType.Item, candidateItems[rand2].Id, 1);
                 case ItemType.Artifact:
                     return MakeGetItemInfo(GetItemType.Evaluate, 5);
                 case ItemType.Currency:

@@ -10,9 +10,8 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class StageData
+    public class StageData : MasterData
     {
-        public int Id;
         public int StageNo;
         public StageCategory Category;
         public string Name;

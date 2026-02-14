@@ -148,7 +148,7 @@ namespace Ryneus
                         IRow BaseRow = BaseSheet.GetRow(i);
 
                         int ActorId = AssetPostImporter.ImportNumeric(BaseRow, "ActorId");
-                        ActorData Actor = Data.Data.Find(a => a.Id == ActorId);
+                        var Actor = Data.Data.Find(a => a.Id == ActorId) as ActorData;
                         if (Actor != null)
                         {
                             string[] list = AssetPostImporter.ImportString(BaseRow, "SkillId").Split(',');
@@ -172,7 +172,7 @@ namespace Ryneus
                         IRow BaseRow = BaseSheet.GetRow(i);
 
                         int ActorId = AssetPostImporter.ImportNumeric(BaseRow, "ActorId");
-                        ActorData Actor = Data.Data.Find(a => a.Id == ActorId);
+                        var Actor = Data.Data.Find(a => a.Id == ActorId) as ActorData;
 
                         var SkillTriggerData = new SkillTriggerActorData
                         {

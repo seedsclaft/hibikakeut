@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ryneus
 {
     [Serializable]
     public class AchievementInfo
     {
-        public AchievementData Master => DataSystem.Achievements.Find(a => a.Id == Id.Value);
+        public AchievementData Master => DataSystem.Dates[DataType.Achievements].Find(Id.Value) as AchievementData;
         public ParameterInt Id = new();
 
         // 達成値
@@ -16,7 +17,7 @@ namespace Ryneus
         public ParameterBool Achieved = new(false);
         public ParameterBool Presented = new(false);
 
-        public List<PrizeSetData> PrizeSetsMaster => DataSystem.PrizeSets.FindAll(a => a.Id == Master.PriseSetId);
+        public List<PrizeSetData> PrizeSetsMaster => DataSystem.Dates[DataType.PrizeSets].FindAll<PrizeSetData>(a => a.Id == Master.PriseSetId);
 
         public float AchievePer => AchieveCount.Value > 0 ? (float)Count.Value / (float)AchieveCount.Value : 0;
 

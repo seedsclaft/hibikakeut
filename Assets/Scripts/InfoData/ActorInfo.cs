@@ -739,7 +739,7 @@ namespace Ryneus
                     var skillTriggerData2 = DataSystem.SkillTriggers.Find(a => a.Id == 0);
                     // 敵データに同じスキルがあればコピーする
 
-                    var enemyDates = DataSystem.Enemies.FindAll(a => a.SkillTriggerDates.Find(b => b.SkillId == learnSkill.Id.Value) != null);
+                    var enemyDates = DataSystem.Dates[DataType.Enemies].FindAll<EnemyData>(a => a.SkillTriggerDates.Find(b => b.SkillId == learnSkill.Id.Value) != null);
                     if (enemyDates.Count > 0)
                     {
                         var enemyData = enemyDates[enemyDates.Count - 1];
@@ -749,7 +749,7 @@ namespace Ryneus
                     }
                     skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>() { skillTriggerData1, skillTriggerData2 });
 
-                    var findIndex = _skillTriggerInfos.FindIndex(a => DataSystem.Skills[a.SkillId].SkillType == SkillType.Active);
+                    var findIndex = _skillTriggerInfos.FindIndex(a => DataSystem.FindSkill(a.SkillId).SkillType == SkillType.Active);
                     if (findIndex == -1)
                     {
                         findIndex = 1;

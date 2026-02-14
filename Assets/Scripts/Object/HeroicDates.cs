@@ -10,9 +10,8 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class HeroicData
+    public class HeroicData : MasterData
     {
-        public int Id;
         public string Name;
         public string Help;
         public int Param;

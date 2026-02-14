@@ -69,7 +69,7 @@ namespace Ryneus
             var skillTriggerInfos = new List<SkillTriggerInfo>();
             foreach (var skillInfo in skillInfos)
             {
-                var skillTriggerData = DataSystem.Enemies.Find(a => a.Id == CurrentEnemy.EnemyData.Id).SkillTriggerDates.Find(a => a.SkillId == skillInfo.Id.Value);
+                var skillTriggerData = DataSystem.Dates[DataType.Enemies].ToList<EnemyData>()[CurrentEnemy.EnemyData.Id].SkillTriggerDates.Find(a => a.SkillId == skillInfo.Id.Value);
                 if (skillTriggerData == null)
                 {
                     continue;

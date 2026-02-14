@@ -10,10 +10,8 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class HelpData
+    public class HelpData : MasterData
     {
-
-        public int Id;
         public string Key;
         public string GuideImagePath;
         public int CommonHelpId;

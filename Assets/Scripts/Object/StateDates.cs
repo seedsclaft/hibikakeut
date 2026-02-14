@@ -10,7 +10,7 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class StateData
+    public class StateData : MasterData
     {
         public StateType StateType;
         public string Name;

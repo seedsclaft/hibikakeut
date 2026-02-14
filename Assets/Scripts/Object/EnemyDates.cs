@@ -10,9 +10,8 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class EnemyData
+    public class EnemyData : MasterData
     {
-        public int Id;
         public string Name;
         public string ImagePath;
         public float ImageScale;

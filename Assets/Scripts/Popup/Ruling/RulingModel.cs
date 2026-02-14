@@ -16,7 +16,7 @@ namespace Ryneus
             SetId(data.Id);
         }
 
-        private int _currentId = DataSystem.Rules.Count > 0 ? DataSystem.Rules[0].Id : 1; 
+        private int _currentId = DataSystem.Dates[DataType.Rules].ToList<RuleData>().Count > 0 ? DataSystem.Dates[DataType.Rules].ToList<RuleData>()[0].Id : 1;
 
         public void SetId(int id)
         {
@@ -26,7 +26,7 @@ namespace Ryneus
         public List<SystemData.CommandData> RulingCommand()
         {
             var list = new List<SystemData.CommandData>();
-            foreach (var rule in DataSystem.Rules)
+            foreach (var rule in DataSystem.Dates[DataType.Rules].ToList<RuleData>())
             {
                 if (rule.Category == _currentCategory || _currentCategory == 0)
                 {
@@ -46,7 +46,7 @@ namespace Ryneus
         public List<string> RuleHelp()
         {
             var helpList = new List<string>();
-            var rule = DataSystem.Rules.Find(a => a.Id == _currentId);
+            var rule = DataSystem.Dates[DataType.Rules].Find<RuleData>(_currentId);
             if (rule != null)
             {
                 foreach (var item in rule.Help.Split("\n"))

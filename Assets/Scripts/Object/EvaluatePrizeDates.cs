@@ -11,9 +11,9 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class EvaluatePrizeData
+    public class EvaluatePrizeData : MasterData
     {
-        public int Id;
+
         public int Chapter;
         public int Category;
         public AchievementConditionType ConditionType;

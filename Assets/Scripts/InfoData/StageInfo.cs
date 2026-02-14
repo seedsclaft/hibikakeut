@@ -22,7 +22,7 @@ namespace Ryneus
         public EnemyData BossEnemyData()
         {
             var enemyId = 0;
-            var troop = DataSystem.Troops.Find(a => a.TroopId == Master.BossTroopId);
+            var troop = DataSystem.FindTroop(Master.BossTroopId);
             if (troop != null)
             {
                 var boss = troop.TroopEnemies.Find(a => a.BossFlag);
@@ -36,7 +36,7 @@ namespace Ryneus
                     enemyId = troop.TroopEnemies[troop.TroopEnemies.Count - 1].EnemyId;
                 }
             }
-            return DataSystem.Enemies.Find(a => a.Id == enemyId);
+            return DataSystem.FindEnemy(enemyId);
         }
 
         public string BossImage()
@@ -51,7 +51,7 @@ namespace Ryneus
 
         public int BossLv()
         {
-            var troop = DataSystem.Troops.Find(a => a.TroopId == Master.BossTroopId);
+            var troop = DataSystem.FindTroop(Master.BossTroopId);
             var boss = troop.TroopEnemies.Find(a => a.BossFlag);
             if (boss != null)
             {

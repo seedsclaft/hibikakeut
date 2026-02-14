@@ -95,7 +95,7 @@ namespace Ryneus
                 {
                     continue;
                 }
-                foreach (var enemyData in DataSystem.Enemies)
+                foreach (var enemyData in DataSystem.Dates[DataType.Enemies].ToList<EnemyData>())
                 {
                     foreach (var learningSkill in enemyData.LearningSkills)
                     {

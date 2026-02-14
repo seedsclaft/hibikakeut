@@ -88,7 +88,7 @@ namespace Ryneus
                 return;
             }
 
-            var stateData = DataSystem.States.Find(a => a.StateType == stateType);
+            var stateData = DataSystem.FindState((int)stateType);
             if (stateData == null)
             {
                 return;

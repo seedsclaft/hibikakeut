@@ -11,7 +11,7 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class TroopData
+    public class TroopData : MasterData
     {
         public int TroopId;
         public List<TroopEnemyData> TroopEnemies;

@@ -11,9 +11,8 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class AchievementData
+    public class AchievementData : MasterData
     {
-        public int Id;
         public AchievementCategory Category;
         public int Rank;
         public AchievementConditionType ConditionType;

@@ -20,7 +20,7 @@ namespace Ryneus
                 return PartyInfo.TradeItemInfos;
             }
             var list = new List<TradeItemInfo>();
-            var prizeSets = DataSystem.PrizeSets.FindAll(a => a.Id == 50000 + (PartyInfo.Chapter.Value * 10));
+            var prizeSets = DataSystem.Dates[DataType.PrizeSets].FindAll<PrizeSetData>(a => a.Id == 50000 + (PartyInfo.Chapter.Value * 10));
             foreach (var prizeSet in prizeSets)
             {
                 TradeItemInfo tradeItemInfo;
@@ -155,15 +155,15 @@ namespace Ryneus
             var list = new List<SkillInfo>();
             var rank = itemInfo.Master.Param1;
             var attribute = itemInfo.Master.Param2;
-            var skillDates = DataSystem.Skills.Where(a => SkillData.ConvertRankCost(a.Value.Rank) == itemInfo.Master.Param1 && a.Value.Rank != RankType.PassiveEnhanceRank1 && a.Value.IsRandumAddSkill() && !PartyInfo.LearningSkillIds.Contains(a.Key)).ToList();
+            var skillDates = DataSystem.Dates[DataType.Skills].FindAll<SkillData>(a => SkillData.ConvertRankCost(a.Rank) == itemInfo.Master.Param1 && a.Rank != RankType.PassiveEnhanceRank1 && a.IsRandumAddSkill() && !PartyInfo.LearningSkillIds.Contains(a.Id));
             if (attribute > 0)
             {
-                skillDates = skillDates.FindAll(a => (int)a.Value.Attribute == attribute);
+                skillDates = skillDates.FindAll(a => (int)a.Attribute == attribute);
             }
 
             foreach (var skillData in skillDates)
             {
-                list.Add(new SkillInfo(skillData.Key));
+                list.Add(new SkillInfo(skillData.Id));
             }
             return list;
         }

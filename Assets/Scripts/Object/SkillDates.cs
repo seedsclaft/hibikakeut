@@ -10,9 +10,8 @@ namespace Ryneus
     }
 
     [Serializable]
-    public class SkillData
+    public class SkillData : MasterData
     {
-        public int Id;
         public string Name;
         public MagicIconType IconIndex;
         public int AnimationId;

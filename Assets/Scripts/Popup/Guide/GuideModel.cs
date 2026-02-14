@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Ryneus
@@ -11,7 +12,7 @@ namespace Ryneus
         public HelpData GuideData => _guideDates.Count > _currentIndex ? _guideDates[_currentIndex] : null;
         public void SetGuideDates(string guideKey)
         {
-            _guideDates = DataSystem.Helps.FindAll(a => a.Key == guideKey);
+            _guideDates = DataSystem.Dates[DataType.Helps].FindAll<HelpData>(a => a.Key == guideKey);
         }
 
         public Sprite GuideSprite()

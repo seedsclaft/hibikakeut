@@ -64,7 +64,7 @@ namespace Ryneus
             var actorInfos = new List<ActorInfo>();
             foreach (var actorGetItemInfo in actorGetItemInfos)
             {
-                actorInfos.Add(new ActorInfo(DataSystem.Actors[actorGetItemInfo.Param1]));
+                actorInfos.Add(new ActorInfo(DataSystem.FindActor(actorGetItemInfo.Param1)));
             }
             return actorInfos;
         }

@@ -41,10 +41,10 @@ namespace Ryneus
             }
             if (allLearnSkills)
             {
-                var skills = DataSystem.Skills.Where(a => a.Value.Id > 1000 && a.Value.Rank > 0);
+                var skills = DataSystem.Dates[DataType.Skills].FindAll<SkillData>(a => a.Id > 1000 && a.Rank > 0);
                 foreach (var skill in skills)
                 {
-                    partyInfo.AddLearningSkill(skill.Value.Id);
+                    partyInfo.AddLearningSkill(skill.Id);
                 }
                 allLearnSkills = false;
             }
@@ -58,12 +58,12 @@ namespace Ryneus
             }
             if (getAllItems)
             {
-                foreach (var item in DataSystem.Items)
+                foreach (var item in DataSystem.Dates[DataType.Items].ToList<ItemData>())
                 {
                     var getItemData = new GetItemData
                     {
                         Type = GetItemType.Item,
-                        Param1 = item.Value.Id,
+                        Param1 = item.Id,
                         Param2 = 99
                     };
                     var getitemInfo = new GetItemInfo(getItemData);

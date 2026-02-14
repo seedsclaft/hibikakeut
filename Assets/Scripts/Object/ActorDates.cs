@@ -7,13 +7,12 @@ namespace Ryneus
     [Serializable]
     public class ActorDates : ScriptableObject
     {
-        [SerializeField] public List<ActorData> Data = new();
+        public List<ActorData> Data = new();
     }
 
     [Serializable]
-    public class ActorData
+    public class ActorData : MasterData
     {
-        public int Id;
         public string Name;
         public string SubName;
         public string Relief;
