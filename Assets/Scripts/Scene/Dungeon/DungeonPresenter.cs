@@ -606,11 +606,10 @@ namespace Ryneus
                 if (skillInfo != null)
                 {
                     var levelUpViewInfo = _model.MakeLevelUpViewInfo(actorInfo, 0);
-                    var from = actorInfo.Evaluate();
-                    levelUpViewInfo.From.SetValue(from);
                     levelUpViewInfo.SetSkillInfos(new List<SkillInfo>(){skillInfo});
                     actorInfo.ChangeEquipSkill(skillInfo.Id.Value, 0);
                     actorInfo.LearnSkill(skillInfo.Id.Value);
+                    // Toを上書き
                     var to = actorInfo.Evaluate();
                     levelUpViewInfo.To.SetValue(to);
                     levelUpViewInfo.SetActorInfo(actorInfo);

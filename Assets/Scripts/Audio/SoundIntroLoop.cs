@@ -119,7 +119,7 @@ namespace Ryneus
             }
         }
 
-        void Update()
+        private void Update()
         {
             if (_nowPlayIndex == 2 && _introAudioSource.IsLoopEnded(_reservedTime))
             {
@@ -226,7 +226,6 @@ namespace Ryneus
             _isPause = false;
         }
 
-        /// <summary>BGM を一時停止します。</summary>
         public void Pause()
         {
             if (_introAudioSource == null || _loopAudioSource == null)
@@ -244,7 +243,6 @@ namespace Ryneus
             _isPause = true;
         }
 
-        /// <summary>BGM を停止します。</summary>
         public void Stop()
         {
             if (_introAudioSource == null || _loopAudioSource == null)

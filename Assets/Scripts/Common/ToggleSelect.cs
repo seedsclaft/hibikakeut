@@ -11,7 +11,7 @@ namespace Ryneus
         [SerializeField] private GameObject tabRoot;
         [SerializeField] private ToggleGroup toggleGroup;
         [SerializeField] private List<GameObject> _viewObjs = new();
-        private List<Toggle> _selectTabs = new ();
+        private List<Toggle> _selectTabs = new();
         private List<CanvasGroup> _selectTabCanvasGroup = new();
 
         private int _selectTabIndex = -1;
@@ -73,7 +73,7 @@ namespace Ryneus
             }
         }
 
-        public void SetActiveTab(int selectCharacterTabType,bool isActive)
+        public void SetActiveTab(int selectCharacterTabType, bool isActive)
         {
             _selectTabs[selectCharacterTabType].gameObject.SetActive(isActive);
         }
@@ -139,11 +139,11 @@ namespace Ryneus
 
         public void UpdateTabs()
         {
-            for (int i = 0;i < _selectTabs.Count;i++)
+            for (int i = 0; i < _selectTabs.Count;i++)
             {
                 _selectTabs[i].SetIsOnWithoutNotify(_selectTabIndex == i);
             }
-            for (int i = 0;i < _viewObjs.Count;i++)
+            for (int i = 0; i < _viewObjs.Count;i++)
             {
                 _viewObjs[i].SetActive(_selectTabIndex == i);
             }
@@ -153,7 +153,7 @@ namespace Ryneus
             }
         }
 
-        private void Update() 
+        private void Update()
         {
             if (_busyFrame > -1)
             {

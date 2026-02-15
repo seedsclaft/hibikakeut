@@ -8,7 +8,7 @@ namespace Ryneus
         [SerializeField] private int state = 0;
         private int _lastState = 0;
 
-        void Update()
+        private void Update()
         {
             if (_lastState != state)
             {

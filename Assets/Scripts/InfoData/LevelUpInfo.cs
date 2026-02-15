@@ -32,13 +32,12 @@ namespace Ryneus
         private int _stageId = -1;
         public int StageId => _stageId;
 
-        public LevelUpInfo(int actorId,int currency,int stageId)
+        public LevelUpInfo(int actorId, int currency, int stageId)
         {
             _actorId = actorId;
             _currency = currency;
             _stageId = stageId;
         }
-
 
         public bool IsSameLevelUpInfo(LevelUpInfo levelUpInfo)
         {
@@ -64,6 +63,5 @@ namespace Ryneus
         {
             return IsLevelUpData() && _currency > 0;
         }
-
     }
 }

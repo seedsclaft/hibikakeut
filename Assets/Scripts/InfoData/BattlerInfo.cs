@@ -577,7 +577,7 @@ namespace Ryneus
                 {
                     if (_stateInfos[i].Master.RemoveByDeath)
                     {
-                        if (_stateInfos[i].IsStartPassive() == false)
+                        if (!_stateInfos[i].IsStartPassive())
                         {
                             RemoveState(_stateInfos[i], true);
                         }

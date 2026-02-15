@@ -945,78 +945,6 @@ namespace Ryneus
                 return;
             }
             ScrollRect.content.SetAnchoredPositionY(positionY);
-            //ScrollRect.content.localPosition = new Vector2(0, positionY);
-            /*
-            if (!_horizontal)
-            {
-                // 最上部
-                if (_index == 0)
-                {
-                    ScrollRect.content.localPosition = new Vector2(0, 0);
-                    return;
-                }
-                var viewPortPosition = Math.Round(GetCornerPosition(_scrollRect.viewport.gameObject, 0, false));
-                if (keyTypes.Contains(plusKey))
-                {
-                    // 位置を更新する
-                    if (itemPosition < viewPortPosition)
-                    {
-                        var c = _index - verticalCount + 1;
-                        ScrollRect.content.localPosition = new Vector2(0, c * (_itemSize.y + ItemSpace(false)));
-                        /*
-                        var per = 1f - (c / p);
-
-                        // 均等に収まらないリストのズレを直す
-                        if (!IsExtraHeightRectSize(verticalCount))
-                        {
-                            var rectIndex = _index - verticalCount;
-                            var rectSize = (_itemSize.y + ItemSpace(false)) * rectIndex;
-                            per = 1f - (rectSize / GetVisibleRectHeight());
-                        }
-
-                        verticalNormalizedPosition = Math.Max(per, 0);
-                    } else
-                    if (warpMode && _index == 0)
-                    {
-                        verticalNormalizedPosition = 1;
-                    }
-                }
-                else
-                if (keyTypes.Contains(minusKey))
-                {
-                    /*
-                    var v = GetViewPortHeight();
-                    var ip = itemPosition;
-                    var vp = viewPortPosition;
-                    var isize = _itemSize.y;
-                    Debug.Log("height = " + v);
-                    Debug.Log("itemPosition = " + ip);
-                    Debug.Log("viewPortPosition = " + vp);
-                    */
-            /*
-            if (itemPosition >= (GetViewPortHeight() + viewPortPosition - _itemSize.y))
-            {
-                var c = _index;
-                ScrollRect.content.localPosition = new Vector2(0, c * (_itemSize.y + ItemSpace(false)));
-                return;
-                var per = 1f - (c / p);
-
-                if (!IsExtraHeightRectSize(verticalCount))
-                {
-                    var rectIndex = _index;
-                    var rectSize = (_itemSize.y + ItemSpace(false)) * rectIndex;
-                    per = 1f - (rectSize / GetVisibleRectHeight());
-                }
-
-                verticalNormalizedPosition = Math.Min(1, per);
-            } else
-            if (warpMode && _index == _listDates.Count - 1)
-            {
-                verticalNormalizedPosition = 0;
-            }
-        }
-    }
-    */
         }
 
         /// <summary>
@@ -1081,24 +1009,6 @@ namespace Ryneus
             // GetVerticalCountがFloor値のため1加算
             return (verticalCount + 1) * Cols();
         }
-
-        /*
-                private int ListItemCount(bool horizontal)
-                {
-                    var width = GetViewPortWidth();
-                    var height = GetViewPortHeight();
-                    var listMargin = ListMargin(horizontal);
-                    var space = ItemSpace(horizontal);
-                    if (horizontal)
-                    {
-                        return ((int)Math.Floor((width - listMargin) / (_itemSize.x + space))) * Cols();
-                    }
-                    else
-                    {
-                        return ((int)Math.Floor((height - listMargin) / (_itemSize.y + space))) * Rows();
-                    }
-                }
-        */
 
         public void ResetScrollRect()
         {
