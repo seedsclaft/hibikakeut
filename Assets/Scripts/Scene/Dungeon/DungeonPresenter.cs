@@ -590,6 +590,7 @@ namespace Ryneus
             if (actorInfo != null)
             {
                 var learnSkillInfos = actorInfo.SealedSkills();
+                // 1こずつ解放
                 if (seek >= 2 && learnSkillInfos.Count > 0)
                 {
                     skillInfo = learnSkillInfos[0];
@@ -605,10 +606,14 @@ namespace Ryneus
                 if (skillInfo != null)
                 {
                     var levelUpViewInfo = _model.MakeLevelUpViewInfo(actorInfo, 0);
-                    levelUpViewInfo.SetSkillInfo(skillInfo);
+                    var from = actorInfo.Evaluate();
+                    levelUpViewInfo.From.SetValue(from);
+                    levelUpViewInfo.SetSkillInfos(new List<SkillInfo>(){skillInfo});
                     actorInfo.ChangeEquipSkill(skillInfo.Id.Value, 0);
-                    levelUpViewInfo.SetActorInfo(actorInfo);
                     actorInfo.LearnSkill(skillInfo.Id.Value);
+                    var to = actorInfo.Evaluate();
+                    levelUpViewInfo.To.SetValue(to);
+                    levelUpViewInfo.SetActorInfo(actorInfo);
                     levelUpViewInfo.LearnSkill.SetValue(DataSystem.GetText(2520));
                     SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
                     CallPopupView(PopupType.LevelUp, () =>
@@ -964,7 +969,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Artifact);
             _busy = true;
             var skillId = item.Param1;
-            var learnSkillInfo = new LearnSkillInfo(0, 0, new SkillInfo(skillId));
+            var learnSkillInfo = new LearnSkillInfo(0, 0, new List<SkillInfo>{new SkillInfo(skillId)});
             CallLearnSkillPopupView(learnSkillInfo, () =>
             {
                 PresentArtifact(item.Id);
@@ -1032,7 +1037,7 @@ namespace Ryneus
             {
                 return;
             }
-            var learnSkillInfo = new LearnSkillInfo(0, 0, new SkillInfo(skillId));
+            var learnSkillInfo = new LearnSkillInfo(0, 0, new List<SkillInfo>(){new SkillInfo(skillId)});
             SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 
             CallLearnSkillPopupView(learnSkillInfo, () =>

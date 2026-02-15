@@ -205,10 +205,6 @@ namespace Ryneus
             _inputSystemModel.UpdateInputKeyType(_inputSystem.Update());
         }
 
-        public void Update()
-        {
-        }
-
         private void UpdateWait()
         {
             if (_wait <= 0)

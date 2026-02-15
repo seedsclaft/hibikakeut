@@ -356,7 +356,7 @@ namespace Ryneus
             // 魔法新規取得
             if (afterLv > beforeLv && afterSkills.Count > 0)
             {
-                levelUpViewInfo.SetSkillInfo(afterSkills[0]);
+                levelUpViewInfo.SetSkillInfos(afterSkills);
                 levelUpViewInfo.LearnSkill.SetValue(DataSystem.GetText(2530));
                 // 装備可能であれば装備する
                 foreach (var afterSkill in afterSkills)

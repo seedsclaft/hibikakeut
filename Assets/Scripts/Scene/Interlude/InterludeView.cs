@@ -217,14 +217,13 @@ namespace Ryneus
             strategyResultList.gameObject.SetActive(false);
         }
 
-        private new void Update()
+        private void Update()
         {
             if (_animationBusy)
             {
                 CheckAnimationBusy();
                 return;
             }
-            base.Update();
         }
 
         private void CheckAnimationBusy()

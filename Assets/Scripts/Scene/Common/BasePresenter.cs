@@ -434,7 +434,7 @@ namespace Ryneus
                 //_model.PartyInfo.Currency.GainValue(-1);
                 SoundManager.Instance.PlayStaticSe(SEType.LevelUp);
                 var levelUpViewInfo = _model.MakeLevelUpViewInfo(actorInfo, getExp);
-                if (levelUpViewInfo.StrategyStrengthInfos.Count > 0 || levelUpViewInfo.SkillInfo != null)
+                if (levelUpViewInfo.StrategyStrengthInfos.Count > 0 || levelUpViewInfo.SkillInfos.Count > 0)
                 {
                     CallPopupView(PopupType.LevelUp, () =>
                     {

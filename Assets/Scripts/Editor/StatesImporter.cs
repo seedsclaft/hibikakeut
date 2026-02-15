@@ -68,6 +68,7 @@ namespace Ryneus
 
                         var StateData = new StateData
                         {
+                            Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             StateType = (StateType)AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
                             Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,

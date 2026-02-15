@@ -88,6 +88,7 @@ namespace Ryneus
                         {
                             var TroopData = new TroopData
                             {
+                                Id = TroopEnemyData.TroopId,
                                 TroopId = TroopEnemyData.TroopId,
                                 //PrizeSetId = TroopEnemyData.PrizeSetId,
                                 TroopEnemies = new List<TroopEnemyData>()

@@ -70,7 +70,7 @@ namespace Ryneus
             }
         }
 
-        private new void Update()
+        private void Update()
         {
             if (_inputLateUpdate > -1)
             {
@@ -79,10 +79,6 @@ namespace Ryneus
                 {
                     inputField.MoveTextEnd(true);
                 }
-            }
-            else
-            {
-                base.Update();
             }
         }
     }

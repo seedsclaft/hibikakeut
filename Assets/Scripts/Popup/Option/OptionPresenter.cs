@@ -190,9 +190,9 @@ namespace Ryneus
             CommandRefresh();
         }
 
-        private void CommandVolumeSlider(float volume)
+        private void CommandVolumeSlider(float volume, OptionInfo optionInfo)
         {
-            var data = _view.OptionCommandInfo;
+            var data = optionInfo;
             if (data != null)
             {
                 if (data.OptionCommand.Key == "BGM_VOLUME")
@@ -208,9 +208,9 @@ namespace Ryneus
             }
         }
 
-        private void CommandVolumeMute(bool isMute)
+        private void CommandVolumeMute(bool isMute, OptionInfo optionInfo)
         {
-            var data = _view.OptionCommandInfo;
+            var data = optionInfo;
             if (data != null)
             {
                 if (data.OptionCommand.Key == "BGM_VOLUME")
@@ -226,9 +226,9 @@ namespace Ryneus
             }
         }
 
-        private void CommandChangeToggle(int toggleIndex)
+        private void CommandChangeToggle(int toggleIndex, OptionInfo optionInfo)
         {
-            var data = _view.OptionCommandInfo;
+            var data = optionInfo;
             if (data != null)
             {
                 switch (data.OptionCommand.Key)
@@ -287,9 +287,9 @@ namespace Ryneus
             }
         }
 
-        private void CommandPlusMinus(int plusValue)
+        private void CommandPlusMinus(int plusValue, OptionInfo optionInfo)
         {
-            var data = _view.OptionCommandInfo;
+            var data = optionInfo;
             if (data != null)
             {
                 switch (data.OptionCommand.Key)
@@ -321,10 +321,10 @@ namespace Ryneus
             {
                 _view.SetOptionList(MakeListData(_model.OptionCommandData(
                     categoryIndex,
-                    (a) => CommandVolumeSlider(a),
-                    (a) => CommandVolumeMute(a),
-                    (a) => CommandChangeToggle(a),
-                    (a) => CommandPlusMinus(a)
+                    (a, b) => CommandVolumeSlider(a, b),
+                    (a, b) => CommandVolumeMute(a, b),
+                    (a, b) => CommandChangeToggle(a, b),
+                    (a, b) => CommandPlusMinus(a, b)
                 )));
                 _view.CommandRefresh();
             }

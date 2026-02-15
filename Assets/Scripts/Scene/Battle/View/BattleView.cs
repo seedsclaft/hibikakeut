@@ -731,9 +731,8 @@ namespace Ryneus
             }
         }
 
-        private new void Update()
+        private void Update()
         {
-            base.Update();
             if (_battleBusy)
             {
                 return;

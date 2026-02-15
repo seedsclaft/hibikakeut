@@ -16,17 +16,19 @@ namespace Ryneus
 
         private float _sliderValue = 0;
         private bool _isMute = false;
-        private Action<float> _callEvent;
+        private Action<float, OptionInfo> _callEvent;
+        private OptionInfo _optionInfo;
 
-        public void Initialize(Action<float> callEvent, Action<bool> callMute)
+        public void Initialize(OptionInfo optionInfo)
         {
-            _callEvent = callEvent;
+            _callEvent = optionInfo.SliderEvent;
+            _optionInfo = optionInfo;
             volumeSlider.onValueChanged.AddListener(ValueChanged);
             muteButton.onClick.AddListener(() =>
             {
                 _isMute = !_isMute;
                 UpdateMute();
-                callMute(_isMute);
+                optionInfo.MuteEvent(_isMute, _optionInfo);
             });
         }
 
@@ -34,7 +36,7 @@ namespace Ryneus
         {
             _sliderValue = sliderValue;
             UpdateValue();
-            _callEvent?.Invoke(sliderValue);
+            _callEvent?.Invoke(sliderValue, _optionInfo);
         }
 
         private void UpdateValue()

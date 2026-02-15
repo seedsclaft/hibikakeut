@@ -134,7 +134,7 @@ namespace Ryneus
                     PlusLv = target.Level - beforeLv,
                     PlusExp = expGetItemInfo.Param2
                 });
-                if (levelUpInfoView.StrategyStrengthInfos.Count > 0 || levelUpInfoView.SkillInfo != null)
+                if (levelUpInfoView.StrategyStrengthInfos.Count > 0 || levelUpInfoView.SkillInfos.Count > 0)
                 {
                     _levelUpViewInfos.Add(levelUpInfoView);
                 }

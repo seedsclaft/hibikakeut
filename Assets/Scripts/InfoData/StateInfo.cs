@@ -4,8 +4,7 @@ namespace Ryneus
     [System.Serializable]
     public class StateInfo
     {
-        public StateData _master = null;
-        public StateData Master => _master != null ? _master : DataSystem.FindState((int)_stateType);
+        public StateData Master => DataSystem.FindState((int)_stateType);
         private StateType _stateType = 0;
         public StateType StateType => _stateType;
         public ParameterInt Turns = new();
@@ -37,7 +36,6 @@ namespace Ryneus
         public StateInfo(StateType stateType, int turns, int effect, int battlerId, int targetIndex, int skillId)
         {
             _stateType = stateType;
-            _master = Master;
             Turns.SetValue(turns);
             BaseTurns.SetValue(turns);
             Effect.SetValue(effect);
@@ -53,7 +51,7 @@ namespace Ryneus
             _removeTiming = Master.RemovalTiming;
         }
 
-        public bool CheckOverWriteState(StateInfo stateInfo,int overLapCount = 0)
+        public bool CheckOverWriteState(StateInfo stateInfo, int overLapCount = 0)
         {
             // 重複可能カウント判定
             if (stateInfo.Master.OverLap != 0)

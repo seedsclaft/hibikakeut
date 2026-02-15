@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Ryneus
 {
@@ -11,7 +11,7 @@ namespace Ryneus
 
         }
 
-        public List<OptionInfo> OptionCommandData(int categoryIndex,System.Action<float> sliderEvent,System.Action<bool> muteEvent,System.Action<int> toggleEvent,System.Action<int> plusMinusEvent)
+        public List<OptionInfo> OptionCommandData(int categoryIndex, Action<float, OptionInfo> sliderEvent, Action<bool, OptionInfo> muteEvent, Action<int, OptionInfo> toggleEvent, Action<int, OptionInfo> plusMinusEvent)
         {
             var list = new List<OptionInfo>();
             foreach (var optionCommand in DataSystem.OptionCommand)
@@ -21,13 +21,13 @@ namespace Ryneus
                     continue;
                 }
 #if UNITY_ANDROID
-                if (optionCommand.ExistAndroid == false)
+                if (!optionCommand.ExistAndroid)
                 {
                     continue;
                 }
 #endif
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
-                if (optionCommand.ExistWindows == false)
+                if (!optionCommand.ExistWindows)
                 {
                     continue;
                 }
@@ -86,10 +86,10 @@ namespace Ryneus
     {
         public SystemData.OptionCommand OptionCommand;
         public InputKeyType keyType;
-        public System.Action<float> SliderEvent;
-        public System.Action<bool> MuteEvent;
-        public System.Action<int> ToggleEvent;
-        public System.Action<int> PlusMinusEvent;
+        public Action<float, OptionInfo> SliderEvent;
+        public Action<bool, OptionInfo> MuteEvent;
+        public Action<int, OptionInfo> ToggleEvent;
+        public Action<int, OptionInfo> PlusMinusEvent;
     }
 
     public enum OptionCategory

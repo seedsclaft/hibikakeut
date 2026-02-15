@@ -23,10 +23,22 @@ namespace Ryneus
 
             var data = ListItemData<SkillInfo>();
             skillInfoComponent.UpdateInfo(data);
-            AwakenObj?.SetActive(data != null && data.Master.SkillType == SkillType.Awaken);
-            MessiahObj?.SetActive(data != null && data.Master.SkillType == SkillType.Unique);
-            BgObj?.SetActive(data != null && data.Master.SkillType != SkillType.Unique && data.Master.SkillType != SkillType.Awaken);
-            DisableSkill?.SetActive(data != null && !data.Enable);
+            if (AwakenObj != null)
+            {
+                AwakenObj?.SetActive(data != null && data.Master.SkillType == SkillType.Awaken);
+            }
+            if (MessiahObj != null)
+            {
+                MessiahObj?.SetActive(data != null && data.Master.SkillType == SkillType.Unique);
+            }
+            if (BgObj != null)
+            {
+                BgObj?.SetActive(data != null && data.Master.SkillType != SkillType.Unique && data.Master.SkillType != SkillType.Awaken);
+            }
+            if (DisableSkill != null)
+            {
+                DisableSkill?.SetActive(data != null && !data.Enable);
+            }
         }
 
         public void Clear()

@@ -12,7 +12,7 @@ namespace Ryneus
         [SerializeField] private ConfirmAnimation confirmAnimation = null;
         [SerializeField] private BaseList statusList = null;
         [SerializeField] private ActorInfoComponent actorInfoComponent = null;
-        [SerializeField] private SkillInfoComponent skillInfoComponent = null;
+        [SerializeField] private BaseList learnSkillList = null;
         [SerializeField] private BattleStartAnim battleStartAnim = null;
         [SerializeField] private GameObject learnSkillRoot = null;
         [SerializeField] private TextMeshProUGUI beforeEvaluate = null;
@@ -29,6 +29,7 @@ namespace Ryneus
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.LevelUp);
             InitializeStatusList();
+            InitializeSkillList();
             _ = new LevelUpPresenter(this);
         }
 
@@ -38,7 +39,6 @@ namespace Ryneus
             UiRoot.SetActive(false);
             learnSkillRoot.SetActive(false);
             actorInfoComponent.gameObject.SetActive(false);
-            skillInfoComponent.gameObject.SetActive(false);
             statusList.gameObject.SetActive(false);
             var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
             rect.localPosition = new Vector3(-240, rect.localPosition.y, 0);
@@ -65,6 +65,11 @@ namespace Ryneus
             statusList.SetInputHandler(InputKeyType.Decide, CallLevelUpNext);
             AddViewActives(statusList);
         }
+        private void InitializeSkillList()
+        {
+            learnSkillList.Initialize();
+            AddViewActives(learnSkillList);
+        }
 
         public void UpdateLevelUp(ActorInfo actorInfo, List<ListData> statusDates)
         {
@@ -84,7 +89,7 @@ namespace Ryneus
             }
         }
 
-        public void UpdateLearnSkill(ActorInfo actorInfo, SkillInfo skillInfo)
+        public void UpdateLearnSkill(ActorInfo actorInfo, List<SkillInfo> skillInfos)
         {
             if (actorInfoComponent != null)
             {
@@ -93,11 +98,11 @@ namespace Ryneus
                 var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
                 BaseAnimation.MoveAndFade(rect, actorInfoComponent.MainThumb, -280, 1, 0.5f);
             }
-            if (skillInfoComponent != null)
+            if (learnSkillList != null)
             {
                 learnSkillRoot.SetActive(true);
-                skillInfoComponent.UpdateInfo(skillInfo);
-                skillInfoComponent.gameObject.SetActive(true);
+                learnSkillList.SetData(ListData.MakeListData(skillInfos));
+                learnSkillList.gameObject.SetActive(true);
             }
         }
 

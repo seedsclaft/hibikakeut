@@ -40,9 +40,9 @@ namespace Ryneus
             return _sceneParam.LearnSkill.Value;
         }
 
-        public SkillInfo LearnSkillInfo()
+        public List<SkillInfo> LearnSkillInfos()
         {
-            return _sceneParam.SkillInfo;
+            return _sceneParam.SkillInfos;
         }
 
         public void ClearSkillInfo()
@@ -59,8 +59,8 @@ namespace Ryneus
         public ParameterInt To = new();
         private ActorInfo _actorInfo;
         public ActorInfo ActorInfo => _actorInfo;
-        private SkillInfo _skillInfo;
-        public SkillInfo SkillInfo => _skillInfo;
+        private List<SkillInfo> _skillInfos = new();
+        public List<SkillInfo> SkillInfos => _skillInfos;
         public List<StrategyStrengthInfo> StrategyStrengthInfos = new();
         public LevelUpViewInfo()
         {
@@ -71,14 +71,14 @@ namespace Ryneus
             _actorInfo = actorInfo;
         }
 
-        public void SetSkillInfo(SkillInfo skillInfo)
+        public void SetSkillInfos(List<SkillInfo> skillInfos)
         {
-            _skillInfo = skillInfo;
+            _skillInfos = skillInfos;
         }
 
         public void ClearSkillInfo()
         {
-            _skillInfo = null;
+            _skillInfos.Clear();
         }
     }
 }

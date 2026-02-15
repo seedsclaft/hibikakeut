@@ -118,9 +118,8 @@ namespace Ryneus
             }
         }
 
-        private new void Update()
+        private void Update()
         {
-            base.Update();
             if (advUguiManager.Engine.SelectionManager.IsWaitInput && (HelpWindow.LastKey != "ADV_SELECTING" || HelpWindow.LastKey != "ADV_SELECTING_ONE"))
             {
                 _lastKey = HelpWindow.LastKey;

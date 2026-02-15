@@ -61,7 +61,7 @@ namespace Ryneus
                 return;
             }
             // 魔法獲得
-            var learnSkill = _model.LearnSkillInfo();
+            var learnSkill = _model.LearnSkillInfos();
             if (learnSkill != null)
             {
                 _view.OpenAnimation(_model.LearnSkillText());
@@ -81,7 +81,7 @@ namespace Ryneus
                 _model.ClearLevelUpDates();
             }
             // 魔法獲得
-            var learnSkill = _model.LearnSkillInfo();
+            var learnSkill = _model.LearnSkillInfos();
             if (learnSkill != null)
             {
                 _view.UpdateLearnSkillText(_model.LearnSkillText());

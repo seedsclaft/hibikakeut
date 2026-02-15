@@ -10,13 +10,20 @@ namespace Ryneus
         [SerializeField] private GameObject evaluateObj = null;
         [SerializeField] private TextMeshProUGUI evaluateText = null;
         [SerializeField] private TextMeshProUGUI afterEvaluateText = null;
-        [SerializeField] private SkillInfoComponent skillInfoComponent = null;
+        [SerializeField] private BaseList learnSkillList = null;
         [SerializeField] private ConfirmAnimation confirmAnimation = null;
         public override void Initialize()
         {
             base.Initialize();
             SetBaseAnimation(confirmAnimation);
+            InitializeSkillList();
             OpenAnimation();
+        }
+
+        private void InitializeSkillList()
+        {
+            learnSkillList.Initialize();
+            AddViewActives(learnSkillList);
         }
 
         public void OpenAnimation()
@@ -38,9 +45,9 @@ namespace Ryneus
             {
                 afterEvaluateText.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.To.Value));
             }
-            if (skillInfoComponent != null && learnSkillInfo.SkillInfo != null)
+            if (learnSkillInfo != null && learnSkillInfo.SkillInfos.Count > 0)
             {
-                skillInfoComponent.UpdateInfo(learnSkillInfo.SkillInfo);
+                learnSkillList.SetData(ListData.MakeListData(learnSkillInfo.SkillInfos));
             }
         }
 
@@ -65,13 +72,13 @@ namespace Ryneus
         public ParameterString Title = new();
         private ActorInfo _actorInfo;
         public ActorInfo ActorInfo => _actorInfo;
-        private SkillInfo _skillInfo;
-        public SkillInfo SkillInfo => _skillInfo;
-        public LearnSkillInfo(int from, int to, SkillInfo skillInfo, ActorInfo actorInfo = null)
+        private List<SkillInfo> _skillInfos;
+        public List<SkillInfo> SkillInfos => _skillInfos;
+        public LearnSkillInfo(int from, int to, List<SkillInfo> skillInfos, ActorInfo actorInfo = null)
         {
             From.SetValue(from);
             To.SetValue(to);
-            _skillInfo = skillInfo;
+            _skillInfos = skillInfos;
             _actorInfo = actorInfo;
         }
 
