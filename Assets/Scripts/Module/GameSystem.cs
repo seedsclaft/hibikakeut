@@ -283,7 +283,7 @@ namespace Ryneus
             {
                 _inputableBaseViews.Remove(confirmView);
                 confirmView.CallSystemCommand(Base.CommandType.CloseConfirm);
-                confirmInfo.BackEvent?.Invoke();
+                confirmView.CallCancelEvent();
             });
             _inputableBaseViews.Add(confirmView);
         }

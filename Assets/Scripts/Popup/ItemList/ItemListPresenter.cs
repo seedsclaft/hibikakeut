@@ -71,41 +71,40 @@ namespace Ryneus
 
         private void CommandDecideItem()
         {
-            if (_model.CanPresent())
+            if (!_model.CanPresent())
             {
-                _view.ActivateItemList(false);
-                _busy = true;
-                CallConfirmView(DataSystem.GetText(34040), (a) =>
-                {
-                    if (a == ConfirmCommandType.Yes)
-                    {
-                        var getItemInfos = _model.PresentGetItemInfos();
-                        if (getItemInfos.Count > 0)
-                        {
-                            _model.PartyInfo.PartyStatInfo.PresentCommandCount.GainValue(1);
-                            CheckAchievements();
-                            _view.CallSystemCommand(Base.CommandType.ClosePopup);
-                            var sceneParam = new MainMenuSceneInfo
-                            {
-                                CommandIndex = 4
-                            };
-                            var strategySceneInfo = new StrategySceneInfo
-                            {
-                                ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
-                                InBattle = false,
-                                GetItemInfos = getItemInfos,
-                                ReturnMainMenuSceneParam = sceneParam
-                            };
-                            _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
-                        }
-                    }
-                    _busy = false;
-                    _view.ActivateItemList(true);
-                });
-                return;
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                CommandCautionInfo(DataSystem.GetText(34050));
             }
-            SoundManager.Instance.PlayStaticSe(SEType.Deny);
-            CommandCautionInfo(DataSystem.GetText(34050));
+            _view.ActivateItemList(false);
+            _busy = true;
+            CallConfirmView(DataSystem.GetText(34040), (a) =>
+            {
+                if (a == ConfirmCommandType.Yes)
+                {
+                    var getItemInfos = _model.PresentGetItemInfos();
+                    if (getItemInfos.Count > 0)
+                    {
+                        _model.PartyInfo.PartyStatInfo.PresentCommandCount.GainValue(1);
+                        CheckAchievements();
+                        _view.CallSystemCommand(Base.CommandType.ClosePopup);
+                        var sceneParam = new MainMenuSceneInfo
+                        {
+                            CommandIndex = 4
+                        };
+                        var strategySceneInfo = new StrategySceneInfo
+                        {
+                            ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
+                            InBattle = false,
+                            GetItemInfos = getItemInfos,
+                            ReturnMainMenuSceneParam = sceneParam
+                        };
+                        _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
+                    }
+                }
+                _busy = false;
+                _view.ActivateItemList(true);
+            });
         }
 
         private void CommandPlusUseNum(int itemId)

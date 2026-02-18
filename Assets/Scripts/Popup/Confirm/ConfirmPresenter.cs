@@ -73,8 +73,8 @@ namespace Ryneus
     public class ConfirmInfo
     {
         public ParameterString Title = new();
-        private System.Action<ConfirmCommandType> _callEvent = null;
-        public System.Action<ConfirmCommandType> CallEvent => _callEvent;
+        private System.Action<ConfirmCommandType> _returnEvent = null;
+        public System.Action<ConfirmCommandType> ReturnEvent => _returnEvent;
         public ParameterBool IsNoChoice = new();
         private List<SkillInfo> _skillInfos = null;
         public List<ListData> SkillInfos()
@@ -109,18 +109,12 @@ namespace Ryneus
         private ConfirmType _confirmType;
         public ConfirmType ConfirmType => _confirmType;
         public ParameterBool IsArtifact = new();
-        private System.Action _backEvent = null;
-        public System.Action BackEvent => _backEvent;
-        public void SetBackEvent(System.Action backEvent)
-        {
-            _backEvent = backEvent;
-        }
 
-        public ConfirmInfo(string title, System.Action<ConfirmCommandType> callEvent, ConfirmType confirmType = ConfirmType.Confirm)
+        public ConfirmInfo(string title, System.Action<ConfirmCommandType> returnEvent, ConfirmType confirmType = ConfirmType.Confirm)
         {
             _confirmType = confirmType;
             Title.SetValue(title);
-            _callEvent = callEvent;
+            _returnEvent = returnEvent;
         }
 
         public void SetIsNoChoice(bool isNoChoice)

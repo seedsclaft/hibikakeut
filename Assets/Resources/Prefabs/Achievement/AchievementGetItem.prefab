@@ -216,6 +216,7 @@ MonoBehaviour:
   skillInfoComponent: {fileID: 5380408428125419088}
   itemInfoComponent: {fileID: 5957736347645346803}
   titleName: {fileID: 4618186837337061016}
+  itemIconRoot: {fileID: 3493363960966233007}
 --- !u!114 &5380408428125419088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,8 +265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69681b76513c6c14c99fe986d67fb699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.ItemInfoComponent
-  icon: {fileID: 0}
-  iconBack: {fileID: 0}
+  icon: {fileID: 7153839886139997111}
+  iconBack: {fileID: 4329203119204246539}
   itemName: {fileID: 0}
   description: {fileID: 0}
   ownNum: {fileID: 0}
@@ -632,6 +633,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemIcon (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1832827270207701572, guid: 3bdcde3e69075d54693fc531845bae26,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9061608137479500081, guid: 3bdcde3e69075d54693fc531845bae26,
         type: 3}
       propertyPath: m_Pivot.x
@@ -665,7 +671,7 @@ PrefabInstance:
     - target: {fileID: 9061608137479500081, guid: 3bdcde3e69075d54693fc531845bae26,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 32
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 9061608137479500081, guid: 3bdcde3e69075d54693fc531845bae26,
         type: 3}
@@ -737,6 +743,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bdcde3e69075d54693fc531845bae26, type: 3}
+--- !u!1 &3493363960966233007 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1832827270207701572, guid: 3bdcde3e69075d54693fc531845bae26,
+    type: 3}
+  m_PrefabInstance: {fileID: 2960394043196586475}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4329203119204246539 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1513497539515817440, guid: 3bdcde3e69075d54693fc531845bae26,

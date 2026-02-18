@@ -44,9 +44,7 @@ namespace Ryneus
             commandList.SetInputHandler(InputKeyType.Decide, () => CallConfirmCommand());
             commandList.SetInputHandler(InputKeyType.Cancel, () =>
             {
-                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 BackEvent();
-                _confirmEvent(ConfirmCommandType.No);
             });
             AddViewActives(commandList);
         }
@@ -115,7 +113,7 @@ namespace Ryneus
             SetTitle(confirmInfo.Title.Value);
             SetSkillInfo(confirmInfo.SkillInfos());
             SetStageInfo(confirmInfo.StageInfo);
-            SetConfirmEvent(confirmInfo.CallEvent);
+            SetConfirmEvent(confirmInfo.ReturnEvent);
             SetDisableIds(confirmInfo.DisableIds);
             if (cautionArtifact != null)
             {
@@ -167,6 +165,12 @@ namespace Ryneus
             {
                 CallConfirmCommand();
             }
+        }
+
+        public void CallCancelEvent()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            _confirmEvent(ConfirmCommandType.No);
         }
     }
 
