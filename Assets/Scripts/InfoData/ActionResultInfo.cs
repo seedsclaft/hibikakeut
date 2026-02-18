@@ -420,7 +420,7 @@ namespace Ryneus
         private int CurrentDefense(BattlerInfo subject, BattlerInfo target, bool isNoEffect)
         {
             int DefValue = target.CurrentDef(isNoEffect);
-            if (isNoEffect == false)
+            if (!isNoEffect)
             {
                 if (subject.IsState(StateType.Penetrate))
                 {
@@ -448,7 +448,7 @@ namespace Ryneus
         private float CalcDamageCutRate(BattlerInfo subject, BattlerInfo target, bool isNoEffect)
         {
             float damageCutRate = 0;
-            if (isNoEffect == false)
+            if (!isNoEffect)
             {
                 if (target.IsState(StateType.DamageCutRate))
                 {
@@ -471,7 +471,7 @@ namespace Ryneus
         private int CalcDamageCut(BattlerInfo subject, BattlerInfo target, bool isNoEffect)
         {
             int damageCut = 0;
-            if (isNoEffect == false)
+            if (!isNoEffect)
             {
                 if (target.IsState(StateType.DamageCut))
                 {
@@ -855,7 +855,7 @@ namespace Ryneus
                     }
                 }
             }
-            if (checkCounter == true && stateInfo.Master.Abnormal && target.IsState(StateType.AntiDote))
+            if (checkCounter && stateInfo.Master.Abnormal && target.IsState(StateType.AntiDote))
             {
                 _execStateInfos[target.Index.Value].Add(target.GetStateInfo(StateType.AntiDote));
                 if (subject.IsState(StateType.NoDamage))
