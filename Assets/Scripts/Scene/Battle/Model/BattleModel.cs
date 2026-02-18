@@ -31,6 +31,15 @@ namespace Ryneus
 
         private UnitInfo _party = null;
         private UnitInfo _troop = null;
+        public UnitInfo GetFriendUnit(BattlerInfo battlerInfo)
+        {
+            return battlerInfo.IsActor ? _party : _troop;
+        }
+        public UnitInfo GetOpponentUnit(BattlerInfo battlerInfo)
+        {
+            return battlerInfo.IsActor ? _troop : _party;
+        }
+
         /// <summary>
         /// Indexから取得
         /// </summary>
@@ -39,7 +48,8 @@ namespace Ryneus
             if (aliveOnly)
             {
                 return _battlers.FindAll(a => a.IsActor == friends && a.IsAlive());
-            } else
+            }
+            else
             {
                 return _battlers.FindAll(a => a.IsActor == friends);
             }
@@ -56,7 +66,8 @@ namespace Ryneus
             if (Interrupt)
             {
                 _turnActionInfos[_turnCount].Insert(0, actionInfo);
-            } else
+            }
+            else
             {
                 _turnActionInfos[_turnCount].Add(actionInfo);
             }
@@ -91,6 +102,16 @@ namespace Ryneus
         public List<BattlerInfo> FieldBattlerInfos()
         {
             return _battlers.FindAll(a => !a.isAlcana && a.LineIndex == LineType.Front);
+        }
+
+        public List<BattlerInfo> GetFriendsAliveBattlerInfos(BattlerInfo battlerInfo)
+        {
+            return battlerInfo.IsActor ? _party.AliveBattlerInfos : _troop.AliveBattlerInfos;
+        }
+
+        public List<BattlerInfo> GetOpponentsAliveBattlerInfos(BattlerInfo battlerInfo)
+        {
+            return battlerInfo.IsActor ? _troop.AliveBattlerInfos : _party.AliveBattlerInfos;
         }
 
         public List<StateInfo> UpdateAp()
@@ -759,7 +780,7 @@ namespace Ryneus
             foreach (var targetIndex in indexList)
             {
                 var target = GetBattlerInfo(targetIndex);
-                var friends = target.IsActor ? _party : _troop;
+                var friends = GetFriendUnit(target);
                 BattlerInfo coverableBattlerInfo = null;
                 var coverableBattlerInfos = friends.CoverableBattlerInfo(target);
                 foreach (var battlerInfo in coverableBattlerInfos)
@@ -841,7 +862,7 @@ namespace Ryneus
             var damageHealParty = featureDates.Find(a => a.FeatureType == FeatureType.DamageHpHealParty);
             if (damageHealParty != null)
             {
-                var friends = subject.IsActor ? _party.AliveBattlerInfos : _troop.AliveBattlerInfos;
+                var friends = GetFriendsAliveBattlerInfos(subject);
                 var hpHeal = hpDamage * damageHealParty.Param3 * 0.01f;
                 foreach (var friend in friends)
                 {
@@ -864,7 +885,7 @@ namespace Ryneus
             var attackCountHealParty = featureDates.Find(a => a.FeatureType == FeatureType.AttackHpHealParty);
             if (attackCountHealParty != null)
             {
-                var friends = subject.IsActor ? _party.AliveBattlerInfos : _troop.AliveBattlerInfos;
+                var friends = GetFriendsAliveBattlerInfos(subject);
                 var hpHeal = attackCount * attackCountHealParty.Param3;
                 foreach (var friend in friends)
                 {
@@ -908,7 +929,7 @@ namespace Ryneus
             var damageHealParty = featureDates.Find(a => a.FeatureType == FeatureType.DamageMpHealParty);
             if (damageHealParty != null)
             {
-                var friends = subject.IsActor ? _party.AliveBattlerInfos : _troop.AliveBattlerInfos;
+                var friends = GetFriendsAliveBattlerInfos(subject);
                 var ctHeal = hpDamage * damageHealParty.Param3 * 0.01f;
                 foreach (var friend in friends)
                 {
@@ -1394,7 +1415,7 @@ namespace Ryneus
                     _reserveBattlers.Add(_firstActionBattler);
                     _battlers.Add(changeBattler);
                     _party.BattlerInfos.Add(changeBattler);
-                    _battlers.Sort((a,b) => a.Index.Value - b.Index.Value > 0 ? 1 : -1);
+                    _battlers.Sort((a, b) => a.Index.Value - b.Index.Value > 0 ? 1 : -1);
                     return true;
                 }
             }
@@ -1438,7 +1459,7 @@ namespace Ryneus
                 }
                 if (subject.IsState(StateType.Combo))
                 {
-                    var friends = subject.IsActor ? _party.AliveBattlerInfos : _troop.AliveBattlerInfos;
+                    var friends = GetFriendsAliveBattlerInfos(subject);
                     foreach (var friend in friends)
                     {
                         if (friend.Index != subject.Index)
@@ -1550,7 +1571,7 @@ namespace Ryneus
 
                 if (actionInfo != null)
                 {
-                    var party = firstActionBattler.IsActor ? _party.AliveBattlerInfos : _troop.AliveBattlerInfos;
+                    var party = GetFriendsAliveBattlerInfos(firstActionBattler);
                     var targetIndexes = new List<int>();
                     foreach (var member in party)
                     {
@@ -1591,7 +1612,7 @@ namespace Ryneus
 
                 if (actionInfo != null)
                 {
-                    var party = _currentBattler.IsActor ? _party.AliveBattlerInfos : _troop.AliveBattlerInfos;
+                    var party = GetFriendsAliveBattlerInfos(_currentBattler);
                     party = party.FindAll(a => a.IsAlive());
                     var targetIndexes = new List<int>();
                     foreach (var member in party)
@@ -1932,8 +1953,8 @@ namespace Ryneus
 
         private bool IsTriggeredSkillInfo(BattlerInfo battlerInfo, List<SkillData.TriggerData> triggerDates, ActionInfo actionInfo, List<ActionResultInfo> actionResultInfos, int coverTargetIndex = -1)
         {
-            var friends = battlerInfo.IsActor ? _party : _troop;
-            var opponents = battlerInfo.IsActor ? _troop : _party;
+            var friends = GetFriendUnit(battlerInfo);
+            var opponents = GetOpponentUnit(battlerInfo);
             bool IsTriggered = false;
             var checkTriggerInfo = new CheckTriggerInfo(_turnCount, battlerInfo, BattlerActors(), BattlerEnemies(), _reserveBattlers, actionInfo, actionResultInfos, coverTargetIndex);
             if (triggerDates.Count > 0)
@@ -2202,8 +2223,8 @@ namespace Ryneus
         private List<int> TriggerTargetList(BattlerInfo battlerInfo, SkillData.TriggerData triggerData,ActionInfo actionInfo, List<ActionResultInfo> actionResultInfos,AliveType aliveType)
         {
             var list = new List<int>();
-            var opponents = battlerInfo.IsActor ? _troop : _party;
-            var friends = battlerInfo.IsActor ? _party : _troop;
+            var opponents = GetOpponentUnit(battlerInfo);
+            var friends = GetFriendUnit(battlerInfo);
             var key = (int)triggerData.TriggerType / 1000;
             if (_checkTriggerDict.ContainsKey(key))
             {
@@ -2414,7 +2435,7 @@ namespace Ryneus
                         if (battler.StateInfos[i].StateType == StateType.HolyCoffin)
                         {
                             battler.RemoveState(battler.StateInfos[i], true);
-                            var randTargets = battler.IsActor ? _party.AliveBattlerInfos : _troop.AliveBattlerInfos;
+                            var randTargets = GetFriendsAliveBattlerInfos(battler);
                             if (randTargets.Count > 0)
                             {
                                 var rand = UnityEngine.Random.Range(0, randTargets.Count);

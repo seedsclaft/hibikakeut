@@ -77,8 +77,8 @@ namespace Ryneus
         {
             var targetIndexList = new List<int>();
             var isActor = battlerInfo.IsActor;
-            var targetUnit = isActor ? _troop : _party;
-            var friendUnit = isActor ? _party : _troop;
+            var friendUnit = GetFriendUnit(battlerInfo);
+            var targetUnit = GetOpponentUnit(battlerInfo);
             foreach (var friend in friendUnit.BattlerInfos)
             {
                 targetIndexList.Add(friend.Index.Value);
@@ -98,7 +98,8 @@ namespace Ryneus
             if (battlerInfo.LineIndex == LineType.Front)
             {
                 selfIsFront = true;
-            } else
+            }
+            else
             {
                 // 前面の味方が一人もいない場合は前面
                 if (friendUnit.AliveBattlerInfos.Find(a => a.LineIndex == LineType.Front) == null)

@@ -1,10 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Ryneus
 {
-    [System.Serializable]
+    [Serializable]
     public class UnitInfo
     {
         public ParameterInt Index = new();
@@ -125,33 +125,6 @@ namespace Ryneus
         {
             var coverableBattlerInfos = AliveBattlerInfos.FindAll(a => a != target);
             return coverableBattlerInfos;
-        }
-
-        public UnitInfo CopyData()
-        {
-            var copyData = new UnitInfo();
-            copyData.Index.SetValue(Index.Value);
-            var battlerInfos = new List<BattlerInfo>();
-            var idx = 0;
-            foreach (var battlerInfo in _battlerInfos)
-            {
-                if (battlerInfo.ActorInfo != null)
-                {
-                    var copyBattlerInfo = new BattlerInfo(battlerInfo.ActorInfo,idx+1);
-                    battlerInfos.Add(copyBattlerInfo);
-                } else
-                if (battlerInfo.EnemyData != null)
-                {
-                    var copyBattlerInfo = new BattlerInfo(battlerInfo.EnemyData,battlerInfo.Level.Value,idx,battlerInfo.LineIndex,battlerInfo.BossFlag);
-                    battlerInfos.Add(copyBattlerInfo);
-                } else
-                {
-                    battlerInfos.Add(battlerInfo);
-                }
-                idx++;
-            }
-            copyData.SetBattlers(battlerInfos);
-            return copyData;
         }
     }
 }
