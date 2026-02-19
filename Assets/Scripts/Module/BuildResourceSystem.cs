@@ -31,6 +31,8 @@ namespace Ryneus
                 "Assets/AssetBundle/Texture/BG",
                 "Assets/AssetBundle/Texture/Character/Enemies",
                 "Assets/AssetBundle/Texture/Character/Npcs",
+                "Assets/AssetBundle/FieldBattler/Actors",
+                "Assets/AssetBundle/FieldBattler/Enemies",
             };
             for (int i = 1; i <= 10; i++)
             {
@@ -97,6 +99,7 @@ namespace Ryneus
                     address = address.Replace(".png", "");
                     address = address.Replace(".asset", "");
                     address = address.Replace(".efkmodel", "");
+                    address = address.Replace(".prefab", "");
                     address = address.Replace("\\", "/");
                     entry.address = address;
                 }

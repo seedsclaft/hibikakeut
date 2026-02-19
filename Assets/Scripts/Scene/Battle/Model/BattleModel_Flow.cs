@@ -63,14 +63,14 @@ namespace Ryneus
         /// ActionInfoの要素を決定する
         /// </summary>
         /// <param name="actionInfo"></param>
-        public void SetActionInfoParameter(ActionInfo actionInfo)
+        public void SetActionInfoParameter(ActionInfo actionInfo, bool startAction)
         {
             if (actionInfo.IsSettingParameter)
             {
                 return;
             }
             var subject = GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            int mpCost = CalcMpCost(subject,actionInfo.Master.MpCost);
+            int mpCost = CalcMpCost(subject, actionInfo.Master.MpCost);
             actionInfo.MpCost.SetValue(mpCost);
             int hpCost = CalcHpCost(actionInfo);
             actionInfo.HpCost.SetValue(hpCost);
@@ -80,6 +80,7 @@ namespace Ryneus
             //repeatTime += PrismRepeatTime(subject,actionInfo);
             actionInfo.SetRepeatTime(repeatTime);
             actionInfo.BaseRepeatTime.SetValue(repeatTime);
+            actionInfo.StartAction.SetValue(startAction);
             actionInfo.SetIsSettingParameter(true);
         }
     }

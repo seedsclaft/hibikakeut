@@ -5,11 +5,14 @@ using Effekseer;
 using TMPro;
 using Cysharp.Threading.Tasks;
 using Ryneus.Battle;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
     public partial class BattleView : BaseView, IInputHandlerEvent
     {
+        [SerializeField] private BattleFieldView battleFieldView = null;
+        public bool _fieldBusy => battleFieldView.Busy;
         [SerializeField] private BattleBattlerList battleActorList = null;
         [SerializeField] private BattleBattlerList battleEnemyList = null;
         [SerializeField] private BattleGridLayer battleGridLayer = null;
@@ -53,7 +56,8 @@ namespace Ryneus
 
         private List<MakerEffectData.SoundTimings> _soundTimings = null;
 
-        private readonly Dictionary<int,BattlerInfoComponent> _battlerComps = new();
+        private readonly Dictionary<int, BattlerInfoComponent> _battlerComps = new();
+        private readonly Dictionary<int, BattlerInfoComponent> _fieldBattlerComps = new();
 
         private bool _skipBattle = false;
         public override void Initialize() 
@@ -174,6 +178,7 @@ namespace Ryneus
         {
             battleActorList.UpdateSelectIndexList(targetIndexes);
             battleEnemyList.UpdateSelectIndexList(targetIndexes);
+            battleFieldView.UpdateSelectIndexList(targetIndexes);
         }
 
         public void SelectActorList(List<int> selectIndexes)
@@ -190,6 +195,7 @@ namespace Ryneus
             battleActorList.SetSelectIndexes(selects);
             battleActorList.UpdateSelectIndex(selects[0]);
             battleEnemyList.ClearSelect();
+            battleFieldView.SetSelectIndexes(selects[0]);
         }
 
         public void SelectEnemyList(List<int> selectIndexes)
@@ -200,6 +206,39 @@ namespace Ryneus
             battleEnemyList.SetSelectIndexes(selectIndexes);
             battleEnemyList.UpdateSelectIndex(selectIndexes[0]-101);
             battleActorList.ClearSelect();
+            battleFieldView.SetSelectIndexes(selectIndexes[0]);
+            //battleFieldView.UpdateSelectIndex(selectIndexes[0]-101);
+        }
+
+        public async Task SetFieldMembers(List<BattlerInfo> battlerInfos)
+        {
+            await battleFieldView.SetFieldMembers(battlerInfos);
+            foreach (var battlerInfoComponent in battleFieldView.BattlerInfoComponents)
+            {
+                _fieldBattlerComps[battlerInfoComponent.Key] = battlerInfoComponent.Value;
+            }
+        }
+
+        public void SetIdle()
+        {
+            battleGridLayer.Show();
+            battleFieldView.SetAnimationBattlerAll(AnimationState.Idle);
+        }
+
+        public void SetStartActors()
+        {
+            battleFieldView.SetAnimationBattlerAll(AnimationState.Start);
+        }
+
+        public async Task SetStartActorMagic(int battlerInfoIndex, bool isActor)
+        {
+            battleGridLayer.Hide();
+            await battleFieldView.SetStartActorMagic(battlerInfoIndex, isActor);
+        }
+
+        public void SetDamageAnimation(int battlerInfoIndex, bool isActor)
+        {
+            battleFieldView.SetHit(battlerInfoIndex, isActor);
         }
 
         public void SetGridMembers(List<BattlerInfo> battlerInfos)
@@ -274,6 +313,7 @@ namespace Ryneus
             magicList.gameObject.SetActive(false);
             battleEnemyList.ClearSelect();
             battleActorList.ClearSelect();
+            battleFieldView.ClearSelect();
         }
 
         public void SetActiveBeforeBattles(bool isActive)
@@ -568,19 +608,20 @@ namespace Ryneus
             skillInfoComponent.Clear();
         }
 
-        public void StartAnimation(int targetIndex,EffekseerEffectAsset effekseerEffectAsset, AnimationPosition animationPosition, float animationScale = 1.0f, float animationSpeed = 1.0f, bool soundPlay = true)
+        public async Task StartAnimation(int targetIndex,EffekseerEffectAsset effekseerEffectAsset, AnimationPosition animationPosition, float animationScale = 1.0f, float animationSpeed = 1.0f, bool soundPlay = true)
         {
             if (!_battlerComps.ContainsKey(targetIndex))
             {
                 return;
             }
             magicList.gameObject.SetActive(false);
-            if (GameSystem.OptionData.BattleAnimationSkip) 
+            if (GameSystem.OptionData.BattleAnimationSkip)
             {
                 return;
             }
             animationSpeed *= GameSystem.OptionData.BattleSpeed;
-            _battlerComps[targetIndex].StartAnimation(effekseerEffectAsset, animationPosition, animationScale, animationSpeed, soundPlay);
+            //_battlerComps[targetIndex].StartAnimation(effekseerEffectAsset, animationPosition, animationScale, animationSpeed, soundPlay);
+            await battleFieldView.StartAnimation(targetIndex, effekseerEffectAsset, animationPosition, animationScale, animationSpeed, soundPlay);
         }
 
         public void StartAnimationAll(EffekseerEffectAsset effekseerEffectAsset,AnimationPosition animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
@@ -636,7 +677,8 @@ namespace Ryneus
             {
                 return;
             }
-            _battlerComps[targetIndex].StartDamage(damageType,value,needPopupDelay);
+            _battlerComps[targetIndex].StartDamage(damageType, value, needPopupDelay);
+            _fieldBattlerComps[targetIndex].StartDamage(damageType, value, needPopupDelay);
         }
 
         public void StartBlink(int targetIndex)
@@ -654,7 +696,8 @@ namespace Ryneus
             {
                 return;
             }
-            _battlerComps[targetIndex].StartHeal(damageType,value,needPopupDelay);
+            _battlerComps[targetIndex].StartHeal(damageType, value, needPopupDelay);
+            _fieldBattlerComps[targetIndex].StartHeal(damageType, value, needPopupDelay);
         }
 
         public void StartStatePopup(int targetIndex, DamageType damageType, string stateName, bool buff = false, bool debuff = false)
@@ -664,6 +707,7 @@ namespace Ryneus
                 return;
             }
             _battlerComps[targetIndex].StartStatePopup(damageType, stateName, buff, debuff);
+            _fieldBattlerComps[targetIndex].StartStatePopup(damageType, stateName, buff, debuff);
         }
 
         public void StartDeathAnimation(int targetIndex)
@@ -673,6 +717,7 @@ namespace Ryneus
                 return;
             }
             _battlerComps[targetIndex].StartDeathAnimation();
+            battleFieldView.StartDeathAnimation(targetIndex);
         }
 
         public void StartAliveAnimation(int targetIndex)
@@ -692,6 +737,10 @@ namespace Ryneus
         {
             battleGridLayer.RefreshStatus();
             foreach (var item in _battlerComps)
+            {
+                item.Value.RefreshStatus();
+            }
+            foreach (var item in _fieldBattlerComps)
             {
                 item.Value.RefreshStatus();
             }
@@ -716,6 +765,10 @@ namespace Ryneus
             {
                 item.Value.SetActiveStatus(true);
             }
+            foreach (var item in _fieldBattlerComps)
+            {
+                item.Value.SetActiveStatus(true);
+            }
         }
 
         public void HideEnemiesStatus()
@@ -726,6 +779,10 @@ namespace Ryneus
         public void SetBattlerActiveStatus(List<int> selectableIndexes)
         {
             foreach (var item in _battlerComps)
+            {
+                item.Value.SetActiveStatus(selectableIndexes.Contains(item.Key));
+            }
+            foreach (var item in _fieldBattlerComps)
             {
                 item.Value.SetActiveStatus(selectableIndexes.Contains(item.Key));
             }
@@ -802,32 +859,32 @@ namespace Ryneus
             }
         }
 
-        public void StartAnimationBeforeSkill(int subjectIndex,EffekseerEffectAsset effekseerEffect)
+        public async Task StartAnimationBeforeSkill(int subjectIndex,EffekseerEffectAsset effekseerEffect)
         {
             if (!_battlerComps.ContainsKey(subjectIndex))
             {
                 return;
             }
             SoundManager.Instance.PlayStaticSe(SEType.Skill);
-            StartAnimation(subjectIndex, effekseerEffect,0, 1.5f, 0.75f);
+            await StartAnimation(subjectIndex, effekseerEffect, 0, 1.5f, 0.75f);
             _battlerComps[subjectIndex].SetActiveBeforeSkillThumb(true);
         }
 
-        public void StartAnimationSlipDamage(List<int> targetIndexes, EffekseerEffectAsset effekseerEffect)
+        public async Task StartAnimationSlipDamage(List<int> targetIndexes, EffekseerEffectAsset effekseerEffect)
         {
             //var animation = ResourceSystem.LoadResourceEffect("NA_Effekseer/NA_Fire_001");
             foreach (var targetIndex in targetIndexes)
             {
-                StartAnimation(targetIndex, effekseerEffect, 0, 0.5f);
+                await StartAnimation(targetIndex, effekseerEffect, 0, 0.5f);
             }
         }
 
-        public void StartAnimationRegenerate(List<int> targetIndexes, EffekseerEffectAsset effekseerEffect)
+        public async Task StartAnimationRegenerate(List<int> targetIndexes, EffekseerEffectAsset effekseerEffect)
         {
             //var animation = ResourceSystem.LoadResourceEffect("tktk01/Cure1");
             foreach (var targetIndex in targetIndexes)
             {
-                StartAnimation(targetIndex, effekseerEffect, 0);
+                await StartAnimation(targetIndex, effekseerEffect, 0);
             }
         }
 

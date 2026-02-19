@@ -26,6 +26,7 @@ namespace Ryneus
         private List<ActionResultInfo> _actionResults = new();
         public List<ActionResultInfo> ActionResults => _actionResults;
 
+        public ParameterBool StartAction = new();
         public ParameterInt MpCost = new();
         public ParameterInt HpCost = new();
         public ParameterInt BaseRepeatTime = new();
@@ -52,7 +53,7 @@ namespace Ryneus
 
         public bool FirstAttack()
         {
-            return (BaseRepeatTime.Value - 1) == RepeatTime.Value;
+            return BaseRepeatTime.Value == RepeatTime.Value && StartAction.Value;
         }
 
         public bool LastAttack()

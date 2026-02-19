@@ -43,7 +43,7 @@ namespace Ryneus
         /// <param name="IsInterrupt"></param>
         public void AddReceiveActionInfo(ActionInfo actionInfo, List<int> indexList, bool IsInterrupt)
         {
-            SetActionInfoParameter(actionInfo);
+            SetActionInfoParameter(actionInfo, false);
             MakeActionResultInfo(actionInfo, indexList);
             AddActionInfo(actionInfo, IsInterrupt);
             AddTurnActionInfos(actionInfo, IsInterrupt);

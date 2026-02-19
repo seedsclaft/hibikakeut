@@ -5,6 +5,7 @@ using System;
 
 namespace Ryneus
 {
+    /*
     public class VirtualModelController : MonoBehaviour
     {
         [SerializeField] private Animator animator = null;
@@ -344,8 +345,9 @@ namespace Ryneus
             effectEmitter.Play(effectAsset);
         }
     }
+*/
 }
-
+/*
 public enum AnimationState
 {
     None = -1,
@@ -360,3 +362,4 @@ public enum AnimationState
     Victory = 7,
 
 }
+*/

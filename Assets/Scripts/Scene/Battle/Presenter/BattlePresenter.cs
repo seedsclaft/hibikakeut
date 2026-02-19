@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Ryneus.Battle;
 
@@ -52,7 +53,7 @@ namespace Ryneus
             _view.SetBattleBusy(true);
             _model.CreateBattleData();
 
-            ViewInitialize();
+            await ViewInitialize();
             BattleChecker.Instance.SetModel(_model, _view);
             _view.CommandCallLoading();
             await _model.LoadEffects();
@@ -65,9 +66,9 @@ namespace Ryneus
             });
         }
 
-        public void ViewInitialize()
+        public async Task ViewInitialize()
         {
-            _view.SetBackGround(_model.CurrentStage.Master.BackGround);
+            await _view.SetBackGround(_model.CurrentStage.Master.BackGround);
 
             _view.ClearCurrentSkillData();
             _view.CreateObject();
@@ -81,6 +82,7 @@ namespace Ryneus
             _view.SetActors(MakeListData(_model.ViewBattlerActors()));
             _view.SetEnemies(MakeListData(_model.ViewBattlerEnemies()));
             _view.SetGridMembers(_model.Battlers);
+            await _view.SetFieldMembers(_model.Battlers);
             _view.BattlerBattleClearSelect();
 
             _view.RefreshStatus();
@@ -164,7 +166,7 @@ namespace Ryneus
             */
         }
 
-        private void UpdateCommand(ViewEvent viewEvent)
+        private async Task UpdateCommand(ViewEvent viewEvent)
         {
             if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Battle)
             {
@@ -195,7 +197,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.DecideBattle:
-                    CommandDecideBattle();
+                    await CommandDecideBattle();
                     break;
                 case CommandType.Formation:
                     CommandFormation();
@@ -261,7 +263,7 @@ namespace Ryneus
             //CheckTutorialState(viewEvent.commandType);
         }
 
-        private void CommandDecideBattle()
+        private async Task CommandDecideBattle()
         {
             if (!_beforeBattle)
             {
@@ -275,9 +277,13 @@ namespace Ryneus
             _view.EndFormation();
             _view.UpdateStartActivate();
 
-            _view.SetBattleBusy(false);
             _view.UpdateSelectCursor(new List<int>() { });
             CommandStartBattleAction();
+            _view.SetStartActors();
+            _view.StartBattleStartAnim("Battle Start!");
+            await UniTask.WaitUntil(() => !_view.StartAnimIsBusy);
+            _view.SetBattleBusy(false);
+            _view.SetIdle();
         }
 
         private void CommandFormation()

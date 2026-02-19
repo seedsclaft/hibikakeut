@@ -159,6 +159,16 @@ namespace Ryneus
             return LoadResources<Sprite>(ActorTexturePath + path);
         }
 
+        public static async Task<GameObject> LoadActorFieldBattler(string path)
+        {
+            return await LoadAsset<GameObject>("FieldBattler/Actors/FieldBattler_" + path);
+        }
+
+        public static async Task<GameObject> LoadEnemyFieldBattler(string path)
+        {
+            return await LoadAsset<GameObject>("FieldBattler/Enemies/FieldBattler_Enemy");
+        }
+
         public static GameObject LoadActor3DModel(string path)
         {
             return LoadResource<GameObject>("3DModels/" + path + "/" + path);

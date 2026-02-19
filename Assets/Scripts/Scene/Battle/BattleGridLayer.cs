@@ -22,7 +22,7 @@ namespace Ryneus
         {
             for (int i = 0; i < battlerInfos.Count; i++)
             {
-                GameObject prefab = Instantiate(actorPrefab);
+                var prefab = Instantiate(actorPrefab);
                 prefab.transform.SetParent(actorRoot.transform, false);
                 var comp = prefab.GetComponent<BattlerGrid>();
                 comp.UpdateInfo(battlerInfos[i]);
@@ -36,7 +36,7 @@ namespace Ryneus
         {
             for (int i = 0; i < battlerInfos.Count; i++)
             {
-                GameObject prefab = Instantiate(enemyPrefab);
+                var prefab = Instantiate(enemyPrefab);
                 prefab.transform.SetParent(enemyRoot.transform, false);
                 var comp = prefab.GetComponent<BattlerGrid>();
                 comp.UpdateInfo(battlerInfos[i]);
@@ -64,7 +64,7 @@ namespace Ryneus
             foreach (var data in _battlers)
             {
                 var rect = data.Value.gameObject.GetComponent<RectTransform>();
-                rect.localPosition = new Vector3(rect.localPosition.x, data.Key.Ap.Value, 0);
+                rect.localPosition = new Vector3(data.Key.Ap.Value, rect.localPosition.y, 0);
                 battlerInfos.Add(data.Key);
             }
             battlerInfos.Sort((a, b) => (int)a.Ap.Value - (int)b.Ap.Value);
@@ -81,6 +81,16 @@ namespace Ryneus
                 data.Value.RefreshStatus();
                 data.Value.gameObject.SetActive(data.Key.IsAlive() && data.Key.LineIndex == LineType.Front);
             }
+        }
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

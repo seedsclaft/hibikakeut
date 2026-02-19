@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -37,7 +38,8 @@ namespace Ryneus
                 if (actionInfo.Master.SkillType == SkillType.Unique)
                 {
                     _ = await StartAnimationMessiah(actionInfo);
-                } else
+                }
+                else
                 if (actionInfo.Master.SkillType == SkillType.Awaken)
                 {
                     _ = await StartAnimationAwaken(actionInfo);
@@ -78,16 +80,18 @@ namespace Ryneus
                 return;
             }
 
+            var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
             if (actionInfo.FirstAttack())
             {
-                _ = await SelfAnimation(actionInfo);
+                await SelfAnimation(actionInfo);
+                await _view.SetStartActorMagic(subject.Index.Value, subject.IsActor);
             }
 
             _ = await ShowCutinBattleThumb(actionInfo);
 
             //if (actionInfo.Master.IsDisplayBattleSkill())
             //{
-                _view.SetCurrentSkillData(actionInfo.SkillInfo,_model.GetBattlerInfo(actionInfo.SubjectIndex.Value));
+                _view.SetCurrentSkillData(actionInfo.SkillInfo, subject);
             //}
 
             StartAliveAnimation(actionInfo.ActionResults);
@@ -107,7 +111,8 @@ namespace Ryneus
                     waitFrame = 30;
                 }
                 await UniTask.DelayFrame(waitFrame);
-            } else
+            }
+            else
             {
                 foreach (var actionResultInfo in actionInfo.ActionResults)
                 {
@@ -165,6 +170,7 @@ namespace Ryneus
                 }
                 var damageType = actionResultInfo.Critical || actionResultInfo.WeakPoint ? DamageType.HpCritical : DamageType.HpDamage;
                 _view.StartDamage(targetIndex, damageType, actionResultInfo.HpDamage.Value, needPopupDelay);
+                _view.SetDamageAnimation(targetIndex, actionResultInfo.TargetIndex.Value < 100);
                 if (needDamageBlink)
                 {
                     _view.StartBlink(targetIndex);
@@ -251,12 +257,10 @@ namespace Ryneus
             }
         }
 
-        private async UniTask<bool> SelfAnimation(ActionInfo actionInfo)
+        private async Task SelfAnimation(ActionInfo actionInfo)
         {
             var selfAnimation = _model.EffectAssets["MAGICALxSPIRAL/WHead1"];
-            _view.StartAnimationBeforeSkill(actionInfo.SubjectIndex.Value,selfAnimation);
-            await UniTask.DelayFrame(_model.WaitFrameTime(30));
-            return true;
+            await _view.StartAnimationBeforeSkill(actionInfo.SubjectIndex.Value, selfAnimation);
         }
 
         private async UniTask<bool> ShowCutinBattleThumb(ActionInfo actionInfo)
@@ -339,11 +343,11 @@ namespace Ryneus
         private async void StartAnimationSlipDamage(List<ActionResultInfo> slipDamageResults)
         {
             var actionInfo = _model.ActiveActionInfo;
-            _ = await ExecActionResultInfos(slipDamageResults);
             if (!_skipBattle)
             {
-                _view.StartAnimationSlipDamage(ActionResultInfo.ConvertIndexes(slipDamageResults), _model.EffectAssets["NA_Effekseer/NA_Fire_001"]);
+                await _view.StartAnimationSlipDamage(ActionResultInfo.ConvertIndexes(slipDamageResults), _model.EffectAssets["NA_Effekseer/NA_Fire_001"]);
             }
+            _ = await ExecActionResultInfos(slipDamageResults);
             StartDeathAnimation(slipDamageResults);
             //_model.CheckTriggerPassiveInfos(BattleUtility.HpDamagedTriggerTimings(),null,slipDamageResults);
 
@@ -373,7 +377,7 @@ namespace Ryneus
             _ = await ExecActionResultInfos(regenerateActionResults);
             if (!_skipBattle)
             {
-                _view.StartAnimationRegenerate(ActionResultInfo.ConvertIndexes(regenerateActionResults), _model.EffectAssets["tktk01/Cure1"]);
+                await _view.StartAnimationRegenerate(ActionResultInfo.ConvertIndexes(regenerateActionResults), _model.EffectAssets["tktk01/Cure1"]);
             }
             EndTurn();
         }

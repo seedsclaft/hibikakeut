@@ -419,6 +419,32 @@ namespace Ryneus
             effekseerEmitter.Play(effectAsset);
         }
 
+        public void StartFieldAnimation(EffekseerEffectAsset effectAsset, AnimationPosition animationPosition, float animationScale = 1.0f, float animationSpeed = 1.0f, bool soundPlay = true)
+        {
+            if (effectAsset == null)
+            {
+                effekseerEmitter.Stop();
+                return;
+            }
+            var effectRect = effekseerEmitter.gameObject.GetComponent<Transform>();
+
+            if (animationPosition == AnimationPosition.Center)
+            {
+                effectRect.localPosition = new Vector2(0, 0);
+            }
+            else
+            if (animationPosition == AnimationPosition.Down)
+            {
+                effectRect.localPosition = new Vector2(0, -1);
+            }
+            effectRect.localScale = new Vector3(animationScale, animationScale, animationScale);
+            effekseerEmitter.enabled = true;
+            effekseerEmitter.Stop();
+            effekseerEmitter.speed = animationSpeed;
+            effekseerEmitter.SoundPlay.SetValue(soundPlay);
+            effekseerEmitter.Play(effectAsset);
+        }
+
         public void SetThumbAlpha(bool isSelectable)
         {
             var image = BattleImage();

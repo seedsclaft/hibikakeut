@@ -31,7 +31,7 @@ namespace Ryneus
         private void SetBattlerInfoComp(List<ListData> listDates)
         {
             damageRoots.ForEach(a => a.SetActive(false));
-            for (var i = 0;i < listDates.Count;i++)
+            for (var i = 0; i < listDates.Count; i++)
             {
                 var battleBattler = ItemPrefabList[i].GetComponent<BattleBattler>();
                 var battlerInfo = (BattlerInfo)listDates[i].Data;
@@ -63,7 +63,7 @@ namespace Ryneus
 
         public void UpdateSelectIndexList(List<int> indexes)
         {
-            for (int i = 0; i < ItemPrefabList.Count;i++)
+            for (int i = 0; i < ItemPrefabList.Count; i++)
             {
                 if (ItemPrefabList[i] == null)
                 {
@@ -79,7 +79,8 @@ namespace Ryneus
                 if (indexes.Contains(battler.Index.Value) && battler.Index.Value > 0)
                 {
                     battleBattler.SetActivecandidateSelect(true);
-                } else
+                }
+                else
                 {
                     battleBattler.SetActivecandidateSelect(false);
                 }

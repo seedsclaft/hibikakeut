@@ -188,7 +188,8 @@ namespace Ryneus
                 if (targetIndexes[0] < 100)
                 {
                     _view.SelectActorList(targetIndexes);
-                } else
+                }
+                else
                 {
                     if (autoTarget && actionInfo.CandidateTargetIndexList.Contains(subject.LastTargetIndex()))
                     {
@@ -321,7 +322,7 @@ namespace Ryneus
             _view.SetHelpText("");
             _view.ChangeBackCommandActive(false);
 
-            _model.SetActionInfoParameter(actionInfo);
+            _model.SetActionInfoParameter(actionInfo, true);
             await MakeActionResultInfo(actionInfo, indexList);
             // 割り込み判定
             var interruptAction = _model.InterruptActionInfo;
@@ -409,7 +410,8 @@ namespace Ryneus
                 if (actionInfo.IsWait() || (_model.CurrentActionBattler != null && !_model.CurrentActionBattler.IsAlive() && actionInfo.SubjectIndex.Value == _model.CurrentActionBattler.Index.Value))
                 {
                     StartWaitCommand(actionInfo);
-                } else
+                }
+                else
                 {
                     StartActionInfoAnimation(actionInfo);
                 }
@@ -557,7 +559,7 @@ namespace Ryneus
                 }
                 // Passive付与
                 _model.CheckTriggerPassiveInfos(BattleUtility.AfterTriggerTimings(), null, null);
-                    
+
                 // Passive解除
                 await RemovePassiveInfos();
 
@@ -588,6 +590,7 @@ namespace Ryneus
             _model.ChangeBattlerInfosLineType();
             _view.SetActors(MakeListData(_model.ViewBattlerActors()));
             _view.SetEnemies(MakeListData(_model.ViewBattlerEnemies()));
+            _view.SetIdle();
             if (reaction)
             {
                 _view.SetBattleBusy(false);

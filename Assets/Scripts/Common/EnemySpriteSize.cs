@@ -44,7 +44,7 @@ namespace Ryneus
             var width = scale * enemySprite.mainTexture.width;
             var height = scale * enemySprite.mainTexture.height;
             var objectRect = enemySprite.GetComponent<RectTransform>();
-            objectRect.sizeDelta = new Vector2(width,height);
+            objectRect.sizeDelta = new Vector2(width, height);
         }
     }
 }
