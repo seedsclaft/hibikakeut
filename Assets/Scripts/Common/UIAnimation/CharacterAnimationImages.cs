@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DG.Tweening;
 using Effekseer;
 using UnityEngine;
@@ -11,10 +12,10 @@ namespace Ryneus
         [SerializeField] private AnimationState state = AnimationState.None;
         public bool IsStateDeath => state == AnimationState.Death;
         [SerializeField] private SpriteRenderer spriteRenderer = null;
+        [SerializeField] private SpriteRenderer candidateSelect;
         [SerializeField] private BattlerInfoComponent battlerInfoComponent = null;
         [SerializeField] private GameObject damageRoot;
         [SerializeField] private GameObject magicCircle;
-        [SerializeField] private GameObject candidateSelect;
         [SerializeField] private GameObject selectArrow;
         private AnimationState _lastState = 0;
 
@@ -29,11 +30,17 @@ namespace Ryneus
             magicCircle.SetActive(isActive);
         }
 
-        public void UpdateInfo(BattlerInfo battlerInfo)
+        public async Task UpdateInfo(BattlerInfo battlerInfo)
         {
             if (spriteRenderer != null)
             {
                 spriteRenderer.sortingOrder = battlerInfo.Index.Value;
+                candidateSelect.sortingOrder = battlerInfo.Index.Value + 1;
+                if (!battlerInfo.IsActor)
+                {
+                    spriteRenderer.sprite = await ResourceSystem.LoadEnemySprite(battlerInfo.EnemyData.ImagePath);
+                    candidateSelect.sprite = spriteRenderer.sprite;
+                }
             }
             battlerInfoComponent.UpdateInfo(battlerInfo);
             SetDamageRoot();
@@ -64,7 +71,7 @@ namespace Ryneus
             {
                 return;
             }
-            candidateSelect.SetActive(isActive);
+            candidateSelect.gameObject.SetActive(isActive);
         }
 
         private void Update()
@@ -73,6 +80,7 @@ namespace Ryneus
             {
                 _lastState = state;
                 animator.SetInteger("State", (int)state);
+                animator.SetFloat("BattleSpeed", GameSystem.OptionData.BattleSpeed);
             }
         }
     }

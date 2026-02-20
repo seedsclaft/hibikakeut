@@ -22,7 +22,7 @@ namespace Ryneus
 
         private float _zoomValue = 1.2f;
         private float _rangeWidth = 480;
-        private float _moveDuration = 0.4f;
+        private float _moveDuration = 0.4f / GameSystem.OptionData.BattleSpeed;
 
         public void Intialize()
         {

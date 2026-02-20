@@ -608,7 +608,7 @@ namespace Ryneus
             skillInfoComponent.Clear();
         }
 
-        public async Task StartAnimation(int targetIndex,EffekseerEffectAsset effekseerEffectAsset, AnimationPosition animationPosition, float animationScale = 1.0f, float animationSpeed = 1.0f, bool soundPlay = true)
+        public async Task StartAnimation(int targetIndex, EffekseerEffectAsset effekseerEffectAsset, AnimationPosition animationPosition, float animationScale = 1.0f, float animationSpeed = 1.0f, bool soundPlay = true)
         {
             if (!_battlerComps.ContainsKey(targetIndex))
             {
