@@ -177,6 +177,9 @@ namespace Ryneus
                 case CommandType.ChangeBattleAuto:
                     CommandChangeBattleAuto();
                     break;
+                case CommandType.UpdateBattleAuto:
+                    CommandUpdateBattleAuto();
+                    break;
                 case CommandType.ChangeBattleSpeed:
                     CommandChangeBattleSpeed((int)viewEvent.Template);
                     break;
@@ -225,6 +228,9 @@ namespace Ryneus
                     break;
                 case CommandType.OnSelectTarget:
                     CommandOnSelectTarget((InputKeyType)viewEvent.Template);
+                    break;
+                case CommandType.OnSelectTargetCursor:
+                    CommandOnSelectTargetCursor((BattlerInfo)viewEvent.Template);
                     break;
                 case CommandType.OnDecideEnemy:
                     CommandOnDecideEnemy((BattlerInfo)viewEvent.Template);
@@ -600,6 +606,11 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.ChangeBattleAuto();
+            CommandUpdateBattleAuto();
+        }
+
+        private void CommandUpdateBattleAuto()
+        {
             _view.ChangeBattleAuto(_model.IsBattleAuto());
             if (!_view.AnimationBusy && _view.BattleBusy && _model.IsBattleAuto())
             {

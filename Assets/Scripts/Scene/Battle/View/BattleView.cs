@@ -212,7 +212,23 @@ namespace Ryneus
 
         public async Task SetFieldMembers(List<BattlerInfo> battlerInfos)
         {
-            await battleFieldView.SetFieldMembers(battlerInfos);
+            await battleFieldView.SetFieldMembers(battlerInfos, (a) =>
+            {
+                if (a.IsActor)
+                {
+                    CallViewEvent(CommandType.OnDecideEnemy, a);
+                }
+                else
+                {
+                    CallViewEvent(CommandType.OnDecideActor, a);
+                }
+            }, (a) =>
+            {
+                if (battleEnemyList.Active || battleActorList.Active)
+                {
+                    CallViewEvent(CommandType.OnSelectTargetCursor, a);
+                }
+            });
             foreach (var battlerInfoComponent in battleFieldView.BattlerInfoComponents)
             {
                 _fieldBattlerComps[battlerInfoComponent.Key] = battlerInfoComponent.Value;
@@ -230,9 +246,13 @@ namespace Ryneus
             battleFieldView.SetAnimationBattlerAll(AnimationState.Start);
         }
 
-        public async Task SetStartActorMagic(int battlerInfoIndex, bool isActor)
+        public void HideGridLayer()
         {
             battleGridLayer.Hide();
+        }
+
+        public async Task SetStartActorMagic(int battlerInfoIndex, bool isActor)
+        {
             await battleFieldView.SetStartActorMagic(battlerInfoIndex, isActor);
         }
 
@@ -269,7 +289,7 @@ namespace Ryneus
             var listData = magicList.ListItemData<SkillInfo>();
             if (listData != null && listData.Enable)
             {
-                CallViewEvent(CommandType.OnDecideSkill,listData);
+                CallViewEvent(CommandType.OnDecideSkill, listData);
             }
         }
 
@@ -356,9 +376,10 @@ namespace Ryneus
                     return;
                 }
                 CallViewEvent(CommandType.ChangeBattleAuto);
-            },() =>
+            },
+            () =>
             {
-                ChangeBattleAuto(isAuto);
+                CallViewEvent(CommandType.UpdateBattleAuto);
             });
             ChangeBattleAuto(isAuto);
         }
@@ -599,7 +620,10 @@ namespace Ryneus
             var convertHelpText = skillInfo.ConvertHelpText(battlerInfo);
             var length = convertHelpText.Split("\n").Length;
             var height = 32 + 28 * length;
-            currentSkillBg.GetComponent<RectTransform>().sizeDelta = new Vector2(480,height);
+            currentSkillBg.GetComponent<RectTransform>().sizeDelta = new Vector2(480, height);
+            var lineX = -280;
+            var rect = skillInfoComponent.gameObject.GetComponent<RectTransform>();
+            rect.localPosition = new Vector2(rect.localPosition.x, lineX + length * 16);
         }
 
         public void ClearCurrentSkillData()

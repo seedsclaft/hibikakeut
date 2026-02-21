@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using Effekseer;
 using Cysharp.Threading.Tasks;
+using System;
 
 namespace Ryneus
 {
@@ -22,23 +23,23 @@ namespace Ryneus
 
         private float _zoomValue = 1.2f;
         private float _rangeWidth = 480;
-        private float _moveDuration = 0.4f / GameSystem.OptionData.BattleSpeed;
+        private float _moveDuration => 0.4f / GameSystem.OptionData.BattleSpeed;
 
         public void Intialize()
         {
 
         }
 
-        public async Task SetFieldMembers(List<BattlerInfo> battlerInfos)
+        public async Task SetFieldMembers(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
         {
             MoveCameraEnemies();
             ZoomIn();
-            await SetActorInfo(battlerInfos.FindAll(a => a.IsActor));
-            await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor));
+            await SetActorInfo(battlerInfos.FindAll(a => a.IsActor), decideEvent, selectEvent);
+            await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor), decideEvent, selectEvent);
             SetAnimationBattlerAll(AnimationState.BeforeStart);
         }
 
-        public async Task SetActorInfo(List<BattlerInfo> battlerInfos)
+        public async Task SetActorInfo(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
         {
             for (int i = 0; i < battlerInfos.Count; i++)
             {
@@ -46,13 +47,14 @@ namespace Ryneus
                 var prefab = Instantiate(asset);
                 prefab.transform.SetParent(actorPositions[battlerInfos[i].Index.Value - 1].transform, false);
                 var comp = prefab.GetComponent<CharacterAnimationImages>();
+                comp.Initilize(decideEvent, selectEvent);
                 comp.UpdateInfo(battlerInfos[i]);
                 _battlers[battlerInfos[i].Index.Value] = comp;
                 _battlerInfoComponents[battlerInfos[i].Index.Value] = prefab.GetComponentInChildren<BattlerInfoComponent>();
             }
         }
 
-        public async Task SetEnemyInfo(List<BattlerInfo> battlerInfos)
+        public async Task SetEnemyInfo(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
         {
             for (int i = 0; i < battlerInfos.Count; i++)
             {
@@ -60,6 +62,7 @@ namespace Ryneus
                 var prefab = Instantiate(asset);
                 prefab.transform.SetParent(enemyPositions[battlerInfos[i].Index.Value - 101].transform, false);
                 var comp = prefab.GetComponent<CharacterAnimationImages>();
+                comp.Initilize(decideEvent, selectEvent);
                 comp.UpdateInfo(battlerInfos[i]);
                 _battlers[battlerInfos[i].Index.Value] = comp;
                 _battlerInfoComponents[battlerInfos[i].Index.Value] = prefab.GetComponentInChildren<BattlerInfoComponent>();

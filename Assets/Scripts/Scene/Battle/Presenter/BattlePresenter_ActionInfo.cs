@@ -83,6 +83,7 @@ namespace Ryneus
             var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
             if (actionInfo.FirstAttack())
             {
+                _view.HideGridLayer();
                 await SelfAnimation(actionInfo);
                 await _view.SetStartActorMagic(subject.Index.Value, subject.IsActor);
             }

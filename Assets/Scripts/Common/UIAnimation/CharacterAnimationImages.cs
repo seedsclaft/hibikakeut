@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
 using Effekseer;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ryneus
 {
@@ -17,7 +19,25 @@ namespace Ryneus
         [SerializeField] private GameObject damageRoot;
         [SerializeField] private GameObject magicCircle;
         [SerializeField] private GameObject selectArrow;
+        [SerializeField] private Button selectButton = null;
         private AnimationState _lastState = 0;
+        private BattlerInfo _battlerInfo;
+
+        public void Initilize(Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
+        {
+            if (selectButton != null)
+            {
+                selectButton.onClick.AddListener(() =>
+                {
+                    decideEvent.Invoke(_battlerInfo);
+                });
+                var enterListener = selectButton.gameObject.AddComponent<ContentEnterListener>();
+                enterListener.SetEnterEvent(() =>
+                {
+                    selectEvent?.Invoke(_battlerInfo);
+                });
+            }
+        }
 
         public void SetAnimationState(AnimationState animationState)
         {
@@ -32,6 +52,7 @@ namespace Ryneus
 
         public async Task UpdateInfo(BattlerInfo battlerInfo)
         {
+            _battlerInfo = battlerInfo;
             if (spriteRenderer != null)
             {
                 spriteRenderer.sortingOrder = battlerInfo.Index.Value;

@@ -14,6 +14,7 @@ namespace Ryneus
             UpdateAp,
             OnSelectSkill,  // 魔法を選択
             OnSelectTarget, // 魔法対象を変更
+            OnSelectTargetCursor, // 魔法対象を変更
             OnDecideSkill, // 魔法を決定
             OnDecideEnemy,
             OnCancelEnemy,
@@ -21,6 +22,7 @@ namespace Ryneus
             OnCancelActor,
             EnemyDetail,
             ChangeBattleAuto,
+            UpdateBattleAuto,
             ChangeBattleSpeed,
             SkipBattle,
             ForceVictory,

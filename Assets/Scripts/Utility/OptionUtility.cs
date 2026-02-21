@@ -147,7 +147,7 @@ namespace Ryneus
             GameSystem.OptionData.BattleAuto = battleAuto;
         }
 
-        public static List<float> SpeedList = new List<float>() { 0, 1f, 2f, 3f };
+        public static List<float> SpeedList = new() { 0, 1f, 2f, 3f };
         public static void SetBattleSpeed(float battleSpeed)
         {
             GameSystem.OptionData.BattleSpeed = battleSpeed;

@@ -164,6 +164,29 @@ namespace Ryneus
             SelectSkillSelectTarget();
         }
 
+        private void CommandOnSelectTargetCursor(BattlerInfo battlerInfo)
+        {
+            if (_beforeBattle)
+            {
+                return;
+            }
+            var candidateTargetIndexes = _model.SelectActionInfo.CandidateTargetIndexList;
+            if (candidateTargetIndexes.Count <= 1)
+            {
+                SelectSkillSelectTarget();
+                return;
+            }
+            var findIndex = candidateTargetIndexes.FindIndex(a => a == battlerInfo.Index.Value);
+            if (findIndex == -1)
+            {
+                SelectSkillSelectTarget();
+                return;
+            }
+            var targetBattlerInfo = battlerInfo;
+            _model.SetTargetBattler(targetBattlerInfo);
+            SelectSkillSelectTarget();
+        }
+
         private void CommandDecideSkill()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
