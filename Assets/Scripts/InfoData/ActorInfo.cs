@@ -449,6 +449,40 @@ namespace Ryneus
         }
 
         // 属性適正
+        private Dictionary<AttributeType, int> _attributeExp = new();
+        private int GetAttributeExp(AttributeType attributeType)
+        {
+            if (!_attributeExp.ContainsKey(attributeType))
+            {
+                _attributeExp[attributeType] = 0;
+            }
+            return _attributeExp[attributeType] / 20;
+        }
+
+        public int NeedAttributeExp(AttributeType attributeType)
+        {
+            var need = 20;
+            if (_attributeExp.ContainsKey(attributeType))
+            {
+                need *= _attributeExp[attributeType];
+            }
+            return need;
+        }
+
+        public bool GainAttributeExp(AttributeType attributeType, int count)
+        {
+            if (!_attributeExp.ContainsKey(attributeType))
+            {
+                _attributeExp[attributeType] = 0;
+            }
+            _attributeExp[attributeType] += count;
+            if (_attributeExp[attributeType] >= NeedAttributeExp(attributeType))
+            {
+                return true;
+            }
+            return false;
+        }
+
         private Dictionary<AttributeType, int> _attributeUpper = new();
         public void AddAttributeUpper(AttributeType attributeType)
         {
@@ -506,6 +540,7 @@ namespace Ryneus
                 {
                     attributeValue -= _attributeUpper[(AttributeType)idx];
                 }
+                attributeValue -= GetAttributeExp((AttributeType)idx);
                 if (attributeValue < 0)
                 {
                     attributeValue = AttributeRank.S;

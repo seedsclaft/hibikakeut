@@ -10,7 +10,7 @@ using UnityEngine.AddressableAssets;
 
 namespace Ryneus
 {
-    public class ResourceSystem : MonoBehaviour
+    public class ResourceSystem
     {
         private static GameObject _lastScene = null;
         private static List<Object> _lastLoadAssets = new();

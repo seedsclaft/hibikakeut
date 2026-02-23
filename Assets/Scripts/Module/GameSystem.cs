@@ -26,6 +26,8 @@ namespace Ryneus
         [SerializeField] private HelpWindow helpWindow = null;
         [SerializeField] private HelpWindow advHelpWindow = null;
         [SerializeField] private GameObject dungeonObjects = null;
+        [SerializeField] private ColorSettings colorSettings = null;
+
 
         private BaseView _currentScene = null;
         public BaseView CurrentScene => _currentScene;
@@ -66,13 +68,16 @@ namespace Ryneus
             loadingView.Initialize();
             loadingView.gameObject.SetActive(false);
             transitionFade.Init();
-            tutorialView.Initialize();
             statusAssign.CloseStatus();
             InputSystem.Initialize();
             sceneAssign.Initilize();
             popupAssign.Initilize();
             statusAssign.Initilize();
             TempData = new TempInfo();
+            if (colorSettings != null)
+            {
+                TempData.ColorSettings = colorSettings;
+            }
             _model = new BaseModel();
             _lastTutorialData = null;
             Version = Application.version;
@@ -359,6 +364,12 @@ namespace Ryneus
                 var classChange = prefab.GetComponent<ClassChangeView>();
                 classChange.SetClassChangeInfo((ClassChangeInfo)popupInfo.template);
             }
+            else
+            if (popupInfo.PopupType == PopupType.Tutorial)
+            {
+                var tutorial = prefab.GetComponent<TutorialView>();
+                tutorial.SetTutorialData((TutorialData)popupInfo.template);
+            }
             _inputableBaseViews.Add(baseView);
         }
 
@@ -529,7 +540,7 @@ namespace Ryneus
             var checkEndFlag = _lastTutorialData != null && tutorialViewInfo.CheckEndMethod != null ? tutorialViewInfo.CheckEndMethod(_lastTutorialData) : false;
             if (checkEndFlag)
             {
-                tutorialView.gameObject.SetActive(false);
+                //tutorialView.gameObject.SetActive(false);
             }
             var checkFlag = tutorialViewInfo.CheckMethod(tutorialData);
             if (!checkFlag)
@@ -540,15 +551,35 @@ namespace Ryneus
             {
                 return;
             }
-            tutorialViewInfo.CheckTrueAction?.Invoke();
+            tutorialViewInfo.CheckTrueAction?.Invoke(tutorialData);
             _lastTutorialData = tutorialData;
-            tutorialView.gameObject.SetActive(true);
-            tutorialView.SetTutorialData(tutorialData);
-            tutorialView.SetBackEvent(() =>
+/*
+            var popupInfo = new PopupInfo
             {
-                tutorialView.gameObject.SetActive(false);
+                PopupType = PopupType.Tutorial
+            };
+            _sceneStackManager.PushPopupInfo(popupInfo);
+            var first = popupAssign.CreatePopup(popupInfo.PopupType, helpWindow);
+            var prefab = popupAssign.LastPopupPrefab;
+            var baseView = prefab.GetComponent<TutorialView>();
+            baseView.gameObject.SetActive(true);
+            baseView.SetTutorialData(tutorialData);
+            baseView.SetBackEvent(() =>
+            {
+                baseView.gameObject.SetActive(false);
                 tutorialViewInfo.EndEvent?.Invoke();
             });
+            if (first)
+            {
+                baseView.SetEvent((type) => UpdateCommand(type));
+            }
+            baseView.Initialize();
+            if (first)
+            {
+                baseView.SetPopupCloseBackEvent();
+            }
+            _inputableBaseViews.Add(baseView);
+*/
             _model.ReadTutorialData(tutorialData);
         }
 

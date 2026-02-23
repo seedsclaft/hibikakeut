@@ -154,7 +154,8 @@ namespace Ryneus
                 CallAdvEvent(findEvent.Id, 0, () =>
                 {
                     _busy = false;
-                    _view.CommandGotoSceneChange(Scene.MainMenu);
+                    _view.CallSystemCommand(Base.CommandType.SceneShowUI);
+                    CommandEndPeriodAnimation();
                 });
                 return;
             }
@@ -527,10 +528,15 @@ namespace Ryneus
                 }
                 return checkFlag;
             };
-            Action checkTrue = () =>
+            Action<TutorialData> checkTrue = (tutorialData) =>
             {
                 _view.SetActiveCommandList(false);
                 _busy = true;
+                CallPopupView(PopupType.Tutorial, () =>
+                {
+                    _busy = false;
+                    CommandEndPeriodAnimation();
+                }, tutorialData);
             };
             Func<TutorialData, bool> checkEnd = (tutorialData) =>
             {

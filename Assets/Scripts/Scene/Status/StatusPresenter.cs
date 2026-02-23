@@ -484,6 +484,11 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.SelectActor(actorInfo.ActorId.Value);
+            if (_model.SelectSkillInfo != null)
+            {
+                // 選択魔法のキャンセル
+                ResetSelectSkill();
+            }
             CommandRefreshMagicList(true);
             CommandRefresh();
         }
@@ -515,7 +520,8 @@ namespace Ryneus
                     strategySceneInfo.ReturnMainMenuSceneParam = sceneParam;
                     _view.CommandGotoSceneChange(Scene.Strategy, strategySceneInfo);
                     */
-                } else
+                }
+                else
                 {
                     _busy = false;
                 }

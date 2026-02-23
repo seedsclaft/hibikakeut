@@ -104,6 +104,7 @@ namespace Ryneus
         ReBirth = 4,
         Exp = 5,
         SkillMastary = 6,
+        AttributeUp = 7,
         AddActor = 11,
         LevelUp = 21,
         StatusUp = 22,

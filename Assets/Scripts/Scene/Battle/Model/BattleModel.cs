@@ -2739,6 +2739,19 @@ namespace Ryneus
                             list.Add(MakeGetItemInfo(GetItemType.Skill, nextSkill.Id));
                         }
                     }
+                    // 属性適正値アップ
+                    var attributeUp = target.GainAttributeExp(skillData.Attribute, useSkillCountDict.Value);
+                    if (attributeUp && target.AttributeRanks(new List<ActorInfo>())[(int)skillData.Attribute-1] != AttributeRank.S)
+                    {
+                        var attirbuteUpDate = new GetItemData
+                        {
+                            Type = GetItemType.AttributeUp,
+                            Param1 = battlerInfo.ActorInfo.ActorId.Value,
+                            Param2 = (int)skillData.Attribute
+                        };
+                        var attirbuteUpItem = new GetItemInfo(attirbuteUpDate);
+                        list.Add(attirbuteUpItem);
+                    }
                 }
             }
             if (_sceneParam.GetItemInfos != null)

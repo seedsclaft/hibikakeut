@@ -11,14 +11,14 @@ namespace Ryneus
         {
             _view = view;
             SetView(_view);
-            _model = new TutorialModel();
-            SetModel(_model);
+            _view.SetEvent((type) => UpdateCommand(type));
             Initialize();
         }
 
         private void Initialize()
         {
-            _view.SetEvent((type) => UpdateCommand(type));
+            _model = new TutorialModel();
+            SetModel(_model);
 
             CommandRefresh();
         }
@@ -32,6 +32,9 @@ namespace Ryneus
             UnityEngine.Debug.Log(viewEvent.ViewCommandType.CommandType);
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case Tutorial.CommandType.Initialize:
+                    Initialize();
+                    break;
                 case Tutorial.CommandType.Back:
                     CommandBack();
                     return;

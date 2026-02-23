@@ -138,8 +138,7 @@ namespace Ryneus
                 return;
             }
             var images = cursor.GetComponentsInChildren<Image>();
-            var cursorColor = new Color(255 / 255f, 240 / 255f, 208 / 255f);
-            //var cursorColor = new Color(255/255f,255/255f,255/255f);
+            var cursorColor = GameSystem.TempData.ColorSettings.CursorColor;
             foreach (var image in images)
             {
                 if (image.sprite == null)

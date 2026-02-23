@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -140,6 +142,7 @@ namespace Ryneus
 
         public string ConvertHelpText(BattlerInfo battlerInfo = null)
         {
+            var helpText = new StringBuilder();
             var help = Master.ConvertHelpText(Master.Help);
             var regex = new Regex(@"\[.+?\]");
             var splits = regex.Matches(help);
@@ -169,7 +172,7 @@ namespace Ryneus
                         {
                             paramText = targetFeature.Param3.ToString();
                         }
-                        Regex reg1 = new Regex("/f");
+                        var reg1 = new Regex("/f");
                         help = reg1.Replace(help, paramText, 1);
                     }
                     help = help.Replace(split.ToString(), "");
@@ -197,7 +200,23 @@ namespace Ryneus
                 }
                 help = help.Replace("/s", "【" + stateMaster.Name + "】" + "\n" + effectText);
             }
-            return help;
+            var lines = help.Split("\n");
+            for (int i = 0; i < lines.Count(); i++)
+            {
+                if (lines[i].Contains("(条件)"))
+                {
+                    _ = helpText.Append(lines[i].Replace("(条件)", GameSystem.TempData.ColorSettings.GetColorTag(TextColorType.SkillTrigger)) + "</color>");
+                }
+                else
+                {
+                    _ = helpText.Append(lines[i]);
+                }
+                if (i < lines.Count())
+                {
+                    _ = helpText.Append("\n");
+                }
+            }
+            return helpText.ToString();
         }
 
         public int SortKeyId()

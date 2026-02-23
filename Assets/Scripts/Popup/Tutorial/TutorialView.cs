@@ -25,13 +25,18 @@ namespace Ryneus
 
         public override void Initialize()
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Tutorial);
             toggleButton.OnClickAddListener(() =>
             {
                 ChangeToggle();
             });
-            SetBackCommand(() => OnClickBack());
+            //SetBackCommand(() => OnClickBack());
             _ = new TutorialPresenter(this);
         }
 
@@ -101,7 +106,7 @@ namespace Ryneus
         {
             if (InputSystem.GetInputDate(InputKeyType.Decide).IsDownTrigger())
             {
-                OnClickBack();
+                CommandBack();
             }
             if (keyTypes.Contains(InputKeyType.Option1))
             {
@@ -119,7 +124,7 @@ namespace Ryneus
     {
         public enum CommandType
         {
-            None = 0,
+            Initialize = 0,
             CallTutorialData,
             Back
         }
@@ -130,7 +135,7 @@ namespace Ryneus
         public int SceneType;
         public Func<TutorialData, bool> CheckEndMethod;
         public Func<TutorialData, bool> CheckMethod;
-        public Action CheckTrueAction;
+        public Action<TutorialData> CheckTrueAction;
         public Action EndEvent;
     }
 }

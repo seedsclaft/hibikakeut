@@ -561,6 +561,17 @@ namespace Ryneus
                 }
             }
 
+            // 属性値アップ
+            var attributeUpGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.AttributeUp);
+            foreach (var attributeUpGetItemInfo in attributeUpGetItemInfos)
+            {
+                var resultInfo = new GetItemResultViewInfo();
+                var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == attributeUpGetItemInfo.Param1);
+                var attributeType = attributeUpGetItemInfo.Param2;
+                resultInfo.Title.SetValue(DataSystem.GetReplaceText(20130, DataSystem.GetText(14122 + attributeUpGetItemInfo.Param2)));
+                list.Add(resultInfo);
+            }
+
             // アイテム
             var gainItems = new Dictionary<int, int>();
             var itemGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Item);

@@ -97,8 +97,8 @@ namespace Ryneus
             else
             {
                 var volume = _bgmVolume * _lastBgmVolume;
-                _bgmMain.ChangeVolume(volume);
-                _bgmSub.ChangeVolume(volume);
+                var playingTrack = _playingIsMain ? _bgmMain : _bgmSub;
+                playingTrack.ChangeVolume(volume);
             }
         }
 

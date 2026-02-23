@@ -29,9 +29,6 @@ namespace Ryneus
             _view.SetEvent((type) => UpdateCommand(type));
             _view.SetVersion(_model.VersionText());
             CommandRefresh();
-            var bgmData = DataSystem.GetBGMByKey("Title");
-            var bgm = await _model.GetBgmData("Title");
-            SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true);
             if (!SaveSystem.ExistsLoadPlayerFile())
             {
                 SaveSystem.SavePlayerInfo();
@@ -40,16 +37,21 @@ namespace Ryneus
             else
             {
                 var loadSuccess = await SaveSystem.LoadPlayerInfo();
+                /*
                 if (!loadSuccess)
                 {
                     CallConfirmNoChoiceView(DataSystem.GetText(13330), (a) => UpdatePopup(a));
                     return;
                 }
+                */
                 // プレイヤーネームを設定しなおし
                 _view.CallSystemCommand(Base.CommandType.DecidePlayerName, GameSystem.CurrentData.PlayerInfo.PlayerName.Value);
             }
-            _busy = false;
             _view.SetTitleCommand(_model.TitleCommand());
+            var bgmData = DataSystem.GetBGMByKey("Title");
+            var bgm = await _model.GetBgmData("Title");
+            SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true);
+            _busy = false;
         }
 
         private void UpdateCommand(ViewEvent viewEvent)

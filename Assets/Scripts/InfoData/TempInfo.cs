@@ -30,6 +30,9 @@ namespace Ryneus
             return diffTime;
         }
 
+        // カラーデータ
+        public ColorSettings ColorSettings = null;
+
         private List<ActorInfo> _tempActorInfos = new();
         // バトル前のアクターデータを設定
         public List<ActorInfo> TempActorInfos => _tempActorInfos;

@@ -97,6 +97,7 @@ namespace Ryneus
                     address = address.Replace(".mp3", "");
                     address = address.Replace(".wav", "");
                     address = address.Replace(".png", "");
+                    address = address.Replace(".jpg", "");
                     address = address.Replace(".asset", "");
                     address = address.Replace(".efkmodel", "");
                     address = address.Replace(".prefab", "");
