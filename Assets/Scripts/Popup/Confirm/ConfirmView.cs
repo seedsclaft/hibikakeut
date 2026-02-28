@@ -169,7 +169,7 @@ namespace Ryneus
 
         public void CallCancelEvent()
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            //SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             _confirmEvent(ConfirmCommandType.No);
         }
     }

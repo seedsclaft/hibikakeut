@@ -168,7 +168,6 @@ namespace Ryneus
 
         private void CommandMainMenuCommand(SystemData.CommandData commandData)
         {
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             switch (commandData.Key)
             {
                 case "Departure":
@@ -244,11 +243,13 @@ namespace Ryneus
             // 出撃できるステージがない
             if (_model.CheckDepatureDungeon())
             {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 CommandCautionInfo(DataSystem.GetText(32050));
                 return;
             }
             _busy = true;
             UpdateCommandSelecting(false);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CallPopupView(PopupType.StageList, () =>
             {
                 ClosePopupView();
@@ -259,6 +260,7 @@ namespace Ryneus
         {
             _busy = true;
             UpdateCommandSelecting(false);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CallPopupView(PopupType.DeckEdit, () =>
             {
                 ClosePopupView();
@@ -336,6 +338,7 @@ namespace Ryneus
         {
             _busy = true;
             UpdateCommandSelecting(false);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CallPopupView(PopupType.Achievement, () =>
             {
                 ClosePopupView();
@@ -347,6 +350,7 @@ namespace Ryneus
         {
             _busy = true;
             UpdateCommandSelecting(false);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CallPopupView(PopupType.ItemList, () =>
             {
                 ClosePopupView();
@@ -363,6 +367,7 @@ namespace Ryneus
             _busy = true;
             UpdateCommandSelecting(false);
 
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CallPopupView(PopupType.Transfer, () =>
             {
                 ClosePopupView();
@@ -375,6 +380,7 @@ namespace Ryneus
         {
             _busy = true;
             UpdateCommandSelecting(false);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CallPopupView(PopupType.Trade, () =>
             {
                 ClosePopupView();
@@ -387,6 +393,7 @@ namespace Ryneus
             var enableCount = _model.PartyInfo.ReliefItemCount.Value;
             if (enableCount <= 0)
             {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 CommandCautionInfo(DataSystem.GetText(11011));
                 return;
             }

@@ -725,6 +725,10 @@ namespace Ryneus
             // 確認後仲間選択
             CallConfirmNoChoiceView(DataSystem.GetText(10120), (a) =>
             {
+                if (a == ConfirmCommandType.No)
+                {
+                    return;
+                }
                 CommandCallAddActorInfo(new List<int>() { stageEvent.Param });
             });
             _model.UpdateEventObjects();

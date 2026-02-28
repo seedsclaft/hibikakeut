@@ -112,7 +112,7 @@ namespace Ryneus
         {
             if (_loadAssets.ContainsKey(path))
             {
-                return _loadAssets[path] as T;
+                //return _loadAssets[path] as T;
             }
             var task = await Addressables.LoadAssetAsync<T>(path);
             _loadAssets[path] = task;
