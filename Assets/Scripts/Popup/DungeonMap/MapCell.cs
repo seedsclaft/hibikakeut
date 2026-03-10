@@ -18,14 +18,8 @@ namespace Ryneus
                 return;
             }
             var data = ListItemData<MapCellInfo>();
-            if (roadImage != null)
-            {
-                roadImage.gameObject.SetActive(data.Opened && data.IsRoad());
-            }
-            if (cellImage != null)
-            {
-                cellImage.gameObject.SetActive(data.Opened && data.IsCellImage());
-            }
+            UIComponent.SetActive(roadImage, data.Opened && data.IsRoad());
+            UIComponent.SetActive(cellImage, data.Opened && data.IsCellImage());
             if (playerPointer != null)
             {
                 var open = data.IsPlayerPosition;
@@ -48,16 +42,10 @@ namespace Ryneus
                             break;
                     }
                 }
-                playerPointer.SetActive(open);
+                UIComponent.SetActive(playerPointer, open);
             }
-            if (pathImage != null)
-            {
-                pathImage.gameObject.SetActive(data.Opened && data.IsPathSelect);
-            }
-            if (Disable != null)
-            {
-                Disable.SetActive(!ListData.Enable.Value);
-            }
+            UIComponent.SetActive(pathImage, data.Opened && data.IsPathSelect);
+            UIComponent.SetActive(Disable, !ListData.Enable.Value);
         }
     }
 }

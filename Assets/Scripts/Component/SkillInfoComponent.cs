@@ -181,7 +181,6 @@ namespace Ryneus
         private void UpdateSkillIconBack(AttributeType attributeType)
         {
             UIComponent.SetActive(iconBack, true);
-
             if (iconBack != null)
             {
                 iconBack.sprite = ResourceSystem.LoadSpellIconBase(attributeType);

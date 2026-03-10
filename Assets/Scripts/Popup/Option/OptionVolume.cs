@@ -46,14 +46,7 @@ namespace Ryneus
 
         private void UpdateMute()
         {
-            if (_isMute)
-            {
-                muteButton.image.sprite = muteSprites[0];
-            }
-            else
-            {
-                muteButton.image.sprite = muteSprites[1];
-            }
+            muteButton.image.sprite = _isMute ? muteSprites[0] : muteSprites[1];
         }
 
         public void ChangeMute()

@@ -23,20 +23,22 @@ namespace Ryneus
             UpdateData(stateInfo.StateType);
             if (iconBack != null)
             {
+                int iconId = 0;
                 if (stateInfo.Master.IconBack > 0)
                 {
-                    iconBack.sprite = ResourceSystem.LoadStateIconBase(stateInfo.Master.IconBack);
+                    iconId = stateInfo.Master.IconBack;
                 }
                 else
                 if (stateInfo.Master.Buff)
                 {
-                    iconBack.sprite = ResourceSystem.LoadStateIconBase(0);
+                    iconId = 0;
                 }
                 else
                 if (stateInfo.Master.DeBuff)
                 {
-                    iconBack.sprite = ResourceSystem.LoadStateIconBase(17);
+                    iconId = 17;
                 }
+                iconBack.sprite = ResourceSystem.LoadStateIconBase(iconId);
             }
             if (description != null)
             {
@@ -59,7 +61,8 @@ namespace Ryneus
                         {
                             // 永続
                             UIComponent.SetText(turns, DataSystem.GetText(2410));
-                        } else
+                        }
+                        else
                         {
                             // 〇ターン
                             UIComponent.SetText(turns, DataSystem.GetReplaceText(2420, stateInfo.Turns.ToString()));
@@ -102,7 +105,8 @@ namespace Ryneus
                 if (stateData.IconIndex == 0)
                 {
                     UpdateStateIcon(stateData.IconPath);
-                } else
+                }
+                else
                 {
                     icon.sprite = ResourceSystem.LoadSBuffIcon(stateData.IconIndex);
                 }

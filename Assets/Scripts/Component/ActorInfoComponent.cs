@@ -98,30 +98,13 @@ namespace Ryneus
             {
                 needStatusInfoComponent.UpdateInfo(actorData.NeedStatus);
             }
-            if (element1 != null)
-            {
-                UpdateAttributeRank(element1, actorInfo, AttributeType.Fire, actorInfos);
-            }
-            if (element2 != null)
-            {
-                UpdateAttributeRank(element2, actorInfo, AttributeType.Thunder, actorInfos);
-            }
-            if (element3 != null)
-            {
-                UpdateAttributeRank(element3, actorInfo, AttributeType.Ice, actorInfos);
-            }
-            if (element4 != null)
-            {
-                UpdateAttributeRank(element4, actorInfo, AttributeType.Shine, actorInfos);
-            }
-            if (element5 != null)
-            {
-                UpdateAttributeRank(element5, actorInfo, AttributeType.Dark, actorInfos);
-            }
-            if (element6 != null)
-            {
-                UpdateAttributeRank(element6, actorInfo, AttributeType.Dark, actorInfos);
-            }
+            UpdateAttributeRank(element1, actorInfo, AttributeType.Fire, actorInfos);
+            UpdateAttributeRank(element2, actorInfo, AttributeType.Thunder, actorInfos);
+            UpdateAttributeRank(element3, actorInfo, AttributeType.Ice, actorInfos);
+            UpdateAttributeRank(element4, actorInfo, AttributeType.Shine, actorInfos);
+            UpdateAttributeRank(element5, actorInfo, AttributeType.Dark, actorInfos);
+            UpdateAttributeRank(element6, actorInfo, AttributeType.Dark, actorInfos);
+
             UIComponent.SetText(element1Cost, actorInfo.LearningMagicCost(AttributeType.Fire, actorInfos).ToString());
             UIComponent.SetText(element2Cost, actorInfo.LearningMagicCost(AttributeType.Thunder, actorInfos).ToString());
             UIComponent.SetText(element3Cost, actorInfo.LearningMagicCost(AttributeType.Ice, actorInfos).ToString());
@@ -129,8 +112,8 @@ namespace Ryneus
             UIComponent.SetText(element5Cost, actorInfo.LearningMagicCost(AttributeType.Dark, actorInfos).ToString());
             UIComponent.SetText(element6Cost, actorInfo.LearningMagicCost(AttributeType.Void, actorInfos).ToString());
 
-            UIComponent.SetText(recoveryCost ,TacticsUtility.RemainRecoveryCost(actorInfo, true).ToString());
-            UIComponent.SetText(resourceGain ,TacticsUtility.ResourceGain(actorInfo).ToString());
+            UIComponent.SetText(recoveryCost, TacticsUtility.RemainRecoveryCost(actorInfo, true).ToString());
+            UIComponent.SetText(resourceGain, TacticsUtility.ResourceGain(actorInfo).ToString());
             UIComponent.SetText(evaluate, DataSystem.GetReplaceDecimalText(actorInfo.Evaluate()));
 
             var textId = actorInfo.LineIndex == LineType.Front ? 2012 : 2013;
@@ -143,6 +126,10 @@ namespace Ryneus
 
         private void UpdateAttributeRank(TextMeshProUGUI text, ActorInfo actorInfo, AttributeType attributeType, List<ActorInfo> actorInfos)
         {
+            if (text == null)
+            {
+                return;
+            }
             if (actorInfos != null)
             {
                 UpdateAttributeParam(text, actorInfo.AttributeRanks(actorInfos)[(int)attributeType]);
@@ -175,10 +162,10 @@ namespace Ryneus
                 if (kind > 0)
                 {
                     UIComponent.SetActive(kindIcon.gameObject, true);
-                    kindIcon.sprite = ResourceSystem.LoadElementIcon()[kind-1];
+                    kindIcon.sprite = ResourceSystem.LoadElementIcon()[kind - 1];
                 }
                 UIComponent.SetActive(kindText, true);
-                UIComponent.SetText(kindText, DataSystem.GetText(400 + kind-1));
+                UIComponent.SetText(kindText, DataSystem.GetText(400 + kind - 1));
             }
             //UpdateUnitType(actorData.UnitType);
             //UpdateUnitTypeBack(actorData.UnitType);
