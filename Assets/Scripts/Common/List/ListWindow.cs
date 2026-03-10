@@ -161,7 +161,7 @@ namespace Ryneus
         {
             for (var i = 0; i < _objectList.Count; i++)
             {
-                _objectList[i].SetActive(_listDates.Count > i);
+                UIComponent.SetActive(_objectList[i], _listDates.Count > i);
             }
         }
 
@@ -244,7 +244,7 @@ namespace Ryneus
                     }
                     else
                     {
-                        itemPrefab.SetActive(false);
+                        UIComponent.SetActive(itemPrefab, false);
                         listItem.SetListData(null, -1);
                         listItem.SetUnSelect();
                         continue;
@@ -253,7 +253,7 @@ namespace Ryneus
                 listItem.SetListData(_listDates[itemIndex], itemIndex);
                 //Debug.Log("itemIndex:" + i + "がobjectIndex: " + itemIndex);
                 itemPrefab.transform.SetParent(_objectList[itemIndex].transform, false);
-                itemPrefab.SetActive(true);
+                UIComponent.SetActive(itemPrefab, true);
             }
         }
 

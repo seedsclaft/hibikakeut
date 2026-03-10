@@ -46,14 +46,8 @@ namespace Ryneus
             var data = ListItemData<ItemInfo>();
             _itemInfo = data;
             component.UpdateInfo(data);
-            if (Disable != null)
-            {
-                Disable.SetActive(!ListData.Enable.Value);
-            }
-            if (detailButton != null)
-            {
-                detailButton.gameObject.SetActive(data.Master.ItemType == ItemType.RandumAddSkill);
-            }
+            UIComponent.SetActive(Disable, !ListData.Enable.Value);
+            UIComponent.SetActive(detailButton?.gameObject, data.Master.ItemType == ItemType.RandumAddSkill);
         }
     }
 }

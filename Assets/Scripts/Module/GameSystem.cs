@@ -64,9 +64,9 @@ namespace Ryneus
             ResourceSystem.Initialize();
             advController.Initialize();
             advController.SetHelpWindow(advHelpWindow);
-            transitionRoot.SetActive(false);
+            UIComponent.SetActive(transitionRoot, false);
             loadingView.Initialize();
-            loadingView.gameObject.SetActive(false);
+            UIComponent.SetActive(loadingView?.gameObject, false);
             transitionFade.Init();
             statusAssign.CloseStatus();
             InputSystem.Initialize();
@@ -194,7 +194,7 @@ namespace Ryneus
                     enemyInfoView.SetBackEvent(enemyStatusInfo.BackEvent);
                     break;
                 case Base.CommandType.CallAdvScene:
-                    Instance.gameObject.SetActive(true);
+                    UIComponent.SetActive(Instance.gameObject, true);
                     var advCallInfo = (AdvCallInfo)viewEvent.Template;
                     StartCoroutine(JumpScenarioAsync(advCallInfo.Label.Value, advCallInfo.CallEvent));
                     break;
@@ -223,17 +223,17 @@ namespace Ryneus
                     }
                     break;
                 case Base.CommandType.CallLoading:
-                    loadingView.gameObject.SetActive(true);
+                    UIComponent.SetActive(loadingView?.gameObject, true);
                     break;
                 case Base.CommandType.CloseLoading:
-                    loadingView.gameObject.SetActive(false);
+                    UIComponent.SetActive(loadingView?.gameObject, false);
                     break;
                 case Base.CommandType.SetRouteSelect:
                     //int routeSelect = (int)advEngine.Param.GetParameter("RouteSelect");
                     advEngine.Param.SetParameterInt("RouteSelect", (int)viewEvent.Template);
                     break;
                 case Base.CommandType.ChangeViewToTransition:
-                    transitionRoot.SetActive(true);
+                    UIComponent.SetActive(transitionRoot, true);
                     _currentScene.gameObject.transform.SetParent(transitionRoot.transform, false);
                     _currentScene = null;
                     break;
@@ -246,7 +246,7 @@ namespace Ryneus
                             if ((Action)viewEvent.Template != null) endEvent();
                             Destroy(child.gameObject);
                             transitionFade.FadeOut(0);
-                            transitionRoot.SetActive(false);
+                            UIComponent.SetActive(transitionRoot, false);
                         }
                     });
                     break;
@@ -478,7 +478,7 @@ namespace Ryneus
             {
                 sceneInfo.FromScene = _sceneStackManager.Current;
             }
-            mapAssign.gameObject.SetActive(sceneInfo.ToScene == Scene.Dungeon);
+            UIComponent.SetActive(mapAssign?.gameObject, sceneInfo.ToScene == Scene.Dungeon);
             var prefab = sceneAssign.CreateScene(sceneInfo.ToScene, helpWindow);
             _currentScene = prefab.GetComponent<BaseView>();
             _currentScene.SetTestMode(testMode);
@@ -503,7 +503,7 @@ namespace Ryneus
             var prefab = Instantiate(dungeonObjects);
             prefab.transform.SetParent(mapAssign.transform, false);
             var dungeonSettings = prefab.GetComponentInChildren<Ariadne.DungeonSettings>();
-            mapAssign.gameObject.SetActive(true);
+            UIComponent.SetActive(mapAssign?.gameObject, true);
             var dungeonData = ResourceSystem.LoadDungeonMaster(mapName);
             dungeonSettings.OnSetDungeon(dungeonData);
             _model.PartyInfo.SetupDungeonTraverse(Ariadne.PlayerPosition.Instance.currentDungeonId);

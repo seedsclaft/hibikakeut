@@ -61,7 +61,7 @@ namespace Ryneus
             if (mainMenuStartAnim != null)
             {
                 mainMenuStartAnim.Reset();
-                mainMenuStartAnim.gameObject.SetActive(false);
+                UIComponent.SetActive(mainMenuStartAnim?.gameObject, false);
             }
             if (startAnimButton != null)
             {
@@ -167,21 +167,17 @@ namespace Ryneus
 
         public void SetActiveParticleObject(bool isActive)
         {
-            particleObject.SetActive(isActive);
+            UIComponent.SetActive(particleObject, isActive);
         }
 
         public void UpdateBattleFieldNotice(bool isActive)
         {
-            battleFieldNotice.SetActive(isActive);
+            UIComponent.SetActive(battleFieldNotice, isActive);
         }
 
         public void UpdateSidemenuBatch(bool isActive)
         {
-            if (sideMenuBatch == null)
-            {
-                return;
-            }
-            sideMenuBatch.SetActive(isActive);
+            UIComponent.SetActive(sideMenuBatch, isActive);
         }
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
@@ -195,7 +191,7 @@ namespace Ryneus
         public void MainMenuStartAnim(int chapter, int period, int periodMax, int remain)
         {
             mainMenuStartAnim.SetText(chapter, period, periodMax, remain);
-            mainMenuStartAnim.gameObject.SetActive(true);
+            UIComponent.SetActive(mainMenuStartAnim?.gameObject, true);
             mainMenuStartAnim.StartAnim(0);
         }
 
@@ -213,8 +209,8 @@ namespace Ryneus
 
         public void ClearMainMenuStart()
         {
-            mainMenuStartAnim.gameObject.SetActive(false);
-            startAnimButton.gameObject.SetActive(false);
+            UIComponent.SetActive(mainMenuStartAnim?.gameObject, false);
+            UIComponent.SetActive(startAnimButton?.gameObject, false);
         }
 
         public void StartReliefAnimation(Action endEvent, ActorInfo actorInfo, List<ActorInfo> releifActorInfos)

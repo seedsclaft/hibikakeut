@@ -22,7 +22,7 @@ namespace Ryneus
         {
             base.Initialize();
             SetBaseAnimation(confirmAnimation);
-            actorInfoComponent.gameObject.SetActive(false);
+            UIComponent.SetActive(actorInfoComponent?.gameObject, false);
             StartLvUpAnimation();
         }
 
@@ -36,17 +36,17 @@ namespace Ryneus
             var prefab = Instantiate(animPrefab);
             prefab.transform.SetParent(animRoot.transform, false);
             _battleStartAnim = prefab.GetComponent<BattleStartAnim>();
-            _battleStartAnim.gameObject.SetActive(false);
+            UIComponent.SetActive(_battleStartAnim?.gameObject, false);
             _battleStartAnim.SetText(DataSystem.GetText(41010));
             _battleStartAnim.StartAnim(false, 0, ShowLvUpActor);
-            _battleStartAnim.gameObject.SetActive(true);
+            UIComponent.SetActive(_battleStartAnim?.gameObject, true);
             _animationBusy = true;
         }
 
         public void ShowLvUpActor()
         {
             _animationBusy = false;
-            actorInfoComponent.gameObject.SetActive(true);
+            UIComponent.SetActive(actorInfoComponent?.gameObject, true);
             actorInfoComponent.Clear();
             actorInfoComponent.UpdateInfo(_classChangeInfo.ActorInfo, null);
             afterStatusInfoComponent.UpdateInfo(_classChangeInfo.ActorInfo.CurrentStatus);

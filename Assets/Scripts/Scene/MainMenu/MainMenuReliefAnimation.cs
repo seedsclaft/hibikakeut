@@ -46,7 +46,7 @@ namespace Ryneus
                 idx++;
             }
             _endEvent = endEvent;
-            decideButton.gameObject.SetActive(false);
+            UIComponent.SetActive(decideButton?.gameObject, false);
             emitter1.speed = emitter1Speed;
             emitter1.Play();
 

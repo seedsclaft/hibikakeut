@@ -64,7 +64,7 @@ namespace Ryneus
         public void StartAdv()
         {
             _advPlaying = true;
-            advInputButton.gameObject.SetActive(true);
+            UIComponent.SetActive(advInputButton?.gameObject, true);
             UpdateSkipButton();
         }
 
@@ -74,7 +74,7 @@ namespace Ryneus
             _selectIndex = -1;
             _onOffButtons.Clear();
             SaveSystem.SaveOptionStart(GameSystem.OptionData);
-            advInputButton.gameObject.SetActive(false);
+            UIComponent.SetActive(advInputButton?.gameObject, false);
         }
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
@@ -158,7 +158,7 @@ namespace Ryneus
         {
             var auto = advUguiManager.Engine.Config.IsAutoBrPage;
             autoButtonList.ForEach(a =>
-                a.Cursor.SetActive(auto)
+                UIComponent.SetActive(a.Cursor, auto)
             );
         }
 
@@ -173,7 +173,7 @@ namespace Ryneus
         {
             var skip = advUguiManager.Engine.Config.IsSkip;
             skipButtonList.ForEach(a =>
-                a.Cursor.SetActive(skip)
+                UIComponent.SetActive(a.Cursor, skip)
             );
             if (GameSystem.OptionData != null)
             {

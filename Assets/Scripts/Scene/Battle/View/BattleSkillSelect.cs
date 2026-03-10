@@ -21,9 +21,9 @@ namespace Ryneus
 
         public void SetSelect(bool isSelect)
         {
-            cursor?.gameObject.SetActive(isSelect);
+            UIComponent.SetActive(cursor, isSelect);
         }
-        
+
         public void SetButtonImage(InputKeyType inputKeyType)
         {
             inputInfoComponent.UpdateGuideIcon(inputKeyType);

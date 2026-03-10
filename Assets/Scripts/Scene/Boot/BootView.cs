@@ -20,7 +20,7 @@ namespace Ryneus
             {
                 logoButton.onClick.AddListener(() => CallLogoClick());
             }
-            logoButton.gameObject.SetActive(!TestMode);
+            UIComponent.SetActive(logoButton?.gameObject, !TestMode);
         }
 
         private void CallLogoClick()

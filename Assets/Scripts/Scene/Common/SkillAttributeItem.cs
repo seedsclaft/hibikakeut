@@ -19,8 +19,7 @@ namespace Ryneus
             }
 
             var data = ListItemData<AttributeType>();
-
-            icon.gameObject.SetActive(true);
+            UIComponent.SetActive(icon, true);
             var spriteAtlas = iconSprites[(int)data];
             if (icon != null)
             {

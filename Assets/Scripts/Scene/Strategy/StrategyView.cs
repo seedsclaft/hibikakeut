@@ -36,7 +36,7 @@ namespace Ryneus
             GameObject prefab = Instantiate(animPrefab);
             prefab.transform.SetParent(animRoot.transform, false);
             _battleStartAnim = prefab.GetComponent<BattleStartAnim>();
-            _battleStartAnim.gameObject.SetActive(false);
+            UIComponent.SetActive(_battleStartAnim?.gameObject, false);
 
 
             strategyResultCanvasGroup.alpha = 0;
@@ -48,7 +48,7 @@ namespace Ryneus
         {
             strategyActorList.Initialize();
             AddViewActives(strategyActorList);
-            strategyActorList.gameObject.SetActive(false);
+            UIComponent.SetActive(strategyActorList?.gameObject, false);
         }
 
         public void StartResultAnimation(List<ListData> actorInfos, List<ActorInfo> bonusActorInfos = null)
@@ -59,7 +59,7 @@ namespace Ryneus
             {
                 CallEndAnimation();
             });
-            strategyActorList.gameObject.SetActive(true);
+            UIComponent.SetActive(strategyActorList?.gameObject, true);
         }
 
         private void InitializeCommandList()
@@ -67,7 +67,7 @@ namespace Ryneus
             commandList.Initialize();
             AddViewActives(commandList);
             commandList.SetInputHandler(InputKeyType.Decide, CallResultCommand);
-            commandList.gameObject.SetActive(false);
+            UIComponent.SetActive(commandList?.gameObject, false);
         }
 
         private void InitializeLearnSkillList()
@@ -99,7 +99,7 @@ namespace Ryneus
         {
             strategyResultList.Initialize();
             AddViewActives(strategyResultList);
-            strategyResultList.gameObject.SetActive(false);
+            UIComponent.SetActive(strategyResultList?.gameObject, false);
             strategyResultCanvasGroup.alpha = 0;
 
             commandList.SetData(confirmCommands);
@@ -115,9 +115,9 @@ namespace Ryneus
         {
             strategyResultCanvasGroup.alpha = 1;
             battleScoreComponent.UpdateScore(score);
-            commandList.gameObject.SetActive(true);
+            UIComponent.SetActive(commandList?.gameObject, true);
             SetActivate(commandList);
-            strategyResultList.gameObject.SetActive(true);
+            UIComponent.SetActive(strategyResultList?.gameObject, true);
             strategyResultList.SetData(getItemInfos);
             strategyResultList.Activate();
             SetHelpInputInfo("STRATEGY");

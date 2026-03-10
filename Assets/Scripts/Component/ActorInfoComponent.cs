@@ -76,10 +76,7 @@ namespace Ryneus
                 }
             }
             UIComponent.SetText(demigod, actorInfo.DemigodParam);
-            if (lvCation != null)
-            {
-                lvCation.SetActive(true);
-            }
+            UIComponent.SetActive(lvCation, true);
             UIComponent.SetText(lv, actorInfo.Level);
             UIComponent.SetText(exp, actorInfo.NextExp);
             if (expGauge != null)
@@ -91,7 +88,7 @@ namespace Ryneus
             }
             if (statusInfoComponent != null && actorInfo.Master != null)
             {
-                statusInfoComponent.gameObject.SetActive(true);
+                UIComponent.SetActive(statusInfoComponent.gameObject, true);
                 statusInfoComponent.UpdateInfo(actorInfo.CurrentStatus);
                 statusInfoComponent.UpdateHp(actorInfo.CurrentHp.Value, actorInfo.MaxHp);
                 statusInfoComponent.UpdateMp(actorInfo.CurrentMp.Value, actorInfo.MaxMp);
@@ -177,14 +174,11 @@ namespace Ryneus
                 var kind = (int)actorData.AttributeType;
                 if (kind > 0)
                 {
-                    kindIcon.gameObject.SetActive(true);
+                    UIComponent.SetActive(kindIcon.gameObject, true);
                     kindIcon.sprite = ResourceSystem.LoadElementIcon()[kind-1];
                 }
-                if (kindText != null)
-                {
-                    kindText.gameObject.SetActive(true);
-                    UIComponent.SetText(kindText, DataSystem.GetText(400 + kind-1));
-                }
+                UIComponent.SetActive(kindText, true);
+                UIComponent.SetText(kindText, DataSystem.GetText(400 + kind-1));
             }
             //UpdateUnitType(actorData.UnitType);
             //UpdateUnitTypeBack(actorData.UnitType);
@@ -225,13 +219,13 @@ namespace Ryneus
         private void UpdateMainFaceThumb(string imagePath)
         {
             UIComponent.SetImage(faceThumb, ResourceSystem.ActorMainFaceSpritePath(imagePath));
-            faceThumb.gameObject.SetActive(true);
+            UIComponent.SetActive(faceThumb, true);
         }
 
         private void UpdateAwakenFaceThumb(string imagePath)
         {
             UIComponent.SetImage(awakenFaceThumb, ResourceSystem.ActorAwakenSpritePath(imagePath));
-            awakenFaceThumb.gameObject.SetActive(true);
+            UIComponent.SetActive(awakenFaceThumb, true);
         }
 
         private void UpdateAttributeParam(TextMeshProUGUI textMeshProUGUI, AttributeRank param)
@@ -244,8 +238,8 @@ namespace Ryneus
         {
             if (faceThumb != null && awakenFaceThumb != null)
             {
-                faceThumb.gameObject.SetActive(!IsAwaken);
-                awakenFaceThumb.gameObject.SetActive(IsAwaken);
+                UIComponent.SetActive(faceThumb, !IsAwaken);
+                UIComponent.SetActive(awakenFaceThumb, IsAwaken);
             }
         }
 
@@ -286,10 +280,7 @@ namespace Ryneus
             {
                 statusInfoComponent.Clear();
             }
-            if (lvCation != null)
-            {
-                lvCation.SetActive(false);
-            }
+            UIComponent.SetActive(lvCation, false);
             UIComponent.ClearText(lv);
             UIComponent.ClearText(nameText);
             UIComponent.ClearText(element1);
@@ -299,10 +290,7 @@ namespace Ryneus
             UIComponent.ClearText(element5);
             UIComponent.ClearText(element6);
             UIComponent.ClearText(evaluate);
-            if (kindIcon != null)
-            {
-                kindIcon.gameObject.SetActive(false);
-            }
+            UIComponent.SetActive(kindIcon, false);
             UIComponent.ClearText(kindText);
         }
 
@@ -312,7 +300,7 @@ namespace Ryneus
             {
                 return;
             }
-            unitTypeImage.gameObject.SetActive(true);
+            UIComponent.SetActive(unitTypeImage, true);
             var spriteAtlas = ResourceSystem.LoadUnitTypeIcons();
             UIComponent.SetImage(unitTypeImage, spriteAtlas.GetSprite(unitType.ToString()));
         }
@@ -323,7 +311,7 @@ namespace Ryneus
             {
                 return;
             }
-            unitTypeImageBack.gameObject.SetActive(true);
+            UIComponent.SetActive(unitTypeImageBack, true);
             var spriteAtlas = ResourceSystem.LoadUnitTypeBackIcons();
             unitTypeImageBack.sprite = spriteAtlas.GetSprite(unitType.ToString());
         }

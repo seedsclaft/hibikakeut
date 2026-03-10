@@ -33,21 +33,15 @@ namespace Ryneus
             }
             if (getItemInfoComponent != null && achievementInfo.Master.PriseSetId > 0)
             {
-                getItemInfoComponent.gameObject.SetActive(true);
+                UIComponent.SetActive(getItemInfoComponent.gameObject, true);
                 getItemInfoComponent.UpdateInfo(new GetItemInfo(achievementInfo.PrizeSetsMaster[0].GetItem));
             }
         }
 
         private void UpdateDate(AchievementData achievementData)
         {
-            if (categoryMain != null)
-            {
-                categoryMain.SetActive(achievementData.Category == AchievementCategory.Main);
-            }
-            if (categoryNormal != null)
-            {
-                categoryNormal.SetActive(achievementData.Category == AchievementCategory.Normal);
-            }
+            UIComponent.SetActive(categoryMain, achievementData.Category == AchievementCategory.Main);
+            UIComponent.SetActive(categoryNormal, achievementData.Category == AchievementCategory.Normal);
             UIComponent.SetText(rank, achievementData.Rank);
             UIComponent.SetText(description, achievementData.Text);
         }

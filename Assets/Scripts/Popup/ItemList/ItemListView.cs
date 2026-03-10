@@ -95,7 +95,7 @@ namespace Ryneus
             {
                 isActive = true;
             }
-            detailButton.gameObject.SetActive(isActive);
+            UIComponent.SetActive(detailButton?.gameObject, isActive);
         }
 
         public void ActivateItemList(bool isActivate)

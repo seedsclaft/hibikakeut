@@ -30,7 +30,7 @@ namespace Ryneus
 
         private void SetBattlerInfoComp(List<ListData> listDates)
         {
-            damageRoots.ForEach(a => a.SetActive(false));
+            damageRoots.ForEach(a => UIComponent.SetActive(a, false));
             for (var i = 0; i < listDates.Count; i++)
             {
                 var battleBattler = ItemPrefabList[i].GetComponent<BattleBattler>();

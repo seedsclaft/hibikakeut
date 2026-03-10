@@ -68,16 +68,16 @@ namespace Ryneus
 
         public void CallMagicList()
         {
-            magicListRoot.SetActive(true);
-            conditionListRoot.SetActive(false);
+            UIComponent.SetActive(magicListRoot, true);
+            UIComponent.SetActive(conditionListRoot, false);
             UIComponent.SetText(displayCategory, DataSystem.GetText(15010));
             SetActivate(magicList);
         }
 
         public void CallConditionList()
         {
-            magicListRoot.SetActive(false);
-            conditionListRoot.SetActive(true);
+            UIComponent.SetActive(magicListRoot, false);
+            UIComponent.SetActive(conditionListRoot, true);
             UIComponent.SetText(displayCategory, DataSystem.GetText(15020));
             SetActivate(conditionList);
         }

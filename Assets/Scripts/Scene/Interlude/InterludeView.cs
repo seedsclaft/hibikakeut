@@ -46,22 +46,19 @@ namespace Ryneus
             GameObject prefab = Instantiate(animPrefab);
             prefab.transform.SetParent(animRoot.transform, false);
             _battleStartAnim = prefab.GetComponent<BattleStartAnim>();
-            _battleStartAnim.gameObject.SetActive(false);
+            UIComponent.SetActive(_battleStartAnim?.gameObject, false);
             lvUpStatusButton.onClick.AddListener(() => CallLvUpNext());
-            lvUpStatusButton.gameObject.SetActive(false);
+            UIComponent.SetActive(lvUpStatusButton?.gameObject, false);
 
             var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
             rect.localPosition = new Vector3(0,0,0);
             actorInfoComponent.MainThumb.DOFade(0,0);
 
             strategyResultCanvasGroup.alpha = 0;
-            claerStageNumObj?.SetActive(false);
-            rankScoreObj?.SetActive(false);
-            partyEvaluateObj?.SetActive(false);
-            if (rightParts != null)
-            {
-                rightParts.SetActive(false);
-            }
+            UIComponent.SetActive(claerStageNumObj?.gameObject, false);
+            UIComponent.SetActive(rankScoreObj?.gameObject, false);
+            UIComponent.SetActive(partyEvaluateObj?.gameObject, false);
+            UIComponent.SetActive(rightParts, false);
             _ = new InterludePresenter(this);
         }
 
@@ -69,7 +66,7 @@ namespace Ryneus
         {
             strategyActorList.Initialize();
             AddViewActives(strategyActorList);
-            strategyActorList.gameObject.SetActive(false);
+            UIComponent.SetActive(strategyActorList?.gameObject, false);
         }
 
         public void StartResultAnimation(List<ListData> actorInfos, List<ActorInfo> bonusActorInfos = null)
@@ -80,14 +77,14 @@ namespace Ryneus
             {
                 CallEndAnimation();
             });
-            strategyActorList.gameObject.SetActive(true);
+            UIComponent.SetActive(strategyActorList?.gameObject, true);
         }
 
         private void CallLvUpNext()
         {
-            lvUpStatusButton.gameObject.SetActive(false);
-            actorInfoComponent.gameObject.SetActive(false);
-            statusList.gameObject.SetActive(false);
+            UIComponent.SetActive(lvUpStatusButton?.gameObject, false);
+            UIComponent.SetActive(actorInfoComponent?.gameObject, false);
+            UIComponent.SetActive(statusList?.gameObject, false);
             CallViewEvent(CommandType.LvUpNext);
         }
 
@@ -95,7 +92,7 @@ namespace Ryneus
         {
             _battleStartAnim.SetText(DataSystem.GetText(20411));
             _battleStartAnim.StartAnim(false, 0, () => CallViewEvent(CommandType.EndAnimation));
-            _battleStartAnim.gameObject.SetActive(true);
+            UIComponent.SetActive(_battleStartAnim?.gameObject, true);
             _animationBusy = true;
         }
 
@@ -103,7 +100,7 @@ namespace Ryneus
         {
             _battleStartAnim.SetText(DataSystem.GetText(20410));
             _battleStartAnim.StartAnim(false, 0, () => CallViewEvent(CommandType.EndAnimation));
-            _battleStartAnim.gameObject.SetActive(true);
+            UIComponent.SetActive(_battleStartAnim?.gameObject, true);
             _animationBusy = true;
         }
 
@@ -116,10 +113,10 @@ namespace Ryneus
 
         public void ShowLvUpActor(ActorInfo actorInfo,List<ListData> status)
         {
-            lvUpStatusButton.gameObject.SetActive(true);
-            actorInfoComponent.gameObject.SetActive(true);
+            UIComponent.SetActive(lvUpStatusButton?.gameObject, true);
+            UIComponent.SetActive(actorInfoComponent?.gameObject, true);
             actorInfoComponent.Clear();
-            actorInfoComponent.UpdateInfo(actorInfo,null);
+            actorInfoComponent.UpdateInfo(actorInfo, null);
 
             var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
             rect.localPosition = new Vector3(0,0,0);
@@ -128,7 +125,7 @@ namespace Ryneus
             BaseAnimation.MoveAndFade(rect,actorInfoComponent.MainThumb,24,1);
 
             HelpWindow.SetInputInfo("LEVELUP");
-            statusList.gameObject.SetActive(true);
+            UIComponent.SetActive(statusList?.gameObject, true);
             statusList.SetData(status);
             SetActivate(statusList);
         }
@@ -137,8 +134,8 @@ namespace Ryneus
         {
             commandList.Initialize();
             AddViewActives(commandList);
-            commandList.SetInputHandler(InputKeyType.Decide,CallResultCommand);
-            commandList.gameObject.SetActive(false);
+            commandList.SetInputHandler(InputKeyType.Decide, CallResultCommand);
+            UIComponent.SetActive(commandList?.gameObject, false);
         }
 
         private void InitializeLearnSkillList()
@@ -170,7 +167,7 @@ namespace Ryneus
         {
             strategyResultList.Initialize();
             AddViewActives(strategyResultList);
-            strategyResultList.gameObject.SetActive(false);
+            UIComponent.SetActive(strategyResultList?.gameObject, false);
             strategyResultCanvasGroup.alpha = 0;
 
             commandList.SetData(confirmCommands);
@@ -184,20 +181,17 @@ namespace Ryneus
 
         public void ShowResultList(List<ListData> getItemInfos,string saveHuman,string claerStageNum,string rankScore,string partyEvaluate = null,string attackPer = null,string defeatedCount = null)
         {
-            if (rightParts != null)
-            {
-                rightParts.SetActive(true);
-            }
+            UIComponent.SetActive(rightParts, true);
             strategyResultCanvasGroup.alpha = 1;
-            claerStageNumObj?.SetActive(claerStageNum != null);
-            rankScoreObj?.SetActive(rankScore != null);
-            partyEvaluateObj?.SetActive(partyEvaluate != null);
+            UIComponent.SetActive(claerStageNumObj, claerStageNum != null);
+            UIComponent.SetActive(rankScoreObj, rankScore != null);
+            UIComponent.SetActive(partyEvaluateObj, partyEvaluate != null);
             UIComponent.SetText(claerStageNumText, claerStageNum);
             UIComponent.SetText(rankScoreText, rankScore);
             UIComponent.SetText(partyEvaluateText, partyEvaluate);
-            commandList.gameObject.SetActive(true);
+            UIComponent.SetActive(commandList?.gameObject, true);
             SetActivate(commandList);
-            strategyResultList.gameObject.SetActive(true);
+            UIComponent.SetActive(strategyResultList?.gameObject, true);
             strategyResultList.SetData(getItemInfos);
             strategyResultList.Activate();
             SetHelpInputInfo("STRATEGY");
@@ -214,7 +208,7 @@ namespace Ryneus
 
         public void HideResultList()
         {
-            strategyResultList.gameObject.SetActive(false);
+            UIComponent.SetActive(strategyResultList?.gameObject, false);
         }
 
         private void Update()

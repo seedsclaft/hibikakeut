@@ -214,7 +214,7 @@ namespace Ryneus
             {
                 return;
             }
-            decideButton.gameObject.SetActive(isActive);
+            UIComponent.SetActive(decideButton?.gameObject, isActive);
         }
 
         public void SetActiveHealButton(bool isActive)
@@ -223,7 +223,7 @@ namespace Ryneus
             {
                 return;
             }
-            healButton.gameObject.SetActive(isActive);
+            UIComponent.SetActive(healButton?.gameObject, isActive);
         }
 
         public void SetActiveFormationButton(bool isActive)
@@ -232,7 +232,7 @@ namespace Ryneus
             {
                 return;
             }
-            formationButton.gameObject.SetActive(isActive);
+            UIComponent.SetActive(formationButton?.gameObject, isActive);
         }
 
         public void SetActiveUseItemButton(bool isActive)
@@ -241,7 +241,7 @@ namespace Ryneus
             {
                 return;
             }
-            useItemButton.gameObject.SetActive(isActive);
+            UIComponent.SetActive(useItemButton?.gameObject, isActive);
         }
 
         public void SetActiveStageInfo(bool isActive)
@@ -250,7 +250,7 @@ namespace Ryneus
             {
                 return;
             }
-            stageInfoComponent.gameObject.SetActive(isActive);
+            UIComponent.SetActive(stageInfoComponent?.gameObject, isActive);
         }
 
         public void ChangeSkybox(Material material)

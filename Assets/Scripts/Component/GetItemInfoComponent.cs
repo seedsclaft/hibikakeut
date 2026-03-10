@@ -16,7 +16,7 @@ namespace Ryneus
             if (titleName != null)
             {
                 var title = getItemInfo.GetTitleData();
-                titleName.gameObject.SetActive(title != "");
+                UIComponent.SetActive(titleName.gameObject, title != "");
                 UIComponent.SetText(titleName, title);
             }
         }
@@ -25,18 +25,18 @@ namespace Ryneus
         {
             if (getItemData.Type == GetItemType.Skill && skillInfoComponent != null)
             {
-                itemIconRoot.SetActive(true);
+                UIComponent.SetActive(itemIconRoot, true);
                 skillInfoComponent.UpdateData(getItemData.Param1);
             }
             else
             if (getItemData.Type == GetItemType.Item && itemInfoComponent != null)
             {
-                itemIconRoot.SetActive(true);
+                UIComponent.SetActive(itemIconRoot, true);
                 itemInfoComponent.UpdateDate(DataSystem.FindItem(getItemData.Param1));
             }
             else
             {
-                itemIconRoot.SetActive(false);
+                UIComponent.SetActive(itemIconRoot, false);
             }
         }
     }

@@ -1216,7 +1216,7 @@ namespace Ryneus
                 _view.SetActiveHealButton(false);
                 _view.SetActiveUseItemButton(false);
                 _view.SetActiveDisplayEventKey(false);
-                _view.SideMenuButton.gameObject.SetActive(false);
+                UIComponent.SetActive(_view.SideMenuButton.gameObject, false);
             }
         }
 

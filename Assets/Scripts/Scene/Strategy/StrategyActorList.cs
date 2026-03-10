@@ -9,13 +9,13 @@ namespace Ryneus
         {
             for (int i = 0; i < ItemPrefabList.Count;i++)
             {
-                ItemPrefabList[i].SetActive(false);
+                UIComponent.SetActive(ItemPrefabList[i], false);
                 if (i < actorCount)
                 {
                     var StrategyActor = ItemPrefabList[i].GetComponent<StrategyActor>();
                     var actorInfo = StrategyActor.ListItemData<ActorInfo>();
                     var isBonus = bonusActorInfos.Find(a => a.ActorId.Value == actorInfo.ActorId.Value) != null;
-                    StrategyActor.gameObject.SetActive(true);
+                    UIComponent.SetActive(StrategyActor?.gameObject, true);
                     StrategyActor.StartResultAnimation(i, isBonus);
                     if (i == actorCount-1)
                     {

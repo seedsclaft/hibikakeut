@@ -72,7 +72,7 @@ namespace Ryneus
 
         public void SetActiveTab(int selectCharacterTabType, bool isActive)
         {
-            _selectTabs[selectCharacterTabType].gameObject.SetActive(isActive);
+            UIComponent.SetActive(_selectTabs[selectCharacterTabType].gameObject, isActive);
         }
 
         public void SelectCharacterTabSmooth(int index)
@@ -142,7 +142,7 @@ namespace Ryneus
             }
             for (int i = 0; i < _viewObjs.Count;i++)
             {
-                _viewObjs[i].SetActive(_selectTabIndex == i);
+                UIComponent.SetActive(_viewObjs[i], _selectTabIndex == i);
             }
             for (int i = 0;i < _selectTabCanvasGroup.Count;i++)
             {

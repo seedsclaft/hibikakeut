@@ -77,7 +77,7 @@ namespace Ryneus
         public void SetDamageRoot(GameObject damageRoot)
         {
             _battleDamageRoot = damageRoot;
-            _battleDamageRoot.SetActive(true);
+            UIComponent.SetActive(_battleDamageRoot, true);
             if (battleStateOverlay != null)
             {
                 battleStateOverlay.Initialize();
@@ -156,7 +156,7 @@ namespace Ryneus
             }
             if (statusInfoComponent != null)
             {
-                statusInfoComponent.gameObject.SetActive(true);
+                UIComponent.SetActive(statusInfoComponent.gameObject, true);
             }
             if (_battlerInfo.IsActor || _battlerInfo.IsActorView)
             {
@@ -208,7 +208,7 @@ namespace Ryneus
             {
                 statusInfoComponent.ShowStatus();
             }
-            battleStateOverlay?.gameObject.SetActive(true);
+            UIComponent.SetActive(battleStateOverlay?.gameObject, true);
         }
 
         public void HideStatus()
@@ -574,10 +574,7 @@ namespace Ryneus
             enemyInfoComponent?.Clear();
             actorInfoComponent?.Clear();
             UIComponent.ClearText(battlePosition);
-            if (statusInfoComponent != null)
-            {
-                statusInfoComponent.gameObject.SetActive(false);
-            }
+            UIComponent.SetActive(statusInfoComponent?.gameObject, false);
         }
     }
 }

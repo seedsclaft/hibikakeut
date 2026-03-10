@@ -42,15 +42,15 @@ namespace Ryneus
 
         public void Show()
         {
-            gameObject.SetActive(true);
-            skillInfoComponent.gameObject.SetActive(true);
+            UIComponent.SetActive(gameObject, true);
+            UIComponent.SetActive(skillInfoComponent?.gameObject, true);
             UpdateSkillHelp();
         }
 
         public void Hide()
         {
-            gameObject.SetActive(false);
-            skillInfoComponent.gameObject.SetActive(false);
+            UIComponent.SetActive(gameObject, false);
+            UIComponent.SetActive(skillInfoComponent?.gameObject, false);
         }
 
         public override void UpdateHelpWindow()

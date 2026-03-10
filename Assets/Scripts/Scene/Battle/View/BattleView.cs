@@ -183,7 +183,7 @@ namespace Ryneus
 
         public void SelectActorList(List<int> selectIndexes)
         {
-            magicList.gameObject.SetActive(false);
+            UIComponent.SetActive(magicList?.gameObject, false);
             battleThumb.HideThumb();
             SetActivate(battleActorList);
             //battleActorList.UpdateSelectIndex(selectIndexes[0]);
@@ -200,7 +200,7 @@ namespace Ryneus
 
         public void SelectEnemyList(List<int> selectIndexes)
         {
-            magicList.gameObject.SetActive(false);
+            UIComponent.SetActive(magicList?.gameObject, false);
             battleThumb.HideThumb();
             SetActivate(battleEnemyList);
             battleEnemyList.SetSelectIndexes(selectIndexes);
@@ -279,7 +279,7 @@ namespace Ryneus
             magicList.SetInputHandler(InputKeyType.SideRight2, CommandScrollDownSkillHelp);
             //magicList.SetInputHandler(InputKeyType.Right,() => OnSelectTarget(InputKeyType.Right));
             //magicList.SetInputHandler(InputKeyType.Left,() => OnSelectTarget(InputKeyType.Left));
-            magicList.gameObject.SetActive(false);
+            UIComponent.SetActive(magicList?.gameObject, false);
             magicList.SetSelectedHandler(OnSelectMagic);
             AddViewActives(magicList);
         }
@@ -330,7 +330,7 @@ namespace Ryneus
             UpdateSelectCursor(new List<int>(){});
             SetDeactivate();
             battleThumb.HideThumb();
-            magicList.gameObject.SetActive(false);
+            UIComponent.SetActive(magicList?.gameObject, false);
             battleEnemyList.ClearSelect();
             battleActorList.ClearSelect();
             battleFieldView.ClearSelect();
@@ -338,8 +338,8 @@ namespace Ryneus
 
         public void SetActiveBeforeBattles(bool isActive)
         {
-            formationButton.gameObject.SetActive(isActive);
-            decideButton.gameObject.SetActive(isActive);
+            UIComponent.SetActive(formationButton?.gameObject, isActive);
+            UIComponent.SetActive(decideButton?.gameObject, isActive);
         }
 
         public void StartFormation()
@@ -368,7 +368,7 @@ namespace Ryneus
 
         public void SetBattleAutoButton(bool isAuto)
         {
-            battleAutoButton.gameObject.SetActive(false);
+            UIComponent.SetActive(battleAutoButton?.gameObject, false);
             battleAutoButton.OnClickAddListener(() =>
             {
                 if (!battleAutoButton.gameObject.activeSelf)
@@ -386,8 +386,8 @@ namespace Ryneus
 
         public void SetActiveBattleAutoButton(bool isActive)
         {
-            battleAutoButton.gameObject.SetActive(isActive);
-            battleSpeedButton.gameObject.SetActive(isActive);
+            UIComponent.SetActive(battleAutoButton?.gameObject, isActive);
+            UIComponent.SetActive(battleSpeedButton?.gameObject, isActive);
         }
 
         public void SetBattleSkipActive(bool isActive)
@@ -448,19 +448,19 @@ namespace Ryneus
             var prefab = Instantiate(animPrefab);
             prefab.transform.SetParent(animRoot.transform, false);
             _battleStartAnim = prefab.GetComponent<BattleStartAnim>();
-            _battleStartAnim.gameObject.SetActive(false);
+            UIComponent.SetActive(_battleStartAnim?.gameObject, false);
         }
 
         public void StartBattleStartAnim(string text)
         {
             _battleStartAnim.SetText(text);
             _battleStartAnim.StartAnim(true);
-            _battleStartAnim.gameObject.SetActive(true);
+            UIComponent.SetActive(_battleStartAnim?.gameObject, true);
         }
 
         public void StartUIAnimation()
         {
-            battleActorList.gameObject.SetActive(true);
+            UIComponent.SetActive(battleActorList?.gameObject, true);
             //battleEnemyUnitList.gameObject.SetActive(true);
             var duration = 0.8f;
             /*
@@ -498,8 +498,8 @@ namespace Ryneus
         public void ShowMagicList(List<ListData> skillInfos, bool resetScrollRect, int selectIndex)
         {
             SetActivate(magicList);
-            battleActorList.gameObject.SetActive(true);
-            magicList.gameObject.SetActive(true);
+            UIComponent.SetActive(battleActorList?.gameObject, true);
+            UIComponent.SetActive(magicList?.gameObject, true);
             magicList.SetData(skillInfos, resetScrollRect);
             if (resetScrollRect)
             {
@@ -526,7 +526,7 @@ namespace Ryneus
         public void SelectedCharacter(BattlerInfo battlerInfo)
         {
             battleThumb.ShowBattleThumb(battlerInfo);
-            battleThumb.gameObject.SetActive(true);
+            UIComponent.SetActive(battleThumb?.gameObject, true);
             // 敵のstateEffectを非表示
             HideEnemyStateOverlay();
             //HideActorStateOverlay();
@@ -535,7 +535,7 @@ namespace Ryneus
         public void ShowCutinBattleThumb(BattlerInfo battlerInfo)
         {
             battleThumb.ShowCutinBattleThumb(battlerInfo);
-            battleThumb.gameObject.SetActive(true);
+            UIComponent.SetActive(battleThumb?.gameObject, true);
         }
 
         public void HideSkillActionList(bool isSideMenuClose = true)
@@ -615,7 +615,7 @@ namespace Ryneus
 
         public void SetCurrentSkillData(SkillInfo skillInfo,BattlerInfo battlerInfo)
         {
-            skillInfoComponent.gameObject.SetActive(true);
+            UIComponent.SetActive(skillInfoComponent?.gameObject, true);
             skillInfoComponent.UpdateInfo(skillInfo);
             var convertHelpText = skillInfo.ConvertHelpText(battlerInfo);
             var length = convertHelpText.Split("\n").Length;
@@ -628,7 +628,7 @@ namespace Ryneus
 
         public void ClearCurrentSkillData()
         {
-            skillInfoComponent.gameObject.SetActive(false);
+            UIComponent.SetActive(skillInfoComponent?.gameObject, false);
             skillInfoComponent.Clear();
         }
 
@@ -638,7 +638,7 @@ namespace Ryneus
             {
                 return;
             }
-            magicList.gameObject.SetActive(false);
+            UIComponent.SetActive(magicList?.gameObject, false);
             if (GameSystem.OptionData.BattleAnimationSkip)
             {
                 return;
@@ -650,8 +650,8 @@ namespace Ryneus
 
         public void StartAnimationAll(EffekseerEffectAsset effekseerEffectAsset,AnimationPosition animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
         {
-            magicList.gameObject.SetActive(false);
-            if (GameSystem.OptionData.BattleAnimationSkip == true) 
+            UIComponent.SetActive(magicList?.gameObject, false);
+            if (GameSystem.OptionData.BattleAnimationSkip)
             {
                 return;
             }
@@ -866,7 +866,7 @@ namespace Ryneus
 
         public void ChangeBattleAuto(bool isAuto)
         {
-            battleAutoButton.Cursor.SetActive(isAuto);
+            UIComponent.SetActive(battleAutoButton?.gameObject, isAuto);
         }
 
         public async UniTask StartAnimationDemigod(BattlerInfo battlerInfo,SkillData skillData)

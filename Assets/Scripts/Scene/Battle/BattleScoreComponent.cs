@@ -23,12 +23,12 @@ namespace Ryneus
             {
                 return;
             }
-            battleScoreObj?.SetActive(battleScore.ResultScore != -1);
-            battleTurnObj?.SetActive(battleScore.TurnCount != -1);
-            battleMaxDamageObj?.SetActive(battleScore.MaxDamage != -1);
-            battleAttackPerObj?.SetActive(battleScore.RemainHpPercent != -1);
-            battleDefeatedCountObj?.SetActive(battleScore.DefeatedCount != -1);
-            weakAttackCountObj?.SetActive(battleScore.WeakAttackCount != -1);
+            UIComponent.SetActive(battleScoreObj, battleScore.ResultScore != -1);
+            UIComponent.SetActive(battleTurnObj, battleScore.TurnCount != -1);
+            UIComponent.SetActive(battleMaxDamageObj, battleScore.MaxDamage != -1);
+            UIComponent.SetActive(battleAttackPerObj, battleScore.RemainHpPercent != -1);
+            UIComponent.SetActive(battleDefeatedCountObj, battleScore.DefeatedCount != -1);
+            UIComponent.SetActive(weakAttackCountObj, battleScore.WeakAttackCount != -1);
 
             UIComponent.SetText(battleScoreText, (battleScore.ResultScore > 0 ? "+" : "") + (battleScore.ResultScore * 0.01f).ToString("F2") + "%");
             UIComponent.SetText(battleTurnText, battleScore.TurnCount.ToString() + DataSystem.GetText(20301));
@@ -40,12 +40,12 @@ namespace Ryneus
 
         public void UpdateEmpty()
         {
-            battleScoreObj?.SetActive(false);
-            battleTurnObj?.SetActive(false);
-            battleMaxDamageObj?.SetActive(false);
-            battleAttackPerObj?.SetActive(false);
-            battleDefeatedCountObj?.SetActive(false);
-            weakAttackCountObj?.SetActive(false);
+            UIComponent.SetActive(battleScoreObj, false);
+            UIComponent.SetActive(battleTurnObj, false);
+            UIComponent.SetActive(battleMaxDamageObj, false);
+            UIComponent.SetActive(battleAttackPerObj, false);
+            UIComponent.SetActive(battleDefeatedCountObj, false);
+            UIComponent.SetActive(weakAttackCountObj, false);
         }
     }
 }

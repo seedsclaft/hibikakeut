@@ -82,7 +82,8 @@ namespace Ryneus
                 statusGaugeAnimation.UpdateExpGaugeAnimation(levelUpInfo.AfterRate,_callEvent);
             }
             plusExp.DOFade(0, 0);
-            plusExp.gameObject.SetActive(true);
+            
+            UIComponent.SetActive(plusExp, true);
             UIComponent.SetText(plusExp, DataSystem.GetText(3020) + "+" + levelUpInfo.PlusExp.ToString());
             var sequence = DOTween.Sequence()
                 .Append(plusExp.DOFade(1.0f, 0.8f))

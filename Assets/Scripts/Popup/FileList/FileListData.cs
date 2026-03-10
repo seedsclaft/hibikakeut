@@ -26,8 +26,8 @@ namespace Ryneus
                 return;
             }
             var data = ListItemData<SaveFileInfo>();
-            saveData?.SetActive(data.ActorId > 0);
-            newGame?.SetActive(data.ActorId <= 0);
+            UIComponent.SetActive(saveData, data.ActorId > 0);
+            UIComponent.SetActive(newGame, data.ActorId <= 0);
             UIComponent.SetText(saveNo, data.SaveNo);
             if (data.ActorId > 0)
             {

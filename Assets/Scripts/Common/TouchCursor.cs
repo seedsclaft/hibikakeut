@@ -29,8 +29,8 @@ namespace Ryneus
             pos.z = 10f;
 
             touchCursorRect.transform.position = pos;
-            gameObject.SetActive(false);
-            gameObject.SetActive(true);
+            UIComponent.SetActive(gameObject, false);
+            UIComponent.SetActive(gameObject, true);
             particle.Play();
 
             circle.DOFade(1, 0);

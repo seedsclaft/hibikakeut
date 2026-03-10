@@ -63,14 +63,8 @@ namespace Ryneus
                 var itemInfo = ListItemData<ItemInfo>();
                 itemInfoComponent.UpdateInfo(itemInfo);
             }
-            if (Disable != null)
-            {
-                Disable.SetActive(!ListData.Enable.Value);
-            }
-            if (Batch != null)
-            {
-                Batch.SetActive(ListData.Batch.Value);
-            }
+            UIComponent.SetActive(Disable, !ListData.Enable.Value);
+            UIComponent.SetActive(Batch, ListData.Batch.Value);
         }
     }
 }

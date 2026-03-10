@@ -23,7 +23,7 @@ namespace Ryneus
             skillInfoComponent?.UpdateData(data.SkillId);
             if (titleName != null)
             {
-                titleName.gameObject.SetActive(data.Title.Value != "");
+                UIComponent.SetActive(titleName?.gameObject, data.Title.Value != "");
                 UIComponent.SetText(titleName, data.Title);
                 titleName.rectTransform.sizeDelta = new Vector2(titleName.preferredWidth,titleName.preferredHeight);
             }

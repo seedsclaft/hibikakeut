@@ -54,32 +54,29 @@ namespace Ryneus
                     descriptionScrollRect.vertical = length > 3;
                 }
             }
-            if (selectable != null)
-            {
-                selectable.SetActive(skillInfo.LearningState == LearningState.SelectLearn);
-            }
+            UIComponent.SetActive(selectable, skillInfo.LearningState == LearningState.SelectLearn);
             if (learningCost != null)
             {
-                learningCost.gameObject.SetActive(skillInfo.LearningCost.Value > 0);
+                UIComponent.SetActive(learningCost, skillInfo.LearningCost.Value > 0);
                 UIComponent.SetText(learningCost, skillInfo.LearningCost);
-                battleCountTurn?.gameObject?.SetActive(false);
+                UIComponent.SetActive(battleCountTurn?.gameObject, false);
             }
             else
             {
-                battleCountTurn?.gameObject?.SetActive(skillInfo.Master.SkillType == SkillType.Active || (skillInfo.Master.SkillType == SkillType.Passive && skillInfo.Master.CountTurn > 0));
+                UIComponent.SetActive(battleCountTurn?.gameObject, skillInfo.Master.SkillType == SkillType.Active || (skillInfo.Master.SkillType == SkillType.Passive && skillInfo.Master.CountTurn > 0));
                 UIComponent.SetText(battleCountTurn, skillInfo.CountTurn);
             }
             if (learningText != null)
             {
                 if (skillInfo.LearningState == LearningState.NotLearnedByAlchemy)
                 {
-                    learningText.transform.parent.gameObject.SetActive(skillInfo.LearningState == LearningState.NotLearnedByAlchemy);
+                    UIComponent.SetActive(learningText.transform.parent.gameObject, skillInfo.LearningState == LearningState.NotLearnedByAlchemy);
                     UIComponent.SetText(learningText, DataSystem.GetText(381));
                 }
                 else
                 if (skillInfo.LearningState == LearningState.NotLearn)
                 {
-                    learningText.transform.parent.gameObject.SetActive(skillInfo.LearningState == LearningState.NotLearn);
+                    UIComponent.SetActive(learningText.transform.parent.gameObject, skillInfo.LearningState == LearningState.NotLearn);
                     if (skillInfo.LearningLv.Value >= 0)
                     {
                         UIComponent.SetText(learningText, DataSystem.GetReplaceText(2500, skillInfo.LearningLv.Value.ToString()));
@@ -91,13 +88,13 @@ namespace Ryneus
                 }
                 else
                 {
-                    learningText.transform.parent.gameObject.SetActive(false);
+                    UIComponent.SetActive(learningText.transform.parent.gameObject, false);
                 }
             }
             if (skillExpGauge != null)
             {
                 var displayExp = !skillInfo.Master.IsBattleSpecialSkill() && skillInfo.Master.SkillType != SkillType.Kind && skillInfo.Master.SkillType != SkillType.Equip && skillInfo.Master.Rank > RankType.ActiveRank1 && !skillInfo.PrimitiveLearned.Value;
-                skillExpGauge.gameObject.SetActive(displayExp);
+                UIComponent.SetActive(skillExpGauge.gameObject, displayExp);
                 skillExpGauge.UpdateGauge(skillInfo.ExpRate.Value);
                 if (learningCost != null && displayExp && skillInfo.ExpRate.Value >= 1)
                 {
@@ -106,7 +103,7 @@ namespace Ryneus
             }
             if (useCount != null && skillInfo.RemainUseCount() != 99)
             {
-                useCount.gameObject.SetActive(true);
+                UIComponent.SetActive(useCount, true);
                 UIComponent.SetText(useCount, DataSystem.GetReplaceText(2610, skillInfo.RemainUseCount().ToString()));
             }
         }
@@ -125,12 +122,12 @@ namespace Ryneus
             }
             if (icon != null)
             {
-                icon.gameObject.SetActive(true);
+                UIComponent.SetActive(icon, true);
                 UpdateSkillIcon(skillData.IconIndex);
             }
             if (iconBack != null)
             {
-                iconBack.gameObject.SetActive(true);
+                UIComponent.SetActive(iconBack, true);
                 UpdateSkillIconBack(skillData.Attribute);
             }
             if (nameText != null)
@@ -154,19 +151,13 @@ namespace Ryneus
                     count++;
                 }
             }
-            if (countTurnRoot != null)
-            {
-                countTurnRoot.SetActive(skillData.SkillType == SkillType.Active || (skillData.SkillType == SkillType.Passive && skillData.CountTurn > 0));
-            }
+            UIComponent.SetActive(countTurnRoot, skillData.SkillType == SkillType.Active || (skillData.SkillType == SkillType.Passive && skillData.CountTurn > 0));
             UIComponent.SetText(countTurn, skillData.CountTurn.ToString());
             if (rank != null)
             {
-                rank.gameObject.SetActive(true);
-                rank.gameObject.transform.parent.gameObject.SetActive(true);
-                if (useCount != null)
-                {
-                    useCount.gameObject.SetActive(false);
-                }
+                UIComponent.SetActive(rank, true);
+                UIComponent.SetActive(rank.gameObject.transform.parent.gameObject, true);
+                UIComponent.SetActive(useCount, false);
                 UpdateSkillRank(skillData.Rank);
             }
             if (lineImage != null)
@@ -179,7 +170,7 @@ namespace Ryneus
 
         private void UpdateSkillIcon(MagicIconType iconIndex)
         {
-            icon.gameObject.SetActive(true);
+            UIComponent.SetActive(icon, true);
             var spriteAtlas = ResourceSystem.LoadSpellIcons();
             if (icon != null)
             {
@@ -190,7 +181,7 @@ namespace Ryneus
 
         private void UpdateSkillIconBack(AttributeType attributeType)
         {
-            iconBack.gameObject.SetActive(true);
+            UIComponent.SetActive(iconBack, true);
 
             //var spriteAtlas = ResourceSystem.LoadSpellIcons();
             if (iconBack != null)
@@ -202,7 +193,7 @@ namespace Ryneus
 
         private void UpdateLineImage()
         {
-            lineImage.gameObject.SetActive(true);
+            UIComponent.SetActive(lineImage, true);
             if (nameAndMpCost)
             {
                 nameText.rectTransform.sizeDelta = new Vector2(nameText.preferredWidth, nameText.preferredHeight);
@@ -237,14 +228,8 @@ namespace Ryneus
 
         public void Clear()
         {
-            if (icon != null)
-            {
-                icon.gameObject.SetActive(false);
-            }
-            if (iconBack != null)
-            {
-                iconBack.gameObject.SetActive(false);
-            }
+            UIComponent.SetActive(icon, false);
+            UIComponent.SetActive(iconBack, false);
             UIComponent.ClearText(nameText);
             UIComponent.ClearText(mpCost);
             UIComponent.ClearText(type);
@@ -256,22 +241,13 @@ namespace Ryneus
                 }
             }
             UIComponent.ClearText(description);
-            if (lineImage != null)
-            {
-                lineImage.gameObject.SetActive(false);
-            }
-            if (learningCost != null)
-            {
-                learningCost?.gameObject.SetActive(false);
-                UIComponent.ClearText(learningCost);
-            }
-            range?.gameObject.SetActive(false);
+            UIComponent.SetActive(lineImage, false);
+            UIComponent.SetActive(learningCost, false);
+            UIComponent.ClearText(learningCost);
+            UIComponent.SetActive(range, false);
             UIComponent.ClearText(range);
-            if (countTurnRoot != null)
-            {
-                countTurnRoot.SetActive(false);
-            }
-            rank?.gameObject?.SetActive(false);
+            UIComponent.SetActive(countTurnRoot, false);
+            UIComponent.SetActive(rank, false);
             rank?.gameObject?.transform.parent.gameObject.SetActive(false);
             if (learningText != null)
             {

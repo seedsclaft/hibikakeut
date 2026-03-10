@@ -104,7 +104,7 @@ namespace Ryneus
                 .SetEase(Ease.InOutCubic)
                 .OnComplete(() =>
                 {
-                    mainBack.gameObject.SetActive(false);
+                    UIComponent.SetActive(gameObject, false);
                     baseCanvasGroup.alpha = 0;
                 });
 
@@ -142,9 +142,8 @@ namespace Ryneus
             var mainBackTween = DOTween.Sequence()
                 .SetDelay(delay)
                 .OnComplete(() =>
-
                 {
-                    mainBack.gameObject.SetActive(true);
+                    UIComponent.SetActive(gameObject, true);
                     baseCanvasGroup.alpha = 1;
                 });
         }

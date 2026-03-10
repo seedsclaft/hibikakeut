@@ -115,10 +115,7 @@ namespace Ryneus
             SetStageInfo(confirmInfo.StageInfo);
             SetConfirmEvent(confirmInfo.ReturnEvent);
             SetDisableIds(confirmInfo.DisableIds);
-            if (cautionArtifact != null)
-            {
-                cautionArtifact.SetActive(confirmInfo.IsArtifact.Value);
-            }
+            UIComponent.SetActive(cautionArtifact, confirmInfo.IsArtifact.Value);
             if (confirmInfo.ItemInfos().Count > 0)
             {
                 baseListComponent.SetListData(confirmInfo.ItemInfos()[0], 0);

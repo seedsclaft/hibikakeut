@@ -72,7 +72,7 @@ namespace Ryneus
             }
             //if (disable != null && disable.activeSelf) return;
 
-            cursor.SetActive(true);
+            UIComponent.SetActive(cursor, true);
             SetSelectArrow(true);
             foreach (var text in textUguiList)
             {
@@ -90,7 +90,7 @@ namespace Ryneus
             {
                 return;
             }
-            cursor.SetActive(false);
+            UIComponent.SetActive(cursor, false);
             SetSelectArrow(false);
             foreach (var text in textUguiList)
             {
@@ -151,11 +151,7 @@ namespace Ryneus
 
         public void SetSelectArrow(bool isSelect)
         {
-            if (selectArrow == null)
-            {
-                return;
-            }
-            selectArrow.SetActive(isSelect);
+            UIComponent.SetActive(selectArrow, isSelect);
         }
 
 

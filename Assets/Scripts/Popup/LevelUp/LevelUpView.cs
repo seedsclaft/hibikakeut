@@ -36,10 +36,10 @@ namespace Ryneus
         public void OpenAnimation(string title)
         {
             _busy = false;
-            UiRoot.SetActive(false);
-            learnSkillRoot.SetActive(false);
-            actorInfoComponent.gameObject.SetActive(false);
-            statusList.gameObject.SetActive(false);
+            UIComponent.SetActive(UiRoot, false);
+            UIComponent.SetActive(learnSkillRoot, false);
+            UIComponent.SetActive(actorInfoComponent.gameObject, false);
+            UIComponent.SetActive(statusList.gameObject.gameObject, false);
             var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
             rect.localPosition = new Vector3(-240, rect.localPosition.y, 0);
             actorInfoComponent.MainThumb.DOFade(0, 0);
@@ -51,12 +51,12 @@ namespace Ryneus
                 confirmAnimation.OpenAnimation(UiRoot.transform, () =>
                 {
                     CallViewEvent(CommandType.EndAnimation);
-                    UiRoot.SetActive(true);
+                    UIComponent.SetActive(UiRoot, true);
                     SetBusy(false);
                     ChangeBackCommandActive(true);
                 });
             });
-            battleStartAnim.gameObject.SetActive(true);
+            UIComponent.SetActive(battleStartAnim?.gameObject, true);
         }
 
         private void InitializeStatusList()
@@ -76,14 +76,14 @@ namespace Ryneus
             if (actorInfoComponent != null)
             {
                 actorInfoComponent.UpdateInfo(actorInfo, null);
-                actorInfoComponent.gameObject.SetActive(true);
+                UIComponent.SetActive(actorInfoComponent?.gameObject, true);
                 var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
                 BaseAnimation.MoveAndFade(rect, actorInfoComponent.MainThumb, -280, 1, 0.5f);
 
             }
             if (statusList != null)
             {
-                statusList.gameObject.SetActive(true);
+                UIComponent.SetActive(statusList?.gameObject, true);
                 statusList.SetData(statusDates);
                 SetActivate(statusList);
             }
@@ -94,15 +94,15 @@ namespace Ryneus
             if (actorInfoComponent != null)
             {
                 actorInfoComponent.UpdateInfo(actorInfo, null);
-                actorInfoComponent.gameObject.SetActive(true);
+                UIComponent.SetActive(actorInfoComponent?.gameObject, true);
                 var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
                 BaseAnimation.MoveAndFade(rect, actorInfoComponent.MainThumb, -280, 1, 0.5f);
             }
             if (learnSkillList != null)
             {
-                learnSkillRoot.SetActive(true);
+                UIComponent.SetActive(learnSkillRoot, true);
                 learnSkillList.SetData(ListData.MakeListData(skillInfos));
-                learnSkillList.gameObject.SetActive(true);
+                UIComponent.SetActive(learnSkillList.gameObject, true);
             }
         }
 

@@ -45,7 +45,7 @@ namespace Ryneus
             if (evaluationAddictValue != null)
             {
                 var evaluationAddict = partyInfo.EvaluationAddictValue();
-                evaluationAddictValue.gameObject.SetActive(evaluationAddict != 0);
+                UIComponent.SetActive(evaluationAddictValue.gameObject, evaluationAddict != 0);
                 UIComponent.SetText(evaluationAddictValue, "(" + evaluationAddict.ToString() + ")");
             }
             if (evaluationValueGauge != null)
@@ -61,15 +61,9 @@ namespace Ryneus
             }
             UIComponent.SetText(dungeonCompletionRate, partyInfo.DungeonCompletionRate().ToString("F2") + "%");
 
-            if (encountRateRoot != null)
-            {
-                encountRateRoot.SetActive(partyInfo.CurrentDeckInfo.EncountRate.Value != 1);
-            }
+            UIComponent.SetActive(encountRateRoot, partyInfo.CurrentDeckInfo.EncountRate.Value != 1);
             UIComponent.SetText(encountRate, partyInfo.CurrentDeckInfo.EncountRateText());
-            if (routeModeRoot != null)
-            {
-                routeModeRoot.SetActive(partyInfo.CurrentDeckInfo.RoutePaths.Count > 0);
-            }
+            UIComponent.SetActive(routeModeRoot, partyInfo.CurrentDeckInfo.RoutePaths.Count > 0);
             UIComponent.SetText(recoveryCount, partyInfo.CurrentDeckInfo.RecoveryCount.Value);
         }
     }

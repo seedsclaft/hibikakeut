@@ -37,12 +37,12 @@ namespace Ryneus
                 //view = prefab.GetComponent<BaseView>();
                 //view.Initialize();
             }
-            gameObject.SetActive(true);
+            UIComponent.SetActive(gameObject, true);
             prefab = _createdPopupPrefabs[popupType];
             view = prefab.GetComponent<BaseView>();
             _stackPopupView.Add(view);
             _stackPopupPrefab.Add(prefab);
-            prefab.SetActive(true);
+            UIComponent.SetActive(prefab, true);
             prefab.transform.SetAsLastSibling();
             return first;
         }
@@ -57,7 +57,7 @@ namespace Ryneus
             if (_stackPopupView.Count > 0)
             {
                 LastPopupView.Dispose();
-                LastPopupPrefab.SetActive(false);
+                UIComponent.SetActive(LastPopupPrefab, false);
                 _stackPopupView.Remove(LastPopupView);
                 _stackPopupPrefab.Remove(LastPopupPrefab);
                 //Destroy(lastPopupView.gameObject);
@@ -66,9 +66,9 @@ namespace Ryneus
             {
                 foreach (var createdPopupPrefab in _createdPopupPrefabs)
                 {
-                    createdPopupPrefab.Value.SetActive(false);
+                    UIComponent.SetActive(createdPopupPrefab.Value, false);
                 }
-                gameObject.SetActive(false);
+                UIComponent.SetActive(gameObject, false);
             }
         }
 
@@ -78,7 +78,7 @@ namespace Ryneus
             {
                 foreach (var createdPopupPrefab in _createdPopupPrefabs)
                 {
-                    createdPopupPrefab.Value.SetActive(false);
+                    UIComponent.SetActive(createdPopupPrefab.Value, false);
                 }
             }
             foreach (var stackPopupView in _stackPopupView)
@@ -86,7 +86,7 @@ namespace Ryneus
                 stackPopupView.Dispose();
             }
             _stackPopupView.Clear();
-            gameObject.SetActive(false);
+            UIComponent.SetActive(gameObject, false);
         }
 
         public void CloseTutorialPopup()
@@ -103,7 +103,7 @@ namespace Ryneus
             }
             if (_stackPopupView.Count == 0)
             {
-                gameObject.SetActive(false);
+                UIComponent.SetActive(gameObject, false);
             }
         }
     }

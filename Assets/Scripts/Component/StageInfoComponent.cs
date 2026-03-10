@@ -43,10 +43,7 @@ namespace Ryneus
             var stageData = stageInfo.Master;
             UpdateData(stageData);
             UIComponent.SetText(help, stageData.Help.Replace("\\p", CurrentData.PlayerInfo.PlayerName.Value));
-            if (cleared != null)
-            {
-                cleared.SetActive(stageInfo.Cleared.Value);
-            }
+            UIComponent.SetActive(cleared, stageInfo.Cleared.Value);
             var bossEnemyData = stageInfo.BossEnemyData();
             if (bossEnemyData != null && !stageInfo.Cleared.Value)
             {
@@ -72,7 +69,7 @@ namespace Ryneus
                 {
                     symbolNum += CurrentDeckInfo.RemainEncountTimes();
                 }
-                dungeonEnemySymbolRoot.SetActive(symbolNum > 0);
+                UIComponent.SetActive(dungeonEnemySymbolRoot, symbolNum > 0);
                 UIComponent.SetText(dungeonEnemySymbolNum, "x" + symbolNum);
             }
         }
@@ -88,18 +85,10 @@ namespace Ryneus
             UIComponent.SetText(stageNoText, DataSystem.GetReplaceText(15010, stageData.StageNo.ToString()));
             UIComponent.SetText(needStageRank, stageData.DisplayRank.ToString() + "～");
             UIComponent.SetImage(stageImage, ResourceSystem.BackGroundPath(stageData.BackGround));
-            if (mainStage != null)
-            {
-                mainStage.SetActive(stageData.Category == StageCategory.Main);
-            }
-            if (subStage != null)
-            {
-                subStage.SetActive(stageData.Category == StageCategory.Sub);
-            }
-            if (battleFieldStage != null)
-            {
-                battleFieldStage.SetActive(stageData.Category == StageCategory.BattleField);
-            }
+
+            UIComponent.SetActive(mainStage, stageData.Category == StageCategory.Main);
+            UIComponent.SetActive(subStage, stageData.Category == StageCategory.Sub);
+            UIComponent.SetActive(battleFieldStage, stageData.Category == StageCategory.BattleField);
         }
     }
 }

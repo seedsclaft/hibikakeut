@@ -22,7 +22,7 @@ namespace Ryneus
 
         public void UpdateInfo(List<SkillInfo> skillInfos)
         {
-            alcana?.gameObject.SetActive(skillInfos.Count > 0);
+            UIComponent.SetActive(alcana, skillInfos.Count > 0);
             UIComponent.SetText(alcanaCount, skillInfos.Count);
             if (alcanaButtonKey != null)
             {

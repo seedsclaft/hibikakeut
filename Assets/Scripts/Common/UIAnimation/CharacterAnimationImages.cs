@@ -75,7 +75,7 @@ namespace Ryneus
 
         public void SetActiveCircle(bool isActive)
         {
-            magicCircle.SetActive(isActive);
+            UIComponent.SetActive(magicCircle, isActive);
         }
 
         public void UpdateInfo(BattlerInfo battlerInfo)
@@ -107,20 +107,12 @@ namespace Ryneus
 
         public void SetSelectArrow(bool isSelect)
         {
-            if (selectArrow == null)
-            {
-                return;
-            }
-            selectArrow.SetActive(isSelect);
+            UIComponent.SetActive(selectArrow, isSelect);
         }
 
         public void SetActivecandidateSelect(bool isActive)
         {
-            if (candidateSelect == null)
-            {
-                return;
-            }
-            candidateSelect.gameObject.SetActive(isActive);
+            UIComponent.SetActive(candidateSelect?.gameObject, isActive);
         }
 
         private void Update()

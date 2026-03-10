@@ -33,10 +33,7 @@ namespace Ryneus
 
         public void SetLearnSkillInfo(LearnSkillInfo learnSkillInfo)
         {
-            if (evaluateObj != null)
-            {
-                evaluateObj.SetActive(learnSkillInfo.From != learnSkillInfo.To);
-            }
+            UIComponent.SetActive(evaluateObj, learnSkillInfo.From != learnSkillInfo.To);
             UIComponent.SetText(evaluateText, DataSystem.GetReplaceDecimalText(learnSkillInfo.From.Value));
             UIComponent.SetText(afterEvaluateText, DataSystem.GetReplaceDecimalText(learnSkillInfo.To.Value));
             if (learnSkillInfo != null && learnSkillInfo.SkillInfos.Count > 0)

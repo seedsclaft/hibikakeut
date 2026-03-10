@@ -24,12 +24,12 @@ namespace Ryneus
         {
             if (icon != null)
             {
-                icon.gameObject.SetActive(true);
+                UIComponent.SetActive(icon, true);
                 UpdateItemIcon(itemData.IconIndex);
             }
             if (iconBack != null)
             {
-                iconBack.gameObject.SetActive(true);
+                UIComponent.SetActive(iconBack, true);
                 UpdateItemIconBack(itemData.ItemType, itemData.Param2);
             }
             UIComponent.SetText(itemName, itemData.Name);
@@ -38,7 +38,7 @@ namespace Ryneus
 
         private void UpdateItemIcon(int iconIndex)
         {
-            icon.gameObject.SetActive(true);
+            UIComponent.SetActive(icon, true);
             if (icon != null)
             {
                 icon.sprite = ResourceSystem.LoadSBuffIcon(iconIndex);
@@ -47,7 +47,7 @@ namespace Ryneus
 
         private void UpdateItemIconBack(ItemType itemType, int attributeType)
         {
-            iconBack.gameObject.SetActive(true);
+            UIComponent.SetActive(iconBack, true);
             if (iconBack != null)
             {
                 iconBack.sprite = ResourceSystem.LoadItemIconBase(itemType, (AttributeType)attributeType);
@@ -56,14 +56,8 @@ namespace Ryneus
 
         public void Clear()
         {
-            if (icon != null)
-            {
-                icon.gameObject.SetActive(false);
-            }
-            if (iconBack != null)
-            {
-                iconBack.gameObject.SetActive(false);
-            }
+            UIComponent.SetActive(icon, false);
+            UIComponent.SetActive(iconBack, false);
             UIComponent.ClearText(itemName);
             UIComponent.ClearText(description);
         }

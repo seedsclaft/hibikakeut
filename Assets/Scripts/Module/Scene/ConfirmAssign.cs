@@ -21,10 +21,10 @@ namespace Ryneus
                 _createdPopupPrefabs[popupType] = prefab;
                 first = true;
             }
-            gameObject.SetActive(true);
+            UIComponent.SetActive(gameObject, true);
             prefab = _createdPopupPrefabs[popupType];
             _stackPopupPrefab.Add(prefab);
-            prefab.SetActive(true);
+            UIComponent.SetActive(prefab, true);
             prefab.transform.SetAsLastSibling();
             return first;
         }
@@ -40,19 +40,19 @@ namespace Ryneus
             {
                 foreach (var stackPopupPrefab in _stackPopupPrefab)
                 {
-                    stackPopupPrefab.gameObject.SetActive(false);
+                    UIComponent.SetActive(stackPopupPrefab.gameObject, false);
                 }
             }
             foreach(Transform child in transform)
             {
                 //Destroy(child.gameObject);
             }
-            gameObject.SetActive(false);
+            UIComponent.SetActive(gameObject, false);
         }
 
         public void HideConfirm()
         {
-            gameObject.SetActive(false);
+            UIComponent.SetActive(gameObject, false);
         }
     }
 

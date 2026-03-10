@@ -22,7 +22,7 @@ namespace Ryneus
         {
             var prefab = Instantiate(GetStatusObject(statusType));
             prefab.transform.SetParent(transform, false);
-            gameObject.SetActive(true);
+            UIComponent.SetActive(gameObject, true);
             _statusView = prefab.GetComponent<BaseView>();
             _statusView?.SetHelpWindow(helpWindow);
             return prefab;
@@ -40,7 +40,7 @@ namespace Ryneus
                 Destroy(child.gameObject);
             }
             _statusView = null;
-            gameObject.SetActive(false);
+            UIComponent.SetActive(gameObject, false);
         }
 
         public void SetBusy(bool isBusy)

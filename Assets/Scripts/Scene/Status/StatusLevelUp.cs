@@ -71,7 +71,7 @@ namespace Ryneus
 
         public void SetLearnMagicButtonActive(bool IsActive)
         {
-            learnMagicBackButton?.gameObject.SetActive(IsActive);
+            UIComponent.SetActive(learnMagicBackButton?.gameObject, IsActive);
         }
 
         public void SetLvUpInfo(int cost,int currency)

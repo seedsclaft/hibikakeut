@@ -163,7 +163,7 @@ namespace Ryneus
 
         public void SetActiveActorInfo(bool isActive)
         {
-            selectingActorInfoComponent.gameObject.SetActive(isActive);
+            UIComponent.SetActive(selectingActorInfoComponent?.gameObject, isActive);
         }
 
         private void OnSelectEquipSkill()
@@ -269,35 +269,35 @@ namespace Ryneus
 
         public void SetActiveArrows(bool isActive)
         {
-            leftArrowButton.gameObject.SetActive(isActive);
-            rightArrowButton.gameObject.SetActive(isActive);
+            UIComponent.SetActive(leftArrowButton?.gameObject, isActive);
+            UIComponent.SetActive(rightArrowButton?.gameObject, isActive);
         }
 
         public void CallEquipSkillList(bool isDecide)
         {
-            magicListRoot.SetActive(true);
-            useItemRoot.SetActive(false);
+            UIComponent.SetActive(magicListRoot, true);
+            UIComponent.SetActive(useItemRoot, false);
             SetActivate(equipSkillList);
-            equipSkillList.gameObject.SetActive(true);
+            UIComponent.SetActive(equipSkillList?.gameObject, true);
             if (!isDecide)
             {
-                magicListButton.gameObject.SetActive(true);
-                useItemButton.gameObject.SetActive(true);
+                UIComponent.SetActive(magicListButton?.gameObject, true);
+                UIComponent.SetActive(useItemButton?.gameObject, true);
             }
-            changeSkillList.gameObject.SetActive(false);
+            UIComponent.SetActive(changeSkillList?.gameObject, false);
             //useItemList.gameObject.SetActive(false);
-            filterRoot.SetActive(false);
+            UIComponent.SetActive(filterRoot, false);
         }
 
         public void CallChangeSkillList()
         {
             SetActivate(changeSkillList);
-            changeSkillList.gameObject.SetActive(true);
-            equipSkillList.gameObject.SetActive(false);
-            magicListButton.gameObject.SetActive(false);
-            useItemButton.gameObject.SetActive(false);
+            UIComponent.SetActive(changeSkillList?.gameObject, true);
+            UIComponent.SetActive(equipSkillList?.gameObject, false);
+            UIComponent.SetActive(magicListButton?.gameObject, false);
+            UIComponent.SetActive(useItemButton?.gameObject, false);
             //useItemList.gameObject.SetActive(false);
-            filterRoot.SetActive(true);
+            UIComponent.SetActive(filterRoot, true);
         }
 
         public void CallUseItemList()
@@ -335,14 +335,14 @@ namespace Ryneus
             {
                 return;
             }
-            decideButton.gameObject.SetActive(isActive);
+            UIComponent.SetActive(decideButton?.gameObject, isActive);
             if (isActive)
             {
                 SetDecideAnimation();
-                magicListButton.gameObject.SetActive(false);
-                changeSkillBatch.gameObject.SetActive(false);
-                useItemButton.gameObject.SetActive(false);
-                useItemBatch.gameObject.SetActive(false);
+                UIComponent.SetActive(magicListButton?.gameObject, false);
+                UIComponent.SetActive(changeSkillBatch, false);
+                UIComponent.SetActive(useItemButton?.gameObject, false);
+                UIComponent.SetActive(useItemBatch, false);
             }
         }
 
@@ -366,11 +366,7 @@ namespace Ryneus
 
         public void SetActiveLvUpInfo(bool isActive)
         {
-            if (statusLevelUpRoot == null)
-            {
-                return;
-            }
-            statusLevelUpRoot.SetActive(isActive);
+            UIComponent.SetActive(statusLevelUpRoot, isActive);
         }
 
         public void SetLvUpInfo(int cost, int currency)
@@ -393,11 +389,7 @@ namespace Ryneus
 
         public void SetActiveCharacterList(bool isActive)
         {
-            if (characterListButton == null)
-            {
-                return;
-            }
-            characterListButton.gameObject.SetActive(isActive);
+            UIComponent.SetActive(characterListButton?.gameObject, isActive);
         }
 
         private void OnClickBack()
@@ -466,20 +458,12 @@ namespace Ryneus
 
         public void UpdateUseItemBatch(bool isActive)
         {
-            if (useItemBatch == null)
-            {
-                return;
-            }
-            useItemBatch.SetActive(isActive);
+            UIComponent.SetActive(useItemBatch, isActive);
         }
 
         public void UpdateChangeSkillBatch(bool isActive)
         {
-            if (changeSkillBatch == null)
-            {
-                return;
-            }
-            //changeSkillBatch.SetActive(isActive);
+            UIComponent.SetActive(changeSkillBatch, isActive);
         }
 
         public void CommandScrollUpSkillHelp()

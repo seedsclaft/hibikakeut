@@ -30,12 +30,13 @@ namespace Ryneus
             UIComponent.SetText(optionName, data.Name);
             UIComponent.SetText(optionHelp, data.Help);
             SetResolutionText();
+ 
+            UIComponent.SetActive(optionVolume.gameObject, data.ButtonType == OptionButtonType.Slider);
+            optionToggles.ForEach(a => UIComponent.SetActive(a.gameObject, data.ButtonType == OptionButtonType.Toggle));
 
-            optionVolume.gameObject.SetActive(data.ButtonType == OptionButtonType.Slider);
-            optionToggles.ForEach(a => a.gameObject.SetActive(data.ButtonType == OptionButtonType.Toggle));
-            minusButton.gameObject.SetActive(data.ButtonType == OptionButtonType.Resolution);
-            plusButton.gameObject.SetActive(data.ButtonType == OptionButtonType.Resolution);
-            resolution.gameObject.SetActive(data.ButtonType == OptionButtonType.Resolution);
+            UIComponent.SetActive(minusButton.gameObject, data.ButtonType == OptionButtonType.Resolution);
+            UIComponent.SetActive(plusButton.gameObject, data.ButtonType == OptionButtonType.Resolution);
+            UIComponent.SetActive(resolution.gameObject, data.ButtonType == OptionButtonType.Resolution);
 
             if (data.ToggleText1 > 0)
             {
@@ -43,7 +44,7 @@ namespace Ryneus
             }
             else
             {
-                optionToggles[0].gameObject.SetActive(false);
+                UIComponent.SetActive(optionToggles[0].gameObject, false);
             }
             if (data.ToggleText2 > 0)
             {
@@ -51,7 +52,7 @@ namespace Ryneus
             }
             else
             {
-                optionToggles[1].gameObject.SetActive(false);
+                UIComponent.SetActive(optionToggles[1].gameObject, false);
             }
             if (data.ToggleText3 > 0)
             {
@@ -59,7 +60,7 @@ namespace Ryneus
             }
             else
             {
-                optionToggles[2].gameObject.SetActive(false);
+                UIComponent.SetActive(optionToggles[2].gameObject, false);
             }
             UpdateOptionValues(data);
 

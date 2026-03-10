@@ -46,9 +46,9 @@ namespace Ryneus
 
         public void SetDisable()
         {
+            UIComponent.SetActive(Disable, true);
             if (Disable != null)
             {
-                Disable.SetActive(true);
                 clickButton.enabled = false;
             }
         }

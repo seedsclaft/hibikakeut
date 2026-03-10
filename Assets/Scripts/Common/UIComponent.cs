@@ -89,5 +89,32 @@ namespace Ryneus
             }
             image.sprite = sprite;
         }
+
+        public static void SetActive(GameObject gameObject, bool isActive)
+        {
+            if (gameObject == null)
+            {
+                return;
+            }
+            gameObject.SetActive(isActive);
+        }
+
+        public static void SetActive(TextMeshProUGUI textMeshProUGUI, bool isActive)
+        {
+            if (textMeshProUGUI == null)
+            {
+                return;
+            }
+            SetActive(textMeshProUGUI.gameObject, isActive);
+        }
+
+        public static void SetActive(Image image, bool isActive)
+        {
+            if (image == null)
+            {
+                return;
+            }
+            SetActive(image.gameObject, isActive);
+        }
     }
 }

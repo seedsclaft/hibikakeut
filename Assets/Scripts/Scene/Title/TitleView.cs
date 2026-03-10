@@ -26,9 +26,9 @@ namespace Ryneus
             });
             sideMenuInput.UpdateGuideIcon(InputKeyType.SideRight1);
 #if UNITY_WEBGL
-            webglVideoPlayer.gameObject.SetActive(true);
+            UIComponent.SetActive(webglVideoPlayer?.gameObject, true);
 #else
-            videoPlayer.gameObject.SetActive(true);
+            UIComponent.SetActive(videoPlayer?.gameObject, true);
 #endif
             _ = new TitlePresenter(this);
         }

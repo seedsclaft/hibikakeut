@@ -79,9 +79,9 @@ namespace Ryneus
             skillTriggerList?.Initialize();
             attributeList?.Initialize();
             kindList?.Initialize();
-            kindList?.gameObject?.SetActive(kindList != null);
+            UIComponent.SetActive(kindList?.gameObject, kindList != null);
             //SetInputHandler(attributeList.GetComponent<IInputHandlerEvent>());
-            attributeList?.gameObject.SetActive(false);
+            UIComponent.SetActive(attributeList?.gameObject, false);
             _isInit = true;
             toggleSelect.Initialize(new List<string>()
             {
@@ -95,16 +95,15 @@ namespace Ryneus
             {
                 skillTriggerList.UpdateHelpWindow();
             });
-            gameObject.SetActive(false);
-            lvResetButton?.gameObject.SetActive(false);
+            UIComponent.SetActive(gameObject, false);
+            UIComponent.SetActive(lvResetButton?.gameObject, false);
             UpdateTabs();
         }
 
         public void InitializeLvReset(System.Action lvResetEvent)
         {
-            lvResetButton?.gameObject.SetActive(true);
+            UIComponent.SetActive(lvResetButton?.gameObject, true);
             lvResetButton?.OnClickAddListener(() =>
-
             {
                 lvResetEvent?.Invoke();
             });
@@ -112,9 +111,8 @@ namespace Ryneus
 
         public void SetStatusButtonEvent(System.Action statusEvent)
         {
-            statusButton?.gameObject.SetActive(true);
+            UIComponent.SetActive(statusButton?.gameObject, true);
             statusButton.onClick.AddListener(() =>
-
             {
                 statusEvent?.Invoke();
             });
@@ -162,7 +160,7 @@ namespace Ryneus
 
         public void HideStatus()
         {
-            statusInfoComponent.gameObject.SetActive(false);
+            UIComponent.SetActive(statusInfoComponent?.gameObject, false);
         }
 
         public void SetSkillInfos(List<ListData> skillInfoData)
@@ -215,12 +213,12 @@ namespace Ryneus
 
         public void ShowActionList()
         {
-            gameObject.SetActive(true);
+            UIComponent.SetActive(gameObject, true);
         }
 
         public void HideActionList()
         {
-            gameObject.SetActive(false);
+            UIComponent.SetActive(gameObject, false);
         }
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)

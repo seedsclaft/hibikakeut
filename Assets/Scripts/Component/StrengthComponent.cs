@@ -27,7 +27,7 @@ namespace Ryneus
             if (afterStatus != null)
             {
                 var plus = _actorInfo.LevelUpStatus(_actorInfo.Level).GetParameter(statusParamType);
-                afterStatus.gameObject.SetActive(plus > before);
+                UIComponent.SetActive(afterStatus, plus > before);
                 UIComponent.SetText(afterStatus, plus);
             }
             int UseCost = _actorInfo.LevelGrowthRate(statusParamType,actorInfo.Level);

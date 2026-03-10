@@ -53,10 +53,7 @@ namespace Ryneus
                 battlerRect.localPosition = new Vector3(x, 0);
             }
             //UpdateLocalPosition(battlerInfo);
-            if (Disable != null)
-            {
-                Disable.SetActive(!ListData.Enable.Value);
-            }
+            UIComponent.SetActive(Disable, !ListData.Enable.Value);
         }
 
         public void SetSmallScale()
@@ -67,19 +64,12 @@ namespace Ryneus
 
         public void SetDisable()
         {
-            if (Disable != null)
-            {
-                Disable.SetActive(true);
-            }
+            UIComponent.SetActive(Disable, true);
         }
 
         public void SetActivecandidateSelect(bool isActive)
         {
-            if (candidateSelect == null)
-            {
-                return;
-            }
-            candidateSelect.SetActive(isActive);
+            UIComponent.SetActive(candidateSelect, isActive);
         }
     }
 }

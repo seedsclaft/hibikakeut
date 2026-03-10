@@ -87,10 +87,7 @@ namespace Ryneus
                     {
                         RenderSettings.skybox = null;
                         //playerCamera.SetActive(false);
-                        if (particlObject != null)
-                        {
-                            particlObject.SetActive(true);
-                        }
+                        UIComponent.SetActive(particlObject, true);
                         if (secondImage != null)
                         {
                             secondImage.DOFade(1, miniTiming);
@@ -107,10 +104,7 @@ namespace Ryneus
                     }
                     if (_lastMiniCount == 21)
                     {
-                        if (particlObject != null)
-                        {
-                            particlObject.SetActive(false);
-                        }
+                        UIComponent.SetActive(particlObject, false);
                         if (secondImage != null)
                         {
                             secondImage.DOFade(0, miniTiming);
@@ -127,17 +121,11 @@ namespace Ryneus
                     }
                     if (_lastMiniCount == 35)
                     {
-                        if (particlObject != null)
-                        {
-                            particlObject.SetActive(true);
-                        }
+                        UIComponent.SetActive(particlObject, true);
                     }
                     if (_lastMiniCount == 37)
                     {
-                        if (particlObject != null)
-                        {
-                            particlObject.SetActive(false);
-                        }
+                        UIComponent.SetActive(particlObject, false);
                         if (secondImage != null)
                         {
                             secondImage.DOFade(1, 0);
@@ -145,10 +133,7 @@ namespace Ryneus
                     }
                     if (_lastMiniCount == 38)
                     {
-                        if (particlObject != null)
-                        {
-                            particlObject.SetActive(false);
-                        }
+                        UIComponent.SetActive(particlObject, false);
                     }
 
                     if (_lastMiniCount == 37)
@@ -180,7 +165,7 @@ namespace Ryneus
 
                     if (_lastMiniCount == 49)
                     {
-                        eighthRoot.SetActive(true);
+                        UIComponent.SetActive(eighthRoot, true);
                         PlayTween(eighthBgTween, miniTiming);
                         foreach (var eighthTween in eighthTweens)
                         {
@@ -190,7 +175,7 @@ namespace Ryneus
 
                     if (_lastMiniCount == 53)
                     {
-                        eighthRoot.SetActive(false);
+                        UIComponent.SetActive(eighthRoot, false);
                         PlayTween(ninethTween, miniTiming);
                     }
                     if (_lastMiniCount == 56)
@@ -211,10 +196,7 @@ namespace Ryneus
                     {
                         PlayTween(elevenTween, miniTiming);
                         PlayTween(elevenTween2, miniTiming);
-                        if (particlObject != null)
-                        {
-                            particlObject.SetActive(true);
-                        }
+                        UIComponent.SetActive(particlObject, true);
                     }
                     _lastMiniCount++;
                 }

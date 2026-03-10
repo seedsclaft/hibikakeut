@@ -13,10 +13,7 @@ namespace Ryneus
             }
             var data = ListItemData<AchievementInfo>();
             component.UpdateInfo(data);
-            if (Disable != null)
-            {
-                Disable.SetActive(!ListData.Enable.Value);
-            }
+            UIComponent.SetActive(Disable, !ListData.Enable.Value);
         }
     }
 }

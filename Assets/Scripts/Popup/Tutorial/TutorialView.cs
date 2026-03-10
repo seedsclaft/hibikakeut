@@ -47,8 +47,8 @@ namespace Ryneus
             var frameTypeFocus = frameType == FrameType.Focus;
             ChangeBackCommandActive(frameTypeWindow || tutorialData.Param2 == 1);
             // 最初だけ
-            toggleObj.SetActive(tutorialData.Id == 1000);
-            frameObj.SetActive(frameTypeWindow);
+            UIComponent.SetActive(toggleObj, tutorialData.Id == 1000);
+            UIComponent.SetActive(frameObj, frameTypeWindow);
             if (frameTypeWindow)
             {
                 var rect = frameObj.GetComponent<RectTransform>();
@@ -56,8 +56,8 @@ namespace Ryneus
                 rect.sizeDelta = new Vector3(tutorialData.Width, tutorialData.Height);
             }
             UIComponent.SetText(tutorialText, tutorialData.Help);
-            focusImage.gameObject.SetActive(frameTypeFocus);
-            focusText.gameObject.SetActive(frameTypeFocus);
+            UIComponent.SetActive(focusImage, frameTypeFocus);
+            UIComponent.SetActive(focusText, frameTypeFocus);
             if (frameTypeFocus)
             {
                 ShowFocusImage(tutorialData);

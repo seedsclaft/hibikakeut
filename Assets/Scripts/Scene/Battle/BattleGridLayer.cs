@@ -79,18 +79,18 @@ namespace Ryneus
             foreach (var data in _battlers)
             {
                 data.Value.RefreshStatus();
-                data.Value.gameObject.SetActive(data.Key.IsAlive() && data.Key.LineIndex == LineType.Front);
+                UIComponent.SetActive(data.Value.gameObject, data.Key.IsAlive() && data.Key.LineIndex == LineType.Front);
             }
         }
 
         public void Show()
         {
-            gameObject.SetActive(true);
+            UIComponent.SetActive(gameObject, true);
         }
 
         public void Hide()
         {
-            gameObject.SetActive(false);
+            UIComponent.SetActive(gameObject, false);
         }
     }
 }

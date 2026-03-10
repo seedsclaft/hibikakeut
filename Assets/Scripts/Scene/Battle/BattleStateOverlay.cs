@@ -63,7 +63,7 @@ namespace Ryneus
         {
             if (stateIconImage != null)
             {
-                stateIconImage.gameObject.SetActive(isActive);
+                UIComponent.SetActive(stateIconImage?.gameObject, isActive);
             }
         }
 
@@ -202,12 +202,12 @@ namespace Ryneus
 
         public void ShowStateOverlay()
         {
-            effekseerEmitter.gameObject.SetActive(true);
+            UIComponent.SetActive(effekseerEmitter?.gameObject, true);
         }
 
         public void HideStateOverlay()
         {
-            effekseerEmitter.gameObject.SetActive(false);
+            UIComponent.SetActive(effekseerEmitter?.gameObject, false);
         }
     }
 }

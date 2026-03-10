@@ -401,15 +401,12 @@ namespace Ryneus
             {
                 return;
             }
-            _backCommand.gameObject.SetActive(IsActive);
+            UIComponent.SetActive(_backCommand.gameObject, IsActive);
         }
 
         public void ChangeUIActive(bool IsActive)
         {
-            if (uiRoot != null)
-            {
-                uiRoot.SetActive(IsActive);
-            }
+            UIComponent.SetActive(uiRoot, IsActive);
         }
 
         public void SetTestMode(bool isTest)

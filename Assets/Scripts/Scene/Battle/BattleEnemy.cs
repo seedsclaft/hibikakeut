@@ -36,7 +36,7 @@ namespace Ryneus
         public void SetStatusRoot(GameObject statusRoot)
         {
             statusObject.transform.SetParent(statusRoot.transform, false);
-            statusRoot.SetActive(true);
+            UIComponent.SetActive(statusRoot, true);
             battlerInfoComponent.SetStatusRoot(statusObject);
         }
 
@@ -62,7 +62,7 @@ namespace Ryneus
         {
             if (Cursor == null) return;
             clickButton.enabled = true;
-            Cursor.SetActive(true);
+            UIComponent.SetActive(Cursor, true);
             cursorEffekseerEmitter.Stop();
             cursorEffekseerEmitter.Play(effekseerEffectAsset);
             cursorEffekseerEmitter.enabled = true;
@@ -74,7 +74,7 @@ namespace Ryneus
         {
             if (Cursor == null) return;
             clickButton.enabled = false;
-            Cursor.SetActive(false);
+            UIComponent.SetActive(Cursor, false);
             cursorEffekseerEmitter.enabled = false;
             cursorEffekseerEmitter.playOnStart = false;
             cursorEffekseerEmitter.isLooping = false;

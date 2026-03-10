@@ -36,25 +36,13 @@ namespace Ryneus
 
         public void Clear()
         {
-            symbolImage?.gameObject.SetActive(false);
-            enemyImage?.gameObject.SetActive(false);
-            if (selectArea != null)
-            {
-                selectArea?.SetActive(false);
-            }
-            if (attackableArea != null)
-            {
-                attackableArea?.SetActive(false);
-            }
-            if (homeTeamColor != null)
-            {
-                homeTeamColor?.SetActive(false);
-            }
-            if (awayTeamColor != null)
-            {
-                awayTeamColor?.SetActive(false);
-            }
-            gameObject.SetActive(true);
+            UIComponent.SetActive(symbolImage, false);
+            UIComponent.SetActive(enemyImage, false);
+            UIComponent.SetActive(selectArea, false);
+            UIComponent.SetActive(attackableArea, false);
+            UIComponent.SetActive(homeTeamColor, false);
+            UIComponent.SetActive(awayTeamColor, false);
+            UIComponent.SetActive(gameObject, true);
         }
 
         public void LostUnit()

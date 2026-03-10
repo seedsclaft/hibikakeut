@@ -58,7 +58,7 @@ namespace Ryneus
         {
             UIComponent.SetImage(image, ResourceSystem.EnemySpritePath(imagePath), () =>
             {
-                image.gameObject.SetActive(true);
+                UIComponent.SetActive(image, true);
                 var rect = image.GetComponent<RectTransform>();
                 rect.localPosition = new Vector3(x, y, 0);
                 rect.localScale = new Vector3(scale, scale, 1);
@@ -73,7 +73,7 @@ namespace Ryneus
         {
             UIComponent.SetImage(image, ResourceSystem.EnemySpritePath(imagePath), () =>
             {
-                image.gameObject.SetActive(true);
+                UIComponent.SetActive(image, true);
                 var rect = image.GetComponent<RectTransform>();
                 rect.localPosition = new Vector3(x, y, 0);
                 rect.localScale = new Vector3(scale, scale, 1);
@@ -121,7 +121,7 @@ namespace Ryneus
         {
             for (int i = 0;i < weakPoints.Count;i++)
             {
-                weakPoints[i].gameObject.SetActive(kindTypes.Count > i);
+                UIComponent.SetActive(weakPoints[i].gameObject, kindTypes.Count > i);
                 if (kindTypes.Count <= i)
                 {
                     continue;
@@ -146,10 +146,7 @@ namespace Ryneus
 
         public void Clear()
         {
-            if (mainThumb != null)
-            {
-                mainThumb.gameObject.SetActive(false);
-            }
+            UIComponent.SetActive(mainThumb, false);
             UIComponent.ClearText(nameText);
             UIComponent.ClearText(gridKey);
         }
@@ -158,7 +155,7 @@ namespace Ryneus
         {
             foreach (var actorOnlyGameObject in actorOnlyGameObjects)
             {
-                actorOnlyGameObject.SetActive(false);
+                UIComponent.SetActive(actorOnlyGameObject, false);
             }
         }
 

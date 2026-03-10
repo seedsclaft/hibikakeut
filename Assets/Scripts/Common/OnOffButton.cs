@@ -64,7 +64,7 @@ namespace Ryneus
         {
             if (Disable != null && Disable.activeSelf)
             {
-                Cursor.SetActive(isActive);
+                UIComponent.SetActive(Cursor, isActive);
             }
             if (isActive)
             {
