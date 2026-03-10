@@ -4,6 +4,7 @@ using Ryneus;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 namespace Ariadne
 {
@@ -312,9 +313,10 @@ namespace Ariadne
         /// </Summary>
         protected virtual void PlayerMove()
         {
+            var keyCurrent = Keyboard.current;
             if (isEventReady)
             {
-                if (Input.GetKeyUp(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow))
+                if (keyCurrent.spaceKey.wasPressedThisFrame || keyCurrent.upArrowKey.wasPressedThisFrame)
                 {
                     canMove = false;
                     OnEventKeyPressed();
@@ -322,15 +324,15 @@ namespace Ariadne
                 }
             }
 
-            if (Input.GetKey(KeyCode.UpArrow) || isPressedMoveFront)
+            if (keyCurrent.upArrowKey.wasPressedThisFrame || isPressedMoveFront)
             {
                 MoveFrontProcess();
                 return;
             }
 
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            if (keyCurrent.leftShiftKey.wasPressedThisFrame || keyCurrent.rightShiftKey.wasPressedThisFrame)
             {
-                if (Input.GetKey(KeyCode.LeftArrow) || isPressedTurnLeft)
+                if (keyCurrent.leftArrowKey.wasPressedThisFrame || isPressedTurnLeft)
                 {
                     Direction dir = new Direction();
                     DungeonDir targetDir = dir.GetCounterclockwiseDir(PlayerPosition.Instance.direction);
@@ -338,7 +340,7 @@ namespace Ariadne
                     return;
                 }
 
-                if (Input.GetKey(KeyCode.RightArrow) || isPressedTurnRight)
+                if (keyCurrent.rightArrowKey.wasPressedThisFrame || isPressedTurnRight)
                 {
                     Direction dir = new Direction();
                     DungeonDir targetDir = dir.GetClockwiseDir(PlayerPosition.Instance.direction);
@@ -346,7 +348,7 @@ namespace Ariadne
                     return;
                 }
 
-                if (Input.GetKey(KeyCode.DownArrow) || isPressedTurnBack)
+                if (keyCurrent.downArrowKey.wasPressedThisFrame || isPressedTurnBack)
                 {
                     Direction dir = new Direction();
                     DungeonDir targetDir = dir.GetReverseDir(PlayerPosition.Instance.direction);
@@ -356,19 +358,19 @@ namespace Ariadne
             }
             else
             {
-                if (Input.GetKey(KeyCode.LeftArrow) || isPressedTurnLeft)
+                if (keyCurrent.leftArrowKey.wasPressedThisFrame || isPressedTurnLeft)
                 {
                     TurnProcess(TurnLeft);
                     return;
                 }
 
-                if (Input.GetKey(KeyCode.RightArrow) || isPressedTurnRight)
+                if (keyCurrent.rightArrowKey.wasPressedThisFrame || isPressedTurnRight)
                 {
                     TurnProcess(TurnRight);
                     return;
                 }
 
-                if (Input.GetKey(KeyCode.DownArrow) || isPressedTurnBack)
+                if (keyCurrent.downArrowKey.wasPressedThisFrame || isPressedTurnBack)
                 {
                     TurnProcess(TurnBack);
                     return;

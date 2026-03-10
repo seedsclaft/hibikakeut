@@ -76,11 +76,13 @@ namespace Ryneus
             if (currentStatus > baseStatus)
             {
                 text.color = upperColor;
-            } else
+            }
+            else
             if (currentStatus < baseStatus)
             {
                 text.color = downColor;
-            } else
+            }
+            else
             {
                 text.color = normalColor;
             }

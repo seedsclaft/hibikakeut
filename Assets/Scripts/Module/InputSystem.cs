@@ -329,7 +329,7 @@ namespace Ryneus
         {
             if (IsPlatformStandAloneOrEditor() || EnableWebGLInput())
             {
-                return Input.GetMouseButtonDown(0);
+                return Mouse.current.leftButton.wasPressedThisFrame;
             }
             return false;
         }
@@ -338,7 +338,7 @@ namespace Ryneus
         {
             if (IsPlatformStandAloneOrEditor() || EnableWebGLInput())
             {
-                return Input.GetMouseButtonDown(1);
+                return Mouse.current.rightButton.wasPressedThisFrame;
             }
             return false;
         }
@@ -347,7 +347,7 @@ namespace Ryneus
         {
             if (IsPlatformStandAloneOrEditor() || EnableWebGLInput())
             {
-                return Input.mousePosition;
+                return Mouse.current.position.ReadValue();
             }
             return new Vector3(0, 0, 0);
         }
@@ -356,7 +356,7 @@ namespace Ryneus
         {
             if (IsPlatformStandAloneOrEditor() || EnableWebGLInput())
             {
-                return Input.mouseScrollDelta;
+                return Mouse.current.scroll.ReadValue();
             }
             return new Vector2(0, 0);
         }

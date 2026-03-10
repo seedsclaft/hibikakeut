@@ -60,7 +60,7 @@ namespace Ryneus
         private readonly Dictionary<int, BattlerInfoComponent> _fieldBattlerComps = new();
 
         private bool _skipBattle = false;
-        public override void Initialize() 
+        public override void Initialize()
         {
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.Battle);
@@ -190,7 +190,7 @@ namespace Ryneus
             var selects = new List<int>();
             foreach (var select in selectIndexes)
             {
-                selects.Add(select-1);
+                selects.Add(select - 1);
             }
             battleActorList.SetSelectIndexes(selects);
             battleActorList.UpdateSelectIndex(selects[0]);
@@ -204,7 +204,7 @@ namespace Ryneus
             battleThumb.HideThumb();
             SetActivate(battleEnemyList);
             battleEnemyList.SetSelectIndexes(selectIndexes);
-            battleEnemyList.UpdateSelectIndex(selectIndexes[0]-101);
+            battleEnemyList.UpdateSelectIndex(selectIndexes[0] - 101);
             battleActorList.ClearSelect();
             battleFieldView.SetSelectIndexes(selectIndexes[0]);
             //battleFieldView.UpdateSelectIndex(selectIndexes[0]-101);
@@ -298,13 +298,13 @@ namespace Ryneus
             var listData = magicList.ListItemData<SkillInfo>();
             if (listData != null && listData.Enable)
             {
-                CallViewEvent(CommandType.OnSelectSkill,listData);
+                CallViewEvent(CommandType.OnSelectSkill, listData);
             }
         }
 
         private void OnSelectTarget(InputKeyType inputKeyType)
         {
-            CallViewEvent(CommandType.OnSelectTarget,inputKeyType);
+            CallViewEvent(CommandType.OnSelectTarget, inputKeyType);
         }
 
         private void OnDecideEnemy()
@@ -312,7 +312,7 @@ namespace Ryneus
             var listData = battleEnemyList.ListItemData<BattlerInfo>();
             if (listData != null)
             {
-                CallViewEvent(CommandType.OnDecideEnemy,listData);
+                CallViewEvent(CommandType.OnDecideEnemy, listData);
             }
         }
 
@@ -321,13 +321,13 @@ namespace Ryneus
             var listData = battleActorList.ListItemData<BattlerInfo>();
             if (listData != null)
             {
-                CallViewEvent(CommandType.OnDecideActor,listData);
+                CallViewEvent(CommandType.OnDecideActor, listData);
             }
         }
 
         public void EndActionSelect()
         {
-            UpdateSelectCursor(new List<int>(){});
+            UpdateSelectCursor(new List<int>() { });
             SetDeactivate();
             battleThumb.HideThumb();
             UIComponent.SetActive(magicList?.gameObject, false);
@@ -356,8 +356,8 @@ namespace Ryneus
 
         public void EndFormation()
         {
-            battleActorList.SetInputHandler(InputKeyType.Decide,() => OnDecideActor());
-            battleActorList.SetInputHandler(InputKeyType.Cancel,() => CallViewEvent(CommandType.OnCancelActor));
+            battleActorList.SetInputHandler(InputKeyType.Decide, () => OnDecideActor());
+            battleActorList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.OnCancelActor));
             battleActorList.UpdateSelectIndex(-1);
             SetDeactivate();
         }
@@ -440,7 +440,7 @@ namespace Ryneus
             {
                 return;
             }
-            CallViewEvent(CommandType.ChangeBattleSpeed,plus);
+            CallViewEvent(CommandType.ChangeBattleSpeed, plus);
         }
 
         public void CreateObject()
@@ -475,13 +475,13 @@ namespace Ryneus
                 new Vector3(enemyListRect.localPosition.x,enemyListRect.localPosition.y,0),
                 duration);
                 */
-                /*
-            var borderRect = battleGridLayer.GetComponent<RectTransform>();
-            AnimationUtility.LocalMoveToTransform(borderRect.gameObject,
-                new Vector3(borderRect.localPosition.x,borderRect.localPosition.y,0),
-                new Vector3(borderRect.localPosition.x,borderRect.localPosition.y-480,0),
-                duration);
-                */
+            /*
+        var borderRect = battleGridLayer.GetComponent<RectTransform>();
+        AnimationUtility.LocalMoveToTransform(borderRect.gameObject,
+            new Vector3(borderRect.localPosition.x,borderRect.localPosition.y,0),
+            new Vector3(borderRect.localPosition.x,borderRect.localPosition.y-480,0),
+            duration);
+            */
         }
 
         public void ChangeSideMenuButtonActive(bool isActive)
@@ -490,7 +490,7 @@ namespace Ryneus
         }
 
         private void OnClickBack()
-        { 
+        {
             CallViewEvent(CommandType.Back);
             SetInputFrame(1);
         }
@@ -547,7 +547,7 @@ namespace Ryneus
             battleThumb.HideThumb();
         }
 
-        public void RefreshMagicList(List<ListData> skillInfos,int selectIndex)
+        public void RefreshMagicList(List<ListData> skillInfos, int selectIndex)
         {
             //selectCharacter.SetActiveTab(SelectCharacterTabType.Detail,false);
         }
@@ -613,7 +613,7 @@ namespace Ryneus
             }
         }
 
-        public void SetCurrentSkillData(SkillInfo skillInfo,BattlerInfo battlerInfo)
+        public void SetCurrentSkillData(SkillInfo skillInfo, BattlerInfo battlerInfo)
         {
             UIComponent.SetActive(skillInfoComponent?.gameObject, true);
             skillInfoComponent.UpdateInfo(skillInfo);
@@ -648,7 +648,7 @@ namespace Ryneus
             await battleFieldView.StartAnimation(targetIndex, effekseerEffectAsset, animationPosition, animationScale, animationSpeed, soundPlay);
         }
 
-        public void StartAnimationAll(EffekseerEffectAsset effekseerEffectAsset,AnimationPosition animationPosition,float animationScale = 1.0f,float animationSpeed = 1.0f)
+        public void StartAnimationAll(EffekseerEffectAsset effekseerEffectAsset, AnimationPosition animationPosition, float animationScale = 1.0f, float animationSpeed = 1.0f)
         {
             UIComponent.SetActive(magicList?.gameObject, false);
             if (GameSystem.OptionData.BattleAnimationSkip)
@@ -657,7 +657,7 @@ namespace Ryneus
             }
             animationSpeed *= GameSystem.OptionData.BattleSpeed;
 
-            effekseerEmitter.transform.localScale = new Vector3(animationScale,animationScale,animationScale);
+            effekseerEmitter.transform.localScale = new Vector3(animationScale, animationScale, animationScale);
             if (effekseerEffectAsset == null)
             {
                 effekseerEmitter.Stop();
@@ -695,7 +695,7 @@ namespace Ryneus
             }
         }
 
-        public void StartDamage(int targetIndex,DamageType damageType,int value,bool needPopupDelay = true)
+        public void StartDamage(int targetIndex, DamageType damageType, int value, bool needPopupDelay = true)
         {
             if (!_battlerComps.ContainsKey(targetIndex))
             {
@@ -714,7 +714,7 @@ namespace Ryneus
             _battlerComps[targetIndex].StartBlink();
         }
 
-        public void StartHeal(int targetIndex,DamageType damageType, int value, bool needPopupDelay = true)
+        public void StartHeal(int targetIndex, DamageType damageType, int value, bool needPopupDelay = true)
         {
             if (!_battlerComps.ContainsKey(targetIndex))
             {
@@ -828,16 +828,18 @@ namespace Ryneus
             CallViewEvent(CommandType.SelectSideMenu);
         }
 
-        public void InputHandler(List<InputKeyType> keyTypes,bool pressed)
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
             if (InputSystem.GetInputDate(InputKeyType.Start).IsDownTrigger())
             {
                 CallViewEvent(CommandType.DecideBattle);
-            } else
+            }
+            else
             if (InputSystem.GetInputDate(InputKeyType.Option2).IsDownTrigger())
             {
                 CallViewEvent(CommandType.Formation);
-            } else
+            }
+            else
             if (InputSystem.GetInputDate(InputKeyType.Select).IsDownTrigger())
             {
                 if (!battleAutoButton.gameObject.activeSelf)
@@ -845,31 +847,33 @@ namespace Ryneus
                     return;
                 }
                 CallViewEvent(CommandType.ChangeBattleAuto);
-            } else
+            }
+            else
             if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
             {
                 if (!battleSpeedButton.gameObject.activeSelf)
                 {
                     return;
                 }
-                CallViewEvent(CommandType.ChangeBattleSpeed,-1);
-            } else
+                CallViewEvent(CommandType.ChangeBattleSpeed, -1);
+            }
+            else
             if (InputSystem.GetInputDate(InputKeyType.SideRight1).IsDownTrigger())
             {
                 if (!battleSpeedButton.gameObject.activeSelf)
                 {
                     return;
                 }
-                CallViewEvent(CommandType.ChangeBattleSpeed,1);
+                CallViewEvent(CommandType.ChangeBattleSpeed, 1);
             }
         }
 
         public void ChangeBattleAuto(bool isAuto)
         {
-            UIComponent.SetActive(battleAutoButton?.gameObject, isAuto);
+            UIComponent.SetActive(battleAutoButton?.Cursor, isAuto);
         }
 
-        public async UniTask StartAnimationDemigod(BattlerInfo battlerInfo,SkillData skillData)
+        public async UniTask StartAnimationDemigod(BattlerInfo battlerInfo, SkillData skillData)
         {
             var speed = GameSystem.OptionData.BattleSpeed;
             if (!GameSystem.OptionData.BattleAnimationSkip)
@@ -884,7 +888,7 @@ namespace Ryneus
             }
         }
 
-        public async Task StartAnimationBeforeSkill(int subjectIndex,EffekseerEffectAsset effekseerEffect)
+        public async Task StartAnimationBeforeSkill(int subjectIndex, EffekseerEffectAsset effekseerEffect)
         {
             if (!_battlerComps.ContainsKey(subjectIndex))
             {

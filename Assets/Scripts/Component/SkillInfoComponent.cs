@@ -175,7 +175,6 @@ namespace Ryneus
             if (icon != null)
             {
                 icon.sprite = spriteAtlas.GetSprite(iconIndex.ToString());
-                //icon.sprite = ResourceSystem.LoadSBuffIcon((int)iconIndex);
             }
         }
 
@@ -183,10 +182,8 @@ namespace Ryneus
         {
             UIComponent.SetActive(iconBack, true);
 
-            //var spriteAtlas = ResourceSystem.LoadSpellIcons();
             if (iconBack != null)
             {
-                //iconBack.sprite = spriteAtlas.GetSprite(attributeType.ToString());
                 iconBack.sprite = ResourceSystem.LoadSpellIconBase(attributeType);
             }
         }
@@ -237,7 +234,7 @@ namespace Ryneus
             {
                 foreach (Transform child in skillTypeBgRoot.transform)
                 {
-                    child.gameObject.SetActive(false);
+                    UIComponent.SetActive(child.gameObject, false);
                 }
             }
             UIComponent.ClearText(description);

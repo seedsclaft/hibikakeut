@@ -47,7 +47,8 @@ namespace Ryneus
                 var height = 28;
                 //var sizeDelta = guideIcon.gameObject.GetComponent<RectTransform>().sizeDelta;
                 guideIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
-            } else
+            }
+            else
             {
                 guideIcon.sprite = keyboardIcons[(int)keyType];
                 var wide = (int)keyType + 1 is ((int)InputKeyType.Decide) or ((int)InputKeyType.Cancel);

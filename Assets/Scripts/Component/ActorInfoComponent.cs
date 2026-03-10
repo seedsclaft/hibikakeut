@@ -260,22 +260,10 @@ namespace Ryneus
         public void Clear()
         {
             var sprite = ResourceSystem.LoadResource<Sprite>(ResourceSystem.SystemTexturePath + "Dummy");
-            if (mainThumb != null)
-            {
-                mainThumb.sprite = sprite;
-            }
-            if (awakenThumb != null)
-            {
-                awakenThumb.sprite = sprite;
-            }
-            if (faceThumb != null)
-            {
-                faceThumb.sprite = sprite;
-            }
-            if (awakenFaceThumb != null)
-            {
-                awakenFaceThumb.sprite = sprite;
-            }
+            UIComponent.SetImage(mainThumb, sprite);
+            UIComponent.SetImage(awakenThumb, sprite);
+            UIComponent.SetImage(faceThumb, sprite);
+            UIComponent.SetImage(awakenFaceThumb, sprite);
             if (statusInfoComponent != null)
             {
                 statusInfoComponent.Clear();

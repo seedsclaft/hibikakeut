@@ -32,7 +32,7 @@ namespace Ryneus
             }
             var enemyData = battlerInfo.EnemyData;
             UpdateData(enemyData);
-            UIComponent.SetText(lv, battlerInfo.Level.Value);
+            UIComponent.SetText(lv, battlerInfo.Level);
             if (statusInfoComponent != null)
             {
                 HideActorOnly();

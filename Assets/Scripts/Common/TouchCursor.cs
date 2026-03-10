@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 
 namespace Ryneus
 {
@@ -14,7 +15,7 @@ namespace Ryneus
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 StartTouchAnimation();
             }
@@ -22,13 +23,13 @@ namespace Ryneus
 
         private void StartTouchAnimation()
         {
-            var pos = Input.mousePosition;
+            var pos = Mouse.current.position.ReadValue();
             Vector3 target = Camera.main.ScreenToWorldPoint(pos);
             pos.x = target.x;
             pos.y = target.y;
-            pos.z = 10f;
+            //pos.z = 10f;
 
-            touchCursorRect.transform.position = pos;
+            touchCursorRect.transform.position = new Vector3(pos.x, pos.y, 10f);
             UIComponent.SetActive(gameObject, false);
             UIComponent.SetActive(gameObject, true);
             particle.Play();
