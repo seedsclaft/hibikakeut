@@ -960,7 +960,7 @@ namespace Ryneus
             _view.CommandGotoSceneChange(Scene.Dungeon);
         }
 
-        private async Task CommandGetArtifact(int itemId)
+        private void CommandGetArtifact(int itemId)
         {
             var item = DataSystem.FindItem(itemId);
             if (item == null)
@@ -982,7 +982,7 @@ namespace Ryneus
         private void PresentArtifact(int itemId)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Alert);
-            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10140), (a) =>
+            var confirmInfo = new ConfirmInfo(DataSystem.GetText(10140), async (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
@@ -994,7 +994,7 @@ namespace Ryneus
                     GetArtifact(itemId);
                 }
                 //var timeStamp = SoundManager.Instance.CurrentTimeStamp();
-                PlayDungeonBgm(_model.DungeonBgmTimeStamp());
+                await PlayDungeonBgm(_model.DungeonBgmTimeStamp());
             });
             confirmInfo.IsArtifact.SetValue(true);
             _view.CommandCallConfirm(confirmInfo);

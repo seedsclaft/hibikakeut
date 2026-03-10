@@ -34,7 +34,7 @@ namespace Ryneus
             }
         }
 
-        public async Task UpdateInfo(StageInfo stageInfo)
+        public void UpdateInfo(StageInfo stageInfo)
         {
             if (stageInfo == null)
             {
@@ -50,10 +50,7 @@ namespace Ryneus
             var bossEnemyData = stageInfo.BossEnemyData();
             if (bossEnemyData != null && !stageInfo.Cleared.Value)
             {
-                if (bossImage != null)
-                {
-                    bossImage.sprite = await ResourceSystem.LoadEnemySprite(stageInfo.BossImage());
-                }
+                UIComponent.SetImage(bossImage, ResourceSystem.EnemySpritePath(stageInfo.BossImage()));
                 UIComponent.SetText(bossName, bossEnemyData.Name);
                 UIComponent.SetText(bossLv, DataSystem.GetText(3010) + stageInfo.BossLv().ToString());
             }
@@ -80,7 +77,7 @@ namespace Ryneus
             }
         }
 
-        public async Task UpdateData(StageData stageData)
+        public void UpdateData(StageData stageData)
         {
             if (stageData == null)
             {
@@ -90,10 +87,7 @@ namespace Ryneus
             UIComponent.SetText(stageLv, stageData.StageLv);
             UIComponent.SetText(stageNoText, DataSystem.GetReplaceText(15010, stageData.StageNo.ToString()));
             UIComponent.SetText(needStageRank, stageData.DisplayRank.ToString() + "～");
-            if (stageImage != null)
-            {
-                stageImage.sprite = await ResourceSystem.LoadBackGround(stageData.BackGround);
-            }
+            UIComponent.SetImage(stageImage, ResourceSystem.BackGroundPath(stageData.BackGround));
             if (mainStage != null)
             {
                 mainStage.SetActive(stageData.Category == StageCategory.Main);

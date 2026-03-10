@@ -190,72 +190,47 @@ namespace Ryneus
             //UpdateUnitTypeBack(actorData.UnitType);
         }
 
-        private async Task UpdateMainThumb(string imagePath, int x, int y, float scale)
+        private void UpdateMainThumb(string imagePath, int x, int y, float scale)
         {
-            if (mainThumb == null)
+            UIComponent.SetImage(mainThumb, ResourceSystem.ActorMainSpritePath(imagePath), () =>
             {
-                return;
-            }
-            var handle = await ResourceSystem.LoadActorMainSprite(imagePath);
-            var rect = mainThumb.GetComponent<RectTransform>();
-            rect.localPosition = new Vector3(x, y, 0);
-            rect.localScale = new Vector3(scale, scale, 1);
-            mainThumb.sprite = handle;
-            rect.sizeDelta = new Vector3(mainThumb.mainTexture.width, mainThumb.mainTexture.height, 1);
+                var rect = mainThumb.GetComponent<RectTransform>();
+                rect.localPosition = new Vector3(x, y, 0);
+                rect.localScale = new Vector3(scale, scale, 1);
+                rect.sizeDelta = new Vector3(mainThumb.mainTexture.width, mainThumb.mainTexture.height, 1);
+            });
         }
 
-        private async Task UpdateAwakenThumb(string imagePath, int x, int y, float scale)
+        private void UpdateAwakenThumb(string imagePath, int x, int y, float scale)
         {
-            /*
-            if (awakenThumb == null)
+            UIComponent.SetImage(awakenThumb, ResourceSystem.ActorAwakenSpritePath(imagePath), () =>
             {
-                return;
-            }
-            var handle = await ResourceSystem.LoadActorAwakenSprite(imagePath);
-            var rect = awakenThumb.GetComponent<RectTransform>();
-            rect.localPosition = new Vector3(x, y, 0);
-            rect.localScale = new Vector3(scale, scale, 1);
-            awakenThumb.sprite = handle;
-            rect.sizeDelta = new Vector3(mainThumb.mainTexture.width, mainThumb.mainTexture.height, 1);
-            */
+                var rect = awakenThumb.GetComponent<RectTransform>();
+                rect.localPosition = new Vector3(x, y, 0);
+                rect.localScale = new Vector3(scale, scale, 1);
+                rect.sizeDelta = new Vector3(awakenThumb.mainTexture.width, awakenThumb.mainTexture.height, 1);
+            });
         }
 
-        private async Task UpdateReliefThumb(string imagePath)
+        private void UpdateReliefThumb(string imagePath)
         {
-            if (reliefThumb == null)
-            {
-                return;
-            }
-            var handle = await ResourceSystem.LoadActorReliefSprite(imagePath);
-            reliefThumb.sprite = handle;
+            UIComponent.SetImage(reliefThumb, ResourceSystem.ActorReliefSpritePath(imagePath));
         }
 
-        private async Task UpdateClipThumb(string imagePath)
+        private void UpdateClipThumb(string imagePath)
         {
-            if (clipThumb == null)
-            {
-                return;
-            }
-            clipThumb.sprite = await ResourceSystem.LoadActorClipSprite(imagePath);
+            UIComponent.SetImage(clipThumb, ResourceSystem.ActorClipSpritePath(imagePath));
         }
 
-        private async Task UpdateMainFaceThumb(string imagePath)
+        private void UpdateMainFaceThumb(string imagePath)
         {
-            if (faceThumb == null)
-            {
-                return;
-            }
-            faceThumb.sprite = await ResourceSystem.LoadActorMainFaceSprite(imagePath);
+            UIComponent.SetImage(faceThumb, ResourceSystem.ActorMainFaceSpritePath(imagePath));
             faceThumb.gameObject.SetActive(true);
         }
 
-        private async Task UpdateAwakenFaceThumb(string imagePath)
+        private void UpdateAwakenFaceThumb(string imagePath)
         {
-            if (awakenFaceThumb == null)
-            {
-                return;
-            }
-            awakenFaceThumb.sprite = await ResourceSystem.LoadActorAwakenFaceSprite(imagePath);
+            UIComponent.SetImage(awakenFaceThumb, ResourceSystem.ActorAwakenSpritePath(imagePath));
             awakenFaceThumb.gameObject.SetActive(true);
         }
 
@@ -339,7 +314,7 @@ namespace Ryneus
             }
             unitTypeImage.gameObject.SetActive(true);
             var spriteAtlas = ResourceSystem.LoadUnitTypeIcons();
-            unitTypeImage.sprite = spriteAtlas.GetSprite(unitType.ToString());
+            UIComponent.SetImage(unitTypeImage, spriteAtlas.GetSprite(unitType.ToString()));
         }
 
         private void UpdateUnitTypeBack(UnitType unitType)

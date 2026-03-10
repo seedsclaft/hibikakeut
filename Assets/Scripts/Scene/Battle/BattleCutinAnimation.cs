@@ -38,12 +38,12 @@ namespace Ryneus
             mainBackCanvasGroup.alpha = 0;
         }
 
-        public async Task StartAnimation(BattlerInfo battlerInfo, SkillData skillData, float speedRate)
+        public void StartAnimation(BattlerInfo battlerInfo, SkillData skillData, float speedRate)
         {
             if (battlerInfo != null && battlerInfo.ActorInfo != null)
             {
                 battlerInfoComponent.UpdateInfo(battlerInfo);
-                actorMainBack.sprite = await ResourceSystem.LoadActorMainSprite(battlerInfo.ActorInfo.Master.ImagePath);
+                UIComponent.SetImage(actorMainBack, ResourceSystem.ActorMainSpritePath(battlerInfo.ActorInfo.Master.ImagePath));
             }
             if (skillData != null)
             {

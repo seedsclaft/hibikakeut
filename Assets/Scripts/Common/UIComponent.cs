@@ -1,5 +1,6 @@
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 
 namespace Ryneus
 {
@@ -36,6 +37,57 @@ namespace Ryneus
                 return;
             }
             textMeshProUGUI.SetText("");
+        }
+
+        public static void SetImage(Image image, string path, System.Action endCall = null)
+        {
+            if (image == null)
+            {
+                return;
+            }
+            var sprite = ResourceSystem.GetAsset<Sprite>(path);
+            if (sprite != null)
+            {
+                image.sprite = sprite;
+            }
+            else
+            {
+                ResourceSystem.LoadAssetData<Sprite>(path, (result) =>
+                {
+                    image.sprite = result;
+                    endCall?.Invoke();
+                });
+            }
+        }
+
+        public static void SetSpeiteImage(SpriteRenderer spriteRenderer, string path, System.Action endCall = null)
+        {
+            if (spriteRenderer == null)
+            {
+                return;
+            }
+            var sprite = ResourceSystem.GetAsset<Sprite>(path);
+            if (sprite != null)
+            {
+                spriteRenderer.sprite = sprite;
+            }
+            else
+            {
+                ResourceSystem.LoadAssetData<Sprite>(path, (result) =>
+                {
+                    spriteRenderer.sprite = result;
+                    endCall?.Invoke();
+                });
+            }
+        }
+
+        public static void SetImage(Image image, Sprite sprite)
+        {
+            if (image == null)
+            {
+                return;
+            }
+            image.sprite = sprite;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Ryneus
 
         private List<BattleDamage> _battleDamages = new();
         private float _deathAnimation = 0.0f;
-        public async Task UpdateInfo(BattlerInfo battlerInfo)
+        public void UpdateInfo(BattlerInfo battlerInfo)
         {
             _battlerInfo = battlerInfo;
             if (_battlerInfo == null || _battlerInfo.Index.Value == 0)
@@ -51,11 +51,7 @@ namespace Ryneus
             {
                 if (battlerInfo.IsActor || battlerInfo.IsActorView)
                 {
-                    var handle = await ResourceSystem.LoadActorMainFaceSprite(battlerInfo.ActorInfo.Master.ImagePath);
-                    if (additiveFaceThumb != null)
-                    {
-                        additiveFaceThumb.sprite = handle;
-                    }
+                    UIComponent.SetImage(additiveFaceThumb, ResourceSystem.ActorMainFaceSpritePath(battlerInfo.ActorInfo.Master.ImagePath));
                 }
                 else
                 {
@@ -67,19 +63,15 @@ namespace Ryneus
             RefreshStatus();
         }
 
-        private async Task UpdateMainThumb(string imagePath, int x, int y, float scale)
+        private void UpdateMainThumb(string imagePath, int x, int y, float scale)
         {
-            if (additiveFaceThumb == null)
+            UIComponent.SetImage(additiveFaceThumb, ResourceSystem.EnemySpritePath(imagePath), () =>
             {
-                return;
-            }
-            //additiveFaceThumb.gameObject.SetActive(true);
-            var rect = additiveFaceThumb.GetComponent<RectTransform>();
-            rect.localPosition = new Vector3(x, y, 0);
-            rect.localScale = new Vector3(scale, scale, 1);
-            var sprite = await ResourceSystem.LoadEnemySprite(imagePath);
-            additiveFaceThumb.sprite = sprite;
-            UpdateEnemyImageNativeSize();
+                var rect = additiveFaceThumb.GetComponent<RectTransform>();
+                rect.localPosition = new Vector3(x, y, 0);
+                rect.localScale = new Vector3(scale, scale, 1);
+                UpdateEnemyImageNativeSize();
+            });
         }
 
         public void SetDamageRoot(GameObject damageRoot)

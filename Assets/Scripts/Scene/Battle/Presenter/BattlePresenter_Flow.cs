@@ -19,7 +19,7 @@ namespace Ryneus
         /// Apを更新する
         /// </summary>
         /// <returns></returns>
-        public async void UpdateApBattlerInfos()
+        public void UpdateApBattlerInfos()
         {
             //while (_model.CurrentBattler == null)
             //{
@@ -340,13 +340,13 @@ namespace Ryneus
         /// 行動結果を生成する
         /// </summary>
         /// <param name="indexList"></param>
-        public async void MakeResultInfoStartAction(ActionInfo actionInfo, List<int> indexList)
+        public void MakeResultInfoStartAction(ActionInfo actionInfo, List<int> indexList)
         {
             _view.SetHelpText("");
             _view.ChangeBackCommandActive(false);
 
             _model.SetActionInfoParameter(actionInfo, true);
-            await MakeActionResultInfo(actionInfo, indexList);
+            MakeActionResultInfo(actionInfo, indexList);
             // 割り込み判定
             var interruptAction = _model.InterruptActionInfo;
             if (interruptAction != null)
@@ -363,7 +363,7 @@ namespace Ryneus
         /// 行動結果を生成する
         /// </summary>
         /// <param name="indexList"></param>
-        private async UniTask MakeActionResultInfo(ActionInfo actionInfo, List<int> indexList)
+        private void MakeActionResultInfo(ActionInfo actionInfo, List<int> indexList)
         {
             if (actionInfo != null)
             {
@@ -492,17 +492,18 @@ namespace Ryneus
         /// 連続行動するActionInfo
         /// </summary>
         /// <param name="actionInfo"></param>
-        private async void RepeatActionInfo(ActionInfo actionInfo)
+        private void RepeatActionInfo(ActionInfo actionInfo)
         {
             _model.ResetTargetIndexList(actionInfo);
-            await MakeActionResultInfo(actionInfo, actionInfo.CandidateTargetIndexList);
+            MakeActionResultInfo(actionInfo, actionInfo.CandidateTargetIndexList);
             // 再取得
             if (actionInfo == _model.ActiveActionInfo)
             {
                 actionInfo = _model.ActiveActionInfo;
                 //LogOutput.Log(actionInfo.Master.Id + "再行動");
                 RepeatAnimationSkill(actionInfo);
-            } else
+            }
+            else
             {
                 // 割り込みでアクションが変わった場合
                 StartActionInfo(actionInfo);

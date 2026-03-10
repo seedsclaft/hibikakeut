@@ -26,11 +26,13 @@ namespace Ryneus
                 if (stateInfo.Master.IconBack > 0)
                 {
                     iconBack.sprite = ResourceSystem.LoadStateIconBase(stateInfo.Master.IconBack);
-                } else
+                }
+                else
                 if (stateInfo.Master.Buff)
                 {
                     iconBack.sprite = ResourceSystem.LoadStateIconBase(0);
-                } else
+                }
+                else
                 if (stateInfo.Master.DeBuff)
                 {
                     iconBack.sprite = ResourceSystem.LoadStateIconBase(17);
@@ -38,7 +40,7 @@ namespace Ryneus
             }
             if (description != null)
             {
-                string effectText = stateInfo.Master.Help.Replace("\\d",stateInfo.Effect.ToString());
+                string effectText = stateInfo.Master.Help.Replace("\\d", stateInfo.Effect.ToString());
                 UIComponent.SetText(description, effectText);
                 var skill = DataSystem.FindSkill(stateInfo.SkillId.Value);
                 if (skill != null)

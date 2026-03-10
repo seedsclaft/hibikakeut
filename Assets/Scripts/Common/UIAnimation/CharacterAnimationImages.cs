@@ -5,6 +5,7 @@ using DG.Tweening;
 using Effekseer;
 using UnityEngine;
 using UnityEngine.UI;
+using Utage;
 
 namespace Ryneus
 {
@@ -77,7 +78,7 @@ namespace Ryneus
             magicCircle.SetActive(isActive);
         }
 
-        public async Task UpdateInfo(BattlerInfo battlerInfo)
+        public void UpdateInfo(BattlerInfo battlerInfo)
         {
             _battlerInfo = battlerInfo;
             battlerInfoComponent.UpdateInfo(battlerInfo);
@@ -87,9 +88,8 @@ namespace Ryneus
                 candidateSelect.sortingOrder = battlerInfo.Index.Value + 1;
                 if (!battlerInfo.IsActor)
                 {
-                    var _enemySprite = await ResourceSystem.LoadEnemySprite(battlerInfo.EnemyData.ImagePath);
-                    spriteRenderer.sprite = _enemySprite;
-                    candidateSelect.sprite = _enemySprite;
+                    UIComponent.SetSpeiteImage(spriteRenderer, ResourceSystem.EnemySpritePath(battlerInfo.EnemyData.ImagePath));
+                    UIComponent.SetSpeiteImage(candidateSelect, ResourceSystem.EnemySpritePath(battlerInfo.EnemyData.ImagePath));
                 }
             }
             SetDamageRoot();
