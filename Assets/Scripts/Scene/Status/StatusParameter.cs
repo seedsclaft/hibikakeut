@@ -17,23 +17,13 @@ namespace Ryneus
 
         public void UpdateParamter(int current, int max)
         {
-            if (maxParam != null)
-            {
-                maxParam.SetText(max.ToString());
-            }
-            if (currentParam != null)
-            {
-                currentParam.SetText(current.ToString());
-            }
+            UIComponent.SetText(maxParam, max);
+            UIComponent.SetText(currentParam, current);
         }
 
         private void UpdateCaptionText(StatusParamType statusParamType)
         {
-            if (captionText == null)
-            {
-                return;
-            }
-            captionText.SetText(DataSystem.GetText(2100 + (int)statusParamType));
+            UIComponent.SetText(captionText, DataSystem.GetText(2100 + (int)statusParamType));
         }
     }
 }

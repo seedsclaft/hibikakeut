@@ -99,12 +99,12 @@ namespace Ryneus
 
         public void UpdateAfterCurrency(int currency)
         {
-            afterCurrency.SetText(currency.ToString());
+            UIComponent.SetText(afterCurrency, currency);
         }
 
         public void UpdateItemOwnCount(int own)
         {
-            itemOwnCount.SetText(own.ToString());
+            UIComponent.SetText(itemOwnCount, own);
         }
 
         public void SetActivateItemList(bool isActivate)

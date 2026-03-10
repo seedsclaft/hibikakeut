@@ -62,7 +62,7 @@ namespace Ryneus
             }
             // 魔法獲得
             var learnSkill = _model.LearnSkillInfos();
-            if (learnSkill != null)
+            if (learnSkill != null && learnSkill.Count > 0)
             {
                 _view.OpenAnimation(_model.LearnSkillText());
                 return;

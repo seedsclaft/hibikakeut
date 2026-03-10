@@ -24,7 +24,7 @@ namespace Ryneus
         public void SetTitle(string title)
         {
             ClearText();
-            titleText?.SetText(title);
+            UIComponent.SetText(titleText, title);
             canvasGroup.alpha = 1;
             var sequence = AnimationUtility.AlphaToTransform(canvasGroup,
                 1f,
@@ -37,7 +37,7 @@ namespace Ryneus
         public void SetLevelup(int from, int to)
         {
             ClearText();
-            levelPlusText?.SetText("+" + (to - from).ToString());
+            UIComponent.SetText(levelPlusText, "+" + (to - from).ToString());
             AnimationUtility.CountUpText(evaluateText, from, to);
             canvasGroup.alpha = 1;
             var sequence = AnimationUtility.AlphaToTransform(canvasGroup,
@@ -50,9 +50,9 @@ namespace Ryneus
 
         private void ClearText()
         {
-            titleText.SetText("");
-            evaluateText.SetText("");
-            levelPlusText.SetText("");
+            UIComponent.ClearText(titleText);
+            UIComponent.ClearText(evaluateText);
+            UIComponent.ClearText(levelPlusText);
         }
     }
 

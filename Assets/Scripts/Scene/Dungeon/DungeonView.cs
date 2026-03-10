@@ -305,7 +305,7 @@ namespace Ryneus
         {
             var lastY = 334;//minusVictoryBonus.transform.localPosition.y;
             minusVictoryBonus.transform.DOLocalMoveY(lastY, 0);
-            minusVictoryBonus.SetText(minus.ToString());
+            UIComponent.SetText(minusVictoryBonus, minus.ToString());
             minusVictoryBonus.DOFade(1f, 0);
             var sequence = DOTween.Sequence()
                 .Append(minusVictoryBonus.transform.DOLocalMoveY(lastY - 24, 0.8f))
@@ -323,7 +323,7 @@ namespace Ryneus
         {
             var lastY = 334;//minusEvaluate.transform.localPosition.y;
             minusEvaluate.transform.DOLocalMoveY(lastY, 0);
-            minusEvaluate.SetText(minus.ToString());
+            UIComponent.SetText(minusEvaluate, minus.ToString());
             minusEvaluate.DOFade(1f, 0);
             var sequence = DOTween.Sequence()
                 .Append(minusEvaluate.transform.DOLocalMoveY(lastY - 24, 0.8f))

@@ -36,8 +36,8 @@ namespace Ryneus
 
         public void SetText(string text)
         {
-            mainText.SetText(text);
-            subText.SetText(text);
+            UIComponent.SetText(mainText, text);
+            UIComponent.SetText(subText, text);
         }
 
         public void StartAnim(bool inBattle, float delay = 0, System.Action endEvent = null)

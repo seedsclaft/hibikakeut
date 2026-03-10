@@ -19,25 +19,13 @@ namespace Ryneus
             UpdateDate(achievementInfo.Master);
             if (achievementInfo.Master.ConditionType == AchievementConditionType.BattleScore)
             {
-                if (count != null)
-                {
-                    count.SetText((achievementInfo.Count.Value * 0.01f).ToString("F1"));
-                }
-                if (achieveCount != null)
-                {
-                    achieveCount.SetText((achievementInfo.AchieveCount.Value*0.01f).ToString());
-                }
+                UIComponent.SetText(count, (achievementInfo.Count.Value * 0.01f).ToString("F1"));
+                UIComponent.SetText(achieveCount, (achievementInfo.AchieveCount.Value*0.01f).ToString());
             }
             else
             {
-                if (count != null)
-                {
-                    count.SetText(achievementInfo.Count.Value.ToString());
-                }
-                if (achieveCount != null)
-                {
-                    achieveCount.SetText(achievementInfo.AchieveCount.Value.ToString());
-                }
+                UIComponent.SetText(count, achievementInfo.Count);
+                UIComponent.SetText(achieveCount, achievementInfo.AchieveCount);
             }
             if (achivePer != null)
             {
@@ -60,14 +48,8 @@ namespace Ryneus
             {
                 categoryNormal.SetActive(achievementData.Category == AchievementCategory.Normal);
             }
-            if (rank != null)
-            {
-                rank.SetText(achievementData.Rank.ToString());
-            }
-            if (description != null)
-            {
-                description.SetText(achievementData.Text);
-            }
+            UIComponent.SetText(rank, achievementData.Rank);
+            UIComponent.SetText(description, achievementData.Text);
         }
     }
 }

@@ -18,28 +18,20 @@ namespace Ryneus
         {
             _actorInfo = actorInfo;
 
-            if (nameText != null)
-            {
-                var textData = DataSystem.GetText(2100 + (int)statusParamType);
-                nameText.SetText(textData);
-            }
-            if (currentStatus != null)
-            {
-                var before = _actorInfo.LevelUpStatus(_actorInfo.Level-1).GetParameter(statusParamType);
-                currentStatus.SetText(before.ToString());
-            }
+            var textData = DataSystem.GetText(2100 + (int)statusParamType);
+            UIComponent.SetText(nameText, textData);
+
+            var before = _actorInfo.LevelUpStatus(_actorInfo.Level-1).GetParameter(statusParamType);
+            UIComponent.SetText(currentStatus, before.ToString());
+
             if (afterStatus != null)
             {
-                var before = _actorInfo.LevelUpStatus(_actorInfo.Level-1).GetParameter(statusParamType);
                 var plus = _actorInfo.LevelUpStatus(_actorInfo.Level).GetParameter(statusParamType);
                 afterStatus.gameObject.SetActive(plus > before);
-                afterStatus.SetText(plus.ToString());
+                UIComponent.SetText(afterStatus, plus);
             }
-            if (usePoint != null)
-            {
-                int UseCost = _actorInfo.LevelGrowthRate(statusParamType,actorInfo.Level);
-                usePoint.SetText(UseCost.ToString());
-            }
+            int UseCost = _actorInfo.LevelGrowthRate(statusParamType,actorInfo.Level);
+            UIComponent.SetText(usePoint, UseCost);
         }
     }
 }

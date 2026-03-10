@@ -86,7 +86,7 @@ namespace Ryneus
 
         public void SetTitle(string text)
         {
-            title.SetText(text);
+            UIComponent.SetText(title, text);
         }
 
         public void SetHelpWindow()

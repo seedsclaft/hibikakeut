@@ -25,8 +25,8 @@ namespace Ryneus
 
         public void SetRankupInfo(RankupInfo rankupInfo)
         {
-            beforeRankText?.SetText(rankupInfo.From.Value.ToString());
-            afterRankText?.SetText(rankupInfo.To.Value.ToString());
+            UIComponent.SetText(beforeRankText, rankupInfo.From.Value);
+            UIComponent.SetText(afterRankText, rankupInfo.To.Value);
         }
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)

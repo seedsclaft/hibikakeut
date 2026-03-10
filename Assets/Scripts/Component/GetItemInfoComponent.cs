@@ -17,7 +17,7 @@ namespace Ryneus
             {
                 var title = getItemInfo.GetTitleData();
                 titleName.gameObject.SetActive(title != "");
-                titleName.SetText(title);
+                UIComponent.SetText(titleName, title);
             }
         }
 

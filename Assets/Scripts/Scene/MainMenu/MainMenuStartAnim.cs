@@ -37,10 +37,10 @@ namespace Ryneus
 
         public void SetText(int chapter, int period, int periodMax, int remain)
         {
-            chapterText.SetText(chapter.ToString());
-            periodText.SetText(period.ToString());
-            maxPeriodText.SetText(periodMax.ToString());
-            remainText.SetText(remain.ToString());
+            UIComponent.SetText(chapterText, chapter);
+            UIComponent.SetText(periodText, period);
+            UIComponent.SetText(maxPeriodText, periodMax);
+            UIComponent.SetText(remainText, remain);
         }
 
         public void StartAnim(float delay = 0, System.Action endEvent = null)

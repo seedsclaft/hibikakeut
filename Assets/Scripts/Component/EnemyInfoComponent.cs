@@ -32,7 +32,7 @@ namespace Ryneus
             }
             var enemyData = battlerInfo.EnemyData;
             UpdateData(enemyData);
-            lv?.SetText(battlerInfo.Level.Value.ToString());
+            UIComponent.SetText(lv, battlerInfo.Level.Value);
             if (statusInfoComponent != null)
             {
                 HideActorOnly();
@@ -114,13 +114,13 @@ namespace Ryneus
             {
                 enemySpriteSize.UpdateEnemy();
             }
-            nameText?.SetText(enemyData.Name);
+            UIComponent.SetText(nameText, enemyData.Name);
         }
 
         public void UpdateGridKey(int index)
         {
             var textId = 16800 + index;
-            gridKey.SetText(DataSystem.GetText(textId));
+            UIComponent.SetText(gridKey, DataSystem.GetText(textId));
         }
 
         private void UpdateWeakPoints(List<KindType> kindTypes)
@@ -156,9 +156,8 @@ namespace Ryneus
             {
                 mainThumb.gameObject.SetActive(false);
             }
-            nameText?.SetText("");
-            //lv?.SetText("");
-            gridKey?.SetText("");
+            UIComponent.ClearText(nameText);
+            UIComponent.ClearText(gridKey);
         }
 
         private void HideActorOnly()

@@ -46,10 +46,7 @@ namespace Ryneus
             {
                 enemyInfoComponent.UpdateInfo(battlerInfo);
             }
-            if (evaluate != null)
-            {
-                evaluate.SetText(battlerInfo.Evaluate().ToString());
-            }
+            UIComponent.SetText(evaluate, battlerInfo.Evaluate().ToString());
             if (additiveFaceThumb != null)
             {
                 if (battlerInfo.IsActor || battlerInfo.IsActorView)
@@ -584,7 +581,7 @@ namespace Ryneus
             _battlerInfo = null;
             enemyInfoComponent?.Clear();
             actorInfoComponent?.Clear();
-            battlePosition?.SetText("");
+            UIComponent.ClearText(battlePosition);
             if (statusInfoComponent != null)
             {
                 statusInfoComponent.gameObject.SetActive(false);

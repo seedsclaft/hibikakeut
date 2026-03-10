@@ -157,7 +157,7 @@ namespace Ryneus
 
         public void SetTitle()
         {
-            title.SetText(DataSystem.GetText(20410));
+            UIComponent.SetText(title, DataSystem.GetText(20410));
         }
 
         public void SetHelpWindow()
@@ -192,9 +192,9 @@ namespace Ryneus
             claerStageNumObj?.SetActive(claerStageNum != null);
             rankScoreObj?.SetActive(rankScore != null);
             partyEvaluateObj?.SetActive(partyEvaluate != null);
-            claerStageNumText?.SetText(claerStageNum);
-            rankScoreText?.SetText(rankScore);
-            partyEvaluateText?.SetText(partyEvaluate);
+            UIComponent.SetText(claerStageNumText, claerStageNum);
+            UIComponent.SetText(rankScoreText, rankScore);
+            UIComponent.SetText(partyEvaluateText, partyEvaluate);
             commandList.gameObject.SetActive(true);
             SetActivate(commandList);
             strategyResultList.gameObject.SetActive(true);

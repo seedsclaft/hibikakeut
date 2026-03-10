@@ -16,14 +16,8 @@ namespace Ryneus
         public void UpdateInfo(ItemInfo itemInfo)
         {
             UpdateDate(itemInfo.Master);
-            if (ownNum != null)
-            {
-                ownNum.SetText(itemInfo.OwnNum.Value.ToString());
-            }
-            if (useNum != null)
-            {
-                useNum.SetText(itemInfo.UseNum.Value.ToString());
-            }
+            UIComponent.SetText(ownNum, itemInfo.OwnNum);
+            UIComponent.SetText(useNum, itemInfo.UseNum);
         }
 
         public void UpdateDate(ItemData itemData)
@@ -38,14 +32,8 @@ namespace Ryneus
                 iconBack.gameObject.SetActive(true);
                 UpdateItemIconBack(itemData.ItemType, itemData.Param2);
             }
-            if (itemName != null)
-            {
-                itemName.SetText(itemData.Name);
-            }
-            if (description != null)
-            {
-                description.SetText(itemData.Help);
-            }
+            UIComponent.SetText(itemName, itemData.Name);
+            UIComponent.SetText(description, itemData.Help);
         }
 
         private void UpdateItemIcon(int iconIndex)
@@ -76,14 +64,8 @@ namespace Ryneus
             {
                 iconBack.gameObject.SetActive(false);
             }
-            if (itemName != null)
-            {
-                itemName.SetText("");
-            }
-            if (description != null)
-            {
-                description.SetText("");
-            }
+            UIComponent.ClearText(itemName);
+            UIComponent.ClearText(description);
         }
     }
 }

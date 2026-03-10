@@ -106,7 +106,7 @@ namespace Ryneus
             strategyResultList.SetData(getItemInfos);
             strategyResultList.Activate();
             battleScoreObj?.SetActive(battleScore != null);
-            battleScoreText?.SetText(battleScore);
+            UIComponent.SetText(battleScoreText, battleScore);
             commandList.gameObject.SetActive(true);
             commandList.Activate();
             SetHelpInputInfo("STRATEGY");
@@ -115,7 +115,7 @@ namespace Ryneus
         public void SetRanking(string ranking)
         {
             rankingObj?.SetActive(true);
-            rankingText?.SetText(ranking);
+            UIComponent.SetText(rankingText, ranking);
         }
 
         private void CallResultCommand()

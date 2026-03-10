@@ -21,7 +21,7 @@ namespace Ryneus
             {
                 kindText = DataSystem.GetText((int)data + 18800);
             }
-            kindName?.SetText(kindText);
+            UIComponent.SetText(kindName, kindText);
         }
     }
 }

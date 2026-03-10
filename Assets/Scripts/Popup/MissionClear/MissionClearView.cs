@@ -22,11 +22,7 @@ namespace Ryneus
 
         public void SetTitle(string title)
         {
-            if (titleText == null)
-            {
-                return;
-            }
-            titleText.SetText(title);
+            UIComponent.SetText(titleText, title);
             var basePosition = canvasGroup.GetComponent<RectTransform>().localPosition;
             var from = new Vector3(basePosition.x-320, basePosition.y, 0);
             var to = new Vector3(basePosition.x, basePosition.y, 0);
@@ -46,7 +42,7 @@ namespace Ryneus
 
         private void ClearText()
         {
-            titleText.SetText("");
+            UIComponent.ClearText(titleText);
         }
     }
 

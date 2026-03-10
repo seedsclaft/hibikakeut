@@ -42,7 +42,7 @@ namespace Ryneus
             }
             var stageData = stageInfo.Master;
             UpdateData(stageData);
-            help?.SetText(stageData.Help.Replace("\\p", CurrentData.PlayerInfo.PlayerName.Value));
+            UIComponent.SetText(help, stageData.Help.Replace("\\p", CurrentData.PlayerInfo.PlayerName.Value));
             if (cleared != null)
             {
                 cleared.SetActive(stageInfo.Cleared.Value);
@@ -54,25 +54,13 @@ namespace Ryneus
                 {
                     bossImage.sprite = await ResourceSystem.LoadEnemySprite(stageInfo.BossImage());
                 }
-                if (bossName != null)
-                {
-                    bossName.SetText(bossEnemyData.Name);
-                }
-                if (bossLv != null)
-                {
-                    bossLv.SetText(DataSystem.GetText(3010) + stageInfo.BossLv().ToString());
-                }
+                UIComponent.SetText(bossName, bossEnemyData.Name);
+                UIComponent.SetText(bossLv, DataSystem.GetText(3010) + stageInfo.BossLv().ToString());
             }
             else
             {
-                if (bossName != null)
-                {
-                    bossName.SetText("");
-                }
-                if (bossLv != null)
-                {
-                    bossLv.SetText("");
-                }
+                UIComponent.ClearText(bossName);
+                UIComponent.ClearText(bossLv);
             }
             /*
             if (clearCount != null){
@@ -88,7 +76,7 @@ namespace Ryneus
                     symbolNum += CurrentDeckInfo.RemainEncountTimes();
                 }
                 dungeonEnemySymbolRoot.SetActive(symbolNum > 0);
-                dungeonEnemySymbolNum.SetText("x" + symbolNum.ToString());
+                UIComponent.SetText(dungeonEnemySymbolNum, "x" + symbolNum);
             }
         }
 
@@ -98,10 +86,10 @@ namespace Ryneus
             {
                 return;
             }
-            nameText?.SetText(stageData.Name);
-            stageLv?.SetText(stageData.StageLv.ToString());
-            stageNoText?.SetText(DataSystem.GetReplaceText(15010, stageData.StageNo.ToString()));
-            needStageRank?.SetText(stageData.DisplayRank.ToString() + "～");
+            UIComponent.SetText(nameText, stageData.Name);
+            UIComponent.SetText(stageLv, stageData.StageLv);
+            UIComponent.SetText(stageNoText, DataSystem.GetReplaceText(15010, stageData.StageNo.ToString()));
+            UIComponent.SetText(needStageRank, stageData.DisplayRank.ToString() + "～");
             if (stageImage != null)
             {
                 stageImage.sprite = await ResourceSystem.LoadBackGround(stageData.BackGround);

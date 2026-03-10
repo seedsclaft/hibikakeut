@@ -78,13 +78,13 @@ namespace Ryneus
         {
             foreach (var serif in serifs)
             {
-                serif.SetText("");
+                UIComponent.ClearText(serif);
             }
         }
 
         private void SetReleifSerif(string relief, int index)
         {
-            serifs[index].SetText(relief);
+            UIComponent.SetText(serifs[index], relief);
             serifs[index].DOFade(0f, 0);
             serifs[index].DOScale(1f, 0);
         }

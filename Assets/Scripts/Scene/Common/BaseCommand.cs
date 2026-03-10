@@ -15,7 +15,7 @@ namespace Ryneus
             }
 
             var data = ListItemData<SystemData.CommandData>();
-            commandName.SetText(data.Name);
+            UIComponent.SetText(commandName, data.Name);
             if (Disable != null)
             {
                 Disable.SetActive(!ListData.Enable.Value);

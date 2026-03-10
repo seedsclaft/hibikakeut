@@ -33,74 +33,44 @@ namespace Ryneus
 
         public void UpdateInfo(PartyInfo partyInfo)
         {
-            if (currency != null)
-            {
-                currency.SetText(partyInfo.Currency.Value.ToString());
-            }
-            if (period != null)
-            {
-                var periodValue = Mathf.Min(partyInfo.Period.Value, DataSystem.System.PeriodTurns);
-                // 表示ターン数限度は超えないように表示
-                period.SetText(periodValue.ToString());
-            }
-            if (periodLimit != null)
-            {
-                periodLimit.SetText(DataSystem.System.PeriodTurns.ToString());
-            }
-            if (chapter != null)
-            {
-                chapter.SetText(partyInfo.Chapter.Value.ToString());
-            }
-            if (turnCount != null)
-            {
-                //turnCount.SetText(partyInfo.CurrentDeckInfo.TurnCount.Value.ToString());
-            }
-            if (evaluationValue != null)
-            {
-                evaluationValue.SetText(partyInfo.EvaluationValue.Value.ToString());
-            }
+            UIComponent.SetText(currency, partyInfo.Currency);
+
+            var periodValue = Mathf.Min(partyInfo.Period.Value, DataSystem.System.PeriodTurns);
+            // 表示ターン数限度は超えないように表示
+            UIComponent.SetText(period, periodValue.ToString());
+
+            UIComponent.SetText(periodLimit, DataSystem.System.PeriodTurns);
+            UIComponent.SetText(chapter, partyInfo.Chapter);
+            UIComponent.SetText(evaluationValue, partyInfo.EvaluationValue);
             if (evaluationAddictValue != null)
             {
                 var evaluationAddict = partyInfo.EvaluationAddictValue();
                 evaluationAddictValue.gameObject.SetActive(evaluationAddict != 0);
-                evaluationAddictValue.SetText("(" + evaluationAddict.ToString() + ")");
+                UIComponent.SetText(evaluationAddictValue, "(" + evaluationAddict.ToString() + ")");
             }
             if (evaluationValueGauge != null)
             {
                 evaluationValueGauge.UpdateGauge(partyInfo.EvaluationValue.Value * 0.01f);
             }
-            if (missionRank != null)
-            {
-                missionRank.SetText(partyInfo.MissionRank.Value.ToString());
-            }
-            if (victoryBonus != null)
-            {
-                victoryBonus.SetText((partyInfo.PartyStatInfo.BattleScore.Value * 0.01f).ToString("F2") + "%");
-            }
+            UIComponent.SetText(missionRank, partyInfo.MissionRank);
+            UIComponent.SetText(victoryBonus, (partyInfo.PartyStatInfo.BattleScore.Value * 0.01f).ToString("F2") + "%");
+
             if (achievementInfoComponent != null)
             {
                 achievementInfoComponent.UpdateInfo(partyInfo.NearAchievementInfo());
             }
-            if (dungeonCompletionRate != null)
-            {
-                dungeonCompletionRate.SetText(partyInfo.DungeonCompletionRate().ToString("F2") + "%");
-            }
+            UIComponent.SetText(dungeonCompletionRate, partyInfo.DungeonCompletionRate().ToString("F2") + "%");
+
             if (encountRateRoot != null)
             {
                 encountRateRoot.SetActive(partyInfo.CurrentDeckInfo.EncountRate.Value != 1);
             }
-            if (encountRate != null)
-            {
-                encountRate.SetText(partyInfo.CurrentDeckInfo.EncountRateText());
-            }
+            UIComponent.SetText(encountRate, partyInfo.CurrentDeckInfo.EncountRateText());
             if (routeModeRoot != null)
             {
                 routeModeRoot.SetActive(partyInfo.CurrentDeckInfo.RoutePaths.Count > 0);
             }
-            if (recoveryCount != null)
-            {
-                recoveryCount.SetText(partyInfo.CurrentDeckInfo.RecoveryCount.Value.ToString());
-            }
+            UIComponent.SetText(recoveryCount, partyInfo.CurrentDeckInfo.RecoveryCount.Value);
         }
     }
 }

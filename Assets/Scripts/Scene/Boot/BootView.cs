@@ -38,11 +38,7 @@ namespace Ryneus
 
         public void SetTitleCaution(string text)
         {
-            if (titleCaution == null)
-            {
-                return;
-            }
-            titleCaution.SetText(text);
+            UIComponent.SetText(titleCaution, text);
         }
 
     }

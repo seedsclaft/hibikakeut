@@ -54,7 +54,7 @@ namespace Ryneus
 
         public void SetVersion(string text)
         {
-            versionText.SetText(text);
+            UIComponent.SetText(versionText, text);
         }
 
         private void OnClickTitle()

@@ -42,10 +42,7 @@ namespace Ryneus
                 _selectTabs.Add(toggle);
                 toggle.group = toggleGroup;
                 var text = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-                if (text != null)
-                {
-                    text.SetText(tabTitle);
-                }
+                UIComponent.SetText(text, tabTitle);
                 var canvasGroup = prefab.GetComponent<CanvasGroup>();
                 if (canvasGroup != null)
                 {

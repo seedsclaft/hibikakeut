@@ -75,13 +75,13 @@ namespace Ryneus
                     UpdateLostMainThumb();
                 }
             }
-            demigod?.SetText(actorInfo.DemigodParam.ToString());
+            UIComponent.SetText(demigod, actorInfo.DemigodParam);
             if (lvCation != null)
             {
                 lvCation.SetActive(true);
             }
-            lv?.SetText(actorInfo.Level.ToString());
-            exp?.SetText(actorInfo.NextExp.ToString());
+            UIComponent.SetText(lv, actorInfo.Level);
+            UIComponent.SetText(exp, actorInfo.NextExp);
             if (expGauge != null)
             {
                 expGauge.fillAmount = actorInfo.Exp.Value % 100 * 0.01f;
@@ -125,33 +125,23 @@ namespace Ryneus
             {
                 UpdateAttributeRank(element6, actorInfo, AttributeType.Dark, actorInfos);
             }
-            element1Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Fire, actorInfos).ToString());
-            element2Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Thunder, actorInfos).ToString());
-            element3Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Ice, actorInfos).ToString());
-            element4Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Shine, actorInfos).ToString());
-            element5Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Dark, actorInfos).ToString());
-            element6Cost?.SetText(actorInfo.LearningMagicCost(AttributeType.Void, actorInfos).ToString());
+            UIComponent.SetText(element1Cost, actorInfo.LearningMagicCost(AttributeType.Fire, actorInfos).ToString());
+            UIComponent.SetText(element2Cost, actorInfo.LearningMagicCost(AttributeType.Thunder, actorInfos).ToString());
+            UIComponent.SetText(element3Cost, actorInfo.LearningMagicCost(AttributeType.Ice, actorInfos).ToString());
+            UIComponent.SetText(element4Cost, actorInfo.LearningMagicCost(AttributeType.Shine, actorInfos).ToString());
+            UIComponent.SetText(element5Cost, actorInfo.LearningMagicCost(AttributeType.Dark, actorInfos).ToString());
+            UIComponent.SetText(element6Cost, actorInfo.LearningMagicCost(AttributeType.Void, actorInfos).ToString());
 
-            recoveryCost?.SetText(TacticsUtility.RemainRecoveryCost(actorInfo, true).ToString());
-            resourceGain?.SetText(TacticsUtility.ResourceGain(actorInfo).ToString());
-            evaluate?.SetText(DataSystem.GetReplaceDecimalText(actorInfo.Evaluate()));
-            if (battlePosition != null)
-            {
-                var textId = actorInfo.LineIndex == LineType.Front ? 2012 : 2013;
-                battlePosition.SetText(DataSystem.GetText(textId));
-            }
-            if (transferGetItemText != null)
-            {
-                transferGetItemText.SetText(actorInfo.TransferGetItemText(PartyInfo.Period.Value));
-            }
-            if (transferGetExpText != null)
-            {
-                transferGetExpText.SetText(actorInfo.TransferGetExpText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
-            }
-            if (transferGetCurrencyText != null)
-            {
-                transferGetCurrencyText.SetText(actorInfo.TransferGetCurrencyText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
-            }
+            UIComponent.SetText(recoveryCost ,TacticsUtility.RemainRecoveryCost(actorInfo, true).ToString());
+            UIComponent.SetText(resourceGain ,TacticsUtility.ResourceGain(actorInfo).ToString());
+            UIComponent.SetText(evaluate, DataSystem.GetReplaceDecimalText(actorInfo.Evaluate()));
+
+            var textId = actorInfo.LineIndex == LineType.Front ? 2012 : 2013;
+            UIComponent.SetText(battlePosition, DataSystem.GetText(textId));
+            UIComponent.SetText(transferGetItemText, actorInfo.TransferGetItemText(PartyInfo.Period.Value));
+            UIComponent.SetText(transferGetExpText, actorInfo.TransferGetExpText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
+
+            UIComponent.SetText(transferGetCurrencyText, actorInfo.TransferGetCurrencyText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
         }
 
         private void UpdateAttributeRank(TextMeshProUGUI text, ActorInfo actorInfo, AttributeType attributeType, List<ActorInfo> actorInfos)
@@ -179,9 +169,9 @@ namespace Ryneus
             UpdateClipThumb(actorData.ImagePath);
             UpdateMainFaceThumb(actorData.ImagePath);
             UpdateAwakenFaceThumb(actorData.ImagePath);
-            nameText?.SetText(actorData.Name);
-            subNameText?.SetText(actorData.SubName);
-            profileText?.SetText(actorData.Profile);
+            UIComponent.SetText(nameText, actorData.Name);
+            UIComponent.SetText(subNameText, actorData.SubName);
+            UIComponent.SetText(profileText, actorData.Profile);
             if (kindIcon != null)
             {
                 var kind = (int)actorData.AttributeType;
@@ -193,7 +183,7 @@ namespace Ryneus
                 if (kindText != null)
                 {
                     kindText.gameObject.SetActive(true);
-                    kindText.SetText(DataSystem.GetText(400 + kind-1));
+                    UIComponent.SetText(kindText, DataSystem.GetText(400 + kind-1));
                 }
             }
             //UpdateUnitType(actorData.UnitType);
@@ -269,10 +259,10 @@ namespace Ryneus
             awakenFaceThumb.gameObject.SetActive(true);
         }
 
-        private void UpdateAttributeParam(TextMeshProUGUI textMeshProUGUI,AttributeRank param)
+        private void UpdateAttributeParam(TextMeshProUGUI textMeshProUGUI, AttributeRank param)
         {
             var textId = 2000 + (int)param;
-            textMeshProUGUI?.SetText(DataSystem.GetText(textId));
+            UIComponent.SetText(textMeshProUGUI, DataSystem.GetText(textId));
         }
 
         public void SetAwakeMode(bool IsAwaken)
@@ -295,7 +285,7 @@ namespace Ryneus
         public void LvupText(int plus)
         {
             int lvValue = int.Parse(lv.text) + plus;
-            lv?.SetText(lvValue.ToString());
+            UIComponent.SetText(lv, lvValue);
         }
 
         public void Clear()
@@ -325,44 +315,20 @@ namespace Ryneus
             {
                 lvCation.SetActive(false);
             }
-            lv?.SetText("");
-            nameText?.SetText("");
-            if (element1 != null)
-            {
-                element1.SetText("");
-            }
-            if (element2 != null)
-            {
-                element2.SetText("");
-            }
-            if (element3 != null)
-            {
-                element3.SetText("");
-            }
-            if (element4 != null)
-            {
-                element4.SetText("");
-            }
-            if (element5 != null)
-            {
-                element5.SetText("");
-            }
-            if (element6 != null)
-            {
-                element6.SetText("");
-            }
-            if (evaluate != null)
-            {
-                evaluate.SetText("");
-            }
+            UIComponent.ClearText(lv);
+            UIComponent.ClearText(nameText);
+            UIComponent.ClearText(element1);
+            UIComponent.ClearText(element2);
+            UIComponent.ClearText(element3);
+            UIComponent.ClearText(element4);
+            UIComponent.ClearText(element5);
+            UIComponent.ClearText(element6);
+            UIComponent.ClearText(evaluate);
             if (kindIcon != null)
             {
                 kindIcon.gameObject.SetActive(false);
             }
-            if (kindText != null)
-            {
-                kindText.SetText("");
-            }
+            UIComponent.ClearText(kindText);
         }
 
         private void UpdateUnitType(UnitType unitType)

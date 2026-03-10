@@ -108,13 +108,13 @@ namespace Ryneus
 
         public void UpdateLearnSkillText(string text)
         {
-            learnSkillText.SetText(text);
+            UIComponent.SetText(learnSkillText, text);
         }
 
         public void UpdateEvaluate(int from, int to)
         {
-            beforeEvaluate.SetText(from.ToString());
-            afterEvaluate.SetText(to.ToString());
+            UIComponent.SetText(beforeEvaluate, from.ToString());
+            UIComponent.SetText(afterEvaluate, to.ToString());
         }
 
         private void CallLevelUpNext()

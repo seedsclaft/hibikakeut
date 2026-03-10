@@ -37,14 +37,8 @@ namespace Ryneus
             {
                 evaluateObj.SetActive(learnSkillInfo.From != learnSkillInfo.To);
             }
-            if (evaluateText != null)
-            {
-                evaluateText.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.From.Value));
-            }
-            if (afterEvaluateText != null)
-            {
-                afterEvaluateText.SetText(DataSystem.GetReplaceDecimalText(learnSkillInfo.To.Value));
-            }
+            UIComponent.SetText(evaluateText, DataSystem.GetReplaceDecimalText(learnSkillInfo.From.Value));
+            UIComponent.SetText(afterEvaluateText, DataSystem.GetReplaceDecimalText(learnSkillInfo.To.Value));
             if (learnSkillInfo != null && learnSkillInfo.SkillInfos.Count > 0)
             {
                 learnSkillList.SetData(ListData.MakeListData(learnSkillInfo.SkillInfos));

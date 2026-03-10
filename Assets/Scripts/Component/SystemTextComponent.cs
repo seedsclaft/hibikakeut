@@ -21,10 +21,7 @@ namespace Ryneus
                 Debug.Log("error" + gameObject.name);
             }
             var textMeshPro = gameObject.GetComponent<TextMeshProUGUI>();
-            if (textMeshPro != null)
-            {
-                textMeshPro.SetText(textData);
-            }
+            UIComponent.SetText(textMeshPro, textData);
         }
     }
 }

@@ -10,10 +10,13 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI enemyNames;
         public void UpdateViewItem()
         {
-            if (ListData == null) return;
+            if (ListData == null) 
+            {
+                return;
+            }
             var battleSceneInfo = ListItemData<BattleSceneInfo>();
-            partyNames.SetText(PartyName(battleSceneInfo.ActorUnitInfos));
-            enemyNames.SetText(EnemyName(battleSceneInfo.EnemyUnitInfos));
+            UIComponent.SetText(partyNames, PartyName(battleSceneInfo.ActorUnitInfos));
+            UIComponent.SetText(enemyNames, EnemyName(battleSceneInfo.EnemyUnitInfos));
         }
 
         private string PartyName(List<UnitInfo> unitInfos)

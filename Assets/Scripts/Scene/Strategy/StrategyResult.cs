@@ -24,7 +24,7 @@ namespace Ryneus
             if (titleName != null)
             {
                 titleName.gameObject.SetActive(data.Title.Value != "");
-                titleName.SetText(data.Title.Value);
+                UIComponent.SetText(titleName, data.Title);
                 titleName.rectTransform.sizeDelta = new Vector2(titleName.preferredWidth,titleName.preferredHeight);
             }
         }

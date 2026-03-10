@@ -66,7 +66,7 @@ namespace Ryneus
 
         public void SetTitle(string title)
         {
-            titleText?.SetText(title);
+            UIComponent.SetText(titleText, title);
         }
 
         public void SetSkillInfo(List<ListData> skillInfos)

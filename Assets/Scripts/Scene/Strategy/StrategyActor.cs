@@ -83,7 +83,7 @@ namespace Ryneus
             }
             plusExp.DOFade(0, 0);
             plusExp.gameObject.SetActive(true);
-            plusExp.SetText("Exp+" + levelUpInfo.PlusExp.ToString());
+            UIComponent.SetText(plusExp, DataSystem.GetText(3020) + "+" + levelUpInfo.PlusExp.ToString());
             var sequence = DOTween.Sequence()
                 .Append(plusExp.DOFade(1.0f, 0.8f))
                 .Join(plusExp.transform.DOLocalMoveY(-26, 0.8f))

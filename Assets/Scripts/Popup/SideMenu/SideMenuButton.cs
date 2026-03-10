@@ -17,7 +17,7 @@ namespace Ryneus
                 return;
             }
             var data = ListItemData<SystemData.CommandData>();
-            commandName.SetText(data.Name);
+            UIComponent.SetText(commandName, data.Name);
             if (Batch != null)
             {
                 Batch.SetActive(ListData.Batch.Value);

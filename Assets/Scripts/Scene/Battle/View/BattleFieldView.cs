@@ -139,10 +139,7 @@ namespace Ryneus
 
         private void KillSequences()
         {
-            foreach (var sequences in _sequences)
-            {
-                sequences.Kill();
-            }
+            AnimationUtility.Clear(_sequences);
             _sequences.Clear();
         }
 

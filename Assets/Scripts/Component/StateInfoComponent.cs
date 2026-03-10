@@ -39,16 +39,16 @@ namespace Ryneus
             if (description != null)
             {
                 string effectText = stateInfo.Master.Help.Replace("\\d",stateInfo.Effect.ToString());
-                description.SetText(effectText);
+                UIComponent.SetText(description, effectText);
                 var skill = DataSystem.FindSkill(stateInfo.SkillId.Value);
                 if (skill != null)
                 {
-                    description.SetText(description.text + "(" + skill.Name + ")");
+                    UIComponent.SetText(description, description.text + "(" + skill.Name + ")");
                 }
             }
             if (turns != null)
             {
-                turns.SetText("");
+                UIComponent.ClearText(turns);
                 var removalTiming = stateInfo.RemovalTiming;
                 switch (removalTiming)
                 {
@@ -56,25 +56,26 @@ namespace Ryneus
                         if (stateInfo.Turns.Value > 900)
                         {
                             // 永続
-                            turns.SetText(DataSystem.GetText(2410));
+                            UIComponent.SetText(turns, DataSystem.GetText(2410));
                         } else
                         {
                             // 〇ターン
-                            turns.SetText(DataSystem.GetReplaceText(2420, stateInfo.Turns.ToString()));
+                            UIComponent.SetText(turns, DataSystem.GetReplaceText(2420, stateInfo.Turns.ToString()));
                         }
                         break;
                     case RemovalTiming.UpdateCount:
                         // 〇回
-                        turns.SetText(DataSystem.GetReplaceText(2430, stateInfo.Turns.ToString()));
+                        UIComponent.SetText(turns, DataSystem.GetReplaceText(2430, stateInfo.Turns.ToString()));
                         break;
                     case RemovalTiming.UpdateAp:
                         if (stateInfo.Turns.Value > 900)
                         {
-                            turns.SetText(DataSystem.GetText(2410));
-                        } else
+                            UIComponent.SetText(turns, DataSystem.GetText(2410));
+                        }
+                        else
                         {
                             // 〇フレーム
-                            turns.SetText(DataSystem.GetReplaceText(2440, stateInfo.Turns.ToString()));
+                            UIComponent.SetText(turns, DataSystem.GetReplaceText(2440, stateInfo.Turns.ToString()));
                         }
                         break;
                 }
@@ -104,10 +105,7 @@ namespace Ryneus
                     icon.sprite = ResourceSystem.LoadSBuffIcon(stateData.IconIndex);
                 }
             }
-            if (nameText != null)
-            {
-                nameText.SetText(stateData.Name);
-            }
+            UIComponent.SetText(nameText, stateData.Name);
         }
 
         private void UpdateStateIcon(string iconPath)

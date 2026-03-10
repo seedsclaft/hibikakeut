@@ -30,12 +30,12 @@ namespace Ryneus
             battleDefeatedCountObj?.SetActive(battleScore.DefeatedCount != -1);
             weakAttackCountObj?.SetActive(battleScore.WeakAttackCount != -1);
 
-            battleScoreText?.SetText((battleScore.ResultScore > 0 ? "+" : "") + (battleScore.ResultScore * 0.01f).ToString("F2") + "%");
-            battleTurnText?.SetText(battleScore.TurnCount.ToString() + DataSystem.GetText(20301));
-            battleMaxDamageText?.SetText(battleScore.MaxDamage.ToString());
-            battleDefeatedCountText?.SetText(battleScore.DefeatedCount.ToString());
-            weakAttackCountText?.SetText(battleScore.WeakAttackCount.ToString());
-            battleAttackPerText?.SetText(battleScore.RemainHpPercent.ToString() + "%");
+            UIComponent.SetText(battleScoreText, (battleScore.ResultScore > 0 ? "+" : "") + (battleScore.ResultScore * 0.01f).ToString("F2") + "%");
+            UIComponent.SetText(battleTurnText, battleScore.TurnCount.ToString() + DataSystem.GetText(20301));
+            UIComponent.SetText(battleMaxDamageText, battleScore.MaxDamage.ToString());
+            UIComponent.SetText(battleDefeatedCountText, battleScore.DefeatedCount.ToString());
+            UIComponent.SetText(weakAttackCountText, battleScore.WeakAttackCount.ToString());
+            UIComponent.SetText(battleAttackPerText, battleScore.RemainHpPercent.ToString() + "%");
         }
 
         public void UpdateEmpty()

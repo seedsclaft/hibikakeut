@@ -70,7 +70,7 @@ namespace Ryneus
         {
             magicListRoot.SetActive(true);
             conditionListRoot.SetActive(false);
-            displayCategory.SetText(DataSystem.GetText(15010));
+            UIComponent.SetText(displayCategory, DataSystem.GetText(15010));
             SetActivate(magicList);
         }
 
@@ -78,7 +78,7 @@ namespace Ryneus
         {
             magicListRoot.SetActive(false);
             conditionListRoot.SetActive(true);
-            displayCategory.SetText(DataSystem.GetText(15020));
+            UIComponent.SetText(displayCategory, DataSystem.GetText(15020));
             SetActivate(conditionList);
         }
 

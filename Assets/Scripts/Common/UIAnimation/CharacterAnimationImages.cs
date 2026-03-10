@@ -22,9 +22,12 @@ namespace Ryneus
         [SerializeField] private Button selectButton = null;
         private AnimationState _lastState = 0;
         private BattlerInfo _battlerInfo;
+        private List<Sequence> _sequences = new();
+        private float _animationDuration => 1f / GameSystem.OptionData.BattleSpeed;
 
         public void Initilize(Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
         {
+            AnimationUtility.Clear(_sequences);
             if (selectButton != null)
             {
                 selectButton.onClick.AddListener(() =>
@@ -43,6 +46,30 @@ namespace Ryneus
         {
             state = animationState;
             SetActiveCircle(animationState == AnimationState.Magic);
+            if (animator == null)
+            {
+                // 敵汎用処理
+                SetEnemyAnimation(state);
+            }
+        }
+
+        private void SetEnemyAnimation(AnimationState animationState)
+        {
+            Sequence sequences = null;
+            switch (animationState)
+            {
+                case AnimationState.BeforeStart:
+                    sequences = AnimationUtility.AlphaToTransform(spriteRenderer, 0, 1, _animationDuration);
+                    break;
+                case AnimationState.Death:
+                    sequences = AnimationUtility.AlphaToTransform(spriteRenderer, 1, 0, _animationDuration);
+                    break;
+            }
+            if (sequences != null)
+            {
+                AnimationUtility.Clear(_sequences);
+                _sequences.Add(sequences);
+            }
         }
 
         public void SetActiveCircle(bool isActive)
@@ -53,17 +80,18 @@ namespace Ryneus
         public async Task UpdateInfo(BattlerInfo battlerInfo)
         {
             _battlerInfo = battlerInfo;
+            battlerInfoComponent.UpdateInfo(battlerInfo);
             if (spriteRenderer != null)
             {
                 spriteRenderer.sortingOrder = battlerInfo.Index.Value;
                 candidateSelect.sortingOrder = battlerInfo.Index.Value + 1;
                 if (!battlerInfo.IsActor)
                 {
-                    spriteRenderer.sprite = await ResourceSystem.LoadEnemySprite(battlerInfo.EnemyData.ImagePath);
-                    candidateSelect.sprite = spriteRenderer.sprite;
+                    var _enemySprite = await ResourceSystem.LoadEnemySprite(battlerInfo.EnemyData.ImagePath);
+                    spriteRenderer.sprite = _enemySprite;
+                    candidateSelect.sprite = _enemySprite;
                 }
             }
-            battlerInfoComponent.UpdateInfo(battlerInfo);
             SetDamageRoot();
         }
 
@@ -97,7 +125,7 @@ namespace Ryneus
 
         private void Update()
         {
-            if (_lastState != state)
+            if (_lastState != state && animator != null)
             {
                 _lastState = state;
                 animator.SetInteger("State", (int)state);
@@ -115,5 +143,6 @@ namespace Ryneus
         Magic = 20, // 詠唱
         Hit = 30, // ダメージ
         Death = 100,
+        Walk = 200,
     }
 }

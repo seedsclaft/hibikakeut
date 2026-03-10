@@ -27,8 +27,8 @@ namespace Ryneus
             }
             var optionInfo = ListItemData<OptionInfo>();
             var data = optionInfo.OptionCommand;
-            optionName.SetText(data.Name);
-            optionHelp.SetText(data.Help);
+            UIComponent.SetText(optionName, data.Name);
+            UIComponent.SetText(optionHelp, data.Help);
             SetResolutionText();
 
             optionVolume.gameObject.SetActive(data.ButtonType == OptionButtonType.Slider);
@@ -185,7 +185,7 @@ namespace Ryneus
 
         private void SetResolutionText()
         {
-            resolution.SetText(GameSystem.OptionData.ScreenWidth.ToString() + " x " + GameSystem.OptionData.ScreenHeight.ToString());
+            UIComponent.SetText(resolution, GameSystem.OptionData.ScreenWidth.ToString() + " x " + GameSystem.OptionData.ScreenHeight.ToString());
         }
     }
 }

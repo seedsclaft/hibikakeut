@@ -15,7 +15,7 @@ namespace Ryneus
 
         public void UpdateInfo(UnitInfo unitInfo)
         {
-            noText?.SetText("部隊"+unitInfo.Index.Value.ToString());
+            UIComponent.SetText(noText, "部隊"+unitInfo.Index.Value.ToString());
             if (frontBattler != null)
             {
                 frontBattler.gameObject.SetActive(unitInfo.FrontBattlerInfo() != null);

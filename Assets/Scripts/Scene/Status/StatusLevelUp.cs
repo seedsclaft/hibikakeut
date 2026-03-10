@@ -76,14 +76,14 @@ namespace Ryneus
 
         public void SetLvUpInfo(int cost,int currency)
         {
-            numinousText.SetText(currency + DataSystem.GetText(1000));
+            UIComponent.SetText(numinousText, currency + DataSystem.GetText(1000));
             //lvUpCostText.SetText(cost.ToString());
         }
 
         public void SetLvUpExpInfo(int before,int after)
         {
-            beforeExp.SetText(before.ToString());
-            afterExp.SetText(after.ToString());
+            UIComponent.SetText(beforeExp, before);
+            UIComponent.SetText(afterExp, after);
         }
     }
 }

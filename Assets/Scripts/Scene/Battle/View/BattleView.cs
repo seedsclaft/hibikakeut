@@ -742,6 +742,7 @@ namespace Ryneus
             }
             _battlerComps[targetIndex].StartDeathAnimation();
             battleFieldView.StartDeathAnimation(targetIndex);
+            _fieldBattlerComps[targetIndex].HideStatus();
         }
 
         public void StartAliveAnimation(int targetIndex)
@@ -772,7 +773,7 @@ namespace Ryneus
 
         public void RefreshTurn(int turn)
         {
-            turns?.SetText(turn.ToString());
+            UIComponent.SetText(turns, turn);
         }
 
         public void SetBattlerThumbAlpha(bool selectable)

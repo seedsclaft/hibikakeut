@@ -44,6 +44,23 @@ namespace Ryneus
                 return sequence2;
         }
 
+        public static Sequence AlphaToTransform(SpriteRenderer spriteRenderer, float from, float to, float duration, float delay = 0f)
+        {
+            spriteRenderer.color = new Color(255, 255, 255, from);
+            if (delay > 0)
+            {
+                var sequence = DOTween.Sequence()
+                    .SetDelay(delay)
+                    .Append(spriteRenderer.DOFade(to, duration))
+                    .SetEase(Ease.OutQuart);
+                return sequence;
+            }
+            var sequence2 = DOTween.Sequence()
+                .Append(spriteRenderer.DOFade(to, duration))
+                .SetEase(Ease.OutQuart);
+                return sequence2;
+        }
+
         public static void CountUpText(TextMeshProUGUI text, int from, int to)
         {
             int nowNumber = from;

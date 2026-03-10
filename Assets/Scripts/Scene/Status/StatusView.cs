@@ -201,10 +201,7 @@ namespace Ryneus
         public void SetChangeSkillList(List<ListData> skillInfos, string filterText)
         {
             changeSkillList.SetData(skillInfos);
-            if (filterAttribute != null)
-            {
-                filterAttribute.SetText(filterText);
-            }
+            UIComponent.SetText(filterAttribute, filterText);
         }
 
         private void OnSelectChangeSkill()
