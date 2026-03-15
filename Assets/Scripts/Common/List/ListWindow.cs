@@ -198,7 +198,10 @@ namespace Ryneus
         private void CreateListPrefab(int createCount)
         {
             // 上下用に1つ多く作成
-            createCount++;
+            if (GetVerticalCount() < _listDates.Count)
+            {
+                createCount++;
+            }
             for (var i = 0; i < createCount; i++)
             {
                 var prefab = Instantiate(itemPrefab);
@@ -1004,10 +1007,9 @@ namespace Ryneus
             else
             if (_horizontal)
             {
-                return (horizontalCount + 1) * Rows();
+                return horizontalCount * Rows();
             }
-            // GetVerticalCountがFloor値のため1加算
-            return (verticalCount + 1) * Cols();
+            return verticalCount * Cols();
         }
 
         public void ResetScrollRect()

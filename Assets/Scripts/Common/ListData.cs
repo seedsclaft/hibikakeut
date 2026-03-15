@@ -33,7 +33,7 @@ namespace Ryneus
 
         public static List<ListData> MakeListData<T>(List<T> dataList, int selectIndex)
         {
-            return MakeListData(dataList, new List<int>(){selectIndex});
+            return MakeListData(dataList, new List<int>() { selectIndex });
         }
 
         public static List<ListData> MakeListData<T>(List<T> dataList, int selectIndex, Func<T, bool> enable)
@@ -71,7 +71,7 @@ namespace Ryneus
 
         public static List<ListData> MakeListData<T>(List<T> dataList, T selected)
         {
-            return MakeListData(dataList, new List<T>(){selected});
+            return MakeListData(dataList, new List<T>() { selected });
         }
 
         public static List<ListData> MakeListData<T>(List<T> dataList, List<T> selected)
@@ -90,7 +90,7 @@ namespace Ryneus
             return list;
         }
 
-        public static List<ListData> MakeListData<T>(List<T> dataList, Func<T,bool> enable,Func<T,bool> select)
+        public static List<ListData> MakeListData<T>(List<T> dataList, Func<T, bool> enable, Func<T, bool> select)
         {
             var list = new List<ListData>();
             if (enable != null)
@@ -118,7 +118,7 @@ namespace Ryneus
             return list;
         }
 
-        public static List<ListData> MakeListData<T>(List<T> dataList, Func<T,bool> enable = null,Func<T,bool> select = null,Func<T,bool> batch = null,int selectIndex = -1)
+        public static List<ListData> MakeListData<T>(List<T> dataList, Func<T, bool> enable = null, Func<T, bool> select = null, Func<T, bool> batch = null, int selectIndex = -1)
         {
             var list = new List<ListData>();
             var idx = 0;
@@ -147,7 +147,7 @@ namespace Ryneus
             return list;
         }
 
-        public static List<ListData> MakeListData<T>(List<T> dataList, Func<T,bool> enable,int selectIndex = -1)
+        public static List<ListData> MakeListData<T>(List<T> dataList, Func<T, bool> enable, int selectIndex = -1)
         {
             var listData = MakeListData(dataList, enable, null, null);
             if (selectIndex != -1 && listData.Count > selectIndex)

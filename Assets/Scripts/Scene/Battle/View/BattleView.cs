@@ -12,7 +12,6 @@ namespace Ryneus
     public partial class BattleView : BaseView, IInputHandlerEvent
     {
         [SerializeField] private BattleFieldView battleFieldView = null;
-        public bool _fieldBusy => battleFieldView.Busy;
         [SerializeField] private BattleBattlerList battleActorList = null;
         [SerializeField] private BattleBattlerList battleEnemyList = null;
         [SerializeField] private BattleGridLayer battleGridLayer = null;
@@ -41,18 +40,13 @@ namespace Ryneus
         private BattleStartAnim _battleStartAnim = null;
         public bool StartAnimIsBusy => _battleStartAnim.IsBusy;
 
-        private bool _battleBusy = false;
-        public bool BattleBusy => _battleBusy;
+        public ParameterBool BattleSeekBusy = new();
         public void SetBattleBusy(bool isBusy)
         {
-            _battleBusy = isBusy;
+            BattleSeekBusy.SetValue(isBusy);
         }
-        private bool _animationBusy = false;
-        public bool AnimationBusy => _animationBusy;
-        public void SetAnimationBusy(bool isBusy)
-        {
-            _animationBusy = isBusy;
-        }
+        public ParameterBool AnimationBusy = new();
+        public bool AllBusy => BattleSeekBusy.Value || battleFieldView.Busy || AnimationBusy.Value;
 
         private List<MakerEffectData.SoundTimings> _soundTimings = null;
 
@@ -515,7 +509,7 @@ namespace Ryneus
 
         private void CallEnemyDetailInfo()
         {
-            if (_animationBusy)
+            if (AnimationBusy.Value)
             {
                 return;
             }
@@ -682,7 +676,7 @@ namespace Ryneus
                 SoundManager.Instance.PlayStaticSe(SEType.Demigod);
                 battleAwakenAnimation.StartAnimation(battlerInfo, speed);
                 HideStateOverlay();
-                SetAnimationBusy(true);
+                AnimationBusy.SetValue(true);
                 await UniTask.DelayFrame((int)(60 / speed));
             }
         }
@@ -815,7 +809,7 @@ namespace Ryneus
 
         private void Update()
         {
-            if (_battleBusy)
+            if (BattleSeekBusy.Value)
             {
                 return;
             }
@@ -881,7 +875,7 @@ namespace Ryneus
                 SoundManager.Instance.PlayStaticSe(SEType.Demigod);
                 StartAnimationDemigod(battlerInfo, skillData, speed);
                 HideStateOverlay();
-                SetAnimationBusy(true);
+                AnimationBusy.SetValue(true);
                 await UniTask.DelayFrame((int)(20f / speed));
                 SoundManager.Instance.PlayStaticSe(SEType.Awaken);
                 await UniTask.DelayFrame((int)(90f / speed));

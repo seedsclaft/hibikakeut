@@ -17,6 +17,7 @@ namespace Ryneus
 
         [SerializeField] private GameObject transitionRoot = null;
         [SerializeField] private Fade transitionFade = null;
+        [SerializeField] private RenderTexToPNG renderTexToPNG = null;
         [SerializeField] private LoadingView loadingView = null;
         [SerializeField] private TutorialView tutorialView = null;
         [SerializeField] private AdvEngine advEngine = null;
@@ -233,6 +234,7 @@ namespace Ryneus
                     advEngine.Param.SetParameterInt("RouteSelect", (int)viewEvent.Template);
                     break;
                 case Base.CommandType.ChangeViewToTransition:
+                    renderTexToPNG.SaveRenderTextureToPNG();
                     UIComponent.SetActive(transitionRoot, true);
                     _currentScene.gameObject.transform.SetParent(transitionRoot.transform, false);
                     _currentScene = null;
@@ -242,6 +244,10 @@ namespace Ryneus
                     {
                         foreach (Transform child in transitionRoot.transform)
                         {
+                            if (child.gameObject.name == "ScreenShot")
+                            {
+                                continue;
+                            }
                             var endEvent = (Action)viewEvent.Template;
                             if ((Action)viewEvent.Template != null) endEvent();
                             Destroy(child.gameObject);
@@ -504,6 +510,11 @@ namespace Ryneus
             prefab.transform.SetParent(mapAssign.transform, false);
             var dungeonSettings = prefab.GetComponentInChildren<Ariadne.DungeonSettings>();
             UIComponent.SetActive(mapAssign?.gameObject, true);
+            var dungeonCamera = prefab.GetComponentInChildren<Camera>();
+            if (dungeonCamera != null)
+            {
+                renderTexToPNG.targetCamera = dungeonCamera;
+            }
             var dungeonData = ResourceSystem.LoadDungeonMaster(mapName);
             dungeonSettings.OnSetDungeon(dungeonData);
             _model.PartyInfo.SetupDungeonTraverse(Ariadne.PlayerPosition.Instance.currentDungeonId);

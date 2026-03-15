@@ -102,11 +102,8 @@ namespace Ryneus
         {
             _view.SetHelpInputInfo("BATTLE");
             _view.SetEvent((type) => UpdateCommand(type));
-            if (_model.SceneParam.BossBattle)
-            {
-                _view.StartBattleStartAnim(_model.BattleStartText());
-            }
             _view.StartUIAnimation();
+            _view.StartBattleStartAnim(_model.BattleStartText());
             _view.SetActiveBattleAutoButton(true);
             //_view.StartBattle(_model.BattlerEnemies().Count);
             await UniTask.WaitUntil(() => !_view.StartAnimIsBusy);
@@ -286,8 +283,8 @@ namespace Ryneus
             _view.UpdateSelectCursor(new List<int>() { });
             CommandStartBattleAction();
             _view.SetStartActors();
-            _view.StartBattleStartAnim("Battle Start!");
-            await UniTask.WaitUntil(() => !_view.StartAnimIsBusy);
+            //_view.StartBattleStartAnim("Battle Start!");
+            await UniTask.WaitUntil(() => !_view.AllBusy);
             _view.SetBattleBusy(false);
             _view.SetIdle();
         }
@@ -612,7 +609,7 @@ namespace Ryneus
         private void CommandUpdateBattleAuto()
         {
             _view.ChangeBattleAuto(_model.IsBattleAuto());
-            if (!_view.AnimationBusy && _view.BattleBusy && _model.IsBattleAuto())
+            if (!_view.AnimationBusy.Value && _view.BattleSeekBusy.Value && _model.IsBattleAuto())
             {
                 _model.ClearActionInfo();
                 _view.BattlerBattleClearSelect();

@@ -156,7 +156,7 @@ namespace Ryneus
 
 
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             if (cursorRectAnimation != null)
             {

@@ -73,7 +73,7 @@ namespace Ryneus
             _view.SetBattlerActiveStatus(actionInfo.ResultTargetIndexes());
             //_view.ShowEnemyStateOverlay();
             _view.HideStateOverlay();
-            _view.SetAnimationBusy(true);
+            _view.AnimationBusy.SetValue(true);
             if (actionInfo.ActionResults.Count == 0)
             {
                 CommandEndAnimation();

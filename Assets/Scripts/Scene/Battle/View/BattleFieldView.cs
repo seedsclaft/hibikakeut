@@ -92,8 +92,14 @@ namespace Ryneus
 
         public void MoveCameraActors()
         {
+            _busy = true;
             var sequence = DOTween.Sequence()
-                .Append(cameraTransform.DOLocalMoveX(_rangeWidth, _moveDuration));
+                .Append(cameraTransform.DOLocalMoveX(_rangeWidth, _moveDuration))
+                //.SetEase(Ease.OutQuart)
+                .OnComplete(() =>
+                {
+                    _busy = false;
+                });
             _sequences.Add(sequence);
         }
 

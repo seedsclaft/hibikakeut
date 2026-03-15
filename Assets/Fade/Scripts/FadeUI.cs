@@ -44,7 +44,7 @@ public class FadeUI : Graphic, IFade
 
     private void UpdateMaskCutout(float range)
     {
-#if !UNITY_EDITOR
+#if true//!UNITY_EDITOR
 		mat.SetFloat ("_Range", range);
 		rt.Release();
 		rt.width = Screen.width;

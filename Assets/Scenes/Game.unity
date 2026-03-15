@@ -1234,6 +1234,94 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_RespectSceneVisibilityWhenBakingGI: 0
+--- !u!1 &85985725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 85985726}
+  - component: {fileID: 85985729}
+  - component: {fileID: 85985728}
+  - component: {fileID: 85985727}
+  m_Layer: 5
+  m_Name: ScreenShot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &85985726
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85985725}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1439981396}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1280, y: 720}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &85985727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85985725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 54d08e472ddea3e4aa39cfa5fea696a3, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!114 &85985728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85985725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff4d57caac60054fa8b290336e5a5ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.RenderTexToPNG
+  targetCamera: {fileID: 0}
+  renderTexture: {fileID: 8400000, guid: 1189014bbb060364fbd148a94b4cfbfa, type: 2}
+  renderImage: {fileID: 85985727}
+--- !u!222 &85985729
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85985725}
+  m_CullTransparentMesh: 1
 --- !u!1001 &100794709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15963,9 +16051,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1439981396}
   - component: {fileID: 1439981401}
+  - component: {fileID: 1439981398}
   - component: {fileID: 1439981400}
   - component: {fileID: 1439981399}
-  - component: {fileID: 1439981398}
   - component: {fileID: 1439981397}
   - component: {fileID: 1439981402}
   m_Layer: 5
@@ -15974,7 +16062,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1439981396
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15986,7 +16074,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 85985726}
   m_Father: {fileID: 1931081345}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -16023,7 +16112,7 @@ MonoBehaviour:
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   maskTexture: {fileID: 2800000, guid: 723f757e32882e343b43070c872b0e9e, type: 3}
-  cutoutRange: 0.724
+  cutoutRange: 0.53
   mat: {fileID: 2100000, guid: 4c710d45ee235444caea9b50aef4d3c9, type: 2}
   rt: {fileID: 8400000, guid: fe99870ba03c2f343b48e98d34ac4fc9, type: 2}
   texture: {fileID: 2800000, guid: 723f757e32882e343b43070c872b0e9e, type: 3}
@@ -25176,6 +25265,7 @@ MonoBehaviour:
   confirmAssign: {fileID: 2093208895}
   transitionRoot: {fileID: 1439981395}
   transitionFade: {fileID: 1439981402}
+  renderTexToPNG: {fileID: 85985728}
   loadingView: {fileID: 418308402}
   tutorialView: {fileID: 2106403970}
   advEngine: {fileID: 456724002}

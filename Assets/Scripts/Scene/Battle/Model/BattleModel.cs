@@ -2859,10 +2859,10 @@ namespace Ryneus
 
         public string BattleStartText()
         {
-            var textId = _sceneParam.BossBattle ? 19612 : 19611;
+            var textId = _sceneParam.BossBattle ? 16041 : 16040;
             return DataSystem.GetText(textId);
         }
-        
+
         public void ForceVictory()
         {
             foreach (var enemy in BattlerEnemies())
