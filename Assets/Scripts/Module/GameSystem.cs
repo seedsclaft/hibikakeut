@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Effekseer;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.UI;
 using Utage;
 
 namespace Ryneus
@@ -18,6 +21,8 @@ namespace Ryneus
         [SerializeField] private GameObject transitionRoot = null;
         [SerializeField] private Fade transitionFade = null;
         [SerializeField] private RenderTexToPNG renderTexToPNG = null;
+        [SerializeField] private EffekseerEmitter effectmitter = null;
+        [SerializeField] private UnityEngine.UI.Image flashImage = null;
         [SerializeField] private LoadingView loadingView = null;
         [SerializeField] private TutorialView tutorialView = null;
         [SerializeField] private AdvEngine advEngine = null;
@@ -275,6 +280,12 @@ namespace Ryneus
                     break;
                 case Base.CommandType.SceneShowUI:
                     SceneShowUI();
+                    break;
+                case Base.CommandType.PlayEffect:
+                    PlayEffect();
+                    break;
+                case Base.CommandType.FlashEffect:
+                    FlashEffect();
                     break;
             }
         }
@@ -534,6 +545,30 @@ namespace Ryneus
         private void SceneHideUI()
         {
             _currentScene?.ChangeUIActive(false);
+        }
+
+        private void PlayEffect()
+        {
+            if (effectmitter == null)
+            {
+                return;
+            }
+            UIComponent.SetActive(effectmitter.gameObject, true);
+            effectmitter.speed = 2f;
+            effectmitter.Play();
+        }
+
+        private void FlashEffect()
+        {
+            if (flashImage == null)
+            {
+                return;
+            }
+            UIComponent.SetActive(flashImage.gameObject, true);
+            AnimationUtility.AlphaToTransform(flashImage, 0, 255, 0.2f, 0, () => 
+            {
+                AnimationUtility.AlphaToTransform(flashImage, 255, 0, 0.2f);
+            });
         }
 
         private void CheckTutorialState(TutorialViewInfo tutorialViewInfo)

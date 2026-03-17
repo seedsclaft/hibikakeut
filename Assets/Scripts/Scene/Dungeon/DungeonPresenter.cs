@@ -280,6 +280,8 @@ namespace Ryneus
                 EnemyInfos = _model.RandumTroopInfos(),
             };
             PlayBattleBgm();
+            _view.CallSystemCommand(Base.CommandType.FlashEffect);
+            _view.CallSystemCommand(Base.CommandType.PlayEffect);
             _view.CommandChangeViewToTransition(null);
             //_view.ChangeUIActive(false);
             _view.CommandSceneChange(Scene.Battle, battleSceneInfo);

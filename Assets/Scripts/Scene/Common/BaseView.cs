@@ -492,6 +492,8 @@ namespace Ryneus
             CheckTutorialState,
             SceneShowUI,
             SceneHideUI,
+            PlayEffect,
+            FlashEffect,
         }
     }
 }

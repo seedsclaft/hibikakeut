@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.UI;
 
 namespace Ryneus
 {
@@ -41,6 +42,19 @@ namespace Ryneus
             var sequence2 = DOTween.Sequence()
                 .Append(canvasGroup.DOFade(to, duration))
                 .SetEase(Ease.OutQuart);
+                return sequence2;
+        }
+
+        public static Sequence AlphaToTransform(Image image, float from, float to, float duration, float delay = 0f, System.Action endEvent = null)
+        {
+            image.color = new Color(255, 255, 255, from);
+            var sequence2 = DOTween.Sequence()
+                .Append(image.DOFade(to, duration))
+                .OnComplete(() =>
+                {
+                    endEvent?.Invoke();
+                });
+                //.SetEase(Ease.InOutQuint);
                 return sequence2;
         }
 
