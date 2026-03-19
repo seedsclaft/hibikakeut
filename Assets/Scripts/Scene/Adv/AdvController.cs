@@ -229,7 +229,7 @@ namespace Ryneus
                     Sound = await ResourceSystem.LoadAsset<AudioClip>(path);
                     break;
                 case AssetFileType.UnityObject:     //Unityオブジェクト（プレハブとか）
-                    //this.UnityObject = Resources.Load(path);
+                    UnityObject = await ResourceSystem.LoadAsset<GameObject>(path.Replace("Texture/Character/" , ""));
                     break;
                 default:
                     break;

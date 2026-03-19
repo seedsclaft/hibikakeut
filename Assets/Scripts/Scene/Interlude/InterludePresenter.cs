@@ -65,8 +65,7 @@ namespace Ryneus
             // タイトル終了後
             if (!_startEvent)
             {
-                var advInfo = new AdvCallInfo();
-                advInfo.Label.SetValue(_model.GetAdvFile(_model.InterrudeEventId()));
+                var advInfo = _model.GetAdvCallInfo(_model.InterrudeEventId());
                 advInfo.SetCallEvent(() =>
                 {
                     _view.ChangeUIActive(true);
@@ -98,8 +97,7 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             // 報酬授与後
             _view.HideResultList();
-            var advInfo = new AdvCallInfo();
-            advInfo.Label.SetValue(_model.GetAdvFile(_model.AfterInterrudeEventId()));
+            var advInfo = _model.GetAdvCallInfo(_model.AfterInterrudeEventId());
             advInfo.SetCallEvent(() =>
             {
                 _view.ChangeUIActive(true);

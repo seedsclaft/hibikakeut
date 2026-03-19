@@ -202,7 +202,7 @@ namespace Ryneus
                 case Base.CommandType.CallAdvScene:
                     UIComponent.SetActive(Instance.gameObject, true);
                     var advCallInfo = (AdvCallInfo)viewEvent.Template;
-                    StartCoroutine(JumpScenarioAsync(advCallInfo.Label.Value, advCallInfo.CallEvent));
+                    StartCoroutine(JumpScenarioAsync(advCallInfo.Label.Value, advCallInfo.CallEvent.Invoke));
                     break;
                 case Base.CommandType.DecidePlayerName:
                     string playerName = (string)advEngine.Param.GetParameter("PlayerName");
@@ -629,20 +629,5 @@ namespace Ryneus
             _model.ReadTutorialData(tutorialData);
         }
 
-    }
-
-
-    public class AdvCallInfo
-    {
-        public ParameterString Label = new();
-        private Action _callEvent;
-        public Action CallEvent => _callEvent;
-        public AdvCallInfo()
-        {
-        }
-        public void SetCallEvent(Action callEvent)
-        {
-            _callEvent = callEvent;
-        }
     }
 }

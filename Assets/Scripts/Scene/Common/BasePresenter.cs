@@ -148,7 +148,7 @@ namespace Ryneus
 
         private void CallAdvScene(int advId, Action<bool> callEvent = null)
         {
-            var advInfo = CheckAdvStageEvent(advId);
+            var advInfo = _model.GetAdvCallInfo(advId);
             if (advInfo != null)
             {
                 BeforeStageAdv();
@@ -161,13 +161,6 @@ namespace Ryneus
                     _view.CommandCallAdv(advInfo);
                 });
             }
-        }
-
-        public AdvCallInfo CheckAdvStageEvent(int advId)
-        {
-            var advInfo = new AdvCallInfo();
-            advInfo.Label.SetValue(_model.GetAdvFile(advId));
-            return advInfo;
         }
 
         public void CallAdvEvent(AdvData advData, float timeStamp = 0, Action endEvent = null)
@@ -221,9 +214,7 @@ namespace Ryneus
             {
                 var advId = find.Param;
                 _model.AddEventReadFlag(find);
-                var advInfo = new AdvCallInfo();
-                advInfo.Label.SetValue(_model.GetAdvFile(advId));
-                return advInfo;
+                return _model.GetAdvCallInfo(advId);
             }
             return null;
         }

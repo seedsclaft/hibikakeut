@@ -65,7 +65,7 @@ namespace Ryneus
         /// <param name="actionInfo"></param>
         public void SetActionInfoParameter(ActionInfo actionInfo, bool startAction)
         {
-            if (actionInfo.IsSettingParameter)
+            if (actionInfo.IsSetParameter.Value)
             {
                 return;
             }
@@ -81,7 +81,7 @@ namespace Ryneus
             actionInfo.SetRepeatTime(repeatTime);
             actionInfo.BaseRepeatTime.SetValue(repeatTime);
             actionInfo.StartAction.SetValue(startAction);
-            actionInfo.SetIsSettingParameter(true);
+            actionInfo.IsSetParameter.SetValue(true);
         }
     }
 }

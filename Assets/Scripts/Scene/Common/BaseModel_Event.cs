@@ -8,7 +8,7 @@ namespace Ryneus
     public partial class BaseModel
     {
         public List<StageEventData> StageEventDates => CurrentStage.GetStageEvents();
-    
+
         public List<StageEventData> StageEvents(EventTiming eventTiming)
         {
             var eventKeys = CurrentGameInfo.ReadEventKeys;
@@ -67,7 +67,12 @@ namespace Ryneus
             return events;
         }
 
-        public string GetAdvFile(int id)
+        public AdvCallInfo GetAdvCallInfo(int advId)
+        {
+            return new AdvCallInfo(GetAdvFile(advId));
+        }
+
+        private string GetAdvFile(int id)
         {
             var adventureFile = DataSystem.Dates[DataType.Adventure].Find<AdvData>(id);
             if (adventureFile == null)

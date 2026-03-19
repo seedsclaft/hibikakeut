@@ -47,9 +47,7 @@ namespace Ryneus
             RepeatTime.GainValue(-1);
         }
 
-        private bool _isSettingParameter = false;
-        public bool IsSettingParameter => _isSettingParameter;
-        public void SetIsSettingParameter(bool isSettingParameter) => _isSettingParameter = isSettingParameter;
+        public ParameterBool IsSetParameter = new();
 
         public bool FirstAttack()
         {
