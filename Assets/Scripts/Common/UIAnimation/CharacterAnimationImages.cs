@@ -54,6 +54,11 @@ namespace Ryneus
             }
         }
 
+        public void Move(int x, int y, float duration)
+        {
+            AnimationUtility.LocalMoveToTransform(transform, transform.localPosition, new Vector3(x,y,1), duration);
+        }
+
         private void SetEnemyAnimation(AnimationState animationState)
         {
             Sequence sequences = null;

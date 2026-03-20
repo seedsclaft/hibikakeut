@@ -18,6 +18,15 @@ namespace Ryneus
             return sequence;
         }
 
+        public static Sequence LocalMoveToTransform(Transform target, Vector3 from, Vector3 to, float duration)
+        {
+            target.localPosition = from;
+            var sequence = DOTween.Sequence()
+                .Append(target.transform.DOLocalMove(to, duration))
+                .SetEase(Ease.Linear);
+            return sequence;
+        }
+
         public static Sequence LocalMoveToLoopTransform(GameObject target, Vector3 from, Vector3 to, float duration)
         {
             target.GetComponent<RectTransform>().localPosition = from;

@@ -45,6 +45,15 @@ namespace Utage
                 case "ShowEventActor":
                     command = new AdvCommandShowEventActor(row);
                     break;
+                case "HideEventActor":
+                    command = new AdvCommandHideEventActor(row);
+                    break;
+                case "AnimationEventActor":
+                    command = new AdvCommandAnimationEventActor(row);
+                    break;
+                case "MoveEventActor":
+                    command = new AdvCommandMoveEventActor(row);
+                    break;
             }
         }
     }

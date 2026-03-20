@@ -22,12 +22,14 @@ namespace Utage
 
         public override async void DoCommand(AdvEngine engine)
         {
-            AdvGraphicLayer layer = engine.GraphicManager.FindLayer(_layerName);
-            var prefabObject = await ResourceSystem.LoadAsset<GameObject>("FieldBattler/Actors/FieldBattler_0001");
+            var layer = engine.GraphicManager.FindLayer(_layerName);
+            var prefabObject = await ResourceSystem.LoadAsset<GameObject>("Texture/Character/" + _fileName);
             var prefab = GameObject.Instantiate(prefabObject);
             prefab.transform.SetParent(layer.gameObject.transform, false);
             prefab.transform.SetAsLastSibling();
             prefab.ChangeLayerDeep(11);
+            prefab.transform.localPosition = new Vector3(_posX, _posY, 1);
+            prefab.name = _fileName;
         }
     }
 }
