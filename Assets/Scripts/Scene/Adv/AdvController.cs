@@ -85,7 +85,7 @@ namespace Ryneus
             }
             if (keyTypes.Contains(InputKeyType.Decide) || keyTypes.Contains(InputKeyType.Cancel))
             {
-                if (_selectIndex > -1)
+                if (_selectIndex > -1 && advUguiManager.Engine.SelectionManager.IsWaitInput)
                 {
                     advUguiManager.Engine.SelectionManager.Select(_selectIndex);
                     SoundManager.Instance.PlayStaticSe(SEType.Decide);
@@ -117,11 +117,14 @@ namespace Ryneus
             {
                 if (_onOffButtons.Count > 0)
                 {
-                    _onOffButtons[1].SetUnSelect();
                     _onOffButtons[0].SetSelect();
-                    SoundManager.Instance.PlayStaticSe(SEType.Cursor);
-                    _selectIndex = 0;
                 }
+                if (_onOffButtons.Count > 1)
+                {
+                    _onOffButtons[1].SetUnSelect();
+                }
+                SoundManager.Instance.PlayStaticSe(SEType.Cursor);
+                _selectIndex = 0;
             }
         }
 

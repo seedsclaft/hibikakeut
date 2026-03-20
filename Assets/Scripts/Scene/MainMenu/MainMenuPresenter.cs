@@ -320,6 +320,7 @@ namespace Ryneus
                         _view.CommandCallConfirm(reliefConfirmInfo);
                     }
                     else
+                    if (a == ConfirmCommandType.No)
                     {
                         _busy = false;
                         CommandAchievement();
@@ -403,6 +404,8 @@ namespace Ryneus
             {
                 if (a == ConfirmCommandType.Yes)
                 {
+                    _busy = true;
+                    UpdateCommandSelecting(false);
                     StartRelief();
                 }
                 else
