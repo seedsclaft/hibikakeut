@@ -284,7 +284,7 @@ namespace Ryneus
             CommandStartBattleAction();
             _view.SetStartActors();
             //_view.StartBattleStartAnim("Battle Start!");
-            await UniTask.WaitUntil(() => !_view.AllBusy);
+            await UniTask.WaitUntil(() => !_view.BattleWait);
             _view.SetBattleBusy(false);
             _view.SetIdle();
         }

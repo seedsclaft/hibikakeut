@@ -20,7 +20,7 @@ namespace Ryneus
             _checkTriggerDict[10] = new CheckTriggerPercent();
             _checkTriggerDict[11] = new CheckTriggerUseCount();
             _checkTriggerDict[12] = new CheckTriggerActionInfo();
-            
+
             _checkTriggerDict[13] = new CheckTriggerKind();
             _checkTriggerDict[14] = new CheckTriggerStatus();
             _checkTriggerDict[15] = new CheckTriggerAttackAction();
@@ -29,7 +29,7 @@ namespace Ryneus
 
             _checkTriggerDict[19] = new CheckTriggerAttackedAction();
         }
-        
+
         private List<SkillData.TriggerData> ConvertTriggerDates(List<SkillTriggerData> skillTriggerDates)
         {
             var triggerDates = new List<SkillData.TriggerData>();
@@ -58,7 +58,7 @@ namespace Ryneus
         /// <param name="actionInfo"></param>
         /// <param name="actionResultInfos"></param>
         /// <returns></returns>
-        private (int,int) SelectSkillTargetBySkillTriggerDates(BattlerInfo battlerInfo, List<SkillTriggerInfo> skillTriggerInfos,ActionInfo actionInfo = null,List<ActionResultInfo> actionResultInfos = null)
+        private (int, int) SelectSkillTargetBySkillTriggerDates(BattlerInfo battlerInfo, List<SkillTriggerInfo> skillTriggerInfos, ActionInfo actionInfo = null, List<ActionResultInfo> actionResultInfos = null)
         {
             var selectSkillId = -1;
             var selectTargetIndex = -1;
@@ -73,7 +73,8 @@ namespace Ryneus
                     if (triggerDates.Count == 0)
                     {
                         selectSkillId = skillTriggerInfo.SkillId;
-                    } else
+                    }
+                    else
                     {
                         if (triggerDates.Count == 2)
                         {
@@ -109,11 +110,13 @@ namespace Ryneus
                         if (condition)
                         {
                             selectTargetIndex = target;
-                        } else
+                        }
+                        else
                         {
                             selectSkillId = -1;
                         }
-                    } else
+                    }
+                    else
                     {
                         selectSkillId = -1;
                     }
@@ -135,7 +138,7 @@ namespace Ryneus
             }
             return CanUse;
         }
-        
+
         private int CanUseSkillTriggerTarget(int skillId, List<SkillData.TriggerData> triggerDates, BattlerInfo battlerInfo, List<int> targetIndexes)
         {
             var skillData = DataSystem.FindSkill(skillId);
@@ -145,11 +148,12 @@ namespace Ryneus
                 if (skillData.IsHpDamageFeature())
                 {
                     targeBattlerIndex = _targetBattler != null ? _targetBattler.Index.Value : -1;
-                } else
-                if (skillData.IsHpHealFeature())
-                {
-                    targeBattlerIndex = _targetBattler != null ? _targetBattler.Index.Value : -1;
                 }
+                else
+                    if (skillData.IsHpHealFeature())
+                    {
+                        targeBattlerIndex = _targetBattler != null ? _targetBattler.Index.Value : -1;
+                    }
             }
             // 条件なし
             if (triggerDates.Count == 0)
@@ -164,7 +168,7 @@ namespace Ryneus
             {
                 targetIndexList2 = targetIndexes;
             }
-            for (int i = 0;i < triggerDates.Count;i++)
+            for (int i = 0; i < triggerDates.Count; i++)
             {
                 var targetIndexList = i == 0 ? targetIndexList1 : targetIndexList2;
                 foreach (var targetIndex in targetIndexes)
@@ -176,7 +180,8 @@ namespace Ryneus
                     {
                         var checkTriggerInfo2 = new CheckTriggerInfo(_turnCount, battlerInfo, BattlerActors(), BattlerEnemies(), _reserveBattlers);
                         _checkTriggerDict[key].AddTargetIndexList(targetIndexList, targetIndexes, targetBattler, triggerDate, skillData, checkTriggerInfo2);
-                    } else
+                    }
+                    else
                     {
                         targetIndexList.Add(targetIndex);
                     }
@@ -224,13 +229,14 @@ namespace Ryneus
                 if (bindBattlerInfo.IsActor && battlerInfo.IsActor)
                 {
                     friendTargets.Add(bindBattlerInfo);
-                } else
+                }
+                else
                 {
                     opponentTargets.Add(bindBattlerInfo);
                 }
             }
             var checkTriggerInfo = new CheckTriggerInfo(_turnCount, battlerInfo, friendTargets, opponentTargets, _reserveBattlers);
-            for (int i = 0;i < triggerDates.Count;i++)
+            for (int i = 0; i < triggerDates.Count; i++)
             {
                 var triggerDate = triggerDates[i];
                 var key = (int)triggerDate.TriggerType / 1000;

@@ -775,9 +775,9 @@ namespace Ryneus
 
         public bool RemoveState(StateInfo stateInfo, bool doRemove)
         {
-            bool IsRemoved = false;
-            int RemoveIndex = _stateInfos.FindIndex(a => a.StateType == stateInfo.StateType && (a.SkillId == stateInfo.SkillId || stateInfo.SkillId.Value == -1));
-            if (RemoveIndex > -1)
+            bool isRemoved = false;
+            int removeIndex = _stateInfos.FindIndex(a => a.StateType == stateInfo.StateType && (a.SkillId == stateInfo.SkillId || stateInfo.SkillId.Value == -1));
+            if (removeIndex > -1)
             {
                 if (doRemove)
                 {
@@ -786,7 +786,7 @@ namespace Ryneus
                         // 効果による解除は全て複数効果あっても全部解除する
                         for (int i = _stateInfos.Count - 1; 0 <= i; i--)
                         {
-                            if (_stateInfos[i].StateType == (StateType)stateInfo.Master.StateType)
+                            if (_stateInfos[i].StateType == stateInfo.Master.StateType)
                             {
                                 _stateInfos.Remove(_stateInfos[i]);
                             }
@@ -794,7 +794,7 @@ namespace Ryneus
                     }
                     else
                     {
-                        _stateInfos.RemoveAt(RemoveIndex);
+                        _stateInfos.RemoveAt(removeIndex);
                     }
                     if (stateInfo.StateType == StateType.Death)
                     {
@@ -802,9 +802,9 @@ namespace Ryneus
                         //if (_hp == 0)_hp = 1;
                     }
                 }
-                IsRemoved = true;
+                isRemoved = true;
             }
-            return IsRemoved;
+            return isRemoved;
         }
 
         public List<StateInfo> UpdateState(RemovalTiming removalTiming)
@@ -985,7 +985,7 @@ namespace Ryneus
         public float CurrentDamageRate(bool isNoEffect = false)
         {
             float DamageRate = 1;
-            if (isNoEffect == false)
+            if (!isNoEffect)
             {
                 DamageRate += StateEffectAll(StateType.DamageUp) * 0.01f;
             }

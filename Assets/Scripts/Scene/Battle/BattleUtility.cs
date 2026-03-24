@@ -34,15 +34,12 @@ namespace Ryneus
         {
             return new List<TriggerTiming>(){
                 TriggerTiming.StartBattle,
-                TriggerTiming.AfterAndStartBattle,
             };
         }
 
         public static List<TriggerTiming> BeforeTriggerTimings()
         {
             return new List<TriggerTiming>(){
-                TriggerTiming.Before,
-                TriggerTiming.BeforeAndStartBattle,
             };
         }
 
@@ -50,7 +47,6 @@ namespace Ryneus
         {
             return new List<TriggerTiming>(){
                 TriggerTiming.After,
-                TriggerTiming.AfterAndStartBattle,
             };
         }
 
@@ -71,6 +67,11 @@ namespace Ryneus
                 TriggerTiming.BeforeFriendUse,
                 TriggerTiming.BeforeOpponentUse,
             };
+        }
+
+        public static bool IsInterruptTiming(TriggerTiming triggerTiming)
+        {
+            return triggerTiming == TriggerTiming.Interrupt || triggerTiming == TriggerTiming.BeforeSelfUse || triggerTiming == TriggerTiming.BeforeOpponentUse || triggerTiming == TriggerTiming.BeforeFriendUse || triggerTiming == TriggerTiming.PrimaryInterrupt;
         }
 
         // 対象決定後パッシブ

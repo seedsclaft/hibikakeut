@@ -419,7 +419,7 @@ namespace Ryneus
         /// </summary>
         private void CheckInterruptActionInfoTriggerTimings(ActionInfo actionInfo)
         {
-            _model.CheckTriggerActiveInfos(TriggerTiming.Interrupt, actionInfo, actionInfo.ActionResults,true);
+            _model.CheckTriggerActiveInfos(TriggerTiming.Interrupt, actionInfo, actionInfo.ActionResults, true);
             _model.CheckTriggerPassiveInfos(new List<TriggerTiming>(){TriggerTiming.Interrupt}, actionInfo, actionInfo.ActionResults);
             _model.CheckTriggerPassiveInfos(new List<TriggerTiming>(){TriggerTiming.Use}, actionInfo, actionInfo.ActionResults);
         }
@@ -570,8 +570,6 @@ namespace Ryneus
             bool isTriggeredSkill = actionInfo.TriggeredSkill;
             // TriggerAfterがある
             var result = _model.CheckTriggerActiveInfos(TriggerTiming.After, actionInfo, actionInfo.ActionResults, true);
-            var result2 = _model.CheckTriggerActiveInfos(TriggerTiming.AfterAndStartBattle, actionInfo, actionInfo.ActionResults, true);
-            result.AddRange(result2);
 
             var checkNoResetAp = _model.CheckNoResetAp(actionInfo);
             if (!checkNoResetAp && result.Count == 0 && !_triggerAfterChecked && !isTriggeredSkill)

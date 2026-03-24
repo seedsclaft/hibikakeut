@@ -504,21 +504,16 @@ namespace Ryneus
     public enum TriggerTiming
     {
         None = 0,
-        Use = 1,
-        After = 2,
-        Interrupt = 3,
-        StartBattle = 4,
-        Before = 5,
+        StartBattle = 1,
         HpDamaged = 11,
-        BeforeAndStartBattle = 20,
-        AfterAndStartBattle = 24,
-        BeforeSelfUse = 31,
-        BeforeOpponentUse = 32,
-        BeforeFriendUse = 33,
+        BeforeSelfUse = 21,
+        BeforeOpponentUse = 22,
+        BeforeFriendUse = 23,
+        Interrupt = 31,
         PrimaryInterrupt = 41,
         AfterOpponentUse = 42,
-        BeforeTacticsTurn = 51,
-        CurrentTacticsTurn = 52
+        Use = 51,
+        After = 61,
     }
 
     public enum FeatureType
