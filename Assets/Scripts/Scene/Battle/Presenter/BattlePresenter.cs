@@ -217,6 +217,9 @@ namespace Ryneus
                     }
                     CommandUpdateAp();
                     break;
+                case CommandType.StartSelect:
+                    CommandStartSelect();
+                    break;
                 case CommandType.OnDecideSkill:
                     CommandDecideSkill();
                     break;
@@ -243,9 +246,6 @@ namespace Ryneus
                     break;
                 case CommandType.AttributeType:
                     //RefreshSkillInfos();
-                    break;
-                case CommandType.StartSelect:
-                    CommandStartSelect();
                     break;
                 case CommandType.Back:
                     CommandBack();
@@ -372,30 +372,14 @@ namespace Ryneus
 
         private void CommandUpdateAp()
         {
-            var currentBattler = CheckApCurrentBattler();
-            if (currentBattler != null)
+            var repeatCount = GameSystem.OptionData.BattleSpeed;
+            for (int i = 0; i < repeatCount;i++)
             {
-                CommandStartSelect();
-                return;
-            }
-            CheckUpdateAp();
-            if (GameSystem.OptionData.BattleSpeed == 2)
-            {
-                currentBattler = CheckApCurrentBattler();
+                var currentBattler = CheckApCurrentBattler();
                 if (currentBattler != null)
                 {
                     CommandStartSelect();
-                    return;
-                }
-                CheckUpdateAp();
-            }
-            if (GameSystem.OptionData.BattleSpeed > 2)
-            {
-                currentBattler = CheckApCurrentBattler();
-                if (currentBattler != null)
-                {
-                    CommandStartSelect();
-                    return;
+                    break;
                 }
                 CheckUpdateAp();
             }
@@ -408,17 +392,8 @@ namespace Ryneus
                 BattleEnd();
                 return;
             }
-            var removeStateList = _model.UpdateAp();
-            if (removeStateList.Count > 0)
-            {
-                _view.ClearDamagePopup();
-                foreach (var removeState in removeStateList)
-                {
-                    _view.StartStatePopup(removeState.TargetIndex.Value, DamageType.State, "-" + removeState.Master.Name);
-                }
-                // Passive解除
-                await RemovePassiveInfos();
-            }
+            var removeStateInfos = _model.UpdateAp();
+            await RemoveStateInfoPopup(removeStateInfos);
             _view.UpdateGridLayer();
         }
 
@@ -429,6 +404,22 @@ namespace Ryneus
                 CheckUpdateAp();
             }
             CommandStartSelect();
+        }
+
+        public async Task RemoveStateInfoPopup(List<StateInfo> removeStateInfos)
+        {
+            if (removeStateInfos.Count == 0)
+            {
+                return;
+            }
+            
+            _view.ClearDamagePopup();
+            foreach (var removeState in removeStateInfos)
+            {
+                _view.StartStatePopup(removeState.TargetIndex.Value, DamageType.State, "-" + removeState.Master.Name);
+            }
+            // Passive解除
+            await RemovePassiveInfos();
         }
 
         private void PlayDamageSound(DamageType damageType)

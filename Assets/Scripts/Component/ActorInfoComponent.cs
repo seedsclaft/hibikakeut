@@ -184,6 +184,7 @@ namespace Ryneus
 
         private void UpdateAwakenThumb(string imagePath, int x, int y, float scale)
         {
+            /*
             UIComponent.SetImage(awakenThumb, ResourceSystem.ActorAwakenSpritePath(imagePath), () =>
             {
                 var rect = awakenThumb.GetComponent<RectTransform>();
@@ -191,6 +192,7 @@ namespace Ryneus
                 rect.localScale = new Vector3(scale, scale, 1);
                 rect.sizeDelta = new Vector3(awakenThumb.mainTexture.width, awakenThumb.mainTexture.height, 1);
             });
+            */
         }
 
         private void UpdateReliefThumb(string imagePath)

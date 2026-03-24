@@ -31,33 +31,27 @@ namespace Ryneus
         /// </summary>
         private void CommandStartSelect()
         {
-            var currentBattler = _model.CurrentBattler;
-            if (currentBattler != null)
+            var currentBattler = _model.CheckApCurrentBattler();
+            if (currentBattler == null)
             {
-                _view.SetBattleBusy(true);
-                _model.UpdateApModify(currentBattler);
-                _view.UpdateGridLayer();
-                CheckFirstActionBattler();
-                // 行動不可の場合は行動しない
-                /*
-                if (!_model.EnableCurrentBattler())
-                {
-                    MakeActionInfoTargetIndexes(_model.CurrentBattler,0);
-                    return;
-                }
-                */
-                _model.SetCurrentActionBattler(currentBattler);
-                if (currentBattler.IsActor && !_model.IsBattleAuto())
-                {
-                    // マニュアルなら魔法選択
-                    ShowMagicList(currentBattler, true);
-                    _view.SelectedCharacter(currentBattler);
-                    _view.AnimationBusy.SetValue(false);
-                }
-                else
-                {
-                    MakeActionInfoSkillTrigger();
-                }
+                return;
+            }
+            _view.SetBattleBusy(true);
+            _model.UpdateApModify(currentBattler);
+            _view.UpdateGridLayer();
+            CheckFirstActionBattler();
+
+            _model.SetCurrentActionBattler(currentBattler);
+            if (currentBattler.IsActor && !_model.IsBattleAuto())
+            {
+                // マニュアルなら魔法選択
+                ShowMagicList(currentBattler, true);
+                _view.SelectedCharacter(currentBattler);
+                _view.AnimationBusy.SetValue(false);
+            }
+            else
+            {
+                MakeActionInfoSkillTrigger();
             }
         }
 
@@ -288,25 +282,18 @@ namespace Ryneus
         /// <returns></returns>
         public async void CheckFirstActionBattler()
         {
-            if (_model.FirstActionBattler == null)
+            if (_model.FirstActionBattler != null)
             {
-                var currentBattler = _model.CurrentBattler;
-                _model.SetFirstActionBattler(currentBattler);
-                // 解除判定は行動開始の最初のみ
-                var removed =_model.UpdateNextSelfTurn(currentBattler);
-                foreach (var removedState in removed)
-                {
-                    _view.StartStatePopup(removedState.TargetIndex.Value, DamageType.State, "-" + removedState.Master.Name);
-                }
-                if (removed.Count > 0)
-                {
-                    _view.RefreshStatus();
-                }
-                // Passive解除
-                await RemovePassiveInfos();
-                // 行動開始前トリガー
-                _model.CheckTriggerPassiveInfos(BattleUtility.BeforeTriggerTimings(), null, null);
+                return;
             }
+            var currentBattler = _model.CurrentBattler;
+            _model.SetFirstActionBattler(currentBattler);
+            // 解除判定は行動開始の最初のみ
+            var removeStateInfos =_model.UpdateNextSelfTurn(currentBattler);
+            await RemoveStateInfoPopup(removeStateInfos);
+            // 行動開始前トリガー
+            _model.CheckTriggerPassiveInfos(BattleUtility.BeforeTriggerTimings(), null, null);
+
         }
 
         /// <summary>
@@ -575,16 +562,13 @@ namespace Ryneus
             if (!checkNoResetAp && result.Count == 0 && !_triggerAfterChecked && !isTriggeredSkill)
             {
                 // 行動者のターンを進める
-                var removed =_model.UpdateTurn();
-                foreach (var removedState in removed)
-                {
-                    _view.StartStatePopup(removedState.TargetIndex.Value, DamageType.State, "-" + removedState.Master.Name);
-                }
+                var removeStateInfos =_model.UpdateTurn();
+                await RemoveStateInfoPopup(removeStateInfos);
                 // Passive付与
                 _model.CheckTriggerPassiveInfos(BattleUtility.AfterTriggerTimings(), null, null);
 
                 // Passive解除
-                await RemovePassiveInfos();
+                //await RemovePassiveInfos();
 
                 // 行動後にAP+
                 var gainAp = _model.CheckActionAfterGainAp(actionInfo);

@@ -204,12 +204,12 @@ namespace Ryneus
 
         public List<BattlerInfo> UnitBattlerActors()
         {
-            return _battlers.FindAll(a => a.isAlcana == false && a.IsActor == true);
+            return _battlers.FindAll(a => !a.isAlcana && a.IsActor);
         }
 
         public List<BattlerInfo> BattlerActors()
         {
-            return FieldBattlerInfos().FindAll(a => a.IsActor == true);
+            return FieldBattlerInfos().FindAll(a => a.IsActor);
         }
 
         public List<BattlerInfo> BattlerEnemies()
@@ -1901,14 +1901,14 @@ namespace Ryneus
                 for (int i = passiveSkillIds.Count - 1; i >= 0; i--)
                 {
                     var passiveSkillData = DataSystem.FindSkill(passiveSkillIds[i]);
-                    bool IsRemove = false;
+                    bool isRemove = false;
                     var featureDates = passiveSkillData.FeatureDates.FindAll(a => a.FeatureType == FeatureType.AddState);
                     foreach (var feature in featureDates)
                     {
                         var triggerDates = passiveSkillData.TriggerDates.FindAll(a => a.TriggerTiming == TriggerTiming.After || a.TriggerTiming == TriggerTiming.StartBattle);
-                        if (!IsRemove && triggerDates.Count > 0 && !IsTriggeredSkillInfo(battlerInfo, triggerDates, null, new List<ActionResultInfo>()))
+                        if (!isRemove && triggerDates.Count > 0 && !IsTriggeredSkillInfo(battlerInfo, triggerDates, null, new List<ActionResultInfo>()))
                         {
-                            IsRemove = true;
+                            isRemove = true;
                             var featureData = new SkillData.FeatureData
                             {
                                 FeatureType = FeatureType.RemoveStatePassive,
@@ -1931,38 +1931,38 @@ namespace Ryneus
                                 }
                             }
                             else
-                                if (passiveSkillData.Scope == ScopeType.All)
-                                {
-                                    var partyMember = battlerInfo.IsActor ? BattlerActors() : BattlerEnemies();
+                            if (passiveSkillData.Scope == ScopeType.All)
+                            {
+                                var partyMember = battlerInfo.IsActor ? BattlerActors() : BattlerEnemies();
 
-                                    switch (passiveSkillData.AliveType)
+                                switch (passiveSkillData.AliveType)
+                                {
+                                    case AliveType.DeathOnly:
+                                        partyMember = partyMember.FindAll(a => !a.IsAlive());
+                                        break;
+                                    case AliveType.AliveOnly:
+                                        partyMember = partyMember.FindAll(a => a.IsAlive());
+                                        break;
+                                    case AliveType.All:
+                                        break;
+                                }
+                                foreach (var member in partyMember)
+                                {
+                                    var actionResultInfo = new ActionResultInfo(battlerInfo, member, new List<SkillData.FeatureData>() { featureData }, passiveSkillData.Id);
+                                    if (actionResultInfos.Find(a => a.RemovedStates.Find(b => b.Master.StateType == (StateType)featureData.FeatureType) != null) != null)
                                     {
-                                        case AliveType.DeathOnly:
-                                            partyMember = partyMember.FindAll(a => !a.IsAlive());
-                                            break;
-                                        case AliveType.AliveOnly:
-                                            partyMember = partyMember.FindAll(a => a.IsAlive());
-                                            break;
-                                        case AliveType.All:
-                                            break;
                                     }
-                                    foreach (var member in partyMember)
+                                    else
                                     {
-                                        var actionResultInfo = new ActionResultInfo(battlerInfo, member, new List<SkillData.FeatureData>() { featureData }, passiveSkillData.Id);
-                                        if (actionResultInfos.Find(a => a.RemovedStates.Find(b => b.Master.StateType == (StateType)featureData.FeatureType) != null) != null)
+                                        var stateInfos = battlerInfo.GetStateInfoAll((StateType)feature.Param1);
+                                        if (member.IsAlive() && stateInfos.Find(a => a.SkillId.Value == passiveSkillData.Id) != null)
                                         {
-                                        }
-                                        else
-                                        {
-                                            var stateInfos = battlerInfo.GetStateInfoAll((StateType)feature.Param1);
-                                            if (member.IsAlive() && stateInfos.Find(a => a.SkillId.Value == passiveSkillData.Id) != null)
-                                            {
-                                                actionResultInfos.Add(actionResultInfo);
-                                                member.RemovePassiveSkillId(passiveSkillIds[i]);
-                                            }
+                                            actionResultInfos.Add(actionResultInfo);
+                                            member.RemovePassiveSkillId(passiveSkillIds[i]);
                                         }
                                     }
                                 }
+                            }
                         }
                     }
                 }

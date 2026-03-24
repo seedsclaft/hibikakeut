@@ -73,11 +73,7 @@ namespace Ryneus
         public bool UpdateTurn()
         {
             Turns.GainValue(-1);
-            if (Turns.Value <= 0)
-            {
-                return true;
-            }
-            return false;
+            return Turns.Value <= 0;
         }
 
         public void ResetTurns()
