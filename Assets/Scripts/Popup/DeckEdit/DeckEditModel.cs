@@ -30,7 +30,17 @@ namespace Ryneus
             {
                 return PartyInfo.ActorInfos.FindIndex(a => a.ActorId.Value == actorId);
             }
-            return 0;
+            return -1;
+        }
+
+        public int FromEditSelectBattlerIndex()
+        {
+            var actorId = CurrentDeckInfo.ActorIdDict[FromEditIndex.Value];
+            if (actorId > 0)
+            {
+                return PartyUnit().Find(a => a.ActorInfo.ActorId.Value == actorId).Index.Value;
+            }
+            return -1;
         }
 
         public bool AdjustEditIndexes()

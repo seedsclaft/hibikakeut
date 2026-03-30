@@ -159,7 +159,7 @@ namespace Ryneus
             if (actionResultInfo.Missed)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Miss);
-                _view.StartStatePopup(targetIndex, DamageType.State,"Miss!");
+                _view.StartStatePopup(targetIndex, DamageType.State, "Miss!");
             }
             if (actionResultInfo.HpDamage.Value > 0)
             {
@@ -232,7 +232,8 @@ namespace Ryneus
                 if (addedState.IsBuff())
                 {
                     SoundManager.Instance.PlayStaticSe(SEType.Buff);
-                } else
+                }
+                else
                 if (addedState.IsDeBuff())
                 {
                     SoundManager.Instance.PlayStaticSe(SEType.DeBuff);
@@ -280,7 +281,7 @@ namespace Ryneus
 
         private async void RepeatAnimationSkill(ActionInfo actionInfo)
         {
-            if (actionInfo.ActionResults.Count == 0 || !_model.CurrentActionBattler.IsAlive())
+            if (actionInfo.ActionResults.Count == 0 || !_model.GetBattlerInfo(actionInfo.SubjectIndex.Value).IsAlive())
             {
                 CommandEndAnimation();
                 return;
@@ -354,12 +355,13 @@ namespace Ryneus
 
             // regenerate
             bool isTriggeredSkill = actionInfo.TriggeredSkill;
+            var battlerInfo = _model.FirstActionBattler;
             if (!_triggerAfterChecked && !_regenerateChecked && !isTriggeredSkill)
             {
-                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex.Value == _model.FirstActionBattler.Index.Value)
+                if (battlerInfo != null && actionInfo.SubjectIndex.Value == battlerInfo.Index.Value)
                 {
                     _regenerateChecked = true;
-                    if (_model.FirstActionBattler.IsAlive())
+                    if (battlerInfo.IsAlive())
                     {
                         var regenerateResult = _model.CheckRegenerate(actionInfo);
                         if (regenerateResult.Count > 0)

@@ -63,7 +63,14 @@ namespace Ryneus
             actorInfoList.Initialize();
             actorInfoList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.DecideBattlerInfo, actorInfoList.ListItemData<ActorInfo>()));
             actorInfoList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
-            actorInfoList.SetSelectedHandler(() => CallViewEvent(CommandType.SelectingActorInfo, actorInfoList.ListItemData<ActorInfo>()));
+            actorInfoList.SetSelectedHandler(() =>
+            {
+                if (!actorInfoList.Active)
+                {
+                    return;
+                }
+                CallViewEvent(CommandType.SelectingActorInfo, actorInfoList.ListItemData<ActorInfo>());
+            });
             //unitInfoList.SetInputHandler(InputKeyType.Decide,() => CallViewEvent(UnitInfoList.CommandType.DecideUnit,unitInfoList.ListItemData<UnitInfo>()));
             AddViewActives(actorInfoList);
         }
@@ -79,9 +86,15 @@ namespace Ryneus
             actorInfoList.UpdateSelectIndex(selectIndex);
         }
 
+        public void CandidateSelectIndex(int selectIndex)
+        {
+            partyUnitList.UpdateSelectIndexList(new List<int>(){selectIndex});
+        }
+
         public void EndSelectChangeBattler()
         {
             SetActivate(partyUnitList);
+            CandidateSelectIndex(-1);
         }
 
         public void UpdateActorInfo(ActorInfo actorInfo)
@@ -93,6 +106,7 @@ namespace Ryneus
         {
             partyUnitList.UpdateSelectIndex(0);
             actorInfoList.UpdateSelectIndex(-1);
+            CandidateSelectIndex(-1);
             PopupClose();
         }
     }

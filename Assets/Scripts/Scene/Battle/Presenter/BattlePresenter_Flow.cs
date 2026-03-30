@@ -41,7 +41,6 @@ namespace Ryneus
             _view.UpdateGridLayer();
             CheckFirstActionBattler();
 
-            _model.SetCurrentActionBattler(currentBattler);
             if (currentBattler.IsActor && !_model.IsBattleAuto())
             {
                 // マニュアルなら魔法選択
@@ -76,13 +75,13 @@ namespace Ryneus
             {
                 return;
             }
-            var currentBattler = _model.CurrentBattler;
+            var currentBattler = _model.CurrentSelectBattler;
             // 選択中のActionInfoを生成
             var actionInfo = _model.MakeActionInfo(currentBattler, skillInfo, false, false);
             // 選択中のActionInfoを上書き
             _model.SetSelectActionInfo(actionInfo);
             // 選択対象を決定
-            var targetIndexes = _model.GetSkillTargetIndexList(skillInfo.Id.Value, currentBattler.Index.Value,false);
+            var targetIndexes = _model.GetSkillTargetIndexList(skillInfo.Id.Value, currentBattler.Index.Value, false);
             actionInfo.SetCandidateTargetIndexList(targetIndexes);
             _view.SetBattlerActiveStatus(targetIndexes);
             if (targetIndexes.Count > 0)
@@ -92,9 +91,9 @@ namespace Ryneus
                 {
                     targetIndex = currentBattler.LastTargetIndex();
                 }
-                _model.SetTargetBattler(_model.GetBattlerInfo(targetIndex));
+                _model.SetSelectTargetBattler(_model.GetBattlerInfo(targetIndex));
             }
-            _view.UpdateSelectCursor(_model.SelectActionInfo.CandidateTargetIndexList);
+            _view.UpdateSelectCursor(targetIndexes);
         }
 
         /// <summary>
@@ -113,13 +112,13 @@ namespace Ryneus
                 SelectSkillSelectTarget();
                 return;
             }
-            var findIndex = candidateTargetIndexes.FindIndex(a => a == _model.TargetBattler.Index.Value);
+            var findIndex = candidateTargetIndexes.FindIndex(a => a == _model.SelectTargetBattler.Index.Value);
             if (findIndex == -1)
             {
                 SelectSkillSelectTarget();
                 return;
             }
-            var targetBattlerInfo = _model.TargetBattler;
+            var targetBattlerInfo = _model.SelectTargetBattler;
             var friends = _model.GetBattlerInfoByIndex(targetBattlerInfo.IsActor, false);
             friends = friends.FindAll(a => candidateTargetIndexes.Contains(a.Index.Value));
             var opponents = _model.GetBattlerInfoByIndex(!targetBattlerInfo.IsActor, false);
@@ -155,7 +154,7 @@ namespace Ryneus
             {
                 return;
             }
-            _model.SetTargetBattler(targetBattlerInfo);
+            _model.SetSelectTargetBattler(targetBattlerInfo);
             SelectSkillSelectTarget();
         }
 
@@ -178,7 +177,7 @@ namespace Ryneus
                 return;
             }
             var targetBattlerInfo = battlerInfo;
-            _model.SetTargetBattler(targetBattlerInfo);
+            _model.SetSelectTargetBattler(targetBattlerInfo);
             SelectSkillSelectTarget();
         }
 
@@ -200,7 +199,7 @@ namespace Ryneus
             // 対象選択を行う
             var actionInfo = _model.SelectActionInfo;
             var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo,_model.TargetBattler.Index.Value);
+            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo, _model.SelectTargetBattler.Index.Value);
             if (targetIndexes.Count > 0)
             {
                 if (targetIndexes[0] < 100)
@@ -228,8 +227,8 @@ namespace Ryneus
             if (targetIndexes.FindIndex(a => a == battlerInfo.Index.Value) > -1)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                _model.SetActiveActionInfo(actionInfo);
-                _model.SetMainActionInfo(actionInfo);
+                //_model.SetActiveActionInfo(actionInfo);
+                _model.SetFirstActionInfo(actionInfo);
                 MakeResultInfoStartAction(actionInfo, targetIndexes);
                 _view.EndActionSelect();
             }
@@ -243,8 +242,8 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             _view.EndActionSelect();
             _model.SetSelectActionInfo(null);
-            _view.SelectedCharacter(_model.CurrentActionBattler);
-            ShowMagicList(_model.CurrentBattler, false);
+            _view.SelectedCharacter(_model.CurrentSelectBattler);
+            ShowMagicList(_model.CurrentSelectBattler, false);
             _view.ClearCurrentSkillData();
         }
 
@@ -252,12 +251,12 @@ namespace Ryneus
         {
             // 対象選択として有効か
             var actionInfo = _model.SelectActionInfo;
-            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo, _model.TargetBattler.Index.Value);
+            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo, _model.SelectTargetBattler.Index.Value);
             if (targetIndexes.FindIndex(a => a == battlerInfo.Index.Value) > -1)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
-                _model.SetActiveActionInfo(actionInfo);
-                _model.SetMainActionInfo(actionInfo);
+                //_model.SetActiveActionInfo(actionInfo);
+                _model.SetFirstActionInfo(actionInfo);
                 MakeResultInfoStartAction(actionInfo, targetIndexes);
                 _view.EndActionSelect();
             }
@@ -271,8 +270,8 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             _view.EndActionSelect();
             _model.SetSelectActionInfo(null);
-            _view.SelectedCharacter(_model.CurrentActionBattler);
-            ShowMagicList(_model.CurrentBattler, false);
+            _view.SelectedCharacter(_model.CurrentSelectBattler);
+            ShowMagicList(_model.CurrentSelectBattler, false);
             _view.ClearCurrentSkillData();
         }
 
@@ -286,10 +285,10 @@ namespace Ryneus
             {
                 return;
             }
-            var currentBattler = _model.CurrentBattler;
+            var currentBattler = _model.CurrentSelectBattler;
             _model.SetFirstActionBattler(currentBattler);
             // 解除判定は行動開始の最初のみ
-            var removeStateInfos =_model.UpdateNextSelfTurn(currentBattler);
+            var removeStateInfos = _model.UpdateNextSelfTurn(currentBattler);
             await RemoveStateInfoPopup(removeStateInfos);
             // 行動開始前トリガー
             _model.CheckTriggerPassiveInfos(BattleUtility.BeforeTriggerTimings(), null, null);
@@ -301,12 +300,12 @@ namespace Ryneus
         /// </summary>
         private void MakeActionInfoSkillTrigger()
         {
-            var currentBattler = _model.CurrentBattler;
+            var currentBattler = _model.CurrentSelectBattler;
             if (currentBattler != null)
             {
                 int autoSkillId;
                 int targetIndex;
-                (autoSkillId,targetIndex) = _model.MakeAutoSkillTriggerSkillId(currentBattler);
+                (autoSkillId, targetIndex) = _model.MakeAutoSkillTriggerSkillId(currentBattler);
                 if (autoSkillId == -1)
                 {
                     // 何もしない
@@ -320,7 +319,7 @@ namespace Ryneus
         {
             // 対象を自動決定
             var (actionInfo, targetIndexes) = _model.GetActionInfoTargetIndexes(battlerInfo, skillId, oneTargetIndex);
-            _model.SetMainActionInfo(actionInfo);
+            _model.SetFirstActionInfo(actionInfo);
             MakeResultInfoStartAction(actionInfo, targetIndexes);
         }
 
@@ -407,8 +406,8 @@ namespace Ryneus
         private void CheckInterruptActionInfoTriggerTimings(ActionInfo actionInfo)
         {
             _model.CheckTriggerActiveInfos(TriggerTiming.Interrupt, actionInfo, actionInfo.ActionResults, true);
-            _model.CheckTriggerPassiveInfos(new List<TriggerTiming>(){TriggerTiming.Interrupt}, actionInfo, actionInfo.ActionResults);
-            _model.CheckTriggerPassiveInfos(new List<TriggerTiming>(){TriggerTiming.Use}, actionInfo, actionInfo.ActionResults);
+            _model.CheckTriggerPassiveInfos(new List<TriggerTiming>() { TriggerTiming.Interrupt }, actionInfo, actionInfo.ActionResults);
+            _model.CheckTriggerPassiveInfos(new List<TriggerTiming>() { TriggerTiming.Use }, actionInfo, actionInfo.ActionResults);
         }
 
         private void StartActionInfo(ActionInfo actionInfo)
@@ -417,8 +416,9 @@ namespace Ryneus
             _view.HideBattleThumb();
             if (actionInfo != null)
             {
+                var battlerInfo = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
                 // 待機か戦闘不能なら何もしない
-                if (actionInfo.IsWait() || (_model.CurrentActionBattler != null && !_model.CurrentActionBattler.IsAlive() && actionInfo.SubjectIndex.Value == _model.CurrentActionBattler.Index.Value))
+                if (actionInfo.IsWait() || (battlerInfo != null && !battlerInfo.IsAlive() && actionInfo.SubjectIndex.Value == battlerInfo.Index.Value))
                 {
                     StartWaitCommand(actionInfo);
                 }
@@ -439,7 +439,7 @@ namespace Ryneus
             if (actionInfo != null)
             {
                 // ダメージなどを適用
-                _model.ExecCurrentAction(actionInfo,true);
+                _model.ExecCurrentAction(actionInfo, true);
                 CheckAchievements();
 
                 // Hp変化での行動・パッシブを確認
@@ -502,9 +502,10 @@ namespace Ryneus
         {
             // スリップダメージ
             bool isTriggeredSkill = actionInfo.TriggeredSkill;
+            var battlerInfo = _model.FirstActionBattler;
             if (!_triggerAfterChecked && !_slipDamageChecked && !isTriggeredSkill)
             {
-                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex.Value == _model.FirstActionBattler.Index.Value)
+                if (battlerInfo != null && actionInfo.SubjectIndex.Value == battlerInfo.Index.Value)
                 {
                     _slipDamageChecked = true;
                     var slipResult = _model.CheckSlipDamage();
@@ -520,13 +521,14 @@ namespace Ryneus
         private List<ActionResultInfo> RegenerationActionResult(ActionInfo actionInfo)
         {
             bool isTriggeredSkill = actionInfo.TriggeredSkill;
+            var battlerInfo = _model.FirstActionBattler;
             // regenerate
             if (!_triggerAfterChecked && !_regenerateChecked && !isTriggeredSkill)
             {
-                if (_model.FirstActionBattler != null && actionInfo.SubjectIndex.Value == _model.FirstActionBattler.Index.Value)
+                if (battlerInfo != null && actionInfo.SubjectIndex.Value == battlerInfo.Index.Value)
                 {
                     _regenerateChecked = true;
-                    if (_model.FirstActionBattler.IsAlive())
+                    if (battlerInfo.IsAlive())
                     {
                         var regenerateResult = _model.CheckRegenerate(actionInfo);
                         if (regenerateResult.Count > 0)
@@ -562,7 +564,7 @@ namespace Ryneus
             if (!checkNoResetAp && result.Count == 0 && !_triggerAfterChecked && !isTriggeredSkill)
             {
                 // 行動者のターンを進める
-                var removeStateInfos =_model.UpdateTurn();
+                var removeStateInfos = _model.UpdateTurn();
                 await RemoveStateInfoPopup(removeStateInfos);
                 // Passive付与
                 _model.CheckTriggerPassiveInfos(BattleUtility.AfterTriggerTimings(), null, null);
@@ -656,7 +658,7 @@ namespace Ryneus
             _view.RefreshStatus();
 
             // 現アクションがまだならそのまま続ける
-            var mainActionInfo = _model.MainActionInfo;
+            var mainActionInfo = _model.FirstActionInfo;
             if (mainActionInfo != null)
             {
                 _battleEnded = false;

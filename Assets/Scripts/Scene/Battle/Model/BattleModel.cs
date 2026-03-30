@@ -244,20 +244,6 @@ namespace Ryneus
             return skillInfos;
         }
 
-        public int SelectSkillIndex(List<SkillInfo> skillInfos)
-        {
-            int selectIndex = 0;
-            if (_currentBattler != null && _currentBattler.IsActor)
-            {
-                var skillIndex = skillInfos.FindIndex(a => a.Id.Value == _currentBattler.LastSelectSkill.Value);
-                if (skillIndex > -1)
-                {
-                    selectIndex = skillIndex;
-                }
-            }
-            return selectIndex;
-        }
-
         private bool CheckCanUse(SkillInfo skillInfo, BattlerInfo battlerInfo)
         {
             if (skillInfo.CountTurn.Value > 0)
@@ -358,17 +344,6 @@ namespace Ryneus
                 return false;
             }
             return true;
-        }
-
-        public bool EnableCurrentBattler()
-        {
-            if (!_currentBattler.CanMove())
-            {
-                return false;
-            }
-            // 使用可能な魔法がない
-            var skillInfos = _currentBattler.ActiveSkills().FindAll(a => CheckCanUse(a, _currentBattler));
-            return skillInfos.Count > 0;
         }
 
         // selectIndexを対象にした時の効果範囲を取得
@@ -1316,14 +1291,15 @@ namespace Ryneus
 
         public List<StateInfo> UpdateTurn()
         {
-            var result = _firstActionBattler.UpdateState(RemovalTiming.UpdateTurn);
-            _firstActionBattler.TurnEnd();
+            var battleInfo = FirstActionBattler;
+            var result = battleInfo.UpdateState(RemovalTiming.UpdateTurn);
+            battleInfo.TurnEnd();
             var skillInfos = new List<SkillInfo>();
             foreach (var actionInfo in _turnActionInfos[_turnCount])
             {
                 skillInfos.Add(actionInfo.SkillInfo);
             }
-            _firstActionBattler.TurnEndSkillSeekCountTurn(skillInfos);
+            battleInfo.TurnEndSkillSeekCountTurn(skillInfos);
             return result;
         }
 
@@ -1411,22 +1387,23 @@ namespace Ryneus
 
         public bool CheckLinkageBattlerInfo()
         {
-            if (_firstActionBattler != null && _firstActionBattler.IsState(StateType.Linkage))
+            var battleInfo = FirstActionBattler;
+            if (battleInfo != null && battleInfo.IsState(StateType.Linkage))
             {
-                _firstActionBattler.RemoveState(_firstActionBattler.GetStateInfo(StateType.Linkage), true);
-                var battlerIndex = _firstActionBattler.Index.Value;
+                battleInfo.RemoveState(battleInfo.GetStateInfo(StateType.Linkage), true);
+                var battlerIndex = battleInfo.Index.Value;
                 var changeBattler = _reserveBattlers.Find(a => a.Index.Value == battlerIndex + 3);
                 if (changeBattler != null)
                 {
                     changeBattler.Index.SetValue(battlerIndex);
-                    _firstActionBattler.Index.SetValue(battlerIndex + 3);
+                    battleInfo.Index.SetValue(battlerIndex + 3);
                     changeBattler.SetAp(0);
 
                     _reserveBattlers.Remove(changeBattler);
-                    _battlers.Remove(_firstActionBattler);
-                    _party.BattlerInfos.Remove(_firstActionBattler);
+                    _battlers.Remove(battleInfo);
+                    _party.BattlerInfos.Remove(battleInfo);
 
-                    _reserveBattlers.Add(_firstActionBattler);
+                    _reserveBattlers.Add(battleInfo);
                     _battlers.Add(changeBattler);
                     _party.BattlerInfos.Add(changeBattler);
                     _battlers.Sort((a, b) => a.Index.Value - b.Index.Value > 0 ? 1 : -1);
@@ -1491,7 +1468,7 @@ namespace Ryneus
             };
             //_skillLogs.Add(skillLog);
             PopActionInfo(actionInfo);
-            _currentBattler = null;
+            _battleFlowInfo.CurrentSelectBattler = null;
         }
 
         public void CheckPlusSkill(ActionInfo actionInfo)
@@ -1552,7 +1529,7 @@ namespace Ryneus
 
         public List<ActionResultInfo> CheckRegenerate(ActionInfo actionInfo)
         {
-            var firstActionBattler = _firstActionBattler;
+            var firstActionBattler = FirstActionBattler;
             var actionResultInfos = new List<ActionResultInfo>();
             var regenerateHp = firstActionBattler.RegenerateHpValue();
             if (regenerateHp > 0)
@@ -1568,14 +1545,17 @@ namespace Ryneus
             actionResultInfos.AddRange(AfterHealActionResults());
             if (actionInfo != null && actionInfo.ActionResults.Find(a => a.HpDamage.Value > 0) != null)
             {
-                actionResultInfos.AddRange(AssistHealActionResults());
+                if (actionInfo == _battleFlowInfo.FirstActionInfo)
+                {
+                    actionResultInfos.AddRange(AssistHealActionResults(actionInfo));
+                }
             }
             return actionResultInfos;
         }
 
         private List<ActionResultInfo> AfterHealActionResults()
         {
-            var firstActionBattler = _firstActionBattler;
+            var firstActionBattler = FirstActionBattler;
             var afterHealResults = new List<ActionResultInfo>();
             var afterSkillInfo = firstActionBattler.Skills.Find(a => a.FeatureDates.Find(b => b.FeatureType == FeatureType.AddState && (StateType)b.Param1 == StateType.AfterHeal) != null);
             if (firstActionBattler.IsState(StateType.AfterHeal) && afterSkillInfo != null)
@@ -1611,30 +1591,31 @@ namespace Ryneus
             return afterHealResults;
         }
 
-        private List<ActionResultInfo> AssistHealActionResults()
+        private List<ActionResultInfo> AssistHealActionResults(ActionInfo actionInfo)
         {
             var assistHealResults = new List<ActionResultInfo>();
-            if (_currentBattler == null)
+            var battlerInfo = GetBattlerInfo(actionInfo.SubjectIndex.Value);
+            if (battlerInfo == null)
             {
                 return assistHealResults;
             }
-            var afterSkillInfo = _currentBattler.Skills.Find(a => a.FeatureDates.Find(b => b.FeatureType == FeatureType.AddState && (StateType)b.Param1 == StateType.AssistHeal) != null);
-            if (_currentBattler.IsState(StateType.AssistHeal) && afterSkillInfo != null)
+            var afterSkillInfo = battlerInfo.Skills.Find(a => a.FeatureDates.Find(b => b.FeatureType == FeatureType.AddState && (StateType)b.Param1 == StateType.AssistHeal) != null);
+            if (battlerInfo.IsState(StateType.AssistHeal) && afterSkillInfo != null)
             {
-                var stateInfo = _currentBattler.GetStateInfo(StateType.AssistHeal);
+                var stateInfo = battlerInfo.GetStateInfo(StateType.AssistHeal);
                 var skillInfo = new SkillInfo(afterSkillInfo.Id.Value);
-                var actionInfo = MakeActionInfo(_currentBattler, skillInfo, false, false);
+                var makeActionInfo = MakeActionInfo(battlerInfo, skillInfo, false, false);
 
-                if (actionInfo != null)
+                if (makeActionInfo != null)
                 {
-                    var party = GetFriendsAliveBattlerInfos(_currentBattler);
+                    var party = GetFriendsAliveBattlerInfos(battlerInfo);
                     party = party.FindAll(a => a.IsAlive());
                     var targetIndexes = new List<int>();
                     foreach (var member in party)
                     {
                         targetIndexes.Add(member.Index.Value);
                     }
-                    var healValue = actionInfo.ActionResults.FindAll(a => a.HpDamage.Value > 0).Count;
+                    var healValue = makeActionInfo.ActionResults.FindAll(a => a.HpDamage.Value > 0).Count;
                     foreach (var targetIndex in targetIndexes)
                     {
                         var featureData = new SkillData.FeatureData
@@ -1653,7 +1634,7 @@ namespace Ryneus
 
         public List<ActionResultInfo> CheckSlipDamage()
         {
-            var firstActionBattler = _firstActionBattler;
+            var firstActionBattler = FirstActionBattler;
             var actionResultInfos = new List<ActionResultInfo>();
             var slipDamage = firstActionBattler.SlipDamage();
             if (slipDamage > 0)
@@ -2869,11 +2850,6 @@ namespace Ryneus
         public bool IsBattleAuto()
         {
             return GameSystem.OptionData.BattleAuto;
-        }
-
-        public List<StateInfo> SelectCharacterConditions()
-        {
-            return _currentBattler.StateInfos;
         }
 
         public int WaitFrameTime(int time)

@@ -5,36 +5,10 @@ namespace Ryneus
 {
     public partial class BattleModel : BaseModel
     {
-        // 現在の行動
-        private ActionInfo _activeActionInfo = null;
-        public ActionInfo ActiveActionInfo => _activeActionInfo;
-        public void SetActiveActionInfo(ActionInfo actionInfo)
-        {
-            _activeActionInfo = actionInfo;
-        }
-
-        // 優先敵対象
-        private BattlerInfo _targetBattler = null;
-        public BattlerInfo TargetBattler => _targetBattler;
-        public void SetTargetBattler(BattlerInfo battlerInfo) => _targetBattler = battlerInfo;
-
         // 現アクションより前の割り込み
-        private List<ActionInfo> _interruptActionInfos = new();
-        private ActionInfo _interruptActionInfo = null;
-        public ActionInfo InterruptActionInfo => _interruptActionInfo;
-
-        // 現アクション
-        private ActionInfo _mainActionInfo = null;
-        public ActionInfo MainActionInfo => _mainActionInfo;
-        public void SetMainActionInfo(ActionInfo actionInfo)
-        {
-            _mainActionInfo = actionInfo;
-        }
-
+        public ActionInfo InterruptActionInfo => _battleFlowInfo.InterruptActionInfo;
         // 誘発した行動
-        private List<ActionInfo> _receiveActionInfos = new();
-        private ActionInfo _receiveActionInfo = null;
-        public ActionInfo ReceiveActionInfo => _receiveActionInfo;
+        public ActionInfo ReceiveActionInfo => _battleFlowInfo.ReceiveActionInfo;
         /// <summary>
         /// 誘発したアクションを登録する
         /// </summary>
@@ -51,38 +25,12 @@ namespace Ryneus
 
         public void AddActionInfo(ActionInfo actionInfo, bool IsInterrupt)
         {
-            if (IsInterrupt)
-            {
-                //LogOutput.Log(actionInfo.Master.Id + "を割り込み");
-                _interruptActionInfos.Add(actionInfo);
-                _interruptActionInfo = _interruptActionInfos[0];
-                return;
-            } else
-            {
-                //LogOutput.Log(actionInfo.Master.Id + "を後に追加");
-                _receiveActionInfos.Add(actionInfo);
-                _receiveActionInfo = _receiveActionInfos[0];
-            }
+            _battleFlowInfo.AddActionInfo(actionInfo, IsInterrupt);
         }
 
         private void PopActionInfo(ActionInfo actionInfo)
         {
-            var findIndex = _interruptActionInfos.FindIndex(a => a == actionInfo);
-            if (findIndex > -1)
-            {
-                _interruptActionInfos.RemoveAt(findIndex);
-            }
-            findIndex = _receiveActionInfos.FindIndex(a => a == actionInfo);
-            if (findIndex > -1)
-            {
-                _receiveActionInfos.RemoveAt(findIndex);
-            }
-            if (actionInfo == _mainActionInfo)
-            {
-                _mainActionInfo = null;
-            }
-            _interruptActionInfo = _interruptActionInfos.Count > 0 ? _interruptActionInfos[0] : null;
-            _receiveActionInfo = _receiveActionInfos.Count > 0 ? _receiveActionInfos[0] : null;
+            _battleFlowInfo.PopActionInfo(actionInfo);
         }
 
         /// <summary>
@@ -90,8 +38,7 @@ namespace Ryneus
         /// </summary>
         public void ClearActionInfo()
         {
-            _receiveActionInfos.Clear();
-            _interruptActionInfos.Clear();
+            _battleFlowInfo.ClearActionInfo();
         }
 
         // 行動を生成
@@ -106,7 +53,8 @@ namespace Ryneus
                 {
                     targetIndexList.Clear();
                     targetIndexList.Add(substituteId);
-                } else
+                }
+                else
                 {
                     var tempIndexList = GetSkillTargetIndexList(skillInfo.Id.Value, subject.Index.Value, false);
                     if (tempIndexList.Contains(substituteId))
@@ -131,7 +79,8 @@ namespace Ryneus
                             lastTargetIndex = containsOpponent.Index.Value;
                         }
                     }
-                } else
+                }
+                else
                 {
                     lastTargetIndex = subject.Index.Value;
                     if (targetIndexList.Count > 0)

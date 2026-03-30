@@ -5,38 +5,35 @@ namespace Ryneus
 {
     public partial class BattleModel : BaseModel
     {
-        private BattlerInfo _currentBattler = null;
-        public BattlerInfo CurrentBattler => _currentBattler;
+        private BattleFlowInfo _battleFlowInfo = new();
+        public BattlerInfo CurrentSelectBattler => _battleFlowInfo.CurrentSelectBattler;
 
-        private ActionInfo _selectActionInfo = null;
-        public ActionInfo SelectActionInfo => _selectActionInfo;
-        public void SetSelectActionInfo(ActionInfo actionInfo)
-        {
-            _selectActionInfo = actionInfo;
-        }
+        public ActionInfo SelectActionInfo => _battleFlowInfo.SelectActionInfo;
+        public void SetSelectActionInfo(ActionInfo actionInfo) => _battleFlowInfo.SelectActionInfo = actionInfo;
+
+        public BattlerInfo SelectTargetBattler => _battleFlowInfo.SelectTargetBattler;
+        public void SetSelectTargetBattler(BattlerInfo battlerInfo) => _battleFlowInfo.SelectTargetBattler = battlerInfo;
+
 
         // ターンの最初の行動開始者
-        private BattlerInfo _firstActionBattler = null;
-        public BattlerInfo FirstActionBattler => _firstActionBattler;
-        public void SetFirstActionBattler(BattlerInfo firstActionBattler)
-        {
-            _firstActionBattler = firstActionBattler;
-        }
+        public BattlerInfo FirstActionBattler => _battleFlowInfo.FirstActionBattler;
+        public void SetFirstActionBattler(BattlerInfo firstActionBattler) => _battleFlowInfo.FirstActionBattler = firstActionBattler;
 
-        // 今行動中の者
-        private BattlerInfo _currentActionBattler = null;
-        public BattlerInfo CurrentActionBattler => _currentActionBattler;
-        public void SetCurrentActionBattler(BattlerInfo currentActionBattler)
-        {
-            _currentActionBattler = currentActionBattler;
-        }
+        // ターンの最初の行動開始者のアクション
+        public ActionInfo FirstActionInfo => _battleFlowInfo.FirstActionInfo;
+        public void SetFirstActionInfo(ActionInfo actionInfo) => _battleFlowInfo.FirstActionInfo = actionInfo;
+
+
+        // 現在の行動
+        public ActionInfo ActiveActionInfo => _battleFlowInfo.ActiveActionInfo;
+        public void SetActiveActionInfo(ActionInfo actionInfo) => _battleFlowInfo.ActiveActionInfo = actionInfo;
 
         public BattlerInfo CheckApCurrentBattler()
         {
             var battlerInfos = FieldBattlerInfos().FindAll(a => a.IsAlive());
             battlerInfos.Sort((a, b) => (int)a.Ap.Value - (int)b.Ap.Value);
-            _currentBattler = battlerInfos.Find(a => a.Ap.Value <= 0);
-            return _currentBattler;
+            _battleFlowInfo.CurrentSelectBattler = battlerInfos.Find(a => a.Ap.Value <= 0);
+            return _battleFlowInfo.CurrentSelectBattler;
         }
 
         /// <summary>
@@ -46,7 +43,7 @@ namespace Ryneus
         /// <param name="skillId"></param>
         /// <param name="oneTargetIndex"></param>
         /// <returns></returns>
-        public (ActionInfo,List<int>) GetActionInfoTargetIndexes(BattlerInfo battlerInfo, int skillId, int oneTargetIndex = -1)
+        public (ActionInfo, List<int>) GetActionInfoTargetIndexes(BattlerInfo battlerInfo, int skillId, int oneTargetIndex = -1)
         {
             var skillInfo = battlerInfo.Skills.Find(a => a.Id.Value == skillId);
             if (skillInfo == null)

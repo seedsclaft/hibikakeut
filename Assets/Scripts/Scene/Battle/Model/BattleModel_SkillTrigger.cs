@@ -143,17 +143,12 @@ namespace Ryneus
         {
             var skillData = DataSystem.FindSkill(skillId);
             var targeBattlerIndex = -1;
-            if (skillData != null)
+            if (skillData != null && SelectTargetBattler != null)
             {
-                if (skillData.IsHpDamageFeature())
+                if (skillData.IsHpDamageFeature() || skillData.IsHpHealFeature())
                 {
-                    targeBattlerIndex = _targetBattler != null ? _targetBattler.Index.Value : -1;
+                    targeBattlerIndex = SelectTargetBattler.Index.Value;
                 }
-                else
-                    if (skillData.IsHpHealFeature())
-                    {
-                        targeBattlerIndex = _targetBattler != null ? _targetBattler.Index.Value : -1;
-                    }
             }
             // 条件なし
             if (triggerDates.Count == 0)
