@@ -117,7 +117,8 @@ namespace Ryneus
                     if (opponent.LineIndex == LineType.Front)
                     {
                         opponentIsFront = true;
-                    } else
+                    }
+                    else
                     {
                         // 前面の味方が一人もいない場合は前面
                         if (targetIsFrontAlive == null)

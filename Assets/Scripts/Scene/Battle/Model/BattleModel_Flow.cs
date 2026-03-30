@@ -7,6 +7,7 @@ namespace Ryneus
     {
         private BattleFlowInfo _battleFlowInfo = new();
         public BattlerInfo CurrentSelectBattler => _battleFlowInfo.CurrentSelectBattler;
+        public void SetSelectBattlerInfo(BattlerInfo battlerInfo) => _battleFlowInfo.CurrentSelectBattler = battlerInfo;
 
         public ActionInfo SelectActionInfo => _battleFlowInfo.SelectActionInfo;
         public void SetSelectActionInfo(ActionInfo actionInfo) => _battleFlowInfo.SelectActionInfo = actionInfo;
@@ -32,7 +33,7 @@ namespace Ryneus
         {
             var battlerInfos = FieldBattlerInfos().FindAll(a => a.IsAlive());
             battlerInfos.Sort((a, b) => (int)a.Ap.Value - (int)b.Ap.Value);
-            _battleFlowInfo.CurrentSelectBattler = battlerInfos.Find(a => a.Ap.Value <= 0);
+            SetSelectBattlerInfo(battlerInfos.Find(a => a.Ap.Value <= 0));
             return _battleFlowInfo.CurrentSelectBattler;
         }
 

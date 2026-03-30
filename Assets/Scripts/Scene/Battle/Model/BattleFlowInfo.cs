@@ -23,7 +23,6 @@ namespace Ryneus
         // 現アクションより前の割り込み
         public List<ActionInfo> InterruptActionInfos = new();
         public ActionInfo InterruptActionInfo = null;
-
         // 誘発した行動
         public List<ActionInfo> ReceiveActionInfos = new();
         public ActionInfo ReceiveActionInfo = null;
