@@ -8,11 +8,12 @@ namespace Ryneus
     public class AudioSourceController : MonoBehaviour
     {
         private AudioSource _audioSource;
+        public AudioSource AudioSource => _audioSource;
 
         public AudioClip Clip => _audioSource.clip;
 
-        private int _reserveTimeSample = -1;
-        public int ReserveTimeSample => _reserveTimeSample;
+        private float _reserveTimeSample = -1f;
+        public float ReserveTimeSample => _reserveTimeSample;
 
 
         private Sequence _toFadeSequence;
@@ -35,7 +36,7 @@ namespace Ryneus
             _isPlay = true;
         }
 
-        public void PlayDelay(float reserveTime)
+        public void PlayDelayed(float reserveTime)
         {
             if (_audioSource == null)
             {
@@ -105,7 +106,7 @@ namespace Ryneus
             {
                 return;
             }
-            _reserveTimeSample = (int)(_audioSource.clip.length * _audioSource.clip.frequency);
+            _reserveTimeSample = (_audioSource.clip.length * _audioSource.clip.frequency);
         }
 
         public bool IsPlaying()
@@ -120,13 +121,13 @@ namespace Ryneus
 
         public bool IsLoopEnded(float reservedTime)
         {
-            if (TimeSamples() >= (ReserveTimeSample - reservedTime))
+            if (_audioSource.timeSamples >= (_reserveTimeSample - reservedTime))
             {
                 return true;
             }
-            if (_isPlay && TimeSamples() == 0)
+            if (_isPlay && _audioSource.timeSamples == 0)
             {
-                return true;
+                //return true;
             }
             return false;
         }

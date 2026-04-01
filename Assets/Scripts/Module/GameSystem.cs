@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Effekseer;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.UI;
 using Utage;

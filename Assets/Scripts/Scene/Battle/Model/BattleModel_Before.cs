@@ -90,6 +90,15 @@ namespace Ryneus
                     {
                         addressPathes.Add(animation.AnimationPath);
                     }
+                    var plusSkill = skillInfo.Master.FeatureDates.Find(a => a.FeatureType == FeatureType.PlusSkill);
+                    if (plusSkill != null)
+                    {
+                        animation = DataSystem.FindAnimation(DataSystem.FindSkill(plusSkill.Param1).AnimationId);
+                        if (animation != null && animation.AnimationPath != "" && !addressPathes.Contains(animation.AnimationPath))
+                        {
+                            addressPathes.Add(animation.AnimationPath);
+                        }
+                    }
                 }
             }
             List<Task<Effekseer.EffekseerEffectAsset>> tasks = new();

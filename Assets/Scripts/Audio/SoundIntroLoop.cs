@@ -121,11 +121,12 @@ namespace Ryneus
 
         private void Update()
         {
+            // _reservedTimeより前にループ後の音声再生予約をする
             if (_nowPlayIndex == 2 && _introAudioSource.IsLoopEnded(_reservedTime))
             {
                 float reserve = _introAudioSource.ReserveTimeSample - _introAudioSource.TimeSamples();
                 _nowPlayIndex = 0;
-                _loopAudioSource.PlayDelay(reserve / 44100);
+                _loopAudioSource.PlayDelayed(reserve / _reservedTime);
             }
             // WebGL のためのループ切り替え処理
 #if UNITY_WEBGL
@@ -147,7 +148,7 @@ namespace Ryneus
 #endif
         }
 
-        public void Play(float timeStamp = 1)
+        public void Play(float timeStamp = 0)
         {
             // クリップが設定されていない場合は何もしない
             if (_introAudioSource == null || _loopAudioSource == null)
@@ -206,7 +207,7 @@ namespace Ryneus
                     _introAudioSource.SetReserveTimestamp();
                     if (_introAudioSource.IsLoopEnded(_reservedTime))
                     {
-                        float reserve = _introAudioSource.ReserveTimeSample - _introAudioSource.TimeSamples();
+                        double reserve = _introAudioSource.ReserveTimeSample - _introAudioSource.TimeSamples();
                         _nowPlayIndex = 0;
                         _loopAudioSource.Play((int)timeStamp);
                     }
