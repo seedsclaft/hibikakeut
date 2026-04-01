@@ -42,7 +42,7 @@ namespace Ryneus
             {
                 return;
             }
-            battlerInfoComponent.RefreshStatus();
+            //battlerInfoComponent.RefreshStatus();
             if (!battlerInfo.IsActorView)
             {
                 battlerInfoComponent.UpdateEnemyImageNativeSize();

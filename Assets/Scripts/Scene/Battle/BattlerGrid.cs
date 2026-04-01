@@ -12,9 +12,9 @@ namespace Ryneus
             battlerInfoComponent.UpdateInfo(battlerInfo);
         }
 
-        public void RefreshStatus()
+        public void RefreshMember()
         {
-            battlerInfoComponent.RefreshStatus();
+            battlerInfoComponent.RefreshMember();
         }
     }
 }

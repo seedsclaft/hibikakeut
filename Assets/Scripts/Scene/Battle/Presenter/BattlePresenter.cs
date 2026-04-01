@@ -82,7 +82,7 @@ namespace Ryneus
             _view.SetActors(MakeListData(_model.ViewBattlerActors()));
             _view.SetEnemies(MakeListData(_model.ViewBattlerEnemies()));
             _view.SetGridMembers(_model.Battlers);
-            await _view.SetFieldMembers(_model.Battlers);
+            await _view.SetFieldEnemies(_model.ViewBattlerEnemies());
             _view.BattlerBattleClearSelect();
 
             _view.RefreshStatus();
@@ -274,6 +274,7 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _beforeBattle = false;
+            await _view.SetFieldActors(_model.ViewBattlerActors());
             _model.CreateBattleRecords();
             _view.SetActiveBeforeBattles(false);
             _view.HideEnemiesStatus();
@@ -285,8 +286,12 @@ namespace Ryneus
             _view.SetStartActors();
             //_view.StartBattleStartAnim("Battle Start!");
             await UniTask.WaitUntil(() => !_view.BattleWait);
-            _view.SetBattleBusy(false);
-            _view.SetIdle();
+            // 少し待つ
+            _view.WaitFrame(_model.WaitFrameTime(30), () =>
+            {
+                _view.SetBattleBusy(false);
+                _view.SetIdle();
+            });
         }
 
         private void CommandFormation()

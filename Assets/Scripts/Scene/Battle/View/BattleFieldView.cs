@@ -30,10 +30,27 @@ namespace Ryneus
 
         }
 
-        public async Task SetFieldMembers(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
+        public async Task SetFieldActors(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
+        {
+            await SetActorInfo(battlerInfos.FindAll(a => a.IsActor), decideEvent, selectEvent);
+        }
+
+        public async Task SetFieldEnemies(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
         {
             MoveCameraEnemies();
             ZoomIn();
+            await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor), decideEvent, selectEvent);
+            SetAnimationBattlerAll(AnimationState.BeforeStart);
+        }
+
+        public async Task UpdateFieldMembers(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
+        {
+            foreach (var battlers in _battlers)
+            {
+                Destroy(battlers.Value.gameObject);
+            }
+            _battlers.Clear();
+            _battlerInfoComponents.Clear();
             await SetActorInfo(battlerInfos.FindAll(a => a.IsActor), decideEvent, selectEvent);
             await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor), decideEvent, selectEvent);
             SetAnimationBattlerAll(AnimationState.BeforeStart);

@@ -101,7 +101,7 @@ namespace Ryneus
 
         public List<BattlerInfo> FieldBattlerInfos()
         {
-            return _battlers.FindAll(a => !a.isAlcana && a.LineIndex == LineType.Front);
+            return _battlers.FindAll(a => !a.isAlcana);
         }
 
         public List<BattlerInfo> GetFriendsAliveBattlerInfos(BattlerInfo battlerInfo)
@@ -1319,8 +1319,8 @@ namespace Ryneus
                 if (subject != null && changeBattler != null && changeBattler.IsAlive())
                 {
                     ChangeUnitLineType(subject, changeBattler);
-                    _party.RemoveBattlerInfo(subject);
-                    _party.AddBattlerInfo(changeBattler);
+                    //_party.RemoveBattlerInfo(subject);
+                    //_party.AddBattlerInfo(changeBattler);
                 }
             }
             return chenage;
@@ -1339,8 +1339,8 @@ namespace Ryneus
                     if (changeBattler != null && changeBattler.IsAlive())
                     {
                         ChangeUnitLineType(fieldBattlerInfo, changeBattler);
-                        _party.RemoveBattlerInfo(fieldBattlerInfo);
-                        _party.AddBattlerInfo(changeBattler);
+                        //_party.RemoveBattlerInfo(fieldBattlerInfo);
+                        //_party.AddBattlerInfo(changeBattler);
                     }
                 }
             }

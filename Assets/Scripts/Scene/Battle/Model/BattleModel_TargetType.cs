@@ -156,11 +156,11 @@ namespace Ryneus
                     if (rangeType == RangeType.L)
                     {
                         // 控えも加える
-                        targetIndexList.AddRange(TargetIndexReserve(subject.IsActor));
+                        // targetIndexList.AddRange(TargetIndexReserve(subject.IsActor));
                     }
                     if (skillData.Scope == ScopeType.WithoutSelfOne || skillData.Scope == ScopeType.WithoutSelfLine || skillData.Scope == ScopeType.WithoutSelfAll)
                     {
-                        targetIndexList.Remove(subject.Index.Value);
+                        targetIndexList.RemoveAll((a) => a == subject.Index.Value);
                     }
                     break;
                 case TargetType.Self:

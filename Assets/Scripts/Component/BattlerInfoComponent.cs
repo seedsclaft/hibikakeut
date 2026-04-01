@@ -38,14 +38,7 @@ namespace Ryneus
                 Clear();
                 return;
             }
-            if (battlerInfo.IsActor || battlerInfo.IsActorView)
-            {
-                actorInfoComponent.UpdateInfo(battlerInfo.ActorInfo, null);
-            }
-            else
-            {
-                enemyInfoComponent.UpdateInfo(battlerInfo);
-            }
+            RefreshMember();
             UIComponent.SetText(evaluate, battlerInfo.Evaluate().ToString());
             if (additiveFaceThumb != null)
             {
@@ -148,15 +141,11 @@ namespace Ryneus
             statusInfoComponent?.UpdateSpd(value);
         }
 
-        public void RefreshStatus()
+        public void RefreshMember()
         {
             if (_battlerInfo == null)
             {
                 return;
-            }
-            if (statusInfoComponent != null)
-            {
-                UIComponent.SetActive(statusInfoComponent.gameObject, true);
             }
             if (_battlerInfo.IsActor || _battlerInfo.IsActorView)
             {
@@ -167,6 +156,29 @@ namespace Ryneus
             {
                 enemyInfoComponent.UpdateInfo(_battlerInfo);
             }
+        }
+
+        public void RefreshStatus()
+        {
+            if (_battlerInfo == null)
+            {
+                return;
+            }
+            if (statusInfoComponent != null)
+            {
+                UIComponent.SetActive(statusInfoComponent.gameObject, true);
+            }
+            /*
+            if (_battlerInfo.IsActor || _battlerInfo.IsActorView)
+            {
+                actorInfoComponent.UpdateInfo(_battlerInfo.ActorInfo, null);
+                actorInfoComponent.SetAwakeMode(_battlerInfo.IsState(StateType.Demigod));
+            }
+            else
+            {
+                enemyInfoComponent.UpdateInfo(_battlerInfo);
+            }
+            */
             ChangeHp(_battlerInfo.Hp.Value);
             ChangeMp(_battlerInfo.Mp.Value);
             ChangeAtk(_battlerInfo.CurrentAtk(false));

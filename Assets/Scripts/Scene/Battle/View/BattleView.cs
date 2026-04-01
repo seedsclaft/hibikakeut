@@ -136,6 +136,19 @@ namespace Ryneus
             }
         }
 
+        public void UpdateActors(List<ListData> battlerInfos)
+        {
+            battleActorList.RefreshListData(battlerInfos);
+            foreach (var battlerInfo in battlerInfos)
+            {
+                var data = (BattlerInfo)battlerInfo.Data;
+                if (data.Index.Value > 0)
+                {
+                    _battlerComps[data.Index.Value] = battleActorList.GetBattlerInfoComp(data.Index.Value);
+                }
+            }
+        }
+
         private void InitializeEnemyLayer()
         {
             battleEnemyList.Initialize();
@@ -205,9 +218,59 @@ namespace Ryneus
             //battleFieldView.UpdateSelectIndex(selectIndexes[0]-101);
         }
 
-        public async Task SetFieldMembers(List<BattlerInfo> battlerInfos)
+        public async Task SetFieldActors(List<BattlerInfo> battlerInfos)
         {
-            await battleFieldView.SetFieldMembers(battlerInfos, (a) =>
+            await battleFieldView.SetFieldActors(battlerInfos, (a) =>
+            {
+                if (a.IsActor)
+                {
+                    CallViewEvent(CommandType.OnDecideEnemy, a);
+                }
+                else
+                {
+                    CallViewEvent(CommandType.OnDecideActor, a);
+                }
+            }, (a) =>
+            {
+                if (battleEnemyList.Active || battleActorList.Active)
+                {
+                    CallViewEvent(CommandType.OnSelectTargetCursor, a);
+                }
+            });
+            foreach (var battlerInfoComponent in battleFieldView.BattlerInfoComponents)
+            {
+                _fieldBattlerComps[battlerInfoComponent.Key] = battlerInfoComponent.Value;
+            }
+        }
+
+        public async Task SetFieldEnemies(List<BattlerInfo> battlerInfos)
+        {
+            await battleFieldView.SetFieldEnemies(battlerInfos, (a) =>
+            {
+                if (a.IsActor)
+                {
+                    CallViewEvent(CommandType.OnDecideEnemy, a);
+                }
+                else
+                {
+                    CallViewEvent(CommandType.OnDecideActor, a);
+                }
+            }, (a) =>
+            {
+                if (battleEnemyList.Active || battleActorList.Active)
+                {
+                    CallViewEvent(CommandType.OnSelectTargetCursor, a);
+                }
+            });
+            foreach (var battlerInfoComponent in battleFieldView.BattlerInfoComponents)
+            {
+                _fieldBattlerComps[battlerInfoComponent.Key] = battlerInfoComponent.Value;
+            }
+        }
+
+        public async Task UpdateFieldMembers(List<BattlerInfo> battlerInfos)
+        {
+            await battleFieldView.UpdateFieldMembers(battlerInfos, (a) =>
             {
                 if (a.IsActor)
                 {

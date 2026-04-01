@@ -120,6 +120,11 @@ namespace Ryneus
             return FeatureDates.Find(a => a.FeatureType == FeatureType.ActionAfterChange) != null;
         }
 
+        public bool ActionWaitCommand()
+        {
+            return FeatureDates.Find(a => a.FeatureType == FeatureType.None) != null;
+        }
+
         public bool IsEnhanceSkill()
         {
             return Master.SkillType == SkillType.Enhance;

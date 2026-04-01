@@ -116,8 +116,8 @@ namespace Ryneus
             UIComponent.SetText(resourceGain, TacticsUtility.ResourceGain(actorInfo).ToString());
             UIComponent.SetText(evaluate, DataSystem.GetReplaceDecimalText(actorInfo.Evaluate()));
 
-            var textId = actorInfo.LineIndex == LineType.Front ? 2012 : 2013;
-            UIComponent.SetText(battlePosition, DataSystem.GetText(textId));
+            //var textId = actorInfo.LineIndex == LineType.Front ? 2012 : 2013;
+            //UIComponent.SetText(battlePosition, DataSystem.GetText(textId));
             UIComponent.SetText(transferGetItemText, actorInfo.TransferGetItemText(PartyInfo.Period.Value));
             UIComponent.SetText(transferGetExpText, actorInfo.TransferGetExpText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
 

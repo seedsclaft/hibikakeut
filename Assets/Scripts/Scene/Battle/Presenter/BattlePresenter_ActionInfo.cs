@@ -81,7 +81,7 @@ namespace Ryneus
             }
 
             var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            if (actionInfo.FirstAttack())
+            if (actionInfo.FirstAttack() && !actionInfo.SkillInfo.ActionAfterChange() && !actionInfo.SkillInfo.ActionWaitCommand())
             {
                 _view.HideGridLayer();
                 await SelfAnimation(actionInfo);

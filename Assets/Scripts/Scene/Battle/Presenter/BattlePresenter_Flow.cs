@@ -584,20 +584,19 @@ namespace Ryneus
                     _model.ActionAfterGainAp(gainAp);
                     _view.RefreshStatus();
                 }
-                // 行動後に交代
-                var change = _model.CheckActionAfterChange(actionInfo);
-                if (change)
-                {
-                    _view.SetActors(MakeListData(_model.ViewBattlerActors()));
-                    _view.UpdateGridLayer();
-                    _view.RefreshStatus();
-                }
 
             }
             var reaction = _model.CheckReaction(actionInfo);
             _model.TurnEnd(actionInfo);
             _model.ChangeBattlerInfosLineType();
-            _view.SetActors(MakeListData(_model.ViewBattlerActors()));
+            // 行動後に交代
+            var change = _model.CheckActionAfterChange(actionInfo);
+            if (change)
+            {
+                _view.UpdateFieldMembers(_model.Battlers);
+                _view.UpdateGridLayer();
+            }
+            _view.UpdateActors(MakeListData(_model.ViewBattlerActors()));
             _view.SetEnemies(MakeListData(_model.ViewBattlerEnemies()));
             _view.SetIdle();
             if (reaction)
@@ -676,7 +675,7 @@ namespace Ryneus
             var linkage = _model.CheckLinkageBattlerInfo();
             if (linkage)
             {
-                _view.SetActors(MakeListData(_model.ViewBattlerActors()));
+                _view.UpdateActors(MakeListData(_model.ViewBattlerActors()));
                 _view.UpdateGridLayer();
             }
 

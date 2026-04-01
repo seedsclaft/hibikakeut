@@ -78,7 +78,7 @@ namespace Ryneus
         {
             foreach (var data in _battlers)
             {
-                data.Value.RefreshStatus();
+                data.Value.RefreshMember();
                 UIComponent.SetActive(data.Value.gameObject, data.Key.IsAlive() && data.Key.LineIndex == LineType.Front);
             }
         }

@@ -110,10 +110,12 @@ namespace Ryneus
 
         public static T GetAsset<T>(string path) where T : Object
         {
+            /*
             if (_loadAssets.ContainsKey(path))
             {
                 return _loadAssets[path] as T;
             }
+            */
             return null;
         }
 
