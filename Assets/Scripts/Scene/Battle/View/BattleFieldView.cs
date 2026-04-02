@@ -13,6 +13,8 @@ namespace Ryneus
         [SerializeField] private Transform cameraTransform;
         [SerializeField] private List<GameObject> actorPositions;
         [SerializeField] private List<GameObject> enemyPositions;
+        [SerializeField] private List<GameObject> actorDamagePositions;
+        [SerializeField] private List<GameObject> enemyDamagePositions;
         private Dictionary<int, CharacterAnimationImages> _battlers = new();
         private Dictionary<int, BattlerInfoComponent> _battlerInfoComponents = new();
         public Dictionary<int, BattlerInfoComponent> BattlerInfoComponents => _battlerInfoComponents;
@@ -66,6 +68,7 @@ namespace Ryneus
                 var comp = prefab.GetComponent<CharacterAnimationImages>();
                 comp.Initilize(decideEvent, selectEvent);
                 comp.UpdateInfo(battlerInfos[i]);
+                comp.ReplaceDamageRoot(actorDamagePositions[i]);
                 _battlers[battlerInfos[i].Index.Value] = comp;
                 _battlerInfoComponents[battlerInfos[i].Index.Value] = prefab.GetComponentInChildren<BattlerInfoComponent>();
             }
@@ -81,6 +84,7 @@ namespace Ryneus
                 var comp = prefab.GetComponent<CharacterAnimationImages>();
                 comp.Initilize(decideEvent, selectEvent);
                 comp.UpdateInfo(battlerInfos[i]);
+                comp.ReplaceDamageRoot(enemyDamagePositions[i]);
                 _battlers[battlerInfos[i].Index.Value] = comp;
                 _battlerInfoComponents[battlerInfos[i].Index.Value] = prefab.GetComponentInChildren<BattlerInfoComponent>();
             }

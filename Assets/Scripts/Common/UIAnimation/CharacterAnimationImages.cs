@@ -110,6 +110,11 @@ namespace Ryneus
             battlerInfoComponent.SetDamageRoot(damageRoot);
         }
 
+        public void ReplaceDamageRoot(GameObject parent)
+        {
+            damageRoot.transform.SetParent(parent.transform);
+        }
+
         public void SetSelectArrow(bool isSelect)
         {
             UIComponent.SetActive(selectArrow, isSelect);
