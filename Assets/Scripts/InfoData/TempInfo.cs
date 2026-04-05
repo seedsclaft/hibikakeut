@@ -102,6 +102,10 @@ namespace Ryneus
                 {
                     foreach (var learningSkill in enemyData.LearningSkills)
                     {
+                        if (learningSkill.SkillId != enableSkillInfo.Id.Value)
+                        {
+                            continue;
+                        }
                         if (!weightKey.ContainsKey(enableSkillInfo.Id.Value) || weightKey[enableSkillInfo.Id.Value] < learningSkill.Weight)
                         {
                             weightKey[enableSkillInfo.Id.Value] = learningSkill.Weight;

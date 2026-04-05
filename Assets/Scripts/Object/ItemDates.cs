@@ -18,6 +18,7 @@ namespace Ryneus
         public int Param1;
         public int Param2;
         public int Param3;
+        public int Cost;
         public string Name;
         public string Help;
     }

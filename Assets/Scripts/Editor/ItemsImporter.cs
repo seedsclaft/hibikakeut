@@ -68,6 +68,7 @@ namespace Ryneus
                             Param1 = AssetPostImporter.ImportNumeric(BaseRow, "Param1"),
                             Param2 = AssetPostImporter.ImportNumeric(BaseRow, "Param2"),
                             Param3 = AssetPostImporter.ImportNumeric(BaseRow, "Param3"),
+                            Cost = AssetPostImporter.ImportNumeric(BaseRow, "Cost"),
                         };
                         ItemData.Name = textData.Find(a => a.Id == ItemData.Id)?.Text;
                         ItemData.Help = textData.Find(a => a.Id == ItemData.Id)?.Help;

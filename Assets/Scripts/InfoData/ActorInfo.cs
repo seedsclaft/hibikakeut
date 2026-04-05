@@ -110,14 +110,17 @@ namespace Ryneus
                 if (!skill.IsBattlePassiveSkill() && !skill.IsBattleSpecialSkill())
                 {
                     sortIds1.Add(equipmentSkillId);
+                    continue;
                 }
-                if (!skill.IsBattlePassiveSkill() && skill.IsBattleSpecialSkill())
+                if (skill.IsBattleSpecialSkill())
                 {
                     sortIds2.Add(equipmentSkillId);
+                    continue;
                 }
                 if (skill.IsBattlePassiveSkill())
                 {
                     sortIds3.Add(equipmentSkillId);
+                    continue;
                 }
             }
             sortIds.AddRange(sortIds1);

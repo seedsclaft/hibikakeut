@@ -34,7 +34,9 @@ namespace Ryneus
                             Param1 = prizeSet.GetItem.Param1,
                             Param2 = 1 // 1つ単位で取引
                         };
-                        tradeItemInfo = new TradeItemInfo(getItemData, prizeSet.GetItem.Param2);
+                        // アイテムのコスト
+                        var item = DataSystem.FindItem(prizeSet.GetItem.Param1);
+                        tradeItemInfo = new TradeItemInfo(getItemData, item.Cost);
                         break;
                     case GetItemType.RandumItem:
                         // 使用アイテムを1つ抽選する
