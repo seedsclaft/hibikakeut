@@ -17,6 +17,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI battleDefeatedCountText = null;
         [SerializeField] private GameObject weakAttackCountObj = null;
         [SerializeField] private TextMeshProUGUI weakAttackCountText = null;
+        [SerializeField] private GameObject enemyLvAvarageObj = null;
+        [SerializeField] private TextMeshProUGUI enemyLvAvarageText = null;
         public void UpdateScore(BattleScore battleScore)
         {
             if (battleScore == null)
@@ -29,6 +31,7 @@ namespace Ryneus
             UIComponent.SetActive(battleAttackPerObj, battleScore.RemainHpPercent != -1);
             UIComponent.SetActive(battleDefeatedCountObj, battleScore.DefeatedCount != -1);
             UIComponent.SetActive(weakAttackCountObj, battleScore.WeakAttackCount != -1);
+            UIComponent.SetActive(enemyLvAvarageObj, battleScore.EnemyLvAvarage != -1);
 
             UIComponent.SetText(battleScoreText, (battleScore.ResultScore > 0 ? "+" : "") + (battleScore.ResultScore * 0.01f).ToString("F2") + "%");
             UIComponent.SetText(battleTurnText, battleScore.TurnCount.ToString() + DataSystem.GetText(20301));
@@ -36,6 +39,7 @@ namespace Ryneus
             UIComponent.SetText(battleDefeatedCountText, battleScore.DefeatedCount.ToString());
             UIComponent.SetText(weakAttackCountText, battleScore.WeakAttackCount.ToString());
             UIComponent.SetText(battleAttackPerText, battleScore.RemainHpPercent.ToString() + "%");
+            UIComponent.SetText(enemyLvAvarageText, battleScore.EnemyLvAvarage.ToString());
         }
 
         public void UpdateEmpty()

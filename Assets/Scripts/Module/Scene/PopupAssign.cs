@@ -138,6 +138,7 @@ namespace Ryneus
         Dictionary,
         FileList,
         DungeonMap,
+        BattleScoreCurrency,
         Tutorial,
     }
 

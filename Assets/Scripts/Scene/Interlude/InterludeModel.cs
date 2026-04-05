@@ -59,6 +59,10 @@ namespace Ryneus
                 }
             }
 
+            // バトルスコアをNuに変換
+            var battleScoreItemInfo = MakeGetItemInfo(GetItemType.BattleSocreCurrency, BattleScorePoint());
+            getItemInfos.Add(battleScoreItemInfo);
+
             _resultInfos.Clear();
             _resultInfos = MakeGetItemResultViewInfos(getItemInfos);
 
@@ -150,12 +154,20 @@ namespace Ryneus
             return BaseConfirmCommand(3040);
         }
 
+        public int BattleScorePoint()
+        {
+            var battleScore = PartyInfo.PartyStatInfo.BattleScore.Value;
+            // 0-50
+            return battleScore;
+        }
+
         public bool EndInterludePhase()
         {
             if (PartyInfo.Period.Value > DataSystem.System.PeriodTurns)
             {
                 PartyInfo.Period.SetValue(1);
                 PartyInfo.Chapter.GainValue(1);
+                PartyInfo.PartyStatInfo.BattleScore.SetValue(0);
                 return true;
             }
             return false;

@@ -238,6 +238,7 @@ namespace Ryneus
             switch (getItemInfo.GetItemType)
             {
                 case GetItemType.Currency:
+                case GetItemType.BattleSocreCurrency:
                     PartyInfo.Currency.GainValue(getItemInfo.Param1, 0);
                     break;
                 default:
@@ -500,6 +501,7 @@ namespace Ryneus
                     case GetItemType.SkillMastary:
                     case GetItemType.RankUp:
                     case GetItemType.AddReliefCommandCount:
+                    case GetItemType.BattleSocreCurrency:
                         AddGetItemInfo(getItemInfo);
                         break;
                     case GetItemType.Skill:
@@ -622,6 +624,10 @@ namespace Ryneus
                         break;
                     case GetItemType.AddReliefCommandCount:
                         resultInfo.Title.SetValue(DataSystem.GetText(20420));
+                        list.Add(resultInfo);
+                        break;
+                    case GetItemType.BattleSocreCurrency:
+                        resultInfo.Title.SetValue(DataSystem.GetText(20440) + " +" + DataSystem.GetText(1000));
                         list.Add(resultInfo);
                         break;
                 }

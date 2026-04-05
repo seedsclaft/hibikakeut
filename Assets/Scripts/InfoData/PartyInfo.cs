@@ -320,7 +320,7 @@ namespace Ryneus
         // フェーズ終了までのピリオド
         public ParameterInt Period = new();
 
-        // 救済できる回数
+        // 召喚できる回数
         public ParameterInt ReliefItemCount = new(1);
         // 行動実績
         public PartyStatInfo PartyStatInfo = new();

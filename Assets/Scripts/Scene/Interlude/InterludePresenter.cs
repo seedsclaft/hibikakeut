@@ -82,14 +82,21 @@ namespace Ryneus
 
         private void ShowResultList()
         {
-            _view.ShowResultList(MakeListData(_model.ResultViewInfos),
-                null,
-                _model.ClearStageNum(),
-                _model.PartyInfo.MissionRank.Value.ToString(),
-                DataSystem.GetReplaceDecimalText(_model.PartyInfo.PartyEvaluate()),
-                null,
-                null
-            );
+            var battleScoreCurrencyInfo = new BattleScoreCurrencyInfo(_model.PartyInfo.PartyStatInfo.BattleScore.Value, _model.BattleScorePoint());
+            // バトルスコア還元
+            CallPopupView(PopupType.BattleScoreCurrency, () =>
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                
+                _view.ShowResultList(MakeListData(_model.ResultViewInfos),
+                    null,
+                    _model.ClearStageNum(),
+                    _model.PartyInfo.MissionRank.Value.ToString(),
+                    DataSystem.GetReplaceDecimalText(_model.PartyInfo.PartyEvaluate()),
+                    null,
+                    null
+                );
+            }, battleScoreCurrencyInfo);
         }
 
         private void CommandResultClose()

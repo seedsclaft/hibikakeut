@@ -375,6 +375,12 @@ namespace Ryneus
                 rankup.SetRankupInfo((RankupInfo)popupInfo.template);
             }
             else
+            if (popupInfo.PopupType == PopupType.BattleScoreCurrency)
+            {
+                var battleScoreCurrencyView = prefab.GetComponent<BattleScoreCurrencyView>();
+                battleScoreCurrencyView.SetBattleScoreCurrencyInfo((BattleScoreCurrencyInfo)popupInfo.template);
+            }
+            else
             if (popupInfo.PopupType == PopupType.ClassChange)
             {
                 var classChange = prefab.GetComponent<ClassChangeView>();

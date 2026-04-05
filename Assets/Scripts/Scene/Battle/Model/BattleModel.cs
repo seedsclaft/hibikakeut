@@ -2575,6 +2575,7 @@ namespace Ryneus
             var score = 0f;
             var actorLvMax = _party.BattlerInfos.Max(a => a.Level.Value);
             var enemyLvMax = _troop.BattlerInfos.Max(a => a.Level.Value);
+            var enemyLvAvarage = _troop.BattlerInfos.Average(a => a.Level.Value);
             var lvPoint = (enemyLvMax - actorLvMax) * 5;
             // 戦闘不能数の少なさで加算
             if (defeated == 0 && lvPoint > -20)
@@ -2586,6 +2587,9 @@ namespace Ryneus
             {
                 score -= defeated * 20;
             }
+            // 敵Lvの高さに応じた基礎点
+            var enemyLvBonus = (int)Math.Ceiling(enemyLvAvarage * 0.1f);
+            score += (int)enemyLvAvarage * enemyLvBonus;
             if (totalTurnCount <= 30)
             {
                 // ターン数の少なさとLv差で加算
@@ -2622,6 +2626,7 @@ namespace Ryneus
             battleScore.DefeatedCount = defeated;
             battleScore.WeakAttackCount = weakAttackCount;
             battleScore.AwakenCount = awakeCount;
+            battleScore.EnemyLvAvarage = (float)enemyLvAvarage;
             PartyInfo.PartyStatInfo.BattleScore.GainValue((int)score);
             PartyInfo.PartyStatInfo.TotalDamage.GainValue(attack);
             CheckAchievements();
@@ -2642,7 +2647,7 @@ namespace Ryneus
             {
                 exp = 40f / 3f;
             }
-            var battleScore = PartyInfo.PartyStatInfo.BattleScore.Value;
+            //var battleScore = PartyInfo.PartyStatInfo.BattleScore.Value;
             // 経験値アイテムを作る
             foreach (var actorInfo in UnitBattlerActors())
             {
@@ -2688,21 +2693,21 @@ namespace Ryneus
                 {
                     gainExp *= (1 + upperRate);
                 }
-
+/*
                 if (battleScore > 0)
                 {
                     gainExp = (int)(gainExp * (1 + (battleScore * 0.0001f)));
                 }
-
+*/
                 if (gainExp <= 0)
                 {
                     gainExp = 1;
                 }
                 else
-                    if (gainExp > 100)
-                    {
-                        //gainExp = 100;
-                    }
+                if (gainExp > 100)
+                {
+                    //gainExp = 100;
+                }
 
                 var expData = new GetItemData
                 {

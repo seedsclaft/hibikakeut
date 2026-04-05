@@ -125,5 +125,6 @@ namespace Ryneus
         ClearStage = 3010,
         RandumItem = 4010,
         RandumMagic = 4020,
+        BattleSocreCurrency = 5010,
     }
 }

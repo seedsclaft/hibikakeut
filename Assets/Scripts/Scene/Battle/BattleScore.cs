@@ -9,6 +9,7 @@ namespace Ryneus
         public int MaxDamage = -1;
         public int DefeatedCount = -1;
         public int AwakenCount = -1;
+        public float EnemyLvAvarage = -1;
         public int WeakAttackCount = -1;
         public int TurnCount = -1;
     }
