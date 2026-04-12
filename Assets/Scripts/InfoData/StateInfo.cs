@@ -95,5 +95,15 @@ namespace Ryneus
         {
             return !Master.Removal;
         }
+
+        public bool EquipStateInfo()
+        {
+            var skillData = DataSystem.FindSkill(SkillId.Value);
+            if (skillData != null)
+            {
+                return skillData.SkillType == SkillType.Equip;
+            }
+            return false;
+        }
     }
 }

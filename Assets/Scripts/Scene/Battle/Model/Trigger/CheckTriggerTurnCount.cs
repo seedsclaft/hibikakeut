@@ -13,16 +13,9 @@ namespace Ryneus
                 case TriggerType.TurnNumUnder:
                     return battlerInfo.TurnCount.Value < triggerData.Param1;
                 case TriggerType.TurnNum:
-                    return battlerInfo.TurnCount.Value == triggerData.Param1;
+                    return CheckTurnNum(triggerData, battlerInfo).Count > 0;
                 case TriggerType.TurnNumPer:
-                    if (triggerData.Param1 == 0)
-                    {
-                        return battlerInfo.TurnCount.Value - triggerData.Param2 == 0;
-                    }
-                    else
-                    {
-                        return (battlerInfo.TurnCount.Value % triggerData.Param1) - triggerData.Param2 == 0;
-                    }
+                    return CheckTurnNumPer(triggerData, battlerInfo).Count > 0;
                 case TriggerType.ActionCountPer:
                     var turns = checkTriggerInfo.Turns;
                     if (triggerData.Param1 > 0)
@@ -87,16 +80,10 @@ namespace Ryneus
             switch (triggerData.TriggerType)
             {
                 case TriggerType.TurnNum:
-                    if (checkTriggerInfo.BattlerInfo.TurnCount.Value == triggerData.Param1)
-                    {
-                        targetIndexList.Add(targetIndex.Value);
-                    }
+                    targetIndexList.AddRange(CheckTurnNum(triggerData, targetBattler));
                     break;
                 case TriggerType.TurnNumPer:
-                    if ((checkTriggerInfo.BattlerInfo.TurnCount.Value % triggerData.Param1) - triggerData.Param2 == 0)
-                    {
-                        targetIndexList.Add(targetIndex.Value);
-                    }
+                    targetIndexList.AddRange(CheckTurnNumPer(triggerData, targetBattler));
                     break;
                 case TriggerType.SelfTargetOnly:
                     if (checkTriggerInfo.BattlerInfo.Index == targetIndex)
@@ -116,6 +103,37 @@ namespace Ryneus
         public void AddTriggerTargetList(List<int> targetIndexList, SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
 
+        }
+
+        
+        private List<int> CheckTurnNum(SkillData.TriggerData triggerData, BattlerInfo battlerInfo)
+        {
+            var list = new List<int>();
+            if (battlerInfo.TurnCount.Value == triggerData.Param1)
+            {
+                list.Add(battlerInfo.Index.Value);
+            }
+            return list;
+        }
+
+        private List<int> CheckTurnNumPer(SkillData.TriggerData triggerData, BattlerInfo battlerInfo)
+        {
+            var list = new List<int>();
+            if (triggerData.Param1 == 0)
+            {
+                if (battlerInfo.TurnCount.Value - triggerData.Param2 == 0)
+                {
+                    list.Add(battlerInfo.Index.Value);
+                }
+            }
+            else
+            {
+                if ((battlerInfo.TurnCount.Value % triggerData.Param1) - triggerData.Param2 == 0)
+                {
+                    list.Add(battlerInfo.Index.Value);
+                }
+            }
+            return list;
         }
     }
 }

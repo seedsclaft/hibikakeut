@@ -906,13 +906,13 @@ namespace Ryneus
         private void MakeRemoveBuffState(BattlerInfo subject, BattlerInfo target)
         {
             // skillId -1のRemoveは強制で解除する
-            var abnormalStates = target.StateInfos.FindAll(a => a.Master.Buff && a.BattlerId.Value != target.Index.Value);
-            foreach (var abnormalState in abnormalStates)
+            var removeStates = target.StateInfos.FindAll(a => a.Master.Buff && a.BattlerId.Value != target.Index.Value);
+            foreach (var removeState in removeStates)
             {
-                bool IsRemoved = target.RemoveState(abnormalState, false);
-                if (IsRemoved)
+                bool isRemoved = target.RemoveState(removeState, false);
+                if (isRemoved)
                 {
-                    _removedStates.Add(abnormalState);
+                    _removedStates.Add(removeState);
                 }
             }
         }

@@ -776,6 +776,11 @@ namespace Ryneus
         public bool RemoveState(StateInfo stateInfo, bool doRemove)
         {
             bool isRemoved = false;
+            // 装備スキルは解除しない
+            if (stateInfo.EquipStateInfo())
+            {
+                return isRemoved;
+            }
             int removeIndex = _stateInfos.FindIndex(a => a.StateType == stateInfo.StateType && (a.SkillId == stateInfo.SkillId || stateInfo.SkillId.Value == -1));
             if (removeIndex > -1)
             {

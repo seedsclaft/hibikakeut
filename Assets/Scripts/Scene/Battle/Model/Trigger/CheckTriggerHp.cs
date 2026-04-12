@@ -65,8 +65,6 @@ namespace Ryneus
             return battlerInfo.HpRate < param1 * 0.01f;
         }
 
-
-
         public int CheckTargetIndex(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo, int targetBattlerIndex)
         {
             switch (triggerData.TriggerType)
@@ -105,7 +103,6 @@ namespace Ryneus
             return -1;
         }
 
-
         private int MostHpTargetIndex(List<BattlerInfo> targetBattlers, BattlerInfo battlerInfo, int param1, int targetBattlerIndex)
         {
             if (targetBattlers.Count > 0)
@@ -132,7 +129,6 @@ namespace Ryneus
         {
             var IsFriend = checkTriggerInfo.IsFriend(targetBattler);
             var targetIndex = targetBattler.Index;
-
 
             switch (triggerData.TriggerType)
             {
@@ -248,8 +244,6 @@ namespace Ryneus
                     break;
             }
         }
-
-
 
         private List<BattlerInfo> LineTargetBattlers(ScopeType scopeType, BattlerInfo targetBattler, List<BattlerInfo> targetBatterInfos)
         {

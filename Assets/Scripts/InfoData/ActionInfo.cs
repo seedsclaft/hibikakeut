@@ -104,6 +104,11 @@ namespace Ryneus
             _actionResults = actionResult;
         }
 
+        public bool HpDamageAction()
+        {
+            return _actionResults.Find(a => a.HpDamage.Value > 0) != null;
+        }
+
         public List<ActionInfo> CheckPlusSkill()
         {
             // 行動後スキル

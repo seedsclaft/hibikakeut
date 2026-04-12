@@ -1543,7 +1543,7 @@ namespace Ryneus
                 actionResultInfos.Add(actionResultInfo);
             }
             actionResultInfos.AddRange(AfterHealActionResults());
-            if (actionInfo != null && actionInfo.ActionResults.Find(a => a.HpDamage.Value > 0) != null)
+            if (actionInfo != null && actionInfo.HpDamageAction())
             {
                 if (actionInfo == _battleFlowInfo.FirstActionInfo)
                 {
