@@ -384,7 +384,7 @@ namespace Ryneus
             _view.SeekTweens();
             _view.MinusVictoryBonus(-0.2f);
             _view.MinusEvaluate(-1);
-            _model.PartyInfo.EvaluationValue.GainValue(-1, 0);
+            //_model.PartyInfo.EvaluationValue.GainValue(-1, 0);
             CommandCautionInfo(DataSystem.GetText(10180));
             // 強制帰還
             /*
@@ -1007,7 +1007,7 @@ namespace Ryneus
             var getItemInfo = _model.MakeGetItemInfo(GetItemType.Item, itemId, 1);
             _model.AddGetItemInfo(getItemInfo);
             _view.MinusEvaluate(-10);
-            _model.PartyInfo.EvaluationValue.GainValue(-10, 0);
+            _model.PartyInfo.PartyStatInfo.BattleScore.GainValue(-20, 0);
             CallConfirmNoChoiceView(DataSystem.GetReplaceText(10141, 10.ToString()), (a) =>
             {
                 _busy = false;

@@ -118,7 +118,7 @@ namespace Ryneus
             PartyInfo.ClearTradeItemInfos();
             if (PartyInfo.Chapter.Value >= 2)
             {
-                PartyInfo.EvaluationValue.GainValue(PartyInfo.EvaluationAddictValue(), 0);
+                PartyInfo.PartyStatInfo.BattleScore.GainValue(PartyInfo.EvaluationAddictValue(), 0);
             }
             PartyInfo.ClearSkillUseCount();
         }

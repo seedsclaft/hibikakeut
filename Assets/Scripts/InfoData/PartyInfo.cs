@@ -11,7 +11,7 @@ namespace Ryneus
         public PartyInfo()
         {
             InitDeckInfos();
-            EvaluationValue.SetValue(100);
+            //EvaluationValue.SetValue(100);
             Chapter.SetValue(1);
             Period.SetValue(1);
         }
@@ -326,8 +326,8 @@ namespace Ryneus
         public PartyStatInfo PartyStatInfo = new();
 
         // 評価値
-        public ParameterInt EvaluationValue = new();
-        // 信仰度の警告を受けたか
+        // public ParameterInt EvaluationValue = new();
+        // 評価値マイナスの警告を受けたか
         public ParameterBool EvaluationCaution = new();
 
 
@@ -567,7 +567,7 @@ namespace Ryneus
                     ClearStage(getItemInfo.Param1);
                     break;
                 case GetItemType.Evaluate:
-                    EvaluationValue.GainValue(getItemInfo.Param1);
+                    PartyStatInfo.BattleScore.GainValue(getItemInfo.Param1);
                     break;
                 case GetItemType.SkillMastary:
                     var target = _actorInfos.Find(a => a.ActorId.Value == getItemInfo.Param1);

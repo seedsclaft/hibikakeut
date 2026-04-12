@@ -83,7 +83,6 @@ namespace Ariadne
         /// </Summary>
         protected virtual void DrawGrid(VertexHelper vh)
         {
-
             if (parentRt == null)
             {
                 parentRt = GameObject.Find(AriadneSceneObjectName.MapParent).GetComponent<RectTransform>();

@@ -41,19 +41,21 @@ namespace Ryneus
 
             UIComponent.SetText(periodLimit, DataSystem.System.PeriodTurns);
             UIComponent.SetText(chapter, partyInfo.Chapter);
-            UIComponent.SetText(evaluationValue, partyInfo.EvaluationValue);
+            //UIComponent.SetText(evaluationValue, partyInfo.EvaluationValue);
             if (evaluationAddictValue != null)
             {
                 var evaluationAddict = partyInfo.EvaluationAddictValue();
                 UIComponent.SetActive(evaluationAddictValue.gameObject, evaluationAddict != 0);
                 UIComponent.SetText(evaluationAddictValue, "(" + evaluationAddict.ToString() + ")");
             }
+            /*
             if (evaluationValueGauge != null)
             {
                 evaluationValueGauge.UpdateGauge(partyInfo.EvaluationValue.Value * 0.01f);
             }
+            */
             UIComponent.SetText(missionRank, partyInfo.MissionRank);
-            UIComponent.SetText(victoryBonus, (partyInfo.PartyStatInfo.BattleScore.Value * 0.01f).ToString("F2") + "%");
+            UIComponent.SetText(victoryBonus, partyInfo.PartyStatInfo.BattleScore.Value);
 
             if (achievementInfoComponent != null)
             {

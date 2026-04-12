@@ -118,29 +118,27 @@ namespace Ryneus
                 SendInterlude();
                 return;
             }
-            // 信仰度がマイナス1回目
-            if (_model.PartyInfo.EvaluationValue.Value < 0 && !_model.PartyInfo.EvaluationCaution.Value)
+            // 評価値がマイナス
+            if (_model.PartyInfo.PartyStatInfo.BattleScore.Value < 0)
             {
                 _busy = true;
-                _model.PartyInfo.EvaluationValue.SetValue(1);
+                _model.PartyInfo.PartyStatInfo.BattleScore.SetValue(0);
+                if (_model.PartyInfo.EvaluationCaution.Value)
+                {
+                    // イベントを再生
+                    CallAdvEvent(20020, 0, () =>
+                    {
+                        _busy = false;
+                        _view.CommandGotoSceneChange(Scene.Title);
+                    });
+                    return;
+                }
                 _model.PartyInfo.EvaluationCaution.SetValue(true);
                 // イベントを再生
                 CallAdvEvent(20010, 0, () =>
                 {
                     _busy = false;
                     _view.CommandGotoSceneChange(Scene.MainMenu);
-                });
-                return;
-            }
-            // 信仰度がマイナス2回目
-            if (_model.PartyInfo.EvaluationValue.Value < 0 && _model.PartyInfo.EvaluationCaution.Value)
-            {
-                _busy = true;
-                // イベントを再生
-                CallAdvEvent(20020, 0, () =>
-                {
-                    _busy = false;
-                    _view.CommandGotoSceneChange(Scene.Title);
                 });
                 return;
             }
