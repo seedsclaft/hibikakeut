@@ -17,12 +17,11 @@ namespace Ryneus
         private InputSystem _inputSystem;
         private InputSystemModel _inputSystemModel = null;
 
-        private bool _busy = false;
-        public bool Busy => _busy;
+        public ParameterBool Busy = new();
         public void SetBusy(bool isBusy)
         {
             Debug.LogError(this.name + " isBusy = " + isBusy);
-            _busy = isBusy;
+            Busy.SetValue(isBusy);
         }
 
         public List<Action<ViewEvent>> _commandData = new();
@@ -197,7 +196,7 @@ namespace Ryneus
                 return;
             }
             UpdateWait();
-            if (_busy)
+            if (Busy.Value)
             {
                 return;
             }
@@ -211,11 +210,11 @@ namespace Ryneus
             {
                 return;
             }
-            _busy = true;
+            Busy.SetValue(true);
             _wait--;
             if (_wait <= 0)
             {
-                _busy = false;
+                Busy.SetValue(false);
                 _waitEndEvent?.Invoke();
             }
         }
@@ -376,7 +375,7 @@ namespace Ryneus
         {
             var endPopupInfo = GameSystem.SceneStackManager.LastPopupInfo;
             CallSystemCommand(Base.CommandType.ClosePopup);
-            if (endPopupInfo != null && !Busy)
+            if (endPopupInfo != null && !Busy.Value)
             {
                 endPopupInfo.EndEvent?.Invoke();
                 GameSystem.SceneStackManager.RemovePopupInfo(endPopupInfo);

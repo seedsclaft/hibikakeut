@@ -242,6 +242,8 @@ namespace Ryneus
                         itemIndex -= _itemPrefabList.Count;
                         if (itemIndex < 0)
                         {
+                            UIComponent.SetActive(itemPrefab, false);
+                            itemPrefab.transform.SetParent(_prefabPool.transform, false);
                             continue;
                         }
                     }

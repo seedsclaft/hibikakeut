@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Ryneus
 {
@@ -97,6 +98,18 @@ namespace Ryneus
                 return;
             }
             gameObject.SetActive(isActive);
+        }
+
+        public static void SetActive(List<GameObject> gameObjects, bool isActive)
+        {
+            if (gameObjects == null)
+            {
+                return;
+            }
+            foreach (var gameObject in gameObjects)
+            {
+                SetActive(gameObject, isActive);
+            }
         }
 
         public static void SetActive(TextMeshProUGUI textMeshProUGUI, bool isActive)

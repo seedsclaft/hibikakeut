@@ -11,7 +11,8 @@ namespace Ryneus
         [SerializeField] private RectTransform positionRect;
         [SerializeField] private float normalScale = 1;
         [SerializeField] private float smallScale = 0.75f;
-        [SerializeField] private float rightRectSize = 24;
+        [SerializeField] private float rightRectSize = 40;
+        [SerializeField] private float topRectSize = 8;
         [SerializeField] private GameObject candidateSelect;
         public BattlerInfoComponent BattlerInfoComponent => battlerInfoComponent;
 
@@ -59,7 +60,9 @@ namespace Ryneus
         public void SetSmallScale()
         {
             battlerRect.localScale = new Vector2(smallScale, smallScale);
-            positionRect.localPosition = new Vector3(rightRectSize, 0, 0);
+            positionRect.localPosition = new Vector3(rightRectSize, topRectSize, 0);
+            var cursorRect = Cursor.GetComponent<RectTransform>();
+            cursorRect.anchoredPosition = new Vector2(26, -4);
         }
 
         public void SetDisable()

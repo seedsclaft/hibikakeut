@@ -44,7 +44,7 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            if (Busy)
+            if (Busy.Value)
             {
                 return;
             }

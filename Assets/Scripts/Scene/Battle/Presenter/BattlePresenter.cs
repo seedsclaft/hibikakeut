@@ -327,6 +327,11 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             _view.UpdateSelectCursor(new List<int>() { });
+            if (_model.SelectIndex.Value > -1)
+            {
+                _model.SelectIndex.SetValue(-1);
+                return;
+            }
             _view.CancelFormation();
             _model.SelectIndex.SetValue(-1);
         }
