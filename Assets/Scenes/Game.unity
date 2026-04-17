@@ -3045,8 +3045,6 @@ MonoBehaviour:
         _value: 0
       UseChangeLineCount:
         _value: 0
-    EvaluationValue:
-      _value: 100
     EvaluationCaution:
       _value: 0
     MissionRank:
@@ -12101,6 +12099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickButton: {fileID: 0}
   cursor: {fileID: 2063206792}
+  subCursors: []
   selectArrow: {fileID: 0}
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
@@ -15699,6 +15698,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68c1301d7bfdc94eb77a72c488f9f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Busy:
+    _value: 0
   _backCommand: {fileID: 0}
   _backGround: {fileID: 0}
   uiRoot: {fileID: 0}
@@ -25117,6 +25118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickButton: {fileID: 0}
   cursor: {fileID: 1118220581}
+  subCursors: []
   selectArrow: {fileID: 0}
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
