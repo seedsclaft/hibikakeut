@@ -7,8 +7,8 @@ namespace Utage
     {
         private string _layerName = "";
         private string _fileName = "";
-        private int _posX = 0;
-        private int _posY = 0;
+        private float _posX = 0;
+        private float _posY = 0;
         private int _duration = 0;
 
         public AdvCommandMoveEventActor(StringGridRow row)
@@ -16,8 +16,8 @@ namespace Utage
         {
             _layerName = ParseCell<string>(AdvColumnName.Arg1);
             _fileName = ParseCell<string>(AdvColumnName.Arg2);
-            _posX = ParseCell<int>(AdvColumnName.Arg3);
-            _posY = ParseCell<int>(AdvColumnName.Arg4);
+            _posX = ParseCell<float>(AdvColumnName.Arg3);
+            _posY = ParseCell<float>(AdvColumnName.Arg4);
             _duration = ParseCell<int>(AdvColumnName.Arg5);
         }
 

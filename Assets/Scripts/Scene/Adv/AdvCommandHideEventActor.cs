@@ -20,7 +20,7 @@ namespace Utage
         public override void DoCommand(AdvEngine engine)
         {
             var layer = engine.GraphicManager.FindLayer(_layerName);
-            var character = layer.GetComponentsInChildren<CharacterAnimationImages>().ToList();
+            var character = layer.gameObject.GetComponentsInChildren<CharacterAnimationImages>().ToList();
             var find = character.Find(a => a.name == _fileName);
             if (find != null)
             {
