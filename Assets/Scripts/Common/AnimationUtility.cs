@@ -93,6 +93,17 @@ namespace Ryneus
                 .OnUpdate(() => text.text = nowNumber.ToString("#,0"));
         }
 
+        public static void FadeBlur(_2dxFX_Blur blur, float from, float to, float duration)
+        {
+            float nowNumber = from;
+            float updateNumber = to;
+            // 指定したupdateNumberまでカウントアップ・カウントダウンする
+            DOTween.To(() => nowNumber, (n) => nowNumber = n, updateNumber, duration)
+                .OnUpdate(() => {
+                    blur._Alpha = nowNumber;
+                });
+        }
+
         public static void Clear(List<Sequence> _sequences)
         {
             _sequences.ForEach(a => a.Kill());

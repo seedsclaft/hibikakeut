@@ -21,6 +21,7 @@ namespace Ryneus
         [SerializeField] private GameObject magicCircle;
         [SerializeField] private GameObject selectArrow;
         [SerializeField] private Button selectButton = null;
+        [SerializeField] private _2dxFX_Blur blur = null;
         private AnimationState _lastState = 0;
         private BattlerInfo _battlerInfo;
         private List<Sequence> _sequences = new();
@@ -69,6 +70,32 @@ namespace Ryneus
         {
             var scaleX = this.transform.localScale.x;
             this.transform.localScale = new Vector3(scaleX * -1, 1, 0);
+        }
+
+        public void Fade(float targetValue, float duration)
+        {   
+            if (_sequences.Count > 0)
+            {
+                _sequences.ForEach(a => a.Complete());
+                _sequences.Clear();
+            }
+            if (blur != null)
+            {
+                AnimationUtility.FadeBlur(blur, blur._Alpha, targetValue, duration);
+            }
+        }
+
+        public void Hide(float duration)
+        {   
+            if (_sequences.Count > 0)
+            {
+                _sequences.ForEach(a => a.Complete());
+                _sequences.Clear();
+            }
+            if (blur != null)
+            {
+                AnimationUtility.FadeBlur(blur, blur._Alpha, 0, duration);
+            }
         }
 
         private void SetEnemyAnimation(AnimationState animationState)

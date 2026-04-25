@@ -9,15 +9,17 @@ namespace Utage
     {
         private string _layerName = "";
         private string _fileName = "";
-        private int _posX = 0;
-        private int _posY = 0;
+        private float _posX = 0;
+        private float _posY = 0;
+        private bool _flip = false;
         public AdvCommandShowEventActor(StringGridRow row)
             : base(row)
         {
             _layerName = ParseCell<string>(AdvColumnName.Arg1);
             _fileName = ParseCell<string>(AdvColumnName.Arg2);
-            _posX = ParseCell<int>(AdvColumnName.Arg3);
-            _posY = ParseCell<int>(AdvColumnName.Arg4);
+            _posX = ParseCell<float>(AdvColumnName.Arg3);
+            _posY = ParseCell<float>(AdvColumnName.Arg4);
+            _flip = ParseCellOptional<int>(AdvColumnName.Arg5, 1) == -1;
         }
 
         public override async void DoCommand(AdvEngine engine)
@@ -30,6 +32,14 @@ namespace Utage
             prefab.ChangeLayerDeep(11);
             prefab.transform.localPosition = new Vector3(_posX, _posY, 1);
             prefab.name = _fileName;
+            if (_flip)
+            {
+                var character = prefab.gameObject.GetComponent<CharacterAnimationImages>();
+                if (character != null)
+                {
+                    character.Flip();
+                }
+            }
         }
     }
 }
