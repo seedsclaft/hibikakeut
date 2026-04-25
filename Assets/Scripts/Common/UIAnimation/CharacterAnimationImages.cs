@@ -65,6 +65,12 @@ namespace Ryneus
             _sequences.Add(sequence);
         }
 
+        public void Flip()
+        {
+            var scaleX = this.transform.localScale.x;
+            this.transform.localScale = new Vector3(scaleX * -1, 1, 0);
+        }
+
         private void SetEnemyAnimation(AnimationState animationState)
         {
             Sequence sequences = null;

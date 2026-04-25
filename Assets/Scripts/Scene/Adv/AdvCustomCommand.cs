@@ -54,6 +54,9 @@ namespace Utage
                 case "MoveEventActor":
                     command = new AdvCommandMoveEventActor(row);
                     break;
+                case "FlipEventActor":
+                    command = new AdvCommandFlipEventActor(row);
+                    break;
             }
         }
     }
