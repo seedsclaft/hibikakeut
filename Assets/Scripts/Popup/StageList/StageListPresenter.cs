@@ -17,13 +17,22 @@ namespace Ryneus
 
             SetView(_view);
             _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
+            Initialize(true);
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new StageListModel();
             SetModel(_model);
+            _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
             Func<StageInfo, bool> enable = (stageInfo) =>
             {
                 // 出撃可能か
@@ -38,7 +47,6 @@ namespace Ryneus
             var index = stageInfos.FindIndex(a => a.StageId.Value == _model.CurrentDeckInfo.StageNo.Value);
 
             _view.SetStageList(MakeListData(stageInfos,enable,null,batch,index != -1 ? index : 0));
-            _view.OpenAnimation();
             _busy = false;
         }
 
@@ -55,7 +63,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize();
+                    Initialize(false);
                     break;
                 case CommandType.DecideStage:
                     CommandDecideStage((StageInfo)viewEvent.Template);

@@ -17,13 +17,21 @@ namespace Ryneus
 
             SetView(_view);
             _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
+            Initialize(true);
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new CharacterListModel();
-            SetModel(_model);
+            SetModel(_model);_view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
             //_view.SetHelpInputInfo("CHARACTER_LIST");
             Func<ActorInfo, bool> enable = (actorInfo) =>
             {
@@ -31,7 +39,6 @@ namespace Ryneus
                 return !_model.NoDepatureActorIds().Contains(actorInfo.ActorId.Value);
             };
             _view.SetCharacterList(MakeListDataFunc<ActorInfo>(_model.ActorInfos, 0, enable));
-            _view.OpenAnimation();
         }
 
         private void CommandEndOpenAnimation()
@@ -59,7 +66,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize();
+                    Initialize(false);
                     break;
                 case CommandType.DecideActor:
                     CommandDecideActor((ActorInfo)viewEvent.Template);

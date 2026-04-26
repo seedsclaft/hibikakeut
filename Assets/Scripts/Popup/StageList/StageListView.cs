@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Ryneus.StageList;
+using System;
 
 namespace Ryneus
 {
@@ -26,9 +27,9 @@ namespace Ryneus
             _ = new StageListPresenter(this);
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            popupAnimation.OpenAnimation(UiRoot.transform, () => {});
+            popupAnimation.OpenAnimation(UiRoot.transform, initializeAfter);
         }
 
         private void InitializeStageList()

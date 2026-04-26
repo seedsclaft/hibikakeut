@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Ryneus.ItemList;
 using Coffee.UIExtensions;
+using System;
 
 namespace Ryneus
 {
@@ -36,9 +37,9 @@ namespace Ryneus
             _ = new ItemListPresenter(this);
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            popupAnimation.OpenAnimation(UiRoot.transform, () => {});
+            popupAnimation.OpenAnimation(UiRoot.transform, initializeAfter);
         }
 
         private void InitializeItemList()

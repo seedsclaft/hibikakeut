@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Ryneus.UseItem;
+using System;
 
 namespace Ryneus
 {
@@ -25,9 +26,9 @@ namespace Ryneus
             _ = new UseItemPresenter(this);
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            popupAnimation.OpenAnimation(UiRoot.transform, () => {});
+            popupAnimation.OpenAnimation(UiRoot.transform, initializeAfter);
         }
 
         private void InitializeUseItem()

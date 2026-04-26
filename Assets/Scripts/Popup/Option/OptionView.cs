@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Option;
+using System;
 
 namespace Ryneus
 {
@@ -58,9 +59,9 @@ namespace Ryneus
             AddViewActives(optionList);
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            popupAnimation.OpenAnimation(UiRoot.transform, null);
+            popupAnimation.OpenAnimation(UiRoot.transform, initializeAfter);
         }
 
         public void SetOptionList(List<ListData> optionData)

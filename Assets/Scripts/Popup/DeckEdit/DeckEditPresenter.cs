@@ -16,20 +16,28 @@ namespace Ryneus
 
             SetView(_view);
             _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
+            Initialize(true);
             _busy = false;
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new DeckEditModel();
             SetModel(_model);
+            _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             _view.SetActorList(MakeListData(_model.PartyInfo.EditableActorInfos(), 0));
             _view.SelectChangeBattler(0);
             _view.UpdateActorInfo(_model.PartyInfo.EditableActorInfos().Find(a => _model.PartyUnit()[0].ActorInfo != null && a.ActorId.Value == _model.PartyUnit()[0].ActorInfo.ActorId.Value));
             _view.EndSelectChangeBattler();
-            _view.OpenAnimation();
         }
 
         private void UpdateCommand(ViewEvent viewEvent)
@@ -45,7 +53,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize();
+                    Initialize(false);
                     break;
                 case CommandType.SelectBattler:
                     CommandSelectBattler((int)viewEvent.Template);

@@ -9,7 +9,7 @@ namespace Ryneus
     {
         public void OpenAnimation(Transform transform, System.Action endEvent, float duration = 0.1f)
         {
-            Busy = true;
+            Busy.SetValue(true);
             transform.DOLocalMoveX(240, duration);
             BaseCanvas.alpha = 0;
             DOTween.Sequence()
@@ -18,7 +18,7 @@ namespace Ryneus
                 .OnComplete(() =>
 
                 {
-                    Busy = false;
+                    Busy.SetValue(false);
                     if (endEvent != null) endEvent();
                 })
                 .SetEase(Ease.InOutQuad));

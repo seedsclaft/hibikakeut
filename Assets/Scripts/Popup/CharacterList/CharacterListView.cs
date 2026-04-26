@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ryneus.CharacterList;
+using System;
 
 namespace Ryneus
 {
@@ -25,9 +26,13 @@ namespace Ryneus
             _ = new CharacterListPresenter(this);
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            popupAnimation.OpenAnimation(UiRoot.transform, () => CallViewEvent(CharacterList.CommandType.EndOpenAnimation));
+            popupAnimation.OpenAnimation(UiRoot.transform, () => 
+            {
+                initializeAfter?.Invoke();
+                CallViewEvent(CharacterList.CommandType.EndOpenAnimation);
+            });
         }
 
         private void InitializeCharacterList()

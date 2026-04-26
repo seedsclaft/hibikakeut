@@ -17,15 +17,23 @@ namespace Ryneus
 
             SetView(_view);
             _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
+            Initialize(true);
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new UseItemModel();
             SetModel(_model);
+             _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
             _view.SetUseItem(MakeListData(_model.DungeonUseItemInfos(), 0));
-            _view.OpenAnimation();
             CommandRefresh();
             _busy = false;
         }
@@ -43,7 +51,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize();
+                    Initialize(false);
                     break;
                 case CommandType.DecideUseItem:
                     CommandDecideUseItem((ItemInfo)viewEvent.Template);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,9 +21,9 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            popupAnimation.OpenAnimation(UiRoot.transform,null);
+            popupAnimation.OpenAnimation(UiRoot.transform, initializeAfter);
         }
 
         public void SetEvent(System.Action<CreditViewEvent> commandData)

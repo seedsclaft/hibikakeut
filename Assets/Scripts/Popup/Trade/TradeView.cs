@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Ryneus.Trade;
+using System;
 
 namespace Ryneus
 {
@@ -39,9 +40,9 @@ namespace Ryneus
             _ = new TradePresenter(this);
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            popupAnimation.OpenAnimation(UiRoot.transform, () => {});
+            popupAnimation.OpenAnimation(UiRoot.transform, initializeAfter);
         }
 
         private void InitializeTrade()

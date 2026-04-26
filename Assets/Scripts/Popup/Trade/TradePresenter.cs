@@ -17,16 +17,24 @@ namespace Ryneus
 
             SetView(_view);
             _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
+            Initialize(true);
             _busy = false;
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new TradeModel();
             SetModel(_model);
+            _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
             _view.SetTrade(MakeListData(_model.TradeGetItemInfos(), 0));
-            _view.OpenAnimation();
             CommandRefresh();
         }
 
@@ -43,7 +51,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize();
+                    Initialize(false);
                     break;
                 case CommandType.DecideTrade:
                     CommandDecideTrade();

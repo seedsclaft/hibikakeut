@@ -8,8 +8,15 @@ namespace Ryneus
 {
     public class PopupAnimation : BaseAnimation, IBaseAnimation
     {
+        public void Initialize(Transform transform)
+        {
+            transform.DOScale(0, 0);
+            BaseCanvas.alpha = 0;
+        }
+
         public void OpenAnimation(Transform transform, System.Action endEvent, float duration = 0.1f)
         {
+            Busy.SetValue(true);
             transform.DOScale(0, duration);
             BaseCanvas.alpha = 0;
             _ = DOTween.Sequence()
@@ -17,6 +24,7 @@ namespace Ryneus
                 .Join(BaseCanvas.DOFade(1, duration)
                 .OnComplete(() =>
                 {
+                    Busy.SetValue(false);
                     endEvent?.Invoke();
                 })
                 .SetEase(Ease.InOutQuad));

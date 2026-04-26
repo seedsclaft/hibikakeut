@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Ryneus.ArtifactList;
+using System;
 
 namespace Ryneus
 {
@@ -25,9 +26,9 @@ namespace Ryneus
             _ = new ArtifactListPresenter(this);
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            popupAnimation.OpenAnimation(UiRoot.transform, () => {});
+            popupAnimation.OpenAnimation(UiRoot.transform, initializeAfter);
         }
 
         private void InitializeArtifactList()

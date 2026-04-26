@@ -17,16 +17,24 @@ namespace Ryneus
 
             SetView(_view);
             _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
+            Initialize(true);
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new ItemListModel();
             SetModel(_model);
+            _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
             _view.SetItemList(MakeListData(_model.ItemInfos(), 0), true);
             _view.CheckItemDetailButtonActive();
-            _view.OpenAnimation();
             _view.ActivateItemList(true);
             _busy = false;
         }
@@ -44,7 +52,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize();
+                    Initialize(false);
                     break;
                 case CommandType.DecideItem:
                     CommandDecideItem();

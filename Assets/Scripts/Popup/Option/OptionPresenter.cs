@@ -17,19 +17,27 @@ namespace Ryneus
 
             SetView(_view);
             _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
+            Initialize(true);
             _busy = false;
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new OptionModel();
             _model.ChangeTempInputType(GameSystem.OptionData.InputType);
             SetModel(_model);
+            _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
             _view.SetOptionCategoryList(MakeListData(_model.OptionCategoryList(), 0));
             _view.SetHelpWindow();
             CommandSelectCategory();
-            _view.OpenAnimation();
         }
 
         private void UpdateCommand(ViewEvent viewEvent)
@@ -45,7 +53,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize();
+                    Initialize(false);
                     break;
                 case CommandType.ChangeOptionValue:
                     CommandOptionValue((OptionInfo)viewEvent.Template);

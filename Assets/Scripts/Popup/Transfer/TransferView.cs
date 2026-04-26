@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ryneus.Transfer;
+using System;
 
 namespace Ryneus
 {
@@ -24,9 +25,13 @@ namespace Ryneus
             _ = new TransferPresenter(this);
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            popupAnimation.OpenAnimation(UiRoot.transform, () => CallViewEvent(Transfer.CommandType.EndOpenAnimation));
+            popupAnimation.OpenAnimation(UiRoot.transform, () => 
+            {
+                initializeAfter?.Invoke();
+                CallViewEvent(Transfer.CommandType.EndOpenAnimation);
+            });
         }
 
         private void InitializeTransfer()

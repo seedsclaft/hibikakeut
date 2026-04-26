@@ -11,13 +11,21 @@ namespace Ryneus
         {
             _view = view;
 
-            Initialize();
+            Initialize(true);
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.OpenAnimation();
+            _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
             _busy = false;
         }
 

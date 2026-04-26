@@ -11,7 +11,7 @@ namespace Ryneus
         [SerializeField] private CanvasGroup baseCanvas = null;
         public CanvasGroup BaseCanvas => baseCanvas;
         private static Sequence _sequence;
-        public bool Busy = false;
+        public ParameterBool Busy = new();
         public static void MoveAndFade(RectTransform rect, Image image, float moveX, float fade, float duration = 0.1f, System.Action endEvent = null)
         {
             _sequence = DOTween.Sequence()

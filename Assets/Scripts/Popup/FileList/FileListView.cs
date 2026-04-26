@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FileList;
+using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -45,9 +47,9 @@ namespace Ryneus
             AddViewActives(fileList);
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            popupAnimation.OpenAnimation(UiRoot.transform, null);
+            popupAnimation.OpenAnimation(UiRoot.transform, initializeAfter);
         }
 
         public void SetFileList(List<ListData> fileDataList)

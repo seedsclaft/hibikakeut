@@ -12,6 +12,8 @@ namespace Ryneus
         [SerializeField] private bool beforeSelect = true;
         private bool _isInit = false;
         private int _beforeSelectIndex = -1;
+        private int _oneFrameUpdate = -1;
+        private Action _oneFrameAction = null;
         public ListData ListData
         {
             get
@@ -70,7 +72,10 @@ namespace Ryneus
             }
             if (selectIndex > 0 || initializeAfterEvent != null)
             {
-                await UniTask.DelayFrame(1);
+                _oneFrameUpdate = selectIndex;
+                _oneFrameAction = initializeAfterEvent;
+                //await UniTask.DelayFrame(1);
+                return;
             }
             SetListCallHandler();
             Refresh(selectIndex);
@@ -166,6 +171,17 @@ namespace Ryneus
                     UpdateSelectIndex(listItem.Index);
                     Refresh(listItem.Index);
                 }
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (_oneFrameUpdate > -1)
+            {
+                SetListCallHandler();
+                Refresh(_oneFrameUpdate);
+                _oneFrameAction?.Invoke();
+                _oneFrameUpdate = -1;
             }
         }
     }

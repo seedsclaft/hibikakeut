@@ -14,19 +14,26 @@ namespace Ryneus
         public FileListPresenter(FileListView view)
         {
             _view = view;
-
             SetView(_view);
-            _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
+            _view.SetEvent(async (type) => await UpdateCommand(type));
+            Initialize(true);
             _busy = false;
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new FileListModel();
             SetModel(_model);
+            _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
             _view.SetFileList(MakeListData(_model.SaveFileInfos(), _model.SaveFileLastIndex()));
-            _view.OpenAnimation();
         }
 
         private async Task UpdateCommand(ViewEvent viewEvent)
@@ -42,7 +49,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize();
+                    Initialize(false);
                     break;
                 case CommandType.DecideFile:
                     await CommandDecideFile((SaveFileInfo)viewEvent.Template);
@@ -89,7 +96,7 @@ namespace Ryneus
                 if (a == ConfirmCommandType.Yes)
                 {
                     _model.DeleteFile(saveFileInfo);
-                    Initialize();
+                    Initialize(false);
                 }
                 _busy = false;
                 _view.SetBusy(false);

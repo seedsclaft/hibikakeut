@@ -52,7 +52,7 @@ namespace Ryneus
         public OnOffButton SideMenuButton => sideMenuButton;
         private BaseAnimation baseAnimation = null;
         public void SetBaseAnimation(BaseAnimation animation) => baseAnimation = animation;
-        public bool AnimationBusy => baseAnimation != null && baseAnimation.Busy;
+        public bool AnimationBusy => baseAnimation != null && baseAnimation.Busy.Value;
         private int _wait = 0;
         public Action _waitEndEvent = null;
         private List<BaseList> _viewActives = new();

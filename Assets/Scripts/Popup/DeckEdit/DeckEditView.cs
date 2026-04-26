@@ -34,9 +34,9 @@ namespace Ryneus
             SetBackEvent(() => CallViewEvent(CommandType.Back));
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            popupAnimation.OpenAnimation(UiRoot.transform, () => CallViewEvent(CommandType.EndOpenAnimation));
+            popupAnimation.OpenAnimation(UiRoot.transform, initializeAfter);
         }
 
         private void InitializePartyUnitList()
@@ -121,7 +121,6 @@ namespace Ryneus
             SelectingActorInfo,
             SelectingBattlerInfo,
             AutoDeck,
-            EndOpenAnimation,
             Back,
         }
     }

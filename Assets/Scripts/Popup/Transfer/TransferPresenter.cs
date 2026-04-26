@@ -17,15 +17,23 @@ namespace Ryneus
 
             SetView(_view);
             _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
+            Initialize(true);
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new TransferModel();
             SetModel(_model);
+             _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
             _view.SetCharacterList(MakeListData(_model.PartyInfo.EditableActorInfos(), 0));
-            _view.OpenAnimation();
         }
 
         private void CommandEndOpenAnimation()
@@ -53,7 +61,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize();
+                    Initialize(false);
                     break;
                 case CommandType.DecideActor:
                     CommandDecideActor((ActorInfo)viewEvent.Template);

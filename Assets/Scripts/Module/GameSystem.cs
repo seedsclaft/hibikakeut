@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Effekseer;
 using UnityEngine;
 using UnityEngine.UI;
@@ -342,7 +344,7 @@ namespace Ryneus
             missionClearView.SetTitle(confirmInfo.Title);
         }
 
-        private void CommandPopupView(PopupInfo popupInfo)
+        private async Task CommandPopupView(PopupInfo popupInfo)
         {
             _sceneStackManager.PushPopupInfo(popupInfo);
             var first = popupAssign.CreatePopup(popupInfo.PopupType, helpWindow);
@@ -350,6 +352,9 @@ namespace Ryneus
             var baseView = prefab.GetComponent<BaseView>();
             if (first)
             {
+                var popupAnimation = prefab.GetComponent<PopupAnimation>();
+                popupAnimation?.Initialize(baseView.UiRoot.transform);
+                await UniTask.DelayFrame(1);
                 baseView.SetEvent((type) => UpdateCommand(type));
             }
             baseView.Initialize();

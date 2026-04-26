@@ -29,7 +29,6 @@ namespace Ryneus
                         _lastLayerName = c.ParseCell<string>(AdvColumnName.Arg3);
                     }
                 }
-                var f = a.CurrentData.CommandList;
             });
         }
 
