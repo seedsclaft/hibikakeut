@@ -45,7 +45,7 @@ namespace Ryneus
             {
                 healButton.OnClickAddListener(() =>
                 {
-                    CallViewEvent(CommandType.Heal);
+                    //CallViewEvent(CommandType.Heal);
                 });
             }
             if (formationButton != null)
@@ -164,7 +164,7 @@ namespace Ryneus
         {
             if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
             {
-                CallViewEvent(CommandType.Heal);
+                //CallViewEvent(CommandType.Heal);
             }
             if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
             {
