@@ -50,6 +50,7 @@ namespace Ryneus
             UIComponent.SetActive(battleAttackPerObj, false);
             UIComponent.SetActive(battleDefeatedCountObj, false);
             UIComponent.SetActive(weakAttackCountObj, false);
+            UIComponent.SetActive(enemyLvAvarageObj, false);
         }
     }
 }

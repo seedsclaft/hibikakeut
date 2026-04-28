@@ -363,15 +363,6 @@ namespace Ryneus
             CurrentDeckInfo.DungeonBgmTimeStamp.SetValue(timeStamp);
         }
 
-        public float DungeonBgmTimeStamp()
-        {
-            if (CurrentDeckInfo != null && CurrentDeckInfo.DungeonBgmTimeStamp != null)
-            {
-                return CurrentDeckInfo.DungeonBgmTimeStamp.Value;
-            }
-            return 0;
-        }
-
         public void DamageFloor(int damage)
         {
             PartyInfo.DamageFloor(damage);

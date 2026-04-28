@@ -11,6 +11,10 @@ namespace Ryneus
         public ParameterInt PayCost = new();
         public TradeModel()
         {
+            if (PartyInfo.TradeItemInfos.Count > 0)
+            {
+                PartyInfo.TradeItemInfos.ForEach(a => a.GetCount.SetValue(0));
+            }
         }
 
         public List<TradeItemInfo> TradeGetItemInfos()

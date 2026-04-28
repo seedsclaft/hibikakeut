@@ -140,7 +140,7 @@ namespace Ryneus
             }
             if (gridThumb != null)
             {
-                gridThumb.SetNativeSize();
+                //gridThumb.SetNativeSize();
             }
         }
 

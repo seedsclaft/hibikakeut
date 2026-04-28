@@ -575,8 +575,7 @@ namespace Ryneus
         {
             // TimeStampを取得してBgmをフェードアウト
             _model.UpdateEventObjects();
-            var timeStamp = SoundManager.Instance.CurrentTimeStamp();
-            CallAdvEvent(advId, timeStamp, () =>
+            CallAdvEvent(advId, () =>
             {
                 _view.CallSystemCommand(Base.CommandType.SceneShowUI);
                 endEvent?.Invoke();
@@ -599,10 +598,10 @@ namespace Ryneus
                 }
             }
             var advId = 10000 + (actorInfo.ActorId.Value * 100) + (seek * 10);
-            // TimeStampを取得してBgmをフェードアウト
             _model.UpdateEventObjects();
-            var timeStamp = SoundManager.Instance.CurrentTimeStamp();
-            CallAdvEvent(advId, timeStamp, () =>
+            // ダンジョンの再開時間を記憶
+            _model.SaveBgmTiming();
+            CallAdvEvent(advId, () =>
             {
                 _view.CallSystemCommand(Base.CommandType.SceneShowUI);
                 if (skillInfo != null)
@@ -995,7 +994,6 @@ namespace Ryneus
                 {
                     GetArtifact(itemId);
                 }
-                //var timeStamp = SoundManager.Instance.CurrentTimeStamp();
                 await PlayDungeonBgm(_model.DungeonBgmTimeStamp());
             });
             confirmInfo.IsArtifact.SetValue(true);

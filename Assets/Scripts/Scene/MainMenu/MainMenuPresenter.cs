@@ -126,7 +126,7 @@ namespace Ryneus
                 if (_model.PartyInfo.EvaluationCaution.Value)
                 {
                     // イベントを再生
-                    CallAdvEvent(20020, 0, () =>
+                    CallAdvEvent(20020, () =>
                     {
                         _busy = false;
                         _view.CommandGotoSceneChange(Scene.Title);
@@ -135,7 +135,7 @@ namespace Ryneus
                 }
                 _model.PartyInfo.EvaluationCaution.SetValue(true);
                 // イベントを再生
-                CallAdvEvent(20010, 0, () =>
+                CallAdvEvent(20010, () =>
                 {
                     _busy = false;
                     _view.CommandGotoSceneChange(Scene.MainMenu);
@@ -148,7 +148,7 @@ namespace Ryneus
             {
                 _model.AddEventReadFlag(findEvent.EventKey);
                 // イベントを再生
-                CallAdvEvent(findEvent.Id, 0, () =>
+                CallAdvEvent(findEvent.Id, () =>
                 {
                     _busy = false;
                     _view.CallSystemCommand(Base.CommandType.SceneShowUI);

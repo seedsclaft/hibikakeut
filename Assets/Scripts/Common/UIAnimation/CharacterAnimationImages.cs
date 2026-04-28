@@ -11,6 +11,7 @@ namespace Ryneus
 {
     public class CharacterAnimationImages : MonoBehaviour
     {
+        [SerializeField] private bool useBattle = false;
         [SerializeField] private Animator animator = null;
         [SerializeField] private AnimationState state = AnimationState.None;
         public bool IsStateDeath => state == AnimationState.Death;
@@ -170,7 +171,8 @@ namespace Ryneus
             {
                 _lastState = state;
                 animator.SetInteger("State", (int)state);
-                animator.SetFloat("BattleSpeed", GameSystem.OptionData.BattleSpeed);
+                var speed = useBattle ? GameSystem.OptionData.BattleSpeed : 1;
+                animator.SetFloat("BattleSpeed", speed);
             }
         }
     }

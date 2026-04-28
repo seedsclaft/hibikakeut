@@ -9,6 +9,7 @@ namespace Ryneus
     {
         public object Template;
         public ViewCommandType ViewCommandType;
+        public bool ThrowBusy = false;
 
         public ViewEvent(ViewCommandType viewCommandType)
         {

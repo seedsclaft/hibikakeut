@@ -2741,8 +2741,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3825550833057831770}
-  - component: {fileID: 5837120957339532081}
   - component: {fileID: 3137642552068169966}
+  - component: {fileID: 5837120957339532081}
   m_Layer: 5
   m_Name: List
   m_TagString: Untagged
@@ -2779,6 +2779,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 200}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3137642552068169966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4327020898414189900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a5746766363b4438816eb2562e774d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleScoreObj: {fileID: 2186190783980020476}
+  battleScoreText: {fileID: 916798844921713133}
+  battleTurnObj: {fileID: 8531950567460141181}
+  battleTurnText: {fileID: 8791135404529195372}
+  battleMaxDamageObj: {fileID: 4310658060676528588}
+  battleMaxDamageText: {fileID: 8457819192894095231}
+  battleAttackPerObj: {fileID: 3528689120536703978}
+  battleAttackPerText: {fileID: 2093304139592581785}
+  battleDefeatedCountObj: {fileID: 9065970284069389702}
+  battleDefeatedCountText: {fileID: 6656469119448949905}
+  weakAttackCountObj: {fileID: 1800425568116043714}
+  weakAttackCountText: {fileID: 6358245185870251268}
+  enemyLvAvarageObj: {fileID: 4603509497754921318}
+  enemyLvAvarageText: {fileID: 8791135404529195372}
 --- !u!114 &5837120957339532081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2805,32 +2831,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &3137642552068169966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4327020898414189900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32a5746766363b4438816eb2562e774d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  battleScoreObj: {fileID: 2186190783980020476}
-  battleScoreText: {fileID: 916798844921713133}
-  battleTurnObj: {fileID: 4603509497754921318}
-  battleTurnText: {fileID: 8791135404529195372}
-  battleMaxDamageObj: {fileID: 4310658060676528588}
-  battleMaxDamageText: {fileID: 8457819192894095231}
-  battleAttackPerObj: {fileID: 3528689120536703978}
-  battleAttackPerText: {fileID: 2093304139592581785}
-  battleDefeatedCountObj: {fileID: 9065970284069389702}
-  battleDefeatedCountText: {fileID: 6656469119448949905}
-  weakAttackCountObj: {fileID: 1800425568116043714}
-  weakAttackCountText: {fileID: 6358245185870251268}
-  enemyLvAvarageObj: {fileID: 4603509497754921318}
-  enemyLvAvarageText: {fileID: 8791135404529195372}
 --- !u!1 &4603509497754921318
 GameObject:
   m_ObjectHideFlags: 0
@@ -6156,6 +6156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10653906bd0cbf42907f0c4cf350665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Busy:
+    _value: 0
   _backCommand: {fileID: 0}
   _backGround: {fileID: 2874244035317246270}
   uiRoot: {fileID: 2158858007626561530}

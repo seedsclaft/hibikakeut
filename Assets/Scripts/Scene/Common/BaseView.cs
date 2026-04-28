@@ -116,7 +116,7 @@ namespace Ryneus
         private ViewCommandSceneType _viewCommandSceneType = ViewCommandSceneType.None;
         public ViewCommandSceneType ViewCommandSceneType => _viewCommandSceneType;
         public void SetViewCommandSceneType(ViewCommandSceneType viewCommandSceneType) => _viewCommandSceneType = viewCommandSceneType;
-        public void CallViewEvent(object template, object sendData = null)
+        public void CallViewEvent(object template, object sendData = null, bool throwBusy = false)
         {
             if (_viewCommandSceneType == ViewCommandSceneType.None)
             {
@@ -127,6 +127,7 @@ namespace Ryneus
             {
                 Template = sendData
             };
+            eventData.ThrowBusy = throwBusy;
             foreach (var commandData in _commandData)
             {
                 commandData(eventData);
@@ -219,13 +220,14 @@ namespace Ryneus
             }
         }
 
-        public void CallSystemCommand(object template, object sendData = null)
+        public void CallSystemCommand(object template, object sendData = null, bool throwBusy = false)
         {
             var commandType = new ViewCommandType(ViewCommandSceneType.System, template);
             var eventData = new ViewEvent(commandType)
             {
                 Template = sendData
             };
+            eventData.ThrowBusy = throwBusy;
             foreach (var commandData in _commandData)
             {
                 commandData(eventData);
@@ -489,6 +491,9 @@ namespace Ryneus
             CallTutorialFocus,
             CloseTutorialFocus,
             CheckTutorialState,
+            ShowMap,
+            HideMap,
+            ResumeDungeonBgm,
             SceneShowUI,
             SceneHideUI,
             PlayEffect,

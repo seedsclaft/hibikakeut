@@ -167,6 +167,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 CommandCautionInfo(DataSystem.GetText(39050));
+                _view.SetInputFrame(8);
                 return;
             }
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
@@ -176,6 +177,11 @@ namespace Ryneus
 
         private void CommandMinusTradeItem(TradeItemInfo tradeItemInfo)
         {
+            if (!_model.GetTradeItems.ContainsKey(tradeItemInfo) || _model.GetTradeItems[tradeItemInfo] == 0)
+            {
+                _view.SetInputFrame(8);
+                return;
+            }
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _model.ChangeTradeItemNum(tradeItemInfo, false);
             CommandRefresh();

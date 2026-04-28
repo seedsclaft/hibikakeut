@@ -60,6 +60,12 @@ namespace Utage
                 case "FlipEventActor":
                     command = new AdvCommandFlipEventActor(row);
                     break;
+                case "ActiveDungeon":
+                    command = new AdvCommandActiveDungeon(row);
+                    break;
+                case "ResumeDungeonBgm":
+                    command = new AdvCommandResumeDungeonBgm(row);
+                    break;
             }
         }
     }

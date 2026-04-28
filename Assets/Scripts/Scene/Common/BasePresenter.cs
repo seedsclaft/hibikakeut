@@ -169,7 +169,7 @@ namespace Ryneus
             CallAdvScene(advData.Id, (a) => endEvent?.Invoke());
         }
 
-        public void CallAdvEvent(int advId, float timeStamp = 0, Action endEvent = null)
+        public void CallAdvEvent(int advId, Action endEvent = null)
         {
             CallAdvScene(advId, (a) => endEvent?.Invoke());
         }

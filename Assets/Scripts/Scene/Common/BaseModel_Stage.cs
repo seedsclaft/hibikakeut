@@ -60,7 +60,16 @@ namespace Ryneus
             CurrentGameInfo.SetStageInfo(stageInfo);
             CurrentDeckInfo.StageNo.SetValue(stageId);
         }
-    
+
+        public float DungeonBgmTimeStamp()
+        {
+            if (CurrentDeckInfo != null && CurrentDeckInfo.DungeonBgmTimeStamp != null)
+            {
+                return CurrentDeckInfo.DungeonBgmTimeStamp.Value;
+            }
+            return 0;
+        }
+
         public void ReturnDungeon()
         {
             // 全回復

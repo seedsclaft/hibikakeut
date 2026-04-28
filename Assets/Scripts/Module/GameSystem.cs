@@ -104,15 +104,15 @@ namespace Ryneus
             _sceneStackManager.PushStatusViewInfo(statusViewInfo);
             var prefab = statusAssign.CreatePopup(statusType, helpWindow);
             var baseView = prefab.GetComponent<BaseView>();
-            baseView.SetEvent((type) => UpdateCommand(type));
+            baseView.SetEvent(async (type) => await UpdateCommand(type));
             baseView.Initialize();
             _inputableBaseViews.Add(baseView);
             return baseView;
         }
 
-        private void UpdateCommand(ViewEvent viewEvent)
+        private async Task UpdateCommand(ViewEvent viewEvent)
         {
-            if (_busy)
+            if (_busy && !viewEvent.ThrowBusy)
             {
                 return;
             }
@@ -173,7 +173,7 @@ namespace Ryneus
                     confirmAssign.CloseConfirm();
                     break;
                 case Base.CommandType.CallPopupView:
-                    CommandPopupView((PopupInfo)viewEvent.Template);
+                    await CommandPopupView((PopupInfo)viewEvent.Template);
                     break;
                 case Base.CommandType.CallRankingView:
                     CommandRankingView((RankingViewInfo)viewEvent.Template);
@@ -275,6 +275,15 @@ namespace Ryneus
                     break;
                 case Base.CommandType.CheckTutorialState:
                     CheckTutorialState((TutorialViewInfo)viewEvent.Template);
+                    break;
+                case Base.CommandType.ShowMap:
+                    UIComponent.SetActive(mapAssign?.gameObject, true);
+                    break;
+                case Base.CommandType.HideMap:
+                    UIComponent.SetActive(mapAssign?.gameObject, false);
+                    break;
+                case Base.CommandType.ResumeDungeonBgm:
+                    await ResumeDungeonBgm();
                     break;
                 case Base.CommandType.SceneHideUI:
                     SceneHideUI();
@@ -545,6 +554,13 @@ namespace Ryneus
         {
             mapAssign.SetLastMapName("");
             mapAssign.ClearMap();
+        }
+
+        private async Task ResumeDungeonBgm()
+        {
+            var bgmData = _model.DungeonBgmData();
+            var bgm = await _model.GetBgmData(bgmData.Key);
+            SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true, _model.DungeonBgmTimeStamp());
         }
 
         private void SceneShowUI()
