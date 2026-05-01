@@ -156,9 +156,7 @@ namespace Ryneus
 
         public int BattleScorePoint()
         {
-            var battleScore = PartyInfo.PartyStatInfo.BattleScore.Value;
-            // 0-50
-            return battleScore / 10;
+            return (int)(PartyInfo.PartyStatInfo.BattleScore.Value * PartyInfo.MissionRank.Value * 0.1f);
         }
 
         public bool EndInterludePhase()
