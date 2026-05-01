@@ -23,7 +23,7 @@ namespace Ryneus
         {
             confirmAnimation.OpenAnimation(UiRoot.transform, () =>
             {
-                AnimationUtility.CountUpText(battleScoreText, _score, 0);
+                //AnimationUtility.CountUpText(battleScoreText, _score, 0);
             });
         }
 
@@ -31,7 +31,7 @@ namespace Ryneus
         {
             _score = rankupInfo.Score.Value;
             UIComponent.SetText(battleScoreText, _score);
-            UIComponent.SetText(getCurrencyText, rankupInfo.GetCurrency.Value);
+            UIComponent.SetText(getCurrencyText, rankupInfo.GetCurrency.Value + DataSystem.GetText(1000));
         }
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)

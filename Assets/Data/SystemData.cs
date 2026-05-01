@@ -20,6 +20,7 @@ namespace Ryneus
         public int RecoveryCount;
         public int EquipSkillCount;
         public int ClassChangePlusSkill;
+        public int CheatArtifactMinus;
         public List<TextData> SystemTextData;
 
         public List<InputData> InputDataList;

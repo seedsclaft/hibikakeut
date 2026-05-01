@@ -210,6 +210,10 @@ namespace Ryneus
                         {
                             Data.ClassChangePlusSkill = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
                         }
+                        if (KeyName == "CheatArtifactMinus")
+                        {
+                            Data.CheatArtifactMinus = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
+                        }
                     }
                 }
             }

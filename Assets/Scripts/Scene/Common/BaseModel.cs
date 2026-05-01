@@ -627,7 +627,7 @@ namespace Ryneus
                         list.Add(resultInfo);
                         break;
                     case GetItemType.BattleSocreCurrency:
-                        resultInfo.Title.SetValue(DataSystem.GetText(20440) + " +" + DataSystem.GetText(1000));
+                        resultInfo.Title.SetValue(DataSystem.GetText(20440) + " +" + getItemInfo.Param1 + DataSystem.GetText(1000));
                         list.Add(resultInfo);
                         break;
                 }

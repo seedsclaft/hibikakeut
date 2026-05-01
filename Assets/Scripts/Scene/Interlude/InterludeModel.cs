@@ -158,7 +158,7 @@ namespace Ryneus
         {
             var battleScore = PartyInfo.PartyStatInfo.BattleScore.Value;
             // 0-50
-            return battleScore;
+            return battleScore / 10;
         }
 
         public bool EndInterludePhase()

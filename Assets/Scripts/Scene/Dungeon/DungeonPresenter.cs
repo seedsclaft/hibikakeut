@@ -1004,9 +1004,10 @@ namespace Ryneus
         {
             var getItemInfo = _model.MakeGetItemInfo(GetItemType.Item, itemId, 1);
             _model.AddGetItemInfo(getItemInfo);
-            _view.MinusEvaluate(-10);
-            _model.PartyInfo.PartyStatInfo.BattleScore.GainValue(-20, 0);
-            CallConfirmNoChoiceView(DataSystem.GetReplaceText(10141, 10.ToString()), (a) =>
+            var minusValue = DataSystem.System.CheatArtifactMinus;
+            _view.MinusEvaluate(-minusValue);
+            _model.PartyInfo.PartyStatInfo.BattleScore.GainValue(-minusValue, 0);
+            CallConfirmNoChoiceView(DataSystem.GetReplaceText(10141, minusValue.ToString()), (a) =>
             {
                 _busy = false;
                 _model.DungeonBusy(false);

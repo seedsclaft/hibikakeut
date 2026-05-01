@@ -30,8 +30,6 @@ namespace Ryneus
             _view.InitResultList(MakeListData(_model.ResultCommand()));
             _view.SetTitle();
             CommandRefresh();
-            var route = _model.MakeEvaluateResults();
-            _view.CallSystemCommand(Base.CommandType.SetRouteSelect, route);
             var bgm = await _model.GetBgmData("Interrude");
             SoundManager.Instance.PlayBgm(bgm, 1.0f, true);
             var displayActorInfos = _model.PartyMembers();
@@ -65,6 +63,8 @@ namespace Ryneus
             // タイトル終了後
             if (!_startEvent)
             {
+                var route = _model.MakeEvaluateResults();
+                _view.CallSystemCommand(Base.CommandType.SetRouteSelect, route);
                 var advInfo = _model.GetAdvCallInfo(_model.InterrudeEventId());
                 advInfo.SetCallEvent(() =>
                 {
