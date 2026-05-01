@@ -17,14 +17,20 @@ namespace Ryneus
 
             SetView(_view);
             _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
+            Initialize(true);
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new LevelUpModel();
             SetModel(_model);
+            InitializeAfter();
             _busy = false;
+        }
+
+        private void InitializeAfter()
+        {
+            _view.OpenAnimation();
             CommandLevelUpNext();
         }
 
@@ -41,7 +47,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize();
+                    Initialize(false);
                     break;
                 case CommandType.EndAnimation:
                     CommandEndAnimation();
@@ -57,16 +63,17 @@ namespace Ryneus
             // LevelUp
             if (_model.LevelUpDates().Count > 0)
             {
-                _view.OpenAnimation(_model.TitleText());
+                _view.LevelUpAnimation(_model.TitleText());
                 return;
             }
             // 魔法獲得
             var learnSkill = _model.LearnSkillInfos();
             if (learnSkill != null && learnSkill.Count > 0)
             {
-                _view.OpenAnimation(_model.LearnSkillText());
+                _view.LevelUpAnimation(_model.LearnSkillText());
                 return;
             }
+            _view.ClearActorThumb();
             _view.PopupClose();
         }
 
@@ -90,8 +97,6 @@ namespace Ryneus
             }
             _view.UpdateEvaluate(_model.SceneParam.From.Value, _model.SceneParam.To.Value);
         }
-
-
 
         private void CommandRefresh()
         {

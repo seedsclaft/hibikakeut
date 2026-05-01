@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5362829156272434622}
   - component: {fileID: 5312014338447193114}
-  - component: {fileID: 4098310096708817390}
+  - component: {fileID: 7971285081701943835}
   m_Layer: 5
   m_Name: PopupLevelUp
   m_TagString: Untagged
@@ -222,11 +222,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9313f0ff46fa57b45a78cfbf3ea59d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.LevelUpView
+  Busy:
+    _value: 0
   _backCommand: {fileID: 2168801155394928049}
   _backGround: {fileID: 0}
   uiRoot: {fileID: 2007627690070530970}
   sideMenuButton: {fileID: 0}
-  confirmAnimation: {fileID: 4098310096708817390}
+  popupAnimation: {fileID: 7971285081701943835}
   statusList: {fileID: 6455649310722124364}
   actorInfoComponent: {fileID: 6361592594735080488}
   learnSkillList: {fileID: 6933269342372534871}
@@ -235,7 +237,7 @@ MonoBehaviour:
   beforeEvaluate: {fileID: 3587427900825125231}
   afterEvaluate: {fileID: 880689770297978655}
   learnSkillText: {fileID: 246310461299600011}
---- !u!114 &4098310096708817390
+--- !u!114 &7971285081701943835
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -244,11 +246,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1251220300972254825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 665e27e3cdef3d84b999a27375700e89, type: 3}
+  m_Script: {fileID: 11500000, guid: 11e507eed2e1c0c44bbc705f953f036a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.PopupAnimation
   baseCanvas: {fileID: 8247198923096212198}
-  Busy: 0
+  Busy:
+    _value: 0
 --- !u!1 &1854475442397952964
 GameObject:
   m_ObjectHideFlags: 0

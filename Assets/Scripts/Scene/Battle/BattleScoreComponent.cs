@@ -19,6 +19,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI weakAttackCountText = null;
         [SerializeField] private GameObject enemyLvAvarageObj = null;
         [SerializeField] private TextMeshProUGUI enemyLvAvarageText = null;
+        [SerializeField] private GameObject awakenCountObj = null;
+        [SerializeField] private TextMeshProUGUI awakenCountText = null;
         public void UpdateScore(BattleScore battleScore)
         {
             if (battleScore == null)
@@ -32,14 +34,29 @@ namespace Ryneus
             UIComponent.SetActive(battleDefeatedCountObj, battleScore.DefeatedCount != -1);
             UIComponent.SetActive(weakAttackCountObj, battleScore.WeakAttackCount != -1);
             UIComponent.SetActive(enemyLvAvarageObj, battleScore.EnemyLvAvarage != -1);
-
-            UIComponent.SetText(battleScoreText, (battleScore.ResultScore > 0 ? "+" : "") + (battleScore.ResultScore * 0.01f).ToString("F2") + "%");
-            UIComponent.SetText(battleTurnText, battleScore.TurnCount.ToString() + DataSystem.GetText(20301));
-            UIComponent.SetText(battleMaxDamageText, battleScore.MaxDamage.ToString());
-            UIComponent.SetText(battleDefeatedCountText, battleScore.DefeatedCount.ToString());
-            UIComponent.SetText(weakAttackCountText, battleScore.WeakAttackCount.ToString());
-            UIComponent.SetText(battleAttackPerText, battleScore.RemainHpPercent.ToString() + "%");
-            UIComponent.SetText(enemyLvAvarageText, battleScore.EnemyLvAvarage.ToString());
+            UIComponent.SetActive(awakenCountObj, battleScore.AwakenCount != -1);
+            
+            UIComponent.SetText(battleScoreText, (battleScore.ResultScore > 0 ? "+" : "") + battleScore.ResultScore.ToString() + "pt");
+                
+            if (battleScore.DisplayPoint)
+            {
+                UIComponent.SetText(battleTurnText, battleScore.TurnCount.ToString() + DataSystem.GetText(20301) + " (" + battleScore.TurnCountScore + "pt)");
+                UIComponent.SetText(battleMaxDamageText, battleScore.MaxDamage.ToString() + " (" + battleScore.MaxDamageScore + "pt)");
+                UIComponent.SetText(battleDefeatedCountText, battleScore.DefeatedCount.ToString() + " (" + battleScore.DefeatedCountScore + "pt)");
+                UIComponent.SetText(weakAttackCountText, battleScore.WeakAttackCount.ToString() + " (" + battleScore.WeakAttackCountScore + "pt)");
+                UIComponent.SetText(battleAttackPerText, battleScore.RemainHpPercent.ToString() + "%");
+                UIComponent.SetText(enemyLvAvarageText, battleScore.EnemyLvAvarage.ToString() + " (" + battleScore.EnemyLvAvarageScore + "pt)");
+                UIComponent.SetText(awakenCountText, battleScore.AwakenCount.ToString() + " (" + battleScore.AwakenCountScore + "pt)");
+            } else
+            {
+                UIComponent.SetText(battleTurnText, battleScore.TurnCount.ToString() + DataSystem.GetText(20301));
+                UIComponent.SetText(battleMaxDamageText, battleScore.MaxDamage.ToString());
+                UIComponent.SetText(battleDefeatedCountText, battleScore.DefeatedCount.ToString());
+                UIComponent.SetText(weakAttackCountText, battleScore.WeakAttackCount.ToString());
+                UIComponent.SetText(battleAttackPerText, battleScore.RemainHpPercent.ToString() + "%");
+                UIComponent.SetText(enemyLvAvarageText, battleScore.EnemyLvAvarage.ToString());
+                UIComponent.SetText(awakenCountText, battleScore.AwakenCount.ToString());
+            }
         }
 
         public void UpdateEmpty()
@@ -51,6 +68,7 @@ namespace Ryneus
             UIComponent.SetActive(battleDefeatedCountObj, false);
             UIComponent.SetActive(weakAttackCountObj, false);
             UIComponent.SetActive(enemyLvAvarageObj, false);
+            UIComponent.SetActive(awakenCountObj, false);
         }
     }
 }

@@ -2599,15 +2599,18 @@ namespace Ryneus
             if (defeated == 0 && lvPoint > -20)
             {
                 score += 20 + lvPoint;
+                battleScore.DefeatedCountScore += 20 + lvPoint;
             }
             // 戦闘不能数の数で減算
             if (defeated > 0)
             {
                 score -= defeated * 20;
+                battleScore.DefeatedCountScore -= defeated * 20;
             }
             // 敵Lvの高さに応じた基礎点
             var enemyLvBonus = (int)Math.Ceiling(enemyLvAvarage * 0.1f);
             score += (int)enemyLvAvarage * enemyLvBonus;
+            battleScore.EnemyLvAvarageScore = (int)enemyLvAvarage * enemyLvBonus;
             if (totalTurnCount <= 30)
             {
                 // ターン数の少なさとLv差で加算
@@ -2615,12 +2618,15 @@ namespace Ryneus
                 if (turnValue > 0)
                 {
                     score += turnValue;
+                    battleScore.TurnCountScore = turnValue;
                 }
             }
             // 覚醒したキャラ数
             if (awakeCount > 0)
             {
-                score += awakeCount * 5;
+                var awakenCountScore = awakeCount * 5;
+                score += awakenCountScore;
+                battleScore.AwakenCountScore = awakenCountScore;
             }
             // 被ダメージ率の加算
             /*
@@ -2632,12 +2638,16 @@ namespace Ryneus
             // 最大ダメージ値の加算
             if (maxDamage > 0)
             {
-                score += maxDamage / 10;
+                var maxDamageScore = maxDamage / 10;
+                score += maxDamageScore;
+                battleScore.MaxDamageScore = maxDamageScore;
             }
             // 弱点攻撃をした回数
             if (weakAttackCount > 0)
             {
-                score += MathF.Min(10, weakAttackCount);
+                var weakAttackCountScore = (int)MathF.Min(10, weakAttackCount);
+                score += weakAttackCountScore;
+                battleScore.WeakAttackCountScore = weakAttackCountScore;
             }
             //battleScore.RemainHpPercent = (int)((remainHpPercent / actorCount) * 100);
             battleScore.MaxDamage = maxDamage;

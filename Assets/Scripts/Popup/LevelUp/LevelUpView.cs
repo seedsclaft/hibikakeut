@@ -4,12 +4,13 @@ using UnityEngine;
 using Ryneus.LevelUp;
 using TMPro;
 using DG.Tweening;
+using System;
 
 namespace Ryneus
 {
     public class LevelUpView : BaseView, IInputHandlerEvent
     {
-        [SerializeField] private ConfirmAnimation confirmAnimation = null;
+        [SerializeField] private PopupAnimation popupAnimation = null;
         [SerializeField] private BaseList statusList = null;
         [SerializeField] private ActorInfoComponent actorInfoComponent = null;
         [SerializeField] private BaseList learnSkillList = null;
@@ -33,7 +34,12 @@ namespace Ryneus
             _ = new LevelUpPresenter(this);
         }
 
-        public void OpenAnimation(string title)
+        public void OpenAnimation()
+        {
+            popupAnimation.Initialize(UiRoot.transform);
+        }
+
+        public void LevelUpAnimation(string title)
         {
             _busy = false;
             UIComponent.SetActive(UiRoot, false);
@@ -48,7 +54,7 @@ namespace Ryneus
             ChangeBackCommandActive(false);
             battleStartAnim.StartAnim(false, 0, () =>
             {
-                confirmAnimation.OpenAnimation(UiRoot.transform, () =>
+                popupAnimation.OpenAnimation(UiRoot.transform, () =>
                 {
                     CallViewEvent(CommandType.EndAnimation);
                     UIComponent.SetActive(UiRoot, true);
@@ -65,6 +71,7 @@ namespace Ryneus
             statusList.SetInputHandler(InputKeyType.Decide, CallLevelUpNext);
             AddViewActives(statusList);
         }
+
         private void InitializeSkillList()
         {
             learnSkillList.Initialize();
@@ -79,7 +86,6 @@ namespace Ryneus
                 UIComponent.SetActive(actorInfoComponent?.gameObject, true);
                 var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
                 BaseAnimation.MoveAndFade(rect, actorInfoComponent.MainThumb, -280, 1, 0.5f);
-
             }
             if (statusList != null)
             {
@@ -115,6 +121,11 @@ namespace Ryneus
         {
             UIComponent.SetText(beforeEvaluate, from.ToString());
             UIComponent.SetText(afterEvaluate, to.ToString());
+        }
+
+        public void ClearActorThumb()
+        {
+            actorInfoComponent.Clear();
         }
 
         private void CallLevelUpNext()
