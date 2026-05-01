@@ -604,6 +604,7 @@ namespace Ryneus
             CallAdvEvent(advId, () =>
             {
                 _view.CallSystemCommand(Base.CommandType.SceneShowUI);
+                _model.UpdateEventObjects();
                 if (skillInfo != null)
                 {
                     var levelUpViewInfo = _model.MakeLevelUpViewInfo(actorInfo, 0);
