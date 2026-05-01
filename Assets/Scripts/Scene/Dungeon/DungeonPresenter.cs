@@ -617,6 +617,7 @@ namespace Ryneus
                     levelUpViewInfo.SetActorInfo(actorInfo);
                     levelUpViewInfo.LearnSkill.SetValue(DataSystem.GetText(2520));
                     SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+                    _view.CallSystemCommand(Base.CommandType.FlashEffect);
                     CallPopupView(PopupType.LevelUp, () =>
                     {
                         CheckAchievements();
