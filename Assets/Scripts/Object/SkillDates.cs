@@ -471,6 +471,7 @@ namespace Ryneus
         FriendAttackActionInfo = 15011, // 味方が攻撃タイプの行動をしようとしている
         OpponentBuffActionInfo = 15022, // 相手がバフの行動をしようとしている
         SelfActionInfo = 16010, // 行動したのが自身
+        MastarySkill = 16020, // 元スキルを会得している
         SkillUsedCount = 17010, // 魔法を〇回使用する
         AttackedCount = 17020, // 攻撃を〇回受ける
         BeCriticalCount = 17030, // クリティカル攻撃を〇回受ける

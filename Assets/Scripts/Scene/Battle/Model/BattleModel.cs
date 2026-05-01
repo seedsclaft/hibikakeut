@@ -1303,6 +1303,17 @@ namespace Ryneus
             return result;
         }
 
+        public List<StateInfo> UpdateTurns()
+        {
+            var list = new List<StateInfo>();
+            foreach (var battleInfo in _battlers)
+            {
+                var result = battleInfo.UpdateState(RemovalTiming.TurnEnd);
+                list.AddRange(result);
+            }
+            return list;
+        }
+
         public int CheckActionAfterGainAp(ActionInfo actionInfo)
         {
             var gainAp = actionInfo.SkillInfo.ActionAfterGainAp();
@@ -1479,10 +1490,20 @@ namespace Ryneus
             }
             var subject = GetBattlerInfo(actionInfo.SubjectIndex.Value);
             var plusActionInfos = actionInfo.CheckPlusSkill();
+            var plusTriggerSkillInfos = actionInfo.CheckPlusSkillTrigger();
+            foreach (var skillInfo in plusTriggerSkillInfos)
+            {
+                var triggerDates = skillInfo.Master.TriggerDates;
+                if (IsTriggeredSkillInfo(GetBattlerInfo(actionInfo.SubjectIndex.Value), triggerDates, actionInfo, actionInfo.ActionResults))
+                {
+                    plusActionInfos.Add(skillInfo);
+                }
+            }
             foreach (var plusActionInfo in plusActionInfos)
             {
                 plusActionInfo.SetRangeType(CalcRangeType(plusActionInfo.Master, GetBattlerInfo(actionInfo.SubjectIndex.Value)));
             }
+            var plusSkillParam = actionInfo.Master.FeatureDates.Find(a => a.FeatureType == FeatureType.PlusSkill);
             foreach (var plusActionInfo in plusActionInfos)
             {
                 if (plusActionInfo.Master.SkillType == SkillType.Passive)
@@ -1498,14 +1519,19 @@ namespace Ryneus
                     var triggerDates = plusActionInfo.Master.TriggerDates;
                     selectIndexList = TriggerTargetList(subject, triggerDates[0], actionInfo, actionInfo.ActionResults, plusActionInfo.Master.AliveType);
                 }
+                if (selectIndexList.Count > 0)
+                {
+                    AddReceiveActionInfo(plusActionInfo, selectIndexList, plusSkillParam != null && plusSkillParam.Param3 == 1);
+                    continue;
+                }
                 if (selectIndexList.Count == 0)
                 {
                     continue;
                 }
-                AddReceiveActionInfo(plusActionInfo, ActionInfoTargetIndexes(plusActionInfo, selectIndexList[0], -1, actionInfo), false);
+                
+                AddReceiveActionInfo(plusActionInfo, ActionInfoTargetIndexes(plusActionInfo, selectIndexList[0], -1, actionInfo), plusSkillParam != null && plusSkillParam.Param3 == 1);
             }
-
-            var plusTriggerSkillInfos = actionInfo.CheckPlusSkillTrigger();
+/*
             foreach (var skillInfo in plusTriggerSkillInfos)
             {
                 var triggerDates = skillInfo.Master.TriggerDates;
@@ -1520,11 +1546,12 @@ namespace Ryneus
                     }
                     var plusTriggerActionInfo = new ActionInfo(skillInfo, _actionIndex, actionInfo.SubjectIndex.Value, -1, null);
                     plusTriggerActionInfo.SetTriggerSkill(true);
-                    AddActionInfo(plusTriggerActionInfo, false);
-                    AddTurnActionInfos(plusTriggerActionInfo, false);
+                    AddActionInfo(plusTriggerActionInfo, plusSkillParam != null && plusSkillParam.Param3 == 1);
+                    AddTurnActionInfos(plusTriggerActionInfo, plusSkillParam != null && plusSkillParam.Param3 == 1);
                     plusTriggerActionInfo.SetRangeType(CalcRangeType(plusTriggerActionInfo.Master, GetBattlerInfo(actionInfo.SubjectIndex.Value)));
                 }
             }
+*/
         }
 
         public List<ActionResultInfo> CheckRegenerate(ActionInfo actionInfo)
@@ -2022,15 +2049,6 @@ namespace Ryneus
                             case TriggerType.None:
                             case TriggerType.ExtendStageTurn: // 別処理で判定するためここではパス
                                 isTriggered = true;
-                                break;
-                            case TriggerType.SelfActionInfo:
-                                if (battlerInfo.IsAlive() && actionInfo != null)
-                                {
-                                    if (actionInfo.SubjectIndex.Value == battlerInfo.Index.Value)
-                                    {
-                                        isTriggered = true;
-                                    }
-                                }
                                 break;
                             case TriggerType.IsFriendBattler:
                                 if (battlerInfo.IsAlive())

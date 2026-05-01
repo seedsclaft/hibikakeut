@@ -24,6 +24,7 @@ namespace Ryneus
             _checkTriggerDict[13] = new CheckTriggerKind();
             _checkTriggerDict[14] = new CheckTriggerStatus();
             _checkTriggerDict[15] = new CheckTriggerAttackAction();
+            _checkTriggerDict[16] = new CheckTriggerSelfState();
 
             _checkTriggerDict[17] = new CheckTriggerBattleCount();
 

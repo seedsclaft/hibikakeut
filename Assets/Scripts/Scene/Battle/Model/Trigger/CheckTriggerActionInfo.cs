@@ -246,10 +246,6 @@ namespace Ryneus
             {
                 return list;
             }
-            if (checkTriggerInfo.ActionInfo.Master.TriggerDates.Find(a => a.TriggerType == TriggerType.Coverable) == null)
-            {
-                return list;
-            }
 
             foreach (var candidateTargetIndexList in checkTriggerInfo.ActionInfo.CandidateTargetIndexList)
             {

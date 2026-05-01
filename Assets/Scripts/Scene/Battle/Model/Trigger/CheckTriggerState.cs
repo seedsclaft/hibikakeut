@@ -311,7 +311,30 @@ namespace Ryneus
 
         public void AddTriggerTargetList(List<int> targetIndexList, SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
+            switch (triggerData.TriggerType)
+            {
+                case TriggerType.FriendIsState:
+                    targetIndexList.AddRange(CheckFriendIsState(triggerData, battlerInfo, checkTriggerInfo));
+                    break;
+            }
+        }
+        
+        private List<int> CheckFriendIsState(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
+        {
+            var list = new List<int>();
+            if (!battlerInfo.IsAlive())
+            {
+                return list;
+            }
 
+            foreach (var friend in checkTriggerInfo.Friends)
+            {
+                if (friend.IsState((StateType)triggerData.Param1))
+                {
+                    list.Add(friend.Index.Value);
+                }
+            }
+            return list;
         }
     }
 }

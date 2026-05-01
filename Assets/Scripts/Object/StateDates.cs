@@ -118,7 +118,8 @@ namespace Ryneus
         UpdateAp = 2,
         UpdateChain = 3,
         UpdateCount = 4,
-        NextSelfTurn = 5
+        NextSelfTurn = 5,
+        TurnEnd = 6,
     }
 
     public enum EffectPositionType

@@ -113,12 +113,12 @@ namespace Ryneus
         {
             // 行動後スキル
             var featureDates = SkillInfo.FeatureDates;
-            var PlusSkill = featureDates.FindAll(a => a.FeatureType == FeatureType.PlusSkill);
+            var plusSkill = featureDates.FindAll(a => a.FeatureType == FeatureType.PlusSkill);
 
             var actionInfos = new List<ActionInfo>();
-            for (var i = 0; i < PlusSkill.Count; i++)
+            for (var i = 0; i < plusSkill.Count; i++)
             {
-                var skillInfo = new SkillInfo(PlusSkill[i].Param1);
+                var skillInfo = new SkillInfo(plusSkill[i].Param1);
                 var actionInfo = new ActionInfo(skillInfo, _index, SubjectIndex.Value, -1, null);
                 actionInfo.SetTriggerSkill(true);
                 actionInfos.Add(actionInfo);
@@ -126,17 +126,25 @@ namespace Ryneus
             return actionInfos;
         }
 
-        public List<SkillInfo> CheckPlusSkillTrigger()
+        public List<ActionInfo> CheckPlusSkillTrigger()
         {
             var featureDates = SkillInfo.FeatureDates;
             var skillInfos = new List<SkillInfo>();
-            var PlusSkillTrigger = featureDates.FindAll(a => a.FeatureType == FeatureType.PlusSkillTrigger);
-            for (var i = 0; i < PlusSkillTrigger.Count; i++)
+            var plusSkillTrigger = featureDates.FindAll(a => a.FeatureType == FeatureType.PlusSkillTrigger);
+            for (var i = 0; i < plusSkillTrigger.Count; i++)
             {
-                var skillInfo = new SkillInfo(PlusSkillTrigger[i].Param1);
+                var skillInfo = new SkillInfo(plusSkillTrigger[i].Param1);
                 skillInfos.Add(skillInfo);
             }
-            return skillInfos;
+            var actionInfos = new List<ActionInfo>();
+            for (var i = 0; i < skillInfos.Count; i++)
+            {
+                var skillInfo = skillInfos[i];
+                var actionInfo = new ActionInfo(skillInfo, _index, SubjectIndex.Value, -1, null);
+                actionInfo.SetTriggerSkill(true);
+                actionInfos.Add(actionInfo);
+            }
+            return actionInfos;
         }
 
         public void SetTriggerSkill(bool triggeredSkill)

@@ -679,6 +679,11 @@ namespace Ryneus
                 _view.UpdateGridLayer();
             }
 
+            // ターンの終了
+            var removeStateInfos2 = _model.UpdateTurns();
+            await RemoveStateInfoPopup(removeStateInfos2);
+            _view.RefreshStatus();
+
             // 行動を全て終了する
             _model.SeekTurnCount();
             _view.RefreshTurn(_model.TurnCount);
