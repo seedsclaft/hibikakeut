@@ -1026,13 +1026,17 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
             var itemInfo = new ItemInfo(item.Id, 1);
+            var getItemInfo = _model.MakeGetItemInfo(GetItemType.Item, item.Id, 1);
+            _model.AddGetItemInfo(getItemInfo);
             CallConfirmItemDetailView(DataSystem.GetText(10170), new List<ItemInfo>() { itemInfo }, (a) =>
             {
-                var getItemInfo = _model.MakeGetItemInfo(GetItemType.Item, item.Id, 1);
-                _model.AddGetItemInfo(getItemInfo);
-                _busy = false;
-                CommandRefresh();
-                _model.DungeonBusy(false);
+                // 閉じたら
+                if (a == ConfirmCommandType.No)
+                {
+                    _busy = false;
+                    CommandRefresh();
+                    _model.DungeonBusy(false);
+                }
             });
         }
 
@@ -1046,10 +1050,10 @@ namespace Ryneus
             var learnSkillInfo = new LearnSkillInfo(0, 0, new List<SkillInfo>(){new SkillInfo(skillId)});
             SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
 
+            var getItemInfo = _model.MakeGetItemInfo(GetItemType.Skill, skill.Id);
+            _model.AddGetItemInfo(getItemInfo);
             CallLearnSkillPopupView(learnSkillInfo, () =>
             {
-                var getItemInfo = _model.MakeGetItemInfo(GetItemType.Skill, skill.Id);
-                _model.AddGetItemInfo(getItemInfo);
                 _busy = false;
                 CommandRefresh();
                 _model.DungeonBusy(false);

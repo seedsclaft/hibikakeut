@@ -422,7 +422,7 @@ namespace Ryneus
             _view.CallSystemCommand(Base.CommandType.SceneHideUI);
             await _model.PlayReliefBgmData();
             // 結果を表示する
-            var releifActorInfos = _model.ReleifActoInfos();
+            var releifActorInfos = _model.ReleifActorInfos();
             _view.StartReliefAnimation(async () =>
             {
                 await _model.PlayReliefBgmData2();

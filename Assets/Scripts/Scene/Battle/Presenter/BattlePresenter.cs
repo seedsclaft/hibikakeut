@@ -290,8 +290,11 @@ namespace Ryneus
             {
                 _view.SetIdle();
                 await UniTask.WaitUntil(() => !_view.FieldBusy);
-                CommandStartBattleAction();
-                await UniTask.WaitUntil(() => !_view.BattleWait);
+                var active = CommandStartBattleAction();
+                if (active)
+                {
+                    await UniTask.WaitUntil(() => !_view.BattleWait);
+                }
                 // 少し待つ
                 _view.WaitFrame(_model.WaitFrameTime(8), () =>
                 {
@@ -371,7 +374,7 @@ namespace Ryneus
         /// <summary>
         /// バトル開始時のパッシブを付与
         /// </summary>
-        private void CommandStartBattleAction()
+        private bool CommandStartBattleAction()
         {
             _view.UpdateGridLayer();
             _model.CheckTriggerPassiveInfos(BattleUtility.StartTriggerTimings(), null, null);
@@ -384,6 +387,7 @@ namespace Ryneus
                 StartActionInfo(receiveActionInfo);
                 //MakeResultInfoStartAction(receiveActionInfo,receiveActionInfo.CandidateTargetIndexList);
             }
+            return receiveActionInfo != null;
         }
 
         private void CommandUpdateAp()

@@ -493,7 +493,7 @@ namespace Ryneus
             {
                 _attributeUpper[attributeType] = 0;
             }
-            _attributeUpper[attributeType] += 1;
+            //_attributeUpper[attributeType] += 1;
             // 装備しているコストを変更
         }
 

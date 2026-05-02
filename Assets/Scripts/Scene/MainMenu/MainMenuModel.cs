@@ -107,7 +107,7 @@ namespace Ryneus
             return PartyInfo.CurrentDeckActorInfos().FindAll(a => a.Master.Rank != 10);
         }
 
-        public List<ActorInfo> ReleifActoInfos()
+        public List<ActorInfo> ReleifActorInfos()
         {
             // 初回はRank20
             // 2回目以降はRank30
@@ -127,10 +127,10 @@ namespace Ryneus
                 }
                 actorInfos.Add(new ActorInfo(actorDate));
             }
-            // 2名までに絞る
-            if (actorInfos.Count > 2)
+            // 5名までに絞る
+            if (actorInfos.Count > 5)
             {
-                var minusCount = actorInfos.Count - 2;
+                var minusCount = actorInfos.Count - 5;
                 var removedIds = new List<int>();
                 while (minusCount != 0)
                 {
