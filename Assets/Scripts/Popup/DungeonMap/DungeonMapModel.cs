@@ -38,7 +38,7 @@ namespace Ryneus
                         MapInfo = mapInfo,
                         HexField = hexField,
                         IsPathSelect = _hexPaths.Find(a => a.X == hexField.X && a.Y == hexField.Y) != null,
-                        Opened = traversDates.Contains(key),
+                        Opened = traversDates != null && traversDates.Contains(key),
                         IsPlayerPosition = PartyInfo.CurrentDeckInfo.ExistPlayerPosition(mapInfo.eventId),
                     };
                     list.Add(info);
@@ -52,7 +52,7 @@ namespace Ryneus
             var dungeonFloor = FindDungeonFloor(CurrentStage.StageId.Value);
             var traversDates = PartyInfo.GetDungeonTraverse(CurrentStage.StageId.Value);
             string key = dungeonFloor.floorId.ToString() + "-" + mapCellInfo.HexField.X.ToString() + "-" + mapCellInfo.HexField.Y.ToString();
-            if (!traversDates.Contains(key))
+            if (traversDates == null || !traversDates.Contains(key))
             {
                 return;
             }
