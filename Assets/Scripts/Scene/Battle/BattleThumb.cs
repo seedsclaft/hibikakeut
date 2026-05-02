@@ -66,6 +66,7 @@ namespace Ryneus
             MoveAndFade(gameObject.GetComponent<RectTransform>(), 0, 0, waitFrame, () =>
             {
                 _animationBusy = false;
+                Clear();
             });
             UIComponent.SetActive(mainThumbRoot, true);
             UIComponent.SetActive(gameObject, true);

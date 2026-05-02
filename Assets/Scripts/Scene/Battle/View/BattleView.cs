@@ -47,7 +47,8 @@ namespace Ryneus
         }
         public ParameterBool AnimationBusy = new();
         public bool AllBusy => BattleSeekBusy.Value || battleFieldView.Busy || AnimationBusy.Value;
-        public bool BattleWait => battleFieldView.Busy || AnimationBusy.Value;
+        public bool BattleWait => BattleSeekBusy.Value;
+        public bool FieldBusy => battleFieldView.Busy;
 
         private List<MakerEffectData.SoundTimings> _soundTimings = null;
 

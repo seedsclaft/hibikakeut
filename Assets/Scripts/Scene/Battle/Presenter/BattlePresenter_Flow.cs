@@ -593,7 +593,7 @@ namespace Ryneus
             var change = _model.CheckActionAfterChange(actionInfo);
             if (change)
             {
-                _view.UpdateFieldMembers(_model.Battlers);
+                await _view.UpdateFieldMembers(_model.Battlers);
                 _view.UpdateGridLayer();
             }
             _view.UpdateActors(MakeListData(_model.ViewBattlerActors()));

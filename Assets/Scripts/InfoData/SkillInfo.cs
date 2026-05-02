@@ -216,7 +216,7 @@ namespace Ryneus
                 {
                     _ = helpText.Append(lines[i]);
                 }
-                if (i < lines.Count())
+                if (i < lines.Count() - 1)
                 {
                     _ = helpText.Append("\n");
                 }

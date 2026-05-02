@@ -82,7 +82,12 @@ namespace Ryneus
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.FromEditIndex.SetValue(fromEditIndex + 1);
-            _view.SelectChangeBattler(_model.FromEditSelectIndex());
+            var fromSelectIndex = _model.FromEditSelectIndex();
+            _view.SelectChangeBattler(fromSelectIndex);
+            if (fromSelectIndex == 0)
+            {
+                _view.UpdateActorInfo(_model.PartyInfo.ActorInfos[0]);
+            }
             _view.CandidateSelectIndex(_model.FromEditSelectBattlerIndex());
         }
 
@@ -92,6 +97,11 @@ namespace Ryneus
             _model.PartyInfo.PartyStatInfo.DeckEditCommandCount.GainValue(1);
             CheckAchievements();
             _model.SwapBattler(actorInfo.ActorId.Value);
+            // 整列が必要であれば整列する
+            if (_model.AdjustEditIndexes())
+            {
+                CommandCautionInfo(DataSystem.GetText(43010));
+            }
             _view.EndSelectChangeBattler();
             CommandRefresh();
             _view.UpdateActorInfo(actorInfo);
@@ -117,11 +127,6 @@ namespace Ryneus
                 _view.EndSelectChangeBattler();
                 CommandRefresh();
                 return;
-            }
-            // 整列が必要であれば整列する
-            if (_model.AdjustEditIndexes())
-            {
-                CommandCautionInfo(DataSystem.GetText(43010));
             }
             _view.EndPopup();
         }

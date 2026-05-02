@@ -28,13 +28,13 @@ namespace Ryneus
                 return;
             }
             UIComponent.SetActive(battleScoreObj, battleScore.ResultScore != -1);
-            UIComponent.SetActive(battleTurnObj, battleScore.TurnCount != -1);
-            UIComponent.SetActive(battleMaxDamageObj, battleScore.MaxDamage != -1);
-            UIComponent.SetActive(battleAttackPerObj, battleScore.RemainHpPercent != -1);
-            UIComponent.SetActive(battleDefeatedCountObj, battleScore.DefeatedCount != -1);
-            UIComponent.SetActive(weakAttackCountObj, battleScore.WeakAttackCount != -1);
-            UIComponent.SetActive(enemyLvAvarageObj, battleScore.EnemyLvAvarage != -1);
-            UIComponent.SetActive(awakenCountObj, battleScore.AwakenCount != -1);
+            UIComponent.SetActive(battleTurnObj, battleScore.TurnCount > 0);
+            UIComponent.SetActive(battleMaxDamageObj, battleScore.MaxDamage > 0);
+            UIComponent.SetActive(battleAttackPerObj, battleScore.RemainHpPercent > 0);
+            UIComponent.SetActive(battleDefeatedCountObj, battleScore.DefeatedCount > 0);
+            UIComponent.SetActive(weakAttackCountObj, battleScore.WeakAttackCount > 0);
+            UIComponent.SetActive(enemyLvAvarageObj, battleScore.EnemyLvAvarage > 0);
+            UIComponent.SetActive(awakenCountObj, battleScore.AwakenCount > 0);
             
             UIComponent.SetText(battleScoreText, (battleScore.ResultScore > 0 ? "+" : "") + battleScore.ResultScore.ToString() + "pt");
                 

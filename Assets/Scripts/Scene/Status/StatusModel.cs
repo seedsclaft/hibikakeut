@@ -148,7 +148,7 @@ namespace Ryneus
         public void AutoSetSkill()
         {
             CurrentActor.BeforeAutoSetSkill();
-            var changeAbleSkills = ChangeAbleSkills(CurrentActor, 0);
+            var changeAbleSkills = ChangeAbleSkills(CurrentActor, 0).FindAll(a => EquipmentSkill(a) == null);
             CurrentActor.AutoSetSkill(changeAbleSkills, PartyInfo.CurrentDeckActorInfos(), TempInfo.EnqmySkillWeights(changeAbleSkills));
         }
 

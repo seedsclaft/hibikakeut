@@ -101,7 +101,7 @@ namespace Ryneus
         private async void StartBattle()
         {
             _view.SetHelpInputInfo("BATTLE");
-            _view.SetEvent((type) => UpdateCommand(type));
+            _view.SetEvent(async (type) => await UpdateCommand(type));
             _view.StartUIAnimation();
             _view.StartBattleStartAnim(_model.BattleStartText());
             _view.SetActiveBattleAutoButton(true);
@@ -282,15 +282,21 @@ namespace Ryneus
             _view.UpdateStartActivate();
 
             _view.UpdateSelectCursor(new List<int>() { });
-            CommandStartBattleAction();
             _view.SetStartActors();
             //_view.StartBattleStartAnim("Battle Start!");
-            await UniTask.WaitUntil(() => !_view.BattleWait);
+            await UniTask.WaitUntil(() => !_view.FieldBusy);
             // 少し待つ
-            _view.WaitFrame(_model.WaitFrameTime(30), () =>
+            _view.WaitFrame(_model.WaitFrameTime(16), async () =>
             {
-                _view.SetBattleBusy(false);
                 _view.SetIdle();
+                await UniTask.WaitUntil(() => !_view.FieldBusy);
+                CommandStartBattleAction();
+                await UniTask.WaitUntil(() => !_view.BattleWait);
+                // 少し待つ
+                _view.WaitFrame(_model.WaitFrameTime(8), () =>
+                {
+                    _view.SetBattleBusy(false);
+                });
             });
         }
 

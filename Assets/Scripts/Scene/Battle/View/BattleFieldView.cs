@@ -34,14 +34,14 @@ namespace Ryneus
 
         public async Task SetFieldActors(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
         {
-            await SetActorInfo(battlerInfos.FindAll(a => a.IsActor), decideEvent, selectEvent);
+            await SetActorInfo(battlerInfos.FindAll(a => a.IsActor && a.ActorInfo != null), decideEvent, selectEvent);
         }
 
         public async Task SetFieldEnemies(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
         {
             MoveCameraEnemies();
             ZoomIn();
-            await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor), decideEvent, selectEvent);
+            await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor && a.EnemyData != null), decideEvent, selectEvent);
             SetAnimationBattlerAll(AnimationState.BeforeStart);
         }
 
@@ -53,8 +53,8 @@ namespace Ryneus
             }
             _battlers.Clear();
             _battlerInfoComponents.Clear();
-            await SetActorInfo(battlerInfos.FindAll(a => a.IsActor), decideEvent, selectEvent);
-            await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor), decideEvent, selectEvent);
+            await SetActorInfo(battlerInfos.FindAll(a => a.IsActor && a.ActorInfo != null), decideEvent, selectEvent);
+            await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor && a.EnemyData != null), decideEvent, selectEvent);
             SetAnimationBattlerAll(AnimationState.BeforeStart);
         }
 

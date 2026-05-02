@@ -144,7 +144,7 @@ namespace Ryneus
         {
             var skillData = DataSystem.FindSkill(skillId);
             var targeBattlerIndex = -1;
-            if (skillData != null && SelectTargetBattler != null)
+            if (skillData != null && battlerInfo.IsActor && SelectTargetBattler != null)
             {
                 if (skillData.IsHpDamageFeature() || skillData.IsHpHealFeature())
                 {
