@@ -66,6 +66,9 @@ namespace Utage
                 case "ResumeDungeonBgm":
                     command = new AdvCommandResumeDungeonBgm(row);
                     break;
+                case "BgLoopAnimation":
+                    command = new AdvCommandBgLoopAnimation(row);
+                    break;
             }
         }
     }

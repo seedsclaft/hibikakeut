@@ -99,9 +99,26 @@ namespace Ryneus
             float updateNumber = to;
             // 指定したupdateNumberまでカウントアップ・カウントダウンする
             DOTween.To(() => nowNumber, (n) => nowNumber = n, updateNumber, duration)
-                .OnUpdate(() => {
+                .OnUpdate(() =>
+                {
                     blur._Alpha = nowNumber;
                 });
+        }
+
+        public static void BgLoop(RawImage image, float from, float to, float duration)
+        {
+            float nowNumber = from;
+            float updateNumber = to;
+            // 指定したupdateNumberまでカウントアップ・カウントダウンする
+            DOTween.To(() => nowNumber, (n) => nowNumber = n, updateNumber, duration)
+                .OnUpdate(() =>
+                {
+                    Rect currentRect = image.uvRect;
+                    currentRect.x = nowNumber;
+                    image.uvRect = currentRect;
+                })
+                .SetEase(Ease.Linear)
+                .SetLoops(-1);
         }
 
         public static void Clear(List<Sequence> _sequences)
