@@ -559,8 +559,11 @@ namespace Ryneus
         private async Task ResumeDungeonBgm()
         {
             var bgmData = _model.DungeonBgmData();
-            var bgm = await _model.GetBgmData(bgmData.Key);
-            SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true, _model.DungeonBgmTimeStamp());
+            if (bgmData != null)
+            {
+                var bgm = await _model.GetBgmData(bgmData.Key);
+                SoundManager.Instance.PlayBgm(bgm, bgmData.Volume, true, _model.DungeonBgmTimeStamp());
+            }
         }
 
         private void SceneShowUI()
