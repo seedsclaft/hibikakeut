@@ -180,6 +180,9 @@ namespace Ryneus
                         }
                     }
                     break;
+                case TriggerType.ActionResultDeath:
+                    isTrigger = CheckActionResultDeath(triggerData, battlerInfo,checkTriggerInfo).Count > 0;
+                    break;
             }
             return isTrigger;
         }
@@ -215,6 +218,9 @@ namespace Ryneus
                     break;
                 case TriggerType.FriendPassiveAction:
                     targetIndexList.AddRange(CheckFriendPassiveAction(triggerData, battlerInfo, checkTriggerInfo));
+                    break;
+                case TriggerType.ActionResultDeath:
+                    targetIndexList.AddRange(CheckActionResultDeath(triggerData, battlerInfo, checkTriggerInfo));
                     break;
             }
         }
@@ -478,5 +484,20 @@ namespace Ryneus
             }
             return list;
         }
+
+        private List<int> CheckActionResultDeath(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
+        {
+            var list = new List<int>();
+            var actionResultInfos = checkTriggerInfo.ActionResultInfos;
+            if (battlerInfo.IsAlive() && actionResultInfos != null)
+            {
+                if (actionResultInfos.Find(a => checkTriggerInfo.Opponents.Find(b => a.DeadIndexList.Contains(b.Index.Value)) != null) != null)
+                {
+                    list.Add(battlerInfo.Index.Value);
+                }
+            }
+            return list;
+        }
+        
     }
 }

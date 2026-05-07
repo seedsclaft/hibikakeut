@@ -458,6 +458,7 @@ namespace Ryneus
         FriendPassiveAction = 12072, // 味方がPassive魔法を成功する
         OpponentHealAction = 12082, // 相手が回復を成功する
         OpponentDamageShieldAction = 12092, // 相手が攻撃無効を発動する
+        ActionResultDeath = 12110, // 攻撃を受けると戦闘不能になる
         FriendHasKind = 13010, // 〇のKindを持っている
         OpponentHasKind = 13020, // 〇のKindを持っている
         FriendStatusUpper = 14010, // ステータスの高い味方
@@ -483,7 +484,6 @@ namespace Ryneus
         AttackedActionIsScope = 19010, // 自身がParam1=Sconeの攻撃を受けるとき
         AttackedActionIsKind = 19020, // 自身がParam1=Kindから攻撃を受けるとき
         AttackedActionIsState = 19030, // 自身が〇状態の時に攻撃を受ける
-        ActionResultDeath = 20030, // 攻撃を受けると戦闘不能になる
         DeadWithoutSelf = 20040, // 自身以外が戦闘不能
         SelfDead = 20050, // 自身が戦闘不能
         AllEnemyCurseState = 20070, // 敵全員が呪い

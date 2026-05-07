@@ -341,6 +341,7 @@ namespace Ryneus
             {
                 ClosePopupView();
                 CommandRefresh();
+                CheckTutorialState(null);
             });
         }
 
@@ -530,8 +531,11 @@ namespace Ryneus
                 var checkFlag = false;
                 if (tutorialData.Param1 == 0 || tutorialData.Param1 == 100)
                 {
-                    // 出撃選択
                     checkFlag = true;
+                } else
+                if (tutorialData.Param1 == 200)
+                {
+                    checkFlag = _model.PartyInfo.MissionRank.Value > 1;
                 }
                 return checkFlag;
             };

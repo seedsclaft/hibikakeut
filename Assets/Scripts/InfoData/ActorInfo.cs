@@ -161,7 +161,6 @@ namespace Ryneus
             _lineIndex = lineIndex;
         }
 
-        // バトル勝利数
         public int DemigodParam => 0;
         public ParameterBool Lost = new(false);
 

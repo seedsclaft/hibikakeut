@@ -18,7 +18,7 @@ namespace Ariadne
         /// </Summary>
         public void InitializeTraverseData()
         {
-            if (traverseList == null)
+            //if (traverseList == null)
             {
                 traverseList = new List<TraverseData>();
             }

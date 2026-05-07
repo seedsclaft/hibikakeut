@@ -55,6 +55,10 @@ namespace Ryneus
 
         private bool _isAwaken = false;
         public bool IsAwaken => _isAwaken;
+        public void SetAwaken(bool awaked)
+        {
+            _isAwaken = awaked;
+        }
 
         private LineType _lineIndex = 0;
         public LineType LineIndex => _lineIndex;
@@ -71,8 +75,7 @@ namespace Ryneus
         }
 
         public ParameterInt TurnCount = new();
-        private int _demigodParam = 0;
-        public int DemigodParam => _demigodParam;
+        public ParameterInt DemigodParam = new();
 
         private bool _preserveAlive = false;
         public bool PreserveAlive => _preserveAlive;
@@ -158,7 +161,6 @@ namespace Ryneus
             }
             //_enhanceSkills = enhanceSkills;
 
-            _demigodParam = actorInfo.DemigodParam;
             _isActor = true;
             _isAlcana = false;
 
@@ -224,7 +226,7 @@ namespace Ryneus
                 0,
                 0
             );
-            _demigodParam = Level.Value / 2;
+            DemigodParam.SetValue(Level.Value / 2);
             _status = statusInfo;
             Hp.SetValue(_status.Hp);
             Mp.SetValue(_status.Mp);
@@ -882,12 +884,8 @@ namespace Ryneus
         public int CurrentAtk(bool isNoEffect = false)
         {
             int atk = Status.Atk;
-            if (isNoEffect == false)
+            if (!isNoEffect)
             {
-                if (IsState(StateType.Demigod))
-                {
-                    atk += _demigodParam;
-                }
                 if (IsState(StateType.StatusUp))
                 {
                     atk += StateEffectAll(StateType.StatusUp);
@@ -908,6 +906,10 @@ namespace Ryneus
                 {
                     atk = (int)(atk * ((100 - DeBuffUpperParam(StateEffectAll(StateType.AtkDownPer))) * 0.01f));
                 }
+                if (IsState(StateType.Demigod))
+                {
+                    atk = (int)(atk * (1f + (DemigodParam.Value * 0.1f)));
+                }
             }
             return atk;
         }
@@ -915,12 +917,8 @@ namespace Ryneus
         public int CurrentDef(bool isNoEffect = false)
         {
             int def = Status.Def;
-            if (isNoEffect == false)
+            if (!isNoEffect)
             {
-                if (IsState(StateType.Demigod))
-                {
-                    def += _demigodParam;
-                }
                 if (IsState(StateType.StatusUp))
                 {
                     def += StateEffectAll(StateType.StatusUp);
@@ -937,6 +935,10 @@ namespace Ryneus
                 {
                     def = (int)(def * ((100 - DeBuffUpperParam(StateEffectAll(StateType.DefPerDown))) * 0.01f));
                 }
+                if (IsState(StateType.Demigod))
+                {
+                    def = (int)(def * (1f + (DemigodParam.Value * 0.1f)));
+                }
             }
             return def;
         }
@@ -944,12 +946,8 @@ namespace Ryneus
         public int CurrentSpd(bool isNoEffect = false)
         {
             int spd = Status.Spd;
-            if (isNoEffect == false)
+            if (!isNoEffect)
             {
-                if (IsState(StateType.Demigod))
-                {
-                    spd += _demigodParam;
-                }
                 if (IsState(StateType.SpdUp))
                 {
                     spd += StateEffectAll(StateType.SpdUp);
@@ -961,6 +959,10 @@ namespace Ryneus
                 if (IsState(StateType.StatusUp))
                 {
                     spd += StateEffectAll(StateType.StatusUp);
+                }
+                if (IsState(StateType.Demigod))
+                {
+                    spd = (int)(spd * (1f + (DemigodParam.Value * 0.1f)));
                 }
             }
             return spd;
@@ -1015,11 +1017,6 @@ namespace Ryneus
             }
             rate = Math.Max(0, rate);
             return rate;
-        }
-
-        public void SetAwaken(bool awaked)
-        {
-            _isAwaken = awaked;
         }
 
         public void GainMaxDamage(int value)
@@ -1113,7 +1110,7 @@ namespace Ryneus
                 var rate = 1.0f;
                 magicValue += (rate * 100);
             }
-            int total = statusValue + (int)magicValue + _demigodParam * 10;
+            int total = statusValue + (int)magicValue + DemigodParam.Value * 10;
             return total;
         }
 

@@ -28,6 +28,8 @@ namespace Ryneus
                 {
                     continue;
                 }
+                // 神格等級
+                battlerInfo.DemigodParam.SetValue(PartyInfo.MissionRank.Value);
                 _battlers.Add(battlerInfo);
                 idx++;
             }

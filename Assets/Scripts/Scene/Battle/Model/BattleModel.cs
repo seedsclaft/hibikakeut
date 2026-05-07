@@ -1890,7 +1890,7 @@ namespace Ryneus
                 }
                 selectIndex = selectIndexList[0];
             }
-            if (makeActionInfo.Master.SkillType == SkillType.Unique && battlerInfo.IsAwaken == false)
+            if (makeActionInfo.Master.SkillType == SkillType.Unique && !battlerInfo.IsAwaken)
             {
                 battlerInfo.SetAwaken(true);
             }
@@ -2068,15 +2068,6 @@ namespace Ryneus
                                     }
                                 }
                                 break;
-                            case TriggerType.ActionResultDeath:
-                                if (battlerInfo.IsAlive())
-                                {
-                                    if (actionResultInfos.Find(a => opponents.AliveBattlerInfos.Find(b => a.DeadIndexList.Contains(b.Index.Value)) != null) != null)
-                                    {
-                                        isTriggered = true;
-                                    }
-                                }
-                                break;
                             case TriggerType.DeadWithoutSelf:
                                 if (battlerInfo.IsAlive() && friends.DeadWithoutSelf(battlerInfo))
                                 {
@@ -2243,28 +2234,12 @@ namespace Ryneus
         private List<int> TriggerTargetList(BattlerInfo battlerInfo, SkillData.TriggerData triggerData, ActionInfo actionInfo, List<ActionResultInfo> actionResultInfos, AliveType aliveType)
         {
             var list = new List<int>();
-            var opponents = GetOpponentUnit(battlerInfo);
-            var friends = GetFriendUnit(battlerInfo);
             var key = (int)triggerData.TriggerType / 1000;
             if (_checkTriggerDict.ContainsKey(key))
             {
                 var checkTriggerInfo = new CheckTriggerInfo(_turnCount, battlerInfo, BattlerActors(), BattlerEnemies(), _reserveBattlers, actionInfo, actionResultInfos);
                 var checkTrigger = _checkTriggerDict[key];
                 checkTrigger.AddTriggerTargetList(list, triggerData, battlerInfo, checkTriggerInfo);
-            }
-            switch (triggerData.TriggerType)
-            {
-                case TriggerType.ActionResultDeath:
-                    if (battlerInfo.IsAlive())
-                    {
-                        var deathTarget = actionResultInfos.Find(a => friends.AliveBattlerInfos.Find(b => a.DeadIndexList.Contains(b.Index.Value)) != null);
-                        if (deathTarget != null)
-                        {
-                            var targetBattlerInfo = GetBattlerInfo(deathTarget.TargetIndex.Value);
-                            list.Add(targetBattlerInfo.Index.Value);
-                        }
-                    }
-                    break;
             }
             if (actionInfo != null)
             {

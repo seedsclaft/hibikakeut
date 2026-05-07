@@ -457,23 +457,23 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 86
-    mapAttr: 1
-    objectFront: 0
+    mapAttr: 6
+    objectFront: 1
     regeonNo: 0
     objectTypeId: 0
   - eventId: 87
-    mapAttr: 1
+    mapAttr: 0
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 88
-    mapAttr: 1
+    mapAttr: 3
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 89
-    mapAttr: 7
-    objectFront: 1
+    mapAttr: 8
+    objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 90
@@ -482,8 +482,8 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 91
-    mapAttr: 8
-    objectFront: 0
+    mapAttr: 7
+    objectFront: 3
     regeonNo: 0
     objectTypeId: 0
   - eventId: 92
@@ -1037,7 +1037,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 202
-    mapAttr: 0
+    mapAttr: 2
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -1082,42 +1082,42 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 211
-    mapAttr: 6
-    objectFront: 1
+    mapAttr: 1
+    objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 212
-    mapAttr: 3
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 213
-    mapAttr: 0
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 214
-    mapAttr: 8
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 215
-    mapAttr: 0
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 216
-    mapAttr: 3
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 217
-    mapAttr: 0
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 218
-    mapAttr: 0
+    mapAttr: 8
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -1212,8 +1212,8 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 237
-    mapAttr: 1
-    objectFront: 0
+    mapAttr: 6
+    objectFront: 2
     regeonNo: 0
     objectTypeId: 0
   - eventId: 238
@@ -1306,7 +1306,7 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 67
+  DungeonCompletion: 63
   stageEvents:
   - EventKey: 21_1_15DungeonMoveDungeonFloor20
     Timing: 3010
@@ -1335,75 +1335,84 @@ MonoBehaviour:
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_11_5DungeonAdvStart140
+  - EventKey: 21_10_13DungeonAdvStart140
     Timing: 3010
     Type: 1010
-    PositionX: 11
-    PositionY: 5
+    PositionX: 10
+    PositionY: 13
     Param: 140
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_11_5DungeonAddEventFlag813
+  - EventKey: 21_10_13DungeonAddEventFlag1012
     Timing: 3010
     Type: 6010
-    PositionX: 11
-    PositionY: 5
-    Param: 813
+    PositionX: 10
+    PositionY: 13
+    Param: 1012
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_8_13DungeonNone813
+  - EventKey: 21_10_12DungeonNone1012
     Timing: 3010
     Type: 0
-    PositionX: 8
-    PositionY: 13
-    Param: 813
+    PositionX: 10
+    PositionY: 12
+    Param: 1012
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_11_5DungeonActorEvent1
+  - EventKey: 21_10_13DungeonActorEvent1
     Timing: 3010
     Type: 1020
-    PositionX: 11
-    PositionY: 5
+    PositionX: 10
+    PositionY: 13
     Param: 1
     Param2: 2
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_11_5DungeonEventEnd0
+  - EventKey: 21_10_13DungeonEventEnd0
     Timing: 3010
     Type: 9010
-    PositionX: 11
-    PositionY: 5
+    PositionX: 10
+    PositionY: 13
     Param: 0
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_9_5DungeonGetArtifact2010
+  - EventKey: 21_11_5DungeonGetArtifact2010
     Timing: 3010
     Type: 3010
-    PositionX: 9
+    PositionX: 11
     PositionY: 5
     Param: 2010
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_4_9DungeonGetItem4010
+  - EventKey: 21_4_9DungeonGetItem5050
     Timing: 3010
     Type: 3020
     PositionX: 4
     PositionY: 9
-    Param: 4010
+    Param: 5050
     Param2: 1
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_3_13DungeonGetItem3010
+  - EventKey: 21_6_5DungeonGetItem3010
     Timing: 3010
     Type: 3020
-    PositionX: 3
-    PositionY: 13
+    PositionX: 6
+    PositionY: 5
     Param: 3010
+    Param2: 1
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 21_13_14DungeonGetItem4010
+    Timing: 3010
+    Type: 3020
+    PositionX: 13
+    PositionY: 14
+    Param: 4010
     Param2: 1
     Param3: 0
     ReadFlag: 1
@@ -1416,47 +1425,47 @@ MonoBehaviour:
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_6_13DungeonAdvStart140
+  - EventKey: 21_9_5DungeonAdvStart140
     Timing: 3010
     Type: 1010
-    PositionX: 6
-    PositionY: 13
+    PositionX: 9
+    PositionY: 5
     Param: 140
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_6_13DungeonAddEventFlag413
+  - EventKey: 21_9_5DungeonAddEventFlag85
     Timing: 3010
     Type: 6010
-    PositionX: 6
-    PositionY: 13
-    Param: 413
+    PositionX: 9
+    PositionY: 5
+    Param: 85
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_4_13DungeonNone413
+  - EventKey: 21_8_5DungeonNone85
     Timing: 3010
     Type: 0
-    PositionX: 4
-    PositionY: 13
-    Param: 413
+    PositionX: 8
+    PositionY: 5
+    Param: 85
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_6_13DungeonActorEvent1
+  - EventKey: 21_9_5DungeonActorEvent1
     Timing: 3010
     Type: 1020
-    PositionX: 6
-    PositionY: 13
+    PositionX: 9
+    PositionY: 5
     Param: 1
     Param2: 3
     Param3: 0
     ReadFlag: 1
-  - EventKey: 21_6_13DungeonEventEnd0
+  - EventKey: 21_9_5DungeonEventEnd0
     Timing: 3010
     Type: 9010
-    PositionX: 6
-    PositionY: 13
+    PositionX: 9
+    PositionY: 5
     Param: 0
     Param2: 0
     Param3: 0
