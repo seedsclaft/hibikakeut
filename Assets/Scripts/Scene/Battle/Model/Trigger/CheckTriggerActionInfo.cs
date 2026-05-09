@@ -491,7 +491,7 @@ namespace Ryneus
             var actionResultInfos = checkTriggerInfo.ActionResultInfos;
             if (battlerInfo.IsAlive() && actionResultInfos != null)
             {
-                if (actionResultInfos.Find(a => checkTriggerInfo.Opponents.Find(b => a.DeadIndexList.Contains(b.Index.Value)) != null) != null)
+                if (actionResultInfos.Find(a => a.SubjectIndex.Value == battlerInfo.Index.Value && checkTriggerInfo.Opponents.Find(b => a.DeadIndexList.Contains(b.Index.Value)) != null) != null)
                 {
                     list.Add(battlerInfo.Index.Value);
                 }

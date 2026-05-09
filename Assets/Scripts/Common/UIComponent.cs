@@ -82,6 +82,29 @@ namespace Ryneus
             }
         }
 
+        public static void SetPrefab(GameObject gameObject, string path, System.Action<GameObject> endCall = null)
+        {
+            if (gameObject == null)
+            {
+                return;
+            }
+            var asset = ResourceSystem.GetAsset<GameObject>(path);
+            if (asset != null)
+            {
+                var prefab = Object.Instantiate(asset);
+                prefab.transform.SetParent(gameObject.transform, false);
+            }
+            else
+            {
+                ResourceSystem.LoadAssetData<GameObject>(path, (result) =>
+                {
+                    var prefab = Object.Instantiate(result);
+                    prefab.transform.SetParent(gameObject.transform, false);
+                    endCall?.Invoke(prefab);
+                });
+            }
+        }
+
         public static void SetImage(Image image, Sprite sprite)
         {
             if (image == null)

@@ -32,9 +32,9 @@ namespace Ryneus
             _ = new SideMenuPresenter(this);
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(System.Action endEvent)
         {
-            sideMenuAnimation?.OpenAnimation(UiRoot.transform, null);
+            sideMenuAnimation.OpenAnimation(UiRoot.transform, endEvent);
         }
 
         private void OnClickSideMenu()

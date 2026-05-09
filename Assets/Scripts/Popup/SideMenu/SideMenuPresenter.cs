@@ -16,18 +16,24 @@ namespace Ryneus
             _view = view;
             SetView(_view);
             _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
+            Initialize(false);
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new SideMenuModel();
             SetModel(_model);
-            SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            ClosePopup();
-            CommandRefresh();
             _view.SetSideMenuViewInfo(_model.SceneParam);
-            _view.OpenAnimation();
+            _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
+            ClosePopup();
         }
 
         private void UpdateCommand(ViewEvent viewEvent)
@@ -43,7 +49,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize();
+                    Initialize(true);
                     break;
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu((SystemData.CommandData)viewEvent.Template);

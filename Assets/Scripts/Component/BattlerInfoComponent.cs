@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using Effekseer;
-using System.Threading.Tasks;
 
 namespace Ryneus
 {

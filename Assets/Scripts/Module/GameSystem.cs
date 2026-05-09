@@ -361,10 +361,10 @@ namespace Ryneus
             var baseView = prefab.GetComponent<BaseView>();
             if (first)
             {
-                var popupAnimation = prefab.GetComponent<PopupAnimation>();
-                popupAnimation?.Initialize(baseView.UiRoot.transform);
+                var baseAnimation = prefab.GetComponent<BaseAnimation>();
+                baseAnimation?.Initialize(baseView.UiRoot.transform);
                 await UniTask.DelayFrame(1);
-                baseView.SetEvent((type) => UpdateCommand(type));
+                baseView.SetEvent(async (type) => await UpdateCommand(type));
             }
             baseView.Initialize();
             if (first)

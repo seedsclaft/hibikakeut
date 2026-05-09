@@ -156,6 +156,11 @@ namespace Ryneus
             return ActorTexturePath + path + "/Awaken";
         }
 
+        public static string ActorBattleThumbPath(string path)
+        {
+            return ActorTexturePath + path + "/MainThumb";
+        }
+
         public static string ActorReliefSpritePath(string path)
         {
             return ActorTexturePath + path + "/Relief";

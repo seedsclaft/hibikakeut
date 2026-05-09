@@ -8,7 +8,8 @@ namespace Ryneus
     [Serializable]
     public class ActorInfo
     {
-        public ActorData Master => DataSystem.FindActor(ActorId.Value);
+        private ActorData _master = null;
+        public ActorData Master => _master == null ? DataSystem.FindActor(ActorId.Value) : _master;
         public ParameterInt ActorId = new();
 
         public ParameterInt Exp = new();

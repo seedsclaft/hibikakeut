@@ -11,9 +11,12 @@ namespace Ryneus
         {
             Busy.SetValue(true);
             transform.DOLocalMoveX(240, duration);
+            transform.DOScaleX(1, 0);
+            transform.DOScaleY(1, 0);
             BaseCanvas.alpha = 0;
             DOTween.Sequence()
                 .Append(transform.DOLocalMoveX(0, duration))
+                .Join(transform.DOScaleX(1, duration))
                 .Join(BaseCanvas.DOFade(1, duration)
                 .OnComplete(() =>
 
