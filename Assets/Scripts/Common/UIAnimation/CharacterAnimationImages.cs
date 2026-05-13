@@ -187,5 +187,6 @@ namespace Ryneus
         Hit = 30, // ダメージ
         Death = 100,
         Walk = 200,
+        Run = 300,
     }
 }

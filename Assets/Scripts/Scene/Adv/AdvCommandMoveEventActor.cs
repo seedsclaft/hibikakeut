@@ -9,7 +9,7 @@ namespace Utage
         private string _fileName = "";
         private float _posX = 0;
         private float _posY = 0;
-        private int _duration = 0;
+        private float _duration = 0;
 
         public AdvCommandMoveEventActor(StringGridRow row)
             : base(row)
@@ -18,7 +18,7 @@ namespace Utage
             _fileName = ParseCell<string>(AdvColumnName.Arg2);
             _posX = ParseCell<float>(AdvColumnName.Arg3);
             _posY = ParseCell<float>(AdvColumnName.Arg4);
-            _duration = ParseCell<int>(AdvColumnName.Arg5);
+            _duration = ParseCell<float>(AdvColumnName.Arg5);
         }
 
         public override void DoCommand(AdvEngine engine)
