@@ -25,7 +25,20 @@ namespace Ryneus
         public List<int> EquipmentIds => _equipmentIds;
         public void ChangeEquipment(int changeEquipmentId, int index)
         {
+            if (_equipmentIds.Contains(changeEquipmentId))
+            {
+                return;
+            }
             _equipmentIds[index] = changeEquipmentId;
+        }
+
+        public void RemoveEquipment(int removeEquipmentId)
+        {
+            var findIndex = _equipmentIds.FindIndex(a => a == removeEquipmentId);
+            if (findIndex > -1)
+            {
+                _equipmentIds[findIndex] = 10;
+            }
         }
 
         [SerializeField] private List<int> _mastarySkillIds = new();
@@ -55,6 +68,7 @@ namespace Ryneus
 
         public int NeedMastarySkillExp(int skillId)
         {
+            return 100;
             var basecost = EquipSkillCost(skillId, null, null);
             if (basecost == 0)
             {
@@ -79,6 +93,13 @@ namespace Ryneus
                 return 1;
             }
             return _mastarySkillExps[skillId] * 0.01f / (basecost * 0.01f);
+        }
+
+        public int GetSkillExp(AttributeType attributeType, int rate, List<ActorInfo> stageMembers)
+        {
+            var param = AttributeRanks(stageMembers)[(int)attributeType];
+            var skillExpRate = TacticsUtility.AttributeRankSkillExp(param);
+            return (int)MathF.Ceiling(rate * skillExpRate);
         }
 
         [SerializeField] private List<ParameterInt> _equipmentSkillIds = new();

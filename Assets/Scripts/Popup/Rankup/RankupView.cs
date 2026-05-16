@@ -20,7 +20,7 @@ namespace Ryneus
 
         public void OpenAnimation()
         {
-            confirmAnimation.OpenAnimation(UiRoot.transform,null);
+            confirmAnimation.OpenAnimation(UiRoot.transform, null);
         }
 
         public void SetRankupInfo(RankupInfo rankupInfo)

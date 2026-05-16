@@ -26,7 +26,7 @@ namespace Ryneus
     [Serializable]
     public enum ItemType
     {
-        RandumAddSkill = 10,
+        RandumAddEquipment = 10,
         Artifact = 20,
         Currency = 30,
         UseItem = 40,

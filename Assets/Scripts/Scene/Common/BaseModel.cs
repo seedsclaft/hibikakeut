@@ -597,6 +597,16 @@ namespace Ryneus
                 }
             }
 
+            // 装備
+            var equipmentGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Equipment);
+            foreach (var equipmentGetItemInfo in equipmentGetItemInfos)
+            {
+                var resultInfo = new GetItemResultViewInfo();
+                var equipmentData = DataSystem.FindEquipment(equipmentGetItemInfo.Param1);
+                resultInfo.Title.SetValue(equipmentData.Name);
+                list.Add(resultInfo);
+            }
+
             // 評価値
             var evaluateGetItemInfos = getItemInfos.FindAll(a => a.GetItemType == GetItemType.Evaluate);
             foreach (var evaluateGetItemInfo in evaluateGetItemInfos)
@@ -678,20 +688,20 @@ namespace Ryneus
         {
             switch (itemData.ItemType)
             {
-                case ItemType.RandumAddSkill:
-                    // ランダムでparam2属性のparam1Rankを入手
-                    var candidateSkills = DataSystem.Dates[DataType.Skills].FindAll<SkillData>(a => SkillData.ConvertRankCost(a.Rank) == itemData.Param1 && a.Rank != RankType.PassiveEnhanceRank1 && a.IsRandumAddSkill() && !PartyInfo.LearningSkillIds.Contains(a.Id));
+                case ItemType.RandumAddEquipment:
+                    // ランダムでparam2属性のparam1Rank装備を入手
+                    var candidateEquipments = DataSystem.Dates[DataType.Equipment].FindAll<EquipmentData>(a => a.Rank == itemData.Param1 && !PartyInfo.EquipmentIds.Contains(a.Id));
                     if (itemData.Param2 != -1)
                     {
-                        candidateSkills = candidateSkills.Where(a => (int)a.Attribute == itemData.Param2).ToList();
+                        candidateEquipments = candidateEquipments.Where(a => (int)a.Attribute == itemData.Param2).ToList();
                     }
-                    if (candidateSkills.Count == 0)
+                    if (candidateEquipments.Count == 0)
                     {
                         return MakeGetItemInfo(GetItemType.Currency, 4);
                     }
-                    var rand = UnityEngine.Random.Range(0, candidateSkills.Count);
+                    var rand = UnityEngine.Random.Range(0, candidateEquipments.Count);
                     // 報酬設定
-                    return MakeGetItemInfo(GetItemType.Skill, candidateSkills[rand].Id);
+                    return MakeGetItemInfo(GetItemType.Equipment, candidateEquipments[rand].Id);
                 case ItemType.RandumAddItem:
                     // ランダムでparam1が同じアイテム
                     var candidateItems = DataSystem.Dates[DataType.Items].FindAll<ItemData>(a => a.ItemType == ItemType.UseItem && (int)a.Param1 == itemData.Param1);

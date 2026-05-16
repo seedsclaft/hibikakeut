@@ -47,7 +47,7 @@ namespace Ryneus
             _itemInfo = data;
             component.UpdateInfo(data);
             UIComponent.SetActive(Disable, !ListData.Enable.Value);
-            UIComponent.SetActive(detailButton?.gameObject, data.Master.ItemType == ItemType.RandumAddSkill);
+            UIComponent.SetActive(detailButton?.gameObject, data.Master.ItemType == ItemType.RandumAddEquipment);
         }
     }
 }

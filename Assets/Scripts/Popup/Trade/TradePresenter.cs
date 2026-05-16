@@ -143,7 +143,7 @@ namespace Ryneus
             if (tradeItemInfo.GetItemInfo.Master.Type == GetItemType.Item)
             {
                 var itemInfo = new ItemInfo(tradeItemInfo.GetItemInfo.Param1, 1);
-                if (itemInfo.Master.ItemType == ItemType.RandumAddSkill)
+                if (itemInfo.Master.ItemType == ItemType.RandumAddEquipment)
                 {
                     var skillInfos = _model.GetRandumAddSkillInfos(itemInfo);
                     CallConfirmSkillDetailView(DataSystem.GetText(34060), skillInfos, (a) =>

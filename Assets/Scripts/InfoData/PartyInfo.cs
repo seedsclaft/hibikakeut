@@ -242,7 +242,7 @@ namespace Ryneus
             foreach (var item in _items)
             {
                 var master = DataSystem.FindItem(item.Key);
-                if (master != null && item.Value.Value > 0 && (master.ItemType == ItemType.RandumAddSkill || master.ItemType == ItemType.Currency))
+                if (master != null && item.Value.Value > 0 && (master.ItemType == ItemType.RandumAddEquipment || master.ItemType == ItemType.Currency))
                 {
                     return true;
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 namespace Ryneus
@@ -2726,6 +2727,38 @@ namespace Ryneus
             // スキル経験値を代入
             foreach (var battlerInfo in UnitBattlerActors())
             {
+                var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == battlerInfo.ActorInfo.ActorId.Value);
+                foreach (var equipmentId in battlerInfo.ActorInfo.EquipmentIds)
+                {
+                    var equipmentData = DataSystem.FindEquipment(equipmentId);
+                    foreach (var learningDate in equipmentData.LearningDates)
+                    {
+                        // スキル経験値 = 属性適正 x 習熟スピード
+                        var skillExp = target.GetSkillExp(DataSystem.FindSkill(learningDate.SkillId).Attribute, learningDate.Rate, PartyInfo.EditableActorInfos());
+                        var learned = target.GainSkillExp(learningDate.SkillId, skillExp);                        
+                        // 会得していたら
+                        if (learned && !target.MastarySkillIds.Contains(learningDate.SkillId) && !target.IsLearnedSkill(learningDate.SkillId))
+                        {
+                            var skillMastary = new GetItemData
+                            {
+                                Type = GetItemType.SkillMastary,
+                                Param1 = battlerInfo.ActorInfo.ActorId.Value,
+                                Param2 = learningDate.SkillId
+                            };
+                            var skillMastaryItem = new GetItemInfo(skillMastary);
+                            list.Add(skillMastaryItem);
+                            // 進化スキルがあれば習得する
+                            /*
+                            var nextSkill = DataSystem.FindSkill(learningDate.SkillId + 1);
+                            if (nextSkill != null && nextSkill.Rank > 0 && !PartyInfo.LearningSkillIds.Contains(nextSkill.Id))
+                            {
+                                list.Add(MakeGetItemInfo(GetItemType.Skill, nextSkill.Id));
+                            }
+                            */
+                        }
+                    }
+                }
+                /*
                 foreach (var useSkillCountDict in _battleRecords[battlerInfo.Index.Value].UseSkillCountDict)
                 {
                     var skillData = DataSystem.FindSkill(useSkillCountDict.Key);
@@ -2767,6 +2800,7 @@ namespace Ryneus
                         list.Add(attirbuteUpItem);
                     }
                 }
+                */
             }
             if (_sceneParam.GetItemInfos != null)
             {

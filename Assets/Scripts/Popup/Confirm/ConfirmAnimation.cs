@@ -11,6 +11,7 @@ namespace Ryneus
         public void OpenAnimation(Transform transform, System.Action endEvent, float duration = 0.1f)
         {
             _busy = true;
+            transform.DOScaleX(1, 0);
             transform.DOScaleY(0, duration);
             BaseCanvas.alpha = 0;
             DOTween.Sequence()

@@ -117,8 +117,8 @@ namespace Ryneus
         private void InitializeEquipSkillList()
         {
             equipSkillList.Initialize();
-            //equipSkillList.SetInputHandler(InputKeyType.Decide, OnSelectEquipSkill);
-            //equipSkillList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
+            equipSkillList.SetInputHandler(InputKeyType.Decide, OnSelectEquipSkill);
+            equipSkillList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
             equipSkillList.SetInputHandler(InputKeyType.SideLeft1, CallLeftActor);
             equipSkillList.SetInputHandler(InputKeyType.SideRight1, CallRightActor);
             equipSkillList.SetInputHandler(InputKeyType.Option1, CallCharacterList);
@@ -193,7 +193,7 @@ namespace Ryneus
             var data = equipSkillList.ListItemData<SkillInfo>();
             if (data != null)
             {
-                CallViewEvent(CommandType.SelectEquipSkill, data);
+                //CallViewEvent(CommandType.SelectEquipSkill, data);
             }
         }
 
@@ -219,6 +219,9 @@ namespace Ryneus
             equipmentList.Initialize();
             equipmentList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectEquipment, equipmentList.Index));
             equipmentList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.CancelEquipment));
+            equipmentList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.DetailEquipment, equipmentList.ListItemData<EquipmentInfo>()));
+            equipmentList.SetInputHandler(InputKeyType.SideLeft1, CallLeftActor);
+            equipmentList.SetInputHandler(InputKeyType.SideRight1, CallRightActor);
             AddViewActives(equipmentList);
         }
 
@@ -227,6 +230,7 @@ namespace Ryneus
             changeEquipmentList.Initialize();
             changeEquipmentList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectChangeEquipment, changeEquipmentList.ListItemData<EquipmentInfo>()));
             changeEquipmentList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.CancelChangeEquipment));
+            changeEquipmentList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.DetailEquipment, changeEquipmentList.ListItemData<EquipmentInfo>()));
             AddViewActives(changeEquipmentList);
         }
 
@@ -330,7 +334,7 @@ namespace Ryneus
             SetActivate(equipmentList);
             UIComponent.SetActive(changeEquipmentList?.gameObject, false);
             UIComponent.SetActive(equipSkillList?.gameObject, false);
-            UIComponent.SetActive(magicListButton?.gameObject, false);
+            UIComponent.SetActive(magicListButton?.gameObject, true);
             UIComponent.SetActive(useItemButton?.gameObject, false);
             //useItemList.gameObject.SetActive(false);
             UIComponent.SetActive(filterRoot, true);
@@ -355,8 +359,8 @@ namespace Ryneus
             UIComponent.SetActive(changeSkillList?.gameObject, true);
             UIComponent.SetActive(equipmentList?.gameObject, false);
             UIComponent.SetActive(equipSkillList?.gameObject, false);
-            UIComponent.SetActive(magicListButton?.gameObject, false);
-            UIComponent.SetActive(useItemButton?.gameObject, false);
+            //UIComponent.SetActive(magicListButton?.gameObject, false);
+            //UIComponent.SetActive(useItemButton?.gameObject, false);
             //useItemList.gameObject.SetActive(false);
             UIComponent.SetActive(filterRoot, true);
         }
@@ -487,7 +491,7 @@ namespace Ryneus
         {
             if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
             {
-                if (magicListButton.gameObject.activeSelf)
+                if (equipSkillList.gameObject.activeSelf)
                 {
                     CallViewEvent(CommandType.ChangeEquipment);
                 }
@@ -614,6 +618,7 @@ namespace Ryneus
             CancelEquipment,
             SelectChangeEquipment,
             CancelChangeEquipment,
+            DetailEquipment,
             CharacterList,
             SelectCharacter,
             SelectCommandList,

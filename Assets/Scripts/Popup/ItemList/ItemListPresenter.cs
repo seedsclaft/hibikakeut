@@ -145,7 +145,7 @@ namespace Ryneus
             }
             switch (itemInfo.Master.ItemType)
             {
-                case ItemType.RandumAddSkill:
+                case ItemType.RandumAddEquipment:
                     CommandDetailSkill(itemInfo);
                     break;
             }

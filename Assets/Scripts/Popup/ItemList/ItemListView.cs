@@ -92,7 +92,7 @@ namespace Ryneus
             }
             var isActive = false;
             var itemInfo = itemList.ListItemData<ItemInfo>();
-            if (itemInfo != null && itemInfo.Master.ItemType == ItemType.RandumAddSkill)
+            if (itemInfo != null && itemInfo.Master.ItemType == ItemType.RandumAddEquipment)
             {
                 isActive = true;
             }

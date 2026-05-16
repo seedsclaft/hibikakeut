@@ -14,6 +14,8 @@ namespace Ryneus
     {
         public string Name;
         public string ImagePath;
+        public int Rank;
+        public AttributeType Attribute;
         public List<EquipmentLearningData> LearningDates;
 
     }

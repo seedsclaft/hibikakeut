@@ -101,6 +101,9 @@ namespace Ryneus
                 case CommandType.CancelChangeEquipment:
                     CommandCancelChangeEquipment();
                     return;
+                case CommandType.DetailEquipment:
+                    CommandDetailEquipment((EquipmentInfo)viewEvent.Template);
+                    return;
                 case CommandType.CharacterList:
                     CommandCharacterList();
                     return;
@@ -400,15 +403,53 @@ namespace Ryneus
 
         private void CommandSelectChangeEquipment(EquipmentInfo equipmentInfo)
         {
+            // だれかが装備している
+            var equipmentActor = _model.EquipmentSkill(equipmentInfo);
+            if (equipmentActor != null && equipmentInfo.EquipmentId.Value != 10 && equipmentActor.ActorId.Value != _model.CurrentActor.ActorId.Value)
+            {
+                CallConfirmView(DataSystem.GetReplaceText(14020, equipmentInfo.Master.Name) + DataSystem.GetReplaceText(14021, equipmentActor.Master.Name),(a) =>
+                {
+                    if (a == ConfirmCommandType.Yes)
+                    {
+                        _model.RemoveEquipment(equipmentActor, equipmentInfo);
+                        _model.ChangeEquipment(equipmentInfo);
+                        _view.CallEquipment();
+                        _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
+                        _model.PartyInfo.PartyStatInfo.StatusSkillChangeCount.GainValue(1);
+                        CheckAchievements();
+                    }
+                    _busy = false;
+                });
+                return;
+            }
             _model.ChangeEquipment(equipmentInfo);
             _view.CallEquipment();
             _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
+            _model.PartyInfo.PartyStatInfo.StatusSkillChangeCount.GainValue(1);
+            CheckAchievements();
         }
 
         private void CommandCancelChangeEquipment()
         {
             _view.CallEquipment();
             _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
+        }
+
+        private void CommandDetailEquipment(EquipmentInfo equipmentInfo)
+        {
+            if (equipmentInfo == null)
+            {
+                return;
+            }
+            if (equipmentInfo.LearningInfos.Count == 0)
+            {
+                return;
+            }
+            _busy = true;
+            CallConfirmSkillDetailView("", equipmentInfo.SkillInfos(), (a) =>
+            {
+                _busy = false;
+            });
         }
 
         private void CommandAutoSetSkill()
@@ -583,6 +624,7 @@ namespace Ryneus
             SaveSelectedSkillId();
             _model.ChangeActorIndex(-1);
             CommandRefreshMagicList(true);
+            _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
             CommandRefresh();
             //await UniTask.DelayFrame(16);
             _busy = false;
@@ -599,6 +641,7 @@ namespace Ryneus
             SaveSelectedSkillId();
             _model.ChangeActorIndex(1);
             CommandRefreshMagicList(true);
+            _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
             CommandRefresh();
             //await UniTask.DelayFrame(16);
             _busy = false;

@@ -86,5 +86,38 @@ namespace Ryneus
             }
             return cost;
         }
+
+        public static float AttributeRankSkillExp(AttributeRank attributeRank)
+        {
+            var rate = 1f;
+            switch (attributeRank)
+            {
+                case AttributeRank.S:
+                    rate = 1.25f;
+                    break;
+                case AttributeRank.A:
+                    rate = 1;
+                    break;
+                case AttributeRank.B:
+                    rate = 0.8f;
+                    break;
+                case AttributeRank.C:
+                    rate = 0.6f;
+                    break;
+                case AttributeRank.D:
+                    rate = 0.4f;
+                    break;
+                case AttributeRank.E:
+                    rate = 0.2f;
+                    break;
+                case AttributeRank.F:
+                    rate = 0.1f;
+                    break;
+                case AttributeRank.G:
+                    rate = 0;
+                    break;
+            }
+            return rate;
+        }
     }
 }

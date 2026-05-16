@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ryneus
 {
@@ -122,7 +123,7 @@ namespace Ryneus
                     {
                         EquipmentLearningInfo equipmentLearningInfo = new();
                         equipmentLearningInfo.SkillId.SetValue(learningDate.SkillId);
-                        equipmentLearningInfo.LearningRate.SetValue(learningDate.Rate);
+                        equipmentLearningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(DataSystem.FindSkill(learningDate.SkillId).Attribute, learningDate.Rate, PartyInfo.EditableActorInfos()));
                         equipmentLearningInfo.LearningExp.SetValue(CurrentActor.MastarySkillRate(learningDate.SkillId));
                         equipmentInfo.LearningInfos.Add(equipmentLearningInfo);
                     }
@@ -147,7 +148,7 @@ namespace Ryneus
                 {
                     EquipmentLearningInfo equipmentLearningInfo = new();
                     equipmentLearningInfo.SkillId.SetValue(learningDate.SkillId);
-                    equipmentLearningInfo.LearningRate.SetValue(learningDate.Rate);
+                    equipmentLearningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(DataSystem.FindSkill(learningDate.SkillId).Attribute, learningDate.Rate, PartyInfo.EditableActorInfos()));
                     equipmentLearningInfo.LearningExp.SetValue(CurrentActor.MastarySkillRate(learningDate.SkillId));
                     equipmentInfo.LearningInfos.Add(equipmentLearningInfo);
                 }
@@ -159,6 +160,11 @@ namespace Ryneus
         public void ChangeEquipment(EquipmentInfo equipmentInfo)
         {
             CurrentActor.ChangeEquipment(equipmentInfo.EquipmentId.Value, SelectEquipmentIndex.Value);
+        }
+
+        public void RemoveEquipment(ActorInfo actorInfo, EquipmentInfo equipmentInfo)
+        {
+            actorInfo.RemoveEquipment(equipmentInfo.EquipmentId.Value);
         }
 
         public List<SkillInfo> EquipSkills()
@@ -213,6 +219,12 @@ namespace Ryneus
                 return null;
             }
             var find = PartyInfo.ActorInfos.Find(a => a.EquipmentSkillIds.Find(b => b.Value == skillInfo.Id.Value) != null);
+            return find;
+        }
+
+        public ActorInfo EquipmentSkill(EquipmentInfo equipmentInfo)
+        {
+            var find = PartyInfo.ActorInfos.Find(a => a.EquipmentIds.Contains(equipmentInfo.Master.Id));
             return find;
         }
 

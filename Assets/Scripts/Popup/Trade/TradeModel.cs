@@ -56,7 +56,7 @@ namespace Ryneus
                         // 魔法を1つ抽選する
                         var randumMagic = new ItemData
                         {
-                            ItemType = ItemType.RandumAddSkill,
+                            ItemType = ItemType.RandumAddEquipment,
                             Param1 = prizeSet.GetItem.Param1,
                             Param2 = -1
                         };

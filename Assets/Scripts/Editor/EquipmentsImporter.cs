@@ -69,6 +69,8 @@ namespace Ryneus
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
                             ImagePath = AssetPostImporter.ImportString(BaseRow, "ImagePath"),
+                            Rank = AssetPostImporter.ImportNumeric(BaseRow, "Rank"),
+                            Attribute = (AttributeType)AssetPostImporter.ImportNumeric(BaseRow, "Attribute"),
                         };
                         if (EquipmentData.Id == 0)
                         {
