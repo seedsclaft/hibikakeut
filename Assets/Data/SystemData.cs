@@ -117,7 +117,7 @@ namespace Ryneus
         SelectSkill = 102,
         Ending = 210,
         Item = 1010,
-        Building = 1020,
+        Equipment = 1020,
 
         RankUp = 2010,
         Evaluate = 2020,

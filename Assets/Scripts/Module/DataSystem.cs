@@ -36,6 +36,7 @@ namespace Ryneus
             Dates[DataType.Helps] = MasterDates.MasterData(ResourceSystem.LoadResource<HelpDates>("Data/Helps").Data);
             Dates[DataType.Skills] = MasterDates.MasterData(ResourceSystem.LoadResource<SkillDates>("Data/Skills").Data);
             Dates[DataType.Items] = MasterDates.MasterData(ResourceSystem.LoadResource<ItemDates>("Data/Items").Data);
+            Dates[DataType.Equipment] = MasterDates.MasterData(ResourceSystem.LoadResource<EquipmentDates>("Data/Equipments").Data);
             Dates[DataType.Stages] = MasterDates.MasterData(ResourceSystem.LoadResource<StageDates>("Data/Stages").Data);
             Dates[DataType.States] = MasterDates.MasterData(ResourceSystem.LoadResource<StateDates>("Data/States").Data);
 
@@ -85,6 +86,11 @@ namespace Ryneus
         public static ItemData FindItem(int id)
         {
             return Dates[DataType.Items].Find<ItemData>(id);
+        }
+
+        public static EquipmentData FindEquipment(int id)
+        {
+            return Dates[DataType.Equipment].Find<EquipmentData>(id);
         }
 
         public static AnimationData FindAnimation(int id)

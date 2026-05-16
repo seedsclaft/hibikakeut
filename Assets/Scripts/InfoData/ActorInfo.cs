@@ -21,6 +21,13 @@ namespace Ryneus
             Exp.SetValue((level - 1) * 100);
         }
 
+        [SerializeField] private List<int> _equipmentIds = new();
+        public List<int> EquipmentIds => _equipmentIds;
+        public void ChangeEquipment(int changeEquipmentId, int index)
+        {
+            _equipmentIds[index] = changeEquipmentId;
+        }
+
         [SerializeField] private List<int> _mastarySkillIds = new();
         public List<int> MastarySkillIds => _mastarySkillIds;
         public void GainSkillMastary(int skillId)
@@ -181,6 +188,8 @@ namespace Ryneus
             CurrentCost.SetValue(Master.InitStatus.Cost);
             InitSkillInfo();
             InitSkillTriggerInfos();
+            _equipmentIds.Add(10);
+            _equipmentIds.Add(10);
         }
 
         public void CopyData(ActorInfo baseActorInfo)
@@ -260,10 +269,6 @@ namespace Ryneus
                 }
 
                 var skillInfo = new SkillInfo(learningData.SkillId);
-                if (_learnSkillIds == null)
-                {
-                    _learnSkillIds = new();
-                }
                 if (Level >= learningData.Level && learningData.Level >= 0 || _learnSkillIds.Contains(learningData.SkillId))
                 {
                     skillInfo.SetLearningState(LearningState.Learned);

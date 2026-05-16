@@ -86,8 +86,20 @@ namespace Ryneus
                 case CommandType.CancelUseItem:
                     CommandCancelUseItem();
                     return;
-                case CommandType.AutoSetSkill:
-                    CommandAutoSetSkill();
+                case CommandType.ChangeEquipment:
+                    CommandChangeEquipment();
+                    return;
+                case CommandType.SelectEquipment:
+                    CommandSelectEquipment((int)viewEvent.Template);
+                    return;
+                case CommandType.CancelEquipment:
+                    CommandCancelEquipment();
+                    return;
+                case CommandType.SelectChangeEquipment:
+                    CommandSelectChangeEquipment((EquipmentInfo)viewEvent.Template);
+                    return;
+                case CommandType.CancelChangeEquipment:
+                    CommandCancelChangeEquipment();
                     return;
                 case CommandType.CharacterList:
                     CommandCharacterList();
@@ -367,6 +379,38 @@ namespace Ryneus
             _view.CallEquipSkillList(_model.SceneParam.AddActor.Value);
         }
 
+        private void CommandChangeEquipment()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _view.CallEquipment();
+            _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
+        }
+
+        private void CommandSelectEquipment(int selectIndex)
+        {
+            _model.SelectEquipmentIndex.SetValue(selectIndex);
+            _view.CallChangeEquipment();
+            _view.SetChangeEquipmentInfo(MakeListData(_model.EquipmentInfos(), 0));
+        }
+
+        private void CommandCancelEquipment()
+        {
+            _view.CallEquipSkillList(_model.SceneParam.AddActor.Value);
+        }
+
+        private void CommandSelectChangeEquipment(EquipmentInfo equipmentInfo)
+        {
+            _model.ChangeEquipment(equipmentInfo);
+            _view.CallEquipment();
+            _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
+        }
+
+        private void CommandCancelChangeEquipment()
+        {
+            _view.CallEquipment();
+            _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
+        }
+
         private void CommandAutoSetSkill()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
@@ -575,7 +619,7 @@ namespace Ryneus
         private void CommandRefreshMagicList(bool resetListIndex)
         {
             CommandRefresh();
-            _view.SetEquipSkillList(MakeListData(_model.EquipSkills(), 0), resetListIndex);
+            _view.SetEquipSkillList(MakeListData(_model.Skills(), 0), resetListIndex);
         }
 
         private void SaveSelectedSkillId()

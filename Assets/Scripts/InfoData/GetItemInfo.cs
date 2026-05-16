@@ -80,6 +80,8 @@ namespace Ryneus
 
                 case GetItemType.Item:
                     return DataSystem.FindItem(Param1).Name + " x" + Param2.ToString();
+                case GetItemType.Equipment:
+                    return DataSystem.FindEquipment(Param1).Name;
                 case GetItemType.Evaluate:
                     return DataSystem.GetText(3210) + Param1;
                 case GetItemType.RankUp:

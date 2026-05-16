@@ -7,6 +7,7 @@ namespace Ryneus
     {
         [SerializeField] private SkillInfoComponent skillInfoComponent;
         [SerializeField] private ItemInfoComponent itemInfoComponent;
+        [SerializeField] private EquipmentInfoComponent equipmentInfoComponent;
         [SerializeField] private TextMeshProUGUI titleName;
         [SerializeField] private GameObject itemIconRoot;
 
@@ -33,6 +34,12 @@ namespace Ryneus
             {
                 UIComponent.SetActive(itemIconRoot, true);
                 itemInfoComponent.UpdateDate(DataSystem.FindItem(getItemData.Param1));
+            }
+            else
+            if (getItemData.Type == GetItemType.Equipment && equipmentInfoComponent != null)
+            {
+                UIComponent.SetActive(itemIconRoot, true);
+                equipmentInfoComponent.UpdateData(DataSystem.FindEquipment(getItemData.Param1));
             }
             else
             {

@@ -66,6 +66,7 @@ namespace Ryneus
         Helps,
         Skills,
         Items,
+        Equipment,
         Stages,
         States,
         TextDates,

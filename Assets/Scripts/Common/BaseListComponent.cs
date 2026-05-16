@@ -20,6 +20,10 @@ namespace Ryneus
         [SerializeField] private StageInfoComponent stageInfoComponent;
         [SerializeField] private bool useItemInfoComponent = false;
         [SerializeField] private ItemInfoComponent itemInfoComponent;
+        [SerializeField] private bool useEquipmentInfoComponent = false;
+        [SerializeField] private EquipmentInfoComponent equipmentInfoComponent;
+        [SerializeField] private bool useEquipmentLearningInfoComponent = false;
+        [SerializeField] private EquipmentLearningInfoComponent equipmentLearningInfoComponent;
 
 
         public void UpdateViewItem()
@@ -62,6 +66,16 @@ namespace Ryneus
             {
                 var itemInfo = ListItemData<ItemInfo>();
                 itemInfoComponent.UpdateInfo(itemInfo);
+            }
+            if (equipmentInfoComponent != null && useEquipmentInfoComponent)
+            {
+                var equipmentInfo = ListItemData<EquipmentInfo>();
+                equipmentInfoComponent.UpdateInfo(equipmentInfo);
+            }
+            if (equipmentLearningInfoComponent != null && useEquipmentLearningInfoComponent)
+            {
+                var equipmentLearningInfo = ListItemData<EquipmentLearningInfo>();
+                equipmentLearningInfoComponent.UpdateInfo(equipmentLearningInfo);
             }
             UIComponent.SetActive(Disable, !ListData.Enable.Value);
             UIComponent.SetActive(Batch, ListData.Batch.Value);

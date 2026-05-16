@@ -212,6 +212,10 @@ namespace Ryneus
             return hpHeal;
         }
 
+        // 所持装備
+        [SerializeField] private List<int> _equipmentIds = new();
+        public List<int> EquipmentIds => _equipmentIds;
+
         // 所持アイテム
         private Dictionary<int, ParameterInt> _items = new();
         public Dictionary<int, ParameterInt> Items => _items;
@@ -558,7 +562,11 @@ namespace Ryneus
                 case GetItemType.Item:
                     GainItemNum(getItemInfo.Param1, getItemInfo.Param2);
                     break;
-                case GetItemType.Building:
+                case GetItemType.Equipment:
+                    if (!_equipmentIds.Contains(getItemInfo.Param1))
+                    {
+                        _equipmentIds.Add(getItemInfo.Param1);
+                    }
                     break;
                 case GetItemType.RankUp:
                     MissionRank.GainValue(1);

@@ -15,6 +15,8 @@ namespace Ryneus
         [SerializeField] private GameObject leftLayer = null;
         [SerializeField] private GameObject rightLayer = null;
         [SerializeField] private MagicList equipSkillList = null;
+        [SerializeField] private EquipmentList equipmentList = null;
+        [SerializeField] private EquipmentList changeEquipmentList = null;
         [SerializeField] private MagicList changeSkillList = null;
         [SerializeField] private GameObject filterRoot = null;
         [SerializeField] private TextMeshProUGUI filterAttribute = null;
@@ -46,6 +48,8 @@ namespace Ryneus
 
             InitializeEquipSkillList();
             InitializeChangeSkillList();
+            InitializeEquipmentList();
+            InitializeChangeEquipmentList();
             InitializeUseItemList();
             InitializeActorTabList();
             if (statusLevelUp != null)
@@ -91,7 +95,7 @@ namespace Ryneus
             }
             if (magicListButton != null)
             {
-                magicListButton.OnClickAddListener(() => CallViewEvent(CommandType.AutoSetSkill));
+                magicListButton.OnClickAddListener(() => CallViewEvent(CommandType.ChangeEquipment));
             }
             if (leftLayer != null)
             {
@@ -113,8 +117,8 @@ namespace Ryneus
         private void InitializeEquipSkillList()
         {
             equipSkillList.Initialize();
-            equipSkillList.SetInputHandler(InputKeyType.Decide, OnSelectEquipSkill);
-            equipSkillList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
+            //equipSkillList.SetInputHandler(InputKeyType.Decide, OnSelectEquipSkill);
+            //equipSkillList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.Back));
             equipSkillList.SetInputHandler(InputKeyType.SideLeft1, CallLeftActor);
             equipSkillList.SetInputHandler(InputKeyType.SideRight1, CallRightActor);
             equipSkillList.SetInputHandler(InputKeyType.Option1, CallCharacterList);
@@ -161,6 +165,18 @@ namespace Ryneus
             selectingActorInfoComponent.UpdateInfo(actorInfo, partyInfo);
         }
 
+        public void SetEquipmentInfo(List<ListData> equipmentInfos)
+        {
+            equipmentList.SetData(equipmentInfos);
+            equipmentList.UpdateHelpWindow();
+        }
+
+        public void SetChangeEquipmentInfo(List<ListData> equipmentInfos)
+        {
+            changeEquipmentList.SetData(equipmentInfos);
+            changeEquipmentList.UpdateHelpWindow();
+        }
+
         public void SetActiveActorInfo(bool isActive)
         {
             UIComponent.SetActive(selectingActorInfoComponent?.gameObject, isActive);
@@ -196,6 +212,22 @@ namespace Ryneus
             //changeSkillList.SetInputHandler(InputKeyType.SideLeft1,() => CallViewEvent(CommandType.FilterMinus));
             //changeSkillList.SetInputHandler(InputKeyType.SideRight1,() => CallViewEvent(CommandType.FilterPlus));
             AddViewActives(changeSkillList);
+        }
+
+        private void InitializeEquipmentList()
+        {
+            equipmentList.Initialize();
+            equipmentList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectEquipment, equipmentList.Index));
+            equipmentList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.CancelEquipment));
+            AddViewActives(equipmentList);
+        }
+
+        private void InitializeChangeEquipmentList()
+        {
+            changeEquipmentList.Initialize();
+            changeEquipmentList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.SelectChangeEquipment, changeEquipmentList.ListItemData<EquipmentInfo>()));
+            changeEquipmentList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.CancelChangeEquipment));
+            AddViewActives(changeEquipmentList);
         }
 
         public void SetChangeSkillList(List<ListData> skillInfos, string filterText)
@@ -279,6 +311,8 @@ namespace Ryneus
             UIComponent.SetActive(useItemRoot, false);
             SetActivate(equipSkillList);
             UIComponent.SetActive(equipSkillList?.gameObject, true);
+            UIComponent.SetActive(equipmentList?.gameObject, false);
+            UIComponent.SetActive(changeEquipmentList?.gameObject, false);
             if (!isDecide)
             {
                 UIComponent.SetActive(magicListButton?.gameObject, true);
@@ -289,10 +323,37 @@ namespace Ryneus
             UIComponent.SetActive(filterRoot, false);
         }
 
+        public void CallEquipment()
+        {
+            UIComponent.SetActive(changeSkillList?.gameObject, false);
+            UIComponent.SetActive(equipmentList?.gameObject, true);
+            SetActivate(equipmentList);
+            UIComponent.SetActive(changeEquipmentList?.gameObject, false);
+            UIComponent.SetActive(equipSkillList?.gameObject, false);
+            UIComponent.SetActive(magicListButton?.gameObject, false);
+            UIComponent.SetActive(useItemButton?.gameObject, false);
+            //useItemList.gameObject.SetActive(false);
+            UIComponent.SetActive(filterRoot, true);
+        }
+
+        public void CallChangeEquipment()
+        {
+            UIComponent.SetActive(changeSkillList?.gameObject, false);
+            UIComponent.SetActive(equipmentList?.gameObject, false);
+            UIComponent.SetActive(changeEquipmentList?.gameObject, true);
+            SetActivate(changeEquipmentList);
+            UIComponent.SetActive(equipSkillList?.gameObject, false);
+            UIComponent.SetActive(magicListButton?.gameObject, false);
+            UIComponent.SetActive(useItemButton?.gameObject, false);
+            //useItemList.gameObject.SetActive(false);
+            UIComponent.SetActive(filterRoot, true);
+        }
+
         public void CallChangeSkillList()
         {
             SetActivate(changeSkillList);
             UIComponent.SetActive(changeSkillList?.gameObject, true);
+            UIComponent.SetActive(equipmentList?.gameObject, false);
             UIComponent.SetActive(equipSkillList?.gameObject, false);
             UIComponent.SetActive(magicListButton?.gameObject, false);
             UIComponent.SetActive(useItemButton?.gameObject, false);
@@ -428,7 +489,7 @@ namespace Ryneus
             {
                 if (magicListButton.gameObject.activeSelf)
                 {
-                    CallViewEvent(CommandType.AutoSetSkill);
+                    CallViewEvent(CommandType.ChangeEquipment);
                 }
             }
             if (InputSystem.GetInputDate(InputKeyType.Option2).IsDownTrigger())
@@ -548,7 +609,11 @@ namespace Ryneus
             ShowUseItem,
             UseItem,
             CancelUseItem,
-            AutoSetSkill,
+            ChangeEquipment,
+            SelectEquipment,
+            CancelEquipment,
+            SelectChangeEquipment,
+            CancelChangeEquipment,
             CharacterList,
             SelectCharacter,
             SelectCommandList,

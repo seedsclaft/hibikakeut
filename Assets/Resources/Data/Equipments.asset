@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c8feffe4b4fa74a96e6fa9e10cc881, type: 3}
+  m_Name: Equipments
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.EquipmentDates
+  Data:
+  - Id: 10
+    Name: "\u88C5\u5099\u306A\u3057"
+    ImagePath: 10
+    LearningDates: []
+  - Id: 1010
+    Name: "\u30A2\u30DF\u30A3"
+    ImagePath: 1010
+    LearningDates:
+    - Id: 0
+      SkillId: 11010
+      Rate: 20
+    - Id: 0
+      SkillId: 11020
+      Rate: 10
+  - Id: 1020
+    Name: "\u30CF\u30A6\u30EC\u30B9"
+    ImagePath: 1020
+    LearningDates:
+    - Id: 0
+      SkillId: 11110
+      Rate: 20

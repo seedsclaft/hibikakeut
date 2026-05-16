@@ -7,6 +7,7 @@ namespace Ryneus
     {
         private StatusViewInfo _sceneParam;
         public StatusViewInfo SceneParam => _sceneParam;
+        public ParameterInt SelectEquipmentIndex = new();
         private List<ActorInfo> _actorInfos = null;
         public List<ActorInfo> ActorInfos => _actorInfos;
         public ParameterInt CurrentIndex = new();
@@ -65,6 +66,99 @@ namespace Ryneus
                 cost += slotSkill.LearningCost.Value;
             }
             CurrentActor.ChangeCost(CurrentActor.MaxCost - cost);
+        }
+
+        public List<SkillInfo> Skills()
+        {
+            var list = new List<SkillInfo>();
+            var learnedSkills = CurrentActor.LearningSkillInfos();
+            // アクター習得済み
+            foreach (var learnedSkill in learnedSkills)
+            {
+                if (learnedSkill.LearningState == LearningState.Learned)
+                {
+                    list.Add(learnedSkill);
+                }
+            }
+            // 装備から習得済み
+            foreach (var learnSkillId in CurrentActor.LearnSkillIds)
+            {
+                list.Add(new SkillInfo(learnSkillId));
+            }
+            // アクター未習得
+            foreach (var learnedSkill in learnedSkills)
+            {
+                if (learnedSkill.LearningState != LearningState.Learned)
+                {
+                    list.Add(learnedSkill);
+                }
+            }
+            var insertIndex = list.FindAll(a => a.Id.Value > 1000).Count;
+            // カインドを追加
+            foreach (var kind in CurrentActor.Master.Kinds)
+            {
+                if (kind > 0 && (int)kind < 10)
+                {
+                    var skillInfo = new SkillInfo((int)kind * 10 + 10100);
+                    skillInfo.SetEnable(true);
+                    list.Insert(insertIndex, skillInfo);
+                    insertIndex++;
+                }
+            }
+            return list;
+        }
+
+        public List<EquipmentInfo> ActorEquipmentInfos()
+        {
+            var list = new List<EquipmentInfo>();
+            if (CurrentActor.EquipmentIds.Count > 0)
+            {
+                foreach (var equipmentId in CurrentActor.EquipmentIds)
+                {
+                    EquipmentInfo equipmentInfo = new();
+                    equipmentInfo.EquipmentId.SetValue(equipmentId);
+                    equipmentInfo.LearningInfos = new();
+                    foreach (var learningDate in DataSystem.FindEquipment(equipmentInfo.EquipmentId.Value).LearningDates)
+                    {
+                        EquipmentLearningInfo equipmentLearningInfo = new();
+                        equipmentLearningInfo.SkillId.SetValue(learningDate.SkillId);
+                        equipmentLearningInfo.LearningRate.SetValue(learningDate.Rate);
+                        equipmentLearningInfo.LearningExp.SetValue(CurrentActor.MastarySkillRate(learningDate.SkillId));
+                        equipmentInfo.LearningInfos.Add(equipmentLearningInfo);
+                    }
+                    list.Add(equipmentInfo);
+                }
+            }
+            return list;
+        }
+
+        public List<EquipmentInfo> EquipmentInfos()
+        {
+            var list = new List<EquipmentInfo>();
+            EquipmentInfo removeEquipmentInfo = new();
+            removeEquipmentInfo.EquipmentId.SetValue(10);
+            list.Add(removeEquipmentInfo);
+            foreach (var equipmentId in PartyInfo.EquipmentIds)
+            {
+                EquipmentInfo equipmentInfo = new();
+                equipmentInfo.EquipmentId.SetValue(equipmentId);
+                equipmentInfo.LearningInfos = new();
+                foreach (var learningDate in DataSystem.FindEquipment(equipmentInfo.EquipmentId.Value).LearningDates)
+                {
+                    EquipmentLearningInfo equipmentLearningInfo = new();
+                    equipmentLearningInfo.SkillId.SetValue(learningDate.SkillId);
+                    equipmentLearningInfo.LearningRate.SetValue(learningDate.Rate);
+                    equipmentLearningInfo.LearningExp.SetValue(CurrentActor.MastarySkillRate(learningDate.SkillId));
+                    equipmentInfo.LearningInfos.Add(equipmentLearningInfo);
+                }
+                list.Add(equipmentInfo);
+            }
+            return list;
+        }
+
+        public void ChangeEquipment(EquipmentInfo equipmentInfo)
+        {
+            CurrentActor.ChangeEquipment(equipmentInfo.EquipmentId.Value, SelectEquipmentIndex.Value);
         }
 
         public List<SkillInfo> EquipSkills()

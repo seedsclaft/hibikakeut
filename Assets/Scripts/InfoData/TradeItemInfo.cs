@@ -14,11 +14,6 @@ namespace Ryneus
             Cost.SetValue(cost);
         }
 
-        public string Destriction()
-        {
-            return "魔法を入手する";
-        }
-
         public SkillInfo SkillInfo()
         {
             if (_getItemInfo.Master.Type == GetItemType.Skill)
@@ -38,5 +33,17 @@ namespace Ryneus
             }
             return null;
         }
+
+        public EquipmentInfo EquipmentInfo()
+        {
+            if (_getItemInfo.Master.Type == GetItemType.Equipment)
+            {
+                var equipmentInfo = new EquipmentInfo();
+                equipmentInfo.EquipmentId.SetValue(_getItemInfo.Param1);
+                return equipmentInfo;
+            }
+            return null;
+        }
+
     }
 }

@@ -495,6 +495,7 @@ namespace Ryneus
                 {
                     case GetItemType.Currency:
                     case GetItemType.Item:
+                    case GetItemType.Equipment:
                     case GetItemType.Evaluate:
                     case GetItemType.ClearStage:
                     case GetItemType.Ending:
