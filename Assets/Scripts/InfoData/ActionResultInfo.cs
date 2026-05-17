@@ -1377,20 +1377,24 @@ namespace Ryneus
 
         private void SeekStateCount(BattlerInfo battlerInfo, StateType stateType)
         {
-            var seekState = battlerInfo.GetStateInfo(stateType);
-            if (seekState.RemovalTiming == RemovalTiming.UpdateCount)
+            var seekStates = battlerInfo.GetStateInfoAll(stateType);
+            foreach (var seekState in seekStates)
             {
+                if (seekState.RemovalTiming != RemovalTiming.UpdateCount)
+                {
+                    continue;
+                }
                 if (!_execStateInfos[battlerInfo.Index.Value].Contains(seekState))
                 {
                     _execStateInfos[battlerInfo.Index.Value].Add(seekState);
                     int count = seekState.Turns.Value;
                     if ((count - 1) <= 0)
                     {
-                        _removedStates.Add(battlerInfo.GetStateInfo(stateType));
+                        _removedStates.Add(seekState);
                     }
                     else
                     {
-                        _displayStates.Add(battlerInfo.GetStateInfo(stateType));
+                        _displayStates.Add(seekState);
                     }
                 }
             }

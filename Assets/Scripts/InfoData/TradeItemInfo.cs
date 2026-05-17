@@ -38,8 +38,7 @@ namespace Ryneus
         {
             if (_getItemInfo.Master.Type == GetItemType.Equipment)
             {
-                var equipmentInfo = new EquipmentInfo();
-                equipmentInfo.EquipmentId.SetValue(_getItemInfo.Param1);
+                var equipmentInfo = new EquipmentInfo(_getItemInfo.Param1);
                 return equipmentInfo;
             }
             return null;

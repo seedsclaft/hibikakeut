@@ -14,6 +14,8 @@ namespace Ryneus
         public ParameterInt TacticsLvupCount = new();
         // バトル評価値
         public ParameterInt BattleScore = new();
+        // 獲得バトル評価値
+        public ParameterInt GainBattleScoreTotal = new();
         // 与ダメージ
         public ParameterInt TotalDamage = new();
 

@@ -468,7 +468,7 @@ namespace Ryneus
                     break;
                 case AchievementConditionType.BattleScore:
                     // バトル評価値
-                    achievementInfo.SetCondition(PartyStatInfo.BattleScore.Value, achievementInfo.Master.Param1);
+                    achievementInfo.SetCondition(PartyStatInfo.GainBattleScoreTotal.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.TotalDamage:
                     // 与ダメージ

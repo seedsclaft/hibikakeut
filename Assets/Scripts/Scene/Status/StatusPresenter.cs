@@ -391,6 +391,7 @@ namespace Ryneus
 
         private void CommandSelectEquipment(int selectIndex)
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _model.SelectEquipmentIndex.SetValue(selectIndex);
             _view.CallChangeEquipment();
             _view.SetChangeEquipmentInfo(MakeListData(_model.EquipmentInfos(), 0));
@@ -398,11 +399,14 @@ namespace Ryneus
 
         private void CommandCancelEquipment()
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             _view.CallEquipSkillList(_model.SceneParam.AddActor.Value);
+            CommandRefreshMagicList(false);
         }
 
         private void CommandSelectChangeEquipment(EquipmentInfo equipmentInfo)
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             // だれかが装備している
             var equipmentActor = _model.EquipmentSkill(equipmentInfo);
             if (equipmentActor != null && equipmentInfo.EquipmentId.Value != 10 && equipmentActor.ActorId.Value != _model.CurrentActor.ActorId.Value)
@@ -429,12 +433,16 @@ namespace Ryneus
             _model.ChangeEquipment(equipmentInfo);
             _view.CallEquipment();
             _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
-            _model.PartyInfo.PartyStatInfo.StatusSkillChangeCount.GainValue(1);
-            CheckAchievements();
+            if (equipmentInfo.Master.Id != 10)
+            {
+                _model.PartyInfo.PartyStatInfo.StatusSkillChangeCount.GainValue(1);
+                CheckAchievements();
+            }
         }
 
         private void CommandCancelChangeEquipment()
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             _view.CallEquipment();
             _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
         }
@@ -449,6 +457,7 @@ namespace Ryneus
             {
                 return;
             }
+            SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _busy = true;
             CallConfirmSkillDetailView("", equipmentInfo.SkillInfos(), (a) =>
             {

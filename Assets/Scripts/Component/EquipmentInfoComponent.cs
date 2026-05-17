@@ -24,6 +24,27 @@ namespace Ryneus
         public void UpdateData(EquipmentData equipmentData)
         {
             UIComponent.SetText(nameText, equipmentData.Name);
+            UpdateSkillIcon(equipmentData.IconIndex);
+            UpdateSkillIconBack(equipmentData.Attribute);
+        }
+
+        private void UpdateSkillIcon(MagicIconType iconIndex)
+        {
+            UIComponent.SetActive(icon, true);
+            var spriteAtlas = ResourceSystem.LoadSpellIcons();
+            if (icon != null)
+            {
+                icon.sprite = spriteAtlas.GetSprite(iconIndex.ToString());
+            }
+        }
+
+        private void UpdateSkillIconBack(AttributeType attributeType)
+        {
+            UIComponent.SetActive(iconBack, true);
+            if (iconBack != null)
+            {
+                iconBack.sprite = ResourceSystem.LoadSpellIconBase(attributeType);
+            }
         }
 
         public void Clear()

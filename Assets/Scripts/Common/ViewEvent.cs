@@ -61,6 +61,7 @@ namespace Ryneus
         UseItem,
         DungeonMap,
         LevelUp,
+        EquipmentDetail,
         SideMenu,
         Option,
         Confirm,

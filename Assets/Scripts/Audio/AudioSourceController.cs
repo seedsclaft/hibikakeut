@@ -138,6 +138,11 @@ namespace Ryneus
             {
                 return;
             }
+            if (_toFadeSequence != null)
+            {
+                _toFadeSequence.Kill();
+                _toFadeSequence = null;
+            }
             _toFadeSequence = DOTween.Sequence()
                 .Append(_audioSource.DOFade(targetVolume, duration));
             _toFadeVolume = targetVolume;

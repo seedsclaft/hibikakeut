@@ -68,7 +68,7 @@ namespace Ryneus
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
-                            ImagePath = AssetPostImporter.ImportString(BaseRow, "ImagePath"),
+                            IconIndex = (MagicIconType)AssetPostImporter.ImportNumeric(BaseRow, "IconIndex"),
                             Rank = AssetPostImporter.ImportNumeric(BaseRow, "Rank"),
                             Attribute = (AttributeType)AssetPostImporter.ImportNumeric(BaseRow, "Attribute"),
                         };
@@ -99,6 +99,7 @@ namespace Ryneus
                         
                         equipmentLearningData.SkillId = AssetPostImporter.ImportNumeric(BaseRow, "SkillId");
                         equipmentLearningData.Rate = AssetPostImporter.ImportNumeric(BaseRow, "LearningRate");
+                        equipmentLearningData.EquipmentOnly = AssetPostImporter.ImportNumeric(BaseRow, "EquipmentOnly") == 1;
                         Equipment.LearningDates.Add(equipmentLearningData);
                     }
                 }

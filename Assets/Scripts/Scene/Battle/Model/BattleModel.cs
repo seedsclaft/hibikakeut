@@ -2632,6 +2632,7 @@ namespace Ryneus
             battleScore.AwakenCount = awakeCount;
             battleScore.EnemyLvAvarage = (float)enemyLvAvarage;
             PartyInfo.PartyStatInfo.BattleScore.GainValue((int)score);
+            PartyInfo.PartyStatInfo.GainBattleScoreTotal.GainValue((int)score);
             PartyInfo.PartyStatInfo.TotalDamage.GainValue(attack);
             CheckAchievements();
             battleScore.ResultScore = (int)score;

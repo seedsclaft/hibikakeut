@@ -74,17 +74,15 @@ namespace Ryneus
 
         private void ChangeTextColor(StatusParameter text, int currentStatus, int baseStatus)
         {
-            Color color = GameSystem.TempData.ColorSettings.GetColor(TextColorType.Normal);
             if (currentStatus > baseStatus)
             {
-                color = GameSystem.TempData.ColorSettings.GetColor(TextColorType.PowerDown);
+                text.ChangeTextColor(GameSystem.TempData.ColorSettings.GetColor(TextColorType.PowerDown));
             }
             else
             if (currentStatus < baseStatus)
             {
-                color = GameSystem.TempData.ColorSettings.GetColor(TextColorType.PowerUp);
+                text.ChangeTextColor(GameSystem.TempData.ColorSettings.GetColor(TextColorType.PowerUp));
             }
-            text.ChangeTextColor(color);
         }
 
         public void UpdateHp(int currentHp, int maxStatusHp)

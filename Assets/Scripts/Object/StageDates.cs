@@ -130,6 +130,7 @@ namespace Ryneus
         GetArtifact = 3010, // アーティファクト取得
         GetItem = 3020, // アイテム取得
         GetSkill = 3030, // 魔法取得
+        GetEquipment = 3040, // 装備取得
         AddActor = 4010, // 仲間を増やす
         RemoveActor = 4011,
         SelectAddActor = 4020, // 選択して仲間を増やす

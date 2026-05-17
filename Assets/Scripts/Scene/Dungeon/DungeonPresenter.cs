@@ -525,6 +525,9 @@ namespace Ryneus
                 case StageEventType.GetSkill:
                     StageEventGetSkill(stageEvent);
                     return;
+                case StageEventType.GetEquipment:
+                    StageEventGetEquipment(stageEvent);
+                    return;
                 case StageEventType.AddActor:
                     StageEventAddActor(moved, stageEvent, endEvent);
                     return;
@@ -691,6 +694,12 @@ namespace Ryneus
             CommandGetSkill(stageEvent.Param);
         }
 
+        private void StageEventGetEquipment(StageEventData stageEvent)
+        {
+            _model.UpdateEventObjects();
+            CommandGetEquipment(stageEvent.Param);
+        }
+
         private void StageEventAddActor(bool moved, StageEventData stageEvent, Action endEvent)
         {
             var getItemData = new GetItemData
@@ -772,6 +781,8 @@ namespace Ryneus
                     }
                 }
             }
+            _view.CallSystemCommand(Base.CommandType.FlashEffect);
+            _view.CallSystemCommand(Base.CommandType.PlayEffect);
             _view.CommandChangeViewToTransition(null);
             //_view.ChangeUIActive(false);
             _view.CommandSceneChange(Scene.Battle, battleSceneInfo);
@@ -1058,6 +1069,32 @@ namespace Ryneus
                 CommandRefresh();
                 _model.DungeonBusy(false);
             });
+        }
+
+        private void CommandGetEquipment(int equipmentId)
+        {
+            var equipment = DataSystem.FindEquipment(equipmentId);
+            if (equipment == null)
+            {
+                return;
+            }
+            var equipmentInfo = new EquipmentInfo(equipmentId);
+            SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+
+            var getItemInfo = _model.MakeGetItemInfo(GetItemType.Equipment, equipment.Id);
+            _model.AddGetItemInfo(getItemInfo);
+            var equipmentDetailViewInfo = new EquipmentDetailViewInfo();
+            equipmentDetailViewInfo.Title.SetValue(DataSystem.GetText(10171));
+            equipmentDetailViewInfo.EquipmentInfos = new()
+            {
+                equipmentInfo
+            };
+            CallPopupView(PopupType.EquipmentDetail, () =>
+            {
+                _busy = false;
+                CommandRefresh();
+                _model.DungeonBusy(false);
+            }, equipmentDetailViewInfo);
         }
 
         private void CommandCallAddActorInfo(List<int> limitRanks)

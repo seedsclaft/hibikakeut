@@ -107,7 +107,7 @@ namespace Ryneus
             var endStageEvents = EndStageEvents();
             foreach (var endStageEvent in endStageEvents)
             {
-                if (endStageEvent.Type == StageEventType.GetItem || endStageEvent.Type == StageEventType.GetArtifact || endStageEvent.Type == StageEventType.GetSkill || endStageEvent.Type == StageEventType.SelectAddActor)
+                if (endStageEvent.Type == StageEventType.GetItem || endStageEvent.Type == StageEventType.GetArtifact || endStageEvent.Type == StageEventType.GetSkill || endStageEvent.Type == StageEventType.GetEquipment || endStageEvent.Type == StageEventType.SelectAddActor)
                 {
                     _moveController.SetEventEndDeactiveEventObj(endStageEvent.PositionX, endStageEvent.PositionY);
                 } else
@@ -213,7 +213,7 @@ namespace Ryneus
         {
             var position = GetForwardPosition();
             var stageEvent = StageEvents(EventTiming.Dungeon, position.x, position.y);
-            return stageEvent.Count > 0 && (stageEvent[0].Type == StageEventType.GetItem || stageEvent[0].Type == StageEventType.GetArtifact || stageEvent[0].Type == StageEventType.GetSkill);
+            return stageEvent.Count > 0 && (stageEvent[0].Type == StageEventType.GetItem || stageEvent[0].Type == StageEventType.GetArtifact || stageEvent[0].Type == StageEventType.GetSkill || stageEvent[0].Type == StageEventType.GetEquipment);
         }
 
         public bool CheckCurrentPositionEvent()

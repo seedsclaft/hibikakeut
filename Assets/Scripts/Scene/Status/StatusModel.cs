@@ -71,49 +71,7 @@ namespace Ryneus
 
         public List<SkillInfo> Skills()
         {
-            var list = new List<SkillInfo>();
-            var learnedSkills = CurrentActor.LearningSkillInfos();
-            // アクター習得済み
-            foreach (var learnedSkill in learnedSkills)
-            {
-                if (learnedSkill.LearningState == LearningState.Learned)
-                {
-                    list.Add(learnedSkill);
-                }
-            }
-            // 装備から習得済み
-            foreach (var learnSkillId in CurrentActor.MastarySkillIds)
-            {
-                var learnedSkill = new SkillInfo(learnSkillId);
-                if (learnedSkill.Master.SkillType == SkillType.Equipment)
-                {
-                    continue;
-                }
-                learnedSkill.SetLearningState(LearningState.Learned);
-                learnedSkill.SetEnable(true);
-                list.Add(learnedSkill);
-            }
-            var insertIndex = list.FindAll(a => a.Id.Value > 1000).Count;
-            // カインドを追加
-            foreach (var kind in CurrentActor.Master.Kinds)
-            {
-                if (kind > 0 && (int)kind < 10)
-                {
-                    var skillInfo = new SkillInfo((int)kind * 10 + 10100);
-                    skillInfo.SetEnable(true);
-                    list.Insert(insertIndex, skillInfo);
-                    insertIndex++;
-                }
-            }
-            // アクター未習得
-            foreach (var learnedSkill in learnedSkills)
-            {
-                if (learnedSkill.LearningState != LearningState.Learned)
-                {
-                    list.Add(learnedSkill);
-                }
-            }
-            return list;
+            return CurrentActor.ActorInfoSkills(false);
         }
 
         public List<EquipmentInfo> ActorEquipmentInfos()
@@ -123,16 +81,11 @@ namespace Ryneus
             {
                 foreach (var equipmentId in CurrentActor.EquipmentIds)
                 {
-                    EquipmentInfo equipmentInfo = new();
-                    equipmentInfo.EquipmentId.SetValue(equipmentId);
-                    equipmentInfo.LearningInfos = new();
-                    foreach (var learningDate in DataSystem.FindEquipment(equipmentInfo.EquipmentId.Value).LearningDates)
+                    EquipmentInfo equipmentInfo = new(equipmentId);
+                    foreach (var learningInfo in equipmentInfo.LearningInfos)
                     {
-                        EquipmentLearningInfo equipmentLearningInfo = new();
-                        equipmentLearningInfo.SkillId.SetValue(learningDate.SkillId);
-                        equipmentLearningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(DataSystem.FindSkill(learningDate.SkillId).Attribute, learningDate.Rate, PartyInfo.EditableActorInfos()));
-                        equipmentLearningInfo.LearningExp.SetValue(CurrentActor.MastarySkillExp(learningDate.SkillId));
-                        equipmentInfo.LearningInfos.Add(equipmentLearningInfo);
+                        learningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(DataSystem.FindSkill(learningInfo.SkillId.Value).Attribute, learningInfo.LearningRate.Value, PartyInfo.EditableActorInfos()));
+                        learningInfo.LearningExp.SetValue(CurrentActor.MastarySkillExp(learningInfo.SkillId.Value));
                     }
                     list.Add(equipmentInfo);
                 }
@@ -143,21 +96,15 @@ namespace Ryneus
         public List<EquipmentInfo> EquipmentInfos()
         {
             var list = new List<EquipmentInfo>();
-            EquipmentInfo removeEquipmentInfo = new();
-            removeEquipmentInfo.EquipmentId.SetValue(10);
+            EquipmentInfo removeEquipmentInfo = new(10);
             list.Add(removeEquipmentInfo);
             foreach (var equipmentId in PartyInfo.EquipmentIds)
             {
-                EquipmentInfo equipmentInfo = new();
-                equipmentInfo.EquipmentId.SetValue(equipmentId);
-                equipmentInfo.LearningInfos = new();
-                foreach (var learningDate in DataSystem.FindEquipment(equipmentInfo.EquipmentId.Value).LearningDates)
+                EquipmentInfo equipmentInfo = new(equipmentId);
+                foreach (var learningInfo in equipmentInfo.LearningInfos)
                 {
-                    EquipmentLearningInfo equipmentLearningInfo = new();
-                    equipmentLearningInfo.SkillId.SetValue(learningDate.SkillId);
-                    equipmentLearningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(DataSystem.FindSkill(learningDate.SkillId).Attribute, learningDate.Rate, PartyInfo.EditableActorInfos()));
-                    equipmentLearningInfo.LearningExp.SetValue(CurrentActor.MastarySkillExp(learningDate.SkillId));
-                    equipmentInfo.LearningInfos.Add(equipmentLearningInfo);
+                    learningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(DataSystem.FindSkill(learningInfo.SkillId.Value).Attribute, learningInfo.LearningRate.Value, PartyInfo.EditableActorInfos()));
+                    learningInfo.LearningExp.SetValue(CurrentActor.MastarySkillExp(learningInfo.SkillId.Value));
                 }
                 list.Add(equipmentInfo);
             }

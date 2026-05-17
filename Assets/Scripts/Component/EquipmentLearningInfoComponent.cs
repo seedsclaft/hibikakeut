@@ -15,6 +15,10 @@ namespace Ryneus
         public void UpdateInfo(EquipmentLearningInfo equipmentLearningInfo)
         {
             UIComponent.SetText(learningRate, "x" + equipmentLearningInfo.LearningRate.Value);
+            if (equipmentLearningInfo.EquipmentOnly.Value)
+            {
+                UIComponent.SetText(learningRate, DataSystem.GetText(14230));
+            }
             UIComponent.SetText(learningExp, equipmentLearningInfo.LearningExp.Value + "%");
             if (skillExpGauge != null)
             {

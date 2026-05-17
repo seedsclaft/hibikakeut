@@ -13,7 +13,7 @@ namespace Ryneus
     public class EquipmentData : MasterData
     {
         public string Name;
-        public string ImagePath;
+        public MagicIconType IconIndex;
         public int Rank;
         public AttributeType Attribute;
         public List<EquipmentLearningData> LearningDates;
@@ -25,5 +25,6 @@ namespace Ryneus
     {
         public int SkillId;
         public int Rate;
+        public bool EquipmentOnly;
     }
 }

@@ -140,6 +140,7 @@ namespace Ryneus
         DungeonMap,
         BattleScoreCurrency,
         Tutorial,
+        EquipmentDetail,
     }
 
     public class PopupInfo

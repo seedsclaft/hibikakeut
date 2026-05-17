@@ -450,7 +450,7 @@ namespace Ryneus
             return LearningSkillInfos().FindAll(a => a.LearningState == LearningState.NotLearn && a.LearningLv.Value != -1 && a.LearningLv.Value <= (Level + plusLv));
         }
 
-        public List<SkillInfo> ActorInfoSkills()
+        public List<SkillInfo> ActorInfoSkills(bool learnedSkillOnly = true)
         {
             var list = new List<SkillInfo>();
             var learnedSkills = LearningSkillInfos();
@@ -466,9 +466,31 @@ namespace Ryneus
             foreach (var learnSkillId in MastarySkillIds)
             {
                 var learnedSkill = new SkillInfo(learnSkillId);
+                // 強化スキルなら除外
+                var skillData = learnedSkill.Master;
+                if (learnedSkill.FeatureDates.Find(a => a.FeatureType == FeatureType.EquipmentStatusUp) != null)
+                {
+                    continue;
+                }
                 learnedSkill.SetLearningState(LearningState.Learned);
                 learnedSkill.SetEnable(true);
                 list.Add(learnedSkill);
+            }
+            // 装備時発動
+            foreach (var equipmentId in _equipmentIds)
+            {
+                var equipment = DataSystem.FindEquipment(equipmentId);
+                foreach (var learningDate in equipment.LearningDates)
+                {
+                    if (!learningDate.EquipmentOnly)
+                    {
+                        continue;
+                    }
+                    var equipmentSkill = new SkillInfo(learningDate.SkillId);
+                    equipmentSkill.SetLearningState(LearningState.Learned);
+                    equipmentSkill.SetEnable(true);
+                    list.Add(equipmentSkill);
+                }
             }
             var insertIndex = list.FindAll(a => a.Id.Value > 1000).Count;
             // カインドを追加
@@ -483,11 +505,14 @@ namespace Ryneus
                 }
             }
             // アクター未習得
-            foreach (var learnedSkill in learnedSkills)
+            if (!learnedSkillOnly)
             {
-                if (learnedSkill.LearningState != LearningState.Learned)
+                foreach (var learnedSkill in learnedSkills)
                 {
-                    //list.Add(learnedSkill);
+                    if (learnedSkill.LearningState != LearningState.Learned)
+                    {
+                        list.Add(learnedSkill);
+                    }
                 }
             }
             return list;
