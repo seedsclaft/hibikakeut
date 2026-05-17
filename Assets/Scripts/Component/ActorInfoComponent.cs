@@ -88,7 +88,7 @@ namespace Ryneus
             if (statusInfoComponent != null && actorInfo.Master != null)
             {
                 UIComponent.SetActive(statusInfoComponent.gameObject, true);
-                statusInfoComponent.UpdateInfo(actorInfo.CurrentStatus);
+                statusInfoComponent.UpdateInfo(actorInfo.CurrentStatus, actorInfo.PlusStatus);
                 statusInfoComponent.UpdateHp(actorInfo.CurrentHp.Value, actorInfo.MaxHp);
                 statusInfoComponent.UpdateMp(actorInfo.CurrentMp.Value, actorInfo.MaxMp);
                 statusInfoComponent.UpdateCost(actorInfo.CurrentCost.Value, actorInfo.MaxCost);

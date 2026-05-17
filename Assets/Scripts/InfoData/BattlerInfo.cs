@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 
 namespace Ryneus
 {
@@ -14,7 +15,7 @@ namespace Ryneus
         public StatusInfo CurrentStatus(bool isNoEffect)
         {
             var currentStatus = new StatusInfo();
-            currentStatus.SetParameter(MaxHp, MaxMp, CurrentAtk(isNoEffect), CurrentDef(isNoEffect), CurrentSpd(isNoEffect), CurrentMov(isNoEffect), _status.GetParameter(StatusParamType.Cost));
+            currentStatus.SetParameter(MaxHp, MaxMp, CurrentAtk(isNoEffect), CurrentDef(isNoEffect), CurrentSpd(isNoEffect), CurrentMov(isNoEffect), _status.GetParameter(StatusParamType.Cost), CurrentCri(isNoEffect));
             return currentStatus;
         }
         public ParameterInt Index = new();
@@ -122,22 +123,22 @@ namespace Ryneus
                 actorInfo.CurrentParameter(StatusParamType.Def),
                 actorInfo.CurrentParameter(StatusParamType.Spd),
                 actorInfo.CurrentParameter(StatusParamType.Mov),
-                actorInfo.CurrentParameter(StatusParamType.Cost)
+                actorInfo.CurrentParameter(StatusParamType.Cost),
+                actorInfo.CurrentParameter(StatusParamType.Cri)
             );
             _status = statusInfo;
             Index.SetValue(index);
 
-            _skills.Clear();
-            foreach (var equipmentSkillId in actorInfo.EquipmentSkillIds)
+            _skills = actorInfo.ActorInfoSkills();
+            foreach (var skill in _skills)
             {
-                var battleSkill = new SkillInfo(equipmentSkillId.Value);
-                battleSkill.InitCountTurn();
-                _skills.Add(battleSkill);
+                skill.InitCountTurn();
             }
 
             // _skills確定後に強化する
             //var enhanceSkills = _skills.FindAll(a => a.IsEnhanceSkill());
             _actorInfo = actorInfo;
+            /*
             foreach (var enhanceSkill in _skills)
             {
                 // 会得しているか
@@ -159,6 +160,7 @@ namespace Ryneus
                 }
                 var result = new ActionResultInfo(this, this, featureDates, enhanceSkill.Id.Value);
             }
+            */
             //_enhanceSkills = enhanceSkills;
 
             _isActor = true;
@@ -223,6 +225,7 @@ namespace Ryneus
                 (int)(enemyData.BaseStatus.Atk + (Level.Value * enemyData.AtkGrowth * 0.015f)),
                 (int)(enemyData.BaseStatus.Def + (Level.Value * enemyData.DefGrowth * 0.01f)),
                 Math.Min(100, (int)(enemyData.BaseStatus.Spd + (Level.Value * enemyData.SpdGrowth * 0.01f))),
+                0,
                 0,
                 0
             );
@@ -332,6 +335,7 @@ namespace Ryneus
             var statusInfo = new StatusInfo();
             statusInfo.SetParameter(
                 1,
+                0,
                 0,
                 0,
                 0,
@@ -987,6 +991,12 @@ namespace Ryneus
             eva += StateEffectAll(StateType.EvaUp) + StateEffectAll(StateType.EvaUpOver);
             eva -= (int)DeBuffUpperParam(StateEffectAll(StateType.EvaDown));
             return eva;
+        }
+
+        public int CurrentCri(bool isNoEffect = false)
+        {
+            int cri = Status.Cri;
+            return cri;
         }
 
         public float CurrentDamageRate(bool isNoEffect = false)

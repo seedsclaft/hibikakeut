@@ -422,6 +422,10 @@ namespace Ryneus
                 });
                 return;
             }
+            if (_model.PartyInfo.EquipmentIds.Count == 0)
+            {
+                return;
+            }
             _model.ChangeEquipment(equipmentInfo);
             _view.CallEquipment();
             _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));

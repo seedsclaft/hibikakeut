@@ -25,5 +25,10 @@ namespace Ryneus
         {
             UIComponent.SetText(captionText, DataSystem.GetText(2100 + (int)statusParamType));
         }
+
+        public void ChangeTextColor(Color color)
+        {
+            currentParam.color = color;
+        }
     }
 }

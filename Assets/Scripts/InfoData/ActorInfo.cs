@@ -51,7 +51,7 @@ namespace Ryneus
             }
             _mastarySkillIds.Add(skillId);
         }
-        [SerializeField] private Dictionary<int, int> _mastarySkillExps = new();
+        private Dictionary<int, int> _mastarySkillExps = new();
         public bool GainSkillExp(int skillId, int gain)
         {
             if (!_mastarySkillExps.ContainsKey(skillId))
@@ -75,6 +75,15 @@ namespace Ryneus
                 return 0;
             }
             return basecost * 10;
+        }
+
+        public float MastarySkillExp(int skillId)
+        {
+            if (!_mastarySkillExps.ContainsKey(skillId))
+            {
+                return 0;
+            }
+            return Math.Min(100, _mastarySkillExps[skillId]);
         }
 
         public float MastarySkillRate(int skillId)
@@ -102,7 +111,7 @@ namespace Ryneus
             return (int)MathF.Ceiling(rate * skillExpRate);
         }
 
-        [SerializeField] private List<ParameterInt> _equipmentSkillIds = new();
+        private List<ParameterInt> _equipmentSkillIds = new();
         public List<ParameterInt> EquipmentSkillIds => _equipmentSkillIds;
         public void ChangeEquipSkill(int changeSkillId, int removeSkillId)
         {
@@ -195,6 +204,7 @@ namespace Ryneus
 
         public ParameterInt BattleIndex = new();
         private StatusInfo _plusStatus = new();
+        public StatusInfo PlusStatus => _plusStatus;
 
         public ActorInfo(ActorData actorData)
         {
@@ -222,7 +232,8 @@ namespace Ryneus
                 baseActorInfo._plusStatus.GetParameter(StatusParamType.Def),
                 baseActorInfo._plusStatus.GetParameter(StatusParamType.Spd),
                 baseActorInfo._plusStatus.GetParameter(StatusParamType.Mov),
-                baseActorInfo._plusStatus.GetParameter(StatusParamType.Cost)
+                baseActorInfo._plusStatus.GetParameter(StatusParamType.Cost),
+                baseActorInfo._plusStatus.GetParameter(StatusParamType.Cri)
             );
             _lastSelectSkillId = baseActorInfo.LastSelectSkillId;
             CurrentHp.SetValue(baseActorInfo.CurrentHp.Value);
@@ -398,7 +409,7 @@ namespace Ryneus
                 statusInfo.AddParameter(StatusParamType.Def, Master.InitStatus.Def);
                 statusInfo.AddParameter(StatusParamType.Spd, Master.InitStatus.Spd);
                 //statusInfo.AddParameter(StatusParamType.Mov, Master.InitStatus.Mov);
-                statusInfo.AddParameter(StatusParamType.Cost, Master.InitStatus.Cost);
+                //statusInfo.AddParameter(StatusParamType.Cost, Master.InitStatus.Cost);
 
                 statusInfo.AddParameter(StatusParamType.Hp, LevelGrowthRate(StatusParamType.Hp, level));
                 statusInfo.AddParameter(StatusParamType.Mp, LevelGrowthRate(StatusParamType.Mp, level));
@@ -406,7 +417,7 @@ namespace Ryneus
                 statusInfo.AddParameter(StatusParamType.Def, LevelGrowthRate(StatusParamType.Def, level));
                 statusInfo.AddParameter(StatusParamType.Spd, LevelGrowthRate(StatusParamType.Spd, level));
                 //statusInfo.AddParameter(StatusParamType.Mov, LevelGrowthRate(StatusParamType.Mov, level));
-                statusInfo.AddParameter(StatusParamType.Cost, LevelGrowthRate(StatusParamType.Cost, level));
+                //statusInfo.AddParameter(StatusParamType.Cost, LevelGrowthRate(StatusParamType.Cost, level));
 
                 if (IsClassChenged.Value)
                 {
@@ -424,7 +435,7 @@ namespace Ryneus
                 statusInfo.AddParameter(StatusParamType.Def, _plusStatus.GetParameter(StatusParamType.Def));
                 statusInfo.AddParameter(StatusParamType.Spd, _plusStatus.GetParameter(StatusParamType.Spd));
                 //statusInfo.AddParameter(StatusParamType.Mov, _plusStatus.GetParameter(StatusParamType.Mov));
-                statusInfo.AddParameter(StatusParamType.Cost, _plusStatus.GetParameter(StatusParamType.Cost));
+                //statusInfo.AddParameter(StatusParamType.Cost, _plusStatus.GetParameter(StatusParamType.Cost));
             }
             return statusInfo;
         }
@@ -437,6 +448,49 @@ namespace Ryneus
         public List<SkillInfo> LearningSkills(int plusLv = 0)
         {
             return LearningSkillInfos().FindAll(a => a.LearningState == LearningState.NotLearn && a.LearningLv.Value != -1 && a.LearningLv.Value <= (Level + plusLv));
+        }
+
+        public List<SkillInfo> ActorInfoSkills()
+        {
+            var list = new List<SkillInfo>();
+            var learnedSkills = LearningSkillInfos();
+            // アクター習得済み
+            foreach (var learnedSkill in learnedSkills)
+            {
+                if (learnedSkill.LearningState == LearningState.Learned)
+                {
+                    list.Add(learnedSkill);
+                }
+            }
+            // 装備から習得済み
+            foreach (var learnSkillId in MastarySkillIds)
+            {
+                var learnedSkill = new SkillInfo(learnSkillId);
+                learnedSkill.SetLearningState(LearningState.Learned);
+                learnedSkill.SetEnable(true);
+                list.Add(learnedSkill);
+            }
+            var insertIndex = list.FindAll(a => a.Id.Value > 1000).Count;
+            // カインドを追加
+            foreach (var kind in Master.Kinds)
+            {
+                if (kind > 0 && (int)kind < 10)
+                {
+                    var skillInfo = new SkillInfo((int)kind * 10 + 10100);
+                    skillInfo.SetEnable(true);
+                    list.Insert(insertIndex, skillInfo);
+                    insertIndex++;
+                }
+            }
+            // アクター未習得
+            foreach (var learnedSkill in learnedSkills)
+            {
+                if (learnedSkill.LearningState != LearningState.Learned)
+                {
+                    //list.Add(learnedSkill);
+                }
+            }
+            return list;
         }
 
         public List<SkillInfo> SealedSkills()

@@ -23,7 +23,10 @@ namespace Ryneus
         public StatusParamInfo CostParam = new(StatusParamType.Cost);
         public int Cost => (int)Math.Ceiling(CostParam.curernt.Value);
 
-        public void SetParameter(int hp, int mp, int atk, int def, int spd, int mov, int cost)
+        public StatusParamInfo CriParam = new(StatusParamType.Cri);
+        public int Cri => (int)Math.Ceiling(CriParam.curernt.Value);
+
+        public void SetParameter(int hp, int mp, int atk, int def, int spd, int mov, int cost, int cri)
         {
             HpParam.curernt.SetValue(hp);
             MpParam.curernt.SetValue(mp);
@@ -32,6 +35,7 @@ namespace Ryneus
             SpdParam.curernt.SetValue(spd);
             //_mov.SetValue(mov);
             CostParam.curernt.SetValue(cost);
+            CriParam.curernt.SetValue(cri);
         }
 
         public void SetParameter(StatusInfo statusInfo)
@@ -70,6 +74,7 @@ namespace Ryneus
                 case StatusParamType.Spd: SpdParam.curernt.GainValue(param); break;
                 //case StatusParamType.Mov: _mov.curernt.GainValue(param); break;
                 case StatusParamType.Cost: CostParam.curernt.GainValue(param); break;
+                case StatusParamType.Cri: CostParam.curernt.GainValue(param); break;
             }
         }
 
@@ -89,7 +94,7 @@ namespace Ryneus
 
         public void Clear()
         {
-            SetParameter(0, 0, 0, 0, 0, 0, 0);
+            SetParameter(0, 0, 0, 0, 0, 0, 0, 0);
         }
     }
 
@@ -101,6 +106,9 @@ namespace Ryneus
         Def,
         Spd,
         Mov,
-        Cost
+        Cost,
+        Hit = 11,
+        Eva = 12,
+        Cri = 13
     }
 }

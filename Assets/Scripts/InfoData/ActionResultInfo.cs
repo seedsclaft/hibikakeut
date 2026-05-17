@@ -1280,7 +1280,7 @@ namespace Ryneus
             {
                 HitOver = 0;
             }
-            int CriticalRate = subject.StateEffectAll(StateType.CriticalRateUp) - subject.StateEffectAll(StateType.CriticalRateDown) + HitOver;
+            int CriticalRate = subject.CurrentCri() + subject.StateEffectAll(StateType.CriticalRateUp) - subject.StateEffectAll(StateType.CriticalRateDown) + HitOver;
             int rand = new System.Random().Next(0, 100);
             _critical = CriticalRate > rand;
             return _critical;

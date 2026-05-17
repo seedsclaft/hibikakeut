@@ -171,6 +171,7 @@ namespace Ryneus
                     battlerInfo.EnemyData.DefGrowth,
                     battlerInfo.EnemyData.SpdGrowth,
                     battlerInfo.EnemyData.MovGrouth,
+                    0,
                     0
                     );
                 needStatusInfoComponent.UpdateInfo(NeedStatus);

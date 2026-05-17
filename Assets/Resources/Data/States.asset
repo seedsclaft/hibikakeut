@@ -355,11 +355,31 @@ MonoBehaviour:
     RemoveByDeath: 1
   - Id: 1052
     StateType: 1052
-    Name: "\u9632\u5FA1\u30D6\u30EC\u30A4\u30AF"
-    Help: "DEF\u3092\u534A\u6E1B\u3055\u305B\u308B"
+    Name: "\u9632\u5FA1\u30A2\u30C3\u30D7"
+    Help: "DEF\\d%\u30A2\u30C3\u30D7"
     IconBack: 0
-    IconIndex: 38
-    IconPath: CrackedShield
+    IconIndex: 14
+    IconPath: Shield
+    RemovalTiming: 1
+    OverWrite: 1
+    EffectPath: '""'
+    EffectPosition: 0
+    EffectScale: 1
+    OverLap: 0
+    Removal: 1
+    Abnormal: 0
+    Buff: 1
+    DeBuff: 0
+    CheckHit: 0
+    RemoveByAttack: 0
+    RemoveByDeath: 1
+  - Id: 1053
+    StateType: 1053
+    Name: "\u9632\u5FA1\u30C0\u30A6\u30F3"
+    Help: "DEF\\d%\u30C0\u30A6\u30F3"
+    IconBack: 0
+    IconIndex: 30
+    IconPath: Shield
     RemovalTiming: 1
     OverWrite: 1
     EffectPath: '""'

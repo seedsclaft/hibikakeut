@@ -278,6 +278,7 @@ namespace Ryneus
         Enhance = 6, // 強化
         Equip = 7, // 装備
         Kind = 8, // カインド
+        Equipment = 9, // 装備パッシブ
         UseAlcana = 11, // アルカナ使用
     }
 
@@ -579,6 +580,7 @@ namespace Ryneus
         AbsoluteHit = 11010,
         ReflectLastAbnormal = 12010, // 最後に受けたAbnormalを相手に移す
         RobBuffState = 13010, // 対象のバフを奪い取る
+        EquipmentStatusUp = 14010, // 装備パッシブでステータスアップ
         GetItem = 40010, // アイテム入手
         GetExpRateUp = 40020, // 獲得経験値%アップ
         GetExp = 40030, // Exp入手

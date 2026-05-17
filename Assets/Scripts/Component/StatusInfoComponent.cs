@@ -17,13 +17,10 @@ namespace Ryneus
 
         [SerializeField] private StatusGaugeAnimation hpGaugeAnimation;
         [SerializeField] private StatusGaugeAnimation mpGaugeAnimation;
-        [SerializeField] private Color normalColor;
-        [SerializeField] private Color upperColor;
-        [SerializeField] private Color downColor;
         [SerializeField] private CanvasGroup canvasGroup;
 
         [SerializeField] private int _rectWidth = 80;
-        public void UpdateInfo(StatusInfo statusInfo, StatusInfo baseStatus = null)
+        public void UpdateInfo(StatusInfo statusInfo, StatusInfo plusStatus = null)
         {
             if (statusInfo == null)
             {
@@ -32,6 +29,10 @@ namespace Ryneus
             if (hpParam != null)
             {
                 hpParam.UpdateInfo(statusInfo.HpParam);
+                if (plusStatus != null)
+                {
+                    ChangeTextColor(hpParam, 0, plusStatus.Hp);
+                }
             }
             if (mpParam != null)
             {
@@ -40,52 +41,50 @@ namespace Ryneus
             if (atkParam != null)
             {
                 atkParam.UpdateInfo(statusInfo.AtkParam);
-                if (baseStatus != null)
+                if (plusStatus != null)
                 {
-                    //ChangeTextColor(atk, statusInfo.Atk, baseStatus.Atk);
+                    ChangeTextColor(atkParam, 0, plusStatus.Atk);
                 }
             }
             if (defParam != null)
             {
                 defParam.UpdateInfo(statusInfo.DefParam);
-                if (baseStatus != null)
+                if (plusStatus != null)
                 {
-                    //ChangeTextColor(atk, statusInfo.Atk, baseStatus.Atk);
+                    ChangeTextColor(defParam, 0, plusStatus.Def);
                 }
             }
             if (spdParam != null)
             {
                 spdParam.UpdateInfo(statusInfo.SpdParam);
-                if (baseStatus != null)
+                if (plusStatus != null)
                 {
-                    //ChangeTextColor(atk, statusInfo.Atk, baseStatus.Atk);
+                    ChangeTextColor(spdParam, 0, plusStatus.Spd);
                 }
             }
             if (costParam != null)
             {
                 costParam.UpdateInfo(statusInfo.CostParam);
-                if (baseStatus != null)
+                if (plusStatus != null)
                 {
                     //ChangeTextColor(atk, statusInfo.Atk, baseStatus.Atk);
                 }
             }
         }
 
-        private void ChangeTextColor(TextMeshProUGUI text, int currentStatus, int baseStatus)
+        private void ChangeTextColor(StatusParameter text, int currentStatus, int baseStatus)
         {
+            Color color = GameSystem.TempData.ColorSettings.GetColor(TextColorType.Normal);
             if (currentStatus > baseStatus)
             {
-                text.color = upperColor;
+                color = GameSystem.TempData.ColorSettings.GetColor(TextColorType.PowerDown);
             }
             else
             if (currentStatus < baseStatus)
             {
-                text.color = downColor;
+                color = GameSystem.TempData.ColorSettings.GetColor(TextColorType.PowerUp);
             }
-            else
-            {
-                text.color = normalColor;
-            }
+            text.ChangeTextColor(color);
         }
 
         public void UpdateHp(int currentHp, int maxStatusHp)

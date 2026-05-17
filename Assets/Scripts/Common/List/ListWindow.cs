@@ -198,7 +198,7 @@ namespace Ryneus
         private void CreateListPrefab(int createCount)
         {
             // 上下用に1つ多く作成
-            if (GetVerticalCount() < _listDates.Count)
+            //if (GetListVerticalCount() <= _listDates.Count+1)
             {
                 createCount++;
             }

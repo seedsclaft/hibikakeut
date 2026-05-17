@@ -17,16 +17,8 @@ namespace Ryneus
         public void UpdateInfo(AchievementInfo achievementInfo)
         {
             UpdateDate(achievementInfo.Master);
-            if (achievementInfo.Master.ConditionType == AchievementConditionType.BattleScore)
-            {
-                UIComponent.SetText(count, (achievementInfo.Count.Value * 0.01f).ToString("F1"));
-                UIComponent.SetText(achieveCount, (achievementInfo.AchieveCount.Value*0.01f).ToString());
-            }
-            else
-            {
-                UIComponent.SetText(count, achievementInfo.Count);
-                UIComponent.SetText(achieveCount, achievementInfo.AchieveCount);
-            }
+            UIComponent.SetText(count, achievementInfo.Count);
+            UIComponent.SetText(achieveCount, achievementInfo.AchieveCount);
             if (achivePer != null)
             {
                 achivePer.UpdateGauge(achievementInfo.AchievePer);

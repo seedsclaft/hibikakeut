@@ -82,17 +82,16 @@ namespace Ryneus
                 }
             }
             // 装備から習得済み
-            foreach (var learnSkillId in CurrentActor.LearnSkillIds)
+            foreach (var learnSkillId in CurrentActor.MastarySkillIds)
             {
-                list.Add(new SkillInfo(learnSkillId));
-            }
-            // アクター未習得
-            foreach (var learnedSkill in learnedSkills)
-            {
-                if (learnedSkill.LearningState != LearningState.Learned)
+                var learnedSkill = new SkillInfo(learnSkillId);
+                if (learnedSkill.Master.SkillType == SkillType.Equipment)
                 {
-                    list.Add(learnedSkill);
+                    continue;
                 }
+                learnedSkill.SetLearningState(LearningState.Learned);
+                learnedSkill.SetEnable(true);
+                list.Add(learnedSkill);
             }
             var insertIndex = list.FindAll(a => a.Id.Value > 1000).Count;
             // カインドを追加
@@ -104,6 +103,14 @@ namespace Ryneus
                     skillInfo.SetEnable(true);
                     list.Insert(insertIndex, skillInfo);
                     insertIndex++;
+                }
+            }
+            // アクター未習得
+            foreach (var learnedSkill in learnedSkills)
+            {
+                if (learnedSkill.LearningState != LearningState.Learned)
+                {
+                    list.Add(learnedSkill);
                 }
             }
             return list;
@@ -124,7 +131,7 @@ namespace Ryneus
                         EquipmentLearningInfo equipmentLearningInfo = new();
                         equipmentLearningInfo.SkillId.SetValue(learningDate.SkillId);
                         equipmentLearningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(DataSystem.FindSkill(learningDate.SkillId).Attribute, learningDate.Rate, PartyInfo.EditableActorInfos()));
-                        equipmentLearningInfo.LearningExp.SetValue(CurrentActor.MastarySkillRate(learningDate.SkillId));
+                        equipmentLearningInfo.LearningExp.SetValue(CurrentActor.MastarySkillExp(learningDate.SkillId));
                         equipmentInfo.LearningInfos.Add(equipmentLearningInfo);
                     }
                     list.Add(equipmentInfo);
@@ -149,7 +156,7 @@ namespace Ryneus
                     EquipmentLearningInfo equipmentLearningInfo = new();
                     equipmentLearningInfo.SkillId.SetValue(learningDate.SkillId);
                     equipmentLearningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(DataSystem.FindSkill(learningDate.SkillId).Attribute, learningDate.Rate, PartyInfo.EditableActorInfos()));
-                    equipmentLearningInfo.LearningExp.SetValue(CurrentActor.MastarySkillRate(learningDate.SkillId));
+                    equipmentLearningInfo.LearningExp.SetValue(CurrentActor.MastarySkillExp(learningDate.SkillId));
                     equipmentInfo.LearningInfos.Add(equipmentLearningInfo);
                 }
                 list.Add(equipmentInfo);
@@ -327,7 +334,7 @@ namespace Ryneus
                 return false;
             }
             var achievements = PartyInfo.AchievementInfos;
-            return achievements.Find(a => !a.Achieved.Value && a.Master.ConditionType == AchievementConditionType.StatusSkillChangeCount) != null;
+            return PartyInfo.EquipmentIds.Count > 0 && achievements.Find(a => !a.Achieved.Value && a.Master.ConditionType == AchievementConditionType.StatusSkillChangeCount) != null;
         }
     }
 }
