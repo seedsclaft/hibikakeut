@@ -23,9 +23,25 @@ namespace Ryneus
 
         [SerializeField] private List<int> _equipmentIds = new();
         public List<int> EquipmentIds => _equipmentIds;
+        private List<SkillInfo> EquipmentSkillInfos()
+        {
+            var list = new List<SkillInfo>();
+            // 装備時発動
+            foreach (var equipmentId in _equipmentIds)
+            {
+                var equipment = DataSystem.FindEquipment(equipmentId);
+                foreach (var learningDate in equipment.LearningDates)
+                {
+                    var equipmentSkill = new SkillInfo(learningDate.SkillId);
+                    list.Add(equipmentSkill);
+                }
+            }
+            return list;
+        }
+
         public void ChangeEquipment(int changeEquipmentId, int index)
         {
-            if (_equipmentIds.Contains(changeEquipmentId))
+            if (changeEquipmentId != 10 && _equipmentIds.Contains(changeEquipmentId))
             {
                 return;
             }
@@ -204,7 +220,37 @@ namespace Ryneus
 
         public ParameterInt BattleIndex = new();
         private StatusInfo _plusStatus = new();
-        public StatusInfo PlusStatus => _plusStatus;
+        public StatusInfo EquipPlusStatus()
+        {
+            var equipPlusStatus = new StatusInfo();
+            // 装備時発動
+            foreach (var equipmentSkill in EquipmentSkillInfos())
+            {
+                // 強化スキルなら加算
+                foreach (var featureDate in equipmentSkill.Master.FeatureDates)
+                {
+                    if (featureDate.FeatureType == FeatureType.EquipmentStatusUp && featureDate.Param1 <= 4)
+                    {
+                        equipPlusStatus.AddParameter((StatusParamType)featureDate.Param1, featureDate.Param3);
+                    }
+                }
+            }
+            return equipPlusStatus;
+        }
+
+        public StatusInfo CalcPlusStatus()
+        {
+            var calcPlusStatus = new StatusInfo();
+            calcPlusStatus.SetParameter(_plusStatus);
+            var equipPlusStatus = EquipPlusStatus();
+            calcPlusStatus.AddParameter(StatusParamType.Hp, equipPlusStatus.Hp);
+            calcPlusStatus.AddParameter(StatusParamType.Mp, equipPlusStatus.Mp);
+            calcPlusStatus.AddParameter(StatusParamType.Atk, equipPlusStatus.Atk);
+            calcPlusStatus.AddParameter(StatusParamType.Def, equipPlusStatus.Def);
+            calcPlusStatus.AddParameter(StatusParamType.Spd, equipPlusStatus.Spd);
+            calcPlusStatus.AddParameter(StatusParamType.Cri, equipPlusStatus.Cri);
+            return calcPlusStatus;
+        }
 
         public ActorInfo(ActorData actorData)
         {
@@ -222,28 +268,11 @@ namespace Ryneus
             _equipmentIds.Add(10);
             _equipmentIds.Add(10);
         }
-
+/*
         public void CopyData(ActorInfo baseActorInfo)
         {
-            _plusStatus.SetParameter(
-                baseActorInfo._plusStatus.GetParameter(StatusParamType.Hp),
-                baseActorInfo._plusStatus.GetParameter(StatusParamType.Mp),
-                baseActorInfo._plusStatus.GetParameter(StatusParamType.Atk),
-                baseActorInfo._plusStatus.GetParameter(StatusParamType.Def),
-                baseActorInfo._plusStatus.GetParameter(StatusParamType.Spd),
-                baseActorInfo._plusStatus.GetParameter(StatusParamType.Mov),
-                baseActorInfo._plusStatus.GetParameter(StatusParamType.Cost),
-                baseActorInfo._plusStatus.GetParameter(StatusParamType.Cri)
-            );
-            _lastSelectSkillId = baseActorInfo.LastSelectSkillId;
-            CurrentHp.SetValue(baseActorInfo.CurrentHp.Value);
-            CurrentMp.SetValue(baseActorInfo.CurrentMp.Value);
-            CurrentCost.SetValue(baseActorInfo.CurrentCost.Value);
-            BattleIndex.SetValue(baseActorInfo.BattleIndex.Value);
-            _lineIndex = baseActorInfo._lineIndex;
-            _skillTriggerInfos = baseActorInfo._skillTriggerInfos;
         }
-
+*/
         private void SetInitialParameter(ActorData actorData)
         {
             _plusStatus.SetParameter(actorData.PlusStatus);
@@ -429,13 +458,31 @@ namespace Ryneus
                     statusInfo.AddParameter(StatusParamType.Spd, statusInfo.Spd * 0.1f);
                     statusInfo.AddParameter(StatusParamType.Cost, statusInfo.Cost * 0.1f);
                 }
-                statusInfo.AddParameter(StatusParamType.Hp, _plusStatus.GetParameter(StatusParamType.Hp));
-                statusInfo.AddParameter(StatusParamType.Mp, _plusStatus.GetParameter(StatusParamType.Mp));
-                statusInfo.AddParameter(StatusParamType.Atk, _plusStatus.GetParameter(StatusParamType.Atk));
-                statusInfo.AddParameter(StatusParamType.Def, _plusStatus.GetParameter(StatusParamType.Def));
-                statusInfo.AddParameter(StatusParamType.Spd, _plusStatus.GetParameter(StatusParamType.Spd));
-                //statusInfo.AddParameter(StatusParamType.Mov, _plusStatus.GetParameter(StatusParamType.Mov));
-                //statusInfo.AddParameter(StatusParamType.Cost, _plusStatus.GetParameter(StatusParamType.Cost));
+                var calcPlusStatus = CalcPlusStatus();
+                statusInfo.AddParameter(StatusParamType.Hp, calcPlusStatus.GetParameter(StatusParamType.Hp));
+                statusInfo.AddParameter(StatusParamType.Mp, calcPlusStatus.GetParameter(StatusParamType.Mp));
+                statusInfo.AddParameter(StatusParamType.Atk, calcPlusStatus.GetParameter(StatusParamType.Atk));
+                statusInfo.AddParameter(StatusParamType.Def, calcPlusStatus.GetParameter(StatusParamType.Def));
+                statusInfo.AddParameter(StatusParamType.Spd, calcPlusStatus.GetParameter(StatusParamType.Spd));
+                statusInfo.AddParameter(StatusParamType.Cri, calcPlusStatus.GetParameter(StatusParamType.Cri));
+            
+                // ステータス交換
+                foreach (var equipmentSkill in EquipmentSkillInfos())
+                {
+                    foreach (var featureDate in equipmentSkill.Master.FeatureDates)
+                    {
+                        if (featureDate.FeatureType == FeatureType.EquipmentChangeStatus)
+                        {
+                            var toKey = featureDate.Param1;
+                            var toValue = statusInfo.GetParameter((StatusParamType)toKey);
+                            var fromKey = featureDate.Param2;
+                            var fromValue = statusInfo.GetParameter((StatusParamType)fromKey);
+                            statusInfo.SetValue((StatusParamType)toKey, fromValue);
+                            statusInfo.SetValue((StatusParamType)fromKey, toValue);
+                            break;
+                        }
+                    }
+                }
             }
             return statusInfo;
         }
@@ -466,9 +513,13 @@ namespace Ryneus
             foreach (var learnSkillId in MastarySkillIds)
             {
                 var learnedSkill = new SkillInfo(learnSkillId);
+                // 習得済みなら除外
+                if (list.Find(a => a.Master.Id == learnedSkill.Master.Id) != null)
+                {
+                    continue;
+                }
                 // 強化スキルなら除外
-                var skillData = learnedSkill.Master;
-                if (learnedSkill.FeatureDates.Find(a => a.FeatureType == FeatureType.EquipmentStatusUp) != null)
+                if (learnedSkill.IsEquipmentStatusUpSkill())
                 {
                     continue;
                 }
@@ -482,11 +533,17 @@ namespace Ryneus
                 var equipment = DataSystem.FindEquipment(equipmentId);
                 foreach (var learningDate in equipment.LearningDates)
                 {
-                    if (!learningDate.EquipmentOnly)
+                    var equipmentSkill = new SkillInfo(learningDate.SkillId);
+                    // 習得済みなら除外
+                    if (list.Find(a => a.Master.Id == equipmentSkill.Master.Id) != null)
                     {
                         continue;
                     }
-                    var equipmentSkill = new SkillInfo(learningDate.SkillId);
+                    // 強化スキルなら除外
+                    if (equipmentSkill.IsEquipmentStatusUpSkill())
+                    {
+                        continue;
+                    }
                     equipmentSkill.SetLearningState(LearningState.Learned);
                     equipmentSkill.SetEnable(true);
                     list.Add(equipmentSkill);
@@ -598,8 +655,7 @@ namespace Ryneus
             {
                 _attributeUpper[attributeType] = 0;
             }
-            //_attributeUpper[attributeType] += 1;
-            // 装備しているコストを変更
+            _attributeUpper[attributeType] += 1;
         }
 
         public List<AttributeRank> GetAttributeRank()

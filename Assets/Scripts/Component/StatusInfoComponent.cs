@@ -83,6 +83,10 @@ namespace Ryneus
             {
                 text.ChangeTextColor(GameSystem.TempData.ColorSettings.GetColor(TextColorType.PowerUp));
             }
+            else
+            {
+                text.ResetTextColor();
+            }
         }
 
         public void UpdateHp(int currentHp, int maxStatusHp)

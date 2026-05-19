@@ -19,7 +19,6 @@ namespace Ryneus
                     EquipmentLearningInfo equipmentLearningInfo = new();
                     equipmentLearningInfo.SkillId.SetValue(learningDate.SkillId);
                     equipmentLearningInfo.LearningRate.SetValue(learningDate.Rate);
-                    equipmentLearningInfo.EquipmentOnly.SetValue(learningDate.EquipmentOnly);
                     LearningInfos.Add(equipmentLearningInfo);
                 }
             }

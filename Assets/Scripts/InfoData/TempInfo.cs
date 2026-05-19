@@ -42,7 +42,7 @@ namespace Ryneus
             foreach (var actorInfo in actorInfos)
             {
                 var tempInfo = new ActorInfo(actorInfo.Master);
-                tempInfo.CopyData(actorInfo);
+                //tempInfo.CopyData(actorInfo);
                 _tempActorInfos.Add(tempInfo);
             }
         }

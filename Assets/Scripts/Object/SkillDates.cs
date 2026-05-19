@@ -581,6 +581,7 @@ namespace Ryneus
         ReflectLastAbnormal = 12010, // 最後に受けたAbnormalを相手に移す
         RobBuffState = 13010, // 対象のバフを奪い取る
         EquipmentStatusUp = 14010, // 装備パッシブでステータスアップ
+        EquipmentChangeStatus = 14080, // ステータス交換
         GetItem = 40010, // アイテム入手
         GetExpRateUp = 40020, // 獲得経験値%アップ
         GetExp = 40030, // Exp入手

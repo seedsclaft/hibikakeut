@@ -155,8 +155,8 @@ namespace Ryneus
             UIComponent.SetText(countTurn, skillData.CountTurn.ToString());
             if (rank != null)
             {
-                UIComponent.SetActive(rank, true);
-                UIComponent.SetActive(rank.gameObject.transform.parent.gameObject, true);
+                //UIComponent.SetActive(rank, true);
+                //UIComponent.SetActive(rank.gameObject.transform.parent.gameObject, true);
                 UIComponent.SetActive(useCount, false);
                 UpdateSkillRank(skillData.Rank);
             }
@@ -199,6 +199,7 @@ namespace Ryneus
 
         private void UpdateSkillRank(RankType rankType)
         {
+            /*
             var textId = 2300 + (SkillData.ConvertRankCost(rankType) * 10);
             if (rankType == RankType.ActiveRank1)
             {
@@ -215,6 +216,7 @@ namespace Ryneus
                 textId = 2330;
             }
             UIComponent.SetText(rank, DataSystem.GetText(textId));
+            */
         }
 
         public void SetName(string name)

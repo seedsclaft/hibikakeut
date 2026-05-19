@@ -4146,7 +4146,7 @@ MonoBehaviour:
     CountTurn: 0
     Rank: 1000
     Attribute: 1
-    Scope: 2
+    Scope: 1
     SkillType: 4
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
@@ -10035,6 +10035,32 @@ MonoBehaviour:
       FeatureType: 40020
       Param1: 30
       Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 506020
+    Name: "ATK\u21D4DEF\u4EA4\u63DB"
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 6
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306EATK\u3068DEF\u5024\u3092\u4EA4\u63DB\u3059\u308B\n\u540C\u7CFB\u7D71\u8907\u6570\u88C5\u5099\u4E0D\u53EF"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 506020
+      FeatureType: 14080
+      Param1: 2
+      Param2: 3
       Param3: 0
       Rate: 100
     TriggerDates: []

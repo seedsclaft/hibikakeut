@@ -9,6 +9,20 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI captionText;
         [SerializeField] private TextMeshProUGUI maxParam;
         [SerializeField] private TextMeshProUGUI currentParam;
+
+        private Color _beforeColor = new(0, 0, 1);
+ 
+        void Awake()
+        {
+            if (statusParamType == StatusParamType.Hp || statusParamType == StatusParamType.Mp)
+            {
+                _beforeColor = maxParam.color;
+            } else
+            {
+                _beforeColor = currentParam.color;
+            }
+        }
+ 
         public void UpdateInfo(StatusParamInfo statusParamInfo)
         {
             UpdateCaptionText(statusParamInfo.paramType);
@@ -28,7 +42,24 @@ namespace Ryneus
 
         public void ChangeTextColor(Color color)
         {
-            currentParam.color = color;
+            if (statusParamType == StatusParamType.Hp || statusParamType == StatusParamType.Mp)
+            {
+                maxParam.color = color;
+            } else
+            {
+                currentParam.color = color; 
+            }
+        }
+
+        public void ResetTextColor()
+        {
+            if (statusParamType == StatusParamType.Hp || statusParamType == StatusParamType.Mp)
+            {
+                maxParam.color = _beforeColor;
+            } else
+            {
+                currentParam.color = _beforeColor; 
+            }
         }
     }
 }

@@ -145,6 +145,12 @@ namespace Ryneus
             return Master.IsBattleSpecialSkill();
         }
 
+        public bool IsEquipmentStatusUpSkill()
+        {
+            var featureData = FeatureDates.Find(a => a.FeatureType == FeatureType.EquipmentStatusUp);
+            return featureData != null && featureData.Param1 <= 4;
+        }
+
         public string ConvertHelpText(BattlerInfo battlerInfo = null)
         {
             var helpText = new StringBuilder();

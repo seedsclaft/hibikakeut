@@ -46,6 +46,7 @@ namespace Ryneus
             DefParam.curernt.SetValue(statusInfo.Def);
             SpdParam.curernt.SetValue(statusInfo.Spd);
             CostParam.curernt.SetValue(statusInfo.Cost);
+            CriParam.curernt.SetValue(statusInfo.Cri);
         }
 
         public int GetParameter(StatusParamType paramType)
