@@ -248,7 +248,10 @@ namespace Ryneus
             calcPlusStatus.AddParameter(StatusParamType.Atk, equipPlusStatus.Atk);
             calcPlusStatus.AddParameter(StatusParamType.Def, equipPlusStatus.Def);
             calcPlusStatus.AddParameter(StatusParamType.Spd, equipPlusStatus.Spd);
+            calcPlusStatus.AddParameter(StatusParamType.Hit, equipPlusStatus.Hit);
+            calcPlusStatus.AddParameter(StatusParamType.Eva, equipPlusStatus.Eva);
             calcPlusStatus.AddParameter(StatusParamType.Cri, equipPlusStatus.Cri);
+            calcPlusStatus.AddParameter(StatusParamType.CriEva, equipPlusStatus.CriEva);
             return calcPlusStatus;
         }
 
@@ -464,7 +467,10 @@ namespace Ryneus
                 statusInfo.AddParameter(StatusParamType.Atk, calcPlusStatus.GetParameter(StatusParamType.Atk));
                 statusInfo.AddParameter(StatusParamType.Def, calcPlusStatus.GetParameter(StatusParamType.Def));
                 statusInfo.AddParameter(StatusParamType.Spd, calcPlusStatus.GetParameter(StatusParamType.Spd));
+                statusInfo.AddParameter(StatusParamType.Hit, calcPlusStatus.GetParameter(StatusParamType.Hit));
+                statusInfo.AddParameter(StatusParamType.Eva, calcPlusStatus.GetParameter(StatusParamType.Eva));
                 statusInfo.AddParameter(StatusParamType.Cri, calcPlusStatus.GetParameter(StatusParamType.Cri));
+                statusInfo.AddParameter(StatusParamType.CriEva, calcPlusStatus.GetParameter(StatusParamType.CriEva));
             
                 // ステータス交換
                 foreach (var equipmentSkill in EquipmentSkillInfos())

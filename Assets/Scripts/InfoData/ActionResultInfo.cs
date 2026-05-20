@@ -129,6 +129,7 @@ namespace Ryneus
         public bool WeakPoint => _weakPoint;
         public ParameterInt HpHeal = new();
         public ParameterInt CtDamage = new();
+        public ParameterInt PassiveCtDamage = new();
         public ParameterInt CtHealSkillId = new(-1);
         public ParameterInt CtHeal = new();
         public ParameterInt ApDamage = new();
@@ -238,6 +239,12 @@ namespace Ryneus
                     if (CheckIsHit(subject, target, isOneTarget, range))
                     {
                         MakeCtDamage(subject, target, featureData);
+                    }
+                    return;
+                case FeatureType.PassiveCtDamage:
+                    if (CheckIsHit(subject, target, isOneTarget, range))
+                    {
+                        MakePassiveCtDamage(subject, target, featureData);
                     }
                     return;
                 case FeatureType.CtHeal:
@@ -757,6 +764,11 @@ namespace Ryneus
             CtDamage.SetValue(featureData.Param1);
         }
 
+        private void MakePassiveCtDamage(BattlerInfo subject, BattlerInfo target, SkillData.FeatureData featureData)
+        {
+            PassiveCtDamage.SetValue(featureData.Param1);
+        }
+
         private void MakeCtDrain(BattlerInfo subject, BattlerInfo target, SkillData.FeatureData featureData)
         {
             var mpDamage = Math.Min(featureData.Param1, target.Mp.Value);
@@ -806,6 +818,11 @@ namespace Ryneus
             if (featureData.Rate < UnityEngine.Random.Range(0, 100))
             {
                 //_missed = true;
+                return;
+            }
+            // 付与無効状態なら回避
+            if (target.GetStateInfoAll(StateType.StateDefense).Find(a => a.Effect.Value == featureData.Param1) != null)
+            {
                 return;
             }
             var stateInfo = new StateInfo((StateType)featureData.Param1, featureData.Param2, featureData.Param3, subject.Index.Value, target.Index.Value, SkillId.Value);

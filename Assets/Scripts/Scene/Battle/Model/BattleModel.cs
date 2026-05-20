@@ -1197,6 +1197,10 @@ namespace Ryneus
             {
                 target.SeekCountTurn(-1 * actionResultInfo.CtDamage.Value);
             }
+            if (actionResultInfo.PassiveCtDamage.Value != 0)
+            {
+                target.SeekPassiveCountTurn(-1 * actionResultInfo.PassiveCtDamage.Value);
+            }
             if (actionResultInfo.CtHeal.Value != 0)
             {
                 target.SeekCountTurn(actionResultInfo.CtHeal.Value, actionResultInfo.CtHealSkillId.Value);

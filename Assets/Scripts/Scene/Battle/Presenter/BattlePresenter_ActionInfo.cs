@@ -190,9 +190,9 @@ namespace Ryneus
                     _view.StartHeal(targetIndex, DamageType.HpHeal, actionResultInfo.HpHeal.Value, needPopupDelay);
                 }
             }
-            if (actionResultInfo.CtDamage.Value > 0)
+            if (actionResultInfo.CtDamage.Value > 0 || actionResultInfo.PassiveCtDamage.Value > 0)
             {
-                _view.StartDamage(targetIndex, DamageType.MpDamage, actionResultInfo.CtDamage.Value);
+                _view.StartDamage(targetIndex, DamageType.MpDamage, actionResultInfo.CtDamage.Value + actionResultInfo.PassiveCtDamage.Value);
             }
             if (actionResultInfo.CtHeal.Value > 0)
             {

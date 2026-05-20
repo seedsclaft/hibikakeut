@@ -548,6 +548,7 @@ namespace Ryneus
         RemoveDeBuffState = 3060,
         ChangeStateParam = 3070,
         CtDamage = 4010,
+        PassiveCtDamage = 4011,
         CtHeal = 4020,
         CtDrain = 4030,
         ActiveCtHeal = 4040,

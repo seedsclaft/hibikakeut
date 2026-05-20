@@ -30,7 +30,7 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 501010
-      Rate: 10
+      Rate: 15
   - Id: 1020
     Name: "\u30CF\u30A6\u30EC\u30B9"
     IconIndex: 1
@@ -42,7 +42,7 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 501020
-      Rate: 10
+      Rate: 15
   - Id: 1030
     Name: "\u30D1\u30C6\u30A3\u30F3"
     IconIndex: 1
@@ -54,7 +54,19 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 501030
-      Rate: 10
+      Rate: 15
+  - Id: 1040
+    Name: "\u30B7\u30C8\u30EA"
+    IconIndex: 1
+    Rank: 1
+    Attribute: 1
+    LearningDates:
+    - Id: 0
+      SkillId: 501040
+      Rate: 0
+    - Id: 0
+      SkillId: 501041
+      Rate: 0
   - Id: 2010
     Name: "\u30DE\u30EB\u30B3\u30B7\u30A2\u30B9"
     IconIndex: 2
@@ -66,7 +78,7 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 502010
-      Rate: 10
+      Rate: 15
   - Id: 2020
     Name: "\u30DE\u30EB\u30D5\u30A1\u30B9"
     IconIndex: 2
@@ -78,7 +90,7 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 502020
-      Rate: 10
+      Rate: 15
   - Id: 2030
     Name: "\u30BB\u30FC\u30EC"
     IconIndex: 2
@@ -90,7 +102,19 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 502030
-      Rate: 10
+      Rate: 15
+  - Id: 2040
+    Name: "\u30CF\u30EB\u30D1\u30B9"
+    IconIndex: 2
+    Rank: 1
+    Attribute: 2
+    LearningDates:
+    - Id: 0
+      SkillId: 502040
+      Rate: 0
+    - Id: 0
+      SkillId: 502041
+      Rate: 0
   - Id: 3010
     Name: "\u30D5\u30A9\u30AB\u30ED\u30EB"
     IconIndex: 3
@@ -102,7 +126,7 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 503010
-      Rate: 10
+      Rate: 15
   - Id: 3020
     Name: "\u30A6\u30F4\u30A1\u30EB"
     IconIndex: 3
@@ -114,7 +138,7 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 503020
-      Rate: 10
+      Rate: 15
   - Id: 3030
     Name: "\u30AF\u30ED\u30BB\u30EB"
     IconIndex: 3
@@ -126,7 +150,19 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 503030
-      Rate: 10
+      Rate: 15
+  - Id: 3040
+    Name: "\u30CF\u30A2\u30B2\u30F3\u30C6\u30A3"
+    IconIndex: 3
+    Rank: 1
+    Attribute: 3
+    LearningDates:
+    - Id: 0
+      SkillId: 503040
+      Rate: 0
+    - Id: 0
+      SkillId: 503041
+      Rate: 0
   - Id: 4010
     Name: "\u30D7\u30EB\u30BD\u30F3"
     IconIndex: 4
@@ -138,7 +174,7 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 504010
-      Rate: 10
+      Rate: 15
   - Id: 4020
     Name: "\u30A2\u30F3\u30C9\u30ED\u30DE\u30EA\u30A6\u30B9"
     IconIndex: 4
@@ -150,7 +186,7 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 504020
-      Rate: 10
+      Rate: 15
   - Id: 4030
     Name: "\u30A6\u30F4\u30A1\u30EB"
     IconIndex: 4
@@ -162,7 +198,16 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 504030
-      Rate: 10
+      Rate: 15
+  - Id: 4040
+    Name: "\u30F4\u30A1\u30E9\u30AF"
+    IconIndex: 4
+    Rank: 1
+    Attribute: 4
+    LearningDates:
+    - Id: 0
+      SkillId: 504040
+      Rate: 0
   - Id: 5010
     Name: "\u30ED\u30A4\u30E0"
     IconIndex: 5
@@ -174,7 +219,7 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 505010
-      Rate: 10
+      Rate: 15
   - Id: 5020
     Name: "\u30D1\u30A4\u30E2\u30F3"
     IconIndex: 5
@@ -186,7 +231,7 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 505020
-      Rate: 10
+      Rate: 15
   - Id: 5030
     Name: "\u30D5\u30EB\u30AB\u30B9"
     IconIndex: 5
@@ -198,7 +243,16 @@ MonoBehaviour:
       Rate: 20
     - Id: 0
       SkillId: 505030
-      Rate: 10
+      Rate: 15
+  - Id: 5040
+    Name: "\u30DE\u30EB\u30D0\u30B9"
+    IconIndex: 5
+    Rank: 1
+    Attribute: 5
+    LearningDates:
+    - Id: 0
+      SkillId: 505040
+      Rate: 5
   - Id: 6010
     Name: "\u30CA\u30D9\u30EA\u30A6\u30B9"
     IconIndex: 6
@@ -211,7 +265,7 @@ MonoBehaviour:
   - Id: 6020
     Name: "\u30A2\u30F3\u30C9\u30EC\u30A2\u30EB\u30D5\u30B9"
     IconIndex: 6
-    Rank: 0
+    Rank: 11
     Attribute: 6
     LearningDates:
     - Id: 0

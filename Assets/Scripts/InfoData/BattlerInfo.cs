@@ -15,7 +15,7 @@ namespace Ryneus
         public StatusInfo CurrentStatus(bool isNoEffect)
         {
             var currentStatus = new StatusInfo();
-            currentStatus.SetParameter(MaxHp, MaxMp, CurrentAtk(isNoEffect), CurrentDef(isNoEffect), CurrentSpd(isNoEffect), CurrentMov(isNoEffect), _status.GetParameter(StatusParamType.Cost), CurrentCri(isNoEffect));
+            currentStatus.SetParameter(MaxHp, MaxMp, CurrentAtk(isNoEffect), CurrentDef(isNoEffect), CurrentSpd(isNoEffect), CurrentMov(isNoEffect), _status.GetParameter(StatusParamType.Cost), CurrentHit(), CurrentEva() , CurrentCri(isNoEffect));
             return currentStatus;
         }
         public ParameterInt Index = new();
@@ -117,14 +117,7 @@ namespace Ryneus
             Level.SetValue(actorInfo.Level);
             var statusInfo = new StatusInfo();
             statusInfo.SetParameter(
-                actorInfo.CurrentParameter(StatusParamType.Hp),
-                actorInfo.CurrentParameter(StatusParamType.Mp),
-                actorInfo.CurrentParameter(StatusParamType.Atk),
-                actorInfo.CurrentParameter(StatusParamType.Def),
-                actorInfo.CurrentParameter(StatusParamType.Spd),
-                actorInfo.CurrentParameter(StatusParamType.Mov),
-                actorInfo.CurrentParameter(StatusParamType.Cost),
-                actorInfo.CurrentParameter(StatusParamType.Cri)
+                actorInfo.CurrentStatus
             );
             _status = statusInfo;
             Index.SetValue(index);
@@ -225,6 +218,8 @@ namespace Ryneus
                 (int)(enemyData.BaseStatus.Atk + (Level.Value * enemyData.AtkGrowth * 0.015f)),
                 (int)(enemyData.BaseStatus.Def + (Level.Value * enemyData.DefGrowth * 0.01f)),
                 Math.Min(100, (int)(enemyData.BaseStatus.Spd + (Level.Value * enemyData.SpdGrowth * 0.01f))),
+                0,
+                0,
                 0,
                 0,
                 0
@@ -335,6 +330,8 @@ namespace Ryneus
             var statusInfo = new StatusInfo();
             statusInfo.SetParameter(
                 1,
+                0,
+                0,
                 0,
                 0,
                 0,
@@ -626,6 +623,18 @@ namespace Ryneus
             }
         }
 
+        public void SeekPassiveCountTurn(int seekCount)
+        {
+            foreach (var skill in _skills)
+            {
+                if (skill.Master.SkillType != SkillType.Passive)
+                {
+                    continue;
+                }
+                skill.CountTurn.GainValue(seekCount * -1,0);
+            }
+        }
+
         public void GainUseCount(int skillId)
         {
             var skill = _skills.Find(a => a.Id.Value == skillId);
@@ -782,11 +791,6 @@ namespace Ryneus
         public bool RemoveState(StateInfo stateInfo, bool doRemove)
         {
             bool isRemoved = false;
-            // 装備スキルは解除しない
-            if (stateInfo.EquipStateInfo())
-            {
-                return isRemoved;
-            }
             int removeIndex = _stateInfos.FindIndex(a => a.StateType == stateInfo.StateType && (a.SkillId == stateInfo.SkillId || stateInfo.SkillId.Value == -1));
             if (removeIndex > -1)
             {
@@ -797,7 +801,8 @@ namespace Ryneus
                         // 効果による解除は全て複数効果あっても全部解除する
                         for (int i = _stateInfos.Count - 1; 0 <= i; i--)
                         {
-                            if (_stateInfos[i].StateType == stateInfo.Master.StateType)
+                            // 装備スキルは解除しない
+                            if (_stateInfos[i].StateType == stateInfo.Master.StateType && !_stateInfos[i].EquipStateInfo())
                             {
                                 _stateInfos.Remove(_stateInfos[i]);
                             }
@@ -805,7 +810,10 @@ namespace Ryneus
                     }
                     else
                     {
-                        _stateInfos.RemoveAt(removeIndex);
+                        if (!_stateInfos[removeIndex].EquipStateInfo())
+                        {
+                            _stateInfos.RemoveAt(removeIndex);
+                        }
                     }
                     if (stateInfo.StateType == StateType.Death)
                     {
@@ -979,7 +987,7 @@ namespace Ryneus
 
         public int CurrentHit()
         {
-            int hit = 0;
+            int hit = Status.Hit;
             hit += StateEffectAll(StateType.HitUp) + StateEffectAll(StateType.HitUpOver);
             hit -= (int)DeBuffUpperParam(StateEffectAll(StateType.HitDown));
             return hit;
@@ -987,7 +995,7 @@ namespace Ryneus
 
         public int CurrentEva()
         {
-            int eva = 0;
+            int eva = Status.Eva;
             eva += StateEffectAll(StateType.EvaUp) + StateEffectAll(StateType.EvaUpOver);
             eva -= (int)DeBuffUpperParam(StateEffectAll(StateType.EvaDown));
             return eva;
@@ -1126,12 +1134,12 @@ namespace Ryneus
 
         public int SlipDamage()
         {
-            var slipDamage = 0;
+            var slipDamage = 0f;
             slipDamage += GetStateEffectAll(StateType.PoisunDamage);
-            slipDamage += GetStateEffectAll(StateType.BurnDamage);
+            slipDamage += GetStateEffectAll(StateType.BurnDamage) * (GetStateEffectAll(StateType.BurnDamageCut) * 0.01f);
             var perDamageValue = GetStateEffectAll(StateType.PoisunDamagePer);
-            slipDamage += (int)Math.Round(MaxHp * 0.01f * perDamageValue);
-            return slipDamage;
+            slipDamage += (int)Math.Floor(MaxHp * 0.01f * perDamageValue);
+            return (int)slipDamage;
         }
 
         public int RegenerateHpValue()

@@ -101,7 +101,7 @@ namespace Ryneus
             var skillData = DataSystem.FindSkill(SkillId.Value);
             if (skillData != null)
             {
-                return skillData.SkillType == SkillType.Equip;
+                return skillData.SkillType == SkillType.Equip || skillData.SkillType == SkillType.Equipment;
             }
             return false;
         }

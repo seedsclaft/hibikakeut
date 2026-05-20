@@ -64,6 +64,7 @@ namespace Ryneus
         EvaUpOver = 1092,
         DamageCutRate = 1100,
         DamageCut = 1101,
+        BurnDamageCut = 1210, // 火傷ダメージカット
         PoisunDamage = 2010, // 火傷(ダメージ固定)
         PoisunDamagePer = 2011, // 火傷(ダメージ割合)
         BurnDamage = 2012, // 火傷(ダメージ固定)
@@ -108,6 +109,7 @@ namespace Ryneus
         Reraise = 2450,
         HealValueUp = 2460,
         Curse = 2470,
+        StateDefense = 2480,
         Linkage = 3020,
         NoApRecover = 9999
     }
