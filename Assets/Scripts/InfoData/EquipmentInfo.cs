@@ -16,9 +16,7 @@ namespace Ryneus
             {
                 foreach (var learningDate in Master.LearningDates)
                 {
-                    EquipmentLearningInfo equipmentLearningInfo = new();
-                    equipmentLearningInfo.SkillId.SetValue(learningDate.SkillId);
-                    equipmentLearningInfo.LearningRate.SetValue(learningDate.Rate);
+                    EquipmentLearningInfo equipmentLearningInfo = new(learningDate);
                     LearningInfos.Add(equipmentLearningInfo);
                 }
             }

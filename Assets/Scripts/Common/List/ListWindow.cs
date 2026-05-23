@@ -301,21 +301,37 @@ namespace Ryneus
 
         public InputKeyType GetPlusKey()
         {
+            if (_grid)
+            {
+                return _horizontal ? InputKeyType.Up : InputKeyType.Down;
+            }
             return _horizontal ? InputKeyType.Right : InputKeyType.Down;
         }
 
         public InputKeyType GetMinusKey()
         {
+            if (_grid)
+            {
+                return _horizontal ? InputKeyType.Down : InputKeyType.Up;
+            }
             return _horizontal ? InputKeyType.Left : InputKeyType.Up;
         }
 
         public InputKeyType GetPageUpKey()
         {
+            if (_grid)
+            {
+                return _horizontal ? InputKeyType.Right : InputKeyType.Left;
+            }
             return _horizontal ? InputKeyType.Down : InputKeyType.Right;
         }
 
         public InputKeyType GetPageDownKey()
         {
+            if (_grid)
+            {
+                return _horizontal ? InputKeyType.Left : InputKeyType.Right;
+            }
             return _horizontal ? InputKeyType.Up : InputKeyType.Left;
         }
 
@@ -407,6 +423,15 @@ namespace Ryneus
 
         private float ItemSpace(bool isHorizontal)
         {
+            if (_grid)
+            {
+                var grid = GetComponentInChildren<GridLayoutGroup>();
+                if (grid != null)
+                {
+                    return isHorizontal ? grid.spacing.x : grid.spacing.y;
+                }
+            }
+            else
             if (isHorizontal)
             {
                 var horizontal = GetComponentInChildren<HorizontalLayoutGroup>();

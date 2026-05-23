@@ -98,7 +98,8 @@ namespace Ryneus
                         EquipmentLearningData equipmentLearningData = new()
                         {
                             SkillId = AssetPostImporter.ImportNumeric(BaseRow, "SkillId"),
-                            Rate = AssetPostImporter.ImportNumeric(BaseRow, "LearningRate")
+                            Rate = AssetPostImporter.ImportNumeric(BaseRow, "LearningRate"),
+                            EquipmentOnly = AssetPostImporter.ImportNumeric(BaseRow, "EquipmentOnly") == 1,
                         };
                         Equipment.LearningDates.Add(equipmentLearningData);
                     }

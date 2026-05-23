@@ -73,15 +73,106 @@ namespace Ryneus
             return _useCount.Where(a => a.Value.Value > 0).Count() > 0;
         }
 
-        public List<GetItemInfo> PresentGetItemInfos()
+        public List<ItemData> SelectEquipmentItems()
+        {
+            var list = new List<ItemData>();
+            foreach (var useCount in _useCount)
+            {
+                var getItemInfos = MakeItemGetItemInfos(useCount.Key, useCount.Value.Value);
+                if (getItemInfos.Count > 0 && getItemInfos[0].GetItemType == GetItemType.SelectEquipment)
+                {
+                    foreach (var getItemInfo in getItemInfos)
+                    {
+                        list.Add(DataSystem.FindItem(useCount.Key));
+                    }
+                    return list;
+                } 
+            }
+            return list;
+        }
+
+        public bool SelectEquipmentZero(ItemData itemData)
+        {
+            var list = new List<EquipmentInfo>();
+            var selectEquipmentItem = itemData;
+            // Param1 = Rank以下全て
+            // Param2 = -1 属性区別なし, 1-5 属性縛り
+            foreach (var equipment in DataSystem.Dates[DataType.Equipment].ToList<EquipmentData>())
+            {
+                if (equipment.Id == 10)
+                {
+                    continue;
+                }
+                if (equipment.Rank > selectEquipmentItem.Param1)
+                {
+                    continue;
+                }
+                if (selectEquipmentItem.Param2 != -1 && (AttributeType)selectEquipmentItem.Param2 != equipment.Attribute)
+                {
+                    continue;
+                }
+                if (PartyInfo.EquipmentIds.Contains(equipment.Id))
+                {
+                    continue;
+                }
+                var equipmentInfo = new EquipmentInfo(equipment.Id);
+                list.Add(equipmentInfo);
+            }
+            return list.Count == 0;
+        }
+
+        public List<EquipmentInfo> SelectEquipmentInfos()
+        {
+            var list = new List<EquipmentInfo>();
+            var selectEquipmentItem = SelectEquipmentItems()[0];
+            // Param1 = Rank以下全て
+            // Param2 = -1 属性区別なし, 1-5 属性縛り
+            foreach (var equipment in DataSystem.Dates[DataType.Equipment].ToList<EquipmentData>())
+            {
+                if (equipment.Id == 10)
+                {
+                    continue;
+                }
+                if (equipment.Rank > selectEquipmentItem.Param1)
+                {
+                    continue;
+                }
+                if (selectEquipmentItem.Param2 != -1 && (AttributeType)selectEquipmentItem.Param2 != equipment.Attribute)
+                {
+                    continue;
+                }
+                var equipmentInfo = new EquipmentInfo(equipment.Id);
+                list.Add(equipmentInfo);
+            }
+            return list;
+        }
+
+        public List<GetItemInfo> PresentGetItemInfos(List<EquipmentInfo> selectedEquipmentInfos = null)
         {
             var list = new List<GetItemInfo>();
             // アイテムを消費
             foreach (var useCount in _useCount)
             {
                 var getItemInfos = MakeItemGetItemInfos(useCount.Key, useCount.Value.Value);
-                list.AddRange(getItemInfos);
+                if (getItemInfos.Count > 0 && getItemInfos[0].GetItemType != GetItemType.SelectEquipment)
+                {
+                    list.AddRange(getItemInfos);
+                }
                 PartyInfo.ConsuneItemNum(useCount.Key, useCount.Value.Value);
+            }
+            // 選択した装備
+            if (selectedEquipmentInfos != null)
+            {
+                foreach (var equipmentInfo in selectedEquipmentInfos)
+                {
+                    var getItemData = new GetItemData
+                    {
+                        Type = GetItemType.Equipment,
+                        Param1 = equipmentInfo.EquipmentId.Value
+                    };
+                    var getItemInfo = new GetItemInfo(getItemData);
+                    list.Add(getItemInfo);
+                }
             }
             return list;
         }

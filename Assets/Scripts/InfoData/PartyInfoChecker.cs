@@ -8,6 +8,7 @@ namespace Ryneus
         [SerializeField] private bool encountZero = false;
         [SerializeField] private bool allLearnSkills = false;
         [SerializeField] private bool getAllItems = false;
+        [SerializeField] private bool getAllEquipments = false;
         [SerializeField] private bool clearAchivements = false;
         [SerializeField] private PartyInfo partyInfo = null;
         [SerializeField] private DeckInfo deckInfo = null;
@@ -22,6 +23,7 @@ namespace Ryneus
             UpdateEncountZero();
             UpdateAllLearnSkills();
             UpdateGetAllItems();
+            UpdateGetAllEquipments();
             UpdateClearAchivements();
         }
 
@@ -70,6 +72,30 @@ namespace Ryneus
                     partyInfo.AddGetItemInfo(getitemInfo);
                 }
                 getAllItems = false;
+            }
+        }
+
+        private void UpdateGetAllEquipments()
+        {
+            
+            if (partyInfo == null)
+            {
+                return;
+            }
+            if (getAllEquipments)
+            {
+                foreach (var equipment in DataSystem.Dates[DataType.Equipment].ToList<EquipmentData>())
+                {
+                    var getItemData = new GetItemData
+                    {
+                        Type = GetItemType.Equipment,
+                        Param1 = equipment.Id,
+                        Param2 = 1
+                    };
+                    var getitemInfo = new GetItemInfo(getItemData);
+                    partyInfo.AddGetItemInfo(getitemInfo);
+                }
+                getAllEquipments = false;
             }
         }
 

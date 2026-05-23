@@ -1,14 +1,20 @@
 namespace Ryneus
 {
     public class EquipmentLearningInfo
-    {
-        
-        private SkillData _master = null;
-        public SkillData Master => _master == null ? _master = DataSystem.FindSkill(SkillId.Value) : _master;
-        
+    {   
+        private SkillData _skillData = null;
+        public SkillData SkillData => _skillData == null ? _skillData = DataSystem.FindSkill(SkillId.Value) : _skillData;
+        public EquipmentLearningData Master = new();
         public ParameterInt SkillId = new();
         public ParameterInt LearningRate = new();
-        public ParameterFloat LearningExp = new();
         public ParameterBool EquipmentOnly = new(false);
+        public ParameterFloat LearningExp = new();
+        public EquipmentLearningInfo(EquipmentLearningData learningDate)
+        {
+            Master = learningDate;
+            SkillId.SetValue(learningDate.SkillId);
+            LearningRate.SetValue(learningDate.Rate);
+            EquipmentOnly.SetValue(learningDate.EquipmentOnly);
+        }
     }
 }

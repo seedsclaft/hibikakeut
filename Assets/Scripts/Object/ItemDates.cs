@@ -21,12 +21,23 @@ namespace Ryneus
         public int Cost;
         public string Name;
         public string Help;
+
+        public bool IsAddEquipment()
+        {
+            return ItemType == ItemType.RandumAddEquipment || ItemType == ItemType.SelectAddEquipment;
+        }
+
+        public bool IsPresentItem()
+        {
+            return ItemType == ItemType.Currency || IsAddEquipment();
+        }
     }
 
     [Serializable]
     public enum ItemType
     {
         RandumAddEquipment = 10,
+        SelectAddEquipment = 11,
         Artifact = 20,
         Currency = 30,
         UseItem = 40,

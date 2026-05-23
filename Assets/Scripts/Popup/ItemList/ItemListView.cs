@@ -57,7 +57,6 @@ namespace Ryneus
 
         public void SetItemList(List<ListData> achievementLists, bool updateSelectIndex)
         {
-            UIParticle uIParticle = null;
             itemList.SetData(achievementLists, updateSelectIndex, () =>
             {
                 foreach (var prefab in itemList.ItemPrefabList)
@@ -92,7 +91,7 @@ namespace Ryneus
             }
             var isActive = false;
             var itemInfo = itemList.ListItemData<ItemInfo>();
-            if (itemInfo != null && itemInfo.Master.ItemType == ItemType.RandumAddEquipment)
+            if (itemInfo != null && itemInfo.Master.IsAddEquipment())
             {
                 isActive = true;
             }

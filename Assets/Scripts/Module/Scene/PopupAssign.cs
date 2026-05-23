@@ -127,6 +127,7 @@ namespace Ryneus
         Trade,
         AlcanaList,
         UseItem,
+        SelectEquipment,
         LearnSkill,
         LevelUp,
         ClassChange,

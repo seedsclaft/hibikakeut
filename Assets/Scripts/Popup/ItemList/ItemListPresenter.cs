@@ -90,29 +90,63 @@ namespace Ryneus
             {
                 if (a == ConfirmCommandType.Yes)
                 {
-                    var getItemInfos = _model.PresentGetItemInfos();
-                    if (getItemInfos.Count > 0)
+                    // 選択装備を先に決定する
+                    var selectEquipmentInfos = _model.SelectEquipmentItems();
+                    if (selectEquipmentInfos.Count > 0)
                     {
-                        _model.PartyInfo.PartyStatInfo.PresentCommandCount.GainValue(1);
-                        CheckAchievements();
-                        _view.CallSystemCommand(Base.CommandType.ClosePopup);
-                        var sceneParam = new MainMenuSceneInfo
+                        // 全て入手済みの場合
+                        if (_model.SelectEquipmentZero(selectEquipmentInfos[0]))
                         {
-                            CommandIndex = 4
-                        };
-                        var strategySceneInfo = new StrategySceneInfo
+                            CallConfirmNoChoiceView(DataSystem.GetText(45020), (a) =>
+                            {
+                                if (a == ConfirmCommandType.Yes)
+                                {
+                                    PresentGetItemInfos();
+                                    CommandRefresh();
+                                }
+                            });
+                            return;
+                        }
+                        var selectEquipmentSceneInfo = new SelectEquipmentSceneInfo
                         {
-                            ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
-                            InBattle = false,
-                            GetItemInfos = getItemInfos,
-                            ReturnMainMenuSceneParam = sceneParam
+                            SelectCount = selectEquipmentInfos.Count,
+                            SelectEquipments = _model.SelectEquipmentInfos(),
+                            SelectedEquipments = new()
                         };
-                        _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
+                        CallPopupView(PopupType.SelectEquipment, () =>
+                        {
+                            PresentGetItemInfos(selectEquipmentSceneInfo.SelectedEquipments);
+                        }, selectEquipmentSceneInfo);
+                        return;
                     }
+                    PresentGetItemInfos();
                 }
                 _busy = false;
                 _view.ActivateItemList(true);
             });
+        }
+
+        private void PresentGetItemInfos(List<EquipmentInfo> selectedEquipmentInfos = null)
+        {
+            var getItemInfos = _model.PresentGetItemInfos(selectedEquipmentInfos);
+            if (getItemInfos.Count > 0)
+            {
+                _model.PartyInfo.PartyStatInfo.PresentCommandCount.GainValue(1);
+                CheckAchievements();
+                _view.CallSystemCommand(Base.CommandType.ClosePopup);
+                var sceneParam = new MainMenuSceneInfo
+                {
+                    CommandIndex = 4
+                };
+                var strategySceneInfo = new StrategySceneInfo
+                {
+                    ActorInfos = _model.PartyInfo.CurrentDeckActorInfos(),
+                    InBattle = false,
+                    GetItemInfos = getItemInfos,
+                    ReturnMainMenuSceneParam = sceneParam
+                };
+                _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
+            }
         }
 
         private void CommandPlusUseNum(int itemId)
@@ -146,6 +180,7 @@ namespace Ryneus
             switch (itemInfo.Master.ItemType)
             {
                 case ItemType.RandumAddEquipment:
+                case ItemType.SelectAddEquipment:
                     CommandDetailSkill(itemInfo);
                     break;
             }

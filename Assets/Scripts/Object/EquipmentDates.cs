@@ -25,5 +25,6 @@ namespace Ryneus
     {
         public int SkillId;
         public int Rate;
+        public bool EquipmentOnly;
     }
 }

@@ -11,6 +11,7 @@ namespace Ryneus
         [SerializeField] private Image iconBack;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private BaseList learningDateList;
+        [SerializeField] private GameObject selectEquipment;
         public BaseList LearningDateList => learningDateList;
         public void UpdateInfo(EquipmentInfo equipmentInfo)
         {
@@ -55,6 +56,11 @@ namespace Ryneus
                 var list = new List<EquipmentLearningInfo>();
                 learningDateList.SetData(ListData.MakeListData(list));
             }
+        }
+
+        public void SetSelectEquipment(bool isSelect)
+        {
+            UIComponent.SetActive(selectEquipment, isSelect);
         }
     }
 }

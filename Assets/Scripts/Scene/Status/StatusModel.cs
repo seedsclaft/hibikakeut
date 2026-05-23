@@ -83,8 +83,8 @@ namespace Ryneus
                     EquipmentInfo equipmentInfo = new(equipmentId);
                     foreach (var learningInfo in equipmentInfo.LearningInfos)
                     {
-                        learningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(DataSystem.FindSkill(learningInfo.SkillId.Value).Attribute, learningInfo.LearningRate.Value, PartyInfo.EditableActorInfos()));
-                        learningInfo.LearningExp.SetValue(CurrentActor.MastarySkillExp(learningInfo.SkillId.Value));
+                        learningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(learningInfo.SkillData.Attribute, learningInfo.LearningRate.Value, PartyInfo.EditableActorInfos()));
+                        learningInfo.LearningExp.SetValue(CurrentActor.MastarySkillExp(learningInfo.SkillData.Id));
                     }
                     list.Add(equipmentInfo);
                 }
@@ -102,8 +102,8 @@ namespace Ryneus
                 EquipmentInfo equipmentInfo = new(equipmentId);
                 foreach (var learningInfo in equipmentInfo.LearningInfos)
                 {
-                    learningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(DataSystem.FindSkill(learningInfo.SkillId.Value).Attribute, learningInfo.LearningRate.Value, PartyInfo.EditableActorInfos()));
-                    learningInfo.LearningExp.SetValue(CurrentActor.MastarySkillExp(learningInfo.SkillId.Value));
+                    learningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(learningInfo.SkillData.Attribute, learningInfo.LearningRate.Value, PartyInfo.EditableActorInfos()));
+                    learningInfo.LearningExp.SetValue(CurrentActor.MastarySkillExp(learningInfo.SkillData.Id));
                 }
                 list.Add(equipmentInfo);
             }

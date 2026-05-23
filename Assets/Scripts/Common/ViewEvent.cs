@@ -59,6 +59,7 @@ namespace Ryneus
         Transfer,
         Trade,
         UseItem,
+        SelectEquipment,
         DungeonMap,
         LevelUp,
         EquipmentDetail,

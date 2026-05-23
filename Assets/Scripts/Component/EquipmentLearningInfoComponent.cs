@@ -25,7 +25,7 @@ namespace Ryneus
                 skillExpGauge.UpdateGauge(equipmentLearningInfo.LearningExp.Value * 0.01f);
             }
             UIComponent.SetActive(learnd, equipmentLearningInfo.LearningExp.Value >= 100);
-            UpdateData(equipmentLearningInfo.Master);
+            UpdateData(equipmentLearningInfo.SkillData);
         }
 
         public void UpdateData(SkillData skillData)

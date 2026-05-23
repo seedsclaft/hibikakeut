@@ -287,6 +287,7 @@ namespace Ryneus
             switch (itemType)
             {
                 case ItemType.RandumAddEquipment:
+                case ItemType.SelectAddEquipment:
                     return LoadSpellIconBase(attributeType);
                 case ItemType.Artifact:
                     iconIndex = 15;
