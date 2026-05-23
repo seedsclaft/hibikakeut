@@ -119,7 +119,7 @@ namespace Ryneus
                 if (itemPosition < viewPortPosition)
                 {
                     // 最下段
-                    if (_index >= (_listDates.Count - horizonalCount - 1) )
+                    if (_index >= (_listDates.Count + (_listDates.Count % horizonalCount) - horizonalCount - 1) )
                     {
                         positionY = ScrollRect.content.rect.height - ScrollRect.viewport.rect.height;
                     }

@@ -99,7 +99,7 @@ namespace Ryneus
             // Param2 = -1 属性区別なし, 1-5 属性縛り
             foreach (var equipment in DataSystem.Dates[DataType.Equipment].ToList<EquipmentData>())
             {
-                if (equipment.Id == 10)
+                if (equipment.Id == DataSystem.System.InitEquipmentId)
                 {
                     continue;
                 }
@@ -129,7 +129,7 @@ namespace Ryneus
             // Param2 = -1 属性区別なし, 1-5 属性縛り
             foreach (var equipment in DataSystem.Dates[DataType.Equipment].ToList<EquipmentData>())
             {
-                if (equipment.Id == 10)
+                if (equipment.Id == DataSystem.System.InitEquipmentId)
                 {
                     continue;
                 }

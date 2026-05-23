@@ -234,11 +234,13 @@ namespace Ryneus
         private void CommandUseItemHeal(int heal)
         {
             // 回復できない
+            /*
             if (_model.CurrentDeckInfo.Cursed.Value)
             {
                 CommandCautionInfo(DataSystem.GetText(10131));
                 return;
             }
+            */
             _view.StartHeal(heal);
             _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
             CommandRefresh();
@@ -1114,11 +1116,13 @@ namespace Ryneus
                 return;
             }
             // 回復できない
+            /*
             if (_model.CurrentDeckInfo.Cursed != null && _model.CurrentDeckInfo.Cursed.Value)
             {
                 CommandCautionInfo(DataSystem.GetText(10131));
                 return;
             }
+            */
             if (_model.CanUseRecoveryHeal())
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Heal);

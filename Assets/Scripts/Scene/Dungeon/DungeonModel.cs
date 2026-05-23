@@ -370,7 +370,7 @@ namespace Ryneus
 
         public bool EnableHeal(int hpHeal)
         {
-            return hpHeal > 0 && !CurrentDeckInfo.Cursed.Value;
+            return hpHeal > 0;// && !CurrentDeckInfo.Cursed.Value;
         }
 
         public void CursedParty()

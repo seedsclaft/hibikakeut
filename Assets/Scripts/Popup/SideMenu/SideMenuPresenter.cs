@@ -120,6 +120,12 @@ namespace Ryneus
 
         private void CommandReturn()
         {
+            // 呪いで帰還できない
+            if (_model.CurrentDeckInfo.Cursed.Value)
+            {
+                CommandCautionInfo(DataSystem.GetText(10160));
+                return;
+            }
             _busy = true;
             var textId = _model.CurrentStage.Master.OnlyOnce ? 10133 : 10130;
             CallConfirmView(DataSystem.GetText(textId), (a) =>

@@ -94,7 +94,7 @@ namespace Ryneus
                 // 選択中
                 return _model.SelectEquipments.Contains(equipmentInfo.EquipmentId.Value);
             };
-            _view.SetSelectEquipment(MakeListData(_model.EquipmentInfos(), enable, selected, null, _view.SelectIndex), _model.SelectEquipments);
+            _view.SetSelectEquipment(MakeListData(_model.EquipmentInfos(), enable, selected, null, 0), _model.SelectEquipments);
             _view.CheckItemDetailButtonActive();
         }
 

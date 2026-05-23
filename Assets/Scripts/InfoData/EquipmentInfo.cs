@@ -21,6 +21,7 @@ namespace Ryneus
                 }
             }
         }
+
         public List<SkillInfo> SkillInfos()
         {
             var list = new List<SkillInfo>();

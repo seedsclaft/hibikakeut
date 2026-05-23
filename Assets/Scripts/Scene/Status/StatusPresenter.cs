@@ -433,7 +433,7 @@ namespace Ryneus
             _model.ChangeEquipment(equipmentInfo);
             _view.CallEquipment();
             _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
-            if (equipmentInfo.Master.Id != 10)
+            if (equipmentInfo.Master.Id != DataSystem.System.InitEquipmentId)
             {
                 _model.PartyInfo.PartyStatInfo.StatusSkillChangeCount.GainValue(1);
                 CheckAchievements();

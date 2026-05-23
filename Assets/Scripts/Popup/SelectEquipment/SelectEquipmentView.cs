@@ -45,7 +45,7 @@ namespace Ryneus
         private void InitializeSelectEquipment()
         {
             equipmentList.Initialize();
-            //equipmentList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
+            equipmentList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
             equipmentList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.DecideItem, equipmentList.ListItemData<EquipmentInfo>()));
             equipmentList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.DetailItem, equipmentList.ListItemData<EquipmentInfo>()));
             AddViewActives(equipmentList);

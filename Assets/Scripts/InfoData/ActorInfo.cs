@@ -41,7 +41,7 @@ namespace Ryneus
 
         public void ChangeEquipment(int changeEquipmentId, int index)
         {
-            if (changeEquipmentId != 10 && _equipmentIds.Contains(changeEquipmentId))
+            if (changeEquipmentId != DataSystem.System.InitEquipmentId && _equipmentIds.Contains(changeEquipmentId))
             {
                 return;
             }
@@ -53,7 +53,7 @@ namespace Ryneus
             var findIndex = _equipmentIds.FindIndex(a => a == removeEquipmentId);
             if (findIndex > -1)
             {
-                _equipmentIds[findIndex] = 10;
+                _equipmentIds[findIndex] = DataSystem.System.InitEquipmentId;
             }
         }
 
