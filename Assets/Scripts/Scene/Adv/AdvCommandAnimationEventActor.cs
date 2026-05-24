@@ -24,7 +24,7 @@ namespace Utage
             var find = character.Find(a => a.name == _fileName);
             if (find != null)
             {
-                var state = (Ryneus.AnimationState)Ryneus.AnimationState.Parse(typeof(Ryneus.AnimationState), _animation);
+                var state = (Ryneus.AnimationState)System.Enum.Parse(typeof(Ryneus.AnimationState), _animation);
                 find.SetAnimationState(state);
             }
         }
