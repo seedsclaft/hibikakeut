@@ -117,10 +117,13 @@ namespace Ryneus
 
             //var textId = actorInfo.LineIndex == LineType.Front ? 2012 : 2013;
             //UIComponent.SetText(battlePosition, DataSystem.GetText(textId));
-            UIComponent.SetText(transferGetItemText, actorInfo.TransferGetItemText(PartyInfo.Period.Value));
-            UIComponent.SetText(transferGetExpText, actorInfo.TransferGetExpText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
+            if (CurrentGameInfo != null && PartyInfo != null)
+            {
+                UIComponent.SetText(transferGetItemText, actorInfo.TransferGetItemText(PartyInfo.Period.Value));
+                UIComponent.SetText(transferGetExpText, actorInfo.TransferGetExpText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
 
-            UIComponent.SetText(transferGetCurrencyText, actorInfo.TransferGetCurrencyText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
+                UIComponent.SetText(transferGetCurrencyText, actorInfo.TransferGetCurrencyText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
+            }
         }
 
         private void UpdateAttributeRank(TextMeshProUGUI text, ActorInfo actorInfo, AttributeType attributeType, List<ActorInfo> actorInfos)
