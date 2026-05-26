@@ -188,5 +188,6 @@ namespace Ryneus
         Death = 100,
         Walk = 200,
         Run = 300,
+        Special = 500,
     }
 }
