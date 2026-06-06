@@ -590,8 +590,8 @@ namespace Ryneus
         private void StageEventActorEvent(bool moved, StageEventData stageEventData, Action endEvent)
         {
             var actorIndex = stageEventData.Param;
-            var seek = stageEventData.Param2;
             var actorInfo = _model.PartyInfo.GetReleifActorInfo(actorIndex);
+            var seek = actorInfo.ReleafPoint.Value;
             SkillInfo skillInfo = null;
             if (actorInfo != null)
             {
@@ -601,6 +601,7 @@ namespace Ryneus
                 {
                     skillInfo = learnSkillInfos[0];
                 }
+                actorInfo.ReleafPoint.GainValue(1);
             }
             var advId = 10000 + (actorInfo.ActorId.Value * 100) + (seek * 10);
             _model.UpdateEventObjects();

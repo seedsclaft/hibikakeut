@@ -230,7 +230,7 @@ namespace Ryneus
             {
                 skillInfo.SetEnable(CheckCanUse(skillInfo, battlerInfo));
             }
-            var insert = skillInfos.FindIndex(a => a.Master.SkillType == SkillType.Passive);
+            var insert = skillInfos.FindIndex(a => a.Master.SkillType == SkillType.Passive || a.Master.SkillType == SkillType.Equipment || a.Master.SkillType == SkillType.Kind);
             if (insert == -1)
             {
                 insert = skillInfos.Count;
@@ -275,6 +275,10 @@ namespace Ryneus
                 return false;
             }
             if (skillInfo.Master.SkillType == SkillType.Unique)
+            {
+                return false;
+            }
+            if (skillInfo.Master.SkillType == SkillType.Equipment)
             {
                 return false;
             }

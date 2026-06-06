@@ -215,6 +215,8 @@ namespace Ryneus
             _lineIndex = lineIndex;
         }
 
+        // エインフェリアイベント消化数
+        public ParameterInt ReleafPoint = new(1);
         public int DemigodParam => 0;
         public ParameterBool Lost = new(false);
 
