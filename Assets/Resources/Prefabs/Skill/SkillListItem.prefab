@@ -648,7 +648,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 40}
+  m_SizeDelta: {x: 0, y: 48}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &2978492885221981069
 GameObject:
@@ -1715,7 +1715,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 16, y: 0}
-  m_SizeDelta: {x: 416, y: 40}
+  m_SizeDelta: {x: 440, y: 48}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4046458304793360607
 CanvasRenderer:
@@ -1812,7 +1812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickButton: {fileID: 8554750561699588780}
-  cursor: {fileID: 2040439154781428702}
+  cursor: {fileID: 5505052029125910744}
   subCursors: []
   selectArrow: {fileID: 6312386423412166153}
   changeCursorColor: 0
@@ -1922,7 +1922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.627451}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2289,6 +2289,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cursor2
       objectReference: {fileID: 0}
+    - target: {fileID: 1647474468976755302, guid: 6a4541f44b4fc4c4db84b41076279be6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8554351254191829314, guid: 6a4541f44b4fc4c4db84b41076279be6,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2394,12 +2399,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a4541f44b4fc4c4db84b41076279be6, type: 3}
---- !u!1 &2040439154781428702 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1647474468976755302, guid: 6a4541f44b4fc4c4db84b41076279be6,
-    type: 3}
-  m_PrefabInstance: {fileID: 760010838620314040}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8951802492542019834 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8554351254191829314, guid: 6a4541f44b4fc4c4db84b41076279be6,
@@ -2535,6 +2534,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1857184876190813075}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5505052029125910744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6171009463231916875, guid: 0fc0010b92770ec4895fdc6f78d06794,
+    type: 3}
+  m_PrefabInstance: {fileID: 1857184876190813075}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5863659502249345181
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2651,7 +2656,27 @@ PrefabInstance:
     - target: {fileID: 7616328931822839356, guid: 00554a02727507642be680adb7780283,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448048750960536321, guid: 00554a02727507642be680adb7780283,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448048750960536321, guid: 00554a02727507642be680adb7780283,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.8156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448048750960536321, guid: 00554a02727507642be680adb7780283,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.9411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448048750960536321, guid: 00554a02727507642be680adb7780283,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2760,7 +2785,7 @@ PrefabInstance:
     - target: {fileID: 3403139455166798187, guid: f55f622d32b386543ba8165bacb1232b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -213
+      value: -221
       objectReference: {fileID: 0}
     - target: {fileID: 3403139455166798187, guid: f55f622d32b386543ba8165bacb1232b,
         type: 3}

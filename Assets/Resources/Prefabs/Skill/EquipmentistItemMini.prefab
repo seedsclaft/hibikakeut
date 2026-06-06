@@ -102,7 +102,7 @@ RectTransform:
   m_GameObject: {fileID: 771801576272047415}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1793429010228352779}
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u30D8\u30A4\u30E0\u306E\u767D\u515C\u98FE\u308A"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fd7871a73864a2147a57697b5b13bd89, type: 2}
   m_sharedMaterial: {fileID: 7947116292471950640, guid: fd7871a73864a2147a57697b5b13bd89,
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19
+  m_fontSize: 12
   m_fontSizeBase: 19
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.BaseListComponent
   clickButton: {fileID: 9167370929318583174}
-  cursor: {fileID: 27537713365655584}
+  cursor: {fileID: 5036221351199527410}
   subCursors: []
   selectArrow: {fileID: 6781159918143586083}
   changeCursorColor: 1
@@ -1814,6 +1814,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1173069830136232633}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5036221351199527410 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6171009463231916875, guid: 0fc0010b92770ec4895fdc6f78d06794,
+    type: 3}
+  m_PrefabInstance: {fileID: 1173069830136232633}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1638417643540357702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1826,6 +1832,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cursor2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647474468976755302, guid: 6a4541f44b4fc4c4db84b41076279be6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8554351254191829314, guid: 6a4541f44b4fc4c4db84b41076279be6,
         type: 3}
@@ -1932,12 +1943,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a4541f44b4fc4c4db84b41076279be6, type: 3}
---- !u!1 &27537713365655584 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1647474468976755302, guid: 6a4541f44b4fc4c4db84b41076279be6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1638417643540357702}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6920903489139888900 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8554351254191829314, guid: 6a4541f44b4fc4c4db84b41076279be6,
@@ -2060,7 +2065,7 @@ PrefabInstance:
     - target: {fileID: 7616328931822839356, guid: 00554a02727507642be680adb7780283,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

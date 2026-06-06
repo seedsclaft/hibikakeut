@@ -676,6 +676,7 @@ namespace Ryneus
         {
             UIComponent.SetActive(skillInfoComponent?.gameObject, true);
             skillInfoComponent.UpdateInfo(skillInfo);
+            /*
             var convertHelpText = skillInfo.ConvertHelpText(battlerInfo);
             var length = convertHelpText.Split("\n").Length;
             var height = 32 + 28 * length;
@@ -683,6 +684,7 @@ namespace Ryneus
             var lineX = -280;
             var rect = skillInfoComponent.gameObject.GetComponent<RectTransform>();
             rect.localPosition = new Vector2(rect.localPosition.x, lineX + length * 16);
+            */
         }
 
         public void ClearCurrentSkillData()
