@@ -1136,7 +1136,7 @@ namespace Ryneus
         {
             var slipDamage = 0f;
             slipDamage += GetStateEffectAll(StateType.PoisunDamage);
-            slipDamage += GetStateEffectAll(StateType.BurnDamage) * (GetStateEffectAll(StateType.BurnDamageCut) * 0.01f);
+            slipDamage += GetStateEffectAll(StateType.BurnDamage) * (1f + (GetStateEffectAll(StateType.BurnDamageCut) * 0.01f));
             var perDamageValue = GetStateEffectAll(StateType.PoisunDamagePer);
             slipDamage += (int)Math.Floor(MaxHp * 0.01f * perDamageValue);
             return (int)slipDamage;

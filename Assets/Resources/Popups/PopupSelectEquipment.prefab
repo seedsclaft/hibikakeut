@@ -581,10 +581,10 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 136, y: 40}
+  m_CellSize: {x: 204, y: 40}
   m_Spacing: {x: 2, y: 2}
   m_Constraint: 1
-  m_ConstraintCount: 3
+  m_ConstraintCount: 2
 --- !u!114 &6045154080206775251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2167,6 +2167,8 @@ MonoBehaviour:
   nameText: {fileID: 0}
   learningDateList: {fileID: 3772502072033943468}
   selectEquipment: {fileID: 0}
+  equipmentedObj: {fileID: 0}
+  equipmentedActor: {fileID: 0}
 --- !u!1001 &284902750186913280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3978,12 +3980,12 @@ PrefabInstance:
     - target: {fileID: 8501034374288329661, guid: 6a872e36ef00a374eb81436c82ac50d3,
         type: 3}
       propertyPath: m_Size
-      value: 1
+      value: 0.96774197
       objectReference: {fileID: 0}
     - target: {fileID: 8501034374288329661, guid: 6a872e36ef00a374eb81436c82ac50d3,
         type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 0.9999981
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

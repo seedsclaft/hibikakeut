@@ -12,6 +12,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private BaseList learningDateList;
         [SerializeField] private GameObject selectEquipment;
+        [SerializeField] private GameObject equipmentedObj;
+        [SerializeField] private ActorInfoComponent equipmentedActor;
         public BaseList LearningDateList => learningDateList;
         public void UpdateInfo(EquipmentInfo equipmentInfo)
         {
@@ -19,6 +21,11 @@ namespace Ryneus
             if (learningDateList != null)
             {
                 learningDateList.SetData(ListData.MakeListData(equipmentInfo.LearningInfos));
+            }
+            if (equipmentedActor != null)
+            {
+                UIComponent.SetActive(equipmentedObj, equipmentInfo.EquipmentActor != null);
+                equipmentedActor.UpdateData(equipmentInfo.EquipmentActor?.Master);
             }
         }
 

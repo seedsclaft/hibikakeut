@@ -588,10 +588,10 @@ namespace Ryneus
             }
             var reaction = _model.CheckReaction(actionInfo);
             _model.TurnEnd(actionInfo);
-            _model.ChangeBattlerInfosLineType();
+            var change = _model.ChangeBattlerInfosLineType();
             // 行動後に交代
-            var change = _model.CheckActionAfterChange(actionInfo);
-            if (change)
+            var change2 = _model.CheckActionAfterChange(actionInfo);
+            if (change || change2)
             {
                 await _view.UpdateFieldMembers(_model.Battlers);
                 _view.UpdateGridLayer();

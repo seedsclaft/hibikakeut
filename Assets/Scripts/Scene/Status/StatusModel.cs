@@ -105,6 +105,7 @@ namespace Ryneus
                     learningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(learningInfo.SkillData.Attribute, learningInfo.LearningRate.Value, PartyInfo.EditableActorInfos()));
                     learningInfo.LearningExp.SetValue(CurrentActor.MastarySkillExp(learningInfo.SkillData.Id));
                 }
+                equipmentInfo.EquipmentActor = PartyInfo.ActorInfos.Find(a => a.EquipmentIds.Contains(equipmentId));
                 list.Add(equipmentInfo);
             }
             return list;

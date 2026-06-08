@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 namespace Ryneus
@@ -289,6 +288,11 @@ namespace Ryneus
             if (skillInfo.Master.SkillType == SkillType.Awaken)
             {
                 if (!battlerInfo.IsState(StateType.Demigod))
+                {
+                    return false;
+                }
+                // 1回使用済み
+                if (skillInfo.UseCount.Value > 0)
                 {
                     return false;
                 }
@@ -1331,8 +1335,8 @@ namespace Ryneus
 
         public bool CheckActionAfterChange(ActionInfo actionInfo)
         {
-            var chenage = actionInfo.SkillInfo.ActionAfterChange();
-            if (chenage)
+            var change = actionInfo.SkillInfo.ActionAfterChange();
+            if (change)
             {
                 var subject = GetBattlerInfo(actionInfo.SubjectIndex.Value);
                 var changeBattler = GetBattlerInfo(actionInfo.ActionResults[0].TargetIndex.Value);
@@ -1343,14 +1347,15 @@ namespace Ryneus
                     //_party.AddBattlerInfo(changeBattler);
                 }
             }
-            return chenage;
+            return change;
         }
 
         /// <summary>
         /// 前衛が戦闘不能で後衛が存在すれば交代する
         /// </summary>
-        public void ChangeBattlerInfosLineType()
+        public bool ChangeBattlerInfosLineType()
         {
+            var change = false;
             foreach (var fieldBattlerInfo in FieldBattlerInfos())
             {
                 if (!fieldBattlerInfo.IsAlive())
@@ -1359,11 +1364,13 @@ namespace Ryneus
                     if (changeBattler != null && changeBattler.IsAlive())
                     {
                         ChangeUnitLineType(fieldBattlerInfo, changeBattler);
+                        change = true;
                         //_party.RemoveBattlerInfo(fieldBattlerInfo);
                         //_party.AddBattlerInfo(changeBattler);
                     }
                 }
             }
+            return change;
         }
 
         public void ChangeUnitLineType(BattlerInfo subject, BattlerInfo changeBattler)

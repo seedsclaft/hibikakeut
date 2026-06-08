@@ -30,7 +30,13 @@ namespace Utage
                 var image = bg.GetComponentInChildren<RawImage>();
                 if (image != null)
                 {
-                    AnimationUtility.BgLoop(image, _from, _to, _duration);
+                    if (_play)
+                    {
+                        AnimationUtility.BgLoop(image, _from, _to, _duration);
+                    } else
+                    {
+                        AnimationUtility.BgLoop(image, 0, 0, 0);
+                    }
                 }
             }
         }

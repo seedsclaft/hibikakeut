@@ -104,6 +104,9 @@ namespace Ryneus
             Sequence sequences = null;
             switch (animationState)
             {
+                case AnimationState.Idle:
+                    spriteRenderer.color = new Color(255, 255, 255, 255);
+                    break;
                 case AnimationState.BeforeStart:
                     sequences = AnimationUtility.AlphaToTransform(spriteRenderer, 0, 1, _animationDuration);
                     break;

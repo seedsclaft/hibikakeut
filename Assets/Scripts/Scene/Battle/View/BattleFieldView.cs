@@ -55,7 +55,6 @@ namespace Ryneus
             _battlerInfoComponents.Clear();
             await SetActorInfo(battlerInfos.FindAll(a => a.IsActor && a.ActorInfo != null), decideEvent, selectEvent);
             await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor && a.EnemyData != null), decideEvent, selectEvent);
-            SetAnimationBattlerAll(AnimationState.BeforeStart);
         }
 
         public async Task SetActorInfo(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
@@ -71,6 +70,14 @@ namespace Ryneus
                 comp.ReplaceDamageRoot(actorDamagePositions[i]);
                 _battlers[battlerInfos[i].Index.Value] = comp;
                 _battlerInfoComponents[battlerInfos[i].Index.Value] = prefab.GetComponentInChildren<BattlerInfoComponent>();
+                // 戦闘不能なら消す
+                if (!battlerInfos[i].IsAlive())
+                {
+                    _battlers[battlerInfos[i].Index.Value].SetAnimationState(AnimationState.Death);
+                } else
+                {
+                    _battlers[battlerInfos[i].Index.Value].SetAnimationState(AnimationState.Idle);
+                }
             }
         }
 
@@ -87,6 +94,14 @@ namespace Ryneus
                 comp.ReplaceDamageRoot(enemyDamagePositions[i]);
                 _battlers[battlerInfos[i].Index.Value] = comp;
                 _battlerInfoComponents[battlerInfos[i].Index.Value] = prefab.GetComponentInChildren<BattlerInfoComponent>();
+                // 戦闘不能なら消す
+                if (!battlerInfos[i].IsAlive())
+                {
+                    _battlers[battlerInfos[i].Index.Value].SetAnimationState(AnimationState.Death);
+                } else
+                {
+                    _battlers[battlerInfos[i].Index.Value].SetAnimationState(AnimationState.Idle);
+                }
             }
         }
 
