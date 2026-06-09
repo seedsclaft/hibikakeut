@@ -1086,18 +1086,12 @@ namespace Ryneus
 
             var getItemInfo = _model.MakeGetItemInfo(GetItemType.Equipment, equipment.Id);
             _model.AddGetItemInfo(getItemInfo);
-            var equipmentDetailViewInfo = new EquipmentDetailViewInfo();
-            equipmentDetailViewInfo.Title.SetValue(DataSystem.GetText(10171));
-            equipmentDetailViewInfo.EquipmentInfos = new()
-            {
-                equipmentInfo
-            };
-            CallPopupView(PopupType.EquipmentDetail, () =>
+            CallEquipmentDetailView(equipmentInfo, () =>
             {
                 _busy = false;
                 CommandRefresh();
                 _model.DungeonBusy(false);
-            }, equipmentDetailViewInfo);
+            });
         }
 
         private void CommandCallAddActorInfo(List<int> limitRanks)

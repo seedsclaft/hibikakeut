@@ -25,20 +25,20 @@ MonoBehaviour:
   - Id: 1020
     Category: 10
     Rank: 1
-    ConditionType: 1040
-    Param1: 1
-    Param2: 0
-    PriseSetId: 15050
-    Text: "\u30A2\u30A4\u30C6\u30E0\u3092\u4F7F\u7528\u3057\u3066\u3044\u305A\u308C\u304B\u306E\u30AD\u30E3\u30E9\u306ELv\u3092\u4E0A\u3052\u308B"
-    Help: '""'
-  - Id: 1030
-    Category: 10
-    Rank: 1
     ConditionType: 7020
     Param1: 1
     Param2: 0
     PriseSetId: 10010
     Text: "\u7DE8\u6210\u30B3\u30DE\u30F3\u30C9\u3067\u4EF2\u9593\u3092\u7DE8\u6210\u3059\u308B"
+    Help: '""'
+  - Id: 1030
+    Category: 10
+    Rank: 1
+    ConditionType: 1040
+    Param1: 1
+    Param2: 0
+    PriseSetId: 15050
+    Text: "\u30A2\u30A4\u30C6\u30E0\u3092\u4F7F\u7528\u3057\u3066\u3044\u305A\u308C\u304B\u306E\u30AD\u30E3\u30E9\u306ELv\u3092\u4E0A\u3052\u308B"
     Help: '""'
   - Id: 1040
     Category: 10
@@ -46,10 +46,19 @@ MonoBehaviour:
     ConditionType: 7040
     Param1: 1
     Param2: 0
-    PriseSetId: 50
+    PriseSetId: 25
     Text: "\u732E\u4E0A\u30B3\u30DE\u30F3\u30C9\u3067\u88C5\u5099\u3092\u5165\u624B\u3059\u308B"
     Help: '""'
   - Id: 1050
+    Category: 10
+    Rank: 1
+    ConditionType: 7070
+    Param1: 1
+    Param2: 0
+    PriseSetId: 25
+    Text: "\u53D6\u5F15\u30B3\u30DE\u30F3\u30C9\u3067\u30A2\u30A4\u30C6\u30E0\u304B\u88C5\u5099\u3092\u5165\u624B\u3059\u308B"
+    Help: '""'
+  - Id: 1060
     Category: 10
     Rank: 1
     ConditionType: 7080
@@ -58,7 +67,7 @@ MonoBehaviour:
     PriseSetId: 14010
     Text: "\u4EF2\u9593\u306E\u88C5\u5099\u3092\u5909\u66F4\u3059\u308B"
     Help: '""'
-  - Id: 1060
+  - Id: 1070
     Category: 10
     Rank: 1
     ConditionType: 10

@@ -292,22 +292,36 @@ MonoBehaviour:
       Rate: 5
       EquipmentOnly: 0
   - Id: 6010
-    Name: "\u30EB\u30FC\u30F3\u306E\u30A8\u30F3\u30B0\u30EC"
+    Name: "\u65B0\u5175\u306E\u30D0\u30F3\u30B0\u30EB"
     IconIndex: 6
-    Rank: 11
+    Rank: 1
     Attribute: 6
     LearningDates:
     - Id: 0
       SkillId: 506010
       Rate: 0
       EquipmentOnly: 1
-  - Id: 6020
+    - Id: 0
+      SkillId: 506011
+      Rate: 0
+      EquipmentOnly: 1
+  - Id: 7010
+    Name: "\u30EB\u30FC\u30F3\u306E\u30A8\u30F3\u30B0\u30EC"
+    IconIndex: 6
+    Rank: 11
+    Attribute: 6
+    LearningDates:
+    - Id: 0
+      SkillId: 507010
+      Rate: 0
+      EquipmentOnly: 1
+  - Id: 7020
     Name: "\u30C9\u30F4\u30A7\u30EB\u30B0\u306E\u6307\u8F2A"
     IconIndex: 6
     Rank: 11
     Attribute: 6
     LearningDates:
     - Id: 0
-      SkillId: 506020
+      SkillId: 507020
       Rate: 0
       EquipmentOnly: 1

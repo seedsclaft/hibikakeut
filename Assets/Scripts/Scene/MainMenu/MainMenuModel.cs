@@ -187,6 +187,8 @@ namespace Ryneus
                         return PartyInfo.ReliefItemCount.Value > 0;
                     case "Present":
                         return PartyInfo.IsOwnItem();
+                    case "Trade":
+                        return IsTradeBatch();
                 }
                 return false;
             }, selectIndex);
@@ -212,6 +214,11 @@ namespace Ryneus
         {
             var achievement = PartyInfo.NearAchievementInfo();
             return achievement != null && !achievement.Achieved.Value && achievement.Master.ConditionType == AchievementConditionType.ClearStage && StageInfos().Find(a => a.Master.Id == achievement.Master.Param1) != null;
+        }
+
+        public bool IsTradeBatch()
+        {
+            return PartyInfo.AchievementInfos.Find(a => !a.Achieved.Value && (a.Master.ConditionType == AchievementConditionType.TradeCommandCount)) != null && PartyInfo.Currency.Value > 0;
         }
 
         public void EndTransfer()

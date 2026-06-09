@@ -159,10 +159,27 @@ namespace Ryneus
                     _view.SetActivateItemList(true);
                 });
             }
+            else
+            if (tradeItemInfo.GetItemInfo.Master.Type == GetItemType.Equipment)
+            {
+                var equipmentInfo = new EquipmentInfo(tradeItemInfo.GetItemInfo.Param1);
+                CallConfirmSkillDetailView("", equipmentInfo.SkillInfos(), (a) =>
+                {
+                    _busy = false;
+                    _view.SetActivateItemList(true);
+                });
+            }
         }
 
         private void CommandPlusTradeItem(TradeItemInfo tradeItemInfo)
         {
+            if (!_model.CanAddEquipment(tradeItemInfo))
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                CommandCautionInfo(DataSystem.GetText(39051));
+                _view.SetInputFrame(8);
+                return;
+            }
             if (!_model.CanPayCost(tradeItemInfo))
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);

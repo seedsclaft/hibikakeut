@@ -517,9 +517,9 @@ namespace Ryneus
                     // 転送コマンド回数
                     achievementInfo.SetCondition(PartyStatInfo.TransferCommandCount.Value, achievementInfo.Master.Param1);
                     break;
-                case AchievementConditionType.ReleaseCommandCount:
-                    // 解放コマンド回数
-                    achievementInfo.SetCondition(PartyStatInfo.ReleaseCommandCount.Value, achievementInfo.Master.Param1);
+                case AchievementConditionType.TradeCommandCount:
+                    // 取引コマンド回数
+                    achievementInfo.SetCondition(PartyStatInfo.TradeCommandCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.StatusSkillChangeCount:
                     // 魔法編成回数

@@ -8,12 +8,14 @@ namespace Ryneus
     public class TradeItemInfoComponent : ListItem, IListViewItem
     {
         [SerializeField] private ItemInfoComponent itemInfoComponent;
+        [SerializeField] private EquipmentInfoComponent eqipmentInfoComponent;
         [SerializeField] private TextMeshProUGUI cost;
         [SerializeField] private TextMeshProUGUI getCount;
         [SerializeField] private GameObject selected;
         [SerializeField] private Button plusButton;
         [SerializeField] private Button minusButton;
         [SerializeField] private Button detailButton;
+        [SerializeField] private GameObject limitedItem;
         private Action<bool> _useCountEvent = null;
         private Action<TradeItemInfo> _detailEvent = null;
         private TradeItemInfo _tradeItemInfo = null;
@@ -29,8 +31,15 @@ namespace Ryneus
                 return;
             }
             _tradeItemInfo = data;
-
-            itemInfoComponent.UpdateDate(DataSystem.FindItem(data.GetItemInfo.Param1));
+            if (_tradeItemInfo.ItemInfo() != null)
+            {
+                itemInfoComponent.UpdateDate(DataSystem.FindItem(data.GetItemInfo.Param1));
+            }
+            if (_tradeItemInfo.EquipmentInfo() != null)
+            {
+                eqipmentInfoComponent.UpdateData(DataSystem.FindEquipment(data.GetItemInfo.Param1));
+            }
+            limitedItem.SetActive(_tradeItemInfo.EquipmentInfo() != null);
             var tradeCost = (int)(data.Cost.Value * GameSystem.GameInfo.PartyInfo.TradeDownRate());
             UIComponent.SetText(cost, tradeCost.ToString() + DataSystem.GetText(1000));
             UIComponent.SetText(getCount, data.GetCount);

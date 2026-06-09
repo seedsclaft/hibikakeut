@@ -7,10 +7,12 @@ namespace Ryneus
     {
         [SerializeField] private SkillInfoComponent skillInfoComponent;
         [SerializeField] private ItemInfoComponent itemInfoComponent;
+        [SerializeField] private EquipmentInfoComponent equipmentInfoComponent;
         public new void Initialize()
         {
             base.Initialize();
             SetSelectedHandler(() => UpdateItemHelp());
+            equipmentInfoComponent.LearningDateList.Initialize();
         }
 
         public void UpdateItemHelp()
@@ -25,6 +27,7 @@ namespace Ryneus
                 var tradeItemInfo = (TradeItemInfo)listData.Data;
                 var skillInfo = tradeItemInfo.SkillInfo();
                 var itemInfo = tradeItemInfo.ItemInfo();
+                var equipmentInfo = tradeItemInfo.EquipmentInfo();
                 if (skillInfo != null)
                 {
                     skillInfoComponent.UpdateInfo(skillInfo);
@@ -39,10 +42,18 @@ namespace Ryneus
                 {
                     itemInfoComponent.Clear();
                 }
+                if (equipmentInfo != null)
+                {
+                    equipmentInfoComponent.UpdateInfo(equipmentInfo);
+                } else
+                {
+                    equipmentInfoComponent.Clear();
+                }
             } else
             {
                 skillInfoComponent.Clear();
                 itemInfoComponent.Clear();
+                equipmentInfoComponent.Clear();
             }
         }
 

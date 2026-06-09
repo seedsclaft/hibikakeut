@@ -19,11 +19,23 @@ namespace Ryneus
 
         public List<TradeItemInfo> TradeGetItemInfos()
         {
+            var list = new List<TradeItemInfo>();
             if (PartyInfo.TradeItemInfos.Count > 0)
             {
-                return PartyInfo.TradeItemInfos;
+                foreach (var tradeItemInfo in PartyInfo.TradeItemInfos)
+                {
+                    if (tradeItemInfo.EquipmentInfo() != null)
+                    {
+                        // 所有済みは除外
+                        if (PartyInfo.EquipmentIds.Contains(tradeItemInfo.GetItemInfo.Master.Param1))
+                        {
+                            continue;
+                        }
+                    }
+                    list.Add(tradeItemInfo);
+                }
+                return list;
             }
-            var list = new List<TradeItemInfo>();
             var prizeSets = DataSystem.Dates[DataType.PrizeSets].FindAll<PrizeSetData>(a => a.Id == 50000 + (PartyInfo.Chapter.Value * 10));
             foreach (var prizeSet in prizeSets)
             {
@@ -41,6 +53,23 @@ namespace Ryneus
                         // アイテムのコスト
                         var item = DataSystem.FindItem(prizeSet.GetItem.Param1);
                         tradeItemInfo = new TradeItemInfo(getItemData, item.Cost);
+                        break;
+                    case GetItemType.Equipment:
+                        // 所有済みは除外
+                        if (PartyInfo.EquipmentIds.Contains(prizeSet.GetItem.Param1))
+                        {
+                            continue;
+                        }
+                        // アイテム1つ
+                        GetItemData getEquipmentData = new()
+                        {
+                            Type = prizeSet.GetItem.Type,
+                            Param1 = prizeSet.GetItem.Param1,
+                            Param2 = 1 // 1つ単位で取引
+                        };
+                        // アイテムのコスト
+                        var equipment = DataSystem.FindEquipment(prizeSet.GetItem.Param1);
+                        tradeItemInfo = new TradeItemInfo(getEquipmentData, prizeSet.GetItem.Param2);
                         break;
                     case GetItemType.RandumItem:
                         // 使用アイテムを1つ抽選する
@@ -72,6 +101,15 @@ namespace Ryneus
             return list;
         }
 
+        public bool CanAddEquipment(TradeItemInfo tradeItemInfo)
+        {
+            if (tradeItemInfo.GetCount.Value > 0 && tradeItemInfo.GetItemInfo.Master.Type == GetItemType.Equipment)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public bool CanPayCost(TradeItemInfo tradeItemInfo)
         {
             return (Currency - PayCost.Value) >= tradeItemInfo.Cost.Value;
@@ -79,15 +117,6 @@ namespace Ryneus
 
         public void AddTradeItem(TradeItemInfo getItemInfo)
         {
-            /*
-            if (!_getItems.Contains(getItemInfo))
-            {
-                getItemInfo.Selected.SetValue(true);
-                var cost = (int)(getItemInfo.Cost.Value * PartyInfo.TradeDownRate());
-                PayCost.GainValue((int)cost);
-                _getItems.Add(getItemInfo);
-            }
-            */
         }
 
         public void RemoveTradeItem(TradeItemInfo tradeItemInfo)
@@ -99,15 +128,6 @@ namespace Ryneus
                 _getTradeItems[tradeItemInfo] = 0;
                 tradeItemInfo.GetCount.SetValue(0);
             }
-            /*
-            if (_getItems.Contains(getItemInfo))
-            {
-                getItemInfo.Selected.SetValue(false);
-                var cost = (int)(getItemInfo.Cost.Value * PartyInfo.TradeDownRate());
-                PayCost.GainValue((int)cost * -1);
-                _getItems.Remove(getItemInfo);
-            }
-            */
         }
 
         public void ChangeTradeItemNum(TradeItemInfo tradeItemInfo, bool plus)
