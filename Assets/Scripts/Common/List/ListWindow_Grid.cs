@@ -190,6 +190,7 @@ namespace Ryneus
             int startIndex = GetStartIndex(_horizontal);
             int gridIndex = GetStartIndex(!_horizontal);
             var update = false;
+            /*
             if (gridIndex != _lastStartIndexY)
             {
                 if (gridIndex > _lastStartIndexY && gridIndex > 0)
@@ -204,6 +205,7 @@ namespace Ryneus
                     update = true;
                 }
             }
+            */
             if (startIndex > _lastStartIndexY)
             {
                 UpdateListDownGrid(startIndex);
@@ -227,41 +229,23 @@ namespace Ryneus
             var lineIndex = startIndex - _lastStartIndexY;
             var lastStartIndexY = _lastStartIndexY;
             _lastStartIndexY = startIndex;
-            //int startIndex = GetStartIndex(_horizontal);
             var verticalCount = GetVerticalCount();
             var horizontalCount = GetHorizonalCount();
-            int gridIndex = GetStartIndex(!_horizontal);
-            var itemPerIndex = (gridIndex - 1) / (verticalCount + 1);
-            var objectPerIndex = startIndex / (horizontalCount + 1);
             for (int j = 0; j < lineIndex; j++)
             {
                 for (int i = 0; i < horizontalCount; i++)
                 {
-                    var itemIndex = (lastStartIndexY * verticalCount) + (j * verticalCount) + i;
-                    if (itemPerIndex > 0)
-                    {
-                        //itemIndex -= itemPerIndex * (verticalCount + 1) * (horizontalCount + 1);
-                    }
+                    var itemIndex = (lastStartIndexY * horizontalCount) + (j * horizontalCount) + i;
                     if (!WithinItemIndex(itemIndex))
                     {
                         continue;
                     }
-                    var objectIndex = ((verticalCount + 1) * (horizontalCount + 1)) + (lastStartIndexY * verticalCount) + (j * verticalCount) + i;
-                    /*
-                    if (startIndex - (objectPerIndex * (horizontalCount + 1)) > i)
-                    {
-                        objectIndex += ((objectPerIndex + 1) * horizontalCount) + 1 + objectPerIndex;
-                    }
-                    else
-                    {
-                        objectIndex += objectPerIndex * (horizontalCount + 1);
-                    }
-                    */
+                    var objectIndex = ((verticalCount + 1) * (horizontalCount + 1)) + itemIndex;
                     if (!WithinObjectIndex(objectIndex))
                     {
                         continue;
                     }
-                    Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
+                    //Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
                     UpdateListItem(itemIndex, objectIndex);
                 }
             }
@@ -272,36 +256,18 @@ namespace Ryneus
             var lineIndex = _lastStartIndexY - startIndex;
             var lastStartIndexY = _lastStartIndexY;
             _lastStartIndexY = startIndex;
-            //int startIndex = GetStartIndex(_horizontal);
             var verticalCount = GetVerticalCount();
             var horizontalCount = GetHorizonalCount();
-            int gridIndex = GetStartIndex(!_horizontal);
-            var itemPerIndex = gridIndex / (verticalCount + 1);
-            var objectPerIndex = startIndex / (horizontalCount + 1);
             for (int j = 0; j < lineIndex; j++)
             {
-                for (int i = 0; i <= horizontalCount; i++)
+                for (int i = 0; i < horizontalCount; i++)
                 {
-                    var itemIndex = ((lastStartIndexY - lineIndex) * verticalCount) + (j * verticalCount) + i;
-                    if (itemPerIndex > 0)
-                    {
-                        //itemIndex -= itemPerIndex * (verticalCount + 1) * (horizontalCount + 1);
-                    }
+                    var itemIndex = ((lastStartIndexY - lineIndex) * horizontalCount) + (j * horizontalCount) + i;
                     if (!WithinItemIndex(itemIndex))
                     {
                         continue;
                     }
-                    var objectIndex = ((lastStartIndexY - lineIndex) * verticalCount) + (j * verticalCount) + i;
-                    /*
-                    if (startIndex - (objectPerIndex * (horizontalCount + 1)) > i)
-                    {
-                        objectIndex += ((objectPerIndex + 1) * horizontalCount) + 1 + objectPerIndex;
-                    }
-                    else
-                    {
-                        objectIndex += objectPerIndex * (horizontalCount + 1);
-                    }
-                    */
+                    var objectIndex = itemIndex;
                     if (!WithinObjectIndex(objectIndex))
                     {
                         continue;
@@ -494,113 +460,6 @@ namespace Ryneus
             }
         }
 
-/*
-        private void UpdateGridDown()
-        {
-            if (_objectList.Count <= _index + _gridColumnCount)
-            {
-                return;
-            }
-            var selectItem = _objectList[_index + _gridColumnCount];
-            var itemPosition = GetCornerPosition(selectItem, 0, false);
-            var col = (_index / _gridColumnCount) + 2f;
-            if (_index % 2 == 1)
-            {
-                col += 0.5f;
-            }
-            if (itemPosition < 0)
-            {
-                float verticalCount = GetVerticalCount();
-                if (col != verticalCount)
-                {
-                    var c = col - verticalCount;
-                    var p = GetGridRowCount() - verticalCount;
-                    var per = 1f - (c / p);
-
-                    ScrollRect.verticalNormalizedPosition = Math.Max(per, 0);
-                }
-            }
-        }
-
-        private void UpdateGridUp()
-        {
-            if (0 > _index - _gridColumnCount)
-            {
-                return;
-            }
-            var selectItem = _objectList[_index - _gridColumnCount];
-            var itemPosition = GetCornerPosition(selectItem, 0, false);
-            var col = (_index / _gridColumnCount) - 2f;
-            if (_index % 2 == 1)
-            {
-                col += 0.5f;
-            }
-            if (itemPosition > (720 - _itemSize.y))
-            {
-                float verticalCount = GetVerticalCount();
-
-                var c = GetGridRowCount() - verticalCount - col;
-                var p = GetGridRowCount() - verticalCount;
-                var per = (c / p);
-
-                ScrollRect.verticalNormalizedPosition = Math.Min(1, per);
-            }
-        }
-
-        private void UpdateGridRight()
-        {
-            var row = _index % _gridColumnCount;
-            var width = GetViewPortWidth();
-            var horizontalCount = GetHorizonalCount();
-
-            if (row + 2 < horizontalCount)
-            {
-                return;
-            }
-            var nextRow = _index + 1;
-            if (nextRow % _gridColumnCount < _index % _gridColumnCount)
-            {
-                return;
-            }
-            var selectItem = _objectList[nextRow];
-            var itemPosition = GetCornerPosition(selectItem, 2, true);
-            if (itemPosition > width)
-            {
-                float c = (row + 2) - horizontalCount;
-                float p = _gridColumnCount - horizontalCount;
-                var per = (c / p);
-
-                ScrollRect.horizontalNormalizedPosition = Math.Max(per, 0);
-            }
-        }
-
-        private void UpdateGridLeft()
-        {
-            var nextRow = _index - 1;
-            if (nextRow % _gridColumnCount > _index % _gridColumnCount)
-            {
-                return;
-            }
-            if (nextRow < 0)
-            {
-                return;
-            }
-            var selectItem = _objectList[nextRow];
-            var itemPosition = GetCornerPosition(selectItem, 2, true);
-            var row = (_index % _gridColumnCount) - 2f;
-            if (itemPosition < _itemSize.x)
-            {
-                var horizontalCount = GetHorizonalCount();
-
-                float c = _gridColumnCount - horizontalCount - row;
-                float p = _gridColumnCount - horizontalCount;
-                var per = 1f - (c / p);
-
-                ScrollRect.horizontalNormalizedPosition = Math.Max(0, per);
-            }
-        }
-*/
-
         private float GetCornerPosition(GameObject gameObject, int index, bool isHorizontal)
         {
             var corners = new Vector3[4];
@@ -629,58 +488,6 @@ namespace Ryneus
             }
             var positionY = c * (_itemSize.y + ItemSpace(false));
             ScrollRect.content.SetAnchoredPositionY(positionY);
-            //UpdateGridPositionX(selectIndex);
-            //UpdateGridPositionY(selectIndex);
-        }
-
-        private void UpdateGridPositionX(int selectIndex)
-        {
-            float nextX = selectIndex % _gridColumnCount;
-            var horizontalCount = GetHorizonalCount();
-            var horizontarmargin = (_gridColumnCount - horizontalCount) / 2;
-            var perX = 0f;
-            // 右区間
-            if ((_gridColumnCount - nextX) <= horizontarmargin)
-            {
-                perX = 1;
-            }
-            else
-            // 左区間
-            if (nextX < horizontarmargin)
-            {
-
-            }
-            else
-            // 中区間
-            {
-                perX = (nextX - horizontarmargin) / (_gridColumnCount - (horizontarmargin * 2));
-            }
-            ScrollRect.horizontalNormalizedPosition = Math.Max(perX, 0);
-        }
-
-        private void UpdateGridPositionY(int selectIndex)
-        {
-            float nextY = selectIndex / _gridColumnCount;
-            var verticalCount = GetVerticalCount();
-            var verticalmargin = verticalCount / 2;
-            var perY = 1f;
-            // 下区間
-            if ((GetGridRowCount() - nextY) <= verticalmargin)
-            {
-                perY = 0;
-            }
-            else
-            // 上区間
-            if (nextY < verticalmargin)
-            {
-
-            }
-            else
-            // 中区間
-            {
-                perY = 1f - ((nextY - verticalmargin) / (GetGridRowCount() - (verticalmargin * 2)));
-            }
-            ScrollRect.verticalNormalizedPosition = Math.Max(0, perY);
         }
     }
 }
