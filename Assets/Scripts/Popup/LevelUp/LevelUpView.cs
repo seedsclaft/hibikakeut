@@ -39,7 +39,7 @@ namespace Ryneus
             popupAnimation.Initialize(UiRoot.transform);
         }
 
-        public void LevelUpAnimation(string title)
+        public void LevelUpAnimation(string title, bool needLvUpAnimation)
         {
             _busy = false;
             UIComponent.SetActive(UiRoot, false);
@@ -52,7 +52,19 @@ namespace Ryneus
             SetBusy(true);
             battleStartAnim.SetText(title);
             ChangeBackCommandActive(false);
-            battleStartAnim.StartAnim(false, 0, () =>
+            if (needLvUpAnimation)
+            {
+                battleStartAnim.StartAnim(false, 0, () =>
+                {
+                    popupAnimation.OpenAnimation(UiRoot.transform, () =>
+                    {
+                        CallViewEvent(CommandType.EndAnimation);
+                        UIComponent.SetActive(UiRoot, true);
+                        SetBusy(false);
+                        ChangeBackCommandActive(true);
+                    });
+                });
+            } else
             {
                 popupAnimation.OpenAnimation(UiRoot.transform, () =>
                 {
@@ -61,7 +73,7 @@ namespace Ryneus
                     SetBusy(false);
                     ChangeBackCommandActive(true);
                 });
-            });
+            }
             UIComponent.SetActive(battleStartAnim?.gameObject, true);
         }
 

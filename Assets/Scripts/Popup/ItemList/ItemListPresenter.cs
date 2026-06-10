@@ -115,7 +115,10 @@ namespace Ryneus
                         };
                         CallPopupView(PopupType.SelectEquipment, () =>
                         {
-                            PresentGetItemInfos(selectEquipmentSceneInfo.SelectedEquipments);
+                            if (selectEquipmentSceneInfo.SelectedEquipments.Count == selectEquipmentSceneInfo.SelectCount)
+                            {
+                                PresentGetItemInfos(selectEquipmentSceneInfo.SelectedEquipments, selectEquipmentInfos[0]);
+                            }
                         }, selectEquipmentSceneInfo);
                         return;
                     }
@@ -126,9 +129,9 @@ namespace Ryneus
             });
         }
 
-        private void PresentGetItemInfos(List<EquipmentInfo> selectedEquipmentInfos = null)
+        private void PresentGetItemInfos(List<EquipmentInfo> selectedEquipmentInfos = null, ItemData itemData = null)
         {
-            var getItemInfos = _model.PresentGetItemInfos(selectedEquipmentInfos);
+            var getItemInfos = _model.PresentGetItemInfos(selectedEquipmentInfos, itemData);
             if (getItemInfos.Count > 0)
             {
                 _model.PartyInfo.PartyStatInfo.PresentCommandCount.GainValue(1);
@@ -179,7 +182,7 @@ namespace Ryneus
             }
             switch (itemInfo.Master.ItemType)
             {
-                case ItemType.RandumAddEquipment:
+                //case ItemType.RandumAddEquipment:
                 case ItemType.SelectAddEquipment:
                     CommandDetailSkill(itemInfo);
                     break;
@@ -191,8 +194,7 @@ namespace Ryneus
             _busy = true;
             _view.ActivateItemList(false);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var skillInfos = _model.GetRandumAddSkillInfos(itemInfo);
-            CallConfirmSkillDetailView(DataSystem.GetText(34060), skillInfos, (a) =>
+            CallEquipmentDetailView("選択装具候補" , _model.SelectEquipmentInfos(itemInfo.Master), () =>
             {
                 _busy = false;
                 _view.ActivateItemList(true);

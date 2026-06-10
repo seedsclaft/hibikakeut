@@ -123,8 +123,13 @@ namespace Ryneus
 
         public List<EquipmentInfo> SelectEquipmentInfos()
         {
-            var list = new List<EquipmentInfo>();
             var selectEquipmentItem = SelectEquipmentItems()[0];
+            return SelectEquipmentInfos(selectEquipmentItem);
+        }
+
+        public List<EquipmentInfo> SelectEquipmentInfos(ItemData itemData)
+        {
+            var list = new List<EquipmentInfo>();
             // Param1 = Rank以下全て
             // Param2 = -1 属性区別なし, 1-5 属性縛り
             foreach (var equipment in DataSystem.Dates[DataType.Equipment].ToList<EquipmentData>())
@@ -133,11 +138,11 @@ namespace Ryneus
                 {
                     continue;
                 }
-                if (equipment.Rank > selectEquipmentItem.Param1)
+                if (equipment.Rank > itemData.Param1)
                 {
                     continue;
                 }
-                if (selectEquipmentItem.Param2 != -1 && (AttributeType)selectEquipmentItem.Param2 != equipment.Attribute)
+                if (itemData.Param2 != -1 && (AttributeType)itemData.Param2 != equipment.Attribute)
                 {
                     continue;
                 }
@@ -147,12 +152,16 @@ namespace Ryneus
             return list;
         }
 
-        public List<GetItemInfo> PresentGetItemInfos(List<EquipmentInfo> selectedEquipmentInfos = null)
+        public List<GetItemInfo> PresentGetItemInfos(List<EquipmentInfo> selectedEquipmentInfos = null, ItemData itemData = null)
         {
             var list = new List<GetItemInfo>();
             // アイテムを消費
             foreach (var useCount in _useCount)
             {
+                if (itemData != null && itemData.Id != useCount.Key)
+                {
+                    continue;
+                }
                 var getItemInfos = MakeItemGetItemInfos(useCount.Key, useCount.Value.Value);
                 if (getItemInfos.Count > 0 && getItemInfos[0].GetItemType != GetItemType.SelectEquipment)
                 {

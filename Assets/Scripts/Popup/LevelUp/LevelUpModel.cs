@@ -30,6 +30,11 @@ namespace Ryneus
             return _sceneParam.StrategyStrengthInfos;
         }
 
+        public bool NeedLevelUpAnimation()
+        {
+            return _sceneParam.NeedLevelUpAnimation.Value;
+        }
+
         public void ClearLevelUpDates()
         {
             _sceneParam.StrategyStrengthInfos.Clear();
@@ -57,6 +62,7 @@ namespace Ryneus
         public ParameterString LearnSkill = new();
         public ParameterInt From = new();
         public ParameterInt To = new();
+        public ParameterBool NeedLevelUpAnimation = new(true);
         private ActorInfo _actorInfo;
         public ActorInfo ActorInfo => _actorInfo;
         private List<SkillInfo> _skillInfos = new();

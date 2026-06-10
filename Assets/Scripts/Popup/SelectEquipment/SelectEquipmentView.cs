@@ -11,7 +11,6 @@ namespace Ryneus
     {
         [SerializeField] private EquipmentList equipmentList = null;
         public int SelectIndex => equipmentList.Index;
-        [SerializeField] private OnOffButton presentButton = null;
         [SerializeField] private OnOffButton detailButton = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
 
@@ -25,10 +24,6 @@ namespace Ryneus
             base.Initialize();
             SetViewCommandSceneType(ViewCommandSceneType.SelectEquipment);
             InitializeSelectEquipment();
-            if (presentButton != null)
-            {
-                presentButton.OnClickAddListener(() => CallViewEvent(CommandType.DecideItem, equipmentList.ListItemData<EquipmentInfo>()));
-            }
             if (detailButton != null)
             {
                 detailButton.OnClickAddListener(() => CallViewEvent(CommandType.DetailItem, equipmentList.ListItemData<EquipmentInfo>()));

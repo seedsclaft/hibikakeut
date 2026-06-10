@@ -366,7 +366,7 @@ namespace Ryneus
             var beforeStatus = new StatusInfo();
             beforeStatus.SetParameter(_model.CurrentActor.CurrentStatus);
             var ClassChangeInfo = new ClassChangeInfo(_model.CurrentActor, beforeStatus);
-            _model.CurrentActor.IsClassChenged.SetValue(true);
+            _model.CurrentActor.ClassChange();
             CallPopupView(PopupType.ClassChange, () =>
             {
                 CheckAchievements();
@@ -386,7 +386,12 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _view.CallEquipment();
-            _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
+            CommandUpdateEquipment();
+        }
+
+        private void CommandUpdateEquipment()
+        {
+            _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));            
         }
 
         private void CommandSelectEquipment(int selectIndex)
@@ -418,7 +423,7 @@ namespace Ryneus
                         _model.RemoveEquipment(equipmentActor, equipmentInfo);
                         _model.ChangeEquipment(equipmentInfo);
                         _view.CallEquipment();
-                        _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
+                        CommandUpdateEquipment();
                         _model.PartyInfo.PartyStatInfo.StatusSkillChangeCount.GainValue(1);
                         CheckAchievements();
                     }
@@ -432,7 +437,7 @@ namespace Ryneus
             }
             _model.ChangeEquipment(equipmentInfo);
             _view.CallEquipment();
-            _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
+            CommandUpdateEquipment();
             if (equipmentInfo.Master.Id != DataSystem.System.InitEquipmentId)
             {
                 _model.PartyInfo.PartyStatInfo.StatusSkillChangeCount.GainValue(1);
@@ -444,22 +449,14 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             _view.CallEquipment();
-            _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
+            CommandUpdateEquipment();
         }
 
         private void CommandDetailEquipment(EquipmentInfo equipmentInfo)
         {
-            if (equipmentInfo == null)
-            {
-                return;
-            }
-            if (equipmentInfo.LearningInfos.Count == 0)
-            {
-                return;
-            }
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _busy = true;
-            CallConfirmSkillDetailView("", equipmentInfo.SkillInfos(), (a) =>
+            CommandDetailEquipment(equipmentInfo, () =>
             {
                 _busy = false;
             });
@@ -588,6 +585,7 @@ namespace Ryneus
                 ResetSelectSkill();
             }
             CommandRefreshMagicList(true);
+            CommandUpdateEquipment();
             CommandRefresh();
         }
 
@@ -637,7 +635,7 @@ namespace Ryneus
             SaveSelectedSkillId();
             _model.ChangeActorIndex(-1);
             CommandRefreshMagicList(true);
-            _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
+            CommandUpdateEquipment();
             CommandRefresh();
             //await UniTask.DelayFrame(16);
             _busy = false;
@@ -654,7 +652,7 @@ namespace Ryneus
             SaveSelectedSkillId();
             _model.ChangeActorIndex(1);
             CommandRefreshMagicList(true);
-            _view.SetEquipmentInfo(MakeListData(_model.ActorEquipmentInfos(), 0));
+            CommandUpdateEquipment();
             CommandRefresh();
             //await UniTask.DelayFrame(16);
             _busy = false;

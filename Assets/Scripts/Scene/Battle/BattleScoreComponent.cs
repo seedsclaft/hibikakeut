@@ -31,7 +31,7 @@ namespace Ryneus
             UIComponent.SetActive(battleTurnObj, battleScore.TurnCount > 0);
             UIComponent.SetActive(battleMaxDamageObj, battleScore.MaxDamage > 0);
             UIComponent.SetActive(battleAttackPerObj, battleScore.RemainHpPercent > 0);
-            UIComponent.SetActive(battleDefeatedCountObj, battleScore.DefeatedCount > 0);
+            UIComponent.SetActive(battleDefeatedCountObj, battleScore.DefeatedCountScore != 0);
             UIComponent.SetActive(weakAttackCountObj, battleScore.WeakAttackCount > 0);
             UIComponent.SetActive(enemyLvAvarageObj, battleScore.EnemyLvAvarage > 0);
             UIComponent.SetActive(awakenCountObj, battleScore.AwakenCount > 0);

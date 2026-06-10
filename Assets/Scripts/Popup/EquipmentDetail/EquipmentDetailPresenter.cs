@@ -61,17 +61,9 @@ namespace Ryneus
 
         private void CommandDetailEquipment(EquipmentInfo equipmentInfo)
         {
-            if (equipmentInfo == null)
-            {
-                return;
-            }
-            if (equipmentInfo.LearningInfos.Count == 0)
-            {
-                return;
-            }
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _busy = true;
-            CallConfirmSkillDetailView("", equipmentInfo.SkillInfos(), (a) =>
+            CommandDetailEquipment(equipmentInfo, () =>
             {
                 _busy = false;
             });

@@ -271,7 +271,7 @@ namespace Ryneus
             InitSkillInfo();
             InitSkillTriggerInfos();
             _equipmentIds.Add(10);
-            _equipmentIds.Add(10);
+            //_equipmentIds.Add(10);
         }
 /*
         public void CopyData(ActorInfo baseActorInfo)
@@ -830,6 +830,11 @@ namespace Ryneus
         }
 
         public ParameterBool IsClassChenged = new();
+        public void ClassChange()
+        {
+            IsClassChenged.SetValue(true);
+            _equipmentIds.Add(10);
+        }
 
         private List<SkillTriggerInfo> _skillTriggerInfos = new();
         public List<SkillTriggerInfo> SkillTriggerInfos => _skillTriggerInfos;

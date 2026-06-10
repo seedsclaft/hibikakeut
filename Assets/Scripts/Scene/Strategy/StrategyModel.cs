@@ -136,6 +136,10 @@ namespace Ryneus
                 });
                 if (levelUpInfoView.StrategyStrengthInfos.Count > 0 || levelUpInfoView.SkillInfos.Count > 0)
                 {
+                    if (_levelUpViewInfos.Count > 0)
+                    {
+                        levelUpInfoView.NeedLevelUpAnimation.SetValue(false);
+                    }
                     _levelUpViewInfos.Add(levelUpInfoView);
                 }
                 target.Exp.GainValue(expGetItemInfo.Param2 * -1);

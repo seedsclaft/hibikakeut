@@ -56,6 +56,9 @@ namespace Ryneus
                 case CommandType.DecideItem:
                     CommandDecideItem((EquipmentInfo)viewEvent.Template);
                     break;
+                case CommandType.DetailItem:
+                    CommandDetailItem((EquipmentInfo)viewEvent.Template);
+                    break;
             }
         }
 
@@ -80,6 +83,16 @@ namespace Ryneus
                     _view.ActivateSelectEquipment(true);
                 });
             }
+        }
+
+        private void CommandDetailItem(EquipmentInfo equipmentInfo)
+        {
+            _busy = true;
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            CommandDetailEquipment(equipmentInfo, () =>
+            {            
+                _busy = false;
+            });
         }
 
         private void CommandRefresh()

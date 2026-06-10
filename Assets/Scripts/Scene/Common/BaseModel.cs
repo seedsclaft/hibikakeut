@@ -703,7 +703,7 @@ namespace Ryneus
                     // 報酬設定
                     return MakeGetItemInfo(GetItemType.Equipment, candidateEquipments[rand].Id);
                 case ItemType.SelectAddEquipment:
-                    return MakeGetItemInfo(GetItemType.SelectEquipment, itemData.Param1);
+                    return MakeGetItemInfo(GetItemType.SelectEquipment, itemData.Param1, itemData.Param2);
                 case ItemType.RandumAddItem:
                     // ランダムでparam1が同じアイテム
                     var candidateItems = DataSystem.Dates[DataType.Items].FindAll<ItemData>(a => a.ItemType == ItemType.UseItem && (int)a.Param1 == itemData.Param1);

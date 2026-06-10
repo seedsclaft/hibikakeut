@@ -63,14 +63,14 @@ namespace Ryneus
             // LevelUp
             if (_model.LevelUpDates().Count > 0)
             {
-                _view.LevelUpAnimation(_model.TitleText());
+                _view.LevelUpAnimation(_model.TitleText(), _model.NeedLevelUpAnimation());
                 return;
             }
             // 魔法獲得
             var learnSkill = _model.LearnSkillInfos();
             if (learnSkill != null && learnSkill.Count > 0)
             {
-                _view.LevelUpAnimation(_model.LearnSkillText());
+                _view.LevelUpAnimation(_model.LearnSkillText(), true);
                 return;
             }
             _view.ClearActorThumb();

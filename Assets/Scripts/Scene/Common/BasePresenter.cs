@@ -80,18 +80,28 @@ namespace Ryneus
             _view.CommandCallConfirm(confirmInfo);
         }
 
-        public void CallEquipmentDetailView(EquipmentInfo equipmentInfo, Action endEvent = null)
+        public void CallEquipmentDetailView(string title , List<EquipmentInfo> equipmentInfos, Action endEvent = null)
         {
             var equipmentDetailViewInfo = new EquipmentDetailViewInfo();
-            equipmentDetailViewInfo.Title.SetValue(DataSystem.GetText(10171));
-            equipmentDetailViewInfo.EquipmentInfos = new()
-            {
-                equipmentInfo
-            };
+            equipmentDetailViewInfo.Title.SetValue(title);
+            equipmentDetailViewInfo.EquipmentInfos = equipmentInfos;
             CallPopupView(PopupType.EquipmentDetail, () =>
             {
                 endEvent?.Invoke();
             }, equipmentDetailViewInfo);
+        }
+
+        public void CommandDetailEquipment(EquipmentInfo equipmentInfo, Action endEvent = null)
+        {
+            if (equipmentInfo == null || equipmentInfo.LearningInfos.Count == 0)
+            {
+                endEvent?.Invoke();
+                return;
+            }
+            CallConfirmSkillDetailView("", equipmentInfo.SkillInfos(), (a) =>
+            {
+                endEvent?.Invoke();
+            });
         }
 
         public void CallConfirmStageDetailView(string title, StageInfo stageInfos, Action<ConfirmCommandType> returnEvent)

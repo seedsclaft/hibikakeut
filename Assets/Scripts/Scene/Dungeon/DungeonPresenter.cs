@@ -1086,7 +1086,7 @@ namespace Ryneus
 
             var getItemInfo = _model.MakeGetItemInfo(GetItemType.Equipment, equipment.Id);
             _model.AddGetItemInfo(getItemInfo);
-            CallEquipmentDetailView(equipmentInfo, () =>
+            CallEquipmentDetailView(DataSystem.GetText(10171) , new List<EquipmentInfo>(){equipmentInfo}, () =>
             {
                 _busy = false;
                 CommandRefresh();

@@ -163,7 +163,7 @@ namespace Ryneus
             if (tradeItemInfo.GetItemInfo.Master.Type == GetItemType.Equipment)
             {
                 var equipmentInfo = new EquipmentInfo(tradeItemInfo.GetItemInfo.Param1);
-                CallConfirmSkillDetailView("", equipmentInfo.SkillInfos(), (a) =>
+                CommandDetailEquipment(equipmentInfo, () =>
                 {
                     _busy = false;
                     _view.SetActivateItemList(true);
