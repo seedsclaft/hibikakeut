@@ -94,32 +94,7 @@ namespace Ryneus
                     var selectEquipmentInfos = _model.SelectEquipmentItems();
                     if (selectEquipmentInfos.Count > 0)
                     {
-                        // 全て入手済みの場合
-                        if (_model.SelectEquipmentZero(selectEquipmentInfos[0]))
-                        {
-                            CallConfirmNoChoiceView(DataSystem.GetText(45020), (a) =>
-                            {
-                                if (a == ConfirmCommandType.Yes)
-                                {
-                                    PresentGetItemInfos();
-                                    CommandRefresh();
-                                }
-                            });
-                            return;
-                        }
-                        var selectEquipmentSceneInfo = new SelectEquipmentSceneInfo
-                        {
-                            SelectCount = selectEquipmentInfos.Count,
-                            SelectEquipments = _model.SelectEquipmentInfos(),
-                            SelectedEquipments = new()
-                        };
-                        CallPopupView(PopupType.SelectEquipment, () =>
-                        {
-                            if (selectEquipmentSceneInfo.SelectedEquipments.Count == selectEquipmentSceneInfo.SelectCount)
-                            {
-                                PresentGetItemInfos(selectEquipmentSceneInfo.SelectedEquipments, selectEquipmentInfos[0]);
-                            }
-                        }, selectEquipmentSceneInfo);
+                        SelectEquipment(selectEquipmentInfos);
                         return;
                     }
                     PresentGetItemInfos();
@@ -129,9 +104,72 @@ namespace Ryneus
             });
         }
 
-        private void PresentGetItemInfos(List<EquipmentInfo> selectedEquipmentInfos = null, ItemData itemData = null)
+        private void SelectEquipment(List<ItemData> itemDates)
         {
-            var getItemInfos = _model.PresentGetItemInfos(selectedEquipmentInfos, itemData);
+            // 全て入手済みの場合
+            if (_model.SelectEquipmentZero(itemDates[0]))
+            {
+                CallConfirmNoChoiceView(DataSystem.GetText(45020), (a) =>
+                {
+                    if (a == ConfirmCommandType.Yes)
+                    {
+                        PresentGetItemInfos();
+                        CommandRefresh();
+                    }
+                });
+                return;
+            }
+            var count = 0;
+            foreach (var itemDate in itemDates)
+            {
+                if (itemDate.Id == itemDates[0].Id)
+                {
+                    count++;
+                }
+            }
+            var selectEquipmentSceneInfo = new SelectEquipmentSceneInfo
+            {
+                SelectCount = count,
+                SelectEquipments = _model.SelectEquipmentInfos(itemDates[0]),
+                SelectedEquipments = new()
+            };
+            CallPopupView(PopupType.SelectEquipment, () =>
+            {
+                if (selectEquipmentSceneInfo.SelectedEquipments.Count == count)
+                {
+                    PresentGetEquipmentInfos(selectEquipmentSceneInfo.SelectedEquipments, itemDates);
+                } else
+                {                
+                    CommandRefresh();
+                }
+            }, selectEquipmentSceneInfo);
+        }
+
+        private void PresentGetEquipmentInfos(List<EquipmentInfo> equipmentInfos, List<ItemData> itemDates)
+        {
+            var getItemInfos = _model.PresentGetEquipmentInfos(equipmentInfos, itemDates[0]);
+            if (getItemInfos.Count > 0)
+            {
+                _model.PartyInfo.PartyStatInfo.PresentCommandCount.GainValue(1);
+                CheckAchievements();
+            }
+            CallEquipmentDetailView(DataSystem.GetText(10171) , equipmentInfos, () =>
+            {
+                itemDates.RemoveAt(0);
+                if (itemDates.Count > 0)
+                {
+                    SelectEquipment(itemDates);
+                    return;
+                }
+                _busy = false;
+                CommandRefresh();
+                PresentGetItemInfos();
+            });
+        }
+
+        private void PresentGetItemInfos()
+        {
+            var getItemInfos = _model.PresentGetItemInfos();
             if (getItemInfos.Count > 0)
             {
                 _model.PartyInfo.PartyStatInfo.PresentCommandCount.GainValue(1);

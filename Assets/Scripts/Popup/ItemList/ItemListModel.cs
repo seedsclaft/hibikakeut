@@ -85,7 +85,6 @@ namespace Ryneus
                     {
                         list.Add(DataSystem.FindItem(useCount.Key));
                     }
-                    return list;
                 } 
             }
             return list;
@@ -121,12 +120,6 @@ namespace Ryneus
             return list.Count == 0;
         }
 
-        public List<EquipmentInfo> SelectEquipmentInfos()
-        {
-            var selectEquipmentItem = SelectEquipmentItems()[0];
-            return SelectEquipmentInfos(selectEquipmentItem);
-        }
-
         public List<EquipmentInfo> SelectEquipmentInfos(ItemData itemData)
         {
             var list = new List<EquipmentInfo>();
@@ -152,9 +145,26 @@ namespace Ryneus
             return list;
         }
 
-        public List<GetItemInfo> PresentGetItemInfos(List<EquipmentInfo> selectedEquipmentInfos = null, ItemData itemData = null)
+        public List<GetItemInfo> PresentGetItemInfos()
         {
             var list = new List<GetItemInfo>();
+            // アイテムを消費
+            foreach (var useCount in _useCount)
+            {
+                var getItemInfos = MakeItemGetItemInfos(useCount.Key, useCount.Value.Value);
+                if (getItemInfos.Count > 0 && getItemInfos[0].GetItemType != GetItemType.SelectEquipment)
+                {
+                    list.AddRange(getItemInfos);
+                }
+                PartyInfo.ConsuneItemNum(useCount.Key, useCount.Value.Value);
+            }
+            return list;
+        }
+
+        public List<GetItemInfo> PresentGetEquipmentInfos(List<EquipmentInfo> selectedEquipmentInfos = null, ItemData itemData = null)
+        {
+            var list = new List<GetItemInfo>();
+            var consuneItems = new Dictionary<int, int>();
             // アイテムを消費
             foreach (var useCount in _useCount)
             {
@@ -168,6 +178,11 @@ namespace Ryneus
                     list.AddRange(getItemInfos);
                 }
                 PartyInfo.ConsuneItemNum(useCount.Key, useCount.Value.Value);
+                consuneItems[useCount.Key] = useCount.Value.Value;
+            }
+            foreach (var consuneItem in consuneItems)
+            {
+                _useCount[consuneItem.Key].GainValue(-1 * consuneItem.Value);
             }
             // 選択した装備
             if (selectedEquipmentInfos != null)
@@ -182,6 +197,10 @@ namespace Ryneus
                     var getItemInfo = new GetItemInfo(getItemData);
                     list.Add(getItemInfo);
                 }
+            }
+            foreach (var getItemInfo in list)
+            {
+                PartyInfo.AddGetItemInfo(getItemInfo);
             }
             return list;
         }
