@@ -9,17 +9,10 @@ namespace Ryneus
     public abstract partial class ListWindow : MonoBehaviour
     {
         [SerializeField] private bool _grid = false;
-        private int _gridColumnCount = 16;
         private int _calcVerticalCount = -1;
         public void SetGridColumnCount(int columnCount)
         {
-            _gridColumnCount = columnCount;
             GetComponentInChildren<GridLayoutGroup>().constraintCount = columnCount;
-        }
-
-        public int GridColumnCount()
-        {
-            return _grid ? _gridColumnCount : 1;
         }
 
         public int GetVerticalCount()
@@ -55,11 +48,6 @@ namespace Ryneus
             var listMargin = ListMargin(true);
             var space = ItemSpace(true);
             return (int)Math.Floor((width - listMargin) / (_itemSize.x + space));
-        }
-
-        public int GetGridRowCount()
-        {
-            return ObjectListCount / _gridColumnCount;
         }
 
         public void UpdateListGridItem(int itemStartIndex = -1)
@@ -160,52 +148,12 @@ namespace Ryneus
                 return;
             }
             ScrollRect.content.SetAnchoredPositionY(positionY);
-            /*
-            int startIndex = GetStartIndex(_horizontal);
-            int gridIndex = GetStartIndex(!_horizontal);
-            if (keyTypes.Contains(InputKeyType.Down))
-            {
-                UpdateListDownGrid(gridIndex + 1);
-            }
-            else
-            if (keyTypes.Contains(InputKeyType.Up))
-            {
-                UpdateListUpGrid(gridIndex);
-            }
-
-            if (keyTypes.Contains(InputKeyType.Right))
-            {
-                UpdateListRightGrid(startIndex);
-            }
-            else
-            if (keyTypes.Contains(InputKeyType.Left))
-            {
-                UpdateListLeftGrid(startIndex);
-            }
-            */
         }
 
         private bool UpdateListGrid()
         {
             int startIndex = GetStartIndex(_horizontal);
-            int gridIndex = GetStartIndex(!_horizontal);
             var update = false;
-            /*
-            if (gridIndex != _lastStartIndexY)
-            {
-                if (gridIndex > _lastStartIndexY && gridIndex > 0)
-                {
-                    //UpdateListDownGrid(gridIndex);
-                    update = true;
-                }
-                else
-                if (gridIndex < _lastStartIndexY && gridIndex >= 0)
-                {
-                    //UpdateListUpGrid(gridIndex);
-                    update = true;
-                }
-            }
-            */
             if (startIndex > _lastStartIndexY)
             {
                 UpdateListDownGrid(startIndex);
@@ -277,7 +225,7 @@ namespace Ryneus
                 }
             }
         }
-
+/*
         private void UpdateListRightGrid(int startIndex)
         {
             var lineIndex = startIndex - _lastStartIndexX;
@@ -351,7 +299,7 @@ namespace Ryneus
                 }
             }
         }
-
+*/
         private bool WithinItemIndex(int itemIndex)
         {
             return itemIndex >= 0 && itemIndex < _itemPrefabList.Count;

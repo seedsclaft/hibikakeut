@@ -53,6 +53,10 @@ namespace Ryneus
                 {
                     continue;
                 }
+                if (ListDates.Count <= i)
+                {
+                    continue;
+                }
                 var listItem = ItemPrefabList[i].GetComponentInChildren<ListItem>();
                 if (listItem == null || listItem.ListData == null)
                 {

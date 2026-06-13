@@ -75,6 +75,7 @@ namespace Ryneus
                 {
                     if (a == ConfirmCommandType.Yes)
                     {
+                        _busy = false;
                         _model.DecideEquipmentInfos();
                         _view.BackEvent.Invoke();
                         return;

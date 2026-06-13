@@ -119,6 +119,7 @@ namespace Ryneus
                 });
                 return;
             }
+            _busy = true;
             var count = 0;
             foreach (var itemDate in itemDates)
             {
@@ -140,6 +141,7 @@ namespace Ryneus
                     PresentGetEquipmentInfos(selectEquipmentSceneInfo.SelectedEquipments, itemDates);
                 } else
                 {                
+                    _busy = false;
                     CommandRefresh();
                 }
             }, selectEquipmentSceneInfo);
@@ -155,7 +157,15 @@ namespace Ryneus
             }
             CallEquipmentDetailView(DataSystem.GetText(10171) , equipmentInfos, () =>
             {
-                itemDates.RemoveAt(0);
+                // 同じIDのitemDatesを消す
+                var itemId = itemDates[0].Id;
+                for (int i = itemDates.Count - 1; i >= 0; i--)
+                {
+                    if (itemDates[i].Id == itemId)
+                    {
+                        itemDates.Remove(itemDates[i]);
+                    }
+                }
                 if (itemDates.Count > 0)
                 {
                     SelectEquipment(itemDates);

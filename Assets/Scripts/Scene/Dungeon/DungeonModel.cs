@@ -357,6 +357,15 @@ namespace Ryneus
             PartyInfo.PartyStatInfo.BattleScore.GainValue(-20, 0);
         }
 
+        public int HavingArtifactMinus()
+        {
+            if (PartyInfo.PartyStatInfo.BattleScore.Value == 0)
+            {
+                return 0;
+            }
+            return PartyInfo.ArtifactItemInfos().Count * DataSystem.System.HavingArtifactMinus;
+        }
+
         public void SaveBgmTiming()
         {
             var timeStamp = SoundManager.Instance.CurrentTimeStamp();

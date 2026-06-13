@@ -21,6 +21,7 @@ namespace Ryneus
         public int EquipSkillCount;
         public int ClassChangePlusSkill;
         public int CheatArtifactMinus;
+        public int HavingArtifactMinus;
         public int InitEquipmentId;
         public List<TextData> SystemTextData;
 
