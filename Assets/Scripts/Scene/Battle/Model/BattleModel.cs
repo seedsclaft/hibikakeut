@@ -2696,28 +2696,9 @@ namespace Ryneus
                 {
                     upperRate += expRateUp.FeatureDates[0].Param1 * 0.01f;
                 }
-                /*
-                // 施設効果経験値アップ付与
-                var expRateUpBuildings = PartyInfo.BuildingSkills().FindAll(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.GetExpRateUp) != null);
-                // 重複はしない
-                // triggerあり
-                var upperBuildingsRate = 0f;
-                foreach (var expRateUpBuilding in expRateUpBuildings)
-                {
-                    if (IsTriggeredSkillInfo(actorInfo, expRateUpBuilding.TriggerDates, null, null))
-                    {
-                        var rate = expRateUpBuilding.FeatureDates[0].Param1 * 0.01f;
-                        if (rate > upperBuildingsRate)
-                        {
-                            upperBuildingsRate = rate;
-                        }
-                    }
-                }
-                upperRate += upperBuildingsRate;
-                */
                 if (upperRate > 0)
                 {
-                    gainExp *= (1 + upperRate);
+                    gainExp *= 1 + upperRate;
                 }
 /*
                 if (battleScore > 0)
@@ -2741,7 +2722,7 @@ namespace Ryneus
                     // 誰に対して
                     Param1 = actorInfo.ActorInfo.ActorId.Value,
                     // いくつ
-                    Param2 = (int)gainExp
+                    Param2 = (int)MathF.Ceiling(gainExp)
                 };
                 var expItem = new GetItemInfo(expData);
                 list.Add(expItem);

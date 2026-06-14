@@ -97,6 +97,7 @@ namespace Ryneus
 
         private void CheckResumeStage(int stageNo, int stageId)
         {
+            _model.PartyInfo.RegenerateAll();
             var resume = _model.GetDungeonResumeInfo(stageNo);
             StartStage(resume != null ? resume.DungeonId.Value : stageId, resume != null);
         }

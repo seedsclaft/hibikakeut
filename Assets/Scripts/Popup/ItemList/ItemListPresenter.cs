@@ -242,7 +242,7 @@ namespace Ryneus
             _busy = true;
             _view.ActivateItemList(false);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            CallEquipmentDetailView("選択装具候補" , _model.SelectEquipmentInfos(itemInfo.Master), () =>
+            CallEquipmentDetailView(DataSystem.GetText(34070) , _model.SelectEquipmentInfos(itemInfo.Master), () =>
             {
                 _busy = false;
                 _view.ActivateItemList(true);

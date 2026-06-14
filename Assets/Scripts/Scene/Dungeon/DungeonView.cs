@@ -25,6 +25,8 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI minusVictoryBonus;
         [SerializeField] private TextMeshProUGUI minusEvaluate;
         [SerializeField] private InputInfoComponent sideMenuInput = null;
+        [SerializeField] private OnOffButton partyInfoButton = null;
+        [SerializeField] private OnOffButton saveButton = null;
         private readonly Dictionary<int, BattlerInfoComponent> _battlerComps = new();
         private List<Sequence> _sequences = new();
         //[SerializeField] private OnOffButton healButton = null;
@@ -60,6 +62,20 @@ namespace Ryneus
                 useItemButton.OnClickAddListener(() =>
                 {
                     CallViewEvent(CommandType.UseItem);
+                });
+            }
+            if (partyInfoButton != null)
+            {
+                partyInfoButton.OnClickAddListener(() =>
+                {
+                    CallPartyInfo();
+                });
+            }
+            if (saveButton != null)
+            {
+                saveButton.OnClickAddListener(() =>
+                {
+                    CallSaveCommand();
                 });
             }
             if (alcanaInfoButton != null)
@@ -135,6 +151,16 @@ namespace Ryneus
             CallViewEvent(CommandType.SelectSideMenu);
         }
 
+        private void CallPartyInfo()
+        {
+            CallViewEvent(CommandType.PartyInfo);
+        }
+
+        private void CallSaveCommand()
+        {
+            CallViewEvent(CommandType.SaveCommand);
+        }
+
         public void CommandRefresh()
         {
             stageInfoComponent.UpdateCurrent();
@@ -166,17 +192,24 @@ namespace Ryneus
             {
                 //CallViewEvent(CommandType.Heal);
             }
-            if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
+            if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
             {
                 CallViewEvent(CommandType.UseItem);
+                return;
+            }
+            if (InputSystem.GetInputDate(InputKeyType.Option2).IsDownTrigger())
+            {
+                CallPartyInfo();
+                return;
+            }
+            if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
+            {
+                CallSaveCommand();
+                return;
             }
             if (keyTypes.Contains(InputKeyType.SideRight1))
             {
                 CallSideMenu();
-            } else
-            if (keyTypes.Contains(InputKeyType.Option2))
-            {
-                CallDungeonMap();
             } else
             if (keyTypes.Contains(InputKeyType.Decide))
             {
@@ -242,6 +275,8 @@ namespace Ryneus
                 return;
             }
             UIComponent.SetActive(useItemButton?.gameObject, isActive);
+            UIComponent.SetActive(partyInfoButton?.gameObject, isActive);
+            UIComponent.SetActive(saveButton?.gameObject, isActive);
         }
 
         public void SetActiveStageInfo(bool isActive)
@@ -321,6 +356,7 @@ namespace Ryneus
 
         public void MinusEvaluate(int minus)
         {
+            SeekTweens();
             var lastY = 334;//minusEvaluate.transform.localPosition.y;
             minusEvaluate.transform.DOLocalMoveY(lastY, 0);
             UIComponent.SetText(minusEvaluate, minus.ToString());
@@ -343,6 +379,7 @@ namespace Ryneus
             {
                 sequences.Complete();
             }
+            _sequences.Clear();
         }
 
         void OnDestroy()
@@ -372,7 +409,9 @@ namespace Ryneus
             EndFormation,
             MoveDirection,
             Aritifact,
-            SelectSideMenu
+            PartyInfo,
+            SaveCommand,
+            SelectSideMenu,
         }
     }
 }

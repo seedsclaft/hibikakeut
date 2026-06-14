@@ -276,7 +276,21 @@ namespace Ryneus
 
         public void AddTriggerTargetList(List<int> targetIndexList, SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
         {
-
+            switch (triggerData.TriggerType)
+            {
+                case TriggerType.LessHpFriend:
+                    targetIndexList.Add(LessHpTargetIndex(checkTriggerInfo.Friends, battlerInfo, triggerData.Param1, -1));
+                    break;
+                case TriggerType.MostHpFriend:
+                    targetIndexList.Add(MostHpTargetIndex(checkTriggerInfo.Friends, battlerInfo, triggerData.Param1, -1));
+                    break;
+                case TriggerType.LessHpTarget:
+                    targetIndexList.Add(LessHpTargetIndex(checkTriggerInfo.Opponents, battlerInfo, triggerData.Param1, -1));
+                    break;
+                case TriggerType.MostHpTarget:
+                    targetIndexList.Add( MostHpTargetIndex(checkTriggerInfo.Opponents, battlerInfo, triggerData.Param1, -1));
+                    break;
+            }
         }
     }
 }

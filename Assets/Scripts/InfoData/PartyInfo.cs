@@ -580,19 +580,6 @@ namespace Ryneus
                 case GetItemType.SkillMastary:
                     var target = _actorInfos.Find(a => a.ActorId.Value == getItemInfo.Param1);
                     target.GainSkillMastary(getItemInfo.Param2);
-                    // 強化スキルならステータス加算
-                    var skillData = DataSystem.FindSkill(getItemInfo.Param2);
-                    if (skillData != null)
-                    {
-                        foreach (var featureData in skillData.FeatureDates)
-                        {
-                            if (featureData.FeatureType != FeatureType.EquipmentStatusUp)
-                            {
-                                continue;
-                            }
-                            target.AddStatusUpper((StatusParamType)featureData.Param1, featureData.Param3);
-                        }
-                    }
                     break;
                 case GetItemType.AddReliefCommandCount:
                     ReliefItemCount.GainValue(1, 0);
@@ -779,6 +766,14 @@ namespace Ryneus
                 idx++;
             }
             return actorInfos;
+        }
+
+        public void RegenerateAll()
+        {
+            foreach (var actorInfo in _actorInfos)
+            {
+                actorInfo.ChangeHp(actorInfo.MaxHp);
+            }
         }
 
         public void UseRecoveryHeal()

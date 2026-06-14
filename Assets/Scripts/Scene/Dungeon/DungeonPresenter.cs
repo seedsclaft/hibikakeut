@@ -29,7 +29,7 @@ namespace Ryneus
             Initialize();
         }
 
-        private async Task Initialize(float timeStamp = 0)
+        private async void Initialize(float timeStamp = 0)
         {
             //_view.SetHelpWindow();
             _view.SetEvent((type) => UpdateCommand(type));
@@ -59,6 +59,7 @@ namespace Ryneus
             {
                 return;
             }
+            _model.SaveAutoFile();
             await PlayDungeonBgm(_model.DungeonBgmTimeStamp());
             // 戦場ステージでバトルイベントが0になった時
             if (_model.BattleFieldEncountZero())
@@ -126,6 +127,12 @@ namespace Ryneus
                     break;
                 case CommandType.Aritifact:
                     CommandAritifact();
+                    break;
+                case CommandType.PartyInfo:
+                    CommandPartyInfo();
+                    break;
+                case CommandType.SaveCommand:
+                    CommandSaveCommand();
                     break;
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu();
@@ -1241,6 +1248,38 @@ namespace Ryneus
             });
         }
 
+        private void CommandPartyInfo()
+        {
+            _busy = true;
+            _model.DungeonBusy(true);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var actorInfos = _model.CurrentDeckActorInfos();
+            CommandActorStatusInfo(actorInfos, false, actorInfos[0].ActorId.Value, () =>
+            {
+                _busy = false;
+                _model.DungeonBusy(false);
+                CommandRefresh();
+            });
+        }
+
+        private void CommandSaveCommand()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _busy = true;
+            _model.DungeonBusy(true);
+            var sceneParam = new FileListSceneInfo
+            {
+                IsLoad = false
+            };
+            CallPopupView(PopupType.FileList, () =>
+            {
+                _busy = false;
+                _model.DungeonBusy(false);
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                CommandRefresh();
+            }, sceneParam);
+        }
+
         private void CommandSelectSideMenu()
         {
             if (!_model.IsActiveDungeon())
@@ -1249,6 +1288,7 @@ namespace Ryneus
             }
             _busy = true;
             _model.DungeonBusy(true);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CommandCallSideMenu(MakeListData(_model.SideMenu(), 0), () =>
             {
                 _model.DungeonBusy(false);

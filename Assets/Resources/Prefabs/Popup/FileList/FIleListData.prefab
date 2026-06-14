@@ -513,7 +513,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -336, y: 52}
+  m_AnchoredPosition: {x: -328, y: 52}
   m_SizeDelta: {x: 128, y: 104}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1347338235535987807
@@ -1252,7 +1252,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fd7871a73864a2147a57697b5b13bd89, type: 2}
   m_sharedMaterial: {fileID: 7947116292471950640, guid: fd7871a73864a2147a57697b5b13bd89,
@@ -1283,7 +1283,7 @@ MonoBehaviour:
   m_fontSize: 40
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1433,6 +1433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickButton: {fileID: 5219470317657427307}
   cursor: {fileID: 4451686945691896474}
+  subCursors: []
   selectArrow: {fileID: 5636889446021435583}
   changeCursorColor: 0
   cursorRectAnimation: {fileID: 0}
@@ -2811,7 +2812,7 @@ PrefabInstance:
     - target: {fileID: 3403139455166798187, guid: f55f622d32b386543ba8165bacb1232b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -400
+      value: -412
       objectReference: {fileID: 0}
     - target: {fileID: 3403139455166798187, guid: f55f622d32b386543ba8165bacb1232b,
         type: 3}

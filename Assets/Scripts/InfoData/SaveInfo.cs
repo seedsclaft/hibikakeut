@@ -37,7 +37,10 @@ namespace Ryneus
                 _saveFileInfos.Add(saveFileInfo);
             }
             _saveFileInfos.Sort((a, b) => a.SaveNo - b.SaveNo > 0 ? 1 : -1);
-            LastSaveIndex.SetValue(saveFileInfo.SaveNo);
+            if (saveFileInfo.SaveNo > 0)
+            {
+                LastSaveIndex.SetValue(saveFileInfo.SaveNo);
+            }
             //UpdateSaveLastSaveIndex();
         }
 

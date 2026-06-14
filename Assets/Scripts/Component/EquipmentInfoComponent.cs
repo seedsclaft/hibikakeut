@@ -15,6 +15,7 @@ namespace Ryneus
         [SerializeField] private GameObject equipmentedObj;
         [SerializeField] private ActorInfoComponent equipmentedActor;
         public BaseList LearningDateList => learningDateList;
+        public EquipmentData DisplayEquipmentData = null;
         public void UpdateInfo(EquipmentInfo equipmentInfo)
         {
             UpdateData(equipmentInfo.Master);
@@ -31,6 +32,7 @@ namespace Ryneus
 
         public void UpdateData(EquipmentData equipmentData)
         {
+            DisplayEquipmentData = equipmentData;
             UIComponent.SetText(nameText, equipmentData.Name);
             UpdateSkillIcon(equipmentData.IconIndex);
             UpdateSkillIconBack(equipmentData.Attribute);

@@ -363,6 +363,10 @@ namespace Ryneus
             {
                 return 0;
             }
+            if (CurrentStage.Cleared.Value)
+            {
+                return 0;
+            }
             return PartyInfo.ArtifactItemInfos().Count * DataSystem.System.HavingArtifactMinus;
         }
 

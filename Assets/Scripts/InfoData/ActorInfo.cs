@@ -240,20 +240,34 @@ namespace Ryneus
             return equipPlusStatus;
         }
 
+        public StatusInfo MastaryPlusStatus()
+        {
+            var mastaryPlusStatus = new StatusInfo();
+            // 装備時発動
+            foreach (var mastarySkillId in _mastarySkillIds)
+            {
+                var mastarySkill = DataSystem.FindSkill(mastarySkillId);
+                // 強化スキルなら加算
+                foreach (var featureDate in mastarySkill.FeatureDates)
+                {
+                    if (featureDate.FeatureType == FeatureType.EquipmentStatusUp && featureDate.Param1 <= 4)
+                    {
+                        mastaryPlusStatus.AddParameter((StatusParamType)featureDate.Param1, featureDate.Param3);
+                    }
+                }
+            }
+            return mastaryPlusStatus;
+        }
+
         public StatusInfo CalcPlusStatus()
         {
             var calcPlusStatus = new StatusInfo();
-            calcPlusStatus.SetParameter(_plusStatus);
+            calcPlusStatus.AddParamStatus(_plusStatus);
             var equipPlusStatus = EquipPlusStatus();
-            calcPlusStatus.AddParameter(StatusParamType.Hp, equipPlusStatus.Hp);
-            calcPlusStatus.AddParameter(StatusParamType.Mp, equipPlusStatus.Mp);
-            calcPlusStatus.AddParameter(StatusParamType.Atk, equipPlusStatus.Atk);
-            calcPlusStatus.AddParameter(StatusParamType.Def, equipPlusStatus.Def);
-            calcPlusStatus.AddParameter(StatusParamType.Spd, equipPlusStatus.Spd);
-            calcPlusStatus.AddParameter(StatusParamType.Hit, equipPlusStatus.Hit);
-            calcPlusStatus.AddParameter(StatusParamType.Eva, equipPlusStatus.Eva);
-            calcPlusStatus.AddParameter(StatusParamType.Cri, equipPlusStatus.Cri);
-            calcPlusStatus.AddParameter(StatusParamType.CriEva, equipPlusStatus.CriEva);
+            calcPlusStatus.AddParamStatus(equipPlusStatus);
+            // 会得魔法アップ分
+            var mastaryPlusStatus = MastaryPlusStatus();
+            calcPlusStatus.AddParamStatus(mastaryPlusStatus);
             return calcPlusStatus;
         }
 

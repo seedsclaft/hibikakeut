@@ -22,7 +22,7 @@ namespace Ryneus
                 return CurrentData.SaveFileInfos.FindAll(a => a.SaveNo >= 0);
             }
             var saveFileInfos = new List<SaveFileInfo>();
-            for (int i = 0;i < 21;i++)
+            for (int i = 1; i < 21; i++)
             {
                 var find = CurrentData.SaveFileInfos.Find(a => a.SaveNo == i);
                 if (find != null)
@@ -44,7 +44,15 @@ namespace Ryneus
         {
             if (CurrentData.LastSaveIndex != null)
             {
-                return CurrentData.LastSaveIndex.Value;
+                var find = CurrentData.SaveFileInfos.FindIndex(a => a.SaveNo == CurrentData.LastSaveIndex.Value);
+                if (find > -1)
+                {
+                    if (!_isLoad)
+                    {
+                        find -= 1;
+                    }
+                    return find;
+                }
             }
             return 0;
         }

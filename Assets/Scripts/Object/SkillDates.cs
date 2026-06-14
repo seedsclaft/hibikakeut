@@ -516,6 +516,7 @@ namespace Ryneus
         AfterOpponentUse = 42,
         Use = 51,
         After = 61,
+        BattleEnd = 101,
     }
 
     public enum FeatureType

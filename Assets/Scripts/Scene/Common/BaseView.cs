@@ -125,9 +125,9 @@ namespace Ryneus
             var commandType = new ViewCommandType(_viewCommandSceneType, template);
             var eventData = new ViewEvent(commandType)
             {
-                Template = sendData
+                Template = sendData,
+                ThrowBusy = throwBusy
             };
-            eventData.ThrowBusy = throwBusy;
             foreach (var commandData in _commandData)
             {
                 commandData(eventData);

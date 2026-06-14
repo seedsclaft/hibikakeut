@@ -41,10 +41,10 @@ namespace Ryneus
             }
 
             _view.SetCharaLayer(_model.MainMenuActorInfos());
+            _model.SaveAutoFile();
             if (_model.SceneParam != null && _model.SceneParam.PeriodAnimation)
             {
                 _model.SavePlayerStageData(Scene.MainMenu);
-                _model.SaveAutoFile();
                 SoundManager.Instance.FadeOutBgm();
                 var chapter = _model.PartyInfo.Chapter.Value;
                 var period = Math.Min(_model.PartyInfo.Period.Value, DataSystem.System.PeriodTurns);
@@ -489,6 +489,7 @@ namespace Ryneus
                 }
                 return false;
             };
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CommandCallSideMenu(MakeListData(_model.SideMenu(), null, null, batch, 0), () =>
             {
                 _busy = false;

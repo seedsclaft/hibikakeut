@@ -64,6 +64,19 @@ namespace Ryneus
             CriEvaParam.curernt.SetValue(statusInfo.CriEva);
         }
 
+        public void AddParamStatus(StatusInfo statusInfo)
+        {
+            AddParameter(StatusParamType.Hp, statusInfo.Hp);
+            AddParameter(StatusParamType.Mp, statusInfo.Mp);
+            AddParameter(StatusParamType.Atk, statusInfo.Atk);
+            AddParameter(StatusParamType.Def, statusInfo.Def);
+            AddParameter(StatusParamType.Spd, statusInfo.Spd);
+            AddParameter(StatusParamType.Hit, statusInfo.Hit);
+            AddParameter(StatusParamType.Eva, statusInfo.Eva);
+            AddParameter(StatusParamType.Cri, statusInfo.Cri);
+            AddParameter(StatusParamType.CriEva, statusInfo.CriEva);
+        }
+
         public int GetParameter(StatusParamType paramType)
         {
             return paramType switch

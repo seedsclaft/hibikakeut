@@ -48,7 +48,7 @@ namespace Ryneus
         public int DataCount => _listDates.Count;
         private Vector2 _itemSize;
         private int _lastStartIndexX = 0;
-        private int _lastStartIndexY = 0;
+        private int _lastStartIndexY = -1;
         private LinkedList<IListViewItem> _itemList = new();
         private List<GameObject> _objectList = new();
         public List<GameObject> ObjectList => _objectList;
@@ -221,7 +221,7 @@ namespace Ryneus
             var itemStartIndex = startIndex % _itemPrefabList.Count;
             if (_grid)
             {
-                UpdateListGridItem(itemStartIndex);
+                UpdateGridItemPrefab(itemStartIndex);
                 return;
             }
             for (int i = 0; i < _itemPrefabList.Count; i++)
@@ -490,11 +490,20 @@ namespace Ryneus
         {
             if (_grid)
             {
+                if (_lastStartIndexY == -1)
+                {
+                    // 初期配置待ち
+                    return;
+                }
+                UpdateListGrid();
+                return;
+                /*
                 var update = UpdateListGrid();
                 if (update)
                 {
                     return;
                 }
+                */
             }
             var horizontalCount = GetHorizonalCount();
             var verticalCount = GetVerticalCount();
@@ -540,17 +549,19 @@ namespace Ryneus
         private void UpdateListUp(int startIndex)
         {
             _lastStartIndexX = startIndex;
-            var itemIndex = (startIndex - 0) % _itemPrefabList.Count;
+            //var itemIndex = (startIndex - 1) % _itemPrefabList.Count;
+            //var objectIndex = _itemPrefabList.Count + startIndex - 1;
+            var itemIndex = (startIndex + 0) % _itemPrefabList.Count;
             if (itemIndex < 0)
             {
                 return;
             }
-            var objectIndex = startIndex - 0;
+            var objectIndex = startIndex + 0;
             if (objectIndex < 0)
             {
                 return;
             }
-            //Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
+            Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
             UpdateListItem(itemIndex, objectIndex);
         }
 

@@ -63,12 +63,12 @@ namespace Ryneus
                     continue;
                 }
                 var infoComponent = ItemPrefabList[i].GetComponent<EquipmentInfoComponent>();
-                EquipmentInfo equipmentInfo = (EquipmentInfo)ListDates[i].Data;
-                if (equipmentInfo == null || infoComponent == null)
+                EquipmentData equipmentData = infoComponent.DisplayEquipmentData;
+                if (equipmentData == null || infoComponent == null)
                 {
                     continue;
                 }
-                if (indexes.Contains(equipmentInfo.EquipmentId.Value) && equipmentInfo.EquipmentId.Value > 10)
+                if (indexes.Contains(equipmentData.Id) && equipmentData.Id > 10)
                 {
                     infoComponent.SetSelectEquipment(true);
                 }

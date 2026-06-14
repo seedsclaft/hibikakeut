@@ -28,7 +28,8 @@ namespace Ryneus
             var data = ListItemData<SaveFileInfo>();
             UIComponent.SetActive(saveData, data.ActorId > 0);
             UIComponent.SetActive(newGame, data.ActorId <= 0);
-            UIComponent.SetText(saveNo, data.SaveNo);
+            var saveNoText = data.SaveNo == 0 ? DataSystem.GetText(31080) : data.SaveNo.ToString();
+            UIComponent.SetText(saveNo, saveNoText);
             if (data.ActorId > 0)
             {
                 actorInfoComponent.UpdateData(DataSystem.FindActor(data.ActorId));

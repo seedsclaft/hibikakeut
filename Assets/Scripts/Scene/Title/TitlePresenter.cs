@@ -178,6 +178,7 @@ namespace Ryneus
         {
             _busy = true;
             _view.SetBusy(true);
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CommandCallSideMenu(MakeListData(_model.SideMenu(), 0), () =>
             {
                 _busy = false;

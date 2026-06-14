@@ -488,12 +488,40 @@ namespace Ryneus
             return _model.CheckVictory() || _model.CheckDefeat() || _model.CheckIsOver();
         }
 
+        /// <summary>
+        /// バトル終了時のパッシブを付与
+        /// </summary>
+        private bool CommandEndBattleAction()
+        {
+            _model.CheckTriggerPassiveInfos(new List<TriggerTiming>() { TriggerTiming.BattleEnd }, null, null);
+            // 開始誘発を発動
+            var receiveActionInfo = _model.ReceiveActionInfo;
+            if (receiveActionInfo != null)
+            {
+                _view.SetBattleBusy(true);
+                _model.SetActiveActionInfo(receiveActionInfo);
+                StartActionInfo(receiveActionInfo);
+            }
+            return receiveActionInfo != null;
+        }
+
         private async void BattleEnd()
         {
             if (_battleEnded)
             {
                 return;
             }
+            var active = CommandEndBattleAction();
+            if (active)
+            {
+                await UniTask.WaitUntil(() => !_view.BattleWait);
+            }
+            _view.SetBattleBusy(false);
+            BattleEndResult();
+        }
+        
+        private async void BattleEndResult()
+        {
             var strategySceneInfo = new StrategySceneInfo
             {
                 BattlerInfos = _model.Battlers,
@@ -516,16 +544,6 @@ namespace Ryneus
                 _view.CallSystemCommand(Base.CommandType.MapClear);
                 _view.CommandGotoSceneChange(Scene.Title);
                 return;
-                /*
-                _view.StartBattleStartAnim(DataSystem.GetText(16110));
-                strategySceneInfo.GetItemInfos = new List<GetItemInfo>();
-                _model.MakeBattleScore(false, strategySceneInfo);
-                strategySceneInfo.BattleScore.TurnCount = -1;
-                strategySceneInfo.BattleResultVictory = false;
-                strategySceneInfo.ReturnScene = Scene.MainMenu;
-                CheckAchievements();
-                //_model.CurrentStage.GainLoseCount();
-                */
             }
             else
             if (_model.CheckVictory())
@@ -539,19 +557,7 @@ namespace Ryneus
                 _model.AddEnemyInfoSkillId();
                 _model.PartyInfo.PartyStatInfo.BattleVictoryCount.GainValue(1);
                 CheckAchievements();
-            }/* else
-            if (_model.CheckIsOver())
-            {
-                _view.StartBattleStartAnim(DataSystem.GetText(16100));
-                _view.BattleVictory(_model.BattlerActors()[0].Index.Value);
-                strategySceneInfo.GetItemInfos = _model.MakeBattlerResult();
-                strategySceneInfo.BattleTurn = _model.TurnCount;
-                strategySceneInfo.BattleResultScore = _model.MakeBattleScore(true,strategySceneInfo);
-                strategySceneInfo.BattleResultVictory = true;
-                _model.AddEnemyInfoSkillId();
             }
-            */
-
             _model.EndBattle();
             _battleEnded = true;
             _view.HideStateOverlay();
@@ -560,17 +566,7 @@ namespace Ryneus
                 _view.CommandCallLoading();
             }
             await UniTask.DelayFrame((int)(150f / GameSystem.OptionData.BattleSpeed));
-            //_view.SetBattleBusy(false);
-            /*
-            if (SoundManager.Instance.CrossFadeMode)
-            {
-                SoundManager.Instance.ChangeCrossFade();
-            } else
-            {
-                PlayTacticsBgm();
-            }
-            */
-
+            
             BattleChecker.Instance.SetModel(null, null);
             _view.CommandCloseLoading();
             //_view.CommandChangeViewToTransition(null);

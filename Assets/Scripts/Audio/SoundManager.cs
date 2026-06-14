@@ -53,36 +53,19 @@ namespace Ryneus
             {
                 var audioSource = gameObject.AddComponent<AudioSource>();
                 _staticSe.Add(audioSource);
-                await SetSeAudio(audioSource, seMaster.FileName, seMaster.Volume, seMaster.Pitch);
+                SetSeAudio(audioSource, seMaster.FileName, seMaster.Volume, seMaster.Pitch);
             }
         }
 
 
-        private async Task SetSeAudio(AudioSource audioSource, string sePath, float volume, float pitch)
+        private async void SetSeAudio(AudioSource audioSource, string sePath, float volume, float pitch)
         {
-            var handle = await ResourceSystem.LoadSeAsset(sePath);
-
-            if (audioSource != null)
-            {
-                audioSource.clip = handle;
-                audioSource.pitch = pitch;
-                audioSource.volume = volume;
-            }
-            /*
-            Addressables.LoadAssetAsync<AudioClip>(
-                "Assets/Audios/SE/" + sePath + ".ogg"
-            ).Completed += op => {
-                if (audioSource != null)
-                {
-                    audioSource.clip = op.Result;
-                    audioSource.pitch = pitch;
-                    audioSource.volume = volume;
-                }
-            };
-            */
+            audioSource.clip = await ResourceSystem.LoadSeAsset(sePath);
+            audioSource.pitch = pitch;
+            audioSource.volume = volume;
         }
 
-        void LateUpdate()
+        private void LateUpdate()
         {
             //UpdateVolume(_seData, _seVolume);
         }
