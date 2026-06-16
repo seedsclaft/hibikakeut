@@ -194,11 +194,6 @@ namespace Ryneus
             }, selectIndex);
         }
 
-        public bool HasBattleField()
-        {
-            return StageInfos().Find(a => a.Master.Category == StageCategory.BattleField) != null;
-        }
-
         public bool IsSideManuBatch()
         {
             var achievement = PartyInfo.NearAchievementInfo();

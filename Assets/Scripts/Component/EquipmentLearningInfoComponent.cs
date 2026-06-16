@@ -7,9 +7,9 @@ namespace Ryneus
     public class EquipmentLearningInfoComponent : MonoBehaviour
     {
         [SerializeField] private SkillInfoComponent skillInfoComponent;
+        [SerializeField] private GameObject learningRateRoot;
         [SerializeField] private TextMeshProUGUI learningRate;
         [SerializeField] private TextMeshProUGUI learningExp;
-        [SerializeField] private GameObject learnd;
         [SerializeField] private StatusGaugeAnimation skillExpGauge;
 
         public void UpdateInfo(EquipmentLearningInfo equipmentLearningInfo)
@@ -19,12 +19,12 @@ namespace Ryneus
             {
                 UIComponent.SetText(learningRate, DataSystem.GetText(14230));
             }
+            UIComponent.SetActive(learningRateRoot, !equipmentLearningInfo.EquipmentOnly.Value);
             UIComponent.SetText(learningExp, equipmentLearningInfo.LearningExp.Value + "%");
             if (skillExpGauge != null)
             {
                 skillExpGauge.UpdateGauge(equipmentLearningInfo.LearningExp.Value * 0.01f);
             }
-            UIComponent.SetActive(learnd, equipmentLearningInfo.LearningExp.Value >= 100);
             UpdateData(equipmentLearningInfo.SkillData);
         }
 

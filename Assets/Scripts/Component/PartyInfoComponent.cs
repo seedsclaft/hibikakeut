@@ -5,9 +5,11 @@ namespace Ryneus
 {
     public class PartyInfoComponent : BaseInfoComponent
     {
+        [SerializeField] private GameObject periodRoot;
         [SerializeField] private TextMeshProUGUI period;
         [SerializeField] private TextMeshProUGUI periodLimit;
         [SerializeField] private TextMeshProUGUI chapter;
+        [SerializeField] private TextMeshProUGUI chapterText;
         [SerializeField] private TextMeshProUGUI currency;
         [SerializeField] private TextMeshProUGUI evaluationValue;
         [SerializeField] private TextMeshProUGUI evaluationAddictValue;
@@ -41,6 +43,12 @@ namespace Ryneus
 
             UIComponent.SetText(periodLimit, DataSystem.System.PeriodTurns);
             UIComponent.SetText(chapter, partyInfo.Chapter);
+            if (periodValue == 0)
+            {            
+                UIComponent.SetActive(periodRoot, false);
+                UIComponent.ClearText(chapter);
+                UIComponent.SetText(chapterText, "交戦中");
+            }
             //UIComponent.SetText(evaluationValue, partyInfo.EvaluationValue);
             if (evaluationAddictValue != null)
             {

@@ -83,6 +83,12 @@ namespace Ryneus
                 CommandCautionInfo(DataSystem.GetText(32040));
                 return;
             }
+            if (_model.HasBattleField() && stageInfo.Master.Category != StageCategory.BattleField)
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                CommandCautionInfo(DataSystem.GetText(32110));
+                return;
+            }
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CallConfirmStageDetailView(DataSystem.GetText(32030), stageInfo, (a) =>

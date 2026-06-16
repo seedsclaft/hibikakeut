@@ -261,6 +261,7 @@ namespace Ryneus
 
         public StatusInfo CalcPlusStatus()
         {
+            _plusStatus = new();
             var calcPlusStatus = new StatusInfo();
             calcPlusStatus.AddParamStatus(_plusStatus);
             var equipPlusStatus = EquipPlusStatus();

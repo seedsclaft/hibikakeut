@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Ryneus.MainMenu;
 using System;
+using TMPro;
 
 namespace Ryneus
 {

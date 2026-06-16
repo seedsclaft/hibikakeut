@@ -164,6 +164,11 @@ namespace Ryneus
             if (PartyInfo.Period.Value > DataSystem.System.PeriodTurns)
             {
                 PartyInfo.Period.SetValue(1);
+                // Chapter2,4,6の後はPeriodを0にする
+                if (PartyInfo.Chapter.Value % 2 == 0)
+                {
+                    PartyInfo.Period.SetValue(0);
+                }
                 PartyInfo.Chapter.GainValue(1);
                 PartyInfo.PartyStatInfo.BattleScore.SetValue(0);
                 return true;

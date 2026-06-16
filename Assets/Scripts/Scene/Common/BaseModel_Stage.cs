@@ -113,6 +113,7 @@ namespace Ryneus
             {
                 return;
             }
+            /*
             // NotSeekPeriod効果判定
             var notSeekPeriod = PartyInfo.AritifactSkills().Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.NotSeekPeriod) != null);
             if (notSeekPeriod == null)
@@ -124,12 +125,21 @@ namespace Ryneus
                 var artifact = PartyInfo.GetOwnItemInfos(ItemType.Artifact).Find(a => a.Master.Param1 == notSeekPeriod.Id.Value);
                 PartyInfo.ConsuneItemNum(artifact.Master.Id, 1);
             }
+            */
+            PartyInfo.Period.GainValue(1);
             PartyInfo.ClearTradeItemInfos();
+            /*
             if (PartyInfo.Chapter.Value >= 2)
             {
                 PartyInfo.PartyStatInfo.BattleScore.GainValue(PartyInfo.EvaluationAddictValue(), 0);
             }
+            */
             PartyInfo.ClearSkillUseCount();
+        }
+
+        public bool HasBattleField()
+        {
+            return StageInfos().Find(a => a.Master.Category == StageCategory.BattleField) != null;
         }
 
         public string DungeonPrefabName()

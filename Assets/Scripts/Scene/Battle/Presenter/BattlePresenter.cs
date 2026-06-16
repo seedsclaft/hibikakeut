@@ -516,12 +516,16 @@ namespace Ryneus
             {
                 await UniTask.WaitUntil(() => !_view.BattleWait);
             }
-            _view.SetBattleBusy(false);
             BattleEndResult();
+            _view.SetBattleBusy(false);
         }
         
         private async void BattleEndResult()
         {
+            if (_battleEnded)
+            {
+                return;
+            }
             var strategySceneInfo = new StrategySceneInfo
             {
                 BattlerInfos = _model.Battlers,
@@ -559,12 +563,12 @@ namespace Ryneus
                 CheckAchievements();
             }
             _model.EndBattle();
-            _battleEnded = true;
             _view.HideStateOverlay();
             if (_skipBattle)
             {
                 _view.CommandCallLoading();
             }
+            _battleEnded = true;
             await UniTask.DelayFrame((int)(150f / GameSystem.OptionData.BattleSpeed));
             
             BattleChecker.Instance.SetModel(null, null);
