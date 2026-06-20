@@ -19,6 +19,8 @@ namespace Ryneus
         public bool CommandEndCheck;
         public bool BattleTurnSkip;
         public bool BattleAnimationSkip;
+        public bool BattlePassiveAnimationSkip;
+        public bool BattleCameraMove;
         public InputType InputType;
         public bool BattleAuto;
         public float BattleSpeed = 1f;
@@ -43,6 +45,8 @@ namespace Ryneus
             CommandEndCheck = true;
             BattleTurnSkip = false;
             BattleAnimationSkip = false;
+            BattlePassiveAnimationSkip = true;
+            BattleCameraMove = true;
             InputType = InputType.All;
             BattleAuto = false;
             BattleSpeed = 1f;

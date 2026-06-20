@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1836247713506537869
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6068437502667799606}
-  m_Layer: 5
-  m_Name: DamageRoot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6068437502667799606
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836247713506537869}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4024216806029994536}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4337425132106513985
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +347,6 @@ Transform:
   - {fileID: 5027347666534427554}
   - {fileID: 9076227124062882011}
   - {fileID: 92433605026558671}
-  - {fileID: 6068437502667799606}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8479467692095971069
@@ -393,17 +361,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2c3ccbcc5f5dc42a1f7568977a3418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.CharacterAnimationImages
-  useBattle: 1
   animator: {fileID: 2365026803079339419}
   state: 0
   spriteRenderer: {fileID: 238066688219049343}
   candidateSelect: {fileID: 1081284949363450937}
-  battlerInfoComponent: {fileID: 3776113857912986674}
-  damageRoot: {fileID: 1836247713506537869}
-  magicCircle: {fileID: 5310426746093192725}
-  selectArrow: {fileID: 96666291834317554}
-  selectButton: {fileID: 4901595476887906576}
   blur: {fileID: 0}
+  fieldBattler: {fileID: 2821307262498927380}
 --- !u!1001 &8961949418597636572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -713,39 +676,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8961949418597636572}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &96666291834317554 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9009540086878843694, guid: e946db57581af6843a9ba2cde330b726,
-    type: 3}
-  m_PrefabInstance: {fileID: 8961949418597636572}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3776113857912986674 stripped
+--- !u!114 &2821307262498927380 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5203995198087136750, guid: e946db57581af6843a9ba2cde330b726,
+  m_CorrespondingSourceObject: {fileID: 6591142859326204616, guid: e946db57581af6843a9ba2cde330b726,
     type: 3}
   m_PrefabInstance: {fileID: 8961949418597636572}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ea577db469dd949b33ed403e9985eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 58285a2a8a1501f489471ce768887de9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.BattlerInfoComponent
---- !u!114 &4901595476887906576 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4060780795425943756, guid: e946db57581af6843a9ba2cde330b726,
-    type: 3}
-  m_PrefabInstance: {fileID: 8961949418597636572}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &5310426746093192725 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3885851658723893193, guid: e946db57581af6843a9ba2cde330b726,
-    type: 3}
-  m_PrefabInstance: {fileID: 8961949418597636572}
-  m_PrefabAsset: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.BattleFieldBattler

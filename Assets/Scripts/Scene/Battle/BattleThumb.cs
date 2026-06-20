@@ -104,7 +104,7 @@ namespace Ryneus
             });
         }
 
-        public void MoveAndFade(RectTransform rect, float moveX, float fade, float duration = 0.1f, System.Action endEvent = null)
+        private void MoveAndFade(RectTransform rect, float moveX, float fade, float duration = 0.1f, System.Action endEvent = null)
         {
             _sequence = DOTween.Sequence()
                 .Append(rect.DOLocalMoveX(moveX, duration))

@@ -65,7 +65,7 @@ namespace Ryneus
                 var prefab = Instantiate(asset);
                 prefab.transform.SetParent(actorPositions[battlerInfos[i].Index.Value - 1].transform, false);
                 var comp = prefab.GetComponent<CharacterAnimationImages>();
-                comp.Initilize(decideEvent, selectEvent);
+                comp.Initialize(decideEvent, selectEvent);
                 comp.UpdateInfo(battlerInfos[i]);
                 comp.ReplaceDamageRoot(actorDamagePositions[i]);
                 _battlers[battlerInfos[i].Index.Value] = comp;
@@ -89,7 +89,7 @@ namespace Ryneus
                 var prefab = Instantiate(asset);
                 prefab.transform.SetParent(enemyPositions[battlerInfos[i].Index.Value - 101].transform, false);
                 var comp = prefab.GetComponent<CharacterAnimationImages>();
-                comp.Initilize(decideEvent, selectEvent);
+                comp.Initialize(decideEvent, selectEvent);
                 comp.UpdateInfo(battlerInfos[i]);
                 comp.ReplaceDamageRoot(enemyDamagePositions[i]);
                 _battlers[battlerInfos[i].Index.Value] = comp;
@@ -128,6 +128,10 @@ namespace Ryneus
 
         public void MoveCameraActors()
         {
+            if (!GameSystem.OptionData.BattleCameraMove)
+            {
+                return;
+            }
             _busy = true;
             var sequence = DOTween.Sequence()
                 .Append(cameraTransform.DOLocalMoveX(_rangeWidth, _moveDuration))
@@ -141,6 +145,10 @@ namespace Ryneus
 
         public void MoveCameraEnemies()
         {
+            if (!GameSystem.OptionData.BattleCameraMove)
+            {
+                return;
+            }
             var sequence = DOTween.Sequence()
                 .Append(cameraTransform.DOLocalMoveX(-_rangeWidth, _moveDuration));
             _sequences.Add(sequence);
@@ -155,6 +163,10 @@ namespace Ryneus
 
         public void ZoomIn()
         {
+            if (!GameSystem.OptionData.BattleCameraMove)
+            {
+                return;
+            }
             _busy = true;
             var sequence = DOTween.Sequence()
                 .Append(cameraTransform.DOScale(_zoomValue, _moveDuration))
@@ -168,6 +180,10 @@ namespace Ryneus
 
         public void ZoomOut()
         {
+            if (!GameSystem.OptionData.BattleCameraMove)
+            {
+                return;
+            }
             _busy = true;
             var sequence = DOTween.Sequence()
                 .Append(cameraTransform.DOScale(1f, _moveDuration))
@@ -185,7 +201,7 @@ namespace Ryneus
             _sequences.Clear();
         }
 
-        public async Task SetStartActorMagic(int battlerInfoIndex, bool isActor)
+        public async Task SetStartActorMagic(int battlerInfoIndex, bool isActor, AttributeType attributeType)
         {
             if (!_battlers.ContainsKey(battlerInfoIndex))
             {
@@ -201,6 +217,7 @@ namespace Ryneus
                 MoveCameraEnemies();
             }
             ZoomIn();
+            _battlers[battlerInfoIndex].SetMagicCircleEffect(attributeType);
             _battlers[battlerInfoIndex].SetAnimationState(AnimationState.Magic);
             await UniTask.WaitUntil(() => !_busy);
         }

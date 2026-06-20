@@ -62,7 +62,7 @@ namespace Ryneus
             {
                 selectIndex = skillInfos.FindIndex(a => a.Id.Value == currentBattler.LastSelectSkill.Value);
             }
-            _view.ShowMagicList(MakeListData(skillInfos), resetScrollRect, selectIndex);
+            _view.ShowMagicList(MakeListData(skillInfos, selectIndex), resetScrollRect);
         }
 
         /// <summary>

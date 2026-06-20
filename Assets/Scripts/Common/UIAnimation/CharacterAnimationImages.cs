@@ -1,48 +1,29 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using DG.Tweening;
 using Effekseer;
 using UnityEngine;
-using UnityEngine.UI;
-using Utage;
 
 namespace Ryneus
 {
     public class CharacterAnimationImages : MonoBehaviour
     {
-        [SerializeField] private bool useBattle = false;
         [SerializeField] private Animator animator = null;
         [SerializeField] private AnimationState state = AnimationState.None;
         public bool IsStateDeath => state == AnimationState.Death;
         [SerializeField] private SpriteRenderer spriteRenderer = null;
         [SerializeField] private SpriteRenderer candidateSelect;
-        [SerializeField] private BattlerInfoComponent battlerInfoComponent = null;
-        [SerializeField] private GameObject damageRoot;
-        [SerializeField] private GameObject magicCircle;
-        [SerializeField] private GameObject selectArrow;
-        [SerializeField] private Button selectButton = null;
         [SerializeField] private _2dxFX_Blur blur = null;
+        [SerializeField] private BattleFieldBattler fieldBattler = null;
+        
         private AnimationState _lastState = 0;
-        private BattlerInfo _battlerInfo;
         private List<Sequence> _sequences = new();
         private float _animationDuration => 1f / GameSystem.OptionData.BattleSpeed;
 
-        public void Initilize(Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
+        public void Initialize(Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
         {
             AnimationUtility.Clear(_sequences);
-            if (selectButton != null)
-            {
-                selectButton.onClick.AddListener(() =>
-                {
-                    decideEvent.Invoke(_battlerInfo);
-                });
-                var enterListener = selectButton.gameObject.AddComponent<ContentEnterListener>();
-                enterListener.SetEnterEvent(() =>
-                {
-                    selectEvent?.Invoke(_battlerInfo);
-                });
-            }
+            fieldBattler.Initialize(decideEvent, selectEvent);
         }
 
         public void SetAnimationState(AnimationState animationState)
@@ -69,8 +50,8 @@ namespace Ryneus
 
         public void Flip()
         {
-            var scaleX = this.transform.localScale.x;
-            this.transform.localScale = new Vector3(scaleX * -1, 1, 0);
+            var scaleX = transform.localScale.x;
+            transform.localScale = new Vector3(scaleX * -1, 1, 0);
         }
 
         public void Fade(float targetValue, float duration)
@@ -123,44 +104,32 @@ namespace Ryneus
 
         public void SetActiveCircle(bool isActive)
         {
-            UIComponent.SetActive(magicCircle, isActive);
+            fieldBattler.SetActiveCircle(isActive);
+        }
+
+        public void SetMagicCircleEffect(AttributeType attributeType)
+        {
+            fieldBattler.SetMagicCircleEffect(attributeType);
         }
 
         public void UpdateInfo(BattlerInfo battlerInfo)
         {
-            _battlerInfo = battlerInfo;
-            battlerInfoComponent.UpdateInfo(battlerInfo);
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.sortingOrder = battlerInfo.Index.Value;
-                candidateSelect.sortingOrder = battlerInfo.Index.Value + 1;
-                if (!battlerInfo.IsActor)
-                {
-                    UIComponent.SetSpeiteImage(spriteRenderer, ResourceSystem.EnemySpritePath(battlerInfo.EnemyData.ImagePath));
-                    UIComponent.SetSpeiteImage(candidateSelect, ResourceSystem.EnemySpritePath(battlerInfo.EnemyData.ImagePath));
-                }
-            }
-            SetDamageRoot();
+            fieldBattler.UpdateInfo(battlerInfo, spriteRenderer, candidateSelect);
         }
 
         public void StartAnimation(EffekseerEffectAsset effectAsset, AnimationPosition animationPosition, float animationScale = 1.0f, float animationSpeed = 1.0f, bool soundPlay = true)
         {
-            battlerInfoComponent.StartFieldAnimation(effectAsset, animationPosition, animationScale, animationSpeed, soundPlay);
-        }
-
-        public void SetDamageRoot()
-        {
-            battlerInfoComponent.SetDamageRoot(damageRoot);
+            fieldBattler.StartAnimation(effectAsset, animationPosition, animationScale, animationSpeed, soundPlay);
         }
 
         public void ReplaceDamageRoot(GameObject parent)
         {
-            damageRoot.transform.SetParent(parent.transform);
+            fieldBattler.ReplaceDamageRoot(parent);
         }
 
         public void SetSelectArrow(bool isSelect)
         {
-            UIComponent.SetActive(selectArrow, isSelect);
+            fieldBattler.SetSelectArrow(isSelect);
         }
 
         public void SetActivecandidateSelect(bool isActive)
@@ -174,7 +143,7 @@ namespace Ryneus
             {
                 _lastState = state;
                 animator.SetInteger("State", (int)state);
-                var speed = useBattle ? GameSystem.OptionData.BattleSpeed : 1;
+                var speed = fieldBattler != null ? GameSystem.OptionData.BattleSpeed : 1;
                 animator.SetFloat("BattleSpeed", speed);
             }
         }

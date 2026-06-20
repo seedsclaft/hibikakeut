@@ -22,6 +22,8 @@ namespace Ryneus
                 ChangeCommandEndCheck(saveOptionInfo.CommandEndCheck);
                 ChangeBattleTurnSkip(saveOptionInfo.BattleTurnSkip);
                 ChangeBattleAnimation(saveOptionInfo.BattleAnimationSkip);
+                ChangeBattlePassiveAnimationSkip(saveOptionInfo.BattlePassiveAnimationSkip);
+                ChangeBattleCameraMove(saveOptionInfo.BattleCameraMove);
                 ChangeInputType(saveOptionInfo.InputType);
                 ChangeBattleAuto(saveOptionInfo.BattleAuto);
                 SetBattleSpeed(saveOptionInfo.BattleSpeed);
@@ -135,6 +137,16 @@ namespace Ryneus
         public static void ChangeBattleAnimation(bool battleAnimation)
         {
             GameSystem.OptionData.BattleAnimationSkip = battleAnimation;
+        }
+
+        public static void ChangeBattlePassiveAnimationSkip(bool battlePassiveAnimationSkip)
+        {
+            GameSystem.OptionData.BattlePassiveAnimationSkip = battlePassiveAnimationSkip;
+        }
+
+        public static void ChangeBattleCameraMove(bool battleCameraMove)
+        {
+            GameSystem.OptionData.BattleCameraMove = battleCameraMove;
         }
 
         public static void ChangeInputType(InputType inputType)

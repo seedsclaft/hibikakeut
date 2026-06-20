@@ -85,15 +85,15 @@ namespace Ryneus
             {
                 _view.HideGridLayer();
                 await SelfAnimation(actionInfo);
-                await _view.SetStartActorMagic(subject.Index.Value, subject.IsActor);
+                await _view.SetStartActorMagic(subject.Index.Value, subject.IsActor, actionInfo.Master.Attribute);
             }
 
             _ = await ShowCutinBattleThumb(actionInfo);
 
-            //if (actionInfo.Master.IsDisplayBattleSkill())
-            //{
+            if (!GameSystem.OptionData.BattlePassiveAnimationSkip)
+            {
                 _view.SetCurrentSkillData(actionInfo.SkillInfo, subject);
-            //}
+            }
 
             StartAliveAnimation(actionInfo.ActionResults);
             var animationData = BattleUtility.AnimationData(actionInfo.Master.AnimationId);
@@ -118,6 +118,11 @@ namespace Ryneus
                 foreach (var actionResultInfo in actionInfo.ActionResults)
                 {
                     PopupActionResult(actionResultInfo, actionResultInfo.TargetIndex.Value, true, true);
+                }
+                if (GameSystem.OptionData.BattlePassiveAnimationSkip && actionInfo.Master.IsBattlePassiveSkill())
+                {
+                    CommandEndAnimation();
+                    return;
                 }
                 var waitFrame = _model.WaitFrameTime(48);
                 if (!actionInfo.LastAttack() && waitFrame > 1)
@@ -267,9 +272,9 @@ namespace Ryneus
 
         private async UniTask<bool> ShowCutinBattleThumb(ActionInfo actionInfo)
         {
-            var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            if (actionInfo.TriggeredSkill && actionInfo.Master.SkillType != SkillType.Unique && actionInfo.Master.SkillType != SkillType.Awaken)
+            if (!GameSystem.OptionData.BattlePassiveAnimationSkip && actionInfo.TriggeredSkill && !actionInfo.Master.IsBattleSpecialSkill())
             {
+                var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
                 if (actionInfo.Master.IsDisplayBattleSkill() && subject.IsActor)
                 {
                     _view.ShowCutinBattleThumb(subject);

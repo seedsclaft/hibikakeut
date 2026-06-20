@@ -33,7 +33,6 @@ Transform:
   - {fileID: 2934137414772065450}
   - {fileID: 4568243433778758592}
   - {fileID: 7780692122905954638}
-  - {fileID: 1457080274899778391}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1362703418261592705
@@ -48,17 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2c3ccbcc5f5dc42a1f7568977a3418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.CharacterAnimationImages
-  useBattle: 1
   animator: {fileID: 2681083895629600449}
   state: 0
   spriteRenderer: {fileID: 1164626556645530427}
   candidateSelect: {fileID: 2320580393295912516}
-  battlerInfoComponent: {fileID: 6833511018069665715}
-  damageRoot: {fileID: 5288280924650982722}
-  magicCircle: {fileID: 2522188833714978196}
-  selectArrow: {fileID: 7774792844423598451}
-  selectButton: {fileID: 3366166398073524881}
   blur: {fileID: 0}
+  fieldBattler: {fileID: 5590582994792188053}
 --- !u!1 &1349812114542665470
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,37 +367,6 @@ MonoBehaviour:
   optionalScrambleMode: 0
   optionalShakeRandomnessMode: 0
   optionalString: 
---- !u!1 &5288280924650982722
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1457080274899778391}
-  m_Layer: 5
-  m_Name: DamageRoot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1457080274899778391
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5288280924650982722}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4694185505438920368}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1652201073073463901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -707,42 +670,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e946db57581af6843a9ba2cde330b726, type: 3}
---- !u!1 &2522188833714978196 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3885851658723893193, guid: e946db57581af6843a9ba2cde330b726,
-    type: 3}
-  m_PrefabInstance: {fileID: 1652201073073463901}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3366166398073524881 stripped
+--- !u!114 &5590582994792188053 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4060780795425943756, guid: e946db57581af6843a9ba2cde330b726,
+  m_CorrespondingSourceObject: {fileID: 6591142859326204616, guid: e946db57581af6843a9ba2cde330b726,
     type: 3}
   m_PrefabInstance: {fileID: 1652201073073463901}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 58285a2a8a1501f489471ce768887de9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6833511018069665715 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5203995198087136750, guid: e946db57581af6843a9ba2cde330b726,
-    type: 3}
-  m_PrefabInstance: {fileID: 1652201073073463901}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ea577db469dd949b33ed403e9985eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.BattlerInfoComponent
---- !u!1 &7774792844423598451 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9009540086878843694, guid: e946db57581af6843a9ba2cde330b726,
-    type: 3}
-  m_PrefabInstance: {fileID: 1652201073073463901}
-  m_PrefabAsset: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.BattleFieldBattler
 --- !u!4 &7780692122905954638 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9013776929616915219, guid: e946db57581af6843a9ba2cde330b726,

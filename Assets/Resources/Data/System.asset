@@ -132,6 +132,28 @@ MonoBehaviour:
     ExistWindows: 0
     ExistAndroid: 0
   - Id: 2070
+    Key: BATTLE_FIRST_PASSIVE_WAIT
+    Name: "\u30D1\u30C3\u30B7\u30D6\u30B9\u30AD\u30EB\u6F14\u51FA\u30B9\u30AD\u30C3\u30D7"
+    Help: " - \u30D0\u30C8\u30EB\u306E\u30D1\u30C3\u30B7\u30D6\u30B9\u30AD\u30EB\u767A\u52D5\u6642\u306E\u6F14\u51FA\u6709\u7121\u3092\u5207\u308A\u66FF\u3048\u307E\u3059"
+    Category: 2
+    ButtonType: 2
+    ToggleText1: 6830
+    ToggleText2: 6840
+    ToggleText3: 0
+    ExistWindows: 1
+    ExistAndroid: 0
+  - Id: 2080
+    Key: BATTLE_CAMERA_MOVE
+    Name: "\u30D0\u30C8\u30EB\u30AB\u30E1\u30E9\u6F14\u51FA"
+    Help: " - \u30D0\u30C8\u30EB\u306E\u30AB\u30E1\u30E9\u6F14\u51FA\u306E\u6709\u7121\u3092\u5207\u308A\u66FF\u3048\u307E\u3059"
+    Category: 2
+    ButtonType: 2
+    ToggleText1: 6900
+    ToggleText2: 6910
+    ToggleText3: 0
+    ExistWindows: 1
+    ExistAndroid: 1
+  - Id: 2090
     Key: INPUT_TYPE
     Name: "\u30AD\u30FC\u30DC\u30FC\u30C9\u52D5\u4F5C"
     Help: " - \u30AD\u30FC\u30DC\u30FC\u30C9\u30FB\u30B2\u30FC\u30E0\u30D1\u30C3\u30C9\u64CD\u4F5C\u3092\u6709\u52B9\u306B\u3059\u308B\u304B\u5909\u66F4\u3057\u307E\u3059"
@@ -142,7 +164,7 @@ MonoBehaviour:
     ToggleText3: 0
     ExistWindows: 1
     ExistAndroid: 1
-  - Id: 2080
+  - Id: 2100
     Key: BATTLE_AUTO
     Name: Battle Auto
     Help: " - \u30D0\u30C8\u30EB\u306E\u64CD\u4F5C\u65B9\u6CD5\u3092\u5909\u66F4\u3057\u307E\u3059"
@@ -153,7 +175,7 @@ MonoBehaviour:
     ToggleText3: 0
     ExistWindows: 0
     ExistAndroid: 0
-  - Id: 2090
+  - Id: 2110
     Key: BATTLE_SPEED
     Name: "\u30D0\u30C8\u30EB\u30B9\u30D4\u30FC\u30C9"
     Help: " - \u30D0\u30C8\u30EB\u306E\u901F\u5EA6\u3092\u5909\u66F4\u3057\u307E\u3059"
@@ -164,7 +186,7 @@ MonoBehaviour:
     ToggleText3: 16320
     ExistWindows: 1
     ExistAndroid: 1
-  - Id: 2100
+  - Id: 2120
     Key: TUTORIAL_CHECK
     Name: "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u78BA\u8A8D"
     Help: " - \u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u78BA\u8A8D\u3092\u8868\u793A\u3059\u308B\u304B\u5909\u66F4\u3057\u307E\u3059"
@@ -622,21 +644,31 @@ MonoBehaviour:
     Feature: 
     Relief: 
   - Id: 6250
+    Text: "\u30D1\u30C3\u30B7\u30D6\u30B9\u30AD\u30EB\u6F14\u51FA\u30B9\u30AD\u30C3\u30D7"
+    Help: " - \u30D0\u30C8\u30EB\u306E\u30D1\u30C3\u30B7\u30D6\u30B9\u30AD\u30EB\u767A\u52D5\u6642\u306E\u6F14\u51FA\u6709\u7121\u3092\u5207\u308A\u66FF\u3048\u307E\u3059"
+    Feature: 
+    Relief: 
+  - Id: 6260
+    Text: "\u30D0\u30C8\u30EB\u30AB\u30E1\u30E9\u6F14\u51FA"
+    Help: " - \u30D0\u30C8\u30EB\u306E\u30AB\u30E1\u30E9\u6F14\u51FA\u306E\u6709\u7121\u3092\u5207\u308A\u66FF\u3048\u307E\u3059"
+    Feature: 
+    Relief: 
+  - Id: 6270
     Text: "\u30AD\u30FC\u30DC\u30FC\u30C9\u52D5\u4F5C"
     Help: " - \u30AD\u30FC\u30DC\u30FC\u30C9\u30FB\u30B2\u30FC\u30E0\u30D1\u30C3\u30C9\u64CD\u4F5C\u3092\u6709\u52B9\u306B\u3059\u308B\u304B\u5909\u66F4\u3057\u307E\u3059"
     Feature: 
     Relief: 
-  - Id: 6260
+  - Id: 6280
     Text: Battle Auto
     Help: " - \u30D0\u30C8\u30EB\u306E\u64CD\u4F5C\u65B9\u6CD5\u3092\u5909\u66F4\u3057\u307E\u3059"
     Feature: 
     Relief: 
-  - Id: 6270
+  - Id: 6290
     Text: "\u30D0\u30C8\u30EB\u30B9\u30D4\u30FC\u30C9"
     Help: " - \u30D0\u30C8\u30EB\u306E\u901F\u5EA6\u3092\u5909\u66F4\u3057\u307E\u3059"
     Feature: 
     Relief: 
-  - Id: 6280
+  - Id: 6300
     Text: "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u78BA\u8A8D"
     Help: " - \u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u78BA\u8A8D\u3092\u8868\u793A\u3059\u308B\u304B\u5909\u66F4\u3057\u307E\u3059"
     Feature: 
@@ -683,6 +715,16 @@ MonoBehaviour:
     Relief: 
   - Id: 6890
     Text: "\u6709\u52B9\u306B\u3059\u308B"
+    Help: '""'
+    Feature: 
+    Relief: 
+  - Id: 6900
+    Text: "\u56FA\u5B9A"
+    Help: '""'
+    Feature: 
+    Relief: 
+  - Id: 6910
+    Text: "\u6F14\u51FA\u3042\u308A"
     Help: '""'
     Feature: 
     Relief: 

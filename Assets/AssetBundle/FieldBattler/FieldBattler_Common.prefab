@@ -858,6 +858,37 @@ MonoBehaviour:
   effectAsset: {fileID: 0}
   playOnStart: 0
   isLooping: 1
+--- !u!1 &3456562999795683720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3609720913515246869}
+  m_Layer: 5
+  m_Name: DamageRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3609720913515246869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3456562999795683720}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9013776929616915219}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3805128849355134499
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,7 +1394,7 @@ Transform:
   m_GameObject: {fileID: 4561950674581334271}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.75, z: 0}
+  m_LocalPosition: {x: -1, y: -0.75, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1393,9 +1424,6 @@ MonoBehaviour:
   costParam: {fileID: 0}
   hpGaugeAnimation: {fileID: 9032072073983441699}
   mpGaugeAnimation: {fileID: 0}
-  normalColor: {r: 0, g: 0, b: 0, a: 0}
-  upperColor: {r: 0, g: 0, b: 0, a: 0}
-  downColor: {r: 0, g: 0, b: 0, a: 0}
   canvasGroup: {fileID: 7118659601360485225}
   _rectWidth: 80
 --- !u!114 &9032072073983441699
@@ -1883,7 +1911,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -124, y: -28}
+  m_AnchoredPosition: {x: 124, y: -28}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7294656908928939472
@@ -1912,7 +1940,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4656140426945779370}
@@ -2275,6 +2303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.OnOffButton
   clickButton: {fileID: 4060780795425943756}
   cursor: {fileID: 9009540086878843694}
+  subCursors: []
   selectArrow: {fileID: 0}
   changeCursorColor: 1
   cursorRectAnimation: {fileID: 0}
@@ -2449,6 +2478,7 @@ GameObject:
   - component: {fileID: 5203995198087136750}
   - component: {fileID: 3897982981443348684}
   - component: {fileID: 2108004757015909868}
+  - component: {fileID: 6591142859326204616}
   m_Layer: 5
   m_Name: FieldBattler_Common
   m_TagString: Untagged
@@ -2473,6 +2503,7 @@ Transform:
   - {fileID: 1483197677396566928}
   - {fileID: 5783247452232874972}
   - {fileID: 4651010006536901975}
+  - {fileID: 3609720913515246869}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5203995198087136750
@@ -2577,6 +2608,32 @@ MonoBehaviour:
   actorOnlyGameObjects: []
   weakPoints:
   - {fileID: 6912806662849996735}
+--- !u!114 &6591142859326204616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9215240037533887025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58285a2a8a1501f489471ce768887de9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.BattleFieldBattler
+  battlerInfoComponent: {fileID: 5203995198087136750}
+  damageRoot: {fileID: 3456562999795683720}
+  magicCircle: {fileID: 3885851658723893193}
+  magicCircleEmitter: {fileID: 2511866090878456995}
+  selectArrow: {fileID: 9009540086878843694}
+  selectButton: {fileID: 4060780795425943756}
+  attributeTypeEffects:
+  - {fileID: 11400000, guid: 10074bc68522c2c4daf0390ee7e0ca44, type: 2}
+  - {fileID: 11400000, guid: 4d0df0c85fcd5934e8ead2649afae178, type: 2}
+  - {fileID: 11400000, guid: aad5a330359371940afe044a67f7c1e7, type: 2}
+  - {fileID: 11400000, guid: 715262fb974e5cc41ada289d0a15c6eb, type: 2}
+  - {fileID: 11400000, guid: b6a73c613a6403246a05f2fa4621e104, type: 2}
+  - {fileID: 11400000, guid: 08cb8117c8d2bdc43a8b114e48a309f9, type: 2}
+  - {fileID: 11400000, guid: 10074bc68522c2c4daf0390ee7e0ca44, type: 2}
 --- !u!1001 &385212274719325640
 PrefabInstance:
   m_ObjectHideFlags: 0

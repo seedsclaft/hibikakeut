@@ -158,6 +158,12 @@ namespace Ryneus
                 case "BATTLE_ANIMATION":
                     OptionUtility.ChangeBattleAnimation(inputKeyType == InputKeyType.Right);
                     break;
+                case "BATTLE_FIRST_PASSIVE_WAIT":
+                    OptionUtility.ChangeBattlePassiveAnimationSkip(inputKeyType == InputKeyType.Right);
+                    break;
+                case "BATTLE_CAMERA_MOVE":
+                    OptionUtility.ChangeBattleCameraMove(inputKeyType == InputKeyType.Right);
+                    break;
                 case "INPUT_TYPE":
                     var inputTypeIndex = (int)GameSystem.TempData.TempInputType;
                     if (inputKeyType == InputKeyType.Right)

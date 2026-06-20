@@ -310,9 +310,9 @@ namespace Ryneus
             battleGridLayer.Hide();
         }
 
-        public async Task SetStartActorMagic(int battlerInfoIndex, bool isActor)
+        public async Task SetStartActorMagic(int battlerInfoIndex, bool isActor, AttributeType attributeType)
         {
-            await battleFieldView.SetStartActorMagic(battlerInfoIndex, isActor);
+            await battleFieldView.SetStartActorMagic(battlerInfoIndex, isActor, attributeType);
         }
 
         public void SetDamageAnimation(int battlerInfoIndex, bool isActor)
@@ -554,16 +554,12 @@ namespace Ryneus
             SetInputFrame(1);
         }
 
-        public void ShowMagicList(List<ListData> skillInfos, bool resetScrollRect, int selectIndex)
+        public void ShowMagicList(List<ListData> skillInfos, bool resetScrollRect)
         {
             SetActivate(magicList);
             UIComponent.SetActive(battleActorList?.gameObject, true);
             UIComponent.SetActive(magicList?.gameObject, true);
             magicList.SetData(skillInfos, resetScrollRect);
-            if (resetScrollRect)
-            {
-                magicList.UpdateSelectIndex(selectIndex);
-            }
             OnSelectMagic();
         }
 

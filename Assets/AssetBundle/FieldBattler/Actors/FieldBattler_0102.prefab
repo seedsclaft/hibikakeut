@@ -347,7 +347,6 @@ Transform:
   - {fileID: 3773010485074856423}
   - {fileID: 6164656137608892466}
   - {fileID: 2410177359975541029}
-  - {fileID: 4476398355044339482}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3841171937656747147
@@ -362,48 +361,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2c3ccbcc5f5dc42a1f7568977a3418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.CharacterAnimationImages
-  useBattle: 1
   animator: {fileID: 1216784102945667195}
   state: 0
   spriteRenderer: {fileID: 5464613604173151103}
   candidateSelect: {fileID: 786011155314576655}
-  battlerInfoComponent: {fileID: 1467535597625673688}
-  damageRoot: {fileID: 9213315321028284942}
-  magicCircle: {fileID: 7604509014783892991}
-  selectArrow: {fileID: 2408762997958029592}
-  selectButton: {fileID: 7223561906256999162}
   blur: {fileID: 0}
---- !u!1 &9213315321028284942
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4476398355044339482}
-  m_Layer: 5
-  m_Name: DamageRoot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4476398355044339482
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9213315321028284942}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5416251277303294428}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  fieldBattler: {fileID: 512711429247674622}
 --- !u!1001 &6657997924907778614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -707,45 +670,21 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e946db57581af6843a9ba2cde330b726, type: 3}
---- !u!114 &1467535597625673688 stripped
+--- !u!114 &512711429247674622 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5203995198087136750, guid: e946db57581af6843a9ba2cde330b726,
+  m_CorrespondingSourceObject: {fileID: 6591142859326204616, guid: e946db57581af6843a9ba2cde330b726,
     type: 3}
   m_PrefabInstance: {fileID: 6657997924907778614}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ea577db469dd949b33ed403e9985eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 58285a2a8a1501f489471ce768887de9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.BattlerInfoComponent
---- !u!1 &2408762997958029592 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9009540086878843694, guid: e946db57581af6843a9ba2cde330b726,
-    type: 3}
-  m_PrefabInstance: {fileID: 6657997924907778614}
-  m_PrefabAsset: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.BattleFieldBattler
 --- !u!4 &2410177359975541029 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9013776929616915219, guid: e946db57581af6843a9ba2cde330b726,
-    type: 3}
-  m_PrefabInstance: {fileID: 6657997924907778614}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7223561906256999162 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4060780795425943756, guid: e946db57581af6843a9ba2cde330b726,
-    type: 3}
-  m_PrefabInstance: {fileID: 6657997924907778614}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &7604509014783892991 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3885851658723893193, guid: e946db57581af6843a9ba2cde330b726,
     type: 3}
   m_PrefabInstance: {fileID: 6657997924907778614}
   m_PrefabAsset: {fileID: 0}

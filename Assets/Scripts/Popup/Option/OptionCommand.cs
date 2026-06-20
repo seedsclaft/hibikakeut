@@ -157,6 +157,18 @@ namespace Ryneus
                         optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.BattleAnimationSkip == true ? 1 : 0));
                     }
                     return;
+                case "BATTLE_FIRST_PASSIVE_WAIT":
+                    for (int i = 0; i < optionToggles.Count; i++)
+                    {
+                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.BattlePassiveAnimationSkip == true ? 1 : 0));
+                    }
+                    return;
+                case "BATTLE_CAMERA_MOVE":
+                    for (int i = 0; i < optionToggles.Count; i++)
+                    {
+                        optionToggles[i].SetIsOnWithoutNotify(i == (GameSystem.OptionData.BattleCameraMove == true ? 1 : 0));
+                    }
+                    return;
                 case "INPUT_TYPE":
                     for (int i = 0; i < optionToggles.Count; i++)
                     {

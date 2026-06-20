@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3558087021863355828
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4710140685597175765}
-  m_Layer: 5
-  m_Name: DamageRoot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4710140685597175765
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3558087021863355828}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7685752815349242296}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3828921221724142033
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +33,6 @@ Transform:
   - {fileID: 6783742526547063782}
   - {fileID: 2810684253630985410}
   - {fileID: 5550737821344219710}
-  - {fileID: 4710140685597175765}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6569440606125924649
@@ -79,17 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2c3ccbcc5f5dc42a1f7568977a3418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.CharacterAnimationImages
-  useBattle: 1
   animator: {fileID: 7004232676325606401}
   state: 0
   spriteRenderer: {fileID: 7911881776797323677}
   candidateSelect: {fileID: 3341306022279946901}
-  battlerInfoComponent: {fileID: 8657958011273456835}
-  damageRoot: {fileID: 3558087021863355828}
-  magicCircle: {fileID: 428441753242613476}
-  selectArrow: {fileID: 5554943877689842179}
-  selectButton: {fileID: 596087454205106657}
   blur: {fileID: 0}
+  fieldBattler: {fileID: 7739156123946353637}
 --- !u!1 &6693018422935087667
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,45 +670,21 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e946db57581af6843a9ba2cde330b726, type: 3}
---- !u!1 &428441753242613476 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3885851658723893193, guid: e946db57581af6843a9ba2cde330b726,
-    type: 3}
-  m_PrefabInstance: {fileID: 3467614482725939501}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &596087454205106657 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4060780795425943756, guid: e946db57581af6843a9ba2cde330b726,
-    type: 3}
-  m_PrefabInstance: {fileID: 3467614482725939501}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &5550737821344219710 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9013776929616915219, guid: e946db57581af6843a9ba2cde330b726,
     type: 3}
   m_PrefabInstance: {fileID: 3467614482725939501}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5554943877689842179 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9009540086878843694, guid: e946db57581af6843a9ba2cde330b726,
-    type: 3}
-  m_PrefabInstance: {fileID: 3467614482725939501}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8657958011273456835 stripped
+--- !u!114 &7739156123946353637 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5203995198087136750, guid: e946db57581af6843a9ba2cde330b726,
+  m_CorrespondingSourceObject: {fileID: 6591142859326204616, guid: e946db57581af6843a9ba2cde330b726,
     type: 3}
   m_PrefabInstance: {fileID: 3467614482725939501}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ea577db469dd949b33ed403e9985eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 58285a2a8a1501f489471ce768887de9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.BattlerInfoComponent
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.BattleFieldBattler
