@@ -317,7 +317,10 @@ namespace Ryneus
             _model.DungeonBusy(true);
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(10190), (a) =>
             {
-                ReturnDungeon();
+                if (a == ConfirmCommandType.No)
+                {
+                    ReturnDungeon();  
+                }
             });
             confirmInfo.SetIsNoChoice(true);
             _view.CommandCallConfirm(confirmInfo);
