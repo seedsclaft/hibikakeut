@@ -27,6 +27,7 @@ namespace Ryneus
                 return;
             }
             base.Initialize();
+            RemoveInputHandler(gameObject);
             SetViewCommandSceneType(ViewCommandSceneType.Confirm);
             InitializeCommandList();
             if (skillInfoList != null)
@@ -137,10 +138,11 @@ namespace Ryneus
                 if (data.Key == "Yes")
                 {
                     SoundManager.Instance.PlayStaticSe(SEType.Decide);
+                    _confirmInfo.NoCancelSound.SetValue(true);
                 }
                 else
                 {
-                    SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+                    //SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
                 BackEvent();
                 _confirmEvent(commandType);
@@ -154,20 +156,20 @@ namespace Ryneus
 
         public new void MouseCancelHandler()
         {
-            if (_confirmInfo.IsNoChoice.Value)
+            if (!_confirmInfo.NoCancelSound.Value)
             {
-                CallConfirmCommand();
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             }
-            else
-            {
-                CallConfirmCommand();
-            }
+            BackEvent?.Invoke();
         }
 
-        public void CallCancelEvent()
+        public void CallCloseEvent()
         {
-            //SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-            _confirmEvent(ConfirmCommandType.No);
+            if (!_confirmInfo.NoCancelSound.Value)
+            {
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            }
+            _confirmEvent(ConfirmCommandType.Close);
         }
     }
 

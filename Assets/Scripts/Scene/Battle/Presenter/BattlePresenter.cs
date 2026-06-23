@@ -233,7 +233,7 @@ namespace Ryneus
                     CommandOnSelectTargetCursor((BattlerInfo)viewEvent.Template);
                     break;
                 case CommandType.OnDecideEnemy:
-                    CommandOnDecideEnemy((BattlerInfo)viewEvent.Template);
+                    CommandOnDecideEnemy((BattlerInfo)viewEvent?.Template);
                     break;
                 case CommandType.OnCancelEnemy:
                     CommandOnCancelEnemy();

@@ -318,7 +318,7 @@ namespace Ryneus
                         _view.CommandCallConfirm(reliefConfirmInfo);
                     }
                     else
-                    if (a == ConfirmCommandType.No)
+                    if (a == ConfirmCommandType.Close)
                     {
                         _busy = false;
                         CommandAchievement();
@@ -326,6 +326,7 @@ namespace Ryneus
                 }, ConfirmType.NewStageAlert);
                 confirmInfo.SetStageInfo(find);
                 confirmInfo.SetIsNoChoice(true);
+                confirmInfo.NoCancelSound.SetValue(true);
                 _view.CommandCallConfirm(confirmInfo);
                 return;
             }

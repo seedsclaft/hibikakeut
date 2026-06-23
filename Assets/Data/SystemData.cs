@@ -89,6 +89,7 @@ namespace Ryneus
     {
         Yes = 0,
         No = 1,
+        Close = 2,
     }
 
     [Serializable]

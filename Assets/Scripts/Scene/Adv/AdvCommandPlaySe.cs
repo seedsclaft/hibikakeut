@@ -11,8 +11,8 @@ namespace Utage
             : base(row)
         {
             _fileName = ParseCell<string>(AdvColumnName.Arg1);
-            _volume = ParseCell<int?>(AdvColumnName.Arg2);
-            _pitch = ParseCell<int?>(AdvColumnName.Arg3);
+            _volume = ParseCellOptional(AdvColumnName.Arg2, 80);
+            _pitch = ParseCellOptional(AdvColumnName.Arg3, 100);
         }
 
         //コマンド実行

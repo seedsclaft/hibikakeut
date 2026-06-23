@@ -368,10 +368,10 @@ namespace Ryneus
 
         private void OnDecideEnemy()
         {
-            var listData = battleEnemyList.ListItemData<BattlerInfo>();
-            if (listData != null)
+            //var listData = battleEnemyList.ListItemData<BattlerInfo>();
+            //if (listData != null)
             {
-                CallViewEvent(CommandType.OnDecideEnemy, listData);
+                CallViewEvent(CommandType.OnDecideEnemy, null);
             }
         }
 
@@ -862,7 +862,7 @@ namespace Ryneus
         {
             foreach (var item in _battlerComps)
             {
-                item.Value.SetActiveStatus(selectableIndexes.Contains(item.Key));
+                item.Value.SetActiveStatus(selectableIndexes.Contains(item.Key) || item.Key < 100);
             }
             foreach (var item in _fieldBattlerComps)
             {

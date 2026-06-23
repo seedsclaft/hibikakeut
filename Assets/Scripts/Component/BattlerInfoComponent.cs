@@ -472,7 +472,7 @@ namespace Ryneus
             {
                 return;
             }
-            if (!_battlerInfo.IsActor)
+            //if (!_battlerInfo.IsActor)
             {
                 if (isSelectable)
                 {

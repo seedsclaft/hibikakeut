@@ -219,12 +219,17 @@ namespace Ryneus
             _view.SetCurrentSkillData(actionInfo.SkillInfo, subject);
         }
 
-        private void CommandOnDecideEnemy(BattlerInfo battlerInfo)
+        private void CommandOnDecideEnemy(BattlerInfo battlerInfo = null)
         {
             // 対象選択として有効か
             var actionInfo = _model.SelectActionInfo;
-            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo, battlerInfo.Index.Value);
-            if (targetIndexes.FindIndex(a => a == battlerInfo.Index.Value) > -1)
+            BattlerInfo targetBattlerInfo = battlerInfo;
+            if (battlerInfo == null)
+            {
+                targetBattlerInfo = _model.SelectTargetBattler;
+            }
+            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo, targetBattlerInfo.Index.Value);
+            if (targetIndexes.FindIndex(a => a == targetBattlerInfo.Index.Value) > -1)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 //_model.SetActiveActionInfo(actionInfo);

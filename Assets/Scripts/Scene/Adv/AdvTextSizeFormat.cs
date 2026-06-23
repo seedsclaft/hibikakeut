@@ -19,7 +19,7 @@ namespace Ryneus
         private void Awake()
         {
             _initY = this.gameObject.GetComponent<RectTransform>().localPosition.y;
-            advPage.OnBeginPage.AddListener((a) =>
+            advPage.OnBeginText.AddListener((a) =>
             {
                 foreach (var command in a.CurrentData.CommandList)
                 {

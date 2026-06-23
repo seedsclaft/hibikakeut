@@ -27,7 +27,7 @@ namespace Ryneus
         public int EnemyId;
         public int Lv;
         public bool BossFlag;
-        public LineType Line;
+        public int Line;
         public int StageLv;
         //public int PrizeSetId;
     }

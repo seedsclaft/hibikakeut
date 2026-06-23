@@ -76,6 +76,7 @@ namespace Ryneus
         private System.Action<ConfirmCommandType> _returnEvent = null;
         public System.Action<ConfirmCommandType> ReturnEvent => _returnEvent;
         public ParameterBool IsNoChoice = new();
+        public ParameterBool NoCancelSound = new();
         private List<SkillInfo> _skillInfos = null;
         public List<ListData> SkillInfos()
         {

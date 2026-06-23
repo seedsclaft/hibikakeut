@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Ryneus.Title;
-using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -105,6 +104,7 @@ namespace Ryneus
                     _view.CommandGotoSceneChange(Scene.Dungeon);
                 }
                 else
+                if (a == ConfirmCommandType.No)
                 {
                     _model.InitializeNewGame();
                     SoundManager.Instance.PlayStaticSe(SEType.PlayStart);
@@ -125,6 +125,9 @@ namespace Ryneus
                         //_view.CommandGotoSceneChange(Scene.Tactics);
                         //_view.CommandGotoSceneChange(Scene.NameEntry);
                     });
+                } else
+                {
+                    _busy = false;
                 }
             });
         }

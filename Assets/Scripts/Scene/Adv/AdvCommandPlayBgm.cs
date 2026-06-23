@@ -7,14 +7,14 @@ namespace Utage
     public class AdvCommandPlayBgm : AdvCommand
     {
         private string _fileName = "";
-        private int? _volume = 80;
+        private int _volume = 80;
         //private int? pitch = 100;
         //private bool? loop = true;
         public AdvCommandPlayBgm(StringGridRow row)
             : base(row)
         {
             _fileName = ParseCell<string>(AdvColumnName.Arg1);
-            _volume = ParseCell<int?>(AdvColumnName.Arg2);
+            _volume = ParseCellOptional(AdvColumnName.Arg2, 80);
             //pitch = ParseCell<int?>(AdvColumnName.Arg3);
             //loop = ParseCell<bool>(AdvColumnName.Arg2);
         }

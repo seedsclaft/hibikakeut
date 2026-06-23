@@ -73,7 +73,7 @@ namespace Ryneus
                             EnemyId = AssetPostImporter.ImportNumeric(BaseRow, "EnemyId"),
                             Lv = AssetPostImporter.ImportNumeric(BaseRow, "Lv"),
                             BossFlag = AssetPostImporter.ImportNumeric(BaseRow, "BossFlag") == 1,
-                            Line = (LineType)AssetPostImporter.ImportNumeric(BaseRow, "Line"),
+                            Line = AssetPostImporter.ImportNumeric(BaseRow, "Line"),
                             StageLv = AssetPostImporter.ImportNumeric(BaseRow, "StageTurn"),
                             //PrizeSetId = AssetPostImporter.ImportNumeric(BaseRow, "PrizeSetId)
                         };

@@ -18,6 +18,14 @@ namespace Ryneus
             _inputHandler.Add(handler);
         }
 
+        public void RemoveInputHandler(IInputHandlerEvent handler)
+        {
+            if (_inputHandler.Contains(handler))
+            {
+                _inputHandler.Remove(handler);
+            }
+        }
+
         public void SetInputFrame(int frame)
         {
             _inputBusyFrame = frame;

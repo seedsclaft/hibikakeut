@@ -78,6 +78,16 @@ namespace Ryneus
             SetInputHandler(handler);
         }
 
+        public void RemoveInputHandler(GameObject gameObject)
+        {
+            var handler = gameObject.GetComponent<IInputHandlerEvent>();
+            if (handler == null)
+            {
+                return;
+            }
+            _inputSystemModel.RemoveInputHandler(handler);
+        }
+
         public void SetActivate(BaseList baseView)
         {
             var find = _viewActives.Find(a => a == baseView);

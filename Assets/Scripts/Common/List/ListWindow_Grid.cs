@@ -54,15 +54,11 @@ namespace Ryneus
         {
             if (_grid && _lastStartIndexY != -1)
             {
-                UpdateListGrid();
-                return;
-                /*
                 var update = UpdateListGrid();
                 if (update)
                 {
                     return;
                 }
-                */
             }
             // 初期配置
             _lastStartIndexY = 0;

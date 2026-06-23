@@ -104,6 +104,10 @@ namespace Ryneus
 
         public void SetActiveCircle(bool isActive)
         {
+            if (fieldBattler == null)
+            {
+                return;
+            }
             fieldBattler.SetActiveCircle(isActive);
         }
 

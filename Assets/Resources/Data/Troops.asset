@@ -21,21 +21,21 @@ MonoBehaviour:
       EnemyId: 4
       Lv: 40
       BossFlag: 0
-      Line: 1
+      Line: 0
       StageLv: 0
     - Id: 1
       TroopId: 1
       EnemyId: 14
       Lv: 40
       BossFlag: 0
-      Line: 0
+      Line: 1
       StageLv: 0
     - Id: 1
       TroopId: 1
       EnemyId: 7
       Lv: 40
       BossFlag: 0
-      Line: 0
+      Line: 2
       StageLv: 0
     StageTurn: 0
   - Id: 402
@@ -53,21 +53,21 @@ MonoBehaviour:
       EnemyId: 4
       Lv: 1
       BossFlag: 0
-      Line: 0
+      Line: 1
       StageLv: 0
     - Id: 4
       TroopId: 402
       EnemyId: 4
       Lv: 1
       BossFlag: 0
-      Line: 0
+      Line: 2
       StageLv: 0
     - Id: 5
       TroopId: 402
       EnemyId: 4
       Lv: 1
       BossFlag: 0
-      Line: 0
+      Line: 3
       StageLv: 0
     StageTurn: 0
   - Id: 1010
@@ -96,14 +96,14 @@ MonoBehaviour:
       EnemyId: 3
       Lv: 7
       BossFlag: 1
-      Line: 0
+      Line: 1
       StageLv: 0
     - Id: 1020
       TroopId: 1020
       EnemyId: 3
       Lv: 4
       BossFlag: 0
-      Line: 0
+      Line: 2
       StageLv: 0
     StageTurn: 0
   - Id: 2010
@@ -121,14 +121,14 @@ MonoBehaviour:
       EnemyId: 51
       Lv: 15
       BossFlag: 1
-      Line: 0
+      Line: 1
       StageLv: 0
     - Id: 2010
       TroopId: 2010
       EnemyId: 51
       Lv: 10
       BossFlag: 0
-      Line: 0
+      Line: 2
       StageLv: 0
     StageTurn: 0
   - Id: 2020
@@ -146,14 +146,14 @@ MonoBehaviour:
       EnemyId: 5
       Lv: 11
       BossFlag: 1
-      Line: 0
+      Line: 1
       StageLv: 0
     - Id: 2020
       TroopId: 2020
       EnemyId: 1
       Lv: 8
       BossFlag: 1
-      Line: 0
+      Line: 2
       StageLv: 0
     StageTurn: 0
   - Id: 3010
@@ -171,7 +171,7 @@ MonoBehaviour:
       EnemyId: 102
       Lv: 20
       BossFlag: 1
-      Line: 0
+      Line: 1
       StageLv: 0
     StageTurn: 0
   - Id: 3020
@@ -189,14 +189,14 @@ MonoBehaviour:
       EnemyId: 15
       Lv: 20
       BossFlag: 1
-      Line: 0
+      Line: 1
       StageLv: 0
     - Id: 3020
       TroopId: 3020
       EnemyId: 12
       Lv: 15
       BossFlag: 1
-      Line: 0
+      Line: 2
       StageLv: 0
     StageTurn: 0
   - Id: 3030
@@ -214,14 +214,14 @@ MonoBehaviour:
       EnemyId: 12
       Lv: 15
       BossFlag: 0
-      Line: 0
+      Line: 1
       StageLv: 0
     - Id: 3030
       TroopId: 3030
       EnemyId: 14
       Lv: 15
       BossFlag: 0
-      Line: 0
+      Line: 2
       StageLv: 0
     StageTurn: 0
   - Id: 3040
@@ -239,14 +239,14 @@ MonoBehaviour:
       EnemyId: 12
       Lv: 15
       BossFlag: 0
-      Line: 0
+      Line: 1
       StageLv: 0
     - Id: 3040
       TroopId: 3040
       EnemyId: 14
       Lv: 15
       BossFlag: 0
-      Line: 0
+      Line: 2
       StageLv: 0
     StageTurn: 0
   - Id: 4010
@@ -275,14 +275,14 @@ MonoBehaviour:
       EnemyId: 105
       Lv: 30
       BossFlag: 1
-      Line: 0
+      Line: 1
       StageLv: 0
     - Id: 5010
       TroopId: 5010
       EnemyId: 8
       Lv: 25
       BossFlag: 1
-      Line: 0
+      Line: 2
       StageLv: 0
     StageTurn: 0
   - Id: 6010
@@ -300,14 +300,14 @@ MonoBehaviour:
       EnemyId: 201
       Lv: 30
       BossFlag: 1
-      Line: 0
+      Line: 1
       StageLv: 0
     - Id: 6010
       TroopId: 6010
       EnemyId: 15
       Lv: 25
       BossFlag: 1
-      Line: 0
+      Line: 2
       StageLv: 0
     StageTurn: 0
   - Id: 20010
@@ -322,17 +322,24 @@ MonoBehaviour:
       StageLv: 0
     - Id: 20010
       TroopId: 20010
-      EnemyId: 101
-      Lv: 15
-      BossFlag: 1
-      Line: 0
+      EnemyId: 4
+      Lv: 12
+      BossFlag: 0
+      Line: 1
       StageLv: 0
     - Id: 20010
       TroopId: 20010
       EnemyId: 4
       Lv: 12
       BossFlag: 0
-      Line: 0
+      Line: 2
+      StageLv: 0
+    - Id: 20010
+      TroopId: 20010
+      EnemyId: 101
+      Lv: 15
+      BossFlag: 1
+      Line: 4
       StageLv: 0
     StageTurn: 0
   - Id: 20020
@@ -350,13 +357,13 @@ MonoBehaviour:
       EnemyId: 103
       Lv: 25
       BossFlag: 1
-      Line: 0
+      Line: 1
       StageLv: 0
     - Id: 20020
       TroopId: 20020
       EnemyId: 6
       Lv: 20
       BossFlag: 0
-      Line: 0
+      Line: 2
       StageLv: 0
     StageTurn: 0

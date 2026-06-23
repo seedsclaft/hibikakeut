@@ -1356,6 +1356,7 @@ namespace Ryneus
         public bool ChangeBattlerInfosLineType()
         {
             var change = false;
+            /*
             foreach (var fieldBattlerInfo in FieldBattlerInfos())
             {
                 if (!fieldBattlerInfo.IsAlive())
@@ -1370,6 +1371,7 @@ namespace Ryneus
                     }
                 }
             }
+            */
             return change;
         }
 

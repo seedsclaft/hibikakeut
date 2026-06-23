@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using Ryneus.Status;
 
 namespace Ryneus
@@ -423,6 +421,7 @@ namespace Ryneus
                         _model.RemoveEquipment(equipmentActor, equipmentInfo);
                         _model.ChangeEquipment(equipmentInfo);
                         _view.CallEquipment();
+                        CommandRefresh();
                         CommandUpdateEquipment();
                         _model.PartyInfo.PartyStatInfo.StatusSkillChangeCount.GainValue(1);
                         CheckAchievements();
@@ -437,6 +436,7 @@ namespace Ryneus
             }
             _model.ChangeEquipment(equipmentInfo);
             _view.CallEquipment();
+            CommandRefresh();
             CommandUpdateEquipment();
             if (equipmentInfo.Master.Id != DataSystem.System.InitEquipmentId)
             {

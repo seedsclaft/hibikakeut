@@ -129,6 +129,7 @@ namespace Ryneus
                     {
                         if (debugBattleData.AdvName != "")
                         {
+                            await SoundManager.Instance.Initialize();
                             StartCoroutine(JumpScenarioAsync(debugBattleData.AdvName, null));
                         }
                         else
@@ -315,7 +316,7 @@ namespace Ryneus
             {
                 _inputableBaseViews.Remove(confirmView);
                 confirmView.CallSystemCommand(Base.CommandType.CloseConfirm);
-                confirmView.CallCancelEvent();
+                confirmView.CallCloseEvent();
             });
             _inputableBaseViews.Add(confirmView);
         }

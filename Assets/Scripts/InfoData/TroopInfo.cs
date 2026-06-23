@@ -46,7 +46,7 @@ namespace Ryneus
                 if (troopEnemies.StageLv <= plusLevel)
                 {
                     var enemyData = DataSystem.FindEnemy(troopEnemies.EnemyId);
-                    var battlerInfo = new BattlerInfo(enemyData, troopEnemies.Lv, BattlerInfos.Count + 1, troopEnemies.Line, troopEnemies.BossFlag);
+                    var battlerInfo = new BattlerInfo(enemyData, troopEnemies.Lv, troopEnemies.Line + 1, troopEnemies.Line > 2 ? LineType.Back : LineType.Front, troopEnemies.BossFlag);
                     AddEnemy(battlerInfo);
                     if (!enemyIndexKeys.ContainsKey(enemyData.Id))
                     {
