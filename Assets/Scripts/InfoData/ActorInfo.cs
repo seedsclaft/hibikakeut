@@ -39,6 +39,30 @@ namespace Ryneus
             return list;
         }
 
+        public List<EquipmentInfo> ActorEquipmentInfos(List<ActorInfo> actorInfos)
+        {
+            var list = new List<EquipmentInfo>();
+            // 装備スロットが解放されていたらindexを増やす
+            if (_equipmentIds.Count < 2 && LearningSkillInfos().Find(a => a.Enable && a.Master.FindFeature(FeatureType.GainEquipmentSlot)) != null)
+            {
+                _equipmentIds.Add(DataSystem.System.InitEquipmentId);   
+            }
+            if (_equipmentIds.Count > 0)
+            {
+                foreach (var equipmentId in _equipmentIds)
+                {
+                    EquipmentInfo equipmentInfo = new(equipmentId);
+                    foreach (var learningInfo in equipmentInfo.LearningInfos)
+                    {
+                        learningInfo.LearningRate.SetValue(GetSkillExp(learningInfo.SkillData.Attribute, learningInfo.LearningRate.Value, actorInfos));
+                        learningInfo.LearningExp.SetValue(MastarySkillExp(learningInfo.SkillData.Id));
+                    }
+                    list.Add(equipmentInfo);
+                }
+            }
+            return list;
+        }
+
         public void ChangeEquipment(int changeEquipmentId, int index)
         {
             if (changeEquipmentId != DataSystem.System.InitEquipmentId && _equipmentIds.Contains(changeEquipmentId))
@@ -285,8 +309,7 @@ namespace Ryneus
             CurrentCost.SetValue(Master.InitStatus.Cost);
             InitSkillInfo();
             InitSkillTriggerInfos();
-            _equipmentIds.Add(10);
-            //_equipmentIds.Add(10);
+            _equipmentIds.Add(DataSystem.System.InitEquipmentId);
         }
 /*
         public void CopyData(ActorInfo baseActorInfo)
@@ -848,7 +871,6 @@ namespace Ryneus
         public void ClassChange()
         {
             IsClassChenged.SetValue(true);
-            _equipmentIds.Add(10);
         }
 
         private List<SkillTriggerInfo> _skillTriggerInfos = new();

@@ -33,6 +33,11 @@ namespace Ryneus
         public List<FeatureData> FeatureDates = new();
         public List<TriggerData> TriggerDates = new();
         public List<TriggerData> ScopeTriggers = new();
+        public bool FindFeature(FeatureType featureType)
+        {
+            return FeatureDates.Find(a => a.FeatureType == featureType) != null;
+        }
+
         public bool IsHpDamageFeature()
         {
             return FeatureDates.Find(a => a.FeatureType == FeatureType.HpDamage || a.FeatureType == FeatureType.HpConsumeDamage || a.FeatureType == FeatureType.RevengeHpDamage || a.FeatureType == FeatureType.HpStateDamage) != null;
@@ -592,6 +597,7 @@ namespace Ryneus
         StageTurnUp = 40060, // ステージ探索猶予アップ
         TrafeRateDown = 40070, // 取引コストダウン
         NotSeekPeriod = 40080, // ダンジョンから離れる時にPeriodが進まない
+        GainEquipmentSlot = 40090, // ダンジョンから離れる時にPeriodが進まない
         Numinous = 301,
         TacticsCost = 302,
         EnemyLv = 303,
