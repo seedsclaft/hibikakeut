@@ -69,7 +69,7 @@ namespace Ryneus
                         };
                         // アイテムのコスト
                         var equipment = DataSystem.FindEquipment(prizeSet.GetItem.Param1);
-                        tradeItemInfo = new TradeItemInfo(getEquipmentData, prizeSet.GetItem.Param2);
+                        tradeItemInfo = new TradeItemInfo(getEquipmentData, prizeSet.GetItem.Param2, 1);
                         break;
                     case GetItemType.RandumItem:
                         // 使用アイテムを1つ抽選する
@@ -79,7 +79,7 @@ namespace Ryneus
                             Param1 = prizeSet.GetItem.Param1,
                             Param2 = -1
                         };
-                        tradeItemInfo = new TradeItemInfo(MakeItemGetItemInfo(randumItem).Master, prizeSet.GetItem.Param2);
+                        tradeItemInfo = new TradeItemInfo(MakeItemGetItemInfo(randumItem).Master, prizeSet.GetItem.Param2, 1);
                         break;
                     case GetItemType.RandumMagic:
                         // 魔法を1つ抽選する
@@ -103,7 +103,7 @@ namespace Ryneus
 
         public bool CanAddEquipment(TradeItemInfo tradeItemInfo)
         {
-            if (tradeItemInfo.GetCount.Value > 0 && tradeItemInfo.GetItemInfo.Master.Type == GetItemType.Equipment)
+            if (tradeItemInfo.GetCount.Value > 0 && tradeItemInfo.LimitCount.Value <= tradeItemInfo.GetCount.Value)
             {
                 return false;
             }

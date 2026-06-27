@@ -7,11 +7,12 @@ namespace Ryneus
         public GetItemInfo GetItemInfo => _getItemInfo;
         public ParameterInt Cost = new();
         public ParameterInt GetCount = new();
-        public ParameterBool Selected = new();
-        public TradeItemInfo(GetItemData getItemData, int cost)
+        public ParameterInt LimitCount = new();
+        public TradeItemInfo(GetItemData getItemData, int cost, int limitCount = 99)
         {
             _getItemInfo = new GetItemInfo(getItemData);
             Cost.SetValue(cost);
+            LimitCount.SetValue(limitCount);
         }
 
         public SkillInfo SkillInfo()

@@ -42,10 +42,10 @@ namespace Ryneus
                     Initialize();
                     break;
                 case CommandType.IsNoChoice:
-                    CommandIsNoChoice();
+                    CommandIsNoChoice((List<int>)viewEvent.Template);
                     break;
                 case CommandType.IsChoice:
-                    CommandIsChoice();
+                    CommandIsChoice((List<int>)viewEvent.Template);
                     break;
                 case CommandType.DisableIds:
                     CommandDisableIds((List<int>)viewEvent.Template);
@@ -53,14 +53,14 @@ namespace Ryneus
             }
         }
 
-        private void CommandIsChoice()
+        private void CommandIsChoice(List<int> textIds)
         {
-            _view.SetConfirmCommand(MakeListData(_model.ConfirmCommand(), 0));
+            _view.SetConfirmCommand(MakeListData(_model.ConfirmCommand(textIds), 0));
         }
 
-        private void CommandIsNoChoice()
+        private void CommandIsNoChoice(List<int> textIds)
         {
-            _view.SetConfirmCommand(MakeListData(_model.NoChoiceConfirmCommand(), 0));
+            _view.SetConfirmCommand(MakeListData(_model.NoChoiceConfirmCommand(textIds), 0));
             _view.SetSelectIndex(0);
         }
 

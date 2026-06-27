@@ -316,7 +316,7 @@ namespace Ryneus
             _model.DungeonBusy(true);
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(10190), (a) =>
             {
-                if (a == ConfirmCommandType.No)
+                if (a == ConfirmCommandType.Close)
                 {
                     ReturnDungeon();  
                 }
@@ -1024,17 +1024,19 @@ namespace Ryneus
             SoundManager.Instance.PlayStaticSe(SEType.Alert);
             var confirmInfo = new ConfirmInfo(DataSystem.GetText(10140), async (a) =>
             {
-                if (a == ConfirmCommandType.Yes)
+                if (a == ConfirmCommandType.Yes || a == ConfirmCommandType.Close)
                 {
                     _busy = false;
                     _model.DungeonBusy(false);
                 }
                 else
+                if (a == ConfirmCommandType.No)
                 {
                     GetArtifact(itemId);
                 }
                 await PlayDungeonBgm(_model.DungeonBgmTimeStamp());
             });
+            confirmInfo.SetCommandTextIds(new List<int>(){10142, 10143});
             confirmInfo.IsArtifact.SetValue(true);
             _view.CommandCallConfirm(confirmInfo);
         }

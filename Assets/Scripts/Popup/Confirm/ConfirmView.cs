@@ -88,10 +88,10 @@ namespace Ryneus
             stageInfoComponent.UpdateInfo(stageInfo);
         }
 
-        public void SetIsNoChoice(bool isNoChoice)
+        public void SetIsNoChoice(bool isNoChoice, List<int> textIds)
         {
             var commandType = isNoChoice ? CommandType.IsNoChoice : CommandType.IsChoice;
-            CallViewEvent(commandType);
+            CallViewEvent(commandType, textIds);
         }
 
         public void SetDisableIds(List<int> disableIds)
@@ -110,7 +110,7 @@ namespace Ryneus
         public void SetViewInfo(ConfirmInfo confirmInfo)
         {
             _confirmInfo = confirmInfo;
-            SetIsNoChoice(confirmInfo.IsNoChoice.Value);
+            SetIsNoChoice(confirmInfo.IsNoChoice.Value, confirmInfo.CommandTextIds);
             SetTitle(confirmInfo.Title.Value);
             SetSkillInfo(confirmInfo.SkillInfos());
             SetStageInfo(confirmInfo.StageInfo);

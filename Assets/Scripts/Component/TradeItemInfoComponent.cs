@@ -39,7 +39,7 @@ namespace Ryneus
             {
                 eqipmentInfoComponent.UpdateData(DataSystem.FindEquipment(data.GetItemInfo.Param1));
             }
-            limitedItem.SetActive(_tradeItemInfo.EquipmentInfo() != null);
+            limitedItem.SetActive(_tradeItemInfo.LimitCount.Value == 1);
             var tradeCost = (int)(data.Cost.Value * GameSystem.GameInfo.PartyInfo.TradeDownRate());
             UIComponent.SetText(cost, tradeCost.ToString() + DataSystem.GetText(1000));
             UIComponent.SetText(getCount, data.GetCount);

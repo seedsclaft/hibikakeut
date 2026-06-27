@@ -134,16 +134,6 @@ namespace Ryneus
             return await ResourceSystem.LoadBGMAsset(bgmKey);
         }
 
-        public List<SystemData.CommandData> ConfirmCommand()
-        {
-            return BaseConfirmCommand(3050, 3051);
-        }
-
-        public List<SystemData.CommandData> NoChoiceConfirmCommand()
-        {
-            return new List<SystemData.CommandData>() { BaseConfirmCommand(3052, 0)[0] };
-        }
-
         public List<SkillInfo> SkillActionList(ActorInfo actorInfo)
         {
             return new List<SkillInfo>();
