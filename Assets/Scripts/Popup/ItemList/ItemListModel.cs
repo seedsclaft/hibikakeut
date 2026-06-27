@@ -106,6 +106,11 @@ namespace Ryneus
                 {
                     continue;
                 }
+                // 属性は1-5まで
+                if (equipment.Attribute >= AttributeType.Void)
+                {
+                    continue;
+                }
                 if (selectEquipmentItem.Param2 != -1 && (AttributeType)selectEquipmentItem.Param2 != equipment.Attribute)
                 {
                     continue;
@@ -132,6 +137,11 @@ namespace Ryneus
                     continue;
                 }
                 if (equipment.Rank > itemData.Param1)
+                {
+                    continue;
+                }
+                // 属性は1-5まで
+                if (equipment.Attribute >= AttributeType.Void)
                 {
                     continue;
                 }

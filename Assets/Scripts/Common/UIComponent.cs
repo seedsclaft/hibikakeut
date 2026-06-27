@@ -152,5 +152,14 @@ namespace Ryneus
             }
             SetActive(image.gameObject, isActive);
         }
+
+        public static void SetActive(Button button, bool isActive)
+        {
+            if (button == null)
+            {
+                return;
+            }
+            SetActive(button.gameObject, isActive);
+        }
     }
 }

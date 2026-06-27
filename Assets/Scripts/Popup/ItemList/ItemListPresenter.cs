@@ -83,6 +83,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Deny);
                 CommandCautionInfo(DataSystem.GetText(34050));
+                return;
             }
             _view.ActivateItemList(false);
             _busy = true;

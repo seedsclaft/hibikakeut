@@ -52,36 +52,41 @@ namespace Ryneus
 
         public void UpdateGridItemPrefab(int itemStartIndex = -1)
         {
-            if (_grid && _lastStartIndexY != -1)
+            var first = _lastStartIndexY == -1;
+            var startIndex = GetStartIndex(_horizontal);
+            if (first)
             {
-                var update = UpdateListGrid();
-                if (update)
+                for (int i = 0; i < _itemPrefabList.Count; i++)
                 {
+                    var itemPrefab = _itemPrefabList[i];
+                    if (itemStartIndex > -1)
+                    {
+                        //
+                        var tempIndex = (i + itemStartIndex) % _itemPrefabList.Count;
+                        itemPrefab = _itemPrefabList[tempIndex];
+                    }
+                    var itemIndex = i + startIndex;
+                    if (_listDates.Count > itemIndex)
+                    {
+                        var listItem = itemPrefab.GetComponent<ListItem>();
+                        listItem.SetListData(_listDates[itemIndex], itemIndex);
+                        //Debug.Log("itemIndex:" + i + "がobjectIndex: " + itemIndex);
+                        itemPrefab.transform.SetParent(_objectList[itemIndex].transform, false);
+                        UIComponent.SetActive(itemPrefab, true);
+                    }
+                }
+                // 初期配置
+                _lastStartIndexY = 0;
+            } else
+            {
+                if (startIndex != _lastStartIndexY)
+                {
+                    UpdateListGrid();
                     return;
                 }
-            }
-            // 初期配置
-            _lastStartIndexY = 0;
-            var startIndex = GetStartIndex(_horizontal);
-
-            for (int i = 0; i < _itemPrefabList.Count; i++)
-            {
-                var itemPrefab = _itemPrefabList[i];
-                if (itemStartIndex > -1)
-                {
-                    //
-                    var tempIndex = (i + itemStartIndex) % _itemPrefabList.Count;
-                    itemPrefab = _itemPrefabList[tempIndex];
-                }
-                var itemIndex = i + startIndex;
-                if (_listDates.Count > itemIndex)
-                {
-                    var listItem = itemPrefab.GetComponent<ListItem>();
-                    listItem.SetListData(_listDates[itemIndex], itemIndex);
-                    //Debug.Log("itemIndex:" + i + "がobjectIndex: " + itemIndex);
-                    itemPrefab.transform.SetParent(_objectList[itemIndex].transform, false);
-                    UIComponent.SetActive(itemPrefab, true);
-                }
+                // 再配置アップデート
+                _lastStartIndexY = 0;
+                UpdateListGrid();
             }
         }
 
@@ -426,17 +431,17 @@ namespace Ryneus
         {
             float visibleCount = _horizontal ? GetHorizonalCount() : GetVerticalCount();
             float gridCount = _horizontal ? GetVerticalCount() : GetHorizonalCount();
-            var p = Math.Floor((ObjectListCount / gridCount) - visibleCount);
-            if (p == 0)
+            var startIndex = GetStartIndex(_horizontal);
+            if (Math.Floor((ObjectListCount / gridCount) - visibleCount) == 0)
             {
                 return;
             }
-            var c = (int)Math.Floor(selectIndex / gridCount) - visibleCount + 1;
+            var c = (int)Math.Floor((selectIndex + startIndex) / gridCount) - visibleCount + gridCount - (selectIndex % gridCount);
             if (c < 0)
             {
-                c = 0;
+                startIndex = 0;
             }
-            var positionY = c * (_itemSize.y + ItemSpace(false));
+            var positionY = startIndex * (_itemSize.y + ItemSpace(false));
             ScrollRect.content.SetAnchoredPositionY(positionY);
         }
     }
