@@ -47,6 +47,7 @@ namespace Ryneus
 
         public void UpdateSelectIndexList(List<int> indexes)
         {
+            /*
             for (int i = 0; i < ItemPrefabList.Count; i++)
             {
                 if (ItemPrefabList[i] == null)
@@ -77,6 +78,7 @@ namespace Ryneus
                     infoComponent.SetSelectEquipment(false);
                 }
             }
+            */
         }
     }
 }

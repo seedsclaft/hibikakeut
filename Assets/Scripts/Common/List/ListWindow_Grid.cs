@@ -54,39 +54,42 @@ namespace Ryneus
         {
             var first = _lastStartIndexY == -1;
             var startIndex = GetStartIndex(_horizontal);
+            if (!first && startIndex != _lastStartIndexY)
+            {
+                UpdateListGrid();
+                return;
+            }
+            UpdateGridListPrefab(itemStartIndex);
             if (first)
             {
-                for (int i = 0; i < _itemPrefabList.Count; i++)
-                {
-                    var itemPrefab = _itemPrefabList[i];
-                    if (itemStartIndex > -1)
-                    {
-                        //
-                        var tempIndex = (i + itemStartIndex) % _itemPrefabList.Count;
-                        itemPrefab = _itemPrefabList[tempIndex];
-                    }
-                    var itemIndex = i + startIndex;
-                    if (_listDates.Count > itemIndex)
-                    {
-                        var listItem = itemPrefab.GetComponent<ListItem>();
-                        listItem.SetListData(_listDates[itemIndex], itemIndex);
-                        //Debug.Log("itemIndex:" + i + "がobjectIndex: " + itemIndex);
-                        itemPrefab.transform.SetParent(_objectList[itemIndex].transform, false);
-                        UIComponent.SetActive(itemPrefab, true);
-                    }
-                }
                 // 初期配置
                 _lastStartIndexY = 0;
-            } else
+            }
+        }
+
+        private void UpdateGridListPrefab(int itemStartIndex = -1)
+        {
+            var startIndex = GetStartIndex(_horizontal);
+            var gridCount = _horizontal ? GetVerticalCount() : GetHorizonalCount();
+            for (int i = 0; i < _itemPrefabList.Count; i++)
             {
-                if (startIndex != _lastStartIndexY)
+                var itemPrefab = _itemPrefabList[i];
+                if (itemStartIndex > -1)
                 {
-                    UpdateListGrid();
-                    return;
+                    //
+                    var tempIndex = (i + itemStartIndex * gridCount) % _itemPrefabList.Count;
+                    itemPrefab = _itemPrefabList[tempIndex];
                 }
-                // 再配置アップデート
-                _lastStartIndexY = 0;
-                UpdateListGrid();
+                var itemIndex = i + startIndex * gridCount;
+                if (_listDates.Count <= itemIndex)
+                {
+                    continue;
+                }
+                var listItem = itemPrefab.GetComponent<ListItem>();
+                listItem.SetListData(_listDates[itemIndex], itemIndex);
+                //Debug.Log("itemIndex:" + i + "がobjectIndex: " + itemIndex);
+                itemPrefab.transform.SetParent(_objectList[itemIndex].transform, false);
+                UIComponent.SetActive(itemPrefab, true);
             }
         }
 

@@ -233,7 +233,7 @@ MonoBehaviour:
       Trigger2: 0
   - Id: 3
     Name: "\u30D3\u30FC"
-    ImagePath: basic enemy_097
+    ImagePath: Bee
     ImageScale: 1
     BaseStatus:
       HpParam:
@@ -1323,7 +1323,7 @@ MonoBehaviour:
       Trigger2: 0
   - Id: 13
     Name: "\u30A4\u30F3\u30D7"
-    ImagePath: NY_CJ_monster_015_1
+    ImagePath: Imp
     ImageScale: 1
     BaseStatus:
       HpParam:
@@ -1815,9 +1815,21 @@ MonoBehaviour:
     SpdGrowth: 40
     MovGrouth: 0
     LearningSkills:
+    - SkillId: 1020
+      Level: 1
+      Weight: 100
+      TriggerDates: []
     - SkillId: 1010
       Level: 1
       Weight: 50
+      TriggerDates: []
+    - SkillId: 11020
+      Level: 1
+      Weight: 0
+      TriggerDates: []
+    - SkillId: 11080
+      Level: 1
+      Weight: 0
       TriggerDates: []
     - SkillId: 200110
       Level: 1
@@ -1828,8 +1840,17 @@ MonoBehaviour:
       Weight: 150
       TriggerDates: []
     SkillTriggerDates:
-    - SkillId: 1010
+    - SkillId: 1020
       Trigger1: 5061
+      Trigger2: 0
+    - SkillId: 1010
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 11020
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 11080
+      Trigger1: 0
       Trigger2: 0
     - SkillId: 200110
       Trigger1: 0

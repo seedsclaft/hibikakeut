@@ -6,8 +6,8 @@ namespace Ryneus
     public class SelectEquipmentModel : BaseModel
     {
         private SelectEquipmentSceneInfo _sceneParam;
-        private List<int> _selectEquipments = new();
-        public List<int> SelectEquipments => _selectEquipments;
+        private List<int> _selectEquipmentIds = new();
+        public List<int> SelectEquipmentIds => _selectEquipmentIds;
         public SelectEquipmentModel()
         {
             _sceneParam = (SelectEquipmentSceneInfo)GameSystem.SceneStackManager.LastPopupInfo.template;
@@ -19,31 +19,37 @@ namespace Ryneus
             {
                 return;
             }
-            if (_selectEquipments.Contains(equipmentId))
+            if (_selectEquipmentIds.Contains(equipmentId))
             {
-                _selectEquipments.Remove(equipmentId);
+                _selectEquipmentIds.Remove(equipmentId);
             } else
             {
-                if (_selectEquipments.Count < _sceneParam.SelectCount)
+                if (_selectEquipmentIds.Count < _sceneParam.SelectCount)
                 {
-                    _selectEquipments.Add(equipmentId);
+                    _selectEquipmentIds.Add(equipmentId);
                 }
             }
         }
         
         public bool SelectedEquipment()
         {
-            return _selectEquipments.Count == _sceneParam.SelectCount;
+            return _selectEquipmentIds.Count == _sceneParam.SelectCount;
         }
 
         public List<EquipmentInfo> EquipmentInfos()
         {
-            return _sceneParam.SelectEquipments;
+            var list = new List<EquipmentInfo>();
+            foreach (var equipmentInfo in _sceneParam.SelectEquipments)
+            {
+                equipmentInfo.Selected.SetValue(_selectEquipmentIds.Contains(equipmentInfo.EquipmentId.Value));
+                list.Add(equipmentInfo);
+            }
+            return list;
         }
 
         public void DecideEquipmentInfos()
         {
-            foreach (var selectEquipment in _selectEquipments)
+            foreach (var selectEquipment in _selectEquipmentIds)
             {
                 var equipmentInfo = new EquipmentInfo(selectEquipment);
                 _sceneParam.SelectedEquipments.Add(equipmentInfo);

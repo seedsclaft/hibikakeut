@@ -103,7 +103,7 @@ namespace Ryneus
                 // 選択可能か
                 return !_model.PartyInfo.EquipmentIds.Contains(equipmentInfo.EquipmentId.Value);
             };
-            _view.SetSelectEquipment(MakeListData(_model.EquipmentInfos(), enable, null, null, 0), _model.SelectEquipments);
+            _view.SetSelectEquipment(MakeListData(_model.EquipmentInfos(), enable, null, null, 0));
             _view.CheckItemDetailButtonActive();
         }
 
@@ -117,9 +117,9 @@ namespace Ryneus
             Func<EquipmentInfo, bool> selected = (equipmentInfo) =>
             {
                 // 選択中
-                return _model.SelectEquipments.Contains(equipmentInfo.EquipmentId.Value);
+                return _model.SelectEquipmentIds.Contains(equipmentInfo.EquipmentId.Value);
             };
-            _view.UpdateEquipmentList(MakeListData(_model.EquipmentInfos(), enable, selected, null, _view.SelectIndex), _model.SelectEquipments);
+            _view.UpdateEquipmentList(MakeListData(_model.EquipmentInfos(), enable, selected, null, _view.SelectIndex));
             //_view.CheckItemDetailButtonActive();
         }
 

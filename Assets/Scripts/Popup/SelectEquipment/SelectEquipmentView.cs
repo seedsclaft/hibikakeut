@@ -46,17 +46,15 @@ namespace Ryneus
             AddViewActives(equipmentList);
         }
 
-        public void SetSelectEquipment(List<ListData> achievementLists, List<int> indexes)
+        public void SetSelectEquipment(List<ListData> equiomentLists)
         {
-            equipmentList.SetData(achievementLists);
-            equipmentList.UpdateSelectIndexList(indexes);
+            equipmentList.SetData(equiomentLists);
             equipmentList.UpdateHelpWindow();
         }
 
-        public void UpdateEquipmentList(List<ListData> achievementLists, List<int> indexes)
+        public void UpdateEquipmentList(List<ListData> equiomentLists)
         {
-            equipmentList.RefreshListData(achievementLists);
-            equipmentList.UpdateSelectIndexList(indexes);
+            equipmentList.RefreshListData(equiomentLists);
             equipmentList.UpdateHelpWindow();
         }
 

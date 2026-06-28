@@ -275,11 +275,17 @@ namespace Ryneus
             {
                 if (a.IsActor)
                 {
-                    CallViewEvent(CommandType.OnDecideEnemy, a);
+                    if (battleEnemyList.Active)
+                    {
+                        CallViewEvent(CommandType.OnDecideEnemy, a);                    
+                    }
                 }
                 else
                 {
-                    CallViewEvent(CommandType.OnDecideActor, a);
+                    if (battleActorList.Active)
+                    {
+                        CallViewEvent(CommandType.OnDecideActor, a);
+                    }
                 }
             }, (a) =>
             {

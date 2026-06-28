@@ -40,8 +40,13 @@ namespace Ryneus
             battlerInfoComponent.UpdateInfo(battlerInfo);
             if (spriteRenderer != null)
             {
-                spriteRenderer.sortingOrder = battlerInfo.Index.Value;
-                candidateSelect.sortingOrder = battlerInfo.Index.Value + 1;
+                var sortingOrder = battlerInfo.Index.Value;
+                if (battlerInfo.Index.Value % 100 > 3)
+                {
+                    sortingOrder -= 3;
+                }
+                spriteRenderer.sortingOrder = sortingOrder;
+                candidateSelect.sortingOrder = sortingOrder + 1;
                 if (!battlerInfo.IsActor)
                 {
                     UIComponent.SetSpeiteImage(spriteRenderer, ResourceSystem.EnemySpritePath(battlerInfo.EnemyData.ImagePath));

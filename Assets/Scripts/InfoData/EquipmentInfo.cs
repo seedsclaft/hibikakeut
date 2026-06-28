@@ -9,7 +9,7 @@ namespace Ryneus
         public ParameterInt EquipmentId = new();
         public List<EquipmentLearningInfo> LearningInfos = new();
         public ActorInfo EquipmentActor = null;
-
+        public ParameterBool Selected = new();
         public EquipmentInfo(int equipmentId)
         {
             EquipmentId.SetValue(equipmentId);

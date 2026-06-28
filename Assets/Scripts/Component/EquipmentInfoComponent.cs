@@ -28,6 +28,7 @@ namespace Ryneus
                 UIComponent.SetActive(equipmentedObj, equipmentInfo.EquipmentActor != null);
                 equipmentedActor.UpdateData(equipmentInfo.EquipmentActor?.Master);
             }
+            SetSelectEquipment(equipmentInfo.Selected.Value);
         }
 
         public void UpdateData(EquipmentData equipmentData)
@@ -67,7 +68,7 @@ namespace Ryneus
             }
         }
 
-        public void SetSelectEquipment(bool isSelect)
+        private void SetSelectEquipment(bool isSelect)
         {
             UIComponent.SetActive(selectEquipment, isSelect);
         }
