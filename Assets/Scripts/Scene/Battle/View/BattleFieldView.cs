@@ -73,7 +73,7 @@ namespace Ryneus
                 // 戦闘不能なら消す
                 if (!battlerInfos[i].IsAlive())
                 {
-                    _battlers[battlerInfos[i].Index.Value].SetAnimationState(AnimationState.Death);
+                    //_battlers[battlerInfos[i].Index.Value].SetAnimationState(AnimationState.Death);
                 } else
                 {
                     _battlers[battlerInfos[i].Index.Value].SetAnimationState(AnimationState.Idle);
@@ -97,7 +97,7 @@ namespace Ryneus
                 // 戦闘不能なら消す
                 if (!battlerInfos[i].IsAlive())
                 {
-                    _battlers[battlerInfos[i].Index.Value].SetAnimationState(AnimationState.Death);
+                    //_battlers[battlerInfos[i].Index.Value].SetAnimationState(AnimationState.Death);
                 } else
                 {
                     _battlers[battlerInfos[i].Index.Value].SetAnimationState(AnimationState.Idle);

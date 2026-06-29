@@ -7,7 +7,7 @@ namespace Ryneus
     public class StageInfo
     {
         public StageData _master = null;
-        public StageData Master => _master != null ? _master : DataSystem.FindStage(StageId.Value);
+        public StageData Master => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
         public ParameterBool Cleared = new();
         public ParameterBool Alarted = new();
