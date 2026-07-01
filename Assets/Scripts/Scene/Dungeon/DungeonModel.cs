@@ -220,7 +220,7 @@ namespace Ryneus
         {
             var position = GetCurrentPosition();
             var stageEvent = StageEvents(EventTiming.Dungeon, position.x, position.y);
-            return stageEvent.Count > 0 && (stageEvent[0].Type == StageEventType.ExitDungeon || stageEvent[0].Type == StageEventType.MoveDungeonFloor || stageEvent[0].Type == StageEventType.AdvStart);
+            return stageEvent.Count > 0 && (stageEvent[0].Type == StageEventType.ExitDungeon || stageEvent[0].Type == StageEventType.ExitDungeonNoConfirm || stageEvent[0].Type == StageEventType.MoveDungeonFloor || stageEvent[0].Type == StageEventType.AdvStart);
         }
 
         public bool BattleFieldEncountZero()

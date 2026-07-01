@@ -61,11 +61,13 @@ namespace Ryneus
             _model.SaveAutoFile();
             await PlayDungeonBgm(_model.DungeonBgmTimeStamp());
             // 戦場ステージでバトルイベントが0になった時
+            /*
             if (_model.BattleFieldEncountZero())
             {
                 CommandEncountZero();
                 return;
             }
+            */
             _busy = false;
         }
 
@@ -532,6 +534,9 @@ namespace Ryneus
                 case StageEventType.ExitDungeon:
                     StageEventExitDungeon(moved, endEvent);
                     return;
+                case StageEventType.ExitDungeonNoConfirm:
+                    StageEventExitDungeonNoConfirm(moved, endEvent);
+                    return;
                 case StageEventType.MoveDungeonFloor:
                     StageEventMoveDungeonFloor(moved, stageEvent, endEvent);
                     return;
@@ -670,6 +675,12 @@ namespace Ryneus
             {
                 endEvent?.Invoke();
             }
+        }
+
+        private void StageEventExitDungeonNoConfirm(bool moved, Action endEvent)
+        {
+            _view.CallSystemCommand(Base.CommandType.ClosePopupAll);
+            ReturnDungeon();
         }
 
         private void StageEventMoveDungeonFloor(bool moved, StageEventData stageEvent, Action endEvent)

@@ -3214,14 +3214,6 @@ MonoBehaviour:
       Level: 0
       Weight: 0
       TriggerDates: []
-    - SkillId: 100510
-      Level: 0
-      Weight: 0
-      TriggerDates: []
-    - SkillId: 100520
-      Level: 0
-      Weight: 0
-      TriggerDates: []
     - SkillId: 5070
       Level: 3
       Weight: 0
@@ -3234,12 +3226,12 @@ MonoBehaviour:
       Level: 21
       Weight: 0
       TriggerDates: []
-    - SkillId: 405070
-      Level: 26
+    - SkillId: 100510
+      Level: -1
       Weight: 0
       TriggerDates: []
-    - SkillId: 5040
-      Level: 41
+    - SkillId: 100520
+      Level: -1
       Weight: 0
       TriggerDates: []
     SkillTriggerDates:
@@ -3679,3 +3671,264 @@ MonoBehaviour:
     Kinds: 
     LearningSkills: []
     SkillTriggerDates: []
+  - Id: 201
+    Name: "\u30D6\u30EA\u30E5\u30F3\u30D2\u30EB\u30C7"
+    SubName: "\u3010\u60B2\u5287\u306E\u6226\u4E59\u5973\u3011"
+    Relief: '""'
+    Profile: "\u56DE\u907F\u7387\u3092\u4E0A\u3052\u3066\u653B\u6483\u3092\u907F\u3051\u308B\u30A2\u30BF\u30C3\u30AB\u30FC\u3002\n\u6253\u305F\u308C\u5F31\u3044\u304CSPD\u304C\u9AD8\u304F\u3001\u56DE\u907F\u7387\u3092\u30A2\u30C3\u30D7\u3059\u308B\u96F7\u5C5E\u6027\u9B54\u6CD5\u3092\u7FD2\u5F97\u3057\u3084\u3059\u3044\u3002"
+    Rank: 10
+    ImagePath: 0102
+    InitLv: 1
+    MaxLv: 99
+    AttributeType: 6
+    InitStatus:
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 34
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 4
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 32
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 6
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 25
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 2
+        max:
+          _value: 0
+      HitParam:
+        paramType: 11
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      EvaParam:
+        paramType: 12
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      CriParam:
+        paramType: 13
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      CriEvaParam:
+        paramType: 14
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+    PlusStatus:
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      HitParam:
+        paramType: 11
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      EvaParam:
+        paramType: 12
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      CriParam:
+        paramType: 13
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      CriEvaParam:
+        paramType: 14
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+    NeedStatus:
+      HpParam:
+        paramType: 0
+        curernt:
+          _value: 120
+        max:
+          _value: 0
+      MpParam:
+        paramType: 1
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      AtkParam:
+        paramType: 2
+        curernt:
+          _value: 90
+        max:
+          _value: 0
+      DefParam:
+        paramType: 3
+        curernt:
+          _value: 50
+        max:
+          _value: 0
+      SpdParam:
+        paramType: 4
+        curernt:
+          _value: 110
+        max:
+          _value: 0
+      CostParam:
+        paramType: 6
+        curernt:
+          _value: 50
+        max:
+          _value: 0
+      HitParam:
+        paramType: 11
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      EvaParam:
+        paramType: 12
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      CriParam:
+        paramType: 13
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+      CriEvaParam:
+        paramType: 14
+        curernt:
+          _value: 0
+        max:
+          _value: 0
+    Attribute: 020000000400000006000000050000000100000005000000
+    X: 0
+    Y: -12
+    Scale: 0.8
+    AwakenX: 0
+    AwakenY: 0
+    AwakenScale: 1
+    Kinds: 
+    LearningSkills:
+    - SkillId: 11
+      Level: 0
+      Weight: 0
+      TriggerDates: []
+    - SkillId: 21
+      Level: 0
+      Weight: 0
+      TriggerDates: []
+    - SkillId: 31
+      Level: 0
+      Weight: 0
+      TriggerDates: []
+    - SkillId: 5010
+      Level: 0
+      Weight: 0
+      TriggerDates: []
+    - SkillId: 15090
+      Level: 11
+      Weight: 0
+      TriggerDates: []
+    - SkillId: 100510
+      Level: 11
+      Weight: 0
+      TriggerDates: []
+    - SkillId: 100520
+      Level: 11
+      Weight: 0
+      TriggerDates: []
+    SkillTriggerDates:
+    - SkillId: 100520
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 5070
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 5010
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 100510
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 0
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 0
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 0
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 0
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 0
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 0
+      Trigger1: 0
+      Trigger2: 0

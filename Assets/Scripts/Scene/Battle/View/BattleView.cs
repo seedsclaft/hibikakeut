@@ -516,10 +516,10 @@ namespace Ryneus
             UIComponent.SetActive(_battleStartAnim?.gameObject, false);
         }
 
-        public void StartBattleStartAnim(string text)
+        public void StartBattleStartAnim(string text, Action endEvent = null)
         {
             _battleStartAnim.SetText(text);
-            _battleStartAnim.StartAnim(true);
+            _battleStartAnim.StartAnim(true, 0, endEvent);
             UIComponent.SetActive(_battleStartAnim?.gameObject, true);
         }
 

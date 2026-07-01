@@ -68,4 +68,14 @@ namespace Ryneus
         MouseOnly = 1,
         KeyboardOnly = 2,
     }
+
+    public enum ScreenSizeType
+    {
+        HD = 1280, // 1280,720を等倍
+        FWXGA = 1366,
+        HD_PLUS = 1600,
+        Full_HD = 1920,
+        WQHD = 2560,
+        UHD = 3840,
+    }
 }

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace Ryneus
 {
@@ -38,11 +40,27 @@ namespace Ryneus
         }
 
         private static List<Resolution> _resolutions = new();
+        private static void InitializeResolusions()
+        {
+            _resolutions.Clear();
+            foreach (var screenSizeType in Enum.GetValues(typeof(ScreenSizeType)))
+            {
+                var width = (int)screenSizeType;
+                var widthf = (float)width;
+                var resolution = new Resolution
+                {
+                    width = width,
+                    height = (int)Math.Floor(widthf / 16f * 9)
+                };
+                _resolutions.Add(resolution);
+            }
+        }
+
         public static void ChangeScreenSize(bool plus)
         {
             if (_resolutions.Count == 0)
             {
-                _resolutions = Screen.resolutions.ToList();
+                InitializeResolusions();
             }
             var findIndex = _resolutions.FindIndex(a => a.width == GameSystem.OptionData.ScreenWidth && a.height == GameSystem.OptionData.ScreenHeight);
             if (findIndex > -1)

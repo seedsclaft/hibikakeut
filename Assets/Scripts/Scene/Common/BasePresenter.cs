@@ -43,10 +43,14 @@ namespace Ryneus
             _view.CommandCallPopup(popupInfo);
         }
 
-        public void CallConfirmView(string title, Action<ConfirmCommandType> returnEvent)
+        public void CallConfirmView(string title, Action<ConfirmCommandType> returnEvent, List<int> textIds = null)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var confirmInfo = new ConfirmInfo(title, returnEvent);
+            if (textIds != null)
+            {
+                confirmInfo.SetCommandTextIds(textIds);
+            }
             _view.CommandCallConfirm(confirmInfo);
         }
 

@@ -2,11 +2,33 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ryneus
 {
     public class UIComponent
     {
+        private static Dictionary<GameObject, string> _loadingObjects = new();
+        private static void CheckLoadingGameObject(string path, GameObject gameObject)
+        {
+            if (_loadingObjects.ContainsKey(gameObject))
+            {
+                var keyPath = _loadingObjects.First(a => a.Key == gameObject);
+                _loadingObjects.Remove(keyPath.Key);
+            }
+            _loadingObjects[gameObject] = path;
+        }
+
+        private static bool IsApplyLoadingResult(string path, GameObject gameObject)
+        {
+            if (_loadingObjects.ContainsKey(gameObject))
+            {
+                var keyPath = _loadingObjects.First(a => a.Key == gameObject);
+                return path == keyPath.Value;
+            }
+            return false;
+        }
+
         public static void SetText(TextMeshProUGUI textMeshProUGUI, string text)
         {
             if (textMeshProUGUI == null)
@@ -53,9 +75,14 @@ namespace Ryneus
             }
             else
             {
+                CheckLoadingGameObject(path, image.gameObject);
                 ResourceSystem.LoadAssetData<Sprite>(path, (result) =>
                 {
-                    image.sprite = result;
+                    // 最後にロード命令が出たimage.gameObjectなら適用
+                    if (IsApplyLoadingResult(path, image.gameObject))
+                    {
+                        image.sprite = result;
+                    }
                     endCall?.Invoke();
                 });
             }
@@ -74,9 +101,13 @@ namespace Ryneus
             }
             else
             {
+                CheckLoadingGameObject(path, spriteRenderer.gameObject);
                 ResourceSystem.LoadAssetData<Sprite>(path, (result) =>
                 {
-                    spriteRenderer.sprite = result;
+                    if (IsApplyLoadingResult(path, spriteRenderer.gameObject))
+                    {
+                        spriteRenderer.sprite = result;
+                    }
                     endCall?.Invoke();
                 });
             }
@@ -96,11 +127,15 @@ namespace Ryneus
             }
             else
             {
+                CheckLoadingGameObject(path, gameObject);
                 ResourceSystem.LoadAssetData<GameObject>(path, (result) =>
                 {
-                    var prefab = Object.Instantiate(result);
-                    prefab.transform.SetParent(gameObject.transform, false);
-                    endCall?.Invoke(prefab);
+                    if (IsApplyLoadingResult(path, gameObject))
+                    {
+                        var prefab = Object.Instantiate(result);
+                        prefab.transform.SetParent(gameObject.transform, false);
+                        endCall?.Invoke(prefab);
+                    }
                 });
             }
         }

@@ -526,6 +526,7 @@ namespace Ryneus
             {
                 return;
             }
+            _battleEnded = true;
             var strategySceneInfo = new StrategySceneInfo
             {
                 BattlerInfos = _model.Battlers,
@@ -533,20 +534,21 @@ namespace Ryneus
             };
             if (_model.CheckDefeat())
             {
-                _view.StartBattleStartAnim(DataSystem.GetText(16110));
-                await UniTask.DelayFrame((int)(150f / GameSystem.OptionData.BattleSpeed));
-                // 敗北可のバトルの場合
-                if (_model.IsEnableDefeat())
+                _view.StartBattleStartAnim(DataSystem.GetText(16110), () =>
                 {
-                    var dungeonSceneInfo = new DungeonSceneInfo
+                    // 敗北可のバトルの場合
+                    if (_model.IsEnableDefeat())
                     {
-                        BattleEnd = true
-                    };
-                    _view.CommandSceneChange(Scene.Dungeon, dungeonSceneInfo);
-                    return;
-                }
-                _view.CallSystemCommand(Base.CommandType.MapClear);
-                _view.CommandGotoSceneChange(Scene.Title);
+                        var dungeonSceneInfo = new DungeonSceneInfo
+                        {
+                            BattleEnd = true
+                        };
+                        _view.CommandSceneChange(Scene.Dungeon, dungeonSceneInfo);
+                        return;
+                    }
+                    _view.CallSystemCommand(Base.CommandType.MapClear);
+                    _view.CommandGotoSceneChange(Scene.Title);
+                });
                 return;
             }
             else
@@ -568,7 +570,6 @@ namespace Ryneus
             {
                 _view.CommandCallLoading();
             }
-            _battleEnded = true;
             await UniTask.DelayFrame((int)(150f / GameSystem.OptionData.BattleSpeed));
             
             BattleChecker.Instance.SetModel(null, null);

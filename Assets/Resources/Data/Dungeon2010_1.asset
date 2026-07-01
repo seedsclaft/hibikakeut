@@ -457,17 +457,17 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 126
-    mapAttr: 99
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 127
-    mapAttr: 99
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 128
-    mapAttr: 99
+    mapAttr: 1
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -542,7 +542,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 151
-    mapAttr: 1
+    mapAttr: 8
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -619,17 +619,17 @@ MonoBehaviour:
   - eventId: 174
     mapAttr: 0
     objectFront: 0
-    regeonNo: 2
+    regeonNo: 0
     objectTypeId: 0
   - eventId: 175
     mapAttr: 0
     objectFront: 0
-    regeonNo: 2
+    regeonNo: 0
     objectTypeId: 0
   - eventId: 176
     mapAttr: 0
     objectFront: 0
-    regeonNo: 2
+    regeonNo: 0
     objectTypeId: 0
   - eventId: 177
     mapAttr: 1
@@ -697,9 +697,9 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 198
-    mapAttr: 0
+    mapAttr: 1
     objectFront: 0
-    regeonNo: 2
+    regeonNo: 0
     objectTypeId: 0
   - eventId: 199
     mapAttr: 12
@@ -707,9 +707,9 @@ MonoBehaviour:
     regeonNo: 2
     objectTypeId: 0
   - eventId: 200
-    mapAttr: 0
+    mapAttr: 1
     objectFront: 0
-    regeonNo: 2
+    regeonNo: 0
     objectTypeId: 0
   - eventId: 201
     mapAttr: 1
@@ -1946,7 +1946,7 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 57
+  DungeonCompletion: 56
   stageEvents:
   - EventKey: 2010_7_8DungeonForceBossBattle20010
     Timing: 3010
@@ -1971,6 +1971,24 @@ MonoBehaviour:
     Type: 9010
     PositionX: 7
     PositionY: 10
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 0
+  - EventKey: 2010_7_6DungeonAdvStart12010
+    Timing: 3010
+    Type: 1010
+    PositionX: 7
+    PositionY: 6
+    Param: 12010
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 2010_7_6DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 7
+    PositionY: 6
     Param: 0
     Param2: 0
     Param3: 0

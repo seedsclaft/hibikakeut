@@ -96,7 +96,7 @@ namespace Ryneus
         private void CommandNewGame()
         {
             _busy = true;
-            CallConfirmView("オープニングスキップ?", (a) =>
+            CallConfirmView(DataSystem.GetText(13510), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {
@@ -129,7 +129,7 @@ namespace Ryneus
                 {
                     _busy = false;
                 }
-            });
+            }, _model.ConfirmSkipCommandIds());
         }
 
         private void CommandContinue()

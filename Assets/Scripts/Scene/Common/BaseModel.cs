@@ -707,5 +707,10 @@ namespace Ryneus
             }
             return null;
         }
+        
+        public List<int> ConfirmSkipCommandIds()
+        {
+            return new List<int>{6840, 6830};
+        }
     }
 }

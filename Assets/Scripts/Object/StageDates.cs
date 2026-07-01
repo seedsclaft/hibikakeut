@@ -124,6 +124,7 @@ namespace Ryneus
         AdvStart = 1010,
         ActorEvent = 1020,
         ExitDungeon = 2010,
+        ExitDungeonNoConfirm = 2011,
         MoveDungeonFloor = 2020,
         MoveDungeonFloorForce = 2021,
         DungeonClear = 2030,
