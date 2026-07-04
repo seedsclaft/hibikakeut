@@ -150,12 +150,14 @@ namespace Ryneus
 
         public void UpdateStatus(BattlerInfo battlerInfo)
         {
+            /*
             battlerInfoComponent.UpdateInfo(battlerInfo);
             var baseStatus = battlerInfo.CurrentStatus(true);
             var currentStatus = battlerInfo.CurrentStatus(false);
             statusInfoComponent.UpdateInfo(currentStatus, baseStatus);
             statusInfoComponent.UpdateHp(battlerInfo.MaxHp, currentStatus.Hp);
             statusInfoComponent.UpdateMp(battlerInfo.MaxMp, currentStatus.Mp);
+            */
         }
 
         public void HideStatus()

@@ -3080,7 +3080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encountZero: 0
   allLearnSkills: 0
-  getAllItems: 1
+  getAllItems: 0
   getAllEquipments: 0
   clearAchivements: 0
   partyInfo:
@@ -3404,9 +3404,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.00024402891
+    x: 0.00005829772
     y: 0
-    width: 0.99951196
+    width: 0.9998834
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -13463,7 +13463,59 @@ MonoBehaviour:
   forceVictory: 0
   stopApCount: 0
   restartApCount: 0
-  actorInfos: []
+  actorInfos:
+  - Index:
+      _value: 0
+    EnemyIndex:
+      _value: 0
+    Level:
+      _value: 0
+    Hp:
+      _value: 0
+    Mp:
+      _value: 0
+    Ap:
+      _value: 0
+    LastSelectSkill:
+      _value: 0
+    _stateInfos:
+    - Turns:
+        _value: 0
+      BaseTurns:
+        _value: 0
+      Effect:
+        _value: 0
+      BattlerId:
+        _value: 0
+      TargetIndex:
+        _value: 0
+      SkillId:
+        _value: 0
+      CountTurns:
+        _value: 0
+      BaseCountTurns:
+        _value: 0
+    Examine:
+      ChainSuccessCount:
+        _value: 0
+      PayBattleMp:
+        _value: 0
+      AttackedCount:
+        _value: 0
+      MaxDamage:
+        _value: 0
+      DodgeCount:
+        _value: 0
+      HealCount:
+        _value: 0
+      BeCriticalCount:
+        _value: 0
+      DamagedValue:
+        _value: 0
+    TurnCount:
+      _value: 0
+    DemigodParam:
+      _value: 0
   enemyInfos: []
 --- !u!1 &836145851
 GameObject:
@@ -26140,9 +26192,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.00024402891
+    x: 0.00005829772
     y: 0
-    width: 0.99951196
+    width: 0.9998834
     height: 1
   near clip plane: 0.3
   far clip plane: 1000

@@ -21,7 +21,6 @@ namespace Ryneus
         public ParameterInt EnemyIndex = new();
         private bool _isActor = false;
         public bool IsActor => _isActor;
-        public void SetIsActor(bool isActor) => _isActor = isActor;
         // 見た目上は味方か
         private bool _isActorView = false;
         public bool IsActorView => _isActorView;
@@ -894,7 +893,7 @@ namespace Ryneus
         /// <returns></returns>
         public int CurrentAtk(bool isNoEffect = false)
         {
-            int atk = Status.Atk;
+            int atk = _status.Atk;
             if (!isNoEffect)
             {
                 if (IsState(StateType.StatusUp))
@@ -927,7 +926,7 @@ namespace Ryneus
 
         public int CurrentDef(bool isNoEffect = false)
         {
-            int def = Status.Def;
+            int def = _status.Def;
             if (!isNoEffect)
             {
                 if (IsState(StateType.StatusUp))
@@ -956,7 +955,7 @@ namespace Ryneus
 
         public int CurrentSpd(bool isNoEffect = false)
         {
-            int spd = Status.Spd;
+            int spd = _status.Spd;
             if (!isNoEffect)
             {
                 if (IsState(StateType.SpdUp))
@@ -986,7 +985,7 @@ namespace Ryneus
 
         public int CurrentHit()
         {
-            int hit = Status.Hit;
+            int hit = _status.Hit;
             hit += StateEffectAll(StateType.HitUp) + StateEffectAll(StateType.HitUpOver);
             hit -= (int)DeBuffUpperParam(StateEffectAll(StateType.HitDown));
             return hit;
@@ -994,7 +993,7 @@ namespace Ryneus
 
         public int CurrentEva()
         {
-            int eva = Status.Eva;
+            int eva = _status.Eva;
             eva += StateEffectAll(StateType.EvaUp) + StateEffectAll(StateType.EvaUpOver);
             eva -= (int)DeBuffUpperParam(StateEffectAll(StateType.EvaDown));
             return eva;
@@ -1002,7 +1001,7 @@ namespace Ryneus
 
         public int CurrentCri(bool isNoEffect = false)
         {
-            int cri = Status.Cri;
+            int cri = _status.Cri;
             return cri;
         }
 
