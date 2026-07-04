@@ -3404,9 +3404,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.00005829772
+    x: 0.00019046484
     y: 0
-    width: 0.9998834
+    width: 0.99961907
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -12174,6 +12174,60 @@ MonoBehaviour:
   version: 1
   scenarioProject: {fileID: 11400000, guid: e783cb7a508e722478a5960e76cadbd6, type: 2}
   scenarioDataProject: {fileID: 0}
+--- !u!1 &679698569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 679698570}
+  - component: {fileID: 679698571}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &679698570
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679698569}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1931081345}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &679698571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679698569}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d396bcb8480c24eb784eebe6096a99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Effekseer::Effekseer.EffekseerEmitter
+  TimingOfUpdate: 0
+  EmitterScale: 0
+  TimeScale: 0
+  effectAsset: {fileID: 11400000, guid: ffa5822024d6b464cac68acb3e1cd3f5, type: 2}
+  playOnStart: 0
+  isLooping: 0
 --- !u!1 &692468936
 GameObject:
   m_ObjectHideFlags: 0
@@ -13515,6 +13569,8 @@ MonoBehaviour:
     TurnCount:
       _value: 0
     DemigodParam:
+      _value: 0
+    PreserveAlive:
       _value: 0
   enemyInfos: []
 --- !u!1 &836145851
@@ -26192,9 +26248,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.00005829772
+    x: 0.00019046484
     y: 0
-    width: 0.9998834
+    width: 0.99961907
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -31481,6 +31537,7 @@ RectTransform:
   - {fileID: 1408798861}
   - {fileID: 1315103153}
   - {fileID: 364343667}
+  - {fileID: 679698570}
   - {fileID: 1286055688}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

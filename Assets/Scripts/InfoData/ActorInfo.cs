@@ -99,22 +99,12 @@ namespace Ryneus
                 _mastarySkillExps[skillId] = 0;
             }
             _mastarySkillExps[skillId] += gain;
-            if (_mastarySkillExps[skillId] >= NeedMastarySkillExp(skillId))
-            {
-                return true;
-            }
-            return false;
+            return _mastarySkillExps[skillId] >= NeedMastarySkillExp(skillId);
         }
 
         public int NeedMastarySkillExp(int skillId)
         {
             return 100;
-            var basecost = EquipSkillCost(skillId, null, null);
-            if (basecost == 0)
-            {
-                return 0;
-            }
-            return basecost * 10;
         }
 
         public float MastarySkillExp(int skillId)
@@ -556,22 +546,22 @@ namespace Ryneus
                 }
             }
             // 装備から習得済み
-            foreach (var learnSkillId in MastarySkillIds)
+            foreach (var mastarySkillId in _mastarySkillIds)
             {
-                var learnedSkill = new SkillInfo(learnSkillId);
+                var mastarySkill = new SkillInfo(mastarySkillId);
                 // 習得済みなら除外
-                if (list.Find(a => a.Master.Id == learnedSkill.Master.Id) != null)
+                if (list.Find(a => a.Master.Id == mastarySkill.Master.Id) != null)
                 {
                     continue;
                 }
                 // 強化スキルなら除外
-                if (learnedSkill.IsEquipmentStatusUpSkill())
+                if (mastarySkill.IsEquipmentStatusUpSkill())
                 {
                     continue;
                 }
-                learnedSkill.SetLearningState(LearningState.Learned);
-                learnedSkill.SetEnable(true);
-                list.Add(learnedSkill);
+                mastarySkill.SetLearningState(LearningState.Learned);
+                mastarySkill.SetEnable(true);
+                list.Add(mastarySkill);
             }
             // 装備時発動
             foreach (var equipmentId in _equipmentIds)
@@ -618,7 +608,72 @@ namespace Ryneus
                     }
                 }
             }
+            return SortedSkills(list);
+        }
+
+        private List<SkillInfo> SortedSkills(List<SkillInfo> skillInfos)
+        {
+            var list = new List<SkillInfo>();
+            var dicts = new Dictionary<int, SkillInfo>();
+            var skillCountIndexes = skillInfos.Count;
+            Func<SkillInfo, int> sortRule = (skillInfo) =>
+            {
+                // 採用ルール
+                // 1.習得済みアクティブ
+                if (skillInfo.Enable && skillInfo.Master.SkillType == SkillType.Active)
+                {
+                    return skillCountIndexes;
+                }
+                // 2.習得済みユニーク
+                if (skillInfo.Enable && skillInfo.IsBattleSpecialSkill())
+                {
+                    return skillCountIndexes * 2;
+                }
+                // 待機
+                // 3.習得済みパッシブ
+                if (skillInfo.Enable && skillInfo.Master.SkillType == SkillType.Passive)
+                {
+                    return skillCountIndexes * 3;
+                }
+                // 4.習得済みそれ以外
+                if (skillInfo.Enable)
+                {
+                    return skillCountIndexes * 4;
+                }
+                // 5.未習得アクティブ
+                if (skillInfo.Master.SkillType == SkillType.Active)
+                {
+                    return skillCountIndexes * 5;
+                }
+                // 6.未習得ユニーク
+                if (skillInfo.IsBattleSpecialSkill())
+                {
+                    return skillCountIndexes * 6;
+                }
+                // 7.未習得パッシブ
+                if (skillInfo.Master.SkillType == SkillType.Passive)
+                {
+                    return skillCountIndexes * 7;
+                }
+                // 8.未習得それ以外
+                return skillCountIndexes * 8;
+            };
+            SortIndexes(skillInfos, dicts, sortRule);
+            foreach (var dict in dicts.OrderBy(a => a.Key))
+            {
+                list.Add(dict.Value);
+            }
             return list;
+        }
+
+        private void SortIndexes(List<SkillInfo> skillInfos, Dictionary<int, SkillInfo> skillInfoDict, Func<SkillInfo, int> sortFunc)
+        {
+            var index = 0;
+            foreach (var skillInfo in skillInfos)
+            {
+                skillInfoDict[sortFunc(skillInfo) + index] = skillInfo;
+                index++;
+            }
         }
 
         public List<SkillInfo> SealedSkills()

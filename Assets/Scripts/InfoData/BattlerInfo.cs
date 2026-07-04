@@ -19,8 +19,7 @@ namespace Ryneus
         }
         public ParameterInt Index = new();
         public ParameterInt EnemyIndex = new();
-        private bool _isActor = false;
-        public bool IsActor => _isActor;
+        public bool IsActor => _actorInfo != null || _isAlcana;
         // 見た目上は味方か
         private bool _isActorView = false;
         public bool IsActorView => _isActorView;
@@ -38,8 +37,6 @@ namespace Ryneus
 
         private List<SkillInfo> _skills = new();
         public List<SkillInfo> Skills => _skills;
-        private List<SkillInfo> _enhanceSkills = new();
-        public List<SkillInfo> EnhanceSkills => _enhanceSkills;
         private ActorInfo _actorInfo;
         public ActorInfo ActorInfo => _actorInfo;
         private ParameterInt EnemyId = new();
@@ -76,8 +73,7 @@ namespace Ryneus
         public ParameterInt TurnCount = new();
         public ParameterInt DemigodParam = new();
 
-        private bool _preserveAlive = false;
-        public bool PreserveAlive => _preserveAlive;
+        public ParameterBool PreserveAlive = new();
 
         private List<SkillTriggerInfo> _skillTriggerInfos = new();
         public List<SkillTriggerInfo> SkillTriggerInfos => _skillTriggerInfos;
@@ -126,38 +122,10 @@ namespace Ryneus
                 skill.InitCountTurn();
             }
 
-            // _skills確定後に強化する
-            //var enhanceSkills = _skills.FindAll(a => a.IsEnhanceSkill());
             _actorInfo = actorInfo;
-            /*
-            foreach (var enhanceSkill in _skills)
-            {
-                // 会得しているか
-                if (!actorInfo.MastarySkillIds.Contains(enhanceSkill.Id.Value))
-                {
-                    continue;
-                }
-                var featureDates = new List<SkillData.FeatureData>();
-                foreach (var featureData in enhanceSkill.FeatureDates)
-                {
-                    if (featureData.EnhanceFeature())
-                    {
-                        featureDates.Add(featureData.CopyData());
-                    }
-                }
-                if (featureDates.Count == 0)
-                {
-                    continue;
-                }
-                var result = new ActionResultInfo(this, this, featureDates, enhanceSkill.Id.Value);
-            }
-            */
-            //_enhanceSkills = enhanceSkills;
-
-            _isActor = true;
             _isAlcana = false;
-
             _isActorView = true;
+
             Hp.SetValue(actorInfo.CurrentHp.Value);
             Mp.SetValue(actorInfo.CurrentMp.Value);
             _lineIndex = actorInfo.LineIndex;
@@ -192,7 +160,6 @@ namespace Ryneus
             _bossFlag = isBoss;
             InitParamInfos(enemyData);
             Index.SetValue(index + 100);
-            _isActor = false;
             _isAlcana = false;
             _lineIndex = lineIndex;
             _isActorView = enemyData.Id > 1000;
@@ -251,7 +218,6 @@ namespace Ryneus
             {
                 var result = new ActionResultInfo(this, this, enhanceSkill.FeatureDates, enhanceSkill.Id.Value);
             }
-            _enhanceSkills = enhanceSkills;
             _skills.Sort((a, b) => a.Weight > b.Weight ? -1 : 1);
             _skillTriggerInfos.Clear();
             foreach (var skillInfo in _skills)
@@ -341,7 +307,6 @@ namespace Ryneus
             _status = statusInfo;
             Hp.SetValue(1);
             Index.SetValue(index + 1000);
-            _isActor = isActor;
             _isAlcana = true;
             _skills = skillInfos;
             foreach (var skillInfo in skillInfos)
@@ -360,7 +325,7 @@ namespace Ryneus
             GainHp(_status.Hp);
             //GainMp(_status.Mp);
             _isAwaken = false;
-            _preserveAlive = false;
+            PreserveAlive.SetValue(false);
             TurnCount.SetValue(0);
             ResetAp();
             _passiveSkillIds = new();
@@ -574,6 +539,11 @@ namespace Ryneus
             Hp.GainValue(value, 0, MaxHp);
             if (Hp.Value <= 0)
             {
+                if (PreserveAlive.Value)
+                {
+                    SetHp(1);
+                    return;
+                }
                 for (var i = _stateInfos.Count - 1; i >= 0; i--)
                 {
                     if (_stateInfos[i].Master.RemoveByDeath)
@@ -812,11 +782,6 @@ namespace Ryneus
                         {
                             _stateInfos.RemoveAt(removeIndex);
                         }
-                    }
-                    if (stateInfo.StateType == StateType.Death)
-                    {
-                        _preserveAlive = true;
-                        //if (_hp == 0)_hp = 1;
                     }
                 }
                 isRemoved = true;
@@ -1100,11 +1065,6 @@ namespace Ryneus
                 }
             }
             return iconStates;
-        }
-
-        public void SetPreserveAlive(bool preserveAlive)
-        {
-            _preserveAlive = preserveAlive;
         }
 
         // バフ解除効果で解除するstateを取得

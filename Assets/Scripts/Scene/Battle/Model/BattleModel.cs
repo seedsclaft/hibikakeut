@@ -966,27 +966,12 @@ namespace Ryneus
         private int CalcRepeatTime(BattlerInfo subject, ActionInfo actionInfo)
         {
             var repeatTime = actionInfo.Master.RepeatTime;
-            // パッシブで回数増加を計算
-            var addFeatures = subject.EnhanceSkills.FindAll(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.ChangeSkillRepeatTime && actionInfo.Master.Id == b.Param1) != null);
-            foreach (var addFeature in addFeatures)
-            {
-                foreach (var featureData in addFeature.FeatureDates)
-                {
-                    repeatTime = featureData.Param3;
-                }
-            }
             return repeatTime;
         }
 
         private ScopeType CalcScopeType(BattlerInfo subject, ActionInfo actionInfo)
         {
             var scopeType = actionInfo.Master.Scope;
-            // パッシブで対象変更を計算
-            var changeScopeFeature = subject.EnhanceSkills.Find(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.ChangeSkillScope && actionInfo.Master.Id == b.Param1) != null);
-            if (changeScopeFeature != null)
-            {
-                scopeType = (ScopeType)changeScopeFeature.FeatureDates[0].Param3;
-            }
             return scopeType;
         }
 
@@ -1300,6 +1285,14 @@ namespace Ryneus
                 }
             }
             return aliveBattlerIndex;
+        }
+
+        public void InitPreserveAlive()
+        {
+            foreach (var battleInfo in _battlers)
+            {
+                battleInfo.PreserveAlive.SetValue(false);
+            }
         }
 
         public List<StateInfo> UpdateTurn()
@@ -2100,8 +2093,8 @@ namespace Ryneus
                                     for (var i = 0; i < stateInfos.Count; i++)
                                     {
                                         battlerInfo.RemoveState(stateInfos[i], true);
-                                        battlerInfo.SetPreserveAlive(true);
                                     }
+                                    battlerInfo.PreserveAlive.SetValue(true);
                                 }
                                 break;
                             case TriggerType.AllEnemyCurseState:
@@ -2386,10 +2379,10 @@ namespace Ryneus
             var list = new List<BattlerInfo>();
             foreach (var battlerInfo in FieldBattlerInfos())
             {
-                if (battlerInfo.PreserveAlive)
+                if (battlerInfo.PreserveAlive.Value)
                 {
                     list.Add(battlerInfo);
-                    battlerInfo.SetPreserveAlive(false);
+                    //battlerInfo.PreserveAlive.SetValue(false);
                 }
             }
             return list;

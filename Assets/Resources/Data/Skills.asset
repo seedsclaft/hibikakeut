@@ -5082,7 +5082,19 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       Rate: 100
-    TriggerDates: []
+    TriggerDates:
+    - SkillId: 110110
+      TriggerType: 7010
+      TriggerTiming: 31
+      Param1: 0
+      Param2: 0
+      Param3: 1
+    - SkillId: 110110
+      TriggerType: 20160
+      TriggerTiming: 31
+      Param1: 0
+      Param2: 0
+      Param3: 0
     ScopeTriggers: []
   - Id: 110120
     Name: "\u30A2\u30F3\u30E9\u30A4\u30D0\u30EB\u30C9"
@@ -5110,6 +5122,83 @@ MonoBehaviour:
       Param3: 50
       Rate: 100
     - SkillId: 110120
+      FeatureType: 7010
+      Param1: 21
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 110210
+    Name: "\u30EA\u30D9\u30EA\u30AA\u30F3\u30B9\u30D4\u30EA\u30C3\u30C4"
+    IconIndex: 10
+    AnimationId: 501
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 1000
+    Attribute: 5
+    Scope: 1
+    SkillType: 3
+    TargetType: 6
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\u653B\u6483\u3092\u53D7\u3051\u308B\u524D\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 110210
+      FeatureType: 1010
+      Param1: 400
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 110210
+      FeatureType: 7010
+      Param1: 11
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 110210
+      TriggerType: 7010
+      TriggerTiming: 31
+      Param1: 0
+      Param2: 0
+      Param3: 1
+    - SkillId: 110210
+      TriggerType: 20050
+      TriggerTiming: 31
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 110220
+    Name: "\u30D5\u30A1\u30A4\u30CA\u30EA\u30C6\u30A3\u30A2\u30D3\u30B9"
+    IconIndex: 11
+    AnimationId: 613
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 1000
+    Attribute: 5
+    Scope: 3
+    SkillType: 4
+    TargetType: 1
+    Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
+      \u899A\u9192\u89E3\u9664"
+    Range: 2
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 110220
+      FeatureType: 1010
+      Param1: 400
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 110220
       FeatureType: 7010
       Param1: 21
       Param2: 0

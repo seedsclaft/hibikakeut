@@ -46,7 +46,7 @@ namespace Ryneus
             var stageInfos = _model.StageInfos();
             var index = stageInfos.FindIndex(a => a.StageId.Value == _model.CurrentDeckInfo.StageNo.Value);
 
-            _view.SetStageList(MakeListData(stageInfos,enable, null, batch, index != -1 ? index : 0));
+            _view.SetStageList(MakeListData(stageInfos, enable, null, batch, index != -1 ? index : 0));
             _busy = false;
         }
 

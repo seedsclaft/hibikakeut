@@ -669,6 +669,10 @@ namespace Ryneus
                 MakeResultInfoStartAction(mainActionInfo, mainActionInfo.CandidateTargetIndexList);
                 return;
             }
+
+            // PreserveAliveを初期化
+            _model.InitPreserveAlive();
+
             // 誘発行動があれば続ける
             var receiveActionInfo = _model.ReceiveActionInfo;
             if (receiveActionInfo != null)
