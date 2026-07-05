@@ -2587,6 +2587,10 @@ namespace Ryneus
             if (defeated == 0 && lvPoint > -20)
             {
                 defeatedCountScore += 10 + lvPoint;
+                if (defeatedCountScore < 0)
+                {
+                    defeatedCountScore = 0;
+                }
             }
             // 戦闘不能数の数で減算
             if (defeated > 0)

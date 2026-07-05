@@ -42,6 +42,9 @@ namespace Utage
                 case "MoveToTargetDirection":
                     command = new AdvCommandMoveToTargetDirection(row);
                     break;
+                case "RotateToCamera":
+                    command = new AdvCommandRotateToCamera(row);
+                    break;
                 case "ShowEventActor":
                     command = new AdvCommandShowEventActor(row);
                     break;

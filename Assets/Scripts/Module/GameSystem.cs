@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using Effekseer;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 using Utage;
 
 namespace Ryneus
@@ -22,8 +23,9 @@ namespace Ryneus
         [SerializeField] private GameObject transitionRoot = null;
         [SerializeField] private Fade transitionFade = null;
         [SerializeField] private RenderTexToPNG renderTexToPNG = null;
+        [SerializeField] private GameObject renderCameraRoot = null;
         [SerializeField] private EffekseerEmitter effectmitter = null;
-        [SerializeField] private UnityEngine.UI.Image flashImage = null;
+        [SerializeField] private Image flashImage = null;
         [SerializeField] private LoadingView loadingView = null;
         [SerializeField] private TutorialView tutorialView = null;
         [SerializeField] private AdvEngine advEngine = null;
@@ -298,6 +300,9 @@ namespace Ryneus
                 case Base.CommandType.FlashEffect:
                     FlashEffect();
                     break;
+                case Base.CommandType.RotateToCamera:
+                    RotateToCamera();
+                    break;
             }
         }
 
@@ -544,6 +549,7 @@ namespace Ryneus
             var dungeonCamera = prefab.GetComponentInChildren<Camera>();
             if (dungeonCamera != null)
             {
+                renderCameraRoot = dungeonCamera.transform.parent.gameObject;
                 renderTexToPNG.targetCamera = dungeonCamera;
             }
             var dungeonData = ResourceSystem.LoadDungeonMaster(mapName);
@@ -599,6 +605,18 @@ namespace Ryneus
             {
                 AnimationUtility.AlphaToTransform(flashImage, 255, 0, 0.2f);
             });
+        }
+
+        private void RotateToCamera()
+        {
+            if (renderCameraRoot == null)
+            {
+                return;
+            }
+            DOTween.Sequence()
+                .Append(renderCameraRoot.transform.DOBlendableRotateBy(new Vector3(-90, 0 , 0), 1));
+            DOTween.Sequence()
+                .Append(renderCameraRoot.transform.DOBlendableRotateBy(new Vector3(0, 360 * 4, 0), 2, RotateMode.FastBeyond360)).SetEase(Ease.InQuart);
         }
 
         private void CheckTutorialState(TutorialViewInfo tutorialViewInfo)

@@ -508,6 +508,7 @@ namespace Ryneus
             SceneHideUI,
             PlayEffect,
             FlashEffect,
+            RotateToCamera,
         }
     }
 }
