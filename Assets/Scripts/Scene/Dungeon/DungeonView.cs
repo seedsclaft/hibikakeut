@@ -189,9 +189,10 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
+            if (InputSystem.GetInputDate(InputKeyType.Select).IsDownTrigger())
             {
-                //CallViewEvent(CommandType.Heal);
+                CallViewEvent(CommandType.Guide);
+                return;
             }
             if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
             {
@@ -418,6 +419,7 @@ namespace Ryneus
             PartyInfo,
             SaveCommand,
             SelectSideMenu,
+            Guide,
         }
     }
 }

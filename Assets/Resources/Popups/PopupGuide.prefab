@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 80}
-  m_SizeDelta: {x: 880, y: 320}
+  m_SizeDelta: {x: 760, y: 440}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5472541991364983336
 CanvasRenderer:
@@ -315,7 +315,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 960, y: 540}
+  m_SizeDelta: {x: 960, y: 640}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7500418711562158695
 MonoBehaviour:
@@ -329,6 +329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f852833174992940859c3968295a8de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Busy:
+    _value: 0
   _backCommand: {fileID: 4884132003031725673}
   _backGround: {fileID: 0}
   uiRoot: {fileID: 6366765160096570363}
@@ -352,7 +354,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseCanvas: {fileID: 4567629687357178708}
-  Busy: 0
+  Busy:
+    _value: 0
 --- !u!1 &3534951162760327371
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +502,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8, y: -272}
+  m_AnchoredPosition: {x: 8, y: -320}
   m_SizeDelta: {x: 880, y: 200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &3133022252800198051
@@ -515,7 +518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reverse: 0
-  warpMode: 1
+  warpMode: 0
   itemPrefab: {fileID: 147034252477669225, guid: 6854a89eebce9424fb264f4f0de18870,
     type: 3}
   _helpWindow: {fileID: 0}
@@ -988,7 +991,7 @@ RectTransform:
   m_GameObject: {fileID: 7124373243364839149}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2536473553723239966}
@@ -996,7 +999,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 840, y: 280}
+  m_SizeDelta: {x: 960, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1338435987817171113
 CanvasRenderer:
@@ -1351,6 +1354,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LeftButton
       objectReference: {fileID: 0}
+    - target: {fileID: 433919834750711742, guid: 965c3749406212b4fad9e6c7da2b52e2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4255071052274533868, guid: 965c3749406212b4fad9e6c7da2b52e2,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1434,7 +1442,7 @@ PrefabInstance:
     - target: {fileID: 4255071052274533868, guid: 965c3749406212b4fad9e6c7da2b52e2,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -480
+      value: -464
       objectReference: {fileID: 0}
     - target: {fileID: 4255071052274533868, guid: 965c3749406212b4fad9e6c7da2b52e2,
         type: 3}
@@ -1570,7 +1578,7 @@ PrefabInstance:
     - target: {fileID: 2294511498311835115, guid: 93535c7f44492bd419f440c7b3467b93,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 400
+      value: 384
       objectReference: {fileID: 0}
     - target: {fileID: 2294511498311835115, guid: 93535c7f44492bd419f440c7b3467b93,
         type: 3}
@@ -1596,6 +1604,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RightButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512768162127015865, guid: 93535c7f44492bd419f440c7b3467b93,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1756,6 +1769,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HelpButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3118680582847115307, guid: 23f4dc300c75b61418a4c955f7b1e680,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3652987770166541026, guid: 23f4dc300c75b61418a4c955f7b1e680,
         type: 3}

@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
-    public class GuidePresenter 
+    public class GuidePresenter : BasePresenter
     {
         GuideModel _model = null;
         GuideView _view = null;
@@ -12,34 +13,45 @@ namespace Ryneus
         public GuidePresenter(GuideView view)
         {
             _view = view;
-            _model = new GuideModel();
-
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            _view.SetEvent((type) => UpdateCommand(type));
-            _view.OpenAnimation();
+            SetView(_view);
+            _view.SetEvent(async (type) => await UpdateCommand(type));
+            Initialize(true);
             _busy = false;
         }
 
-        private void UpdateCommand(GuideViewEvent viewEvent)
+        private void Initialize(bool first)
+        {
+            _model = new GuideModel();
+            SetModel(_model);
+            _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
+            CommandRefresh();
+        }
+
+        private async Task UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
             {
                 return;
             }
-            switch (viewEvent.commandType)
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Guide)
+            {
+                return;
+            }
+            switch (viewEvent.ViewCommandType.CommandType)
             {
                 case Guide.CommandType.PageLeft:
                     CommandPageLeft();
                     break;
                 case Guide.CommandType.PageRight:
                     CommandPageRight();
-                    break;
-                case Guide.CommandType.StartGuide:
-                    CommandStartGuide((string)viewEvent.template);
                     break;
                 case Guide.CommandType.CallHelp:
                     CommandCallHelp();
@@ -58,12 +70,6 @@ namespace Ryneus
         {
             SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _model.PageRight();
-            CommandRefresh();
-        }
-
-        private void CommandStartGuide(string guideKey)
-        {
-            _model.SetGuideDates(guideKey);
             CommandRefresh();
         }
 

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Ryneus.MainMenu;
 using System;
-using TMPro;
 
 namespace Ryneus
 {
@@ -95,6 +94,7 @@ namespace Ryneus
             commandList.SetInputHandler(InputKeyType.SideRight1, () => CallSideMenu());
             commandList.SetInputHandler(InputKeyType.Option2, () => CallPartyInfo());
             commandList.SetInputHandler(InputKeyType.Option1, () => CallSaveCommand());
+            commandList.SetInputHandler(InputKeyType.Select, () => CallGuide());
             AddViewActives(commandList);
         }
 
@@ -130,6 +130,11 @@ namespace Ryneus
         private void CallSaveCommand()
         {
             CallViewEvent(CommandType.SaveCommand);
+        }
+
+        private void CallGuide()
+        {
+            CallViewEvent(CommandType.Guide);
         }
 
         public void SetInitHelpText()
@@ -231,7 +236,8 @@ namespace Ryneus
             SelectSideMenu,
             PartyInfo,
             SaveCommand,
-            Aritifact
+            Aritifact,
+            Guide,
         }
     }
 }

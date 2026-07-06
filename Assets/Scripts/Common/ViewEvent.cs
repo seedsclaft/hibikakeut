@@ -50,6 +50,7 @@ namespace Ryneus
         Dungeon,
         Interlude,
         FileList,
+        Guide,
         CharacterList,
         DeckEdit,
         Achievement,

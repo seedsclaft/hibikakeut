@@ -1,11 +1,12 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Guide;
 
 namespace Ryneus
 {
-    public class GuideView : BaseView
+    public class GuideView : BaseView, IInputHandlerEvent
     {
         [SerializeField] private BaseList helpTextList = null;
         [SerializeField] private Image guideImage = null;
@@ -13,62 +14,73 @@ namespace Ryneus
         [SerializeField] private Button rightButton = null;
         [SerializeField] private Button helpButton = null;
         [SerializeField] private PopupAnimation popupAnimation = null;
-        private new System.Action<GuideViewEvent> _commandData = null;
         
         public override void Initialize() 
         {
+            if (IsInitilized)
+            {
+                CallViewEvent(CommandType.Initialize);
+                return;
+            }
             base.Initialize();
+            SetViewCommandSceneType(ViewCommandSceneType.Guide);
             SetBaseAnimation(popupAnimation);
-            helpTextList.Initialize();
+            InitilizeHelpTextList();
             leftButton.onClick.AddListener(() => OnClickLeft());
             rightButton.onClick.AddListener(() => OnClickRight());
             helpButton.onClick.AddListener(() => OnClickHelp());
-            new GuidePresenter(this);
+            _ = new GuidePresenter(this);
         }
         
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            popupAnimation.OpenAnimation(UiRoot.transform,null);
+            popupAnimation.OpenAnimation(UiRoot.transform, initializeAfter);
+        }
+
+        private void InitilizeHelpTextList()
+        {
+            helpTextList.Initialize();
+            helpTextList.SetInputHandler(InputKeyType.Cancel, () => BackEvent?.Invoke());
+            helpTextList.SetInputHandler(InputKeyType.Right, () => OnClickRight());
+            helpTextList.SetInputHandler(InputKeyType.Left, () => OnClickLeft());
+            AddViewActives(helpTextList);
         }
 
         private void OnClickLeft()
         {
-            if (!leftButton.gameObject.activeSelf) return;
-            var eventData = new GuideViewEvent(Guide.CommandType.PageLeft);
-            _commandData(eventData);
+            if (!leftButton.gameObject.activeSelf)
+            {
+                return;
+            }
+            CallViewEvent(CommandType.PageLeft);
         }
 
         private void OnClickRight()
         {
-            if (!rightButton.gameObject.activeSelf) return;
-            var eventData = new GuideViewEvent(Guide.CommandType.PageRight);
-            _commandData(eventData);
+            if (!rightButton.gameObject.activeSelf)
+            {
+                return;
+            }
+            CallViewEvent(CommandType.PageRight);
+        }
+
+        private void OnClickPageScroll(bool up)
+        {
+            var y = helpTextList.ScrollRect.verticalNormalizedPosition;
+            y += up ? 0.04f : -0.04f;
+            y = Math.Max(Math.Min(y, 1), 0);
+            helpTextList.ScrollRect.verticalNormalizedPosition = y;
         }
 
         private void OnClickHelp()
         {
-            var eventData = new GuideViewEvent(Guide.CommandType.CallHelp);
-            _commandData(eventData);
+            CallViewEvent(CommandType.CallHelp);
         }
 
         public void SetLeftRight(bool left,bool right)
         {
-            leftButton?.gameObject?.SetActive(left);
-            rightButton?.gameObject?.SetActive(right);
-        }
-
-        public void SetGuide(string guideKey)
-        {
-            var eventData = new GuideViewEvent(Guide.CommandType.StartGuide)
-            {
-                template = guideKey
-            };
-            _commandData(eventData);
-        }
-        
-        public void SetEvent(System.Action<GuideViewEvent> commandData)
-        {
-            _commandData = commandData;
+            UIComponent.SetActive(leftButton, left);
+            UIComponent.SetActive(rightButton, right);
         }
 
         public void SetGuideImage(Sprite guideSprite)
@@ -80,28 +92,28 @@ namespace Ryneus
         {
             helpTextList.SetData(helpTexts);
         }
-    }
 
-    namespace Guide
-    {
-        public enum CommandType
+        public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            None = 0,
-            PageLeft,
-            PageRight,
-            StartGuide,
-            CallHelp,
+            if (InputSystem.GetInputDate(InputKeyType.SideLeft2).IsDownTrigger() || InputSystem.GetInputDate(InputKeyType.SideLeft2).IsPress())
+            {
+                OnClickPageScroll(false);
+            }
+            if (InputSystem.GetInputDate(InputKeyType.SideRight2).IsDownTrigger() || InputSystem.GetInputDate(InputKeyType.SideRight2).IsPress())
+            {
+                OnClickPageScroll(true);
+            }
         }
     }
+}
 
-    public class GuideViewEvent
+namespace Guide
+{
+    public enum CommandType
     {
-        public Guide.CommandType commandType;
-        public object template;
-
-        public GuideViewEvent(Guide.CommandType type)
-        {
-            commandType = type;
-        }
+        Initialize = 0,
+        PageLeft,
+        PageRight,
+        CallHelp,
     }
 }

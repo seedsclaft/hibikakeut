@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Ryneus
@@ -10,9 +9,11 @@ namespace Ryneus
         private List<HelpData> _guideDates = null;
         private int _currentIndex = 0;
         public HelpData GuideData => _guideDates.Count > _currentIndex ? _guideDates[_currentIndex] : null;
-        public void SetGuideDates(string guideKey)
+        
+        public GuideModel()
         {
-            _guideDates = DataSystem.Dates[DataType.Helps].FindAll<HelpData>(a => a.Key == guideKey);
+            GuideSceneInfo SceneParam = (GuideSceneInfo)GameSystem.SceneStackManager.LastTemplate;
+            _guideDates = DataSystem.Dates[DataType.Helps].FindAll<HelpData>(a => a.Key == SceneParam.GuideKey);
         }
 
         public Sprite GuideSprite()
@@ -44,12 +45,17 @@ namespace Ryneus
         public void PageRight()
         {
             _currentIndex++;
-            _currentIndex = Math.Min(_guideDates.Count-1,_currentIndex);
+            _currentIndex = Math.Min(_guideDates.Count - 1, _currentIndex);
         }
 
         public int CallHelpId()
         {
             return GuideData.CommonHelpId;
         }
+    }
+
+    public class GuideSceneInfo
+    {
+        public string GuideKey = "";
     }
 }

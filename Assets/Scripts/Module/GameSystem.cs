@@ -383,12 +383,6 @@ namespace Ryneus
                 learnSkill.SetLearnSkillInfo((LearnSkillInfo)popupInfo.template);
             }
             else
-            if (popupInfo.PopupType == PopupType.Guide)
-            {
-                var guide = prefab.GetComponent<GuideView>();
-                guide.SetGuide((string)popupInfo.template);
-            }
-            else
             if (popupInfo.PopupType == PopupType.Rankup)
             {
                 var rankup = prefab.GetComponent<RankupView>();

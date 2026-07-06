@@ -130,8 +130,8 @@ namespace Ryneus
                     return;
                 case CommandType.SelectCommandList:
                     return;
-                case CommandType.CallHelp:
-                    CommandCallHelp();
+                case CommandType.Guide:
+                    CommandGuide();
                     return;
             }
             //CheckTutorialState(viewEvent.commandType);
@@ -691,14 +691,14 @@ namespace Ryneus
             _view.SetUseItemList(MakeListData(_model.UseItemInfos(), 0));
         }
 
-        private void CommandCallHelp()
+        private void CommandGuide()
         {
             _busy = true;
-            CallPopupView(PopupType.Guide, () =>
+            CallPopupGuide("Status", () =>
             {
                 _busy = false;
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
-            }, "Status");
+            });
         }
     }
 }

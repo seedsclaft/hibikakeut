@@ -94,6 +94,9 @@ namespace Ryneus
                 case CommandType.Aritifact:
                     CommandAritifact();
                     break;
+                case CommandType.Guide:
+                    CommandGuide();
+                    break;
             }
         }
 
@@ -510,6 +513,16 @@ namespace Ryneus
             CallPopupView(PopupType.ArtifactList, () =>
             {
                 ClosePopupView();
+            });
+        }
+        
+        private void CommandGuide()
+        {
+            _busy = true;
+            CallPopupGuide("MainMenu", () =>
+            {
+                _busy = false;
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             });
         }
 

@@ -129,6 +129,22 @@ namespace Ryneus
             _view.CallSystemCommand(Base.CommandType.CommandOther, otherViewEvent);
         }
 
+        public void CallPopupGuide(string guideKey, Action endEvent = null)
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            var guideSceneInfo = new GuideSceneInfo
+            {
+                GuideKey = guideKey
+            };
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.Guide,
+                template = guideSceneInfo,
+                EndEvent = endEvent,
+            };
+            _view.CommandCallPopup(popupInfo);
+        }
+
         public List<ListData> MakeListData<T>(List<T> dataList)
         {
             return ListData.MakeListData(dataList);

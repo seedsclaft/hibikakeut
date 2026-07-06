@@ -124,6 +124,7 @@ namespace Ryneus
             equipSkillList.SetInputHandler(InputKeyType.Option1, CallCharacterList);
             equipSkillList.SetInputHandler(InputKeyType.SideLeft2, CommandScrollUpSkillHelp);
             equipSkillList.SetInputHandler(InputKeyType.SideRight2, CommandScrollDownSkillHelp);
+            equipSkillList.SetInputHandler(InputKeyType.Select, CallGuide);
             //equipSkillList.SetInputHandler(InputKeyType.Option1,() => CallViewEvent(CommandType.LevelUp));
             AddViewActives(equipSkillList);
         }
@@ -462,9 +463,9 @@ namespace Ryneus
             CallViewEvent(CommandType.Back);
         }
 
-        private void OnClickHelp()
+        private void CallGuide()
         {
-            CallViewEvent(CommandType.CallHelp);
+            CallViewEvent(CommandType.Guide);
         }
 
         public int SelectedSkillId()
@@ -629,7 +630,7 @@ namespace Ryneus
             HideLearnMagic,
             FilterPlus,
             FilterMinus,
-            CallHelp,
+            Guide,
             Back
         }
     }

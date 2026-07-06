@@ -138,6 +138,9 @@ namespace Ryneus
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu();
                     break;
+                case CommandType.Guide:
+                    CommandGuide();
+                    break;
             }
         }
 
@@ -1411,10 +1414,16 @@ namespace Ryneus
             }
         }
 
-        private void UpdatePopup(ConfirmCommandType confirmCommandType)
+        private void CommandGuide()
         {
+            _busy = true;
+            _model.DungeonBusy(true);
+            CallPopupGuide("Dungeon", () =>
+            {
+                _busy = false;
+                _model.DungeonBusy(false);
+                SoundManager.Instance.PlayStaticSe(SEType.Cancel);
+            });
         }
-
-
     }
 }

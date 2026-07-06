@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using FileList;
 
 namespace Ryneus
 {
-    using System.Threading.Tasks;
-    using FileList;
     public class FileListPresenter : BasePresenter
     {
         FileListModel _model = null;

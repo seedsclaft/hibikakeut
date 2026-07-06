@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FileList;
-using Cysharp.Threading.Tasks;
-using System.Threading.Tasks;
 
 namespace Ryneus
 {
