@@ -2,16 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 8
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Twist
   m_Shader: {fileID: 4800000, guid: 9cc1d16419310b343a39291f202c5dbf, type: 3}
-  m_ValidKeywords:
-  - ETC1_EXTERNAL_ALPHA
-  m_InvalidKeywords: []
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -25,7 +23,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - Displacement_Value: 0.3
     - Effect_Fading: 1
@@ -35,7 +32,7 @@ Material:
     - Symbiose_Position: -0.209
     - TiltDownUV_TiltDownUV_Value_1: -0.14888936
     - TiltRightUV_TiltRightUV_Value_1: 0.1388548
-    - TwistUV_TwistUV_Bend_1: -0.6359842
+    - TwistUV_TwistUV_Bend_1: -0.95899004
     - TwistUV_TwistUV_PosX_1: 0.5
     - TwistUV_TwistUV_PosY_1: 0.5
     - TwistUV_TwistUV_Radius_1: 0.5
@@ -64,4 +61,3 @@ Material:
     - _Threshold_Fade_1: 0.5
     - _TurnMetal_Speed_1: 1
     m_Colors: []
-  m_BuildTextureStacks: []
