@@ -50,12 +50,19 @@ namespace Ryneus
             for (int i = 0; i < _stateInfos.Count; i++)
             {
                 var stateInfo = _stateInfos[i];
-                var prefab = Instantiate(iconPrefab);
-                prefab.transform.SetParent(iconRoot.transform, false);
-                var stateIconImage = prefab.GetComponent<BattleStateIcon>();
+                BattleStateIcon stateIconImage = null;
+                if (_stateIconImages.Count > i)
+                {
+                    stateIconImage = _stateIconImages[i];
+                } else
+                {
+                    var prefab = Instantiate(iconPrefab);
+                    prefab.transform.SetParent(iconRoot.transform, false);
+                    stateIconImage = prefab.GetComponent<BattleStateIcon>();
+                    _stateIconImages.Add(stateIconImage);
+                }
                 SetActiveStateIcon(stateIconImage, true);
-                _stateIconImages.Add(stateIconImage);
-                stateIconImage?.SetStateInfo(stateInfo);
+                stateIconImage.SetStateInfo(stateInfo);
             }
         }
 
@@ -63,7 +70,7 @@ namespace Ryneus
         {
             if (stateIconImage != null)
             {
-                UIComponent.SetActive(stateIconImage?.gameObject, isActive);
+                UIComponent.SetActive(stateIconImage.gameObject, isActive);
             }
         }
 
@@ -189,6 +196,9 @@ namespace Ryneus
 
         public void StopOverlayAnimation()
         {
+            _stateInfos = new();
+            //IconAnimation();
+            UpdateStateIcons();
             _overlayEffectPath = null;
             effekseerEmitter.Stop();
         }

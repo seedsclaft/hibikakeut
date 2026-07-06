@@ -12,8 +12,8 @@ namespace Ryneus
         public ActionInfo SelectActionInfo => _battleFlowInfo.SelectActionInfo;
         public void SetSelectActionInfo(ActionInfo actionInfo) => _battleFlowInfo.SelectActionInfo = actionInfo;
 
-        public BattlerInfo SelectTargetBattler => _battleFlowInfo.SelectTargetBattler;
-        public void SetSelectTargetBattler(BattlerInfo battlerInfo) => _battleFlowInfo.SelectTargetBattler = battlerInfo;
+        public int SelectTargetBattlerIndex => _battleFlowInfo.SelectTargetBattlerIndex;
+        public void SetSelectTargetBattlerIndex(int targetIndex) => _battleFlowInfo.SelectTargetBattlerIndex = targetIndex;
 
 
         // ターンの最初の行動開始者

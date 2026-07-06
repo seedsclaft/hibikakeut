@@ -140,6 +140,7 @@ namespace Ryneus
         public void UpdateActors(List<ListData> battlerInfos)
         {
             battleActorList.RefreshListData(battlerInfos);
+            _battlerComps.Clear();
             foreach (var battlerInfo in battlerInfos)
             {
                 var data = (BattlerInfo)battlerInfo.Data;

@@ -349,7 +349,7 @@ namespace Ryneus
             }
         }
 
-        private bool CheckIsHit(BattlerInfo subject, BattlerInfo target, bool isOneTarget, int range)
+        private bool CheckIsHit(BattlerInfo subject, BattlerInfo target, bool isOneTarget, int range = 1)
         {
             var skillData = DataSystem.FindSkill(SkillId.Value);
             if (skillData != null && skillData.IsBattleSpecialSkill())
@@ -360,7 +360,7 @@ namespace Ryneus
             {
                 return true;
             }
-            if (!IsHit(subject, target, isOneTarget, range))
+            if (!IsHit(subject, target, isOneTarget))
             {
                 if (subject.IsState(StateType.AbsoluteHit))
                 {
@@ -373,7 +373,7 @@ namespace Ryneus
             return true;
         }
 
-        private bool IsHit(BattlerInfo subject, BattlerInfo target, bool isOneTarget, int range)
+        private bool IsHit(BattlerInfo subject, BattlerInfo target, bool isOneTarget)
         {
             /*
             if (target.IsState(StateType.Chain))
@@ -400,10 +400,6 @@ namespace Ryneus
             }
             */
             int hit = 100;
-            if (range > 0)
-            {
-                //hit -= range * 15;
-            }
             // S⇒L Range.Sスキル = range=1で15%カット
             // L⇒L Range.Sスキル = range=2で30%カット
             // S⇒L Range.Lスキル = range=0
@@ -492,6 +488,7 @@ namespace Ryneus
         private int CalcRange(BattlerInfo subject, BattlerInfo target, int skillId)
         {
             var range = 0;
+            /*
             var skillData = DataSystem.FindSkill(skillId);
             if (skillData == null)
             {
@@ -526,6 +523,7 @@ namespace Ryneus
                     range = 1;
                 }
             }
+            */
             return range;
         }
 
@@ -1405,6 +1403,8 @@ namespace Ryneus
                 {
                     _execStateInfos[battlerInfo.Index.Value].Add(seekState);
                     int count = seekState.Turns.Value;
+                    // 交代後のターゲットインデックスに直す
+                    seekState.TargetIndex.SetValue(battlerInfo.Index.Value);
                     if ((count - 1) <= 0)
                     {
                         _removedStates.Add(seekState);

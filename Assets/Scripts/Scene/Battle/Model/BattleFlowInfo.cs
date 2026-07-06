@@ -12,6 +12,7 @@ namespace Ryneus
         public ActionInfo SelectActionInfo = null;
         // 選択中の対象
         public BattlerInfo SelectTargetBattler = null;
+        public int SelectTargetBattlerIndex = -1;
 
         // ターンの最初の行動開始者
         public BattlerInfo FirstActionBattler = null;

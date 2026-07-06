@@ -33,6 +33,10 @@ namespace Ryneus
         private UnitInfo _troop = null;
         public UnitInfo GetFriendUnit(BattlerInfo battlerInfo)
         {
+            if (battlerInfo == null)
+            {
+                return null;
+            }
             return battlerInfo.IsActor ? _party : _troop;
         }
         public UnitInfo GetOpponentUnit(BattlerInfo battlerInfo)
@@ -43,15 +47,16 @@ namespace Ryneus
         /// <summary>
         /// Indexから取得
         /// </summary>
-        public List<BattlerInfo> GetBattlerInfoByIndex(bool friends, bool aliveOnly)
+        public List<BattlerInfo> GetBattlerInfoByIndex(int targetIndex, bool aliveOnly)
         {
+            var isActor = targetIndex < 100;
             if (aliveOnly)
             {
-                return _battlers.FindAll(a => a.IsActor == friends && a.IsAlive());
+                return _battlers.FindAll(a => a.IsActor == isActor && a.IsAlive());
             }
             else
             {
-                return _battlers.FindAll(a => a.IsActor == friends);
+                return _battlers.FindAll(a => a.IsActor == isActor);
             }
         }
 
@@ -95,7 +100,13 @@ namespace Ryneus
         {
             foreach (var battlerInfo in _battlers)
             {
-                _battleRecords[battlerInfo.Index.Value] = new BattleRecord(battlerInfo.Index.Value);
+                if (battlerInfo.ActorInfo != null)
+                {
+                    _battleRecords[battlerInfo.ActorInfo.ActorId.Value] = new BattleRecord(battlerInfo.ActorInfo.ActorId.Value);
+                } else
+                {
+                    _battleRecords[battlerInfo.Index.Value + 1000] = new BattleRecord(battlerInfo.Index.Value + 1000);
+                }
             }
         }
 
@@ -391,7 +402,6 @@ namespace Ryneus
             {
                 case ScopeType.All:
                 case ScopeType.WithoutSelfAll:
-                    break;
                 case ScopeType.Line:
                 case ScopeType.FrontLine:
                 case ScopeType.WithoutSelfLine:
@@ -399,6 +409,7 @@ namespace Ryneus
                     break;
                 case ScopeType.One:
                 case ScopeType.Self:
+                case ScopeType.ActionAfterChange:
                     targetIndexList.Clear();
                     targetIndexList.Add(selectIndex);
                     break;
@@ -721,7 +732,7 @@ namespace Ryneus
             }
 
             // かばうによるターゲット変更
-            if (!actionInfo.TriggeredSkill)
+            if (!actionInfo.TriggeredSkill && actionInfo.Master.IsHpDamageFeature())
             {
                 indexList = CheckCoverIndexList(actionInfo, indexList);
                 actionInfo.SetCandidateTargetIndexList(indexList);
@@ -743,6 +754,10 @@ namespace Ryneus
                 }
 
                 var actionResultInfo = new ActionResultInfo(subject, target, featureDates, actionInfo.Master.Id, actionInfo.ScopeType == ScopeType.One);
+                if (target == null)
+                {
+                    actionResultInfo.TargetIndex.SetValue(targetIndex);
+                }
                 // Hpダメージ分の回復計算
                 var DamageHealPartyResultInfos = CalcDamageHealParty(subject, featureDates, actionResultInfo.HpDamage.Value);
                 actionResultInfos.AddRange(DamageHealPartyResultInfos);
@@ -1014,7 +1029,7 @@ namespace Ryneus
                 {
                     PartyInfo.PartyStatInfo.UseChangeLineCount.GainValue(1);
                 }
-                _battleRecords[subject.Index.Value].GainUseSkillCount(actionInfo.SkillInfo.Id.Value, 1);
+                GetBattleRecord(subject).GainUseSkillCount(actionInfo.SkillInfo.Id.Value, 1);
             }
             if (actionInfo.Master.IsHpHealFeature())
             {
@@ -1174,17 +1189,17 @@ namespace Ryneus
                 var hpDamage = actionResultInfo.HpDamage.Value;
                 target.GainHp(-1 * hpDamage);
                 target.Examine.DamagedValue.GainValue(hpDamage);
-                _battleRecords[subject.Index.Value].GainAttackValue(hpDamage);
-                _battleRecords[target.Index.Value].GainDamagedValue(hpDamage);
+                GetBattleRecord(subject).GainAttackValue(hpDamage);
+                GetBattleRecord(target).GainDamagedValue(hpDamage);
                 if (actionResultInfo.WeakPoint)
                 {
-                    _battleRecords[subject.Index.Value].WeakAttackCount.GainValue(1);
+                    GetBattleRecord(subject).WeakAttackCount.GainValue(1);
                 }
             }
             if (actionResultInfo.HpHeal.Value != 0 && (!actionResultInfo.DeadIndexList.Contains(target.Index.Value) || actionResultInfo.AliveIndexList.Contains(target.Index.Value)))
             {
                 target.GainHp(actionResultInfo.HpHeal.Value);
-                _battleRecords[subject.Index.Value].GainHealValue(actionResultInfo.HpHeal.Value);
+                GetBattleRecord(subject).GainHealValue(actionResultInfo.HpHeal.Value);
             }
             if (actionResultInfo.CtDamage.Value != 0)
             {
@@ -1221,8 +1236,8 @@ namespace Ryneus
                 if (reDamage > 0)
                 {
                     subject.GainHp(-1 * reDamage);
-                    _battleRecords[target.Index.Value].GainAttackValue(reDamage);
-                    _battleRecords[subject.Index.Value].GainDamagedValue(reDamage);
+                    GetBattleRecord(target).GainAttackValue(reDamage);
+                    GetBattleRecord(subject).GainDamagedValue(reDamage);
                 }
             }
             if (actionResultInfo.Missed)
@@ -1332,12 +1347,10 @@ namespace Ryneus
             if (change)
             {
                 var subject = GetBattlerInfo(actionInfo.SubjectIndex.Value);
-                var changeBattler = GetBattlerInfo(actionInfo.ActionResults[0].TargetIndex.Value);
-                if (subject != null && changeBattler != null && changeBattler.IsAlive())
+                var changeBattlerIndex = actionInfo.ActionResults[0].TargetIndex.Value;
+                if (subject != null && changeBattlerIndex > -1)
                 {
-                    ChangeUnitLineType(subject, changeBattler);
-                    //_party.RemoveBattlerInfo(subject);
-                    //_party.AddBattlerInfo(changeBattler);
+                    ChangeUnitLineTypeIndex(subject, changeBattlerIndex);
                 }
             }
             return change;
@@ -1372,6 +1385,24 @@ namespace Ryneus
         {
             CurrentDeckInfo.SwapBattler(subject.Index.Value, changeBattler.ActorInfo != null ? changeBattler.ActorInfo.ActorId.Value : -1, changeBattler.Index.Value);
             bool adjust = CurrentDeckInfo.AdjustEditIndexes();
+
+            foreach (var actorIdDict in CurrentDeckInfo.ActorIdDict)
+            {
+                var battlerInfo = _battlers.Find(a => a.ActorInfo != null && a.ActorInfo.ActorId.Value == actorIdDict.Value);
+                if (battlerInfo != null)
+                {
+                    battlerInfo.Index.SetValue(actorIdDict.Key);
+                    battlerInfo.SetLineIndex(actorIdDict.Key > 3 ? LineType.Back : LineType.Front);
+                }
+            }
+            _party.SetBattlers(FieldBattlerInfos().FindAll(a => a.IsActor));
+        }
+
+        public void ChangeUnitLineTypeIndex(BattlerInfo subject, int changeBattlerIndex)
+        {
+            CurrentDeckInfo.SwapBattlerBattle(subject.Index.Value, subject.ActorInfo.ActorId.Value ,changeBattlerIndex);
+            
+            //bool adjust = CurrentDeckInfo.AdjustEditIndexes();
 
             foreach (var actorIdDict in CurrentDeckInfo.ActorIdDict)
             {
@@ -2545,7 +2576,7 @@ namespace Ryneus
             var weakAttackCount = 0;
             foreach (var battleRecord in _battleRecords)
             {
-                if (battleRecord.Key < 10)
+                if (battleRecord.Key < 1000)
                 {
                     var actorInfo = GetBattlerInfo(battleRecord.Key);
                     if (actorInfo == null)

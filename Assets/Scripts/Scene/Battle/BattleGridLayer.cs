@@ -15,7 +15,7 @@ namespace Ryneus
         public void SetGridMembers(List<BattlerInfo> battlerInfos)
         {
             SetActorInfo(battlerInfos.FindAll(a => a.IsActor && !a.isAlcana));
-            SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor));
+            SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor && !a.isAlcana));
         }
 
         private void SetActorInfo(List<BattlerInfo> battlerInfos)

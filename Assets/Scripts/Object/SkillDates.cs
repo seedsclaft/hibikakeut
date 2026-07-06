@@ -270,6 +270,7 @@ namespace Ryneus
         RandomOne = 21,
         OneAndNeighbor = 31,
         Neighbor = 32,
+        ActionAfterChange = 41,
     }
 
     public enum SkillType

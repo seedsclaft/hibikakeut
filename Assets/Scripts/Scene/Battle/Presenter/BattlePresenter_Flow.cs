@@ -91,7 +91,7 @@ namespace Ryneus
                 {
                     targetIndex = currentBattler.LastTargetIndex();
                 }
-                _model.SetSelectTargetBattler(_model.GetBattlerInfo(targetIndex));
+                _model.SetSelectTargetBattlerIndex(targetIndex);
             }
             _view.UpdateSelectCursor(targetIndexes);
         }
@@ -112,49 +112,50 @@ namespace Ryneus
                 SelectSkillSelectTarget();
                 return;
             }
-            var findIndex = candidateTargetIndexes.FindIndex(a => a == _model.SelectTargetBattler.Index.Value);
+            var findIndex = candidateTargetIndexes.FindIndex(a => a == _model.SelectTargetBattlerIndex);
             if (findIndex == -1)
             {
                 SelectSkillSelectTarget();
                 return;
             }
-            var targetBattlerInfo = _model.SelectTargetBattler;
-            var friends = _model.GetBattlerInfoByIndex(targetBattlerInfo.IsActor, false);
+            //var targetBattlerInfo = _model.SelectTargetBattler;
+            var targetBattlerIndex = _model.SelectTargetBattlerIndex;
+            var friends = _model.GetBattlerInfoByIndex(targetBattlerIndex, false);
             friends = friends.FindAll(a => candidateTargetIndexes.Contains(a.Index.Value));
-            var opponents = _model.GetBattlerInfoByIndex(!targetBattlerInfo.IsActor, false);
+            var opponents = _model.GetBattlerInfoByIndex(targetBattlerIndex, false);
             opponents = opponents.FindAll(a => candidateTargetIndexes.Contains(a.Index.Value));
 
             var nextIndex = 0;
             switch (inputKeyType)
             {
                 case InputKeyType.Right:
-                    findIndex = friends.FindIndex(a => a.Index.Value == targetBattlerInfo.Index.Value);
-                    nextIndex = friends.Count > (findIndex + 1) ? (findIndex + 1) : 0;
-                    targetBattlerInfo = friends[nextIndex];
+                    findIndex = candidateTargetIndexes.FindIndex(a => a == targetBattlerIndex);
+                    nextIndex = candidateTargetIndexes.Count > (findIndex + 1) ? (findIndex + 1) : 0;
+                    targetBattlerIndex = candidateTargetIndexes[nextIndex];
                     break;
                 case InputKeyType.Left:
-                    findIndex = friends.FindIndex(a => a.Index.Value == targetBattlerInfo.Index.Value);
-                    nextIndex = (findIndex - 1) < 0 ? friends.Count - 1 : findIndex - 1;
-                    targetBattlerInfo = friends[nextIndex];
+                    findIndex = candidateTargetIndexes.FindIndex(a => a == targetBattlerIndex);
+                    nextIndex = (findIndex - 1) < 0 ? candidateTargetIndexes.Count - 1 : findIndex - 1;
+                    targetBattlerIndex = candidateTargetIndexes[nextIndex];
                     break;
                 case InputKeyType.Up:
-                    if (targetBattlerInfo.IsActor && opponents.Count > 0)
+                    if (targetBattlerIndex < 100 && opponents.Count > 0)
                     {
-                        targetBattlerInfo = opponents[0];
+                        targetBattlerIndex = opponents[0].Index.Value;
                     }
                     break;
                 case InputKeyType.Down:
-                    if (!targetBattlerInfo.IsActor && opponents.Count > 0)
+                    if (targetBattlerIndex >= 100 && opponents.Count > 0)
                     {
-                        targetBattlerInfo = opponents[0];
+                        targetBattlerIndex = opponents[0].Index.Value;
                     }
                     break;
             }
-            if (targetBattlerInfo == null)
+            if (targetBattlerIndex == -1)
             {
                 return;
             }
-            _model.SetSelectTargetBattler(targetBattlerInfo);
+            _model.SetSelectTargetBattlerIndex(targetBattlerIndex);
             SelectSkillSelectTarget();
         }
 
@@ -177,7 +178,7 @@ namespace Ryneus
                 return;
             }
             var targetBattlerInfo = battlerInfo;
-            _model.SetSelectTargetBattler(targetBattlerInfo);
+            _model.SetSelectTargetBattlerIndex(targetBattlerInfo.Index.Value);
             SelectSkillSelectTarget();
         }
 
@@ -199,7 +200,7 @@ namespace Ryneus
             // 対象選択を行う
             var actionInfo = _model.SelectActionInfo;
             var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo, _model.SelectTargetBattler.Index.Value);
+            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo, _model.SelectTargetBattlerIndex);
             if (targetIndexes.Count > 0)
             {
                 if (targetIndexes[0] < 100)
@@ -226,7 +227,7 @@ namespace Ryneus
             BattlerInfo targetBattlerInfo = battlerInfo;
             if (battlerInfo == null)
             {
-                targetBattlerInfo = _model.SelectTargetBattler;
+                targetBattlerInfo = _model.GetBattlerInfo(_model.SelectTargetBattlerIndex);
             }
             var targetIndexes = _model.MakeAutoSelectIndex(actionInfo, targetBattlerInfo.Index.Value);
             if (targetIndexes.FindIndex(a => a == targetBattlerInfo.Index.Value) > -1)
@@ -256,8 +257,8 @@ namespace Ryneus
         {
             // 対象選択として有効か
             var actionInfo = _model.SelectActionInfo;
-            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo, _model.SelectTargetBattler.Index.Value);
-            if (targetIndexes.FindIndex(a => a == battlerInfo.Index.Value) > -1)
+            var targetIndexes = _model.MakeAutoSelectIndex(actionInfo, _model.SelectTargetBattlerIndex);
+            //if (targetIndexes.FindIndex(a => a == battlerInfo.Index.Value) > -1)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Decide);
                 //_model.SetActiveActionInfo(actionInfo);

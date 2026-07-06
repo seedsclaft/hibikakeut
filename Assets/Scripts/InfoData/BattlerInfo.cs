@@ -19,7 +19,7 @@ namespace Ryneus
         }
         public ParameterInt Index = new();
         public ParameterInt EnemyIndex = new();
-        public bool IsActor => _actorInfo != null || _isAlcana;
+        public bool IsActor = false;
         // 見た目上は味方か
         private bool _isActorView = false;
         public bool IsActorView => _isActorView;
@@ -107,6 +107,7 @@ namespace Ryneus
 
         public BattlerInfo(ActorInfo actorInfo, int index)
         {
+            IsActor = true;
             _skillTriggerInfos = actorInfo.SkillTriggerInfos;
             Level.SetValue(actorInfo.Level);
             var statusInfo = new StatusInfo();
@@ -306,7 +307,8 @@ namespace Ryneus
             );
             _status = statusInfo;
             Hp.SetValue(1);
-            Index.SetValue(index + 1000);
+            Index.SetValue(index + 10000);
+            IsActor = true;
             _isAlcana = true;
             _skills = skillInfos;
             foreach (var skillInfo in skillInfos)
@@ -1047,10 +1049,6 @@ namespace Ryneus
         public List<StateInfo> IconStateInfos()
         {
             var iconStates = new List<StateInfo>();
-            if ((Index.Value % 100) > 3)
-            {
-                return iconStates;
-            }
             var iconPathes = new List<string>();
             foreach (var stateInfo in _stateInfos)
             {
@@ -1075,6 +1073,10 @@ namespace Ryneus
 
         public int Evaluate()
         {
+            if (_status == null)
+            {
+                return 0;
+            }
             int statusValue = MaxHp * 6
             + MaxMp * 4
             + _status.Atk * 8

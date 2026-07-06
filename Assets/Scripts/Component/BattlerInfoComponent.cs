@@ -41,11 +41,12 @@ namespace Ryneus
             UIComponent.SetText(evaluate, battlerInfo.Evaluate().ToString());
             if (additiveFaceThumb != null)
             {
-                if (battlerInfo.IsActor || battlerInfo.IsActorView)
+                if (battlerInfo.ActorInfo != null)
                 {
                     UIComponent.SetImage(additiveFaceThumb, ResourceSystem.ActorMainFaceSpritePath(battlerInfo.ActorInfo.Master.ImagePath));
                 }
                 else
+                if (battlerInfo.EnemyData != null)
                 {
                     UpdateMainThumb(battlerInfo.EnemyData.ImagePath, 0, 0, 1.0f);
                     additiveFaceThumb.gameObject.GetComponent<RectTransform>().localScale = new Vector2(battlerInfo.EnemyData.ImageScale, battlerInfo.EnemyData.ImageScale);
@@ -586,6 +587,10 @@ namespace Ryneus
             actorInfoComponent?.Clear();
             UIComponent.ClearText(battlePosition);
             UIComponent.SetActive(statusInfoComponent?.gameObject, false);
+            if (battleStateOverlay != null)
+            {
+                battleStateOverlay.StopOverlayAnimation();
+            }
         }
     }
 }

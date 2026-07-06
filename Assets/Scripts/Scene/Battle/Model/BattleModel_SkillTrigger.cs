@@ -144,11 +144,11 @@ namespace Ryneus
         {
             var skillData = DataSystem.FindSkill(skillId);
             var targeBattlerIndex = -1;
-            if (skillData != null && battlerInfo.IsActor && SelectTargetBattler != null)
+            if (skillData != null && battlerInfo.IsActor && SelectTargetBattlerIndex > -1)
             {
                 if (skillData.IsHpDamageFeature() || skillData.IsHpHealFeature())
                 {
-                    targeBattlerIndex = SelectTargetBattler.Index.Value;
+                    targeBattlerIndex = SelectTargetBattlerIndex;
                 }
             }
             // 条件なし

@@ -176,6 +176,17 @@ namespace Ryneus
                     {
                         targetIndexList.RemoveAll((a) => a == subject.Index.Value);
                     }
+                    // 交代専用
+                    if (skillData.Scope == ScopeType.ActionAfterChange)
+                    {
+                        targetIndexList.Clear();
+                        for (int i = 0; i < 6; i++)
+                        {
+                            targetIndexList.Add(i+1);
+                        }
+                        targetIndexList.Remove(subject.Index.Value);
+                        return targetIndexList;
+                    }
                     break;
                 case TargetType.Self:
                     targetIndexList.Add(subject.Index.Value);

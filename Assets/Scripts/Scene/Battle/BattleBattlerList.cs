@@ -35,9 +35,14 @@ namespace Ryneus
             {
                 var battleBattler = ItemPrefabList[i].GetComponent<BattleBattler>();
                 var battlerInfo = (BattlerInfo)listDates[i].Data;
-                if (battleBattler != null && battlerInfo != null)
+                if (battleBattler != null)
                 {
                     _battleBattler[battlerInfo.Index.Value] = battleBattler;
+                    if (battlerInfo.Index.Value == 0)
+                    {
+                        // 空配置用
+                        _battleBattler[i+1] = battleBattler;                    
+                    }
                     battleBattler.SetDamageRoot(damageRoots[i]);
                     if (statusRoot != null)
                     {
