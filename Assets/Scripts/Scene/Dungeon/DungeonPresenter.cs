@@ -531,6 +531,9 @@ namespace Ryneus
                 case StageEventType.ActorEvent:
                     StageEventActorEvent(moved, stageEvent, endEvent);
                     return;
+                case StageEventType.MainEvent:
+                    StageEventMainEvent(moved, stageEvent, endEvent);
+                    return;
                 case StageEventType.ExitDungeon:
                     StageEventExitDungeon(moved, endEvent);
                     return;
@@ -632,6 +635,55 @@ namespace Ryneus
                 actorInfo.ReleafPoint.GainValue(1);
             }
             var advId = 10000 + (actorInfo.ActorId.Value * 100) + (seek * 10);
+            _model.UpdateEventObjects();
+            // ダンジョンの再開時間を記憶
+            _model.SaveBgmTiming();
+            CallAdvEvent(advId, () =>
+            {
+                _view.CallSystemCommand(Base.CommandType.SceneShowUI);
+                _model.UpdateEventObjects();
+                if (skillInfo != null)
+                {
+                    var levelUpViewInfo = _model.MakeLevelUpViewInfo(actorInfo, 0);
+                    levelUpViewInfo.SetSkillInfos(new List<SkillInfo>(){skillInfo});
+                    actorInfo.ChangeEquipSkill(skillInfo.Id.Value, 0);
+                    actorInfo.LearnSkill(skillInfo.Id.Value);
+                    // Toを上書き
+                    var to = actorInfo.Evaluate();
+                    levelUpViewInfo.To.SetValue(to);
+                    levelUpViewInfo.SetActorInfo(actorInfo);
+                    levelUpViewInfo.LearnSkill.SetValue(DataSystem.GetText(2520));
+                    SoundManager.Instance.PlayStaticSe(SEType.LearnSkill);
+                    _view.CallSystemCommand(Base.CommandType.FlashEffect);
+                    CallPopupView(PopupType.LevelUp, () =>
+                    {
+                        CheckAchievements();
+                        endEvent?.Invoke();
+                    }, levelUpViewInfo);
+                }
+                else
+                {
+                    endEvent?.Invoke();
+                }
+            });
+        }
+
+        private void StageEventMainEvent(bool moved, StageEventData stageEventData, Action endEvent)
+        {
+            var actorInfo = _model.PartyInfo.ActorInfos.Find(a => a.Master.Id > 100);
+            var seek = actorInfo.ReleafPoint.Value;
+            SkillInfo skillInfo = null;
+            if (actorInfo != null)
+            {
+                var learnSkillInfos = actorInfo.SealedSkills();
+                // 1こずつ解放
+                if (seek >= 2 && learnSkillInfos.Count > 0)
+                {
+                    skillInfo = learnSkillInfos[0];
+                }
+                actorInfo.ReleafPoint.GainValue(1);
+            }
+            var advId = 11000 + (actorInfo.ActorId.Value * 10) + (seek * 10) - 10;
             _model.UpdateEventObjects();
             // ダンジョンの再開時間を記憶
             _model.SaveBgmTiming();
@@ -1315,6 +1367,7 @@ namespace Ryneus
         {
             var directionEvent = _model.CheckDirectionEvent();
             _view.SetActiveDisplayEventKey(directionEvent);
+            _view.SetArtifactMinusBatch(_model.HavingArtifactMinus() > 0);
             if (!directionEvent)
             {
                 // その場にイベントがある

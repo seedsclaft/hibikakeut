@@ -101,6 +101,12 @@ namespace Ryneus
             }
             else
             {
+                // 自身の前面がいない場合
+                var selfFrontBattler = friendUnit.AliveBattlerInfos.Find(a => battlerInfo.Index.Value - 3 == a.Index.Value);
+                if (selfFrontBattler == null)
+                {
+                    selfIsFront = true;
+                }
                 // 前面の味方が一人もいない場合は前面
                 if (friendUnit.AliveBattlerInfos.Find(a => a.LineIndex == LineType.Front) == null)
                 {

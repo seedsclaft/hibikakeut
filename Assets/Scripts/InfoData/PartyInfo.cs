@@ -649,38 +649,38 @@ namespace Ryneus
             var addActorInfos = _getItemInfos.FindAll(a => a.GetFlag && a.GetItemType == GetItemType.AddActor);
             foreach (var addActorInfo in addActorInfos)
             {
-                if (_actorInfos.Find(a => a.ActorId.Value == addActorInfo.Param1) == null)
+                if (_actorInfos.Find(a => a.ActorId.Value == addActorInfo.Param1) != null)
                 {
-                    // 新規加入
-                    var actorData = DataSystem.FindActor(addActorInfo.Param1);
-                    if (_actorInfos.Find(a => a.ActorId.Value == actorData.Id) != null)
-                    {
-                        return;
-                    }
-                    var actorInfo = new ActorInfo(actorData);
-                    actorInfo.BattleIndex.SetValue(_actorInfos.Count + 1);
-                    actorInfo.SetLevel(actorData.InitLv);
-                    if (addActorInfo.Param2 > 0)
-                    {
-                        actorInfo.SetLevel(addActorInfo.Param2);
-                    }
-                    actorInfo.ChangeHp(actorInfo.MaxHp);
-                    // 最初に加入したキャラは自動編成
-                    if (_actorInfos.Count == 0)
-                    {
-                        var first = CurrentDeckInfo.ActorIdDict.Where(a => a.Value == -1).First();
-                        if (first.Value == -1)
-                        {
-                            CurrentDeckInfo.ActorIdDict[first.Key] = actorInfo.ActorId.Value;
-                        }
-                        LeaderActorId.SetValue(actorInfo.ActorId.Value);
-                    }
-                    _actorInfos.Add(actorInfo);
-                    AddReleifActorIndexes(actorInfo.ActorId.Value);
-                    // 整列
-                    _actorInfos.Sort((a, b) => a.BattleIndex.Value - b.BattleIndex.Value > 0 ? 1 : -1);
-
+                    continue;
                 }
+                // 新規加入
+                var actorData = DataSystem.FindActor(addActorInfo.Param1);
+                if (_actorInfos.Find(a => a.ActorId.Value == actorData.Id) != null)
+                {
+                    continue;
+                }
+                var actorInfo = new ActorInfo(actorData);
+                actorInfo.BattleIndex.SetValue(_actorInfos.Count + 1);
+                actorInfo.SetLevel(actorData.InitLv);
+                if (addActorInfo.Param2 > 0)
+                {
+                    actorInfo.SetLevel(addActorInfo.Param2);
+                }
+                actorInfo.ChangeHp(actorInfo.MaxHp);
+                // 最初に加入したキャラは自動編成
+                if (_actorInfos.Count == 0)
+                {
+                    var first = CurrentDeckInfo.ActorIdDict.First(a => a.Value == -1);
+                    if (first.Value == -1)
+                    {
+                        CurrentDeckInfo.ActorIdDict[first.Key] = actorInfo.ActorId.Value;
+                    }
+                    LeaderActorId.SetValue(actorInfo.ActorId.Value);
+                }
+                _actorInfos.Add(actorInfo);
+                AddReleifActorIndexes(actorInfo.ActorId.Value);
+                // 整列
+                _actorInfos.Sort((a, b) => a.BattleIndex.Value - b.BattleIndex.Value > 0 ? 1 : -1);
             }
         }
 

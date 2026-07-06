@@ -17,6 +17,7 @@ namespace Ryneus
         [SerializeField] private BattleFieldBattler fieldBattler = null;
         
         private AnimationState _lastState = 0;
+        private bool _isEndMode = false;
         private List<Sequence> _sequences = new();
         private float _animationDuration => 1f / GameSystem.OptionData.BattleSpeed;
 
@@ -26,8 +27,9 @@ namespace Ryneus
             fieldBattler.Initialize(decideEvent, selectEvent);
         }
 
-        public void SetAnimationState(AnimationState animationState)
+        public void SetAnimationState(AnimationState animationState, bool isEndMode = false)
         {
+            _isEndMode = isEndMode;
             state = animationState;
             SetActiveCircle(animationState == AnimationState.Magic);
             if (animator == null)
@@ -149,6 +151,11 @@ namespace Ryneus
                 animator.SetInteger("State", (int)state);
                 var speed = fieldBattler != null ? GameSystem.OptionData.BattleSpeed : 1;
                 animator.SetFloat("BattleSpeed", speed);
+                if (_isEndMode)
+                {
+                    animator.Play(state.ToString(), 0 , 0.999f);
+                    _isEndMode = false;
+                }
             }
         }
     }

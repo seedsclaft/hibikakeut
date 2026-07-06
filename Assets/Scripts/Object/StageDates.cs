@@ -123,6 +123,7 @@ namespace Ryneus
         None = 0,
         AdvStart = 1010,
         ActorEvent = 1020,
+        MainEvent = 1030,
         ExitDungeon = 2010,
         ExitDungeonNoConfirm = 2011,
         MoveDungeonFloor = 2020,

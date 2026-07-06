@@ -90,10 +90,7 @@ namespace Ryneus
 
             _ = await ShowCutinBattleThumb(actionInfo);
 
-            if (!GameSystem.OptionData.BattlePassiveAnimationSkip)
-            {
-                _view.SetCurrentSkillData(actionInfo.SkillInfo, subject);
-            }
+            _view.SetCurrentSkillData(actionInfo.SkillInfo, subject);
 
             StartAliveAnimation(actionInfo.ActionResults);
             var animationData = BattleUtility.AnimationData(actionInfo.Master.AnimationId);
@@ -272,10 +269,10 @@ namespace Ryneus
 
         private async UniTask<bool> ShowCutinBattleThumb(ActionInfo actionInfo)
         {
-            if (!GameSystem.OptionData.BattlePassiveAnimationSkip && actionInfo.TriggeredSkill && !actionInfo.Master.IsBattleSpecialSkill())
+            if (actionInfo.TriggeredSkill && !actionInfo.Master.IsBattleSpecialSkill())
             {
                 var subject = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-                if (actionInfo.Master.IsDisplayBattleSkill() && subject.IsActor)
+                if (!GameSystem.OptionData.BattlePassiveAnimationSkip && actionInfo.Master.IsDisplayBattleSkill() && subject.IsActor)
                 {
                     _view.ShowCutinBattleThumb(subject);
                     await UniTask.DelayFrame(_model.WaitFrameTime(30));

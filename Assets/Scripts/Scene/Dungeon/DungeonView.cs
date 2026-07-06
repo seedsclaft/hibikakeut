@@ -27,6 +27,7 @@ namespace Ryneus
         [SerializeField] private InputInfoComponent sideMenuInput = null;
         [SerializeField] private OnOffButton partyInfoButton = null;
         [SerializeField] private OnOffButton saveButton = null;
+        [SerializeField] private GameObject artifactMinusBatch = null;
         private readonly Dictionary<int, BattlerInfoComponent> _battlerComps = new();
         private List<Sequence> _sequences = new();
         //[SerializeField] private OnOffButton healButton = null;
@@ -352,6 +353,11 @@ namespace Ryneus
                     minusVictoryBonus.transform.DOLocalMoveY(lastY, 0);
                 });
             _sequences.Add(sequence);
+        }
+
+        public void SetArtifactMinusBatch(bool isActive)
+        {
+            UIComponent.SetActive(artifactMinusBatch, isActive);
         }
 
         public void MinusEvaluate(int minus)
