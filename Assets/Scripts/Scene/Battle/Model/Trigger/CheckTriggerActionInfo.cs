@@ -35,7 +35,7 @@ namespace Ryneus
                             if (actionResultInfo.TargetIndex != actionResultInfo.SubjectIndex)
                             {
                                 var targetBattlerInfo = checkTriggerInfo.GetBattlerInfo(actionResultInfo.TargetIndex.Value);
-                                if (targetBattlerInfo != null && battlerInfo.IsActor == targetBattlerInfo.IsActor && actionResultInfo.DeadIndexList.Contains(targetBattlerInfo.Index.Value))
+                                if (targetBattlerInfo != null && battlerInfo.IsFriendBattler(targetBattlerInfo) && actionResultInfo.DeadIndexList.Contains(targetBattlerInfo.Index.Value))
                                 {
                                     isTrigger = true;
                                 }
@@ -107,7 +107,7 @@ namespace Ryneus
                         if (actionInfo != null && actionInfo.ActionResults != null && actionInfo.Master.IsHpDamageFeature())
                         {
                             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-                            if (subject != null && battlerInfo.IsActor == subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
+                            if (subject != null && battlerInfo.IsFriendBattler(subject) && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
                             {
                                 var success = actionInfo.ActionResults.FindAll(a => !a.Missed).Count > 0;
                                 if (success)
@@ -124,7 +124,7 @@ namespace Ryneus
                         if (actionInfo != null && actionInfo.TriggeredSkill == false && actionInfo.ActionResults != null && actionInfo.Master.IsHpDamageFeature())
                         {
                             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-                            if (subject != null && battlerInfo.IsActor == subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
+                            if (subject != null && battlerInfo.IsFriendBattler(subject) && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
                             {
                                 var results = actionInfo.ActionResults.FindAll(a => a.HpDamage.Value > 0);
                                 if (results.Count > 0)
@@ -144,7 +144,7 @@ namespace Ryneus
                         if (actionInfo != null && actionInfo.ActionResults != null && actionInfo.Master.IsHpHealFeature())
                         {
                             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-                            if (subject != null && battlerInfo.IsActor != subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
+                            if (subject != null && !battlerInfo.IsFriendBattler(subject) && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
                             {
                                 var results = actionInfo.ActionResults.FindAll(a => a.HpHeal.Value > 0);
                                 if (results.Count > 0)
@@ -161,7 +161,7 @@ namespace Ryneus
                         if (actionInfo != null && actionInfo.ActionResults != null)
                         {
                             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-                            if (subject != null && battlerInfo.IsActor == subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
+                            if (subject != null && battlerInfo.IsFriendBattler(subject) && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
                             {
                                 foreach (var actionResultInfo in actionInfo.ActionResults)
                                 {
@@ -234,7 +234,7 @@ namespace Ryneus
             }
             var subject = checkTriggerInfo.GetBattlerInfo(checkTriggerInfo.ActionInfo.SubjectIndex.Value);
             var targetBattlerInfo = checkTriggerInfo.GetBattlerInfo(checkTriggerInfo.CoverTargetIndex);
-            if (targetBattlerInfo != null && subject.IsActor != targetBattlerInfo.IsActor && battlerInfo.Index.Value != targetBattlerInfo.Index.Value && battlerInfo.IsActor == targetBattlerInfo.IsActor)
+            if (targetBattlerInfo != null && !subject.IsFriendBattler(targetBattlerInfo) && battlerInfo.Index.Value != targetBattlerInfo.Index.Value && battlerInfo.IsFriendBattler(targetBattlerInfo))
             {
                 list.Add(targetBattlerInfo.Index.Value);
             }
@@ -281,7 +281,7 @@ namespace Ryneus
             foreach (var result in results)
             {
                 var targetBattlerInfo = checkTriggerInfo.GetBattlerInfo(result.TargetIndex.Value);
-                if (targetBattlerInfo != null && battlerInfo.IsActor == targetBattlerInfo.IsActor)
+                if (targetBattlerInfo != null && battlerInfo.IsFriendBattler(targetBattlerInfo))
                 {
                     var targetHp = 0f;
                     if (targetBattlerInfo.Hp.Value != 0)
@@ -314,7 +314,7 @@ namespace Ryneus
             foreach (var result in results)
             {
                 var targetBattlerInfo = checkTriggerInfo.GetBattlerInfo(result.TargetIndex.Value);
-                if (targetBattlerInfo != null && battlerInfo.IsActor == targetBattlerInfo.IsActor)
+                if (targetBattlerInfo != null && battlerInfo.IsFriendBattler(targetBattlerInfo))
                 {
                     var abnormalStates = result.AddedStates.FindAll(a => a.Master.Abnormal);
                     var abnormalTarget = abnormalStates.Find(a => a.TargetIndex.Value == targetBattlerInfo.Index.Value) != null;
@@ -345,7 +345,7 @@ namespace Ryneus
             foreach (var result in results)
             {
                 var targetBattlerInfo = checkTriggerInfo.GetBattlerInfo(result.TargetIndex.Value);
-                if (targetBattlerInfo != null && battlerInfo.IsActor != targetBattlerInfo.IsActor)
+                if (targetBattlerInfo != null && !battlerInfo.IsFriendBattler(targetBattlerInfo))
                 {
                     var buffStates = result.AddedStates.FindAll(a => a.Master.Buff);
                     var buffTarget = buffStates.Find(a => a.TargetIndex.Value == targetBattlerInfo.Index.Value) != null;
@@ -475,7 +475,7 @@ namespace Ryneus
                 return list;
             }
             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            if (subject != null && battlerInfo.IsActor == subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
+            if (subject != null && battlerInfo.IsFriendBattler(subject) && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
             {
                 if (actionResultInfos.Count > 0)
                 {

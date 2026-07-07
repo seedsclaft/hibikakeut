@@ -472,7 +472,7 @@ namespace Ryneus
             return -4;
         }
 
-        public bool IsFriendActor(BattlerInfo battlerInfo)
+        public bool IsFriendBattler(BattlerInfo battlerInfo)
         {
             return IsActor == battlerInfo.IsActor;
         }

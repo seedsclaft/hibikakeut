@@ -222,7 +222,7 @@ namespace Ryneus
             foreach (var bindTargetIndex in bindTargetIndexList)
             {
                 var bindBattlerInfo = GetBattlerInfo(bindTargetIndex);
-                if (bindBattlerInfo.IsActor && battlerInfo.IsActor)
+                if (bindBattlerInfo.IsFriendBattler(battlerInfo))
                 {
                     friendTargets.Add(bindBattlerInfo);
                 }

@@ -73,7 +73,7 @@ namespace Ryneus
                 return list;
             }
             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            if (subject != null && battlerInfo.IsActor != subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
+            if (subject != null && !battlerInfo.IsFriendBattler(subject) && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
             {
                 var targetActionResultInfos = actionResultInfos.FindAll(a => a.TargetIndex.Value == battlerInfo.Index.Value);
                 if (targetActionResultInfos.Count > 0 && actionInfo.ScopeType == (ScopeType)triggerData.Param1)
@@ -107,7 +107,7 @@ namespace Ryneus
                 return list;
             }
             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            if (subject != null && battlerInfo.IsActor != subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
+            if (subject != null && !battlerInfo.IsFriendBattler(subject) && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
             {
                 var targetActionResultInfos = actionResultInfos.FindAll(a => a.TargetIndex.Value == battlerInfo.Index.Value);
                 if (targetActionResultInfos.Count > 0 && subject.Kinds.Contains((KindType)triggerData.Param1))
@@ -140,7 +140,7 @@ namespace Ryneus
                 return list;
             }
             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            if (subject != null && battlerInfo.IsActor != subject.IsActor && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
+            if (subject != null && !battlerInfo.IsFriendBattler(subject) && battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
             {
                 var targetActionResultInfos = actionResultInfos.FindAll(a => a.TargetIndex.Value == battlerInfo.Index.Value);
                 foreach (var targetActionResultInfo in targetActionResultInfos)

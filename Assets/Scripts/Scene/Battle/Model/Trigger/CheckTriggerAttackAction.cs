@@ -71,7 +71,7 @@ namespace Ryneus
                 return list;
             }
             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            if (subject != null && battlerInfo.IsActor == subject.IsActor)
+            if (subject != null && battlerInfo.IsFriendBattler(subject))
             {
                 if (battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
                 {
@@ -98,7 +98,7 @@ namespace Ryneus
                 return list;
             }
             var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
-            if (subject != null && battlerInfo.IsActor != subject.IsActor)
+            if (subject != null && !battlerInfo.IsFriendBattler(subject))
             {
                 if (battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
                 {

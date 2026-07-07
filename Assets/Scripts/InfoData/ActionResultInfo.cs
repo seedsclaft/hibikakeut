@@ -385,7 +385,7 @@ namespace Ryneus
             {
                 return true;
             }
-            if (subject.IsActor != target.IsActor)
+            if (!subject.IsFriendBattler(target))
             {
                 if (subject.IsState(StateType.Darkness))
                 {
