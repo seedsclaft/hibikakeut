@@ -33,17 +33,12 @@ namespace Ryneus
                 return;
             }
             var battlerInfo = ListItemData<BattlerInfo>();
-            //battlerInfoComponent.SetSelectable(ListData.Enable);
-            battlerInfoComponent.UpdateInfo(battlerInfo);
-            if (!battlerInfo.IsActor)
+            if (battlerInfo == null || battlerInfo.IsEmpty)
             {
-                //gameObject.SetActive(battlerInfo != null && battlerInfo.Index.Value > 0);
-            }
-            if (battlerInfo != null && battlerInfo.Index.Value == 0)
-            {
+                battlerInfoComponent.Clear();
                 return;
             }
-            //battlerInfoComponent.RefreshStatus();
+            battlerInfoComponent.UpdateInfo(battlerInfo);
             if (!battlerInfo.IsActorView)
             {
                 battlerInfoComponent.UpdateEnemyImageNativeSize();

@@ -130,7 +130,7 @@ namespace Ryneus
             foreach (var battlerInfo in battlerInfos)
             {
                 var data = (BattlerInfo)battlerInfo.Data;
-                if (data.Index.Value > 0)
+                if (!data.IsEmpty)
                 {
                     _battlerComps[data.Index.Value] = battleActorList.GetBattlerInfoComp(data.Index.Value);
                 }
@@ -144,7 +144,7 @@ namespace Ryneus
             foreach (var battlerInfo in battlerInfos)
             {
                 var data = (BattlerInfo)battlerInfo.Data;
-                if (data.Index.Value > 0)
+                if (!data.IsEmpty)
                 {
                     _battlerComps[data.Index.Value] = battleActorList.GetBattlerInfoComp(data.Index.Value);
                 }
@@ -172,7 +172,7 @@ namespace Ryneus
             foreach (var battlerInfo in battlerInfos)
             {
                 var data = (BattlerInfo)battlerInfo.Data;
-                if (data.Index.Value > 0)
+                if (!data.IsEmpty)
                 {
                     _battlerComps[data.Index.Value] = battleEnemyList.GetBattlerInfoComp(data.Index.Value);
                     _battlerComps[data.Index.Value].HideStatus();

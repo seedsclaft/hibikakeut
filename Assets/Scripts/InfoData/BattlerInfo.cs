@@ -41,6 +41,7 @@ namespace Ryneus
         public ActorInfo ActorInfo => _actorInfo;
         private ParameterInt EnemyId = new();
         public EnemyData EnemyData => DataSystem.FindEnemy(EnemyId.Value);
+        public bool IsEmpty => _actorInfo == null && EnemyId.Value == 0;
         private List<KindType> _kinds = new();
         public List<KindType> Kinds => _kinds;
         private List<KindType> _weakPoints = new();
@@ -85,6 +86,7 @@ namespace Ryneus
         {
             return _passiveSkillIds.Contains(skillId);
         }
+
         public void AddPassiveSkillId(int skillId)
         {
             if (ContainsPassiveSkillId(skillId))
@@ -93,6 +95,7 @@ namespace Ryneus
             }
             _passiveSkillIds.Add(skillId);
         }
+
         public void RemovePassiveSkillId(int skillId)
         {
             if (ContainsPassiveSkillId(skillId))
@@ -467,6 +470,11 @@ namespace Ryneus
                 return 0;
             }
             return -4;
+        }
+
+        public bool IsFriendActor(BattlerInfo battlerInfo)
+        {
+            return IsActor == battlerInfo.IsActor;
         }
 
         public float WaitFrame(int turn)

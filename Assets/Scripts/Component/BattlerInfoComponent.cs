@@ -32,7 +32,7 @@ namespace Ryneus
         public void UpdateInfo(BattlerInfo battlerInfo)
         {
             _battlerInfo = battlerInfo;
-            if (_battlerInfo == null || _battlerInfo.Index.Value == 0)
+            if (_battlerInfo == null || _battlerInfo.IsEmpty)
             {
                 Clear();
                 return;
@@ -488,7 +488,7 @@ namespace Ryneus
 
         public void HideEnemyStateOverlay()
         {
-            if (_battlerInfo == null || _battlerInfo.Index.Value == 0)
+            if (_battlerInfo == null || _battlerInfo.IsEmpty)
             {
                 return;
             }

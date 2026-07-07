@@ -115,7 +115,7 @@ namespace Ryneus
             foreach (var battlerInfo in listDatas)
             {
                 var data = (BattlerInfo)battlerInfo.Data;
-                if (data.Index.Value > 0)
+                if (!data.IsEmpty)
                 {
                     _battlerComps[data.Index.Value] = partyUnitList.GetBattlerInfoComp(data.Index.Value);
                 }

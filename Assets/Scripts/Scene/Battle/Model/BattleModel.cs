@@ -39,6 +39,7 @@ namespace Ryneus
             }
             return battlerInfo.IsActor ? _party : _troop;
         }
+
         public UnitInfo GetOpponentUnit(BattlerInfo battlerInfo)
         {
             return battlerInfo.IsActor ? _troop : _party;
@@ -202,6 +203,7 @@ namespace Ryneus
                 else
                 {
                     var newUnitInfo = new BattlerInfo();
+                    newUnitInfo.Index.SetValue(i);
                     list.Add(newUnitInfo);
                 }
             }
@@ -310,7 +312,7 @@ namespace Ryneus
             }
             if (skillInfo.IsUnison())
             {
-                return FieldBattlerInfos().FindAll(a => a.IsAlive() && a.IsActor == battlerInfo.IsActor && a.CanMove()).Count > 1;
+                return FieldBattlerInfos().FindAll(a => a.IsAlive() && a.IsFriendActor(battlerInfo) && a.CanMove()).Count > 1;
             }
             if (CanUseTrigger(skillInfo, battlerInfo) == false)
             {

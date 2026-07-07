@@ -44,7 +44,7 @@ namespace Ryneus
                     }
                     foreach (var battlerInfo in unitInfo.BattlerInfos)
                     {
-                        if (battlerInfo.Index.Value > 0)
+                        if (!battlerInfo.IsEmpty)
                         {
                             battleUnit.SetDamageRoot(battlerInfo.Index.Value,damageRoots[(battlerInfo.Index.Value % 100) - 1]);
                             if (statusRoot != null)

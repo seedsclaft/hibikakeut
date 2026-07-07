@@ -38,11 +38,6 @@ namespace Ryneus
                 if (battleBattler != null)
                 {
                     _battleBattler[battlerInfo.Index.Value] = battleBattler;
-                    if (battlerInfo.Index.Value == 0)
-                    {
-                        // 空配置用
-                        _battleBattler[i+1] = battleBattler;                    
-                    }
                     battleBattler.SetDamageRoot(damageRoots[i]);
                     if (statusRoot != null)
                     {
@@ -81,7 +76,7 @@ namespace Ryneus
                 }
                 var battler = (BattlerInfo)listItem.ListData.Data;
                 var battleBattler = ItemPrefabList[i].GetComponent<BattleBattler>();
-                if (indexes.Contains(battler.Index.Value) && battler.Index.Value > 0)
+                if (indexes.Contains(battler.Index.Value) && !battler.IsEmpty)
                 {
                     battleBattler.SetActivecandidateSelect(true);
                 }
