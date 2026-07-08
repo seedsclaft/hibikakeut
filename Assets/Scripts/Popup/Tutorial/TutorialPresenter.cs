@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -11,41 +12,46 @@ namespace Ryneus
         {
             _view = view;
             SetView(_view);
-            _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
+            _view.SetEvent(async (type) => await UpdateCommand(type));
+            Initialize(true);
+            _busy = false;
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new TutorialModel();
             SetModel(_model);
+            _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
 
+        private void InitializeAfter()
+        {
             CommandRefresh();
         }
 
-        private void UpdateCommand(ViewEvent viewEvent)
+        private async Task UpdateCommand(ViewEvent viewEvent)
         {
             if (_busy || _view.AnimationBusy)
             {
                 return;
             }
-            UnityEngine.Debug.Log(viewEvent.ViewCommandType.CommandType);
+            if (viewEvent.ViewCommandType.ViewCommandSceneType != ViewCommandSceneType.Tutorial)
+            {
+                return;
+            }
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case Tutorial.CommandType.Initialize:
-                    Initialize();
+                    Initialize(false);
                     break;
                 case Tutorial.CommandType.Back:
                     CommandBack();
                     return;
-                case Tutorial.CommandType.CallTutorialData:
-                    CommandCallTutorialData((TutorialData)viewEvent.Template);
-                    return;
             }
-        }
-
-        private void CommandCallTutorialData(TutorialData tutorialData)
-        {
         }
 
         private void CommandBack()
@@ -61,6 +67,7 @@ namespace Ryneus
 
         private void CommandRefresh()
         {
+            _view.SetTutorialData(_model.TutorialData);
         }
     }
 }

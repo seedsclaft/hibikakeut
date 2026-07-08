@@ -21,6 +21,7 @@ namespace Ryneus
         [SerializeField] private GameObject toggleObj = null;
         [SerializeField] private Toggle checkToggle = null;
         [SerializeField] private OnOffButton toggleButton = null;
+        [SerializeField] private PopupAnimation popupAnimation = null;
         public bool CheckToggle => checkToggle.isOn;
 
         public override void Initialize()
@@ -38,6 +39,11 @@ namespace Ryneus
             });
             //SetBackCommand(() => OnClickBack());
             _ = new TutorialPresenter(this);
+        }
+
+        public void OpenAnimation(Action initializeAfter)
+        {
+            popupAnimation.OpenAnimation(UiRoot.transform, initializeAfter);
         }
 
         public void SetTutorialData(TutorialData tutorialData)

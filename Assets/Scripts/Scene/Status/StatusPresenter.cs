@@ -694,7 +694,7 @@ namespace Ryneus
         private void CommandGuide()
         {
             _busy = true;
-            CallPopupGuide("Status", () =>
+            CallPopupGuide("Status", 0, () =>
             {
                 _busy = false;
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);

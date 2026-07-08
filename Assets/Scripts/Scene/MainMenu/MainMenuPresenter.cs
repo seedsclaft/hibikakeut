@@ -276,6 +276,8 @@ namespace Ryneus
             {
                 return;
             }
+            // 初めてランクアップした時
+
             /*
             if (getItemInfos.Count > 0)
             {
@@ -309,18 +311,6 @@ namespace Ryneus
                         CheckNewStage();
                         return;
                     }
-                    // 招聘コマンド回数が増えたらアナウンス
-                    if (false && _model.PartyInfo.ReliefItemCount.Value > 0)
-                    {
-                        var reliefConfirmInfo = new ConfirmInfo(DataSystem.GetText(11014), (a) =>
-                        {
-                            _busy = false;
-                            CommandAchievement();
-                        });
-                        reliefConfirmInfo.SetIsNoChoice(true);
-                        _view.CommandCallConfirm(reliefConfirmInfo);
-                    }
-                    else
                     if (a == ConfirmCommandType.Close)
                     {
                         _busy = false;
@@ -434,9 +424,9 @@ namespace Ryneus
                 var strategySceneInfo = new StrategySceneInfo
                 {
                     ActorInfos = releifActorInfos,
-                    InBattle = false
+                    InBattle = false,
+                    GetItemInfos = _model.ReleifGetItemInfos(releifActorInfos)
                 };
-                strategySceneInfo.GetItemInfos = _model.ReleifGetItemInfos(releifActorInfos);
                 _view.CommandSceneChange(Scene.Strategy, strategySceneInfo);
                 /*
                 _view.CallSystemCommand(Base.CommandType.SceneShowUI);
@@ -519,7 +509,7 @@ namespace Ryneus
         private void CommandGuide()
         {
             _busy = true;
-            CallPopupGuide("MainMenu", () =>
+            CallPopupGuide("MainMenu", 0, () =>
             {
                 _busy = false;
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
@@ -548,7 +538,7 @@ namespace Ryneus
                 {
                     checkFlag = true;
                 } else
-                if (tutorialData.Param1 == 200)
+                if (tutorialData.Param1 == 200 || tutorialData.Param1 == 300)
                 {
                     checkFlag = _model.PartyInfo.MissionRank.Value > 1;
                 }
@@ -558,11 +548,11 @@ namespace Ryneus
             {
                 _view.SetActiveCommandList(false);
                 _busy = true;
-                CallPopupView(PopupType.Tutorial, () =>
+                CallPopupTutorial(tutorialData, () =>
                 {
                     _busy = false;
                     CommandEndPeriodAnimation();
-                }, tutorialData);
+                });
             };
             Func<TutorialData, bool> checkEnd = (tutorialData) =>
             {

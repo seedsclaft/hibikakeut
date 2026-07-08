@@ -5,14 +5,17 @@ namespace Ryneus
 {
     public class TutorialModel : BaseModel
     {
+        private TutorialData _tutorialData;
+        public TutorialData TutorialData => _tutorialData;
         public TutorialModel()
         {
+            TutorialSceneInfo SceneParam = (TutorialSceneInfo)GameSystem.SceneStackManager.LastTemplate;
+            _tutorialData = SceneParam.TutorialData;
         }
+    }
 
-        public string HelpText()
-        {
-            return DataSystem.GetText(18010);
-        }
-
+    public class TutorialSceneInfo
+    {
+        public TutorialData TutorialData;
     }
 }

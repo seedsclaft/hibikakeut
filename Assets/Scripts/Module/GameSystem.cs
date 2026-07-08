@@ -400,12 +400,6 @@ namespace Ryneus
                 var classChange = prefab.GetComponent<ClassChangeView>();
                 classChange.SetClassChangeInfo((ClassChangeInfo)popupInfo.template);
             }
-            else
-            if (popupInfo.PopupType == PopupType.Tutorial)
-            {
-                var tutorial = prefab.GetComponent<TutorialView>();
-                tutorial.SetTutorialData((TutorialData)popupInfo.template);
-            }
             _inputableBaseViews.Add(baseView);
         }
 

@@ -7,13 +7,17 @@ namespace Ryneus
     public class GuideModel : BaseModel
     {
         private List<HelpData> _guideDates = null;
-        private int _currentIndex = 0;
-        public HelpData GuideData => _guideDates.Count > _currentIndex ? _guideDates[_currentIndex] : null;
+        private ParameterInt _currentIndex = new();
+        public HelpData GuideData => _guideDates.Count > _currentIndex.Value ? _guideDates[_currentIndex.Value] : null;
         
         public GuideModel()
         {
             GuideSceneInfo SceneParam = (GuideSceneInfo)GameSystem.SceneStackManager.LastTemplate;
             _guideDates = DataSystem.Dates[DataType.Helps].FindAll<HelpData>(a => a.Key == SceneParam.GuideKey);
+            if (SceneParam.SelectHelpId > 0)
+            {
+                _currentIndex.SetValue(_guideDates.FindIndex(a => a.Id == SceneParam.SelectHelpId));
+            }
         }
 
         public Sprite GuideSprite()
@@ -28,24 +32,22 @@ namespace Ryneus
 
         public bool NeedLeftPage()
         {
-            return _currentIndex > 0;
+            return _currentIndex.Value > 0;
         }
 
         public bool NeedRightPage()
         {
-            return _currentIndex != _guideDates.Count-1 && _guideDates.Count != 1;
+            return _currentIndex.Value != _guideDates.Count-1 && _guideDates.Count != 1;
         }
 
         public void PageLeft()
         {
-            _currentIndex--;
-            _currentIndex = Math.Max(_currentIndex,0);
+            _currentIndex.GainValue(-1, 0);
         }
 
         public void PageRight()
         {
-            _currentIndex++;
-            _currentIndex = Math.Min(_guideDates.Count - 1, _currentIndex);
+            _currentIndex.GainValue(1, 0, _guideDates.Count - 1);
         }
 
         public int CallHelpId()
@@ -57,5 +59,6 @@ namespace Ryneus
     public class GuideSceneInfo
     {
         public string GuideKey = "";
+        public int SelectHelpId = 0; // 最初に表示したいId
     }
 }

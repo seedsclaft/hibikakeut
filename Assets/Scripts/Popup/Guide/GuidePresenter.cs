@@ -47,6 +47,9 @@ namespace Ryneus
             }
             switch (viewEvent.ViewCommandType.CommandType)
             {
+                case Guide.CommandType.Initialize:
+                    Initialize(false);
+                    break;
                 case Guide.CommandType.PageLeft:
                     CommandPageLeft();
                     break;

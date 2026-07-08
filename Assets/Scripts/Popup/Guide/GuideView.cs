@@ -40,10 +40,10 @@ namespace Ryneus
         private void InitilizeHelpTextList()
         {
             helpTextList.Initialize();
-            helpTextList.SetInputHandler(InputKeyType.Cancel, () => BackEvent?.Invoke());
-            helpTextList.SetInputHandler(InputKeyType.Right, () => OnClickRight());
-            helpTextList.SetInputHandler(InputKeyType.Left, () => OnClickLeft());
-            AddViewActives(helpTextList);
+            //helpTextList.SetInputHandler(InputKeyType.Cancel, () => BackEvent?.Invoke());
+            //helpTextList.SetInputHandler(InputKeyType.Right, () => OnClickRight());
+            //helpTextList.SetInputHandler(InputKeyType.Left, () => OnClickLeft());
+            //AddViewActives(helpTextList);
         }
 
         private void OnClickLeft()
@@ -98,10 +98,30 @@ namespace Ryneus
             if (InputSystem.GetInputDate(InputKeyType.SideLeft2).IsDownTrigger() || InputSystem.GetInputDate(InputKeyType.SideLeft2).IsPress())
             {
                 OnClickPageScroll(false);
-            }
+            } else
             if (InputSystem.GetInputDate(InputKeyType.SideRight2).IsDownTrigger() || InputSystem.GetInputDate(InputKeyType.SideRight2).IsPress())
             {
                 OnClickPageScroll(true);
+            } else
+            if (InputSystem.GetInputDate(InputKeyType.Down).IsDownTrigger() || InputSystem.GetInputDate(InputKeyType.Down).IsPress())
+            {
+                OnClickPageScroll(false);
+            } else
+            if (InputSystem.GetInputDate(InputKeyType.Up).IsDownTrigger() || InputSystem.GetInputDate(InputKeyType.Up).IsPress())
+            {
+                OnClickPageScroll(true);
+            } else
+            if (InputSystem.GetInputDate(InputKeyType.Right).IsDownTrigger())
+            {
+                OnClickRight();
+            } else
+            if (InputSystem.GetInputDate(InputKeyType.Left).IsDownTrigger())
+            {
+                OnClickLeft();
+            } else
+            if (InputSystem.GetInputDate(InputKeyType.Cancel).IsDownTrigger())
+            {
+                BackEvent?.Invoke();
             }
         }
     }

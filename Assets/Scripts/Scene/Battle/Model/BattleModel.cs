@@ -27,7 +27,6 @@ namespace Ryneus
 
         private List<BattlerInfo> _battlers = new();
         public List<BattlerInfo> Battlers => _battlers;
-        private List<BattlerInfo> _reserveBattlers = new();
 
         private UnitInfo _party = null;
         private UnitInfo _troop = null;
@@ -554,7 +553,7 @@ namespace Ryneus
                             if ((StateType)featureData.Param1 == StateType.Linkage)
                             {
                                 // 後列がいれば有効
-                                var linkage = _reserveBattlers.Find(a => a.Index.Value == subject.Index.Value + 3);
+                                var linkage = _battlers.Find(a => a.Index.Value == subject.Index.Value + 3);
                                 isEnable = linkage != null && linkage.IsAlive();
                             }
                             else
@@ -1433,18 +1432,16 @@ namespace Ryneus
             {
                 battleInfo.RemoveState(battleInfo.GetStateInfo(StateType.Linkage), true);
                 var battlerIndex = battleInfo.Index.Value;
-                var changeBattler = _reserveBattlers.Find(a => a.Index.Value == battlerIndex + 3);
+                var changeBattler = _battlers.Find(a => a.Index.Value == battlerIndex + 3);
                 if (changeBattler != null)
                 {
                     changeBattler.Index.SetValue(battlerIndex);
                     battleInfo.Index.SetValue(battlerIndex + 3);
                     changeBattler.SetAp(0);
 
-                    _reserveBattlers.Remove(changeBattler);
                     _battlers.Remove(battleInfo);
                     _party.BattlerInfos.Remove(battleInfo);
 
-                    _reserveBattlers.Add(battleInfo);
                     _battlers.Add(changeBattler);
                     _party.BattlerInfos.Add(changeBattler);
                     _battlers.Sort((a, b) => a.Index.Value - b.Index.Value > 0 ? 1 : -1);
@@ -2013,7 +2010,7 @@ namespace Ryneus
             var friends = GetFriendUnit(battlerInfo);
             var opponents = GetOpponentUnit(battlerInfo);
             bool isTriggered = false;
-            var checkTriggerInfo = new CheckTriggerInfo(_turnCount, battlerInfo, BattlerActors(), BattlerEnemies(), _reserveBattlers, actionInfo, actionResultInfos, coverTargetIndex);
+            var checkTriggerInfo = new CheckTriggerInfo(_turnCount, battlerInfo, BattlerActors(), BattlerEnemies(), new(), actionInfo, actionResultInfos, coverTargetIndex);
             if (triggerDates.Count > 0)
             {
                 foreach (var triggerData in triggerDates)
@@ -2267,7 +2264,7 @@ namespace Ryneus
             var key = (int)triggerData.TriggerType / 1000;
             if (_checkTriggerDict.ContainsKey(key))
             {
-                var checkTriggerInfo = new CheckTriggerInfo(_turnCount, battlerInfo, BattlerActors(), BattlerEnemies(), _reserveBattlers, actionInfo, actionResultInfos);
+                var checkTriggerInfo = new CheckTriggerInfo(_turnCount, battlerInfo, BattlerActors(), BattlerEnemies(), new(), actionInfo, actionResultInfos);
                 var checkTrigger = _checkTriggerDict[key];
                 checkTrigger.AddTriggerTargetList(list, triggerData, battlerInfo, checkTriggerInfo);
             }
@@ -2567,11 +2564,7 @@ namespace Ryneus
                 if (battleRecord.Key < 1000)
                 {
                     var actorInfo = GetBattlerInfo(battleRecord.Key);
-                    if (actorInfo == null)
-                    {
-                        actorInfo = _reserveBattlers.Find(a => a.Index.Value == battleRecord.Key);
-                    }
-                    if (actorInfo == null)
+                    if (actorInfo == null || actorInfo.IsEmpty || actorInfo.ActorInfo == null)
                     {
                         continue;
                     }

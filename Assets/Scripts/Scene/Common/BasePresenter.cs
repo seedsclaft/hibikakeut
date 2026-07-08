@@ -129,12 +129,42 @@ namespace Ryneus
             _view.CallSystemCommand(Base.CommandType.CommandOther, otherViewEvent);
         }
 
-        public void CallPopupGuide(string guideKey, Action endEvent = null)
+        public void CallPopupTutorial(TutorialData tutorialData, Action endEvent = null)
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            if (tutorialData.Type == FrameType.Guide)
+            {
+                // ガイドを開く
+                var helpData = DataSystem.Dates[DataType.Helps].Find<HelpData>(tutorialData.Param2);
+                if (helpData != null)
+                {
+                    CallPopupGuide(helpData.Key, helpData.Id ,endEvent);
+                } else
+                {
+                    endEvent?.Invoke();
+                }
+                return;
+            }
+            var tutorialSceneInfo = new TutorialSceneInfo
+            {
+                TutorialData = tutorialData
+            };
+            var popupInfo = new PopupInfo
+            {
+                PopupType = PopupType.Tutorial,
+                template = tutorialSceneInfo,
+                EndEvent = endEvent,
+            };
+            _view.CommandCallPopup(popupInfo);
+        }
+
+        public void CallPopupGuide(string guideKey, int selectHelpId = 0, Action endEvent = null)
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var guideSceneInfo = new GuideSceneInfo
             {
-                GuideKey = guideKey
+                GuideKey = guideKey,
+                SelectHelpId = selectHelpId,
             };
             var popupInfo = new PopupInfo
             {

@@ -13,7 +13,6 @@ namespace Ryneus
         {
             _actionIndex = 0;
             _battlers.Clear();
-            _reserveBattlers.Clear();
             _battleRecords.Clear();
 
             var actorInfos = _sceneParam.ActorInfos;

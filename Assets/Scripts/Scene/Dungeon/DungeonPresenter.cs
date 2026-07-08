@@ -68,6 +68,7 @@ namespace Ryneus
                 return;
             }
             */
+            CheckTutorialState();
             _busy = false;
         }
 
@@ -1418,12 +1419,63 @@ namespace Ryneus
         {
             _busy = true;
             _model.DungeonBusy(true);
-            CallPopupGuide("Dungeon", () =>
+            CallPopupGuide("Dungeon", 0, () =>
             {
                 _busy = false;
                 _model.DungeonBusy(false);
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             });
+        }
+
+        private void CheckTutorialState(object commandType = null)
+        {
+            Func<TutorialData, bool> enable = (tutorialData) =>
+            {
+                var checkFlag = false;
+                if (tutorialData.Param1 == 0)
+                {
+                    checkFlag = true;
+                }
+                if (tutorialData.Param1 == 100)
+                {
+                    // はじめてHpが50%を切る
+                    checkFlag = _model.PartyUnit().Find(a => !a.IsEmpty && a.HpRate < 0.5f) != null;
+                }
+                if (tutorialData.Param1 == 200)
+                {
+                    // はじめてボスを倒す
+                    checkFlag = _model.PartyInfo.ClearedStages.Count > 0;
+                }
+                return checkFlag;
+            };
+            Action<TutorialData> checkTrue = (tutorialData) =>
+            {
+                _busy = true;
+                _model.DungeonBusy(true);
+                CallPopupTutorial(tutorialData, () =>
+                {
+                    _busy = false;
+                    _model.DungeonBusy(false);
+                });
+            };
+            Func<TutorialData, bool> checkEnd = (tutorialData) =>
+            {
+                return true;
+            };
+            var tutorialViewInfo = new TutorialViewInfo
+            {
+                SceneType = (int)Scene.Dungeon,
+                CheckEndMethod = checkEnd,
+                CheckMethod = enable,
+                CheckTrueAction = checkTrue,
+                EndEvent = () =>
+                {
+                    _busy = false;
+                    _model.DungeonBusy(false);
+                    CheckTutorialState(commandType);
+                }
+            };
+            _view.CommandCheckTutorialState(tutorialViewInfo);
         }
     }
 }

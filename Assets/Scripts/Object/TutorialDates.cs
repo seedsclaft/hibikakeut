@@ -35,5 +35,6 @@ namespace Ryneus
     {
         Window = 1,
         Focus = 2,
+        Guide = 3,
     }
 }
