@@ -116,7 +116,7 @@ namespace Ryneus
                 {
                     PopupActionResult(actionResultInfo, actionResultInfo.TargetIndex.Value, true, true);
                 }
-                if (GameSystem.OptionData.BattlePassiveAnimationSkip && actionInfo.Master.IsBattlePassiveSkill())
+                if (GameSystem.OptionData.BattlePassiveAnimationSkip && !actionInfo.Master.IsDisplayBattleSkill() && actionInfo.Master.IsBattlePassiveSkill())
                 {
                     CommandEndAnimation();
                     return;

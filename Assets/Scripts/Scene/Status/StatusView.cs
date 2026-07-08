@@ -397,11 +397,7 @@ namespace Ryneus
 
         public void SetActiveDecide(bool isActive)
         {
-            if (decideButton == null)
-            {
-                return;
-            }
-            UIComponent.SetActive(decideButton?.gameObject, isActive);
+            UIComponent.SetActive(decideButton, isActive);
             if (isActive)
             {
                 SetDecideAnimation();
@@ -492,7 +488,7 @@ namespace Ryneus
         {
             if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
             {
-                if (equipSkillList.gameObject.activeSelf)
+                if (magicListButton.gameObject.activeSelf)
                 {
                     CallViewEvent(CommandType.ChangeEquipment);
                 }

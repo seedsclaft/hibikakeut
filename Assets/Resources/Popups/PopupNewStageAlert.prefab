@@ -104,6 +104,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -290,7 +291,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 54d08e472ddea3e4aa39cfa5fea696a3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -427,6 +428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c816c458e8c9ed4aa8a1670d66f1425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Busy:
+    _value: 0
   _backCommand: {fileID: 3159999524517288884}
   _backGround: {fileID: 0}
   uiRoot: {fileID: 8478015492553661708}
@@ -437,6 +440,7 @@ MonoBehaviour:
   confirmAnimation: {fileID: 6643717560612913601}
   cautionArtifact: {fileID: 0}
   stageInfoComponent: {fileID: 2473110974565435540}
+  baseListComponent: {fileID: 0}
 --- !u!114 &6643717560612913601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,7 +454,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseCanvas: {fileID: 9130766918463463877}
-  Busy: 0
+  Busy:
+    _value: 0
 --- !u!1 &2566070287899870968
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +560,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 24
   m_lineSpacingMax: 0
@@ -835,6 +841,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1088,6 +1095,8 @@ MonoBehaviour:
   mainStage: {fileID: 0}
   subStage: {fileID: 0}
   battleFieldStage: {fileID: 0}
+  dungeonEnemySymbolRoot: {fileID: 0}
+  dungeonEnemySymbolNum: {fileID: 0}
 --- !u!1 &8072144031337432892
 GameObject:
   m_ObjectHideFlags: 0
