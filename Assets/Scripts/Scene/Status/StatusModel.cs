@@ -168,13 +168,6 @@ namespace Ryneus
             return find;
         }
 
-        public List<ItemInfo> UseItemInfos()
-        {
-            var list = PartyInfo.UseItemInfos();
-            list.AddRange(PartyInfo.DungeonUseItemInfos());
-            return list;
-        }
-
         public string HelpText()
         {
             return DataSystem.GetText(18010);

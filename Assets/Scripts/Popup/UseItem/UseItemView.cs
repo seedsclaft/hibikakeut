@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using Ryneus.UseItem;
 using System;
 
@@ -43,11 +42,6 @@ namespace Ryneus
         {
             useItemList.SetData(getItemInfos, true);
             useItemList.Activate();
-        }
-
-        public void RefreshUseItemList(List<ListData> getItemInfos)
-        {
-            useItemList.RefreshListData(getItemInfos);
         }
     }
 

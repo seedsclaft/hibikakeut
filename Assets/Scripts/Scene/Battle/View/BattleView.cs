@@ -35,7 +35,6 @@ namespace Ryneus
         [SerializeField] private MagicList magicList = null;
         [SerializeField] private OnOffButton formationButton = null;
         [SerializeField] private OnOffButton decideButton = null;
-        private BattleBackGroundAnimation _backGroundAnimation = null;
 
         private BattleStartAnim _battleStartAnim = null;
         public bool StartAnimIsBusy => _battleStartAnim.IsBusy;
@@ -45,17 +44,14 @@ namespace Ryneus
         {
             BattleSeekBusy.SetValue(isBusy);
         }
-        public ParameterBool AnimationBusy = new();
-        public bool AllBusy => BattleSeekBusy.Value || battleFieldView.Busy || AnimationBusy.Value;
+        public ParameterBool BattleAnimationBusy = new();
+        public bool AllBusy => BattleSeekBusy.Value || battleFieldView.Busy || BattleAnimationBusy.Value;
         public bool BattleWait => BattleSeekBusy.Value;
         public bool FieldBusy => battleFieldView.Busy;
-
-        private List<MakerEffectData.SoundTimings> _soundTimings = null;
 
         private readonly Dictionary<int, BattlerInfoComponent> _battlerComps = new();
         private readonly Dictionary<int, BattlerInfoComponent> _fieldBattlerComps = new();
 
-        private bool _skipBattle = false;
         public override void Initialize()
         {
             base.Initialize();
@@ -496,7 +492,6 @@ namespace Ryneus
             {
                 return;
             }
-            _skipBattle = true;
             CallViewEvent(CommandType.SkipBattle);
         }
 
@@ -514,14 +509,14 @@ namespace Ryneus
             var prefab = Instantiate(animPrefab);
             prefab.transform.SetParent(animRoot.transform, false);
             _battleStartAnim = prefab.GetComponent<BattleStartAnim>();
-            UIComponent.SetActive(_battleStartAnim?.gameObject, false);
+            UIComponent.SetActive(_battleStartAnim.gameObject, false);
         }
 
         public void StartBattleStartAnim(string text, Action endEvent = null)
         {
             _battleStartAnim.SetText(text);
             _battleStartAnim.StartAnim(true, 0, endEvent);
-            UIComponent.SetActive(_battleStartAnim?.gameObject, true);
+            UIComponent.SetActive(_battleStartAnim.gameObject, true);
         }
 
         public void StartUIAnimation()
@@ -577,7 +572,7 @@ namespace Ryneus
 
         private void CallEnemyDetailInfo()
         {
-            if (AnimationBusy.Value)
+            if (BattleAnimationBusy.Value)
             {
                 return;
             }
@@ -607,42 +602,6 @@ namespace Ryneus
         public void HideBattleThumb()
         {
             battleThumb.HideThumb();
-        }
-
-        public void RefreshMagicList(List<ListData> skillInfos, int selectIndex)
-        {
-            //selectCharacter.SetActiveTab(SelectCharacterTabType.Detail,false);
-        }
-
-        public void SetCondition(List<ListData> stateInfos)
-        {
-        }
-
-
-        public void RefreshPartyBattlerList(List<ListData> battlerInfos)
-        {
-            battleActorList.SetTargetListData(battlerInfos);
-            foreach (var item in _battlerComps)
-            {
-                var battlerInfo = battlerInfos.Find(a => item.Key == ((BattlerInfo)a.Data).Index.Value);
-                if (battlerInfo != null)
-                {
-                    item.Value.SetThumbAlpha(battlerInfo.Enable.Value);
-                }
-            }
-        }
-
-        public void RefreshEnemyBattlerList(List<ListData> battlerInfos)
-        {
-            battleEnemyList.SetTargetListData(battlerInfos);
-            foreach (var item in _battlerComps)
-            {
-                var battlerInfo = battlerInfos.Find(a => item.Key == ((BattlerInfo)a.Data).Index.Value);
-                if (battlerInfo != null)
-                {
-                    item.Value.SetThumbAlpha(battlerInfo.Enable.Value);
-                }
-            }
         }
 
         public void BattlerBattleClearSelect()
@@ -677,7 +636,11 @@ namespace Ryneus
 
         public void SetCurrentSkillData(SkillInfo skillInfo, BattlerInfo battlerInfo)
         {
-            UIComponent.SetActive(skillInfoComponent?.gameObject, true);
+            if (skillInfoComponent == null)
+            {
+                return;
+            }
+            UIComponent.SetActive(skillInfoComponent.gameObject, true);
             skillInfoComponent.UpdateInfo(skillInfo);
             /*
             var convertHelpText = skillInfo.ConvertHelpText(battlerInfo);
@@ -692,7 +655,11 @@ namespace Ryneus
 
         public void ClearCurrentSkillData()
         {
-            UIComponent.SetActive(skillInfoComponent?.gameObject, false);
+            if (skillInfoComponent == null)
+            {
+                return;
+            }
+            UIComponent.SetActive(skillInfoComponent.gameObject, false);
             skillInfoComponent.Clear();
         }
 
@@ -746,7 +713,7 @@ namespace Ryneus
                 SoundManager.Instance.PlayStaticSe(SEType.Demigod);
                 battleAwakenAnimation.StartAnimation(battlerInfo, speed);
                 HideStateOverlay();
-                AnimationBusy.SetValue(true);
+                BattleAnimationBusy.SetValue(true);
                 await UniTask.DelayFrame((int)(60 / speed));
             }
         }
@@ -896,11 +863,19 @@ namespace Ryneus
         {
             if (InputSystem.GetInputDate(InputKeyType.Start).IsDownTrigger())
             {
+                if (!decideButton.gameObject.activeSelf)
+                {
+                    return;
+                }
                 CallViewEvent(CommandType.DecideBattle);
             }
             else
             if (InputSystem.GetInputDate(InputKeyType.Option2).IsDownTrigger())
             {
+                if (!formationButton.gameObject.activeSelf)
+                {
+                    return;
+                }
                 CallViewEvent(CommandType.Formation);
             }
             else
@@ -945,7 +920,7 @@ namespace Ryneus
                 SoundManager.Instance.PlayStaticSe(SEType.Demigod);
                 StartAnimationDemigod(battlerInfo, skillData, speed);
                 HideStateOverlay();
-                AnimationBusy.SetValue(true);
+                BattleAnimationBusy.SetValue(true);
                 await UniTask.DelayFrame((int)(20f / speed));
                 SoundManager.Instance.PlayStaticSe(SEType.Awaken);
                 await UniTask.DelayFrame((int)(90f / speed));

@@ -477,7 +477,7 @@ namespace Ryneus
             Func<SystemData.CommandData, bool> batch = (sideMenu) =>
             {
                 // 仲間強化関連の課題がある
-                if (sideMenu.Key == "Status")
+                if (sideMenu.Id == (int)SideMenuCommandType.Status)
                 {
                     return _model.IsStatusBatch();
                 }

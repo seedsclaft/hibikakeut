@@ -18,13 +18,42 @@ namespace Ryneus
             }
         }
 
-        public List<ItemInfo> DungeonUseItemInfos()
+        public List<ItemInfo> UseItemInfos()
+        {
+            var allItems = PartyInfo.GetOwnItemInfos();
+            var list = new List<ItemInfo>();
+            foreach (var allItem in allItems)
+            {
+                if (_sceneParam != null)
+                {
+                    if (EnableUse(allItem))
+                    {
+                        list.Add(allItem);
+                    }
+                    continue;
+                }
+                list.Add(allItem);
+            }
+            if (_sceneParam != null)
+            {
+                foreach (var allItem in allItems)
+                {
+                    if (!EnableUse(allItem))
+                    {
+                        list.Add(allItem);
+                    }
+                }
+            }
+            return list;
+        }
+
+        public bool EnableUse(ItemInfo itemInfo)
         {
             if (_sceneParam != null)
             {
-                return PartyInfo.GetOwnUseItemInfos(_sceneParam.UsableItemTypes);
+                return _sceneParam.UsableItemTypes.Contains((UseItemType)itemInfo.Master.Param1);
             }
-            return PartyInfo.DungeonUseItemInfos();
+            return true;
         }
 
         public void ChangeEncountRate(int rate, int turns)
@@ -40,21 +69,21 @@ namespace Ryneus
 
         public bool CanUseItem(ItemInfo itemInfo)
         {
-            switch (itemInfo.Master.Param1)
+            switch ((UseItemType)itemInfo.Master.Param1)
             {
-                case (int)UseItemType.EncountRate:
-                case (int)UseItemType.DungeonTurn:
+                case UseItemType.EncountRate:
+                case UseItemType.DungeonTurn:
                     return true;
-                case (int)UseItemType.Heal:
+                case UseItemType.Heal:
                     return CanUseRecoveryHeal();
-                case (int)UseItemType.Exp:
+                case UseItemType.Exp:
                     return _actorInfo != null && _actorInfo.Level < _actorInfo.Master.MaxLv;
-                case (int)UseItemType.AttributeUp:
+                case UseItemType.AttributeUp:
                     var getAttibute = (AttributeType)itemInfo.Master.Param2;
                     return _actorInfo != null &&_actorInfo.AttributeRanks(PartyInfo.ActorInfos)[(int)getAttibute] != AttributeRank.S;
-                case (int)UseItemType.StatusUp:
+                case UseItemType.StatusUp:
                     return _actorInfo != null;
-                case (int)UseItemType.ClassChange:
+                case UseItemType.ClassChange:
                     return _actorInfo != null && !_actorInfo.IsClassChenged.Value;
             }
             return false;

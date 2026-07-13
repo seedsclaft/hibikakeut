@@ -29,13 +29,12 @@ namespace Ryneus
             {
                 InitializeAfter();
             }
+            _busy = false;
         }
 
         private void InitializeAfter()
         {
-            _view.SetUseItem(MakeListData(_model.DungeonUseItemInfos(), 0));
             CommandRefresh();
-            _busy = false;
         }
 
         private void UpdateCommand(ViewEvent viewEvent)
@@ -68,32 +67,38 @@ namespace Ryneus
             {
                 return;
             }
+            if (!_model.EnableUse(itemInfo) || !_model.CanUseItem(itemInfo))
+            {
+                CommandCautionInfo(DataSystem.GetText(42040));
+                SoundManager.Instance.PlayStaticSe(SEType.Deny);
+                return;
+            }
             if (_model.CanUseItem(itemInfo))
             {
                 _model.PartyInfo.ConsuneItemNum(itemInfo.Id.Value, 1);
             }
 
-            switch (itemInfo.Master.Param1)
+            switch ((UseItemType)itemInfo.Master.Param1)
             {
-                case (int)UseItemType.EncountRate:
+                case UseItemType.EncountRate:
                     UseItemEncountRate(itemInfo);
                     break;
-                case (int)UseItemType.DungeonTurn:
+                case UseItemType.DungeonTurn:
                     UseItemDungeonTurn(itemInfo);
                     break;
-                case (int)UseItemType.Heal:
+                case UseItemType.Heal:
                     UseItemHeal(itemInfo);
                     break;
-                case (int)UseItemType.Exp:
+                case UseItemType.Exp:
                     UseItemExp(itemInfo);
                     break;
-                case (int)UseItemType.AttributeUp:
+                case UseItemType.AttributeUp:
                     UseItemAttributeUp(itemInfo);
                     break;
-                case (int)UseItemType.StatusUp:
+                case UseItemType.StatusUp:
                     UseItemStatusUp(itemInfo);
                     break;
-                case (int)UseItemType.ClassChange:
+                case UseItemType.ClassChange:
                     UseItemClassChange(itemInfo);
                     break;
             }
@@ -168,9 +173,7 @@ namespace Ryneus
             {
                 CheckAchievements();
                 _busy = false;
-                //CommandRefreshMagicList(false);
             });
-            //CommandRefreshuseItemList();
         }
 
         private void UseItemStatusUp(ItemInfo itemInfo)
@@ -183,7 +186,6 @@ namespace Ryneus
                 _busy = false;
                 CommandRefresh();
             });
-            //CommandRefreshuseItemList();
         }
 
         private void UseItemClassChange(ItemInfo itemInfo)
@@ -208,7 +210,12 @@ namespace Ryneus
 
         private void CommandRefresh()
         {
-            _view.SetUseItem(MakeListData(_model.DungeonUseItemInfos(), 0));
+            Func<ItemInfo, bool> enable = (itemInfo) =>
+            {
+                // 使用可能か
+                return _model.EnableUse(itemInfo) && _model.CanUseItem(itemInfo);
+            };
+            _view.SetUseItem(MakeListData(_model.UseItemInfos(), enable, null));
         }
 
         private void CheckTutorialState(object commandType = null)

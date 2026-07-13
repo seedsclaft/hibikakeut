@@ -98,10 +98,12 @@ namespace Ryneus
             CheckAchievements();
             _model.SwapBattler(actorInfo.ActorId.Value);
             // 整列が必要であれば整列する
+            /*
             if (_model.AdjustEditIndexes())
             {
                 CommandCautionInfo(DataSystem.GetText(43010));
             }
+            */
             _view.EndSelectChangeBattler();
             CommandRefresh();
             _view.UpdateActorInfo(actorInfo);

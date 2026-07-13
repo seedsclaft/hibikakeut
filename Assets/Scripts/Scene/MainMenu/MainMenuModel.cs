@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Cysharp.Threading.Tasks;
 
 namespace Ryneus
@@ -226,51 +225,38 @@ namespace Ryneus
             var list = new List<SystemData.CommandData>();
             var status = new SystemData.CommandData
             {
-                Id = 1,
+                Id = (int)SideMenuCommandType.Status,
                 Name = DataSystem.GetText(19006),
-                Key = "Status"
             };
             list.Add(status);
             var artifact = new SystemData.CommandData
             {
-                Id = 1,
+                Id = (int)SideMenuCommandType.Artifact,
                 Name = DataSystem.GetText(37000),
-                Key = "Artifact"
             };
             list.Add(artifact);
             var option = new SystemData.CommandData
             {
-                Id = 2,
+                Id = (int)SideMenuCommandType.Option,
                 Name = DataSystem.GetText(19101),
-                Key = "Option"
             };
             list.Add(option);
             var menuCommand = new SystemData.CommandData
             {
-                Id = 3,
+                Id = (int)SideMenuCommandType.Help,
                 Name = DataSystem.GetText(19102),
-                Key = "Help"
             };
             list.Add(menuCommand);
-            var dictionaryCommand = new SystemData.CommandData
-            {
-                Id = 11,
-                Name = DataSystem.GetText(19103),
-                Key = "Dictionary"
-            };
-            list.Add(dictionaryCommand);
             var saveCommand = new SystemData.CommandData
             {
-                Id = 4,
+                Id = (int)SideMenuCommandType.Save,
                 Name = DataSystem.GetText(19104),
-                Key = "Save"
             };
             list.Add(saveCommand);
             var titleCommand = new SystemData.CommandData
             {
-                Id = 5,
+                Id = (int)SideMenuCommandType.Title,
                 Name = DataSystem.GetText(19106),
-                Key = "Title"
             };
             list.Add(titleCommand);
             return list;

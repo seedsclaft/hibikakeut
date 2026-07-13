@@ -263,15 +263,17 @@ namespace Ryneus
             _busy = true;
             _view.CallUseItemList();
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            var useItemSceneInfo = new UseItemSceneInfo();
-            useItemSceneInfo.UsableItemTypes = new()
+            var useItemSceneInfo = new UseItemSceneInfo
             {
-                UseItemType.Exp,
-                UseItemType.AttributeUp,
-                UseItemType.ClassChange,
-                UseItemType.StatusUp
+                UsableItemTypes = new()
+                {
+                    UseItemType.Exp,
+                    UseItemType.AttributeUp,
+                    UseItemType.ClassChange,
+                    UseItemType.StatusUp
+                },
+                CurrentActor = _model.CurrentActor
             };
-            useItemSceneInfo.CurrentActor = _model.CurrentActor;
             CallPopupView(PopupType.UseItem, () =>
             {
                 _busy = false;
@@ -328,7 +330,6 @@ namespace Ryneus
                 _busy = false;
                 CommandRefreshMagicList(false);
             });
-            CommandRefreshuseItemList();
         }
 
         private void UseItemAttributeUp(ItemInfo itemInfo)
@@ -341,7 +342,6 @@ namespace Ryneus
                 _busy = false;
                 CommandRefreshMagicList(false);
             });
-            CommandRefreshuseItemList();
         }
 
         private void UseItemStatusUp(ItemInfo itemInfo)
@@ -354,7 +354,6 @@ namespace Ryneus
                 _busy = false;
                 CommandRefresh();
             });
-            CommandRefreshuseItemList();
         }
 
         private void UseItemClassChange(ItemInfo itemInfo)
@@ -371,7 +370,6 @@ namespace Ryneus
                 _busy = false;
                 CommandRefreshMagicList(false);
             }, ClassChangeInfo);
-            CommandRefreshuseItemList();
         }
 
         private void CommandCancelUseItem()
@@ -683,12 +681,6 @@ namespace Ryneus
             {
                 _model.SetActorLastSkillId(selectedSkillId);
             }
-        }
-
-        private void CommandRefreshuseItemList()
-        {
-            CommandRefresh();
-            _view.SetUseItemList(MakeListData(_model.UseItemInfos(), 0));
         }
 
         private void CommandGuide()

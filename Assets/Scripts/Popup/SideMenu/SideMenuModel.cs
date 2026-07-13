@@ -10,6 +10,7 @@ namespace Ryneus
         {
             _sceneParam = (SideMenuViewInfo)GameSystem.SceneStackManager.LastTemplate;
         }
+
         public void DeletePlayerData()
         {
             SaveSystem.DeletePlayerData();
@@ -19,5 +20,19 @@ namespace Ryneus
         {
             SaveSystem.DeleteStageData();
         }
+    }
+
+    public enum SideMenuCommandType
+    {
+        Status,
+        Artifact,
+        Option,
+        Help,
+        Save,
+        Title,
+        Return,
+        EndGame,
+        Licence,
+        InitializeData,
     }
 }

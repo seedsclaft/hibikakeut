@@ -283,27 +283,6 @@ namespace Ryneus
             });
         }
 
-        public void SetUseItemList(List<ListData> itemInfos)
-        {
-            //useItemList.SetData(itemInfos, false);
-        }
-
-        private void OnUseItem()
-        {
-            /*
-            var data = useItemList.ListItemData<ItemInfo>();
-            if (data != null)
-            {
-                CallViewEvent(CommandType.UseItem, data);
-            }
-            */
-        }
-
-        private void OnCancelUseItem()
-        {
-            CallViewEvent(CommandType.CancelUseItem);
-        }
-
         public void SetActiveArrows(bool isActive)
         {
             UIComponent.SetActive(leftArrowButton?.gameObject, isActive);

@@ -205,7 +205,7 @@ namespace Ryneus
             {
                 if (!_battlerInfo.IsAlive())
                 {
-                    canvasGroup.alpha = 0;
+                    canvasGroup.alpha = 0.5f;
                 }
                 else
                 {

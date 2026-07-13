@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Ryneus.SideMenu;
 
 namespace Ryneus
@@ -63,47 +62,47 @@ namespace Ryneus
             {
                 return;
             }
-            switch (commandData.Key)
+            switch ((SideMenuCommandType) commandData.Id)
             {
-                case "Status":
+                case SideMenuCommandType.Status:
                     CommandStatus();
                     break;
-                case "Return":
+                case SideMenuCommandType.Return:
                     CommandReturn();
                     break;
-                case "Artifact":
+                case SideMenuCommandType.Artifact:
                     CommandAritifact();
                     break;
-                case "Option":
+                case SideMenuCommandType.Option:
                     CommandOption();
                     break;
-                case "Retire":
-                    CommandDropout();
-                    break;
-                case "Help":
+                //case "Retire":
+                //    CommandDropout();
+                //    break;
+                case SideMenuCommandType.Help:
                     CommandRule();
                     break;
-                case "Save":
+                case SideMenuCommandType.Save:
                     CommandSave();
                     break;
-                case "License":
+                case SideMenuCommandType.Licence:
                     CommandCredit();
                     break;
-                case "InitializeData":
+                case SideMenuCommandType.InitializeData:
                     CommandInitializeData();
                     break;
-                case "DeleteStage":
-                    CommandDeleteStage();
-                    break;
-                case "Title":
+                //case SideMenuCommandType.DeleteStage:
+                //    CommandDeleteStage();
+                //    break;
+                case SideMenuCommandType.Title:
                     CommandTitle();
                     break;
-                case "EndGame":
+                case SideMenuCommandType.EndGame:
                     CommandEndGame();
                     break;
-                case "Dictionary":
-                    CommandDictionary();
-                    break;
+                //case "Dictionary":
+                //    CommandDictionary();
+                //    break;
             }
         }
 

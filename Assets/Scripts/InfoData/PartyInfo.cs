@@ -269,13 +269,6 @@ namespace Ryneus
             return list;
         }
 
-        public List<ItemInfo> GetOwnUseItemInfos(List<UseItemType> itemTypes)
-        {
-            var useItemInfos = UseItemInfos();
-            useItemInfos.AddRange(DungeonUseItemInfos());
-            return useItemInfos.FindAll(a => itemTypes.Contains((UseItemType)a.Master.Param1));
-        }
-
         public List<ItemInfo> GetOwnItemInfos(ItemType itemType)
         {
             var list = new List<ItemInfo>();
@@ -288,18 +281,6 @@ namespace Ryneus
                 }
             }
             return list;
-        }
-
-        // 使用できるアイテムを取得
-        public List<ItemInfo> UseItemInfos()
-        {
-            return GetOwnItemInfos(ItemType.UseItem);
-        }
-
-        // ダンジョンで使用できるアイテムを取得
-        public List<ItemInfo> DungeonUseItemInfos()
-        {
-            return GetOwnItemInfos(ItemType.DungeonItem);
         }
 
         // アーティファクトアイテムを取得

@@ -93,15 +93,18 @@ namespace Ryneus
         public static List<ListData> MakeListData<T>(List<T> dataList, Func<T, bool> enable, Func<T, bool> select)
         {
             var list = new List<ListData>();
-            if (enable != null)
+            foreach (var data in dataList)
             {
-                foreach (var data in dataList)
+                var listData = new ListData(data);
+                if (enable != null)
                 {
-                    var listData = new ListData(data);
                     listData.Enable.SetValue(enable(data));
-                    listData.Selected.SetValue(select(data));
-                    list.Add(listData);
                 }
+                if (select != null)
+                {
+                    listData.Selected.SetValue(select(data));
+                }
+                list.Add(listData);
             }
             return list;
         }

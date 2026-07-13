@@ -268,15 +268,11 @@ namespace Ryneus
 
         private async Task CommandDecideBattle()
         {
-            if (!_beforeBattle)
-            {
-                return;
-            }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _view.SetActiveBeforeBattles(false);
             _beforeBattle = false;
             await _view.SetFieldActors(_model.ViewBattlerActors());
             _model.CreateBattleRecords();
-            _view.SetActiveBeforeBattles(false);
             _view.HideEnemiesStatus();
             _view.EndFormation();
             _view.UpdateStartActivate();
@@ -305,10 +301,6 @@ namespace Ryneus
 
         private void CommandFormation()
         {
-            if (!_beforeBattle)
-            {
-                return;
-            }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             _view.StartFormation();
         }
@@ -621,7 +613,7 @@ namespace Ryneus
         private void CommandUpdateBattleAuto()
         {
             _view.ChangeBattleAuto(_model.IsBattleAuto());
-            if (!_view.AnimationBusy.Value && _view.BattleSeekBusy.Value && _model.IsBattleAuto())
+            if (!_view.BattleAnimationBusy.Value && _view.BattleSeekBusy.Value && _model.IsBattleAuto())
             {
                 _model.ClearActionInfo();
                 _view.BattlerBattleClearSelect();

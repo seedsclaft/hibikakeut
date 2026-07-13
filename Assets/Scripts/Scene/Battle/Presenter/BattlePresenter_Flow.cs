@@ -46,7 +46,7 @@ namespace Ryneus
                 // マニュアルなら魔法選択
                 ShowMagicList(currentBattler, true);
                 _view.SelectedCharacter(currentBattler);
-                _view.AnimationBusy.SetValue(false);
+                _view.BattleAnimationBusy.SetValue(false);
             }
             else
             {
