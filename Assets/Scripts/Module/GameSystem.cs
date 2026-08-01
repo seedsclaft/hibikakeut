@@ -14,6 +14,7 @@ namespace Ryneus
     public class GameSystem : SingletonMonoBehaviour<GameSystem>
     {
         [SerializeField] private bool testMode = false;
+        [SerializeField] private bool english = false;
         [SerializeField] private SceneAssign sceneAssign = null;
         [SerializeField] private MapAssign mapAssign = null;
         [SerializeField] private PopupAssign popupAssign = null;
@@ -91,6 +92,20 @@ namespace Ryneus
             _lastTutorialData = null;
             Version = Application.version;
             _sceneStackManager.ClearPopupInfo();
+            
+            LanguageManagerBase langManager = LanguageManagerBase.Instance;
+            if (english)
+            {
+                if (langManager == null) return;
+                if (langManager.Languages.Count < 1) return;
+
+                langManager.CurrentLanguage = "English";
+            } else
+            {
+                if (langManager == null) return;
+                if (langManager.Languages.Count < 1) return;
+                langManager.CurrentLanguage = "Japanese";
+            }
 #if UNITY_EDITOR
             DebugBattleData = debugBattleData;
 #endif 

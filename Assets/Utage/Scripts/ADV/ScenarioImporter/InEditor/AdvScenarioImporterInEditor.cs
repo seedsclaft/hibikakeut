@@ -184,6 +184,115 @@ namespace Utage
 				{
 					Debug.Log(LanguageAdvErrorMsg.LocalizeTextFormat(AdvErrorMsg.Import, asset.name),asset);
 					EditorUtility.SetDirty(asset);
+					var strings = new List<string>();
+					var names = new List<string>();
+					foreach (var grid in asset.GridList)
+					{
+						if (!grid.Name.Contains("Actor"))
+						{
+							continue;
+						}
+						foreach (var gridRows in grid.Rows)
+						{
+							if (gridRows.Strings.Count() <= 8)
+							{
+								strings.Add("");
+								names.Add("");
+								continue;
+							}
+							if (gridRows.Strings[1] == "EventActor")
+							{
+								strings.Add("");
+								names.Add("");
+								continue;
+							}
+							var s1 = gridRows.Strings[1];
+							var s8 = gridRows.Strings[8];
+							if (s1.Contains("Actor0001"))
+							{
+								s1 = "ロジーナ";
+							} else
+							if (s1.Contains("Actor0002"))
+							{
+								s1 = "エリザベート";
+							} else
+							if (s1.Contains("Actor0003"))
+							{
+								s1 = "ユウナギ";
+							} else
+							if (s1.Contains("Actor0004"))
+							{
+								s1 = "スノー";
+							} else
+							if (s1.Contains("Actor0005"))
+							{
+								s1 = "フィリーネ";
+							} else
+							if (s1.Contains("Actor0006"))
+							{
+								s1 = "カイト";
+							} else
+							if (s1.Contains("Actor0008"))
+							{
+								s1 = "ハヤテ";
+							} else
+							if (s1.Contains("Actor0009"))
+							{
+								s1 = "オスカー";
+							} else
+							if (s1.Contains("Actor0010"))
+							{
+								s1 = "朧";
+							} else
+							if (s1.Contains("Actor0102"))
+							{
+								s1 = "ブリュンヒルデ";
+							} else
+							if (s1.Contains("Actor0103"))
+							{
+								s1 = "シグムント";
+							} else
+							if (s1.Contains("Actor0104"))
+							{
+								s1 = "ヨルディス";
+							} else
+							if (s1.Count() > 0)
+							{
+								//s1 = "NPC";
+							}
+							names.Add(s1);
+							if (gridRows.Strings[8].Contains("<speed=0.5> </speed>"))
+							{
+								s8 = gridRows.Strings[8].Replace("<speed=0.5> </speed>", "");
+								s8 = s8.Replace("<speed=0.5> </speed>", "");
+								s8 = s8.Replace("<speed=0.5> </speed>", "");
+								s8 = s8.Replace("<speed=0.5> </speed>", "");
+							}
+							if (gridRows.Strings[8].Contains("\n"))
+							{
+								s8 = s8.Replace("\n", "");
+								s8 = s8.Replace("\n", "");
+								s8 = s8.Replace("\n", "");
+							}
+							strings.Add(s8);
+						}
+						
+					}
+					string t = "";
+					int i = 0;
+					foreach (var str in strings)
+					{
+						if (i == 0 || str == "")
+						{
+							i++;
+							continue;
+						}
+						t += names[i] + " : " + str;
+						t += "\n";
+						i++;
+					}
+					Debug.Log(t);
+					File.WriteAllText(asset.name + ".txt", t, Encoding.UTF8); 
 				}
 			}
 		}
