@@ -122,6 +122,7 @@ namespace Ryneus
             var playTrack = _playingIsMain ? _bgmSub : _bgmMain;
             playTrack.Stop();
             playTrack.SetClip(clips, loop);
+            playTrack.ChangeVolume(volume * _bgmVolume);
             playTrack.Play(timeStamp);
             playTrack.FadeVolume(volume * _bgmVolume, 1);
 
