@@ -12739,7 +12739,7 @@ MonoBehaviour:
       debugIndex: 17
       strings:
       - 
-      - Actor0008_F
+      - Actor0003_Surprised_F
       - <Off>
       - Character0
       - 
@@ -13281,7 +13281,7 @@ MonoBehaviour:
       debugIndex: 20
       strings:
       - 
-      - Actor0003_F
+      - Actor0003_Surprised_F
       - <Off>
       - Character0
       - 
@@ -14128,7 +14128,7 @@ MonoBehaviour:
       debugIndex: 43
       strings:
       - 
-      - Actor0003
+      - Actor0003_Angry
       - 
       - Character2
       - 
@@ -14405,7 +14405,7 @@ MonoBehaviour:
       debugIndex: 45
       strings:
       - 
-      - Actor0003
+      - Actor0003_Furrowed Brow
       - 
       - Character2
       - 
@@ -16146,7 +16146,7 @@ MonoBehaviour:
       debugIndex: 78
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -16438,7 +16438,7 @@ MonoBehaviour:
       debugIndex: 81
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -16701,7 +16701,7 @@ MonoBehaviour:
       debugIndex: 82
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -16978,7 +16978,7 @@ MonoBehaviour:
       debugIndex: 84
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -17240,7 +17240,7 @@ MonoBehaviour:
       debugIndex: 85
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -17502,7 +17502,7 @@ MonoBehaviour:
       debugIndex: 86
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -17779,7 +17779,7 @@ MonoBehaviour:
       debugIndex: 88
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -18072,7 +18072,7 @@ MonoBehaviour:
       strings:
       - 
       - Actor0102
-      - 
+      - <Off>
       - Character2
       - 
       - 
@@ -18332,13 +18332,13 @@ MonoBehaviour:
     - rowIndex: 92
       debugIndex: 92
       strings:
-      - FlipEventActor
-      - EventActor
-      - Actors/0102/Field_0102
+      - FadeOut
+      - white
       - 
       - 
       - 
       - 
+      - .5
       - 
       - 
       isEmpty: 0
@@ -18347,13 +18347,16 @@ MonoBehaviour:
     - rowIndex: 93
       debugIndex: 93
       strings:
-      - FadeEventActor
-      - EventActor
-      - Actors/0102/Field_0102
-      - 1
+      - PlaySe
+      - Magic2
+      - 100
+      - 100
       - 
       - 
-      - .5
+      - 
+      - 
+      - 
+      - 
       - 
       - 
       isEmpty: 0
@@ -18368,7 +18371,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - 1
+      - .5
       - 
       - 
       isEmpty: 0
@@ -18376,6 +18379,51 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 95
       debugIndex: 95
+      strings:
+      - FlipEventActor
+      - EventActor
+      - Actors/0102/Field_0102
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 96
+      debugIndex: 96
+      strings:
+      - FadeEventActor
+      - EventActor
+      - Actors/0102/Field_0102
+      - 1
+      - 
+      - 
+      - .5
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 97
+      debugIndex: 97
+      strings:
+      - Wait
+      - 
+      - 
+      - 
+      - 
+      - 
+      - .5
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 98
+      debugIndex: 98
       strings:
       - CharacterOff
       - 
@@ -18392,8 +18440,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 96
-      debugIndex: 96
+    - rowIndex: 99
+      debugIndex: 99
       strings:
       - CharacterOff
       - 
@@ -18410,8 +18458,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 97
-      debugIndex: 97
+    - rowIndex: 100
+      debugIndex: 100
       strings:
       - PlayBgm
       - Event8
@@ -18428,8 +18476,23 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 98
-      debugIndex: 98
+    - rowIndex: 101
+      debugIndex: 101
+      strings:
+      - FadeIn
+      - white
+      - 
+      - 
+      - 
+      - 
+      - 1
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 102
+      debugIndex: 102
       strings:
       - 
       - Actor0003
@@ -18690,8 +18753,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 99
-      debugIndex: 99
+    - rowIndex: 103
+      debugIndex: 103
       strings:
       - 
       - Actor0102
@@ -18952,8 +19015,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 100
-      debugIndex: 100
+    - rowIndex: 104
+      debugIndex: 104
       strings:
       - 
       - Actor0102
@@ -19214,11 +19277,11 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 101
-      debugIndex: 101
+    - rowIndex: 105
+      debugIndex: 105
       strings:
       - 
-      - Actor0003
+      - Actor0003_Serious
       - 
       - Character0
       - 
@@ -19476,8 +19539,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 102
-      debugIndex: 102
+    - rowIndex: 106
+      debugIndex: 106
       strings:
       - 
       - Actor0102
@@ -19739,8 +19802,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 103
-      debugIndex: 103
+    - rowIndex: 107
+      debugIndex: 107
       strings:
       - 
       - Actor0102
@@ -20001,8 +20064,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 104
-      debugIndex: 104
+    - rowIndex: 108
+      debugIndex: 108
       strings:
       - Wait
       - 
@@ -20263,11 +20326,11 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 105
-      debugIndex: 105
+    - rowIndex: 109
+      debugIndex: 109
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -20525,11 +20588,11 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 106
-      debugIndex: 106
+    - rowIndex: 110
+      debugIndex: 110
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -20787,8 +20850,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 107
-      debugIndex: 107
+    - rowIndex: 111
+      debugIndex: 111
       strings:
       - Wait
       - 
@@ -21049,8 +21112,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 108
-      debugIndex: 108
+    - rowIndex: 112
+      debugIndex: 112
       strings:
       - 
       - Actor0102
@@ -21311,8 +21374,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 109
-      debugIndex: 109
+    - rowIndex: 113
+      debugIndex: 113
       strings:
       - FadeEventActor
       - EventActor
@@ -21326,8 +21389,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 110
-      debugIndex: 110
+    - rowIndex: 114
+      debugIndex: 114
       strings:
       - FadeEventActor
       - EventActor
@@ -21341,8 +21404,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 111
-      debugIndex: 111
+    - rowIndex: 115
+      debugIndex: 115
       strings:
       - FadeOut
       - white
@@ -21356,8 +21419,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 112
-      debugIndex: 112
+    - rowIndex: 116
+      debugIndex: 116
       strings:
       - Wait
       - 
@@ -21371,8 +21434,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 113
-      debugIndex: 113
+    - rowIndex: 117
+      debugIndex: 117
       strings:
       - 
       - Actor0102
@@ -21633,8 +21696,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 114
-      debugIndex: 114
+    - rowIndex: 118
+      debugIndex: 118
       strings:
       - CharacterOff
       - 
@@ -21651,8 +21714,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 115
-      debugIndex: 115
+    - rowIndex: 119
+      debugIndex: 119
       strings:
       - CharacterOff
       - 
@@ -21669,8 +21732,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 116
-      debugIndex: 116
+    - rowIndex: 120
+      debugIndex: 120
       strings:
       - Wait
       - 
@@ -21684,8 +21747,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 117
-      debugIndex: 117
+    - rowIndex: 121
+      debugIndex: 121
       strings:
       - Bg
       - Event0003_1
@@ -21697,8 +21760,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 118
-      debugIndex: 118
+    - rowIndex: 122
+      debugIndex: 122
       strings:
       - FadeIn
       - black
@@ -21712,8 +21775,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 119
-      debugIndex: 119
+    - rowIndex: 123
+      debugIndex: 123
       strings:
       - Wait
       - 
@@ -21727,8 +21790,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 120
-      debugIndex: 120
+    - rowIndex: 124
+      debugIndex: 124
       strings:
       - ChangeMessageWindow
       - MessageWindow
@@ -21745,8 +21808,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 121
-      debugIndex: 121
+    - rowIndex: 125
+      debugIndex: 125
       strings:
       - 
       - Actor0008_F
@@ -22007,8 +22070,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 122
-      debugIndex: 122
+    - rowIndex: 126
+      debugIndex: 126
       strings:
       - 
       - Actor0008_F
@@ -22269,8 +22332,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 123
-      debugIndex: 123
+    - rowIndex: 127
+      debugIndex: 127
       strings:
       - Wait
       - 
@@ -22284,8 +22347,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 124
-      debugIndex: 124
+    - rowIndex: 128
+      debugIndex: 128
       strings:
       - 
       - Npc_0009_D
@@ -22546,8 +22609,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 125
-      debugIndex: 125
+    - rowIndex: 129
+      debugIndex: 129
       strings:
       - 
       - Actor0008_F
@@ -22808,8 +22871,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 126
-      debugIndex: 126
+    - rowIndex: 130
+      debugIndex: 130
       strings:
       - CharacterOff
       - 
@@ -22826,8 +22889,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 127
-      debugIndex: 127
+    - rowIndex: 131
+      debugIndex: 131
       strings:
       - CharacterOff
       - 
@@ -22844,8 +22907,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 128
-      debugIndex: 128
+    - rowIndex: 132
+      debugIndex: 132
       strings:
       - FadeOut
       - black
@@ -22859,8 +22922,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 129
-      debugIndex: 129
+    - rowIndex: 133
+      debugIndex: 133
       strings:
       - Wait
       - 
@@ -22874,8 +22937,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 130
-      debugIndex: 130
+    - rowIndex: 134
+      debugIndex: 134
       strings:
       - HideEventActor
       - EventActor
@@ -22889,8 +22952,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 131
-      debugIndex: 131
+    - rowIndex: 135
+      debugIndex: 135
       strings:
       - HideEventActor
       - EventActor
@@ -22904,8 +22967,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 132
-      debugIndex: 132
+    - rowIndex: 136
+      debugIndex: 136
       strings:
       - HideEventActor
       - EventActor
@@ -22919,8 +22982,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 133
-      debugIndex: 133
+    - rowIndex: 137
+      debugIndex: 137
       strings:
       - BgOff
       - Event0003_3
@@ -22932,8 +22995,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 134
-      debugIndex: 134
+    - rowIndex: 138
+      debugIndex: 138
       strings:
       - Wait
       - 
@@ -22947,8 +23010,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 135
-      debugIndex: 135
+    - rowIndex: 139
+      debugIndex: 139
       strings:
       - ActiveDungeon
       - 1
@@ -22965,8 +23028,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 136
-      debugIndex: 136
+    - rowIndex: 140
+      debugIndex: 140
       strings:
       - ResumeDungeonBgm
       - 
@@ -22983,8 +23046,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 137
-      debugIndex: 137
+    - rowIndex: 141
+      debugIndex: 141
       strings:
       - ChangeMessageWindow
       - MessageWindow
@@ -23001,8 +23064,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 138
-      debugIndex: 138
+    - rowIndex: 142
+      debugIndex: 142
       strings:
       - FadeIn
       - black
@@ -23016,8 +23079,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 139
-      debugIndex: 139
+    - rowIndex: 143
+      debugIndex: 143
       strings:
       - Wait
       - 
@@ -23031,8 +23094,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 140
-      debugIndex: 140
+    - rowIndex: 144
+      debugIndex: 144
       strings:
       - PlaySe
       - Magic2
@@ -23049,8 +23112,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 141
-      debugIndex: 141
+    - rowIndex: 145
+      debugIndex: 145
       strings:
       - 
       - 
@@ -23067,8 +23130,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 142
-      debugIndex: 142
+    - rowIndex: 146
+      debugIndex: 146
       strings:
       - Wait
       - 
@@ -23082,8 +23145,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 143
-      debugIndex: 143
+    - rowIndex: 147
+      debugIndex: 147
       strings:
       - EndScenario
       isEmpty: 0
@@ -23091,7 +23154,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/ADVScene/AdvFiles/Actor0003.xls:Actor0003_3
     type: 1
-    textLength: 4074
+    textLength: 4214
     headerRow: 0
     sourceAssetInEditor: {fileID: 102900000, guid: cfbc9d548ac014a42b682a0770962af9,
       type: 3}
@@ -35819,7 +35882,7 @@ MonoBehaviour:
       debugIndex: 17
       strings:
       - 
-      - Actor0008_F
+      - Actor0003_Surprised_F
       - <Off>
       - Character0
       - 
@@ -36361,7 +36424,7 @@ MonoBehaviour:
       debugIndex: 20
       strings:
       - 
-      - Actor0003_F
+      - Actor0003_Surprised_F
       - <Off>
       - Character0
       - 
@@ -37208,7 +37271,7 @@ MonoBehaviour:
       debugIndex: 43
       strings:
       - 
-      - Actor0003
+      - Actor0003_Angry
       - 
       - Character2
       - 
@@ -37485,7 +37548,7 @@ MonoBehaviour:
       debugIndex: 45
       strings:
       - 
-      - Actor0003
+      - Actor0003_Furrowed Brow
       - 
       - Character2
       - 
@@ -39226,7 +39289,7 @@ MonoBehaviour:
       debugIndex: 78
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -39518,7 +39581,7 @@ MonoBehaviour:
       debugIndex: 81
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -39781,7 +39844,7 @@ MonoBehaviour:
       debugIndex: 82
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -40058,7 +40121,7 @@ MonoBehaviour:
       debugIndex: 84
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -40320,7 +40383,7 @@ MonoBehaviour:
       debugIndex: 85
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -40582,7 +40645,7 @@ MonoBehaviour:
       debugIndex: 86
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -40859,7 +40922,7 @@ MonoBehaviour:
       debugIndex: 88
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -41152,7 +41215,7 @@ MonoBehaviour:
       strings:
       - 
       - Actor0102
-      - 
+      - <Off>
       - Character2
       - 
       - 
@@ -41412,13 +41475,13 @@ MonoBehaviour:
     - rowIndex: 92
       debugIndex: 92
       strings:
-      - FlipEventActor
-      - EventActor
-      - Actors/0102/Field_0102
+      - FadeOut
+      - white
       - 
       - 
       - 
       - 
+      - .5
       - 
       - 
       isEmpty: 0
@@ -41427,13 +41490,16 @@ MonoBehaviour:
     - rowIndex: 93
       debugIndex: 93
       strings:
-      - FadeEventActor
-      - EventActor
-      - Actors/0102/Field_0102
-      - 1
+      - PlaySe
+      - Magic2
+      - 100
+      - 100
       - 
       - 
-      - .5
+      - 
+      - 
+      - 
+      - 
       - 
       - 
       isEmpty: 0
@@ -41448,7 +41514,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - 1
+      - .5
       - 
       - 
       isEmpty: 0
@@ -41456,6 +41522,51 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 95
       debugIndex: 95
+      strings:
+      - FlipEventActor
+      - EventActor
+      - Actors/0102/Field_0102
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 96
+      debugIndex: 96
+      strings:
+      - FadeEventActor
+      - EventActor
+      - Actors/0102/Field_0102
+      - 1
+      - 
+      - 
+      - .5
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 97
+      debugIndex: 97
+      strings:
+      - Wait
+      - 
+      - 
+      - 
+      - 
+      - 
+      - .5
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 98
+      debugIndex: 98
       strings:
       - CharacterOff
       - 
@@ -41472,8 +41583,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 96
-      debugIndex: 96
+    - rowIndex: 99
+      debugIndex: 99
       strings:
       - CharacterOff
       - 
@@ -41490,8 +41601,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 97
-      debugIndex: 97
+    - rowIndex: 100
+      debugIndex: 100
       strings:
       - PlayBgm
       - Event8
@@ -41508,8 +41619,23 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 98
-      debugIndex: 98
+    - rowIndex: 101
+      debugIndex: 101
+      strings:
+      - FadeIn
+      - white
+      - 
+      - 
+      - 
+      - 
+      - 1
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 102
+      debugIndex: 102
       strings:
       - 
       - Actor0003
@@ -41770,8 +41896,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 99
-      debugIndex: 99
+    - rowIndex: 103
+      debugIndex: 103
       strings:
       - 
       - Actor0102
@@ -42032,8 +42158,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 100
-      debugIndex: 100
+    - rowIndex: 104
+      debugIndex: 104
       strings:
       - 
       - Actor0102
@@ -42294,11 +42420,11 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 101
-      debugIndex: 101
+    - rowIndex: 105
+      debugIndex: 105
       strings:
       - 
-      - Actor0003
+      - Actor0003_Serious
       - 
       - Character0
       - 
@@ -42556,8 +42682,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 102
-      debugIndex: 102
+    - rowIndex: 106
+      debugIndex: 106
       strings:
       - 
       - Actor0102
@@ -42819,8 +42945,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 103
-      debugIndex: 103
+    - rowIndex: 107
+      debugIndex: 107
       strings:
       - 
       - Actor0102
@@ -43081,8 +43207,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 104
-      debugIndex: 104
+    - rowIndex: 108
+      debugIndex: 108
       strings:
       - Wait
       - 
@@ -43343,11 +43469,11 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 105
-      debugIndex: 105
+    - rowIndex: 109
+      debugIndex: 109
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -43605,11 +43731,11 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 106
-      debugIndex: 106
+    - rowIndex: 110
+      debugIndex: 110
       strings:
       - 
-      - Actor0003
+      - Actor0003_Sad
       - 
       - Character0
       - 
@@ -43867,8 +43993,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 107
-      debugIndex: 107
+    - rowIndex: 111
+      debugIndex: 111
       strings:
       - Wait
       - 
@@ -44129,8 +44255,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 108
-      debugIndex: 108
+    - rowIndex: 112
+      debugIndex: 112
       strings:
       - 
       - Actor0102
@@ -44391,8 +44517,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 109
-      debugIndex: 109
+    - rowIndex: 113
+      debugIndex: 113
       strings:
       - FadeEventActor
       - EventActor
@@ -44406,8 +44532,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 110
-      debugIndex: 110
+    - rowIndex: 114
+      debugIndex: 114
       strings:
       - FadeEventActor
       - EventActor
@@ -44421,8 +44547,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 111
-      debugIndex: 111
+    - rowIndex: 115
+      debugIndex: 115
       strings:
       - FadeOut
       - white
@@ -44436,8 +44562,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 112
-      debugIndex: 112
+    - rowIndex: 116
+      debugIndex: 116
       strings:
       - Wait
       - 
@@ -44451,8 +44577,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 113
-      debugIndex: 113
+    - rowIndex: 117
+      debugIndex: 117
       strings:
       - 
       - Actor0102
@@ -44713,8 +44839,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 114
-      debugIndex: 114
+    - rowIndex: 118
+      debugIndex: 118
       strings:
       - CharacterOff
       - 
@@ -44731,8 +44857,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 115
-      debugIndex: 115
+    - rowIndex: 119
+      debugIndex: 119
       strings:
       - CharacterOff
       - 
@@ -44749,8 +44875,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 116
-      debugIndex: 116
+    - rowIndex: 120
+      debugIndex: 120
       strings:
       - Wait
       - 
@@ -44764,8 +44890,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 117
-      debugIndex: 117
+    - rowIndex: 121
+      debugIndex: 121
       strings:
       - Bg
       - Event0003_1
@@ -44777,8 +44903,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 118
-      debugIndex: 118
+    - rowIndex: 122
+      debugIndex: 122
       strings:
       - FadeIn
       - black
@@ -44792,8 +44918,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 119
-      debugIndex: 119
+    - rowIndex: 123
+      debugIndex: 123
       strings:
       - Wait
       - 
@@ -44807,8 +44933,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 120
-      debugIndex: 120
+    - rowIndex: 124
+      debugIndex: 124
       strings:
       - ChangeMessageWindow
       - MessageWindow
@@ -44825,8 +44951,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 121
-      debugIndex: 121
+    - rowIndex: 125
+      debugIndex: 125
       strings:
       - 
       - Actor0008_F
@@ -45087,8 +45213,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 122
-      debugIndex: 122
+    - rowIndex: 126
+      debugIndex: 126
       strings:
       - 
       - Actor0008_F
@@ -45349,8 +45475,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 123
-      debugIndex: 123
+    - rowIndex: 127
+      debugIndex: 127
       strings:
       - Wait
       - 
@@ -45364,8 +45490,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 124
-      debugIndex: 124
+    - rowIndex: 128
+      debugIndex: 128
       strings:
       - 
       - Npc_0009_D
@@ -45626,8 +45752,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 125
-      debugIndex: 125
+    - rowIndex: 129
+      debugIndex: 129
       strings:
       - 
       - Actor0008_F
@@ -45888,8 +46014,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 126
-      debugIndex: 126
+    - rowIndex: 130
+      debugIndex: 130
       strings:
       - CharacterOff
       - 
@@ -45906,8 +46032,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 127
-      debugIndex: 127
+    - rowIndex: 131
+      debugIndex: 131
       strings:
       - CharacterOff
       - 
@@ -45924,8 +46050,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 128
-      debugIndex: 128
+    - rowIndex: 132
+      debugIndex: 132
       strings:
       - FadeOut
       - black
@@ -45939,8 +46065,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 129
-      debugIndex: 129
+    - rowIndex: 133
+      debugIndex: 133
       strings:
       - Wait
       - 
@@ -45954,8 +46080,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 130
-      debugIndex: 130
+    - rowIndex: 134
+      debugIndex: 134
       strings:
       - HideEventActor
       - EventActor
@@ -45969,8 +46095,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 131
-      debugIndex: 131
+    - rowIndex: 135
+      debugIndex: 135
       strings:
       - HideEventActor
       - EventActor
@@ -45984,8 +46110,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 132
-      debugIndex: 132
+    - rowIndex: 136
+      debugIndex: 136
       strings:
       - HideEventActor
       - EventActor
@@ -45999,8 +46125,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 133
-      debugIndex: 133
+    - rowIndex: 137
+      debugIndex: 137
       strings:
       - BgOff
       - Event0003_3
@@ -46012,8 +46138,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 134
-      debugIndex: 134
+    - rowIndex: 138
+      debugIndex: 138
       strings:
       - Wait
       - 
@@ -46027,8 +46153,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 135
-      debugIndex: 135
+    - rowIndex: 139
+      debugIndex: 139
       strings:
       - ActiveDungeon
       - 1
@@ -46045,8 +46171,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 136
-      debugIndex: 136
+    - rowIndex: 140
+      debugIndex: 140
       strings:
       - ResumeDungeonBgm
       - 
@@ -46063,8 +46189,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 137
-      debugIndex: 137
+    - rowIndex: 141
+      debugIndex: 141
       strings:
       - ChangeMessageWindow
       - MessageWindow
@@ -46081,8 +46207,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 138
-      debugIndex: 138
+    - rowIndex: 142
+      debugIndex: 142
       strings:
       - FadeIn
       - black
@@ -46096,8 +46222,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 139
-      debugIndex: 139
+    - rowIndex: 143
+      debugIndex: 143
       strings:
       - Wait
       - 
@@ -46111,8 +46237,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 140
-      debugIndex: 140
+    - rowIndex: 144
+      debugIndex: 144
       strings:
       - PlaySe
       - Magic2
@@ -46129,8 +46255,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 141
-      debugIndex: 141
+    - rowIndex: 145
+      debugIndex: 145
       strings:
       - 
       - 
@@ -46147,8 +46273,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 142
-      debugIndex: 142
+    - rowIndex: 146
+      debugIndex: 146
       strings:
       - Wait
       - 
@@ -46162,8 +46288,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 143
-      debugIndex: 143
+    - rowIndex: 147
+      debugIndex: 147
       strings:
       - EndScenario
       isEmpty: 0
@@ -46171,7 +46297,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/ADVScene/AdvFiles/Actor0003.xls:Actor0003_3
     type: 1
-    textLength: 4074
+    textLength: 4214
     headerRow: 0
     sourceAssetInEditor: {fileID: 102900000, guid: cfbc9d548ac014a42b682a0770962af9,
       type: 3}
