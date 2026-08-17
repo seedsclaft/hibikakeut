@@ -14,6 +14,7 @@ namespace Ryneus
         [SerializeField] private AdvPage advPage;
         private int _needSizeFix = 0;
         private float _initY = 0;
+        private float _defaultX = 400;
         private string _lastLayerName = "";
 
         private void Awake()
@@ -51,13 +52,21 @@ namespace Ryneus
             }
             if (_lastLayerName == "Character2")
             {
-                //messageText.rectTransform.localPosition = new Vector2(240, 0);
-                rectTransform.localPosition = new Vector2(240, _initY);
+                float positionX = 240f;
+                if (messageText.preferredWidth > _defaultX)
+                {
+                    positionX -= (messageText.preferredWidth - _defaultX) / 2;
+                }
+                rectTransform.localPosition = new Vector2(positionX, _initY);
             }
             if (_lastLayerName == "Character0")
             {
-                //messageText.rectTransform.localPosition = new Vector2(240, 0);
-                rectTransform.localPosition = new Vector2(-240, _initY);
+                float positionX = -240f;
+                if (messageText.preferredWidth > _defaultX)
+                {
+                    positionX += (messageText.preferredWidth - _defaultX) / 2;
+                }
+                rectTransform.localPosition = new Vector2(positionX, _initY);
             }
         }
 
