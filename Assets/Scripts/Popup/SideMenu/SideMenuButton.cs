@@ -17,7 +17,7 @@ namespace Ryneus
                 return;
             }
             var data = ListItemData<SystemData.CommandData>();
-            UIComponent.SetText(commandName, data.Name);
+            UIComponent.SetText(commandName, DataSystem.GetText(data.TextId));
             UIComponent.SetActive(Batch, ListData.Batch.Value);
         }
     }

@@ -53,9 +53,10 @@ namespace Ryneus
             {
                 UIComponent.SetText(rank, data.Rank.ToString());
             }
-            if (data.State != null)
+            if (state != null)
             {
-                UIComponent.SetText(state, data.State);
+                var stateText = data.Scene == Scene.Dungeon ? DataSystem.GetReplaceText(31060, DataSystem.FindStage(data.StageNo).Name) : DataSystem.GetText(31061);
+                UIComponent.SetText(state, stateText);
             }
         }
     }

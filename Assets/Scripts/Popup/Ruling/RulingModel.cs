@@ -33,8 +33,6 @@ namespace Ryneus
                     SystemData.CommandData ruleCommand = new SystemData.CommandData
                     {
                         Key = rule.Id.ToString(),
-                        Name = rule.Name,
-                        Help = rule.Help,
                         Id = rule.Id
                     };
                     list.Add(ruleCommand);

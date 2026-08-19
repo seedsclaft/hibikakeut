@@ -132,6 +132,17 @@ namespace Ryneus
                         OptionUtility.ChangeSEMute(!SoundManager.Instance.SeMute);
                     }
                     break;
+                case "LANGUAGE":
+                    if (inputKeyType == InputKeyType.Right)
+                    {
+                        OptionUtility.ChangeLanguage(true);
+                    }
+                    else
+                    if (inputKeyType == InputKeyType.Left)
+                    {
+                        OptionUtility.ChangeLanguage(false);
+                    }
+                    break;
                 case "GRAPHIC_QUALITY":
                     if (inputKeyType == InputKeyType.Right)
                     {
@@ -316,6 +327,16 @@ namespace Ryneus
                         else
                         {
                             OptionUtility.ChangeScreenSize(false);
+                        }
+                        break;
+                    case "LANGUAGE":
+                        if (plusValue > 0)
+                        {
+                            OptionUtility.ChangeLanguage(true);
+                        }
+                        else
+                        {
+                            OptionUtility.ChangeLanguage(false);
                         }
                         break;
                 }

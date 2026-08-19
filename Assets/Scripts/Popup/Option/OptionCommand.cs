@@ -27,16 +27,23 @@ namespace Ryneus
             }
             var optionInfo = ListItemData<OptionInfo>();
             var data = optionInfo.OptionCommand;
-            UIComponent.SetText(optionName, data.Name);
-            UIComponent.SetText(optionHelp, data.Help);
-            SetResolutionText();
+            UIComponent.SetText(optionName, DataSystem.GetText(data.TextId));
+            UIComponent.SetText(optionHelp, DataSystem.GetHelp(data.TextId));
+            if (data.ButtonType == OptionButtonType.Resolution)
+            {
+                SetResolutionText();
+            } else
+            if (data.ButtonType == OptionButtonType.Language)
+            {
+                SetLanguageText();
+            }
  
             UIComponent.SetActive(optionVolume.gameObject, data.ButtonType == OptionButtonType.Slider);
             optionToggles.ForEach(a => UIComponent.SetActive(a.gameObject, data.ButtonType == OptionButtonType.Toggle));
 
-            UIComponent.SetActive(minusButton.gameObject, data.ButtonType == OptionButtonType.Resolution);
-            UIComponent.SetActive(plusButton.gameObject, data.ButtonType == OptionButtonType.Resolution);
-            UIComponent.SetActive(resolution.gameObject, data.ButtonType == OptionButtonType.Resolution);
+            UIComponent.SetActive(minusButton.gameObject, data.ButtonType == OptionButtonType.Resolution || data.ButtonType == OptionButtonType.Language);
+            UIComponent.SetActive(plusButton.gameObject, data.ButtonType == OptionButtonType.Resolution || data.ButtonType == OptionButtonType.Language);
+            UIComponent.SetActive(resolution.gameObject, data.ButtonType == OptionButtonType.Resolution || data.ButtonType == OptionButtonType.Language);
 
             if (data.ToggleText1 > 0)
             {
@@ -120,6 +127,9 @@ namespace Ryneus
                 case "SE_VOLUME":
                     optionVolume.UpdateValue(SoundManager.Instance.SeVolume, SoundManager.Instance.SeMute);
                     return;
+                case "LANGUAGE":
+                    SetLanguageText();
+                    return;
                 case "GRAPHIC_QUALITY":
                     for (int i = 0; i < optionToggles.Count; i++)
                     {
@@ -199,6 +209,11 @@ namespace Ryneus
         private void SetResolutionText()
         {
             UIComponent.SetText(resolution, GameSystem.OptionData.ScreenWidth.ToString() + " x " + GameSystem.OptionData.ScreenHeight.ToString());
+        }
+
+        private void SetLanguageText()
+        {
+            UIComponent.SetText(resolution, DataSystem.GetText((int)GameSystem.OptionData.Language + 6050));
         }
     }
 }

@@ -226,37 +226,37 @@ namespace Ryneus
             var status = new SystemData.CommandData
             {
                 Id = (int)SideMenuCommandType.Status,
-                Name = DataSystem.GetText(19006),
+                TextId = 19006
             };
             list.Add(status);
             var artifact = new SystemData.CommandData
             {
                 Id = (int)SideMenuCommandType.Artifact,
-                Name = DataSystem.GetText(37000),
+                TextId = 37000
             };
             list.Add(artifact);
             var option = new SystemData.CommandData
             {
                 Id = (int)SideMenuCommandType.Option,
-                Name = DataSystem.GetText(19101),
+                TextId = 19101
             };
             list.Add(option);
             var menuCommand = new SystemData.CommandData
             {
                 Id = (int)SideMenuCommandType.Help,
-                Name = DataSystem.GetText(19102),
+                TextId = 19102
             };
             list.Add(menuCommand);
             var saveCommand = new SystemData.CommandData
             {
                 Id = (int)SideMenuCommandType.Save,
-                Name = DataSystem.GetText(19104),
+                TextId = 19104
             };
             list.Add(saveCommand);
             var titleCommand = new SystemData.CommandData
             {
                 Id = (int)SideMenuCommandType.Title,
-                Name = DataSystem.GetText(19106),
+                TextId = 19106
             };
             list.Add(titleCommand);
             return list;

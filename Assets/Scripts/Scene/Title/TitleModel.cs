@@ -34,26 +34,26 @@ namespace Ryneus
             var optionCommand = new SystemData.CommandData
             {
                 Id = (int)SideMenuCommandType.Option,
-                Name = DataSystem.GetText(19101),
+                TextId = 19101,
             };
             list.Add(optionCommand);
             var menuCommand = new SystemData.CommandData
             {
                 Id = (int)SideMenuCommandType.Licence,
-                Name = DataSystem.GetText(19107),
+                TextId = 19107,
             };
             list.Add(menuCommand);
             var initCommand = new SystemData.CommandData
             {
                 Id = (int)SideMenuCommandType.InitializeData,
-                Name = DataSystem.GetText(19108),
+                TextId = 19108,
             };
             list.Add(initCommand);
 #if !UNITY_WEBGL
             var endCommand = new SystemData.CommandData
             {
                 Id = (int)SideMenuCommandType.EndGame,
-                Name = DataSystem.GetText(19109),
+                TextId = 19109,
             };
             list.Add(endCommand);
 #endif

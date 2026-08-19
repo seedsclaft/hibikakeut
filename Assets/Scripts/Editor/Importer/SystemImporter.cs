@@ -64,6 +64,7 @@ namespace Ryneus
                     // エクセルブックを作成
                     AssetPostImporter.CreateBook(asset, Mainstream, out IWorkbook Book);
                     List<TextData> textData = AssetPostImporter.CreateText(Book.GetSheetAt(6));
+                    List<TextData> englishTextData = AssetPostImporter.CreateText(Book.GetSheetAt(7));
 
                     // 情報の初期化
                     Data.TacticsCommandData = new();
@@ -72,6 +73,15 @@ namespace Ryneus
                     Data.TitleCommandData = new();
                     Data.SystemTextData = new();
                     Data.SystemTextData = textData;
+                    foreach (var systemTextData in Data.SystemTextData)
+                    {
+                        var englishText = englishTextData.Find(a => a.Id == systemTextData.Id);
+                        if (englishText != null)
+                        {
+                            systemTextData.EnglishText = englishText.Text;
+                            systemTextData.EnglishHelp = englishText.Help;
+                        }
+                    }
                     Data.InputDataList = new();
 
                     // エクセルシートからセル単位で読み込み
@@ -84,8 +94,7 @@ namespace Ryneus
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.Id),
                             Key = AssetPostImporter.ImportString(BaseRow, (int)BaseColumn.Key),
-                            Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.NameTextId)).Text,
-                            Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.NameTextId)).Help
+                            TextId = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.NameTextId)
                         };
                         if (TitleCommandInfo.Id > 0)
                         {
@@ -103,8 +112,7 @@ namespace Ryneus
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.Id),
                             Key = AssetPostImporter.ImportString(BaseRow, (int)BaseColumn.Key),
-                            Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.NameTextId)).Text,
-                            Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.NameTextId)).Help
+                            TextId = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.NameTextId)
                         };
                         Data.TitleCommandData.Add(TitleCommandInfo);
                     }
@@ -119,8 +127,7 @@ namespace Ryneus
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.Id),
                             Key = AssetPostImporter.ImportString(BaseRow, (int)BaseColumn.Key),
-                            Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.NameTextId)).Text,
-                            Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.NameTextId)).Help
+                            TextId = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.NameTextId)
                         };
                         Data.StatusCommandData.Add(StatusCommandInfo);
                     }
@@ -137,9 +144,8 @@ namespace Ryneus
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             Key = AssetPostImporter.ImportString(BaseRow, "Key"),
-                            Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameTextId")).Text,
                             Category = AssetPostImporter.ImportNumeric(BaseRow, "Category"),
-                            Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameTextId")).Help,
+                            TextId = AssetPostImporter.ImportNumeric(BaseRow, "NameTextId"),
                             ButtonType = (OptionButtonType)AssetPostImporter.ImportNumeric(BaseRow, "ButtonType"),
                             ToggleText1 = AssetPostImporter.ImportNumeric(BaseRow, "ToggleText1"),
                             ToggleText2 = AssetPostImporter.ImportNumeric(BaseRow, "ToggleText2"),

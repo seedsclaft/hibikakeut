@@ -18,6 +18,7 @@ namespace Ryneus
                 ChangeSEValue(saveOptionInfo.SeVolume);
                 ChangeScreenMode(saveOptionInfo.ScreenMode);
                 SetResolution(saveOptionInfo.ScreenWidth, saveOptionInfo.ScreenHeight);
+                SetLanguage(saveOptionInfo.Language);
                 ChangeGraphicIndex(saveOptionInfo.GraphicIndex);
                 ChangeEventSkipIndex(saveOptionInfo.EventSkipIndex);
                 ChangeEventTextSkipIndex(saveOptionInfo.EventTextSkipIndex);
@@ -124,6 +125,45 @@ namespace Ryneus
         public static void ChangeSEMute(bool seMute)
         {
             SoundManager.Instance.SeMute = seMute;
+        }
+
+        private static List<Language> _languages = new();
+        private static void InitializeLanguages()
+        {
+            _languages.Clear();
+            _languages.Add(Language.English);
+            _languages.Add(Language.Japanese);
+        }
+
+        public static void ChangeLanguage(bool plus)
+        {
+            if (_languages.Count == 0)
+            {
+                InitializeLanguages();
+            }
+            if (plus)
+            {
+                var changeLanguage = GameSystem.OptionData.Language + 1;
+                if ((int)changeLanguage > _languages.Count)
+                {
+                    changeLanguage = 0;
+                }
+                GameSystem.OptionData.Language = changeLanguage;
+            }
+            else
+            {
+                int changeLanguage = (int)GameSystem.OptionData.Language - 1;
+                if (changeLanguage < 0)
+                {
+                    changeLanguage = _languages.Count - 1;
+                }
+                GameSystem.OptionData.Language = (Language)changeLanguage;
+            }
+        }
+
+        public static void SetLanguage(Language language)
+        {
+            GameSystem.OptionData.Language = language;
         }
 
         public static void ChangeGraphicIndex(int graphicIndex)

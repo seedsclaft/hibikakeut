@@ -61,7 +61,7 @@ namespace Ryneus
                 var Command = new SystemData.CommandData
                 {
                     Key = categoryId.ToString(),
-                    Name = DataSystem.GetText(categoryId + 6000),
+                    TextId = categoryId + 6000,
                     Id = categoryId
                 };
                 commandDates.Add(Command);
@@ -107,5 +107,6 @@ namespace Ryneus
         Toggle,
         Button,
         Resolution,
+        Language,
     }
 }

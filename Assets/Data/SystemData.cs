@@ -33,8 +33,7 @@ namespace Ryneus
 
             public int Id;
             public string Key;
-            public string Name;
-            public string Help;
+            public int TextId;
         }
 
         [Serializable]
@@ -42,8 +41,7 @@ namespace Ryneus
         {
             public int Id;
             public string Key;
-            public string Name;
-            public string Help;
+            public int TextId;
             public int Category;
             public OptionButtonType ButtonType;
             public int ToggleText1;

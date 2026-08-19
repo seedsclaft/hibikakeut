@@ -145,7 +145,7 @@ namespace Ryneus
             var yesCommand = new SystemData.CommandData
             {
                 Key = "Yes",
-                Name = DataSystem.GetText(yesTextId),
+                TextId = yesTextId,
                 Id = 0
             };
             if (noTextId != 0)
@@ -153,7 +153,7 @@ namespace Ryneus
                 var noCommand = new SystemData.CommandData
                 {
                     Key = "No",
-                    Name = DataSystem.GetText(noTextId),
+                    TextId = noTextId,
                     Id = 1
                 };
                 menuCommandDates.Add(noCommand);

@@ -34,7 +34,7 @@ namespace Ryneus
                 saveFileInfo.ActorId = CurrentGameInfo.PartyInfo.LeaderActorId.Value;
             }
             saveFileInfo.UpdatePartyData(PartyInfo);
-            saveFileInfo.State = GameSystem.SceneStackManager.Current == Scene.Dungeon ? DataSystem.GetReplaceText(31060, DataSystem.FindStage(CurrentStage.StageId.Value).Name) : DataSystem.GetText(31061);
+            saveFileInfo.Scene = GameSystem.SceneStackManager.Current;
             CurrentData.PushSaveFile(saveFileInfo);
             SavePlayerData();
             SavePlayerStageData(GameSystem.SceneStackManager.Current);

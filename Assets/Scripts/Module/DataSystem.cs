@@ -134,6 +134,10 @@ namespace Ryneus
             var textData = GetTextData(id);
             if (textData != null)
             {
+                if (GameSystem.OptionData != null && GameSystem.OptionData.Language == Language.English)
+                {
+                    return textData.EnglishText;
+                }
                 return textData.Text;
             }
             LogOutput.Log(id + ":が不足");
@@ -143,6 +147,10 @@ namespace Ryneus
         public static string GetHelp(int id)
         {
             var textData = GetTextData(id);
+            if (GameSystem.OptionData.Language == Language.English)
+            {
+                return textData != null ? textData.EnglishHelp : "";
+            }
             return textData != null ? textData.Help : "";
         }
 
@@ -157,6 +165,10 @@ namespace Ryneus
                 }
                 catch
                 {
+                    if (GameSystem.OptionData.Language == Language.English)
+                    {
+                        return textData.EnglishText;
+                    }
                     return textData.Text;
                 }
             }
@@ -232,5 +244,7 @@ namespace Ryneus
         public string Help;
         public string Feature;
         public string Relief;
+        public string EnglishText;
+        public string EnglishHelp;
     }
 }

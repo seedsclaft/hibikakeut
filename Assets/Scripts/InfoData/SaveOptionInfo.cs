@@ -14,6 +14,7 @@ namespace Ryneus
         public int ScreenWidth;
         public int ScreenHeight;
         public int GraphicIndex;
+        public Language Language;
         public bool EventTextSkipIndex;
         public bool EventSkipIndex;
         public bool CommandEndCheck;
@@ -40,6 +41,7 @@ namespace Ryneus
             ScreenWidth = 1280;
             ScreenHeight = 720;
             GraphicIndex = 2;
+            Language = Language.English;
             EventSkipIndex = false;
             EventTextSkipIndex = false;
             CommandEndCheck = true;
@@ -77,5 +79,11 @@ namespace Ryneus
         Full_HD = 1920,
         WQHD = 2560,
         UHD = 3840,
+    }
+
+    public enum Language
+    {
+        English = 1,
+        Japanese = 2,
     }
 }

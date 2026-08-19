@@ -2891,7 +2891,7 @@ namespace Ryneus
             var menuCommand = new SystemData.CommandData
             {
                 Id = (int)SideMenuCommandType.Help,
-                Name = DataSystem.GetText(19700),
+                TextId = 19700
             };
             list.Add(menuCommand);
             return list;
