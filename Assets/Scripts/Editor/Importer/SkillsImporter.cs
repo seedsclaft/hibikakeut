@@ -67,6 +67,7 @@ namespace Ryneus
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
+                            EnglishName = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).EnglishText,
                             IconIndex = (MagicIconType)AssetPostImporter.ImportNumeric(BaseRow, "IconIndex"),
                             AnimationId = AssetPostImporter.ImportNumeric(BaseRow, "AnimationId"),
                             AnimationType = (AnimationType)AssetPostImporter.ImportNumeric(BaseRow, "AnimationType"),
@@ -82,6 +83,7 @@ namespace Ryneus
                             AliveType = (AliveType)AssetPostImporter.ImportNumeric(BaseRow, "AliveOnly"),
                             TimingOnlyCount = AssetPostImporter.ImportNumeric(BaseRow, "TimingOnlyCount"),
                             Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,
+                            EnglishHelp = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).EnglishHelp,
                             //TurnCount = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.TurnCount),
                         };
                         Data.Data.Add(SkillData);

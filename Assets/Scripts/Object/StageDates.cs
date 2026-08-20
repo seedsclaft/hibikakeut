@@ -15,9 +15,11 @@ namespace Ryneus
         public int StageNo;
         public StageCategory Category;
         public string Name;
+        public string EnglishName;
         public bool Selectable;
         public int Chapter;
         public string Help;
+        public string EnglishHelp;
         public int StageLv;
         public bool OnlyOnce;
         public int DisplayRank;
@@ -32,6 +34,23 @@ namespace Ryneus
         public int BossBGMId;
         public int BattleBGMId;
         public string SkyboxName;
+        public string GetName()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishName;
+            }
+            return Name;
+        }
+
+        public string GetHelp()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishHelp;
+            }
+            return Help;
+        }
     }
 
     public enum StageCategory

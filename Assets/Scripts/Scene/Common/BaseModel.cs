@@ -549,7 +549,7 @@ namespace Ryneus
                 var skillData = DataSystem.FindSkill(skillExpGetItemInfo.Param2);
                 if (skillData.Id > 1000 && skillData.Rank > RankType.ActiveRank1 && !target.MastarySkillIds.Contains(skillExpGetItemInfo.Param2))
                 {
-                    resultInfo.Title.SetValue(DataSystem.GetReplaceText(20110, target.Master.Name) + DataSystem.GetReplaceText(20111, skillData.Name));
+                    resultInfo.Title.SetValue(DataSystem.GetReplaceText(20110, target.Master.GetName()) + DataSystem.GetReplaceText(20111, skillData.GetName()));
                     list.Add(resultInfo);
                 }
             }
@@ -582,7 +582,7 @@ namespace Ryneus
                 {
                     var resultInfo = new GetItemResultViewInfo();
                     var itemData = DataSystem.FindItem(gainItem.Key);
-                    resultInfo.Title.SetValue(itemData.Name + " x" + gainItem.Value);
+                    resultInfo.Title.SetValue(itemData.GetName() + " x" + gainItem.Value);
                     list.Add(resultInfo);
                 }
             }
@@ -593,7 +593,7 @@ namespace Ryneus
             {
                 var resultInfo = new GetItemResultViewInfo();
                 var equipmentData = DataSystem.FindEquipment(equipmentGetItemInfo.Param1);
-                resultInfo.Title.SetValue(equipmentData.Name);
+                resultInfo.Title.SetValue(equipmentData.GetName());
                 list.Add(resultInfo);
             }
 
@@ -615,12 +615,12 @@ namespace Ryneus
                     case GetItemType.AddActor:
                         // キャラ加入
                         var actorData = DataSystem.FindActor(getItemInfo.Param1);
-                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(20200, actorData.Name));
+                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(20200, actorData.GetName()));
                         list.Add(resultInfo);
                         break;
                     case GetItemType.SelectAddActor:
                         var actorData2 = DataSystem.FindActor(getItemInfo.Param1);
-                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(11013, actorData2.Name));
+                        resultInfo.Title.SetValue(DataSystem.GetReplaceText(11013, actorData2.GetName()));
                         list.Add(resultInfo);
                         break;
                     case GetItemType.AddReliefCommandCount:

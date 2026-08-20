@@ -240,19 +240,19 @@ namespace Ryneus
                 {
                     SoundManager.Instance.PlayStaticSe(SEType.DeBuff);
                 }
-                _view.StartStatePopup(addedState.TargetIndex.Value, DamageType.State, "+" + addedState.Master.Name, addedState.IsBuff(), addedState.IsDeBuff());
+                _view.StartStatePopup(addedState.TargetIndex.Value, DamageType.State, "+" + addedState.Master.GetName(), addedState.IsBuff(), addedState.IsDeBuff());
             }
             foreach (var removedState in actionResultInfo.RemovedStates)
             {
-                _view.StartStatePopup(removedState.TargetIndex.Value, DamageType.State, "-" + removedState.Master.Name, removedState.IsBuff(), removedState.IsDeBuff());
+                _view.StartStatePopup(removedState.TargetIndex.Value, DamageType.State, "-" + removedState.Master.GetName(), removedState.IsBuff(), removedState.IsDeBuff());
             }
             foreach (var displayState in actionResultInfo.DisplayStates)
             {
-                _view.StartStatePopup(displayState.TargetIndex.Value, DamageType.State, displayState.Master.Name, displayState.IsBuff(), displayState.IsDeBuff());
+                _view.StartStatePopup(displayState.TargetIndex.Value, DamageType.State, displayState.Master.GetName(), displayState.IsBuff(), displayState.IsDeBuff());
             }
             foreach (var displayUpperState in actionResultInfo.DisplayUpperStates)
             {
-                _view.StartStatePopup(displayUpperState.TargetIndex.Value, DamageType.State, displayUpperState.Master.Name + DataSystem.GetText(16230), displayUpperState.IsBuff(), displayUpperState.IsDeBuff());
+                _view.StartStatePopup(displayUpperState.TargetIndex.Value, DamageType.State, displayUpperState.Master.GetName() + DataSystem.GetText(16230), displayUpperState.IsBuff(), displayUpperState.IsDeBuff());
             }
             if (actionResultInfo.StartDash)
             {

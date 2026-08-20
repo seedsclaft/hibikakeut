@@ -25,11 +25,11 @@ namespace Ryneus
             BgObj?.SetActive(data.Master.SkillType != SkillType.Unique && data.Master.SkillType != SkillType.Awaken);
             if (!ListData.Enable.Value)
             {
-                var question = data.Master.Name.Length - 1;
+                var question = data.Master.GetName().Length - 1;
                 skillInfoComponent.SetName(DataSystem.GetText(121010 + question));
             } else
             {
-                skillInfoComponent.SetName(data.Master.Name);
+                skillInfoComponent.SetName(data.Master.GetName());
             }
         }
     }

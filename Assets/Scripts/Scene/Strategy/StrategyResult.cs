@@ -44,7 +44,7 @@ namespace Ryneus
 
         public string GetSkillText(SkillData skillData)
         {
-            return DataSystem.GetReplaceText(20100, skillData.Name);
+            return DataSystem.GetReplaceText(20100, skillData.GetName());
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Ryneus
         public StateType StateType;
         public string Name;
         public string Help;
+        public string EnglishName;
+        public string EnglishHelp;
         public int IconBack;
         public int IconIndex;
         public string IconPath;
@@ -32,6 +34,23 @@ namespace Ryneus
         public bool RemoveByAttack;
         // 付与者が戦闘不能になった時に効果が切れるか
         public bool RemoveByDeath;
+        public string GetName()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishName;
+            }
+            return Name;
+        }
+
+        public string GetHelp()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishHelp;
+            }
+            return Help;
+        }
     }
 
 

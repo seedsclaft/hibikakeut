@@ -230,7 +230,7 @@ namespace Ryneus
             var data = Dates[DataType.Helps].Find(id) as HelpData;
             if (data != null)
             {
-                var texts = data.Help.Split("\n").ToList();
+                var texts = data.GetHelp().Split("\n").ToList();
                 return ListData.MakeListData(texts);
             }
             return null;

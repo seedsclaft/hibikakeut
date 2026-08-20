@@ -54,7 +54,7 @@ namespace Ryneus
                 case GetItemType.Currency:
                     return Param1.ToString() + DataSystem.GetText(1000);
                 case GetItemType.Skill:
-                    return DataSystem.FindSkill(Param1).Name;
+                    return DataSystem.FindSkill(Param1).GetName();
                 case GetItemType.Demigod:
                     return DataSystem.GetText(20210) + "+" + Param1.ToString();
                 case GetItemType.Ending:
@@ -68,7 +68,7 @@ namespace Ryneus
                 //case GetItemType.LearnSkill:
                 //return DataSystem.FindSkill(Param2).Name;
                 case GetItemType.AddActor:
-                    return DataSystem.FindActor(Param1).Name + DataSystem.GetText(20201);
+                    return DataSystem.FindActor(Param1).GetName() + DataSystem.GetText(20201);
                 case GetItemType.SelectAddActor:
                     return DataSystem.GetText(20240);
                 case GetItemType.SelectRelic:
@@ -76,12 +76,12 @@ namespace Ryneus
                     {
                         return DataSystem.GetText(20250);
                     }
-                    return DataSystem.FindSkill(Param1).Name;
+                    return DataSystem.FindSkill(Param1).GetName();
 
                 case GetItemType.Item:
-                    return DataSystem.FindItem(Param1).Name + " x" + Param2.ToString();
+                    return DataSystem.FindItem(Param1).GetName() + " x" + Param2.ToString();
                 case GetItemType.Equipment:
-                    return DataSystem.FindEquipment(Param1).Name;
+                    return DataSystem.FindEquipment(Param1).GetName();
                 case GetItemType.Evaluate:
                     return DataSystem.GetText(3210) + Param1;
                 case GetItemType.RankUp:

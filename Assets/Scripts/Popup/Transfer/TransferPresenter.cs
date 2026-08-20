@@ -84,7 +84,7 @@ namespace Ryneus
             }
             _busy = true;
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            CallConfirmView(actorInfo.Master.Name + DataSystem.GetText(35010), (a) =>
+            CallConfirmView(actorInfo.Master.GetName() + DataSystem.GetText(35010), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {

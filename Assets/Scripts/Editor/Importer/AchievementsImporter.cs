@@ -70,6 +70,8 @@ namespace Ryneus
                         };
                         AchievementData.Text = textData.Find(a => a.Id == AchievementData.Id).Text;
                         AchievementData.Help = textData.Find(a => a.Id == AchievementData.Id).Help;
+                        AchievementData.EnglishText = textData.Find(a => a.Id == AchievementData.Id).EnglishText;
+                        AchievementData.EnglishHelp = textData.Find(a => a.Id == AchievementData.Id).EnglishHelp;
                         Data.Data.Add(AchievementData);
                     }
                 }

@@ -26,7 +26,7 @@ namespace Utage
             var actorData = DataSystem.FindActor(actorId);
             if (actorData != null)
             {
-                engine.Param.SetParameterString("Select1", actorData.Name);
+                engine.Param.SetParameterString("Select1", actorData.GetName());
             }
         }
     }

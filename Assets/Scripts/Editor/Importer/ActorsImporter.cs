@@ -64,15 +64,17 @@ namespace Ryneus
                     for (int i = 1; i <= BaseSheet.LastRowNum; i++)
                     {
                         IRow BaseRow = BaseSheet.GetRow(i);
-
+                        var actorText = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId"));
                         var ActorData = new ActorData
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
-                            Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
-                            SubName = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,
-                            Relief = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Relief,
-                            Profile = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Feature,
-
+                            Name = actorText.Text,
+                            SubName = actorText.Help,
+                            Relief = actorText.Relief,
+                            Profile = actorText.Feature,
+                            EnglishName = actorText.EnglishText,
+                            EnglishRelief = actorText.EnglishHelp,
+                            
                             Rank = AssetPostImporter.ImportNumeric(BaseRow, "Rank"),
                             //UnitType = (UnitType)AssetPostImporter.ImportNumeric(BaseRow, "UnitType"),
                             ImagePath = AssetPostImporter.ImportString(BaseRow, "ImagePath"),

@@ -47,6 +47,14 @@ namespace Ryneus
         public static SaveInfo CurrentData = null;
         public static SaveGameInfo GameInfo = null;
         public static SaveOptionInfo OptionData = null;
+        public static Language GetLanguage()
+        {
+            if (OptionData != null && OptionData.Language == Language.English)
+            {
+                return Language.English;
+            }
+            return Language.Japanese;
+        }
         public static TempInfo TempData = null;
         private static TutorialData _lastTutorialData = null;
         private bool _busy = false;

@@ -72,6 +72,8 @@ namespace Ryneus
                             StateType = (StateType)AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
                             Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Help,
+                            EnglishName = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).EnglishText,
+                            EnglishHelp = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).EnglishHelp,
                             IconBack = AssetPostImporter.ImportNumeric(BaseRow, "IconBack"),
                             IconPath = AssetPostImporter.ImportString(BaseRow, "IconPath"),
                             IconIndex = AssetPostImporter.ImportNumeric(BaseRow, "IconIndex"),

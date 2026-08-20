@@ -13,10 +13,19 @@ namespace Ryneus
     public class EquipmentData : MasterData
     {
         public string Name;
+        public string EnglishName;
         public MagicIconType IconIndex;
         public int Rank;
         public AttributeType Attribute;
         public List<EquipmentLearningData> LearningDates;
+        public string GetName()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishName;
+            }
+            return Name;
+        }
 
     }
 

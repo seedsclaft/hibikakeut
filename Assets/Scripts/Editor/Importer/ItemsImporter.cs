@@ -72,6 +72,8 @@ namespace Ryneus
                         };
                         ItemData.Name = textData.Find(a => a.Id == ItemData.Id)?.Text;
                         ItemData.Help = textData.Find(a => a.Id == ItemData.Id)?.Help;
+                        ItemData.EnglishName = textData.Find(a => a.Id == ItemData.Id)?.EnglishText;
+                        ItemData.EnglishHelp = textData.Find(a => a.Id == ItemData.Id)?.EnglishHelp;
                         Data.Data.Add(ItemData);
                     }
                 }

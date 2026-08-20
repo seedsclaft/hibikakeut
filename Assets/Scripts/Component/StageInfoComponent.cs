@@ -41,7 +41,7 @@ namespace Ryneus
             }
             var stageData = stageInfo.Master;
             UpdateData(stageData);
-            UIComponent.SetText(help, stageData.Help.Replace("\\p", CurrentData.PlayerInfo.PlayerName.Value));
+            UIComponent.SetText(help, stageData.GetHelp().Replace("\\p", CurrentData.PlayerInfo.PlayerName.Value));
             UIComponent.SetActive(cleared, stageInfo.Cleared.Value);
             var bossEnemyData = stageInfo.BossEnemyData();
             if (bossEnemyData != null && !stageInfo.Cleared.Value)
@@ -79,7 +79,7 @@ namespace Ryneus
             {
                 return;
             }
-            UIComponent.SetText(nameText, stageData.Name);
+            UIComponent.SetText(nameText, stageData.GetName());
             UIComponent.SetText(stageLv, stageData.StageLv);
             UIComponent.SetText(stageNoText, DataSystem.GetReplaceText(15010, stageData.StageNo.ToString()));
             UIComponent.SetText(needStageRank, stageData.DisplayRank.ToString() + "～");

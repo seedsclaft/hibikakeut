@@ -132,7 +132,7 @@ namespace Ryneus
             }
             if (nameText != null)
             {
-                UIComponent.SetText(nameText, skillData.Name);
+                UIComponent.SetText(nameText, skillData.GetName());
                 if (nameAndMpCost)
                 {
                     nameText.rectTransform.sizeDelta = new Vector2(nameText.preferredWidth, nameText.preferredHeight);

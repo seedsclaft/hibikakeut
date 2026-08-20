@@ -13,6 +13,7 @@ namespace Ryneus
     public class SkillData : MasterData
     {
         public string Name;
+        public string EnglishName;
         public MagicIconType IconIndex;
         public int AnimationId;
         public AnimationType AnimationType;
@@ -24,6 +25,7 @@ namespace Ryneus
         public SkillType SkillType;
         public TargetType TargetType;
         public string Help;
+        public string EnglishHelp;
         public RangeType Range;
         public int RepeatTime;
         public AliveType AliveType;
@@ -33,6 +35,25 @@ namespace Ryneus
         public List<FeatureData> FeatureDates = new();
         public List<TriggerData> TriggerDates = new();
         public List<TriggerData> ScopeTriggers = new();
+
+        public string GetName()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishName;
+            }
+            return Name;
+        }
+
+        public string GetHelp()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishHelp;
+            }
+            return Help;
+        }
+
         public bool FindFeature(FeatureType featureType)
         {
             return FeatureDates.Find(a => a.FeatureType == featureType) != null;

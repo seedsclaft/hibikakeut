@@ -154,7 +154,7 @@ namespace Ryneus
         public string ConvertHelpText(BattlerInfo battlerInfo = null)
         {
             var helpText = new StringBuilder();
-            var help = Master.ConvertHelpText(Master.Help);
+            var help = Master.ConvertHelpText(Master.GetHelp());
             var regex = new Regex(@"\[.+?\]");
             var splits = regex.Matches(help);
             if (splits.Count > 0)
@@ -189,16 +189,16 @@ namespace Ryneus
                     help = help.Replace(split.ToString(), "");
                 }
             }
-            if (Master.Name.Contains("+"))
+            if (Master.GetName().Contains("+"))
             {
-                help = help.Replace("/n", Master.Name.Replace("+", ""));
+                help = help.Replace("/n", Master.GetName().Replace("+", ""));
             }
             // ステート説明挿入
             var state = FeatureDates.Find(a => a.FeatureType == FeatureType.AddState);
             if (state != null)
             {
                 var stateMaster = DataSystem.FindState(state.Param1);
-                string effectText = stateMaster.Help;
+                string effectText = stateMaster.GetHelp();
                 if (battlerInfo != null)
                 {
                     var effect = battlerInfo.GetStateEffectAll(stateMaster.StateType);
@@ -209,7 +209,7 @@ namespace Ryneus
                     var effect = state.Param3;
                     effectText = effectText.Replace("\\d", effect.ToString());
                 }
-                help = help.Replace("/s", "【" + stateMaster.Name + "】" + "\n" + effectText);
+                help = help.Replace("/s", "【" + stateMaster.GetName() + "】" + "\n" + effectText);
             }
             var lines = help.Split("\n");
             for (int i = 0; i < lines.Count(); i++)

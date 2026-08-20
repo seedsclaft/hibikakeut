@@ -175,6 +175,8 @@ namespace Ryneus
                     Help = ImportString(BaseRow, (int)BaseTextColumn.Help),
                     Feature = ImportString(BaseRow, (int)BaseTextColumn.Feature),
                     Relief = ImportString(BaseRow, (int)BaseTextColumn.Relief),
+                    EnglishText = ImportString(BaseRow, (int)BaseTextColumn.EnglishName),
+                    EnglishHelp = ImportString(BaseRow, (int)BaseTextColumn.EnglishRelief),
                 };
 
                 textData.Add(TextData);
@@ -239,5 +241,7 @@ namespace Ryneus
         Help,
         Feature,
         Relief,
+        EnglishName,
+        EnglishRelief,
     }
 }

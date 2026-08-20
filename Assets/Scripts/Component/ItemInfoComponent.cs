@@ -32,8 +32,8 @@ namespace Ryneus
                 UIComponent.SetActive(iconBack, true);
                 UpdateItemIconBack(itemData.ItemType, itemData.Param2);
             }
-            UIComponent.SetText(itemName, itemData.Name);
-            UIComponent.SetText(description, itemData.Help);
+            UIComponent.SetText(itemName, itemData.GetName());
+            UIComponent.SetText(description, itemData.GetHelp());
         }
 
         private void UpdateItemIcon(int iconIndex)

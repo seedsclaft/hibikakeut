@@ -30,7 +30,7 @@ namespace Ryneus
                     {
                         continue;
                     }
-                    text += unitInfo.BattlerInfos[i].ActorInfo.Master.Name;
+                    text += unitInfo.BattlerInfos[i].ActorInfo.Master.GetName();
                     if (i != 0)
                     {
                         text += "・";

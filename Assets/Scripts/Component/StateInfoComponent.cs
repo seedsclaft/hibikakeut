@@ -42,12 +42,12 @@ namespace Ryneus
             }
             if (description != null)
             {
-                string effectText = stateInfo.Master.Help.Replace("\\d", stateInfo.Effect.ToString());
+                string effectText = stateInfo.Master.GetHelp().Replace("\\d", stateInfo.Effect.ToString());
                 UIComponent.SetText(description, effectText);
                 var skill = DataSystem.FindSkill(stateInfo.SkillId.Value);
                 if (skill != null)
                 {
-                    UIComponent.SetText(description, description.text + "(" + skill.Name + ")");
+                    UIComponent.SetText(description, description.text + "(" + skill.GetName() + ")");
                 }
             }
             if (turns != null)
@@ -111,7 +111,7 @@ namespace Ryneus
                     icon.sprite = ResourceSystem.LoadSBuffIcon(stateData.IconIndex);
                 }
             }
-            UIComponent.SetText(nameText, stateData.Name);
+            UIComponent.SetText(nameText, stateData.GetName());
         }
 
         private void UpdateStateIcon(string iconPath)

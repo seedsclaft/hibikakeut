@@ -642,19 +642,19 @@ namespace Ryneus
             var changeHolyCoffinStates = _model.EndHolyCoffinState();
             foreach (var addState in changeHolyCoffinStates)
             {
-                _view.StartStatePopup(addState.TargetIndex.Value, DamageType.State, "+" + addState.Master.Name);
+                _view.StartStatePopup(addState.TargetIndex.Value, DamageType.State, "+" + addState.Master.GetName());
             }
             // 透明が外れるケースを適用
             var removeShadowStates = _model.EndRemoveShadowState();
             foreach (var removeShadowState in removeShadowStates)
             {
-                _view.StartStatePopup(removeShadowState.TargetIndex.Value, DamageType.State, "-" + removeShadowState.Master.Name);
+                _view.StartStatePopup(removeShadowState.TargetIndex.Value, DamageType.State, "-" + removeShadowState.Master.GetName());
             };
             // 戦闘不能の拘束ステートを解除する
             var removeChainStates = _model.EndRemoveState();
             foreach (var removeChainState in removeChainStates)
             {
-                _view.StartStatePopup(removeChainState.TargetIndex.Value, DamageType.State, "-" + removeChainState.Master.Name);
+                _view.StartStatePopup(removeChainState.TargetIndex.Value, DamageType.State, "-" + removeChainState.Master.GetName());
             };
 
             // 待機できなくなった場合は待機状態をはずす

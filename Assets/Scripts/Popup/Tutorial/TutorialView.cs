@@ -61,7 +61,7 @@ namespace Ryneus
                 rect.localPosition = new Vector3(tutorialData.X, tutorialData.Y, 0);
                 rect.sizeDelta = new Vector3(tutorialData.Width, tutorialData.Height);
             }
-            UIComponent.SetText(tutorialText, tutorialData.Help);
+            UIComponent.SetText(tutorialText, tutorialData.GetHelp());
             UIComponent.SetActive(focusImage, frameTypeFocus);
             UIComponent.SetActive(focusText, frameTypeFocus);
             if (frameTypeFocus)
@@ -83,8 +83,8 @@ namespace Ryneus
 
             var focusRect = focusText.GetComponent<RectTransform>();
             focusRect.localPosition = new Vector3(tutorialData.FocusX, tutorialData.FocusY, 0);
-            UIComponent.SetText(focusText, tutorialData.Help);
-            UIComponent.SetText(focusText2, tutorialData.Help);
+            UIComponent.SetText(focusText, tutorialData.GetHelp());
+            UIComponent.SetText(focusText2, tutorialData.GetHelp());
             var bgRect = focusBgImage.GetComponent<RectTransform>();
             bgRect.localPosition = new Vector3(tutorialData.X * -1, tutorialData.Y * -1, 0);
         }

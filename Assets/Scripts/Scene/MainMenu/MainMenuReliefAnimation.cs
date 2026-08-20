@@ -42,7 +42,7 @@ namespace Ryneus
             var idx = 0;
             foreach (var releifActorInfo in releifActorInfos)
             {
-                SetReleifSerif(releifActorInfo.Master.Relief, idx);
+                SetReleifSerif(releifActorInfo.Master.GetRelief(), idx);
                 idx++;
             }
             _endEvent = endEvent;

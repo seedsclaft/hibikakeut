@@ -68,6 +68,7 @@ namespace Ryneus
                         {
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).Text,
+                            EnglishName = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "NameId")).EnglishText,
                             IconIndex = (MagicIconType)AssetPostImporter.ImportNumeric(BaseRow, "IconIndex"),
                             Rank = AssetPostImporter.ImportNumeric(BaseRow, "Rank"),
                             Attribute = (AttributeType)AssetPostImporter.ImportNumeric(BaseRow, "Attribute"),

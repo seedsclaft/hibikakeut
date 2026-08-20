@@ -70,6 +70,8 @@ namespace Ryneus
                             Id = AssetPostImporter.ImportNumeric(BaseRow, "Id"),
                             Name = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "Id")).Text,
                             Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "Id")).Help,
+                            EnglishName = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "Id")).EnglishText,
+                            EnglishHelp = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, "Id")).EnglishHelp,
 
                             SceneType = (Scene)AssetPostImporter.ImportNumeric(BaseRow, "SceneType"),
                             Type = (FrameType)AssetPostImporter.ImportNumeric(BaseRow, "Type"),

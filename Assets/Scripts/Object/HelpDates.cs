@@ -16,5 +16,15 @@ namespace Ryneus
         public string GuideImagePath;
         public int CommonHelpId;
         public string Help;
+        public string EnglishHelp;
+
+        public string GetHelp()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishHelp;
+            }
+            return Help;
+        }
     }
 }

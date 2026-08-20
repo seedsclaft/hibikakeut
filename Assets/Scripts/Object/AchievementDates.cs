@@ -21,6 +21,26 @@ namespace Ryneus
         public int PriseSetId;
         public string Text;
         public string Help;
+        public string EnglishText;
+        public string EnglishHelp;
+        
+        public string GetText()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishText;
+            }
+            return Text;
+        }
+
+        public string GetHelp()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishHelp;
+            }
+            return Help;
+        }
     }
 
     public enum AchievementCategory

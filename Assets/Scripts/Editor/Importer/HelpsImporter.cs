@@ -77,7 +77,8 @@ namespace Ryneus
                             GuideImagePath = AssetPostImporter.ImportString(BaseRow, (int)BaseColumn.GuideImagePath),
                             CommonHelpId = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.CommonHelpId),
 
-                            Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.Help)).Help
+                            Help = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.Help)).Help,
+                            EnglishHelp = textData.Find(a => a.Id == AssetPostImporter.ImportNumeric(BaseRow, (int)BaseColumn.Help)).Relief
                         };
                         Data.Data.Add(HelpData);
                     }

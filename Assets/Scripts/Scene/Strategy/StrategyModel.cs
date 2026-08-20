@@ -181,7 +181,7 @@ namespace Ryneus
             AddGetItemInfo(getItemInfo);
             var resultInfo = new GetItemResultViewInfo();
             resultInfo.SetSkillId(skillId);
-            resultInfo.Title.SetValue(DataSystem.FindSkill(skillId).Name);
+            resultInfo.Title.SetValue(DataSystem.FindSkill(skillId).GetName());
             _resultInfos.Add(resultInfo);
             _selectLearnSkills.Clear();
         }

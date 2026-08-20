@@ -34,7 +34,7 @@ namespace Ryneus
         public void UpdateData(EquipmentData equipmentData)
         {
             DisplayEquipmentData = equipmentData;
-            UIComponent.SetText(nameText, equipmentData.Name);
+            UIComponent.SetText(nameText, equipmentData.GetName());
             UpdateSkillIcon(equipmentData.IconIndex);
             UpdateSkillIconBack(equipmentData.Attribute);
         }

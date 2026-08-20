@@ -21,6 +21,25 @@ namespace Ryneus
         public int Cost;
         public string Name;
         public string Help;
+        public string EnglishName;
+        public string EnglishHelp;
+        public string GetName()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishName;
+            }
+            return Name;
+        }
+
+        public string GetHelp()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishHelp;
+            }
+            return Help;
+        }
 
         public bool IsAddEquipment()
         {

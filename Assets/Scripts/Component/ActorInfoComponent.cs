@@ -155,7 +155,7 @@ namespace Ryneus
             UpdateClipThumb(actorData.ImagePath);
             UpdateMainFaceThumb(actorData.ImagePath);
             UpdateAwakenFaceThumb(actorData.ImagePath);
-            UIComponent.SetText(nameText, actorData.Name);
+            UIComponent.SetText(nameText, actorData.GetName());
             UIComponent.SetText(subNameText, actorData.SubName);
             UIComponent.SetText(profileText, actorData.Profile);
             if (kindIcon != null)

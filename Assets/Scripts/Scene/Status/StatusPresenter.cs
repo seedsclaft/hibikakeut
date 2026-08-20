@@ -227,7 +227,7 @@ namespace Ryneus
             var equipmentActor = _model.EquipmentSkill(skillInfo);
             if (equipmentActor != null && equipmentActor.ActorId.Value != _model.CurrentActor.ActorId.Value)
             {
-                CallConfirmView(DataSystem.GetReplaceText(14020, skillInfo.Master.Name) + DataSystem.GetReplaceText(14021, equipmentActor.Master.Name),(a) =>
+                CallConfirmView(DataSystem.GetReplaceText(14020, skillInfo.Master.GetName()) + DataSystem.GetReplaceText(14021, equipmentActor.Master.GetName()),(a) =>
                 {
                     if (a == ConfirmCommandType.Yes)
                     {
@@ -412,7 +412,7 @@ namespace Ryneus
             var equipmentActor = _model.EquipmentSkill(equipmentInfo);
             if (equipmentActor != null && equipmentInfo.EquipmentId.Value != 10 && equipmentActor.ActorId.Value != _model.CurrentActor.ActorId.Value)
             {
-                CallConfirmView(DataSystem.GetReplaceText(14020, equipmentInfo.Master.Name) + DataSystem.GetReplaceText(14021, equipmentActor.Master.Name),(a) =>
+                CallConfirmView(DataSystem.GetReplaceText(14020, equipmentInfo.Master.GetName()) + DataSystem.GetReplaceText(14021, equipmentActor.Master.GetName()),(a) =>
                 {
                     if (a == ConfirmCommandType.Yes)
                     {
@@ -591,7 +591,7 @@ namespace Ryneus
         {
             _busy = true;
             // 確認後結果表示
-            CallConfirmView(DataSystem.GetReplaceText(14030, _model.CurrentActor.Master.Name), (a) =>
+            CallConfirmView(DataSystem.GetReplaceText(14030, _model.CurrentActor.Master.GetName()), (a) =>
             {
                 if (a == ConfirmCommandType.Yes)
                 {

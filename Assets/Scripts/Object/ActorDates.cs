@@ -14,8 +14,10 @@ namespace Ryneus
     public class ActorData : MasterData
     {
         public string Name;
+        public string EnglishName;
         public string SubName;
         public string Relief;
+        public string EnglishRelief;
         public string Profile;
         public int Rank;
         //public UnitType UnitType;
@@ -36,6 +38,24 @@ namespace Ryneus
         public List<KindType> Kinds;
         public List<LearningData> LearningSkills = new();
         public List<SkillTriggerActorData> SkillTriggerDates = new();
+
+        public string GetName()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishName;
+            }
+            return Name;
+        }
+
+        public string GetRelief()
+        {
+            if (GameSystem.GetLanguage() == Language.English)
+            {
+                return EnglishRelief;
+            }
+            return Relief;
+        }
     }
 
     public enum UnitType

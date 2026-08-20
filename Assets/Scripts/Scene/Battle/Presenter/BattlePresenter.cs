@@ -428,7 +428,7 @@ namespace Ryneus
             _view.ClearDamagePopup();
             foreach (var removeState in removeStateInfos)
             {
-                _view.StartStatePopup(removeState.TargetIndex.Value, DamageType.State, "-" + removeState.Master.Name);
+                _view.StartStatePopup(removeState.TargetIndex.Value, DamageType.State, "-" + removeState.Master.GetName());
             }
             // Passive解除
             await RemovePassiveInfos();

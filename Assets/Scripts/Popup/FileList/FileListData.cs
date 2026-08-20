@@ -55,7 +55,7 @@ namespace Ryneus
             }
             if (state != null)
             {
-                var stateText = data.Scene == Scene.Dungeon ? DataSystem.GetReplaceText(31060, DataSystem.FindStage(data.StageNo).Name) : DataSystem.GetText(31061);
+                var stateText = data.Scene == Scene.Dungeon ? DataSystem.GetReplaceText(31060, DataSystem.FindStage(data.StageNo).GetName()) : DataSystem.GetText(31061);
                 UIComponent.SetText(state, stateText);
             }
         }
