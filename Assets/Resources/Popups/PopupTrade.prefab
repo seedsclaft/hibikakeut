@@ -780,7 +780,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -288, y: 0}
+  m_AnchoredPosition: {x: -192, y: 0}
   m_SizeDelta: {x: 264, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604004596951630767
@@ -846,7 +846,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2410,7 +2410,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8853363802870624608}
   m_HandleRect: {fileID: 7921844222267631859}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3495,6 +3495,7 @@ MonoBehaviour:
   DisplayEquipmentData:
     Id: 0
     Name: 
+    EnglishName: 
     IconIndex: 0
     Rank: 0
     Attribute: 0
@@ -6263,7 +6264,7 @@ PrefabInstance:
     - target: {fileID: 8501034374288329661, guid: 6a872e36ef00a374eb81436c82ac50d3,
         type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

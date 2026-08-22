@@ -433,7 +433,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 24}
+  m_SizeDelta: {x: 320, y: 24}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &2129168536027740532
 CanvasRenderer:
@@ -2157,6 +2157,16 @@ MonoBehaviour:
   nameText: {fileID: 3264809073805048154}
   learningDateList: {fileID: 0}
   selectEquipment: {fileID: 0}
+  equipmentedObj: {fileID: 0}
+  equipmentedActor: {fileID: 0}
+  DisplayEquipmentData:
+    Id: 0
+    Name: 
+    EnglishName: 
+    IconIndex: 0
+    Rank: 0
+    Attribute: 0
+    LearningDates: []
 --- !u!1 &8594487220379744895
 GameObject:
   m_ObjectHideFlags: 0

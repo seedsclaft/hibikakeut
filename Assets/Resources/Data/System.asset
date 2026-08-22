@@ -38,8 +38,7 @@ MonoBehaviour:
   OptionCommandData:
   - Id: 1010
     Key: SCREEN_MODE
-    Name: "\u30B9\u30AF\u30EA\u30FC\u30F3\u30E2\u30FC\u30C9"
-    Help: " - \u30B9\u30AF\u30EA\u30FC\u30F3\u306E\u8868\u793A\u65B9\u6CD5\u3092\u5909\u66F4\u3057\u307E\u3059"
+    TextId: 6010
     Category: 1
     ButtonType: 2
     ToggleText1: 6011
@@ -49,8 +48,7 @@ MonoBehaviour:
     ExistAndroid: 0
   - Id: 1020
     Key: SCREEN_SIZE
-    Name: "\u753B\u9762\u30B5\u30A4\u30BA"
-    Help: " - \u30B2\u30FC\u30E0\u306E\u89E3\u50CF\u5EA6\u3092\u5909\u66F4\u3057\u307E\u3059"
+    TextId: 6020
     Category: 1
     ButtonType: 4
     ToggleText1: 0
@@ -60,8 +58,7 @@ MonoBehaviour:
     ExistAndroid: 0
   - Id: 1030
     Key: BGM_VOLUME
-    Name: "BGM\u97F3\u91CF"
-    Help: " - BGM\u306E\u97F3\u91CF\u3092\u5909\u66F4\u3057\u307E\u3059"
+    TextId: 6030
     Category: 1
     ButtonType: 1
     ToggleText1: 0
@@ -71,8 +68,7 @@ MonoBehaviour:
     ExistAndroid: 1
   - Id: 1040
     Key: SE_VOLUME
-    Name: "SE\u97F3\u91CF"
-    Help: " - SE\u306E\u97F3\u91CF\u3092\u5909\u66F4\u3057\u307E\u3059"
+    TextId: 6040
     Category: 1
     ButtonType: 1
     ToggleText1: 0
@@ -82,8 +78,7 @@ MonoBehaviour:
     ExistAndroid: 1
   - Id: 1050
     Key: LANGUAGE
-    Name: "\u8A00\u8A9E\u8A2D\u5B9A"
-    Help: " - \u30B2\u30FC\u30E0\u5185\u306E\u8A00\u8A9E\u3092\u8A2D\u5B9A\u3057\u307E\u3059"
+    TextId: 6050
     Category: 1
     ButtonType: 5
     ToggleText1: 6051
@@ -93,8 +88,7 @@ MonoBehaviour:
     ExistAndroid: 1
   - Id: 2030
     Key: EVENT_SKIP
-    Name: "\u30A4\u30D9\u30F3\u30C8\u30B9\u30AD\u30C3\u30D7"
-    Help: " - \u9078\u629E\u80A2\u3092\u9664\u304D\u30A4\u30D9\u30F3\u30C8\u3092\u30B9\u30AD\u30C3\u30D7\u3059\u308B\u304B\u5909\u66F4\u3057\u307E\u3059"
+    TextId: 6210
     Category: 2
     ButtonType: 2
     ToggleText1: 6810
@@ -104,8 +98,7 @@ MonoBehaviour:
     ExistAndroid: 1
   - Id: 2040
     Key: COMMAND_END_CHECK
-    Name: Command Check
-    Help: " - \u5168\u3066\u306E\u30A2\u30EB\u30B1\u30DF\u30B9\u30C8\u306B\u547D\u4EE4\u3092\u7D42\u3048\u305F\u6642\u306B\u547D\u4EE4\u7D42\u4E86\u30B3\u30DE\u30F3\u30C9\u3092\u547C\u3076\u304B\u5909\u66F4\u3057\u307E\u3059"
+    TextId: 6220
     Category: 2
     ButtonType: 2
     ToggleText1: 6830
@@ -115,8 +108,7 @@ MonoBehaviour:
     ExistAndroid: 0
   - Id: 2050
     Key: BATTLE_WAIT
-    Name: "\u30D0\u30C8\u30EB\u30BF\u30FC\u30F3\u30B9\u30AD\u30C3\u30D7"
-    Help: " - \u30D0\u30C8\u30EB\u3067\u884C\u52D5\u9806\u756A\u5F85\u3061\u6642\u9593\u3092\u8868\u793A\u3059\u308B\u304B\u30B9\u30AD\u30C3\u30D7\u3059\u308B\u5909\u66F4\u3057\u307E\u3059"
+    TextId: 6230
     Category: 2
     ButtonType: 2
     ToggleText1: 6830
@@ -126,8 +118,7 @@ MonoBehaviour:
     ExistAndroid: 0
   - Id: 2060
     Key: BATTLE_ANIMATION
-    Name: Battle Animation
-    Help: " - \u30D0\u30C8\u30EB\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3\u6F14\u51FA\u8868\u793A\u306E\u6709\u7121\u3092\u5207\u308A\u66FF\u3048\u307E\u3059"
+    TextId: 6240
     Category: 2
     ButtonType: 2
     ToggleText1: 6860
@@ -137,8 +128,7 @@ MonoBehaviour:
     ExistAndroid: 0
   - Id: 2070
     Key: BATTLE_FIRST_PASSIVE_WAIT
-    Name: "\u30D1\u30C3\u30B7\u30D6\u30B9\u30AD\u30EB\u6F14\u51FA\u30B9\u30AD\u30C3\u30D7"
-    Help: " - \u30D0\u30C8\u30EB\u306E\u30D1\u30C3\u30B7\u30D6\u30B9\u30AD\u30EB\u767A\u52D5\u6642\u306E\u6F14\u51FA\u6709\u7121\u3092\u5207\u308A\u66FF\u3048\u307E\u3059"
+    TextId: 6250
     Category: 2
     ButtonType: 2
     ToggleText1: 6830
@@ -148,8 +138,7 @@ MonoBehaviour:
     ExistAndroid: 0
   - Id: 2080
     Key: BATTLE_CAMERA_MOVE
-    Name: "\u30D0\u30C8\u30EB\u30AB\u30E1\u30E9\u6F14\u51FA"
-    Help: " - \u30D0\u30C8\u30EB\u306E\u30AB\u30E1\u30E9\u6F14\u51FA\u306E\u6709\u7121\u3092\u5207\u308A\u66FF\u3048\u307E\u3059"
+    TextId: 6260
     Category: 2
     ButtonType: 2
     ToggleText1: 6900
@@ -159,8 +148,7 @@ MonoBehaviour:
     ExistAndroid: 1
   - Id: 2090
     Key: INPUT_TYPE
-    Name: "\u30AD\u30FC\u30DC\u30FC\u30C9\u52D5\u4F5C"
-    Help: " - \u30AD\u30FC\u30DC\u30FC\u30C9\u30FB\u30B2\u30FC\u30E0\u30D1\u30C3\u30C9\u64CD\u4F5C\u3092\u6709\u52B9\u306B\u3059\u308B\u304B\u5909\u66F4\u3057\u307E\u3059"
+    TextId: 6270
     Category: 2
     ButtonType: 2
     ToggleText1: 6870
@@ -170,8 +158,7 @@ MonoBehaviour:
     ExistAndroid: 1
   - Id: 2100
     Key: BATTLE_AUTO
-    Name: Battle Auto
-    Help: " - \u30D0\u30C8\u30EB\u306E\u64CD\u4F5C\u65B9\u6CD5\u3092\u5909\u66F4\u3057\u307E\u3059"
+    TextId: 6280
     Category: 2
     ButtonType: 2
     ToggleText1: 16400
@@ -181,8 +168,7 @@ MonoBehaviour:
     ExistAndroid: 0
   - Id: 2110
     Key: BATTLE_SPEED
-    Name: "\u30D0\u30C8\u30EB\u30B9\u30D4\u30FC\u30C9"
-    Help: " - \u30D0\u30C8\u30EB\u306E\u901F\u5EA6\u3092\u5909\u66F4\u3057\u307E\u3059"
+    TextId: 6290
     Category: 2
     ButtonType: 2
     ToggleText1: 16300
@@ -192,8 +178,7 @@ MonoBehaviour:
     ExistAndroid: 1
   - Id: 2120
     Key: TUTORIAL_CHECK
-    Name: "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u78BA\u8A8D"
-    Help: " - \u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u78BA\u8A8D\u3092\u8868\u793A\u3059\u308B\u304B\u5909\u66F4\u3057\u307E\u3059"
+    TextId: 6300
     Category: 2
     ButtonType: 2
     ToggleText1: 6860
@@ -271,7 +256,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Godly Race
+    EnglishText: Godly
     EnglishHelp: '""'
   - Id: 600
     Text: "\u5473\u65B9"
@@ -628,14 +613,14 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Hero Suitability Value
+    EnglishText: HeroValue
     EnglishHelp: '""'
   - Id: 3031
     Text: "\u5148\u5929\u5C5E\u6027"
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Inherent Attribute
+    EnglishText: Inherent
     EnglishHelp: '""'
   - Id: 3040
     Text: "\u6B21\u3078"
@@ -670,7 +655,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Evaluation Value
+    EnglishText: Evaluation
     EnglishHelp: '""'
   - Id: 3110
     Text: "\u8ABF\u3079\u308B"
@@ -1298,7 +1283,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Attribute Suitability
+    EnglishText: Attribute
     EnglishHelp: '""'
   - Id: 14060
     Text: Exp
@@ -1431,7 +1416,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Change Equipment
+    EnglishText: Equipment
     EnglishHelp: '""'
   - Id: 14180
     Text: "\u719F\u7DF4\u5EA6"
@@ -1445,28 +1430,28 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Learning Speed
+    EnglishText: 
     EnglishHelp: '""'
   - Id: 14200
     Text: "\u7FD2\u5F97\u9B54\u6CD5\u4E00\u89A7"
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: List of Learned Spells
+    EnglishText: LearnedSpells
     EnglishHelp: '""'
   - Id: 14210
     Text: "\u88C5\u5099\u4E00\u89A7"
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Equipment List
+    EnglishText: Gears
     EnglishHelp: '""'
   - Id: 14220
     Text: "\u88C5\u5099\u5019\u88DC\u4E00\u89A7"
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Candidate Equipment List
+    EnglishText: Gear List
     EnglishHelp: '""'
   - Id: 14230
     Text: "\u88C5\u5099\u6642\u306E\u307F\u6709\u52B9"
@@ -1480,7 +1465,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: List of Spells
+    EnglishText: Skills
     EnglishHelp: '""'
   - Id: 15010
     Text: "\u9B54\u6CD5"
@@ -1704,7 +1689,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Comrade Confirmation
+    EnglishText: Status
     EnglishHelp: '""'
   - Id: 19007
     Text: "\u53D6\u5F15"
@@ -2113,7 +2098,7 @@ MonoBehaviour:
     Help: '""'
     Feature: "StageList\u3001Achevement"
     Relief: 
-    EnglishText: Current Divine Rank
+    EnglishText: Divine Rank
     EnglishHelp: '""'
   - Id: 32020
     Text: "Cleard\uFF01"
@@ -2155,14 +2140,14 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Divine Rank.
+    EnglishText: Rank.
     EnglishHelp: '""'
   - Id: 32080
     Text: "\u63A8\u5968Lv."
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Recommended Lv.
+    EnglishText: Lv.
     EnglishHelp: '""'
   - Id: 32090
     Text: MainStage
@@ -2225,14 +2210,14 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Achievement Rate
+    EnglishText: Achievement
     EnglishHelp: '""'
   - Id: 33040
     Text: "\u7372\u5F97\u5831\u916C"
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Reward Acquired
+    EnglishText: Reward
     EnglishHelp: '""'
   - Id: 34010
     Text: "\u6240\u6301\u6570"
@@ -2430,7 +2415,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Purchase Quantity
+    EnglishText: Purchase
     EnglishHelp: '""'
   - Id: 39080
     Text: "\u4FA1\u683C"
@@ -2444,7 +2429,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Quantity Owned
+    EnglishText: Owned
     EnglishHelp: '""'
   - Id: 39100
     Text: "1\u500B\u9650\u5B9A"
@@ -2521,7 +2506,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Auto Formation
+    EnglishText: Auto
     EnglishHelp: '""'
   - Id: 44010
     Text: "\u8A55\u4FA1\u5024\u3092Nu\u306B\u9084\u5143\uFF01"
