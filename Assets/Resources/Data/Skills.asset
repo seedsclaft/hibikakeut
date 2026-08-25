@@ -266,20 +266,20 @@ MonoBehaviour:
     TriggerDates: []
     ScopeTriggers: []
   - Id: 1020
-    Name: "\u30D0\u30FC\u30F3\u30B9\u30C8\u30FC\u30E0"
-    EnglishName: Burning Storm
+    Name: "\u30D5\u30EC\u30A4\u30E0\u30AF\u30E9\u30C3\u30B7\u30E5"
+    EnglishName: "\u30D5\u30EC\u30A4\u30E0\u30AF\u30E9\u30C3\u30B7\u30E5"
     IconIndex: 1
     AnimationId: 101
-    AnimationType: 2
+    AnimationType: 1
     MpCost: 0
-    CountTurn: 3
+    CountTurn: 2
     Rank: 2
     Attribute: 1
-    Scope: 2
+    Scope: 1
     SkillType: 1
     TargetType: 1
-    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3DEF-/f[f,1,1]%"
+    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3DEF-/f[f,1,1]%"
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -291,13 +291,19 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
       Rate: 100
+    - SkillId: 1020
+      FeatureType: 3010
+      Param1: 1053
+      Param2: 2
+      Param3: 20
+      Rate: 100
     TriggerDates: []
     ScopeTriggers: []
   - Id: 1030
-    Name: "\u30D2\u30FC\u30C8\u30B9\u30BF\u30F3\u30D7"
-    EnglishName: Heat Stamp
-    IconIndex: 2
-    AnimationId: 21
+    Name: "\u30D6\u30EC\u30A4\u30AF\u30A6\u30A9\u30FC\u30EB"
+    EnglishName: "\u30D6\u30EC\u30A4\u30AF\u30A6\u30A9\u30FC\u30EB"
+    IconIndex: 1
+    AnimationId: 102
     AnimationType: 1
     MpCost: 0
     CountTurn: 2
@@ -305,19 +311,19 @@ MonoBehaviour:
     Attribute: 1
     Scope: 1
     SkillType: 1
-    TargetType: 2
-    Help: "\\s\u306ECT-/f[f,0,1]"
-    EnglishHelp: "\\s\u306ECT-/f[f,0,1]"
+    TargetType: 1
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u6C37\u5C5E\u6027\u306E\u5834\u5408DEF\u3092100%\u7121\u8996\u3059\u308B"
+    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u6C37\u5C5E\u6027\u306E\u5834\u5408DEF\u3092100%\u7121\u8996\u3059\u308B"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 1030
-      FeatureType: 4020
-      Param1: 1
-      Param2: 0
-      Param3: 0
+      FeatureType: 1100
+      Param1: 150
+      Param2: 3
+      Param3: 100
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -469,6 +475,62 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 1920
+    Name: "\u30D0\u30FC\u30F3\u30B9\u30C8\u30FC\u30E0"
+    EnglishName: Burning Storm
+    IconIndex: 1
+    AnimationId: 101
+    AnimationType: 2
+    MpCost: 0
+    CountTurn: 3
+    Rank: 2
+    Attribute: 1
+    Scope: 2
+    SkillType: 1
+    TargetType: 1
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 1920
+      FeatureType: 1010
+      Param1: 150
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 1930
+    Name: "\u30D2\u30FC\u30C8\u30B9\u30BF\u30F3\u30D7"
+    EnglishName: Heat Stamp
+    IconIndex: 2
+    AnimationId: 21
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 2
+    Rank: 2
+    Attribute: 1
+    Scope: 1
+    SkillType: 1
+    TargetType: 2
+    Help: "\\s\u306ECT-/f[f,0,1]"
+    EnglishHelp: "\\s\u306ECT-/f[f,0,1]"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 1930
+      FeatureType: 4020
+      Param1: 1
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 2010
     Name: "\u30C7\u30A3\u30B9\u30C1\u30E3\u30FC\u30B8"
     EnglishName: Discharge
@@ -498,38 +560,10 @@ MonoBehaviour:
     TriggerDates: []
     ScopeTriggers: []
   - Id: 2020
-    Name: "\u30A4\u30D9\u30A4\u30C9\u30B3\u30FC\u30C9"
-    EnglishName: Evade Code
-    IconIndex: 4
-    AnimationId: 2203
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 2
-    Attribute: 2
-    Scope: 4
-    SkillType: 1
-    TargetType: 4
-    Help: "\\s\u306B\u56DE\u907F\u7387/f[f,0,3]%\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E(\u6C38\u7D9A)"
-    EnglishHelp: "\\s\u306B\u56DE\u907F\u7387/f[f,0,3]%\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E(\u6C38\u7D9A)"
-    Range: 1
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 2020
-      FeatureType: 3010
-      Param1: 1090
-      Param2: 999
-      Param3: 15
-      Rate: 100
-    TriggerDates: []
-    ScopeTriggers: []
-  - Id: 2030
-    Name: "\u30B7\u30E7\u30C3\u30AF\u30A4\u30F3\u30D1\u30EB\u30B9"
-    EnglishName: Shock Impulse
-    IconIndex: 3
-    AnimationId: 2204
+    Name: "\u30B7\u30E3\u30FC\u30D7\u30A8\u30C3\u30B8"
+    EnglishName: "\u30B7\u30E3\u30FC\u30D7\u30A8\u30C3\u30B8"
+    IconIndex: 1
+    AnimationId: 1025
     AnimationType: 1
     MpCost: 0
     CountTurn: 3
@@ -538,8 +572,36 @@ MonoBehaviour:
     Scope: 1
     SkillType: 1
     TargetType: 1
-    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30B9\u30BF\u30F3\u4ED8\u4E0E\n/s"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30B9\u30BF\u30F3\u4ED8\u4E0E\n/s"
+    Help: "\\s\u306B\u4F1A\u5FC3\u7387+50%\u306EATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: "\\s\u306B\u4F1A\u5FC3\u7387+50%\u306EATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 2020
+      FeatureType: 1120
+      Param1: 150
+      Param2: 50
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 2030
+    Name: "\u30ED\u30F3\u30B0\u30B9\u30E9\u30B9\u30C8"
+    EnglishName: "\u30ED\u30F3\u30B0\u30B9\u30E9\u30B9\u30C8"
+    IconIndex: 1
+    AnimationId: 202
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 2
+    Attribute: 2
+    Scope: 1
+    SkillType: 1
+    TargetType: 1
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -549,12 +611,6 @@ MonoBehaviour:
       FeatureType: 1010
       Param1: 150
       Param2: 0
-      Param3: 0
-      Rate: 100
-    - SkillId: 2030
-      FeatureType: 3010
-      Param1: 2150
-      Param2: 100
       Param3: 0
       Rate: 100
     TriggerDates: []
@@ -769,6 +825,68 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 2920
+    Name: "\u30A4\u30D9\u30A4\u30C9\u30B3\u30FC\u30C9"
+    EnglishName: Evade Code
+    IconIndex: 4
+    AnimationId: 2203
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 2
+    Attribute: 2
+    Scope: 4
+    SkillType: 1
+    TargetType: 4
+    Help: "\\s\u306B\u56DE\u907F\u7387/f[f,0,3]%\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E(\u6C38\u7D9A)"
+    EnglishHelp: "\\s\u306B\u56DE\u907F\u7387/f[f,0,3]%\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E(\u6C38\u7D9A)"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 2920
+      FeatureType: 3010
+      Param1: 1090
+      Param2: 999
+      Param3: 15
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 2930
+    Name: "\u30B7\u30E7\u30C3\u30AF\u30A4\u30F3\u30D1\u30EB\u30B9"
+    EnglishName: Shock Impulse
+    IconIndex: 3
+    AnimationId: 2204
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 2
+    Attribute: 2
+    Scope: 1
+    SkillType: 1
+    TargetType: 1
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30B9\u30BF\u30F3\u4ED8\u4E0E\n/s"
+    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30B9\u30BF\u30F3\u4ED8\u4E0E\n/s"
+    Range: 2
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 2930
+      FeatureType: 1010
+      Param1: 150
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 2930
+      FeatureType: 3010
+      Param1: 2150
+      Param2: 100
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 3010
     Name: "\u30A2\u30A4\u30B9\u30D6\u30EC\u30A4\u30C9"
     EnglishName: Ice Blade
@@ -798,58 +916,64 @@ MonoBehaviour:
     TriggerDates: []
     ScopeTriggers: []
   - Id: 3020
-    Name: "\u30AB\u30A6\u30F3\u30BF\u30FC\u30AA\u30FC\u30E9"
-    EnglishName: Counter Aura
-    IconIndex: 2
-    AnimationId: 2302
+    Name: "\u30B7\u30FC\u30EB\u30C9\u30D0\u30C3\u30B7\u30E5"
+    EnglishName: "\u30B7\u30FC\u30EB\u30C9\u30D0\u30C3\u30B7\u30E5"
+    IconIndex: 1
+    AnimationId: 302
     AnimationType: 1
     MpCost: 0
-    CountTurn: 2
-    Rank: 3
+    CountTurn: 3
+    Rank: 2
     Attribute: 3
-    Scope: 4
+    Scope: 1
     SkillType: 1
-    TargetType: 4
-    Help: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u30AB\u30A6\u30F3\u30BF\u3092\u4ED8\u4E0E\n/s"
-    EnglishHelp: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u30AB\u30A6\u30F3\u30BF\u3092\u4ED8\u4E0E\n/s"
+    TargetType: 1
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u81EA\u8EAB\u306B/f[f,1,2]\u30BF\u30FC\u30F3DEF+/f[f,1,1]%"
+    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u81EA\u8EAB\u306B/f[f,1,2]\u30BF\u30FC\u30F3DEF+/f[f,1,1]%"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 3020
+      FeatureType: 1010
+      Param1: 150
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 3020
       FeatureType: 3010
-      Param1: 2030
+      Param1: 1052
       Param2: 2
-      Param3: 25
+      Param3: 20
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
   - Id: 3030
-    Name: "\u30E9\u30A4\u30F3\u30D7\u30ED\u30C6\u30AF\u30C8"
-    EnglishName: Line Protect
-    IconIndex: 4
-    AnimationId: 3007
+    Name: "\u30D5\u30EA\u30F3\u30B8\u30FC"
+    EnglishName: "\u30D5\u30EA\u30F3\u30B8\u30FC"
+    IconIndex: 1
+    AnimationId: 1004
     AnimationType: 1
     MpCost: 0
-    CountTurn: 4
+    CountTurn: 3
     Rank: 2
     Attribute: 3
-    Scope: 2
+    Scope: 1
     SkillType: 1
-    TargetType: 2
-    Help: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3DEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3DEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7"
+    TargetType: 1
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u81EA\u8EAB\u306EHP50%\u4EE5\u4E0B\u306E\u5834\u5408\u30C0\u30E1\u30FC\u30B8\u52B9\u679C+50%"
+    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u81EA\u8EAB\u306EHP50%\u4EE5\u4E0B\u306E\u5834\u5408\u30C0\u30E1\u30FC\u30B8\u52B9\u679C+50%"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 3030
-      FeatureType: 3010
-      Param1: 1050
-      Param2: 4
-      Param3: 10
+      FeatureType: 1130
+      Param1: 150
+      Param2: 50
+      Param3: 50
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -999,6 +1123,62 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 3920
+    Name: "\u30AB\u30A6\u30F3\u30BF\u30FC\u30AA\u30FC\u30E9"
+    EnglishName: Counter Aura
+    IconIndex: 2
+    AnimationId: 2302
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 2
+    Rank: 3
+    Attribute: 3
+    Scope: 4
+    SkillType: 1
+    TargetType: 4
+    Help: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u30AB\u30A6\u30F3\u30BF\u3092\u4ED8\u4E0E\n/s"
+    EnglishHelp: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u30AB\u30A6\u30F3\u30BF\u3092\u4ED8\u4E0E\n/s"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 3920
+      FeatureType: 3010
+      Param1: 2030
+      Param2: 2
+      Param3: 25
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 3930
+    Name: "\u30E9\u30A4\u30F3\u30D7\u30ED\u30C6\u30AF\u30C8"
+    EnglishName: Line Protect
+    IconIndex: 4
+    AnimationId: 3007
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 4
+    Rank: 2
+    Attribute: 3
+    Scope: 2
+    SkillType: 1
+    TargetType: 2
+    Help: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3DEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3DEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 3930
+      FeatureType: 3010
+      Param1: 1050
+      Param2: 4
+      Param3: 10
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 4010
     Name: "\u30BB\u30A4\u30F3\u30C8\u30EC\u30FC\u30B6\u30FC"
     EnglishName: Saint Laser
@@ -1012,7 +1192,7 @@ MonoBehaviour:
     Scope: 1
     SkillType: 1
     TargetType: 1
-    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F\u3055\u3089\u306B2\u500D\u30C0\u30E1\u30FC\u30B8"
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
     EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F\u3055\u3089\u306B2\u500D\u30C0\u30E1\u30FC\u30B8"
     Range: 1
     RepeatTime: 1
@@ -1040,23 +1220,21 @@ MonoBehaviour:
     AnimationId: 2402
     AnimationType: 1
     MpCost: 0
-    CountTurn: 0
+    CountTurn: 3
     Rank: 2
     Attribute: 4
-    Scope: 1
+    Scope: 6
     SkillType: 1
     TargetType: 1
-    Help: "\u5BFE\u8C61\u306E\u30D1\u30C3\u30B7\u30D6\u52B9\u679C\u3092\u7121\u8996\u3057\u3066\u653B\u6483
-      \n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\u5BFE\u8C61\u306E\u30D1\u30C3\u30B7\u30D6\u52B9\u679C\u3092\u7121\u8996\u3057\u3066\u653B\u6483
-      \n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u6575\u524D\u5F8C\u5217\u306B\u8CAB\u901A\u3059\u308B\u653B\u6483\u3092\u884C\u3046\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u6575\u524D\u5F8C\u5217\u306B\u8CAB\u901A\u3059\u308B\u653B\u6483\u3092\u884C\u3046\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 4020
-      FeatureType: 1040
+      FeatureType: 1010
       Param1: 150
       Param2: 0
       Param3: 0
@@ -1077,7 +1255,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 3
-    Rank: 3
+    Rank: 2
     Attribute: 4
     Scope: 1
     SkillType: 1
@@ -1302,58 +1480,104 @@ MonoBehaviour:
     TriggerDates: []
     ScopeTriggers: []
   - Id: 5020
-    Name: "\u30E6\u30FC\u30B5\u30CD\u30A4\u30B8\u30A2"
-    EnglishName: Ouse Negaisa
-    IconIndex: 5
-    AnimationId: 2502
+    Name: "\u30AB\u30A6\u30F3\u30C8\u30B8\u30E3\u30B0\u30E9\u30FC"
+    EnglishName: "\u30AB\u30A6\u30F3\u30C8\u30B8\u30E3\u30B0\u30E9\u30FC"
+    IconIndex: 3
+    AnimationId: 501
     AnimationType: 1
     MpCost: 0
-    CountTurn: 5
-    Rank: 3
+    CountTurn: 3
+    Rank: 2
     Attribute: 5
-    Scope: 3
+    Scope: 1
     SkillType: 1
     TargetType: 1
-    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    Range: 2
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nCT+/f[f,1,1]\n\u81EA\u8EAB\u306ECT-/f[f,1,1]"
+    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nCT+/f[f,1,1]\n\u81EA\u8EAB\u306ECT-/f[f,1,1]"
+    Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 5020
       FeatureType: 1010
-      Param1: 100
+      Param1: 150
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 5020
+      FeatureType: 4010
+      Param1: 1
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 5020
+      FeatureType: 7010
+      Param1: 5021
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 5021
+    Name: "\u30AB\u30A6\u30F3\u30C8\u30B8\u30E3\u30B0\u30E9\u30FC"
+    EnglishName: "\u30AB\u30A6\u30F3\u30C8\u30B8\u30E3\u30B0\u30E9\u30FC"
+    IconIndex: 3
+    AnimationId: 501
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 2
+    Attribute: 5
+    Scope: 4
+    SkillType: 1
+    TargetType: 4
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nCT+/f[f,1,1]\n\u81EA\u8EAB\u306ECT-/f[f,1,1]"
+    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nCT+/f[f,1,1]\n\u81EA\u8EAB\u306ECT-/f[f,1,1]"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 5021
+      FeatureType: 4020
+      Param1: 1
       Param2: 0
       Param3: 0
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
   - Id: 5030
-    Name: "\u30C9\u30EC\u30A4\u30F3\u30D2\u30FC\u30EB"
-    EnglishName: Drain Heal
+    Name: "\u30D1\u30C3\u30B7\u30D6\u30AB\u30FC\u30B9"
+    EnglishName: "\u30D1\u30C3\u30B7\u30D6\u30AB\u30FC\u30B9"
     IconIndex: 5
-    AnimationId: 2503
+    AnimationId: 2511
     AnimationType: 1
     MpCost: 0
-    CountTurn: 5
-    Rank: 2
+    CountTurn: 3
+    Rank: 3
     Attribute: 5
-    Scope: 1
+    Scope: 2
     SkillType: 1
     TargetType: 1
-    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30C0\u30E1\u30FC\u30B8\u306E/f[f,0,3]%\u5206Hp\u56DE\u5FA9"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30C0\u30E1\u30FC\u30B8\u306E/f[f,0,3]%\u5206Hp\u56DE\u5FA9"
-    Range: 1
+    Help: "\\s\u306ECT+/f[f,1,1]\u3057\u884C\u52D5\u304C\u5C11\u3057\u9045\u304F\u306A\u308B"
+    EnglishHelp: "\\s\u306ECT+/f[f,1,1]\u3057\u884C\u52D5\u304C\u5C11\u3057\u9045\u304F\u306A\u308B"
+    Range: 2
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 5030
-      FeatureType: 1020
-      Param1: 150
+      FeatureType: 4010
+      Param1: 1
       Param2: 0
-      Param3: 50
+      Param3: 0
+      Rate: 100
+    - SkillId: 5030
+      FeatureType: 5050
+      Param1: 100
+      Param2: 0
+      Param3: 0
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -1512,6 +1736,62 @@ MonoBehaviour:
       Param1: 2010
       Param2: 2
       Param3: 10
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 5920
+    Name: "\u30E6\u30FC\u30B5\u30CD\u30A4\u30B8\u30A2"
+    EnglishName: Ouse Negaisa
+    IconIndex: 5
+    AnimationId: 2502
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 5
+    Rank: 3
+    Attribute: 5
+    Scope: 3
+    SkillType: 1
+    TargetType: 1
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    Range: 2
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 5920
+      FeatureType: 1010
+      Param1: 100
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 5930
+    Name: "\u30C9\u30EC\u30A4\u30F3\u30D2\u30FC\u30EB"
+    EnglishName: Drain Heal
+    IconIndex: 5
+    AnimationId: 2503
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 5
+    Rank: 2
+    Attribute: 5
+    Scope: 1
+    SkillType: 1
+    TargetType: 1
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30C0\u30E1\u30FC\u30B8\u306E/f[f,0,3]%\u5206Hp\u56DE\u5FA9"
+    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30C0\u30E1\u30FC\u30B8\u306E/f[f,0,3]%\u5206Hp\u56DE\u5FA9"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 5930
+      FeatureType: 1020
+      Param1: 150
+      Param2: 0
+      Param3: 50
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -1908,20 +2188,20 @@ MonoBehaviour:
     TriggerDates: []
     ScopeTriggers: []
   - Id: 11010
-    Name: "\u30A6\u30EB\u30D5\u30BD\u30A6\u30EB"
-    EnglishName: Wolf Soul
+    Name: "\u30D5\u30EC\u30A4\u30E0\u30BB\u30A4\u30D0\u30FC"
+    EnglishName: Flame Saber
     IconIndex: 6
-    AnimationId: 3005
+    AnimationId: 1109
     AnimationType: 1
     MpCost: 0
-    CountTurn: 0
+    CountTurn: 3
     Rank: 10
     Attribute: 1
-    Scope: 4
+    Scope: 1
     SkillType: 2
-    TargetType: 4
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    TargetType: 7
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u706B\u50B7\u4ED8\u4E0E\n/s"
+    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n\u706B\u50B7\u72B6\u614B\u3067\u306F\u306A\u3044\u5BFE\u8C61\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u706B\u50B7\u4ED8\u4E0E\n/s"
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1929,33 +2209,33 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 11010
       FeatureType: 3010
-      Param1: 1040
-      Param2: 999
-      Param3: 2
+      Param1: 2012
+      Param2: 2
+      Param3: 5
       Rate: 100
     TriggerDates:
     - SkillId: 11010
-      TriggerType: 0
-      TriggerTiming: 1
-      Param1: 0
+      TriggerType: 10010
+      TriggerTiming: 61
+      Param1: 100
       Param2: 0
       Param3: 0
     ScopeTriggers: []
   - Id: 11020
-    Name: "\u30D7\u30EA\u30C7\u30A3\u30AB\u30E1\u30F3\u30C8"
-    EnglishName: Predicament
+    Name: "\u30A4\u30FC\u30B0\u30EB\u30A2\u30A4"
+    EnglishName: Eagle Eye
     IconIndex: 6
-    AnimationId: 3005
+    AnimationId: 3009
     AnimationType: 1
     MpCost: 0
-    CountTurn: 0
+    CountTurn: 3
     Rank: 10
     Attribute: 1
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6642\n\u4E00\u5EA6\u3060\u3051\u81EA\u8EAB\u306E\u653B\u6483\u3092\u5FC5\u4E2D\u306B\u3059\u308B"
+    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1963,56 +2243,50 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 11020
       FeatureType: 3010
-      Param1: 1040
-      Param2: 999
-      Param3: 8
+      Param1: 2240
+      Param2: 1
+      Param3: 0
       Rate: 100
     TriggerDates:
     - SkillId: 11020
-      TriggerType: 1010
-      TriggerTiming: 61
-      Param1: 25
+      TriggerType: 15010
+      TriggerTiming: 21
+      Param1: 0
       Param2: 0
       Param3: 0
     ScopeTriggers: []
   - Id: 11030
-    Name: "\u30A2\u30B5\u30EB\u30C8\u30B7\u30D5\u30C8"
-    EnglishName: Assault Shift
+    Name: "\u30EC\u30A4\u30B8\u30AB\u30A6\u30F3\u30BF\u30FC"
+    EnglishName: "\u30EC\u30A4\u30B8\u30AB\u30A6\u30F3\u30BF\u30FC"
     IconIndex: 6
     AnimationId: 3005
     AnimationType: 1
     MpCost: 0
-    CountTurn: 0
+    CountTurn: 3
     Rank: 10
     Attribute: 1
-    Scope: 4
+    Scope: 1
     SkillType: 2
-    TargetType: 4
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u304C/f[f,0,3]\u30C0\u30A6\u30F3\u3057ATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u304C/f[f,0,3]\u30C0\u30A6\u30F3\u3057ATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    TargetType: 6
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\n\\s\u306BATKx/f[f,0,1]%\u53CD\u6483\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\n\\s\u306BATKx/f[f,0,1]%\u53CD\u6483\u30C0\u30E1\u30FC\u30B8"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 11030
-      FeatureType: 3010
-      Param1: 1040
-      Param2: 999
-      Param3: 4
-      Rate: 100
-    - SkillId: 11030
-      FeatureType: 3010
-      Param1: 1051
-      Param2: 999
-      Param3: 4
+      FeatureType: 1010
+      Param1: 150
+      Param2: 0
+      Param3: 0
       Rate: 100
     TriggerDates:
     - SkillId: 11030
-      TriggerType: 0
-      TriggerTiming: 1
+      TriggerType: 12060
+      TriggerTiming: 11
       Param1: 0
-      Param2: 0
+      Param2: 13
       Param3: 0
     ScopeTriggers: []
   - Id: 11040
@@ -2259,74 +2533,182 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
     ScopeTriggers: []
-  - Id: 11110
-    Name: "\u30D5\u30EC\u30A4\u30E0\u30BB\u30A4\u30D0\u30FC"
-    EnglishName: Flame Saber
+  - Id: 11910
+    Name: "\u30A6\u30EB\u30D5\u30BD\u30A6\u30EB"
+    EnglishName: Wolf Soul
+    IconIndex: 6
+    AnimationId: 3005
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 1
+    Scope: 4
+    SkillType: 2
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 11910
+      FeatureType: 3010
+      Param1: 1040
+      Param2: 999
+      Param3: 2
+      Rate: 100
+    TriggerDates:
+    - SkillId: 11910
+      TriggerType: 0
+      TriggerTiming: 1
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 11920
+    Name: "\u30D7\u30EA\u30C7\u30A3\u30AB\u30E1\u30F3\u30C8"
+    EnglishName: Predicament
+    IconIndex: 6
+    AnimationId: 3005
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 1
+    Scope: 4
+    SkillType: 2
+    TargetType: 4
+    Help: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 11920
+      FeatureType: 3010
+      Param1: 1040
+      Param2: 999
+      Param3: 8
+      Rate: 100
+    TriggerDates:
+    - SkillId: 11920
+      TriggerType: 1010
+      TriggerTiming: 61
+      Param1: 25
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 11930
+    Name: "\u30A2\u30B5\u30EB\u30C8\u30B7\u30D5\u30C8"
+    EnglishName: Assault Shift
+    IconIndex: 6
+    AnimationId: 3005
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 1
+    Scope: 4
+    SkillType: 2
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u304C/f[f,0,3]\u30C0\u30A6\u30F3\u3057ATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u304C/f[f,0,3]\u30C0\u30A6\u30F3\u3057ATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 11930
+      FeatureType: 3010
+      Param1: 1040
+      Param2: 999
+      Param3: 4
+      Rate: 100
+    TriggerDates:
+    - SkillId: 11930
+      TriggerType: 0
+      TriggerTiming: 1
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 12010
+    Name: "\u30AF\u30ED\u30FC\u30B9\u30A8\u30C3\u30B8"
+    EnglishName: "\u30AF\u30ED\u30FC\u30B9\u30A8\u30C3\u30B8"
     IconIndex: 6
     AnimationId: 1109
     AnimationType: 1
     MpCost: 0
     CountTurn: 3
     Rank: 10
-    Attribute: 1
-    Scope: 1
+    Attribute: 2
+    Scope: 11
     SkillType: 2
-    TargetType: 7
-    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n\u706B\u50B7\u72B6\u614B\u3067\u306F\u306A\u3044\u5BFE\u8C61\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u706B\u50B7\u4ED8\u4E0E\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n\u706B\u50B7\u72B6\u614B\u3067\u306F\u306A\u3044\u5BFE\u8C61\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u706B\u50B7\u4ED8\u4E0E\n/s"
+    TargetType: 2
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u304CRange.L\u306E\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u3092100%\u30AB\u30C3\u30C8\u3057\n\u5473\u65B9\u306E\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
+    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304CRange.L\u306E\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u3092100%\u30AB\u30C3\u30C8\u3057\n\u5473\u65B9\u306E\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
-    - SkillId: 11110
+    - SkillId: 12010
       FeatureType: 3010
-      Param1: 2012
-      Param2: 2
-      Param3: 5
+      Param1: 2430
+      Param2: 1
+      Param3: 0
+      Rate: 100
+    - SkillId: 12010
+      FeatureType: 7010
+      Param1: 12011
+      Param2: 0
+      Param3: 1
       Rate: 100
     TriggerDates:
-    - SkillId: 11110
-      TriggerType: 10120
-      TriggerTiming: 61
+    - SkillId: 12010
+      TriggerType: 12010
+      TriggerTiming: 41
+      Param1: 0
+      Param2: 13
+      Param3: 1
+    - SkillId: 12010
+      TriggerType: 15042
+      TriggerTiming: 41
       Param1: 0
       Param2: 0
       Param3: 0
     ScopeTriggers: []
-  - Id: 12010
-    Name: "\u30B3\u30F3\u30BB\u30F3\u30C8\u30EC\u30A4\u30C8"
-    EnglishName: Concentrate
+  - Id: 12011
+    Name: "\u30AF\u30ED\u30FC\u30B9\u30A8\u30C3\u30B8"
+    EnglishName: "\u30AF\u30ED\u30FC\u30B9\u30A8\u30C3\u30B8"
     IconIndex: 6
-    AnimationId: 1501
+    AnimationId: 803
     AnimationType: 1
     MpCost: 0
-    CountTurn: 0
-    Rank: 20
+    CountTurn: 3
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "\\s\u306E\u547D\u4E2D\u3068\u56DE\u907F\u3092/f[f,0,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u547D\u4E2D\u3068\u56DE\u907F\u3092/f[f,0,3]%\u30A2\u30C3\u30D7"
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u304CRange.L\u306E\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u3092100%\u30AB\u30C3\u30C8\u3057\n\u5473\u65B9\u306E\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
+    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304CRange.L\u306E\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u3092100%\u30AB\u30C3\u30C8\u3057\n\u5473\u65B9\u306E\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
-    - SkillId: 12010
+    - SkillId: 12011
       FeatureType: 3010
-      Param1: 1080
-      Param2: 999
-      Param3: 10
-      Rate: 100
-    - SkillId: 12010
-      FeatureType: 3010
-      Param1: 1090
-      Param2: 999
-      Param3: 10
+      Param1: 1100
+      Param2: 1
+      Param3: 100
       Rate: 100
     TriggerDates:
-    - SkillId: 12010
+    - SkillId: 12011
       TriggerType: 0
       TriggerTiming: 1
       Param1: 0
@@ -2334,8 +2716,8 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 12020
-    Name: "\u30D8\u30D6\u30F3\u30EA\u30FC\u30E9\u30C3\u30AF"
-    EnglishName: Heavenly Rack
+    Name: "\u30D5\u30A1\u30B9\u30C8\u30D5\u30A1\u30AF\u30B7\u30E7\u30F3"
+    EnglishName: "\u30D5\u30A1\u30B9\u30C8\u30D5\u30A1\u30AF\u30B7\u30E7\u30F3"
     IconIndex: 6
     AnimationId: 1501
     AnimationType: 1
@@ -2346,18 +2728,18 @@ MonoBehaviour:
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u304C\u5148\u5236\u884C\u52D5\u3067\u304D\u308B"
+    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u304C\u5148\u5236\u884C\u52D5\u3067\u304D\u308B"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 12020
-      FeatureType: 3010
-      Param1: 1090
-      Param2: 999
-      Param3: 10
+      FeatureType: 5040
+      Param1: 100
+      Param2: 0
+      Param3: 0
       Rate: 100
     TriggerDates:
     - SkillId: 12020
@@ -2368,8 +2750,8 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 12030
-    Name: "\u30B9\u30A6\u30A3\u30D5\u30C8\u30AB\u30EC\u30F3\u30C8"
-    EnglishName: Swift Current
+    Name: "\u30AF\u30A4\u30C3\u30AF\u30E0\u30FC\u30D6"
+    EnglishName: Quick Move
     IconIndex: 6
     AnimationId: 1501
     AnimationType: 1
@@ -2377,21 +2759,21 @@ MonoBehaviour:
     CountTurn: 0
     Rank: 10
     Attribute: 2
-    Scope: 4
+    Scope: 11
     SkillType: 2
-    TargetType: 4
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    TargetType: 2
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u521D\u52D5\u304C\u65E9\u304F\u306A\u308B"
+    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u521D\u52D5\u304C\u65E9\u304F\u306A\u308B"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 12030
-      FeatureType: 3010
-      Param1: 1060
-      Param2: 999
-      Param3: 5
+      FeatureType: 5020
+      Param1: 100
+      Param2: 0
+      Param3: 0
       Rate: 100
     TriggerDates:
     - SkillId: 12030
@@ -2429,40 +2811,6 @@ MonoBehaviour:
       Rate: 100
     TriggerDates:
     - SkillId: 12040
-      TriggerType: 0
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 12050
-    Name: "\u30AF\u30A4\u30C3\u30AF\u30E0\u30FC\u30D6"
-    EnglishName: Quick Move
-    IconIndex: 6
-    AnimationId: 1501
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 10
-    Attribute: 2
-    Scope: 4
-    SkillType: 2
-    TargetType: 4
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u521D\u52D5\u304C\u65E9\u304F\u306A\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u521D\u52D5\u304C\u65E9\u304F\u306A\u308B"
-    Range: 1
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 12050
-      FeatureType: 5020
-      Param1: 100
-      Param2: 0
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 12050
       TriggerType: 0
       TriggerTiming: 1
       Param1: 0
@@ -2719,21 +3067,129 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
     ScopeTriggers: []
-  - Id: 13010
-    Name: "\u30A2\u30FC\u30DE\u30FC\u30B3\u30FC\u30C9"
-    EnglishName: Armor Code
+  - Id: 12910
+    Name: "\u30B3\u30F3\u30BB\u30F3\u30C8\u30EC\u30A4\u30C8"
+    EnglishName: Concentrate
     IconIndex: 6
-    AnimationId: 803
+    AnimationId: 1501
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 20
+    Attribute: 2
+    Scope: 4
+    SkillType: 2
+    TargetType: 4
+    Help: "\\s\u306E\u547D\u4E2D\u3068\u56DE\u907F\u3092/f[f,0,3]%\u30A2\u30C3\u30D7"
+    EnglishHelp: "\\s\u306E\u547D\u4E2D\u3068\u56DE\u907F\u3092/f[f,0,3]%\u30A2\u30C3\u30D7"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 12910
+      FeatureType: 3010
+      Param1: 1080
+      Param2: 999
+      Param3: 10
+      Rate: 100
+    - SkillId: 12910
+      FeatureType: 3010
+      Param1: 1090
+      Param2: 999
+      Param3: 10
+      Rate: 100
+    TriggerDates:
+    - SkillId: 12910
+      TriggerType: 0
+      TriggerTiming: 1
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 12920
+    Name: "\u30D8\u30D6\u30F3\u30EA\u30FC\u30E9\u30C3\u30AF"
+    EnglishName: Heavenly Rack
+    IconIndex: 6
+    AnimationId: 1501
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
     Rank: 10
-    Attribute: 3
+    Attribute: 2
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    Help: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    EnglishHelp: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 12920
+      FeatureType: 3010
+      Param1: 1090
+      Param2: 999
+      Param3: 10
+      Rate: 100
+    TriggerDates:
+    - SkillId: 12920
+      TriggerType: 0
+      TriggerTiming: 1
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 12930
+    Name: "\u30B9\u30A6\u30A3\u30D5\u30C8\u30AB\u30EC\u30F3\u30C8"
+    EnglishName: Swift Current
+    IconIndex: 6
+    AnimationId: 1501
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 2
+    Scope: 4
+    SkillType: 2
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 12930
+      FeatureType: 3010
+      Param1: 1060
+      Param2: 999
+      Param3: 5
+      Rate: 100
+    TriggerDates:
+    - SkillId: 12930
+      TriggerType: 0
+      TriggerTiming: 1
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 13010
+    Name: "\u30D8\u30D3\u30A3\u30AB\u30D0\u30FC"
+    EnglishName: Heavy Cover
+    IconIndex: 6
+    AnimationId: 1109
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 4
+    Rank: 10
+    Attribute: 3
+    Scope: 11
+    SkillType: 2
+    TargetType: 2
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u309275%\u30AB\u30C3\u30C8\u3057\n\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
+    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2741,12 +3197,52 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 13010
       FeatureType: 3010
-      Param1: 1050
-      Param2: 999
-      Param3: 2
+      Param1: 2430
+      Param2: 1
+      Param3: 0
+      Rate: 100
+    - SkillId: 13010
+      FeatureType: 7010
+      Param1: 13011
+      Param2: 0
+      Param3: 1
       Rate: 100
     TriggerDates:
     - SkillId: 13010
+      TriggerType: 12010
+      TriggerTiming: 41
+      Param1: 0
+      Param2: 13
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 13011
+    Name: "\u30D8\u30D3\u30A3\u30AB\u30D0\u30FC"
+    EnglishName: Heavy Cover
+    IconIndex: 6
+    AnimationId: 803
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 4
+    Rank: 0
+    Attribute: 3
+    Scope: 4
+    SkillType: 2
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u309275%\u30AB\u30C3\u30C8\u3057\n\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
+    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 13011
+      FeatureType: 3010
+      Param1: 1100
+      Param2: 1
+      Param3: 75
+      Rate: 100
+    TriggerDates:
+    - SkillId: 13011
       TriggerType: 0
       TriggerTiming: 1
       Param1: 0
@@ -2754,71 +3250,71 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 13020
-    Name: "\u30AF\u30A4\u30C3\u30AF\u30D0\u30EA\u30A2"
-    EnglishName: Quick Barrier
+    Name: "\u30A2\u30A4\u30B7\u30AF\u30EB\u30A8\u30C3\u30B8"
+    EnglishName: Icicle Edge
     IconIndex: 6
-    AnimationId: 803
+    AnimationId: 1024
     AnimationType: 1
     MpCost: 0
-    CountTurn: 3
-    Rank: 20
+    CountTurn: 0
+    Rank: 10
     Attribute: 3
     Scope: 1
     SkillType: 2
-    TargetType: 11
-    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u5BFE\u8C61\u306E\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u5BFE\u8C61\u306E\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    TargetType: 7
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u51CD\u7D50\u4ED8\u4E0E\n/s"
+    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u51CD\u7D50\u4ED8\u4E0E\n/s"
     Range: 1
     RepeatTime: 1
     AliveType: 1
-    TimingOnlyCount: 1
+    TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 13020
       FeatureType: 3010
-      Param1: 1100
+      Param1: 2140
       Param2: 1
       Param3: 25
       Rate: 100
     TriggerDates:
     - SkillId: 13020
-      TriggerType: 12060
-      TriggerTiming: 31
-      Param1: 0
+      TriggerType: 10010
+      TriggerTiming: 61
+      Param1: 100
       Param2: 0
       Param3: 0
     ScopeTriggers: []
   - Id: 13030
-    Name: "\u30AF\u30A4\u30C3\u30AF\u30AD\u30E5\u30A2"
-    EnglishName: Quick Cure
+    Name: "\u30AB\u30A6\u30F3\u30BF\u30FC\u30DE\u30B8\u30C3\u30AF"
+    EnglishName: "\u30AB\u30A6\u30F3\u30BF\u30FC\u30DE\u30B8\u30C3\u30AF"
     IconIndex: 6
-    AnimationId: 3023
+    AnimationId: 1109
     AnimationType: 1
     MpCost: 0
-    CountTurn: 2
-    Rank: 20
+    CountTurn: 3
+    Rank: 10
     Attribute: 3
     Scope: 1
     SkillType: 2
-    TargetType: 11
-    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u72B6\u614B\u7570\u5E38\u306B\u306A\u3063\u305F\u6642\n\\s\u306E\u72B6\u614B\u7570\u5E38\u3092\u56DE\u5FA9"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u72B6\u614B\u7570\u5E38\u306B\u306A\u3063\u305F\u6642\n\\s\u306E\u72B6\u614B\u7570\u5E38\u3092\u56DE\u5FA9"
+    TargetType: 6
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3055\u308C\u305F\u969B\u306B\u767A\u52D5\n\\s\u306BATKx/f[f,0,1]%\u53CD\u6483\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3055\u308C\u305F\u969B\u306B\u767A\u52D5\n\\s\u306BATKx/f[f,0,1]%\u53CD\u6483\u30C0\u30E1\u30FC\u30B8"
     Range: 1
     RepeatTime: 1
     AliveType: 1
-    TimingOnlyCount: 1
+    TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 13030
-      FeatureType: 3030
-      Param1: 0
+      FeatureType: 1010
+      Param1: 150
       Param2: 0
       Param3: 0
       Rate: 100
     TriggerDates:
     - SkillId: 13030
-      TriggerType: 12042
-      TriggerTiming: 61
+      TriggerType: 12060
+      TriggerTiming: 11
       Param1: 0
-      Param2: 0
+      Param2: 4
       Param3: 0
     ScopeTriggers: []
   - Id: 13040
@@ -2895,40 +3391,6 @@ MonoBehaviour:
       Param1: 0
       Param2: 0
       Param3: 0
-  - Id: 13060
-    Name: "\u30B5\u30D7\u30E9\u30A4\u30AB\u30D0\u30FC"
-    EnglishName: Supply Cover
-    IconIndex: 6
-    AnimationId: 1109
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 2
-    Rank: 30
-    Attribute: 3
-    Scope: 4
-    SkillType: 2
-    TargetType: 4
-    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
-    Range: 1
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 13060
-      FeatureType: 3010
-      Param1: 2430
-      Param2: 1
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 13060
-      TriggerType: 12060
-      TriggerTiming: 41
-      Param1: 0
-      Param2: 13
-      Param3: 0
-    ScopeTriggers: []
   - Id: 13070
     Name: "\u30A2\u30B7\u30C3\u30C9\u30E9\u30C3\u30B7\u30E5"
     EnglishName: Assist Rush
@@ -3293,65 +3755,167 @@ MonoBehaviour:
       Param2: 13
       Param3: 0
     ScopeTriggers: []
-  - Id: 14010
-    Name: "\u30C7\u30A3\u30D0\u30A4\u30F3\u30B7\u30FC\u30EB\u30C9"
-    EnglishName: Divine Shield
+  - Id: 13910
+    Name: "\u30A2\u30FC\u30DE\u30FC\u30B3\u30FC\u30C9"
+    EnglishName: Armor Code
     IconIndex: 6
-    AnimationId: 1109
+    AnimationId: 803
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
     Rank: 10
-    Attribute: 4
+    Attribute: 3
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D/f[f,0,2]\u56DE\u307E\u3067\n\u72B6\u614B\u7570\u5E38\u3092\u56DE\u907F\u3059\u308B\n/s"
-    EnglishHelp: "(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D/f[f,0,2]\u56DE\u307E\u3067\n\u72B6\u614B\u7570\u5E38\u3092\u56DE\u907F\u3059\u308B\n/s"
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
-    - SkillId: 14010
+    - SkillId: 13910
       FeatureType: 3010
-      Param1: 2180
-      Param2: 1
-      Param3: 0
+      Param1: 1050
+      Param2: 999
+      Param3: 2
       Rate: 100
     TriggerDates:
-    - SkillId: 14010
+    - SkillId: 13910
       TriggerType: 0
       TriggerTiming: 1
       Param1: 0
       Param2: 0
       Param3: 0
     ScopeTriggers: []
-  - Id: 14020
-    Name: "\u30E9\u30A4\u30D5\u30C7\u30A3\u30D0\u30A4\u30C9"
-    EnglishName: Life Divide
+  - Id: 13920
+    Name: "\u30AF\u30A4\u30C3\u30AF\u30D0\u30EA\u30A2"
+    EnglishName: Quick Barrier
     IconIndex: 6
-    AnimationId: 3023
+    AnimationId: 803
     AnimationType: 1
     MpCost: 0
     CountTurn: 3
     Rank: 20
-    Attribute: 4
+    Attribute: 3
     Scope: 1
     SkillType: 2
     TargetType: 11
-    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n(\u5236\u9650)\u81EA\u8EAB\u306EHp\u306E25%\u5206\u307E\u3067\n\\s\u306BHp\u3092\u5206\u3051\u4E0E\u3048\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n(\u5236\u9650)\u81EA\u8EAB\u306EHp\u306E25%\u5206\u307E\u3067\n\\s\u306BHp\u3092\u5206\u3051\u4E0E\u3048\u308B"
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u5BFE\u8C61\u306E\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u5BFE\u8C61\u306E\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 1
     FeatureDates:
-    - SkillId: 14020
-      FeatureType: 2040
-      Param1: 25
+    - SkillId: 13920
+      FeatureType: 3010
+      Param1: 1100
+      Param2: 1
+      Param3: 25
+      Rate: 100
+    TriggerDates:
+    - SkillId: 13920
+      TriggerType: 12060
+      TriggerTiming: 31
+      Param1: 0
       Param2: 0
-      Param3: 1
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 13930
+    Name: "\u30AF\u30A4\u30C3\u30AF\u30AD\u30E5\u30A2"
+    EnglishName: Quick Cure
+    IconIndex: 6
+    AnimationId: 3023
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 2
+    Rank: 20
+    Attribute: 3
+    Scope: 1
+    SkillType: 2
+    TargetType: 11
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u72B6\u614B\u7570\u5E38\u306B\u306A\u3063\u305F\u6642\n\\s\u306E\u72B6\u614B\u7570\u5E38\u3092\u56DE\u5FA9"
+    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u72B6\u614B\u7570\u5E38\u306B\u306A\u3063\u305F\u6642\n\\s\u306E\u72B6\u614B\u7570\u5E38\u3092\u56DE\u5FA9"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 1
+    FeatureDates:
+    - SkillId: 13930
+      FeatureType: 3030
+      Param1: 0
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 13930
+      TriggerType: 12042
+      TriggerTiming: 61
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 14010
+    Name: "\u30D5\u30A1\u30FC\u30B9\u30C8\u30A8\u30A4\u30C9"
+    EnglishName: First Aid
+    IconIndex: 6
+    AnimationId: 3023
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 4
+    Scope: 1
+    SkillType: 2
+    TargetType: 11
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u7D42\u4E86\u6642\nHp\u306E\u4F4E\u3044\u5473\u65B9\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
+    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u7D42\u4E86\u6642\nHp\u306E\u4F4E\u3044\u5473\u65B9\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 14010
+      FeatureType: 2010
+      Param1: 5
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 14010
+      TriggerType: 1130
+      TriggerTiming: 101
+      Param1: 1
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 14020
+    Name: "\u30AF\u30A4\u30C3\u30AF\u30D2\u30FC\u30EB"
+    EnglishName: Quick Heal
+    IconIndex: 6
+    AnimationId: 3023
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 10
+    Attribute: 4
+    Scope: 1
+    SkillType: 2
+    TargetType: 11
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n\u5BFE\u8C61\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
+    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n\u5BFE\u8C61\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 14020
+      FeatureType: 2010
+      Param1: 5
+      Param2: 0
+      Param3: 0
       Rate: 100
     TriggerDates:
     - SkillId: 14020
@@ -3361,33 +3925,27 @@ MonoBehaviour:
       Param2: 0
       Param3: 1
     - SkillId: 14020
-      TriggerType: 1020
-      TriggerTiming: 11
-      Param1: 25
-      Param2: 0
-      Param3: 1
-    - SkillId: 14020
-      TriggerType: 9120
+      TriggerType: 18010
       TriggerTiming: 11
       Param1: 0
       Param2: 0
       Param3: 0
     ScopeTriggers: []
   - Id: 14030
-    Name: "\u30A8\u30A4\u30DF\u30F3\u30B0\u30B9\u30B3\u30FC\u30D7"
-    EnglishName: Aiming Scope
+    Name: "\u30AC\u30FC\u30C9\u30D0\u30A4\u30F3\u30C9"
+    EnglishName: "\u30AC\u30FC\u30C9\u30D0\u30A4\u30F3\u30C9"
     IconIndex: 6
     AnimationId: 1109
     AnimationType: 1
     MpCost: 0
-    CountTurn: 0
+    CountTurn: 3
     Rank: 10
     Attribute: 4
-    Scope: 3
+    Scope: 4
     SkillType: 2
-    TargetType: 2
-    Help: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7\n\u6700\u59275\u56DE\u307E\u3067\u91CD\u306D\u639B\u3051\u53EF\u80FD"
-    EnglishHelp: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7\n\u6700\u59275\u56DE\u307E\u3067\u91CD\u306D\u639B\u3051\u53EF\u80FD"
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3059\u308B\u524D\n\u304B\u3070\u3046\u306E\u767A\u52D5\u3092\u7121\u8996\u3059\u308B"
+    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3059\u308B\u524D\n\u304B\u3070\u3046\u306E\u767A\u52D5\u3092\u7121\u8996\u3059\u308B"
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3395,14 +3953,14 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 14030
       FeatureType: 3010
-      Param1: 1081
-      Param2: 999
-      Param3: 5
+      Param1: 2490
+      Param2: 1
+      Param3: 0
       Rate: 100
     TriggerDates:
     - SkillId: 14030
-      TriggerType: 0
-      TriggerTiming: 1
+      TriggerType: 15010
+      TriggerTiming: 21
       Param1: 0
       Param2: 0
       Param3: 0
@@ -3555,46 +4113,6 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
     ScopeTriggers: []
-  - Id: 14080
-    Name: "\u30AF\u30A4\u30C3\u30AF\u30D2\u30FC\u30EB"
-    EnglishName: Quick Heal
-    IconIndex: 6
-    AnimationId: 3023
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 3
-    Rank: 10
-    Attribute: 4
-    Scope: 1
-    SkillType: 2
-    TargetType: 11
-    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n\u5BFE\u8C61\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n\u5BFE\u8C61\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
-    Range: 1
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 14080
-      FeatureType: 2010
-      Param1: 5
-      Param2: 0
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 14080
-      TriggerType: 12040
-      TriggerTiming: 11
-      Param1: 100
-      Param2: 0
-      Param3: 1
-    - SkillId: 14080
-      TriggerType: 18010
-      TriggerTiming: 11
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
   - Id: 14090
     Name: "\u30EA\u30EC\u30A4\u30BA"
     EnglishName: Relayze
@@ -3703,85 +4221,125 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
     ScopeTriggers: []
-  - Id: 14120
-    Name: "\u30D5\u30A1\u30FC\u30B9\u30C8\u30A8\u30A4\u30C9"
-    EnglishName: First Aid
+  - Id: 14910
+    Name: "\u30C7\u30A3\u30D0\u30A4\u30F3\u30B7\u30FC\u30EB\u30C9"
+    EnglishName: Divine Shield
     IconIndex: 6
-    AnimationId: 3023
+    AnimationId: 1109
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
     Rank: 10
     Attribute: 4
-    Scope: 1
-    SkillType: 2
-    TargetType: 11
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u7D42\u4E86\u6642\nHp\u306E\u4F4E\u3044\u5473\u65B9\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u7D42\u4E86\u6642\nHp\u306E\u4F4E\u3044\u5473\u65B9\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
-    Range: 1
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 14120
-      FeatureType: 2010
-      Param1: 5
-      Param2: 0
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 14120
-      TriggerType: 1130
-      TriggerTiming: 101
-      Param1: 1
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 15010
-    Name: "\u30A4\u30FC\u30B0\u30EB\u30A2\u30A4"
-    EnglishName: Eagle Eye
-    IconIndex: 6
-    AnimationId: 3009
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 10
-    Attribute: 5
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    Help: "(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D/f[f,0,2]\u56DE\u307E\u3067\n\u72B6\u614B\u7570\u5E38\u3092\u56DE\u907F\u3059\u308B\n/s"
+    EnglishHelp: "(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D/f[f,0,2]\u56DE\u307E\u3067\n\u72B6\u614B\u7570\u5E38\u3092\u56DE\u907F\u3059\u308B\n/s"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
-    - SkillId: 15010
+    - SkillId: 14910
       FeatureType: 3010
-      Param1: 1070
-      Param2: 999
-      Param3: 15
-      Rate: 100
-    - SkillId: 15010
-      FeatureType: 6030
-      Param1: 15010
-      Param2: 0
-      Param3: 30
+      Param1: 2180
+      Param2: 1
+      Param3: 0
       Rate: 100
     TriggerDates:
-    - SkillId: 15010
+    - SkillId: 14910
       TriggerType: 0
       TriggerTiming: 1
       Param1: 0
       Param2: 0
       Param3: 0
     ScopeTriggers: []
-  - Id: 15020
-    Name: "\u30CD\u30F4\u30A1\u30FC\u30A8\u30F3\u30C9"
-    EnglishName: Never End
+  - Id: 14920
+    Name: "\u30E9\u30A4\u30D5\u30C7\u30A3\u30D0\u30A4\u30C9"
+    EnglishName: Life Divide
     IconIndex: 6
-    AnimationId: 3047
+    AnimationId: 3023
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 20
+    Attribute: 4
+    Scope: 1
+    SkillType: 2
+    TargetType: 11
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n(\u5236\u9650)\u81EA\u8EAB\u306EHp\u306E25%\u5206\u307E\u3067\n\\s\u306BHp\u3092\u5206\u3051\u4E0E\u3048\u308B"
+    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n(\u5236\u9650)\u81EA\u8EAB\u306EHp\u306E25%\u5206\u307E\u3067\n\\s\u306BHp\u3092\u5206\u3051\u4E0E\u3048\u308B"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 1
+    FeatureDates:
+    - SkillId: 14920
+      FeatureType: 2040
+      Param1: 25
+      Param2: 0
+      Param3: 1
+      Rate: 100
+    TriggerDates:
+    - SkillId: 14920
+      TriggerType: 12040
+      TriggerTiming: 11
+      Param1: 100
+      Param2: 0
+      Param3: 1
+    - SkillId: 14920
+      TriggerType: 1020
+      TriggerTiming: 11
+      Param1: 25
+      Param2: 0
+      Param3: 1
+    - SkillId: 14920
+      TriggerType: 9120
+      TriggerTiming: 11
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 14930
+    Name: "\u30A8\u30A4\u30DF\u30F3\u30B0\u30B9\u30B3\u30FC\u30D7"
+    EnglishName: Aiming Scope
+    IconIndex: 6
+    AnimationId: 1109
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 4
+    Scope: 3
+    SkillType: 2
+    TargetType: 2
+    Help: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7\n\u6700\u59275\u56DE\u307E\u3067\u91CD\u306D\u639B\u3051\u53EF\u80FD"
+    EnglishHelp: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7\n\u6700\u59275\u56DE\u307E\u3067\u91CD\u306D\u639B\u3051\u53EF\u80FD"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 14930
+      FeatureType: 3010
+      Param1: 1081
+      Param2: 999
+      Param3: 5
+      Rate: 100
+    TriggerDates:
+    - SkillId: 14930
+      TriggerType: 0
+      TriggerTiming: 1
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 15010
+    Name: "\u30EF\u30F3\u30B9\u30D1\u30CB\u30C3\u30B7\u30E5"
+    EnglishName: Once Spanish
+    IconIndex: 6
+    AnimationId: 1109
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
@@ -3790,64 +4348,104 @@ MonoBehaviour:
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7\n(\u4F1A\u5F97\u6642)/f[f,1,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7\n(\u4F1A\u5F97\u6642)/f[f,1,3]%\u30A2\u30C3\u30D7"
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\u307E\u3067\n1\u56DE\u3060\u3051\u5168\u3066\u306E\u653B\u6483\u3092\u7121\u52B9\u5316\u3059\u308B"
+    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\u307E\u3067\n1\u56DE\u3060\u3051\u5168\u3066\u306E\u653B\u6483\u3092\u7121\u52B9\u5316\u3059\u308B"
     Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 15010
+      FeatureType: 3010
+      Param1: 2050
+      Param2: 1
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 15010
+      TriggerType: 12060
+      TriggerTiming: 31
+      Param1: 0
+      Param2: 4
+      Param3: 1
+    - SkillId: 15010
+      TriggerType: 11010
+      TriggerTiming: 0
+      Param1: 1
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 15020
+    Name: "\u30AF\u30A4\u30C3\u30AF\u30AB\u30FC\u30B9"
+    EnglishName: Quick Curse
+    IconIndex: 6
+    AnimationId: 3047
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 10
+    Attribute: 5
+    Scope: 1
+    SkillType: 2
+    TargetType: 6
+    Help: "(\u6761\u4EF6)\u76F8\u624B\u304C\u653B\u6483\u3059\u308B\u524D\u306B\u767A\u52D5\n\\s\u306EATK\u3092/f[f,0,3]%\u30C0\u30A6\u30F3"
+    EnglishHelp: "(\u6761\u4EF6)\u76F8\u624B\u304C\u653B\u6483\u3059\u308B\u524D\u306B\u767A\u52D5\n\\s\u306EATK\u3092/f[f,0,3]%\u30C0\u30A6\u30F3"
+    Range: 2
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 15020
       FeatureType: 3010
-      Param1: 1070
-      Param2: 999
-      Param3: 25
-      Rate: 100
-    - SkillId: 15020
-      FeatureType: 6030
-      Param1: 15020
-      Param2: 0
-      Param3: 50
+      Param1: 1043
+      Param2: 1
+      Param3: 20
       Rate: 100
     TriggerDates:
     - SkillId: 15020
-      TriggerType: 1010
-      TriggerTiming: 61
-      Param1: 25
+      TriggerType: 12060
+      TriggerTiming: 31
+      Param1: 0
       Param2: 0
       Param3: 0
     ScopeTriggers: []
   - Id: 15030
-    Name: "\u30B0\u30EC\u30A4\u30D6\u30A2\u30AF\u30C8"
-    EnglishName: Grave Act
+    Name: "\u30D0\u30A4\u30BF\u30EA\u30C6\u30A3"
+    EnglishName: "\u30D0\u30A4\u30BF\u30EA\u30C6\u30A3"
     IconIndex: 6
     AnimationId: 1109
     AnimationType: 1
     MpCost: 0
-    CountTurn: 0
-    Rank: 20
+    CountTurn: 3
+    Rank: 10
     Attribute: 5
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3067\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u3063\u305F\u969B\u306B\u767A\u52D5\n\\s\u306ECT-/f[f,0,1]"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3067\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u3063\u305F\u969B\u306B\u767A\u52D5\n\\s\u306ECT-/f[f,0,1]"
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u884C\u52D5\u3059\u308B\u524D\u306B\u767A\u52D5\n\u81EA\u8EAB\u304CHP100%\u306E\u5834\u5408\u30C0\u30E1\u30FC\u30B8\u52B9\u679C+50%"
+    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u884C\u52D5\u3059\u308B\u524D\u306B\u767A\u52D5\n\u81EA\u8EAB\u304CHP100%\u306E\u5834\u5408\u30C0\u30E1\u30FC\u30B8\u52B9\u679C+50%"
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 15030
-      FeatureType: 4020
-      Param1: 2
-      Param2: 0
-      Param3: 0
+      FeatureType: 3010
+      Param1: 2290
+      Param2: 1
+      Param3: 50
       Rate: 100
     TriggerDates:
     - SkillId: 15030
-      TriggerType: 12041
-      TriggerTiming: 61
+      TriggerType: 15010
+      TriggerTiming: 21
       Param1: 0
+      Param2: 0
+      Param3: 1
+    - SkillId: 15030
+      TriggerType: 1020
+      TriggerTiming: 21
+      Param1: 100
       Param2: 0
       Param3: 0
     ScopeTriggers: []
@@ -4029,40 +4627,6 @@ MonoBehaviour:
     - SkillId: 15080
       TriggerType: 12082
       TriggerTiming: 61
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 15090
-    Name: "\u30AF\u30A4\u30C3\u30AF\u30AB\u30FC\u30B9"
-    EnglishName: Quick Curse
-    IconIndex: 6
-    AnimationId: 3047
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 2
-    Rank: 20
-    Attribute: 5
-    Scope: 1
-    SkillType: 2
-    TargetType: 6
-    Help: "(\u6761\u4EF6)\u76F8\u624B\u304C\u653B\u6483\u3059\u308B\u524D\u306B\u767A\u52D5\n\\s\u306EATK\u3092/f[f,0,3]%\u30C0\u30A6\u30F3"
-    EnglishHelp: "(\u6761\u4EF6)\u76F8\u624B\u304C\u653B\u6483\u3059\u308B\u524D\u306B\u767A\u52D5\n\\s\u306EATK\u3092/f[f,0,3]%\u30C0\u30A6\u30F3"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 15090
-      FeatureType: 3010
-      Param1: 1043
-      Param2: 1
-      Param3: 20
-      Rate: 100
-    TriggerDates:
-    - SkillId: 15090
-      TriggerType: 12060
-      TriggerTiming: 31
       Param1: 0
       Param2: 0
       Param3: 0
@@ -4257,6 +4821,120 @@ MonoBehaviour:
     - SkillId: 15130
       TriggerType: 0
       TriggerTiming: 1
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 15910
+    Name: "\u30A4\u30FC\u30B0\u30EB\u30A2\u30A4"
+    EnglishName: Eagle Eye
+    IconIndex: 6
+    AnimationId: 3009
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 5
+    Scope: 4
+    SkillType: 2
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 15910
+      FeatureType: 3010
+      Param1: 1070
+      Param2: 999
+      Param3: 15
+      Rate: 100
+    - SkillId: 15910
+      FeatureType: 6030
+      Param1: 15010
+      Param2: 0
+      Param3: 30
+      Rate: 100
+    TriggerDates:
+    - SkillId: 15910
+      TriggerType: 0
+      TriggerTiming: 1
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 15920
+    Name: "\u30CD\u30F4\u30A1\u30FC\u30A8\u30F3\u30C9"
+    EnglishName: Never End
+    IconIndex: 6
+    AnimationId: 3047
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 5
+    Scope: 4
+    SkillType: 2
+    TargetType: 4
+    Help: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7\n(\u4F1A\u5F97\u6642)/f[f,1,3]%\u30A2\u30C3\u30D7"
+    EnglishHelp: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7\n(\u4F1A\u5F97\u6642)/f[f,1,3]%\u30A2\u30C3\u30D7"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 15920
+      FeatureType: 3010
+      Param1: 1070
+      Param2: 999
+      Param3: 25
+      Rate: 100
+    - SkillId: 15920
+      FeatureType: 6030
+      Param1: 15020
+      Param2: 0
+      Param3: 50
+      Rate: 100
+    TriggerDates:
+    - SkillId: 15920
+      TriggerType: 1010
+      TriggerTiming: 61
+      Param1: 25
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 15930
+    Name: "\u30B0\u30EC\u30A4\u30D6\u30A2\u30AF\u30C8"
+    EnglishName: Grave Act
+    IconIndex: 6
+    AnimationId: 1109
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 20
+    Attribute: 5
+    Scope: 4
+    SkillType: 2
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3067\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u3063\u305F\u969B\u306B\u767A\u52D5\n\\s\u306ECT-/f[f,0,1]"
+    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3067\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u3063\u305F\u969B\u306B\u767A\u52D5\n\\s\u306ECT-/f[f,0,1]"
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 15930
+      FeatureType: 4020
+      Param1: 2
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 15930
+      TriggerType: 12041
+      TriggerTiming: 61
       Param1: 0
       Param2: 0
       Param3: 0

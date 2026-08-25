@@ -25,6 +25,9 @@ namespace Ryneus
                 case TriggerType.OpponentBuffActionInfo:
                     isTrigger = CheckOpponentBuffActionInfo(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
                     break;
+                case TriggerType.OpponentRangeLActionInfo:
+                    isTrigger = CheckOpponentRangeLActionInfo(triggerData, battlerInfo, checkTriggerInfo).Count > 0;
+                    break;
             }
             return isTrigger;
         }
@@ -50,6 +53,9 @@ namespace Ryneus
                     break;
                 case TriggerType.OpponentBuffActionInfo:
                     targetIndexList.AddRange(CheckOpponentBuffActionInfo(triggerData, battlerInfo, checkTriggerInfo));
+                    break;
+                case TriggerType.OpponentRangeLActionInfo:
+                    targetIndexList.AddRange(CheckOpponentRangeLActionInfo(triggerData, battlerInfo, checkTriggerInfo));
                     break;
             }
         }
@@ -107,5 +113,33 @@ namespace Ryneus
             }
             return list;
         }
+
+        private List<int> CheckOpponentRangeLActionInfo(SkillData.TriggerData triggerData, BattlerInfo battlerInfo, CheckTriggerInfo checkTriggerInfo)
+        {
+            var list = new List<int>();
+            var actionInfo = checkTriggerInfo.ActionInfo;
+            if (!battlerInfo.IsAlive())
+            {
+                return list;
+            }
+            if (actionInfo == null)
+            {
+                return list;
+            }
+            if (actionInfo.RangeType != RangeType.L)
+            {
+                return list;
+            }
+            var subject = checkTriggerInfo.GetBattlerInfo(actionInfo.SubjectIndex.Value);
+            if (subject != null && !battlerInfo.IsFriendBattler(subject))
+            {
+                if (battlerInfo.Index.Value != actionInfo.SubjectIndex.Value)
+                {
+                    list.Add(actionInfo.SubjectIndex.Value);
+                }
+            }
+            return list;
+        }
+        
     }
 }

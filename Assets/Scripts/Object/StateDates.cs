@@ -129,6 +129,7 @@ namespace Ryneus
         HealValueUp = 2460,
         Curse = 2470,
         StateDefense = 2480,
+        NotCover = 2490,
         Linkage = 3020,
         NoApRecover = 9999
     }

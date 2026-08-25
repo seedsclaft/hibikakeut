@@ -285,6 +285,7 @@ namespace Ryneus
         All = 3,
         Self = 4,
         FrontLine = 5,
+        FrontLow = 6,
         WithoutSelfOne = 11,
         WithoutSelfLine = 12,
         WithoutSelfAll = 13,
@@ -499,6 +500,7 @@ namespace Ryneus
         SelfAttackActionInfo = 15010, // 自身が攻撃タイプの行動をしようとしている
         FriendAttackActionInfo = 15011, // 味方が攻撃タイプの行動をしようとしている
         OpponentBuffActionInfo = 15022, // 相手がバフの行動をしようとしている
+        OpponentRangeLActionInfo = 15042, // 味方が攻撃タイプの行動をしようとしている
         SelfActionInfo = 16010, // 行動したのが自身
         MastarySkill = 16020, // 元スキルを会得している
         SkillUsedCount = 17010, // 魔法を〇回使用する
@@ -560,6 +562,8 @@ namespace Ryneus
         RevengeHpDamage = 1090,
         PenetrateHpDamage = 1100,
         HpParamHpDamage = 1110, // 残りHp比例ダメージ
+        HpCriticalRateHpDamage = 1120, // 会心率あり
+        HpUnderHpRatePlusDamage = 1130, // 残りHp以下%ダメージ+
         HpHeal = 2010,
         HpHealTargetMaxHp = 2011, // 攻撃対象の最大Hpに比例して回復
         RemainHpOne = 2020,

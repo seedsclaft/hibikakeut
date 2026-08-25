@@ -1059,7 +1059,7 @@ MonoBehaviour:
     RemovalTiming: 4
     OverWrite: 1
     EffectPath: MAGICALxSPIRAL/IcicleLocus
-    EffectPosition: 0
+    EffectPosition: 1
     EffectScale: 1
     OverLap: 0
     Removal: 0
@@ -1705,6 +1705,28 @@ MonoBehaviour:
     Buff: 1
     DeBuff: 0
     CheckHit: 1
+    RemoveByAttack: 0
+    RemoveByDeath: 1
+  - Id: 2490
+    StateType: 2490
+    Name: "\u304B\u3070\u3046\u7121\u8996"
+    Help: "\u653B\u6483\u6642\u6575\u306E\u304B\u3070\u3046\u52B9\u679C\u3092\u7121\u8996\u3059\u308B"
+    EnglishName: Grant Immunity
+    EnglishHelp: '""'
+    IconBack: 0
+    IconIndex: 99
+    IconPath: CursedStar
+    RemovalTiming: 1
+    OverWrite: 1
+    EffectPath: '""'
+    EffectPosition: 0
+    EffectScale: 1
+    OverLap: 0
+    Removal: 1
+    Abnormal: 0
+    Buff: 1
+    DeBuff: 0
+    CheckHit: 0
     RemoveByAttack: 0
     RemoveByDeath: 1
   - Id: 3010

@@ -233,6 +233,10 @@ namespace Ryneus
                 return list;
             }
             var subject = checkTriggerInfo.GetBattlerInfo(checkTriggerInfo.ActionInfo.SubjectIndex.Value);
+            if (subject.IsState(StateType.NotCover))
+            {
+                return list;
+            }
             var targetBattlerInfo = checkTriggerInfo.GetBattlerInfo(checkTriggerInfo.CoverTargetIndex);
             if (targetBattlerInfo != null && !subject.IsFriendBattler(targetBattlerInfo) && battlerInfo.Index.Value != targetBattlerInfo.Index.Value && battlerInfo.IsFriendBattler(targetBattlerInfo))
             {

@@ -729,6 +729,12 @@ namespace Ryneus
             return effect;
         }
 
+        public float StateEffectAllPer(StateType stateType)
+        {
+            int effect = StateEffectAll(stateType);
+            return effect * 0.01f;
+        }
+
         public bool AddState(StateInfo stateInfo, bool doAdd)
         {
             bool IsAdded = false;
@@ -985,14 +991,14 @@ namespace Ryneus
             float DamageRate = 1;
             if (!isNoEffect)
             {
-                DamageRate += StateEffectAll(StateType.DamageUp) * 0.01f;
+                DamageRate += StateEffectAllPer(StateType.DamageUp);
             }
             return DamageRate;
         }
 
         private float DeBuffUpperParam(int param)
         {
-            return param * (1f + StateEffectAll(StateType.DeBuffUpper) * 0.01f);
+            return param * (1f + StateEffectAllPer(StateType.DeBuffUpper));
         }
 
         public int TargetRate()
@@ -1104,7 +1110,7 @@ namespace Ryneus
         {
             var slipDamage = 0f;
             slipDamage += GetStateEffectAll(StateType.PoisunDamage);
-            slipDamage += GetStateEffectAll(StateType.BurnDamage) * (1f + (GetStateEffectAll(StateType.BurnDamageCut) * 0.01f));
+            slipDamage += GetStateEffectAll(StateType.BurnDamage) * (1f + StateEffectAllPer(StateType.BurnDamageCut));
             var perDamageValue = GetStateEffectAll(StateType.PoisunDamagePer);
             slipDamage += (int)Math.Floor(MaxHp * 0.01f * perDamageValue);
             return (int)slipDamage;
