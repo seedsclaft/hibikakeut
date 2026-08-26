@@ -893,6 +893,10 @@ namespace Ryneus
                 {
                     atk -= (int)DeBuffUpperParam(StateEffectAll(StateType.AtkDown));
                 }
+                if (IsState(StateType.AtkUpPer))
+                {
+                    atk = (int)(atk * StateEffectAllPer(StateType.AtkUpPer));
+                }
                 if (IsState(StateType.AtkDownPer))
                 {
                     atk = (int)(atk * ((100 - DeBuffUpperParam(StateEffectAll(StateType.AtkDownPer))) * 0.01f));
@@ -921,6 +925,10 @@ namespace Ryneus
                 if (IsState(StateType.DefDown))
                 {
                     def -= (int)DeBuffUpperParam(StateEffectAll(StateType.DefDown));
+                }
+                if (IsState(StateType.DefPerUp))
+                {
+                    def = (int)(def * StateEffectAllPer(StateType.DefPerUp));
                 }
                 if (IsState(StateType.DefPerDown))
                 {
