@@ -729,10 +729,22 @@ namespace Ryneus
             return effect;
         }
 
-        public float StateEffectAllPer(StateType stateType)
+        public float StateEffectAllRate(StateType stateType)
         {
-            int effect = StateEffectAll(stateType);
-            return effect * 0.01f;
+            if (!IsState(stateType))
+            {
+                return 1f;
+            }
+            return 1f + StateEffectAll(stateType) * 0.01f;
+        }
+
+        public float StateEffectAllDeRate(StateType stateType)
+        {
+            if (!IsState(stateType))
+            {
+                return 1f;
+            }
+            return 1f - StateEffectAll(stateType) * 0.01f;
         }
 
         public bool AddState(StateInfo stateInfo, bool doAdd)
@@ -877,29 +889,17 @@ namespace Ryneus
             int atk = _status.Atk;
             if (!isNoEffect)
             {
-                if (IsState(StateType.StatusUp))
-                {
-                    atk += StateEffectAll(StateType.StatusUp);
-                }
-                if (IsState(StateType.AtkUp))
-                {
-                    atk += StateEffectAll(StateType.AtkUp);
-                }
-                if (IsState(StateType.AtkUpOver))
-                {
-                    atk += StateEffectAll(StateType.AtkUpOver);
-                }
+                atk += StateEffectAll(StateType.StatusUp);
+                atk += StateEffectAll(StateType.AtkUp);
+                atk += StateEffectAll(StateType.AtkUpOver);
                 if (IsState(StateType.AtkDown))
                 {
                     atk -= (int)DeBuffUpperParam(StateEffectAll(StateType.AtkDown));
                 }
-                if (IsState(StateType.AtkUpPer))
+                atk = (int)(atk * StateEffectAllRate(StateType.AtkRateUp));
+                if (IsState(StateType.AtkRateDown))
                 {
-                    atk = (int)(atk * StateEffectAllPer(StateType.AtkUpPer));
-                }
-                if (IsState(StateType.AtkDownPer))
-                {
-                    atk = (int)(atk * ((100 - DeBuffUpperParam(StateEffectAll(StateType.AtkDownPer))) * 0.01f));
+                    atk = (int)(atk * ((100 - DeBuffUpperParam(StateEffectAll(StateType.AtkRateDown))) * 0.01f));
                 }
                 if (IsState(StateType.Demigod))
                 {
@@ -914,25 +914,13 @@ namespace Ryneus
             int def = _status.Def;
             if (!isNoEffect)
             {
-                if (IsState(StateType.StatusUp))
+                def += StateEffectAll(StateType.StatusUp);
+                def += StateEffectAll(StateType.DefUp);
+                def -= (int)DeBuffUpperParam(StateEffectAll(StateType.DefDown));
+                def = (int)(def * StateEffectAllRate(StateType.DefRateUp));
+                if (IsState(StateType.DefRateDown))
                 {
-                    def += StateEffectAll(StateType.StatusUp);
-                }
-                if (IsState(StateType.DefUp))
-                {
-                    def += StateEffectAll(StateType.DefUp);
-                }
-                if (IsState(StateType.DefDown))
-                {
-                    def -= (int)DeBuffUpperParam(StateEffectAll(StateType.DefDown));
-                }
-                if (IsState(StateType.DefPerUp))
-                {
-                    def = (int)(def * StateEffectAllPer(StateType.DefPerUp));
-                }
-                if (IsState(StateType.DefPerDown))
-                {
-                    def = (int)(def * ((100 - DeBuffUpperParam(StateEffectAll(StateType.DefPerDown))) * 0.01f));
+                    def = (int)(def * ((100 - DeBuffUpperParam(StateEffectAll(StateType.DefRateDown))) * 0.01f));
                 }
                 if (IsState(StateType.Demigod))
                 {
@@ -947,18 +935,9 @@ namespace Ryneus
             int spd = _status.Spd;
             if (!isNoEffect)
             {
-                if (IsState(StateType.SpdUp))
-                {
-                    spd += StateEffectAll(StateType.SpdUp);
-                }
-                if (IsState(StateType.Accel))
-                {
-                    spd += StateEffect(StateType.Accel) * StateTurn(StateType.Accel);
-                }
-                if (IsState(StateType.StatusUp))
-                {
-                    spd += StateEffectAll(StateType.StatusUp);
-                }
+                spd += StateEffectAll(StateType.StatusUp);
+                spd += StateEffectAll(StateType.SpdUp);
+                spd += StateEffect(StateType.Accel) * StateTurn(StateType.Accel);
                 if (IsState(StateType.Demigod))
                 {
                     spd = (int)(spd * (1f + (DemigodParam.Value * 0.1f)));
@@ -999,14 +978,14 @@ namespace Ryneus
             float DamageRate = 1;
             if (!isNoEffect)
             {
-                DamageRate += StateEffectAllPer(StateType.DamageUp);
+                DamageRate = StateEffectAllRate(StateType.DamageUp);
             }
             return DamageRate;
         }
 
         private float DeBuffUpperParam(int param)
         {
-            return param * (1f + StateEffectAllPer(StateType.DeBuffUpper));
+            return param * StateEffectAllRate(StateType.DeBuffUpper);
         }
 
         public int TargetRate()
@@ -1118,7 +1097,8 @@ namespace Ryneus
         {
             var slipDamage = 0f;
             slipDamage += GetStateEffectAll(StateType.PoisunDamage);
-            slipDamage += GetStateEffectAll(StateType.BurnDamage) * (1f + StateEffectAllPer(StateType.BurnDamageCut));
+            slipDamage += GetStateEffectAll(StateType.BurnDamage);
+            slipDamage *= StateEffectAllDeRate(StateType.BurnDamageCut);
             var perDamageValue = GetStateEffectAll(StateType.PoisunDamagePer);
             slipDamage += (int)Math.Floor(MaxHp * 0.01f * perDamageValue);
             return (int)slipDamage;

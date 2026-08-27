@@ -65,13 +65,13 @@ namespace Ryneus
         MaxMpUp = 1030,
         AtkUp = 1040,
         AtkDown = 1041,
-        AtkUpPer = 1042,
-        AtkDownPer = 1043,
+        AtkRateUp = 1042,
+        AtkRateDown = 1043,
         AtkUpOver = 1044,
         DefUp = 1050,
         DefDown = 1051,
-        DefPerUp = 1052,
-        DefPerDown = 1053,
+        DefRateUp = 1052,
+        DefRateDown = 1053,
         SpdUp = 1060,
         CriticalRateUp = 1070,
         CriticalRateDown = 1071,
@@ -85,6 +85,7 @@ namespace Ryneus
         DamageCutRate = 1100,
         DamageCut = 1101,
         BurnDamageCut = 1210, // 火傷ダメージカット
+        FreezeDamageCut = 1220, // 凍結ダメージカット
         PoisunDamage = 2010, // 火傷(ダメージ固定)
         PoisunDamagePer = 2011, // 火傷(ダメージ割合)
         BurnDamage = 2012, // 火傷(ダメージ固定)

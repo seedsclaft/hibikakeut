@@ -60,7 +60,7 @@ namespace Ryneus
             {
                 CalcCounterDamage(subject, target, hpDamage);
             }
-            CalcFreezeDamage(subject, hpDamage);
+            CalcFreezeDamage(subject, target, hpDamage);
             ReHeal.GainValue(CalcDrainValue(subject, hpDamage));
             return CalcDamageShield(subject, target, hpDamage);
         }
