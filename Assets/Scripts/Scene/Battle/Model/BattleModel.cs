@@ -2532,6 +2532,11 @@ namespace Ryneus
             GetBattlerInfo(targetIndex).GainMaxDamage(damage);
         }
 
+        public bool IsBattleEnd()
+        {
+            return CheckVictory() || CheckDefeat() || CheckIsOver();
+        }
+
         public bool CheckVictory()
         {
             bool isVictory = _troop.BattlerInfos.Find(a => a.IsAlive()) == null;
@@ -2955,6 +2960,39 @@ namespace Ryneus
                 foreach (var battler in Battlers)
                 {
                     battler.RemoveState(state, true);
+                }
+            }
+        }
+
+        public async void CommandTestActiveSkill(int skillId)
+        {
+            var selectBattler = CurrentSelectBattler;
+            if (selectBattler != null)
+            {
+                selectBattler.SetAp(0);
+                SetSelectBattlerInfo(selectBattler);
+                var skillData = DataSystem.FindSkill(skillId);
+                var addressPath = DataSystem.FindAnimation(skillData.AnimationId).AnimationPath;
+                var result = await ResourceSystem.LoadResourceEffectAsset(addressPath);
+                if (result != null)
+                {
+                    EffectAssets[addressPath] = result;
+                }
+            }
+        }
+
+        public async void CommandTestPassiveSkill(int skillId)
+        {
+            var subject = CurrentSelectBattler;
+            if (subject != null)
+            {
+                subject.AddSkill(skillId);
+                var skillData = DataSystem.FindSkill(skillId);
+                var addressPath = DataSystem.FindAnimation(skillData.AnimationId).AnimationPath;
+                var result = await ResourceSystem.LoadResourceEffectAsset(addressPath);
+                if (result != null)
+                {
+                    EffectAssets[addressPath] = result;
                 }
             }
         }

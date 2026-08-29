@@ -7,6 +7,8 @@ using Cysharp.Threading.Tasks;
 using Effekseer;
 using UnityEngine.U2D;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+
 
 namespace Ryneus
 {
@@ -14,7 +16,7 @@ namespace Ryneus
     {
         private static GameObject _lastScene = null;
         private static List<Object> _lastLoadAssets = new();
-        private static Dictionary<string, object> _loadAssets = new();
+        private static Dictionary<string, AsyncOperationHandle> _loadAssets = new();
 
         private static string _bgmPath = "Audios/BGM/";
         private static string _bgsPath = "Audios/BGS/";
@@ -131,9 +133,32 @@ namespace Ryneus
 
         public static async Task<T> LoadAsset<T>(string path) where T : Object
         {
-            var task = await Addressables.LoadAssetAsync<T>(path);
-            _loadAssets[path] = task;
-            return task;
+            // 既にロード済みの場合はキャッシュから返す
+            if (_loadAssets.TryGetValue(path, out var existingHandle))
+            {
+                return existingHandle.Result as T;
+            }
+            // 非同期ロードを実行
+            AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(path);
+            
+            // メインスレッドをフリーズさせずに待つ
+            await handle.Task;
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                _loadAssets[path] = handle; // ハンドルを保存
+                return handle.Result;
+            }
+            return null;
+        }
+
+        // メモリ解放
+        public static void ReleaseAsset(string path)
+        {
+            if (_loadAssets.TryGetValue(path, out var handle))
+            {
+                Addressables.Release(handle);
+                _loadAssets.Remove(path);
+            }
         }
 
         public static string ActorMainSpritePath(string path)
@@ -228,7 +253,7 @@ namespace Ryneus
 
         public static async Task<EffekseerEffectAsset> LoadResourceEffectAsset(string path)
         {
-            return await Addressables.LoadAssetAsync<EffekseerEffectAsset>("Animations/" + path);
+            return await LoadAsset<EffekseerEffectAsset>("Animations/" + path);
         }
 
         public static async Task<AudioClip> LoadEffectSeAsset(string fileName)

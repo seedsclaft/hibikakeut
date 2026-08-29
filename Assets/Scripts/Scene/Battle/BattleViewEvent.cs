@@ -27,6 +27,8 @@ namespace Ryneus
             SkipBattle,
             ForceVictory,
             StopApCount,
+            TestActiveSkill,
+            TestPassiveSkill,
             Formation,
             EndFormation,
             SelectCharacter,

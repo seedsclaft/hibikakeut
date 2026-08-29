@@ -189,6 +189,13 @@ namespace Ryneus
                 case CommandType.StopApCount:
                     CommandStopApCount((bool)viewEvent.Template);
                     break;
+                case CommandType.TestActiveSkill:
+                    CommandTestActiveSkill((int)viewEvent.Template);
+                    break;
+                case CommandType.TestPassiveSkill:
+                    CommandTestPassiveSkill((int)viewEvent.Template);
+                    break;
+                    
             }
             if (_busy)
             {
@@ -477,7 +484,7 @@ namespace Ryneus
 
         private bool IsBattleEnd()
         {
-            return _model.CheckVictory() || _model.CheckDefeat() || _model.CheckIsOver();
+            return _model.IsBattleEnd();
         }
 
         /// <summary>
@@ -601,6 +608,25 @@ namespace Ryneus
         private void CommandStopApCount(bool isStop)
         {
             _model.StopApCount(isStop);
+        }
+
+        private void CommandTestActiveSkill(int skillId)
+        {
+            _view.EndActionSelect();
+            _model.CommandTestActiveSkill(skillId);
+            CommandOnSelectSkill(new SkillInfo(skillId));
+        }
+
+        private void CommandTestPassiveSkill(int skillId)
+        {
+            _model.CommandTestPassiveSkill(skillId);
+            var receiveActionInfo = _model.ReceiveActionInfo;
+            if (receiveActionInfo != null)
+            {
+                _view.SetBattleBusy(true);
+                _model.SetActiveActionInfo(receiveActionInfo);
+                StartActionInfo(receiveActionInfo);
+            }
         }
 
         private void CommandChangeBattleAuto()

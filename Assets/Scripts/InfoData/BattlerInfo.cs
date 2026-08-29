@@ -37,6 +37,10 @@ namespace Ryneus
 
         private List<SkillInfo> _skills = new();
         public List<SkillInfo> Skills => _skills;
+        public void AddSkill(int skillId)
+        {
+            _skills.Add(new SkillInfo(skillId));
+        }
         private ActorInfo _actorInfo;
         public ActorInfo ActorInfo => _actorInfo;
         private ParameterInt EnemyId = new();

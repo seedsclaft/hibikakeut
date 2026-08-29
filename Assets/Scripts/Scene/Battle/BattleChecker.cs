@@ -8,6 +8,10 @@ namespace Ryneus
         [SerializeField] private bool forceVictory = false;
         [SerializeField] private bool stopApCount = false;
         [SerializeField] private bool restartApCount = false;
+        [SerializeField] private bool testActiveSkill = false;
+        [SerializeField] private int testActiveSkillId = -1;
+        [SerializeField] private bool testPassiveSkill = false;
+        [SerializeField] private int testPassiveSkillId = -1;
         [SerializeField] private List<BattlerInfo> actorInfos = null;
         [SerializeField] private List<BattlerInfo> enemyInfos = null;
 
@@ -46,6 +50,24 @@ namespace Ryneus
                 {
                     restartApCount = false;
                     _view.CallViewEvent(Battle.CommandType.StopApCount, false);
+                }
+                if (testActiveSkill)
+                {
+                    var skill = DataSystem.FindSkill(testActiveSkillId);
+                    if (skill != null && !skill.IsBattlePassiveSkill())
+                    {
+                        _view.CallViewEvent(Battle.CommandType.TestActiveSkill, testActiveSkillId); 
+                    }
+                    testActiveSkill = false;
+                }
+                if (testPassiveSkill)
+                {
+                    var skill = DataSystem.FindSkill(testPassiveSkillId);
+                    if (skill != null && skill.IsBattlePassiveSkill())
+                    {
+                        _view.CallViewEvent(Battle.CommandType.TestPassiveSkill, testPassiveSkillId); 
+                    }
+                    testPassiveSkill = false;
                 }
             }
         }

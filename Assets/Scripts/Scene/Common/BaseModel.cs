@@ -101,6 +101,10 @@ namespace Ryneus
                     continue;
                 }
                 var skillInfo = new SkillInfo(equipSkillId.Value);
+                if (skillInfo.Master == null)
+                {
+                    continue;
+                }
                 skillInfo.SetLearningState(LearningState.Learned);
                 skillInfo.SetEnable(true);
                 if (actorInfo.IsLearnedSkill(equipSkillId.Value))
