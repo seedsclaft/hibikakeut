@@ -152,20 +152,16 @@ namespace Ryneus
             switch (rank)
             {
                 case RankType.None:
-                case RankType.ActiveRank1:
                     return 0;
-                case RankType.PassiveRank1:
-                case RankType.PassiveEnhanceRank1:
+                case RankType.Rank1:
                 case RankType.EnhanceRank1:
                 case RankType.EquipmentRank1:
                     return 1;
-                case RankType.ActiveRank2:
-                case RankType.PassiveRank2:
+                case RankType.Rank2:
                 case RankType.EnhanceRank2:
                 case RankType.EquipmentRank2:
                     return 2;
-                case RankType.ActiveRank3:
-                case RankType.PassiveRank3:
+                case RankType.Rank3:
                 case RankType.EnhanceRank3:
                 case RankType.EquipmentRank3:
                     return 3;
@@ -324,13 +320,9 @@ namespace Ryneus
     public enum RankType
     {
         None = 0,
-        ActiveRank1 = 1,
-        ActiveRank2 = 2,
-        ActiveRank3 = 3,
-        PassiveRank1 = 10,
-        PassiveEnhanceRank1 = 11,
-        PassiveRank2 = 20,
-        PassiveRank3 = 30,
+        Rank1 = 10,
+        Rank2 = 20,
+        Rank3 = 30,
         EnhanceRank1 = 100,
         EnhanceRank2 = 110,
         EnhanceRank3 = 120,

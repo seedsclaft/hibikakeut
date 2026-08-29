@@ -551,7 +551,7 @@ namespace Ryneus
                 var resultInfo = new GetItemResultViewInfo();
                 var target = PartyInfo.ActorInfos.Find(a => a.ActorId.Value == skillExpGetItemInfo.Param1);
                 var skillData = DataSystem.FindSkill(skillExpGetItemInfo.Param2);
-                if (skillData.Id > 1000 && skillData.Rank > RankType.ActiveRank1 && !target.MastarySkillIds.Contains(skillExpGetItemInfo.Param2))
+                if (skillData.Id > 1000 && skillData.Rank > RankType.Rank1 && !target.MastarySkillIds.Contains(skillExpGetItemInfo.Param2))
                 {
                     resultInfo.Title.SetValue(DataSystem.GetReplaceText(20110, target.Master.GetName()) + DataSystem.GetReplaceText(20111, skillData.GetName()));
                     list.Add(resultInfo);

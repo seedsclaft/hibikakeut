@@ -161,6 +161,10 @@ namespace Ryneus
             {
                 try
                 {
+                    if (GameSystem.OptionData.Language == Language.English)
+                    {
+                        return string.Format(textData.EnglishText, args);
+                    }
                     return string.Format(textData.Text, args);
                 }
                 catch

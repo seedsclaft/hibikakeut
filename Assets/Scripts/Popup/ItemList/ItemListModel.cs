@@ -255,7 +255,7 @@ namespace Ryneus
             var list = new List<SkillInfo>();
             var rank = itemInfo.Master.Param1;
             var attribute = itemInfo.Master.Param2;
-            var skillDates = DataSystem.Dates[DataType.Skills].FindAll<SkillData>(a => SkillData.ConvertRankCost(a.Rank) == itemInfo.Master.Param1 && a.Rank != RankType.PassiveEnhanceRank1 && a.IsRandumAddSkill() && !PartyInfo.LearningSkillIds.Contains(a.Id));
+            var skillDates = DataSystem.Dates[DataType.Skills].FindAll<SkillData>(a => SkillData.ConvertRankCost(a.Rank) == itemInfo.Master.Param1 && a.Rank != RankType.Rank1 && a.IsRandumAddSkill() && !PartyInfo.LearningSkillIds.Contains(a.Id));
             if (attribute > 0)
             {
                 skillDates = skillDates.FindAll(a => (int)a.Attribute == attribute);

@@ -93,7 +93,7 @@ namespace Ryneus
             }
             if (skillExpGauge != null)
             {
-                var displayExp = !skillInfo.Master.IsBattleSpecialSkill() && skillInfo.Master.SkillType != SkillType.Kind && skillInfo.Master.SkillType != SkillType.Equip && skillInfo.Master.Rank > RankType.ActiveRank1 && !skillInfo.PrimitiveLearned.Value;
+                var displayExp = !skillInfo.Master.IsBattleSpecialSkill() && skillInfo.Master.SkillType != SkillType.Kind && skillInfo.Master.SkillType != SkillType.Equip && skillInfo.Master.Rank > RankType.Rank1 && !skillInfo.PrimitiveLearned.Value;
                 UIComponent.SetActive(skillExpGauge.gameObject, displayExp);
                 skillExpGauge.UpdateGauge(skillInfo.ExpRate.Value);
                 if (learningCost != null && displayExp && skillInfo.ExpRate.Value >= 1)
