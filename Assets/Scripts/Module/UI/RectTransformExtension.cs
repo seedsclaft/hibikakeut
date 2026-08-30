@@ -50,35 +50,29 @@ public static class RectTransformExtension
         r.anchoredPosition = position;
     }
 
-    // 参考：https://forum.unity.com/threads/test-if-ui-element-is-visible-on-screen.276549/
-    /// <summary>
-    /// 与えられたRectTransformのバウンディングボックスのコーナーのうち、スクリーンスペースに表示されているものを数える。
-    /// 毎Update呼ぶと重いので注意。
-    /// </summary>
-    /// <returns>The amount of bounding box corners that are visible.</returns>
-    /// <param name="rectTransform">Rect transform.</param>
-    /// <param name="camera">Camera. Leave it null for Overlay Canvasses.</param>
     private static int CountCornersVisibleFrom(this RectTransform rectTransform, Rect screenBounds, Camera camera = null)
     {
-        if (screenBounds == null) {
-            // 20230626:もしnullならスクリーンサイズを入れる
-            screenBounds = new Rect(0f, 0f, Screen.width, Screen.height); // Screen space bounds (assumes camera renders across the entire screen)
+        if (screenBounds == null)
+        {
+            screenBounds = new Rect(0f, 0f, Screen.width, Screen.height); 
         }
         var objectCorners = new Vector3[4];
         rectTransform.GetWorldCorners(objectCorners);
 
         int visibleCorners = 0;
-        Vector3 tempScreenSpaceCorner; // Cached
-        for (int i = 0; i < objectCorners.Length; i++) // For each corner in rectTransform
+        Vector3 tempScreenSpaceCorner;
+        for (int i = 0; i < objectCorners.Length; i++)
         {
             if (camera != null)
-                tempScreenSpaceCorner = camera.WorldToScreenPoint(objectCorners[i]); // Transform world space position of corner to screen space
-            else {
-                //Debug.Log(rectTransform.gameObject.name + " :: " + objectCorners[i].ToString("F2"));
-                tempScreenSpaceCorner = objectCorners[i]; // If no camera is provided we assume the canvas is Overlay and world space == screen space
+            {
+                tempScreenSpaceCorner = camera.WorldToScreenPoint(objectCorners[i]);
+            }
+            else
+            {
+                tempScreenSpaceCorner = objectCorners[i];
             }
 
-            if (screenBounds.Contains(tempScreenSpaceCorner)) // If the corner is inside the screen
+            if (screenBounds.Contains(tempScreenSpaceCorner))
             {
                 visibleCorners++;
             }

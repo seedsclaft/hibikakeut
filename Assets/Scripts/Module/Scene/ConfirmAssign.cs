@@ -10,23 +10,20 @@ namespace Ryneus
         public List<GameObject> _stackPopupPrefab = new();
         public GameObject LastPopupPrefab => _stackPopupPrefab.Count > 0 ? _stackPopupPrefab[_stackPopupPrefab.Count - 1] : null;
 
-        public bool CreateConfirm(ConfirmType popupType, HelpWindow helpWindow)
+        public void CreateConfirm(ConfirmType popupType, HelpWindow helpWindow)
         {
-            bool first = false;
             GameObject prefab;
             if (!_createdPopupPrefabs.ContainsKey(popupType))
             {
                 prefab = Instantiate(GetConfirmObject(popupType));
                 prefab.transform.SetParent(transform, false);
                 _createdPopupPrefabs[popupType] = prefab;
-                first = true;
             }
             UIComponent.SetActive(gameObject, true);
             prefab = _createdPopupPrefabs[popupType];
             _stackPopupPrefab.Add(prefab);
             UIComponent.SetActive(prefab, true);
             prefab.transform.SetAsLastSibling();
-            return first;
         }
 
         private GameObject GetConfirmObject(ConfirmType popupType)

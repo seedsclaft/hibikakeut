@@ -15,14 +15,13 @@ namespace Ryneus
             _view = view;
             SetView(_view);
             _view.SetEvent((type) => UpdateCommand(type));
-            Initialize(false);
+            Initialize(true);
         }
 
         private void Initialize(bool first)
         {
             _model = new SideMenuModel();
             SetModel(_model);
-            _view.SetSideMenuViewInfo(_model.SceneParam);
             _view.OpenAnimation(first ? InitializeAfter : null);
             if (!first)
             {
@@ -32,6 +31,7 @@ namespace Ryneus
 
         private void InitializeAfter()
         {
+            _view.SetSideMenuViewInfo(_model.SceneParam);
             ClosePopup();
         }
 
@@ -48,7 +48,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize(true);
+                    Initialize(false);
                     break;
                 case CommandType.SelectSideMenu:
                     CommandSelectSideMenu((SystemData.CommandData)viewEvent.Template);

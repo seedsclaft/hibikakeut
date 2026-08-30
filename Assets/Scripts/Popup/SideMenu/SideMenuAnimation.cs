@@ -19,10 +19,9 @@ namespace Ryneus
                 .Join(transform.DOScaleX(1, duration))
                 .Join(BaseCanvas.DOFade(1, duration)
                 .OnComplete(() =>
-
                 {
                     Busy.SetValue(false);
-                    if (endEvent != null) endEvent();
+                    endEvent?.Invoke();
                 })
                 .SetEase(Ease.InOutQuad));
         }

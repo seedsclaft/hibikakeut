@@ -12,11 +12,13 @@ namespace Ryneus
         public CanvasGroup BaseCanvas => baseCanvas;
         private static Sequence _sequence;
         public ParameterBool Busy = new();
+        public ParameterBool Initialized = new();
 
         public void Initialize(Transform transform)
         {
             transform.DOScale(0, 0);
             BaseCanvas.alpha = 0;
+            Initialized.SetValue(true);
         }
 
         public static void MoveAndFade(RectTransform rect, Image image, float moveX, float fade, float duration = 0.1f, System.Action endEvent = null)

@@ -22,10 +22,8 @@ namespace Ryneus
             }
         }
 
-        public bool CreatePopup(PopupType popupType, HelpWindow helpWindow)
+        public void CreatePopup(PopupType popupType, HelpWindow helpWindow)
         {
-            bool first = false;
-            BaseView view;
             GameObject prefab;
             if (!_createdPopupPrefabs.ContainsKey(popupType))
             {
@@ -33,18 +31,16 @@ namespace Ryneus
                 prefab.transform.SetParent(transform, false);
                 //view?.SetHelpWindow(helpWindow);
                 _createdPopupPrefabs[popupType] = prefab;
-                first = true;
                 //view = prefab.GetComponent<BaseView>();
                 //view.Initialize();
             }
             UIComponent.SetActive(gameObject, true);
             prefab = _createdPopupPrefabs[popupType];
-            view = prefab.GetComponent<BaseView>();
+            var view = prefab.GetComponent<BaseView>();
             _stackPopupView.Add(view);
             _stackPopupPrefab.Add(prefab);
             UIComponent.SetActive(prefab, true);
             prefab.transform.SetAsLastSibling();
-            return first;
         }
 
         private GameObject GetPopupObject(PopupType popupType)

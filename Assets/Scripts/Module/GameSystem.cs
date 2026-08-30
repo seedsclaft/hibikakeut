@@ -331,10 +331,10 @@ namespace Ryneus
 
         private void CommandConfirmView(ConfirmInfo confirmInfo)
         {
-            var first = confirmAssign.CreateConfirm(confirmInfo.ConfirmType, helpWindow);
+            confirmAssign.CreateConfirm(confirmInfo.ConfirmType, helpWindow);
             var prefab = confirmAssign.LastPopupPrefab;
             var confirmView = prefab.GetComponent<ConfirmView>();
-            if (first)
+            if (!confirmView.SetupEnd.Value)
             {
                 confirmView.SetEvent((type) => UpdateCommand(type));
             }
@@ -346,15 +346,16 @@ namespace Ryneus
                 confirmView.CallSystemCommand(Base.CommandType.CloseConfirm);
                 confirmView.CallCloseEvent();
             });
+            confirmView.SetupEnd.SetValue(true);
             _inputableBaseViews.Add(confirmView);
         }
 
         private void CommandCautionView(CautionInfo confirmInfo)
         {
-            var first = confirmAssign.CreateConfirm(ConfirmType.Caution, helpWindow);
+            confirmAssign.CreateConfirm(ConfirmType.Caution, helpWindow);
             var prefab = confirmAssign.LastPopupPrefab;
             var confirmView = prefab.GetComponent<CautionView>();
-            if (first)
+            if (!confirmView.SetupEnd.Value)
             {
                 confirmView.SetEvent((type) => UpdateCommand(type));
             }
@@ -367,28 +368,29 @@ namespace Ryneus
             {
                 confirmView.SetLevelup(confirmInfo.From.Value, confirmInfo.To.Value);
             }
+            confirmView.SetupEnd.SetValue(true);
         }
 
         private void CommandMissionClearView(MissionClearInfo confirmInfo)
         {
-            var first = confirmAssign.CreateConfirm(ConfirmType.MissionClear, helpWindow);
             var prefab = confirmAssign.LastPopupPrefab;
             var missionClearView = prefab.GetComponent<MissionClearView>();
-            if (first)
+            if (!missionClearView.SetupEnd.Value)
             {
                 missionClearView.SetEvent((type) => UpdateCommand(type));
             }
             missionClearView.Initialize();
             missionClearView.SetTitle(confirmInfo.Title);
+            missionClearView.SetupEnd.SetValue(true);
         }
 
         private async Task CommandPopupView(PopupInfo popupInfo)
         {
             _sceneStackManager.PushPopupInfo(popupInfo);
-            var first = popupAssign.CreatePopup(popupInfo.PopupType, helpWindow);
+            popupAssign.CreatePopup(popupInfo.PopupType, helpWindow);
             var prefab = popupAssign.LastPopupPrefab;
             var baseView = prefab.GetComponent<BaseView>();
-            if (first)
+            if (!baseView.SetupEnd.Value)
             {
                 var baseAnimation = prefab.GetComponent<BaseAnimation>();
                 baseAnimation?.Initialize(baseView.UiRoot.transform);
@@ -396,10 +398,8 @@ namespace Ryneus
                 baseView.SetEvent(async (type) => await UpdateCommand(type));
             }
             baseView.Initialize();
-            if (first)
-            {
-                baseView.SetPopupCloseBackEvent();
-            }
+            baseView.SetPopupCloseBackEvent();
+            baseView.SetupEnd.SetValue(true);
             if (popupInfo.PopupType == PopupType.LearnSkill)
             {
                 var learnSkill = prefab.GetComponent<LearnSkillView>();
@@ -428,7 +428,7 @@ namespace Ryneus
 
         private void CommandSkillTriggerView(SkillTriggerViewInfo skillTriggerViewInfo)
         {
-            var first = popupAssign.CreatePopup(PopupType.SkillTrigger, helpWindow);
+            popupAssign.CreatePopup(PopupType.SkillTrigger, helpWindow);
             var prefab = popupAssign.LastPopupPrefab;
             var skillTriggerView = prefab.GetComponent<SkillTriggerView>();
             skillTriggerView.SetSkillTriggerViewInfo(skillTriggerViewInfo);
@@ -443,7 +443,7 @@ namespace Ryneus
 
         private void CommandCallSkillLogView(SkillLogViewInfo skillLogViewInfo)
         {
-            var first = popupAssign.CreatePopup(PopupType.SkillLog, helpWindow);
+            popupAssign.CreatePopup(PopupType.SkillLog, helpWindow);
             var prefab = popupAssign.LastPopupPrefab;
             var skillLogView = prefab.GetComponent<SkillLogView>();
             skillLogView.SetEvent((type) => UpdateCommand(type));
@@ -458,7 +458,7 @@ namespace Ryneus
 
         private void CommandRankingView(RankingViewInfo rankingViewInfo)
         {
-            var first = popupAssign.CreatePopup(PopupType.Ranking, helpWindow);
+            popupAssign.CreatePopup(PopupType.Ranking, helpWindow);
             var prefab = popupAssign.LastPopupPrefab;
             var rankingView = prefab.GetComponent<RankingView>();
             rankingView.SetEvent((type) => UpdateCommand(type));
@@ -473,7 +473,7 @@ namespace Ryneus
 
         private void CommandHelpView(List<ListData> helpTextList)
         {
-            var first = popupAssign.CreatePopup(PopupType.Help, helpWindow);
+            popupAssign.CreatePopup(PopupType.Help, helpWindow);
             var prefab = popupAssign.LastPopupPrefab;
             var helpView = prefab.GetComponent<HelpView>();
             helpView.SetEvent((type) => UpdateCommand(type));

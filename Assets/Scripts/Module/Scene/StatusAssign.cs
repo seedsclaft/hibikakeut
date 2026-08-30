@@ -6,7 +6,6 @@ namespace Ryneus
 {
     public class StatusAssign : MonoBehaviour
     {
-        public GameObject StatusRoot => gameObject;
         private BaseView _statusView;
         public BaseView StatusView => _statusView;
 

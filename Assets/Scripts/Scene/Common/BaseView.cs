@@ -10,6 +10,7 @@ namespace Ryneus
     {
         private bool _isIntialized = false;
         public bool IsInitilized => _isIntialized;
+        public ParameterBool SetupEnd = new();
         private bool _testMode = false;
         public bool TestMode => _testMode;
         private bool _testBattleMode = false;
@@ -375,6 +376,10 @@ namespace Ryneus
 
         public void SetPopupCloseBackEvent()
         {
+            if (SetupEnd.Value)
+            {
+                return;
+            }
             // 既に登録済みであれば上書きしない
             if (_backEvent != null)
             {
