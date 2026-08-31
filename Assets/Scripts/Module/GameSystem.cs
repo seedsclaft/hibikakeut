@@ -43,6 +43,7 @@ namespace Ryneus
         public BaseView CurrentScene => _currentScene;
 
         private BaseModel _model = null;
+        public BaseModel Model => _model;
 
         public static SaveInfo CurrentData = null;
         public static SaveGameInfo GameInfo = null;

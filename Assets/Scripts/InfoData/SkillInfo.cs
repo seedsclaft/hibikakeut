@@ -168,6 +168,11 @@ namespace Ryneus
                     var p3 = int.Parse(array[2]);
                     if (p1 == "f")
                     {
+                        if (FeatureDates.Count <= p2)
+                        {
+                            Debug.LogError("FeatureDates Less: " + Id.Value);
+                            continue;
+                        }
                         var targetFeature = FeatureDates[p2];
                         if (p3 == 1)
                         {

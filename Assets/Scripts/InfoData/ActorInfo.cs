@@ -1053,7 +1053,7 @@ namespace Ryneus
                     }
                     skillTriggerInfo.UpdateTriggerDates(new List<SkillTriggerData>() { skillTriggerData1, skillTriggerData2 });
 
-                    var findIndex = _skillTriggerInfos.FindIndex(a => DataSystem.FindSkill(a.SkillId).SkillType == SkillType.Active);
+                    var findIndex = _skillTriggerInfos.FindIndex(a => DataSystem.FindSkill(a.SkillId)?.SkillType == SkillType.Active);
                     if (findIndex == -1)
                     {
                         findIndex = 1;

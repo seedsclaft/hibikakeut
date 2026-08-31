@@ -251,7 +251,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: Deal ATKx/f[f,0,1]% damage to \s.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -278,8 +278,11 @@ MonoBehaviour:
     Scope: 1
     SkillType: 1
     TargetType: 1
-    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3DEF-/f[f,1,1]%"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3DEF-/f[f,1,1]%"
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3DEF-/f[f,1,3]%"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s for /f[f,1,2] turns.
+
+      DEF
+      reduced by /f[f,1,3]%.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -313,7 +316,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u6C37\u5C5E\u6027\u306E\u5834\u5408DEF\u3092100%\u7121\u8996\u3059\u308B"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u6C37\u5C5E\u6027\u306E\u5834\u5408DEF\u3092100%\u7121\u8996\u3059\u308B"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Ignore DEF completely
+      if the target is Ice-type.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -342,8 +348,10 @@ MonoBehaviour:
     TargetType: 4
     Help: "\\s\u306E\u4E0E\u30C0\u30E1\u30FC\u30B8\u7387\u3092/f[f,0,3]%\u30A2\u30C3\u30D7(\u6C38\u7D9A)
       \u91CD\u306D\u639B\u3051\u53EF\u80FD"
-    EnglishHelp: "\\s\u306E\u4E0E\u30C0\u30E1\u30FC\u30B8\u7387\u3092/f[f,0,3]%\u30A2\u30C3\u30D7(\u6C38\u7D9A)
-      \u91CD\u306D\u639B\u3051\u53EF\u80FD"
+    EnglishHelp: '\s''s damage dealt rate by /f[f,0,3]% (permanently).
+
+      Stacking
+      possible.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -371,7 +379,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u306E5\u9023\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u306E5\u9023\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: Deal ATKx/f[f,0,1]% damage 5 times to \s.
     Range: 1
     RepeatTime: 5
     AliveType: 1
@@ -399,7 +407,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 2
     Help: "\\s\u306E\u30C7\u30D0\u30D5\u52B9\u679C\u3092\u89E3\u9664"
-    EnglishHelp: "\\s\u306E\u30C7\u30D0\u30D5\u52B9\u679C\u3092\u89E3\u9664"
+    EnglishHelp: Remove \s's debuff effects.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -427,7 +435,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 4
     Help: "\u6B21\u306B\u884C\u52D5\u3059\u308B\u307E\u3067\\s\u306E\u81F4\u547D\u653B\u6483\u767A\u751F\u7387\u3092/f[f,0,3]%\u30A2\u30C3\u30D7\n\u4F7F\u7528\u5F8C\u518D\u884C\u52D5\u3067\u304D\u308B"
-    EnglishHelp: "\u6B21\u306B\u884C\u52D5\u3059\u308B\u307E\u3067\\s\u306E\u81F4\u547D\u653B\u6483\u767A\u751F\u7387\u3092/f[f,0,3]%\u30A2\u30C3\u30D7\n\u4F7F\u7528\u5F8C\u518D\u884C\u52D5\u3067\u304D\u308B"
+    EnglishHelp: 'Increase critical hit rate of \s by /f[f,0,3]% until next action.
+
+      Can
+      re-act after use.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -461,7 +472,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3DEF-/f[f,1,1]%"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3DEF-/f[f,1,1]%"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s for /f[f,1,2] turns.
+
+      DEF
+      reduced by /f[f,1,1]%.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -495,7 +509,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: Deal ATKx/f[f,0,1]% damage to \s.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -523,7 +537,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 2
     Help: "\\s\u306ECT-/f[f,0,1]"
-    EnglishHelp: "\\s\u306ECT-/f[f,0,1]"
+    EnglishHelp: Decrease \s's CT by /f[f,0,1].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -551,7 +565,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: Deal ATKx/f[f,0,1]% damage to \s.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -579,7 +593,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306B\u4F1A\u5FC3\u7387+50%\u306EATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306B\u4F1A\u5FC3\u7387+50%\u306EATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: Deal ATKx/f[f,0,1]% damage (+50% critical rate) to \s.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -607,7 +621,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: Deal ATKx/f[f,0,1]% damage to \s.
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -635,7 +649,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 4
     Help: "\\s\u306E\u5F85\u6A5F\u6642\u9593\u3092/f[f,0,1]\u77ED\u7E2E\u3059\u308B"
-    EnglishHelp: "\\s\u306E\u5F85\u6A5F\u6642\u9593\u3092/f[f,0,1]\u77ED\u7E2E\u3059\u308B"
+    EnglishHelp: Shorten \s's wait time by /f[f,0,1].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -663,7 +677,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u5BFE\u8C61\u306E\u30D0\u30D5\u52B9\u679C\u3092\u89E3\u9664\u3059\u308B"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u5BFE\u8C61\u306E\u30D0\u30D5\u52B9\u679C\u3092\u89E3\u9664\u3059\u308B"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Remove any buff effects
+      on target.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -697,7 +714,12 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx150%\u5FC5\u4E2D\u30C0\u30E1\u30FC\u30B8\n\u5BFE\u8C61\u3092\u5012\u3057\u305F\u5834\u5408CT-2\n\u884C\u52D5\u5F8C\u306E\u5F85\u6A5F\u6642\u9593\u3092\u534A\u5206\u306B\u6291\u3048\u308B"
-    EnglishHelp: "\\s\u306BATKx150%\u5FC5\u4E2D\u30C0\u30E1\u30FC\u30B8\n\u5BFE\u8C61\u3092\u5012\u3057\u305F\u5834\u5408CT-2\n\u884C\u52D5\u5F8C\u306E\u5F85\u6A5F\u6642\u9593\u3092\u534A\u5206\u306B\u6291\u3048\u308B"
+    EnglishHelp: 'Deal 150% ATK critical hit (guaranteed) damage to \s.
+
+      CT
+      -2 if target is defeated.
+
+      Halve wait time after action.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -743,7 +765,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "\\s\u306BATKx150%\u5FC5\u4E2D\u30C0\u30E1\u30FC\u30B8\n\u5BFE\u8C61\u3092\u5012\u3057\u305F\u5834\u5408CT-2\n\u884C\u52D5\u5F8C\u306E\u5F85\u6A5F\u6642\u9593\u3092\u534A\u5206\u306B\u6291\u3048\u308B"
-    EnglishHelp: "\\s\u306BATKx150%\u5FC5\u4E2D\u30C0\u30E1\u30FC\u30B8\n\u5BFE\u8C61\u3092\u5012\u3057\u305F\u5834\u5408CT-2\n\u884C\u52D5\u5F8C\u306E\u5F85\u6A5F\u6642\u9593\u3092\u534A\u5206\u306B\u6291\u3048\u308B"
+    EnglishHelp: 'Deal 150% ATK critical hit (guaranteed) damage to \s.
+
+      CT
+      -2 if target is defeated.
+
+      Halve wait time after action.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -771,7 +798,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 4
     Help: "\u6B21\u306B\u884C\u52D5\u3059\u308B\u307E\u3067\\s\u306E\u547D\u4E2D\u3068\u56DE\u907F\u3092/f[f,0,3]%\u30A2\u30C3\u30D7\n\u4F7F\u7528\u5F8C\u518D\u884C\u52D5\u3067\u304D\u308B"
-    EnglishHelp: "\u6B21\u306B\u884C\u52D5\u3059\u308B\u307E\u3067\\s\u306E\u547D\u4E2D\u3068\u56DE\u907F\u3092/f[f,0,3]%\u30A2\u30C3\u30D7\n\u4F7F\u7528\u5F8C\u518D\u884C\u52D5\u3067\u304D\u308B"
+    EnglishHelp: 'Increase \s''s accuracy and evasion by /f[f,0,3]% until next action.
+
+      Can
+      re-act after use.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -811,7 +841,9 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\\s\u306ECT+/f[f,1,1]"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\\s\u306ECT+/f[f,1,1]"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      and CT+/f[f,1,1]'
     Range: 1
     RepeatTime: 2
     AliveType: 1
@@ -845,7 +877,11 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30B9\u30BF\u30F3\u4ED8\u4E0E\n/s"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30B9\u30BF\u30F3\u4ED8\u4E0E\n/s"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Apply stun effect.
+
+      /s'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -879,7 +915,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx150%\u30C0\u30E1\u30FC\u30B8\n\u5BFE\u8C61\u3092\u5012\u3057\u305F\u5834\u5408\n\u884C\u52D5\u5F8C\u306E\u5F85\u6A5F\u6642\u9593\u3092\u534A\u5206\u306B\u6291\u3048\u308B"
-    EnglishHelp: "\\s\u306BATKx150%\u30C0\u30E1\u30FC\u30B8\n\u5BFE\u8C61\u3092\u5012\u3057\u305F\u5834\u5408\n\u884C\u52D5\u5F8C\u306E\u5F85\u6A5F\u6642\u9593\u3092\u534A\u5206\u306B\u6291\u3048\u308B"
+    EnglishHelp: 'Deal ATKx150% damage to \s.
+
+      Halve wait time after action
+      if target is defeated.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -925,7 +964,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 4
     Help: "\\s\u306B\u56DE\u907F\u7387/f[f,0,3]%\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E(\u6C38\u7D9A)"
-    EnglishHelp: "\\s\u306B\u56DE\u907F\u7387/f[f,0,3]%\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E(\u6C38\u7D9A)"
+    EnglishHelp: Increase \s's evasion rate by /f[f,0,3]% (permanently).
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -953,7 +992,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: Deal ATKx/f[f,0,1]% damage to \s.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -980,8 +1019,11 @@ MonoBehaviour:
     Scope: 1
     SkillType: 1
     TargetType: 1
-    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u81EA\u8EAB\u306B/f[f,1,2]\u30BF\u30FC\u30F3DEF+/f[f,1,1]%"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u81EA\u8EAB\u306B/f[f,1,2]\u30BF\u30FC\u30F3DEF+/f[f,1,1]%"
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u81EA\u8EAB\u306B/f[f,1,2]\u30BF\u30FC\u30F3DEF+/f[f,1,3]%"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Boost own DEF by /f[f,1,3]%
+      for /f[f,1,2] turns.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1015,7 +1057,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u81EA\u8EAB\u306EHP50%\u4EE5\u4E0B\u306E\u5834\u5408\u30C0\u30E1\u30FC\u30B8\u52B9\u679C+50%"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u81EA\u8EAB\u306EHP50%\u4EE5\u4E0B\u306E\u5834\u5408\u30C0\u30E1\u30FC\u30B8\u52B9\u679C+50%"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Increase damage effect
+      by 50% if HP is below 50%.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1043,7 +1088,12 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306B\u6311\u767A\u4ED8\u4E0E\n\u6311\u767A\u3057\u305F\u76F8\u624B\u304B\u3089\u306E\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30C0\u30A6\u30F3\n/s"
-    EnglishHelp: "\\s\u306B\u6311\u767A\u4ED8\u4E0E\n\u6311\u767A\u3057\u305F\u76F8\u624B\u304B\u3089\u306E\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30C0\u30A6\u30F3\n/s"
+    EnglishHelp: 'Apply taunt to \s.
+
+      Reduce incoming damage from taunted target
+      by /f[f,0,3]%.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1071,7 +1121,9 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306B/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u51CD\u7D50\u4ED8\u4E0E\n/s"
-    EnglishHelp: "\\s\u306B/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u51CD\u7D50\u4ED8\u4E0E\n/s"
+    EnglishHelp: 'Deal /f[f,0,3]% damage to \s and apply freeze effect.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1099,7 +1151,9 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nDEF\u3092/f[f,1,3]\u30C0\u30A6\u30F3"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nDEF\u3092/f[f,1,3]\u30C0\u30A6\u30F3"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Decrease DEF by /f[f,1,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1133,7 +1187,9 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 2
     Help: "\\s\u306B/f[f,0,2]\u56DE\u6709\u52B9\u306E\u653B\u6483\u7121\u52B9\u3092\u4ED8\u4E0E\n/s"
-    EnglishHelp: "\\s\u306B/f[f,0,2]\u56DE\u6709\u52B9\u306E\u653B\u6483\u7121\u52B9\u3092\u4ED8\u4E0E\n/s"
+    EnglishHelp: 'Apply /f[f,0,2] hits of attack immunity to \s.
+
+      /s'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -1161,7 +1217,9 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 2
     Help: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]\u30C0\u30E1\u30FC\u30B8\u307E\u3067\u306E\u30B7\u30FC\u30EB\u30C9\u4ED8\u4E0E\n/s"
-    EnglishHelp: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]\u30C0\u30E1\u30FC\u30B8\u307E\u3067\u306E\u30B7\u30FC\u30EB\u30C9\u4ED8\u4E0E\n/s"
+    EnglishHelp: 'Grant shield to \s for /f[f,0,2] turns up to /f[f,0,3] damage absorbed.
+
+      /s'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -1189,7 +1247,12 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3/f[f,1,3]\u30C0\u30E1\u30FC\u30B8\u306E\u6BD2\u4ED8\u4E0E\n/s"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3/f[f,1,3]\u30C0\u30E1\u30FC\u30B8\u306E\u6BD2\u4ED8\u4E0E\n/s"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Apply poison that deals
+      /f[f,1,3] damage over /f[f,1,2] turns.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1223,7 +1286,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 4
     Help: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u30AB\u30A6\u30F3\u30BF\u3092\u4ED8\u4E0E\n/s"
-    EnglishHelp: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u30AB\u30A6\u30F3\u30BF\u3092\u4ED8\u4E0E\n/s"
+    EnglishHelp: 'Grant a counter that deals /f[f,0,3]% damage to \s for /f[f,0,2]
+      turns.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1251,7 +1317,9 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 4
     Help: "\\s\u306B/f[f,0,2]\u56DE\u6709\u52B9\u306E\u653B\u6483\u7121\u52B9\u3092\u4ED8\u4E0E\n/s"
-    EnglishHelp: "\\s\u306B/f[f,0,2]\u56DE\u6709\u52B9\u306E\u653B\u6483\u7121\u52B9\u3092\u4ED8\u4E0E\n/s"
+    EnglishHelp: 'Apply attack immunity to \s for /f[f,0,2] hits.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1279,7 +1347,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 2
     Help: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3DEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3DEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's DEF by /f[f,0,3] for /f[f,0,2] turns.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1307,7 +1375,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F\u3055\u3089\u306B2\u500D\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Deals double damage to
+      Undead enemies.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1341,7 +1412,12 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u6575\u524D\u5F8C\u5217\u306B\u8CAB\u901A\u3059\u308B\u653B\u6483\u3092\u884C\u3046\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u6575\u524D\u5F8C\u5217\u306B\u8CAB\u901A\u3059\u308B\u653B\u6483\u3092\u884C\u3046\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s
+
+      with a piercing attack
+      that hits front and back rows.
+
+      Deals double damage to Undead enemies.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1375,7 +1451,8 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 2
     Help: "(\u5236\u9650)\u51FA\u6483\u4E2D5\u56DE\u307E\u3067\n\u6575\u5473\u65B9\u4E00\u4EBA\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "(\u5236\u9650)\u51FA\u6483\u4E2D5\u56DE\u307E\u3067\n\u6575\u5473\u65B9\u4E00\u4EBA\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: "(Limit: 5 uses per sortie) \nRestore HP of one ally or enemy by
+      /f[f,0,1].\nDeals double damage to Undead enemies."
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1421,7 +1498,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 2
     Help: "\u81EA\u8EAB\u4EE5\u5916\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
-    EnglishHelp: "\u81EA\u8EAB\u4EE5\u5916\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
+    EnglishHelp: Restore HP of all allies except self by /f[f,0,1].
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -1449,7 +1526,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 2
     Help: "\\s\u3092\u8607\u751F\u3057\u3066Hp\u3092/f[f,0,1]\u56DE\u5FA9"
-    EnglishHelp: "\\s\u3092\u8607\u751F\u3057\u3066Hp\u3092/f[f,0,1]\u56DE\u5FA9"
+    EnglishHelp: Resurrect \s and restore their HP by /f[f,0,1] points.
     Range: 1
     RepeatTime: 1
     AliveType: 0
@@ -1483,7 +1560,9 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 2
     Help: "\\s\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9\n\u72B6\u614B\u7570\u5E38\u3092\u56DE\u5FA9"
-    EnglishHelp: "\\s\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9\n\u72B6\u614B\u7570\u5E38\u3092\u56DE\u5FA9"
+    EnglishHelp: 'Restore \s''s HP by /f[f,0,1].
+
+      Remove status ailments.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1517,7 +1596,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 2
     Help: "1\u56DE\u3060\u3051\\s\u304C\u53D7\u3051\u308B\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
-    EnglishHelp: "1\u56DE\u3060\u3051\\s\u304C\u53D7\u3051\u308B\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: Reduce damage taken by \s by /f[f,0,3]% for one hit.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1545,7 +1624,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%2\u9023\u30C0\u30E1\u30FC\u30B8\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Deals double damage to
+      Undead enemies.'
     Range: 1
     RepeatTime: 2
     AliveType: 1
@@ -1579,7 +1661,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u5473\u65B9\u5168\u54E1\u306B\u653B\u6483\u6210\u529F\u56DE\u6570x/f[f,1,3]\u306EHp\u56DE\u5FA9"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u5473\u65B9\u5168\u54E1\u306B\u653B\u6483\u6210\u529F\u56DE\u6570x/f[f,1,3]\u306EHp\u56DE\u5FA9"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Restore HP of all allies
+      by attack success count x /f[f,1,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1613,7 +1698,8 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 2
     Help: "(\u5236\u9650)\u51FA\u6483\u4E2D3\u56DE\u307E\u3067\n\u81EA\u8EAB\u4EE5\u5916\u306E\\s\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
-    EnglishHelp: "(\u5236\u9650)\u51FA\u6483\u4E2D3\u56DE\u307E\u3067\n\u81EA\u8EAB\u4EE5\u5916\u306E\\s\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
+    EnglishHelp: "(Limit: 3 uses per sortie) \nRestore HP of other ally units by
+      /f[f,0,1] points."
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1647,7 +1733,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: Deal ATKx/f[f,0,1]% damage to \s.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1675,7 +1761,12 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nCT+/f[f,1,1]\n\u81EA\u8EAB\u306ECT-/f[f,1,1]"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nCT+/f[f,1,1]\n\u81EA\u8EAB\u306ECT-/f[f,1,1]"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Increase CT by /f[f,1,1]
+      for the target
+
+      and decrease CT by /f[f,1,1] for self.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1715,7 +1806,12 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 4
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nCT+/f[f,1,1]\n\u81EA\u8EAB\u306ECT-/f[f,1,1]"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nCT+/f[f,1,1]\n\u81EA\u8EAB\u306ECT-/f[f,1,1]"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Increase CT by /f[f,1,1]
+      for the target
+
+      and decrease CT by /f[f,1,1] for self.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1743,7 +1839,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306ECT+/f[f,1,1]\u3057\u884C\u52D5\u304C\u5C11\u3057\u9045\u304F\u306A\u308B"
-    EnglishHelp: "\\s\u306ECT+/f[f,1,1]\u3057\u884C\u52D5\u304C\u5C11\u3057\u9045\u304F\u306A\u308B"
+    EnglishHelp: 'Increase \s''s CT by /f[f,1,1].
+
+      making their actions slightly
+      slower.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -1777,7 +1876,12 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3\u306E\u4E0D\u6CBB\u4ED8\u4E0E\n/s"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3\u306E\u4E0D\u6CBB\u4ED8\u4E0E\n/s"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Apply /f[f,1,2] turns
+      of incurable status.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1811,7 +1915,9 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nCT+/f[f,1,1]"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nCT+/f[f,1,1]"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      CT+/f[f,1,1]'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1845,7 +1951,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u547D\u4E2D\u7387/f[f,0,3]%\u30C0\u30A6\u30F3\u3092\u4ED8\u4E0E"
-    EnglishHelp: "\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u547D\u4E2D\u7387/f[f,0,3]%\u30C0\u30A6\u30F3\u3092\u4ED8\u4E0E"
+    EnglishHelp: Reduce \s's accuracy by /f[f,0,3]% for /f[f,0,2] turns.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1873,7 +1979,12 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3/f[f,1,3]\u30C0\u30E1\u30FC\u30B8\u306E\u6BD2\u4ED8\u4E0E\n/s"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3/f[f,1,3]\u30C0\u30E1\u30FC\u30B8\u306E\u6BD2\u4ED8\u4E0E\n/s"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Apply poison that deals
+      /f[f,1,3] damage over /f[f,1,2] turns.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1907,7 +2018,10 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30C0\u30E1\u30FC\u30B8\u306E/f[f,0,3]%\u5206Hp\u56DE\u5FA9"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u30C0\u30E1\u30FC\u30B8\u306E/f[f,0,3]%\u5206Hp\u56DE\u5FA9"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Restore HP by /f[f,0,3]%
+      of the damage dealt.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1935,7 +2049,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: Deal ATKx/f[f,0,1]% damage to \s.
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -1963,7 +2077,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 1
     Help: "\\s\u306EATK\u3092/f[f,0,3]%\u30C0\u30A6\u30F3"
-    EnglishHelp: "\\s\u306EATK\u3092/f[f,0,3]\u30C0\u30A6\u30F3"
+    EnglishHelp: Reduce \s's ATK by /f[f,0,3]%.
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -1991,7 +2105,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 4
     Help: "\u4F55\u3082\u3057\u306A\u3044"
-    EnglishHelp: "\u4F55\u3082\u3057\u306A\u3044"
+    EnglishHelp: Do nothing.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2019,7 +2133,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 2
     Help: "\u5F8C\u885B\u306E\u4EF2\u9593\u3068\u4EA4\u4EE3\u3059\u308B"
-    EnglishHelp: "\u5F8C\u885B\u306E\u4EF2\u9593\u3068\u4EA4\u4EE3\u3059\u308B"
+    EnglishHelp: Swap positions with a rear ally unit.
     Range: 2
     RepeatTime: 1
     AliveType: 2
@@ -2047,7 +2161,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)Lv20\u4EE5\u4E0A\n\u30A2\u30F3\u30C7\u30C3\u30C9\u72B6\u614B\u306B\u306A\u308B\n\u884C\u52D5\u5F8C\u81EA\u8EAB\u306EHp\u3092/f[f,0,3]%\u56DE\u5FA9\u3059\u308B"
-    EnglishHelp: "(\u6761\u4EF6)Lv20\u4EE5\u4E0A\n\u30A2\u30F3\u30C7\u30C3\u30C9\u72B6\u614B\u306B\u306A\u308B\n\u884C\u52D5\u5F8C\u81EA\u8EAB\u306EHp\u3092/f[f,0,3]%\u56DE\u5FA9\u3059\u308B"
+    EnglishHelp: '(Condition: Level 20 or higher)
+
+      Become Undead.
+
+      Restore
+      self''s HP by /f[f,0,3]% after action.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2081,7 +2200,7 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)Lv10\u4EE5\u4E0A\n\u653B\u6483\u7BC4\u56F2\u304C\u5EF6\u9577\u3059\u308B\n/s"
-    EnglishHelp: "(\u6761\u4EF6)Lv10\u4EE5\u4E0A\n\u653B\u6483\u7BC4\u56F2\u304C\u5EF6\u9577\u3059\u308B\n/s"
+    EnglishHelp: "(Condition: Level 10 or higher) \nExtend attack range.\n/s"
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2115,7 +2234,9 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)Lv10\u4EE5\u4E0A\n\u6700\u5927AP+/f[f,0,3]"
-    EnglishHelp: "(\u6761\u4EF6)Lv10\u4EE5\u4E0A\n\u6700\u5927AP+/f[f,0,3]"
+    EnglishHelp: '(Condition: Level 10 or higher)
+
+      Increase maximum AP by /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2149,7 +2270,9 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)Lv10\u4EE5\u4E0A\n\u6700\u5927Hp\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)Lv10\u4EE5\u4E0A\n\u6700\u5927Hp\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: Level 10 or higher)
+
+      Max HP increases by /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2183,7 +2306,9 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)Lv10\u4EE5\u4E0A\nATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)Lv10\u4EE5\u4E0A\nATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: Level 10 or higher)
+
+      ATK increases by /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2217,7 +2342,9 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)Lv10\u4EE5\u4E0A\nDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)Lv10\u4EE5\u4E0A\nDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: Level 10 or higher)
+
+      DEF increases by /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2251,7 +2378,10 @@ MonoBehaviour:
     SkillType: 8
     TargetType: 4
     Help: "\u96F7\u5C5E\u6027\u9069\u6027\u304C\u9AD8\u304F\n\u708E\u5C5E\u6027\u653B\u6483\u306B\u5F31\u304F\u306A\u308B"
-    EnglishHelp: "\u96F7\u5C5E\u6027\u9069\u6027\u304C\u9AD8\u304F\n\u708E\u5C5E\u6027\u653B\u6483\u306B\u5F31\u304F\u306A\u308B"
+    EnglishHelp: 'Has high affinity for Thunder attributes
+
+      becomes weak to
+      Fire attacks.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2273,7 +2403,10 @@ MonoBehaviour:
     SkillType: 8
     TargetType: 4
     Help: "\u6C37\u5C5E\u6027\u9069\u6027\u304C\u9AD8\u304F\n\u96F7\u5C5E\u6027\u653B\u6483\u306B\u5F31\u304F\u306A\u308B"
-    EnglishHelp: "\u6C37\u5C5E\u6027\u9069\u6027\u304C\u9AD8\u304F\n\u96F7\u5C5E\u6027\u653B\u6483\u306B\u5F31\u304F\u306A\u308B"
+    EnglishHelp: 'Has high affinity for Ice attributes
+
+      becomes weak to Thunder
+      attacks.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2295,7 +2428,10 @@ MonoBehaviour:
     SkillType: 8
     TargetType: 4
     Help: "\u708E\u5C5E\u6027\u9069\u6027\u304C\u9AD8\u304F\n\u6C37\u5C5E\u6027\u653B\u6483\u306B\u5F31\u304F\u306A\u308B"
-    EnglishHelp: "\u708E\u5C5E\u6027\u9069\u6027\u304C\u9AD8\u304F\n\u6C37\u5C5E\u6027\u653B\u6483\u306B\u5F31\u304F\u306A\u308B"
+    EnglishHelp: 'Has high affinity for Fire attributes
+
+      becomes weak to Ice
+      attacks.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2317,7 +2453,10 @@ MonoBehaviour:
     SkillType: 8
     TargetType: 4
     Help: "\u95C7\u5C5E\u6027\u9069\u6027\u304C\u9AD8\u304F\n\u5149\u5C5E\u6027\u653B\u6483\u306B\u5F31\u304F\u306A\u308B"
-    EnglishHelp: "\u95C7\u5C5E\u6027\u9069\u6027\u304C\u9AD8\u304F\n\u5149\u5C5E\u6027\u653B\u6483\u306B\u5F31\u304F\u306A\u308B"
+    EnglishHelp: 'Has high affinity for Dark attributes
+
+      becomes weak to Light
+      attacks.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2339,7 +2478,10 @@ MonoBehaviour:
     SkillType: 8
     TargetType: 4
     Help: "\u5149\u5C5E\u6027\u9069\u6027\u304C\u9AD8\u304F\n\u95C7\u5C5E\u6027\u653B\u6483\u306B\u5F31\u304F\u306A\u308B"
-    EnglishHelp: "\u5149\u5C5E\u6027\u9069\u6027\u304C\u9AD8\u304F\n\u95C7\u5C5E\u6027\u653B\u6483\u306B\u5F31\u304F\u306A\u308B"
+    EnglishHelp: 'Has high affinity for Light attributes
+
+      becomes weak to Dark
+      attacks.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2361,7 +2503,7 @@ MonoBehaviour:
     SkillType: 8
     TargetType: 4
     Help: "\u88C5\u5099\u30B9\u30ED\u30C3\u30C8\u304C1\u3064\u5897\u3048\u308B"
-    EnglishHelp: "\u88C5\u5099\u30B9\u30ED\u30C3\u30C8\u304C1\u3064\u5897\u3048\u308B"
+    EnglishHelp: Gain one additional equipment slot.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2383,7 +2525,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 7
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u706B\u50B7\u4ED8\u4E0E\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n\u706B\u50B7\u72B6\u614B\u3067\u306F\u306A\u3044\u5BFE\u8C61\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u706B\u50B7\u4ED8\u4E0E\n/s"
+    EnglishHelp: '(Condition: On successful attack by self)
+
+      Apply burn damage
+      of /f[f,0,3]% over /f[f,0,2] turns.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2417,7 +2564,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6642\n\u4E00\u5EA6\u3060\u3051\u81EA\u8EAB\u306E\u653B\u6483\u3092\u5FC5\u4E2D\u306B\u3059\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: When attacking)
+
+      Make next attack guaranteed
+      to hit.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2451,7 +2601,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 6
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\n\\s\u306BATKx/f[f,0,1]%\u53CD\u6483\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\n\\s\u306BATKx/f[f,0,1]%\u53CD\u6483\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: '(Condition: When an ally is attacked)
+
+      Deal ATKx/f[f,0,1]%
+      retaliatory damage to the attacker.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2485,7 +2638,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Increase \s''s ATK by
+      /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2519,7 +2675,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\u306B\u306A\u3063\u305F\u6642\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\u307E\u3067\n\\s\u306ECT-/f[f,0,1]"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\u306B\u306A\u3063\u305F\u6642\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\u307E\u3067\n\\s\u306ECT-/f[f,0,1]"
+    EnglishHelp: '(Condition: When awoken)
+
+      (Limit: Once per battle)
+
+      Decrease
+      \s''s CT by /f[f,0,1].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2559,7 +2720,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u653B\u6483\u3092\u53D7\u3051\u305F\u6642\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7\n\u6700\u59275\u56DE\u307E\u3067\u91CD\u306D\u639B\u3051\u53EF\u80FD"
-    EnglishHelp: "(\u6761\u4EF6)\u653B\u6483\u3092\u53D7\u3051\u305F\u6642\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7\n\u6700\u59275\u56DE\u307E\u3067\u91CD\u306D\u639B\u3051\u53EF\u80FD"
+    EnglishHelp: '(Condition: When attacked)
+
+      Increase \s''s ATK by /f[f,0,3].
+
+      Stackable
+      up to 5 times.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2593,7 +2759,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u884C\u52D5\u3059\u308B\u524D\u306B\u767A\u52D5\n\u4E00\u56DE\u3060\u3051\\s\u306BDEF/f[f,0,3]%\u7121\u8996\u306E\u8CAB\u901A\u3092\u4ED8\u4E0E\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u884C\u52D5\u3059\u308B\u524D\u306B\u767A\u52D5\n\u4E00\u56DE\u3060\u3051\\s\u306BDEF/f[f,0,3]%\u7121\u8996\u306E\u8CAB\u901A\u3092\u4ED8\u4E0E\n/s"
+    EnglishHelp: '(Condition: Before taking an action)
+
+      Grant one-time DEF
+      ignore piercing attack to \s.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2627,7 +2798,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 11
     Help: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304CPassive\u9B54\u6CD5\u3092\u4F7F\u7528\u3059\u308B\u969B\u306B\u767A\u52D5\n\\s\u306ECT-/f[f,0,1]"
-    EnglishHelp: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304CPassive\u9B54\u6CD5\u3092\u4F7F\u7528\u3059\u308B\u969B\u306B\u767A\u52D5\n\\s\u306ECT-/f[f,0,1]"
+    EnglishHelp: '(Condition: When another ally uses a Passive spell)
+
+      Decrease
+      \s''s CT by /f[f,0,1].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2661,7 +2835,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n/f[f,0,2]\u30BF\u30FC\u30F3\\s\u306EATK\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n/f[f,0,2]\u30BF\u30FC\u30F3\\s\u306EATK\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Increase \s''s ATK by
+      /f[f,0,3]% for /f[f,0,2] turns.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2695,7 +2872,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 11
     Help: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n\u4E00\u56DE\u3060\u3051\\s\u306EATK\u3092/f[f,0,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n\u4E00\u56DE\u3060\u3051\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: Just before another ally attacks)
+
+      Increase \s''s
+      ATK by /f[f,0,3]% once.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2729,7 +2909,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 6
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\n\\s\u306BATKx/f[f,0,1]%\u53CD\u6483\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\n\\s\u306BATKx/f[f,0,1]%\u53CD\u6483\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: '(Condition: When an ally is attacked)
+
+      Deal ATKx/f[f,0,1]%
+      retaliatory damage to the attacker.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2763,7 +2946,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u884C\u52D5\u3067\u6575\u3092\u5012\u3057\u305F\u6642\n\\s\u306ECT-/f[f,0,1]"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u884C\u52D5\u3067\u6575\u3092\u5012\u3057\u305F\u6642\n\\s\u306ECT-/f[f,0,1]"
+    EnglishHelp: '(Condition: When \s defeats an enemy with their action)
+
+      Decrease
+      \s''s CT by /f[f,0,1].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2797,7 +2983,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: When HP is 25% or lower)
+
+      Increase \s''s ATK
+      by /f[f,0,3] and decrease DEF by /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2831,7 +3020,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u304C/f[f,0,3]\u30C0\u30A6\u30F3\u3057ATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u304C/f[f,0,3]\u30C0\u30A6\u30F3\u3057ATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Decrease \s''s DEF by
+      /f[f,0,3] and increase ATK by /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2865,7 +3057,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 11
     Help: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u969B\u306B\u767A\u52D5\n\\s\u306ECT-/f[f,0,1]"
-    EnglishHelp: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u969B\u306B\u767A\u52D5\n\\s\u306ECT-/f[f,0,1]"
+    EnglishHelp: '(Condition: When another ally attacks)
+
+      Decrease \s''s CT
+      by /f[f,0,1].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2899,7 +3094,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 2
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304CRange.L\u306E\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u3092100%\u30AB\u30C3\u30C8\u3057\n\u5473\u65B9\u306E\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304CRange.L\u306E\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u3092100%\u30AB\u30C3\u30C8\u3057\n\u5473\u65B9\u306E\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
+    EnglishHelp: '(Condition: Just before an ally receives a Range.L attack)
+
+      Block
+      100% of the damage and take it instead.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2945,7 +3143,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304CRange.L\u306E\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u3092100%\u30AB\u30C3\u30C8\u3057\n\u5473\u65B9\u306E\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304CRange.L\u306E\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u3092100%\u30AB\u30C3\u30C8\u3057\n\u5473\u65B9\u306E\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
+    EnglishHelp: '(Condition: Just before an ally receives a Range.L attack)
+
+      Block
+      100% of the damage and take it instead.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -2979,7 +3180,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u304C\u5148\u5236\u884C\u52D5\u3067\u304D\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u304C\u5148\u5236\u884C\u52D5\u3067\u304D\u308B"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Allow \s to take a preemptive
+      action.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3013,7 +3217,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 2
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u521D\u52D5\u304C\u65E9\u304F\u306A\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u521D\u52D5\u304C\u65E9\u304F\u306A\u308B"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Make \s''s initial actions
+      faster.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3047,7 +3254,7 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's evasion rate by /f[f,0,3]%.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3081,7 +3288,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 11
     Help: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n2\u30BF\u30FC\u30F3\u306E\u9593\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7\u3057\u81EA\u8EAB\u306EATK\u3092/f[f,0,3]\u30C0\u30A6\u30F3"
-    EnglishHelp: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n2\u30BF\u30FC\u30F3\u306E\u9593\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7\u3057\u81EA\u8EAB\u306EATK\u3092/f[f,0,3]\u30C0\u30A6\u30F3"
+    EnglishHelp: '(Condition: Just before another ally attacks)
+
+      For 2 turns,
+      increase \s''s ATK by /f[f,0,3]
+
+      and decrease own ATK by /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3121,7 +3333,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n2\u30BF\u30FC\u30F3\u306E\u9593\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7\u3057\u81EA\u8EAB\u306EATK\u3092/f[f,0,3]\u30C0\u30A6\u30F3"
-    EnglishHelp: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n2\u30BF\u30FC\u30F3\u306E\u9593\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7\u3057\u81EA\u8EAB\u306EATK\u3092/f[f,0,3]\u30C0\u30A6\u30F3"
+    EnglishHelp: '(Condition: Just before another ally attacks)
+
+      For 2 turns,
+      increase \s''s ATK by /f[f,0,3]
+
+      and decrease own ATK by /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3149,7 +3366,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\u81EA\u8EAB\u3068\u540C\u5217\u306E\u5473\u65B9\u306E\u5F85\u6A5F\u6642\u9593\u3092/f[f,0,1]\u6E1B\u5C11\u3059\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\u81EA\u8EAB\u3068\u540C\u5217\u306E\u5473\u65B9\u306E\u5F85\u6A5F\u6642\u9593\u3092/f[f,0,1]\u6E1B\u5C11\u3059\u308B"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Decrease wait time for
+      allies in the same row as self by /f[f,0,1].'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -3183,7 +3403,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\u307E\u3067\n1\u56DE\u3060\u3051\u5168\u3066\u306E\u653B\u6483\u3092\u7121\u52B9\u5316\u3059\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\u307E\u3067\n1\u56DE\u3060\u3051\u5168\u3066\u306E\u653B\u6483\u3092\u7121\u52B9\u5316\u3059\u308B"
+    EnglishHelp: '(Condition: Just before receiving an attack)
+
+      (Limit: Once
+      per battle)
+
+      Block all incoming attacks once.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3223,7 +3448,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u884C\u52D5\u3059\u308B\u524D\u306B\u767A\u52D5\n\u6B21\u306B\u884C\u52D5\u3059\u308B\u307E\u3067\\s\u306E\u547D\u4E2D\u3068\u56DE\u907F\u3092/f[f,0,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "\u6B21\u306B\u884C\u52D5\u3059\u308B\u307E\u3067\\s\u306E\u547D\u4E2D\u3068\u56DE\u907F\u3092/f[f,0,3]%\u30A2\u30C3\u30D7\n\u4F7F\u7528\u5F8C\u518D\u884C\u52D5\u3067\u304D\u308B"
+    EnglishHelp: '(Condition: Before taking an action)
+
+      Increase \s''s accuracy
+      and evasion by /f[f,0,3]% until next action.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3263,7 +3491,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n1\u56DE\u3060\u3051\u5168\u3066\u306E\u653B\u6483\u3092\u7121\u52B9\u5316\u3059\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n1\u56DE\u3060\u3051\u5168\u3066\u306E\u653B\u6483\u3092\u7121\u52B9\u5316\u3059\u308B"
+    EnglishHelp: '(Condition: Just before receiving an attack)
+
+      Block all incoming
+      attacks once.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3297,7 +3528,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 7
     Help: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3057\u305F\u969B\u306B\u767A\u52D5\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3057\u305F\u969B\u306B\u767A\u52D5\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: '(Condition: When another ally attacks)
+
+      Deal ATKx/f[f,0,1]%
+      damage to \s.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3331,7 +3565,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 6
     Help: "(\u6761\u4EF6)\u653B\u6483\u3092\u56DE\u907F\u3057\u305F\u6642\nATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\u306E\u53CD\u6483\u3059\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u653B\u6483\u3092\u56DE\u907F\u3057\u305F\u6642\nATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\u306E\u53CD\u6483\u3059\u308B"
+    EnglishHelp: '(Condition: When an attack is avoided)
+
+      Counterattack with
+      ATKx/f[f,0,1]% damage.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -3365,7 +3602,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u521D\u52D5\u304C\u5C11\u3057\u65E9\u304F\u306A\u308B\n\u81EA\u8EAB\u306EATK\u3092/f[f,1,2]\u30BF\u30FC\u30F3/f[f,1,3]\u30C0\u30A6\u30F3"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u521D\u52D5\u304C\u5C11\u3057\u65E9\u304F\u306A\u308B\n\u81EA\u8EAB\u306EATK\u3092/f[f,1,2]\u30BF\u30FC\u30F3/f[f,1,3]\u30C0\u30A6\u30F3"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Slightly increase \s''s
+      initial speed.
+
+      Decrease own ATK by /f[f,1,3] for /f[f,1,2] turns.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3405,7 +3647,7 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "\\s\u306E\u547D\u4E2D\u3068\u56DE\u907F\u3092/f[f,0,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u547D\u4E2D\u3068\u56DE\u907F\u3092/f[f,0,3]%\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's accuracy and evasion by /f[f,0,3]%.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3445,7 +3687,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Increase \s''s SPD by
+      /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3479,7 +3724,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 2
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u56DE\u907F\u7387\u3092/f[f,0,3]%\u30A2\u30C3\u30D7(\u6C38\u7D9A)\n\u6700\u59275\u56DE\u307E\u3067\u91CD\u306D\u639B\u3051\u53EF\u80FD"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u56DE\u907F\u7387\u3092/f[f,0,3]%\u30A2\u30C3\u30D7(\u6C38\u7D9A)\n\u6700\u59275\u56DE\u307E\u3067\u91CD\u306D\u639B\u3051\u53EF\u80FD"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Increase \s''s evasion
+      rate by /f[f,0,3]% permanently.
+
+      Stackable up to 5 times.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3513,7 +3763,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 2
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u309275%\u30AB\u30C3\u30C8\u3057\n\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
+    EnglishHelp: '(Condition: Just before an ally is attacked)
+
+      Reduce damage
+      taken by 75% and take it instead.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3553,7 +3806,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u309275%\u30AB\u30C3\u30C8\u3057\n\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
+    EnglishHelp: '(Condition: Just before an ally is attacked)
+
+      Reduce damage
+      taken by 75% and take it instead.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3587,7 +3843,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 7
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u51CD\u7D50\u4ED8\u4E0E\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u51CD\u7D50\u4ED8\u4E0E\n/s"
+    EnglishHelp: '(Condition: On successful attack by self)
+
+      Apply freeze effect
+      with /f[f,0,3]% damage to \s.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3621,7 +3882,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 6
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3055\u308C\u305F\u969B\u306B\u767A\u52D5\n\\s\u306BATKx/f[f,0,1]%\u53CD\u6483\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3055\u308C\u305F\u969B\u306B\u767A\u52D5\n\\s\u306BATKx/f[f,0,1]%\u53CD\u6483\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: '(Condition: When self is attacked)
+
+      Deal ATKx/f[f,0,1]% retaliatory
+      damage to the attacker.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3655,7 +3919,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Increase \s''s DEF by
+      /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3689,7 +3956,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 11
     Help: "(\u6761\u4EF6)\u76F8\u624B\u304C\u30D0\u30D5\u3092\u4ED8\u4E0E\u3059\u308B\u76F4\u524D\n\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u306E\u30D1\u30C3\u30B7\u30D6\u5C01\u3058\u3092\u4ED8\u4E0E\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u76F8\u624B\u304C\u30D0\u30D5\u3092\u4ED8\u4E0E\u3059\u308B\u76F4\u524D\n\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u306E\u30D1\u30C3\u30B7\u30D6\u5C01\u3058\u3092\u4ED8\u4E0E\n/s"
+    EnglishHelp: '(Condition: Just before the opponent applies a buff)
+
+      Grant
+      \s passive skill lock for /f[f,0,2] turns.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3728,8 +4000,11 @@ MonoBehaviour:
     Scope: 1
     SkillType: 2
     TargetType: 7
-    Help: "(\u6761\u4EF6)\u653B\u6483\u6210\u529F\u664233%\u306E\u78BA\u7387\u3067\n\u884C\u52D5\u5F85\u6A5F\u6642\u9593\u3092/f[f,0,1]\u5EF6\u9577\n(\u4F1A\u5F97\u6642)/f[f,1,3]\u5EF6\u9577"
-    EnglishHelp: "(\u6761\u4EF6)\u653B\u6483\u6210\u529F\u664233%\u306E\u78BA\u7387\u3067\n\u884C\u52D5\u5F85\u6A5F\u6642\u9593\u3092/f[f,0,1]\u5EF6\u9577\n(\u4F1A\u5F97\u6642)/f[f,1,3]\u5EF6\u9577"
+    Help: "(\u6761\u4EF6)\u653B\u6483\u6210\u529F\u664233%\u306E\u78BA\u7387\u3067\n\u884C\u52D5\u5F85\u6A5F\u6642\u9593\u3092/f[f,0,1]\u5EF6\u9577"
+    EnglishHelp: '(Condition: On successful attack with 33% chance)
+
+      Extend
+      action wait time by /f[f,0,1].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3763,7 +4038,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 7
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n\u51CD\u7D50\u72B6\u614B\u3067\u306F\u306A\u3044\u5BFE\u8C61\u306B/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u51CD\u7D50\u4ED8\u4E0E\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n\u51CD\u7D50\u72B6\u614B\u3067\u306F\u306A\u3044\u5BFE\u8C61\u306B/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u51CD\u7D50\u4ED8\u4E0E\n/s"
+    EnglishHelp: '(Condition: On successful attack by self)
+
+      Apply freeze effect
+      with /f[f,0,3]% damage to non-frozen targets.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3797,7 +4077,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u76F4\u5F8C\n/f[f,0,2]\u30BF\u30FC\u30F3DEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u7269\u7406\u653B\u6483\u3092\u53D7\u3051\u305F\u76F4\u5F8C\n/f[f,0,2]\u30BF\u30FC\u30F3DEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: After receiving an attack)
+
+      Increase \s''s DEF
+      by /f[f,0,3] for /f[f,0,2] turns.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3831,7 +4114,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\u653B\u6483\u3092\u53D7\u3051\u308B\u524D\n\\s\u306B\u4E0D\u6B7B\u3092\u4ED8\u4E0E\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u524D\n\u81EA\u8EAB\u306B\u4E00\u5EA6\u3060\u3051\u81F4\u6B7B\u30C0\u30E1\u30FC\u30B8\u3092\u8010\u3048\u308B\u30D0\u30D5\u3092\u4ED8\u4E0E"
+    EnglishHelp: '(Condition: Just before receiving a fatal attack)
+
+      Grant
+      invincibility to \s.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3871,7 +4157,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u884C\u52D5\u3059\u308B\u524D\u306B\u767A\u52D5\n\u30C0\u30E1\u30FC\u30B8\u306E/f[f,0,3]%\u5206Hp\u56DE\u5FA9"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u884C\u52D5\u3059\u308B\u524D\u306B\u767A\u52D5\n\u30C0\u30E1\u30FC\u30B8\u306E/f[f,0,3]%\u5206Hp\u56DE\u5FA9"
+    EnglishHelp: '(Condition: Before taking an action)
+
+      Restore HP by /f[f,0,3]%
+      of damage taken.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3905,7 +4194,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 2
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u309225%\u30AB\u30C3\u30C8\u3057\n\u5473\u65B9\u306E\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u309225%\u30AB\u30C3\u30C8\u3057\n\u5473\u65B9\u306E\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
+    EnglishHelp: '(Condition: Just before an ally is attacked)
+
+      Reduce incoming
+      damage by 25% and take it instead.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3945,7 +4237,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u309225%\u30AB\u30C3\u30C8\u3057\n\u5473\u65B9\u306E\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u309225%\u30AB\u30C3\u30C8\u3057\n\u5473\u65B9\u306E\u4EE3\u308F\u308A\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u53D7\u3051\u308B"
+    EnglishHelp: '(Condition: Just before an ally is attacked)
+
+      Reduce incoming
+      damage by 25% and take it instead.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -3979,7 +4274,14 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 7
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n\u6311\u767A\u72B6\u614B\u3067\u306F\u306A\u3044\u5BFE\u8C61\u306B\u6311\u767A\u4ED8\u4E0E\n\u81EA\u8EAB\u306EDEF\u30921\u30BF\u30FC\u30F32\u30A2\u30C3\u30D7\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n\u6311\u767A\u72B6\u614B\u3067\u306F\u306A\u3044\u5BFE\u8C61\u306B\u6311\u767A\u4ED8\u4E0E\n\u81EA\u8EAB\u306EDEF\u30921\u30BF\u30FC\u30F32\u30A2\u30C3\u30D7\n/s"
+    EnglishHelp: '(Condition: On successful attack by self)
+
+      Apply taunt to
+      non-taunted target.
+
+      Increase own DEF by 2 for 1 turn.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4019,7 +4321,14 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n\u6311\u767A\u72B6\u614B\u3067\u306F\u306A\u3044\u5BFE\u8C61\u306B\u6311\u767A\u4ED8\u4E0E\n\u81EA\u8EAB\u306EDEF\u30921\u30BF\u30FC\u30F32\u30A2\u30C3\u30D7\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n\u6311\u767A\u72B6\u614B\u3067\u306F\u306A\u3044\u5BFE\u8C61\u306B\u6311\u767A\u4ED8\u4E0E\n\u81EA\u8EAB\u306EDEF\u30921\u30BF\u30FC\u30F32\u30A2\u30C3\u30D7\n/s"
+    EnglishHelp: '(Condition: On successful attack by self)
+
+      Apply taunt to
+      non-taunted target.
+
+      Increase own DEF by 2 for 1 turn.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4047,7 +4356,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\n\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8\n/s"
+    EnglishHelp: '(Condition: On successful attack by self)
+
+      Reduce incoming
+      damage by /f[f,0,3]% for the next attack on \s.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4081,7 +4395,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u304B\u3070\u3046\u72B6\u614B\u3067\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u81EA\u8EAB\u306EDEF\u3092/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30A2\u30C3\u30D7\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u304B\u3070\u3046\u72B6\u614B\u3067\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u81EA\u8EAB\u306EDEF\u3092/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30A2\u30C3\u30D7\n/s"
+    EnglishHelp: '(Condition: Just before receiving an attack while guarding)
+
+      Increase
+      own DEF by /f[f,0,3]% for /f[f,0,2] turns.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4115,7 +4434,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 11
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u5BFE\u8C61\u306E\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u5BFE\u8C61\u306E\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: '(Condition: Just before an ally is attacked)
+
+      Reduce damage
+      taken by target by /f[f,0,3]%.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4149,7 +4471,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 11
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u72B6\u614B\u7570\u5E38\u306B\u306A\u3063\u305F\u6642\n\\s\u306E\u72B6\u614B\u7570\u5E38\u3092\u56DE\u5FA9"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u72B6\u614B\u7570\u5E38\u306B\u306A\u3063\u305F\u6642\n\\s\u306E\u72B6\u614B\u7570\u5E38\u3092\u56DE\u5FA9"
+    EnglishHelp: '(Condition: When an ally becomes afflicted with a status ailment)
+
+      Remove
+      \s''s status ailments.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4183,7 +4508,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: '(Condition: Just before receiving an attack)
+
+      Reduce incoming
+      damage by /f[f,0,3]%.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4217,7 +4545,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 11
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u7D42\u4E86\u6642\nHp\u306E\u4F4E\u3044\u5473\u65B9\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u7D42\u4E86\u6642\nHp\u306E\u4F4E\u3044\u5473\u65B9\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
+    EnglishHelp: '(Condition: At the end of battle)
+
+      Restore HP of allies below
+      full health by /f[f,0,1].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4251,7 +4582,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 11
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n\u5BFE\u8C61\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n\u5BFE\u8C61\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
+    EnglishHelp: '(Condition: When an ally is attacked)
+
+      Restore target''s
+      HP by /f[f,0,1].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4291,7 +4625,9 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3059\u308B\u524D\n\u304B\u3070\u3046\u306E\u767A\u52D5\u3092\u7121\u8996\u3059\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3059\u308B\u524D\n\u304B\u3070\u3046\u306E\u767A\u52D5\u3092\u7121\u8996\u3059\u308B"
+    EnglishHelp: '(Condition: Before attacking)
+
+      Ignore guard activation.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4325,7 +4661,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u6700\u5927Hp\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u6700\u5927Hp\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Increase \s''s max HP
+      by /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4359,7 +4698,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 6
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304B\u3089Passive\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n(\u5236\u9650)\u30BF\u30FC\u30F3\u4E2D1\u56DE\u307E\u3067\n\\s\u306ECT-/f[f,0,1]"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304B\u3089Passive\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n(\u5236\u9650)\u30BF\u30FC\u30F3\u4E2D1\u56DE\u307E\u3067\n\\s\u306ECT-/f[f,0,1]"
+    EnglishHelp: '(Condition: When receiving a Passive from an ally)
+
+      (Limit:
+      Once per turn)
+
+      Decrease \s''s CT by /f[f,0,1].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4405,7 +4749,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D/f[f,0,2]\u56DE\u307E\u3067\n\u547D\u4E2D\u5224\u5B9A\u3092\u7121\u8996\u3057\u3066\u52B9\u679C\u3092\u767A\u63EE\u3059\u308B\n/s"
-    EnglishHelp: "(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D/f[f,0,2]\u56DE\u307E\u3067\n\u547D\u4E2D\u5224\u5B9A\u3092\u7121\u8996\u3057\u3066\u52B9\u679C\u3092\u767A\u63EE\u3059\u308B\n/s"
+    EnglishHelp: '(Limit: Up to /f[f,0,2] times per battle)
+
+      Ignore hit chance
+      and activate effect.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4439,7 +4788,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n/f[f,0,3]\u56DE\u5FA9\u306E\u30EA\u30B8\u30A7\u30CD\u4ED8\u4E0E(\u6C38\u7D9A)"
-    EnglishHelp: "(\u6761\u4EF6)\u653B\u6483\u3055\u308C\u308B\u76F4\u524D\u306B\u767A\u52D5\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\u307E\u3067\n\u4E00\u5EA6\u3060\u3051\u6226\u95D8\u4E0D\u80FD\u3092\u56DE\u907F\u3059\u308B\n/s"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Grant /f[f,0,3] healing
+      regeneration effect permanently.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4473,7 +4827,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 2
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Restore \s''s HP by
+      /f[f,0,1].'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -4507,7 +4864,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 2
     Help: "(\u6761\u4EF6)\u5473\u65B9\u306B\u30C7\u30D0\u30D5\u3092\u4ED8\u4E0E\u3055\u308C\u305F\u969B\u306B\u767A\u52D5\n\\s\u306E\u30C7\u30D0\u30D5\u3092\u5168\u3066\u89E3\u9664\u3059\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u30C7\u30D0\u30D5\u3092\u4ED8\u4E0E\u3055\u308C\u305F\u969B\u306B\u767A\u52D5\n\\s\u306E\u30C7\u30D0\u30D5\u3092\u5168\u3066\u89E3\u9664\u3059\u308B"
+    EnglishHelp: '(Condition: When an ally is afflicted with a debuff)
+
+      Remove
+      all debuffs from \s.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4541,7 +4901,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 2
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]\u56DE\u5FA9\u306E\u30EA\u30B8\u30A7\u30CD\u4ED8\u4E0E"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]\u56DE\u5FA9\u306E\u30EA\u30B8\u30A7\u30CD\u4ED8\u4E0E"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Grant /f[f,0,2] turns
+      of /f[f,0,3] healing regeneration.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4575,7 +4938,11 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D/f[f,0,2]\u56DE\u307E\u3067\n\u72B6\u614B\u7570\u5E38\u3092\u56DE\u907F\u3059\u308B\n/s"
-    EnglishHelp: "(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D/f[f,0,2]\u56DE\u307E\u3067\n\u72B6\u614B\u7570\u5E38\u3092\u56DE\u907F\u3059\u308B\n/s"
+    EnglishHelp: '(Limit: Up to /f[f,0,2] times per battle)
+
+      Avoid status ailments.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4609,7 +4976,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 11
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n(\u5236\u9650)\u81EA\u8EAB\u306EHp\u306E25%\u5206\u307E\u3067\n\\s\u306BHp\u3092\u5206\u3051\u4E0E\u3048\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n(\u5236\u9650)\u81EA\u8EAB\u306EHp\u306E25%\u5206\u307E\u3067\n\\s\u306BHp\u3092\u5206\u3051\u4E0E\u3048\u308B"
+    EnglishHelp: '(Condition: When an ally is attacked)
+
+      (Limit: Up to 25%
+      of own HP)
+
+      Share HP with \s.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4655,7 +5027,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 2
     Help: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7\n\u6700\u59275\u56DE\u307E\u3067\u91CD\u306D\u639B\u3051\u53EF\u80FD"
-    EnglishHelp: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7\n\u6700\u59275\u56DE\u307E\u3067\u91CD\u306D\u639B\u3051\u53EF\u80FD"
+    EnglishHelp: 'Increase \s''s accuracy by /f[f,0,3]%,
+
+      up to a maximum of
+      5 times.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4689,7 +5064,7 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "\u884C\u52D5\u5F8C\u81EA\u8EAB\u306EHp\u3092/f[f,0,3]\u56DE\u5FA9\u3059\u308B"
-    EnglishHelp: "\u884C\u52D5\u5F8C\u81EA\u8EAB\u306EHp\u3092/f[f,0,3]\u56DE\u5FA9\u3059\u308B"
+    EnglishHelp: Restore own HP by /f[f,0,3] after taking an action.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4723,7 +5098,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\u307E\u3067\n1\u56DE\u3060\u3051\u5168\u3066\u306E\u653B\u6483\u3092\u7121\u52B9\u5316\u3059\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\u307E\u3067\n1\u56DE\u3060\u3051\u5168\u3066\u306E\u653B\u6483\u3092\u7121\u52B9\u5316\u3059\u308B"
+    EnglishHelp: '(Condition: Just before receiving an attack)
+
+      (Limit: Once
+      per battle)
+
+      Block all incoming attacks once.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4763,7 +5143,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 6
     Help: "(\u6761\u4EF6)\u76F8\u624B\u304C\u653B\u6483\u3059\u308B\u524D\u306B\u767A\u52D5\n\\s\u306EATK\u3092/f[f,0,3]%\u30C0\u30A6\u30F3"
-    EnglishHelp: "(\u6761\u4EF6)\u76F8\u624B\u304C\u653B\u6483\u3059\u308B\u524D\u306B\u767A\u52D5\n\\s\u306EATK\u3092/f[f,0,3]%\u30C0\u30A6\u30F3"
+    EnglishHelp: '(Condition: Just before the opponent attacks)
+
+      Decrease \s''s
+      ATK by /f[f,0,3]%.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -4797,7 +5180,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u884C\u52D5\u3059\u308B\u524D\u306B\u767A\u52D5\n\u81EA\u8EAB\u304CHP100%\u306E\u5834\u5408\u30C0\u30E1\u30FC\u30B8\u52B9\u679C+50%"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u884C\u52D5\u3059\u308B\u524D\u306B\u767A\u52D5\n\u81EA\u8EAB\u304CHP100%\u306E\u5834\u5408\u30C0\u30E1\u30FC\u30B8\u52B9\u679C+50%"
+    EnglishHelp: '(Condition: Before taking an action)
+
+      Increase damage effectiveness
+      by 50% if HP is at 100%.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4836,8 +5222,11 @@ MonoBehaviour:
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "(\u6761\u4EF6)Hp\u304C50%\u4EE5\u4E0B\n\u30C0\u30E1\u30FC\u30B8\u306E/f[f,0,3]%\u5206Hp\u56DE\u5FA9\n(\u4F1A\u5F97\u6642)/f[f,1,3]\u5206Hp\u56DE\u5FA9"
-    EnglishHelp: "(\u6761\u4EF6)Hp\u304C50%\u4EE5\u4E0B\n\u30C0\u30E1\u30FC\u30B8\u306E/f[f,0,3]%\u5206Hp\u56DE\u5FA9\n(\u4F1A\u5F97\u6642)/f[f,1,3]\u5206Hp\u56DE\u5FA9"
+    Help: "(\u6761\u4EF6)Hp\u304C50%\u4EE5\u4E0B\n\u30C0\u30E1\u30FC\u30B8\u306E/f[f,0,3]%\u5206Hp\u56DE\u5FA9"
+    EnglishHelp: '(Condition: When HP is below 50%)
+
+      Restore HP by /f[f,0,3]%
+      of damage taken.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4871,7 +5260,9 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "\u30A2\u30F3\u30C7\u30C3\u30C9\u72B6\u614B\u306B\u306A\u308B\n\u884C\u52D5\u5F8C\u81EA\u8EAB\u306EHp\u3092/f[f,0,3]%\u56DE\u5FA9\u3059\u308B"
-    EnglishHelp: "\u30A2\u30F3\u30C7\u30C3\u30C9\u72B6\u614B\u306B\u306A\u308B\n\u884C\u52D5\u5F8C\u81EA\u8EAB\u306EHp\u3092/f[f,0,3]%\u56DE\u5FA9\u3059\u308B"
+    EnglishHelp: 'Become Undead.
+
+      Restore own HP by /f[f,0,3]% after action.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4905,7 +5296,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 11
     Help: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n\\s\u306E\u547D\u4E2D\u7387\u3092\u534A\u6E1B\u3057\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n\\s\u306E\u547D\u4E2D\u7387\u3092\u534A\u6E1B\u3057\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: Just before another ally attacks)
+
+      Halve \s''s
+      accuracy and increase critical hit rate by /f[f,0,3]% for the target.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -4945,7 +5339,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 6
     Help: "(\u6761\u4EF6)\u6575\u304C\u56DE\u5FA9\u9B54\u6CD5\u3092\u4F7F\u7528\u3057\u305F\u969B\u306B\u767A\u52D5\n\\s\u3067DEF/f[f,0,3]%\u7121\u8996\u306EATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "(\u6761\u4EF6)\u6575\u304C\u56DE\u5FA9\u9B54\u6CD5\u3092\u4F7F\u7528\u3057\u305F\u969B\u306B\u767A\u52D5\n\\s\u3067DEF/f[f,0,3]%\u7121\u8996\u306EATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: '(Condition: When an enemy uses a healing spell)
+
+      Deal ATKx/f[f,0,1]%
+      damage that ignores DEF /f[f,0,3]% to \s.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -4979,7 +5376,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 2
     Help: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n\\s\u306E\u653B\u6483\u3092\u5FC5\u4E2D\u306B\u3059\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n\\s\u306E\u653B\u6483\u3092\u5FC5\u4E2D\u306B\u3059\u308B"
+    EnglishHelp: '(Condition: Just before another ally attacks)
+
+      Make \s''s
+      attack guaranteed to hit.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5013,7 +5413,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 6
     Help: "(\u6761\u4EF6)\u6575\u306E\u304B\u3070\u3046\u304C\u767A\u52D5\u3057\u305F\u5F8C\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nDEF\u309230%\u7121\u8996\u3059\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u6575\u306E\u304B\u3070\u3046\u304C\u767A\u52D5\u3057\u305F\u5F8C\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\nDEF\u3092100%\u7121\u8996\u3059\u308B"
+    EnglishHelp: '(Condition: After an enemy guards successfully)
+
+      Deal ATKx/f[f,0,1]%
+      damage to \s.
+
+      Ignore 30% of DEF.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -5047,7 +5452,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n\\s\u306EATK\u3068DEF\u304C/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\u306B\u767A\u52D5\n\\s\u306EATK\u3068DEF\u304C/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]\u30A2\u30C3\u30D7\n(\u4F1A\u5F97\u6642)/f[f,2,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: When self is attacked)
+
+      Increase \s''s ATK and
+      DEF by /f[f,0,3] for /f[f,0,2] turns.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5086,8 +5494,13 @@ MonoBehaviour:
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "(\u6761\u4EF6)\u4F1A\u5FC3\u653B\u6483\u3092\u3057\u305F\u5F8C\n\u518D\u884C\u52D5\u3067\u304D\u308B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,1,2]\u30BF\u30FC\u30F3/f[f,1,3]%\u30C0\u30A6\u30F3\n(\u4F1A\u5F97\u6642)\u4F1A\u5FC3\u7387\u304C5%\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u4F1A\u5FC3\u653B\u6483\u3092\u3057\u305F\u5F8C\n\u518D\u884C\u52D5\u3067\u304D\u308B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,1,2]\u30BF\u30FC\u30F3/f[f,1,3]%\u30C0\u30A6\u30F3\n(\u4F1A\u5F97\u6642)\u4F1A\u5FC3\u7387\u304C5%\u30A2\u30C3\u30D7"
+    Help: "(\u6761\u4EF6)\u4F1A\u5FC3\u653B\u6483\u3092\u3057\u305F\u5F8C\n\u518D\u884C\u52D5\u3067\u304D\u308B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,1,2]\u30BF\u30FC\u30F3/f[f,1,3]%\u30C0\u30A6\u30F3"
+    EnglishHelp: '(Condition: After a critical hit attack)
+
+      Can re-act after
+      use.
+
+      Decrease \s''s critical hit rate by /f[f,1,3]% for /f[f,1,2] turns.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5132,8 +5545,13 @@ MonoBehaviour:
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "(\u6761\u4EF6)\u4F1A\u5FC3\u653B\u6483\u3092\u3057\u305F\u5F8C\n\u518D\u884C\u52D5\u3067\u304D\u308B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,1,2]\u30BF\u30FC\u30F3/f[f,1,3]%\u30C0\u30A6\u30F3\n(\u4F1A\u5F97\u6642)\u4F1A\u5FC3\u7387\u304C5%\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u4F1A\u5FC3\u653B\u6483\u3092\u3057\u305F\u5F8C\n\u518D\u884C\u52D5\u3067\u304D\u308B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,1,2]\u30BF\u30FC\u30F3/f[f,1,3]%\u30C0\u30A6\u30F3\n(\u4F1A\u5F97\u6642)\u4F1A\u5FC3\u7387\u304C5%\u30A2\u30C3\u30D7"
+    Help: "(\u6761\u4EF6)\u4F1A\u5FC3\u653B\u6483\u3092\u3057\u305F\u5F8C\n\u518D\u884C\u52D5\u3067\u304D\u308B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,1,2]\u30BF\u30FC\u30F3/f[f,1,3]%\u30C0\u30A6\u30F3"
+    EnglishHelp: '(Condition: After a critical hit attack)
+
+      Can re-act after
+      use.
+
+      Decrease \s''s critical hit rate by /f[f,1,3]% for /f[f,1,2] turns.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5161,7 +5579,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 11
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\nPassive\u30BF\u30A4\u30D7\u306ECT+1"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u653B\u6483\u6210\u529F\u6642\nPassive\u30BF\u30A4\u30D7\u306ECT+1"
+    EnglishHelp: '(Condition: On successful attack by self)
+
+      Increase CT of
+      Passive-type skills by 1.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5195,7 +5616,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306B/f[f,0,2]\u56DE\u6709\u52B9\u306E\u653B\u6483\u7121\u52B9\u3092\u4ED8\u4E0E\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306B/f[f,0,2]\u56DE\u6709\u52B9\u306E\u653B\u6483\u7121\u52B9\u3092\u4ED8\u4E0E\n/s"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Grant attack immunity
+      to \s for /f[f,0,2] hits.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5229,7 +5655,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Increase \s''s critical
+      hit rate by /f[f,0,3]%.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5268,8 +5697,11 @@ MonoBehaviour:
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7\n(\u4F1A\u5F97\u6642)/f[f,1,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7\n(\u4F1A\u5F97\u6642)/f[f,1,3]%\u30A2\u30C3\u30D7"
+    Help: "(\u6761\u4EF6)Hp\u304C25%\u4EE5\u4E0B\n\\s\u306E\u4F1A\u5FC3\u7387\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: When HP is below 25%)
+
+      Increase \s''s critical
+      hit rate by /f[f,0,3]%.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5309,7 +5741,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3067\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u3063\u305F\u969B\u306B\u767A\u52D5\n\\s\u306ECT-/f[f,0,1]"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3067\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u3063\u305F\u969B\u306B\u767A\u52D5\n\\s\u306ECT-/f[f,0,1]"
+    EnglishHelp: '(Condition: When an ally is defeated by an attack)
+
+      Decrease
+      \s''s CT by /f[f,0,1].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5343,7 +5778,15 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)Hp\u304C100%\u4EE5\u4E0A\n/f[f,0,3]%\u306E\u78BA\u7387\u3067\u5373\u6B7B\u4ED8\u4E0E\n\u5BFE\u8C61\u304C\u30DC\u30B9\u306E\u5834\u5408\u306F\u6B8B\u308AHp50%\u5206\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "(\u6761\u4EF6)Hp\u304C100%\u4EE5\u4E0A\n/f[f,0,3]%\u306E\u78BA\u7387\u3067\u5373\u6B7B\u4ED8\u4E0E\n\u5BFE\u8C61\u304C\u30DC\u30B9\u306E\u5834\u5408\u306F\u6B8B\u308AHp50%\u5206\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: '(Condition: When HP is above 100%)
+
+      Have a /f[f,0,3]% chance
+      to instantly kill the target.
+
+      If the target is a boss,
+
+      deal damage
+      equivalent to 50% of their remaining HP.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5377,7 +5820,7 @@ MonoBehaviour:
     SkillType: 1
     TargetType: 4
     Help: "\u5473\u65B9\u304C\u6B21\u306E\u884C\u52D5\u3092\u3059\u308B\u307E\u3067\u5F85\u6A5F\u3059\u308B"
-    EnglishHelp: "\u5473\u65B9\u304C\u6B21\u306E\u884C\u52D5\u3092\u3059\u308B\u307E\u3067\u5F85\u6A5F\u3059\u308B"
+    EnglishHelp: Wait until an ally takes their next action.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5399,7 +5842,10 @@ MonoBehaviour:
     SkillType: 7
     TargetType: 4
     Help: "(\u6761\u4EF6)\u88C5\u5099\u6642\n\u30D0\u30C8\u30EB\u3067\u5F97\u308BExp+30%"
-    EnglishHelp: "(\u6761\u4EF6)\u88C5\u5099\u6642\n\u30D0\u30C8\u30EB\u3067\u5F97\u308BExp+30%"
+    EnglishHelp: '(Condition: When equipped)
+
+      Increase EXP gained in battle
+      by 30%.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5427,7 +5873,8 @@ MonoBehaviour:
     SkillType: 7
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u884C\u52D5\u3067\u6575\u3092\u5012\u3057\u305F\u6642\n\\s\u306EHp\u3092\u5BFE\u8C61\u306E\u6700\u5927Hp\u306B\u6BD4\u4F8B\u3057\u3066\u56DE\u5FA9"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306E\u884C\u52D5\u3067\u6575\u3092\u5012\u3057\u305F\u6642\n\\s\u306EHp\u3092\u5BFE\u8C61\u306E\u6700\u5927Hp\u306B\u6BD4\u4F8B\u3057\u3066\u56DE\u5FA9"
+    EnglishHelp: "(Condition: When self defeats an enemy with an attack)\nRestore
+      \\s's HP proportionally to the defeated enemy\u2019s maximum HP."
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5461,7 +5908,9 @@ MonoBehaviour:
     SkillType: 7
     TargetType: 4
     Help: "\\s\u306B\u4E0D\u6B7B\u3092\u4ED8\u4E0E\n/s"
-    EnglishHelp: "\\s\u306B\u4E0D\u6B7B\u3092\u4ED8\u4E0E\n/s"
+    EnglishHelp: 'Grant invincibility to \s.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5495,7 +5944,15 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 4
     Help: "(\u6761\u4EF6)\u6575\u3092\u6483\u7834\u3059\u308B\n\\s\u306BDEF/f[f,0,3]%\u7121\u8996\u306E\u8CAB\u901A\u3092\u4ED8\u4E0E\uFF08\u6C38\u7D9A\uFF09\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u6575\u3092\u6483\u7834\u3059\u308B\n\\s\u306BDEF/f[f,0,3]%\u7121\u8996\u306E\u8CAB\u901A\u3092\u4ED8\u4E0E\uFF08\u6C38\u7D9A\uFF09\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    EnglishHelp: '(Condition: When an enemy is defeated)
+
+      Grant \s persistent
+      /f[f,0,3]% DEF ignore penetration (permanent).
+
+      Transition to Awakened
+      state.
+
+      /s'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -5542,8 +5999,12 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Deal ATKx/f[f,0,1]%
+      damage.
+
+      Revert to normal state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5577,7 +6038,12 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 4
     Help: "(\u6761\u4EF6)3\u56DE\u653B\u6483\u3092\u56DE\u907F\u3059\u308B\n\\s\u306B3\u30BF\u30FC\u30F3/f[f,0,3]%\u306E\u56DE\u907F\u7387\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
-    EnglishHelp: "(\u6761\u4EF6)3\u56DE\u653B\u6483\u3092\u56DE\u907F\u3059\u308B\n\\s\u306B3\u30BF\u30FC\u30F3/f[f,0,3]%\u306E\u56DE\u907F\u7387\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
+    EnglishHelp: '(Condition: After avoiding 3 attacks)
+
+      Grant \s increased
+      evasion rate by /f[f,0,3]% for 3 turns.
+
+      Transition to Awakened state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5624,8 +6090,12 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u306E7\u9023\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u306E7\u9023\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Deal ATKx/f[f,0,1]%
+      damage in a 7-hit combo.
+
+      Revert to normal state.'
     Range: 2
     RepeatTime: 7
     AliveType: 1
@@ -5659,7 +6129,14 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 2
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u4E2D\u653B\u6483\u30925\u56DE\u53D7\u3051\u308B\n\\s\u306B/f[f,0,2]\u56DE\u6709\u52B9\u306E\u653B\u6483\u7121\u52B9\u3092\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u4E2D\u653B\u6483\u30925\u56DE\u53D7\u3051\u308B\n\\s\u306B/f[f,0,2]\u56DE\u6709\u52B9\u306E\u653B\u6483\u7121\u52B9\u3092\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    EnglishHelp: '(Condition: When receiving 5 attacks)
+
+      Grant \s attack immunity
+      for /f[f,0,2] hits.
+
+      Transition to Awakened state.
+
+      /s'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -5706,8 +6183,12 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306B\u88AB\u30C0\u30E1\u30FC\u30B8\u5408\u8A08\u5206\u306E\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306B\u88AB\u30C0\u30E1\u30FC\u30B8\u5408\u8A08\u5206\u306E\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Deal damage equal to
+      total received damage to \s.
+
+      Revert to normal state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5741,7 +6222,12 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 2
     Help: "(\u6761\u4EF6)\u81EA\u5206\u4EE5\u5916\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\n\\s\u3092\u8607\u751F\u3057Hp\u3092/f[f,1,1]\u56DE\u5FA9\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u5206\u4EE5\u5916\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\n\\s\u3092\u8607\u751F\u3057Hp\u3092/f[f,1,1]\u56DE\u5FA9\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
+    EnglishHelp: '(Condition: When a teammate other than self is defeated)
+
+      Revive
+      \s and restore HP by /f[f,1,1] points.
+
+      Transition to Awakened state.'
     Range: 2
     RepeatTime: 1
     AliveType: 0
@@ -5793,7 +6279,14 @@ MonoBehaviour:
     SkillType: 4
     TargetType: 2
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n/f[f,0,3]\u56DE\u5FA9\u306E\u30EA\u30B8\u30A7\u30CD\u4ED8\u4E0E(\u6C38\u7D9A)\n\u899A\u9192\u89E3\u9664\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n/f[f,0,3]\u56DE\u5FA9\u306E\u30EA\u30B8\u30A7\u30CD\u4ED8\u4E0E(\u6C38\u7D9A)\n\u899A\u9192\u89E3\u9664\n/s"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Grant /f[f,0,3] recovery
+      regeneration (permanent) to \s.
+
+      Revert to normal state.
+
+      /s'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -5827,7 +6320,14 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\u653B\u6483\u3092\u53D7\u3051\u308B\u524D\n\\s\u306B\u546A\u8A5B\u3092\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\u653B\u6483\u3092\u53D7\u3051\u308B\u524D\n\\s\u306B\u546A\u8A5B\u3092\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    EnglishHelp: '(Condition: Before receiving an attack that would defeat self)
+
+      Apply
+      curse effect to \s.
+
+      Transition to Awakened state.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -5873,7 +6373,14 @@ MonoBehaviour:
     SkillType: 4
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]\u30C0\u30E1\u30FC\u30B8\u306E\u6BD2\u4ED8\u4E0E\n\u899A\u9192\u89E3\u9664\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]\u30C0\u30E1\u30FC\u30B8\u306E\u6BD2\u4ED8\u4E0E\n\u899A\u9192\u89E3\u9664\n/s"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Deal poison damage
+      of /f[f,0,3] per turn for /f[f,0,2] turns.
+
+      Revert to normal state.
+
+      /s'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -5907,7 +6414,12 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u4E2D2\u56DE\u899A\u9192\u9B54\u6CD5\u304C\u767A\u52D5\u3057\u305F\u5F8C\n\u81EA\u8EAB\u3068\u4E21\u96A3\u306E\u5473\u65B9\u306ECT-5\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u4E2D2\u56DE\u899A\u9192\u9B54\u6CD5\u304C\u767A\u52D5\u3057\u305F\u5F8C\n\u81EA\u8EAB\u3068\u4E21\u96A3\u306E\u5473\u65B9\u306ECT-5\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
+    EnglishHelp: '(Condition: After two Awakened spells have been cast during battle)
+
+      Reduce
+      CT of self and adjacent allies by 5.
+
+      Transition to Awakened state.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -5960,8 +6472,14 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664\n\\s\u306ECT+2"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664\n\\s\u306ECT+2"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Deal ATKx/f[f,0,1]%
+      damage to \s.
+
+      Revert to normal state.
+
+      Increase \s''s CT by 2.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -6001,7 +6519,14 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u5206\u306E\u653B\u6483\u3067\u6575\u3092\u5012\u3059\n\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u306E\u30D5\u30A9\u30ED\u30FC\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u5206\u306E\u653B\u6483\u3067\u6575\u3092\u5012\u3059\n\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u306E\u30D5\u30A9\u30ED\u30FC\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    EnglishHelp: '(Condition: When an enemy is defeated with a self-attack)
+
+      Grant
+      \s follow-up attacks for /f[f,0,2] turns.
+
+      Transition to Awakened state.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6047,7 +6572,10 @@ MonoBehaviour:
     SkillType: 4
     TargetType: 2
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306EATK\u3068DEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7\uFF08\u6C38\u7D9A\uFF09"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306EATK\u3068DEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7\uFF08\u6C38\u7D9A\uFF09"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Permanently increase
+      \s''s ATK and DEF by /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6087,7 +6615,12 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 2
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C10\u56DE\u884C\u52D5\u3057\u305F\u5F8C\n\\s\u306EATK\u3068DEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C10\u56DE\u884C\u52D5\u3057\u305F\u5F8C\n\\s\u306EATK\u3068DEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
+    EnglishHelp: '(Condition: After self has taken 10 actions during battle)
+
+      Permanently
+      increase \s''s ATK and DEF by /f[f,0,3].
+
+      Transition to Awakened state.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -6140,8 +6673,12 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Deal ATKx/f[f,0,1]%
+      damage to \s.
+
+      Revert to normal state.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -6175,7 +6712,12 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 6
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\n\u6700\u5F8C\u306B\u653B\u6483\u3057\u305F\u5BFE\u8C61\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\n\u6700\u5F8C\u306B\u653B\u6483\u3057\u305F\u5BFE\u8C61\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
+    EnglishHelp: '(Condition: When an ally is defeated)
+
+      Deal ATKx/f[f,0,1]%
+      damage to the last attacked target.
+
+      Transition to Awakened state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6221,7 +6763,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\n\u6700\u5F8C\u306B\u653B\u6483\u3057\u305F\u5BFE\u8C61\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
-    EnglishHelp: "(\u6761\u4EF6)\u5473\u65B9\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\n\u6700\u5F8C\u306B\u653B\u6483\u3057\u305F\u5BFE\u8C61\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
+    EnglishHelp: '(Condition: When an ally is defeated)
+
+      Deal ATKx/f[f,0,1]%
+      damage to the last attacked target.
+
+      Transition to Awakened state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6250,8 +6797,15 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\u5473\u65B9\u5168\u4F53\u306B\u81F4\u547D\u653B\u6483\u767A\u751F\u7387\u309230%\u30A2\u30C3\u30D7(\u6C38\u7D9A)\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\u5473\u65B9\u5168\u4F53\u306B\u81F4\u547D\u653B\u6483\u767A\u751F\u7387\u309230%\u30A2\u30C3\u30D7(\u6C38\u7D9A)\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Permanently increase
+      critical hit rate for all allies by 30%.
+
+      Deal ATKx/f[f,0,1]% damage
+      to \s.
+
+      Revert to normal state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6286,8 +6840,15 @@ MonoBehaviour:
     TargetType: 4
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\u5473\u65B9\u5168\u4F53\u306B\u81F4\u547D\u653B\u6483\u767A\u751F\u7387\u309230%\u30A2\u30C3\u30D7(\u6C38\u7D9A)\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\u5473\u65B9\u5168\u4F53\u306B\u81F4\u547D\u653B\u6483\u767A\u751F\u7387\u309230%\u30A2\u30C3\u30D7(\u6C38\u7D9A)\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Permanently increase
+      critical hit rate for all allies by 30%.
+
+      Deal ATKx/f[f,0,1]% damage
+      to \s.
+
+      Revert to normal state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6321,7 +6882,13 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 6
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u72B6\u614B\u7570\u5E38\u3092\u53D7\u3051\u305F\u969B\n\\s\u306B\u72B6\u614B\u7570\u5E38\u3092\u53CD\u5C04\u3057\u30D0\u30D5\u30921\u3064\u596A\u3044\u53D6\u308B\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u72B6\u614B\u7570\u5E38\u3092\u53D7\u3051\u305F\u969B\n\\s\u306B\u72B6\u614B\u7570\u5E38\u3092\u53CD\u5C04\u3057\u30D0\u30D5\u30921\u3064\u596A\u3044\u53D6\u308B\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
+    EnglishHelp: '(Condition: When self receives a status ailment)
+
+      Reflect
+      the status ailment to \s and steal one buff.
+
+      Transition to Awakened
+      state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6374,8 +6941,12 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Deal ATKx/f[f,0,1]%
+      damage to \s.
+
+      Revert to normal state.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -6409,7 +6980,12 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 1
     Help: "(\u6761\u4EF6)\u6575\u5168\u54E1\u304C\u51CD\u7D50\u72B6\u614B\u306B\u306A\u308B\n\\s\u306E\u51CD\u7D50\u30C0\u30E1\u30FC\u30B8\u52B9\u679C\u3092/f[f,0,3]%\u306B\u3059\u308B\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
-    EnglishHelp: "(\u6761\u4EF6)\u6575\u5168\u54E1\u304C\u51CD\u7D50\u72B6\u614B\u306B\u306A\u308B\n\\s\u306E\u51CD\u7D50\u30C0\u30E1\u30FC\u30B8\u52B9\u679C\u3092/f[f,0,3]%\u306B\u3059\u308B\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
+    EnglishHelp: '(Condition: When all enemies are frozen)
+
+      Increase \s''s
+      freeze damage effect by /f[f,0,3]%.
+
+      Transition to Awakened state.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -6456,8 +7032,15 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664\n\u51CD\u7D50\u72B6\u614B\u306E\u5BFE\u8C61\u306B\u306F\u3055\u3089\u306BATKx/f[f,0,2]%\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664\n\u51CD\u7D50\u72B6\u614B\u306E\u5BFE\u8C61\u306B\u306F\u3055\u3089\u306BATKx/f[f,0,2]%\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Deal ATKx/f[f,0,1]%
+      damage to \s.
+
+      Revert to normal state.
+
+      Additionally deal ATKx/f[f,0,2]%
+      damage to frozen targets.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -6491,7 +7074,14 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\u653B\u6483\u3092\u53D7\u3051\u308B\u524D\n\\s\u306B\u4E0D\u6B7B\u3092\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\u653B\u6483\u3092\u53D7\u3051\u308B\u524D\n\\s\u306B\u4E0D\u6B7B\u3092\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    EnglishHelp: '(Condition: Before self is defeated)
+
+      Grant invulnerability
+      to \s.
+
+      Transition to Awakened state.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6538,8 +7128,12 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306B\u81EA\u8EAB\u306EHp\u304C\u5C11\u306A\u3044\u307B\u3069\u5927\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306B\u81EA\u8EAB\u306EHp\u304C\u5C11\u306A\u3044\u307B\u3069\u5927\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Deal more damage to
+      \s if self''s HP is lower.
+
+      Revert to normal state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6573,7 +7167,14 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 6
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\u653B\u6483\u3092\u53D7\u3051\u308B\u524D\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\u653B\u6483\u3092\u53D7\u3051\u308B\u524D\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    EnglishHelp: '(Condition: Before self is defeated)
+
+      Deal ATKx/f[f,0,1]%
+      damage to \s.
+
+      Transition to Awakened state.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6620,8 +7221,12 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Deal ATKx/f[f,0,1]%
+      damage to \s.
+
+      Revert to normal state.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -6656,8 +7261,12 @@ MonoBehaviour:
     TargetType: 4
     Help: "(\u6761\u4EF6)3\u56DE\u30A2\u30AF\u30C6\u30A3\u30D6\u3092\u4F7F\u7528\u3059\u308B\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)
       \u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
-    EnglishHelp: "(\u6761\u4EF6)3\u56DE\u30A2\u30AF\u30C6\u30A3\u30D6\u3092\u4F7F\u7528\u3059\u308B\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)
-      \u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
+    EnglishHelp: '(Condition: After using an active skill 3 times)
+
+      Permanently
+      increase \s''s ATK by /f[f,0,3].
+
+      Transition to Awakened state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6704,8 +7313,12 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Deal ATKx/f[f,0,1]%
+      damage to \s.
+
+      Revert to normal state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6740,8 +7353,12 @@ MonoBehaviour:
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u4EE5\u5916\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)
       \u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u4EE5\u5916\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)
-      \u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
+    EnglishHelp: '(Condition: When another ally is defeated)
+
+      Permanently increase
+      \s''s ATK by /f[f,0,3].
+
+      Transition to Awakened state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6788,8 +7405,12 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Deal ATKx/f[f,0,1]%
+      damage to \s.
+
+      Revert to normal state.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6823,7 +7444,10 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)Hp\u304C25%\u672A\u6E80\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)"
-    EnglishHelp: "(\u6761\u4EF6)Hp\u304C25%\u672A\u6E80\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)"
+    EnglishHelp: '(Condition: When HP is below 25%)
+
+      Permanently increase \s''s
+      ATK by /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6857,7 +7481,15 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 2
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C50%\u4EE5\u4E0B\n\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u306E/f[f,0,3]\u56DE\u5FA9\u306E\u30EA\u30B8\u30A7\u30CD\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C50%\u4EE5\u4E0B\n\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u306E/f[f,0,3]\u56DE\u5FA9\u306E\u30EA\u30B8\u30A7\u30CD\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    EnglishHelp: '(Condition: When self`s HP is 50% or lower)
+
+      Grant \s /f[f,0,2]
+      turns of regeneration for /f[f,0,3] recovery.
+
+      Transition to Awakened
+      state.
+
+      /s'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -6903,7 +7535,14 @@ MonoBehaviour:
     SkillType: 4
     TargetType: 4
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306B/f[f,0,3]%\u53CD\u5C04\u30C0\u30E1\u30FC\u30B8\u306E\u30AB\u30A6\u30F3\u30BF\u3092\u4ED8\u4E0E(\u6C38\u7D9A)\n\u899A\u9192\u89E3\u9664\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306B/f[f,0,3]%\u53CD\u5C04\u30C0\u30E1\u30FC\u30B8\u306E\u30AB\u30A6\u30F3\u30BF\u3092\u4ED8\u4E0E(\u6C38\u7D9A)\n\u899A\u9192\u89E3\u9664\n/s"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Permanently grant counter
+      damage reflection of /f[f,0,3]% to \s.
+
+      Revert to normal state.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6937,7 +7576,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "\u653B\u6483\u7BC4\u56F2\u304C\u5217\u306B\u306A\u308B(\u6C38\u7D9A)\n\u653B\u6483\u7BC4\u56F2\u304C\u5EF6\u9577\u3059\u308B(\u6C38\u7D9A)"
-    EnglishHelp: "\u653B\u6483\u7BC4\u56F2\u304C\u5217\u306B\u306A\u308B(\u6C38\u7D9A)\n\u653B\u6483\u7BC4\u56F2\u304C\u5EF6\u9577\u3059\u308B(\u6C38\u7D9A)"
+    EnglishHelp: '(Permanent effect)
+
+      Attack range becomes a column.
+
+      Attack
+      range is extended.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -6978,8 +7622,9 @@ MonoBehaviour:
     TargetType: 1
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C40%\u4EE5\u4E0B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n\u81EA\u8EAB\u306B\u30C0\u30E1\u30FC\u30B8\u306E25%\u5206Hp\u56DE\u5FA9\u30C9\u30EC\u30A4\u30F3\u3092\u4ED8\u4E0E\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C40%\u4EE5\u4E0B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n\u81EA\u8EAB\u306B\u30C0\u30E1\u30FC\u30B8\u306E25%\u5206Hp\u56DE\u5FA9\u30C9\u30EC\u30A4\u30F3\u3092\u4ED8\u4E0E\n/s"
+    EnglishHelp: "(Condition: When self\u2019s HP is 40% or lower)\nDeal ATKx/f[f,0,1]%
+      damage to \\s\nTransition to Awakened state.\nGrant self 25% of damage as HP
+      recovery drain.\n/s"
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -7026,8 +7671,9 @@ MonoBehaviour:
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C40%\u4EE5\u4E0B\n\\s\u306BATKx/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8
       \u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n\u81EA\u8EAB\u306B25%\u5206Hp\u56DE\u5FA9\u30C9\u30EC\u30A4\u30F3\u3092\u4ED8\u4E0E(\u6C38\u7D9A)\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C40%\u4EE5\u4E0B\n\\s\u306BATKx/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n\u81EA\u8EAB\u306B25%\u5206Hp\u56DE\u5FA9\u30C9\u30EC\u30A4\u30F3\u3092\u4ED8\u4E0E(\u6C38\u7D9A)\n/s"
+    EnglishHelp: "(Condition: When self\u2019s HP is 40% or lower)\nDeal ATKx/f[f,0,3]%
+      damage to \\s\nTransition to Awakened state.\nPermanently grant self 25% of
+      damage as HP recovery drain.\n/s"
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -7061,7 +7707,12 @@ MonoBehaviour:
     SkillType: 4
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306B\u30D0\u30D5\u89E3\u9664\n\u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306B\u30D0\u30D5\u89E3\u9664\n\u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Remove buffs from \s.
+
+      Revert
+      to normal state.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -7095,7 +7746,7 @@ MonoBehaviour:
     SkillType: 6
     TargetType: 4
     Help: "\u30C7\u30A3\u30B9\u30C1\u30E3\u30FC\u30B8\u306E\u653B\u6483\u56DE\u6570\u304C/f[f,0,3]\u56DE\u306B\u306A\u308B"
-    EnglishHelp: "\u30C7\u30A3\u30B9\u30C1\u30E3\u30FC\u30B8\u306E\u653B\u6483\u56DE\u6570\u304C/f[f,0,3]\u56DE\u306B\u306A\u308B"
+    EnglishHelp: Number of attacks for Discharge is /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -7129,7 +7780,14 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 4
     Help: "(\u6761\u4EF6)\u7DCF\u30BF\u30FC\u30F3\u6570\u304C100\u3092\u8D85\u3048\u308B\n\\s\u306B/f[f,0,2]\u56DE\u6709\u52B9\u306E\u653B\u6483\u7121\u52B9\u3092\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u7DCF\u30BF\u30FC\u30F3\u6570\u304C100\u3092\u8D85\u3048\u308B\n\\s\u306B/f[f,0,2]\u56DE\u6709\u52B9\u306E\u653B\u6483\u7121\u52B9\u3092\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    EnglishHelp: '(Condition: When total turns exceed 100)
+
+      Grant \s attack
+      immunity for /f[f,0,2] hits.
+
+      Transition to Awakened state.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -7175,7 +7833,12 @@ MonoBehaviour:
     SkillType: 4
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\u5FC5\u4E2D\u3067\\s\u306B\u6226\u95D8\u4E0D\u80FD\u3092\u4ED8\u4E0E\n\u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\u5FC5\u4E2D\u3067\\s\u306B\u6226\u95D8\u4E0D\u80FD\u3092\u4ED8\u4E0E\n\u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Inflict defeat with
+      a guaranteed hit against \s.
+
+      Revert to normal state.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -7215,7 +7878,8 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C50%\u4EE5\u4E0B\n\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]\u30C0\u30E1\u30FC\u30B8\u307E\u3067\u306E\u30B7\u30FC\u30EB\u30C9\u4ED8\u4E0E\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C50%\u4EE5\u4E0B\n\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]\u30C0\u30E1\u30FC\u30B8\u307E\u3067\u306E\u30B7\u30FC\u30EB\u30C9\u4ED8\u4E0E\n/s"
+    EnglishHelp: "(Condition: When self\u2019s HP is 50% or lower)\nGrant \\s shield
+      for /f[f,0,3] damage over /f[f,0,2] turns.\n/s"
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -7249,7 +7913,8 @@ MonoBehaviour:
     SkillType: 3
     TargetType: 1
     Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C25%\u4EE5\u4E0B\n/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]\u30C0\u30E1\u30FC\u30B8\u306E\u6BD2\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C25%\u4EE5\u4E0B\n/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]\u30C0\u30E1\u30FC\u30B8\u306E\u6BD2\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    EnglishHelp: "(Condition: When self\u2019s HP is 25% or lower)\nApply poison
+      damage of /f[f,0,3] per turn for /f[f,0,2] turns.\nTransition to Awakened state.\n/s"
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -7295,7 +7960,12 @@ MonoBehaviour:
     SkillType: 4
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\u5FC5\u4E2D\u3067\\s\u306EHp\u30921\u306B\u3059\u308B\n\u899A\u9192\u89E3\u9664"
-    EnglishHelp: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\u5FC5\u4E2D\u3067\\s\u306EHp\u30921\u306B\u3059\u308B\n\u899A\u9192\u89E3\u9664"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Inflict guaranteed
+      hit that reduces \s''s HP to 1.
+
+      Revert to normal state.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -7335,7 +8005,12 @@ MonoBehaviour:
     SkillType: 2
     TargetType: 4
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306B/f[f,0,2]\u56DE\u6709\u52B9\u306E\u653B\u6483\u7121\u52B9\u3092\u4ED8\u4E0E\n/s"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306B/f[f,0,2]\u56DE\u6709\u52B9\u306E\u653B\u6483\u7121\u52B9\u3092\u4ED8\u4E0E\n/s"
+    EnglishHelp: '(Condition: At battle start)
+
+      Grant \s attack immunity for
+      /f[f,0,2] hits.
+
+      /s'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -7363,7 +8038,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 200
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 5
@@ -7397,7 +8072,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 200
+    Rank: 0
     Attribute: 5
     Scope: 3
     SkillType: 5
@@ -7431,7 +8106,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 200
+    Rank: 0
     Attribute: 1
     Scope: 3
     SkillType: 5
@@ -7465,7 +8140,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 200
+    Rank: 0
     Attribute: 3
     Scope: 3
     SkillType: 5
@@ -7499,7 +8174,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 200
+    Rank: 0
     Attribute: 2
     Scope: 3
     SkillType: 5
@@ -7533,7 +8208,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 200
+    Rank: 0
     Attribute: 5
     Scope: 3
     SkillType: 5
@@ -7567,7 +8242,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 200
+    Rank: 0
     Attribute: 5
     Scope: 3
     SkillType: 5
@@ -7601,7 +8276,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 200
+    Rank: 0
     Attribute: 1
     Scope: 3
     SkillType: 5
@@ -7647,7 +8322,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 200
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 5
@@ -7681,7 +8356,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 200
+    Rank: 0
     Attribute: 3
     Scope: 3
     SkillType: 5
@@ -7715,7 +8390,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 210
+    Rank: 0
     Attribute: 2
     Scope: 3
     SkillType: 5
@@ -7761,7 +8436,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 210
+    Rank: 0
     Attribute: 5
     Scope: 3
     SkillType: 5
@@ -7801,7 +8476,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 210
+    Rank: 0
     Attribute: 3
     Scope: 3
     SkillType: 5
@@ -7847,7 +8522,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 210
+    Rank: 0
     Attribute: 3
     Scope: 3
     SkillType: 5
@@ -7899,7 +8574,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 210
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 5
@@ -7933,7 +8608,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 210
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 5
@@ -7991,7 +8666,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 210
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 5
@@ -8025,7 +8700,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 210
+    Rank: 0
     Attribute: 1
     Scope: 1
     SkillType: 5
@@ -8065,7 +8740,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 210
+    Rank: 0
     Attribute: 3
     Scope: 3
     SkillType: 5
@@ -8099,7 +8774,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 210
+    Rank: 0
     Attribute: 2
     Scope: 3
     SkillType: 5
@@ -8139,7 +8814,9 @@ MonoBehaviour:
     SkillType: 5
     TargetType: 2
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
+    EnglishHelp: '(Condition: At battle start)
+
+      Restore \s''s HP by /f[f,0,1].'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -8173,7 +8850,10 @@ MonoBehaviour:
     SkillType: 5
     TargetType: 2
     Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\n\u30E9\u30F3\u30C0\u30E0\u3067\u6307\u5357\u66F8\uFF08\u898B\u7FD2\u3044\uFF09\u30921\u3064\u5165\u624B"
-    EnglishHelp: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\n\u30E9\u30F3\u30C0\u30E0\u3067\u6307\u5357\u66F8\uFF08\u898B\u7FD2\u3044\uFF09\u30921\u3064\u5165\u624B"
+    EnglishHelp: '(Condition: After a Period passes)
+
+      Randomly obtain one Gear
+      Summon (Beginner).'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -8207,7 +8887,7 @@ MonoBehaviour:
     SkillType: 5
     TargetType: 2
     Help: "\u53D6\u5F15\u30B3\u30DE\u30F3\u30C9\u306E\u30B3\u30B9\u30C8\u309220%\u4E0B\u3052\u308B"
-    EnglishHelp: "\u53D6\u5F15\u30B3\u30DE\u30F3\u30C9\u306E\u30B3\u30B9\u30C8\u309220%\u4E0B\u3052\u308B"
+    EnglishHelp: Reduce the cost of trade commands by 20%.
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -8247,7 +8927,10 @@ MonoBehaviour:
     SkillType: 5
     TargetType: 2
     Help: "\u5165\u624B\u3057\u305F\u5F8C\u30C0\u30F3\u30B8\u30E7\u30F3\u304B\u3089\u96E2\u308C\u3066\u3082Period\u304C\u9032\u307E\u306A\u304F\u306A\u308B\n\uFF11\u5EA6\u52B9\u679C\u3092\u767A\u63EE\u3059\u308B\u3068\u6D88\u6EC5\u3059\u308B"
-    EnglishHelp: "\u5165\u624B\u3057\u305F\u5F8C\u30C0\u30F3\u30B8\u30E7\u30F3\u304B\u3089\u96E2\u308C\u3066\u3082Period\u304C\u9032\u307E\u306A\u304F\u306A\u308B\n\uFF11\u5EA6\u52B9\u679C\u3092\u767A\u63EE\u3059\u308B\u3068\u6D88\u6EC5\u3059\u308B"
+    EnglishHelp: 'Once obtained, the period will no longer advance even when leaving
+      the dungeon.
+
+      The effect disappears after it is activated once.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -8275,7 +8958,10 @@ MonoBehaviour:
     SkillType: 5
     TargetType: 2
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\u5FC5\u305A\u5148\u5236\u653B\u6483\u304C\u3067\u304D\u308B"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\u5FC5\u305A\u5148\u5236\u653B\u6483\u304C\u3067\u304D\u308B"
+    EnglishHelp: '(Condition: At battle start)
+
+      Can always perform a preemptive
+      attack.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -8309,7 +8995,10 @@ MonoBehaviour:
     SkillType: 5
     TargetType: 2
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)"
+    EnglishHelp: '(Condition: At battle start)
+
+      Permanently increase \s''s
+      ATK by /f[f,0,3].'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -8343,7 +9032,10 @@ MonoBehaviour:
     SkillType: 5
     TargetType: 2
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306EDEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)"
+    EnglishHelp: '(Condition: At battle start)
+
+      Permanently increase \s''s
+      DEF by /f[f,0,3].'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -8377,7 +9069,10 @@ MonoBehaviour:
     SkillType: 5
     TargetType: 2
     Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306ESPD\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306ESPD\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)"
+    EnglishHelp: '(Condition: At battle start)
+
+      Permanently increase \s''s
+      SPD by /f[f,0,3].'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -8411,7 +9106,10 @@ MonoBehaviour:
     SkillType: 5
     TargetType: 2
     Help: "(\u6761\u4EF6)\u6240\u6301\u3057\u3066\u3044\u308B\u3068\u81EA\u52D5\u3067\u52B9\u679C\u3092\u767A\u63EE\n\u79FB\u52D5\u6642\u306B1\u30DE\u30B9\u9593\u9694\u3067Hp\u30921\u56DE\u5FA9"
-    EnglishHelp: "(\u6761\u4EF6)\u6240\u6301\u3057\u3066\u3044\u308B\u3068\u81EA\u52D5\u3067\u52B9\u679C\u3092\u767A\u63EE\n\u79FB\u52D5\u6642\u306B1\u30DE\u30B9\u9593\u9694\u3067Hp\u30921\u56DE\u5FA9"
+    EnglishHelp: '(Condition: Effect is automatically applied when possessed)
+
+      Restore
+      HP by 1 every time movement is performed at a distance of 1 space.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
@@ -8439,7 +9137,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -8479,7 +9177,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -8519,7 +9217,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -8559,7 +9257,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 8
@@ -8593,7 +9291,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 8
@@ -8627,7 +9325,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 8
@@ -8661,7 +9359,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -8695,7 +9393,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -8729,7 +9427,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -8763,7 +9461,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -8797,7 +9495,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -8831,7 +9529,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -8865,7 +9563,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -8899,7 +9597,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -8933,7 +9631,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -8967,7 +9665,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -9001,7 +9699,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -9035,7 +9733,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -9069,7 +9767,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 220
+    Rank: 0
     Attribute: 4
     Scope: 3
     SkillType: 8
@@ -9103,7 +9801,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -9125,7 +9823,7 @@ MonoBehaviour:
     AnimationType: 2
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -9153,7 +9851,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -9181,7 +9879,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -9209,7 +9907,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -9237,7 +9935,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -9265,7 +9963,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -9293,7 +9991,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -9321,7 +10019,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -9349,7 +10047,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -9377,7 +10075,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -9405,7 +10103,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -9433,7 +10131,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -9461,7 +10159,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -9489,7 +10187,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -9517,7 +10215,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -9545,7 +10243,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -9573,7 +10271,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -9601,7 +10299,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -9629,7 +10327,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -9657,7 +10355,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -9685,7 +10383,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -9713,7 +10411,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -9741,7 +10439,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -9769,7 +10467,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -9797,7 +10495,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -9825,7 +10523,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -9853,7 +10551,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -9881,7 +10579,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -9909,7 +10607,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -9937,7 +10635,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -9965,7 +10663,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -9993,7 +10691,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -10021,7 +10719,7 @@ MonoBehaviour:
     AnimationType: 3
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -10049,7 +10747,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -10077,7 +10775,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -10105,7 +10803,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -10133,7 +10831,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -10161,7 +10859,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -10189,7 +10887,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -10217,7 +10915,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -10245,7 +10943,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -10273,7 +10971,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -10307,7 +11005,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -10335,7 +11033,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -10363,7 +11061,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -10391,7 +11089,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -10419,7 +11117,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -10447,7 +11145,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 1
     Scope: 4
     SkillType: 6
@@ -10475,7 +11173,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -10503,7 +11201,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -10531,7 +11229,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -10559,7 +11257,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -10587,7 +11285,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -10615,7 +11313,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -10643,7 +11341,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -10671,7 +11369,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -10699,7 +11397,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 2
     Scope: 4
     SkillType: 6
@@ -10727,7 +11425,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -10755,7 +11453,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -10783,7 +11481,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -10811,7 +11509,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -10839,7 +11537,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -10867,7 +11565,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -10895,7 +11593,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -10923,7 +11621,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -10951,7 +11649,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 3
     Scope: 4
     SkillType: 6
@@ -10979,7 +11677,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -11007,7 +11705,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -11035,7 +11733,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -11063,7 +11761,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -11091,7 +11789,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -11119,7 +11817,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -11147,7 +11845,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -11175,7 +11873,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -11203,7 +11901,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 4
     Scope: 4
     SkillType: 6
@@ -11231,7 +11929,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -11259,7 +11957,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -11287,7 +11985,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -11315,7 +12013,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -11343,7 +12041,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 110
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -11371,7 +12069,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -11399,7 +12097,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -11427,7 +12125,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -11455,7 +12153,7 @@ MonoBehaviour:
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
-    Rank: 120
+    Rank: 0
     Attribute: 5
     Scope: 4
     SkillType: 6
@@ -11489,7 +12187,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306E\u706B\u50B7\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
-    EnglishHelp: "\\s\u306E\u706B\u50B7\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: Reduce \s's burn damage by /f[f,0,3]%.
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11517,7 +12215,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Accuracy rate by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11545,7 +12243,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's maximum HP by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11573,7 +12271,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's ATK by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11601,7 +12299,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's DEF by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11629,7 +12327,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11657,7 +12355,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11685,7 +12383,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Avoidance rate by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11713,7 +12411,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's DEF by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11729,7 +12427,7 @@ MonoBehaviour:
     ScopeTriggers: []
   - Id: 503020
     Name: "\u51CD\u7D50\u8010\u6027+20%"
-    EnglishName: "\u51CD\u7D50\u8010\u6027+20%"
+    EnglishName: Freeze resistance +20%
     IconIndex: 6
     AnimationId: 0
     AnimationType: 1
@@ -11741,7 +12439,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306E\u51CD\u7D50\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
-    EnglishHelp: "\\s\u306E\u51CD\u7D50\u4ED8\u4E0E\u78BA\u7387\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: Reduce \s's freeze damage by /f[f,0,3]%
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11769,7 +12467,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's maximum HP by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11797,7 +12495,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's DEF by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11813,7 +12511,7 @@ MonoBehaviour:
     ScopeTriggers: []
   - Id: 504010
     Name: "Hp\u56DE\u5FA9\u52B9\u679C+2"
-    EnglishName: "Hp\u56DE\u5FA9\u52B9\u679C+2"
+    EnglishName: HP recovery effect +2
     IconIndex: 6
     AnimationId: 0
     AnimationType: 1
@@ -11825,7 +12523,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306EHp\u56DE\u5FA9\u52B9\u679C\u30A2\u30C3\u30D7\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306EHp\u56DE\u5FA9\u52B9\u679C\u30A2\u30C3\u30D7\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: 'Increase \s''s HP recovery effect boost by /f[f,0,3]'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11853,7 +12551,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11881,7 +12579,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Accuracy rate by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11909,7 +12607,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's maximum HP by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11937,7 +12635,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Avoidance rate by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11965,7 +12663,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -11993,7 +12691,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's maximum HP by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -12021,7 +12719,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's ATK by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -12049,7 +12747,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's maximum HP by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -12077,7 +12775,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's ATK by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -12105,7 +12803,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's DEF by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -12133,7 +12831,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -12161,7 +12859,7 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306E\u7372\u5F97EXP\u304C/f[f,0,1]%\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u7372\u5F97EXP\u304C/f[f,0,1]%\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's EXP gain by /f[f,0,1]%
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -12189,7 +12887,10 @@ MonoBehaviour:
     SkillType: 9
     TargetType: 4
     Help: "\\s\u306EATK\u3068DEF\u5024\u3092\u4EA4\u63DB\u3059\u308B\n\u540C\u7CFB\u7D71\u8907\u6570\u88C5\u5099\u4E0D\u53EF"
-    EnglishHelp: "\\s\u306EATK\u3068DEF\u5024\u3092\u4EA4\u63DB\u3059\u308B\n\u540C\u7CFB\u7D71\u8907\u6570\u88C5\u5099\u4E0D\u53EF"
+    EnglishHelp: 'Swap \s''s ATK and DEF values
+
+      Cannot equip multiple items
+      of the same type'
     Range: 1
     RepeatTime: 1
     AliveType: 1

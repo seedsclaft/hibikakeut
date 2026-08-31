@@ -70,6 +70,24 @@ namespace Ryneus
             return 0;
         }
 
+        public List<BattlerInfo> ForceBattleTroopInfos(int troopId, int plusLv = 0)
+        {
+            if (troopId != -1)
+            {
+                var troopInfo = new TroopInfo(troopId);
+                troopInfo.MakeEnemyTroopDates(CurrentStage.Master.StageLv + plusLv);
+                return troopInfo.BattlerInfos;
+            }
+            return RandumTroopInfos(plusLv);
+        }
+
+        public List<BattlerInfo> RandumTroopInfos(int plusLv = 0)
+        {
+            var troopInfo = new TroopInfo(-1);
+            troopInfo.MakeEnemyRandomTroopDates(CurrentStage.Master.StageLv + plusLv, CurrentStage.Master.RandomTroopEnemyRates);
+            return troopInfo.BattlerInfos;
+        }
+
         public void ReturnDungeon()
         {
             // 全回復

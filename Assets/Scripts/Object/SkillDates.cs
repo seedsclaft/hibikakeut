@@ -217,8 +217,40 @@ namespace Ryneus
             return "";
         }
 
+        private string ScopeTargetTypeText()
+        {
+            
+            switch (Scope)
+            {
+                case ScopeType.All:
+                    if (TargetType == TargetType.Opponent)
+                    {
+                        return DataSystem.GetText(620);
+                    }
+                    return DataSystem.GetText(621);
+                case ScopeType.Line:
+                    return DataSystem.GetText(622);
+                case ScopeType.One:
+                    return DataSystem.GetText(623) + " " + TargetTypeText();
+                case ScopeType.Self:
+                    return TargetTypeText();
+                case ScopeType.FrontLine:
+                    return DataSystem.GetText(625);
+                case ScopeType.OneAndNeighbor:
+                    return DataSystem.GetText(651);
+                case ScopeType.Neighbor:
+                    return DataSystem.GetText(652);
+            }
+            return "";
+        }
+
         public string ConvertHelpText(string help)
         {
+            if (GameSystem.OptionData != null && GameSystem.OptionData.Language == Language.English)
+            {
+                var sconeTargetText = ScopeTargetTypeText();
+                return help.Replace("\\s", sconeTargetText);
+            }
             var targetText = TargetTypeText();
             var scopeText = ScopeTypeText();
             return help.Replace("\\s", targetText + scopeText);
