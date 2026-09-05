@@ -2588,40 +2588,40 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 11030
-    Name: "\u30EC\u30A4\u30B8\u30AB\u30A6\u30F3\u30BF\u30FC"
-    EnglishName: Rage Counter
+    Name: "\u30A6\u30A9\u30FC\u30AF\u30E9\u30A4"
+    EnglishName: WarCry
     IconIndex: 6
     AnimationId: 3005
     AnimationType: 1
     MpCost: 0
-    CountTurn: 3
+    CountTurn: 0
     Rank: 20
     Attribute: 1
-    Scope: 1
+    Scope: 4
     SkillType: 2
-    TargetType: 6
-    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\n\\s\u306BATKx/f[f,0,1]%\u53CD\u6483\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: '(Condition: When an ally is attacked)
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n/f[f,0,2]\u30BF\u30FC\u30F3\\s\u306EATK\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
+    EnglishHelp: '(Condition: At the start of battle)
 
-      Deal ATKx/f[f,0,1]%
-      retaliatory damage to the attacker.'
+      Increase \s''s ATK by
+      /f[f,0,3]% for /f[f,0,2] turns.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 11030
-      FeatureType: 1010
-      Param1: 150
-      Param2: 0
-      Param3: 0
+      FeatureType: 3010
+      Param1: 1042
+      Param2: 2
+      Param3: 20
       Rate: 100
     TriggerDates:
     - SkillId: 11030
-      TriggerType: 12060
-      TriggerTiming: 11
+      TriggerType: 0
+      TriggerTiming: 1
       Param1: 0
-      Param2: 13
+      Param2: 0
       Param3: 0
     ScopeTriggers: []
   - Id: 11040
@@ -2822,40 +2822,40 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 11110
-    Name: "\u30A6\u30A9\u30FC\u30AF\u30E9\u30A4"
-    EnglishName: WarCry
+    Name: "\u30EC\u30A4\u30B8\u30AB\u30A6\u30F3\u30BF\u30FC"
+    EnglishName: Rage Counter
     IconIndex: 6
     AnimationId: 3005
     AnimationType: 1
     MpCost: 0
-    CountTurn: 0
+    CountTurn: 3
     Rank: 30
     Attribute: 1
-    Scope: 4
+    Scope: 1
     SkillType: 2
-    TargetType: 4
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n/f[f,0,2]\u30BF\u30FC\u30F3\\s\u306EATK\u304C/f[f,0,3]%\u30A2\u30C3\u30D7"
-    EnglishHelp: '(Condition: At the start of battle)
+    TargetType: 6
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u969B\n\\s\u306BATKx/f[f,0,1]%\u53CD\u6483\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: '(Condition: When an ally is attacked)
 
-      Increase \s''s ATK by
-      /f[f,0,3]% for /f[f,0,2] turns.'
+      Deal ATKx/f[f,0,1]%
+      retaliatory damage to the attacker.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 11110
-      FeatureType: 3010
-      Param1: 1042
-      Param2: 2
-      Param3: 20
+      FeatureType: 1010
+      Param1: 100
+      Param2: 0
+      Param3: 0
       Rate: 100
     TriggerDates:
     - SkillId: 11110
-      TriggerType: 0
-      TriggerTiming: 1
+      TriggerType: 12060
+      TriggerTiming: 11
       Param1: 0
-      Param2: 0
+      Param2: 13
       Param3: 0
     ScopeTriggers: []
   - Id: 11120
@@ -3893,7 +3893,7 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 13030
       FeatureType: 1010
-      Param1: 150
+      Param1: 100
       Param2: 0
       Param3: 0
       Rate: 100
@@ -9091,6 +9091,34 @@ MonoBehaviour:
       Param1: 0
       Param2: 0
       Param3: 0
+    ScopeTriggers: []
+  - Id: 310090
+    Name: "\u30E9\u30FC\u30CB\u30F3\u30B0\u30D4\u30A2\u30B9"
+    EnglishName: Learning Pierce
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 220
+    Attribute: 4
+    Scope: 3
+    SkillType: 5
+    TargetType: 2
+    Help: "\u30D0\u30C8\u30EB\u3067\u5F97\u308BExp+20%"
+    EnglishHelp: Increase EXP gained in battle by 20%.
+    Range: 2
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 310090
+      FeatureType: 40020
+      Param1: 20
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
     ScopeTriggers: []
   - Id: 310130
     Name: "\u30D2\u30FC\u30EB\u30E6\u30CB\u30C3\u30C8"

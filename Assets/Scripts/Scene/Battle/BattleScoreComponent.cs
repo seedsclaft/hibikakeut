@@ -45,7 +45,7 @@ namespace Ryneus
                 UIComponent.SetText(battleDefeatedCountText, battleScore.DefeatedCount.ToString() + " (" + battleScore.DefeatedCountScore + "pt)");
                 UIComponent.SetText(weakAttackCountText, battleScore.WeakAttackCount.ToString() + " (" + battleScore.WeakAttackCountScore + "pt)");
                 UIComponent.SetText(battleAttackPerText, battleScore.RemainHpPercent.ToString() + "%");
-                UIComponent.SetText(enemyLvAvarageText, battleScore.EnemyLvAvarage.ToString() + " (" + battleScore.EnemyLvAvarageScore + "pt)");
+                UIComponent.SetText(enemyLvAvarageText, battleScore.EnemyLvAvarage.ToString("F2") + " (" + battleScore.EnemyLvAvarageScore + "pt)");
                 UIComponent.SetText(awakenCountText, battleScore.AwakenCount.ToString() + " (" + battleScore.AwakenCountScore + "pt)");
             } else
             {
@@ -54,7 +54,7 @@ namespace Ryneus
                 UIComponent.SetText(battleDefeatedCountText, battleScore.DefeatedCount.ToString());
                 UIComponent.SetText(weakAttackCountText, battleScore.WeakAttackCount.ToString());
                 UIComponent.SetText(battleAttackPerText, battleScore.RemainHpPercent.ToString() + "%");
-                UIComponent.SetText(enemyLvAvarageText, battleScore.EnemyLvAvarage.ToString());
+                UIComponent.SetText(enemyLvAvarageText, battleScore.EnemyLvAvarage.ToString("F2"));
                 UIComponent.SetText(awakenCountText, battleScore.AwakenCount.ToString());
             }
         }

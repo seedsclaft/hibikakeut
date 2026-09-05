@@ -836,6 +836,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 24
   m_lineSpacingMax: 0
@@ -1118,6 +1119,7 @@ GameObject:
   - component: {fileID: 1953081286773622336}
   - component: {fileID: 8352680009508357878}
   - component: {fileID: 1692362657544869559}
+  - component: {fileID: 6591515691208193392}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -1211,6 +1213,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 24
   m_lineSpacingMax: 0
@@ -1244,6 +1247,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6591515691208193392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5946796559725293067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f44f7c136c1dcf4b86a8b7fad1fad41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.SystemTextComponent
+  id: 10230
 --- !u!1 &7797496822849030458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1539,6 +1555,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c816c458e8c9ed4aa8a1670d66f1425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SetupEnd:
+    _value: 0
+  Busy:
+    _value: 0
   _backCommand: {fileID: 1884789102958913364}
   _backGround: {fileID: 0}
   uiRoot: {fileID: 2015939170612790194}
@@ -1549,6 +1569,7 @@ MonoBehaviour:
   confirmAnimation: {fileID: 6943806399329446432}
   cautionArtifact: {fileID: 478325669761220217}
   stageInfoComponent: {fileID: 0}
+  baseListComponent: {fileID: 0}
 --- !u!114 &6943806399329446432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1562,7 +1583,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseCanvas: {fileID: 9168501373800415618}
-  Busy: 0
+  Busy:
+    _value: 0
+  Initialized:
+    _value: 0
 --- !u!1 &8739594755632363710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1574,6 +1598,7 @@ GameObject:
   - component: {fileID: 184821184552109611}
   - component: {fileID: 8030264254104874770}
   - component: {fileID: 8649667460439902414}
+  - component: {fileID: 1663309579025667158}
   m_Layer: 5
   m_Name: Caution
   m_TagString: Untagged
@@ -1667,6 +1692,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 24
   m_lineSpacingMax: 0
@@ -1700,6 +1726,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1663309579025667158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8739594755632363710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f44f7c136c1dcf4b86a8b7fad1fad41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.SystemTextComponent
+  id: 10220
 --- !u!1001 &4562169459747165906
 PrefabInstance:
   m_ObjectHideFlags: 0

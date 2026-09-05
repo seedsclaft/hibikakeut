@@ -222,6 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9313f0ff46fa57b45a78cfbf3ea59d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.LevelUpView
+  SetupEnd:
+    _value: 0
   Busy:
     _value: 0
   _backCommand: {fileID: 2168801155394928049}
@@ -251,6 +253,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.PopupAnimation
   baseCanvas: {fileID: 8247198923096212198}
   Busy:
+    _value: 0
+  Initialized:
     _value: 0
 --- !u!1 &1854475442397952964
 GameObject:
@@ -1397,6 +1401,7 @@ GameObject:
   - component: {fileID: 2043120477049571917}
   - component: {fileID: 5745343996620040549}
   - component: {fileID: 8511305095156337103}
+  - component: {fileID: 4746336832557464513}
   m_Layer: 5
   m_Name: Caption
   m_TagString: Untagged
@@ -1524,6 +1529,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4746336832557464513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4654066258260439102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f44f7c136c1dcf4b86a8b7fad1fad41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ryneus.SystemTextComponent
+  id: 3030
 --- !u!1 &5569927423873629977
 GameObject:
   m_ObjectHideFlags: 0

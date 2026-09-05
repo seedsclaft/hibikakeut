@@ -438,7 +438,7 @@ namespace Ryneus
             {
                 if (subject.IsState(StateType.Penetrate))
                 {
-                    var penetrate = 1f - subject.StateEffectAllRate(StateType.Penetrate);
+                    var penetrate = 1f - subject.StateEffectAllPercent(StateType.Penetrate);
                     defValue = (int)(defValue * penetrate);
                 }
             }
@@ -466,7 +466,7 @@ namespace Ryneus
             {
                 if (target.IsState(StateType.DamageCutRate))
                 {
-                    damageCutRate += target.StateEffectAllRate(StateType.DamageCutRate);
+                    damageCutRate += target.StateEffectAllPercent(StateType.DamageCutRate);
                     SeekStateCount(target, StateType.DamageCutRate);
                 }
                 var substituteStateInfos = subject.GetStateInfoAll(StateType.Substitute);
@@ -475,7 +475,7 @@ namespace Ryneus
                     if (substituteStateInfos.Find(a => a.BattlerId.Value == target.Index.Value) != null)
                     {
                         // 挑発でダメージカット50%
-                        damageCutRate += subject.StateEffectAllRate(StateType.Substitute);
+                        damageCutRate += subject.StateEffectAllPercent(StateType.Substitute);
                     }
                 }
             }
@@ -1168,7 +1168,7 @@ namespace Ryneus
             return _defenseRateValue;
         }
 
-        private void CalcFreezeDamage(BattlerInfo subject, BattlerInfo target ,float skillDamage)
+        private void CalcFreezeDamage(BattlerInfo subject, BattlerInfo target, float skillDamage)
         {
             if (subject.IsState(StateType.Freeze))
             {
@@ -1184,9 +1184,9 @@ namespace Ryneus
             }
         }
 
-        private int FreezeDamageValue(BattlerInfo subject, BattlerInfo target,float skillDamage)
+        private int FreezeDamageValue(BattlerInfo subject, BattlerInfo target, float skillDamage)
         {
-            float reDamage = skillDamage * subject.StateEffectAllRate(StateType.Freeze);
+            float reDamage = skillDamage * subject.StateEffectAllPercent(StateType.Freeze);
             reDamage *= target.StateEffectAllDeRate(StateType.FreezeDamageCut);
             return (int)Mathf.Floor(reDamage);
         }
@@ -1195,7 +1195,7 @@ namespace Ryneus
         {
             if (subject.IsState(StateType.Drain) && !subject.IsState(StateType.NotHeal))
             {
-                return (int)Mathf.Floor(hpDamage * subject.StateEffectAllRate(StateType.Drain));
+                return (int)Mathf.Floor(hpDamage * subject.StateEffectAllPercent(StateType.Drain));
             }
             return 0;
         }
@@ -1253,7 +1253,7 @@ namespace Ryneus
 
         private int CounterDamageValue(BattlerInfo target, float hpDamage)
         {
-            int ReDamage = (int)Mathf.Floor(hpDamage * target.StateEffectAllRate(StateType.CounterAura));
+            int ReDamage = (int)Mathf.Floor(hpDamage * target.StateEffectAllPercent(StateType.CounterAura));
             ReDamage += target.StateEffectAll(StateType.CounterAuraDamage);
             return Math.Max(1, ReDamage);
         }

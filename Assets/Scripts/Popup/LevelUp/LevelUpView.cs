@@ -4,7 +4,6 @@ using UnityEngine;
 using Ryneus.LevelUp;
 using TMPro;
 using DG.Tweening;
-using System;
 
 namespace Ryneus
 {

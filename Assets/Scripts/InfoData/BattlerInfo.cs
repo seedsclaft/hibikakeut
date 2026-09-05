@@ -733,6 +733,15 @@ namespace Ryneus
             return effect;
         }
 
+        public float StateEffectAllPercent(StateType stateType)
+        {
+            if (!IsState(stateType))
+            {
+                return 0f;
+            }
+            return StateEffectAll(stateType) * 0.01f;
+        }
+
         public float StateEffectAllRate(StateType stateType)
         {
             if (!IsState(stateType))

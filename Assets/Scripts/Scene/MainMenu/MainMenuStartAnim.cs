@@ -30,9 +30,9 @@ namespace Ryneus
             periodTextCanvas.alpha = 0;
             remainTextCanvas.alpha = 0;
             backBlack.GetComponent<RectTransform>().DOScaleY(0, 0);
-            chapterTextCanvas.GetComponent<RectTransform>().DOLocalMoveX(0, 0);
-            periodTextCanvas.GetComponent<RectTransform>().DOLocalMoveX(0, 0);
-            remainTextCanvas.GetComponent<RectTransform>().DOLocalMoveX(0, 0);
+            chapterTextCanvas.GetComponent<RectTransform>().DOLocalMoveX(40, 0);
+            periodTextCanvas.GetComponent<RectTransform>().DOLocalMoveX(40, 0);
+            remainTextCanvas.GetComponent<RectTransform>().DOLocalMoveX(40, 0);
         }
 
         public void SetText(int chapter, int period, int periodMax, int remain)
@@ -40,7 +40,7 @@ namespace Ryneus
             UIComponent.SetText(chapterText, chapter);
             UIComponent.SetText(periodText, period);
             UIComponent.SetText(maxPeriodText, periodMax);
-            UIComponent.SetText(remainText, remain);
+            UIComponent.SetText(remainText, DataSystem.GetReplaceText(11050, remain));
         }
 
         public void StartAnim(float delay = 0, System.Action endEvent = null)
@@ -55,11 +55,11 @@ namespace Ryneus
                 .Append(backBlack.GetComponent<RectTransform>().DOScaleY(1, 0.4f))
                 .Join(chapterTextCanvas.DOFade(1f, animationDuration))
                 .Join(periodTextCanvas.DOFade(1f, animationDuration))
-                .Join(chapterTextCanvas.GetComponent<RectTransform>().DOLocalMoveX(-40, animationDuration))
-                .Join(periodTextCanvas.GetComponent<RectTransform>().DOLocalMoveX(-40, animationDuration))
+                .Join(chapterTextCanvas.GetComponent<RectTransform>().DOLocalMoveX(0, animationDuration))
+                .Join(periodTextCanvas.GetComponent<RectTransform>().DOLocalMoveX(0, animationDuration))
                 .Append(chapterTextCanvas.DOFade(1f, 0.2f))
                 .Append(remainTextCanvas.DOFade(1f, animationDuration))
-                .Join(remainTextCanvas.GetComponent<RectTransform>().DOLocalMoveX(-40, animationDuration)).OnUpdate(() =>
+                .Join(remainTextCanvas.GetComponent<RectTransform>().DOLocalMoveX(0, animationDuration)).OnUpdate(() =>
                 {
                     LayoutRebuilder.ForceRebuildLayoutImmediate(backBlack.transform.parent.GetComponent<RectTransform>());
                 });

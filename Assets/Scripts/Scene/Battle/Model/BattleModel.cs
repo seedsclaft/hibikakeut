@@ -2725,10 +2725,18 @@ namespace Ryneus
                 {
                     upperRate += expRateUp.FeatureDates[0].Param1 * 0.01f;
                 }
+                // アーティファクトの経験値アップ付与
+                var artifactExpRateUps = PartyInfo.AritifactSkills().FindAll(a => a.Master.FeatureDates.Find(b => b.FeatureType == FeatureType.GetExpRateUp) != null);                
+                foreach (var expRateUp in artifactExpRateUps)
+                {
+                    upperRate += expRateUp.FeatureDates[0].Param1 * 0.01f;
+                }
+
                 if (upperRate > 0)
                 {
                     gainExp *= 1 + upperRate;
                 }
+
 /*
                 if (battleScore > 0)
                 {

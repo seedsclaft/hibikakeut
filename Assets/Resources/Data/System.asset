@@ -1112,6 +1112,21 @@ MonoBehaviour:
     Relief: 
     EnglishText: Completion
     EnglishHelp: '""'
+  - Id: 10220
+    Text: Caution!!
+    Help: '""'
+    Feature: 
+    Relief: 
+    EnglishText: Caution!!
+    EnglishHelp: '""'
+  - Id: 10230
+    Text: "\u5165\u624B\u3057\u305F\u30A2\u30A4\u30C6\u30E0\u306F\u30A2\u30FC\u30C6\u30A3\u30D5\u30A1\u30AF\u30C8\u3067\u3059\u3002\n\u30A2\u30FC\u30C6\u30A3\u30D5\u30A1\u30AF\u30C8\u306E\u6240\u6709\u6A29\u306F\n\u57FA\u672C\u7684\u306B\u4E3B\u795E\u30AA\u30FC\u30C7\u30A3\u30F3\u306B\u3042\u308A\u307E\u3059\u3002\n\u732E\u4E0A\u3057\u306A\u3051\u308C\u3070\u8A55\u4FA1\u5024\u306E\u4F4E\u4E0B\u3092\u62DB\u304D\u307E\u3059\u3002"
+    Help: '""'
+    Feature: 
+    Relief: 
+    EnglishText: "The item you found is an artifact. \nAll artifacts rightfully belong
+      to Lord Odin. \nKeeping this artifact will lower your Evaluation."
+    EnglishHelp: '""'
   - Id: 11010
     Text: "\u30A8\u30A4\u30F3\u30D5\u30A7\u30EA\u30A2\u3092\u62DB\u8058\u3057\u307E\u3059\u304B\uFF1F\n\u62DB\u8058\u6B8B\u308A\u56DE\u6570
       {0} \u56DE"
@@ -1172,6 +1187,13 @@ MonoBehaviour:
     Feature: 
     Relief: 
     EnglishText: Transferred comrades have returned.
+    EnglishHelp: '""'
+  - Id: 11050
+    Text: "\u7D42\u672B\u307E\u3067\u3000\u3000\u6B8B\u308A\u3000{0}\u3000Period"
+    Help: '""'
+    Feature: 
+    Relief: 
+    EnglishText: '{0} Periods remaining until the End of World'
     EnglishHelp: '""'
   - Id: 12010
     Text: "\u3053\u306E\u30B2\u30FC\u30E0\u306F\u97F3\u58F0\u304C\u6D41\u308C\u307E\u3059\u3002\n\u30B9\u30D4\u30FC\u30AB\u30FC\u3001\u30A4\u30E4\u30DB\u30F3\u306E\u97F3\u91CF\u306A\u3069\u306B\u3054\u6CE8\u610F\u304F\u3060\u3055\u3044\u3002\n\n\u753B\u9762\u3092\u30BF\u30C3\u30C1\u3059\u308B\u3068\u30BF\u30A4\u30C8\u30EB\u753B\u9762\u306B\u79FB\u308A\u307E\u3059\u3002"
@@ -1962,14 +1984,14 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Number of Weakness Attacks
+    EnglishText: Weakness Attacks Count
     EnglishHelp: 
   - Id: 20370
-    Text: "\u6226\u529B\u5024\u5408\u8A08"
+    Text: "\u52C7\u8005\u9069\u6B63\u5024\u5408\u8A08"
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Total Battle Power
+    EnglishText: Total Hero Value
     EnglishHelp: 
   - Id: 20380
     Text: "\u30B9\u30C6\u30FC\u30B8\u30AF\u30EA\u30A2\u6570"
@@ -2004,7 +2026,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Regular Report Received
+    EnglishText: Regular Report
     EnglishHelp: 
   - Id: 20420
     Text: "\u62DB\u8058\u30B3\u30DE\u30F3\u30C9\u56DE\u6570+1"
@@ -2025,7 +2047,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Convert Evaluation Value
+    EnglishText: Evaluation Value
     EnglishHelp: 
   - Id: 31010
     Text: "\u30D7\u30EC\u30A4\u6642\u9593"
@@ -2443,7 +2465,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Limited to 1
+    EnglishText: Limited
     EnglishHelp: '""'
   - Id: 40010
     Text: "\u795E\u754C\u7B49\u7D1A\u30A2\u30C3\u30D7\uFF01"

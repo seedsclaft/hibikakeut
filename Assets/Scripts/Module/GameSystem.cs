@@ -374,6 +374,7 @@ namespace Ryneus
 
         private void CommandMissionClearView(MissionClearInfo confirmInfo)
         {
+            confirmAssign.CreateConfirm(ConfirmType.MissionClear, helpWindow);
             var prefab = confirmAssign.LastPopupPrefab;
             var missionClearView = prefab.GetComponent<MissionClearView>();
             if (!missionClearView.SetupEnd.Value)
