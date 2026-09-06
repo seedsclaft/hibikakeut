@@ -224,6 +224,10 @@ namespace Ryneus
                         {
                             Data.HavingArtifactMinus = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
                         }
+                        if (KeyName == "ChangeArtifactCurrency")
+                        {
+                            Data.ChangeArtifactCurrency = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
+                        }
                         if (KeyName == "InitEquipmentId")
                         {
                             Data.InitEquipmentId = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);

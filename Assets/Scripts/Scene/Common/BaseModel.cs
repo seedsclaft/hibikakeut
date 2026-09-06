@@ -705,7 +705,7 @@ namespace Ryneus
                     // 報酬設定
                     return MakeGetItemInfo(GetItemType.Item, candidateItems[rand2].Id, 1);
                 case ItemType.Artifact:
-                    return MakeGetItemInfo(GetItemType.Evaluate, 5);
+                    return MakeGetItemInfo(GetItemType.Evaluate, DataSystem.System.ChangeArtifactCurrency);
                 case ItemType.Currency:
                     return MakeGetItemInfo(GetItemType.Currency, itemData.Param1);
             }

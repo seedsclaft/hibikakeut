@@ -12,7 +12,7 @@ namespace Ryneus
             switch (triggerData.TriggerType)
             {
                 case TriggerType.AttackState:
-                    if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && checkTriggerInfo.ActionInfo.SubjectIndex.Value == battlerInfo.Index.Value && checkTriggerInfo.ActionInfo.HpDamageAction())
+                    if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && !checkTriggerInfo.ActionInfo.TriggeredSkill && checkTriggerInfo.ActionInfo.SubjectIndex.Value == battlerInfo.Index.Value && checkTriggerInfo.ActionInfo.HpDamageAction())
                     {
                         if (triggerData.Param1 > Random.Range(0, 100))
                         {

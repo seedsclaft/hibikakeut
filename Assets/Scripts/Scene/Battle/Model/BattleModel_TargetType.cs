@@ -200,6 +200,16 @@ namespace Ryneus
                     if (counterSubjectIndex > -1)
                     {
                         targetIndexList.Add(counterSubjectIndex);
+                        // 列対象なら
+                        if (skillData.Scope == ScopeType.Line)
+                        {
+                            var counterSubject = GetBattlerInfo(counterSubjectIndex);
+                            var lineTargets = GetBattlerInfos(counterSubject.IsActor, true).FindAll(a => a.LineIndex == counterSubject.LineIndex);
+                            foreach (var lineTarget in lineTargets)
+                            {
+                                targetIndexList.Add(lineTarget.Index.Value);                        
+                            }
+                        }
                     }
                     break;
                 case TargetType.AttackTarget:

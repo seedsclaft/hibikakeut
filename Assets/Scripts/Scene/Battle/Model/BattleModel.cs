@@ -401,17 +401,13 @@ namespace Ryneus
                     targetIndexList.Add(selectIndex);
                     break;
                 case ScopeType.FrontLow:
-                    targetIndexList = targetIndexList.FindAll(a => GetBattlerInfo(a).LineIndex == targetBattler.LineIndex);
-                    var adds = new List<int>();
-                    for (int i = targetIndexList.Count - 1; i >= 0; i--)
+                    targetIndexList.Clear();
+                    targetIndexList.Add(selectIndex);
+                    var low = GetBattlerInfo(selectIndex + 3);
+                    if (low != null)
                     {
-                        var low = GetBattlerInfo(targetIndexList[i] + 3);
-                        if (low != null)
-                        {
-                            adds.Add(targetIndexList[i] + 3);
-                        }
+                        targetIndexList.Add(selectIndex + 3);
                     }
-                    targetIndexList.AddRange(adds);
                     break;
                 case ScopeType.WithoutSelfOne:
                     targetIndexList.Clear();

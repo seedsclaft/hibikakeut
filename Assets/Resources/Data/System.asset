@@ -207,6 +207,7 @@ MonoBehaviour:
   ClassChangePlusSkill: 4
   CheatArtifactMinus: 50
   HavingArtifactMinus: 1
+  ChangeArtifactCurrency: 10
   InitEquipmentId: 10
   SystemTextData:
   - Id: 0
@@ -2005,7 +2006,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Average Enemy Level
+    EnglishText: Avg. Enemy Level
     EnglishHelp: 
   - Id: 20400
     Text: "\u899A\u9192\u56DE\u6570"
@@ -2253,14 +2254,14 @@ MonoBehaviour:
     Help: '""'
     Feature: ItemList
     Relief: 
-    EnglishText: Quantity Owned
+    EnglishText: Owned
     EnglishHelp: '""'
   - Id: 34020
     Text: "\u732E\u4E0A\u6570"
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Offered Quantity
+    EnglishText: Offered
     EnglishHelp: '""'
   - Id: 34030
     Text: "\u732E\u4E0A\u3059\u308B"
@@ -2345,7 +2346,7 @@ MonoBehaviour:
     Help: '""'
     Feature: 
     Relief: 
-    EnglishText: Obtained!
+    EnglishText: ' Obtained!'
     EnglishHelp: '""'
   - Id: 37000
     Text: "\u30A2\u30FC\u30C6\u30A3\u30D5\u30A1\u30AF\u30C8"

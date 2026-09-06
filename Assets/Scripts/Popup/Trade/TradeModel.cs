@@ -112,7 +112,8 @@ namespace Ryneus
 
         public bool CanPayCost(TradeItemInfo tradeItemInfo)
         {
-            return (Currency - PayCost.Value) >= tradeItemInfo.Cost.Value;
+            var cost = (int)(tradeItemInfo.Cost.Value * PartyInfo.TradeDownRate());
+            return (Currency - PayCost.Value) >= cost;
         }
 
         public void AddTradeItem(TradeItemInfo getItemInfo)

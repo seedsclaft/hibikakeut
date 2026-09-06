@@ -11,7 +11,7 @@ namespace Ryneus
             switch (triggerData.TriggerType)
             {
                 case TriggerType.SelfAttackActionInfo:
-                    if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && checkTriggerInfo.ActionInfo.Master.IsHpDamageFeature())
+                    if (battlerInfo.IsAlive() && checkTriggerInfo.ActionInfo != null && !checkTriggerInfo.ActionInfo.TriggeredSkill && checkTriggerInfo.ActionInfo.Master.IsHpDamageFeature())
                     {
                         if (battlerInfo.Index.Value == checkTriggerInfo.ActionInfo.SubjectIndex.Value)
                         {
@@ -69,6 +69,10 @@ namespace Ryneus
                 return list;
             }
             if (actionInfo == null)
+            {
+                return list;
+            }
+            if (!actionInfo.TriggeredSkill)
             {
                 return list;
             }
