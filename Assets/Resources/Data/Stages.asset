@@ -800,18 +800,18 @@ MonoBehaviour:
 
       Legend
       has it that a rare magic book is hidden there.'
-    StageLv: 4
+    StageLv: 3
     OnlyOnce: 1
     DisplayRank: 3
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
-    - EnemyId: 3
-      Weight: 15
-    - EnemyId: 6
-      Weight: 15
     - EnemyId: 1
       Weight: 15
-    - EnemyId: 7
+    - EnemyId: 3
+      Weight: 15
+    - EnemyId: 9
+      Weight: 15
+    - EnemyId: 11
       Weight: 15
     EncountTimes: 5
     EncountMin: 8
@@ -839,13 +839,15 @@ MonoBehaviour:
     DisplayRank: 4
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
-    - EnemyId: 2
+    - EnemyId: 1
+      Weight: 15
+    - EnemyId: 3
       Weight: 15
     - EnemyId: 4
       Weight: 15
-    - EnemyId: 7
+    - EnemyId: 5
       Weight: 15
-    - EnemyId: 8
+    - EnemyId: 7
       Weight: 15
     EncountTimes: 5
     EncountMin: 8

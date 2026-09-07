@@ -47,7 +47,7 @@ namespace Ryneus
             {            
                 UIComponent.SetActive(periodRoot, false);
                 UIComponent.ClearText(chapter);
-                UIComponent.SetText(chapterText, "交戦中");
+                UIComponent.SetText(chapterText, DataSystem.GetText(11060));
             }
             //UIComponent.SetText(evaluationValue, partyInfo.EvaluationValue);
             if (evaluationAddictValue != null)

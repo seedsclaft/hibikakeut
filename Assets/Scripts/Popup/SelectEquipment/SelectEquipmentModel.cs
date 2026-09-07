@@ -10,6 +10,7 @@ namespace Ryneus
         public List<int> SelectEquipmentIds => _selectEquipmentIds;
         public SelectEquipmentModel()
         {
+            _selectEquipmentIds.Clear();
             _sceneParam = (SelectEquipmentSceneInfo)GameSystem.SceneStackManager.LastPopupInfo.template;
         }
 

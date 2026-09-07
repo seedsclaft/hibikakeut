@@ -64,8 +64,7 @@ namespace Ryneus
                     // エクセルブックを作成
                     AssetPostImporter.CreateBook(asset, Mainstream, out IWorkbook Book);
                     List<TextData> textData = AssetPostImporter.CreateText(Book.GetSheetAt(6));
-                    List<TextData> englishTextData = AssetPostImporter.CreateText(Book.GetSheetAt(7));
-
+                    
                     // 情報の初期化
                     Data.TacticsCommandData = new();
                     Data.StatusCommandData = new();
@@ -73,15 +72,6 @@ namespace Ryneus
                     Data.TitleCommandData = new();
                     Data.SystemTextData = new();
                     Data.SystemTextData = textData;
-                    foreach (var systemTextData in Data.SystemTextData)
-                    {
-                        var englishText = englishTextData.Find(a => a.Id == systemTextData.Id);
-                        if (englishText != null)
-                        {
-                            systemTextData.EnglishText = englishText.Text;
-                            systemTextData.EnglishHelp = englishText.Help;
-                        }
-                    }
                     Data.InputDataList = new();
 
                     // エクセルシートからセル単位で読み込み

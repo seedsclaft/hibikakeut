@@ -9120,6 +9120,46 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 310100
+    Name: "\u30BB\u30D6\u30F3\u30BA\u30B9\u30C8\u30FC\u30F3"
+    EnglishName: Seven`s Stone
+    IconIndex: 6
+    AnimationId: 101
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 220
+    Attribute: 4
+    Scope: 1
+    SkillType: 5
+    TargetType: 7
+    Help: "(\u6761\u4EF6)7\u56DE\u76EE\u306E\u884C\u52D5\u5F8C\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\n\u8FFD\u6483\u3067/f[f,0,1]\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: "(\u6761\u4EF6)7\u56DE\u76EE\u306E\u884C\u52D5\u5F8C\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\n\u8FFD\u6483\u3067/f[f,0,1]\u30C0\u30E1\u30FC\u30B8"
+    Range: 2
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 310100
+      FeatureType: 1030
+      Param1: 50
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 310100
+      TriggerType: 12070
+      TriggerTiming: 61
+      Param1: 0
+      Param2: 0
+      Param3: 1
+    - SkillId: 310100
+      TriggerType: 9031
+      TriggerTiming: 61
+      Param1: 0
+      Param2: 7
+      Param3: 0
+    ScopeTriggers: []
   - Id: 310130
     Name: "\u30D2\u30FC\u30EB\u30E6\u30CB\u30C3\u30C8"
     EnglishName: Heal Unit

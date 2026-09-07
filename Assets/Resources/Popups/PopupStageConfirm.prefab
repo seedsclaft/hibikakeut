@@ -104,6 +104,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 24
   m_lineSpacingMax: 0
@@ -198,6 +199,11 @@ MonoBehaviour:
   bossLv: {fileID: 0}
   bossName: {fileID: 0}
   cleared: {fileID: 0}
+  mainStage: {fileID: 0}
+  subStage: {fileID: 0}
+  battleFieldStage: {fileID: 0}
+  dungeonEnemySymbolRoot: {fileID: 0}
+  dungeonEnemySymbolNum: {fileID: 0}
 --- !u!1 &1552071569117408189
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,6 +387,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c816c458e8c9ed4aa8a1670d66f1425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SetupEnd:
+    _value: 0
+  Busy:
+    _value: 0
   _backCommand: {fileID: 1884946360642598948}
   _backGround: {fileID: 0}
   uiRoot: {fileID: 7180829795857914252}
@@ -391,6 +401,7 @@ MonoBehaviour:
   confirmAnimation: {fileID: 1483249194716153866}
   cautionArtifact: {fileID: 0}
   stageInfoComponent: {fileID: 626677165560526389}
+  baseListComponent: {fileID: 0}
 --- !u!114 &1483249194716153866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,7 +415,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseCanvas: {fileID: 7130642794510544572}
-  Busy: 0
+  Busy:
+    _value: 0
+  Initialized:
+    _value: 0
 --- !u!1 &3249546009717008789
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +454,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 280, y: 24}
+  m_SizeDelta: {x: 480, y: 24}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3376977903679741709
 CanvasRenderer:
@@ -509,6 +523,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1113,6 +1128,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
