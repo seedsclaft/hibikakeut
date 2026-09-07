@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd7d4f144b6bd2f4b99777f5ffa6b625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SetupEnd:
+    _value: 0
   Busy:
     _value: 0
   _backCommand: {fileID: 8249924268074337242}
@@ -74,6 +76,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseCanvas: {fileID: 306205559281327141}
   Busy:
+    _value: 0
+  Initialized:
     _value: 0
 --- !u!1 &950613330184217933
 GameObject:
@@ -813,7 +817,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 24, y: -220}
+  m_AnchoredPosition: {x: 40, y: -220}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8150427069069066935

@@ -98,7 +98,7 @@ namespace Ryneus
                 skillExpGauge.UpdateGauge(skillInfo.ExpRate.Value);
                 if (learningCost != null && displayExp && skillInfo.ExpRate.Value >= 1)
                 {
-                    learningCost.text = DataSystem.PowerUpColorTag + learningCost.text + "</color>";
+                    //learningCost.text = DataSystem.PowerUpColorTag + learningCost.text + "</color>";
                 }
             }
             if (useCount != null && skillInfo.RemainUseCount() != 99)

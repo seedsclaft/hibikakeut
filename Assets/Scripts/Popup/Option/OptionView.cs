@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Option;
-using System;
 
 namespace Ryneus
 {
@@ -85,6 +85,7 @@ namespace Ryneus
             {
                 SetHelpInputInfo("OPTION");
             }
+            optionCategoryList.UpdateAllItems();
             optionList.UpdateAllItems();
         }
 
@@ -93,7 +94,7 @@ namespace Ryneus
             SetHelpText(DataSystem.GetHelp(500));
         }
 
-        public new void SetBackEvent(System.Action backEvent)
+        public new void SetBackEvent(Action backEvent)
         {
             SetBackCommand(() =>
             {

@@ -68,7 +68,7 @@ namespace Ryneus
 
         public async Task ViewInitialize()
         {
-            await _view.SetBackGround(_model.CurrentStage.Master.BackGround);
+            _view.SetBackGround(_model.CurrentStage.Master.BackGround);
 
             _view.ClearCurrentSkillData();
             _view.CreateObject();

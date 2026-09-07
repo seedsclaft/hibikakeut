@@ -231,11 +231,6 @@ namespace Ryneus
             return "Texture/Character/Enemies/" + enemyImage;
         }
 
-        public static async Task<Sprite> LoadBackGround(string fileName)
-        {
-            return await LoadAsset<Sprite>("Texture/BG/" + fileName);
-        }
-
         public static string BackGroundPath(string fileName)
         {
             return "Texture/BG/" + fileName;

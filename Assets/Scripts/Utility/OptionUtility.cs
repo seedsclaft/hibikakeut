@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace Ryneus
 {
@@ -146,16 +145,16 @@ namespace Ryneus
                 var changeLanguage = GameSystem.OptionData.Language + 1;
                 if ((int)changeLanguage > _languages.Count)
                 {
-                    changeLanguage = 0;
+                    changeLanguage = Language.English;
                 }
                 GameSystem.OptionData.Language = changeLanguage;
             }
             else
             {
                 int changeLanguage = (int)GameSystem.OptionData.Language - 1;
-                if (changeLanguage < 0)
+                if (changeLanguage <= 0)
                 {
-                    changeLanguage = _languages.Count - 1;
+                    changeLanguage = _languages.Count;
                 }
                 GameSystem.OptionData.Language = (Language)changeLanguage;
             }
@@ -217,7 +216,7 @@ namespace Ryneus
             GameSystem.OptionData.BattleAuto = battleAuto;
         }
 
-        public static List<float> SpeedList = new() { 0, 1f, 2f, 3f };
+        public static List<float> SpeedList = new() { 0, 1f, 1.5f, 2f, 4f };
         public static void SetBattleSpeed(float battleSpeed)
         {
             GameSystem.OptionData.BattleSpeed = battleSpeed;
@@ -243,18 +242,8 @@ namespace Ryneus
 
         public static string CurrentBattleSpeedText()
         {
-            var current = SpeedList.FindIndex(a => a == GameSystem.OptionData.BattleSpeed);
-            var option = DataSystem.System.OptionCommandData.Find(a => a.Key == "BATTLE_SPEED");
-            switch (current)
-            {
-                case 1:
-                    return DataSystem.GetText(option.ToggleText1);
-                case 2:
-                    return DataSystem.GetText(option.ToggleText2);
-                case 3:
-                    return DataSystem.GetText(option.ToggleText3);
-            }
-            return "";
+            var current = SpeedList.Find(a => a == GameSystem.OptionData.BattleSpeed);
+            return "x" + current.ToString("F1");
         }
 
         public static void ChangeTutorialCheck(bool tutorialCheck)

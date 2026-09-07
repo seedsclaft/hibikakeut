@@ -170,6 +170,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f2fbfb6f1c4f64fa293657fec24197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SetupEnd:
+    _value: 0
+  Busy:
+    _value: 0
   _backCommand: {fileID: 0}
   _backGround: {fileID: 0}
   uiRoot: {fileID: 0}
@@ -241,7 +245,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u3053\u306E\u30B2\u30FC\u30E0\u306F\u97F3\u58F0\u304C\u6D41\u308C\u307E\u3059\u3002\n\u30B9\u30D4\u30FC\u30AB\u30FC\u3001\u30A4\u30E4\u30DB\u30F3\u306E\u97F3\u91CF\u306A\u3069\u306B\u3054\u6CE8\u610F\u304F\u3060\u3055\u3044\u3002\n\n\u753B\u9762\u3092\u30BF\u30C3\u30C1\u3059\u308B\u3068\u30BF\u30A4\u30C8\u30EB\u753B\u9762\u306B\u79FB\u308A\u307E\u3059\u3002"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fd7871a73864a2147a57697b5b13bd89, type: 2}
   m_sharedMaterial: {fileID: 7947116292471950640, guid: fd7871a73864a2147a57697b5b13bd89,
@@ -280,6 +284,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 48
   m_lineSpacingMax: 0

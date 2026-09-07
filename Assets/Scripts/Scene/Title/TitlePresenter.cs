@@ -186,6 +186,7 @@ namespace Ryneus
             {
                 _busy = false;
                 _view.SetBusy(false);
+                _view.SetTitleCommand(_model.TitleCommand());
                 CommandRefresh();
             });
         }

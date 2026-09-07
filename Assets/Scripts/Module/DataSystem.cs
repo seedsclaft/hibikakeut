@@ -23,10 +23,6 @@ namespace Ryneus
         public static List<SystemData.CommandData> StatusCommand => System.StatusCommandData;
         public static List<SystemData.OptionCommand> OptionCommand => System.OptionCommandData;
 
-        public static Color PowerUpColor => new(128, 255, 128);
-        public static string PowerUpColorTag => "<color=#E09018>";
-        public static Color PowerDownColor => new(255, 128, 64);
-
         public static async UniTask<bool> LoadData()
         {
             Dates[DataType.Actor] = MasterDates.MasterData(ResourceSystem.LoadResource<ActorDates>("Data/Actors").Data);
@@ -60,7 +56,7 @@ namespace Ryneus
 
         private static bool LoadedDates()
         {
-            return SE != null;
+            return BGM != null && SE != null && Dates[DataType.TextDates] != null;
         }
 
         public static ActorData FindActor(int id)

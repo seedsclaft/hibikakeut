@@ -299,7 +299,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8857106727348784446}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.7794118
+  m_Size: 0.80882365
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -595,6 +595,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -853,6 +854,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1081,6 +1083,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd794d3b7e35774a85dd623a1c9b4f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SetupEnd:
+    _value: 0
+  Busy:
+    _value: 0
   _backCommand: {fileID: 1797960611845626338}
   _backGround: {fileID: 0}
   uiRoot: {fileID: 2697548994882417912}
@@ -1101,7 +1107,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseCanvas: {fileID: 1640320879829220210}
-  Busy: 0
+  Busy:
+    _value: 0
+  Initialized:
+    _value: 0
 --- !u!1 &8396325375671806595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,8 +1148,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -12, y: 34}
-  m_SizeDelta: {x: -32, y: -116}
+  m_AnchoredPosition: {x: -12, y: 26}
+  m_SizeDelta: {x: -32, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7885971794619430543
 CanvasRenderer:
@@ -1280,7 +1289,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8, y: -220}
+  m_AnchoredPosition: {x: 8, y: -228}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1782419221159353707
@@ -1295,9 +1304,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190cdf158086bd245b4536ae7ba8a705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  periodRoot: {fileID: 0}
   period: {fileID: 0}
   periodLimit: {fileID: 0}
   chapter: {fileID: 0}
+  chapterText: {fileID: 0}
   currency: {fileID: 0}
   evaluationValue: {fileID: 0}
   evaluationAddictValue: {fileID: 0}

@@ -157,9 +157,9 @@ namespace Ryneus
             _helpWindow?.SetHelpText(text);
         }
 
-        public async Task SetBackGround(string fileName)
+        public void SetBackGround(string fileName)
         {
-            _backGround.sprite = await ResourceSystem.LoadBackGround(fileName);
+            UIComponent.SetSpeiteImage(_backGround, ResourceSystem.BackGroundPath(fileName));
         }
 
         public void SetInputFrame(int frame)

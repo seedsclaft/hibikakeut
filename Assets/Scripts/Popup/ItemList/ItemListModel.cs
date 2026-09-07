@@ -149,6 +149,10 @@ namespace Ryneus
                 {
                     continue;
                 }
+                if (PartyInfo.EquipmentIds.Contains(equipment.Id))
+                {
+                    continue;
+                }
                 var equipmentInfo = new EquipmentInfo(equipment.Id);
                 list.Add(equipmentInfo);
             }

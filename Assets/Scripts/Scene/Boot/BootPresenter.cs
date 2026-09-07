@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Ryneus.Boot;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace Ryneus
 {
@@ -22,7 +23,8 @@ namespace Ryneus
 
         private async void Initialize()
         {
-            await DataSystem.LoadData();
+            var loaded = await DataSystem.LoadData();
+            await UniTask.WaitUntil(() => loaded);
             Debug.Log("Boot Success");
             Application.targetFrameRate = 60;
 #if UNITY_ANDROID && !UNITY_EDITOR

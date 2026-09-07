@@ -191,6 +191,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 _model.UpdateOptionData();
+                _view.SetSideMenuViewInfo(_model.SceneParam);
                 ClosePopup();
             });
         }
