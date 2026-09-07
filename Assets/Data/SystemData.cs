@@ -45,6 +45,7 @@ namespace Ryneus
             public int TextId;
             public int Category;
             public OptionButtonType ButtonType;
+            public bool DisplayArrow => ButtonType >= OptionButtonType.Resolution;
             public int ToggleText1;
             public int ToggleText2;
             public int ToggleText3;

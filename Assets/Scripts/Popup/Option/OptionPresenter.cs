@@ -152,7 +152,6 @@ namespace Ryneus
                     {
                         OptionUtility.ChangeGraphicIndex(2);
                     }
-                    ;
                     break;
                 case "EVENT_SKIP":
                     OptionUtility.ChangeEventSkipIndex(inputKeyType == InputKeyType.Right);

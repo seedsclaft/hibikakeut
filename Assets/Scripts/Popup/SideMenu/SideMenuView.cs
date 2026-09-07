@@ -57,9 +57,14 @@ namespace Ryneus
             SetInputHandler(sideMenuInfoList.gameObject);
         }
 
-        public void SetSideMenuViewInfo(SideMenuViewInfo sideMenuViewInfo)
+        public void SetSideMenuViewInfo(List<ListData> commandLists)
         {
-            sideMenuInfoList.SetData(sideMenuViewInfo.CommandLists);
+            sideMenuInfoList.SetData(commandLists);
+        }
+
+        public void UpdateSideMenuViewInfo()
+        {
+            sideMenuInfoList.UpdateAllItems();
         }
 
         public void ActivateSideMenu()

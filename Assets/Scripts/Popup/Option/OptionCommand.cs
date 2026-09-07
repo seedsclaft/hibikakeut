@@ -36,18 +36,22 @@ namespace Ryneus
             if (data.ButtonType == OptionButtonType.Language)
             {
                 SetLanguageText();
+            } else
+            if (data.ButtonType == OptionButtonType.BattleSpeed)
+            {
+                SetBattleSpeedText();
             }
  
             UIComponent.SetActive(optionVolume.gameObject, data.ButtonType == OptionButtonType.Slider);
             optionToggles.ForEach(a => UIComponent.SetActive(a.gameObject, data.ButtonType == OptionButtonType.Toggle));
 
-            UIComponent.SetActive(minusButton.gameObject, data.ButtonType == OptionButtonType.Resolution || data.ButtonType == OptionButtonType.Language);
-            UIComponent.SetActive(plusButton.gameObject, data.ButtonType == OptionButtonType.Resolution || data.ButtonType == OptionButtonType.Language);
-            UIComponent.SetActive(resolution.gameObject, data.ButtonType == OptionButtonType.Resolution || data.ButtonType == OptionButtonType.Language);
+            UIComponent.SetActive(minusButton.gameObject, data.DisplayArrow);
+            UIComponent.SetActive(plusButton.gameObject, data.DisplayArrow);
+            UIComponent.SetActive(resolution.gameObject, data.DisplayArrow);
 
             if (data.ToggleText1 > 0)
             {
-                optionTexts[0].text = DataSystem.GetText(data.ToggleText1);
+                UIComponent.SetText(optionTexts[0], DataSystem.GetText(data.ToggleText1));
             }
             else
             {
@@ -55,7 +59,7 @@ namespace Ryneus
             }
             if (data.ToggleText2 > 0)
             {
-                optionTexts[1].text = DataSystem.GetText(data.ToggleText2);
+                UIComponent.SetText(optionTexts[1], DataSystem.GetText(data.ToggleText2));
             }
             else
             {
@@ -63,7 +67,7 @@ namespace Ryneus
             }
             if (data.ToggleText3 > 0)
             {
-                optionTexts[2].text = DataSystem.GetText(data.ToggleText3);
+                UIComponent.SetText(optionTexts[2], DataSystem.GetText(data.ToggleText3));
             }
             else
             {
@@ -214,6 +218,11 @@ namespace Ryneus
         private void SetLanguageText()
         {
             UIComponent.SetText(resolution, DataSystem.GetText((int)GameSystem.OptionData.Language + 6050));
+        }
+        
+        private void SetBattleSpeedText()
+        {
+            UIComponent.SetText(resolution, OptionUtility.CurrentBattleSpeedText());
         }
     }
 }

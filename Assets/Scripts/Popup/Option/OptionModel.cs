@@ -108,5 +108,6 @@ namespace Ryneus
         Button,
         Resolution,
         Language,
+        BattleSpeed,
     }
 }

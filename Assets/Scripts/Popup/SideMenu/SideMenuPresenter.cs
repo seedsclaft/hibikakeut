@@ -31,7 +31,7 @@ namespace Ryneus
 
         private void InitializeAfter()
         {
-            _view.SetSideMenuViewInfo(_model.SceneParam);
+            _view.SetSideMenuViewInfo(_model.SceneParam.CommandLists);
             ClosePopup();
         }
 
@@ -191,7 +191,7 @@ namespace Ryneus
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 _model.UpdateOptionData();
-                _view.SetSideMenuViewInfo(_model.SceneParam);
+                _view.UpdateSideMenuViewInfo();
                 ClosePopup();
             });
         }
