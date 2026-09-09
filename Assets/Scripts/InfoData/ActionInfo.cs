@@ -76,6 +76,35 @@ namespace Ryneus
         private bool _triggeredSkill = false;
         public bool TriggeredSkill => _triggeredSkill;
 
+        // かばう予約情報
+        public List<BattleCoveringInfo> _coveringInfos = new();
+        public void SetCovering(int coverringIndex, int coverdIndex, bool preserved)
+        {
+            var find = _coveringInfos.Find(a => a.CoveredIndex.Value == coverdIndex && a.CoveringIndex.Value == coverringIndex);
+            if (find == null)
+            {
+                var coveringInfo = new BattleCoveringInfo();
+                coveringInfo.CoveringIndex.SetValue(coverringIndex);
+                coveringInfo.CoveredIndex.SetValue(coverdIndex);
+                coveringInfo.Reseaved.SetValue(preserved);
+                _coveringInfos.Add(coveringInfo);
+            } else
+            {
+                find.Reseaved.SetValue(preserved);
+            }
+        }
+
+        public bool PreservedCovering(int coverringIndex, int coverdIndex)
+        {
+            var find1 = _coveringInfos.Find(a => a.CoveredIndex.Value == coverringIndex && a.Reseaved.Value);
+            var find2 = _coveringInfos.Find(a => a.CoveringIndex.Value == coverdIndex && a.Reseaved.Value);
+            if (find1 != null || find2 != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public ActionInfo(SkillInfo skillInfo, int index, int subjectIndex, int lastTargetIndex, List<int> targetIndexList)
         {
             _index = index;

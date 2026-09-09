@@ -194,7 +194,8 @@ namespace Ryneus
                 for (int i = 0; i < horizontalCount; i++)
                 {
                     var itemIndex = (lastStartIndexY * horizontalCount) + (j * horizontalCount) + i;
-                    if (!WithinItemIndex(itemIndex))
+                    var checkIndex = itemIndex % _itemPrefabList.Count;
+                    if (!WithinItemIndex(checkIndex))
                     {
                         continue;
                     }
@@ -204,7 +205,7 @@ namespace Ryneus
                         continue;
                     }
                     //Debug.Log("itemIndex:" + itemIndex + "がobjectIndex: " + objectIndex);
-                    UpdateListItem(itemIndex, objectIndex);
+                    UpdateListItem(checkIndex, objectIndex);
                 }
             }
         }

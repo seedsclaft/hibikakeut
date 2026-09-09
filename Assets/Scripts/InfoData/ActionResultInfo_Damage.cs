@@ -35,6 +35,7 @@ namespace Ryneus
                 hpDamage *= DataSystem.System.WeakPointRate * 0.01f;
                 _weakPoint = true;
             }
+            hpDamage = CalcDamageValue(subject, target, hpDamage, isNoEffect);
             hpDamage = ApplyVariance(hpDamage);
             hpDamage -= CalcDamageShell(target);
             hpDamage = CalcAddDamage(subject, target, hpDamage);

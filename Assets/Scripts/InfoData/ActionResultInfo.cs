@@ -452,11 +452,11 @@ namespace Ryneus
 
         private float CalcDamageValue(BattlerInfo subject, BattlerInfo target, float SkillDamage, bool isNoEffect)
         {
-            float DamageValue = Mathf.Max(1, SkillDamage);
-            DamageValue = CalcHolyCoffin(subject, target, DamageValue);
-            DamageValue *= 1f - CalcDamageCutRate(subject, target, isNoEffect);
-            DamageValue -= CalcDamageCut(subject, target, isNoEffect);
-            return DamageValue;
+            float damageValue = Mathf.Max(1, SkillDamage);
+            damageValue = CalcHolyCoffin(subject, target, damageValue);
+            damageValue *= 1f - CalcDamageCutRate(subject, target, isNoEffect);
+            damageValue -= CalcDamageCut(subject, target, isNoEffect);
+            return damageValue;
         }
 
         private float CalcDamageCutRate(BattlerInfo subject, BattlerInfo target, bool isNoEffect)
@@ -478,6 +478,10 @@ namespace Ryneus
                         damageCutRate += subject.StateEffectAllPercent(StateType.Substitute);
                     }
                 }
+                if (subject.IsState(StateType.NoDamageCut))
+                {
+                    damageCutRate = 0;
+                }
             }
             return damageCutRate;
         }
@@ -491,6 +495,10 @@ namespace Ryneus
                 {
                     damageCut += target.StateEffectAll(StateType.DamageCut);
                     SeekStateCount(target, StateType.DamageCut);
+                }
+                if (subject.IsState(StateType.NoDamageCut))
+                {
+                    damageCut = 0;
                 }
             }
             return damageCut;

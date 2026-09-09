@@ -75,5 +75,6 @@ namespace Ryneus
         MissionRank = 8010,
         ClearStageNum = 8020,
         PartyEvaluate = 8030,
+        EvaluateValue = 8040,
     }
 }

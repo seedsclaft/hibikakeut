@@ -264,6 +264,10 @@ namespace Ryneus
 
         public void Refresh(int selectIndex = 0)
         {
+            if (selectIndex != 0)
+            {
+                UpdateScrollRect(selectIndex);
+            }
             UpdateItemPrefab();
             UpdateAllItems();
 

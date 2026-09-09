@@ -561,6 +561,10 @@ namespace Ryneus
             SetActivate(magicList);
             UIComponent.SetActive(battleActorList?.gameObject, true);
             UIComponent.SetActive(magicList?.gameObject, true);
+            if (resetScrollRect)
+            {
+                magicList.UpdateSelectIndex(0);
+            }
             magicList.SetData(skillInfos, resetScrollRect);
             OnSelectMagic();
         }

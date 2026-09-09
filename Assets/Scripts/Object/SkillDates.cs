@@ -83,9 +83,15 @@ namespace Ryneus
         {
             return FeatureDates.Find(a => (a.FeatureType == FeatureType.AddState || a.FeatureType == FeatureType.AddStateNextTurn) && DataSystem.FindState(a.Param1).Buff) != null;
         }
+
         public bool IsAddAbnormalFeature()
         {
             return FeatureDates.Find(a => (a.FeatureType == FeatureType.AddState || a.FeatureType == FeatureType.AddStateNextTurn) && DataSystem.FindState(a.Param1).Abnormal) != null;
+        }
+
+        public List<FeatureData> AddAbnormalFeatures()
+        {
+            return FeatureDates.FindAll(a => (a.FeatureType == FeatureType.AddState || a.FeatureType == FeatureType.AddStateNextTurn) && DataSystem.FindState(a.Param1).Abnormal);
         }
 
         public bool IsRevengeHpDamageFeature()

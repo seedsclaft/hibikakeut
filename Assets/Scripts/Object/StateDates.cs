@@ -132,6 +132,7 @@ namespace Ryneus
         Curse = 2470,
         StateDefense = 2480,
         NotCover = 2490,
+        NoDamageCut = 2500,
         Linkage = 3020,
         NoApRecover = 9999
     }

@@ -125,6 +125,12 @@ namespace Ryneus
                 case AchievementConditionType.ClearStage:
                     // ステージクリア
                     return PartyInfo.ClearedStages.Find(a => a.Value == evaluatePrize.Param1) != null;
+                case AchievementConditionType.EvaluateValue:
+                    if (PartyInfo.PartyStatInfo.BattleScore.Value >= evaluatePrize.Param1)
+                    {
+                        return true;
+                    }
+                    break;
                 default:
                     return true;
             }

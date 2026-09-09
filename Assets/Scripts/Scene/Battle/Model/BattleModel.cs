@@ -785,8 +785,11 @@ namespace Ryneus
             {
                 var target = GetBattlerInfo(targetIndex);
                 var friends = GetFriendUnit(target);
-                BattlerInfo coverableBattlerInfo = null;
+                List<BattlerInfo> coveringBattlerInfos = new();
+                List<int> coveredBattlerIds = new();
                 var coverableBattlerInfos = friends.CoverableBattlerInfo(target);
+                // 速度順に並べる
+                coverableBattlerInfos.Sort((a, b) => a.CurrentSpd() - b.CurrentSpd() > 0 ? -1 : 1);
                 foreach (var battlerInfo in coverableBattlerInfos)
                 {
                     if (battlerInfo.IsState(StateType.NoPassive))
@@ -826,9 +829,31 @@ namespace Ryneus
                         {
                             continue;
                         }
+                        // selectTargetは使わないtargetIndexで固定
+                        // 既にかばう予約済み
+                        if (actionInfo.PreservedCovering(battlerInfo.Index.Value, targetIndex))
+                        {
+                            continue;
+                        }
+                        // すでにかばう対象になっている場合は重ならない
+                        if (coveredBattlerIds.Contains(targetIndex))
+                        {
+                            continue;
+                        }
+                        if (coveringBattlerInfos.Contains(battlerInfo))
+                        {
+                            continue;
+                        }
+                        // 元の対象の数を超えない
+                        if (coveredBattlerIds.Count >= indexList.Count)
+                        {
+                            continue; 
+                        }
                         var IsInterrupt = true;
-                        var result = MakePassiveSkillActionResults(battlerInfo, passiveInfo, IsInterrupt, selectTarget, actionInfo, null, triggerDates[0]);
-                        coverableBattlerInfo = battlerInfo;
+                        var result = MakePassiveSkillActionResults(battlerInfo, passiveInfo, IsInterrupt, targetIndex, actionInfo, null, triggerDates[0]);
+                        coveringBattlerInfos.Add(battlerInfo);
+                        coveredBattlerIds.Add(targetIndex);
+                        actionInfo.SetCovering(battlerInfo.Index.Value, targetIndex, true);
                         if (result != null && result.ActionResults.Count > 0)
                         {
                             //checkedSkillIds.Add(passiveInfo.Id.Value);
@@ -841,21 +866,16 @@ namespace Ryneus
                         }
                     }
                 }
-                if (coverableBattlerInfo != null && !coverBattlerIds.Contains(coverableBattlerInfo.Index.Value) && !coverableBattlerInfo.IsFriendBattler(subject) && coverableBattlerInfo.Index.Value != targetIndex)
+                if (coveringBattlerInfos.Count > 0)
                 {
-                    // かばう成立
-                    coverBattlerIds.Add(coverableBattlerInfo.Index.Value);
-                    if (!newIndexList.Contains(coverableBattlerInfo.Index.Value))
-                    {
-                        newIndexList.Add(coverableBattlerInfo.Index.Value);
+                    foreach (var coveringBattlerInfo in coveringBattlerInfos)
+                    {   
+                        // かばう成立
+                        newIndexList.Add(coveringBattlerInfo.Index.Value);
                     }
-                }
-                else
+                } else
                 {
-                    if (!newIndexList.Contains(targetIndex))
-                    {
-                        newIndexList.Add(targetIndex);
-                    }
+                    newIndexList = indexList;
                 }
             }
             return newIndexList;

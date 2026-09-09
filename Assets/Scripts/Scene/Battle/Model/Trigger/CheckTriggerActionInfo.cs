@@ -240,7 +240,10 @@ namespace Ryneus
             var targetBattlerInfo = checkTriggerInfo.GetBattlerInfo(checkTriggerInfo.CoverTargetIndex);
             if (targetBattlerInfo != null && !subject.IsFriendBattler(targetBattlerInfo) && battlerInfo.Index.Value != targetBattlerInfo.Index.Value && battlerInfo.IsFriendBattler(targetBattlerInfo))
             {
-                list.Add(targetBattlerInfo.Index.Value);
+                if (!targetBattlerInfo.IsState(StateType.Cover))
+                {
+                    list.Add(targetBattlerInfo.Index.Value);
+                }
             }
             return list;
         }
@@ -428,6 +431,15 @@ namespace Ryneus
             if (!actionInfo.Master.IsAddAbnormalFeature())
             {
                 return list;
+            }
+            if (triggerData.Param3 != 0)
+            {
+                // 状態異常を指定
+                var features = actionInfo.Master.AddAbnormalFeatures();
+                if (features.Find(a => a.Param1 == triggerData.Param3) == null)
+                {
+                    return list;
+                }
             }
             var results = actionInfo.ActionResults.FindAll(a => checkTriggerInfo.Friends.Find(b => b.Index.Value == a.TargetIndex.Value) != null);
             foreach (var result in results)

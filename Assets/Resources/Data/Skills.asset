@@ -2662,49 +2662,47 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 11050
-    Name: "\u30A4\u30B0\u30CA\u30A4\u30C6\u30C3\u30C9"
-    EnglishName: Ignited
+    Name: "\u30AD\u30E5\u30A2\u30D5\u30A1\u30A4\u30A2"
+    EnglishName: Cure Fire
     IconIndex: 6
-    AnimationId: 1109
+    AnimationId: 3023
     AnimationType: 1
     MpCost: 0
-    CountTurn: 0
+    CountTurn: 5
     Rank: 20
     Attribute: 1
-    Scope: 4
+    Scope: 1
     SkillType: 2
-    TargetType: 4
-    Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\u306B\u306A\u3063\u305F\u6642\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\u307E\u3067\n\\s\u306ECT-/f[f,0,1]"
-    EnglishHelp: '(Condition: When awoken)
+    TargetType: 2
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u306B\u706B\u50B7\u304C\u4ED8\u4E0E\u3055\u308C\u305F\u969B\u306B\u767A\u52D5\n\\s\u306E\u706B\u50B7\u3092\u56DE\u5FA9\u3057HP\u309210%\u56DE\u5FA9\u3059\u308B"
+    EnglishHelp: '(Condition: At the start of battle)
 
-      (Limit: Once per battle)
-
-      Decrease
-      \s''s CT by /f[f,0,1].'
+      Increase \s''s ATK by
+      /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 11050
-      FeatureType: 4020
-      Param1: 3
-      Param2: 1
+      FeatureType: 3020
+      Param1: 2012
+      Param2: 0
       Param3: 0
+      Rate: 100
+    - SkillId: 11050
+      FeatureType: 2010
+      Param1: 10
+      Param2: 0
+      Param3: 1
       Rate: 100
     TriggerDates:
     - SkillId: 11050
-      TriggerType: 6010
-      TriggerTiming: 61
-      Param1: 1010
-      Param2: 1
-      Param3: 1
-    - SkillId: 11050
-      TriggerType: 11010
-      TriggerTiming: 61
-      Param1: 1
+      TriggerType: 12064
+      TriggerTiming: 11
+      Param1: 0
       Param2: 0
-      Param3: 0
+      Param3: 2012
     ScopeTriggers: []
   - Id: 11070
     Name: "\u30EB\u30FC\u30B8\u30E5\u30D0\u30C3\u30AF"
@@ -3080,6 +3078,51 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
     ScopeTriggers: []
+  - Id: 11950
+    Name: "\u30A4\u30B0\u30CA\u30A4\u30C6\u30C3\u30C9"
+    EnglishName: Ignited
+    IconIndex: 6
+    AnimationId: 1109
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 20
+    Attribute: 1
+    Scope: 4
+    SkillType: 2
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\u306B\u306A\u3063\u305F\u6642\n(\u5236\u9650)\u30D0\u30C8\u30EB\u4E2D1\u56DE\u307E\u3067\n\\s\u306ECT-/f[f,0,1]"
+    EnglishHelp: '(Condition: When awoken)
+
+      (Limit: Once per battle)
+
+      Decrease
+      \s''s CT by /f[f,0,1].'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 11950
+      FeatureType: 4020
+      Param1: 3
+      Param2: 1
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 11950
+      TriggerType: 6010
+      TriggerTiming: 61
+      Param1: 1010
+      Param2: 1
+      Param3: 1
+    - SkillId: 11950
+      TriggerType: 11010
+      TriggerTiming: 61
+      Param1: 1
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
   - Id: 12010
     Name: "\u30AF\u30ED\u30FC\u30B9\u30A8\u30C3\u30B8"
     EnglishName: Close Edge
@@ -3273,6 +3316,46 @@ MonoBehaviour:
       Param1: 0
       Param2: 0
       Param3: 0
+    ScopeTriggers: []
+  - Id: 12050
+    Name: "\u30AD\u30E5\u30A2\u30B9\u30BF\u30F3"
+    EnglishName: Cure Stun
+    IconIndex: 6
+    AnimationId: 3023
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 20
+    Attribute: 2
+    Scope: 1
+    SkillType: 2
+    TargetType: 2
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u306B\u30B9\u30BF\u30F3\u304C\u4ED8\u4E0E\u3055\u308C\u305F\u969B\u306B\u767A\u52D5\n\\s\u306E\u30B9\u30BF\u30F3\u3092\u56DE\u5FA9\u3057HP\u309210%\u56DE\u5FA9\u3059\u308B"
+    EnglishHelp: Increase \s's evasion rate by /f[f,0,3]%.
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 12050
+      FeatureType: 3020
+      Param1: 2150
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 12050
+      FeatureType: 2010
+      Param1: 10
+      Param2: 0
+      Param3: 1
+      Rate: 100
+    TriggerDates:
+    - SkillId: 12050
+      TriggerType: 12064
+      TriggerTiming: 11
+      Param1: 0
+      Param2: 0
+      Param3: 2150
     ScopeTriggers: []
   - Id: 12070
     Name: "\u30BD\u30FC\u30B5\u30EA\u30FC\u30B3\u30CD\u30AF\u30C8"
@@ -3943,50 +4026,45 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 13050
-    Name: "\u30D1\u30C3\u30B7\u30D6\u30B8\u30E3\u30DF\u30F3\u30B0"
-    EnglishName: Passive Jamming
+    Name: "\u30AD\u30E5\u30A2\u30D5\u30EA\u30FC\u30BA"
+    EnglishName: Cure Freeze
     IconIndex: 6
-    AnimationId: 1109
+    AnimationId: 3023
     AnimationType: 1
     MpCost: 0
-    CountTurn: 5
+    CountTurn: 0
     Rank: 20
     Attribute: 3
     Scope: 1
     SkillType: 2
-    TargetType: 11
-    Help: "(\u6761\u4EF6)\u76F8\u624B\u304C\u30D0\u30D5\u3092\u4ED8\u4E0E\u3059\u308B\u76F4\u524D\n\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u306E\u30D1\u30C3\u30B7\u30D6\u5C01\u3058\u3092\u4ED8\u4E0E\n/s"
-    EnglishHelp: '(Condition: Just before the opponent applies a buff)
-
-      Grant
-      \s passive skill lock for /f[f,0,2] turns.
-
-      /s'
+    TargetType: 2
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u306B\u51CD\u7D50\u304C\u4ED8\u4E0E\u3055\u308C\u305F\u969B\u306B\u767A\u52D5\n\\s\u306E\u51CD\u7D50\u3092\u56DE\u5FA9\u3057HP\u309210%\u56DE\u5FA9\u3059\u308B"
+    EnglishHelp: Increase \s's evasion rate by /f[f,0,3]%.
     Range: 1
     RepeatTime: 1
     AliveType: 1
-    TimingOnlyCount: 1
+    TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 13050
-      FeatureType: 3010
-      Param1: 2090
-      Param2: 3
+      FeatureType: 3020
+      Param1: 2140
+      Param2: 0
       Param3: 0
+      Rate: 100
+    - SkillId: 13050
+      FeatureType: 2010
+      Param1: 10
+      Param2: 0
+      Param3: 1
       Rate: 100
     TriggerDates:
     - SkillId: 13050
-      TriggerType: 15022
-      TriggerTiming: 23
+      TriggerType: 12064
+      TriggerTiming: 11
       Param1: 0
       Param2: 0
-      Param3: 0
-    ScopeTriggers:
-    - SkillId: 13050
-      TriggerType: 18020
-      TriggerTiming: 0
-      Param1: 0
-      Param2: 0
-      Param3: 0
+      Param3: 2140
+    ScopeTriggers: []
   - Id: 13070
     Name: "\u30A2\u30B7\u30C3\u30C9\u30E9\u30C3\u30B7\u30E5"
     EnglishName: Assist Rush
@@ -4531,6 +4609,51 @@ MonoBehaviour:
       Param2: 4
       Param3: 0
     ScopeTriggers: []
+  - Id: 13950
+    Name: "\u30D1\u30C3\u30B7\u30D6\u30B8\u30E3\u30DF\u30F3\u30B0"
+    EnglishName: Passive Jamming
+    IconIndex: 6
+    AnimationId: 1109
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 5
+    Rank: 20
+    Attribute: 3
+    Scope: 1
+    SkillType: 2
+    TargetType: 11
+    Help: "(\u6761\u4EF6)\u76F8\u624B\u304C\u30D0\u30D5\u3092\u4ED8\u4E0E\u3059\u308B\u76F4\u524D\n\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u306E\u30D1\u30C3\u30B7\u30D6\u5C01\u3058\u3092\u4ED8\u4E0E\n/s"
+    EnglishHelp: '(Condition: Just before the opponent applies a buff)
+
+      Grant
+      \s passive skill lock for /f[f,0,2] turns.
+
+      /s'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 1
+    FeatureDates:
+    - SkillId: 13950
+      FeatureType: 3010
+      Param1: 2090
+      Param2: 3
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 13950
+      TriggerType: 15022
+      TriggerTiming: 23
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers:
+    - SkillId: 13950
+      TriggerType: 18020
+      TriggerTiming: 0
+      Param1: 0
+      Param2: 0
+      Param3: 0
   - Id: 14010
     Name: "\u30D5\u30A1\u30FC\u30B9\u30C8\u30A8\u30A4\u30C9"
     EnglishName: First Aid
@@ -4624,7 +4747,7 @@ MonoBehaviour:
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3059\u308B\u524D\n\u304B\u3070\u3046\u306E\u767A\u52D5\u3092\u7121\u8996\u3059\u308B"
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3059\u308B\u524D\n\u30C0\u30E1\u30FC\u30B8\u8EFD\u6E1B\u52B9\u679C\u3092\u7121\u8996\u3059\u308B"
     EnglishHelp: '(Condition: Before attacking)
 
       Ignore guard activation.'
@@ -4635,7 +4758,7 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 14030
       FeatureType: 3010
-      Param1: 2490
+      Param1: 2500
       Param2: 1
       Param3: 0
       Rate: 100
@@ -4683,6 +4806,49 @@ MonoBehaviour:
       Param1: 0
       Param2: 0
       Param3: 0
+    ScopeTriggers: []
+  - Id: 14050
+    Name: "\u30AD\u30E5\u30A2\u30D1\u30C3\u30B7\u30D6"
+    EnglishName: Cure Passive
+    IconIndex: 6
+    AnimationId: 3023
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 20
+    Attribute: 4
+    Scope: 1
+    SkillType: 2
+    TargetType: 2
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u306B\u30D1\u30C3\u30B7\u30D6\u5C01\u3058\u304C\u4ED8\u4E0E\u3055\u308C\u305F\u969B\u306B\u767A\u52D5\n\\s\u306E\u30D1\u30C3\u30B7\u30D6\u5C01\u3058\u3092\u56DE\u5FA9\u3057HP\u309210%\u56DE\u5FA9\u3059\u308B"
+    EnglishHelp: '(Condition: At the start of battle)
+
+      Increase \s''s max HP
+      by /f[f,0,3].'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 14050
+      FeatureType: 3020
+      Param1: 2090
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 14050
+      FeatureType: 2010
+      Param1: 10
+      Param2: 0
+      Param3: 1
+      Rate: 100
+    TriggerDates:
+    - SkillId: 14050
+      TriggerType: 12064
+      TriggerTiming: 11
+      Param1: 0
+      Param2: 0
+      Param3: 2090
     ScopeTriggers: []
   - Id: 14060
     Name: "\u30D1\u30C3\u30B7\u30D6\u30B5\u30D7\u30E9\u30A4"
@@ -5124,7 +5290,7 @@ MonoBehaviour:
       Param3: 1
     - SkillId: 15010
       TriggerType: 11010
-      TriggerTiming: 0
+      TriggerTiming: 31
       Param1: 1
       Param2: 0
       Param3: 0
@@ -5245,6 +5411,49 @@ MonoBehaviour:
       Param1: 50
       Param2: 0
       Param3: 0
+    ScopeTriggers: []
+  - Id: 15050
+    Name: "\u30AD\u30E5\u30A2\u30B7\u30A7\u30A4\u30C9"
+    EnglishName: Cure Shade
+    IconIndex: 6
+    AnimationId: 3023
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 20
+    Attribute: 5
+    Scope: 1
+    SkillType: 2
+    TargetType: 2
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u306B\u6697\u95C7\u304C\u4ED8\u4E0E\u3055\u308C\u305F\u969B\u306B\u767A\u52D5\n\\s\u306E\u6697\u95C7\u3092\u56DE\u5FA9\u3057HP\u309210%\u56DE\u5FA9\u3059\u308B"
+    EnglishHelp: '(Condition: When HP is below 50%)
+
+      Restore HP by /f[f,0,3]%
+      of damage taken.'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 15050
+      FeatureType: 3020
+      Param1: 2020
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 15050
+      FeatureType: 2010
+      Param1: 10
+      Param2: 0
+      Param3: 1
+      Rate: 100
+    TriggerDates:
+    - SkillId: 15050
+      TriggerType: 12064
+      TriggerTiming: 11
+      Param1: 0
+      Param2: 0
+      Param3: 2020
     ScopeTriggers: []
   - Id: 15060
     Name: "\u30A2\u30F3\u30C7\u30C3\u30C9\u30DA\u30A4\u30F3"
@@ -12910,6 +13119,146 @@ MonoBehaviour:
       Param1: 4
       Param2: 0
       Param3: 1
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 506020
+    Name: "\u708E\u5C5E\u6027\u8010\u6027+20%"
+    EnglishName: Fire Resist +25%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 6
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u708E\u5C5E\u6027\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: Reduce \s's fire damage by /f[f,0,3]%.
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 506020
+      FeatureType: 3010
+      Param1: 1310
+      Param2: 0
+      Param3: 15
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 506030
+    Name: "\u96F7\u5C5E\u6027\u8010\u6027+20%"
+    EnglishName: Thunder Resist +25%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 6
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u96F7\u5C5E\u6027\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: Reduce \s's thunder damage by /f[f,0,3]%.
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 506030
+      FeatureType: 3010
+      Param1: 1320
+      Param2: 0
+      Param3: 15
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 506040
+    Name: "\u6C37\u5C5E\u6027\u8010\u6027+20%"
+    EnglishName: Ice Resist +25%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 6
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u6C37\u5C5E\u6027\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: Reduce \s's ice damage by /f[f,0,3]%.
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 506040
+      FeatureType: 3010
+      Param1: 1330
+      Param2: 0
+      Param3: 15
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 506050
+    Name: "\u5149\u5C5E\u6027\u8010\u6027+20%"
+    EnglishName: Shine Resist +25%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 6
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u5149\u5C5E\u6027\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: Reduce \s's shine damage by /f[f,0,3]%.
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 506050
+      FeatureType: 3010
+      Param1: 1340
+      Param2: 0
+      Param3: 15
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 506060
+    Name: "\u95C7\u5C5E\u6027\u8010\u6027+20%"
+    EnglishName: Dark Resist +25%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 6
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u95C7\u5C5E\u6027\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: Reduce \s's dark damage by /f[f,0,3]%.
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 506060
+      FeatureType: 3010
+      Param1: 1350
+      Param2: 0
+      Param3: 15
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []

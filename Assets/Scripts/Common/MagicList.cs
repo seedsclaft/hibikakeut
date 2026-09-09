@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,9 @@ namespace Ryneus
     {
         [SerializeField] private SkillInfoComponent skillInfoComponent;
         [SerializeField] private ScrollRect scrollHelp;
+        [SerializeField] private GameObject descriptionListObj;
+        [SerializeField] private GameObject descriptionListTarget;
+        [SerializeField] private ScrollRect descriptionScrollRect;
         public new void Initialize()
         {
             base.Initialize();
@@ -28,6 +32,15 @@ namespace Ryneus
                 if (skillInfo.FeatureDates.Count > 0 || skillInfo.Master.SkillType == SkillType.Kind)
                 {
                     skillInfoComponent.UpdateInfo(skillInfo);
+                    if (descriptionListObj != null && descriptionListTarget != null)
+                    {
+                        var length = Math.Max(3, skillInfo.ConvertHelpText().Split("\n").Length);
+                        var height = 32 + 24 * length;
+                        var descriptionRect = descriptionListObj.GetComponent<RectTransform>();
+                        descriptionRect.sizeDelta = new Vector2(descriptionRect.sizeDelta.x, height);
+                        LayoutRebuilder.ForceRebuildLayoutImmediate(descriptionListTarget.GetComponent<RectTransform>());
+                        descriptionScrollRect.vertical = length > 3;
+                    }
                 }
                 else
                 {

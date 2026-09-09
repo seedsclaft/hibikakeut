@@ -18,9 +18,6 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI type;
         [SerializeField] private TextMeshProUGUI useCount;
         [SerializeField] private TextMeshProUGUI description;
-        [SerializeField] private GameObject descriptionListObj;
-        [SerializeField] private GameObject descriptionListTarget;
-        [SerializeField] private ScrollRect descriptionScrollRect;
         [SerializeField] private TextMeshProUGUI range;
         [SerializeField] private TextMeshProUGUI learningCost;
         [SerializeField] private GameObject countTurnRoot;
@@ -45,14 +42,6 @@ namespace Ryneus
             {
                 var convertHelpText = skillInfo.ConvertHelpText();
                 UIComponent.SetText(description, convertHelpText);
-                if (descriptionListObj != null && descriptionListTarget != null)
-                {
-                    var length = Math.Max(3, convertHelpText.Split("\n").Length);
-                    var height = 32 + 24 * length;
-                    descriptionListObj.GetComponent<RectTransform>().sizeDelta = new Vector2(440, height);
-                    LayoutRebuilder.ForceRebuildLayoutImmediate(descriptionListTarget.GetComponent<RectTransform>());
-                    descriptionScrollRect.vertical = length > 3;
-                }
             }
             UIComponent.SetActive(selectable, skillInfo.LearningState == LearningState.SelectLearn);
             if (learningCost != null)

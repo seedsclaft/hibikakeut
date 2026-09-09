@@ -713,6 +713,7 @@ MonoBehaviour:
   learningRate: {fileID: 8520183353051823463}
   learningExp: {fileID: 8365876705707921082}
   skillExpGauge: {fileID: 7093657925181724853}
+  miniDisplay: 1
 --- !u!114 &1131618494759679219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,9 +736,6 @@ MonoBehaviour:
   type: {fileID: 0}
   useCount: {fileID: 0}
   description: {fileID: 0}
-  descriptionListObj: {fileID: 0}
-  descriptionListTarget: {fileID: 0}
-  descriptionScrollRect: {fileID: 0}
   range: {fileID: 0}
   learningCost: {fileID: 0}
   countTurnRoot: {fileID: 0}
@@ -1289,7 +1287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 12, y: 0}
+  m_AnchoredPosition: {x: 40, y: 0}
   m_SizeDelta: {x: 160, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4095830307209930077
@@ -1348,12 +1346,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 16
   m_fontSizeBase: 18
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 24
-  m_fontSizeMax: 24
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 16
+  m_fontSizeMax: 18
   m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
