@@ -115,7 +115,7 @@ namespace Ryneus
 
         public bool IsBattleActiveSkill()
         {
-            return SkillType is SkillType.Active;
+            return SkillType is SkillType.Active or SkillType.Awaken;
         }
 
         public bool IsBattleSpecialSkill()
@@ -535,6 +535,8 @@ namespace Ryneus
         MastarySkill = 16020, // 元スキルを会得している
         SkillUsedCount = 17010, // 魔法を〇回使用する
         AttackedCount = 17020, // 攻撃を〇回受ける
+        AttackCount = 17021, // 攻撃を〇回成功する
+        ActiveAttackCount = 17022, // 攻撃を〇回成功する
         BeCriticalCount = 17030, // クリティカル攻撃を〇回受ける
         DodgeCountOver = 17040, // 回避を〇回行う
         HpHealCountOver = 17050, // Hp回復魔法を〇回行う

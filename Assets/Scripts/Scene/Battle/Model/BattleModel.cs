@@ -1032,7 +1032,7 @@ namespace Ryneus
                 subject.GainMp(actionInfo.MpCost.Value * -1);
                 //subject.GainPayBattleMp(actionInfo.MpCost);
                 subject.InitCountTurn(actionInfo.SkillInfo.Id.Value);
-                if (actionInfo.Master.IsBattleActiveSkill())
+                if (actionInfo.Master.IsBattleActiveSkill() && actionInfo.SkillInfo.Id.Value > 1000)
                 {
                     subject.LastSelectSkill.SetValue(actionInfo.SkillInfo.Id.Value);
                 }
@@ -1050,6 +1050,14 @@ namespace Ryneus
             if (actionInfo.Master.IsHpHealFeature())
             {
                 subject.Examine.HealCount.GainValue(1);
+            }
+            if (actionInfo.ActionResults != null && actionInfo.ActionResults.Find(a => a.HpDamage.Value > 0) != null)
+            {
+                GainAttackCount(subject.Index.Value);
+                if (actionInfo.Master.IsBattleActiveSkill())
+                {
+                    GainActiveAttackCount(subject.Index.Value);
+                }
             }
             /*
             if (addSaveData)
@@ -2531,6 +2539,16 @@ namespace Ryneus
                 }
             }
             return removeStateInfos;
+        }
+
+        public void GainAttackCount(int targetIndex)
+        {
+            GetBattlerInfo(targetIndex).Examine.AttackCount.GainValue(1);
+        }
+
+        public void GainActiveAttackCount(int targetIndex)
+        {
+            GetBattlerInfo(targetIndex).Examine.ActiveAttackCount.GainValue(1);
         }
 
         public void GainAttackedCount(int targetIndex)

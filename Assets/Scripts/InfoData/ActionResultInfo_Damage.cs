@@ -25,7 +25,7 @@ namespace Ryneus
         {
             if (IsCritical(subject, target))
             {
-                hpDamage *= 1.5f + CriticalDamageRate(subject);
+                hpDamage *= 1.5f + CriticalDamagePercent(subject);
             }
 
             // 有利属性なら1.5倍

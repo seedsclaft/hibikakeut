@@ -44,6 +44,8 @@ namespace Ryneus
                 return _model.PartyInfo.GetDungeonTraverse(stageInfo.StageId.Value) == null;
             };
             var stageInfos = _model.StageInfos();
+            // Battleステージを最上にする
+            stageInfos.Sort((a, b) => a.Master.Category == StageCategory.BattleField ? -1 : 1);
             var index = stageInfos.FindIndex(a => a.StageId.Value == _model.CurrentDeckInfo.StageNo.Value);
 
             _view.SetStageList(MakeListData(stageInfos, enable, null, batch, index != -1 ? index : 0));

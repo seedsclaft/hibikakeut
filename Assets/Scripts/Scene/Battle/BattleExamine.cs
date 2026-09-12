@@ -7,6 +7,8 @@ namespace Ryneus
 
         public ParameterInt ChainSuccessCount = new();
         public ParameterInt PayBattleMp = new();
+        public ParameterInt AttackCount = new();
+        public ParameterInt ActiveAttackCount = new();
         public ParameterInt AttackedCount = new();
         public ParameterInt MaxDamage = new();
         public ParameterInt DodgeCount = new();
@@ -19,6 +21,8 @@ namespace Ryneus
         {
             ChainSuccessCount.SetValue(0);
             PayBattleMp.SetValue(0);
+            AttackCount.SetValue(0);
+            ActiveAttackCount.SetValue(0);
             AttackedCount.SetValue(0);
             HealCount.SetValue(0);
             BeCriticalCount.SetValue(0);

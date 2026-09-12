@@ -29,6 +29,18 @@ namespace Ryneus
                         isTrigger = true;
                     }
                     break;
+                case TriggerType.AttackCount:
+                    if (battlerInfo.IsAlive() && battlerInfo.Examine.AttackCount.Value >= triggerData.Param1)
+                    {
+                        isTrigger = true;
+                    }
+                    break;
+                case TriggerType.ActiveAttackCount:
+                    if (battlerInfo.IsAlive() && battlerInfo.Examine.ActiveAttackCount.Value >= triggerData.Param1)
+                    {
+                        isTrigger = true;
+                    }
+                    break;
                 case TriggerType.BeCriticalCount:
                     if (battlerInfo.IsAlive() && battlerInfo.Examine.BeCriticalCount.Value >= triggerData.Param1)
                     {

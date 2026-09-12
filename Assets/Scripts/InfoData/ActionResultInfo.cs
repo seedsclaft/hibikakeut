@@ -1279,9 +1279,9 @@ namespace Ryneus
             return _critical;
         }
 
-        private float CriticalDamageRate(BattlerInfo subject)
+        private float CriticalDamagePercent(BattlerInfo subject)
         {
-            return subject.StateEffectAllRate(StateType.CriticalDamageRateUp);
+            return subject.StateEffectAllPercent(StateType.CriticalDamageRateUp);
         }
 
         private int AntiDoteDamageValue(BattlerInfo target)
