@@ -98,7 +98,8 @@ namespace Ryneus
         {
             var find1 = _coveringInfos.Find(a => a.CoveredIndex.Value == coverringIndex && a.Reseaved.Value);
             var find2 = _coveringInfos.Find(a => a.CoveringIndex.Value == coverdIndex && a.Reseaved.Value);
-            if (find1 != null || find2 != null)
+            var find3 = _coveringInfos.Find(a => a.CoveringIndex.Value == coverringIndex && a.Reseaved.Value);
+            if (find1 != null || find2 != null || find3 != null)
             {
                 return true;
             }

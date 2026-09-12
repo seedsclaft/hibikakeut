@@ -492,10 +492,7 @@ MonoBehaviour:
   type: {fileID: 4023139092574847605}
   useCount: {fileID: 0}
   description: {fileID: 7356050685868817714}
-  descriptionListObj: {fileID: 7803468728913982866}
-  descriptionListTarget: {fileID: 1600181272332460810}
-  descriptionScrollRect: {fileID: 1413990383230388228}
-  range: {fileID: 0}
+  range: {fileID: 3343377487217768870}
   learningCost: {fileID: 0}
   countTurnRoot: {fileID: 0}
   countTurn: {fileID: 1362134825871045325}
@@ -520,6 +517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.BaseListComponent
   clickButton: {fileID: 0}
   cursor: {fileID: 6646532153313049960}
+  subCursors: []
   selectArrow: {fileID: 0}
   changeCursorColor: 0
   cursorRectAnimation: {fileID: 0}
@@ -543,6 +541,10 @@ MonoBehaviour:
   stageInfoComponent: {fileID: 0}
   useItemInfoComponent: 0
   itemInfoComponent: {fileID: 0}
+  useEquipmentInfoComponent: 0
+  equipmentInfoComponent: {fileID: 0}
+  useEquipmentLearningInfoComponent: 0
+  equipmentLearningInfoComponent: {fileID: 0}
 --- !u!1 &6289032784674721572
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,6 +1472,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3343377487217768870 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7223885627980185146, guid: 6198291009664e04db3a0e66fd421526,
+    type: 3}
+  m_PrefabInstance: {fileID: 5343087372913985436}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4023139092574847605 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9075731918862976489, guid: 6198291009664e04db3a0e66fd421526,
@@ -1512,12 +1526,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &7803468728913982866 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2768879098710241806, guid: 6198291009664e04db3a0e66fd421526,
-    type: 3}
-  m_PrefabInstance: {fileID: 5343087372913985436}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7784752521207740534
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -136,7 +136,7 @@ namespace Ryneus
                 {
                     continue;
                 }
-                if (equipment.Rank > itemData.Param1)
+                if (equipment.Rank != itemData.Param1)
                 {
                     continue;
                 }

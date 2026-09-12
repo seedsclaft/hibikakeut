@@ -875,7 +875,7 @@ namespace Ryneus
                     }
                 } else
                 {
-                    newIndexList = indexList;
+                    newIndexList.Add(targetIndex);
                 }
             }
             return newIndexList;

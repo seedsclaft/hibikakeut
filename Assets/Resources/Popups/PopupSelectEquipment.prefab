@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: -212}
+  m_AnchoredPosition: {x: 100, y: -200}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1072614430794942531
@@ -285,6 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2b9a5f61dc393479d14dcf7a492063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ryneus.SelectEquipmentView
+  SetupEnd:
+    _value: 0
   Busy:
     _value: 0
   _backCommand: {fileID: 8709618163501996612}
@@ -308,6 +310,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseCanvas: {fileID: 5255577122630078837}
   Busy:
+    _value: 0
+  Initialized:
     _value: 0
 --- !u!1001 &284902750186913280
 PrefabInstance:

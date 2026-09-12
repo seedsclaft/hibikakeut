@@ -153,8 +153,11 @@ namespace Ryneus
             {
                 UpdateLineImage();
             }
+            /*
             var rangeTextId = skillData.Range == RangeType.S ? 2210 : 2220;
             UIComponent.SetText(range, DataSystem.GetText(rangeTextId));
+            */
+            UIComponent.SetActive(range, skillData.Range == RangeType.L);
         }
 
         private void UpdateSkillIcon(MagicIconType iconIndex)
@@ -232,7 +235,7 @@ namespace Ryneus
             UIComponent.SetActive(learningCost, false);
             UIComponent.ClearText(learningCost);
             UIComponent.SetActive(range, false);
-            UIComponent.ClearText(range);
+            //UIComponent.ClearText(range);
             UIComponent.SetActive(countTurnRoot, false);
             UIComponent.SetActive(rank, false);
             rank?.gameObject?.transform.parent.gameObject.SetActive(false);
