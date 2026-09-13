@@ -2727,15 +2727,7 @@ namespace Ryneus
             var list = new List<GetItemInfo>();
             var enemyInfos = BattlerEnemies().FindAll(a => !a.IsAlive());
             var bossLv = enemyInfos.Max(a => a.Level.Value);
-            var exp = 20f;
-            if (enemyInfos.Count == 2)
-            {
-                exp = 30f / 2f;
-            }
-            if (enemyInfos.Count == 3)
-            {
-                exp = 40f / 3f;
-            }
+            var exp = 10f;
             //var battleScore = PartyInfo.PartyStatInfo.BattleScore.Value;
             // 経験値アイテムを作る
             foreach (var actorInfo in UnitBattlerActors())

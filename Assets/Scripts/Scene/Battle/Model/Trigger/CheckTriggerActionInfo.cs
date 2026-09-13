@@ -262,7 +262,7 @@ namespace Ryneus
 
             foreach (var candidateTargetIndexList in checkTriggerInfo.ActionInfo.CandidateTargetIndexList)
             {
-                if (checkTriggerInfo.ActionResultInfos.Find(a => a.TargetIndex.Value == candidateTargetIndexList) != null)
+                if (checkTriggerInfo.ActionResultInfos != null && checkTriggerInfo.ActionResultInfos.Find(a => a.TargetIndex.Value == candidateTargetIndexList) != null)
                 {
                     list.Add(candidateTargetIndexList);
                 }

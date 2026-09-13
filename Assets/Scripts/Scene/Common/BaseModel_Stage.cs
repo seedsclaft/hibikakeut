@@ -8,6 +8,7 @@ namespace Ryneus
         {
             var claerList = new List<StageInfo>();
             var list = new List<StageInfo>();
+            var idx = 0;
             foreach (var stageData in DataSystem.Dates[DataType.Stages].ToList<StageData>())
             {
                 if (!stageData.Selectable)
@@ -29,6 +30,7 @@ namespace Ryneus
                 var cleared = PartyInfo.IsClaeredStage(stageData.StageNo);
                 var alarted = PartyInfo.IsAlartedStage(stageData.StageNo);
                 var stageInfo = new StageInfo(stageData.Id, cleared, alarted);
+                stageInfo.SetSortIndex(idx);
                 if (cleared)
                 {
                     claerList.Add(stageInfo);
@@ -37,10 +39,10 @@ namespace Ryneus
                 {
                     list.Add(stageInfo);
                 }
+                idx++;
             }
-            claerList.Sort((a, b) => a.Master.Category - b.Master.Category > 1 ? 1 : -1);
-            list.Sort((a, b) => a.Master.Category - b.Master.Category > 1 ? 1 : -1);
             list.AddRange(claerList);
+            list.Sort((a, b) => a.SortIndex.Value - b.SortIndex.Value > 1 ? 1 : -1);
             return list;
         }
 

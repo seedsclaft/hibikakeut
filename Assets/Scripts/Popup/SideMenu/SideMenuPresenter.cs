@@ -123,6 +123,7 @@ namespace Ryneus
             if (_model.CurrentDeckInfo.Cursed.Value)
             {
                 CommandCautionInfo(DataSystem.GetText(10160));
+                ClosePopup();
                 return;
             }
             _busy = true;

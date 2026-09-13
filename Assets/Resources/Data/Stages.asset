@@ -244,11 +244,13 @@ MonoBehaviour:
 
       Heroic
       warriors who perished in the chaos wander with resentment.'
-    StageLv: 12
+    StageLv: 15
     OnlyOnce: 0
     DisplayRank: 4
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 10
     - EnemyId: 2
       Weight: 10
     - EnemyId: 12
@@ -273,12 +275,16 @@ MonoBehaviour:
     Chapter: 1
     Help: '""'
     EnglishHelp: '""'
-    StageLv: 14
+    StageLv: 16
     OnlyOnce: 0
     DisplayRank: 4
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 10
     - EnemyId: 2
+      Weight: 10
+    - EnemyId: 9
       Weight: 10
     - EnemyId: 12
       Weight: 10
@@ -302,12 +308,16 @@ MonoBehaviour:
     Chapter: 1
     Help: '""'
     EnglishHelp: '""'
-    StageLv: 16
+    StageLv: 17
     OnlyOnce: 0
     DisplayRank: 4
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 10
     - EnemyId: 2
+      Weight: 10
+    - EnemyId: 9
       Weight: 10
     - EnemyId: 12
       Weight: 10

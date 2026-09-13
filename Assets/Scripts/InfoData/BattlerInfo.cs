@@ -186,11 +186,11 @@ namespace Ryneus
             var statusInfo = new StatusInfo();
             int plusHpParam = _bossFlag ? Level.Value * 2 : 0;
             statusInfo.SetParameter(
-                (int)(enemyData.BaseStatus.Hp + plusHpParam + (Level.Value * enemyData.HpGrowth * 0.015f)),
+                (int)(enemyData.BaseStatus.Hp + plusHpParam + Math.Round(Level.Value * enemyData.HpGrowth * 0.01f)),
                 0,
-                (int)(enemyData.BaseStatus.Atk + (Level.Value * enemyData.AtkGrowth * 0.015f)),
-                (int)(enemyData.BaseStatus.Def + (Level.Value * enemyData.DefGrowth * 0.01f)),
-                Math.Min(100, (int)(enemyData.BaseStatus.Spd + (Level.Value * enemyData.SpdGrowth * 0.01f))),
+                (int)(enemyData.BaseStatus.Atk + Math.Round(Level.Value * enemyData.AtkGrowth * 0.015f)),
+                (int)(enemyData.BaseStatus.Def + Math.Round(Level.Value * enemyData.DefGrowth * 0.01f)),
+                Math.Min(100, (int)(enemyData.BaseStatus.Spd + Math.Round(Level.Value * enemyData.SpdGrowth * 0.01f))),
                 0,
                 0,
                 0,
@@ -596,12 +596,18 @@ namespace Ryneus
             if (skillId > -1)
             {
                 var find = _skills.Find(a => a.Id.Value == skillId);
-                find?.CountTurn.GainValue(seekCount * -1,0);
+                if (find != null && find.Master.CountTurn > 0)
+                {
+                    find?.CountTurn.GainValue(seekCount * -1, 0);
+                }
                 return;
             }
             foreach (var skill in _skills)
             {
-                skill.CountTurn.GainValue(seekCount * -1,0);
+                if (skill.Master.CountTurn > 0)
+                {
+                    skill.CountTurn.GainValue(seekCount * -1, 0);
+                }
             }
         }
 
@@ -739,7 +745,7 @@ namespace Ryneus
             {
                 return 0f;
             }
-            return StateEffectAll(stateType) * 0.01f;
+            return Mathf.Round(StateEffectAll(stateType) * 0.01f);
         }
 
         public float StateEffectAllRate(StateType stateType)
@@ -748,7 +754,7 @@ namespace Ryneus
             {
                 return 1f;
             }
-            return 1f + StateEffectAll(stateType) * 0.01f;
+            return Mathf.Round(1f + StateEffectAll(stateType) * 0.01f);
         }
 
         public float StateEffectAllDeRate(StateType stateType)
@@ -757,7 +763,7 @@ namespace Ryneus
             {
                 return 1f;
             }
-            return 1f - StateEffectAll(stateType) * 0.01f;
+            return Mathf.Round(1f - StateEffectAll(stateType) * 0.01f);
         }
 
         public bool AddState(StateInfo stateInfo, bool doAdd)
@@ -912,7 +918,7 @@ namespace Ryneus
                 atk = (int)(atk * StateEffectAllRate(StateType.AtkRateUp));
                 if (IsState(StateType.AtkRateDown))
                 {
-                    atk = (int)(atk * ((100 - DeBuffUpperParam(StateEffectAll(StateType.AtkRateDown))) * 0.01f));
+                    atk = (int)(atk * Mathf.Round((100 - DeBuffUpperParam(StateEffectAll(StateType.AtkRateDown))) * 0.01f));
                 }
                 if (IsState(StateType.Demigod))
                 {
@@ -1113,7 +1119,7 @@ namespace Ryneus
             slipDamage += GetStateEffectAll(StateType.BurnDamage);
             slipDamage *= StateEffectAllDeRate(StateType.BurnDamageCut);
             var perDamageValue = GetStateEffectAll(StateType.PoisunDamagePer);
-            slipDamage += (int)Math.Floor(MaxHp * 0.01f * perDamageValue);
+            slipDamage += (int)Math.Round(MaxHp * 0.01f * perDamageValue);
             return (int)slipDamage;
         }
 
