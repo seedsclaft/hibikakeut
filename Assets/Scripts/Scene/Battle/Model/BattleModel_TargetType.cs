@@ -207,7 +207,10 @@ namespace Ryneus
                             var lineTargets = GetBattlerInfos(counterSubject.IsActor, true).FindAll(a => a.LineIndex == counterSubject.LineIndex);
                             foreach (var lineTarget in lineTargets)
                             {
-                                targetIndexList.Add(lineTarget.Index.Value);                        
+                                if (!targetIndexList.Contains(lineTarget.Index.Value))
+                                {
+                                    targetIndexList.Add(lineTarget.Index.Value);
+                                }                      
                             }
                         }
                     }

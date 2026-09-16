@@ -26,7 +26,7 @@ namespace Ryneus
             idx += (int)_master.Category * 100;
             if (!Cleared.Value)
             {
-                idx -= 10000;
+                idx += 10000;
             }
             SortIndex.SetValue(idx + index);
         }

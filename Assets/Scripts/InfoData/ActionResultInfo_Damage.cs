@@ -19,8 +19,31 @@ namespace Ryneus
 
             // 効果補正
             return CalcDamageEffect(hpDamage, subject, target, isNoEffect);
+            /*
+            float atkValue = CurrentAttack(subject, isNoEffect);
+            // 基礎ダメージ
+            float damageValue = CalcAttackDamageValue(atkValue, subject, featureValue, isNoEffect, isOneTarget);
+            CalcFreezeDamage(subject, target, damageValue);
+
+            // 攻撃ダメージ - 防御値
+            int defValue = CurrentDefense(subject, target, isNoEffect);
+            // 基礎ダメージ x 防御率
+            damageValue *= GetDefenseRateValue(atkValue, defValue);
+            float hpDamage = CalcDamageValue(subject, target, damageValue, isNoEffect);
+
+            // 有利属性なら1.5倍
+            var skillData = DataSystem.FindSkill(SkillId.Value);
+            if (target.Kinds.Contains((KindType)skillData.Attribute))
+            {
+                hpDamage *= DataSystem.System.WeakPointRate * 0.01f;
+                _weakPoint = true;
+            }
+
+            // 効果補正
+            return CalcDamageEffect(hpDamage, subject, target, isNoEffect);
+            */
         }
-        
+
         private float CalcDamageEffect(float hpDamage, BattlerInfo subject, BattlerInfo target, bool isNoEffect, int plusRate = 0)
         {
             if (IsCritical(subject, target))
@@ -61,7 +84,7 @@ namespace Ryneus
             {
                 CalcCounterDamage(subject, target, hpDamage);
             }
-            CalcFreezeDamage(subject, target, hpDamage);
+            //CalcFreezeDamage(subject, target, hpDamage);
             ReHeal.GainValue(CalcDrainValue(subject, hpDamage));
             return CalcDamageShield(subject, target, hpDamage);
         }

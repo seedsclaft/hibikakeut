@@ -10,11 +10,13 @@ namespace Ryneus
         private MoveController _moveController;
         public ParameterInt SelectIndex = new(-1);
         public ParameterBool BattleVictory = new(false);
+        private DungeonSceneInfo _sceneParam = null;
         public DungeonModel(MoveController moveController)
         {
             var sceneParam = (DungeonSceneInfo)GameSystem.SceneStackManager.LastSceneParam;
             if (sceneParam != null)
             {
+                _sceneParam = sceneParam;
                 BattleVictory.SetValue(sceneParam.BattleEnd);
             }
             _moveController = moveController;
@@ -114,7 +116,7 @@ namespace Ryneus
                 if (endStageEvent.Type == (StageEventType)0)
                 {
                     _moveController.SetDeactiveParentObj(endStageEvent.PositionX, endStageEvent.PositionY);
-                }else
+                } else
                 {
                     _moveController.SetDeactiveChildObj(endStageEvent.PositionX, endStageEvent.PositionY);
                 }
@@ -341,6 +343,12 @@ namespace Ryneus
 
         public int HavingArtifactMinus()
         {
+            if (_sceneParam == null)
+            {
+                return 0;
+            }
+            return _sceneParam.HavingAritifactMinus;
+            /*
             if (PartyInfo.PartyStatInfo.BattleScore.Value == 0)
             {
                 return 0;
@@ -350,6 +358,7 @@ namespace Ryneus
                 return 0;
             }
             return PartyInfo.ArtifactItemInfos().Count * DataSystem.System.HavingArtifactMinus;
+            */
         }
 
         public void SaveBgmTiming()
@@ -551,5 +560,6 @@ namespace Ryneus
     public class DungeonSceneInfo
     {
         public bool BattleEnd = false;
+        public int HavingAritifactMinus = 0;
     }
 }

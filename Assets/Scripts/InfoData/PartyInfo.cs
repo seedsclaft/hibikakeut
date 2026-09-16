@@ -661,7 +661,7 @@ namespace Ryneus
                 _actorInfos.Add(actorInfo);
                 AddReleifActorIndexes(actorInfo.ActorId.Value);
                 // 整列
-                _actorInfos.Sort((a, b) => a.BattleIndex.Value - b.BattleIndex.Value > 0 ? 1 : -1);
+                _actorInfos.Sort((a, b) => a.BattleIndex.Value.CompareTo(b.BattleIndex.Value));
             }
         }
 

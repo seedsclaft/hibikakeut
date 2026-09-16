@@ -45,5 +45,13 @@ namespace Ryneus
             return PartyInfo.MissionRank.Value < stageInfo.Master.DisplayRank;
         }
 
+        public int HavingArtifactMinus()
+        {
+            if (PartyInfo.PartyStatInfo.BattleScore.Value == 0)
+            {
+                return 0;
+            }
+            return PartyInfo.ArtifactItemInfos().Count * DataSystem.System.HavingArtifactMinus;
+        }
     }
 }

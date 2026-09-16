@@ -222,6 +222,10 @@ namespace Ryneus
                         {
                             Data.InitEquipmentId = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
                         }
+                        if (KeyName == "BaseGetExp")
+                        {
+                            Data.BaseGetExp = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
+                        }
                     }
                 }
             }

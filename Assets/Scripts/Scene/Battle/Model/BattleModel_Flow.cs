@@ -32,8 +32,17 @@ namespace Ryneus
         public BattlerInfo CheckApCurrentBattler()
         {
             var battlerInfos = FieldBattlerInfos().FindAll(a => a.IsAlive());
-            battlerInfos.Sort((a, b) => (int)a.Ap.Value - (int)b.Ap.Value);
-            SetSelectBattlerInfo(battlerInfos.Find(a => a.Ap.Value <= 0));
+            battlerInfos.Sort((a, b) => a.Ap.Value.CompareTo((int)b.Ap.Value));
+            var currentBattlerInfos = battlerInfos.FindAll(a => a.Ap.Value <= 0);
+            if (currentBattlerInfos.Count > 0)
+            {
+                // 速度が速い方優先
+                currentBattlerInfos.Sort((a, b) => b.CurrentSpd().CompareTo(a.CurrentSpd()));
+                SetSelectBattlerInfo(currentBattlerInfos[0]);
+            } else
+            {
+                SetSelectBattlerInfo(battlerInfos.Find(a => a.Ap.Value <= 0));
+            }
             return _battleFlowInfo.CurrentSelectBattler;
         }
 

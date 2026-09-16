@@ -1164,16 +1164,16 @@ namespace Ryneus
         private float GetDefenseRateValue(float atk, float def)
         {
             // 防御率 ＝ 1 - 防御 / (攻撃 + 防御)　※攻撃 + 防御 < 1の時、1
-            float _defenseRateValue;
+            float defenseRateValue;
             if ((atk + def) < 1)
             {
-                _defenseRateValue = 1;
+                defenseRateValue = 1;
             }
             else
             {
-                _defenseRateValue = 1 - (def / (atk + def));
+                defenseRateValue = 1 - (def / (atk + def));
             }
-            return _defenseRateValue;
+            return defenseRateValue;
         }
 
         private void CalcFreezeDamage(BattlerInfo subject, BattlerInfo target, float skillDamage)

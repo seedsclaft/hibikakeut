@@ -24,6 +24,7 @@ namespace Ryneus
         public int HavingArtifactMinus;
         public int ChangeArtifactCurrency;
         public int InitEquipmentId;
+        public int BaseGetExp;
         public List<TextData> SystemTextData;
 
         public List<InputData> InputDataList;
@@ -130,6 +131,6 @@ namespace Ryneus
         ClearStage = 3010,
         RandumItem = 4010,
         RandumMagic = 4020,
-        BattleSocreCurrency = 5010,
+        BattleScoreCurrency = 5010,
     }
 }

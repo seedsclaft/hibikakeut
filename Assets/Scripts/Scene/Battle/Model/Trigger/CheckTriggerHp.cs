@@ -70,13 +70,13 @@ namespace Ryneus
             switch (triggerData.TriggerType)
             {
                 case TriggerType.LessHpFriend:
-                    return LessHpTargetIndex(checkTriggerInfo.Friends, battlerInfo, triggerData.Param1, targetBattlerIndex);
+                    return LessHpTargetIndex(checkTriggerInfo.Friends.FindAll(a => a.IsAlive()), battlerInfo, triggerData.Param1, targetBattlerIndex);
                 case TriggerType.MostHpFriend:
-                    return MostHpTargetIndex(checkTriggerInfo.Friends, battlerInfo, triggerData.Param1, targetBattlerIndex);
+                    return MostHpTargetIndex(checkTriggerInfo.Friends.FindAll(a => a.IsAlive()), battlerInfo, triggerData.Param1, targetBattlerIndex);
                 case TriggerType.LessHpTarget:
-                    return LessHpTargetIndex(checkTriggerInfo.Opponents, battlerInfo, triggerData.Param1, targetBattlerIndex);
+                    return LessHpTargetIndex(checkTriggerInfo.Opponents.FindAll(a => a.IsAlive()), battlerInfo, triggerData.Param1, targetBattlerIndex);
                 case TriggerType.MostHpTarget:
-                    return MostHpTargetIndex(checkTriggerInfo.Opponents, battlerInfo, triggerData.Param1, targetBattlerIndex);
+                    return MostHpTargetIndex(checkTriggerInfo.Opponents.FindAll(a => a.IsAlive()), battlerInfo, triggerData.Param1, targetBattlerIndex);
             }
             return -1;
         }
@@ -279,16 +279,16 @@ namespace Ryneus
             switch (triggerData.TriggerType)
             {
                 case TriggerType.LessHpFriend:
-                    targetIndexList.Add(LessHpTargetIndex(checkTriggerInfo.Friends, battlerInfo, triggerData.Param1, -1));
+                    targetIndexList.Add(LessHpTargetIndex(checkTriggerInfo.Friends.FindAll(a => a.IsAlive()), battlerInfo, triggerData.Param1, -1));
                     break;
                 case TriggerType.MostHpFriend:
-                    targetIndexList.Add(MostHpTargetIndex(checkTriggerInfo.Friends, battlerInfo, triggerData.Param1, -1));
+                    targetIndexList.Add(MostHpTargetIndex(checkTriggerInfo.Friends.FindAll(a => a.IsAlive()), battlerInfo, triggerData.Param1, -1));
                     break;
                 case TriggerType.LessHpTarget:
-                    targetIndexList.Add(LessHpTargetIndex(checkTriggerInfo.Opponents, battlerInfo, triggerData.Param1, -1));
+                    targetIndexList.Add(LessHpTargetIndex(checkTriggerInfo.Opponents.FindAll(a => a.IsAlive()), battlerInfo, triggerData.Param1, -1));
                     break;
                 case TriggerType.MostHpTarget:
-                    targetIndexList.Add( MostHpTargetIndex(checkTriggerInfo.Opponents, battlerInfo, triggerData.Param1, -1));
+                    targetIndexList.Add(MostHpTargetIndex(checkTriggerInfo.Opponents.FindAll(a => a.IsAlive()), battlerInfo, triggerData.Param1, -1));
                     break;
             }
         }

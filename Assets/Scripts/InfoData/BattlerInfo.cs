@@ -226,7 +226,7 @@ namespace Ryneus
             {
                 var result = new ActionResultInfo(this, this, enhanceSkill.FeatureDates, enhanceSkill.Id.Value);
             }
-            _skills.Sort((a, b) => a.Weight > b.Weight ? -1 : 1);
+            _skills.Sort((a, b) => b.Weight.CompareTo(a.Weight));
             _skillTriggerInfos.Clear();
             foreach (var skillInfo in _skills)
             {
@@ -905,7 +905,7 @@ namespace Ryneus
         /// <returns></returns>
         public int CurrentAtk(bool isNoEffect = false)
         {
-            int atk = _status.Atk;
+            float atk = _status.Atk;
             if (!isNoEffect)
             {
                 atk += StateEffectAll(StateType.StatusUp);
@@ -913,45 +913,47 @@ namespace Ryneus
                 atk += StateEffectAll(StateType.AtkUpOver);
                 if (IsState(StateType.AtkDown))
                 {
-                    atk -= (int)DeBuffUpperParam(StateEffectAll(StateType.AtkDown));
+                    atk -= DeBuffUpperParam(StateEffectAll(StateType.AtkDown));
                 }
-                atk = (int)(atk * StateEffectAllRate(StateType.AtkRateUp));
+                atk *= StateEffectAllRate(StateType.AtkRateUp);
                 if (IsState(StateType.AtkRateDown))
                 {
-                    atk = (int)(atk * Mathf.Round((100 - DeBuffUpperParam(StateEffectAll(StateType.AtkRateDown))) * 0.01f));
+                    var downRate = (100 - DeBuffUpperParam(StateEffectAll(StateType.AtkRateDown))) * 0.01f;
+                    atk *= downRate;
                 }
                 if (IsState(StateType.Demigod))
                 {
-                    atk = (int)(atk * (1f + (DemigodParam.Value * 0.1f)));
+                    atk *= 1f + (DemigodParam.Value * 0.1f);
                 }
             }
-            return atk;
+            return (int)Mathf.Round(atk);
         }
 
         public int CurrentDef(bool isNoEffect = false)
         {
-            int def = _status.Def;
+            float def = _status.Def;
             if (!isNoEffect)
             {
                 def += StateEffectAll(StateType.StatusUp);
                 def += StateEffectAll(StateType.DefUp);
-                def -= (int)DeBuffUpperParam(StateEffectAll(StateType.DefDown));
-                def = (int)(def * StateEffectAllRate(StateType.DefRateUp));
+                def -= DeBuffUpperParam(StateEffectAll(StateType.DefDown));
+                def *= StateEffectAllRate(StateType.DefRateUp);
                 if (IsState(StateType.DefRateDown))
                 {
-                    def = (int)(def * ((100 - DeBuffUpperParam(StateEffectAll(StateType.DefRateDown))) * 0.01f));
+                    var downRate = (100 - DeBuffUpperParam(StateEffectAll(StateType.DefRateDown))) * 0.01f;
+                    def *= downRate;
                 }
                 if (IsState(StateType.Demigod))
                 {
-                    def = (int)(def * (1f + (DemigodParam.Value * 0.1f)));
+                    def *= 1f + (DemigodParam.Value * 0.1f);
                 }
             }
-            return def;
+            return (int)Mathf.Round(def);
         }
 
         public int CurrentSpd(bool isNoEffect = false)
         {
-            int spd = _status.Spd;
+            float spd = _status.Spd;
             if (!isNoEffect)
             {
                 spd += StateEffectAll(StateType.StatusUp);
@@ -959,10 +961,10 @@ namespace Ryneus
                 spd += StateEffect(StateType.Accel) * StateTurn(StateType.Accel);
                 if (IsState(StateType.Demigod))
                 {
-                    spd = (int)(spd * (1f + (DemigodParam.Value * 0.1f)));
+                    spd *= 1f + (DemigodParam.Value * 0.1f);
                 }
             }
-            return spd;
+            return (int)Math.Round(spd);
         }
 
         public int CurrentMov(bool isNoEffect = false)
@@ -972,34 +974,34 @@ namespace Ryneus
 
         public int CurrentHit()
         {
-            int hit = _status.Hit;
+            float hit = _status.Hit;
             hit += StateEffectAll(StateType.HitUp) + StateEffectAll(StateType.HitUpOver);
-            hit -= (int)DeBuffUpperParam(StateEffectAll(StateType.HitDown));
-            return hit;
+            hit -= DeBuffUpperParam(StateEffectAll(StateType.HitDown));
+            return (int)Math.Round(hit);
         }
 
         public int CurrentEva()
         {
-            int eva = _status.Eva;
+            float eva = _status.Eva;
             eva += StateEffectAll(StateType.EvaUp) + StateEffectAll(StateType.EvaUpOver);
-            eva -= (int)DeBuffUpperParam(StateEffectAll(StateType.EvaDown));
-            return eva;
+            eva -= DeBuffUpperParam(StateEffectAll(StateType.EvaDown));
+            return (int)Math.Round(eva);
         }
 
         public int CurrentCri(bool isNoEffect = false)
         {
-            int cri = _status.Cri;
-            return cri;
+            float cri = _status.Cri;
+            return (int)Math.Round(cri);
         }
 
         public float CurrentDamageRate(bool isNoEffect = false)
         {
-            float DamageRate = 1;
+            float damageRate = 1;
             if (!isNoEffect)
             {
-                DamageRate = StateEffectAllRate(StateType.DamageUp);
+                damageRate = StateEffectAllRate(StateType.DamageUp);
             }
-            return DamageRate;
+            return damageRate;
         }
 
         private float DeBuffUpperParam(int param)

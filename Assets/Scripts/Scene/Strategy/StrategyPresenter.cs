@@ -322,9 +322,11 @@ namespace Ryneus
             } else
             if (_model.InBattleResult && _model.BattleResultVictory)
             {
-                var dungeonSceneInfo = new DungeonSceneInfo();
-                dungeonSceneInfo.BattleEnd = true;
-                _view.CommandSceneChange(Scene.Dungeon, dungeonSceneInfo);
+                    var dungeonSceneInfo = new DungeonSceneInfo
+                    {
+                        BattleEnd = true
+                    };
+                    _view.CommandSceneChange(Scene.Dungeon, dungeonSceneInfo);
             } else
             {
                 if (_model.SceneParam.ReturnMainMenuSceneParam != null)

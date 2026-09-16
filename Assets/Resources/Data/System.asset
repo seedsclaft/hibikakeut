@@ -206,9 +206,10 @@ MonoBehaviour:
   EquipSkillCount: 10
   ClassChangePlusSkill: 4
   CheatArtifactMinus: 50
-  HavingArtifactMinus: 1
+  HavingArtifactMinus: 20
   ChangeArtifactCurrency: 10
   InitEquipmentId: 10
+  BaseGetExp: 25
   SystemTextData:
   - Id: 0
     Text: '""'
@@ -1127,6 +1128,13 @@ MonoBehaviour:
     Relief: 
     EnglishText: "The item you found is an artifact. \nAll artifacts rightfully belong
       to Lord Odin. \nKeeping this artifact will lower your Evaluation."
+    EnglishHelp: '""'
+  - Id: 10240
+    Text: "\u30A2\u30FC\u30C6\u30A3\u30D5\u30A1\u30AF\u30C8\u3092\u6301\u3061\u8FBC\u3093\u3060\u305F\u3081\u8A55\u4FA1\u5024\u304C\u6E1B\u5C11\u3057\u307E\u3057\u305F\uFF01"
+    Help: '""'
+    Feature: 
+    Relief: 
+    EnglishText: '""'
     EnglishHelp: '""'
   - Id: 11010
     Text: "\u30A8\u30A4\u30F3\u30D5\u30A7\u30EA\u30A2\u3092\u62DB\u8058\u3057\u307E\u3059\u304B\uFF1F\n\u62DB\u8058\u6B8B\u308A\u56DE\u6570

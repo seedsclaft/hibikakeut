@@ -215,7 +215,10 @@ namespace Ryneus
         {
             CallConfirmNoChoiceView(DataSystem.GetText(11020), (a) =>
             {
-                _view.CommandGotoSceneChange(Scene.Interlude);
+                if (a == ConfirmCommandType.Close)
+                {
+                    _view.CommandGotoSceneChange(Scene.Interlude);
+                }
             });
         }
 

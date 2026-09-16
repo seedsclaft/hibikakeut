@@ -105,7 +105,7 @@ namespace Ryneus
             var getExp = itemInfo.Master.Param2;
             if (CurrentActor.Level <= itemInfo.Master.Param3)
             {
-                getExp *= 2;
+                getExp = 100;
             }
             return getExp;
         }

@@ -42,7 +42,7 @@ namespace Ryneus
                 idx++;
             }
             list.AddRange(claerList);
-            list.Sort((a, b) => a.SortIndex.Value - b.SortIndex.Value > 1 ? 1 : -1);
+            list.Sort((a, b) => b.SortIndex.Value.CompareTo(a.SortIndex.Value));
             return list;
         }
 

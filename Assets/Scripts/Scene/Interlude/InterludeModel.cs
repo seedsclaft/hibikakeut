@@ -60,7 +60,7 @@ namespace Ryneus
             }
 
             // バトルスコアをNuに変換
-            var battleScoreItemInfo = MakeGetItemInfo(GetItemType.BattleSocreCurrency, BattleScorePoint());
+            var battleScoreItemInfo = MakeGetItemInfo(GetItemType.BattleScoreCurrency, BattleScorePoint());
             getItemInfos.Add(battleScoreItemInfo);
 
             _resultInfos.Clear();
@@ -162,7 +162,7 @@ namespace Ryneus
 
         public int BattleScorePoint()
         {
-            return (int)(PartyInfo.PartyStatInfo.BattleScore.Value * PartyInfo.MissionRank.Value * 0.1f);
+            return (int)(PartyInfo.PartyStatInfo.BattleScore.Value * (0f + PartyInfo.MissionRank.Value * 0.1f));
         }
 
         public bool EndInterludePhase()

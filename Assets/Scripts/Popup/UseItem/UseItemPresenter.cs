@@ -34,7 +34,7 @@ namespace Ryneus
 
         private void InitializeAfter()
         {
-            CommandRefresh();
+            SetUseItem();
         }
 
         private void UpdateCommand(ViewEvent viewEvent)
@@ -215,7 +215,17 @@ namespace Ryneus
                 // 使用可能か
                 return _model.EnableUse(itemInfo) && _model.CanUseItem(itemInfo);
             };
-            _view.SetUseItem(MakeListData(_model.UseItemInfos(), enable, null));
+            _view.UpdateUseItem(MakeListData(_model.UseItemInfos(), enable, null));
+        }
+
+        private void SetUseItem()
+        {
+            Func<ItemInfo, bool> enable = (itemInfo) =>
+            {
+                // 使用可能か
+                return _model.EnableUse(itemInfo) && _model.CanUseItem(itemInfo);
+            };
+            _view.SetUseItem(MakeListData(_model.UseItemInfos(), enable, null, null, 0));
         }
 
         private void CheckTutorialState(object commandType = null)

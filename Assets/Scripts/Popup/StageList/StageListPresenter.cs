@@ -114,7 +114,12 @@ namespace Ryneus
             _view.CommandCallLoading();
             _model.MakeStageInfoDepature(stageId, resumeStart);
             CheckAchievements();
-            _view.CommandSceneChange(Scene.Dungeon);
+            var dungeonSceneInfo = new DungeonSceneInfo
+            {
+                BattleEnd = false,
+                HavingAritifactMinus = _model.HavingArtifactMinus()
+            };
+            _view.CommandSceneChange(Scene.Dungeon, dungeonSceneInfo);
         }
 
         private void CheckTutorialState(object commandType = null)

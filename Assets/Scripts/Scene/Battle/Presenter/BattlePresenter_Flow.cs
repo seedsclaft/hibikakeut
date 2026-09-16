@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Cysharp.Threading.Tasks;
 
 namespace Ryneus
@@ -33,6 +34,10 @@ namespace Ryneus
         {
             var currentBattler = _model.CheckApCurrentBattler();
             if (currentBattler == null)
+            {
+                return;
+            }
+            if (_model.FirstActionBattler != null)
             {
                 return;
             }

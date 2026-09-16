@@ -43,6 +43,12 @@ namespace Ryneus
             useItemList.SetData(getItemInfos, true);
             useItemList.Activate();
         }
+
+        public void UpdateUseItem(List<ListData> getItemInfos)
+        {
+            useItemList.RefreshListData(getItemInfos);
+            useItemList.Activate();
+        }
     }
 
     namespace UseItem

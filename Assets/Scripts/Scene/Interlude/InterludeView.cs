@@ -22,8 +22,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI title = null;
         [SerializeField] private ActorInfoComponent actorInfoComponent = null;
         [SerializeField] private Button lvUpStatusButton = null;
-        [SerializeField] private GameObject animRoot = null;
-        [SerializeField] private GameObject animPrefab = null;
+        [SerializeField] private BattleStartAnim battleStartAnim = null;
         [SerializeField] private GameObject rankScoreObj = null;
         [SerializeField] private TextMeshProUGUI rankScoreText = null;
         [SerializeField] private GameObject claerStageNumObj = null;
@@ -31,7 +30,6 @@ namespace Ryneus
         [SerializeField] private GameObject partyEvaluateObj = null;
         [SerializeField] private TextMeshProUGUI partyEvaluateText = null;
 
-        private BattleStartAnim _battleStartAnim = null;
         private bool _animationBusy = false;
 
         public override void Initialize()
@@ -43,10 +41,7 @@ namespace Ryneus
             InitializeCommandList();
             InitializeLearnSkillList();
 
-            GameObject prefab = Instantiate(animPrefab);
-            prefab.transform.SetParent(animRoot.transform, false);
-            _battleStartAnim = prefab.GetComponent<BattleStartAnim>();
-            UIComponent.SetActive(_battleStartAnim?.gameObject, false);
+            UIComponent.SetActive(battleStartAnim?.gameObject, false);
             lvUpStatusButton.onClick.AddListener(() => CallLvUpNext());
             UIComponent.SetActive(lvUpStatusButton?.gameObject, false);
 
@@ -90,17 +85,17 @@ namespace Ryneus
 
         public void StartTitleAnimation()
         {
-            _battleStartAnim.SetText(DataSystem.GetText(20411));
-            _battleStartAnim.StartAnim(false, 0, () => CallViewEvent(CommandType.EndAnimation));
-            UIComponent.SetActive(_battleStartAnim?.gameObject, true);
+            battleStartAnim.SetText(DataSystem.GetText(20411));
+            battleStartAnim.StartAnim(false, 0, () => CallViewEvent(CommandType.EndAnimation));
+            UIComponent.SetActive(battleStartAnim?.gameObject, true);
             _animationBusy = true;
         }
 
         public void StartResultAnimation()
         {
-            _battleStartAnim.SetText(DataSystem.GetText(20410));
-            _battleStartAnim.StartAnim(false, 0, () => CallViewEvent(CommandType.EndAnimation));
-            UIComponent.SetActive(_battleStartAnim?.gameObject, true);
+            battleStartAnim.SetText(DataSystem.GetText(20410));
+            battleStartAnim.StartAnim(false, 0, () => CallViewEvent(CommandType.EndAnimation));
+            UIComponent.SetActive(battleStartAnim?.gameObject, true);
             _animationBusy = true;
         }
 
@@ -222,7 +217,7 @@ namespace Ryneus
 
         private void CheckAnimationBusy()
         {
-            if (!_battleStartAnim.IsBusy)
+            if (!battleStartAnim.IsBusy)
             {
                 _animationBusy = false;
                 CallViewEvent(CommandType.EndLvUpAnimation);

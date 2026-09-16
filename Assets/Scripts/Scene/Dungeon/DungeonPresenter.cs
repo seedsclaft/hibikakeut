@@ -68,6 +68,23 @@ namespace Ryneus
                 return;
             }
             */
+            // アーティファクトで評価値を減らす
+            var minusValue = _model.HavingArtifactMinus();
+            if (minusValue > 0)
+            {
+                _view.MinusEvaluate(-minusValue);
+                _model.PartyInfo.PartyStatInfo.BattleScore.GainValue(-minusValue, 0);
+                CommandRefresh();
+                CallConfirmNoChoiceView(DataSystem.GetText(10240), (a) =>
+                {
+                    if (a == ConfirmCommandType.Close)
+                    {
+                        CheckTutorialState();
+                        _busy = false;
+                    }
+                });
+                return;
+            }
             CheckTutorialState();
             _busy = false;
         }
@@ -159,12 +176,14 @@ namespace Ryneus
                     _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
                 }
                 // アーティファクトで評価値を減らす
+                /*
                 var minusValue = _model.HavingArtifactMinus();
                 if (minusValue > 0)
                 {
                     _view.MinusEvaluate(-minusValue);
                     _model.PartyInfo.PartyStatInfo.BattleScore.GainValue(-minusValue, 0);
                 }
+                */
             }
 
             _model.AddDungeonTraverse();
@@ -202,12 +221,14 @@ namespace Ryneus
                     _view.SetPartyUnitList(MakeListData(_model.PartyUnit(), -1));
                 }
                 // アーティファクトで評価値を減らす
+                /*
                 var minusValue = _model.HavingArtifactMinus();
                 if (minusValue > 0)
                 {
                     _view.MinusEvaluate(-minusValue);
                     _model.PartyInfo.PartyStatInfo.BattleScore.GainValue(-minusValue, 0);
                 }
+                */
             }
             else
             {

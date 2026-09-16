@@ -16,22 +16,40 @@ namespace Ryneus
 
         private bool _busy = false;
         public bool IsBusy => _busy;
+        private List<Sequence> _sequences = new();
 
 
         private void OnEnable()
         {
-            Reset();
+            //Reset();
         }
 
         public void Reset()
         {
-            mainText.color = new Color(255, 255, 255, 0);
-            mainText.transform.DOMoveX(0, 0);
-            subText.color = new Color(255, 255, 255, 0);
-            subText.transform.DOMoveX(0, 0);
-            backBlack.color = new Color(0, 0, 0, 0);
-            lineWhite.color = new Color(255, 255, 255, 255);
-            lineWhite.transform.DOScaleY(0, 0);
+            if (mainText != null)
+            {
+                mainText.color = new Color(255, 255, 255, 0);
+                mainText.transform.DOMoveX(0, 0);
+            }
+            if (subText != null)
+            {
+                subText.color = new Color(255, 255, 255, 0);
+                subText.transform.DOMoveX(0, 0);
+            }
+            if (backBlack != null)
+            {
+                backBlack.color = new Color(0, 0, 0, 0);
+            }
+            if (lineWhite != null)
+            {
+                lineWhite.color = new Color(255, 255, 255, 255);
+                lineWhite.transform.DOScaleY(0, 0);
+            }
+            foreach (var sequences in _sequences)
+            {
+                sequences.Kill();
+            }
+            _sequences.Clear();
         }
 
         public void SetText(string text)
@@ -54,6 +72,7 @@ namespace Ryneus
                 .AppendInterval(duration * 12)
                 .Append(mainText.DOFade(0f, duration))
                 .Join(mainText.transform.DOLocalMoveX(-480, duration));
+                _sequences.Add(main);
 
 
             subText.transform.DOScaleY(0.95f, 0);
@@ -67,6 +86,7 @@ namespace Ryneus
                 .Join(subText.DOFade(1, 0f))
                 .Append(subText.DOFade(0f, duration))
                 .Join(subText.transform.DOLocalMoveX(480, duration));
+                _sequences.Add(sub);
 
             lineWhite.transform.DOScaleY(0.95f, 0);
             var white = DOTween.Sequence()
@@ -75,6 +95,7 @@ namespace Ryneus
                 .Append(lineWhite.transform.DOScaleY(0.08f, duration))
                 .Join(lineWhite.DOFade(0f, duration * 16))
                 .SetEase(Ease.InOutQuad);
+                _sequences.Add(white);
 
             var black = DOTween.Sequence()
                 .SetDelay(duration + delay)
@@ -88,6 +109,17 @@ namespace Ryneus
                     endEvent?.Invoke();
                     _busy = false;
                 });
+                _sequences.Add(black);
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var sequences in _sequences)
+            {
+                sequences.Kill();
+            }
+            _sequences.Clear();
+            DOTween.Kill(this); 
         }
     }
 }

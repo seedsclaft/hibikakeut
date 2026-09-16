@@ -19,6 +19,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI afterEvaluate = null;
         [SerializeField] private TextMeshProUGUI learnSkillText = null;
         private bool _busy = false;
+        private bool _levelUpBusy = false;
         public override void Initialize()
         {
             if (IsInitilized)
@@ -48,32 +49,37 @@ namespace Ryneus
             var rect = actorInfoComponent.gameObject.GetComponent<RectTransform>();
             rect.localPosition = new Vector3(-240, rect.localPosition.y, 0);
             actorInfoComponent.MainThumb.DOFade(0, 0);
-            SetBusy(true);
+            //SetBusy(true);
             battleStartAnim.SetText(title);
             ChangeBackCommandActive(false);
             if (needLvUpAnimation)
             {
+                _levelUpBusy = true;
                 battleStartAnim.StartAnim(false, 0, () =>
                 {
-                    popupAnimation.OpenAnimation(UiRoot.transform, () =>
+                    if (!_levelUpBusy)
                     {
-                        CallViewEvent(CommandType.EndAnimation);
-                        UIComponent.SetActive(UiRoot, true);
-                        SetBusy(false);
-                        ChangeBackCommandActive(true);
-                    });
+                        return;
+                    }
+                    _levelUpBusy = false;
+                    OpenPopup();
                 });
             } else
             {
-                popupAnimation.OpenAnimation(UiRoot.transform, () =>
-                {
-                    CallViewEvent(CommandType.EndAnimation);
-                    UIComponent.SetActive(UiRoot, true);
-                    SetBusy(false);
-                    ChangeBackCommandActive(true);
-                });
+                OpenPopup();
             }
             UIComponent.SetActive(battleStartAnim?.gameObject, true);
+        }
+
+        private void OpenPopup()
+        {
+            popupAnimation.OpenAnimation(UiRoot.transform, () =>
+            {
+                CallViewEvent(CommandType.EndAnimation);
+                UIComponent.SetActive(UiRoot, true);
+                //SetBusy(false);
+                ChangeBackCommandActive(true);
+            });
         }
 
         private void InitializeStatusList()
@@ -146,8 +152,11 @@ namespace Ryneus
 
         public void InputHandler(List<InputKeyType> keyTypes, bool pressed)
         {
-            if (Busy.Value)
+            if (keyTypes.Contains(InputKeyType.Decide) && _levelUpBusy)
             {
+                battleStartAnim.Reset();
+                _levelUpBusy = false;
+                OpenPopup();
                 return;
             }
             if (_busy)
@@ -158,7 +167,7 @@ namespace Ryneus
             {
                 return;
             }
-            if (keyTypes.Count > 0)
+            if (keyTypes.Contains(InputKeyType.Decide))
             {
                 _busy = true;
                 CallLevelUpNext();
