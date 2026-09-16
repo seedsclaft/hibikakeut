@@ -9,7 +9,10 @@ namespace Ryneus
 {
     public class EnemyInfoView : BaseView, IInputHandlerEvent
     {
-        [SerializeField] private BattleBattlerList battleEnemyLayer = null;
+        [SerializeField] private StatusInfoComponent paramstatusInfoComponent = null;
+        [SerializeField] private StatusInfoComponent statusInfoComponent = null;
+        [SerializeField] private ActorInfoComponent actorInfoComponent = null;
+        [SerializeField] private BattleThumb battleThumb = null;
         [SerializeField] private EnemyInfoComponent enemyInfoComponent = null;
         [SerializeField] private GameObject magicListRoot = null;
         [SerializeField] private BaseList magicList = null;
@@ -19,11 +22,12 @@ namespace Ryneus
         [SerializeField] private InputInfoComponent leftArrowButtonInput = null;
         [SerializeField] private Button rightArrowButton = null;
         [SerializeField] private InputInfoComponent rightArrowButtonInput = null;
+        [SerializeField] private Button leftBattlerButton = null;
+        [SerializeField] private Button rightBattlerButton = null;
         [SerializeField] private TextMeshProUGUI displayCategory = null;
 
         private System.Action _backEvent = null;
 
-        public int EnemyListIndex => battleEnemyLayer.Index;
 
 
         public override void Initialize()
@@ -33,7 +37,6 @@ namespace Ryneus
             //InitializeEnemyList();
             InitializeMagicList();
             InitializeConditionList();
-            InitializeSelectCharacter();
             if (leftArrowButton != null)
             {
                 leftArrowButton.onClick.AddListener(() => CallViewEvent(CommandType.CallMagicList));
@@ -50,6 +53,14 @@ namespace Ryneus
             {
                 rightArrowButtonInput.UpdateGuideIcon(InputKeyType.SideRight1);
             }
+            if (leftBattlerButton != null)
+            {
+                leftBattlerButton.onClick.AddListener(() => CallViewEvent(CommandType.LeftBattler));
+            }
+            if (rightBattlerButton != null)
+            {
+                rightBattlerButton.onClick.AddListener(() => CallViewEvent(CommandType.RightBattler));
+            }
             CallMagicList();
             _ = new EnemyInfoPresenter(this);
         }
@@ -64,6 +75,14 @@ namespace Ryneus
         {
             conditionList.Initialize();
             AddViewActives(conditionList);
+        }
+
+        public void SetActiveSelector(bool isActive)
+        {
+            UIComponent.SetActive(leftBattlerButton, isActive);
+            UIComponent.SetActive(rightBattlerButton, isActive);
+            UIComponent.SetActive(leftArrowButtonInput.gameObject, isActive);
+            UIComponent.SetActive(rightArrowButtonInput.gameObject, isActive);
         }
 
         public void CallMagicList()
@@ -82,63 +101,26 @@ namespace Ryneus
             SetActivate(conditionList);
         }
 
-        private void InitializeEnemyList()
+        public void CommandRefreshStatus(List<ListData> skillInfos, BattlerInfo battlerInfo)
         {
-            /*
-            battleEnemyLayer.Initialize();
-            battleEnemyLayer.SetSelectedHandler(() => CallViewEvent(CommandType.SelectEnemy));
-            SetInputHandler(battleEnemyLayer.gameObject);
-            */
-        }
-
-        public void SetEnemies(List<ListData> battlerInfos)
-        {
-            /*
-            battleEnemyLayer.SetData(battlerInfos);
-            battleEnemyLayer.SetInputHandler(InputKeyType.Decide,() => {});
-            battleEnemyLayer.SetInputHandler(InputKeyType.Cancel,() => OnClickBack());
-            SetInputHandler(battleEnemyLayer.GetComponent<IInputHandlerEvent>());
-            */
-        }
-
-        private void InitializeSelectCharacter()
-        {
-            /*
-            selectCharacter.Initialize();
-            selectCharacter.SetInputHandlerAction(InputKeyType.SideLeft1,() => 
-            {
-                selectCharacter.SelectCharacterTabSmooth(-1);
-            });
-            selectCharacter.SetInputHandlerAction(InputKeyType.SideRight1,() => 
-            {
-                selectCharacter.SelectCharacterTabSmooth(1);
-            });
-            SetInputHandler(selectCharacter.gameObject);
-            SetInputHandler(selectCharacter.MagicList.gameObject);
-            selectCharacter.HideActionList();
-            selectCharacter.SelectCharacterTab(0,false);
-            selectCharacter.SetActiveTab(SelectCharacterTabType.SkillTrigger,false);
-            selectCharacter.SetActiveTab(SelectCharacterTabType.Condition,false);
-            */
-        }
-
-        public void CommandRefreshStatus(List<ListData> skillInfos, BattlerInfo battlerInfo, List<ListData> skillTriggerInfos, List<int> enemyIndexes, int lastSelectIndex)
-        {
-            /*
-            selectCharacter.ShowActionList();
-            selectCharacter.SetEnemyBattlerInfo(battlerInfo);
-            selectCharacter.SetSkillInfos(skillInfos);
-            selectCharacter.SetSkillTriggerList(skillTriggerInfos);
-            selectCharacter.RefreshAction(lastSelectIndex);
-            */
             magicList.SetData(skillInfos);
-            enemyInfoComponent.Clear();
-            enemyInfoComponent.UpdateInfo(battlerInfo);
-        }
-
-        public void UpdateEnemyList(int selectIndex)
-        {
-            //battleEnemyLayer.UpdateSelectIndex(selectIndex);
+            paramstatusInfoComponent.UpdateInfo(battlerInfo.Status);
+            paramstatusInfoComponent.UpdateHp(battlerInfo.Hp.Value, battlerInfo.MaxHp);
+            //statusInfoComponent.UpdateInfo(battlerInfo.Status);
+            statusInfoComponent.UpdateHp(battlerInfo.Hp.Value, battlerInfo.MaxHp);
+            if (battlerInfo.IsActor)
+            {
+                enemyInfoComponent.Clear();
+                battleThumb.ShowThumb(battlerInfo);
+                UIComponent.SetActive(battleThumb.gameObject, true);
+                actorInfoComponent.UpdateInfo(battlerInfo.ActorInfo, new List<ActorInfo>());
+            } else
+            {
+                actorInfoComponent.Clear();
+                battleThumb.HideThumb();
+                UIComponent.SetActive(battleThumb.gameObject, false);
+                enemyInfoComponent.UpdateInfo(battlerInfo);
+            }
         }
 
         private void OnClickBack()
@@ -183,11 +165,19 @@ namespace Ryneus
             }
             if (InputSystem.GetInputDate(InputKeyType.SideRight1).IsDownTrigger())
             {
-                CallViewEvent(CommandType.CallConditionList);
+                CallViewEvent(CommandType.RightBattler);
             }
             if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
             {
+                CallViewEvent(CommandType.LeftBattler);
+            }
+            if (InputSystem.GetInputDate(InputKeyType.Left).IsDownTrigger())
+            {
                 CallViewEvent(CommandType.CallMagicList);
+            }
+            if (InputSystem.GetInputDate(InputKeyType.Right).IsDownTrigger())
+            {
+                CallViewEvent(CommandType.CallConditionList);
             }
         }
 
@@ -207,8 +197,8 @@ namespace EnemyInfo
         Back,
         CallMagicList,
         CallConditionList,
-        LeftEnemy,
-        RightEnemy,
+        LeftBattler,
+        RightBattler,
         SelectEnemy,
     }
 }

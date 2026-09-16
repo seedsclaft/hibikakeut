@@ -35,6 +35,7 @@ namespace Ryneus
         [SerializeField] private MagicList magicList = null;
         [SerializeField] private OnOffButton formationButton = null;
         [SerializeField] private OnOffButton decideButton = null;
+        [SerializeField] private OnOffButton detailButton = null;
 
         private BattleStartAnim _battleStartAnim = null;
         public bool StartAnimIsBusy => _battleStartAnim.IsBusy;
@@ -95,6 +96,13 @@ namespace Ryneus
                 }
                 CallViewEvent(CommandType.SkillLog);
             });
+            if (detailButton != null)
+            {
+                detailButton.OnClickAddListener(() =>
+                {
+                    CallViewEvent(CommandType.Detail);
+                });
+            }
             SetBattleSkipActive(false);
             battleCutinAnimation.Initialize();
             InitializeMagicList();
@@ -156,7 +164,7 @@ namespace Ryneus
             battleEnemyList.SetInputHandler(InputKeyType.Left, () => OnSelectTarget(InputKeyType.Left));
             battleEnemyList.SetInputHandler(InputKeyType.Decide, OnDecideEnemy);
             battleEnemyList.SetInputHandler(InputKeyType.Cancel, () => CallViewEvent(CommandType.OnCancelEnemy));
-            battleEnemyList.SetInputHandler(InputKeyType.Option1, () => CallEnemyDetailInfo());
+            //battleEnemyList.SetInputHandler(InputKeyType.Option1, () => CallEnemyDetailInfo());
             //battleEnemyUnitList.SetSelectedHandler(TargetSelectCursor);
             AddViewActives(battleEnemyList);
         }
@@ -218,23 +226,7 @@ namespace Ryneus
 
         public async Task SetFieldActors(List<BattlerInfo> battlerInfos)
         {
-            await battleFieldView.SetFieldActors(battlerInfos, (a) =>
-            {
-                if (a.IsActor)
-                {
-                    CallViewEvent(CommandType.OnDecideEnemy, a);
-                }
-                else
-                {
-                    CallViewEvent(CommandType.OnDecideActor, a);
-                }
-            }, (a) =>
-            {
-                if (battleEnemyList.Active || battleActorList.Active)
-                {
-                    CallViewEvent(CommandType.OnSelectTargetCursor, a);
-                }
-            });
+            await battleFieldView.SetFieldActors(battlerInfos, DecideEvent, SelectEvent, DetailEvent);
             foreach (var battlerInfoComponent in battleFieldView.BattlerInfoComponents)
             {
                 _fieldBattlerComps[battlerInfoComponent.Key] = battlerInfoComponent.Value;
@@ -243,23 +235,7 @@ namespace Ryneus
 
         public async Task SetFieldEnemies(List<BattlerInfo> battlerInfos)
         {
-            await battleFieldView.SetFieldEnemies(battlerInfos, (a) =>
-            {
-                if (a.IsActor)
-                {
-                    CallViewEvent(CommandType.OnDecideEnemy, a);
-                }
-                else
-                {
-                    CallViewEvent(CommandType.OnDecideActor, a);
-                }
-            }, (a) =>
-            {
-                if (battleEnemyList.Active || battleActorList.Active)
-                {
-                    CallViewEvent(CommandType.OnSelectTargetCursor, a);
-                }
-            });
+            await battleFieldView.SetFieldEnemies(battlerInfos, DecideEvent, SelectEvent, DetailEvent);
             foreach (var battlerInfoComponent in battleFieldView.BattlerInfoComponents)
             {
                 _fieldBattlerComps[battlerInfoComponent.Key] = battlerInfoComponent.Value;
@@ -268,32 +244,51 @@ namespace Ryneus
 
         public async Task UpdateFieldMembers(List<BattlerInfo> battlerInfos)
         {
-            await battleFieldView.UpdateFieldMembers(battlerInfos, (a) =>
-            {
-                if (a.IsActor)
-                {
-                    if (battleEnemyList.Active)
-                    {
-                        CallViewEvent(CommandType.OnDecideEnemy, a);                    
-                    }
-                }
-                else
-                {
-                    if (battleActorList.Active)
-                    {
-                        CallViewEvent(CommandType.OnDecideActor, a);
-                    }
-                }
-            }, (a) =>
-            {
-                if (battleEnemyList.Active || battleActorList.Active)
-                {
-                    CallViewEvent(CommandType.OnSelectTargetCursor, a);
-                }
-            });
+            await battleFieldView.UpdateFieldMembers(battlerInfos, DecideEvent , SelectEvent, DetailEvent);
             foreach (var battlerInfoComponent in battleFieldView.BattlerInfoComponents)
             {
                 _fieldBattlerComps[battlerInfoComponent.Key] = battlerInfoComponent.Value;
+            }
+        }
+
+        private void DecideEvent(BattlerInfo battlerInfo)
+        {
+            if (battlerInfo.IsActor)
+            {
+                if (battleEnemyList.Active)
+                {
+                    CallViewEvent(CommandType.OnDecideEnemy, battlerInfo);                    
+                }
+            }
+            else
+            {
+                if (battleActorList.Active)
+                {
+                    CallViewEvent(CommandType.OnDecideActor, battlerInfo);
+                }
+            }
+        }
+
+        private void SelectEvent(BattlerInfo battlerInfo)
+        {
+            if (battleEnemyList.Active || battleActorList.Active)
+            {
+                CallViewEvent(CommandType.OnSelectTargetCursor, battlerInfo);
+            }
+        }
+
+        private void DetailEvent(BattlerInfo battlerInfo)
+        {
+            //if (battleEnemyList.Active || battleActorList.Active)
+            {
+                if (battlerInfo.IsActor)
+                {
+                    CallViewEvent(CommandType.ActorDetail, battlerInfo);
+                }
+                else
+                {
+                    CallViewEvent(CommandType.EnemyDetail, battlerInfo);
+                }
             }
         }
 
@@ -892,13 +887,13 @@ namespace Ryneus
                 CallViewEvent(CommandType.ChangeBattleAuto);
             }
             else
-            if (InputSystem.GetInputDate(InputKeyType.SideLeft1).IsDownTrigger())
+            if (InputSystem.GetInputDate(InputKeyType.Option1).IsDownTrigger())
             {
-                if (!battleSpeedButton.gameObject.activeSelf)
+                if (battleFieldView.Busy || BattleAnimationBusy.Value)
                 {
                     return;
                 }
-                CallViewEvent(CommandType.ChangeBattleSpeed, -1);
+                CallViewEvent(CommandType.Detail);
             }
             else
             if (InputSystem.GetInputDate(InputKeyType.SideRight1).IsDownTrigger())

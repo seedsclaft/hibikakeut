@@ -11,6 +11,7 @@ namespace Ryneus
             AttributeType,
             StartSelect,
             SkillLog,
+            Detail,
             UpdateAp,
             OnSelectSkill,  // 魔法を選択
             OnSelectTarget, // 魔法対象を変更
@@ -20,6 +21,7 @@ namespace Ryneus
             OnCancelEnemy,
             OnDecideActor,
             OnCancelActor,
+            ActorDetail,
             EnemyDetail,
             ChangeBattleAuto,
             UpdateBattleAuto,

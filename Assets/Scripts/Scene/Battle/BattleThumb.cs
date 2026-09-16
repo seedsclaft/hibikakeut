@@ -28,6 +28,15 @@ namespace Ryneus
             });
         }
 
+        public void ShowThumb(BattlerInfo battlerInfo)
+        {
+            UIComponent.SetActive(gameObject, false);
+            UpdateThumb(battlerInfo, () =>
+            {
+                canvasGroup.alpha = 1;
+            });
+        }
+
         public void HideThumb()
         {
             UIComponent.SetActive(mainThumbRoot, false);

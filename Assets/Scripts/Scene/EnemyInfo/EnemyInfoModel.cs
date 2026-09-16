@@ -16,8 +16,7 @@ namespace Ryneus
         private List<BattlerInfo> _enemyBattlerInfos = new();
         public List<BattlerInfo> EnemyBattlerInfos => _enemyBattlerInfos;
 
-        private int _currentIndex = 0;
-        public int CurrentIndex => _currentIndex;
+        public ParameterInt CurrentIndex = new();
 
         public List<int> EnemyIndexes()
         {
@@ -29,12 +28,18 @@ namespace Ryneus
             return list;
         }
 
-        public void SelectEnemyIndex(int selectIndex)
+        
+        public void ChangeBattlerIndex(int value)
         {
-            _currentIndex = selectIndex;
+            CurrentIndex.GainValue(value, 0, _enemyBattlerInfos.Count - 1, true);
         }
 
-        public BattlerInfo CurrentEnemy => _currentIndex > -1 ? _enemyBattlerInfos[_currentIndex] : null;
+        public void SelectEnemyIndex(int selectIndex)
+        {
+            CurrentIndex.SetValue(selectIndex);
+        }
+
+        public BattlerInfo CurrentEnemy => CurrentIndex.Value > -1 ? _enemyBattlerInfos[CurrentIndex.Value] : null;
 
         public List<SkillInfo> SkillActionList()
         {

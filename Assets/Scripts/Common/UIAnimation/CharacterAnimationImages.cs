@@ -21,10 +21,10 @@ namespace Ryneus
         private List<Sequence> _sequences = new();
         private float _animationDuration => 1f / GameSystem.OptionData.BattleSpeed;
 
-        public void Initialize(Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
+        public void Initialize(Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent, Action<BattlerInfo> detailEvent)
         {
             AnimationUtility.Clear(_sequences);
-            fieldBattler.Initialize(decideEvent, selectEvent);
+            fieldBattler.Initialize(decideEvent, selectEvent, detailEvent);
         }
 
         public void SetAnimationState(AnimationState animationState, bool isEndMode = false)

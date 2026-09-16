@@ -14,11 +14,12 @@ namespace Ryneus
         [SerializeField] private EffekseerEmitter magicCircleEmitter;
         [SerializeField] private GameObject selectArrow;
         [SerializeField] private Button selectButton = null;
+        [SerializeField] private Button detailButton = null;
         [SerializeField] private List<EffekseerEffectAsset> attributeTypeEffects = null;
 
         private BattlerInfo _battlerInfo;
 
-        public void Initialize(Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
+        public void Initialize(Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent, Action<BattlerInfo> detailEvent)
         {
             if (selectButton != null)
             {
@@ -30,6 +31,13 @@ namespace Ryneus
                 enterListener.SetEnterEvent(() =>
                 {
                     selectEvent?.Invoke(_battlerInfo);
+                });
+            }
+            if (detailButton != null)
+            {
+                detailButton.onClick.AddListener(() =>
+                {
+                    detailEvent.Invoke(_battlerInfo);
                 });
             }
         }

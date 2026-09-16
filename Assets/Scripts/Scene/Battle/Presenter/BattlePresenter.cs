@@ -212,6 +212,9 @@ namespace Ryneus
                 case CommandType.EndFormation:
                     CommandEndFormation();
                     break;
+                case CommandType.Detail:
+                    CommandDetail();
+                    break;
                 case CommandType.SelectCharacter:
                     CommandSelectCharacter((int)viewEvent.Template);
                     break;
@@ -260,6 +263,7 @@ namespace Ryneus
                 case CommandType.Escape:
                     CommandEscape();
                     break;
+                case CommandType.ActorDetail:
                 case CommandType.EnemyDetail:
                     CommandEnemyDetail((BattlerInfo)viewEvent.Template);
                     break;
@@ -342,6 +346,16 @@ namespace Ryneus
             }
             _view.CancelFormation();
             _model.SelectIndex.SetValue(-1);
+        }
+
+        private void CommandDetail()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Decide);
+            _busy = true;
+            CommandEnemyInfo(_model.FieldBattlerInfos(), true, () =>
+            {
+                _busy = false;
+            });
         }
 
         private void CommandBack()

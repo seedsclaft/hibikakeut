@@ -32,20 +32,20 @@ namespace Ryneus
 
         }
 
-        public async Task SetFieldActors(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
+        public async Task SetFieldActors(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent, Action<BattlerInfo> detailEvent)
         {
-            await SetActorInfo(battlerInfos.FindAll(a => a.IsActor && a.ActorInfo != null), decideEvent, selectEvent);
+            await SetActorInfo(battlerInfos.FindAll(a => a.IsActor && a.ActorInfo != null), decideEvent, selectEvent, detailEvent);
         }
 
-        public async Task SetFieldEnemies(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
+        public async Task SetFieldEnemies(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent, Action<BattlerInfo> detailEvent)
         {
             MoveCameraEnemies();
             ZoomIn();
-            await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor && a.EnemyData != null), decideEvent, selectEvent);
+            await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor && a.EnemyData != null), decideEvent, selectEvent, detailEvent);
             SetAnimationBattlerAll(AnimationState.BeforeStart);
         }
 
-        public async Task UpdateFieldMembers(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
+        public async Task UpdateFieldMembers(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent, Action<BattlerInfo> detailEvent)
         {
             foreach (var battlers in _battlers)
             {
@@ -53,11 +53,11 @@ namespace Ryneus
             }
             _battlers.Clear();
             _battlerInfoComponents.Clear();
-            await SetActorInfo(battlerInfos.FindAll(a => a.IsActor && a.ActorInfo != null), decideEvent, selectEvent);
-            await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor && a.EnemyData != null), decideEvent, selectEvent);
+            await SetActorInfo(battlerInfos.FindAll(a => a.IsActor && a.ActorInfo != null), decideEvent, selectEvent, detailEvent);
+            await SetEnemyInfo(battlerInfos.FindAll(a => !a.IsActor && a.EnemyData != null), decideEvent, selectEvent, detailEvent);
         }
 
-        public async Task SetActorInfo(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
+        public async Task SetActorInfo(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent, Action<BattlerInfo> detailEvent)
         {
             for (int i = 0; i < battlerInfos.Count; i++)
             {
@@ -65,7 +65,7 @@ namespace Ryneus
                 var prefab = Instantiate(asset);
                 prefab.transform.SetParent(actorPositions[battlerInfos[i].Index.Value - 1].transform, false);
                 var comp = prefab.GetComponent<CharacterAnimationImages>();
-                comp.Initialize(decideEvent, selectEvent);
+                comp.Initialize(decideEvent, selectEvent, detailEvent);
                 comp.UpdateInfo(battlerInfos[i]);
                 comp.ReplaceDamageRoot(actorDamagePositions[i]);
                 _battlers[battlerInfos[i].Index.Value] = comp;
@@ -81,7 +81,7 @@ namespace Ryneus
             }
         }
 
-        public async Task SetEnemyInfo(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent)
+        public async Task SetEnemyInfo(List<BattlerInfo> battlerInfos, Action<BattlerInfo> decideEvent, Action<BattlerInfo> selectEvent, Action<BattlerInfo> detailEvent)
         {
             for (int i = 0; i < battlerInfos.Count; i++)
             {
@@ -89,7 +89,7 @@ namespace Ryneus
                 var prefab = Instantiate(asset);
                 prefab.transform.SetParent(enemyPositions[battlerInfos[i].Index.Value - 101].transform, false);
                 var comp = prefab.GetComponent<CharacterAnimationImages>();
-                comp.Initialize(decideEvent, selectEvent);
+                comp.Initialize(decideEvent, selectEvent, detailEvent);
                 comp.UpdateInfo(battlerInfos[i]);
                 comp.ReplaceDamageRoot(enemyDamagePositions[i]);
                 _battlers[battlerInfos[i].Index.Value] = comp;

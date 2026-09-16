@@ -24,8 +24,8 @@ namespace Ryneus
         {
             _view.SetHelpWindow();
             _view.SetEvent((type) => UpdateCommand(type));
-            _view.SetEnemies(MakeListData(_model.EnemyBattlerInfos, 0));
             CommandRefresh();
+            _view.SetActiveSelector(_model.EnemyBattlerInfos.Count > 1);
             _busy = false;
         }
 
@@ -50,6 +50,12 @@ namespace Ryneus
                 case CommandType.CallConditionList:
                     CommandCallConditionList();
                     break;
+                case CommandType.LeftBattler:
+                    CommandLeftBattler();
+                    break;
+                case CommandType.RightBattler:
+                    CommandRightBattler();
+                    break;
                 case CommandType.Back:
                     CommandBack();
                     break;
@@ -58,20 +64,33 @@ namespace Ryneus
 
         private void CommandSelectEnemy()
         {
-            var selectIndex = _view.EnemyListIndex;
-            _model.SelectEnemyIndex(selectIndex);
-            _view.UpdateEnemyList(selectIndex);
             CommandRefresh();
         }
 
         private void CommandCallMagicList()
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _view.CallMagicList();
         }
 
         private void CommandCallConditionList()
         {
+            SoundManager.Instance.PlayStaticSe(SEType.Cursor);
             _view.CallConditionList();
+        }
+
+        private void CommandLeftBattler()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Cursor);
+            _model.ChangeBattlerIndex(-1);
+            CommandRefresh();
+        }
+
+        private void CommandRightBattler()
+        {
+            SoundManager.Instance.PlayStaticSe(SEType.Cursor);
+            _model.ChangeBattlerIndex(1);
+            CommandRefresh();
         }
 
         private void CommandBack()
@@ -84,7 +103,7 @@ namespace Ryneus
             var skillInfos = _model.SkillActionList();
             var lastSelectIndex = 0;
             _view.SetCondition(MakeListData(_model.SelectCharacterConditions(), 0));
-            _view.CommandRefreshStatus(MakeListData(skillInfos, 0), _model.CurrentEnemy, MakeListData(_model.EnemySkillTriggerInfo()), _model.EnemyIndexes(), lastSelectIndex);
+            _view.CommandRefreshStatus(MakeListData(skillInfos, 0), _model.CurrentEnemy);
         }
     }
 }
