@@ -162,7 +162,6 @@ namespace Ryneus
 
         public BattlerInfo(EnemyData enemyData, int lv, int index, LineType lineIndex, bool isBoss)
         {
-            EnemyIndex = new ParameterInt();
             EnemyId.SetValue(enemyData.Id);
             Level.SetValue(lv);
             _bossFlag = isBoss;
@@ -184,11 +183,11 @@ namespace Ryneus
         public void InitParamInfos(EnemyData enemyData)
         {
             var statusInfo = new StatusInfo();
-            int plusHpParam = _bossFlag ? Level.Value * 2 : 0;
+            int plusHpParam = _bossFlag ? (int)(Level.Value * 1.5f) : 0;
             statusInfo.SetParameter(
                 (int)(enemyData.BaseStatus.Hp + plusHpParam + Mathf.Round(Level.Value * enemyData.HpGrowth * 0.01f)),
                 0,
-                (int)(enemyData.BaseStatus.Atk + Mathf.Round(Level.Value * enemyData.AtkGrowth * 0.015f)),
+                (int)(enemyData.BaseStatus.Atk + Mathf.Round(Level.Value * enemyData.AtkGrowth * 0.01f)),
                 (int)(enemyData.BaseStatus.Def + Mathf.Round(Level.Value * enemyData.DefGrowth * 0.01f)),
                 Math.Min(100, (int)(enemyData.BaseStatus.Spd + Mathf.Round(Level.Value * enemyData.SpdGrowth * 0.01f))),
                 0,
