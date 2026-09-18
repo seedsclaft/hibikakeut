@@ -53,11 +53,11 @@ MonoBehaviour:
     DisplayRank: 2
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
-    - EnemyId: 1
-      Weight: 30
     - EnemyId: 3
       Weight: 30
     - EnemyId: 4
+      Weight: 30
+    - EnemyId: 10
       Weight: 30
     EncountTimes: -1
     EncountMin: 8
@@ -82,13 +82,13 @@ MonoBehaviour:
     DisplayRank: 0
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
-    - EnemyId: 1
-      Weight: 15
     - EnemyId: 3
       Weight: 15
     - EnemyId: 4
       Weight: 15
     - EnemyId: 9
+      Weight: 15
+    - EnemyId: 10
       Weight: 15
     EncountTimes: -1
     EncountMin: 8
@@ -214,13 +214,13 @@ MonoBehaviour:
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
     - EnemyId: 1
-      Weight: 10
+      Weight: 15
     - EnemyId: 3
-      Weight: 10
+      Weight: 15
     - EnemyId: 4
-      Weight: 10
+      Weight: 15
     - EnemyId: 5
-      Weight: 10
+      Weight: 15
     EncountTimes: -1
     EncountMin: 8
     EncountMax: 12
@@ -813,13 +813,13 @@ MonoBehaviour:
     DisplayRank: 3
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
-    - EnemyId: 1
-      Weight: 15
     - EnemyId: 3
+      Weight: 15
+    - EnemyId: 4
       Weight: 15
     - EnemyId: 9
       Weight: 15
-    - EnemyId: 11
+    - EnemyId: 10
       Weight: 15
     EncountTimes: 5
     EncountMin: 8
@@ -978,7 +978,7 @@ MonoBehaviour:
 
       Once
       you sortie, there is no turning back'
-    StageLv: 15
+    StageLv: 12
     OnlyOnce: 1
     DisplayRank: 1
     RandomTroopWeight: 30
@@ -995,7 +995,7 @@ MonoBehaviour:
       Weight: 10
     - EnemyId: 9
       Weight: 10
-    - EnemyId: 11
+    - EnemyId: 10
       Weight: 10
     EncountTimes: -1
     EncountMin: 0

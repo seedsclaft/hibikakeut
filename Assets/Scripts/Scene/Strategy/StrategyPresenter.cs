@@ -296,6 +296,7 @@ namespace Ryneus
 
         private void EndStrategy()
         {
+            CheckAchievements();
             _view.EndShinyEffect();
             _model.EndStrategy();
             // 敗北して戻る

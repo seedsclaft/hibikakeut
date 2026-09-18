@@ -239,6 +239,13 @@ namespace Ryneus
             var noCommandSkill = new SkillInfo(6010);
             noCommandSkill.SetEnable(true);
             skillInfos.Insert(insert + 1, noCommandSkill);
+            // 覚醒使えたら最上にする
+            var awakenSkill = skillInfos.Find(a => a.Master.SkillType == SkillType.Awaken && a.Enable);
+            if (awakenSkill != null)
+            {
+                skillInfos.Remove(awakenSkill);
+                skillInfos.Insert(0, awakenSkill);
+            }
             return skillInfos;
         }
 
@@ -728,7 +735,7 @@ namespace Ryneus
             }
 
             // かばうによるターゲット変更
-            if (!actionInfo.TriggeredSkill && actionInfo.Master.IsHpDamageFeature())
+            if (/*!actionInfo.TriggeredSkill && */actionInfo.Master.IsHpDamageFeature())
             {
                 indexList = CheckCoverIndexList(actionInfo, indexList);
                 actionInfo.SetCandidateTargetIndexList(indexList);
@@ -869,9 +876,22 @@ namespace Ryneus
                 if (coveringBattlerInfos.Count > 0)
                 {
                     foreach (var coveringBattlerInfo in coveringBattlerInfos)
-                    {   
-                        // かばう成立
-                        newIndexList.Add(coveringBattlerInfo.Index.Value);
+                    {
+                        if (!newIndexList.Contains(coveringBattlerInfo.Index.Value))
+                        {
+                            // かばう成立
+                            newIndexList.Add(coveringBattlerInfo.Index.Value);
+                            // 前後攻撃で後ろが存在する場合
+                            if (actionInfo.ScopeType == ScopeType.FrontLow)
+                            {
+                                var backIndex = coveringBattlerInfo.Index.Value + 3;
+                                var backBattlerInfo = GetBattlerInfo(backIndex);
+                                if (backBattlerInfo != null && backBattlerInfo.IsAlive() && !newIndexList.Contains(backIndex))
+                                {
+                                    newIndexList.Add(backIndex);
+                                }
+                            }
+                        }
                     }
                 } else
                 {

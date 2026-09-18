@@ -186,11 +186,11 @@ namespace Ryneus
             var statusInfo = new StatusInfo();
             int plusHpParam = _bossFlag ? Level.Value * 2 : 0;
             statusInfo.SetParameter(
-                (int)(enemyData.BaseStatus.Hp + plusHpParam + Math.Round(Level.Value * enemyData.HpGrowth * 0.01f)),
+                (int)(enemyData.BaseStatus.Hp + plusHpParam + Mathf.Round(Level.Value * enemyData.HpGrowth * 0.01f)),
                 0,
-                (int)(enemyData.BaseStatus.Atk + Math.Round(Level.Value * enemyData.AtkGrowth * 0.015f)),
-                (int)(enemyData.BaseStatus.Def + Math.Round(Level.Value * enemyData.DefGrowth * 0.01f)),
-                Math.Min(100, (int)(enemyData.BaseStatus.Spd + Math.Round(Level.Value * enemyData.SpdGrowth * 0.01f))),
+                (int)(enemyData.BaseStatus.Atk + Mathf.Round(Level.Value * enemyData.AtkGrowth * 0.015f)),
+                (int)(enemyData.BaseStatus.Def + Mathf.Round(Level.Value * enemyData.DefGrowth * 0.01f)),
+                Math.Min(100, (int)(enemyData.BaseStatus.Spd + Mathf.Round(Level.Value * enemyData.SpdGrowth * 0.01f))),
                 0,
                 0,
                 0,
@@ -745,7 +745,7 @@ namespace Ryneus
             {
                 return 0f;
             }
-            return Mathf.Round(StateEffectAll(stateType) * 0.01f);
+            return Mathf.Round(StateEffectAll(stateType) * 0.01f * 100f) / 100f;
         }
 
         public float StateEffectAllRate(StateType stateType)
@@ -754,7 +754,7 @@ namespace Ryneus
             {
                 return 1f;
             }
-            return Mathf.Round(1f + StateEffectAll(stateType) * 0.01f);
+            return 1f + StateEffectAllPercent(stateType);
         }
 
         public float StateEffectAllDeRate(StateType stateType)
@@ -763,7 +763,7 @@ namespace Ryneus
             {
                 return 1f;
             }
-            return Mathf.Round(1f - StateEffectAll(stateType) * 0.01f);
+            return 1f - StateEffectAllPercent(stateType);
         }
 
         public bool AddState(StateInfo stateInfo, bool doAdd)
@@ -926,7 +926,7 @@ namespace Ryneus
                     atk *= 1f + (DemigodParam.Value * 0.1f);
                 }
             }
-            return (int)Mathf.Round(atk);
+            return (int)(Mathf.Round(atk * 100f) / 100f);
         }
 
         public int CurrentDef(bool isNoEffect = false)
@@ -948,7 +948,7 @@ namespace Ryneus
                     def *= 1f + (DemigodParam.Value * 0.1f);
                 }
             }
-            return (int)Mathf.Round(def);
+            return (int)(Mathf.Round(def * 100f) / 100f);
         }
 
         public int CurrentSpd(bool isNoEffect = false)
@@ -964,7 +964,7 @@ namespace Ryneus
                     spd *= 1f + (DemigodParam.Value * 0.1f);
                 }
             }
-            return (int)Math.Round(spd);
+            return (int)(Mathf.Round(spd * 100f) / 100f);
         }
 
         public int CurrentMov(bool isNoEffect = false)
@@ -977,7 +977,7 @@ namespace Ryneus
             float hit = _status.Hit;
             hit += StateEffectAll(StateType.HitUp) + StateEffectAll(StateType.HitUpOver);
             hit -= DeBuffUpperParam(StateEffectAll(StateType.HitDown));
-            return (int)Math.Round(hit);
+            return (int)Mathf.Round(hit);
         }
 
         public int CurrentEva()
@@ -985,13 +985,13 @@ namespace Ryneus
             float eva = _status.Eva;
             eva += StateEffectAll(StateType.EvaUp) + StateEffectAll(StateType.EvaUpOver);
             eva -= DeBuffUpperParam(StateEffectAll(StateType.EvaDown));
-            return (int)Math.Round(eva);
+            return (int)Mathf.Round(eva);
         }
 
         public int CurrentCri(bool isNoEffect = false)
         {
             float cri = _status.Cri;
-            return (int)Math.Round(cri);
+            return (int)Mathf.Round(cri);
         }
 
         public float CurrentDamageRate(bool isNoEffect = false)
@@ -1120,9 +1120,9 @@ namespace Ryneus
             slipDamage += GetStateEffectAll(StateType.PoisunDamage);
             slipDamage += GetStateEffectAll(StateType.BurnDamage);
             slipDamage *= StateEffectAllDeRate(StateType.BurnDamageCut);
-            var perDamageValue = GetStateEffectAll(StateType.PoisunDamagePer);
-            slipDamage += (int)Math.Round(MaxHp * 0.01f * perDamageValue);
-            return (int)slipDamage;
+            var perDamageValue = MaxHp * 0.01f * GetStateEffectAll(StateType.PoisunDamagePer);
+            slipDamage += perDamageValue;
+            return (int)Mathf.Round(slipDamage);
         }
 
         public int RegenerateHpValue()
@@ -1130,7 +1130,7 @@ namespace Ryneus
             var regenerate = 0;
             regenerate += GetStateEffectAll(StateType.Regenerate);
             var perDamageValue = GetStateEffectAll(StateType.Undead);
-            regenerate += (int)Math.Round(MaxHp * 0.01f * perDamageValue);
+            regenerate += (int)Mathf.Round(MaxHp * 0.01f * perDamageValue);
             return regenerate;
         }
     }

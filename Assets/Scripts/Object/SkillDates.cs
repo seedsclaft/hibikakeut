@@ -61,7 +61,7 @@ namespace Ryneus
 
         public bool IsHpDamageFeature()
         {
-            return FeatureDates.Find(a => a.FeatureType == FeatureType.HpDamage || a.FeatureType == FeatureType.HpConsumeDamage || a.FeatureType == FeatureType.RevengeHpDamage || a.FeatureType == FeatureType.HpStateDamage) != null;
+            return FeatureDates.Find(a => a.FeatureType == FeatureType.HpDamage || a.FeatureType == FeatureType.HpConsumeDamage || a.FeatureType == FeatureType.RevengeHpDamage || a.FeatureType == FeatureType.HpStateDamage || a.FeatureType == FeatureType.PenetrateHpDamage) != null;
         }
 
         public bool IsHpHealFeature()
