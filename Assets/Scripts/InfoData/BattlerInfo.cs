@@ -905,6 +905,8 @@ namespace Ryneus
         public int CurrentAtk(bool isNoEffect = false)
         {
             float atk = _status.Atk;
+            // Lv補正値
+            atk += Math.Max(DataSystem.System.PlusAttackValue, Level.Value);
             if (!isNoEffect)
             {
                 atk += StateEffectAll(StateType.StatusUp);
@@ -922,7 +924,7 @@ namespace Ryneus
                 }
                 if (IsState(StateType.Demigod))
                 {
-                    atk *= 1f + (DemigodParam.Value * 0.1f);
+                    atk *= 1f + (DemigodParam.Value * 0.01f);
                 }
             }
             return (int)(Mathf.Round(atk * 100f) / 100f);
@@ -944,7 +946,7 @@ namespace Ryneus
                 }
                 if (IsState(StateType.Demigod))
                 {
-                    def *= 1f + (DemigodParam.Value * 0.1f);
+                    def *= 1f + (DemigodParam.Value * 0.01f);
                 }
             }
             return (int)(Mathf.Round(def * 100f) / 100f);
@@ -960,7 +962,7 @@ namespace Ryneus
                 spd += StateEffect(StateType.Accel) * StateTurn(StateType.Accel);
                 if (IsState(StateType.Demigod))
                 {
-                    spd *= 1f + (DemigodParam.Value * 0.1f);
+                    spd *= 1f + (DemigodParam.Value * 0.01f);
                 }
             }
             return (int)(Mathf.Round(spd * 100f) / 100f);

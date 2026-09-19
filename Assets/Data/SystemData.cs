@@ -25,6 +25,7 @@ namespace Ryneus
         public int ChangeArtifactCurrency;
         public int InitEquipmentId;
         public int BaseGetExp;
+        public int PlusAttackValue;
         public List<TextData> SystemTextData;
 
         public List<InputData> InputDataList;

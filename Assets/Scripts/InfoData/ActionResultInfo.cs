@@ -624,7 +624,7 @@ namespace Ryneus
 
         private void MakeHpCriticalRateHpDamage(BattlerInfo subject, BattlerInfo target, SkillData.FeatureData featureData, bool isNoEffect, bool isOneTarget, int range)
         {
-            float hpDamage = BaseHpDamage(subject, target, featureData.Param1 * 0.01f, isNoEffect, isOneTarget);
+            float hpDamage = BaseHpDamage(subject, target, featureData.Param1, isNoEffect, isOneTarget);
 
             // 効果補正
             hpDamage = CalcDamageEffect(hpDamage, subject, target, isNoEffect, featureData.Param2);

@@ -75,11 +75,14 @@ namespace Ryneus
                 _view.MinusEvaluate(-minusValue);
                 _model.PartyInfo.PartyStatInfo.BattleScore.GainValue(-minusValue, 0);
                 CommandRefresh();
+                _busy = true;
+                _model.DungeonBusy(true);
                 CallConfirmNoChoiceView(DataSystem.GetText(10240), (a) =>
                 {
                     if (a == ConfirmCommandType.Close)
                     {
                         CheckTutorialState();
+                        _model.DungeonBusy(false);
                         _busy = false;
                     }
                 });

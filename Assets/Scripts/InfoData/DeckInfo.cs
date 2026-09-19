@@ -132,6 +132,7 @@ namespace Ryneus
 
         public bool AdjustEditIndexes()
         {
+            /*
             var backOnlyEdit = new List<int>();
             foreach (var actorIdDict in _actorIdDict)
             {
@@ -149,6 +150,8 @@ namespace Ryneus
                 SwapBattler(backOnly - 3, _actorIdDict[backOnly]);
             }
             return backOnlyEdit.Count > 0;
+            */
+            return false;
         }
 
         public void SetAutoDeck(List<ActorInfo> actorInfos)

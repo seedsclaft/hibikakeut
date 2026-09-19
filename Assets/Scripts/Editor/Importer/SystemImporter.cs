@@ -226,6 +226,10 @@ namespace Ryneus
                         {
                             Data.BaseGetExp = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
                         }
+                        if (KeyName == "PlusAttackValue")
+                        {
+                            Data.PlusAttackValue = AssetPostImporter.ImportNumeric(BaseRow, (int)BaseDefineColumn.Param);
+                        }
                     }
                 }
             }

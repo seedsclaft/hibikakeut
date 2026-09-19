@@ -330,14 +330,17 @@ namespace Ryneus
             }
         }
 
-        private void CommandConfirmView(ConfirmInfo confirmInfo)
+        private async void CommandConfirmView(ConfirmInfo confirmInfo)
         {
             confirmAssign.CreateConfirm(confirmInfo.ConfirmType, helpWindow);
             var prefab = confirmAssign.LastPopupPrefab;
             var confirmView = prefab.GetComponent<ConfirmView>();
             if (!confirmView.SetupEnd.Value)
             {
-                confirmView.SetEvent((type) => UpdateCommand(type));
+                var baseAnimation = prefab.GetComponent<BaseAnimation>();
+                baseAnimation?.Initialize(confirmView.UiRoot.transform);
+                await UniTask.DelayFrame(1);
+                confirmView.SetEvent(async (type) => await UpdateCommand(type));
             }
             confirmView.Initialize();
             confirmView.SetViewInfo(confirmInfo);
@@ -540,9 +543,9 @@ namespace Ryneus
             _currentScene.SetBattleTestMode(debugBattleData.TestBattle);
             _currentScene.SetEvent((type) => UpdateCommand(type));
             _sceneStackManager.PushSceneInfo(sceneInfo);
-            _currentScene.Initialize();
             _inputableBaseViews.Clear();
             _inputableBaseViews.Add(_currentScene);
+            _currentScene.Initialize();
             //tutorialView.HideFocusImage();
         }
 

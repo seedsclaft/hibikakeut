@@ -890,12 +890,31 @@ namespace Ryneus
                                 {
                                     newIndexList.Add(backIndex);
                                 }
+                            } else
+                            // 列攻撃が存在する場合
+                            if (actionInfo.ScopeType == ScopeType.Line)
+                            {
+                                var lineIndex = coveringBattlerInfo.LineIndex;
+                                var lineBattlerInfos = GetBattlerInfos(coveringBattlerInfo.IsActor, true);
+                                foreach (var lineBattlerInfo in lineBattlerInfos)
+                                {
+                                    if (lineBattlerInfo != null && lineBattlerInfo.IsAlive() && !newIndexList.Contains(lineBattlerInfo.Index.Value))
+                                    {
+                                        if (!coveredBattlerIds.Contains(lineBattlerInfo.Index.Value) && !coveringBattlerInfos.Contains(lineBattlerInfo))
+                                        {
+                                            newIndexList.Add(lineBattlerInfo.Index.Value);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 } else
                 {
-                    newIndexList.Add(targetIndex);
+                    if (!newIndexList.Contains(targetIndex))
+                    {
+                        newIndexList.Add(targetIndex);
+                    }
                 }
             }
             return newIndexList;
