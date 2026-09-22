@@ -81,11 +81,9 @@ namespace Ryneus
         public List<EquipmentInfo> EquipmentInfos()
         {
             var list = new List<EquipmentInfo>();
-            EquipmentInfo removeEquipmentInfo = new(DataSystem.System.InitEquipmentId);
-            list.Add(removeEquipmentInfo);
             foreach (var equipmentId in PartyInfo.EquipmentIds)
             {
-                EquipmentInfo equipmentInfo = new(equipmentId);
+                var equipmentInfo = new EquipmentInfo(equipmentId);
                 foreach (var learningInfo in equipmentInfo.LearningInfos)
                 {
                     learningInfo.LearningRate.SetValue(CurrentActor.GetSkillExp(learningInfo.SkillData.Attribute, learningInfo.LearningRate.Value, PartyInfo.EditableActorInfos()));
@@ -94,6 +92,9 @@ namespace Ryneus
                 equipmentInfo.EquipmentActor = PartyInfo.ActorInfos.Find(a => a.EquipmentIds.Contains(equipmentId));
                 list.Add(equipmentInfo);
             }
+            list.Sort((a, b) => a.SortKey.CompareTo(b.SortKey));
+            var removeEquipmentInfo = new EquipmentInfo(DataSystem.System.InitEquipmentId);
+            list.Insert(0, removeEquipmentInfo);
             return list;
         }
 

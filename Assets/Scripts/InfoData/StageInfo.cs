@@ -9,7 +9,6 @@ namespace Ryneus
         public StageData _master = null;
         public StageData Master => DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
-        public ParameterInt SortIndex = new();
         public ParameterBool Cleared = new();
         public ParameterBool Alarted = new();
         public StageInfo(int id, bool cleared = false, bool alarted = false)
@@ -20,16 +19,8 @@ namespace Ryneus
             Alarted.SetValue(alarted);
         }
 
-        public void SetSortIndex(int index)
-        {
-            var idx = 0;
-            idx += (int)_master.Category * 100;
-            if (!Cleared.Value)
-            {
-                idx += 10000;
-            }
-            SortIndex.SetValue(idx + index);
-        }
+        public (bool isLearnd, int rate, int id) SortKey => 
+            (!Cleared.Value, (int)_master.Category, _master.Id);
 
         public EnemyData BossEnemyData()
         {

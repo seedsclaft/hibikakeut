@@ -12,6 +12,11 @@ namespace Ryneus
         DungeonView _view = null;
 
         private bool _busy = true;
+        public void SetBusy(bool isBusy)
+        {
+            _busy = isBusy;
+            _model.DungeonBusy(isBusy);
+        }
         private bool _battleBusy = false;
         private bool _routeMode = true;
         private int _routeMoveFailCount = 0;
@@ -75,15 +80,13 @@ namespace Ryneus
                 _view.MinusEvaluate(-minusValue);
                 _model.PartyInfo.PartyStatInfo.BattleScore.GainValue(-minusValue, 0);
                 CommandRefresh();
-                _busy = true;
-                _model.DungeonBusy(true);
+                SetBusy(true);
                 CallConfirmNoChoiceView(DataSystem.GetText(10240), (a) =>
                 {
                     if (a == ConfirmCommandType.Close)
                     {
                         CheckTutorialState();
-                        _model.DungeonBusy(false);
-                        _busy = false;
+                        SetBusy(false);
                     }
                 });
                 return;
@@ -319,9 +322,8 @@ namespace Ryneus
             {
                 return;
             }
-            _busy = true;
+            SetBusy(false);
             _battleBusy = true;
-            _model.DungeonBusy(true);
             _model.ResetEncountValue();
             // ダンジョンの再開時間を記憶
             _model.SaveBgmTiming();
@@ -370,8 +372,7 @@ namespace Ryneus
                 else
                 {
                     _view.CallSystemCommand(Base.CommandType.SceneShowUI);
-                    _busy = false;
-                    _model.DungeonBusy(false);
+                    SetBusy(false);
                     CommandRefresh();
                     // ターン数確認
                     CommandTurnOverEvent(false);
@@ -1034,14 +1035,12 @@ namespace Ryneus
             // 移動したら評価値が減る場合に確認
             if (_model.EndDungeonByTurnCountValue(0) && !_checkTurnOver)
             {
-                _model.DungeonBusy(true);
-                _busy = true;
+                SetBusy(true);
                 var confirmInfo = new ConfirmInfo(DataSystem.GetText(10182), (a) =>
                 {
                     if (a == ConfirmCommandType.Yes)
                     {
-                        _model.DungeonBusy(false);
-                        _busy = false;
+                        SetBusy(false);
                         _checkTurnOver = true;
                     }
                     else
@@ -1101,7 +1100,7 @@ namespace Ryneus
             _model.SaveBgmTiming();
             SoundManager.Instance.FadeOutBgm();
             SoundManager.Instance.PlayStaticSe(SEType.Artifact);
-            _busy = true;
+            SetBusy(true);
             var skillId = item.Param1;
             var learnSkillInfo = new LearnSkillInfo(0, 0, new List<SkillInfo>{new SkillInfo(skillId)});
             CallLearnSkillPopupView(learnSkillInfo, () =>
@@ -1117,8 +1116,7 @@ namespace Ryneus
             {
                 if (a == ConfirmCommandType.Yes || a == ConfirmCommandType.Close)
                 {
-                    _busy = false;
-                    _model.DungeonBusy(false);
+                    SetBusy(false);
                 }
                 else
                 if (a == ConfirmCommandType.No)
@@ -1141,8 +1139,7 @@ namespace Ryneus
             _model.PartyInfo.PartyStatInfo.BattleScore.GainValue(-minusValue, 0);
             CallConfirmNoChoiceView(DataSystem.GetReplaceText(10141, minusValue.ToString()), (a) =>
             {
-                _busy = false;
-                _model.DungeonBusy(false);
+                SetBusy(false);
                 CommandRefresh();
             });
         }
@@ -1279,8 +1276,7 @@ namespace Ryneus
                 return;
             }
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            _busy = true;
-            _model.DungeonBusy(true);
+            SetBusy(true);
             var useItemSceneInfo = new UseItemSceneInfo();
             useItemSceneInfo.UsableItemTypes = new()
             {
@@ -1333,8 +1329,7 @@ namespace Ryneus
             {
                 return;
             }
-            _busy = true;
-            _model.DungeonBusy(true);
+            SetBusy(true);
             CallPopupView(PopupType.ArtifactList, () =>
             {
                 _busy = false;
@@ -1345,14 +1340,12 @@ namespace Ryneus
 
         private void CommandPartyInfo()
         {
-            _busy = true;
-            _model.DungeonBusy(true);
+            SetBusy(true);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             var actorInfos = _model.CurrentDeckActorInfos();
             CommandActorStatusInfo(actorInfos, false, actorInfos[0].ActorId.Value, () =>
             {
-                _busy = false;
-                _model.DungeonBusy(false);
+                SetBusy(false);
                 CommandRefresh();
             });
         }
@@ -1360,16 +1353,14 @@ namespace Ryneus
         private void CommandSaveCommand()
         {
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
-            _busy = true;
-            _model.DungeonBusy(true);
+            SetBusy(true);
             var sceneParam = new FileListSceneInfo
             {
                 IsLoad = false
             };
             CallPopupView(PopupType.FileList, () =>
             {
-                _busy = false;
-                _model.DungeonBusy(false);
+                SetBusy(false);
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 CommandRefresh();
             }, sceneParam);
@@ -1381,13 +1372,11 @@ namespace Ryneus
             {
                 return;
             }
-            _busy = true;
-            _model.DungeonBusy(true);
+            SetBusy(true);
             SoundManager.Instance.PlayStaticSe(SEType.Decide);
             CommandCallSideMenu(MakeListData(_model.SideMenu(), 0), () =>
             {
-                _model.DungeonBusy(false);
-                _busy = false;
+                SetBusy(false);
             });
         }
 
@@ -1441,12 +1430,10 @@ namespace Ryneus
 
         private void CommandGuide()
         {
-            _busy = true;
-            _model.DungeonBusy(true);
+            SetBusy(true);
             CallPopupGuide("Dungeon", 0, () =>
             {
-                _busy = false;
-                _model.DungeonBusy(false);
+                SetBusy(false);
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             });
         }
@@ -1474,12 +1461,10 @@ namespace Ryneus
             };
             Action<TutorialData> checkTrue = (tutorialData) =>
             {
-                _busy = true;
-                _model.DungeonBusy(true);
+                SetBusy(true);
                 CallPopupTutorial(tutorialData, () =>
                 {
-                    _busy = false;
-                    _model.DungeonBusy(false);
+                    SetBusy(false);
                 });
             };
             Func<TutorialData, bool> checkEnd = (tutorialData) =>

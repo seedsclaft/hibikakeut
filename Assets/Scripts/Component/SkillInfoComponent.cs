@@ -25,6 +25,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI battleCountTurn;
         [SerializeField] private TextMeshProUGUI learningText;
         [SerializeField] private TextMeshProUGUI rank;
+        [SerializeField] private TextMeshProUGUI timingOnlyText;
         [SerializeField] private GameObject selectable;
         [SerializeField] private GameObject selectedAlcana;
         [SerializeField] private StatusGaugeAnimation skillExpGauge;
@@ -94,6 +95,7 @@ namespace Ryneus
             {
                 UIComponent.SetActive(useCount, true);
                 UIComponent.SetText(useCount, DataSystem.GetReplaceText(2610, skillInfo.RemainUseCount().ToString()));
+                useCount.rectTransform.sizeDelta = new Vector2(useCount.rectTransform.sizeDelta.x, useCount.rectTransform.sizeDelta.y);
             }
         }
 
@@ -140,7 +142,7 @@ namespace Ryneus
                     count++;
                 }
             }
-            UIComponent.SetActive(countTurnRoot, skillData.SkillType == SkillType.Active || (skillData.SkillType == SkillType.Passive && skillData.CountTurn > 0));
+            UIComponent.SetActive(countTurnRoot, (skillData.SkillType == SkillType.Active && skillData.CountTurn > 0) || (skillData.SkillType == SkillType.Passive && skillData.CountTurn > 0));
             UIComponent.SetText(countTurn, skillData.CountTurn.ToString());
             if (rank != null)
             {
@@ -153,11 +155,20 @@ namespace Ryneus
             {
                 UpdateLineImage();
             }
-            /*
-            var rangeTextId = skillData.Range == RangeType.S ? 2210 : 2220;
-            UIComponent.SetText(range, DataSystem.GetText(rangeTextId));
-            */
-            UIComponent.SetActive(range, skillData.Range == RangeType.L);
+            if (range != null)
+            {
+                UIComponent.SetActive(range, skillData.Range == RangeType.L);
+                range.rectTransform.sizeDelta = new Vector2(range.rectTransform.sizeDelta.x, range.rectTransform.sizeDelta.y);
+            }
+            if (timingOnlyText != null)
+            {
+                UIComponent.SetActive(timingOnlyText, skillData.TimingOnlyCount > 0);
+                timingOnlyText.rectTransform.sizeDelta = new Vector2(timingOnlyText.rectTransform.sizeDelta.x, timingOnlyText.rectTransform.sizeDelta.y);
+            }
+            if (useCount != null)
+            {
+                UIComponent.SetActive(useCount, false);
+            }
         }
 
         private void UpdateSkillIcon(MagicIconType iconIndex)

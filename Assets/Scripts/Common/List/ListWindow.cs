@@ -1058,6 +1058,7 @@ namespace Ryneus
         {
             ScrollRect.normalizedPosition = _horizontal ? new Vector2(1, 0) : new Vector2(0, 1);
             _lastStartIndexX = -1;
+            _lastStartIndexY = -1;
         }
 
         public void Release()

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ryneus
 {
@@ -17,7 +19,7 @@ namespace Ryneus
             {
                 foreach (var learningDate in Master.LearningDates)
                 {
-                    EquipmentLearningInfo equipmentLearningInfo = new(learningDate);
+                    var equipmentLearningInfo = new EquipmentLearningInfo(learningDate);
                     LearningInfos.Add(equipmentLearningInfo);
                 }
             }
@@ -31,6 +33,19 @@ namespace Ryneus
                 list.Add(new SkillInfo(learningInfo.SkillId.Value));
             }
             return list;
+        }
+
+        public (bool isLearnd, int rate, int id) SortKey => 
+            (IsLearned(), LearningRate(), _master.Id);
+
+        private bool IsLearned()
+        {
+            return LearningInfos.All(a => a.LearningExp.Value == 100);
+        }
+
+        private int LearningRate()
+        {
+            return (int)LearningInfos.Sum(a => a.LearningExp.Value) * -1;
         }
     }
 }

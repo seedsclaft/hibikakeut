@@ -30,7 +30,6 @@ namespace Ryneus
                 var cleared = PartyInfo.IsClaeredStage(stageData.StageNo);
                 var alarted = PartyInfo.IsAlartedStage(stageData.StageNo);
                 var stageInfo = new StageInfo(stageData.Id, cleared, alarted);
-                stageInfo.SetSortIndex(idx);
                 if (cleared)
                 {
                     claerList.Add(stageInfo);
@@ -42,7 +41,7 @@ namespace Ryneus
                 idx++;
             }
             list.AddRange(claerList);
-            list.Sort((a, b) => b.SortIndex.Value.CompareTo(a.SortIndex.Value));
+            list.Sort((a, b) => b.SortKey.CompareTo(a.SortKey));
             return list;
         }
 
