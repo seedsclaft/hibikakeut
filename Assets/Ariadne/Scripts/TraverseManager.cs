@@ -135,7 +135,7 @@ namespace Ariadne
             }
         }
 
-        public void UpdateTraverses(int dungeonId,List<string> traverses)
+        public void UpdateTraverses(int dungeonId, List<string> traverses)
         {
             TraverseData dungeonTraverseData = GetDungeonTraverseData(dungeonId);
             if (dungeonTraverseData == null)

@@ -62,6 +62,7 @@ namespace Ryneus
                 _releifActorIndexes.Add(index);
             }
         }
+
         public void RemoveReleifActorIndexes(int index)
         {
             if (_releifActorIndexes.Contains(index))
@@ -197,7 +198,7 @@ namespace Ryneus
                 {
                     var skillData = DataSystem.FindSkill(itemData.Param1);
                     var trigger = skillData.TriggerDates.Find(a => a.TriggerType == TriggerType.DungeonMoveEnd);
-                    if (trigger != null && trigger.Param1 == (CurrentDeckInfo.TurnCount.Value % trigger.Param2))
+                    if (trigger != null/* && trigger.Param1 == (CurrentDeckInfo.TurnCount.Value % trigger.Param2)*/)
                     {
                         foreach (var featureData in skillData.FeatureDates)
                         {
@@ -215,6 +216,10 @@ namespace Ryneus
         // 所持装備
         [SerializeField] private List<int> _equipmentIds = new();
         public List<int> EquipmentIds => _equipmentIds;
+        public bool EquipmentAleat()
+        {
+            return _actorInfos.Find(a => a.EquipmentAleat(EditableActorInfos())) != null;
+        }
 
         // 所持アイテム
         private Dictionary<int, ParameterInt> _items = new();

@@ -16,5 +16,32 @@ namespace Ryneus
             LearningRate.SetValue(learningDate.Rate);
             EquipmentOnly.SetValue(learningDate.EquipmentOnly);
         }
+
+        public bool IsLearned()
+        {
+            if (EquipmentOnly.Value)
+            {
+                return false;
+            }
+            return LearningExp.Value >= 100;
+        }
+
+        public bool IsLearning()
+        {
+            if (EquipmentOnly.Value)
+            {
+                return false;
+            }
+            return LearningExp.Value < 100;
+        }
+
+        public bool IsComplete()
+        {
+            if (EquipmentOnly.Value)
+            {
+                return true;
+            }
+            return LearningExp.Value >= 100;
+        }
     }
 }

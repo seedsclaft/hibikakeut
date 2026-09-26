@@ -261,7 +261,9 @@ namespace Ryneus
                 return false;
             }
             var achievements = PartyInfo.AchievementInfos;
-            return PartyInfo.EquipmentIds.Count > 0 && achievements.Find(a => !a.Achieved.Value && a.Master.ConditionType == AchievementConditionType.StatusSkillChangeCount) != null;
+            var achievementBatch = PartyInfo.EquipmentIds.Count > 0 && achievements.Find(a => !a.Achieved.Value && a.Master.ConditionType == AchievementConditionType.StatusSkillChangeCount) != null;
+            var equipmentBatch = CurrentActor.EquipmentAleat(PartyInfo.EditableActorInfos());
+            return achievementBatch || equipmentBatch;
         }
     }
 }

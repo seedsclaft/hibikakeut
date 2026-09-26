@@ -28,6 +28,7 @@ namespace Ryneus
         [SerializeField] private OnOffButton partyInfoButton = null;
         [SerializeField] private OnOffButton saveButton = null;
         [SerializeField] private GameObject artifactMinusBatch = null;
+        [SerializeField] private GameObject equipmentAleatBatch = null;
         private readonly Dictionary<int, BattlerInfoComponent> _battlerComps = new();
         private List<Sequence> _sequences = new();
         //[SerializeField] private OnOffButton healButton = null;
@@ -249,7 +250,7 @@ namespace Ryneus
             {
                 return;
             }
-            UIComponent.SetActive(decideButton?.gameObject, isActive);
+            UIComponent.SetActive(decideButton.gameObject, isActive);
         }
 
         public void SetActiveHealButton(bool isActive)
@@ -258,7 +259,7 @@ namespace Ryneus
             {
                 return;
             }
-            UIComponent.SetActive(healButton?.gameObject, isActive);
+            UIComponent.SetActive(healButton.gameObject, isActive);
         }
 
         public void SetActiveFormationButton(bool isActive)
@@ -267,7 +268,7 @@ namespace Ryneus
             {
                 return;
             }
-            UIComponent.SetActive(formationButton?.gameObject, isActive);
+            UIComponent.SetActive(formationButton.gameObject, isActive);
         }
 
         public void SetActiveUseItemButton(bool isActive)
@@ -276,7 +277,7 @@ namespace Ryneus
             {
                 return;
             }
-            UIComponent.SetActive(useItemButton?.gameObject, isActive);
+            UIComponent.SetActive(useItemButton.gameObject, isActive);
             UIComponent.SetActive(partyInfoButton?.gameObject, isActive);
             UIComponent.SetActive(saveButton?.gameObject, isActive);
         }
@@ -359,6 +360,11 @@ namespace Ryneus
         public void SetArtifactMinusBatch(bool isActive)
         {
             UIComponent.SetActive(artifactMinusBatch, isActive);
+        }
+
+        public void SetEquipmentAleatBatch(bool isActive)
+        {
+            UIComponent.SetActive(equipmentAleatBatch, isActive);
         }
 
         public void MinusEvaluate(int minus)

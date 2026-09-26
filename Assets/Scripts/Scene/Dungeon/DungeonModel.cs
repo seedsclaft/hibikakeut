@@ -73,7 +73,7 @@ namespace Ryneus
             var traversDates = PartyInfo.GetDungeonTraverse(CurrentStage.StageId.Value);
             if (traversDates != null)
             {
-                TraverseManager.Instance.UpdateTraverses(CurrentStage.StageId.Value,traversDates);
+                TraverseManager.Instance.UpdateTraverses(CurrentStage.StageId.Value, traversDates);
             }
         }
 
@@ -86,9 +86,9 @@ namespace Ryneus
             {
                 if (mapInfo.regeonNo == regeonNo)
                 {
-                    var X = mapInfo.eventId % dungeonFloor.floorSizeVertical;
-                    var Y = mapInfo.eventId / dungeonFloor.floorSizeVertical;
-                    string key = dungeonFloor.floorId.ToString() + "-" + X.ToString() + "-" + Y.ToString();
+                    var x = mapInfo.eventId % dungeonFloor.floorSizeVertical;
+                    var y = mapInfo.eventId / dungeonFloor.floorSizeVertical;
+                    string key = dungeonFloor.floorId.ToString() + "-" + x.ToString() + "-" + y.ToString();
                     LogOutput.Log(key);
                     traverses.traverseDict[key] = true;
                 }
@@ -190,15 +190,26 @@ namespace Ryneus
         public int CheckHpHeal()
         {
             var hpHeal = PartyInfo.MoveHpHealValue();
-            foreach (var actorInfo in PartyInfo.CurrentDeckActorInfos())
+            if (hpHeal > 0)
             {
-                if (actorInfo == null)
+                var dungeonFloor = DataSystem.FindDungeonFloor(CurrentStage.StageId.Value);
+                var traversDates = PartyInfo.GetDungeonTraverse(CurrentStage.StageId.Value);            
+                var position = GetCurrentPosition();
+                string key = dungeonFloor.floorId.ToString() + "-" + position.x.ToString() + "-" + position.y.ToString();
+                if (traversDates == null || !traversDates.Contains(key))
                 {
-                    continue;
+                    foreach (var actorInfo in PartyInfo.CurrentDeckActorInfos())
+                    {
+                        if (actorInfo == null)
+                        {
+                            continue;
+                        }
+                        actorInfo.ChangeHp(actorInfo.CurrentHp.Value + hpHeal);
+                    }
+                    return hpHeal;
                 }
-                actorInfo.ChangeHp(actorInfo.CurrentHp.Value + hpHeal);
             }
-            return hpHeal;
+            return 0;
         }
 
         public Vector2Int GetForwardPosition()

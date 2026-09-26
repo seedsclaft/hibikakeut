@@ -1384,7 +1384,8 @@ namespace Ryneus
         {
             var directionEvent = _model.CheckDirectionEvent();
             _view.SetActiveDisplayEventKey(directionEvent);
-            _view.SetArtifactMinusBatch(_model.HavingArtifactMinus() > 0);
+            _view.SetArtifactMinusBatch(false);
+            _view.SetEquipmentAleatBatch(_model.PartyInfo.EquipmentAleat());
             if (!directionEvent)
             {
                 // その場にイベントがある
