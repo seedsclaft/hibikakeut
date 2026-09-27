@@ -1913,7 +1913,7 @@ MonoBehaviour:
           _value: 0
         max:
           _value: 0
-    Kinds: 010000000b000000
+    Kinds: 010000000c000000
     HpGrowth: 105
     MpGrowth: 0
     AtkGrowth: 55
@@ -1973,7 +1973,7 @@ MonoBehaviour:
       Trigger2: 0
   - Id: 102
     Name: "\u30D9\u30EA\u30C8"
-    ImagePath: Berith
+    ImagePath: unique enemy_011
     ImageScale: 1
     BaseStatus:
       HpParam:
@@ -1985,7 +1985,7 @@ MonoBehaviour:
       MpParam:
         paramType: 1
         curernt:
-          _value: 0
+          _value: 1
         max:
           _value: 0
       AtkParam:
@@ -2036,7 +2036,7 @@ MonoBehaviour:
           _value: 0
         max:
           _value: 0
-    Kinds: 030000000b000000
+    Kinds: 030000000c000000
     HpGrowth: 105
     MpGrowth: 0
     AtkGrowth: 75
@@ -2044,15 +2044,15 @@ MonoBehaviour:
     SpdGrowth: 25
     MovGrouth: 0
     LearningSkills:
-    - SkillId: 5010
+    - SkillId: 1010
       Level: 1
       Weight: 50
       TriggerDates: []
-    - SkillId: 5020
+    - SkillId: 1110
       Level: 1
-      Weight: 100
+      Weight: 150
       TriggerDates: []
-    - SkillId: 15050
+    - SkillId: 11010
       Level: 1
       Weight: 0
       TriggerDates: []
@@ -2069,13 +2069,13 @@ MonoBehaviour:
       Weight: 0
       TriggerDates: []
     SkillTriggerDates:
-    - SkillId: 5010
+    - SkillId: 1010
       Trigger1: 0
       Trigger2: 0
-    - SkillId: 5020
-      Trigger1: 1013
+    - SkillId: 1110
+      Trigger1: 0
       Trigger2: 0
-    - SkillId: 15050
+    - SkillId: 11010
       Trigger1: 0
       Trigger2: 0
     - SkillId: 200210

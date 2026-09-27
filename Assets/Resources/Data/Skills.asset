@@ -1438,9 +1438,9 @@ MonoBehaviour:
     Scope: 1
     SkillType: 1
     TargetType: 2
-    Help: "(\u5236\u9650)\u51FA\u6483\u4E2D5\u56DE\u307E\u3067\n\u6575\u5473\u65B9\u4E00\u4EBA\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
+    Help: "(\u5236\u9650)\u51FA\u6483\u4E2D5\u56DE\u307E\u3067\n\u6575\u5473\u65B9\u4E00\u4EBA\u306EHp\u3092/f[f,0,1]\u56DE\u5FA9"
     EnglishHelp: "(Limit: 5 uses per sortie) \nRestore HP of one ally or enemy by
-      /f[f,0,1].\nDeals double damage to Undead enemies."
+      /f[f,0,1]."
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1605,11 +1605,8 @@ MonoBehaviour:
     Scope: 1
     SkillType: 1
     TargetType: 1
-    Help: "\\s\u306BATKx/f[f,0,1]%2\u9023\u30C0\u30E1\u30FC\u30B8\n\u30A2\u30F3\u30C7\u30C3\u30C9\u306B\u306F2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
-    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
-
-      Deals double damage to
-      Undead enemies.'
+    Help: "\\s\u306BATKx/f[f,0,1]%2\u9023\u30C0\u30E1\u30FC\u30B8"
+    EnglishHelp: Deal ATKx/f[f,0,1]% damage to \s.
     Range: 1
     RepeatTime: 2
     AliveType: 1
@@ -6040,7 +6037,7 @@ MonoBehaviour:
     Scope: 4
     SkillType: 7
     TargetType: 4
-    Help: "(\u6761\u4EF6)\u88C5\u5099\u6642\n\u30D0\u30C8\u30EB\u3067\u5F97\u308BExp+30%"
+    Help: "\u30D0\u30C8\u30EB\u3067\u5F97\u308BExp+30%"
     EnglishHelp: '(Condition: When equipped)
 
       Increase EXP gained in battle
@@ -6283,7 +6280,7 @@ MonoBehaviour:
     CountTurn: 0
     Rank: 1000
     Attribute: 2
-    Scope: 3
+    Scope: 1
     SkillType: 4
     TargetType: 1
     Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u306E7\u9023\u30C0\u30E1\u30FC\u30B8
@@ -6439,7 +6436,7 @@ MonoBehaviour:
       Rate: 100
     - SkillId: 100410
       FeatureType: 2010
-      Param1: 25
+      Param1: 10
       Param2: 0
       Param3: 0
       Rate: 100
@@ -7543,36 +7540,37 @@ MonoBehaviour:
     TriggerDates: []
     ScopeTriggers: []
   - Id: 200210
-    Name: "\u30DE\u30A4\u30C8\u30EC\u30A4\u30F3\u30D5\u30A9\u30FC\u30B9"
-    EnglishName: Might Reinforce
+    Name: "\u30A4\u30F3\u30D5\u30A7\u30EB\u30CE"
+    EnglishName: Inferno
     IconIndex: 10
-    AnimationId: 51
-    AnimationType: 1
+    AnimationId: 111
+    AnimationType: 3
     MpCost: 0
     CountTurn: 0
     Rank: 1000
-    Attribute: 5
-    Scope: 4
+    Attribute: 1
+    Scope: 3
     SkillType: 3
-    TargetType: 4
-    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u4EE5\u5916\u304C\u6226\u95D8\u4E0D\u80FD\u306B\u306A\u308B\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)
-      \u899A\u9192\u72B6\u614B\u306B\u79FB\u884C"
-    EnglishHelp: '(Condition: When another ally is defeated)
+    TargetType: 1
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C50%\u4EE5\u4E0B\n/f[f,0,3]%\u30C0\u30E1\u30FC\u30B8\u306E\u706B\u50B7\u4ED8\u4E0E(\u6C38\u7D9A)\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    EnglishHelp: '(Condition: When self`s HP is 50% or lower)
 
-      Permanently increase
-      \s''s ATK by /f[f,0,3].
+      Permanently
+      apply burn damage of /f[f,0,3]%.
 
-      Transition to Awakened state.'
-    Range: 1
+      Transition to Awakened state.
+
+      /s'
+    Range: 2
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 200210
       FeatureType: 3010
-      Param1: 1040
+      Param1: 2012
       Param2: 999
-      Param3: 20
+      Param3: 5
       Rate: 100
     - SkillId: 200210
       FeatureType: 7010
@@ -7588,31 +7586,30 @@ MonoBehaviour:
       Param2: 0
       Param3: 1
     - SkillId: 200210
-      TriggerType: 20040
+      TriggerType: 1010
       TriggerTiming: 61
-      Param1: 1
+      Param1: 50
       Param2: 0
       Param3: 0
     ScopeTriggers: []
   - Id: 200220
-    Name: "\u30AB\u30BF\u30B9\u30C8\u30ED\u30D5\u30A3"
-    EnglishName: Catastrophe
+    Name: "\u30CF\u30FC\u30C8\u30A2\u30D6\u30EC\u30A4\u30BA"
+    EnglishName: Heart ablaze
     IconIndex: 11
-    AnimationId: 101
+    AnimationId: 2403
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
     Rank: 1000
-    Attribute: 5
-    Scope: 1
+    Attribute: 1
+    Scope: 4
     SkillType: 4
-    TargetType: 1
-    Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8
-      \u899A\u9192\u89E3\u9664"
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306EHp\u3092/f[f,0,1]%\u56DE\u5FA9\n\u899A\u9192\u89E3\u9664"
     EnglishHelp: '(Condition: While in Awakened state)
 
-      Deal ATKx/f[f,0,1]%
-      damage to \s.
+      Restore HP of self
+      by /f[f,0,1]%.
 
       Revert to normal state.'
     Range: 1
@@ -7621,10 +7618,10 @@ MonoBehaviour:
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 200220
-      FeatureType: 1010
-      Param1: 500
+      FeatureType: 2010
+      Param1: 50
       Param2: 0
-      Param3: 0
+      Param3: 1
       Rate: 100
     - SkillId: 200220
       FeatureType: 7010
@@ -13034,34 +13031,6 @@ MonoBehaviour:
     TriggerDates: []
     ScopeTriggers: []
   - Id: 506011
-    Name: ATK+1
-    EnglishName: ATK+1
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 10
-    Attribute: 6
-    Scope: 4
-    SkillType: 9
-    TargetType: 4
-    Help: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: Increase \s's ATK by /f[f,0,3].
-    Range: 1
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 506011
-      FeatureType: 14010
-      Param1: 2
-      Param2: 0
-      Param3: 1
-      Rate: 100
-    TriggerDates: []
-    ScopeTriggers: []
-  - Id: 506012
     Name: DEF+1
     EnglishName: DEF+1
     IconIndex: 6
@@ -13081,7 +13050,7 @@ MonoBehaviour:
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
-    - SkillId: 506012
+    - SkillId: 506011
       FeatureType: 14010
       Param1: 3
       Param2: 0
@@ -13089,7 +13058,7 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
-  - Id: 506013
+  - Id: 506012
     Name: SPD+1
     EnglishName: SPD+1
     IconIndex: 6
@@ -13109,11 +13078,39 @@ MonoBehaviour:
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
-    - SkillId: 506013
+    - SkillId: 506012
       FeatureType: 14010
       Param1: 4
       Param2: 0
       Param3: 1
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 506013
+    Name: EXP+20%
+    EnglishName: EXP+20%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 6
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\u30D0\u30C8\u30EB\u3067\u5F97\u308BExp+20%"
+    EnglishHelp: Increase EXP gained in battle by 20%.
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 506013
+      FeatureType: 40020
+      Param1: 20
+      Param2: 0
+      Param3: 0
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []

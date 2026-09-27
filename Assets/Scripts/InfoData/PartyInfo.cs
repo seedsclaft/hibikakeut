@@ -191,21 +191,17 @@ namespace Ryneus
         public int MoveHpHealValue()
         {
             var hpHeal = 0;
-            foreach (var item in _items)
+            foreach (var artifactItemInfo in ArtifactItemInfos())
             {
-                var itemData = DataSystem.FindItem(item.Key);
-                if (itemData != null && itemData.ItemType == ItemType.Artifact)
+                var skillData = DataSystem.FindSkill(artifactItemInfo.Master.Param1);
+                var trigger = skillData.TriggerDates.Find(a => a.TriggerType == TriggerType.DungeonMoveEnd);
+                if (trigger != null/* && trigger.Param1 == (CurrentDeckInfo.TurnCount.Value % trigger.Param2)*/)
                 {
-                    var skillData = DataSystem.FindSkill(itemData.Param1);
-                    var trigger = skillData.TriggerDates.Find(a => a.TriggerType == TriggerType.DungeonMoveEnd);
-                    if (trigger != null/* && trigger.Param1 == (CurrentDeckInfo.TurnCount.Value % trigger.Param2)*/)
+                    foreach (var featureData in skillData.FeatureDates)
                     {
-                        foreach (var featureData in skillData.FeatureDates)
+                        if (featureData.FeatureType == FeatureType.HpHeal)
                         {
-                            if (featureData.FeatureType == FeatureType.HpHeal)
-                            {
-                                hpHeal += featureData.Param1;
-                            }
+                            hpHeal += featureData.Param1;
                         }
                     }
                 }

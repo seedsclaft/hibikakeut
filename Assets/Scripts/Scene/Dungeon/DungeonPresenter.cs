@@ -936,23 +936,15 @@ namespace Ryneus
 
         private void StageEventAddEventFlagEndForceBattle(bool moved, StageEventData stageEvent, Action endEvent)
         {
-            var findAll = _model.StageEventDates.FindAll(a => a.Type == StageEventType.ForceBattle);
-            var open = true;
-            // 強制戦闘が終わっているか
-            foreach (var item in findAll)
-            {
-                if (!_model.CurrentGameInfo.ReadEventKeys.Contains(item.EventKey))
-                {
-                    open = false;
-                }
-            }
-            if (open)
+            var find = _model.StageEventDates.Find(a => a.Type == StageEventType.ForceBattle && a.Param == stageEvent.Param2);
+            if (_model.CurrentGameInfo.ReadEventKeys.Contains(find.EventKey))
             {
                 _model.AddEventReadFlag(stageEvent);
                 StageEventAddEventFlag(false, stageEvent, null);
                 _model.UpdateEventObjects();
                 var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
                 CheckEventData(moved, playerPosition, endEvent);
+                return;
             }
             endEvent?.Invoke();
         }
@@ -1018,6 +1010,8 @@ namespace Ryneus
             _model.DungeonBusy(false);
             // ターン数確認
             CommandTurnOverEvent(false);
+            var playerPosition = Ariadne.PlayerPosition.Instance.playerPos;
+            CheckEventData(false, playerPosition, endEvent);
         }
 
         private void CommandCheckRemainTurn()

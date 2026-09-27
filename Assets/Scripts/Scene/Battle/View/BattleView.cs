@@ -782,6 +782,8 @@ namespace Ryneus
                 return;
             }
             _battlerComps[targetIndex].ResetDeathMaterial();
+            battleFieldView.StartAliveAnimation(targetIndex);
+            _fieldBattlerComps[targetIndex].ShowStatus();
         }
 
         public void BattleVictory(int mvpActorId)

@@ -906,7 +906,7 @@ namespace Ryneus
         {
             float atk = _status.Atk;
             // Lv補正値
-            atk += Math.Max(DataSystem.System.PlusAttackValue, Level.Value);
+            atk += Math.Max(DataSystem.System.PlusAttackValue, Level.Value / 2);
             if (!isNoEffect)
             {
                 atk += StateEffectAll(StateType.StatusUp);

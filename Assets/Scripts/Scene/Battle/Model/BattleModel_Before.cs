@@ -75,7 +75,8 @@ namespace Ryneus
                 //"NA_Effekseer/NA_curse_001",
                 "MAGICALxSPIRAL/WHead1",
                 "NA_Effekseer/NA_Fire_001",
-                "tktk01/Cure1"
+                "tktk01/Cure1",
+                "NA_Effekseer/NA_aura_002"
             };
 
             // Actor用

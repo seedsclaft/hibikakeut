@@ -271,6 +271,15 @@ namespace Ryneus
             _battlers[battlerInfoIndex].SetAnimationState(AnimationState.Death);
         }
 
+        public void StartAliveAnimation(int battlerInfoIndex)
+        {
+            if (!_battlers.ContainsKey(battlerInfoIndex))
+            {
+                return;
+            }
+            _battlers[battlerInfoIndex].SetAnimationState(AnimationState.Idle);
+        }
+
         public void UpdateSelectIndexList(List<int> indexes)
         {
             foreach (var battler in _battlers)

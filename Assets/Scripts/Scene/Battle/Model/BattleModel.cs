@@ -399,7 +399,10 @@ namespace Ryneus
                 case ScopeType.Line:
                 case ScopeType.FrontLine:
                 case ScopeType.WithoutSelfLine:
-                    targetIndexList = targetIndexList.FindAll(a => GetBattlerInfo(a).LineIndex == targetBattler.LineIndex);
+                    if (actionInfo.RangeType == RangeType.S)
+                    {
+                        targetIndexList = targetIndexList.FindAll(a => GetBattlerInfo(a).LineIndex == targetBattler.LineIndex);
+                    }
                     break;
                 case ScopeType.One:
                 case ScopeType.Self:
