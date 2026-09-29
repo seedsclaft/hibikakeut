@@ -15,6 +15,9 @@ namespace Utage
 		public AdvPostEffectCommandExecutorImageEffect ImageEffect => this.GetComponentCacheCreateIfMissing(ref imageEffect);
 		AdvPostEffectCommandExecutorImageEffect imageEffect;
 
+		public AdvPostEffectCommandExecutorPostEffect PostEffect => this.GetComponentCacheCreateIfMissing(ref postEffect);
+		AdvPostEffectCommandExecutorPostEffect postEffect;
+
 		//ポストエフェクトをRenderPipeLineの違いによって切り替えて実行するブリッジ
 		public IAdvPostEffectRenderPipelineBridge RpBridge
 		{

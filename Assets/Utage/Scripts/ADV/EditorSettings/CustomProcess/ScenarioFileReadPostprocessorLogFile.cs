@@ -10,8 +10,11 @@ namespace Utage
     [CreateAssetMenu(menuName = "Utage/CustomPostProcessor/ScenarioLogFile", fileName = "ScenarioLogFile")]
     public class ScenarioFileReadPostprocessorLogFile : ScenarioFileReadPostprocessor
     {
-        public Encoding Encoding => string.IsNullOrEmpty(encoding) ? Encoding.UTF8 : Encoding.GetEncoding(encoding);
+        //CSVログファイル出力時などのテキストファイルのエンコード
+        //エンコードが空文字の場合は、UTF-8でBOMの有無はwithBomの値で決まる
+        public Encoding Encoding => EncodingUtil.GetEncoding(encoding,withBom);
         [SerializeField] string encoding = "";
+        [SerializeField] bool withBom = true;
 
         [SerializeField] string logDirectoryName = "ScenarioFileLog~";
 

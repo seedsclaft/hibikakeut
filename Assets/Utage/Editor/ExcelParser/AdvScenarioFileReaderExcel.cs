@@ -38,9 +38,13 @@ namespace Utage.ExcelParser
 				return false;
 			}
 
-			stringGridDictionary = ExcelParser.Read(path, '#', 
+			stringGridDictionary = ExcelParser.Read(path, Settings.SheetCommentPrefix,
 				Settings.ParseFormula, Settings.ParseNumeric, Settings.ParseHeader);
-			stringGridDictionary.RemoveSheets(@"^#");
+			// ExcelParser.Read はコメントシートを空グリッドとして残すため、RemoveSheets で除外する
+			if (Settings.SheetCommentPrefix != '\0')
+			{
+				stringGridDictionary.RemoveSheets("^" + Settings.SheetCommentPrefix);
+			}
 			return true;
 		}
 	}

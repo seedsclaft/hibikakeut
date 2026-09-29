@@ -53,6 +53,8 @@ namespace Utage
 				item.Grid.SourceAssetInEditor = asset;
 			}
 		}
+#else
+		public Object SourceAssetInEditor => null;
 #endif
 
 		/// <summary>

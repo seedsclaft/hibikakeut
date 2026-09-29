@@ -6,7 +6,7 @@ namespace Utage
 {
 
 	/// <summary>
-	/// コマンド：フェードアウト処理
+	/// コマンド：イメージエフェクトの終了コマンド
 	/// </summary>
 	public class AdvCommandImageEffectOff : AdvCommandImageEffectBase
 	{

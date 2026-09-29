@@ -265,6 +265,15 @@ namespace Utage
 		public override void ParseGrid(StringGrid grid)
 		{
 			base.ParseGrid(grid);
+			InitDefaultLayers();
+		}
+
+		//各レイヤータイプのデフォルトレイヤーを補完する
+		//レイヤーが1つもないタイプには「Bg Default」などのデフォルト設定を追加する
+		//Layerシートがプロジェクトに1枚も存在しない場合はParseGridが呼ばれないため、
+		//AdvSettingDataManagerのBootInitからも呼ぶこと（冪等なので複数回呼んでも問題ない）
+		public void InitDefaultLayers()
+		{
 			InitDefault(AdvLayerSettingData.LayerType.Bg, 0);
 			InitDefault(AdvLayerSettingData.LayerType.Character, 100);
 			InitDefault(AdvLayerSettingData.LayerType.Sprite, 200);

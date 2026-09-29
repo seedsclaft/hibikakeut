@@ -56,15 +56,6 @@ namespace Utage
 		}
 		Texture2D texture;
 
-		///パラメーターデータを読み込み
-		public AdvParamManager ReadParam(AdvEngine engine)
-		{
-			AdvParamManager param = new AdvParamManager();
-			param.InitDefaultAll(engine.DataManager.SettingDataManager.DefaultParam);
-			Buffer.Overrirde(param.DefaultData);
-			return param;
-		}
-
 		/// <summary>
 		/// 日付
 		/// </summary>
@@ -99,6 +90,21 @@ namespace Utage
 			Texture = null;
 			FileVersion = -1;
 			Title = "";
+		}
+
+		//セーブデータ内からパラメーターデータのみ読み込んで、独立したインスタンスとして返す
+		public AdvParamManager ReadParam(AdvEngine engine)
+		{
+			AdvParamManager param = new AdvParamManager();
+			param.InitDefaultAll(engine.DataManager.SettingDataManager.DefaultParam);
+			Buffer.Overrirde(param.DefaultData);
+			return param;
+		}
+
+		//セーブデータ内にパラメーターデータのみを上書きして書き込みする
+		public void WriteParam(AdvParamManager paramManager)
+		{
+			Buffer.WriteBuffer(paramManager.DefaultData);
 		}
 
 		/// <summary>
@@ -163,7 +169,7 @@ namespace Utage
 
 		static readonly int MagicID = FileIOManager.ToMagicID('S', 'a', 'v', 'e');  //識別ID
 		public const int Version = 10;   //ファイルバージョン
-		public BinaryBuffer Buffer = new BinaryBuffer();
+		public BinaryBuffer Buffer { get; protected set; } = new BinaryBuffer();
 
 		/// <summary>
 		/// バイナリ読み込み
@@ -229,4 +235,5 @@ namespace Utage
 			Buffer.Write(writer);
 		}
 	}
+	
 }

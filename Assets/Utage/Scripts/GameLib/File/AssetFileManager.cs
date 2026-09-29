@@ -18,16 +18,16 @@ namespace Utage
 	{
 		public FileIOManager FileIOManager
 		{
-			get { return this.GetComponentCache<FileIOManager>(ref fileIOManager); }
-			set { fileIOManager = value; }
+			get => this.GetComponentCache<FileIOManager>(ref fileIOManager);
+			set => fileIOManager = value;
 		}
 		[SerializeField,UnityEngine.Serialization.FormerlySerializedAs("fileIOManger")]
 		FileIOManager fileIOManager;
 
 		public bool EnableResourcesLoadAsync
 		{
-			get { return enableResourcesLoadAsync; }
-			set { enableResourcesLoadAsync = value; }
+			get => enableResourcesLoadAsync;
+			set => enableResourcesLoadAsync = value;
 		}
 		[SerializeField]
 		bool enableResourcesLoadAsync = true;
@@ -35,8 +35,8 @@ namespace Utage
 		//ダウンロードエラー時に、自動でリトライする回数
 		public float TimeOutDownload
 		{
-			get { return timeOutDownload; }
-			set { timeOutDownload = value; }
+			get => timeOutDownload;
+			set => timeOutDownload = value;
 		}
 		[SerializeField]
 		float timeOutDownload = 10;                 //タイムアウト時間
@@ -44,8 +44,8 @@ namespace Utage
 		//ダウンロードエラー時に、自動でリトライする回数
 		public int AutoRetryCountOnDonwloadError
 		{
-			get { return autoRetryCountOnDonwloadError; }
-			set { autoRetryCountOnDonwloadError = value; }
+			get => autoRetryCountOnDonwloadError;
+			set => autoRetryCountOnDonwloadError = value;
 		}
 		[SerializeField]
 		int autoRetryCountOnDonwloadError = 5;
@@ -54,27 +54,57 @@ namespace Utage
 		int loadFileMax = 5;                    //同時にロードするファイルの最大数
 
 		// ロード済みファイルの最大数（この数を超えたら、未使用ファイルをアンロードする）
-		public int MaxFilesOnMemory { get { return rangeOfFilesOnMemory.Max; } }
+		public int MaxFilesOnMemory
+		{
+			get => rangeOfFilesOnMemory.Max;
+			set => rangeOfFilesOnMemory.Max = value;
+		}
 
 		// 未使用ファイルをアンロードするときに、ロード済みファイル数がこの数以下になるようにする。
 		// 使用中ファイルはアンロードしないので、アンロード後もロード済みファイル数がこの数以上になることはある
-		public int MinFilesOnMemory { get { return rangeOfFilesOnMemory.Min; } }
-
+		public int MinFilesOnMemory
+		{
+			get => rangeOfFilesOnMemory.Min;
+			set => rangeOfFilesOnMemory.Min = value;
+		}
 		[SerializeField,MinMax(0,100)]
 		MinMaxInt rangeOfFilesOnMemory = new MinMaxInt() { Min = 10, Max = 20 };
 
 
 		//アンロード時の処理タイプ
-		internal enum UnloadType
+		public enum UnloadType
 		{
 			None,						//特に何もしない
-			UnloadUnusedAsset,			//アセットバンドルがある場合はUnloadUnusedAsset
+			UnloadUnusedAsset,			//対象のアセットがアンロードされたらUnloadUnusedAsset
 			UnloadUnusedAssetAlways,    //常にUnloadUnusedAsset
-			NoneAndUnloadAssetBundleTrue,   //UnloadUnusedAssetはせず、AssetBundle.Unloade(true)を呼ぶ
+			NoneAndUnloadAssetBundleTrue,   //アセットバンドルがある場合,UnloadUnusedAssetはせず、AssetBundle.Unload(true)を呼ぶ
 		};
-		[SerializeField]
-		UnloadType unloadType = UnloadType.UnloadUnusedAsset;
-		internal UnloadType UnloadUnusedType { get { return unloadType; } }
+		public UnloadType UnloadUnusedType
+		{
+			get => unloadType;
+			set => unloadType = value;
+		}
+		[SerializeField] UnloadType unloadType = UnloadType.UnloadUnusedAsset;
+		
+		//UnloadUnusedAssetsを呼ぶ閾値
+		public int UnloadUnusedAssetsThreshold
+		{
+			get => unloadUnusedAssetsThreshold;
+			set => unloadUnusedAssetsThreshold = value;
+		}
+		[SerializeField] int unloadUnusedAssetsThreshold = 0;
+
+		//NoneAndUnloadAssetBundleTrue時に非アセットバンドルのUnloadUnusedAssetsを行う
+		public bool UnloadUnusedAssetsOnAssetBundleTrue
+		{
+			get => unloadUnusedAssetsOnAssetBundleTrue;
+			set => unloadUnusedAssetsOnAssetBundleTrue = value;
+		}
+		[SerializeField] bool unloadUnusedAssetsOnAssetBundleTrue = false;
+
+		bool unloadingUnusedAssets;	//現在、UnloadUnusedAssetsを呼び出しているかどうか
+		bool forceUnloadUnusedAssets; //閾値を無視して強制的にUnloadUnusedAssetsを呼ぶ
+		int pendingUnloadCount; //UnloadUnusedAssets呼び出しまでの累積カウント
 
 		[SerializeField]
 		internal bool loadLegacySoundExt = false;							//昔の形式のサウンドの拡張子を変更する呼び出しをする際に
@@ -90,8 +120,8 @@ namespace Utage
 
 		public AssetFileManagerSettings Settings
 		{
-			get { return settings; }
-			set{ settings = value; }
+			get => settings;
+			set => settings = value;
 		}
 		[SerializeField]
 		AssetFileManagerSettings settings;
@@ -99,8 +129,8 @@ namespace Utage
 
 		public AssetBundleInfoManager AssetBundleInfoManager
 		{
-			get { return this.GetComponentCacheCreateIfMissing<AssetBundleInfoManager>(ref assetBundleInfoManager); }
-			set { assetBundleInfoManager = value; }
+			get => this.GetComponentCacheCreateIfMissing(ref assetBundleInfoManager);
+			set => assetBundleInfoManager = value;
 		}
 		[SerializeField]
 		AssetBundleInfoManager assetBundleInfoManager;
@@ -505,6 +535,7 @@ namespace Utage
 
 		void OnDestroy()
 		{
+			forceUnloadUnusedAssets = true;
 			UnloadUnusedFileList(Int32.MaxValue);
 			instance = null;
 		}
@@ -524,7 +555,7 @@ namespace Utage
 		}
 
 		//指定の数のシステムメモリにプールされてる未使用ファイルをアンロードして、メモリを解放
-		void UnloadUnusedFileList(int count)
+		protected virtual void UnloadUnusedFileList(int count)
 		{
 			if (usingFileList.Count <= 0 || count <= 0)
 			{
@@ -546,9 +577,8 @@ namespace Utage
 					if (isOutPutDebugLog) Debug.Log("Unload " + file.FileName);
 					file.Unload();
 					--count;
-					if (file.FileType == AssetFileType.UnityObject)
+					if (NeedUnloadUnusedAssets(file))
 					{
-						//UnloadUnusedAssetsが必要かカウント
 						++unloadUnusedCount;
 					}
 				}
@@ -556,11 +586,27 @@ namespace Utage
 			UnloadUnusedAssets(unloadUnusedCount);
 			usingFileList = newList;
 		}
+		
+
+		//UnloadUnusedAssetsが必要なファイルかどうか
+		bool NeedUnloadUnusedAssets(AssetFileBase file)
+		{
+			//UnityObject以外のファイルはUnloadUnusedAssets呼ぶ必要ない
+			if (file.FileType != AssetFileType.UnityObject) return false;
+
+			//NoneAndUnloadAssetBundleTrue時は、非アセットバンドルのみ対象
+			if (unloadType == UnloadType.NoneAndUnloadAssetBundleTrue)
+			{
+				if (!unloadUnusedAssetsOnAssetBundleTrue) return false;
+				if (file.FileInfo?.AssetBundleInfo != null) return false;
+			}
+
+			return true;
+		}
 
 		//未使用リソースをすべて解放するUnloadUnusedAssetsを呼ぶ
 		//重いのでなるべく呼ばないために本当に必要か色々チェック
-		bool unloadingUnusedAssets;
-		void UnloadUnusedAssets(int count)
+		protected virtual void UnloadUnusedAssets(int count)
 		{
 			switch (unloadType)
 			{
@@ -571,12 +617,20 @@ namespace Utage
 				//問答無用で毎回
 				case UnloadType.UnloadUnusedAssetAlways:
 					break;
+				//非アセットバンドルのUnloadUnusedAssetsが有効なら、カウントがある場合のみ実行
+				case UnloadType.NoneAndUnloadAssetBundleTrue:
+					if (!unloadUnusedAssetsOnAssetBundleTrue || count <= 0) return;
+					break;
 				//アンロードしない
 				case UnloadType.None:
-				case UnloadType.NoneAndUnloadAssetBundleTrue:
 				default:
 					return;
 			}
+
+			//閾値に達するまでUnloadUnusedAssetsの呼び出しを遅延させる
+			pendingUnloadCount += count;
+			if (!forceUnloadUnusedAssets && pendingUnloadCount < unloadUnusedAssetsThreshold) return;
+
 			//解放中なら二重解放はしない
 			if (unloadingUnusedAssets) return;
 			//動いてないならコルーチン回せない
@@ -588,6 +642,7 @@ namespace Utage
 		{
 			if (isOutPutDebugLog) Debug.Log("UnloadUnusedAssets");
 			unloadingUnusedAssets = true;
+			pendingUnloadCount = 0;
 			yield return Resources.UnloadUnusedAssets();
 			unloadingUnusedAssets = false;
 		}

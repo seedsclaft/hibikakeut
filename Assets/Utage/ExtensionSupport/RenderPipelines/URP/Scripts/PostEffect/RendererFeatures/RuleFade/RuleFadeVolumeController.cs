@@ -47,10 +47,16 @@ namespace Utage.RenderPipeline.Urp
         public override void OnRead(BinaryReader reader, int version)
         {
             var textureName = reader.ReadString();
-            AdvPostEffectManager postEffectManager = this.GetComponentInParent<AdvPostEffectManager>();
+            var cameraPostEffectManager = this.GetComponentInParent<AdvCameraPostEffectManager>(true);
+            if(cameraPostEffectManager == null)
+            {
+                Debug.LogError("Not found AdvCameraPostEffectManager");
+                return;
+            }
+            
             var tex = string.IsNullOrEmpty(textureName)
                 ? null
-                : postEffectManager.Engine.EffectManager.FindRuleTexture(textureName);  
+                : cameraPostEffectManager.AdvEngine.EffectManager.FindRuleTexture(textureName);  
             SetRuleTexture(tex);
             SetVague(reader.ReadSingle());
             SetColor(reader.ReadColor());

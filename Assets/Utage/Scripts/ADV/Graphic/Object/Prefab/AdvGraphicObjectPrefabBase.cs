@@ -104,31 +104,61 @@ namespace Utage
 		{
 			string stateName = GetAnimationStateName(command);
 			float fadeTime = command.ParseCellOptional<float>(AdvColumnName.Arg6, 0.2f);
-			
-			if (!string.IsNullOrEmpty(stateName) && !IsAnimationState(stateName))
+
+			if (stateName.IsNullOrEmpty())
 			{
-				if ( command is AdvCommandSprite )
-				{
-					return;
-				}
-				else
-				{
-//					Debug.LogError(stateName + " is not Animation State");
-					//Live2Dなどの場合エラーとは限らないので、エラーメッセージは出さない
-					return;
-				}
+				SetAnimationState(stateName);
+				return;
 			}
-			ChangeAnimationState(stateName, fadeTime);
+			else
+			{
+				//カンマ区切りで複数ステート指定可能にする
+				var states = StringUtil.SplitByComma(stateName);
+				foreach (var state in states)
+				{
+					SetAnimationState(state);
+				}
+				AnimationStateName = stateName;
+			}
+			return;
+
+			void SetAnimationState(string state)
+			{
+				if (!string.IsNullOrEmpty(state) && !IsAnimationState(state) && !IsAnimatorParameter(state))
+				{
+					if (command is AdvCommandSprite)
+					{
+						return;
+					}
+					else
+					{
+						//					Debug.LogError(stateName + " is not Animation State");
+						//Live2Dなどの場合エラーとは限らないので、エラーメッセージは出さない
+						return;
+					}
+				}
+
+				ChangeAnimationState(state, fadeTime);
+			}
 		}
 
-		public override void ChangeAnimationState(string animationStateName, float fadeTime)
+		public override void ChangeAnimationState(string animationName, float fadeTime)
 		{
-			AnimationStateName = animationStateName;
-			if (!string.IsNullOrEmpty(AnimationStateName))
+			AnimationStateName = animationName;
+			if (!string.IsNullOrEmpty(animationName))
 			{
 				if (animator)
 				{
-					animator.CrossFadeInFixedTime(AnimationStateName, fadeTime);
+					if (IsAnimationState(animationName))
+					{
+						//Stateを変更
+						animator.CrossFadeInFixedTime(animationName, fadeTime);
+					}
+					else if(IsAnimatorParameter(animationName))
+					{
+						//Triggerパラメータを設定（Animatorの遷移に任せる）
+						animator.SetTrigger(animationName);
+					}
 				}
 				else
 				{
@@ -136,7 +166,7 @@ namespace Utage
 					Animation ani = GetComponentInChildren<Animation>();
 					if (ani != null)
 					{
-						ani.CrossFade(AnimationStateName, fadeTime);
+						ani.CrossFade(animationName, fadeTime);
 					}
 				}
 			}
@@ -184,6 +214,19 @@ namespace Utage
 						}
 					}
 				}
+			}
+			return false;
+		}
+
+		bool IsAnimatorParameter(string paramName)
+		{
+			if (string.IsNullOrEmpty(paramName)) return false;
+			if (animator == null) return false;
+
+			foreach (var param in animator.parameters)
+			{
+				if (param.name == paramName)
+					return true;
 			}
 			return false;
 		}

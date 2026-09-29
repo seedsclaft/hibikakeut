@@ -9,6 +9,7 @@ namespace Utage
 	/// <summary>
 	/// 最小値と最大値を設定する
 	/// </summary>
+	[System.Serializable]
 	public class MinMax<T>
 	{
 		public T Min

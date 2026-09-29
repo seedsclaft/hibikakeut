@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UtageExtensions;
 
@@ -110,5 +111,27 @@ namespace Utage
 			}
 			onComplete();
 		}
+
+		public IPostEffect DoCommandPostEffect(Camera targetCamera, AdvCommandPostEffect command)
+		{
+			Debug.LogError("PostEffect Command is not supported in Builtin RenderPipeline", this);
+			return null;
+		}
+		
+		//指定の名前のポストエフェクト（ボリュームオブジェクト）を探す
+		public IPostEffectVolumeObject FindVolume(Camera targetCamera, string volumeName)
+		{
+			Debug.LogError("PostEffect Volume is not supported in Builtin RenderPipeline", this);
+			return null;
+		}
+		
+		//指定のカメラに設定されている、エフェクト用のボリュームオブジェクトをすべて取得する
+		//エフェクト用というのは、キャプチャとフェード用など専用のポストエフェクト以外のボリュームオブジェクト
+		public IEnumerable<IPostEffectVolumeObject> GetAllActiveEffectVolumes(Camera targetCamera)
+		{
+			Debug.LogError("PostEffect Volume is not supported in Builtin RenderPipeline", this);
+			yield break;
+		}
+
 	}
 }

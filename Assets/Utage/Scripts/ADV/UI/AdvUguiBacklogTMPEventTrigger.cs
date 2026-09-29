@@ -16,7 +16,6 @@ namespace Utage
 	
 	// 複数サウンドが設定されている場合のバックログで、TextMeshPro用の当たり判定をとるのに必要なイベントトリガー
 	[AddComponentMenu("Utage/TextMeshPro/AdvUguiBacklogTMPEventTrigger")]
-	[RequireComponent(typeof(AdvUguiBacklogTMPEventTrigger))]
 	public class AdvUguiBacklogTMPEventTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerClickHandler
 	{
 		AdvUguiBacklogTMP BacklogTMP { get; set; }

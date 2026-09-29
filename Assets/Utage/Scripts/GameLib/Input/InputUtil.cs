@@ -1,6 +1,7 @@
 ﻿// UTAGE: Unity Text Adventure Game Engine (c) Ryohei Tokimura
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Utage
 {
@@ -13,6 +14,25 @@ namespace Utage
 		//入力の有効・無効
 		public static bool EnableInput { get { return enableInput; } set { enableInput = value; } }
 		[RuntimeInitializeStaticField] static bool enableInput = true;
+
+		[StaticField] static EventSystem storedEventSystem;
+
+		//画面全体のUGUI入力（EventSystem経由のRaycast）を一時的に止める。
+		//必ずStoreAndDisableEventSystem/RestoreEventSystemを対で呼ぶこと（ネストは非対応）
+		public static void StoreAndDisableEventSystem()
+		{
+			EventSystem eventSystem = EventSystem.current;
+			if (eventSystem == null) return;
+			storedEventSystem = eventSystem;
+			eventSystem.enabled = false;
+		}
+
+		public static void RestoreEventSystem()
+		{
+			if (storedEventSystem == null) return;
+			storedEventSystem.enabled = true;
+			storedEventSystem = null;
+		}
 
 		//入力の処理方法
 		static IInputStrategy InputStrategy

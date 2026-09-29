@@ -26,7 +26,14 @@ namespace Utage
 			}
 
 			this.graphic = dataManager.ParticleSetting.LabelToGraphic(fileName);
-			AddLoadGraphic(graphic);
+			if (this.graphic == null)
+			{
+				Debug.LogError(ToErrorString(fileName + " is not found in Particle sheet"));
+			}
+			else
+			{
+				AddLoadGraphic(graphic);
+			}
 			
 			this.layerName = ParseCellOptional<string>(AdvColumnName.Arg3, "");
 			if (!string.IsNullOrEmpty(layerName) && !dataManager.LayerSetting.Contains(layerName))

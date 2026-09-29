@@ -42,6 +42,16 @@ namespace Utage.ExcelParser
 			set => ignorePrefixes = value;
 		}
 
+		// シートのコメント記号（この文字で始まるシート名はインポートから除外する）
+		// '\0' を設定するとコメントアウト除外を行わない
+		[SerializeField] char sheetCommentPrefix = '#';
+
+		public char SheetCommentPrefix
+		{
+			get => sheetCommentPrefix;
+			set => sheetCommentPrefix = value;
+		}
+
 		public override IAdvScenarioFileReader CreateReader() => new AdvScenarioFileReaderExcel(this);
 	}
 }

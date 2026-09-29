@@ -8,7 +8,9 @@ namespace Utage
 {
 
 	/// <summary>
-	/// 各コマンドの基底クラス
+	/// シナリオシートの行データからAdvCommandを生成するファクトリクラス。
+	/// 約80種のコマンドIDを定義し、IDに対応するコマンドインスタンスを返す。
+	/// カスタムコマンドはOnCreateCustomCommandFromIDコールバックで拡張できる。
 	/// </summary>
 	public static class AdvCommandParser
 	{
@@ -152,6 +154,9 @@ namespace Utage
 
 		public const string IdImageEffect = "ImageEffect";					//イメージエフェクトの開始
 		public const string IdImageEffectOff = "ImageEffectOff";            //イメージエフェクトの終了
+
+		public const string IdPostEffect = "PostEffect";			//ポストエフェクトの開始
+		public const string IdPostEffectOff = "PostEffectOff";      //ポストエフェクトの終了
 
 		public const string IdParam = "Param";						//パラメーター代入
 		public const string IdIf = "If";							//If文制御
@@ -309,6 +314,11 @@ namespace Utage
 					return new AdvCommandImageEffect(row, dataManager);
 				case IdImageEffectOff:
 					return new AdvCommandImageEffectOff(row, dataManager);
+
+				case IdPostEffect:
+					return new AdvCommandPostEffect(row, dataManager);
+				case IdPostEffectOff:
+					return new AdvCommandPostEffectOff(row, dataManager);
 
 
 				case IdSe:
@@ -486,7 +496,7 @@ namespace Utage
 		{
 			return ( !string.IsNullOrEmpty(str) && str.Length >= 2 && (str[0] == '*'));
 		}
-		//
+		//シナリオラベルとして解析し、成功した場合はtrue・ラベル文字列を返す
 		static public bool TryParseScenarioLabel(StringGridRow row, AdvColumnName columnName, out string scenarioLabel)
 		{
 			string label = AdvParser.ParseCell<string>(row, columnName);

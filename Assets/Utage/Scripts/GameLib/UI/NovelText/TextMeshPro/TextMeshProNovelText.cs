@@ -88,17 +88,21 @@ namespace Utage
 				int len = info.characterInfo.Length;
 				if (index < 0 || len <= index)
 				{
-					Debug.LogFormat("index={0} len={1} ", index, len);
-					return TextMeshPro.rectTransform.anchoredPosition3D;
+					if (index == -1 && len > 0)
+					{
+						index = 0;
+					}
+					else
+					{
+						Debug.LogFormat("index={0} len={1} ", index, len);
+						return TextMeshPro.rectTransform.anchoredPosition3D;
+					}
 				}
-				else
-				{
-					var c = info.characterInfo[index];
-					var line = info.lineInfo[c.lineNumber];
-					Vector3 pos = c.bottomRight;
-					pos.y = line.baseline;
-					return pos;
-				}
+				var c = info.characterInfo[index];
+				var line = info.lineInfo[c.lineNumber];
+				Vector3 pos = c.bottomRight;
+				pos.y = line.baseline;
+				return pos;
 			}
 		}
 

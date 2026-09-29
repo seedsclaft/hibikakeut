@@ -55,9 +55,16 @@ namespace Utage
 					engine.Time.Unscaled,
 					(x)=>
 					{
-						float zoom1 = Timer.GetCurve(zoom0, zoomTo);
-						Vector2 center1 = Timer.GetCurve(center0, centerTo);
-						camera.SetZoom2D(zoom1, center1);
+						if(Timer != null)
+                        {
+	                        float zoom1 = Timer.GetCurve(zoom0, zoomTo);
+	                        Vector2 center1 = Timer.GetCurve(center0, centerTo);
+	                        camera.SetZoom2D(zoom1, center1);
+                        }
+						else
+						{
+							Debug.LogWarning( "Timer is null",target);
+						}
 					},
 					(x) =>
 					{
@@ -87,6 +94,11 @@ namespace Utage
 		}
 		public void OnEffectFinalize()
 		{
+			if (Timer != null && Timer.IsPlaying)
+			{
+				//エンジンの停止などでエフェクトが途中で終わるときは、コルーチンを止めておく
+				Timer.StopAllCoroutines();
+			}
 			Timer = null;
 		}
 	}

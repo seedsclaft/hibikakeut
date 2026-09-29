@@ -154,6 +154,11 @@ namespace Utage
 		//強調表示（グレーアウト無視）するか
 		bool IsLightingCharacter(AdvPage page, AdvGraphicLayer layer)
 		{
+			if (layer.DefaultObject == null)
+			{
+				//キャラクターがいない
+				return false;
+			}
 			//しゃべっているキャラ
 			if( (Mask & LightingMask.Talking) == LightingMask.Talking)
 			{

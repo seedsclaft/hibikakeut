@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -165,11 +166,61 @@ namespace Utage
 		//セーブデータを消去して終了
 		public void OnClickDeleteAllSaveDataAndQuit()
 		{
+			bool hasAsyncExtension = targetDeleteAllSaveData.GetComponentInChildren<IAdvSaveManagerAsync>(true) != null;
+			if (hasAsyncExtension)
+			{
+				//削除完了を待たずに終了すると、非同期削除が中断され消え残る恐れがあるため待つ。
+				//誰にも待たれていない起動点のためFireAndForget（このメソッド自体がawaitできない
+				//voidイベントハンドラのため。中の待機は正しくawaitしている）
+				DeleteAllSaveDataAndQuitAsync().FireAndForget();
+			}
+			else
+			{
+				DeleteAllSaveDataAndQuit();
+			}
+		}
+
+		//セーブデータを消去して終了（同期版）
+		void DeleteAllSaveDataAndQuit()
+		{
 			foreach (var component in targetDeleteAllSaveData.GetComponentsInChildren<IAdvSaveDelete>(true))
 			{
 				component.OnDeleteAllSaveDataAndQuit();
 			}
 			PlayerPrefs.DeleteAll();
+			Quit();
+		}
+
+		//セーブデータを消去して終了（非同期版）。IAdvSaveDeleteを1件ずつ呼ぶ同期版とは異なり、
+		//非同期I/Oは個別にファイルを消すのではなく1回のリクエストにまとめて消す必要があるため、
+		//IAdvSaveManagerAsyncのまとめた削除処理を直接呼ぶ
+		async Awaitable DeleteAllSaveDataAndQuitAsync()
+		{
+			try
+			{
+				var saveManagerAsync = targetDeleteAllSaveData.GetComponentInChildren<IAdvSaveManagerAsync>(true);
+				await saveManagerAsync.DeleteAllSaveDataAndSystemDataAsync(destroyCancellationToken);
+				PlayerPrefs.DeleteAll();
+				Quit();
+			}
+			catch (OperationCanceledException)
+			{
+				throw;
+			}
+			catch (Exception e)
+			{
+				//ハンドラに委譲した場合は投げ直さない（握りつぶすか再スローするかはハンドラ側の判断）
+				if (this.TryGetComponent(out IAdvSaveExceptionHandler saveExceptionHandler))
+				{
+					saveExceptionHandler.OnSaveDataException(AdvSaveOperationType.DeleteAllAndQuit, e);
+					return;
+				}
+				throw;
+			}
+		}
+
+		void Quit()
+		{
 #if UNITY_EDITOR
 			UnityEditor.EditorApplication.isPlaying = false;
 #else

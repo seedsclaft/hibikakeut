@@ -217,7 +217,7 @@ namespace Utage
 				Debug.LogError($"{guid} is not valid");
 				return;
 			}
-			AssetDatabase.ImportPackage(assetPath, interactive);
+			WrapperUnityVersion.ImportPackage(assetPath, interactive);
 		}
 	}
 }

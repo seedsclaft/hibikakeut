@@ -13,7 +13,10 @@ namespace Utage.RenderPipeline
 		public Camera TargetCamera => this.GetComponentCacheInParent(ref targetCamera);
 		Camera targetCamera;
 
-		AdvPostEffectVolume[] PostEffectVolumes => this.GetComponentsCacheInChildren(ref postEffectVolumes);
+		public AdvEngine AdvEngine => this.GetAdvEngineCacheFindIfMissing(ref engine);
+		[SerializeField] AdvEngine engine;
+
+		public AdvPostEffectVolume[] PostEffectVolumes => this.GetComponentsCacheInChildren(ref postEffectVolumes);
 		[NonSerialized] AdvPostEffectVolume[] postEffectVolumes;
 
 		public AdvPostEffectVolume FadeVolume => fadeVolume;
@@ -50,7 +53,7 @@ namespace Utage.RenderPipeline
 			for (int i = 0; i < count; i++)
 			{
 				string volumeName = reader.ReadString();
-				AdvPostEffectVolume postEffectVolume = PostEffectVolumes.First(x => x.name == volumeName);
+				AdvPostEffectVolume postEffectVolume = PostEffectVolumes.FirstOrDefault(x => x.name == volumeName);
 				if (postEffectVolume != null)
 				{
 					reader.ReadBuffer(postEffectVolume.Read);

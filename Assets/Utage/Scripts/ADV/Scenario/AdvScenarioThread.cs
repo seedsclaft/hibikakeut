@@ -5,9 +5,15 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using UnityEngine.Events;
+using UtageExtensions;
 
 namespace Utage
 {
+	/// <summary>
+	/// シナリオ実行スレッド。メインスレッドおよびサブスレッドとして動作し、
+	/// シナリオラベル・ページ単位でコマンドを順次実行する。
+	/// If/Jump/Wait の各マネージャーを内包し、スレッドごとに独立した実行コンテキストを持つ。
+	/// </summary>
 	[AddComponentMenu("Utage/ADV/Internal/AdvScenarioThread")]
 	public class AdvScenarioThread : MonoBehaviour
 	{
@@ -412,12 +418,20 @@ namespace Utage
 		//システムパラメーターの変更があった場合にシステムセーブデータとして記憶
 		void CheckSystemDataWriteIfChanged()
 		{
-			if (Engine.Param.HasChangedSystemParam)
-			{
-				Engine.Param.HasChangedSystemParam = false;
-				Engine.SystemSaveData.Write();
-			}
+			if (!Engine.Param.HasChangedSystemParam) return;
+			Engine.Param.HasChangedSystemParam = false;
 
+			if (Engine.SystemSaveData is IAdvSystemSaveDataAsync)
+			{
+				//ここはシナリオ進行を止めてはいけない場所のため、
+				//待たずにバックグラウンドで自動セーブするFireAndForget
+				//AutoWriteSystemDataAsyncは自動セーブ用に例外を内部で処理する設計
+				Engine.AutoWriteSystemDataAsync(Engine.destroyCancellationToken).FireAndForget();
+			}
+			else
+			{
+				Engine.WriteSystemData();
+			}
 		}
 
 

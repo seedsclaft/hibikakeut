@@ -47,7 +47,7 @@ Shader "Utage/UI/Outline9Pass"
         ColorMask [_ColorMask]
 
 
-		//¶ã
+		//å·¦ä¸Š
 		Pass
 		{
 			Name "LeftTop"
@@ -65,7 +65,7 @@ Shader "Utage/UI/Outline9Pass"
 		ENDCG
 		}
 
-		//ã
+		//ä¸Š
 		Pass
 		{
 			Name "Top"
@@ -84,7 +84,7 @@ Shader "Utage/UI/Outline9Pass"
 		}
 
 	
-		//‰Eã
+		//å³ä¸Š
 		Pass
 		{
 			Name "RightTop"
@@ -103,7 +103,7 @@ Shader "Utage/UI/Outline9Pass"
 		}
 
 
-		//¶
+		//å·¦
 		Pass
 		{
 			Name "Left"
@@ -122,7 +122,7 @@ Shader "Utage/UI/Outline9Pass"
 		}
 
 	
-		//‰E
+		//å³
 		Pass
 		{
 			Name "Right"
@@ -140,7 +140,7 @@ Shader "Utage/UI/Outline9Pass"
 		ENDCG
 		}
 
-		//¶‰º
+		//å·¦ä¸‹
 		Pass
 		{
 			Name "LeftBottom"
@@ -158,7 +158,7 @@ Shader "Utage/UI/Outline9Pass"
 		ENDCG
 		}
 
-		//‰º
+		//ä¸‹
 		Pass
 		{
 			Name "Bottom"
@@ -177,7 +177,7 @@ Shader "Utage/UI/Outline9Pass"
 		}
 
 	
-		//‰E‰º
+		//å³ä¸‹
 		Pass
 		{
 			Name "RightBottom"
@@ -197,7 +197,7 @@ Shader "Utage/UI/Outline9Pass"
 
 
 
-		//ÅI•`‰æ
+		//æœ€çµ‚æç”»
 		Pass
 		{
 			Name "Default"

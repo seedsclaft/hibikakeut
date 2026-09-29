@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.IO;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -304,7 +302,8 @@ namespace Utage
 			//イントロループ用のオーディオは、今のオーディオが鳴り終るタイミングに合わせた時間を登録して鳴らす
 			if (AudioSource != null && AudioSource.clip != null)
 			{
-				float delay = Mathf.Max(0, AudioSource.clip.length - AudioSource.time);
+				//PlayScheduledは、AudioSettings.dspTimより少し大きくする必要があるので、最低値は0.01fにする
+				float delay = Mathf.Max(0.01f, AudioSource.clip.length - AudioSource.time);
 				AudioSourceForIntroLoop.PlayScheduled(AudioSettings.dspTime + delay);
 			}
 		}

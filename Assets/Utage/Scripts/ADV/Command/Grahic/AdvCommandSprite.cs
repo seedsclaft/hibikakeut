@@ -21,7 +21,14 @@ namespace Utage
 			}
 
 			this.graphic = dataManager.TextureSetting.LabelToGraphic(fileName);
-			AddLoadGraphic(graphic);
+			if (this.graphic == null)
+			{
+				Debug.LogError(ToErrorString(fileName + " is not found in Texture sheet"));
+			}
+			else
+			{
+				AddLoadGraphic(graphic);
+			}
 			this.layerName = ParseCellOptional<string>(AdvColumnName.Arg3, "");
 			if (string.IsNullOrEmpty(layerName))
 			{

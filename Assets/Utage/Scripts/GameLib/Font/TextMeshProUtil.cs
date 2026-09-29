@@ -66,10 +66,24 @@ namespace Utage
         //指定の位置にあるリンクを取得
         public static int FindIntersectingLink(TMP_Text text, Vector3 position)
         {
-            Camera camera = text.canvas.renderMode == RenderMode.ScreenSpaceOverlay
-                ? null
-                : text.canvas.worldCamera;
+#if UNITY_EDITOR
+            //マウスが存在しない環境（バッチモードでの自動テスト等）では
+            //マウス座標が無限大になり、Camera.ScreenPointToRayが
+            //「Screen position out of view frustum」をフレームごとに出力してテストが失敗する。
+            //エディタ限定のガードとし、実行時の挙動には影響させない。
+            if (float.IsInfinity(position.x) || float.IsNaN(position.x)
+                || float.IsInfinity(position.y) || float.IsNaN(position.y))
+            {
+                //TMPの規定値。リンクが見つからなかったことを表す
+                return -1;
+            }
+#endif
+            Camera camera = null;
 
+            if (text.canvas != null && text.canvas.renderMode != RenderMode.ScreenSpaceOverlay)
+            {
+                camera = text.canvas.worldCamera;
+            }
             return TMP_TextUtilities.FindIntersectingLink(text, position, camera);
         }
     }

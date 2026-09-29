@@ -13,10 +13,6 @@ namespace Utage.RenderPipeline.Urp
         public float Strength => strength.value;
         [SerializeField] ClampedFloatParameter strength = new (0, 0,1.0f);
 
-        public SepiaVolume()
-        {
-            displayName = nameof(SepiaVolume);
-        }
         
         public bool IsActive()
         {

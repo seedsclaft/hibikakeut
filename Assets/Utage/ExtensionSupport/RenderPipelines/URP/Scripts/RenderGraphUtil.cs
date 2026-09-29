@@ -91,7 +91,11 @@ namespace Utage.RenderPipeline.Urp
 		//現在、RenderGraphが有効かどうかチェックする
 		public static bool EnableRenderGraph()
 		{
+#if UNITY_6000_4_OR_NEWER
+			return true;
+#else
 			return !GraphicsSettings.GetRenderPipelineSettings<RenderGraphSettings>().enableRenderCompatibilityMode;
+#endif
 		}
 	}
 }

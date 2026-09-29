@@ -32,7 +32,7 @@ using UnityEditor.SceneManagement;
 namespace Utage
 {
 	//Unityのバージョン違いを吸収する
-	public class WrapperUnityVersion
+	public static class WrapperUnityVersion
 	{
 		public static Vector2 GetBoxCollider2DOffset(BoxCollider2D col)
 		{
@@ -543,5 +543,27 @@ namespace Utage
 			return Resources.GetBuiltinResource(typeof(Font), defaultFontFile) as Font;
 		}
 		#endif
+
+#if UNITY_EDITOR
+		//**************6000.6対応 AssetDatabase.ImportPackage/ExportPackageの非推奨化
+		public static void ImportPackage(string packagePath, bool interactive)
+		{
+#if UNITY_6000_6_OR_NEWER
+			UnityEditor.AssetPackage.Package.Import(packagePath, interactive);
+#else
+			AssetDatabase.ImportPackage(packagePath, interactive);
+#endif
+		}
+
+		public static void ExportPackage(string assetPathName, string fileName, ExportPackageOptions flags)
+		{
+#if UNITY_6000_6_OR_NEWER
+			var parameters = new UnityEditor.AssetPackage.ExportPackageParameters(assetPathName, fileName, "", flags);
+			UnityEditor.AssetPackage.Package.Export(parameters);
+#else
+			AssetDatabase.ExportPackage(assetPathName, fileName, flags);
+#endif
+		}
+#endif
 	}
 }

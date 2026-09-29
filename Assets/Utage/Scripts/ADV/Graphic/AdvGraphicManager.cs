@@ -38,6 +38,7 @@ namespace Utage
 
 		[SerializeField] float sortOderToZUnits = 100;
 
+		//背景レイヤーのスプライト名
 		public string BgSpriteName
 		{
 			get { return bgSpriteName; }
@@ -53,6 +54,7 @@ namespace Utage
 
 		[SerializeField] bool resetCharacterTransformOnChangeLayer = true;
 
+		//デバッグ用：エディタ実行時にキャンバス位置を自動リセットするか
 		public bool DebugAutoResetCanvasPosition
 		{
 			get
@@ -181,7 +183,7 @@ namespace Utage
 		}
 
 		/// <summary>
-		/// スプライト管理
+		/// 背景管理
 		/// </summary>
 		public AdvGraphicGroup BgManager
 		{
@@ -385,6 +387,23 @@ namespace Utage
 			}
 
 			return allGraphics;
+		}
+
+		//指定のオブジェクトがレイヤー以下の現在のオブジェクトにあるか？
+		//つまり、すでに非表示だったり、フェードアウト中などではないか
+		public bool ContainsCurrentGraphic(AdvGraphicObject graphicObject)
+		{
+			foreach (var layer in LayerList)
+			{
+				foreach (var keyValue in layer.CurrentGraphics)
+				{
+					if (keyValue.Value == graphicObject)
+					{
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 
 		//ロード中かチェック
@@ -622,6 +641,7 @@ namespace Utage
 			clickEvent.AddClickEvent(isPolygon, row, action);
 		}
 
+		//IBinaryIO用のセーブキー
 		public string SaveKey { get { return "AdvGraphicManager"; } }
 
 		const int Version = 0;

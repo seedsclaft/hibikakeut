@@ -5,7 +5,10 @@
 //OR_NEWERの細かいバージョンはないので、
 //2021.3と、2022.2は諦めて、2022.3移行を対象とする
 
-#if UNITY_2022_3_OR_NEWER
+#if UNITY_6000_4_OR_NEWER
+
+#elif UNITY_2022_3_OR_NEWER
+#define LEGACY_FIND_OBJECT2
 #else
 #define LEGACY_FIND_OBJECT
 #endif
@@ -25,9 +28,12 @@ namespace Utage
         {
 #if LEGACY_FIND_OBJECT
             return Object.FindObjectOfType<T>();
-#else
+#elif LEGACY_FIND_OBJECT2
             //後方互換性のために速度は犠牲にして、FindFirstObjectByTypeを使う
             return Object.FindFirstObjectByType<T>();
+#else
+            //また変わったのでFindAnyObjectByTypeを使う
+            return Object.FindAnyObjectByType<T>();
 #endif
         }
 
@@ -37,9 +43,12 @@ namespace Utage
 
 #if LEGACY_FIND_OBJECT
             return Object.FindObjectsOfType<T>();
-#else
+#elif LEGACY_FIND_OBJECT2
             //後方互換性のために速度は犠牲にして、FindObjectsByTypeを使う
 			return Object.FindObjectsByType<T>(FindObjectsSortMode.None);
+#else
+            //また変わったのでFindObjectsInactive.Excludeを指定してFindAnyObjectByTypeを使う
+            return Object.FindObjectsByType<T>(FindObjectsInactive.Exclude);
 #endif
         }
 

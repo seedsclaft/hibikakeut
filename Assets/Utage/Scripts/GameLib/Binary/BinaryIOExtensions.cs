@@ -77,8 +77,9 @@ namespace UtageExtensions
 			}
 			catch(Exception e)
 			{
-				Debug.LogError(e.Message);
+				Debug.LogException(e);
 				isFailed = true;
+				
 			}
 			//読み込みに失敗したら末端のreaderの位置を調整
 			if (isFailed)

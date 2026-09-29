@@ -24,7 +24,7 @@ namespace Utage
 		Dictionary<string, AdvGraphicLayer> layers = new Dictionary<string, AdvGraphicLayer>();
 
 		//起動時の初期化
-		internal AdvGraphicGroup(AdvLayerSettingData.LayerType type, AdvLayerSetting setting, AdvGraphicManager manager)
+		public AdvGraphicGroup(AdvLayerSettingData.LayerType type, AdvLayerSetting setting, AdvGraphicManager manager)
 		{
 			this.Type = type;
 			this.manager = manager;
@@ -63,7 +63,7 @@ namespace Utage
 		}
 
 		//指定のオブジェクトのレイヤー（キャンバス）をAdvEngineに埋め込み
-		internal void EmbedLayer(AdvGraphicLayer layer)
+		public void EmbedLayer(AdvGraphicLayer layer)
 		{
 			layer.Init(manager);
 			string name = layer.gameObject.name;
@@ -77,7 +77,7 @@ namespace Utage
 			}
 		}
 		//指定のレイヤーを削除
-		internal void RemoveLayer(AdvGraphicLayer layer)
+		public void RemoveLayer(AdvGraphicLayer layer)
 		{
 			string name = layer.gameObject.name;
 			if (layers.ContainsKey(name))
@@ -92,7 +92,7 @@ namespace Utage
 
 
 		//クリア
-		internal virtual void Clear()
+		public virtual void Clear()
 		{
 			foreach (var keyValue in layers)
 			{
@@ -100,7 +100,7 @@ namespace Utage
 			}
 		}
 
-		internal void DestroyAll()
+		public void DestroyAll()
 		{
 			foreach (var keyValue in layers)
 			{
@@ -129,7 +129,7 @@ namespace Utage
 		}
 
 		//キャラクターオブジェクトとして、特殊な表示をする
-		internal AdvGraphicObject DrawCharacter(string layerName, string name, AdvGraphicOperationArg arg)
+		public AdvGraphicObject DrawCharacter(string layerName, string name, AdvGraphicOperationArg arg)
 		{
 			//既に同名のグラフィックがあるなら、そのレイヤーを取得
 			AdvGraphicLayer oldLayer = null;
@@ -201,14 +201,14 @@ namespace Utage
 
 
 		//指定名のオブジェクトを非表示（フェードアウト）する
-		internal virtual void FadeOut(string name, float fadeTime)
+		public virtual void FadeOut(string name, float fadeTime)
 		{
 			AdvGraphicLayer layer = FindLayerFromObjectName(name);
 			if (layer != null) layer.FadeOut(name, fadeTime);
 		}
 
 		//全オブジェクトを非表示（フェードアウト）する
-		internal virtual void FadeOutAll(float fadeTime)
+		public virtual void FadeOutAll(float fadeTime)
 		{
 			foreach (var keyValue in layers)
 			{
@@ -217,7 +217,7 @@ namespace Utage
 		}
 
 		//指定名のパーティクルを非表示にする
-		internal void FadeOutParticle(string targetName,AdvParticleStopType stopType)
+		public void FadeOutParticle(string targetName,AdvParticleStopType stopType)
 		{
 			foreach (var keyValue in layers)
 			{
@@ -226,7 +226,7 @@ namespace Utage
 		}
 
 		//パーティクルを全て非表示にする
-		internal void FadeOutAllParticle(AdvParticleStopType stopType)
+		public void FadeOutAllParticle(AdvParticleStopType stopType)
 		{
 			foreach (var keyValue in layers)
 			{
@@ -250,7 +250,7 @@ namespace Utage
 
 
 		//指定名グラフィックオブジェクトを持つか
-		internal bool IsContians(string layerName, string name)
+		public bool IsContians(string layerName, string name)
 		{
 			if (string.IsNullOrEmpty(layerName))
 			{
@@ -264,7 +264,7 @@ namespace Utage
 		}
 
 		//指定の名前のグラフィックオブジェクトを持つレイヤーを探す
-		internal AdvGraphicLayer FindLayerFromObjectName(string name)
+		public AdvGraphicLayer FindLayerFromObjectName(string name)
 		{
 			foreach (var keyValue in layers)
 			{
@@ -274,7 +274,7 @@ namespace Utage
 		}
 
 		//指定の名前のレイヤーを探す
-		internal AdvGraphicLayer FindLayer(string name)
+		public AdvGraphicLayer FindLayer(string name)
 		{
 			AdvGraphicLayer layer;
 			if (layers.TryGetValue(name, out layer))
@@ -283,7 +283,7 @@ namespace Utage
 		}
 
 		//指定の名前のレイヤーを探す（見つからなかったらデフォルト）
-		internal AdvGraphicLayer FindLayerOrDefault(string name)
+		public AdvGraphicLayer FindLayerOrDefault(string name)
 		{
 			AdvGraphicLayer layer = FindLayer(name);
 			if (layer == null)
@@ -294,7 +294,7 @@ namespace Utage
 		}
 
 		//指定の名前のグラフィックオブジェクトをを探す
-		internal AdvGraphicObject FindObject(string name)
+		public AdvGraphicObject FindObject(string name)
 		{
 			foreach (var keyValue in layers)
 			{
@@ -325,7 +325,7 @@ namespace Utage
 			return allGraphics;
 		}
 
-		internal void AddAllGraphics(List<AdvGraphicObject> graphics)
+		public void AddAllGraphics(List<AdvGraphicObject> graphics)
 		{
 			foreach (var keyValue in layers)
 			{
@@ -334,7 +334,7 @@ namespace Utage
 		}
 
 		//ロード中かチェック
-		internal bool IsLoading
+		public bool IsLoading
 		{
 			get
 			{
@@ -346,7 +346,7 @@ namespace Utage
 			}
 		}
 		
-		internal bool IsFading
+		public bool IsFading
 		{
 			get
 			{
@@ -358,7 +358,7 @@ namespace Utage
 			}
 		}
 
-		internal void SkipFade()
+		public void SkipFade()
 		{
 			foreach (var keyValue in layers)
 			{
@@ -367,7 +367,7 @@ namespace Utage
 		}
 				
 		//指定のタイプのオブジェクトのみ全て削除
-		internal void FadeOutAllObjects(AdvGraphicObjectType objectType, float fadeTime)
+		public void FadeOutAllObjects(AdvGraphicObjectType objectType, float fadeTime)
 		{
 			foreach (var keyValue in layers)
 			{

@@ -1,8 +1,11 @@
 ﻿#if UTAGE_URP_EDITOR
 using System;
 using System.Reflection;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 namespace Utage.RenderPipeline.Urp
@@ -13,10 +16,11 @@ namespace Utage.RenderPipeline.Urp
 		// プロジェクトウィンドウの右クリックメニューに追加
 		public class ContextMenu : EditorWindow
 		{
-			const string MenuPath = "Assets/Utage/AddRenderFeatures";
-
-			[MenuItem(MenuPath)]
-			static void GetFilePath()
+			const string AddRenderFeaturesMenuPath = "Assets/Utage/AddRenderFeatures";
+			
+			//現在選択しているScriptableRendererDataにUTAGEで必要になるRenderFeatureを追加する
+			[MenuItem(AddRenderFeaturesMenuPath)]
+			static void AddRenderFeaturesToSelected()
 			{
 				if (Selection.activeObject is ScriptableRendererData rendererData)
 				{
@@ -24,13 +28,50 @@ namespace Utage.RenderPipeline.Urp
 					converter.AddRenderFeatures(rendererData);
 				}
 			}
-
-			[MenuItem(MenuPath, true)]
+			[MenuItem(AddRenderFeaturesMenuPath, true)]
 			static bool IsValidate()
 			{
 				return Selection.activeObject is ScriptableRendererData;
 			}
+
 		}
+
+		//プロジェクトのGraphicsSettings内のすべてのRenderPipelineに、UTAGEで必要になる設定をする
+		public void ConvertProjectAllRenderPipelines(bool clearVolumeProfile)
+		{
+			var pipelineAssets = GraphicsSettings.allConfiguredRenderPipelines;
+			foreach (var renderPipelineAsset in pipelineAssets)
+			{
+				if (renderPipelineAsset is UniversalRenderPipelineAsset universalRenderPipelineAsset)
+				{
+					ConvertRenderPipelines(universalRenderPipelineAsset,clearVolumeProfile);
+				}
+			}
+		}
+
+		//指定のRenderPipelineに、UTAGEで必要になる設定をする
+		public void ConvertRenderPipelines(UniversalRenderPipelineAsset renderPipelineAsset, bool clearVolumeProfile)
+		{
+			if (clearVolumeProfile)
+			{
+#if UNITY_6000_0_OR_NEWER				
+				//シーン全てに適用されるグローバルなvolumeProfileをクリアする
+				renderPipelineAsset.volumeProfile = null;
+#endif
+			}
+			var renderer = renderPipelineAsset.scriptableRenderer;
+			if(renderer !=null)
+			{
+				//デフォルトのScriptableRendererDataにのみRenderFeatureを追加する
+				(ScriptableRendererData rendererData,int index) = UrpProjectSettingsUtil.GetDefaultRendererData(renderPipelineAsset);
+				if (rendererData != null)
+				{
+					AddRenderFeatures(rendererData);
+				}
+			}
+			EditorUtility.SetDirty(renderPipelineAsset);
+		}
+
 		
 		//UTAGEで必要になるRenderFeatureを追加する
 		public void AddRenderFeatures(ScriptableRendererData rendererData)

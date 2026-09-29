@@ -6,7 +6,7 @@ namespace Utage
 {
 
 	/// <summary>
-	/// コマンド：イメージエフェクト開始
+	/// コマンド：イメージエフェクトの開始コマンド
 	/// </summary>
 	public class AdvCommandImageEffect : AdvCommandImageEffectBase
 	{

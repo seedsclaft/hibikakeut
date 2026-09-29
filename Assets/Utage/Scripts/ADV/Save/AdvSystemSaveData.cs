@@ -1,4 +1,5 @@
 ﻿// UTAGE: Unity Text Adventure Game Engine (c) Ryohei Tokimura
+using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,19 +18,44 @@ namespace Utage
 		/// <summary>
 		/// システムセーブデータを使わない
 		/// </summary>
-		public bool DontUseSystemSaveData { get { return dontUseSystemSaveData; } set { dontUseSystemSaveData = value; } }
+		public bool DontUseSystemSaveData 
+		{
+			get => dontUseSystemSaveData;
+			set => dontUseSystemSaveData = value;
+		}
 		[SerializeField]
 		bool dontUseSystemSaveData = false;
-
+		
 		//アプリ終了時やスリープ時にオートセーブするか
-		public bool IsAutoSaveOnQuit { get { return isAutoSaveOnQuit; } set { isAutoSaveOnQuit = value; } }
+		public bool IsAutoSaveOnQuit
+		{
+			get => isAutoSaveOnQuit;
+			set => isAutoSaveOnQuit = value;
+		}
 		[SerializeField]
 		bool isAutoSaveOnQuit = true;
 
-		FileIOManager FileIOManager { get { return this.GetComponentCacheFindIfMissing( ref fileIOManager); } }
+		//通常のセーブデータ書き込み時にシステムセーブデータも書き込むか
+		public bool IsAutoSaveOnNormalSave
+		{
+			get => isAutoSaveOnNormalSave;
+			set => isAutoSaveOnNormalSave = value;
+		}
+		[SerializeField] bool isAutoSaveOnNormalSave = true;
+
+		//BgEventCommand使用時にオートセーブするか（CGギャラリーの解放を確実にセーブ）
+		public bool IsAutoSaveBgEventCommand
+		{ 
+			get => isAutoSaveBgEventCommand;
+			set => isAutoSaveBgEventCommand = value;
+		}
+		[SerializeField] bool isAutoSaveBgEventCommand = false;
+
+		protected FileIOManager FileIOManager => this.GetComponentCacheFindIfMissing( ref fileIOManager);
 		[SerializeField]
 		FileIOManager fileIOManager;
 
+		
 		/// <summary>
 		/// ディレクトリ名
 		/// </summary>
@@ -55,7 +81,7 @@ namespace Utage
 		/// <summary>
 		/// ファイルパス
 		/// </summary>
-		public string Path { get; private set; }
+		public string Path { get; protected set; }
 
 		/// <summary>
 		/// 既読のデータ
@@ -76,7 +102,7 @@ namespace Utage
 		AdvGallerySaveData galleryData = new AdvGallerySaveData();
 
 		protected AdvEngine Engine { get { return this.engine; } }
-		AdvEngine engine;
+		protected AdvEngine engine;
 
 		/// <summary>
 		/// 初期化フラグ
@@ -101,21 +127,37 @@ namespace Utage
 		/// </summary>
 		protected virtual void InitDefault()
 		{
-			this.engine.Config.InitDefault();
+			this.Engine.Config.InitDefault();
+		}
+
+		/// <summary>
+		/// 読み込み失敗時のフォールバック（デフォルト値で初期化）。
+		/// 非同期拡張時、起動シーケンス側（AdvEngine.CoBootInit）がInitAsyncの例外を
+		/// キャッチした際に呼ぶ（InitDefaultはprotectedのため公開する形で用意している）
+		/// </summary>
+		public virtual void InitFallback()
+		{
+			InitDefault();
+			isInit = true;
+		}
+
+		//セーブデータのディレクトリ作成とPathの確定（読み込みの前処理）
+		protected virtual void EnsureSaveDirAndPath()
+		{
+			string saveDir = FilePathUtil.Combine(FileIOManager.SdkPersistentDataPath, DirectoryName);
+			//セーブデータのディレクトリがなければ作成。
+			FileIOManager.CreateDirectory(saveDir);
+			Path = FilePathUtil.Combine(saveDir, FileName);
 		}
 
 		protected virtual bool TryReadSaveData()
 		{
 			if (DontUseSystemSaveData) return false;
 
-			string saveDir = FilePathUtil.Combine(FileIOManager.SdkPersistentDataPath, DirectoryName);
-			//セーブデータのディレクトリがなければ作成
-			FileIOManager.CreateDirectory(saveDir);
-
-			Path = FilePathUtil.Combine(saveDir, FileName);
+			EnsureSaveDirAndPath();
 			if (!FileIOManager.Exists(Path)) return false;
 
-			return FileIOManager.ReadBinaryDecode(Path, ReadBinary);			
+			return FileIOManager.ReadBinaryDecode(Path, ReadBinary);
 		}
 
 		/// <summary>
@@ -127,6 +169,15 @@ namespace Utage
 			{
 				FileIOManager.WriteBinaryEncode(Path, WriteBinary);
 			}
+		}
+
+		
+		//通常のセーブデータ書き込み時に呼ばれる処理
+		public virtual void OnWriteNormalSaveData()
+		{
+			if (!IsAutoSaveOnNormalSave) return;
+			//システムセーブデータも書き込む
+			Write();
 		}
 
 		//セーブデータを消去して終了(インターフェースを使用するのでpublicに変更)
@@ -143,6 +194,7 @@ namespace Utage
 		{
 			FileIOManager.Delete(Path);
 		}
+
 		//ゲーム終了時
 		protected virtual void OnApplicationQuit()
 		{

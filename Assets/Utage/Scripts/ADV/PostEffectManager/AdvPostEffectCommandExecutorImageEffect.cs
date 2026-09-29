@@ -7,31 +7,6 @@ namespace Utage
 	//ポストエフェクトとしてイメージエフェクトコマンドを実行するコンポーネント
 	public class AdvPostEffectCommandExecutorImageEffect : AdvPostEffectCommandExecutorBase
 	{
-/*		
-		public void DoCommand( Camera targetCamera, IAdvCommandImageEffect command,  Action onComplete)
-		{
-			(IPostEffect effect, float start, float end) = RpBridge.DoCommandImageEffect(targetCamera, command);
-			
-			if (command.AnimationData==null && effect is IPostEffectStrength effectStrength )
-			{
-				command.Timer = SetTimer(effect, command.Time,
-						(x) => effectStrength.Strength = x.GetCurve(start, end),
-						(x) =>
-						{
-							onComplete();
-							if (command.Inverse)
-							{
-								effect.enabled = false;
-//								effect.RemoveComponentMySelf();
-							}
-						});
-			}
-			else
-			{
-				command.AnimationPlayer = SetAnimation(effect, command.AnimationData, onComplete);
-			}
-		}
-*/		
 		public void DoCommand( Camera targetCamera, IAdvCommandImageEffect command,  Action onComplete)
 		{
 			(IPostEffect effect, Action complete) = RpBridge.DoCommandImageEffect(targetCamera, command,  onComplete);

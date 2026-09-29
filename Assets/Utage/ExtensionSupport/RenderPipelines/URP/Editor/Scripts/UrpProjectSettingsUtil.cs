@@ -64,6 +64,7 @@ namespace Utage.RenderPipeline.Urp
             return rendererIndex;
         }
 
+        //現在のプロジェクトのデフォルトのRendererDataとそのインデックスを取得
         public static (ScriptableRendererData,int) GetDefaultRendererData()
         {
             UniversalRenderPipelineAsset urpAsset = UrpUtil.GetCurrentRendererPipeLine();
@@ -72,6 +73,13 @@ namespace Utage.RenderPipeline.Urp
                 Debug.LogError("Not found UniversalRenderPipelineAsset");
                 return (null,-1);
             }
+
+            return GetDefaultRendererData(urpAsset);
+        }
+        
+        //URPアセットからデフォルトのRendererDataとそのインデックスを取得
+        public static (ScriptableRendererData,int) GetDefaultRendererData(UniversalRenderPipelineAsset urpAsset)
+        {
 
             //アクセス方法がないのでSerializedObjectを使ってアクセス
             var serializedObject = new SerializedObject(urpAsset);

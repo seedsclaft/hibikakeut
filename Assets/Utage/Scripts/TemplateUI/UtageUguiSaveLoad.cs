@@ -1,6 +1,8 @@
 ﻿// UTAGE: Unity Text Adventure Game Engine (c) Ryohei Tokimura
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Profiling;
 using Utage;
@@ -50,6 +52,7 @@ namespace Utage
 		protected bool isInit = false;
 		protected int lastPage;
 
+		CancellationTokenSource waitOpenCts;
 
 		/// <summary>
 		/// セーブ画面を開く
@@ -82,7 +85,20 @@ namespace Utage
 		{
 			isInit = false;
 			this.gridPage.ClearItems();
-			StartCoroutine(CoWaitOpen());
+			if (Engine.SaveManager is IAdvSaveManagerAsync)
+			{
+				//画面を閉じたら（OnCloseで）続きは不要になる操作なので、Destroy時だけでなく
+				//Close時にもキャンセルされるトークンを使う（保存処理と違い、待たれてもいないので
+				//生き残らせる意味が無い）
+				waitOpenCts?.Cancel();
+				waitOpenCts?.Dispose();
+				waitOpenCts = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
+				WaitOpenAsync(waitOpenCts.Token).FireAndForget();
+			}
+			else
+			{
+				StartCoroutine(CoWaitOpen());
+			}
 		}
 
 		/// <summary>
@@ -92,9 +108,12 @@ namespace Utage
 		{
 			lastPage = gridPage.CurrentPage;
 			this.gridPage.ClearItems();
+			waitOpenCts?.Cancel();
+			waitOpenCts?.Dispose();
+			waitOpenCts = null;
 		}
 
-		//起動待ちしてから開く
+		//起動待ちしてから開く（セーブファイルの読み込み同期処理）
 		protected virtual IEnumerator CoWaitOpen()
 		{
 			while (Engine.IsWaitBootLoading)
@@ -102,8 +121,54 @@ namespace Utage
 				yield return null;
 			}
 
+			Engine.SaveManager.ReadAllSaveData();
+			SetupItemsAfterRead();
+		}
+
+		//起動待ちしてから開く（セーブファイルの読み込みは非同期処理）
+		protected virtual async Awaitable WaitOpenAsync(CancellationToken cancellationToken)
+		{
+			await UtageExtensionMethodsAwaitable.UntilAsync(() => !Engine.IsWaitBootLoading, cancellationToken);
+
+			var asyncExtension = (IAdvSaveManagerAsync)Engine.SaveManager;
+			try
+			{
+				await asyncExtension.ReadAllSaveDataAsync(cancellationToken);
+			}
+			catch (OperationCanceledException)
+			{
+				return;
+			}
+			catch (Exception e)
+			{
+				if (this.TryGetComponent(out IAdvSaveExceptionHandler saveExceptionHandler))
+				{
+					//拡張ハンドラがあれば例外への対応を全て委ねる（デフォルトのガイドメッセージは出さない）
+					saveExceptionHandler.OnSaveDataException(AdvSaveOperationType.OpenSaveLoadList, e);
+				}
+				else
+				{
+					//あえて例外を投げ直さず握りつぶす。
+					//投げ直すと後続の一覧構築（gridPage.CreateItems等）が丸ごと止まり画面自体が開けなくなるため
+					//ここが例外の終端になる（FireAndForgetまで伝播させないので、ログもここで責任を持って出す）
+					//例外処理をしたい場合は上記のIAdvSaveExceptionHandlerを実装
+					Debug.LogException(e, this);
+					
+					//ロード失敗としてガイドメッセージを表示
+					if (guideMessage != null)
+					{
+						guideMessage.Open(LanguageSystemText.LocalizeText(SystemText.UtageGuideMessageSaveDataLoadFailed));
+					}
+				}
+			}
+
+			SetupItemsAfterRead();
+		}
+
+		//セーブデータ読み込み後、一覧の表示アイテムを構築する（同期・非同期共通の後処理）
+		protected virtual void SetupItemsAfterRead()
+		{
 			AdvSaveManager saveManager = Engine.SaveManager;
-			saveManager.ReadAllSaveData();
 			List<AdvSaveData> list = new List<AdvSaveData>();
 			if (saveManager.IsAutoSave) list.Add(saveManager.AutoSaveData);
 			list.AddRange(saveManager.SaveDataList);
@@ -149,14 +214,13 @@ namespace Utage
 		/// <summary>
 		/// 各アイテムが押された
 		/// </summary>
-		/// <param name="button">押されたアイテム</param>
+		/// <param name="item">押されたアイテム</param>
 		public virtual void OnTap(UtageUguiSaveLoadItem item)
 		{
 			if (isSave)
 			{
 				//セーブ画面なら、セーブ処理
-				Engine.WriteSaveData(item.Data);
-				item.Refresh(true);
+				WriteSaveDataAndRefresh(item);
 			}
 			else
 			{
@@ -178,13 +242,63 @@ namespace Utage
 			}
 		}
 
-		
+
 		protected virtual IEnumerator CoWaitOnLoad(UtageUguiSaveLoadItem item)
 		{
 			this.StoreAndChangeCanvasGroupInput(false);
 			yield return new WaitForSeconds(waitTimeOnLoad);
 			this.RestoreCanvasGroupInput();
 			Close();
+		}
+
+		/// <summary>
+		/// セーブ処理の共通処理（非同期拡張がある場合は非同期で書き込み、無い場合は従来通り同期で書き込む）
+		/// </summary>
+		protected virtual void WriteSaveDataAndRefresh(UtageUguiSaveLoadItem item)
+		{
+			if (Engine.SaveManager is IAdvSaveManagerAsync)
+			{
+				//SaveManagerに非同期拡張がある場合は、非同期で書き込みを行う（画面を閉じても書き込みは完了させるため）
+				WriteSaveDataAndRefreshAsync(item).FireAndForget();
+			}
+			else
+			{
+				//無ければ従来通り同期で行う。
+				Engine.WriteSaveData(item.Data);
+				item.Refresh(true);
+			}
+		}
+
+		//セーブ処理（非同期版）
+		protected virtual async Awaitable WriteSaveDataAndRefreshAsync(UtageUguiSaveLoadItem item)
+		{
+			try
+			{
+				await Engine.WriteSaveDataAsync(item.Data, destroyCancellationToken);
+				if (item == null) return;
+				item.Refresh(true);
+			}
+			catch (OperationCanceledException)
+			{
+				throw;
+			}
+			catch (Exception e)
+			{
+				if (this.TryGetComponent(out IAdvSaveExceptionHandler saveExceptionHandler))
+				{
+					//拡張ハンドラがあれば例外への対応を全て委ねる（デフォルトのガイドメッセージは出さない）
+					saveExceptionHandler.OnSaveDataException(AdvSaveOperationType.Save, e);
+				}
+				else
+				{
+					//セーブ失敗としてガイドメッセージを表示
+					if (guideMessage != null)
+					{
+						guideMessage.Open(LanguageSystemText.LocalizeText(SystemText.UtageGuideMessageSaveFailed));
+					}
+					throw;
+				}
+			}
 		}
 
 		// 各アイテムが押された
@@ -208,8 +322,7 @@ namespace Utage
 					void WriteSaveData()
 					{
 						//セーブ画面なら、セーブ処理
-						Engine.WriteSaveData(item.Data);
-						item.Refresh(true);
+						WriteSaveDataAndRefresh(item);
 					}
 
 					if (item.Data.IsSaved)

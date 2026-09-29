@@ -63,6 +63,7 @@ namespace Utage
 		public AdvMacroManager MacroManager { get { return this.macroManager; } }
 		AdvMacroManager macroManager = new AdvMacroManager();
 
+		//ADVエンジン本体への参照
 		public AdvEngine Engine => this.GetAdvEngineCacheFindIfMissing(ref engine);
 		AdvEngine engine;
 
@@ -95,6 +96,7 @@ namespace Utage
 		}
 
 
+		//チャプターデータを追加してシナリオを初期化する
 		public virtual void BootInitChapter(AdvChapterData chapter)
 		{
 			chapter.BootInit(this.SettingDataManager);
@@ -114,6 +116,7 @@ namespace Utage
 			}
 		}
 
+		//チャプターデータをシナリオテーブルから削除する
 		public void RemoveChapter(AdvChapterData chapter)
 		{
 			Dictionary<string, AdvScenarioData> scenarios = new Dictionary<string, AdvScenarioData>();
@@ -280,6 +283,7 @@ namespace Utage
 		}
 
 
+		//指定のシナリオラベルの次のシナリオラベルデータを取得する
 		public virtual AdvScenarioLabelData NextScenarioLabelData(string scenarioLabel)
 		{
 			foreach (AdvScenarioData data in scenarioDataTbl.Values)
@@ -326,6 +330,30 @@ namespace Utage
 					return label.MakePreloadFileListSub(this, page, maxFilePreload, preloadDeep);
 				}
 			}
+			return null;
+		}
+		
+		//AdvGraphicInfoを含む、AdvGraphicInfoListを取得
+		public AdvGraphicInfoList FindGraphicInfoList(AdvGraphicInfo graphicInfo)
+		{
+			foreach (var item in SettingDataManager.CharacterSetting.List)
+			{
+				var graphicList = item.Graphic; 
+				if (graphicList.InfoList.Contains(graphicInfo))
+				{
+					return graphicList;
+				}
+			}
+			foreach (var item in SettingDataManager.TextureSetting.List)
+			{
+				var graphicList = item.Graphic; 
+				if (graphicList.InfoList.Contains(graphicInfo))
+				{
+					return graphicList;
+				}
+			}
+			
+			Debug.LogError($"{graphicInfo.Key}　はTextureシートまたは、Characterシート以下にありません");
 			return null;
 		}
 	}

@@ -16,6 +16,7 @@ namespace Utage
         [SerializeField] int gameScreenWidth = 1280;
         [SerializeField] int gameScreenHeight = 720;
 
+        [Serializable]
         protected abstract class AdvProjectCreatorNewSceneDefault<T>
             : AdvProjectCreator
                 , IAdvProjectCreatorAddScene

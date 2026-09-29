@@ -39,12 +39,14 @@ namespace Utage.RenderPipeline.Urp
         }
 
 #if URP_17_OR_NEWER
+#if !UNITY_6000_4_OR_NEWER
         [Obsolete("This is for compatibility mode only (when Render Graph is disabled)", false)]
         public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
         {
             ref var cameraData = ref renderingData.cameraData;
             RenderTarget = cameraData.renderer.cameraColorTargetHandle;
         }
+#endif
 #else
         public void Setup(ScriptableRenderer renderer)
         {
@@ -63,6 +65,7 @@ namespace Utage.RenderPipeline.Urp
         protected ScriptableRenderPassBase(string passName) : base(passName)
         {
         }
+#if !UNITY_6000_4_OR_NEWER
 #if URP_17_OR_NEWER
         [Obsolete("This rendering path is for compatibility mode only (when Render Graph is disabled). Use Render Graph API instead.", false)]
 #endif
@@ -76,6 +79,7 @@ namespace Utage.RenderPipeline.Urp
             //実行
             ExecuteInActive(context, ref renderingData, volume);
         }
+#endif
         protected virtual void ExecuteInActive(ScriptableRenderContext context, ref RenderingData renderingData,
             TVolume volume)
         {

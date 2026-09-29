@@ -136,6 +136,8 @@ namespace Utage
 					chapter.BootInit(this);
 				}
 			}
+			//Layerシートがプロジェクトに1枚も存在しない場合でも、デフォルトレイヤーを補完する
+			LayerSetting.InitDefaultLayers();
 		}
 
 		/// <summary>

@@ -24,7 +24,16 @@ namespace Utage
 		{
 			if (string.IsNullOrEmpty(path)) return false;
 			string extension = Path.GetExtension(path);
-			return Settings.FilePatternList.Exists(x=> x.ext.Equals(extension, StringComparison.OrdinalIgnoreCase));
+			if (!Settings.FilePatternList.Exists(x=> x.ext.Equals(extension, StringComparison.OrdinalIgnoreCase))) return false;
+
+			//ファイル名（拡張子除く）の先頭がコメント記号なら除外（CSVは1ファイル=1シートのため）
+			char commentPrefix = Settings.SheetCommentPrefix;
+			if (commentPrefix != '\0')
+			{
+				string fileName = FilePathUtil.GetFileNameWithoutExtension(path);
+				if (!string.IsNullOrEmpty(fileName) && fileName[0] == commentPrefix) return false;
+			}
+			return true;
 		}
 
 		public bool TryReadFile(string path, out StringGridDictionary stringGridDictionary)
@@ -40,6 +49,11 @@ namespace Utage
 
 			var csvParser = new CsvParser() { Delimiter = pattern.separator };
 			StringGrid grid = csvParser.ReadFile(path);
+			if (grid == null)
+			{
+				stringGridDictionary = null;
+				return false;
+			}
 			grid.ParseHeader();
 			stringGridDictionary = new StringGridDictionary();
 			stringGridDictionary.Add(grid.SheetName,grid);

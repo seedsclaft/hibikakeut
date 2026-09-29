@@ -305,5 +305,117 @@ namespace Utage
 		{
 			return (id3 << 24) + (id2 << 16) + (id1 << 8) + (id0);
 		}
+		
+
+		// key:value 形式の要素を区切り文字で列挙したテキストから、
+		// 各プロパティ名と値のペアを辞書として取得する。
+		// ・JSON 構文解析は行わない
+		// ・値の型変換やクォート解析は行わない
+		// ・最初に見つかった一致のみを返す
+		// ・構文エラーがあっても可能な限り走査を継続する
+		/// 例1:
+		/// text = "x=1,y=2,z=foo"
+		/// pairSeparator = ','
+		/// keyValueSeparator = '='
+		///  - propertyName = "x" → "1"
+		///  - propertyName = "y" → "2"
+		///  - propertyName = "z" → "foo"
+		// 例2: "x:1,y:2,z:\"foo\""
+		// pairSeparator=','
+		// keyValueSeparator=':'
+		//  - propertyName = "x" → "1"
+		//  - propertyName = "y" → "2"
+		//  - propertyName = "z" → "\"foo\""
+
+		public static bool TryParseKeyValueDictionary(
+			string text,
+			char pairSeparator,
+			char keyValueSeparator,
+			out Dictionary<string, string> dict)
+		{
+			
+			dict = new Dictionary<string, string>();
+
+			if (string.IsNullOrEmpty(text))
+				return true;
+			
+			bool result = true;
+			int i = 0;
+			int length = text.Length;
+
+			while (i < length)
+			{
+				SkipWhiteSpace();
+
+				int nameStart = i;
+
+				// key 読み取り
+				while (i < length && (char.IsLetterOrDigit(text[i]) || text[i] == '_'))
+					i++;
+
+				if (i == nameStart)
+				{
+					i++;
+					continue;
+				}
+
+				string name = text.Substring(nameStart, i - nameStart);
+
+				SkipWhiteSpace();
+
+				// keyValueSeparator がなければ次へ
+				if (i >= length || text[i] != keyValueSeparator)
+				{
+					SkipToNextPair();
+					continue;
+				}
+
+				i++; // keyValueSeparator
+
+				SkipWhiteSpace();
+
+				int valueStart = i;
+
+				// value 読み取り
+				while (i < length && text[i] != pairSeparator)
+					i++;
+
+				string value = text
+					.Substring(valueStart, i - valueStart)
+					.Trim();
+
+				if (dict.TryGetValue(name, out var value1))
+				{
+					Debug.LogError(
+						$"Duplicate property key detected: '{name}'. " +
+						$"Previous value: '{value1}', New value: '{value}'");
+					result = false;
+				}
+
+				dict[name] = value;
+
+				if (i < length && text[i] == pairSeparator)
+					i++;
+			}
+
+			return result;
+
+			// ---- local functions ----
+
+			void SkipWhiteSpace()
+			{
+				while (i < length && char.IsWhiteSpace(text[i]))
+					i++;
+			}
+
+			void SkipToNextPair()
+			{
+				while (i < length && text[i] != pairSeparator)
+					i++;
+
+				if (i < length)
+					i++;
+			}
+		}
 	}
 }

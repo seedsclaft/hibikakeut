@@ -327,7 +327,17 @@ namespace Utage
 		/// </summary>
 		public override void Close()
 		{
-			Engine.WriteSystemData();
+			//コンフィグ画面ではシステムセーブデータが変更しやすいのでセーブしておく
+			if (Engine.SystemSaveData is IAdvSystemSaveDataAsync)
+			{
+				//非同期版
+				//画面を閉じる処理を止めないように、バックグラウンドで自動セーブするFireAndForget
+				Engine.AutoWriteSystemDataAsync(Engine.destroyCancellationToken).FireAndForget();
+			}
+			else
+			{
+				Engine.WriteSystemData();
+			}
 			base.Close();
 		}
 

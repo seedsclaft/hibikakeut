@@ -23,7 +23,11 @@ namespace Utage
 		}
 
 		//インスタンスID
+#if UNITY_6000_4_OR_NEWER
+		public EntityId InstanceID => this.Asset.GetEntityId();
+#else
 		public int InstanceID { get { return this.Asset.GetInstanceID(); } }
+#endif
 
 		//アセットオブジェクト
 		public virtual Object Asset { get; protected set; }

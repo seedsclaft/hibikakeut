@@ -52,33 +52,25 @@ namespace Utage.RenderPipeline.Urp
 			}
 			else
 			{
-				//デフォルト設定されているRendererDataを取得
-				(ScriptableRendererData renderer, int index) = UrpProjectSettingsUtil.GetDefaultRendererData();
-				if (renderer != null)
-				{
-					rendererIndex = index;
-					//UTAGEで必要になるRendererを追加する
-					new UrpRendererConverter().AddRenderFeatures(renderer);
-				}
+				IAdvProjectCreatorUrpGraphicSettings urpGraphicSettings = null;
 				
 #if URP_17_OR_NEWER
-				if (project is IAdvProjectCreatorUrpGraphicSettings urpGraphicSettings)
+				urpGraphicSettings = project as IAdvProjectCreatorUrpGraphicSettings;
+				if (urpGraphicSettings!=null)
 				{
-					if (urpGraphicSettings.AutoClearUrpVolumes)
-					{
-						//現在のRendererにVolumeProfileが設定されている場合は、VolumeProfileを削除する
-						UniversalRenderPipelineAsset currentRendererPipeLine = UrpUtil.GetCurrentRendererPipeLine();
-						if (currentRendererPipeLine == null)
-						{
-							Debug.LogError("Not found UniversalRenderPipelineAsset");
-						}
-						else if (currentRendererPipeLine.volumeProfile !=null)
-						{
-							currentRendererPipeLine.volumeProfile = null;
-						}
-					}
+					new UrpRendererConverter().ConvertProjectAllRenderPipelines(urpGraphicSettings.AutoClearUrpVolumes);
 				}
 #endif
+				if (urpGraphicSettings == null)
+				{
+					(ScriptableRendererData renderer, int index) = UrpProjectSettingsUtil.GetDefaultRendererData();
+					if (renderer != null)
+					{
+						rendererIndex = index;
+						//UTAGEで必要になるRendererを追加する
+						new UrpRendererConverter().AddRenderFeatures(renderer);
+					}
+				}
 			}
 
 			//現在のシーンをURPのシーンとしてコンバート

@@ -52,6 +52,7 @@ namespace Utage
 			SetProjectName(projectName);
 			OnCreate();
 			PostCreationHandlerList.ForEach(x=>x.OnPostCreateProject(this));
+			EditorSceneManagerEx.SaveActiveScene();
 		}
 
 		protected abstract void OnCreate();

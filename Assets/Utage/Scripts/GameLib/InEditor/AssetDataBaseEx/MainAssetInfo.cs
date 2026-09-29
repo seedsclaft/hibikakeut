@@ -25,11 +25,6 @@ namespace Utage
 		{
 			Init(assetPath);
 		}
-		//instanceIdから作成
-		public MainAssetInfo(int instanceId)
-		{
-			Init(AssetDatabase.GetAssetPath(instanceId));
-		}
 
 		//Objectから作成
 		public MainAssetInfo(Object asset)

@@ -20,6 +20,7 @@ namespace Utage
 	public class AdvSaveManager : MonoBehaviour
 		, IAdvSaveDelete
 	{
+		//ファイルの読み書きを担うFileIOManager
 		protected virtual FileIOManager FileIOManager { get { return this.GetComponentCacheFindIfMissing( ref fileIOManager); } }
 		[SerializeField]
 		protected FileIOManager fileIOManager;
@@ -111,8 +112,10 @@ namespace Utage
 		protected virtual int SaveMax { get { return defaultSetting.SaveMax; } }
 #endif
 
+		//カスタムセーブデータを持つGameObjectのリスト（IAdvSaveDataを実装している必要がある）
 		public List<GameObject> CustomSaveDataObjects;
 
+		//CustomSaveDataObjectsからIBinaryIOリストを生成して返す
 		public virtual List<IBinaryIO> CustomSaveDataIOList
 		{
 			get
@@ -150,6 +153,7 @@ namespace Utage
 			Both,			//両用する（サムイネイル画像指定がなかったらキャプチャー）
 		}
 
+		//セーブデータのサムネイル生成方式
 		public ThumbnailType Thumbnail => thumbnailType;
 		[SerializeField] ThumbnailType thumbnailType = ThumbnailType.Capture;
 		//サムイネイル画像を指定する場合のパラメーター名
@@ -228,8 +232,7 @@ namespace Utage
 		/// </summary>
 		public virtual void Init()
 		{
-			//セーブデータのディレクトリがなければ作成
-			FileIOManager.CreateDirectory(ToDirPath());
+			EnsureSaveDir();
 
 			//オートセーブデータ。読み込み用と書き込み用
 			autoSaveData = new AdvSaveData( AdvSaveData.SaveDataType.Auto, ToFilePath("Auto")); ;
@@ -243,6 +246,12 @@ namespace Utage
 				AdvSaveData data = new AdvSaveData(AdvSaveData.SaveDataType.Default, ToFilePath("" + (i + 1)));
 				saveDataList.Add(data);
 			}
+		}
+
+		//セーブデータのディレクトリがなければ作成。
+		protected virtual void EnsureSaveDir()
+		{
+			FileIOManager.CreateDirectory(ToDirPath());
 		}
 
 		protected virtual string ToFilePath(string id)
@@ -301,6 +310,9 @@ namespace Utage
 			}
 			else
 			{
+				//ファイルが無い＝未セーブという状態をIsSavedに正しく反映させる
+				//（過去の読み込み結果が残ったままだと、削除後の再読み込みでIsSavedが古いまま残ってしまう）
+				saveData.Clear();
 				return false;
 			}
 		}
@@ -316,6 +328,26 @@ namespace Utage
 		}
 
 		/// <summary>
+		/// セーブデータ書き込みの前処理（バイナリ生成の直前まで。実ファイルへの書き込みは行わない）。
+		/// 同期と非同期拡張コンポーネントの両方から共通で呼ばれる
+		/// （同期/非同期で処理内容が分岐するのは実際のファイルI/O部分だけであり、それより前の
+		/// バイナリ生成ロジックまで別々に持つと重複・食い違いの元になるため、ここで一本化している）。
+		/// </summary>
+		/// <returns>書き込み可能な状態ならtrue（falseならCurrentAutoSaveDataが未セーブで書き込み不可）</returns>
+		protected virtual bool PrepareWriteSaveData(AdvEngine engine, AdvSaveData saveData)
+		{
+			if (!CurrentAutoSaveData.IsSaved)
+			{
+				Debug.LogError("SaveData is Disabled");
+				return false;
+			}
+
+			//セーブ
+			saveData.SaveGameData(CurrentAutoSaveData, engine, UtageToolKit.CreateResizeTexture(CaptureTexture, CaptureWidth, CaptureHeight));
+			return true;
+		}
+
+		/// <summary>
 		/// セーブデータを書き込み
 		/// その場の状態を書き込まず、各ページ冒頭のオートセーブデータを利用する
 		/// </summary>
@@ -323,14 +355,9 @@ namespace Utage
 		/// <param name="saveData">書き込むセーブデータ</param>
 		public virtual void WriteSaveData(AdvEngine engine, AdvSaveData saveData)
 		{
-			if (!CurrentAutoSaveData.IsSaved)
-			{
-				Debug.LogError("SaveData is Disabled");
-				return;
-			}
-
-			//セーブ
-			saveData.SaveGameData(CurrentAutoSaveData, engine, UtageToolKit.CreateResizeTexture(CaptureTexture, CaptureWidth, CaptureHeight));
+			//システムセーブデータの処理
+			engine.SystemSaveData.OnWriteNormalSaveData();
+			if (!PrepareWriteSaveData(engine, saveData)) return;
 			FileIOManager.WriteBinaryEncode(saveData.Path, saveData.Write);
 		}
 		
@@ -366,6 +393,7 @@ namespace Utage
 			}
 			saveData.Clear();
 		}
+
 		//ゲーム終了時
 		protected virtual void OnApplicationQuit()
 		{

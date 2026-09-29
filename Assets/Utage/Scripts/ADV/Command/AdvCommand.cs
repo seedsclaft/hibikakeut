@@ -29,6 +29,7 @@ namespace Utage
 		/// </summary>
 		[field: RuntimeInitializeStaticField] public static bool IsEditorErrorCheckWaitType{ get; set; }
 		
+		//コンストラクタ。シナリオシートの行データを受け取る
 		protected AdvCommand(StringGridRow row)
 		{
 			this.RowData = row;
@@ -50,7 +51,7 @@ namespace Utage
 		public List<AssetFile> LoadFileList { get { return loadFileList; } }
 		List<AssetFile> loadFileList = null;
 
-		///このシナリオからリンクするジャンプ先のシナリオラベル
+		//このシナリオからリンクするジャンプ先のシナリオラベル
 		public virtual string[] GetJumpLabels() { return null; }
 
 		//ロードの必要があるファイルがあるか

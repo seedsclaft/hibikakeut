@@ -177,7 +177,7 @@ namespace Utage
 			string path = EditorUtility.SaveFilePanel("Export Project Package...", "../", "", "unitypackage");
 			if (!string.IsNullOrEmpty(path))
 			{
-				AssetDatabase.ExportPackage("Assets", path,
+				WrapperUnityVersion.ExportPackage("Assets", path,
 				ExportPackageOptions.Recurse | ExportPackageOptions.Interactive | ExportPackageOptions.IncludeLibraryAssets);
 			}
 		}

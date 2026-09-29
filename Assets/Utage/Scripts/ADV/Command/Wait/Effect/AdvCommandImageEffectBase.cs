@@ -15,7 +15,7 @@ namespace Utage
 	}
 
 	/// <summary>
-	/// コマンド：イメージエフェクト開始
+	/// コマンド：イメージエフェクトコマンドの基底クラス
 	/// </summary>
 	public class AdvCommandImageEffectBase : AdvCommandEffectBase
 		, IAdvCommandImageEffect
@@ -67,26 +67,6 @@ namespace Utage
 			commandExecutor.DoCommand(camera, this, () => OnComplete(thread));
 		}
 
-/*
-		//エフェクト開始時のコールバック
-		void OnStartAll(GameObject target, AdvEngine engine, AdvScenarioThread thread)
-		{
-			Camera camera = target.GetComponentInChildren<Camera>(true);
-
-			ImageEffectBase[] effects = camera.gameObject.GetComponents<ImageEffectBase>();
-			if (effects.Length<=0)
-			{
-				OnComplete(thread);
-				return;
-			}
-			foreach (var effect in effects)
-			{
-				if(effect is ColorFade) continue;
-				UnityEngine.Object.DestroyImmediate(effect);
-			}
-			OnComplete(thread);
-		}
-*/		
 		public void OnEffectSkip()
 		{
 			if (Timer != null)

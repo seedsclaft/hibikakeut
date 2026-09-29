@@ -21,10 +21,19 @@ namespace Utage
 		/// <param name="label">イベントCGラベル</param>
 		public void AddCgLabel(string label)
 		{
-			if (!CheckCgLabel(label))
-			{
-				eventCGLabels.Add(label);
-			}
+			TryAddCgLabel(label);
+		}
+
+		/// <summary>
+		/// イベントCG追加（新規追加されたかどうかを返す版）
+		/// </summary>
+		/// <param name="label">イベントCGラベル</param>
+		/// <returns>新規追加された場合true。既に登録済みで変化が無ければfalse</returns>
+		public bool TryAddCgLabel(string label)
+		{
+			if (CheckCgLabel(label)) return false;
+			eventCGLabels.Add(label);
+			return true;
 		}
 
 		//登録された指定のイベントCGをクリア(主にデバッグ用)

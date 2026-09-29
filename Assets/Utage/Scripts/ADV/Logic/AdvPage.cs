@@ -16,6 +16,7 @@ namespace Utage
 	[AddComponentMenu("Utage/ADV/Internal/AdvPage")]
 	public class AdvPage : MonoBehaviour
 	{
+		//セーブデータのタイトル生成方式
 		public SaveTitleType TitleType { get { return saveTitleType; } set { saveTitleType = value; } }
 		public enum SaveTitleType
 		{
@@ -36,6 +37,7 @@ namespace Utage
 			Default,			//デフォルト（ページ末などに読み飛ばし）
 			WaitSkippedTime,	//スキップ処理した時間を待つ
 		}
+		//メッセージのスキップ挙動タイプ
 		public SkipMessageType TypeSkipMessage
 		{
 			get { return skipMessageType; }
@@ -238,6 +240,7 @@ namespace Utage
 			WaitEffectOnEndPage,//ページ末端でのエフェクト終了待ち
 			WaitInputBrPage,	//改ページ入力待ち
 		};
+		//現在のページ進行ステータス（変化時にOnChangeStatusイベントを発火する）
 		public PageStatus Status
 		{
 			get { return status; }
@@ -333,11 +336,13 @@ namespace Utage
 
 		//ページ状態制御
 		AdvPageController contoller = new AdvPageController();
+		//ページ内の改行・改ページ制御を担うコントローラー
 		public AdvPageController Contoller
 		{
 			get { return contoller; }
 		}
 
+		//ADVエンジン本体への参照
 		public AdvEngine Engine { get { return this.GetComponentCache( ref engine); } }
 		AdvEngine engine;
 
@@ -388,6 +393,7 @@ namespace Utage
 			this.deltaTimeSendMessage = 0;
 			this.ShowMessageWindowInLastFrame = false;
 			this.Contoller.Clear();
+			this.IsWaitingInputCommand = false;
 		}
 
 		/// <summary>
@@ -407,6 +413,7 @@ namespace Utage
 			this.TextData = new TextData("");
 			this.TextDataList.Clear();
 			this.DidAdjustMessageWindowCommand = false;
+			this.IsWaitingInputCommand = false;
 			UpdateText();
 			RemakeTextData();
 			this.SaveDataTitle = CurrentData.ScenarioLabelData.SaveTitle;
@@ -562,6 +569,7 @@ namespace Utage
 			Engine.BacklogManager.AddCurrentPageLog(CurrentTextDataInPage, CharacterInfo);
 		}
 
+		//テキストデータを再構築する
 		public void RemakeText()
 		{
 			if (CurrentData == null) return;
@@ -612,6 +620,7 @@ namespace Utage
 		}
 
 
+		//言語変更時に呼ばれ、テキストを再構築する                                                                                                                                                                                                                              
 		public void OnChangeLanguage()
 		{
 			if (Application.isPlaying)

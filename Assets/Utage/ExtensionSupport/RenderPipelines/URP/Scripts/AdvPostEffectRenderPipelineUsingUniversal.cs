@@ -46,10 +46,12 @@ namespace Utage.RenderPipeline.Urp
 				}
 				if (!isFound)
 				{
-					var url = @"https://madnesslabo.net/utage/?page_id=14418#RendererRenderFeature";
-					var msg = @"Not found ColorFadeRenderFeature in UniversalRenderPipelineAsset. "
-						+ @"Select the Renderer → right click → 'Utage > AddRenderFeatures' to add a RenderFeature for Utage.";
-					Debug.LogError($"{msg}\n Document {StringTagUtil.HyperLinkTag(url)}", currentRendererPipeLine);
+					var url = @"https://madnesslabo.net/utage/?page_id=16001";
+					var jp = "UniversalRenderPipelineAsset に ColorFadeRenderFeature が見つかりません。\n。URPのセットアップが終わってない可能性がありますので、リンク先のドキュメントを参考に、URPのセットアップを行ってください。";
+					var en = "ColorFadeRenderFeature was not found in UniversalRenderPipelineAsset.\nThe URP setup may not be complete. Please refer to the linked documentation and complete the URP setup.";
+					
+					var msg = SimpleLang.Select(jp, en);
+					Debug.LogError($"{msg}\n WebDocument {StringTagUtil.HyperLinkTag(url)}", currentRendererPipeLine);
 				}
 			}
 #endif
@@ -77,7 +79,8 @@ namespace Utage.RenderPipeline.Urp
 				    out ColorFadeVolumeController colorFadeVolumeController))
 			{
 				colorFadeVolumeController.SetColor(command.Color);
-				colorFadeVolumeController.SetActive(true);
+				//指定のエフェクトのみアクティブにする
+				fadeVolume.SetActiveVolume(colorFadeVolumeController.VolumeComponent);
 			}
 			else
 			{
@@ -110,7 +113,8 @@ namespace Utage.RenderPipeline.Urp
 				ruleFade.SetRuleTexture(Engine.EffectManager.FindRuleTexture(command.RuleImage));
 				ruleFade.SetVague(command.Vague);
 				ruleFade.SetColor(command.Color);
-				ruleFade.SetActive(true);
+				//指定のエフェクトのみアクティブにする
+				fadeVolume.SetActiveVolume(ruleFade.VolumeComponent);
 			}
 			else
 			{
@@ -124,7 +128,21 @@ namespace Utage.RenderPipeline.Urp
 		{
 			var manager = targetCamera.GetComponentInChildren<AdvCameraPostEffectManager>(true);
 			var imageEffectVolume = manager.ImageEffectVolume;
-			var volumeComponent = imageEffectVolume.SetActiveVolume( $"{command.ImageEffectType}Volume");
+			
+			//指定のエフェクトのVolumeComponentを探す
+			var effectType = command.ImageEffectType;
+			var volumeComponent = imageEffectVolume.FindVolumeController(effectType);
+			if (volumeComponent==null)
+			{
+				volumeComponent = imageEffectVolume.FindVolumeController( $"{effectType}Volume");
+			}
+			if (volumeComponent ==null)
+			{
+				Debug.LogError($"Not found ImageEffect {effectType}", this);
+			}
+			
+			//指定のエフェクトのみアクティブにする
+			imageEffectVolume.SetActiveVolume(volumeComponent);
 			return (imageEffectVolume, onComplete);
 		}
 
@@ -137,6 +155,71 @@ namespace Utage.RenderPipeline.Urp
 				component.active = false;
 			}
 			onComplete();
+		}
+
+		public IPostEffect DoCommandPostEffect(Camera targetCamera, AdvCommandPostEffect command)
+		{
+			var effectVolume = FindVolumeSub(targetCamera,command.VolumeName);
+			if(effectVolume==null)
+			{
+				Debug.LogError($"Not found post effect camera:{targetCamera.name} volume:{command.VolumeName}",targetCamera);
+				return null;
+			}
+			
+			if (command.EffectNames.Length <= 0)
+			{
+				//全てのエフェクトをアクティブにする
+				foreach (var volumeComponent in effectVolume.Volume.profile.components)
+				{
+					volumeComponent.active = true;
+				}
+			}
+			else
+			{
+				//指定のエフェクトのみアクティブにする
+				List<string> effectNames = new (command.EffectNames);
+				foreach (var effectName in command.EffectNames)
+				{
+					var suffixed = $"{effectName}Volume";
+					effectNames.Add(suffixed);
+#if UNITY_EDITOR
+					if (effectVolume.FindVolumeController(effectName) == null && effectVolume.FindVolumeController(suffixed) == null)
+					{
+						Debug.LogError($"Not found post effect {effectName} or {suffixed} in volume {effectVolume.name}", effectVolume);
+					}
+#endif
+				}
+				foreach (var volumeComponent in effectVolume.Volume.profile.components)
+				{
+					volumeComponent.active = effectNames.Any(effectName => volumeComponent.GetType().Name == effectName);
+				}
+			}
+			return effectVolume;
+		}
+
+		public IPostEffectVolumeObject FindVolume(Camera targetCamera, string volumeName)
+		{
+			return FindVolumeSub(targetCamera, volumeName);
+		}
+
+		protected AdvPostEffectVolume FindVolumeSub(Camera targetCamera, string volumeName)
+		{
+			var manager = targetCamera.GetComponentInChildren<AdvCameraPostEffectManager>(true);
+			var effectVolume = manager.PostEffectVolumes.FirstOrDefault(x => x.name == volumeName);
+			return effectVolume;
+		}
+		
+		public IEnumerable<IPostEffectVolumeObject> GetAllActiveEffectVolumes(Camera targetCamera)
+		{
+			var manager = targetCamera.GetComponentInChildren<AdvCameraPostEffectManager>(true);
+			foreach (var effectVolume in manager.PostEffectVolumes)
+			{
+				if(effectVolume == manager.FadeVolume) continue;
+				if (effectVolume.IsAnyActive())
+				{
+					yield return effectVolume;
+				}
+			}
 		}
 
 		AdvCameraPostEffectManager[] PostEffectManagers => Engine.CameraManager.GetComponentsInChildren<AdvCameraPostEffectManager>(true);

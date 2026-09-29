@@ -74,13 +74,13 @@ namespace Utage
 		}
 
 
-		//データ読み込み
+		//バッファの内容をIO側に上書きして読み込む
 		public void Overrirde(List<T> ioList)
 		{
 			ioList.ForEach(x => Overrirde(x));
 		}
 
-		//データ読み込み
+		//バッファの内容をIO側に上書きして読み込む
 		public void Overrirde(T io)
 		{
 			if (Buffers.ContainsKey(io.SaveKey))
@@ -91,6 +91,12 @@ namespace Utage
 			{
 				Debug.LogError(string.Format("Not found Save data Key [{0}] ", io.SaveKey));
 			}
+		}
+
+		//IO側の内容を、バッファに上書きして書き込む
+		public void WriteBuffer(T io)
+		{
+			Buffers[io.SaveKey] = BinaryUtil.BinaryWrite(io.OnWrite);;
 		}
 
 		//中身をコピーした新しいインスタンスを作成

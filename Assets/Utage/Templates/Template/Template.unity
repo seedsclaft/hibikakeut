@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -1035,6 +1034,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -2314,6 +2314,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -2342,6 +2343,8 @@ MonoBehaviour:
   radioButtonsVoiceStopType: {fileID: 1065255993}
   tagedMasterVolumSliders: []
   dialog: {fileID: 735806397}
+  resetTabIndexOnOpen: 0
+  tabToggleGroup: {fileID: 0}
   onLoadValues:
     m_PersistentCalls:
       m_Calls: []
@@ -4082,6 +4085,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -4945,6 +4949,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -5424,9 +5429,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.13132195
+    y: 0.13467945
     width: 1
-    height: 0.73735607
+    height: 0.7306411
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -5991,6 +5996,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 10
@@ -6494,6 +6500,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -7428,6 +7435,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -8200,6 +8208,7 @@ GameObject:
   - component: {fileID: 456724016}
   - component: {fileID: 456724014}
   - component: {fileID: 456724018}
+  - component: {fileID: 456724019}
   m_Layer: 0
   m_Name: AdvEngine
   m_TagString: Untagged
@@ -8370,6 +8379,12 @@ MonoBehaviour:
   onEndLoadSaveData:
     m_PersistentCalls:
       m_Calls: []
+  onBeforeLoadSaveData:
+    m_PersistentCalls:
+      m_Calls: []
+  onAfterLoadSaveData:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &456724007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8519,6 +8534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLog: 10
   ignoreLog: 0
+  dontClear: 0
   onAddPage:
     m_PersistentCalls:
       m_Calls: []
@@ -8648,6 +8664,21 @@ MonoBehaviour:
   onChangedFloatParamEvents: []
   onChangedIntParamEvents: []
   onChangedStringParamEvents: []
+--- !u!114 &456724019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456724000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d076b8eb333eb843b41381ee74c5f39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  engine: {fileID: 456724002}
+  targets:
+  - {fileID: 1083959040}
 --- !u!1 &462686638
 GameObject:
   m_ObjectHideFlags: 0
@@ -11334,6 +11365,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -18953,6 +18985,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 5
@@ -19900,6 +19933,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -21954,6 +21988,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -27699,9 +27734,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.13132195
+    y: 0.13467945
     width: 1
-    height: 0.73735607
+    height: 0.7306411
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -29198,6 +29233,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -29739,6 +29775,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -30477,6 +30514,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:
@@ -31077,6 +31115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1dd44656329564d81a376383c6d644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAudioListenerVolume: 0
 --- !u!1 &1772792788
 GameObject:
   m_ObjectHideFlags: 0
@@ -32194,6 +32233,7 @@ MonoBehaviour:
   prevView: {fileID: 0}
   bgm: {fileID: 0}
   introTime: 0
+  fadeInTime: 0
   isStopBgmIfNoneBgm: 0
   onOpen:
     m_PersistentCalls:

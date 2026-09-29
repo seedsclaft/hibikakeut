@@ -111,6 +111,10 @@ namespace Utage
 
 			GuiTarget = EditorGUILayout.ObjectField("", ProjectData, typeof(AdvScenarioDataProject), false) as
 					AdvScenarioDataProject;
+			if (GuiTarget != ProjectData)
+			{
+				ProjectData = GuiTarget;
+			}
 
 			if (GuiTarget !=null && GuiTargetEditor != null)
 			{

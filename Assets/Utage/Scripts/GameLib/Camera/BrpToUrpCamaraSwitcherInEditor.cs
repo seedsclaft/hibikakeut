@@ -1,4 +1,7 @@
-﻿using System;
+﻿//waring:CS0414を無視
+#pragma warning disable 0414
+
+using System;
 using UnityEngine;
 
 namespace Utage

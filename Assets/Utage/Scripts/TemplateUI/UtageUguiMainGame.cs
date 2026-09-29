@@ -267,9 +267,25 @@ namespace Utage
 
 		protected virtual IEnumerator CoCaptureScreen()
 		{
-			yield return new WaitForEndOfFrame();
+			yield return CoWaitEndOfFrame();
 			//セーブ用のスクショを撮る
 			Engine.SaveManager.CaptureTexture = CaptureScreen();
+		}
+
+		//WaitForEndOfFrameはバッチモードでは完了しないことがある（フレームの描画が回らないため）。
+		//バッチモードのPlayModeテストでOnTapSave/OnTapQSave経由のセーブがハングする不具合として
+		//実際に発生した（2026-09-02）。バッチモードでは1フレーム待つだけにして回避する
+		//（この用途はスクショ撮影タイミングの調整のみで、正確にフレーム終端である必要はない）
+		protected IEnumerator CoWaitEndOfFrame()
+		{
+#if UNITY_EDITOR
+			if (Application.isBatchMode)
+			{
+				yield return null;
+				yield break;
+			}
+#endif
+			yield return new WaitForEndOfFrame();
 		}
 
 		//スキップボタンが押された
@@ -305,7 +321,7 @@ namespace Utage
 		{
 			if (Engine.SaveManager.Type != AdvSaveManager.SaveType.SavePoint)
 			{
-				yield return new WaitForEndOfFrame();
+				yield return CoWaitEndOfFrame();
 				//セーブ用のスクショを撮る
 				Engine.SaveManager.CaptureTexture = CaptureScreen();
 			}
@@ -330,14 +346,84 @@ namespace Utage
 			if (Engine.IsSceneGallery) return;
 
 			Engine.Config.IsSkip = false;
-			StartCoroutine(CoQSave());
+			if (Engine.SaveManager is IAdvSaveManagerAsync)
+			{
+				QSaveAsync().FireAndForget();
+			}
+			else
+			{
+				StartCoroutine(CoQSave());
+			}
 		}
 
+		//WaitForEndOfFrameと同様、Awaitable.EndOfFrameAsyncもバッチモードでは完了しないことがあるため、
+		//バッチモードでは1フレーム待つだけにする（CoWaitEndOfFrame参照）
+		protected async Awaitable WaitEndOfFrameAsync()
+		{
+#if UNITY_EDITOR
+			if (Application.isBatchMode)
+			{
+				await Awaitable.NextFrameAsync(destroyCancellationToken);
+				return;
+			}
+#endif
+			await Awaitable.EndOfFrameAsync(destroyCancellationToken);
+		}
+
+		//クイックセーブの非同期版。
+		protected virtual async Awaitable QSaveAsync()
+		{
+			//非同期拡張が無い場合のガードはEngine.QuickSaveAsync側で行う（AdvEngine参照）
+			if (Engine.SaveManager.Type != AdvSaveManager.SaveType.SavePoint)
+			{
+				await WaitEndOfFrameAsync();
+				//セーブ用のスクショを撮る
+				Engine.SaveManager.CaptureTexture = CaptureScreen();
+			}
+
+			//クイックセーブ。成否に応じてガイドメッセージを出し分ける。
+			//例外はログを出さず投げ直す（ログはFireAndForget側に一元化する。このメソッドが
+			//FireAndForget以外から直接awaitされた場合でも、呼び出し元が例外を検知できるようにするため）
+			try
+			{
+				await Engine.QuickSaveAsync(destroyCancellationToken);
+				//フレームをまたいでいる場合は、既に別のスクショが撮られている可能性があるので、クリアしない方が良い
+				//Clearしていたのは、余計なメモリを確保しないため念のためであって、クリアしなくても動作に支障はない
+			}
+			catch (OperationCanceledException)
+			{
+				//キャンセルは失敗ではないので、ガイドメッセージは出さない
+				throw;
+			}
+			catch (Exception e)
+			{
+				//ハンドラに委譲した場合は投げ直さない（握りつぶすか再スローするかはハンドラ側の判断）
+				if (this.TryGetComponent(out IAdvSaveExceptionHandler saveExceptionHandler))
+				{
+					saveExceptionHandler.OnSaveDataException(AdvSaveOperationType.QuickSave, e);
+					return;
+				}
+				if (guideMessage != null)
+				{
+					//セーブ失敗時はガイドメッセージを出す
+					guideMessage.Open(LanguageSystemText.LocalizeText(SystemText.UtageGuideMessageQuickSaveFailed));
+				}
+				throw;
+			}
+
+			//ガイドメッセージの表示（成功時）
+			if (guideMessage != null)
+			{
+				guideMessage.Open(LanguageSystemText.LocalizeText(SystemText.UtageGuideMessageQuickSave));
+			}
+		}
+
+		//セーブ非同期拡張が無い場合の同期版
 		protected virtual IEnumerator CoQSave()
 		{
 			if (Engine.SaveManager.Type != AdvSaveManager.SaveType.SavePoint)
 			{
-				yield return new WaitForEndOfFrame();
+				yield return CoWaitEndOfFrame();
 				//セーブ用のスクショを撮る
 				Engine.SaveManager.CaptureTexture = CaptureScreen();
 			}
@@ -363,12 +449,70 @@ namespace Utage
 			if (Engine.IsSceneGallery) return;
 
 			Engine.Config.IsSkip = false;
-			Engine.QuickLoad();
-			
-			//ガイドメッセージの表示
-			if (guideMessage!=null)
+			if (Engine.SaveManager is IAdvSaveManagerAsync)
 			{
-				guideMessage.Open(LanguageSystemText.LocalizeText(SystemText.UtageGuideMessageQuickLoad));
+				QLoadAsync().FireAndForget();
+			}
+			else
+			{
+				bool succeeded = Engine.QuickLoad();
+
+				//ガイドメッセージの表示（成否で出し分ける）
+				if (guideMessage != null)
+				{
+					guideMessage.Open(LanguageSystemText.LocalizeText(succeeded
+						? SystemText.UtageGuideMessageQuickLoad
+						: SystemText.UtageGuideMessageQuickLoadFailed));
+				}
+			}
+		}
+
+		//クイックロード非同期版。
+		protected virtual async Awaitable QLoadAsync()
+		{
+			//ロード中に他画面へ遷移されると、完了時に強制的にゲーム画面へ引き戻されてしまうため、
+			//EventSystemを無効化して画面全体のUGUI入力（他画面のボタン含む）をブロックする
+			//（このViewのCanvasGroupだけを止めるStoreAndChangeCanvasGroupInputでは、
+			//他画面のクリックまでは止められないため使わない）
+			InputUtil.StoreAndDisableEventSystem();
+			try
+			{
+				bool succeeded;
+				try
+				{
+					succeeded = await Engine.QuickLoadAsync(destroyCancellationToken);
+				}
+				catch (OperationCanceledException)
+				{
+					//キャンセルは失敗ではないので、ガイドメッセージは出さない
+					throw;
+				}
+				catch (Exception e)
+				{
+					//ハンドラに委譲した場合は投げ直さない（握りつぶすか再スローするかはハンドラ側の判断）
+					if (this.TryGetComponent(out IAdvSaveExceptionHandler saveExceptionHandler))
+					{
+						saveExceptionHandler.OnSaveDataException(AdvSaveOperationType.QuickLoad, e);
+						return;
+					}
+					if (guideMessage != null)
+					{
+						guideMessage.Open(LanguageSystemText.LocalizeText(SystemText.UtageGuideMessageQuickLoadFailed));
+					}
+					throw;
+				}
+
+				//ガイドメッセージの表示（例外を伴わない失敗＝セーブデータ無し等も含めて成否で出し分ける）
+				if (guideMessage != null)
+				{
+					guideMessage.Open(LanguageSystemText.LocalizeText(succeeded
+						? SystemText.UtageGuideMessageQuickLoad
+						: SystemText.UtageGuideMessageQuickLoadFailed));
+				}
+			}
+			finally
+			{
+				InputUtil.RestoreEventSystem();
 			}
 		}
 

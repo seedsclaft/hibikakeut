@@ -22,8 +22,11 @@ namespace Utage
 			: base(row)
 		{
 			this.characterInfo = AdvCharacterInfo.Create(this, dataManager);
-
-			if (characterInfo.Graphic != null)
+			if (this.characterInfo == null)
+			{
+				Debug.LogError(ToErrorString("Failed to create character info"));
+			}
+			else if (characterInfo.Graphic != null)
 			{
 				AddLoadGraphic(characterInfo.Graphic);
 			}

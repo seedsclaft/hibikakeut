@@ -46,6 +46,8 @@ namespace Utage
 		int Width { get; set; }
 		int Height { get; set; }
 
+		protected AdvVideoManager VideoManager => Engine.GraphicManager.VideoManager;
+
 		//初期化処理
 		protected override void AddGraphicComponentOnInit()
 		{
@@ -100,8 +102,7 @@ namespace Utage
 			this.VideoClip = graphic.File.UnityObject as VideoClip;
 			this.VideoPlayer.clip = this.VideoClip;
 			this.VideoPlayer.isLooping = graphic.Loop;
-			float volume = GetVolume();;
-			this.VideoPlayer.SetDirectAudioVolume(0, volume);
+			this.VideoPlayer.SetDirectAudioVolume(0, GetVolume());
 			this.VideoPlayer.renderMode = VideoRenderMode.RenderTexture;
 			ReleaseTexture();
 			this.RenderTexture = new RenderTexture((int)VideoClip.width, (int)VideoClip.height, 16, RenderTextureFormat.ARGB32);
@@ -136,14 +137,13 @@ namespace Utage
 			var player = this.VideoPlayer;
 			if (player == null || !player.isPlaying) return;
 
-			float volume = GetVolume();
-			player.SetDirectAudioVolume(0, volume);
+			player.SetDirectAudioVolume(0, GetVolume());
 		}
 		
 		//サウンド用のボリューム値を取得
 		protected virtual float GetVolume()
 		{
-			float volume = Engine.SoundManager.BgmVolume * Engine.SoundManager.MasterVolume;
+			float volume = VideoManager.GetVideAudioVolume();
 			return volume;
 		}
 #else

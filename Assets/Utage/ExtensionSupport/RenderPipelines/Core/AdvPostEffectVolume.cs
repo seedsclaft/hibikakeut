@@ -11,7 +11,7 @@ namespace Utage.RenderPipeline
 {
 	//ポストエフェクト用のボリュームの制御
 	public class AdvPostEffectVolume : MonoBehaviour,
-		IPostEffect,IPostEffectStrength
+		IPostEffectVolumeObject
 	{
 		public float Strength
 		{
@@ -63,12 +63,54 @@ namespace Utage.RenderPipeline
 			target.active = true;
 			return target;
 		}
+		
+		//指定のボリュームのみアクティブにする
+		public void SetActiveVolume(VolumeComponent target)
+		{
+			foreach (var volumeComponent in Volume.profile.components)
+			{
+				volumeComponent.active = false;
+			}
+
+			if (target == null)
+			{
+				return;
+			}
+			target.active = true;
+		}
+
+		//少なくとも1つでもアクティブなVolumeComponentがあるか
+		public bool IsAnyActive()
+		{
+			foreach (var volumeComponent in Volume.profile.components)
+			{
+				if (volumeComponent.active)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 
 		public bool TryGetVolumeController<T>(out T component)
 			where T : AdvVolumeComponentController
 		{
 			component = VolumeControllers.Find(x => x is T) as T;
 			return component != null;
+		}
+
+		//指定の型名のVolumeComponentを探す
+		public VolumeComponent FindVolumeController(string typeName)
+		{
+			foreach (var volumeComponent in Volume.profile.components)
+			{
+				var type = volumeComponent.GetType().Name; 
+				if (type == typeName)
+				{
+					return volumeComponent;
+				}
+			}
+			return null;
 		}
 
 		public void OnClear()

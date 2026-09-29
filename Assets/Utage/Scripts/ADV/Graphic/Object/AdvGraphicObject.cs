@@ -23,16 +23,20 @@ namespace Utage
 		public AdvGraphicLoader Loader { get { return this.GetComponentCacheCreateIfMissing<AdvGraphicLoader>(ref loader); } }
 		AdvGraphicLoader loader;
 
-		public AdvGraphicLayer Layer 
+		//このオブジェクトが属するグラフィックレイヤー
+		public AdvGraphicLayer Layer
 		{
 			get { return layer; }
 			internal set { layer = value; }
 		}
 		protected AdvGraphicLayer layer;
 
+		//ADVエンジン本体への参照
 		public AdvEngine Engine { get { return Layer.Manager.Engine; } }
+		//最後に描画したグラフィックの情報
 		public AdvGraphicInfo LastResource { get; private set; }
 
+		//ピクセルとUnits単位の変換係数
 		public float PixelsToUnits { get { return Layer.Manager.PixelsToUnits; } }
 
 		//テクスチャ描き込みが有効か
@@ -50,15 +54,18 @@ namespace Utage
 		//フェード用のタイマー
 		Timer FadeTimer { get; set; }
 
+		//カラーエフェクト（フェードアルファ等）の制御コンポーネント
 		public AdvEffectColor EffectColor { get { return this.GetComponentCacheCreateIfMissing<AdvEffectColor>(ref effectColor); } }
 		AdvEffectColor effectColor;
 
+		//このオブジェクトのRectTransform
 		public RectTransform rectTransform { get; private set; }
 
 		readonly List<AdvGraphicObject> swapFadeObjects = new List<AdvGraphicObject>();
 
 		protected string ChangedAnimationPattern { get; set; }
 
+		//このオブジェクトが指定のグラフィックタイプ（キャラクター・背景等）かをチェック
 		public bool CheckType(AdvGraphicObjectType type)
 		{
 			if (LastResource == null) return false;
@@ -87,6 +94,7 @@ namespace Utage
 
 
 		//********初期化********//
+		//レイヤーとグラフィック情報を元にオブジェクトを初期化する
 		public virtual void Init(AdvGraphicLayer layer, AdvGraphicInfo graphic)
 		{
 			this.layer = layer;
@@ -164,6 +172,7 @@ namespace Utage
 		}
 
 		//********描画開始********//
+		//グラフィックを描画する（フェード時間付き）
 		public virtual void Draw(AdvGraphicOperationArg arg, float fadeTime)
 		{
 			DrawSub(arg.Graphic, fadeTime);
@@ -199,6 +208,13 @@ namespace Utage
 			
 			this.LastResource = graphic;
 			this.Layer.Manager.OnDrawGraphicObject.Invoke(this, graphic);
+		}
+		
+		//本来のとは違う流れで描画処理を外部から呼ぶ処理
+		//AdvGraphicInfoはロード済みであること
+		public virtual void DrawSubExplicit(AdvGraphicInfo graphic, float fadeTime)
+		{
+			DrawSub(graphic, fadeTime);
 		}
 
 
@@ -237,6 +253,7 @@ namespace Utage
 			}
 		}
 
+		//フェードインを試みる。TargetObjectが存在する場合のみ実行される
 		public virtual bool TryFadeIn(float time)
 		{
 			if (TargetObject != null )
@@ -275,6 +292,7 @@ namespace Utage
 				);
 		}
 
+		//フェードアウトしてオブジェクトをクリアする
 		public virtual void FadeOut(float time)
 		{
 			FadeOut(time, Clear);
@@ -383,10 +401,12 @@ namespace Utage
 		//ルール画像付きのフェードをスキップする
 		public void SkipRuleFade()
 		{
+			if(RenderObject==null) return;
 			RenderObject.SkipRuleFade();
 		}
 		
 		//********クリア********//
+		//オブジェクトをレイヤーから除去してDestroyする
 		public virtual void Clear()
 		{
 			RemoveFromLayer();
@@ -403,6 +423,7 @@ namespace Utage
 				GameObject.Destroy(RenderTextureSpace.gameObject);
 			}
 		}
+		//レイヤーからこのオブジェクトを取り除く（Destroyはしない）
 		public virtual void RemoveFromLayer()
 		{
 			foreach (var obj in swapFadeObjects)
@@ -419,6 +440,7 @@ namespace Utage
 			}
 		}
 
+		//スワップフェード対象オブジェクトを登録する
 		public void AddSwapFadeObject(AdvGraphicObject swapFadeObject)
 		{
 			swapFadeObjects.Add(swapFadeObject);
@@ -525,6 +547,7 @@ namespace Utage
 			return world;
 		}
 
+		//ピボットをLastResourceの初期値にリセットする
 		public void ResetPivot()
 		{
 			if (LastResource == null) return;

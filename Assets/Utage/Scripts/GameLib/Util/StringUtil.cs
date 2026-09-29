@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Utage
 {
@@ -63,6 +64,23 @@ namespace Utage
                 // ダブルクオーテーションで囲まれていない場合はそのまま返す
                 return input;
             }
+        }
+        
+        
+        //配列をカンマで分割し、各要素の前後の空白を削除する
+        public static string[] SplitByComma(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return Array.Empty<string>();
+
+            string[] parts = input.Split(',', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < parts.Length; i++)
+            {
+                parts[i] = parts[i].Trim();
+            }
+
+            return parts;
         }
     }
 }

@@ -36,6 +36,8 @@ namespace Utage
 				Debug.LogError(assetName + e.Message, target);
 				Debug.LogError(e.StackTrace);
 			}
+			EditorUtility.UnloadUnusedAssetsImmediate();
+			System.GC.Collect();
 			EditorUtility.ClearProgressBar();
 			AssetDatabase.Refresh();
 			Profiler.EndSample();

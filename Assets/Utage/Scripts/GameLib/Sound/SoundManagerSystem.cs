@@ -140,7 +140,7 @@ namespace Utage
 
 		public float GetMasterVolume(string groupName)
 		{
-			SoundGroup group = GetGroup(groupName);
+			SoundGroup group = GetGroupAndCreateIfMissing(groupName);
 			if (group == null) 
 			{
 				Debug.LogError (groupName + " is not created");
@@ -157,7 +157,7 @@ namespace Utage
 
 		public float GetGroupVolume(string groupName)
 		{
-			SoundGroup group = GetGroup(groupName);
+			SoundGroup group = GetGroupAndCreateIfMissing(groupName);
 			if (group == null)
 			{
 				Debug.LogError(groupName + " is not created");
@@ -178,7 +178,7 @@ namespace Utage
 		/// </summary>
 		public bool IsMultiPlay(string groupName)
 		{
-			SoundGroup group = GetGroup(groupName);
+			SoundGroup group = GetGroupAndCreateIfMissing(groupName);
 			if (group == null)
 			{
 				Debug.LogError(groupName + " is not created");

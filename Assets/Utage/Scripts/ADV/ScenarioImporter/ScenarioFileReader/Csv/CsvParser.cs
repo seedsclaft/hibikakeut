@@ -12,9 +12,12 @@ namespace Utage
     {
         //エンコーディング
         public Encoding Encoding { get; set; } = Encoding.UTF8;
-        
+
         //区切り文字
         public char Delimiter { get; set; } = ',';
+
+        //書き出し時にフィールド内の改行コードを\r\nに正規化するか
+        public bool NormalizeNewLinesOnWrite { get; set; } = true;
         
         const char DoubleQuotes = '"';
 
@@ -23,20 +26,29 @@ namespace Utage
             string sheet = FilePathUtil.GetFileNameWithoutExtension(path);
             StringGrid grid = new StringGrid(path, sheet, Delimiter == '\t' ? CsvType.Tsv : CsvType.Csv);
             using var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            using var reader = new StreamReader(fs,Encoding);
+            using var reader = new StreamReader(fs, Encoding);
+            string text = reader.ReadToEnd();
+
             int lineNo = 0;
-            while (!reader.EndOfStream)
+            List<List<string>> rows;
+            try
             {
-                var line = reader.ReadLine();
-                if (line == null) continue;
+                rows = ParseRows(text);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Invalid CSV format. {path} {e.Message}");
+                return null;
+            }
+            foreach (var row in rows)
+            {
                 try
                 {
-                    var row = ReadLine(line);
                     grid.AddRow(row);
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError($"Invalid CSV format. Line:{lineNo} {e.Message}");
+                    Debug.LogError($"Invalid CSV format. {path} Line:{lineNo} {e.Message}");
                     return null;
                 }
 
@@ -46,89 +58,102 @@ namespace Utage
             return grid;
         }
 
-        List<string> ReadLine(string line)
+        // テキスト全体を文字単位でパースし、行（フィールドのリスト）のリストを返す
+        List<List<string>> ParseRows(string text)
         {
-            List<string> row = new();
-            int index = 0;
-            while (index < line.Length)
+            var rows = new List<List<string>>();
+            var row = new List<string>();
+            var field = new StringBuilder();
+            bool inQuotes = false;
+            int i = 0;
+            int currentLine = 1;
+            int quoteStartLine = 0;
+
+            while (i < text.Length)
             {
-                if (line[index] != DoubleQuotes)
+                char c = text[i];
+
+                if (inQuotes)
                 {
-                    //"で始まらないなら、区切り文字までの部分文字列を解析
-                    var field = GetFiled(line, index);
-                    row.Add(field);
-                    index += field.Length + 1;
+                    if (c == DoubleQuotes)
+                    {
+                        // 次の文字もダブルクォートならエスケープ（""→"）
+                        if (i + 1 < text.Length && text[i + 1] == DoubleQuotes)
+                        {
+                            field.Append(DoubleQuotes);
+                            i += 2;
+                        }
+                        else
+                        {
+                            // クォート終了
+                            inQuotes = false;
+                            ++i;
+                        }
+                    }
+                    else
+                    {
+                        // クォート内ではそのまま追加（改行含む）
+                        if (c == '\n') ++currentLine;
+                        field.Append(c);
+                        ++i;
+                    }
                 }
                 else
                 {
-                    //"で始まるなら、エスケープ処理解析（" "の囲みを取る）
-                    ++index;
-                    (int endIndex, bool escapedDoubleQuotes) = ParseEscape(line, index);
-                    if (endIndex < 0)
+                    if (c == DoubleQuotes && field.Length == 0)
                     {
-                        throw new Exception($" {line} Column:{row.Count} . Double quotes are not closed.");
+                        // フィールド先頭のクォートのみクォート開始として扱う（RFC 4180準拠）
+                        inQuotes = true;
+                        quoteStartLine = currentLine;
+                        ++i;
                     }
+                    else if (c == Delimiter)
+                    {
+                        // フィールド区切り
+                        row.Add(field.ToString());
+                        field.Clear();
+                        ++i;
+                    }
+                    else if (c == '\r' || c == '\n')
+                    {
+                        // 行末：フィールドを確定して行を追加
+                        row.Add(field.ToString());
+                        field.Clear();
+                        rows.Add(row);
+                        row = new List<string>();
+                        ++currentLine;
 
-                    //フィールドを取り出す
-                    var field = line.Substring(index, endIndex - index);
-                    //""を"にする
-                    if (escapedDoubleQuotes)
-                    {
-                        field = field.Replace("\"\"", "\"");
+                        // \r\n を1つの改行として扱う
+                        if (c == '\r' && i + 1 < text.Length && text[i + 1] == '\n')
+                        {
+                            i += 2;
+                        }
+                        else
+                        {
+                            ++i;
+                        }
                     }
-                    row.Add(field);
-                    index = endIndex + 1;
-                    //区切り文字になるはず
-                    if (index < line.Length && line[index] != Delimiter)
+                    else
                     {
-                        throw new Exception($" {line} Column:{row.Count}. Missing delimiter after double quote.");
+                        field.Append(c);
+                        ++i;
                     }
-
-                    ++index;
                 }
             }
 
-            return row;
-        }
-
-        //通常のフィールドを取得
-        string GetFiled(string str, int index)
-        {
-            if (index >= str.Length) return "";
-            int delimiterIndex = str.IndexOf(Delimiter, index);
-            if (delimiterIndex < 0)
+            if (inQuotes)
             {
-                return str.Substring(index);
+                throw new Exception($"Double quotes are not closed. (line:{quoteStartLine})");
             }
 
-            return str.Substring(index, delimiterIndex - index);
-        }
-
-        //エスケープ処理解析処理のため、次のダブルクオーテーションのインデックスを取得
-        (int endIndex, bool escapedDoubleQuotes) ParseEscape(string str, int index)
-        {
-            //エスケープされたダブルクオート（2連続のダブルクオート）（""）が含まれるか
-            bool escapedDoubleQuotes = false;
-            while (index < str.Length)
+            // 最後のフィールド・行を追加（末尾改行なしの場合）
+            if (field.Length > 0 || row.Count > 0)
             {
-                int endIndex = str.IndexOf(DoubleQuotes, index);
-                if (endIndex < 0)
-                {
-                    return (-1,false);
-                }
-
-                //ダブルクオーテーションが2つ続かない時は終了
-                int next = endIndex + 1;
-                if (next >= str.Length || str[next] != DoubleQuotes)
-                {
-                    return (endIndex,escapedDoubleQuotes);
-                }
-                escapedDoubleQuotes = true;
-                //ダブルクオーテーションが2つ続くならさらに先のダブルクオーテーションを探す
-                index = next + 1;
+                row.Add(field.ToString());
+                rows.Add(row);
             }
 
-            return (-1,false);;
+            return rows;
         }
 
         public void WriteFile(string path, StringGrid grid)
@@ -137,15 +162,20 @@ namespace Utage
             File.WriteAllText(path, ToText(grid), Encoding);
         }
 
-        string ToText(StringGrid gird)
+        string ToText(StringGrid grid)
         {
             var builder = new StringBuilder();
-            foreach (StringGridRow row in gird.Rows)
+            foreach (StringGridRow row in grid.Rows)
             {
                 for (int i = 0; i < row.Strings.Length; ++i)
                 {
+                    var str = row.Strings[i];
+                    if (NormalizeNewLinesOnWrite)
+                    {
+                        str = str.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n");
+                    }
                     //必要な場合はエンクローズ処理をして書き込み
-                    builder.Append(EncloseIfNeeded(row.Strings[i]));
+                    builder.Append(EncloseIfNeeded(str));
                     if (i < row.Strings.Length - 1)
                     {
                         //区切り文字を追加
@@ -163,10 +193,10 @@ namespace Utage
         //エンクローズ処理
         string EncloseIfNeeded(string field)
         {
-            (bool needEnclose, bool doubleQuotes) = CheckEnclose(field);
+            (bool needEnclose, bool hasDoubleQuotes) = CheckEnclose(field);
             if (needEnclose)
             {
-                if (doubleQuotes)
+                if (hasDoubleQuotes)
                 {
                     //ダブルクオートが含まれる場合は、二重にする
                     field = field.Replace("\"", "\"\"");
@@ -177,13 +207,11 @@ namespace Utage
             return field;
         }
 
-
         //ダブルクオートで囲む必要があるかチェック
-        //ダブルクオートが含まれていたら、needEncloseとdoubleQuotes両方ともtrue
-        //カンマ、改行文字が含まれていたら、needEncloseのみtrue
-        ( bool needEnclose, bool doubleQuotes ) CheckEnclose(string field)
+        //ダブルクオートが含まれていたら、needEncloseとhasDoubleQuotes両方ともtrue
+        //区切り文字、改行文字が含まれていたら、needEncloseのみtrue
+        (bool needEnclose, bool hasDoubleQuotes) CheckEnclose(string field)
         {
-            //　ダブルクォートやカンマ、改行文字が含まれていたらtrue
             bool needEnclose = false;
             foreach (var c in field)
             {
@@ -194,15 +222,9 @@ namespace Utage
 
                 if (!needEnclose)
                 {
-                    switch (c)
+                    if (c == Delimiter || c == '\n' || c == '\r')
                     {
-                        case ',':
-                        case '\n':
-                        case '\r':
-                            needEnclose = true;
-                            break;
-                        default:
-                            break;
+                        needEnclose = true;
                     }
                 }
             }

@@ -62,7 +62,7 @@ namespace Utage
 		protected abstract void OnStart(AdvEngine engine, AdvScenarioThread thread);
 
 		//終了時のコールバック
-		internal virtual void OnComplete(AdvScenarioThread thread)
+		public virtual void OnComplete(AdvScenarioThread thread)
 		{
 			thread.WaitManager.CompleteCommand(this);
 		}

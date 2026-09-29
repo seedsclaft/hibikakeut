@@ -21,7 +21,7 @@ namespace Utage.RenderPipeline
         where T : VolumeComponent
     {
         protected AdvPostEffectVolume AdvPostEffectVolume { get; private set; }
-        protected T VolumeComponent { get; private set; }
+        public T VolumeComponent { get; private set; }
 
         protected virtual void Awake()
         {

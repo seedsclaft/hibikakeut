@@ -17,6 +17,7 @@ namespace Utage
         [SerializeField] int gameScreenHeight = 720;
 
         //エディターwindowに表示する設定項目を持ち、プロジェクト作成を行うクリエーター
+        [Serializable]
         protected abstract class AdvProjectCreatorNewSceneDefault<T>
             : AdvProjectCreator
                 , IAdvProjectCreatorGameScreenSize

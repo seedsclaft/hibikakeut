@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
 using UtageExtensions;
@@ -129,6 +130,7 @@ namespace Utage
 		[SerializeField]
 		AdvEffectManager effectManager;
 
+		//ポストエフェクト管理
 		public AdvPostEffectManager AdvPostEffectManager
 		{
 			get
@@ -165,6 +167,7 @@ namespace Utage
 		CameraManager cameraManager;
 
 
+		//画面解像度管理
 		public virtual ScreenResolution ScreenResolution
 		{
 			get
@@ -337,6 +340,7 @@ namespace Utage
 		/// </summary>
 		public bool IsSceneGallery => GalleryController.IsPlayingSceneGallery;
 
+		//シーン回想・CGギャラリーの制御
 		public AdvGalleryController GalleryController => this.GetComponentCacheCreateIfMissing(ref galleryController);
 		private AdvGalleryController galleryController;
 
@@ -538,11 +542,13 @@ namespace Utage
 
 
 
+		//シナリオ開始時のクリア処理
 		public void ClearOnStart()
 		{
 			ClearSub(isStopSoundOnStart);
 		}
 
+		//シナリオ終了時のクリア処理
 		public void ClearOnEnd()
 		{
 			ClearSub(isStopSoundOnEnd);
@@ -629,7 +635,14 @@ namespace Utage
 			}
 
 			//システムセーブデータの初期化＆ロード
-			SystemSaveData.Init(this);
+			if (SystemSaveData is IAdvSystemSaveDataAsync )
+			{
+				yield return InitSystemSaveDataAsync();
+			}
+			else
+			{
+				SystemSaveData.Init(this);
+			}
 			//通常セーブデータの初期化
 			SaveManager.Init();
 
@@ -649,6 +662,64 @@ namespace Utage
 				//リソースファイル(画像やサウンド)のダウンロードをバックグラウンドで進めておく
 				DataManager.StartBackGroundDownloadResource();
 			}
+		}
+
+		// システムセーブデータの初期化＆ロードの非同期版
+		public virtual async Awaitable InitSystemSaveDataAsync()
+		{
+			IAdvSystemSaveDataAsync asyncExtension = (IAdvSystemSaveDataAsync)SystemSaveData;
+			
+			while (true)
+			{
+				try
+				{
+					await asyncExtension.InitAsync(this, destroyCancellationToken);
+					return;
+				}
+				catch (OperationCanceledException)
+				{
+					throw;
+				}
+				//　例外エラーが起きたら、ダイアログを出してユーザーに知らせ、再度初期化をする
+				//　非同期セーブファイルの場合、読み込みエラーはファイルシステムが正常に稼働してないため、ユーザーに知らせて再試行するしかない
+				//　例外を握りつぶして起動してしまうと、初期状態のセーブデータが作られてしまい、ユーザーのセーブデータが消えてしまう可能性がある
+				catch (Exception e)
+				{
+					//リトライはダイアログ表示等の非同期の待機を伴う判断のため、void を返すだけの
+					//IAdvSaveExceptionHandlerでは表現できない。専用のIAdvSystemSaveDataRetryHandler
+					//があれば最優先で使い、無ければSystemUiのデフォルトダイアログにフォールバックする
+					if (this.TryGetComponent(out IAdvSystemSaveDataRetryHandler retryHandler))
+					{
+						bool retry = await retryHandler.OnSystemSaveDataReadFailedAsync(e);
+						if (!retry) throw;
+					}
+					else
+					{
+						Debug.LogException(e, this);
+						if (SystemUi.GetInstance() != null)
+						{
+							await WaitForRestartConfirmAsync();
+						}
+						else
+						{
+							Debug.LogError($"{nameof(SystemUi)}が見つからないため確認ダイアログを表示できません。"
+								+ $"{nameof(IAdvSystemSaveDataRetryHandler)}を実装したコンポーネントの追加を検討してください。", this);
+						}
+					}
+					//ループ先頭に戻って再試行
+				}
+			}
+		}
+
+		//システムセーブデータ読み込み失敗をユーザーに知らせ、確認（OK）されるまで待つ
+		async Awaitable WaitForRestartConfirmAsync()
+		{
+			var completionSource = new AwaitableCompletionSource();
+			SystemUi.GetInstance().OpenDialog1Button(
+				LanguageSystemText.LocalizeText(SystemText.UtageDialogMessageSystemSaveDataReadFailedRetry),
+				LanguageSystemText.LocalizeText(SystemText.Ok),
+				() => completionSource.SetResult());
+			await completionSource.Awaitable;
 		}
 
 		//カスタムコマンドの初期化
@@ -678,19 +749,81 @@ namespace Utage
 
 
 		/// <summary>
-		/// システムセーブデータを書き込み
+		/// システムセーブデータを書き込み（同期版）。
+		/// SystemSaveDataが非同期拡張されている場合は使えない
 		/// </summary>
 		public void WriteSystemData()
 		{
+			if (systemSaveData is IAdvSystemSaveDataAsync)
+			{
+				Debug.LogError($"{nameof(SystemSaveData)}が非同期拡張されている場合、同期の{nameof(WriteSystemData)}()は使えません。"
+					+ $"呼び出し元を非同期経路（{nameof(WriteSystemDataAsync)}）に対応させてください。", this);
+				return;
+			}
 			systemSaveData.Write();
 		}
 
 		/// <summary>
-		/// セーブデータを書き込み
+		/// システムセーブデータを書き込み（非同期版）。
+		/// SystemSaveDataが非同期拡張されていない場合は使えない
+		/// 例外は呼び出し元へそのまま伝播させる「素の」非同期処理。
+		/// 呼び出し元が例外を待ち受けない暗黙の自動実行処理から呼ぶ場合は、
+		/// 代わりにAutoWriteSystemDataAsyncを使うこと。
+		/// </summary>
+		public async Awaitable WriteSystemDataAsync(CancellationToken cancellationToken)
+		{
+			if (systemSaveData is not IAdvSystemSaveDataAsync asyncExtension)
+			{
+				Debug.LogError($"{nameof(SystemSaveData)}が非同期拡張されていない場合、{nameof(WriteSystemDataAsync)}()は使えません。"
+					+ $"呼び出し元を同期経路（{nameof(WriteSystemData)}）に対応させてください。", this);
+				return;
+			}
+			await asyncExtension.WriteAsync(AsyncFileIOPriority.AutoSave, cancellationToken);
+		}
+
+		/// <summary>
+		/// システムセーブデータの暗黙の自動書き込み
+		/// （設定画面を閉じた時・シナリオ実行中の自動保存等）用に、
+		/// FireAndForgetで使う前提のため、例外は呼び出し元へ伝播させない。
+		/// </summary>
+		public async Awaitable AutoWriteSystemDataAsync(CancellationToken cancellationToken)
+		{
+			try
+			{
+				await WriteSystemDataAsync(cancellationToken);
+			}
+			catch (OperationCanceledException)
+			{
+				//意図したキャンセルは正常系
+			}
+			catch (Exception e)
+			{
+				if (this.TryGetComponent(out IAdvSaveExceptionHandler saveExceptionHandler))
+				{
+					//拡張ハンドラがあれば対応を全て委ねる（デフォルトのログ出力は行わない）
+					saveExceptionHandler.OnSaveDataException(AdvSaveOperationType.WriteSystemData, e);
+				}
+				else
+				{
+					//ログを残す
+					Debug.LogException(e, this);
+				}
+			}
+		}
+
+		/// <summary>
+		/// セーブデータを書き込み（同期版）。
+		/// SaveManagerが非同期拡張されている場合は使えない
 		/// </summary>
 		/// <param name="saveData">書き込むセーブデータ</param>
 		public void WriteSaveData(AdvSaveData saveData)
 		{
+			if (SaveManager is IAdvSaveManagerAsync)
+			{
+				Debug.LogError($"{nameof(SaveManager)}が非同期拡張されている場合、同期の{nameof(WriteSaveData)}()は使えません。"
+					+ $"呼び出し元を非同期経路（{nameof(WriteSaveDataAsync)}）に対応させてください。", this);
+				return;
+			}
 			SaveManager.WriteSaveData(this, saveData);
 		}
 
@@ -705,11 +838,37 @@ namespace Utage
 		}
 
 		/// <summary>
+		/// セーブデータを書き込み（非同期版）。
+		/// SaveManagerが非同期拡張されていない場合は使えない
+		/// </summary>
+		/// <param name="saveData">書き込むセーブデータ</param>
+		/// <param name="cancellationToken">キャンセルトークン</param>
+		public async Awaitable WriteSaveDataAsync(AdvSaveData saveData, CancellationToken cancellationToken)
+		{
+			if (SaveManager is not IAdvSaveManagerAsync asyncExtension)
+			{
+				Debug.LogError($"{nameof(SaveManager)}が非同期拡張されていない場合、{nameof(WriteSaveDataAsync)}()は使えません。"
+					+ $"呼び出し元を同期経路（{nameof(WriteSaveData)}）に対応させてください。", this);
+				return;
+			}
+			await asyncExtension.WriteSaveDataAsync(this, saveData, cancellationToken);
+		}
+
+		/// <summary>
 		/// クイックセーブ
 		/// </summary>
 		public void QuickSave()
 		{
 			WriteSaveData(SaveManager.QuickSaveData);
+		}
+
+		/// <summary>
+		/// クイックセーブ（非同期版）。
+		/// SaveManagerが非同期拡張されていない場合は使えない
+		/// </summary>
+		public async Awaitable QuickSaveAsync(CancellationToken cancellationToken)
+		{
+			await WriteSaveDataAsync(SaveManager.QuickSaveData, cancellationToken);
 		}
 
 		/// <summary>
@@ -727,6 +886,25 @@ namespace Utage
 			{
 				return false;
 			}
+		}
+
+		/// <summary>
+		/// クイックロード（非同期版）。
+		/// SaveManagerが非同期拡張されていない場合は使えない
+		/// </summary>
+		/// <returns>成否</returns>
+		public async Awaitable<bool> QuickLoadAsync(CancellationToken cancellationToken)
+		{
+			if (SaveManager is not IAdvSaveManagerAsync asyncExtension)
+			{
+				Debug.LogError($"{nameof(SaveManager)}が非同期拡張されていない場合、{nameof(QuickLoadAsync)}()は使えません。"
+					+ $"呼び出し元を同期経路（{nameof(QuickLoad)}）に対応させてください。", this);
+				return false;
+			}
+			await asyncExtension.ReadSaveDataAsync(SaveManager.QuickSaveData, cancellationToken);
+			if (!SaveManager.QuickSaveData.IsSaved) return false;
+			LoadSaveData(SaveManager.QuickSaveData);
+			return true;
 		}
 
 		/// <summary>
@@ -818,6 +996,7 @@ namespace Utage
 			}
 		}
 
+		//指定のラベル・ページからシナリオを開始する
 		public void StartScenario(string label, int page)
 		{
 			StartCoroutine( CoStartScenario(label, page));
@@ -829,6 +1008,7 @@ namespace Utage
 			while (GraphicManager.IsLoading) yield return null;
 			while (SoundManager.IsLoading) yield return null;
 
+			//UIを開く（このタイミングで開かないとUIオブジェクト以下のAwakeが呼ばれてない可能性があって、不具合が起きる可能性がある）
 			if (UiManager != null) UiManager.Open();
 			if (label.Length > 1 && label[0] == '*')
 			{
@@ -843,6 +1023,7 @@ namespace Utage
 			while (GraphicManager.IsLoading) yield return null;
 			while (SoundManager.IsLoading) yield return null;
 
+			//UIを開く（このタイミングで開かないとUIオブジェクト以下のAwakeが呼ばれてない可能性があって、不具合が起きる可能性がある）
 			if (UiManager != null) UiManager.Open();
 			yield return ScenarioPlayer.CoStartSaveData(saveData);
 		}

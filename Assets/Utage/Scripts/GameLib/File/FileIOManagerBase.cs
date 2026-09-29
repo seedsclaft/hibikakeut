@@ -287,5 +287,6 @@ namespace Utage
 		/// </summary>
 		/// <param name="path">ファイルパス</param>
 		public abstract void Delete(string path);
+
 	}
 }

@@ -15,4 +15,9 @@ namespace Utage
         float Strength { get; set; }
     }
 
+    //ポストエフェクトのコンポーネントのうち、ポストエフェクト用のVolumeに共通のインターフェース
+    public interface IPostEffectVolumeObject : IPostEffectStrength
+    {
+        void OnClear();
+    }
 }

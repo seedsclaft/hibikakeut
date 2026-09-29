@@ -97,6 +97,7 @@ namespace Utage
 			{
 				if (i == 0) continue;
 				string language = header.Strings[i];
+				if(string.IsNullOrEmpty(language) ) continue;
 				AddLanguage(language);
 
 				int index = Languages.IndexOf(language);

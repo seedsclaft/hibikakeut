@@ -27,6 +27,9 @@ namespace Utage
 		AdvEngine engine;
 
 #if UTAGE_ENABLE_VIDEO
+		public bool UseAudioListenerVolume { get => useAudioListenerVolume; set => useAudioListenerVolume = value; }
+		[SerializeField] bool useAudioListenerVolume =false;
+
 		class VideoInfo
 		{
 			public bool Cancel { get; set; }
@@ -53,8 +56,7 @@ namespace Utage
 			GameObject go = this.transform.AddChildGameObject(label);
 			go.layer = GetLayerFromCamera(camera);
 			VideoPlayer videoPlayer = go.AddComponent<VideoPlayer>();
-			float volume = Engine.SoundManager.BgmVolume * Engine.SoundManager.MasterVolume;
-			videoPlayer.SetDirectAudioVolume(0, volume);
+			videoPlayer.SetDirectAudioVolume(0, GetVideAudioVolume());
 			videoPlayer.isLooping = loop;
 			videoPlayer.clip = clip;
 			videoPlayer.targetCamera = camera;
@@ -126,9 +128,21 @@ namespace Utage
 				var player = keyValue.Value.Player;
 				if (player == null || !player.isPlaying) continue;
 
-				float volume = Engine.SoundManager.BgmVolume * Engine.SoundManager.MasterVolume;
-				player.SetDirectAudioVolume(0, volume);
+				player.SetDirectAudioVolume(0, GetVideAudioVolume());
 			}
+		}
+		
+		//ビデオ用のボリューム値を取得
+		public virtual float GetVideAudioVolume()
+		{
+			//BGMとマスターボリュームの値を掛け合わせたものを基本とする
+			float volume = Engine.SoundManager.BgmVolume * Engine.SoundManager.MasterVolume;
+			if (UseAudioListenerVolume)
+			{
+				//必要に応じてAudioListenerのボリュームも掛け合わせる
+				volume *= AudioListener.volume;
+			}
+			return volume;
 		}
 #else
 		internal void Play(string label, string cameraName, AssetFile file, bool loop, bool cancel)

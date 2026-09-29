@@ -219,7 +219,7 @@ namespace Utage
 		}
 
 		//全ての選択肢の総数からのインデックスで選択する
-		internal void SelectWithTotalIndex(int index)
+		public void SelectWithTotalIndex(int index)
 		{
 			if (index < Selections.Count)
 			{

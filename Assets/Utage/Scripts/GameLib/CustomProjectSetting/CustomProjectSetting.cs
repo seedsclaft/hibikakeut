@@ -61,6 +61,11 @@ namespace Utage
             set { useSheetNameToScenarioLabel = value; }
         }
         [SerializeField] bool useSheetNameToScenarioLabel = true;
+        
+        
+        //構造化マクロのパーサー設定(基本はnullで、使用したい場合のみ設定する)
+        public StructuredMacroParser StructuredMacroParser => structuredMacroParser;
+        [SerializeField] StructuredMacroParser structuredMacroParser = null;
 
         //カスタムデータの設定
         public AdvCustomDataSettings CustomDataSettings => customDataSettings;

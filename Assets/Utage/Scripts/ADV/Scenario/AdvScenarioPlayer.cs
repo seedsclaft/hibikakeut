@@ -55,7 +55,8 @@ namespace Utage
 		[SerializeField]
 		int preloadDeep = 5;
 
-		public bool PreloadDeepJumpIf => preloadDeepJumpIf;  
+		//Jumpコマンドなどの条件付きジャンプ先も含めて深くプリロードするか
+	public bool PreloadDeepJumpIf => preloadDeepJumpIf;
 		[SerializeField]
 		bool preloadDeepJumpIf = true;
 		
@@ -129,9 +130,20 @@ namespace Utage
 		[SerializeField]
 		public AdvScenarioPlayerEvent onEndLoadSaveData = new AdvScenarioPlayerEvent();
 
+		//セーブデータのロード処理が始まる前に呼ばれる（準備処理などの前）
+		public AdvScenarioPlayerEvent OnBeforeLoadSaveData => onBeforeLoadSaveData;
+		[SerializeField] AdvScenarioPlayerEvent onBeforeLoadSaveData = new ();
+
+		//セーブデータのロード処理が終わった後に呼ばれる（全て終わった後）
+		public AdvScenarioPlayerEvent OnAfterLoadSaveData => onAfterLoadSaveData;
+		[SerializeField] AdvScenarioPlayerEvent onAfterLoadSaveData = new ();
+
+
+		//ADVエンジン本体への参照
 		public AdvEngine Engine { get { return this.GetComponentCache( ref engine); } }
 		AdvEngine engine;
 
+		//メインのシナリオ実行スレッド（なければ自動生成）
 		public AdvScenarioThread MainThread
 		{
 			get
@@ -152,7 +164,7 @@ namespace Utage
 		public bool IsEndScenario { get; set; }
 
 
-		//シナリオ終了
+		//シナリオ終了が予約されているか
 		public bool IsReservedEndScenario { get; set; }
 
 		//ポーズ中か
@@ -164,6 +176,7 @@ namespace Utage
 		/// </summary>
 		public string CurrentGallerySceneLabel { get; set; }
 
+		//シナリオファイルを読み込み中か
 		public bool IsLoading
 		{
 			get
@@ -195,6 +208,7 @@ namespace Utage
 		//セーブデータを使ってシナリオを開始
 		internal IEnumerator CoStartSaveData(AdvSaveData saveData)
 		{
+			OnBeforeLoadSaveData.Invoke(this);
 			this.IsPausing = false;
 			this.IsEndScenario = false;
 			this.IsReservedEndScenario = false;
@@ -212,6 +226,7 @@ namespace Utage
 			OnBeginScenarioAfterParametersInitialized.Invoke(this);
 			//シナリオを読み込み
 			saveData.Buffer.Overrirde(this);
+			OnAfterLoadSaveData.Invoke(this);
 		}
 
 		//データのキー
@@ -285,12 +300,14 @@ namespace Utage
 			IsEndScenario = true;
 		}
 
+		//シナリオ実行を一時停止する
 		public void Pause()
 		{
 			IsPausing = true;
 			this.OnPauseScenario.Invoke(this);
 			this.OnEndOrPauseScenario.Invoke(this);
 		}
+		//シナリオ実行を再開する
 		public void Resume()
 		{
 			IsPausing = false;

@@ -11,7 +11,7 @@ namespace Utage
     //エディターシーンマネージャーの独自拡張
     public static class EditorSceneManagerEx
     {
-        public static bool SaveActiveSceneScene()
+        public static bool SaveActiveScene()
         {
             return EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
         }
