@@ -395,6 +395,7 @@ namespace Ryneus
 
         public void EndCursedParty()
         {
+            PartyInfo.PartyStatInfo.RecoveryCurseCount.GainValue(1);
             CurrentDeckInfo.Cursed.SetValue(false);
         }
 

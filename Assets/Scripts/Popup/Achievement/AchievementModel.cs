@@ -19,20 +19,9 @@ namespace Ryneus
                 {
                     continue;
                 }
-                if (!achievementInfo.Achieved.Value)
-                {
-                    list.Add(achievementInfo);
-                }
+                list.Add(achievementInfo);
             }
-            list.Sort((a, b) => a.Master.Rank - b.Master.Rank > 0 ? -1 : 1);
-            //list.Sort((a, b) => a.SortKey() - b.SortKey() > 0 ? 1 : -1);
-            foreach (var achievementInfo in PartyInfo.AchievementInfos)
-            {
-                if (achievementInfo.Achieved.Value)
-                {
-                    list.Add(achievementInfo);
-                }
-            }
+            list.Sort((a, b) => b.SortKey.CompareTo(a.SortKey));
             return list;
         }
     }

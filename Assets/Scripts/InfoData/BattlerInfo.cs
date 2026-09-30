@@ -959,6 +959,7 @@ namespace Ryneus
             {
                 spd += StateEffectAll(StateType.StatusUp);
                 spd += StateEffectAll(StateType.SpdUp);
+                spd -= StateEffectAll(StateType.SpdDown);
                 spd += StateEffect(StateType.Accel) * StateTurn(StateType.Accel);
                 if (IsState(StateType.Demigod))
                 {

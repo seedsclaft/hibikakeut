@@ -11,6 +11,7 @@ namespace Ryneus
         public ParameterInt EquipmentId = new();
         public List<EquipmentLearningInfo> LearningInfos = new();
         public ActorInfo EquipmentActor = null;
+        public ActorInfo SortActor = null;
         public ParameterBool Selected = new();
         public EquipmentInfo(int equipmentId)
         {
@@ -35,8 +36,7 @@ namespace Ryneus
             return list;
         }
 
-        public (bool isLearnd, int rate, int id) SortKey => 
-            (IsLearned(), LearningRate(), _master.Id);
+        public (bool isLearnd, int rate, int attributeRank ,int id) SortKey => (IsLearned(), LearningRate(), AttributeRank() , _master.Id);
 
         private bool IsLearned()
         {
@@ -46,6 +46,12 @@ namespace Ryneus
         private int LearningRate()
         {
             return (int)LearningInfos.Sum(a => a.LearningExp.Value) * -1;
+        }
+
+        private int AttributeRank()
+        {
+            var ranks = SortActor.AttributeRanks(new List<ActorInfo>());
+            return (int)ranks[(int)_master.Attribute];
         }
     }
 }

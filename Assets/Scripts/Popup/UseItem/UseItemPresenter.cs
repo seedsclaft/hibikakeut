@@ -169,6 +169,7 @@ namespace Ryneus
         {
             var getAttibute = (AttributeType)itemInfo.Master.Param2;
             _busy = true;
+            _model.PartyInfo.PartyStatInfo.TacticsAttributeupCount.GainValue(1);
             CommandAttributeUp(_model.CurrentActor, getAttibute, () =>
             {
                 CheckAchievements();

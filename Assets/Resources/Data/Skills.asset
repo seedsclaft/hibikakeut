@@ -334,36 +334,53 @@ MonoBehaviour:
     TriggerDates: []
     ScopeTriggers: []
   - Id: 1040
-    Name: "\u30BD\u30FC\u30C9\u30A2\u30C0\u30D7\u30C8"
-    EnglishName: Sword Adaptation
-    IconIndex: 4
-    AnimationId: 3005
+    Name: "\u30D5\u30A3\u30CB\u30C3\u30B7\u30E5\u30B9\u30BF\u30D6"
+    EnglishName: Finish Stub
+    IconIndex: 1
+    AnimationId: 102
     AnimationType: 1
     MpCost: 0
-    CountTurn: 3
+    CountTurn: 2
     Rank: 20
     Attribute: 1
-    Scope: 4
+    Scope: 1
     SkillType: 1
-    TargetType: 4
-    Help: "\\s\u306E\u4E0E\u30C0\u30E1\u30FC\u30B8\u7387\u3092/f[f,0,3]%\u30A2\u30C3\u30D7(\u6C38\u7D9A)
-      \u91CD\u306D\u639B\u3051\u53EF\u80FD"
-    EnglishHelp: '\s''s damage dealt rate by /f[f,0,3]% (permanently).
+    TargetType: 1
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u5BFE\u8C61\u3092\u5012\u3057\u305F\u5834\u5408/f[f,1,2]\u30BF\u30FC\u30F3ATK+f[f,1,3]%"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
 
-      Stacking
-      possible.'
+      ATK increases by /f[f,1,3].
+      if target is defeated.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 1040
-      FeatureType: 3010
-      Param1: 2290
-      Param2: 999
-      Param3: 10
+      FeatureType: 1010
+      Param1: 100
+      Param2: 0
+      Param3: 0
       Rate: 100
-    TriggerDates: []
+    - SkillId: 1040
+      FeatureType: 7020
+      Param1: 2061
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 1040
+      FeatureType: 3010
+      Param1: 1042
+      Param2: 1
+      Param3: 30
+      Rate: 100
+    TriggerDates:
+    - SkillId: 1040
+      TriggerType: 20140
+      TriggerTiming: 61
+      Param1: 0
+      Param2: 0
+      Param3: 0
     ScopeTriggers: []
   - Id: 1050
     Name: "\u30D5\u30EC\u30A4\u30E0\u30EC\u30A4\u30F3"
@@ -551,6 +568,38 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 1940
+    Name: "\u30BD\u30FC\u30C9\u30A2\u30C0\u30D7\u30C8"
+    EnglishName: Sword Adaptation
+    IconIndex: 4
+    AnimationId: 3005
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 20
+    Attribute: 1
+    Scope: 4
+    SkillType: 1
+    TargetType: 4
+    Help: "\\s\u306E\u4E0E\u30C0\u30E1\u30FC\u30B8\u7387\u3092/f[f,0,3]%\u30A2\u30C3\u30D7(\u6C38\u7D9A)
+      \u91CD\u306D\u639B\u3051\u53EF\u80FD"
+    EnglishHelp: '\s''s damage dealt rate by /f[f,0,3]% (permanently).
+
+      Stacking
+      possible.'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 1940
+      FeatureType: 3010
+      Param1: 2290
+      Param2: 999
+      Param3: 10
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 2010
     Name: "\u30C7\u30A3\u30B9\u30C1\u30E3\u30FC\u30B8"
     EnglishName: Discharge
@@ -636,30 +685,80 @@ MonoBehaviour:
     TriggerDates: []
     ScopeTriggers: []
   - Id: 2040
-    Name: "\u30C8\u30E9\u30B9\u30C8\u30C1\u30A7\u30A4\u30F3"
-    EnglishName: Trust Chain
+    Name: "\u30B9\u30D1\u30A4\u30E9\u30EB\u30BD\u30FC\u30C9"
+    EnglishName: Spriral Sword
     IconIndex: 1
-    AnimationId: 2205
+    AnimationId: 202
     AnimationType: 1
     MpCost: 0
     CountTurn: 3
     Rank: 20
     Attribute: 2
-    Scope: 32
+    Scope: 1
     SkillType: 1
-    TargetType: 4
-    Help: "\\s\u306E\u5F85\u6A5F\u6642\u9593\u3092/f[f,0,1]\u77ED\u7E2E\u3059\u308B"
-    EnglishHelp: Shorten \s's wait time by /f[f,0,1].
+    TargetType: 1
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\\s\u306B\u56DE\u907F\u7387/f[f,0,3]%\u30C0\u30A6\u30F3\u3092\u4ED8\u4E0E\n\u81EA\u8EAB\u306B\u56DE\u907F\u7387/f[f,0,3]%\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Decrease \s''s evasion
+      rate by /f[f,0,3]%
+
+      Increase self''s evasion rate by /f[f,0,3]%'
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 2040
-      FeatureType: 5020
-      Param1: 400
+      FeatureType: 1010
+      Param1: 100
       Param2: 0
       Param3: 0
+      Rate: 100
+    - SkillId: 2040
+      FeatureType: 3010
+      Param1: 1090
+      Param2: 2
+      Param3: -20
+      Rate: 100
+    - SkillId: 2040
+      FeatureType: 7010
+      Param1: 2041
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 2041
+    Name: "\u30B9\u30D1\u30A4\u30E9\u30EB\u30BD\u30FC\u30C9"
+    EnglishName: Spriral Sword
+    IconIndex: 1
+    AnimationId: 202
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 0
+    Attribute: 2
+    Scope: 4
+    SkillType: 1
+    TargetType: 4
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\\s\u306B\u56DE\u907F\u7387/f[f,0,3]%\u30C0\u30A6\u30F3\u3092\u4ED8\u4E0E\n\u81EA\u8EAB\u306B\u56DE\u907F\u7387/f[f,0,3]%\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Decrease \s''s evasion
+      rate by /f[f,0,3]%
+
+      Increase self''s evasion rate by /f[f,0,3]%'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 2041
+      FeatureType: 3010
+      Param1: 1090
+      Param2: 2
+      Param3: 20
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -978,6 +1077,34 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 2940
+    Name: "\u30C8\u30E9\u30B9\u30C8\u30C1\u30A7\u30A4\u30F3"
+    EnglishName: Trust Chain
+    IconIndex: 1
+    AnimationId: 2205
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 20
+    Attribute: 2
+    Scope: 32
+    SkillType: 1
+    TargetType: 4
+    Help: "\\s\u306E\u5F85\u6A5F\u6642\u9593\u3092/f[f,0,1]\u77ED\u7E2E\u3059\u308B"
+    EnglishHelp: Shorten \s's wait time by /f[f,0,1].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 2940
+      FeatureType: 5020
+      Param1: 400
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 3010
     Name: "\u30A2\u30A4\u30B9\u30D6\u30EC\u30A4\u30C9"
     EnglishName: Ice Blade
@@ -1075,35 +1202,38 @@ MonoBehaviour:
     TriggerDates: []
     ScopeTriggers: []
   - Id: 3040
-    Name: "\u30A8\u30B9\u30B3\u30FC\u30C8\u30BD\u30FC\u30EB"
-    EnglishName: Escort Soul
-    IconIndex: 3
-    AnimationId: 2304
+    Name: "\u30B9\u30AB\u30EB\u30D6\u30EC\u30A4\u30AB\u30FC"
+    EnglishName: Skull breaker
+    IconIndex: 1
+    AnimationId: 1004
     AnimationType: 1
     MpCost: 0
     CountTurn: 3
     Rank: 20
     Attribute: 3
-    Scope: 31
+    Scope: 1
     SkillType: 1
     TargetType: 1
-    Help: "\\s\u306B\u6311\u767A\u4ED8\u4E0E\n\u6311\u767A\u3057\u305F\u76F8\u624B\u304B\u3089\u306E\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30C0\u30A6\u30F3\n/s"
-    EnglishHelp: 'Apply taunt to \s.
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\u304B\u3070\u3046\u7121\u52B9"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
 
-      Reduce incoming damage from taunted target
-      by /f[f,0,3]%.
-
-      /s'
+      Ignore Covering efffect.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 3040
-      FeatureType: 3010
-      Param1: 2130
-      Param2: 1
-      Param3: 25
+      FeatureType: 1010
+      Param1: 100
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 3040
+      FeatureType: 8030
+      Param1: 0
+      Param2: 0
+      Param3: 0
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -1361,6 +1491,39 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 3940
+    Name: "\u30A8\u30B9\u30B3\u30FC\u30C8\u30BD\u30FC\u30EB"
+    EnglishName: Escort Soul
+    IconIndex: 3
+    AnimationId: 2304
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 20
+    Attribute: 3
+    Scope: 31
+    SkillType: 1
+    TargetType: 1
+    Help: "\\s\u306B\u6311\u767A\u4ED8\u4E0E\n\u6311\u767A\u3057\u305F\u76F8\u624B\u304B\u3089\u306E\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30C0\u30A6\u30F3\n/s"
+    EnglishHelp: 'Apply taunt to \s.
+
+      Reduce incoming damage from taunted target
+      by /f[f,0,3]%.
+
+      /s'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 3940
+      FeatureType: 3010
+      Param1: 2130
+      Param2: 1
+      Param3: 25
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 4010
     Name: "\u30BB\u30A4\u30F3\u30C8\u30EC\u30FC\u30B6\u30FC"
     EnglishName: Saint Laser
@@ -1465,6 +1628,43 @@ MonoBehaviour:
       Param1: 5
       Param2: 0
       Param3: 0
+    ScopeTriggers: []
+  - Id: 4040
+    Name: "\u30D4\u30A2\u30B7\u30F3\u30B0\u30E9\u30F3\u30B9"
+    EnglishName: Piercing Lance
+    IconIndex: 1
+    AnimationId: 2402
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 20
+    Attribute: 4
+    Scope: 1
+    SkillType: 1
+    TargetType: 1
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\\s\u306B\u30C0\u30E1\u30FC\u30B8\u8EFD\u6E1B\u52B9\u679C\u7121\u8996\u3092\u4ED8\u4E0E"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s
+
+      Ignore guard activation
+      for /f[f,1,2] turns.'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 4040
+      FeatureType: 1010
+      Param1: 100
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 4040
+      FeatureType: 3010
+      Param1: 2500
+      Param2: 2
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
     ScopeTriggers: []
   - Id: 4050
     Name: "\u3079\u30CD\u30C7\u30A3\u30AF\u30B7\u30E7\u30F3"
@@ -1842,10 +2042,10 @@ MonoBehaviour:
     TriggerDates: []
     ScopeTriggers: []
   - Id: 5040
-    Name: "\u30A2\u30D3\u30B5\u30EB\u30C7\u30B9\u30DA\u30A2"
-    EnglishName: Abyssal Despair
-    IconIndex: 5
-    AnimationId: 501
+    Name: "\u30C7\u30A3\u30EC\u30A4\u30B7\u30E7\u30C3\u30C8"
+    EnglishName: Delay Shot
+    IconIndex: 3
+    AnimationId: 502
     AnimationType: 1
     MpCost: 0
     CountTurn: 3
@@ -1854,13 +2054,11 @@ MonoBehaviour:
     Scope: 1
     SkillType: 1
     TargetType: 1
-    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3\u306E\u4E0D\u6CBB\u4ED8\u4E0E\n/s"
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\\s\u306ESPD\u3092/f[f,0,2]\u30BF\u30FC\u30F3/f[f,0,3]%\u30C0\u30A6\u30F3"
     EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
 
-      Apply /f[f,1,2] turns
-      of incurable status.
-
-      /s'
+      Decrease \s`s SPD by /f[f,0,3]%
+      for /f[f,0,2] turns.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -1874,9 +2072,9 @@ MonoBehaviour:
       Rate: 100
     - SkillId: 5040
       FeatureType: 3010
-      Param1: 2400
-      Param2: 3
-      Param3: 0
+      Param1: 1061
+      Param2: 2
+      Param3: 20
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -2067,6 +2265,45 @@ MonoBehaviour:
       Param1: 1043
       Param2: 2
       Param3: 50
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 5940
+    Name: "\u30A2\u30D3\u30B5\u30EB\u30C7\u30B9\u30DA\u30A2"
+    EnglishName: Abyssal Despair
+    IconIndex: 5
+    AnimationId: 501
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 20
+    Attribute: 5
+    Scope: 1
+    SkillType: 1
+    TargetType: 1
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n/f[f,1,2]\u30BF\u30FC\u30F3\u306E\u4E0D\u6CBB\u4ED8\u4E0E\n/s"
+    EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
+
+      Apply /f[f,1,2] turns
+      of incurable status.
+
+      /s'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 5940
+      FeatureType: 1010
+      Param1: 100
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    - SkillId: 5940
+      FeatureType: 3010
+      Param1: 2400
+      Param2: 3
+      Param3: 0
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -4734,10 +4971,11 @@ MonoBehaviour:
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3059\u308B\u524D\n\u30C0\u30E1\u30FC\u30B8\u8EFD\u6E1B\u52B9\u679C\u3092\u7121\u8996\u3059\u308B"
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3059\u308B\u524D\n\u30C0\u30E1\u30FC\u30B8\u8EFD\u6E1B\u52B9\u679C\u7121\u8996\u3092\u4ED8\u4E0E"
     EnglishHelp: '(Condition: Before attacking)
 
-      Ignore guard activation.'
+      Ignore guard activation for
+      /f[f,0,2] turns.'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -9115,35 +9353,41 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
   - Id: 310040
-    Name: "\u30E1\u30D3\u30A6\u30B9\u306E\u7802\u6642\u8A08"
-    EnglishName: "M\xF6bius Sandglass"
+    Name: "\u30E9\u30A4\u30D5\u30D6\u30FC\u30B9\u30C8"
+    EnglishName: Life Boost
     IconIndex: 6
-    AnimationId: 0
+    AnimationId: 51
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
     Rank: 220
     Attribute: 4
-    Scope: 1
+    Scope: 3
     SkillType: 5
     TargetType: 2
-    Help: "\u5165\u624B\u3057\u305F\u5F8C\u30C0\u30F3\u30B8\u30E7\u30F3\u304B\u3089\u96E2\u308C\u3066\u3082Period\u304C\u9032\u307E\u306A\u304F\u306A\u308B\n\uFF11\u5EA6\u52B9\u679C\u3092\u767A\u63EE\u3059\u308B\u3068\u6D88\u6EC5\u3059\u308B"
-    EnglishHelp: 'Once obtained, the period will no longer advance even when leaving
-      the dungeon.
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u6700\u5927H\uFF50\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)"
+    EnglishHelp: '(Condition: At battle start)
 
-      The effect disappears after it is activated once.'
+      Permanently increase \s''s
+      max HP by /f[f,0,3].'
     Range: 2
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 310040
-      FeatureType: 40080
-      Param1: 1
+      FeatureType: 3010
+      Param1: 1020
+      Param2: 999
+      Param3: 5
+      Rate: 100
+    TriggerDates:
+    - SkillId: 310040
+      TriggerType: 0
+      TriggerTiming: 1
+      Param1: 0
       Param2: 0
       Param3: 0
-      Rate: 100
-    TriggerDates: []
     ScopeTriggers: []
   - Id: 310050
     Name: "\u5148\u9663\u306E\u5FC3\u5F97"
@@ -13138,7 +13382,7 @@ MonoBehaviour:
       FeatureType: 3010
       Param1: 1310
       Param2: 0
-      Param3: 15
+      Param3: 20
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -13166,7 +13410,7 @@ MonoBehaviour:
       FeatureType: 3010
       Param1: 1320
       Param2: 0
-      Param3: 15
+      Param3: 20
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -13194,7 +13438,7 @@ MonoBehaviour:
       FeatureType: 3010
       Param1: 1330
       Param2: 0
-      Param3: 15
+      Param3: 20
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -13222,7 +13466,7 @@ MonoBehaviour:
       FeatureType: 3010
       Param1: 1340
       Param2: 0
-      Param3: 15
+      Param3: 20
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -13250,7 +13494,7 @@ MonoBehaviour:
       FeatureType: 3010
       Param1: 1350
       Param2: 0
-      Param3: 15
+      Param3: 20
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []

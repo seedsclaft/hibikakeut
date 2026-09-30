@@ -44,7 +44,7 @@ namespace Ryneus
             _addListenHandler = add;
         }
 
-        public void Awake()
+        public void Start()
         {
             if (changeCursorColor)
             {

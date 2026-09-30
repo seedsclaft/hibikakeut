@@ -787,6 +787,10 @@ namespace Ryneus
 
         private List<int> CheckCoverIndexList(ActionInfo actionInfo, List<int> indexList)
         {
+            if (actionInfo.Master.IsIgnoreCover())
+            {
+                return indexList;
+            }
             var newIndexList = new List<int>();
             var coverBattlerIds = new List<int>();
             var subject = GetBattlerInfo(actionInfo.SubjectIndex.Value);

@@ -19,17 +19,7 @@ namespace Ryneus
         public List<PrizeSetData> PrizeSetsMaster => DataSystem.Dates[DataType.PrizeSets].FindAll<PrizeSetData>(a => a.Id == Master.PriseSetId);
 
         public float AchievePer => AchieveCount.Value > 0 ? (float)Count.Value / (float)AchieveCount.Value : 0;
-
-        public int SortKey()
-        {
-            int sort = Id.Value;
-            if (Achieved.Value)
-            {
-                sort += 10000000;
-            }
-            sort -= Master.Rank * 100000;
-            return sort;
-        }
+        public (bool achived, int category, int rank, int id) SortKey => (!Achieved.Value, (int)Master.Category * -1, Master.Rank, Master.Id * -1);
 
         public AchievementInfo(AchievementData achievementData)
         {

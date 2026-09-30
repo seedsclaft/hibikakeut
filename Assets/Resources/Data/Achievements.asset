@@ -294,7 +294,7 @@ MonoBehaviour:
     ConditionType: 1031
     Param1: 15
     Param2: 3
-    PriseSetId: 15060
+    PriseSetId: 11010
     Text: "3\u4EBA\u4EE5\u4E0A\u306E\u30AD\u30E3\u30E9Lv\u309215\u4EE5\u4E0A\u306B\u3059\u308B"
     Help: '""'
     EnglishText: Increase the level of 3 or more characters to 15 or higher
@@ -303,12 +303,12 @@ MonoBehaviour:
     Category: 10
     Rank: 5
     ConditionType: 3010
-    Param1: 1
+    Param1: 3
     Param2: 0
-    PriseSetId: 14020
-    Text: "\u30D0\u30C8\u30EB\u3067\u899A\u9192\u30B9\u30AD\u30EB\u30921\u56DE\u4EE5\u4E0A\u4F7F\u7528\u3059\u308B"
+    PriseSetId: 11020
+    Text: "\u30D0\u30C8\u30EB\u3067\u899A\u9192\u30B9\u30AD\u30EB\u30923\u56DE\u4EE5\u4E0A\u4F7F\u7528\u3059\u308B"
     Help: '""'
-    EnglishText: Use Awakening Skills at least 1 in battle
+    EnglishText: Use Awakening Skills at least 3 in battle
     EnglishHelp: '""'
   - Id: 5030
     Category: 10
@@ -316,12 +316,34 @@ MonoBehaviour:
     ConditionType: 3020
     Param1: 1
     Param2: 0
-    PriseSetId: 14020
+    PriseSetId: 11030
     Text: "\u30D0\u30C8\u30EB\u3067\u4EA4\u4EE3\u30921\u56DE\u4EE5\u4E0A\u4F7F\u7528\u3059\u308B"
     Help: '""'
     EnglishText: Perform a substitution at least 1 in battle
     EnglishHelp: '""'
   - Id: 5040
+    Category: 10
+    Rank: 5
+    ConditionType: 1041
+    Param1: 1
+    Param2: 0
+    PriseSetId: 11040
+    Text: "\u30A2\u30A4\u30C6\u30E0\u3092\u4F7F\u7528\u3057\u3066\u3044\u305A\u308C\u304B\u306E\u30AD\u30E3\u30E9\u306E\u5C5E\u6027\u9069\u6B63\u5024\u3092\u4E0A\u3052\u308B"
+    Help: '""'
+    EnglishText: Attribute up one character by using an item
+    EnglishHelp: '""'
+  - Id: 5050
+    Category: 10
+    Rank: 5
+    ConditionType: 2020
+    Param1: 1
+    Param2: 0
+    PriseSetId: 11050
+    Text: "\u30C0\u30F3\u30B8\u30E7\u30F3\u5185\u3067\u546A\u3044\u72B6\u614B\u304B\u3089\u56DE\u5FA9\u3059\u308B"
+    Help: '""'
+    EnglishText: Recovery curse in dungeon
+    EnglishHelp: '""'
+  - Id: 5060
     Category: 10
     Rank: 5
     ConditionType: 2010
@@ -332,7 +354,7 @@ MonoBehaviour:
     Help: '""'
     EnglishText: Defeat the boss in the Ruins of the Fallen Kingdom
     EnglishHelp: '""'
-  - Id: 5050
+  - Id: 5070
     Category: 10
     Rank: 5
     ConditionType: 1080
@@ -343,7 +365,7 @@ MonoBehaviour:
     Help: '""'
     EnglishText: Unseal 6 or more sealed magic spells on comrades
     EnglishHelp: '""'
-  - Id: 5060
+  - Id: 5080
     Category: 10
     Rank: 5
     ConditionType: 10
@@ -411,7 +433,7 @@ MonoBehaviour:
     EnglishHelp: '""'
   - Id: 6010
     Category: 10
-    Rank: 7
+    Rank: 6
     ConditionType: 1070
     Param1: 1
     Param2: 0
@@ -422,7 +444,7 @@ MonoBehaviour:
     EnglishHelp: '""'
   - Id: 6020
     Category: 10
-    Rank: 7
+    Rank: 6
     ConditionType: 2010
     Param1: 5
     Param2: 0
@@ -433,7 +455,7 @@ MonoBehaviour:
     EnglishHelp: '""'
   - Id: 6030
     Category: 10
-    Rank: 7
+    Rank: 6
     ConditionType: 1080
     Param1: 8
     Param2: 0
@@ -444,7 +466,7 @@ MonoBehaviour:
     EnglishHelp: '""'
   - Id: 6040
     Category: 10
-    Rank: 7
+    Rank: 6
     ConditionType: 10
     Param1: 2
     Param2: 0

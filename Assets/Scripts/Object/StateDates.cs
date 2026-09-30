@@ -73,6 +73,7 @@ namespace Ryneus
         DefRateUp = 1052,
         DefRateDown = 1053,
         SpdUp = 1060,
+        SpdDown = 1061,
         CriticalRateUp = 1070,
         CriticalRateDown = 1071,
         CriticalDamageRateUp = 1074,

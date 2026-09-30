@@ -16,6 +16,13 @@ namespace Ryneus
             Period.SetValue(1);
         }
 
+        public void InitializeIfNull()
+        {
+            PartyStatInfo.InitializeIfNull();
+            // 追加データの挿入
+            SetAchievementRank(DataSystem.Dates[DataType.Achievements].ToList<AchievementData>());
+        }
+
         // レジュームシーン
         public Scene ResumeScene = Scene.None;
         // ダンジョン途中座標データ
@@ -346,8 +353,7 @@ namespace Ryneus
             {
                 return null;
             }
-            //list.Sort((a, b) => a.Master.Rank - b.Master.Rank > 0 ? -1 : 1);
-            list.Sort((a, b) => a.SortKey() - b.SortKey() > 0 ? 1 : -1);
+            list.Sort((a, b) => b.SortKey.CompareTo(a.SortKey));
             return list[0];
         }
 
@@ -356,6 +362,10 @@ namespace Ryneus
             // 全データ作成する
             foreach (var achievementData in achievementDatas)
             {
+                if (achievementData.Rank < MissionRank.Value)
+                {
+                    continue;
+                }
                 var find = _achievements.Find(a => a.Id.Value == achievementData.Id);
                 if (find != null)
                 {
@@ -366,6 +376,7 @@ namespace Ryneus
                     _achievements.Add(achievementInfo);
                 }
             }
+            _achievements.Sort((a, b) => b.SortKey.CompareTo(a.SortKey));
         }
 
         public void UpdateAchievementConditions(bool checkMissionRank = false)
@@ -445,8 +456,12 @@ namespace Ryneus
                     achievementInfo.SetCondition(findAll.Count, achievementInfo.Master.Param2);
                     break;
                 case AchievementConditionType.TacticsLvupCount:
-                    // Nu消費レベルアップ回数
+                    // アイテム消費レベルアップ回数
                     achievementInfo.SetCondition(PartyStatInfo.TacticsLvupCount.Value, achievementInfo.Master.Param1);
+                    break;
+                case AchievementConditionType.TacticsAttributeupCount:
+                    // アイテム消費属性適正値アップ回数
+                    achievementInfo.SetCondition(PartyStatInfo.TacticsAttributeupCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.BattleScore:
                     // バトル評価値
@@ -474,6 +489,10 @@ namespace Ryneus
                     // ステージクリア
                     var cleared = ClearedStages.Find(a => a.Value == achievementInfo.Master.Param1) != null;
                     achievementInfo.SetCondition(cleared ? 1 : 0, 1);
+                    break;
+                case AchievementConditionType.RecoveryCurseCount:
+                    // ダンジョン内で呪いを回復した数
+                    achievementInfo.SetCondition(PartyStatInfo.RecoveryCurseCount.Value, achievementInfo.Master.Param1);
                     break;
                 case AchievementConditionType.UseAwakeSkillCount:
                     // 覚醒スキル使用回数

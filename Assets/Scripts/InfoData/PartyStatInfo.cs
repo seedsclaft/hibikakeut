@@ -10,8 +10,12 @@ namespace Ryneus
         public ParameterInt DepartureBattleFieldCount = new();
         // 勝利回数
         public ParameterInt BattleVictoryCount = new();
-        // Nu消費レベルアップ回数
+        // アイテム消費レベルアップ回数
         public ParameterInt TacticsLvupCount = new();
+        // アイテム消費属性適正値アップ回数
+        public ParameterInt TacticsAttributeupCount = new();
+        // ダンジョン内で呪いを回復した数
+        public ParameterInt RecoveryCurseCount = new();
         // バトル評価値
         public ParameterInt BattleScore = new();
         // 獲得バトル評価値
@@ -38,6 +42,11 @@ namespace Ryneus
         public ParameterInt UseAwakeSkillCount = new();
         // 交代スキル使用回数
         public ParameterInt UseChangeLineCount = new();
-
+        // 古いセーブデータ対策の補完メソッド
+        public void InitializeIfNull()
+        {
+            TacticsAttributeupCount ??= new();
+            RecoveryCurseCount ??= new();
+        }
     }
 }

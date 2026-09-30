@@ -457,7 +457,7 @@ MonoBehaviour:
     StateType: 1060
     Name: "\u901F\u5EA6\u30A2\u30C3\u30D7"
     Help: "SPD{0}\u30A2\u30C3\u30D7"
-    EnglishName: Defense Down
+    EnglishName: Speed Up
     EnglishHelp: SPD{0}Up
     IconBack: 0
     IconIndex: 17
@@ -472,6 +472,28 @@ MonoBehaviour:
     Abnormal: 0
     Buff: 1
     DeBuff: 0
+    CheckHit: 0
+    RemoveByAttack: 0
+    RemoveByDeath: 1
+  - Id: 1061
+    StateType: 1061
+    Name: "\u901F\u5EA6\u30C0\u30A6\u30F3"
+    Help: "SPD{0}\u30C0\u30A6\u30F3"
+    EnglishName: Speed Down
+    EnglishHelp: SPD{0}Up
+    IconBack: 0
+    IconIndex: 41
+    IconPath: Wingfoot
+    RemovalTiming: 1
+    OverWrite: 1
+    EffectPath: '""'
+    EffectPosition: 0
+    EffectScale: 1
+    OverLap: 0
+    Removal: 0
+    Abnormal: 0
+    Buff: 0
+    DeBuff: 1
     CheckHit: 0
     RemoveByAttack: 0
     RemoveByDeath: 1

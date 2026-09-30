@@ -133,6 +133,11 @@ namespace Ryneus
             return SkillType is SkillType.Active or SkillType.Passive;
         }
 
+        public bool IsIgnoreCover()
+        {
+            return FeatureDates.Find(a => a.FeatureType == FeatureType.IgnoreCover) != null;
+        }
+
         public bool IsPeriodUseCount()
         {
             return TriggerDates.Find(a => a.TriggerType == TriggerType.InPeriodUseCountUnder) != null;
@@ -640,6 +645,7 @@ namespace Ryneus
         LearnSkill = 7030,
         KindHeal = 8010,
         BreakUndead = 8020,
+        IgnoreCover = 8030,
         ActionAfterGainAp = 10010, // 行動後にAp+
         ActionAfterChange = 10020, // 行動後に交代
         AbsoluteHit = 11010,

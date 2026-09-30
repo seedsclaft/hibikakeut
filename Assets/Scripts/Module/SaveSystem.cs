@@ -128,6 +128,7 @@ namespace Ryneus
             var gameInfo = await LoadFileAsync<SaveGameInfo>(PlayerStageDataKey(fileId));
             if (gameInfo != null)
             {
+                gameInfo.InitializeIfNull();
                 GameSystem.GameInfo = gameInfo;
             }
             return gameInfo != null;

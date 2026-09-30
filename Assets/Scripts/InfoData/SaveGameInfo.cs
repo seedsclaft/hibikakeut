@@ -24,5 +24,10 @@ namespace Ryneus
         {
             _partyInfo = new PartyInfo();
         }
+
+        public void InitializeIfNull()
+        {
+            _partyInfo.InitializeIfNull();
+        }
     }
 }
