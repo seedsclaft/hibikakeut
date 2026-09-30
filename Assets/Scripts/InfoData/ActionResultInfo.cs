@@ -480,10 +480,10 @@ namespace Ryneus
                 }
                 if (subject.IsState(StateType.NoDamageCut))
                 {
-                    damageCutRate = 0;
+                    damageCutRate -= subject.StateEffectAllPercent(StateType.NoDamageCut);
                 }
             }
-            return damageCutRate;
+            return Math.Max(0, damageCutRate);
         }
 
         private int CalcDamageCut(BattlerInfo subject, BattlerInfo target, bool isNoEffect)

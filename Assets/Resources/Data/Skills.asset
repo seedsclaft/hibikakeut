@@ -4985,7 +4985,7 @@ MonoBehaviour:
       FeatureType: 3010
       Param1: 2500
       Param2: 1
-      Param3: 0
+      Param3: 100
       Rate: 100
     TriggerDates:
     - SkillId: 14030
@@ -9353,8 +9353,8 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
   - Id: 310040
-    Name: "\u30E9\u30A4\u30D5\u30D6\u30FC\u30B9\u30C8"
-    EnglishName: Life Boost
+    Name: "\u30EC\u30A4\u30D4\u30C3\u30C9\u30D6\u30FC\u30B9\u30C8"
+    EnglishName: Rapid Boost
     IconIndex: 6
     AnimationId: 51
     AnimationType: 1
@@ -9365,21 +9365,21 @@ MonoBehaviour:
     Scope: 3
     SkillType: 5
     TargetType: 2
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u6700\u5927H\uFF50\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)"
-    EnglishHelp: '(Condition: At battle start)
+    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\\s\u306E\u521D\u52D5\u304C\u308F\u305A\u304B\u306B\u65E9\u304F\u306A\u308B"
+    EnglishHelp: '(Condition: At the start of battle)
 
-      Permanently increase \s''s
-      max HP by /f[f,0,3].'
+      Allow \s to take a little
+      preemptive action.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 310040
-      FeatureType: 3010
-      Param1: 1020
-      Param2: 999
-      Param3: 5
+      FeatureType: 5020
+      Param1: 100
+      Param2: 0
+      Param3: 0
       Rate: 100
     TriggerDates:
     - SkillId: 310040
@@ -12798,6 +12798,90 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 501110
+    Name: DEF+2
+    EnglishName: DEF+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 1
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's DEF by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 501110
+      FeatureType: 14010
+      Param1: 3
+      Param2: 0
+      Param3: 2
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 501120
+    Name: "\u547D\u4E2D\u7387+10%"
+    EnglishName: Accuracy Rate +10%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 1
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Accuracy rate by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 501120
+      FeatureType: 14010
+      Param1: 11
+      Param2: 0
+      Param3: 10
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 501130
+    Name: SPD+2
+    EnglishName: SPD+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 1
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 501130
+      FeatureType: 14010
+      Param1: 4
+      Param2: 0
+      Param3: 2
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 502010
     Name: DEF+1
     EnglishName: DEF+1
@@ -12907,6 +12991,118 @@ MonoBehaviour:
       Param1: 12
       Param2: 0
       Param3: 5
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 502110
+    Name: "\u4F1A\u5FC3\u30C0\u30E1\u30FC\u30B8\u7387+25%"
+    EnglishName: Critical Damage Rate+25%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 2
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u4F1A\u5FC3\u30C0\u30E1\u30FC\u30B8\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's critical damage rate by /f[f,0,3]%.
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 502110
+      FeatureType: 3010
+      Param1: 1074
+      Param2: 999
+      Param3: 25
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 502120
+    Name: "\u547D\u4E2D\u7387+5%"
+    EnglishName: Accuracy Rate +5%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 2
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Accuracy rate by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 502120
+      FeatureType: 14010
+      Param1: 11
+      Param2: 0
+      Param3: 5
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 502121
+    Name: "\u56DE\u907F\u7387+5%"
+    EnglishName: Avoidance Rate +5%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 2
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Avoidance rate by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 502121
+      FeatureType: 14010
+      Param1: 12
+      Param2: 0
+      Param3: 5
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 502130
+    Name: SPD+2
+    EnglishName: SPD+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 2
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 502130
+      FeatureType: 14010
+      Param1: 4
+      Param2: 0
+      Param3: 2
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
@@ -13022,6 +13218,90 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 503110
+    Name: DEF+2
+    EnglishName: DEF+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 3
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's DEF by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 503110
+      FeatureType: 14010
+      Param1: 3
+      Param2: 0
+      Param3: 2
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 503120
+    Name: ATK+2
+    EnglishName: ATK+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 3
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's ATK by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 503120
+      FeatureType: 14010
+      Param1: 2
+      Param2: 0
+      Param3: 2
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 503130
+    Name: "\u30C0\u30E1\u30FC\u30B8\u8EFD\u6E1B\u52B9\u679C\u7121\u8996+10%"
+    EnglishName: .Ignore guard activation+10%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 3
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u653B\u6483\u5BFE\u8C61\u306E\u30C0\u30E1\u30FC\u30B8\u8EFD\u6E1B\u52B9\u679C\u3092/f[f,0,3]%\u7121\u8996\u3059\u308B"
+    EnglishHelp: .Ignore guard activation by /f[f,0,3]%.
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 503130
+      FeatureType: 3010
+      Param1: 2500
+      Param2: 999
+      Param3: 10
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 504010
     Name: "Hp\u56DE\u5FA9\u52B9\u679C+2"
     EnglishName: HP recovery effect +2
@@ -13134,6 +13414,90 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 504110
+    Name: "\u547D\u4E2D\u7387+10%"
+    EnglishName: Accuracy Rate +10%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 4
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Accuracy rate by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 504110
+      FeatureType: 14010
+      Param1: 11
+      Param2: 0
+      Param3: 10
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 504120
+    Name: "\u6700\u5927HP+2"
+    EnglishName: MaxHP+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 4
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's maximum HP by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 504120
+      FeatureType: 14010
+      Param1: 0
+      Param2: 0
+      Param3: 2
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 504130
+    Name: "\u30C0\u30E1\u30FC\u30B8\u8EFD\u6E1B\u52B9\u679C\u7121\u8996+10%"
+    EnglishName: .Ignore guard activation+10%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 4
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u653B\u6483\u5BFE\u8C61\u306E\u30C0\u30E1\u30FC\u30B8\u8EFD\u6E1B\u52B9\u679C\u3092/f[f,0,3]%\u7121\u8996\u3059\u308B"
+    EnglishHelp: .Ignore guard activation by /f[f,0,3]%.
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 504130
+      FeatureType: 3010
+      Param1: 2500
+      Param2: 999
+      Param3: 10
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 505010
     Name: "\u56DE\u907F\u7387+5%"
     EnglishName: Avoidance Rate +5%
@@ -13241,6 +13605,146 @@ MonoBehaviour:
     - SkillId: 505040
       FeatureType: 14010
       Param1: 2
+      Param2: 0
+      Param3: 1
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 505110
+    Name: "\u547D\u4E2D\u7387+5%"
+    EnglishName: Accuracy Rate +5%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 5
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Accuracy rate by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 505110
+      FeatureType: 14010
+      Param1: 11
+      Param2: 0
+      Param3: 5
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 505111
+    Name: "\u56DE\u907F\u7387+5%"
+    EnglishName: Avoidance Rate +5%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 5
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Avoidance rate by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 505111
+      FeatureType: 14010
+      Param1: 12
+      Param2: 0
+      Param3: 5
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 505120
+    Name: ATK+1
+    EnglishName: ATK+1
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 5
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's ATK by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 505120
+      FeatureType: 14010
+      Param1: 2
+      Param2: 0
+      Param3: 1
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 505121
+    Name: SPD+1
+    EnglishName: SPD+1
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 5
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 505121
+      FeatureType: 14010
+      Param1: 4
+      Param2: 0
+      Param3: 1
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 505130
+    Name: SPD+2
+    EnglishName: SPD+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 5
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 505130
+      FeatureType: 14010
+      Param1: 4
       Param2: 0
       Param3: 1
       Rate: 100
