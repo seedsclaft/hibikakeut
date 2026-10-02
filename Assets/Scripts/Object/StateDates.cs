@@ -119,7 +119,7 @@ namespace Ryneus
         EffectLine = 2340,
         EffectAll = 2341,
         HolyCoffin = 2350,
-        MpCostZeroAddDamage = 2360,
+        AddDamage = 2360,
         MpCostZeroAddState = 2370,
         Shadow = 2380,
         Silence = 2390,

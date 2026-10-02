@@ -878,17 +878,23 @@ MonoBehaviour:
 
       Legend
       has it that a rare magic book is hidden there.'
-    StageLv: 12
+    StageLv: 15
     OnlyOnce: 1
     DisplayRank: 6
     RandomTroopWeight: 30
     RandomTroopEnemyRates:
+    - EnemyId: 1
+      Weight: 10
     - EnemyId: 2
-      Weight: 15
+      Weight: 10
+    - EnemyId: 4
+      Weight: 10
+    - EnemyId: 9
+      Weight: 10
     - EnemyId: 12
-      Weight: 15
+      Weight: 10
     - EnemyId: 14
-      Weight: 15
+      Weight: 10
     EncountTimes: 5
     EncountMin: 8
     EncountMax: 12
@@ -897,7 +903,7 @@ MonoBehaviour:
     BGMId: 1210
     BossBGMId: 3010
     BattleBGMId: 2030
-    SkyboxName: '""'
+    SkyboxName: CoriolisNight4k
   - Id: 1040
     StageNo: 104
     Category: 11

@@ -1301,12 +1301,9 @@ namespace Ryneus
         private float CalcAddDamage(BattlerInfo subject, BattlerInfo target, float hpDamage)
         {
             var addDamage = 0f;
-            if (subject.IsState(StateType.MpCostZeroAddDamage))
+            if (subject.IsState(StateType.AddDamage))
             {
-                if (DataSystem.FindSkill(SkillId.Value).CountTurn == 0)
-                {
-                    addDamage = hpDamage * subject.StateEffectAllRate(StateType.MpCostZeroAddDamage);
-                }
+                addDamage = subject.StateEffectAll(StateType.AddDamage);
                 if (hpDamage < target.Hp.Value)
                 {
                     if ((addDamage + hpDamage) >= target.Hp.Value)
