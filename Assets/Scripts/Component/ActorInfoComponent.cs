@@ -119,10 +119,9 @@ namespace Ryneus
             //UIComponent.SetText(battlePosition, DataSystem.GetText(textId));
             if (CurrentGameInfo != null && PartyInfo != null)
             {
-                UIComponent.SetText(transferGetItemText, actorInfo.TransferGetItemText(PartyInfo.Period.Value));
-                UIComponent.SetText(transferGetExpText, actorInfo.TransferGetExpText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
-
-                UIComponent.SetText(transferGetCurrencyText, actorInfo.TransferGetCurrencyText(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value));
+                UIComponent.SetText(transferGetItemText, actorInfo.TransferGetItemText());
+                UIComponent.SetText(transferGetExpText, actorInfo.TransferGetExpText(PartyInfo.Chapter.Value));
+                UIComponent.SetText(transferGetCurrencyText, actorInfo.TransferGetCurrencyText(PartyInfo.Chapter.Value));
             }
         }
 

@@ -51,7 +51,7 @@ namespace Ryneus
                 {
                     // エクセルブックを作成
                     AssetPostImporter.CreateBook(asset, Mainstream, out IWorkbook Book);
-                    List<TextData> textData = AssetPostImporter.CreateText(Book.GetSheetAt(3));
+                    List<TextData> textData = AssetPostImporter.CreateText(Book.GetSheetAt(4));
 
                     // 情報の初期化
                     Data.Data.Clear();
@@ -184,6 +184,24 @@ namespace Ryneus
                         SkillTriggerData.Trigger1 = AssetPostImporter.ImportNumeric(BaseRow, "TriggerType1");
                         SkillTriggerData.Trigger2 = AssetPostImporter.ImportNumeric(BaseRow, "TriggerType2");
                         Actor.SkillTriggerDates.Add(SkillTriggerData);
+                    }
+                    // 人物特性設定
+                    BaseSheet = Book.GetSheetAt(3);
+                    KeyRow = BaseSheet.GetRow(0);
+                    AssetPostImporter.SetKeyNames(KeyRow.Cells);
+                    for (int i = 1; i <= BaseSheet.LastRowNum; i++)
+                    {
+                        IRow BaseRow = BaseSheet.GetRow(i);
+
+                        int ActorId = AssetPostImporter.ImportNumeric(BaseRow, "ActorId");
+                        var Actor = Data.Data.Find(a => a.Id == ActorId);
+
+                        var heroicActorData = new HeroicActorData
+                        {
+                            HeroicId = AssetPostImporter.ImportNumeric(BaseRow, "HeroicId"),
+                            InitLevel = AssetPostImporter.ImportNumeric(BaseRow, "InitLevel"),
+                        };
+                        Actor.HeroicDatas.Add(heroicActorData);
                     }
                 }
             }

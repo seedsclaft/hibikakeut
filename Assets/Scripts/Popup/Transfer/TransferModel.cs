@@ -9,11 +9,16 @@ namespace Ryneus
         {
         }
 
+        public List<ActorInfo> TransferActorInfos()
+        {
+            return PartyInfo.TransferActorInfos();
+        }
+
         public int TransferGetItem(ActorInfo actorInfo)
         {
             actorInfo.Transfer.SetValue(true);
             PartyInfo.AddTransferActorInfos(actorInfo);
-            return actorInfo.TransferGetItem(DataSystem.System.PeriodTurns - PartyInfo.Period.Value);
+            return actorInfo.TransferGetItem();
         }
 
         public bool EnableTransfer(ActorInfo actorInfo)
@@ -30,11 +35,11 @@ namespace Ryneus
             var list = new List<GetItemInfo>
             {
                 // 信仰度
-                MakeGetItemInfo(GetItemType.Evaluate, actorInfo.TransferGetItem(PartyInfo.Period.Value)),
+                MakeGetItemInfo(GetItemType.Evaluate, actorInfo.TransferGetItem()),
                 // Exp
-                MakeGetItemInfo(GetItemType.Exp, actorInfo.ActorId.Value, actorInfo.TransferGetExp(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value)),
+                MakeGetItemInfo(GetItemType.Exp, actorInfo.ActorId.Value, actorInfo.TransferGetExp(PartyInfo.Chapter.Value)),
                 // Nu
-                MakeGetItemInfo(GetItemType.Currency, actorInfo.TransferGetCurrency(PartyInfo.Chapter.Value, DataSystem.System.PeriodTurns - PartyInfo.Period.Value))
+                MakeGetItemInfo(GetItemType.Currency, actorInfo.TransferGetCurrency(PartyInfo.Chapter.Value))
             };
             return list;
         }

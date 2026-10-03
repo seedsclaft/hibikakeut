@@ -33,7 +33,7 @@ namespace Ryneus
 
         private void InitializeAfter()
         {
-            _view.SetCharacterList(MakeListData(_model.PartyInfo.EditableActorInfos(), 0));
+            _view.SetCharacterList(MakeListData(_model.TransferActorInfos(), 0));
         }
 
         private void CommandEndOpenAnimation()
@@ -65,6 +65,9 @@ namespace Ryneus
                     break;
                 case CommandType.DecideActor:
                     CommandDecideActor((ActorInfo)viewEvent.Template);
+                    break;
+                case CommandType.DetailActor:
+                    CommandDetailActor((ActorInfo)viewEvent.Template);
                     break;
             }
         }
@@ -107,6 +110,17 @@ namespace Ryneus
                 }
                 _busy = false;
             });
+        }
+
+        private void CommandDetailActor(ActorInfo actorInfo)
+        {
+            var traitsSceneInfo = new TraitsSceneInfo
+            {
+                ActorInfo = actorInfo,
+            };
+            CallPopupView(PopupType.Traits, () =>
+            {
+            }, traitsSceneInfo);
         }
 
         private void CheckTutorialState(object commandType = null)

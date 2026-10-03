@@ -120,6 +120,7 @@ namespace Ryneus
         ArtifactList,
         StageList,
         Transfer,
+        Traits,
         Trade,
         AlcanaList,
         UseItem,

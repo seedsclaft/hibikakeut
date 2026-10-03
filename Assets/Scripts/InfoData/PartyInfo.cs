@@ -19,6 +19,10 @@ namespace Ryneus
         public void InitializeIfNull()
         {
             PartyStatInfo.InitializeIfNull();
+            foreach (var actorInfo in _actorInfos)
+            {
+                actorInfo.InitilaizeIfNull();
+            }
             // 追加データの挿入
             SetAchievementRank(DataSystem.Dates[DataType.Achievements].ToList<AchievementData>());
         }
@@ -81,6 +85,11 @@ namespace Ryneus
         public List<ActorInfo> EditableActorInfos()
         {
             return _actorInfos.FindAll(a => !a.Transfer.Value);
+        }
+
+        public List<ActorInfo> TransferActorInfos()
+        {
+            return _actorInfos.FindAll(a => !a.Transfer.Value && a.Master.Rank >= 20);
         }
 
         public ActorInfo GetReleifActorInfo(int index)

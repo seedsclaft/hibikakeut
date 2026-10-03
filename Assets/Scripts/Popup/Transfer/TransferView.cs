@@ -30,7 +30,7 @@ namespace Ryneus
             popupAnimation.OpenAnimation(UiRoot.transform, () => 
             {
                 initializeAfter?.Invoke();
-                CallViewEvent(Transfer.CommandType.EndOpenAnimation);
+                CallViewEvent(CommandType.EndOpenAnimation);
             });
         }
 
@@ -38,7 +38,8 @@ namespace Ryneus
         {
             characterList.Initialize();
             characterList.SetInputHandler(InputKeyType.Cancel, () => BackEvent());
-            characterList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(Transfer.CommandType.DecideActor, characterList.ListItemData<ActorInfo>()));
+            characterList.SetInputHandler(InputKeyType.Decide, () => CallViewEvent(CommandType.DecideActor, characterList.ListItemData<ActorInfo>()));
+            characterList.SetInputHandler(InputKeyType.Option1, () => CallViewEvent(CommandType.DetailActor, characterList.ListItemData<ActorInfo>()));
             AddViewActives(characterList);
         }
 
@@ -54,8 +55,9 @@ namespace Ryneus
         public enum CommandType
         {
             Initialize = 0,
-            DecideActor = 1,
-            EndOpenAnimation = 2,
+            DecideActor,
+            DetailActor,
+            EndOpenAnimation,
         }
     }
 }

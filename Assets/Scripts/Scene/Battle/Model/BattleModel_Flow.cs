@@ -90,5 +90,37 @@ namespace Ryneus
             actionInfo.StartAction.SetValue(startAction);
             actionInfo.IsSetParameter.SetValue(true);
         }
+
+        public bool IsValidAction(ActionInfo actionInfo)
+        {
+            var battlerInfo = GetBattlerInfo(actionInfo.SubjectIndex.Value);
+                
+            // 待機か戦闘不能なら何もしない
+            if (actionInfo.IsWait())
+            {
+                return false;
+            }
+            if (battlerInfo != null && !battlerInfo.IsAlive() && actionInfo.SubjectIndex.Value == battlerInfo.Index.Value)
+            {
+                return false;
+            }
+
+            // 攻撃で攻撃対象が既にいない場合は何もしない
+            if (actionInfo.Master.IsHpDamageFeature() && actionInfo.ActionResults != null)
+            {
+                var isValidAttack = true;
+                foreach (var actionResult in actionInfo.ActionResults)
+                {
+                    var target = GetBattlerInfo(actionResult.TargetIndex.Value);
+                    if (actionResult.HpDamage.Value > 0 && !target.IsAlive())
+                    {
+                        isValidAttack = false;
+                    }
+                }
+                return isValidAttack;
+            }
+                
+            return false;
+        }
     }
 }

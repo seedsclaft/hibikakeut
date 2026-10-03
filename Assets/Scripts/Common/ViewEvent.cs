@@ -58,6 +58,7 @@ namespace Ryneus
         ArtifactList,
         StageList,
         Transfer,
+        Traits,
         Trade,
         UseItem,
         SelectEquipment,

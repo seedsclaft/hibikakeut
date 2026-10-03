@@ -427,9 +427,9 @@ namespace Ryneus
             _view.HideBattleThumb();
             if (actionInfo != null)
             {
-                var battlerInfo = _model.GetBattlerInfo(actionInfo.SubjectIndex.Value);
+                var isValid = _model.IsValidAction(actionInfo);
                 // 待機か戦闘不能なら何もしない
-                if (actionInfo.IsWait() || (battlerInfo != null && !battlerInfo.IsAlive() && actionInfo.SubjectIndex.Value == battlerInfo.Index.Value))
+                if (!isValid)
                 {
                     StartWaitCommand(actionInfo);
                 }

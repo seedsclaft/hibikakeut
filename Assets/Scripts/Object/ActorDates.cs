@@ -38,6 +38,7 @@ namespace Ryneus
         public List<KindType> Kinds;
         public List<LearningData> LearningSkills = new();
         public List<SkillTriggerActorData> SkillTriggerDates = new();
+        public List<HeroicActorData> HeroicDatas = new();
 
         public string GetName()
         {
@@ -83,5 +84,12 @@ namespace Ryneus
         public int SkillId;
         public int Trigger1;
         public int Trigger2;
+    }
+
+    [Serializable]
+    public class HeroicActorData
+    {
+        public int HeroicId;
+        public int InitLevel;
     }
 }

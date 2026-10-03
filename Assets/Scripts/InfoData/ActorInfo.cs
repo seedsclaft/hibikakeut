@@ -203,6 +203,23 @@ namespace Ryneus
             _equipmentSkillIds = sortIds;
         }
 
+        [SerializeField] private List<TraitsInfo> _traitsInfos = new();
+        public List<TraitsInfo> TraitInfos => _traitsInfos;
+        public void InitTraisInfos()
+        {
+            if (_traitsInfos == null || _traitsInfos.Count == 0)
+            {
+                _traitsInfos = new();
+                foreach (var heroicActorData in Master.HeroicDatas)
+                {
+                    var traitsInfo = new TraitsInfo();
+                    traitsInfo.HeroicId.SetValue(heroicActorData.HeroicId);
+                    traitsInfo.Level.SetValue(heroicActorData.InitLevel);
+                    _traitsInfos.Add(traitsInfo);
+                }
+            }
+        }
+
         public StatusInfo CurrentStatus => LevelUpStatus(Level);
         public int MaxHp => CurrentStatus.Hp;
         public int MaxMp => CurrentStatus.Mp;
@@ -305,13 +322,15 @@ namespace Ryneus
             CurrentCost.SetValue(Master.InitStatus.Cost);
             InitSkillInfo();
             InitSkillTriggerInfos();
+            InitTraisInfos();
             _equipmentIds.Add(DataSystem.System.InitEquipmentId);
         }
-/*
-        public void CopyData(ActorInfo baseActorInfo)
+
+        public void InitilaizeIfNull()
         {
+            InitTraisInfos();
         }
-*/
+
         private void SetInitialParameter(ActorData actorData)
         {
             _plusStatus.SetParameter(actorData.PlusStatus);
@@ -892,40 +911,38 @@ namespace Ryneus
 
         public ParameterBool Transfer = new();
 
-        public int TransferGetItem(int perPeriod)
+        public int TransferGetItem()
         {
-            return (Level * 2) / (perPeriod + 1);
+            return Level * 15;
         }
 
-        public string TransferGetItemText(int perPeriod)
+        public string TransferGetItemText()
         {
-            return "+" + TransferGetItem(perPeriod).ToString();
+            return DataSystem.GetReplaceText(35050, TransferGetItem().ToString());
         }
 
-        public int TransferGetExp(int chapter, int turns)
+        public int TransferGetExp(int chapter)
         {
             var baseLv = (chapter * 5) - Level;
-            var baseExp = 100 + (baseLv * 10);
-            var turnCount = turns + 1;
-            return baseExp * turnCount;
+            var baseExp = 100 + (baseLv * 25);
+            return baseExp;
         }
 
-        public string TransferGetExpText(int chapter, int turns)
+        public string TransferGetExpText(int chapter)
         {
-            return "+" + TransferGetExp(chapter, turns);
+            return DataSystem.GetReplaceText(35060, TransferGetExp(chapter));
         }
 
-        public int TransferGetCurrency(int chapter, int turns)
+        public int TransferGetCurrency(int chapter)
         {
             var baseLv = Level - (chapter * 5);
-            var baseExp = baseLv * 2;
-            var turnCount = turns + 1;
-            return Math.Max(1, baseExp) * turnCount;
+            var baseExp = 50 + baseLv * 2;
+            return Math.Max(1, baseExp);
         }
 
-        public string TransferGetCurrencyText(int chapter, int turns)
+        public string TransferGetCurrencyText(int chapter)
         {
-            return "+" + TransferGetCurrency(chapter, turns) + DataSystem.GetText(1000);
+            return "+" + TransferGetCurrency(chapter) + DataSystem.GetText(1000);
         }
 
         public ParameterBool IsClassChenged = new();

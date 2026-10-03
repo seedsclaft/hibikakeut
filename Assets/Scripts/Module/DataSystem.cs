@@ -120,6 +120,11 @@ namespace Ryneus
             return Dates[DataType.Troops].Find<TroopData>(id);
         }
 
+        public static HeroicData FindHeroic(int id)
+        {
+            return Dates[DataType.Heroics].Find<HeroicData>(id);
+        }
+
         private static TextData GetTextData(int id)
         {
             return Dates[DataType.TextDates].Find<TextData>(id);
