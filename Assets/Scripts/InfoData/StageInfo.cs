@@ -6,7 +6,7 @@ namespace Ryneus
     [Serializable]
     public class StageInfo
     {
-        public StageData _master = null;
+        private StageData _master = null;
         public StageData Master => _master ??= DataSystem.FindStage(StageId.Value);
         public ParameterInt StageId = new();
         public ParameterBool Cleared = new();
@@ -14,13 +14,17 @@ namespace Ryneus
         public StageInfo(int id, bool cleared = false, bool alarted = false)
         {
             StageId.SetValue(id);
-            _master = Master;
             Cleared.SetValue(cleared);
             Alarted.SetValue(alarted);
         }
 
+        public void InitializeIfNull()
+        {
+            _master = null;
+        }
+
         public (bool isLearnd, int rate, int id) SortKey => 
-            (!Cleared.Value, (int)_master.Category, _master.Id);
+            (!Cleared.Value, (int)Master.Category, Master.Id);
 
         public EnemyData BossEnemyData()
         {

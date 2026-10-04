@@ -65,14 +65,6 @@ namespace Ryneus
             {
                 var targetIdRand = UnityEngine.Random.Range(0, stageEnemyRates.Count);
                 var enemyData = DataSystem.FindEnemy(stageEnemyRates[targetIdRand].EnemyId);
-                /*
-                var lineRand = UnityEngine.Random.Range(0,1);
-                // 遠隔持っていない場合は前列
-                if (!enemyData.Kinds.Contains(KindType.Air) && lineRand == 1)
-                {
-                    lineRand = 0;
-                }
-                */
                 var battlerInfo = new BattlerInfo(enemyData, baseLv, BattlerInfos.Count + 1, LineType.Front, BattlerInfos.Count == 0);
                 weight -= stageEnemyRates[targetIdRand].Weight;
                 if (weight >= 0)

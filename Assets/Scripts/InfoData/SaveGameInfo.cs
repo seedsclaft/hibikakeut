@@ -28,6 +28,10 @@ namespace Ryneus
         public void InitializeIfNull()
         {
             _partyInfo.InitializeIfNull();
+            if (_stageInfo != null)
+            {
+                _stageInfo.InitializeIfNull();
+            }
         }
     }
 }
