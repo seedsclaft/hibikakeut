@@ -4,7 +4,8 @@ namespace Ryneus
     [System.Serializable]
     public class StateInfo
     {
-        public StateData Master => DataSystem.FindState((int)_stateType);
+        private StateData _master = null;
+        public StateData Master => _master ??= DataSystem.FindState((int)_stateType);
         private StateType _stateType = 0;
         public StateType StateType => _stateType;
         public ParameterInt Turns = new();

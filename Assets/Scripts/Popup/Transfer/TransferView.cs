@@ -45,7 +45,20 @@ namespace Ryneus
 
         public void SetCharacterList(List<ListData> characterLists)
         {
-            characterList.SetData(characterLists);
+            characterList.SetData(characterLists, true, () =>
+            {
+                foreach (var prefab in characterList.ItemPrefabList)
+                {
+                    var comp = prefab.GetComponent<CharacterListActor>();
+                    if (comp != null)
+                    {
+                        comp.SetDetailEvent((a) =>
+                        {
+                            CallViewEvent(CommandType.DetailActor, a);
+                        });
+                    }
+                }
+            });
             characterList.Activate();
         }
     }

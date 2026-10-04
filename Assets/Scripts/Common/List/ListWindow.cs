@@ -95,6 +95,7 @@ namespace Ryneus
             Destroy(_basePrefab);
             _prefabPool.name = "prefab pool";
             _prefabPool.transform.SetParent(gameObject.transform, false);
+            UIComponent.SetActive(_prefabPool, false);
             _scrollRect = GetComponentInChildren<ScrollRect>();
             DestroyListChildren();
             _objectList = new();

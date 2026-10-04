@@ -3,7 +3,7 @@ namespace Ryneus
     public class EquipmentLearningInfo
     {   
         private SkillData _skillData = null;
-        public SkillData SkillData => _skillData == null ? _skillData = DataSystem.FindSkill(SkillId.Value) : _skillData;
+        public SkillData SkillData => _skillData ??= DataSystem.FindSkill(SkillId.Value);
         public EquipmentLearningData Master = new();
         public ParameterInt SkillId = new();
         public ParameterInt LearningRate = new();

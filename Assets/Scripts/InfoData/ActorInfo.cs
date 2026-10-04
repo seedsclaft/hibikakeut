@@ -9,7 +9,7 @@ namespace Ryneus
     public class ActorInfo
     {
         private ActorData _master = null;
-        public ActorData Master => _master == null ? DataSystem.FindActor(ActorId.Value) : _master;
+        public ActorData Master => _master ??= DataSystem.FindActor(ActorId.Value);
         public ParameterInt ActorId = new();
 
         public ParameterInt Exp = new();
@@ -913,7 +913,8 @@ namespace Ryneus
 
         public int TransferGetItem()
         {
-            return Level * 15;
+            var baseExp = Level * 15 * TraitsRating(); 
+            return (int)baseExp;
         }
 
         public string TransferGetItemText()
@@ -924,8 +925,9 @@ namespace Ryneus
         public int TransferGetExp(int chapter)
         {
             var baseLv = (chapter * 5) - Level;
-            var baseExp = 100 + (baseLv * 25);
-            return baseExp;
+            float baseExp = 100 + (baseLv * 25);
+            baseExp *= TraitsRating(); 
+            return (int)baseExp;
         }
 
         public string TransferGetExpText(int chapter)
@@ -936,14 +938,31 @@ namespace Ryneus
         public int TransferGetCurrency(int chapter)
         {
             var baseLv = Level - (chapter * 5);
-            var baseExp = 50 + baseLv * 2;
-            return Math.Max(1, baseExp);
+            float baseExp = 50 + baseLv * 2;
+            baseExp += TraitsRating() * 100; 
+            return Math.Max(1, (int)baseExp);
         }
 
         public string TransferGetCurrencyText(int chapter)
         {
             return "+" + TransferGetCurrency(chapter) + DataSystem.GetText(1000);
         }
+
+        private float TraitsRating()
+        {
+            var rating = 100f;
+            foreach (var traitsInfo in _traitsInfos)
+            {
+                rating += traitsInfo.AllParam();
+            }
+            return rating * 0.01f;
+        }
+
+        public string TraitsRatingText()
+        {
+            return "x" + TraitsRating().ToString("F2");
+        }
+        
 
         public ParameterBool IsClassChenged = new();
         public void ClassChange()

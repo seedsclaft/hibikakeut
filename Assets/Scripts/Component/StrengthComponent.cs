@@ -14,14 +14,14 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI afterStatus;
         [SerializeField] private TextMeshProUGUI usePoint;
 
-        public void UpdateInfo(ActorInfo actorInfo, StatusParamType statusParamType)
+        public void UpdateInfo(ActorInfo actorInfo, StatusParamType statusParamType, int beforeLevel)
         {
             _actorInfo = actorInfo;
 
             var textData = DataSystem.GetText(2100 + (int)statusParamType);
             UIComponent.SetText(nameText, textData);
 
-            var before = _actorInfo.LevelUpStatus(_actorInfo.Level-1).GetParameter(statusParamType);
+            var before = _actorInfo.LevelUpStatus(_actorInfo.Level-beforeLevel).GetParameter(statusParamType);
             UIComponent.SetText(currentStatus, before.ToString());
 
             if (afterStatus != null)

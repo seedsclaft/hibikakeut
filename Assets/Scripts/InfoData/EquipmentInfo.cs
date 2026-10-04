@@ -7,7 +7,7 @@ namespace Ryneus
     public class EquipmentInfo
     {
         private EquipmentData _master = null;
-        public EquipmentData Master => _master == null ? _master = DataSystem.FindEquipment(EquipmentId.Value) : _master;
+        public EquipmentData Master => _master ??= DataSystem.FindEquipment(EquipmentId.Value);
         public ParameterInt EquipmentId = new();
         public List<EquipmentLearningInfo> LearningInfos = new();
         public ActorInfo EquipmentActor = null;

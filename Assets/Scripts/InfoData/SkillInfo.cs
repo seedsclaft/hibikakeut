@@ -11,7 +11,7 @@ namespace Ryneus
     public class SkillInfo
     {
         public SkillData _master = null;
-        public SkillData Master => _master != null ? _master : DataSystem.FindSkill(Id.Value);
+        public SkillData Master => _master ??= DataSystem.FindSkill(Id.Value);
         public ParameterInt Id = new();
 
         private bool _enable;

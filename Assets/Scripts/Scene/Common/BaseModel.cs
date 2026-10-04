@@ -345,6 +345,10 @@ namespace Ryneus
                 levelUpViewInfo.Title.SetValue(DataSystem.GetText(20030));
                 // LevelUpDates
                 var strategyStrengthInfos = StrategyStrengthInfo.BasicStrategyStrengthInfos(actorInfo);
+                foreach (var strategyStrengthInfo in strategyStrengthInfos)
+                {
+                    strategyStrengthInfo.BeforeLevel = beforeLv;
+                }
                 levelUpViewInfo.StrategyStrengthInfos = strategyStrengthInfos;
                 actorInfo.ChangeHp(actorInfo.CurrentHp.Value + afterHp - beforeHp);
             }

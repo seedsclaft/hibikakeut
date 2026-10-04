@@ -106,18 +106,18 @@ namespace Ryneus
 
             await _model.PlayMainStageBgmData();
 
+            // 転送を解除
+            if (_model.SceneParam != null && _model.SceneParam.PeriodAnimation && _model.PartyInfo.ActorInfos.Find(a => a.Transfer.Value) != null)
+            {
+                _model.EndTransfer();
+                ReturnTransfer();
+                return;
+            }
             //_model.SaveAutoFile();
             // 幕間に移動
             if (_model.InterludePhase())
             {
                 _busy = true;
-                // 転送を解除
-                if (_model.PartyInfo.ActorInfos.Find(a => a.Transfer.Value) != null)
-                {
-                    _model.EndTransfer();
-                    ReturnTransfer();
-                    return;
-                }
                 SendInterlude();
                 return;
             }
@@ -207,7 +207,7 @@ namespace Ryneus
         {
             CallConfirmNoChoiceView(DataSystem.GetText(11040), (a) =>
             {
-                SendInterlude();
+                CommandEndPeriodAnimation();
             });
         }
 

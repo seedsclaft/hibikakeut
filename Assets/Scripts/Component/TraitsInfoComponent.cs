@@ -14,13 +14,13 @@ namespace Ryneus
         {
             UpdateData(traitsInfo.Master);
             UIComponent.SetText(lvText, traitsInfo.Level.Value);
-            UIComponent.SetText(allParamText, traitsInfo.Master.Param * traitsInfo.Level.Value);
+            UIComponent.SetText(allParamText, traitsInfo.AllParamtext());
         }
 
         public void UpdateData(HeroicData heroicData)
         {
             UIComponent.SetText(nameText, heroicData.Name);
-            UIComponent.SetText(oneParamText, "(" + heroicData.Param + ")");
+            UIComponent.SetText(oneParamText, heroicData.OneParamtext());
         }
     }
 }

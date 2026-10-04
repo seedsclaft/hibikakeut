@@ -17,5 +17,13 @@ namespace Ryneus
         public int Param;
         public int MinLv;
         public int MaxLv;
+        public string OneParamtext()
+        {
+            if (Param > 0)
+            {
+                return "(+" + Param + ")";
+            }
+            return "(" + Param + ")";
+        }
     }
 }

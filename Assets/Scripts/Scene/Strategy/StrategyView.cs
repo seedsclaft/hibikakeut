@@ -161,7 +161,7 @@ namespace Ryneus
 
         public void StartGetExpAnimation(List<StrategyActorLevelUpInfo> levelUpInfos)
         {
-            strategyActorList.StartGetExpAnimation(levelUpInfos,CallEndAnimation);
+            strategyActorList.StartGetExpAnimation(levelUpInfos, CallEndAnimation);
         }
 
         public void FadeOut()

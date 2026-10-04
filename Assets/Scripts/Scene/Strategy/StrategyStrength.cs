@@ -16,13 +16,14 @@ namespace Ryneus
             }
 
             var data = ListItemData<StrategyStrengthInfo>();
-            strengthComponent.UpdateInfo(data.ActorInfo, data.StatusParamType);
+            strengthComponent.UpdateInfo(data.ActorInfo, data.StatusParamType, data.BeforeLevel);
         }
     }
 
     public class StrategyStrengthInfo
     {
         public ActorInfo ActorInfo;
+        public int BeforeLevel;
         public StatusParamType StatusParamType;
         public static List<StrategyStrengthInfo> BasicStrategyStrengthInfos(ActorInfo actorInfo)
         {

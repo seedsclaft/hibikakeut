@@ -54,6 +54,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI transferGetItemText;
         [SerializeField] private TextMeshProUGUI transferGetExpText;
         [SerializeField] private TextMeshProUGUI transferGetCurrencyText;
+        [SerializeField] private TextMeshProUGUI transferTraitsRatingText;
         [SerializeField] private Image kindIcon;
         [SerializeField] private TextMeshProUGUI kindText;
 
@@ -122,6 +123,7 @@ namespace Ryneus
                 UIComponent.SetText(transferGetItemText, actorInfo.TransferGetItemText());
                 UIComponent.SetText(transferGetExpText, actorInfo.TransferGetExpText(PartyInfo.Chapter.Value));
                 UIComponent.SetText(transferGetCurrencyText, actorInfo.TransferGetCurrencyText(PartyInfo.Chapter.Value));
+                UIComponent.SetText(transferTraitsRatingText, actorInfo.TraitsRatingText());
             }
         }
 
