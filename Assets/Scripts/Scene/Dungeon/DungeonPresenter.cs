@@ -613,7 +613,7 @@ namespace Ryneus
                     StageEventAddEventFlagEndForceBattle(moved, stageEvent, endEvent);
                     return;
                 case StageEventType.DamageFloor:
-                    StageEventDamageFloor(stageEvent, endEvent);
+                    StageEventDamageFloor(moved, stageEvent, endEvent);
                     return;
                 case StageEventType.CurseFloor:
                     StageEventCurseFloor(stageEvent, endEvent);
@@ -949,7 +949,7 @@ namespace Ryneus
             endEvent?.Invoke();
         }
 
-        private void StageEventDamageFloor(StageEventData stageEvent, Action endEvent)
+        private void StageEventDamageFloor(bool moved, StageEventData stageEvent, Action endEvent)
         {
             var endStageEvents = _model.EndStageEvents();
             var findAll = _model.StageEvents(EventTiming.Dungeon, stageEvent.PositionX, stageEvent.PositionY);
@@ -961,7 +961,7 @@ namespace Ryneus
                     closed = true;
                 }
             }
-            if (closed)
+            if (closed || !moved)
             {
                 endEvent?.Invoke();
                 return;

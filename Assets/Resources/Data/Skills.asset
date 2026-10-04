@@ -9390,8 +9390,8 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 310050
-    Name: "\u5148\u9663\u306E\u5FC3\u5F97"
-    EnglishName: Foremost Knowledge
+    Name: "\u9EC4\u91D1\u306E\u5B88\u8B77\u7CBE\u970A"
+    EnglishName: Golden Spirit
     IconIndex: 6
     AnimationId: 0
     AnimationType: 1
@@ -9402,25 +9402,25 @@ MonoBehaviour:
     Scope: 3
     SkillType: 5
     TargetType: 2
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u958B\u59CB\u6642\n\u5FC5\u305A\u5148\u5236\u653B\u6483\u304C\u3067\u304D\u308B"
-    EnglishHelp: '(Condition: At battle start)
+    Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\n\u30E9\u30F3\u30C0\u30E0\u3067\u63DB\u91D1\u30A2\u30A4\u30C6\u30E0\u30921\u3064\u5165\u624B"
+    EnglishHelp: '(Condition: After a Period passes)
 
-      Can always perform a preemptive
-      attack.'
+      Randomly obtain one Sellable
+      item.'
     Range: 2
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 310050
-      FeatureType: 5040
-      Param1: 0
-      Param2: 0
+      FeatureType: 40010
+      Param1: 30
+      Param2: -1
       Param3: 0
       Rate: 100
     TriggerDates:
     - SkillId: 310050
-      TriggerType: 0
+      TriggerType: 40020
       TriggerTiming: 1
       Param1: 0
       Param2: 0
