@@ -15,29 +15,34 @@ namespace Ariadne
         public int currentDungeonId = 0;
         public int currentFloorId = 0;
 
+        private Vector2Int GetPlayerPostPos(DungeonDir dungeonDir, int units)
+        {
+            Vector2Int ps = playerPos;
+            switch (dungeonDir)
+            {
+                case DungeonDir.North:
+                    ps.y += units;
+                    break;
+                case DungeonDir.East:
+                    ps.x -= units;
+                    break;
+                case DungeonDir.South:
+                    ps.y -= units;
+                    break;
+                case DungeonDir.West:
+                    ps.x += units;
+                    break;
+            }
+            return ps;
+        }
+
         /// <Summary>
         /// Returns the position of specified steps forward.
         /// </Summary>
         /// <param name="units">Forward steps to get position.</param>
         public Vector2Int GetForwardPosition(int units)
         {
-            Vector2Int ps = playerPos;
-            switch (direction)
-            {
-                case DungeonDir.North:
-                    ps.y += units;
-                    break;
-                case DungeonDir.East:
-                    ps.x += units;
-                    break;
-                case DungeonDir.South:
-                    ps.y -= units;
-                    break;
-                case DungeonDir.West:
-                    ps.x -= units;
-                    break;
-            }
-            return ps;
+            return GetPlayerPostPos(direction, units);
         }
 
         /// <Summary>
@@ -47,23 +52,7 @@ namespace Ariadne
         /// <param name="units">Forward steps to get position.</param>
         public Vector2Int GetSpecifiedDirPosition(DungeonDir targetDir, int units)
         {
-            Vector2Int ps = playerPos;
-            switch (targetDir)
-            {
-                case DungeonDir.North:
-                    ps.y += units;
-                    break;
-                case DungeonDir.East:
-                    ps.x += units;
-                    break;
-                case DungeonDir.South:
-                    ps.y -= units;
-                    break;
-                case DungeonDir.West:
-                    ps.x -= units;
-                    break;
-            }
-            return ps;
+            return GetPlayerPostPos(targetDir, units);
         }
 
         /// <Summary>
@@ -75,22 +64,7 @@ namespace Ariadne
         public int GetMapInfoByDirection(FloorMapMasterData mapData, Vector2Int pos, DungeonDir dir)
         {
             int wallInfo = 0;
-            Vector2Int targetPos = pos;
-            switch (dir)
-            {
-                case DungeonDir.North:
-                    targetPos.y += 1;
-                    break;
-                case DungeonDir.East:
-                    targetPos.x += 1;
-                    break;
-                case DungeonDir.South:
-                    targetPos.y -= 1;
-                    break;
-                case DungeonDir.West:
-                    targetPos.x -= 1;
-                    break;
-            }
+            Vector2Int targetPos = GetPlayerPostPos(dir, 1);
 
             if (CheckPositionIsValid(targetPos, mapData.floorSizeHorizontal, mapData.floorSizeVertical))
             {
@@ -112,24 +86,9 @@ namespace Ariadne
         /// <param name="dir">Direction to check.</param>
         public Vector2Int GetPositionByDirection(Vector2Int pos, DungeonDir dir)
         {
-            Vector2Int targetPos = pos;
-            switch (dir)
-            {
-                case DungeonDir.North:
-                    targetPos.y += 1;
-                    break;
-                case DungeonDir.East:
-                    targetPos.x += 1;
-                    break;
-                case DungeonDir.South:
-                    targetPos.y -= 1;
-                    break;
-                case DungeonDir.West:
-                    targetPos.x -= 1;
-                    break;
-            }
-            return targetPos;
+            return GetPlayerPostPos(dir, 1);
         }
+
         /// <Summary>
         /// Set forward position to playerPos.
         /// </Summary>
@@ -142,13 +101,13 @@ namespace Ariadne
                     playerPos.y += 1;
                     break;
                 case DungeonDir.East:
-                    playerPos.x += 1;
+                    playerPos.x -= 1;
                     break;
                 case DungeonDir.South:
                     playerPos.y -= 1;
                     break;
                 case DungeonDir.West:
-                    playerPos.x -= 1;
+                    playerPos.x += 1;
                     break;
             }
         }
@@ -165,13 +124,13 @@ namespace Ariadne
                     playerPos.y += 1;
                     break;
                 case DungeonDir.East:
-                    playerPos.x += 1;
+                    playerPos.x -= 1;
                     break;
                 case DungeonDir.South:
                     playerPos.y -= 1;
                     break;
                 case DungeonDir.West:
-                    playerPos.x -= 1;
+                    playerPos.x += 1;
                     break;
             }
         }

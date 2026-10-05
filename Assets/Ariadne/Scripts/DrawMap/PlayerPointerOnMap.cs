@@ -114,13 +114,13 @@ namespace Ariadne
                     maxAngle = 0f;
                     break;
                 case DungeonDir.East:
-                    maxAngle = -90f;
+                    maxAngle = 90f;
                     break;
                 case DungeonDir.South:
                     maxAngle = 180f;
                     break;
                 case DungeonDir.West:
-                    maxAngle = 90f;
+                    maxAngle = -90f;
                     break;
             }
             float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);

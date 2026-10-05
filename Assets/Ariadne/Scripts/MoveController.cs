@@ -231,12 +231,24 @@ namespace Ariadne
         /// </Summary>
         protected virtual void SetCameraPos()
         {
-            Vector3 currentPos = Vector3.zero;
-            currentPos.x += PlayerPosition.Instance.playerPos.x * unitSize.x;
-            currentPos.y = player.transform.position.y;
-            currentPos.z += PlayerPosition.Instance.playerPos.y * unitSize.z;
+            Vector3 currentPos = GetPlayerPosition();
             Vector3 targetPos = currentPos;
             player.transform.position = targetPos;
+        }
+
+        private Vector3 GetPlayerPosition()
+        {
+            Vector3 currentPos = Vector3.zero;
+            if (floorMapData != null)
+            {
+                currentPos.x += (floorMapData.floorSizeHorizontal * unitSize.x) - (PlayerPosition.Instance.playerPos.x * unitSize.x);
+            } else
+            {
+                currentPos.x += PlayerPosition.Instance.playerPos.x * unitSize.x;
+            }
+            currentPos.y = player.transform.position.y;
+            currentPos.z += PlayerPosition.Instance.playerPos.y * unitSize.z;
+            return currentPos;
         }
 
         /// <Summary>
@@ -1104,10 +1116,7 @@ namespace Ariadne
         {
             for (int i = 0; i < steps; i++)
             {
-                Vector3 currentPos = Vector3.zero;
-                currentPos.x += PlayerPosition.Instance.playerPos.x * unitSize.x;
-                currentPos.y = player.transform.position.y;
-                currentPos.z += PlayerPosition.Instance.playerPos.y * unitSize.z;
+                Vector3 currentPos = GetPlayerPosition();
                 PlayerPosition.Instance.MoveForward();
                 Vector3 targetPos = currentPos;
                 switch (PlayerPosition.Instance.direction)
@@ -1157,10 +1166,7 @@ namespace Ariadne
         {
             for (int i = 0; i < steps; i++)
             {
-                Vector3 currentPos = Vector3.zero;
-                currentPos.x += PlayerPosition.Instance.playerPos.x * unitSize.x;
-                currentPos.y = player.transform.position.y;
-                currentPos.z += PlayerPosition.Instance.playerPos.y * unitSize.z;
+                Vector3 currentPos = GetPlayerPosition();
                 PlayerPosition.Instance.MoveToTargetDirection(targetDir);
                 Vector3 targetPos = currentPos;
                 switch (targetDir)

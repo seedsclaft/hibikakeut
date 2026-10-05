@@ -39,7 +39,8 @@ namespace Ariadne
                     int index = xAxis + zAxis * currentFloorMapData.floorSizeHorizontal;
                     int mapAttrId = currentFloorMapData.mapInfo[index].mapAttr;
                     int objectTypeId = currentFloorMapData.mapInfo[index].objectTypeId;
-                    Vector3 posInLoop = new Vector3(basePos.x + xAxis * unitSize.x, basePos.y + centerHeight, basePos.z + zAxis * unitSize.z);
+                    //Vector3 posInLoop = new Vector3(basePos.x + xAxis * unitSize.x, basePos.y + centerHeight, basePos.z + zAxis * unitSize.z);
+                    Vector3 posInLoop = new Vector3((currentFloorMapData.floorSizeHorizontal * unitSize.x) - (basePos.x + xAxis * unitSize.x), basePos.y + centerHeight, basePos.z + zAxis * unitSize.z);
 
                     MapAttributeRecord record = DataRecordUtil.GetMapAttributeRecordById(mapAttributeDataList, mapAttrId);
                     string mapAttributeName = record == null ? "" : record.attributeName;
