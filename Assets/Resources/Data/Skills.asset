@@ -697,7 +697,7 @@ MonoBehaviour:
     Scope: 1
     SkillType: 1
     TargetType: 1
-    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\\s\u306B/f[f,1,2]\u30BF\u30FC\u30F3\u56DE\u907F\u7387/f[f,1,3]%\u30C0\u30A6\u30F3\u3092\u4ED8\u4E0E\n\u81EA\u8EAB\u306B/f[f,3,2]\u30BF\u30FC\u30F3\u56DE\u907F\u7387/f[f,3,3]%\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E"
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\\s\u306B/f[f,1,2]\u30BF\u30FC\u30F3\u56DE\u907F\u7387/f[f,1,3]%\u30C0\u30A6\u30F3\u3092\u4ED8\u4E0E\n\u81EA\u8EAB\u306B/f[f,1,2]\u30BF\u30FC\u30F3\u56DE\u907F\u7387/f[f,1,3]%\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E"
     EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
 
       Decrease \s''s evasion
@@ -742,7 +742,7 @@ MonoBehaviour:
     Scope: 4
     SkillType: 1
     TargetType: 4
-    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\\s\u306B/f[f,1,2]\u30BF\u30FC\u30F3\u56DE\u907F\u7387/f[f,1,3]%\u30C0\u30A6\u30F3\u3092\u4ED8\u4E0E\n\u81EA\u8EAB\u306B/f[f,3,2]\u30BF\u30FC\u30F3\u56DE\u907F\u7387/f[f,3,3]%\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E"
+    Help: "\\s\u306BATKx/f[f,0,1]%\u30C0\u30E1\u30FC\u30B8\n\\s\u306B/f[f,1,2]\u30BF\u30FC\u30F3\u56DE\u907F\u7387/f[f,1,3]%\u30C0\u30A6\u30F3\u3092\u4ED8\u4E0E\n\u81EA\u8EAB\u306B/f[f,1,2]\u30BF\u30FC\u30F3\u56DE\u907F\u7387/f[f,1,3]%\u30A2\u30C3\u30D7\u3092\u4ED8\u4E0E"
     EnglishHelp: 'Deal ATKx/f[f,0,1]% damage to \s.
 
       Decrease \s''s evasion
@@ -3573,84 +3573,6 @@ MonoBehaviour:
       Param2: 0
       Param3: 2150
     ScopeTriggers: []
-  - Id: 12070
-    Name: "\u30BD\u30FC\u30B5\u30EA\u30FC\u30B3\u30CD\u30AF\u30C8"
-    EnglishName: Sorcery Connect
-    IconIndex: 6
-    AnimationId: 3005
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 3
-    Rank: 20
-    Attribute: 2
-    Scope: 1
-    SkillType: 2
-    TargetType: 11
-    Help: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n2\u30BF\u30FC\u30F3\u306E\u9593\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7\u3057\u81EA\u8EAB\u306EATK\u3092/f[f,0,3]\u30C0\u30A6\u30F3"
-    EnglishHelp: '(Condition: Just before another ally attacks)
-
-      For 2 turns,
-      increase \s''s ATK by /f[f,0,3]
-
-      and decrease own ATK by /f[f,0,3].'
-    Range: 1
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 1
-    FeatureDates:
-    - SkillId: 12070
-      FeatureType: 3010
-      Param1: 1040
-      Param2: 1
-      Param3: 8
-      Rate: 100
-    - SkillId: 12070
-      FeatureType: 7010
-      Param1: 12071
-      Param2: 0
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 12070
-      TriggerType: 15011
-      TriggerTiming: 23
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 12071
-    Name: "\u30BD\u30FC\u30B5\u30EA\u30FC\u30B3\u30CD\u30AF\u30C8"
-    EnglishName: Sorcery Connect
-    IconIndex: 6
-    AnimationId: 3006
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 3
-    Rank: 0
-    Attribute: 2
-    Scope: 4
-    SkillType: 2
-    TargetType: 4
-    Help: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n2\u30BF\u30FC\u30F3\u306E\u9593\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7\u3057\u81EA\u8EAB\u306EATK\u3092/f[f,0,3]\u30C0\u30A6\u30F3"
-    EnglishHelp: '(Condition: Just before another ally attacks)
-
-      For 2 turns,
-      increase \s''s ATK by /f[f,0,3]
-
-      and decrease own ATK by /f[f,0,3].'
-    Range: 1
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 12071
-      FeatureType: 3010
-      Param1: 1041
-      Param2: 1
-      Param3: 8
-      Rate: 100
-    TriggerDates: []
-    ScopeTriggers: []
   - Id: 12090
     Name: "\u30A2\u30A6\u30C8\u30AA\u30D6\u30AA\u30FC\u30C0\u30FC"
     EnglishName: Out of Order
@@ -4401,7 +4323,7 @@ MonoBehaviour:
     AnimationId: 803
     AnimationType: 1
     MpCost: 0
-    CountTurn: 3
+    CountTurn: 0
     Rank: 30
     Attribute: 3
     Scope: 4
@@ -4470,6 +4392,43 @@ MonoBehaviour:
     - SkillId: 13130
       TriggerType: 15010
       TriggerTiming: 21
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 13140
+    Name: "\u30AF\u30A4\u30C3\u30AF\u30D0\u30EA\u30A2"
+    EnglishName: Quick Barrier
+    IconIndex: 6
+    AnimationId: 803
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 3
+    Rank: 30
+    Attribute: 3
+    Scope: 1
+    SkillType: 2
+    TargetType: 11
+    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u5BFE\u8C61\u306E\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: '(Condition: Just before an ally is attacked)
+
+      Reduce damage
+      taken by target by /f[f,0,3]%.'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 1
+    FeatureDates:
+    - SkillId: 13140
+      FeatureType: 3010
+      Param1: 1100
+      Param2: 1
+      Param3: 25
+      Rate: 100
+    TriggerDates:
+    - SkillId: 13140
+      TriggerType: 12060
+      TriggerTiming: 31
       Param1: 0
       Param2: 0
       Param3: 0
@@ -4712,43 +4671,6 @@ MonoBehaviour:
       TriggerTiming: 41
       Param1: 0
       Param2: 13
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 13920
-    Name: "\u30AF\u30A4\u30C3\u30AF\u30D0\u30EA\u30A2"
-    EnglishName: Quick Barrier
-    IconIndex: 6
-    AnimationId: 803
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 3
-    Rank: 30
-    Attribute: 3
-    Scope: 1
-    SkillType: 2
-    TargetType: 11
-    Help: "(\u6761\u4EF6)\u5473\u65B9\u304C\u653B\u6483\u3092\u53D7\u3051\u308B\u76F4\u524D\n\u5BFE\u8C61\u306E\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
-    EnglishHelp: '(Condition: Just before an ally is attacked)
-
-      Reduce damage
-      taken by target by /f[f,0,3]%.'
-    Range: 1
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 1
-    FeatureDates:
-    - SkillId: 13920
-      FeatureType: 3010
-      Param1: 1100
-      Param2: 1
-      Param3: 25
-      Rate: 100
-    TriggerDates:
-    - SkillId: 13920
-      TriggerType: 12060
-      TriggerTiming: 31
-      Param1: 0
-      Param2: 0
       Param3: 0
     ScopeTriggers: []
   - Id: 13930
@@ -5353,7 +5275,7 @@ MonoBehaviour:
       Param2: 0
       Param3: 0
     ScopeTriggers: []
-  - Id: 14920
+  - Id: 14140
     Name: "\u30E9\u30A4\u30D5\u30C7\u30A3\u30D0\u30A4\u30C9"
     EnglishName: Life Divide
     IconIndex: 6
@@ -5378,26 +5300,26 @@ MonoBehaviour:
     AliveType: 1
     TimingOnlyCount: 1
     FeatureDates:
-    - SkillId: 14920
+    - SkillId: 14140
       FeatureType: 2040
       Param1: 25
       Param2: 0
       Param3: 1
       Rate: 100
     TriggerDates:
-    - SkillId: 14920
+    - SkillId: 14140
       TriggerType: 12040
       TriggerTiming: 11
       Param1: 100
       Param2: 0
       Param3: 1
-    - SkillId: 14920
+    - SkillId: 14140
       TriggerType: 1020
       TriggerTiming: 11
       Param1: 25
       Param2: 0
       Param3: 1
-    - SkillId: 14920
+    - SkillId: 14140
       TriggerType: 9120
       TriggerTiming: 11
       Param1: 0
@@ -5914,6 +5836,84 @@ MonoBehaviour:
       Param1: 0
       Param2: 4
       Param3: 0
+    ScopeTriggers: []
+  - Id: 15140
+    Name: "\u30BD\u30FC\u30B5\u30EA\u30FC\u30B3\u30CD\u30AF\u30C8"
+    EnglishName: Sorcery Connect
+    IconIndex: 6
+    AnimationId: 3005
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 5
+    Rank: 30
+    Attribute: 5
+    Scope: 1
+    SkillType: 2
+    TargetType: 11
+    Help: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n2\u30BF\u30FC\u30F3\u306E\u9593\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7\u3057\u81EA\u8EAB\u306EATK\u3092/f[f,0,3]\u30C0\u30A6\u30F3"
+    EnglishHelp: '(Condition: Just before another ally attacks)
+
+      For 2 turns,
+      increase \s''s ATK by /f[f,0,3]
+
+      and decrease own ATK by /f[f,0,3].'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 1
+    FeatureDates:
+    - SkillId: 15140
+      FeatureType: 3010
+      Param1: 1040
+      Param2: 1
+      Param3: 8
+      Rate: 100
+    - SkillId: 15140
+      FeatureType: 7010
+      Param1: 12071
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 15140
+      TriggerType: 15011
+      TriggerTiming: 23
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 15141
+    Name: "\u30BD\u30FC\u30B5\u30EA\u30FC\u30B3\u30CD\u30AF\u30C8"
+    EnglishName: Sorcery Connect
+    IconIndex: 6
+    AnimationId: 3006
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 5
+    Rank: 0
+    Attribute: 5
+    Scope: 4
+    SkillType: 2
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u4ED6\u306E\u5473\u65B9\u304C\u653B\u6483\u3059\u308B\u76F4\u524D\u306B\u767A\u52D5\n2\u30BF\u30FC\u30F3\u306E\u9593\n\\s\u306EATK\u3092/f[f,0,3]\u30A2\u30C3\u30D7\u3057\u81EA\u8EAB\u306EATK\u3092/f[f,0,3]\u30C0\u30A6\u30F3"
+    EnglishHelp: '(Condition: Just before another ally attacks)
+
+      For 2 turns,
+      increase \s''s ATK by /f[f,0,3]
+
+      and decrease own ATK by /f[f,0,3].'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 15141
+      FeatureType: 3010
+      Param1: 1041
+      Param2: 1
+      Param3: 8
+      Rate: 100
+    TriggerDates: []
     ScopeTriggers: []
   - Id: 15510
     Name: "\u30EA\u30FC\u30D7\u30EA\u30A2\u30AF\u30C8"

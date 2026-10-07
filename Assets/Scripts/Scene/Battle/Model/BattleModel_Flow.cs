@@ -120,7 +120,7 @@ namespace Ryneus
                 return isValidAttack;
             }
                 
-            return false;
+            return true;
         }
     }
 }

@@ -328,6 +328,7 @@ namespace Ryneus
 
         public void InitilaizeIfNull()
         {
+            _master = null;
             InitTraisInfos();
         }
 
