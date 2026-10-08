@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -36,7 +36,11 @@ namespace Ryneus
             }
             SetBaseAnimation(confirmAnimation);
             _ = new ConfirmPresenter(this);
-            //SetHelpInputInfo("CONFIRM");
+        }
+
+        public void SetViewInfo(ConfirmInfo confirmInfo)
+        {
+            _confirmInfo = confirmInfo;
         }
 
         private void InitializeCommandList()
@@ -60,9 +64,9 @@ namespace Ryneus
             commandList.SetData(menuCommands);
         }
 
-        public void OpenAnimation()
+        public void OpenAnimation(Action initializeAfter)
         {
-            confirmAnimation.OpenAnimation(UiRoot.transform, null);
+            confirmAnimation.OpenAnimation(UiRoot.transform, initializeAfter);
         }
 
         public void SetTitle(string title)
@@ -107,19 +111,18 @@ namespace Ryneus
             _confirmEvent = commandData;
         }
 
-        public void SetViewInfo(ConfirmInfo confirmInfo)
+        public void UpdateViewInfo()
         {
-            _confirmInfo = confirmInfo;
-            SetIsNoChoice(confirmInfo.IsNoChoice.Value, confirmInfo.CommandTextIds);
-            SetTitle(confirmInfo.Title.Value);
-            SetSkillInfo(confirmInfo.SkillInfos());
-            SetStageInfo(confirmInfo.StageInfo);
-            SetConfirmEvent(confirmInfo.ReturnEvent);
-            SetDisableIds(confirmInfo.DisableIds);
-            UIComponent.SetActive(cautionArtifact, confirmInfo.IsArtifact.Value);
-            if (confirmInfo.ItemInfos().Count > 0)
+            SetIsNoChoice(_confirmInfo.IsNoChoice.Value, _confirmInfo.CommandTextIds);
+            SetTitle(_confirmInfo.Title.Value);
+            SetSkillInfo(_confirmInfo.SkillInfos());
+            SetStageInfo(_confirmInfo.StageInfo);
+            SetConfirmEvent(_confirmInfo.ReturnEvent);
+            SetDisableIds(_confirmInfo.DisableIds);
+            UIComponent.SetActive(cautionArtifact, _confirmInfo.IsArtifact.Value);
+            if (_confirmInfo.ItemInfos().Count > 0)
             {
-                baseListComponent.SetListData(confirmInfo.ItemInfos()[0], 0);
+                baseListComponent.SetListData(_confirmInfo.ItemInfos()[0], 0);
                 baseListComponent.UpdateViewItem();
             }
         }

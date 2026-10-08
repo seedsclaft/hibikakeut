@@ -43,7 +43,7 @@ namespace Ryneus
         {
             var list = new List<EquipmentInfo>();
             // 装備スロットが解放されていたらindexを増やす
-            if (_equipmentIds.Count < 2 && LearningSkillInfos().Find(a => a.Enable && a.Master.FindFeature(FeatureType.GainEquipmentSlot)) != null)
+            if (_equipmentIds.Count < 2 && IsClassChenged.Value)
             {
                 _equipmentIds.Add(DataSystem.System.InitEquipmentId);   
             }
@@ -462,7 +462,6 @@ namespace Ryneus
 
         public int EquipSlotCount()
         {
-            IsClassChenged ??= new();
             return IsClassChenged.Value ? (DataSystem.System.EquipSkillCount + DataSystem.System.ClassChangePlusSkill) : DataSystem.System.EquipSkillCount;
         }
 

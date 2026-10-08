@@ -342,8 +342,8 @@ namespace Ryneus
                 await UniTask.DelayFrame(1);
                 confirmView.SetEvent(async (type) => await UpdateCommand(type));
             }
-            confirmView.Initialize();
             confirmView.SetViewInfo(confirmInfo);
+            confirmView.Initialize();
             confirmView.SetBackEvent(() =>
             {
                 _inputableBaseViews.Remove(confirmView);

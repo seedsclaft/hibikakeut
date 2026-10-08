@@ -16,6 +16,7 @@ namespace Ryneus
         public int HpHealValue;
         public int WeakPointRate;
         public int StartStageId;
+        public int ChapterCount;
         public int PeriodTurns;
         public int RecoveryCount;
         public int EquipSkillCount;

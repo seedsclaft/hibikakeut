@@ -15,15 +15,24 @@ namespace Ryneus
 
             SetView(_view);
             _view.SetEvent((type) => UpdateCommand(type));
-            Initialize();
-            _busy = false;
+            Initialize(true);
         }
 
-        private void Initialize()
+        private void Initialize(bool first)
         {
             _model = new ConfirmModel();
             SetModel(_model);
-            _view.OpenAnimation();
+            _view.OpenAnimation(first ? InitializeAfter : null);
+            if (!first)
+            {
+                InitializeAfter();
+            }
+        }
+
+        private void InitializeAfter()
+        {
+            _busy = false;
+            _view.UpdateViewInfo();
         }
 
         private void UpdateCommand(ViewEvent viewEvent)
@@ -39,7 +48,7 @@ namespace Ryneus
             switch (viewEvent.ViewCommandType.CommandType)
             {
                 case CommandType.Initialize:
-                    Initialize();
+                    Initialize(false);
                     break;
                 case CommandType.IsNoChoice:
                     CommandIsNoChoice((List<int>)viewEvent.Template);
