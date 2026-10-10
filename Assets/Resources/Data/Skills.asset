@@ -7907,44 +7907,37 @@ MonoBehaviour:
       Param3: 0
     ScopeTriggers: []
   - Id: 200310
-    Name: "\u30D7\u30EB\u30AC\u30B7\u30AA\u30F3"
-    EnglishName: Purgation
+    Name: "\u30CF\u30FC\u30C9\u30A6\u30A9\u30FC\u30EB"
+    EnglishName: Hard Wall
     IconIndex: 10
-    AnimationId: 21
+    AnimationId: 803
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
     Rank: 1000
-    Attribute: 4
-    Scope: 3
+    Attribute: 5
+    Scope: 4
     SkillType: 3
-    TargetType: 2
-    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C50%\u4EE5\u4E0B\n\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u306E/f[f,0,3]\u56DE\u5FA9\u306E\u30EA\u30B8\u30A7\u30CD\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
-    EnglishHelp: '(Condition: When self`s HP is 50% or lower)
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u304C\u653B\u6483\u3092\u53D7\u3051\u305F\u3068\u304D\n\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    EnglishHelp: '(Condition: When an self is attacked)
 
-      Grant \s /f[f,0,2]
-      turns of regeneration for /f[f,0,3] recovery.
+      Permanently increase
+      \s''s DEF by /f[f,0,3].
 
-      Transition to Awakened
-      state.
+      Transition to Awakened state.
 
       /s'
-    Range: 2
+    Range: 1
     RepeatTime: 1
     AliveType: 1
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 200310
       FeatureType: 3010
-      Param1: 2040
-      Param2: 3
+      Param1: 1050
+      Param2: 999
       Param3: 15
-      Rate: 100
-    - SkillId: 200310
-      FeatureType: 7010
-      Param1: 11
-      Param2: 0
-      Param3: 0
       Rate: 100
     TriggerDates:
     - SkillId: 200310
@@ -7954,32 +7947,35 @@ MonoBehaviour:
       Param2: 0
       Param3: 1
     - SkillId: 200310
-      TriggerType: 1010
-      TriggerTiming: 61
-      Param1: 50
-      Param2: 0
+      TriggerType: 12060
+      TriggerTiming: 31
+      Param1: 0
+      Param2: 4
       Param3: 0
     ScopeTriggers: []
   - Id: 200320
-    Name: "\u30D7\u30EA\u30A8\u30B9\u30C6\u30B9"
-    EnglishName: Priestess
+    Name: "\u30EA\u30D5\u30A1\u30AF\u30BF\u30FC"
+    EnglishName: Refactor
     IconIndex: 11
-    AnimationId: 21
+    AnimationId: 3023
     AnimationType: 1
     MpCost: 0
     CountTurn: 0
     Rank: 1000
-    Attribute: 4
+    Attribute: 5
     Scope: 4
     SkillType: 4
     TargetType: 4
-    Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306B/f[f,0,3]%\u53CD\u5C04\u30C0\u30E1\u30FC\u30B8\u306E\u30AB\u30A6\u30F3\u30BF\u3092\u4ED8\u4E0E(\u6C38\u7D9A)\n\u899A\u9192\u89E3\u9664\n/s"
+    Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306EHp\u3092/f[f,0,1]%\u56DE\u5FA9\u3057ATK\u304C/f[f,1,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)\n\u899A\u9192\u89E3\u9664\n/s"
     EnglishHelp: '(Condition: While in Awakened state)
 
-      Permanently grant counter
-      damage reflection of /f[f,0,3]% to \s.
+      Restore HP of self
+      by /f[f,0,1]%.
 
-      Revert to normal state.
+      Permanently Increase \s''s ATK by /f[f,0,3]%.
+
+      Revert
+      to normal state.
 
       /s'
     Range: 1
@@ -7988,22 +7984,28 @@ MonoBehaviour:
     TimingOnlyCount: 0
     FeatureDates:
     - SkillId: 200320
-      FeatureType: 3010
-      Param1: 2030
-      Param2: 999
-      Param3: 50
+      FeatureType: 2010
+      Param1: 30
+      Param2: 0
+      Param3: 1
       Rate: 100
     - SkillId: 200320
-      FeatureType: 7010
-      Param1: 21
+      FeatureType: 3010
+      Param1: 1040
+      Param2: 999
+      Param3: 15
+      Rate: 100
+    TriggerDates:
+    - SkillId: 200320
+      TriggerType: 1010
+      TriggerTiming: 61
+      Param1: 50
       Param2: 0
       Param3: 0
-      Rate: 100
-    TriggerDates: []
     ScopeTriggers: []
   - Id: 200330
-    Name: "\u60AA\u9B54(\u30D1\u30A4\u30E2\u30F3)"
-    EnglishName: Demon (Paemon)
+    Name: "\u60AA\u9B54(\u30A2\u30E2\u30F3)"
+    EnglishName: Demon (Ammon)
     IconIndex: 6
     AnimationId: 51
     AnimationType: 1
@@ -8014,13 +8016,11 @@ MonoBehaviour:
     Scope: 4
     SkillType: 2
     TargetType: 4
-    Help: "\u653B\u6483\u7BC4\u56F2\u304C\u5217\u306B\u306A\u308B(\u6C38\u7D9A)\n\u653B\u6483\u7BC4\u56F2\u304C\u5EF6\u9577\u3059\u308B(\u6C38\u7D9A)"
-    EnglishHelp: '(Permanent effect)
+    Help: "(\u6761\u4EF6)Hp\u304C25%\u672A\u6E80\n\\s\u306EDEF\u3092/f[f,0,3]\u30A2\u30C3\u30D7(\u6C38\u7D9A)"
+    EnglishHelp: '(Condition: When HP is below 25%)
 
-      Attack range becomes a column.
-
-      Attack
-      range is extended.'
+      Permanently increase \s''s
+      DEF by /f[f,0,3].'
     Range: 1
     RepeatTime: 1
     AliveType: 1
@@ -8028,21 +8028,15 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 200330
       FeatureType: 3010
-      Param1: 2340
+      Param1: 1050
       Param2: 999
-      Param3: 0
-      Rate: 100
-    - SkillId: 200330
-      FeatureType: 3010
-      Param1: 2190
-      Param2: 999
-      Param3: 0
+      Param3: 15
       Rate: 100
     TriggerDates:
     - SkillId: 200330
-      TriggerType: 0
-      TriggerTiming: 1
-      Param1: 0
+      TriggerType: 1010
+      TriggerTiming: 61
+      Param1: 25
       Param2: 0
       Param3: 0
     ScopeTriggers: []
@@ -8463,6 +8457,146 @@ MonoBehaviour:
       Rate: 100
     TriggerDates:
     - SkillId: 201030
+      TriggerType: 0
+      TriggerTiming: 1
+      Param1: 0
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 209310
+    Name: "\u30D7\u30EB\u30AC\u30B7\u30AA\u30F3"
+    EnglishName: Purgation
+    IconIndex: 10
+    AnimationId: 21
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 1000
+    Attribute: 4
+    Scope: 3
+    SkillType: 3
+    TargetType: 2
+    Help: "(\u6761\u4EF6)\u81EA\u8EAB\u306EHp\u304C50%\u4EE5\u4E0B\n\\s\u306B/f[f,0,2]\u30BF\u30FC\u30F3\u306E/f[f,0,3]\u56DE\u5FA9\u306E\u30EA\u30B8\u30A7\u30CD\u4ED8\u4E0E\n\u899A\u9192\u72B6\u614B\u306B\u79FB\u884C\n/s"
+    EnglishHelp: '(Condition: When self`s HP is 50% or lower)
+
+      Grant \s /f[f,0,2]
+      turns of regeneration for /f[f,0,3] recovery.
+
+      Transition to Awakened
+      state.
+
+      /s'
+    Range: 2
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 209310
+      FeatureType: 3010
+      Param1: 2040
+      Param2: 3
+      Param3: 15
+      Rate: 100
+    - SkillId: 209310
+      FeatureType: 7010
+      Param1: 11
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 209310
+      TriggerType: 7010
+      TriggerTiming: 61
+      Param1: 0
+      Param2: 0
+      Param3: 1
+    - SkillId: 209310
+      TriggerType: 1010
+      TriggerTiming: 61
+      Param1: 50
+      Param2: 0
+      Param3: 0
+    ScopeTriggers: []
+  - Id: 209320
+    Name: "\u30D7\u30EA\u30A8\u30B9\u30C6\u30B9"
+    EnglishName: Priestess
+    IconIndex: 11
+    AnimationId: 21
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 1000
+    Attribute: 4
+    Scope: 4
+    SkillType: 4
+    TargetType: 4
+    Help: "(\u6761\u4EF6)\u899A\u9192\u72B6\u614B\n\\s\u306B/f[f,0,3]%\u53CD\u5C04\u30C0\u30E1\u30FC\u30B8\u306E\u30AB\u30A6\u30F3\u30BF\u3092\u4ED8\u4E0E(\u6C38\u7D9A)\n\u899A\u9192\u89E3\u9664\n/s"
+    EnglishHelp: '(Condition: While in Awakened state)
+
+      Permanently grant counter
+      damage reflection of /f[f,0,3]% to \s.
+
+      Revert to normal state.
+
+      /s'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 209320
+      FeatureType: 3010
+      Param1: 2030
+      Param2: 999
+      Param3: 50
+      Rate: 100
+    - SkillId: 209320
+      FeatureType: 7010
+      Param1: 21
+      Param2: 0
+      Param3: 0
+      Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 209330
+    Name: "\u60AA\u9B54(\u30D1\u30A4\u30E2\u30F3)"
+    EnglishName: Demon (Paemon)
+    IconIndex: 6
+    AnimationId: 51
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 0
+    Attribute: 0
+    Scope: 4
+    SkillType: 2
+    TargetType: 4
+    Help: "\u653B\u6483\u7BC4\u56F2\u304C\u5217\u306B\u306A\u308B(\u6C38\u7D9A)\n\u653B\u6483\u7BC4\u56F2\u304C\u5EF6\u9577\u3059\u308B(\u6C38\u7D9A)"
+    EnglishHelp: '(Permanent effect)
+
+      Attack range becomes a column.
+
+      Attack
+      range is extended.'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates:
+    - SkillId: 209330
+      FeatureType: 3010
+      Param1: 2340
+      Param2: 999
+      Param3: 0
+      Rate: 100
+    - SkillId: 209330
+      FeatureType: 3010
+      Param1: 2190
+      Param2: 999
+      Param3: 0
+      Rate: 100
+    TriggerDates:
+    - SkillId: 209330
       TriggerType: 0
       TriggerTiming: 1
       Param1: 0
@@ -9453,7 +9587,7 @@ MonoBehaviour:
       FeatureType: 3010
       Param1: 1040
       Param2: 999
-      Param3: 5
+      Param3: 3
       Rate: 100
     TriggerDates:
     - SkillId: 310060
@@ -9490,7 +9624,7 @@ MonoBehaviour:
       FeatureType: 3010
       Param1: 1050
       Param2: 999
-      Param3: 5
+      Param3: 3
       Rate: 100
     TriggerDates:
     - SkillId: 310070
@@ -9527,7 +9661,7 @@ MonoBehaviour:
       FeatureType: 3010
       Param1: 1060
       Param2: 999
-      Param3: 5
+      Param3: 2
       Rate: 100
     TriggerDates:
     - SkillId: 310080

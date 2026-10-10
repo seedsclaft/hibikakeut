@@ -1494,7 +1494,7 @@ MonoBehaviour:
       Level: 15
       Weight: 0
       TriggerDates: []
-    - SkillId: 14080
+    - SkillId: 14040
       Level: 20
       Weight: 0
       TriggerDates: []
@@ -1515,7 +1515,7 @@ MonoBehaviour:
     - SkillId: 14010
       Trigger1: 0
       Trigger2: 0
-    - SkillId: 14080
+    - SkillId: 14040
       Trigger1: 1033
       Trigger2: 0
     - SkillId: 404030
@@ -2205,7 +2205,7 @@ MonoBehaviour:
       Trigger2: 0
   - Id: 104
     Name: "\u30A2\u30E2\u30F3"
-    ImagePath: Ammon
+    ImagePath: guardian dragon_4
     ImageScale: 1
     BaseStatus:
       HpParam:
@@ -2217,25 +2217,25 @@ MonoBehaviour:
       MpParam:
         paramType: 1
         curernt:
-          _value: 0
+          _value: 1
         max:
           _value: 0
       AtkParam:
         paramType: 2
         curernt:
-          _value: 18
+          _value: 13
         max:
           _value: 0
       DefParam:
         paramType: 3
         curernt:
-          _value: 8
+          _value: 3
         max:
           _value: 0
       SpdParam:
         paramType: 4
         curernt:
-          _value: 35
+          _value: 6
         max:
           _value: 0
       CostParam:
@@ -2268,41 +2268,69 @@ MonoBehaviour:
           _value: 0
         max:
           _value: 0
-    Kinds: 010000000c000000
-    HpGrowth: 160
+    Kinds: 040000000c000000
+    HpGrowth: 200
     MpGrowth: 0
-    AtkGrowth: 80
-    DefGrowth: 25
-    SpdGrowth: 85
+    AtkGrowth: 65
+    DefGrowth: 15
+    SpdGrowth: 10
     MovGrouth: 0
     LearningSkills:
-    - SkillId: 2010
+    - SkillId: 5010
       Level: 1
       Weight: 50
       TriggerDates: []
-    - SkillId: 200410
+    - SkillId: 5120
+      Level: 1
+      Weight: 100
+      TriggerDates: []
+    - SkillId: 5110
+      Level: 1
+      Weight: 80
+      TriggerDates: []
+    - SkillId: 15040
       Level: 1
       Weight: 0
       TriggerDates: []
-    - SkillId: 200420
+    - SkillId: 15130
       Level: 1
       Weight: 0
       TriggerDates: []
-    - SkillId: 200430
+    - SkillId: 200310
+      Level: 1
+      Weight: 0
+      TriggerDates: []
+    - SkillId: 200320
+      Level: 1
+      Weight: 0
+      TriggerDates: []
+    - SkillId: 200330
       Level: 1
       Weight: 0
       TriggerDates: []
     SkillTriggerDates:
-    - SkillId: 2010
+    - SkillId: 5010
       Trigger1: 0
       Trigger2: 0
-    - SkillId: 200410
+    - SkillId: 5120
       Trigger1: 0
       Trigger2: 0
-    - SkillId: 200420
-      Trigger1: 1024
+    - SkillId: 5110
+      Trigger1: 0
       Trigger2: 0
-    - SkillId: 200430
+    - SkillId: 15040
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 15130
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 200310
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 200320
+      Trigger1: 0
+      Trigger2: 0
+    - SkillId: 200330
       Trigger1: 0
       Trigger2: 0
   - Id: 105

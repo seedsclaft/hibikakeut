@@ -50,16 +50,14 @@ namespace Ryneus
                 {
                     // エクセルブックを作成
                     AssetPostImporter.CreateBook(asset, Mainstream, out IWorkbook Book);
-                    var textData = AssetPostImporter.CreateText(Book.GetSheetAt(4));
+                    var textData = AssetPostImporter.CreateText(Book.GetSheetAt(2));
 
                     // 情報の初期化
                     Data.Data.Clear();
 
                     // エクセルシートからセル単位で読み込み
                     ISheet BaseSheet = Book.GetSheetAt(0);
-                    ISheet EventSheet = Book.GetSheetAt(1);
-                    ISheet EnemyRateSheet = Book.GetSheetAt(2);
-                    ISheet TutorialSheet = Book.GetSheetAt(3);
+                    ISheet EnemyRateSheet = Book.GetSheetAt(1);
                     for (int i = 1; i <= BaseSheet.LastRowNum; i++)
                     {
                         var KeyRow = BaseSheet.GetRow(0);
@@ -92,8 +90,6 @@ namespace Ryneus
                             BattleBGMId = AssetPostImporter.ImportNumeric(BaseRow, "BattleBGMId"),
                             SkyboxName = AssetPostImporter.ImportString(BaseRow, "SkyboxName"),
                         };
-                        KeyRow = EventSheet.GetRow(0);
-                        AssetPostImporter.SetKeyNames(KeyRow.Cells);
 
                         KeyRow = EnemyRateSheet.GetRow(0);
                         AssetPostImporter.SetKeyNames(KeyRow.Cells);
