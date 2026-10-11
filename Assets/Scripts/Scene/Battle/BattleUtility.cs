@@ -100,6 +100,10 @@ namespace Ryneus
             }
             // 複数候補は列が近い方を選ぶ
             var selfIndex = battlerInfo.Index.Value % 100;
+            if (selfIndex > 3)
+            {
+                selfIndex -= 3;
+            }
             for (int i = 0; i < 3; i++)
             {
                 var same = targetIndexList.FindIndex(a => a % 100 == (selfIndex + (i * -1)));

@@ -21,7 +21,7 @@ namespace Ryneus
             var textData = DataSystem.GetText(2100 + (int)statusParamType);
             UIComponent.SetText(nameText, textData);
 
-            var before = _actorInfo.LevelUpStatus(_actorInfo.Level-beforeLevel).GetParameter(statusParamType);
+            var before = _actorInfo.LevelUpStatus(beforeLevel).GetParameter(statusParamType);
             UIComponent.SetText(currentStatus, before.ToString());
 
             if (afterStatus != null)

@@ -376,12 +376,10 @@ namespace Ryneus
             int rand = 0;
             var speed = CurrentSpd(false);
             var baseSpeed = new List<int> { 50, 75, 100, 150 };
-            var setAp = 600f + rand;
-            //Ap.SetValue(600 + rand);
+            var setAp = 800f + rand;
             if (_preserveMinusAp > 0)
             {
                 setAp += _preserveMinusAp;
-                //Ap.GainValue(_preserveMinusAp);
                 _preserveMinusAp = 0;
             }
             var speedCount = -1;
@@ -392,32 +390,29 @@ namespace Ryneus
                     speedCount = i;
                 }
             }
+            var speedRate = 8f;
             if (speedCount > -1)
             {
                 for (var i = 0; i <= speedCount; i++)
                 {
                     if (i == 0)
                     {
-                        setAp -= baseSpeed[i] * (8 / (i + 1));
-                        //Ap.GainValue(baseSpeed[i] * (8/(i+1)));
+                        setAp -= baseSpeed[i] * (speedRate / (i + 1));
                     }
                     else
                     {
-                        setAp -= (baseSpeed[i] - baseSpeed[i - 1]) * (8 / (i + 1));
-                        //Ap.GainValue((baseSpeed[i] - baseSpeed[i-1]) * (8/(i+1)));
+                        setAp -= (baseSpeed[i] - baseSpeed[i - 1]) * (speedRate / (i + 1));
                     }
                 }
                 var over = speed - baseSpeed[speedCount];
                 if (over > 0)
                 {
-                    setAp -= over * (8 / (speedCount + 2));
-                    //Ap.GainValue(over * (8/(speedCount+2)));
+                    setAp -= over * (speedRate / (speedCount + 2));
                 }
             }
             else
             {
-                setAp -= speed * 8;
-                //Ap.GainValue(speed * -8);
+                setAp -= speed * speedRate;
             }
             Ap.SetValue(Math.Max(setAp, 200));
         }

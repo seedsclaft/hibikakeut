@@ -48,12 +48,13 @@ namespace Ryneus
                 {
                     ActorInfo = actorInfo,
                     StatusParamType = StatusParamType.Spd,
-                },
+                }/*,
                 new()
                 {
                     ActorInfo = actorInfo,
                     StatusParamType = StatusParamType.Cost,
                 }
+                */
             };
             return strategyStrengthInfos;
         }
