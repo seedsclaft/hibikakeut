@@ -99,15 +99,17 @@ namespace Ryneus
                     for (int j = 1; j <= StageEventSheet.LastRowNum; j++)
                     {
                         IRow StageEventRow = StageEventSheet.GetRow(j);
-                        var EventData = new StageEventData();
-                        EventData.PositionX = AssetPostImporter.ImportNumeric(StageEventRow, "PositionX");
-                        EventData.PositionY = AssetPostImporter.ImportNumeric(StageEventRow, "PositionY");
-                        EventData.Timing = (EventTiming)AssetPostImporter.ImportNumeric(StageEventRow, "Timing");
-                        EventData.Type = (StageEventType)AssetPostImporter.ImportNumeric(StageEventRow, "Type");
-                        EventData.Param = AssetPostImporter.ImportNumeric(StageEventRow, "Param");
-                        EventData.Param2 = AssetPostImporter.ImportNumeric(StageEventRow, "Param2");
-                        EventData.Param3 = AssetPostImporter.ImportNumeric(StageEventRow, "Param3");
-                        EventData.ReadFlag = AssetPostImporter.ImportBool(StageEventRow, "ReadFlag");
+                        var EventData = new StageEventData
+                        {
+                            PositionX = AssetPostImporter.ImportNumeric(StageEventRow, "PositionX"),
+                            PositionY = AssetPostImporter.ImportNumeric(StageEventRow, "PositionY"),
+                            Timing = (EventTiming)AssetPostImporter.ImportNumeric(StageEventRow, "Timing"),
+                            Type = (StageEventType)AssetPostImporter.ImportNumeric(StageEventRow, "Type"),
+                            Param = AssetPostImporter.ImportNumeric(StageEventRow, "Param"),
+                            Param2 = AssetPostImporter.ImportNumeric(StageEventRow, "Param2"),
+                            Param3 = AssetPostImporter.ImportNumeric(StageEventRow, "Param3"),
+                            ReadFlag = AssetPostImporter.ImportBool(StageEventRow, "ReadFlag")
+                        };
                         EventData.EventKey = AssetPostImporter.ImportNumeric(StageEventRow, "Id").ToString() + "_" + EventData.PositionX.ToString() + "_" + EventData.PositionY.ToString() + EventData.Timing.ToString() + EventData.Type.ToString() + EventData.Param.ToString();
 
                         stageEvents.Add(EventData);
@@ -321,7 +323,7 @@ namespace Ryneus
             AriadoneFloorData.entrancePos = new Vector2Int(Data.Data.InitX,Data.Data.InitY);
             AriadoneFloorData.enteringDir = (Ariadne.DungeonDir)Data.Data.InitDir;
             AriadoneFloorData.mapInfo = Data.FloorData;
-            AriadoneFloorData.DungeonCompletion = Data.FloorData.FindAll(a => a.mapAttr is 0 or 2 or 3 or 8 or 10 or 11 or 12 or 13).Count;
+            AriadoneFloorData.DungeonCompletion = Data.FloorData.FindAll(a => a.mapAttr is 0 or 2 or 3 or 8 or 10 or 11 or 12 or 13 or 15).Count;
 
             EditorUtility.SetDirty(AriadoneFloorData);
             return AriadoneFloorData;

@@ -626,9 +626,11 @@ namespace Ryneus
                     return;
                 case StageEventType.None:
                 case StageEventType.EventEnd:
+                    _view.CallSystemCommand(Base.CommandType.ShowMap);
                     _view.CallSystemCommand(Base.CommandType.SceneShowUI);
                     _busy = false;
                     _model.DungeonBusy(false);
+                    _model.UpdateEventObjects();
                     CommandRefresh();
                     // ターン数確認
                     CommandTurnOverEvent(false);
@@ -651,6 +653,11 @@ namespace Ryneus
         {
             var actorIndex = stageEventData.Param;
             var actorInfo = _model.PartyInfo.GetReleifActorInfo(actorIndex);
+            if (actorInfo == null)
+            {
+                endEvent?.Invoke();
+                return;
+            }
             var seek = actorInfo.ReleafPoint.Value;
             SkillInfo skillInfo = null;
             if (actorInfo != null)

@@ -98,17 +98,17 @@ MonoBehaviour:
     objectTypeId: 0
   - eventId: 14
     mapAttr: 6
-    objectFront: 1
+    objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 15
-    mapAttr: 6
-    objectFront: 1
+    mapAttr: 9
+    objectFront: 0
     regeonNo: 0
     objectTypeId: 0
   - eventId: 16
-    mapAttr: 9
-    objectFront: 0
+    mapAttr: 6
+    objectFront: 3
     regeonNo: 0
     objectTypeId: 0
   - eventId: 17
@@ -162,7 +162,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 27
-    mapAttr: 15
+    mapAttr: 9
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 36
-    mapAttr: 9
+    mapAttr: 5
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -227,7 +227,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 40
-    mapAttr: 15
+    mapAttr: 9
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -392,7 +392,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 73
-    mapAttr: 9
+    mapAttr: 12
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -422,7 +422,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 79
-    mapAttr: 10
+    mapAttr: 8
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -687,7 +687,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 132
-    mapAttr: 9
+    mapAttr: 5
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -727,7 +727,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 140
-    mapAttr: 9
+    mapAttr: 5
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -871,7 +871,7 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 5
+  DungeonCompletion: 54
   stageEvents:
   - EventKey: 61_6_2DungeonMoveDungeonFloor60
     Timing: 3010
@@ -900,30 +900,12 @@ MonoBehaviour:
     Param2: 6
     Param3: 5
     ReadFlag: 0
-  - EventKey: 61_7_7DungeonAdvStart140
+  - EventKey: 61_8_3DungeonAdvStart140
     Timing: 3010
     Type: 1010
-    PositionX: 7
-    PositionY: 7
-    Param: 140
-    Param2: 0
-    Param3: 0
-    ReadFlag: 1
-  - EventKey: 61_8_3DungeonAddEventFlag82
-    Timing: 3010
-    Type: 6010
     PositionX: 8
     PositionY: 3
-    Param: 82
-    Param2: 0
-    Param3: 0
-    ReadFlag: 1
-  - EventKey: 61_8_2DungeonNone82
-    Timing: 3010
-    Type: 0
-    PositionX: 8
-    PositionY: 2
-    Param: 82
+    Param: 140
     Param2: 0
     Param3: 0
     ReadFlag: 1
@@ -1017,21 +999,84 @@ MonoBehaviour:
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 61_1_1DungeonGetItem420
+  - EventKey: 61_1_1DungeonGetItem5060
     Timing: 3010
     Type: 3020
     PositionX: 1
     PositionY: 1
-    Param: 420
+    Param: 5060
     Param2: 0
     Param3: 0
     ReadFlag: 1
-  - EventKey: 61_8_6DungeonGetItem420
+  - EventKey: 61_3_1DungeonGetItem4030
+    Timing: 3010
+    Type: 3020
+    PositionX: 3
+    PositionY: 1
+    Param: 4030
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_8_6DungeonGetItem1100
     Timing: 3010
     Type: 3020
     PositionX: 8
     PositionY: 6
-    Param: 420
+    Param: 1100
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_8_5DungeonDungeonClear0
+    Timing: 3010
+    Type: 2030
+    PositionX: 8
+    PositionY: 5
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_8_5DungeonForceBossBattle5010
+    Timing: 3010
+    Type: 5020
+    PositionX: 8
+    PositionY: 5
+    Param: 5010
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_8_5DungeonEventEnd0
+    Timing: 3010
+    Type: 9010
+    PositionX: 8
+    PositionY: 5
+    Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_10_2DungeonForceBattle-1
+    Timing: 3010
+    Type: 5010
+    PositionX: 10
+    PositionY: 2
+    Param: -1
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_10_10DungeonForceBattle-1
+    Timing: 3010
+    Type: 5010
+    PositionX: 10
+    PositionY: 10
+    Param: -1
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 61_2_10DungeonForceBattle-1
+    Timing: 3010
+    Type: 5010
+    PositionX: 2
+    PositionY: 10
+    Param: -1
     Param2: 0
     Param3: 0
     ReadFlag: 1

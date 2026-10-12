@@ -167,7 +167,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 28
-    mapAttr: 9
+    mapAttr: 5
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 36
-    mapAttr: 9
+    mapAttr: 5
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -467,7 +467,7 @@ MonoBehaviour:
     regeonNo: 0
     objectTypeId: 0
   - eventId: 88
-    mapAttr: 10
+    mapAttr: 8
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
@@ -871,7 +871,7 @@ MonoBehaviour:
     objectFront: 0
     regeonNo: 0
     objectTypeId: 0
-  DungeonCompletion: 5
+  DungeonCompletion: 38
   stageEvents:
   - EventKey: 63_3_9DungeonMoveDungeonFloor62
     Timing: 3010
@@ -978,6 +978,24 @@ MonoBehaviour:
     PositionX: 10
     PositionY: 6
     Param: 0
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 63_2_2DungeonForceBattle-1
+    Timing: 3010
+    Type: 5010
+    PositionX: 2
+    PositionY: 2
+    Param: -1
+    Param2: 0
+    Param3: 0
+    ReadFlag: 1
+  - EventKey: 63_10_2DungeonForceBattle-1
+    Timing: 3010
+    Type: 5010
+    PositionX: 10
+    PositionY: 2
+    Param: -1
     Param2: 0
     Param3: 0
     ReadFlag: 1

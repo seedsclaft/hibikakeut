@@ -2335,7 +2335,7 @@ MonoBehaviour:
       Trigger2: 0
   - Id: 105
     Name: "\u30D3\u30D5\u30ED\u30F3\u30B9"
-    ImagePath: Bifrons
+    ImagePath: machine enemy_003
     ImageScale: 1
     BaseStatus:
       HpParam:
@@ -2347,25 +2347,25 @@ MonoBehaviour:
       MpParam:
         paramType: 1
         curernt:
-          _value: 0
+          _value: 1
         max:
           _value: 0
       AtkParam:
         paramType: 2
         curernt:
-          _value: 15
+          _value: 9
         max:
           _value: 0
       DefParam:
         paramType: 3
         curernt:
-          _value: 20
+          _value: 12
         max:
           _value: 0
       SpdParam:
         paramType: 4
         curernt:
-          _value: 17
+          _value: 5
         max:
           _value: 0
       CostParam:
@@ -2399,11 +2399,11 @@ MonoBehaviour:
         max:
           _value: 0
     Kinds: 020000000c000000
-    HpGrowth: 170
+    HpGrowth: 135
     MpGrowth: 0
-    AtkGrowth: 70
-    DefGrowth: 60
-    SpdGrowth: 40
+    AtkGrowth: 45
+    DefGrowth: 70
+    SpdGrowth: 5
     MovGrouth: 0
     LearningSkills:
     - SkillId: 3010
