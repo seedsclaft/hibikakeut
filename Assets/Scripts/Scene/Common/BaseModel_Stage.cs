@@ -8,7 +8,6 @@ namespace Ryneus
         {
             var claerList = new List<StageInfo>();
             var list = new List<StageInfo>();
-            var idx = 0;
             foreach (var stageData in DataSystem.Dates[DataType.Stages].ToList<StageData>())
             {
                 if (!stageData.Selectable)
@@ -38,7 +37,6 @@ namespace Ryneus
                 {
                     list.Add(stageInfo);
                 }
-                idx++;
             }
             list.AddRange(claerList);
             list.Sort((a, b) => b.SortKey.CompareTo(a.SortKey));

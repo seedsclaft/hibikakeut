@@ -75,6 +75,7 @@ namespace Ryneus
         public bool ReadFlag;
     }
 
+    /*
     [Serializable]
     public class SymbolGroupData
     {
@@ -85,6 +86,7 @@ namespace Ryneus
         public int Param2;
         public int PrizeSetId;
     }
+    */
 
     [Serializable]
     public class StageEnemyRate
@@ -119,12 +121,12 @@ namespace Ryneus
         Shop = 70,
         Group = 99, // 99以上はグループ指定
     }
-    */
 
     public enum AchieveType
     {
         ConquerEnemyBasement = 1
     }
+    */
 
     public enum EventTiming
     {
@@ -167,6 +169,7 @@ namespace Ryneus
         EventEnd = 9010,
     }
 
+/*
     public enum TutorialType
     {
         None = 0,
@@ -232,4 +235,5 @@ namespace Ryneus
         Away = 2, // 敵
         Neutral = 3, // 中立
     }
+*/
 }
