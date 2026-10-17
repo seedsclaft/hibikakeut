@@ -35,7 +35,7 @@ namespace Ryneus
             UIComponent.SetActive(categoryMain, achievementData.Category == AchievementCategory.Main);
             UIComponent.SetActive(categoryNormal, achievementData.Category == AchievementCategory.Normal);
             UIComponent.SetText(rank, achievementData.Rank);
-            UIComponent.SetText(description, achievementData.GetText());
+            UIComponent.SetText(description, string.Format(achievementData.GetText(), achievementData.Param1.ToString()));
         }
     }
 }

@@ -204,16 +204,8 @@ namespace Ryneus
             {
                 var stateMaster = DataSystem.FindState(state.Param1);
                 string effectText = stateMaster.GetHelp();
-                if (battlerInfo != null)
-                {
-                    var effect = battlerInfo.GetStateEffectAll(stateMaster.StateType);
-                    effectText = effectText.Replace("\\d", effect.ToString());
-                }
-                else
-                {
-                    var effect = state.Param3;
-                    effectText = effectText.Replace("\\d", effect.ToString());
-                }
+                var effect = battlerInfo != null ? battlerInfo.GetStateEffectAll(stateMaster.StateType) : state.Param3;
+                effectText = string.Format(effectText, effect.ToString());
                 help = help.Replace("/s", "【" + stateMaster.GetName() + "】" + "\n" + effectText);
             }
             var lines = help.Split("\n");

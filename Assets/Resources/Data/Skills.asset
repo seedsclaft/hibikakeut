@@ -9468,7 +9468,7 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 310030
       FeatureType: 40070
-      Param1: 20
+      Param1: 10
       Param2: 0
       Param3: 0
       Rate: 100
@@ -9511,7 +9511,7 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 310040
       FeatureType: 5020
-      Param1: 100
+      Param1: 50
       Param2: 0
       Param3: 0
       Rate: 100
@@ -9721,7 +9721,7 @@ MonoBehaviour:
     FeatureDates:
     - SkillId: 310100
       FeatureType: 1030
-      Param1: 50
+      Param1: 25
       Param2: 0
       Param3: 0
       Rate: 100
@@ -9763,7 +9763,7 @@ MonoBehaviour:
       FeatureType: 3010
       Param1: 2360
       Param2: 1
-      Param3: 10
+      Param3: 5
       Rate: 100
     TriggerDates:
     - SkillId: 310110
@@ -9839,670 +9839,6 @@ MonoBehaviour:
     TriggerDates:
     - SkillId: 310130
       TriggerType: 40010
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 320010
-    Name: "\u8A13\u7DF4\u6240Lv1"
-    EnglishName: "\u8A13\u7DF4\u6240Lv1"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\nLv\u306E\u4F4E\u30443\u4EBA\u307E\u3067Exp+25"
-    EnglishHelp: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\nLv\u306E\u4F4E\u30443\u4EBA\u307E\u3067Exp+25"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 320010
-      FeatureType: 40030
-      Param1: 25
-      Param2: 0
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 320010
-      TriggerType: 40020
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers:
-    - SkillId: 320010
-      TriggerType: 14520
-      TriggerTiming: 2
-      Param1: 3
-      Param2: 0
-      Param3: 0
-  - Id: 320011
-    Name: "\u8A13\u7DF4\u6240Lv2"
-    EnglishName: "\u8A13\u7DF4\u6240Lv2"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\nLv\u306E\u4F4E\u30443\u4EBA\u307E\u3067Exp+50"
-    EnglishHelp: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\nLv\u306E\u4F4E\u30443\u4EBA\u307E\u3067Exp+50"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 320011
-      FeatureType: 40030
-      Param1: 50
-      Param2: 0
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 320011
-      TriggerType: 40020
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers:
-    - SkillId: 320011
-      TriggerType: 14520
-      TriggerTiming: 2
-      Param1: 3
-      Param2: 0
-      Param3: 0
-  - Id: 320012
-    Name: "\u8A13\u7DF4\u6240Lv3"
-    EnglishName: "\u8A13\u7DF4\u6240Lv3"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\nLv\u306E\u4F4E\u30443\u4EBA\u307E\u3067Exp+75"
-    EnglishHelp: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\nLv\u306E\u4F4E\u30443\u4EBA\u307E\u3067Exp+75"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 320012
-      FeatureType: 40030
-      Param1: 75
-      Param2: 0
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 320012
-      TriggerType: 40020
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers:
-    - SkillId: 320012
-      TriggerType: 14520
-      TriggerTiming: 2
-      Param1: 3
-      Param2: 0
-      Param3: 0
-  - Id: 320020
-    Name: "\u7814\u7A76\u65BD\u8A2DLv1"
-    EnglishName: "\u7814\u7A76\u65BD\u8A2DLv1"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 4
-    SkillType: 8
-    TargetType: 4
-    Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\n(Nu)\u30922\u5165\u624B"
-    EnglishHelp: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\n(Nu)\u30922\u5165\u624B"
-    Range: 1
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 320020
-      FeatureType: 40040
-      Param1: 2
-      Param2: 0
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 320020
-      TriggerType: 40020
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 320021
-    Name: "\u7814\u7A76\u65BD\u8A2DLv2"
-    EnglishName: "\u7814\u7A76\u65BD\u8A2DLv2"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 4
-    SkillType: 8
-    TargetType: 4
-    Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\n(Nu)\u30924\u5165\u624B"
-    EnglishHelp: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\n(Nu)\u30924\u5165\u624B"
-    Range: 1
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 320021
-      FeatureType: 40040
-      Param1: 4
-      Param2: 0
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 320021
-      TriggerType: 40020
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 320022
-    Name: "\u7814\u7A76\u65BD\u8A2DLv3"
-    EnglishName: "\u7814\u7A76\u65BD\u8A2DLv3"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 4
-    SkillType: 8
-    TargetType: 4
-    Help: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\n(Nu)\u30926\u5165\u624B"
-    EnglishHelp: "(\u6761\u4EF6)Period\u7D4C\u904E\u6642\n(Nu)\u30926\u5165\u624B"
-    Range: 1
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 320022
-      FeatureType: 40040
-      Param1: 6
-      Param2: 0
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 320022
-      TriggerType: 40020
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 320030
-    Name: "\u8CC7\u6599\u9928Lv1"
-    EnglishName: "\u8CC7\u6599\u9928Lv1"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u52DD\u5229\u6642\nLv10\u4EE5\u4E0B\u306E\u4EF2\u9593\u306E\u30D0\u30C8\u30EB\u5165\u624B\u7D4C\u9A13\u5024+50%"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u52DD\u5229\u6642\nLv10\u4EE5\u4E0B\u306E\u4EF2\u9593\u306E\u30D0\u30C8\u30EB\u5165\u624B\u7D4C\u9A13\u5024+50%"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 320030
-      FeatureType: 40020
-      Param1: 0
-      Param2: 50
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 320030
-      TriggerType: 14420
-      TriggerTiming: 1
-      Param1: 10
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 320031
-    Name: "\u8CC7\u6599\u9928Lv2"
-    EnglishName: "\u8CC7\u6599\u9928Lv2"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u52DD\u5229\u6642\nLv15\u4EE5\u4E0B\u306E\u4EF2\u9593\u306E\u30D0\u30C8\u30EB\u5165\u624B\u7D4C\u9A13\u5024+50%"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u52DD\u5229\u6642\nLv15\u4EE5\u4E0B\u306E\u4EF2\u9593\u306E\u30D0\u30C8\u30EB\u5165\u624B\u7D4C\u9A13\u5024+50%"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 320031
-      FeatureType: 40020
-      Param1: 0
-      Param2: 50
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 320031
-      TriggerType: 14420
-      TriggerTiming: 1
-      Param1: 15
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 320032
-    Name: "\u8CC7\u6599\u9928Lv3"
-    EnglishName: "\u8CC7\u6599\u9928Lv3"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u52DD\u5229\u6642\nLv20\u4EE5\u4E0B\u306E\u4EF2\u9593\u306E\u30D0\u30C8\u30EB\u5165\u624B\u7D4C\u9A13\u5024+50%"
-    EnglishHelp: "(\u6761\u4EF6)\u30D0\u30C8\u30EB\u52DD\u5229\u6642\nLv20\u4EE5\u4E0B\u306E\u4EF2\u9593\u306E\u30D0\u30C8\u30EB\u5165\u624B\u7D4C\u9A13\u5024+50%"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 320032
-      FeatureType: 40020
-      Param1: 0
-      Param2: 50
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 320032
-      TriggerType: 14420
-      TriggerTiming: 1
-      Param1: 20
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 320040
-    Name: "\u6F5C\u4F0F\u6280\u8853Lv1"
-    EnglishName: "\u6F5C\u4F0F\u6280\u8853Lv1"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "\u30B9\u30C6\u30FC\u30B8\u63A2\u7D22\u7336\u4E88+10\u30BF\u30FC\u30F3"
-    EnglishHelp: "\u30B9\u30C6\u30FC\u30B8\u63A2\u7D22\u7336\u4E88+10\u30BF\u30FC\u30F3"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 320040
-      FeatureType: 40060
-      Param1: 10
-      Param2: 0
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 320040
-      TriggerType: 40030
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 321010
-    Name: "\u708E\u306E\u796D\u58C7"
-    EnglishName: "\u708E\u306E\u796D\u58C7"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "\\s\u306E\u708E\u5C5E\u6027\u9069\u6027\u3092\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u708E\u5C5E\u6027\u9069\u6027\u3092\u30A2\u30C3\u30D7"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 321010
-      FeatureType: 40050
-      Param1: 1
-      Param2: 1
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 321010
-      TriggerType: 0
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 321020
-    Name: "\u7A32\u59BB\u306E\u796D\u58C7"
-    EnglishName: "\u7A32\u59BB\u306E\u796D\u58C7"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "\\s\u306E\u96F7\u5C5E\u6027\u9069\u6027\u3092\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u96F7\u5C5E\u6027\u9069\u6027\u3092\u30A2\u30C3\u30D7"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 321020
-      FeatureType: 40050
-      Param1: 2
-      Param2: 1
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 321020
-      TriggerType: 0
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 321030
-    Name: "\u84BC\u306E\u796D\u58C7"
-    EnglishName: "\u84BC\u306E\u796D\u58C7"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "\\s\u306E\u6C37\u5C5E\u6027\u9069\u6027\u3092\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u6C37\u5C5E\u6027\u9069\u6027\u3092\u30A2\u30C3\u30D7"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 321030
-      FeatureType: 40050
-      Param1: 3
-      Param2: 1
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 321030
-      TriggerType: 0
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 321040
-    Name: "\u5149\u306E\u796D\u58C7"
-    EnglishName: "\u5149\u306E\u796D\u58C7"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "\\s\u306E\u5149\u5C5E\u6027\u9069\u6027\u3092\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u5149\u5C5E\u6027\u9069\u6027\u3092\u30A2\u30C3\u30D7"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 321040
-      FeatureType: 40050
-      Param1: 4
-      Param2: 1
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 321040
-      TriggerType: 0
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 321050
-    Name: "\u6708\u306E\u796D\u58C7"
-    EnglishName: "\u6708\u306E\u796D\u58C7"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "\\s\u306E\u95C7\u5C5E\u6027\u9069\u6027\u3092\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u95C7\u5C5E\u6027\u9069\u6027\u3092\u30A2\u30C3\u30D7"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 321050
-      FeatureType: 40050
-      Param1: 5
-      Param2: 1
-      Param3: 0
-      Rate: 100
-    TriggerDates:
-    - SkillId: 321050
-      TriggerType: 0
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 322010
-    Name: "\u98DF\u7CE7\u5EABLv1"
-    EnglishName: "\u98DF\u7CE7\u5EABLv1"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "\\s\u306E\u6700\u5927Hp\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306E\u6700\u5927Hp\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 322010
-      FeatureType: 3010
-      Param1: 1020
-      Param2: 999
-      Param3: 5
-      Rate: 100
-    TriggerDates:
-    - SkillId: 322010
-      TriggerType: 0
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 322020
-    Name: "\u653B\u6483\u6280\u8853Lv1"
-    EnglishName: "\u653B\u6483\u6280\u8853Lv1"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 322020
-      FeatureType: 3010
-      Param1: 1040
-      Param2: 999
-      Param3: 2
-      Rate: 100
-    TriggerDates:
-    - SkillId: 322020
-      TriggerType: 0
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 322030
-    Name: "\u9632\u5FA1\u6280\u8853Lv1"
-    EnglishName: "\u9632\u5FA1\u6280\u8853Lv1"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 322030
-      FeatureType: 3010
-      Param1: 1050
-      Param2: 999
-      Param3: 2
-      Rate: 100
-    TriggerDates:
-    - SkillId: 322030
-      TriggerType: 0
-      TriggerTiming: 1
-      Param1: 0
-      Param2: 0
-      Param3: 0
-    ScopeTriggers: []
-  - Id: 322040
-    Name: "\u8A60\u5531\u6280\u8853Lv1"
-    EnglishName: "\u8A60\u5531\u6280\u8853Lv1"
-    IconIndex: 6
-    AnimationId: 0
-    AnimationType: 1
-    MpCost: 0
-    CountTurn: 0
-    Rank: 0
-    Attribute: 4
-    Scope: 3
-    SkillType: 8
-    TargetType: 2
-    Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    EnglishHelp: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
-    Range: 2
-    RepeatTime: 1
-    AliveType: 1
-    TimingOnlyCount: 0
-    FeatureDates:
-    - SkillId: 322040
-      FeatureType: 3010
-      Param1: 1060
-      Param2: 999
-      Param3: 2
-      Rate: 100
-    TriggerDates:
-    - SkillId: 322040
-      TriggerType: 0
       TriggerTiming: 1
       Param1: 0
       Param2: 0
@@ -13084,6 +12420,94 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 501210
+    Name: "\u706B\u50B7\u8010\u6027+20%"
+    EnglishName: Burn Resist +25%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 1
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u706B\u50B7\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: Reduce \s's burn damage by /f[f,0,3]%.
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 501220
+    Name: "\u547D\u4E2D\u7387+5%"
+    EnglishName: Accuracy Rate +5%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 1
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Accuracy rate by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 501230
+    Name: "\u6700\u5927HP+2"
+    EnglishName: MaxHP+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 1
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's maximum HP by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 501240
+    Name: ATK+2
+    EnglishName: ATK+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 1
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's ATK by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 502010
     Name: DEF+1
     EnglishName: DEF+1
@@ -13308,6 +12732,94 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 502210
+    Name: DEF+1
+    EnglishName: DEF+1
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 2
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's DEF by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 502220
+    Name: SPD+1
+    EnglishName: SPD+1
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 2
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 502230
+    Name: SPD+1
+    EnglishName: SPD+1
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 2
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 502240
+    Name: "\u56DE\u907F\u7387+5%"
+    EnglishName: Avoidance Rate +5%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 2
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Avoidance rate by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 503010
     Name: DEF+1
     EnglishName: DEF+1
@@ -13504,6 +13016,94 @@ MonoBehaviour:
       Rate: 100
     TriggerDates: []
     ScopeTriggers: []
+  - Id: 503210
+    Name: DEF+1
+    EnglishName: DEF+1
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 3
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's DEF by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 503220
+    Name: "\u51CD\u7D50\u8010\u6027+20%"
+    EnglishName: Freeze Resist +20%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 3
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u51CD\u7D50\u30C0\u30E1\u30FC\u30B8\u3092/f[f,0,3]%\u30AB\u30C3\u30C8"
+    EnglishHelp: Reduce \s's freeze damage by /f[f,0,3]%
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 503230
+    Name: "\u6700\u5927HP+2"
+    EnglishName: MaxHP+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 3
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's maximum HP by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 503240
+    Name: DEF+2
+    EnglishName: DEF+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 3
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306EDEF\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's DEF by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
   - Id: 504010
     Name: "Hp\u56DE\u5FA9\u52B9\u679C+2"
     EnglishName: HP recovery effect +2
@@ -13698,6 +13298,94 @@ MonoBehaviour:
       Param2: 999
       Param3: 10
       Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 504210
+    Name: "Hp\u56DE\u5FA9\u52B9\u679C+2"
+    EnglishName: HP recovery effect +2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 4
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306EHp\u56DE\u5FA9\u52B9\u679C\u30A2\u30C3\u30D7\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: 'Increase \s''s HP recovery effect boost by /f[f,0,3]'
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 504220
+    Name: SPD+1
+    EnglishName: SPD+1
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 4
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 504230
+    Name: "\u547D\u4E2D\u7387+5%"
+    EnglishName: Accuracy Rate +5%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 4
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u547D\u4E2D\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Accuracy rate by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 504240
+    Name: "\u6700\u5927HP+2"
+    EnglishName: MaxHP+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 4
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's maximum HP by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
     TriggerDates: []
     ScopeTriggers: []
   - Id: 505010
@@ -13950,6 +13638,94 @@ MonoBehaviour:
       Param2: 0
       Param3: 1
       Rate: 100
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 505210
+    Name: "\u56DE\u907F\u7387+5%"
+    EnglishName: Avoidance Rate +5%
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 5
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u56DE\u907F\u7387\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's Avoidance rate by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 505220
+    Name: SPD+1
+    EnglishName: SPD+1
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 5
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306ESPD\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's SPD by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 505230
+    Name: "\u6700\u5927HP+2"
+    EnglishName: MaxHP+2
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 5
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306E\u6700\u5927HP\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's maximum HP by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
+    TriggerDates: []
+    ScopeTriggers: []
+  - Id: 505240
+    Name: ATK+1
+    EnglishName: ATK+1
+    IconIndex: 6
+    AnimationId: 0
+    AnimationType: 1
+    MpCost: 0
+    CountTurn: 0
+    Rank: 10
+    Attribute: 5
+    Scope: 4
+    SkillType: 9
+    TargetType: 4
+    Help: "\\s\u306EATK\u304C/f[f,0,3]\u30A2\u30C3\u30D7"
+    EnglishHelp: Increase \s's ATK by /f[f,0,3].
+    Range: 1
+    RepeatTime: 1
+    AliveType: 1
+    TimingOnlyCount: 0
+    FeatureDates: []
     TriggerDates: []
     ScopeTriggers: []
   - Id: 506010
