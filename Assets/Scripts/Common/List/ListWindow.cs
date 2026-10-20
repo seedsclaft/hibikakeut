@@ -718,7 +718,7 @@ namespace Ryneus
                             nextIndex += _listDates.Count;
                         }
                     }
-                    var listItem = _objectList[nextIndex].GetComponent<ListItem>();
+                    var listItem = _objectList[nextIndex].GetComponentInChildren<ListItem>();
                     if (listItem == null || listItem.Disable == null)
                     {
                         break;
@@ -753,7 +753,7 @@ namespace Ryneus
                             nextIndex = Index;
                             break;
                         }
-                        var listItem = _objectList[nextIndex].GetComponent<ListItem>();
+                        var listItem = _objectList[nextIndex].GetComponentInChildren<ListItem>();
                         if (listItem == null || listItem.Disable == null)
                         {
                             break;

@@ -89,5 +89,12 @@ namespace Ryneus
             UIComponent.SetActive(subStage, stageData.Category == StageCategory.Sub);
             UIComponent.SetActive(battleFieldStage, stageData.Category == StageCategory.BattleField);
         }
+
+        public void Clear()
+        {
+            UIComponent.ClearText(nameText);
+            UIComponent.ClearText(help);
+            UIComponent.ClearImage(stageImage);
+        }
     }
 }

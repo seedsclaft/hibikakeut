@@ -88,6 +88,15 @@ namespace Ryneus
             }
         }
 
+        public static void ClearImage(Image image)
+        {
+            if (image == null)
+            {
+                return;
+            }
+            image.sprite = ResourceSystem.LoadResource<Sprite>("Texture/System/Dummy");
+        }
+
         public static void SetSpeiteImage(SpriteRenderer spriteRenderer, string path, System.Action endCall = null)
         {
             if (spriteRenderer == null)

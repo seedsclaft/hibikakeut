@@ -28,14 +28,7 @@ namespace Ryneus
             var count = 0;
             while (itemHeight < height)
             {
-                if (count == 0)
-                {
-                    itemHeight += _itemSize.y;
-                }
-                else
-                {
-                    itemHeight += _itemSize.y + ItemSpace(false);
-                }
+                itemHeight += _itemSize.y + ItemSpace(false);
                 count++;
             }
             _calcVerticalCount = count;

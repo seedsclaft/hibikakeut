@@ -16,7 +16,6 @@ namespace Ryneus
         [SerializeField] private StageInfoComponent stageInfoComponent = null;
         [SerializeField] private BaseListComponent baseListComponent = null;
 
-        private System.Action<ConfirmCommandType> _confirmEvent = null;
         private ConfirmInfo _confirmInfo = null;
 
         public override void Initialize()
@@ -106,18 +105,12 @@ namespace Ryneus
             }
         }
 
-        public void SetConfirmEvent(System.Action<ConfirmCommandType> commandData)
-        {
-            _confirmEvent = commandData;
-        }
-
         public void UpdateViewInfo()
         {
             SetIsNoChoice(_confirmInfo.IsNoChoice.Value, _confirmInfo.CommandTextIds);
             SetTitle(_confirmInfo.Title.Value);
             SetSkillInfo(_confirmInfo.SkillInfos());
             SetStageInfo(_confirmInfo.StageInfo);
-            SetConfirmEvent(_confirmInfo.ReturnEvent);
             SetDisableIds(_confirmInfo.DisableIds);
             UIComponent.SetActive(cautionArtifact, _confirmInfo.IsArtifact.Value);
             if (_confirmInfo.ItemInfos().Count > 0)
@@ -148,7 +141,7 @@ namespace Ryneus
                     //SoundManager.Instance.PlayStaticSe(SEType.Cancel);
                 }
                 BackEvent();
-                _confirmEvent(commandType);
+                _confirmInfo.ReturnEvent(commandType);
             }
         }
 
@@ -168,11 +161,15 @@ namespace Ryneus
 
         public void CallCloseEvent()
         {
+            if (stageInfoComponent != null)
+            {
+                stageInfoComponent.Clear();
+            }
             if (!_confirmInfo.NoCancelSound.Value)
             {
                 SoundManager.Instance.PlayStaticSe(SEType.Cancel);
             }
-            _confirmEvent(ConfirmCommandType.Close);
+            _confirmInfo.ReturnEvent(ConfirmCommandType.Close);
         }
     }
 

@@ -1355,7 +1355,7 @@ namespace Ryneus
         private float ApplyVariance(float value)
         {
             int rand = new System.Random().Next(-5, 5);
-            return (value * (1 + rand * 0.01f));
+            return value * (1 + rand * 0.01f);
         }
 
         private void SeekStateCount(BattlerInfo battlerInfo, StateType stateType)
