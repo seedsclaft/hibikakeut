@@ -147,7 +147,7 @@ namespace Ryneus
                 {
                     changeLanguage = Language.English;
                 }
-                GameSystem.OptionData.Language = changeLanguage;
+                SetLanguage(changeLanguage);
             }
             else
             {
@@ -156,13 +156,21 @@ namespace Ryneus
                 {
                     changeLanguage = _languages.Count;
                 }
-                GameSystem.OptionData.Language = (Language)changeLanguage;
+                SetLanguage((Language)changeLanguage);
             }
         }
 
         public static void SetLanguage(Language language)
         {
             GameSystem.OptionData.Language = language;
+            Utage.LanguageManagerBase langManager = Utage.LanguageManagerBase.Instance;
+            if (language == Language.English)
+            {
+                langManager.CurrentLanguage = "English";
+            } else
+            {
+                langManager.CurrentLanguage = "Japanese";
+            }
         }
 
         public static void ChangeGraphicIndex(int graphicIndex)
