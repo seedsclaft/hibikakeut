@@ -53,5 +53,19 @@ namespace Ryneus
             var ranks = SortActor.AttributeRanks(new List<ActorInfo>());
             return (int)ranks[(int)_master.Attribute];
         }
+
+        public bool IsEquipAlert()
+        {
+            if (LearningInfos.Count == 0)
+            {
+                return true;
+            }
+            // 最初から習得するものがない装備は判定しない
+            if (LearningInfos.All(a => a.EquipmentOnly.Value))
+            {
+                return false;
+            }
+            return IsLearned();
+        }
     }
 }

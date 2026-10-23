@@ -84,7 +84,7 @@ namespace Ryneus
         public bool EquipmentAleat(List<ActorInfo> actorInfos)
         {
             var equipInfos = ActorEquipmentInfos(actorInfos);
-            return equipInfos.Exists(a => a.LearningInfos.Find(b => b.IsComplete()) != null);   
+            return equipInfos.Exists(a => a.IsEquipAlert());   
         }
 
         [SerializeField] private List<int> _mastarySkillIds = new();
