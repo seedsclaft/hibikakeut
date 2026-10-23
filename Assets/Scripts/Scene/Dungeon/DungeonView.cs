@@ -155,11 +155,19 @@ namespace Ryneus
 
         private void CallPartyInfo()
         {
+            if (!partyInfoButton.gameObject.activeSelf)
+            {
+                return;
+            }
             CallViewEvent(CommandType.PartyInfo);
         }
 
         private void CallSaveCommand()
         {
+            if (!saveButton.gameObject.activeSelf)
+            {
+                return;
+            }
             CallViewEvent(CommandType.SaveCommand);
         }
 

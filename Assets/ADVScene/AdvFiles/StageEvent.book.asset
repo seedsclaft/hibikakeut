@@ -397,8 +397,8 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\n\n\n\n\n\n\n\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000<speed=0>preparing
-        for her final showdown with Fafnir!</speed>"
+      - "\n\n\n\n\n\n\n\u3000\u3000\u3000\u3000\u3000\u3000<speed=0>preparing for
+        her final showdown with Fafnir!</speed>"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -440,7 +440,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/ADVScene/AdvFiles/StageEvent.xls:Opening1-1
     type: 1
-    textLength: 1089
+    textLength: 1084
     headerRow: 0
     sourceAssetInEditor: {fileID: 102900000, guid: 92415a379ab63ee4d852b579424efbc4,
       type: 3}
@@ -1430,7 +1430,9 @@ MonoBehaviour:
       - 
       - 
       - 
-      - and the sorrow left behind for those who are left behind.
+      - 'and the sorrow left behind
+
+        for those who are left behind.'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -2462,10 +2464,12 @@ MonoBehaviour:
       - Next
       - 
       - 
-      - 'From this day forward
+      - '
 
-        the wilderness where Fafnir resides has been
-        covered by a thick wall of flames,'
+        From this day forward
+
+        the wilderness where Fafnir resides
+        has been covered by a thick wall of flames,'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -2502,7 +2506,9 @@ MonoBehaviour:
       - InputBr
       - 
       - 
-      - and it continues to burn brightly, warding off anyone who approaches.
+      - 'and it continues to burn brightly, warding off anyone who approaches.
+
+'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -2539,7 +2545,9 @@ MonoBehaviour:
       - 
       - 
       - 
-      - Fifteen years passed...
+      - '
+
+        Fifteen years passed...'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -2564,6 +2572,21 @@ MonoBehaviour:
     - rowIndex: 38
       debugIndex: 40
       strings:
+      - FadeOut
+      - black
+      - 
+      - 
+      - 
+      - 
+      - .5
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 39
+      debugIndex: 41
+      strings:
       - StopBgm2
       - 
       - 
@@ -2579,8 +2602,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 39
-      debugIndex: 41
+    - rowIndex: 40
+      debugIndex: 42
       strings:
       - EndScenario
       - 
@@ -2599,7 +2622,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/ADVScene/AdvFiles/StageEvent.xls:Opening1-5
     type: 1
-    textLength: 1571
+    textLength: 1588
     headerRow: 0
     sourceAssetInEditor: {fileID: 102900000, guid: 92415a379ab63ee4d852b579424efbc4,
       type: 3}
@@ -2628,16 +2651,13 @@ MonoBehaviour:
     - rowIndex: 1
       debugIndex: 1
       strings:
-      - Wait
+      - FadeIn
+      - black
       - 
       - 
       - 
       - 
-      - 
-      - 1
-      - 
-      - 
-      - 
+      - .5
       - 
       - 
       isEmpty: 0
@@ -2646,10 +2666,10 @@ MonoBehaviour:
     - rowIndex: 2
       debugIndex: 2
       strings:
-      - 
-      - Heimdall
-      - 
-      - 
+      - PlayBgm
+      - Title
+      - 1
+      - 1
       - 
       - 
       - 
@@ -2682,8 +2702,16 @@ MonoBehaviour:
     - rowIndex: 4
       debugIndex: 4
       strings:
-      - ChangeMessageWindow
-      - MessageWindow
+      - 
+      - Heimdall
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
       - 
       - 
       isEmpty: 0
@@ -2691,6 +2719,34 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 5
       debugIndex: 5
+      strings:
+      - Wait
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 1
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 6
+      debugIndex: 6
+      strings:
+      - ChangeMessageWindow
+      - MessageWindow
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 7
+      debugIndex: 7
       strings:
       - 
       - Heimdall
@@ -2708,8 +2764,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 6
-      debugIndex: 6
+    - rowIndex: 8
+      debugIndex: 8
       strings:
       - 
       - Heimdall
@@ -2727,8 +2783,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 7
-      debugIndex: 7
+    - rowIndex: 9
+      debugIndex: 9
       strings:
       - Selection
       - '*Selection_Opening1-6-1'
@@ -2746,8 +2802,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 8
-      debugIndex: 8
+    - rowIndex: 10
+      debugIndex: 10
       strings:
       - '*Selection_Opening1-6-1'
       - 
@@ -2761,8 +2817,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 9
-      debugIndex: 9
+    - rowIndex: 11
+      debugIndex: 11
       strings:
       - 
       - Heimdall
@@ -2780,8 +2836,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 10
-      debugIndex: 10
+    - rowIndex: 12
+      debugIndex: 12
       strings:
       - 
       - Heimdall
@@ -2799,8 +2855,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 11
-      debugIndex: 11
+    - rowIndex: 13
+      debugIndex: 13
       strings:
       - 
       - Heimdall
@@ -2818,8 +2874,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 12
-      debugIndex: 12
+    - rowIndex: 14
+      debugIndex: 14
       strings:
       - Wait
       - 
@@ -2836,8 +2892,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 13
-      debugIndex: 13
+    - rowIndex: 15
+      debugIndex: 15
       strings:
       - 
       - Heimdall
@@ -2855,8 +2911,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 14
-      debugIndex: 14
+    - rowIndex: 16
+      debugIndex: 16
       strings:
       - 
       - Heimdall
@@ -2876,8 +2932,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 15
-      debugIndex: 15
+    - rowIndex: 17
+      debugIndex: 17
       strings:
       - 
       - Heimdall
@@ -2897,8 +2953,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 16
-      debugIndex: 16
+    - rowIndex: 18
+      debugIndex: 18
       strings:
       - 
       - Heimdall
@@ -2916,8 +2972,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 17
-      debugIndex: 17
+    - rowIndex: 19
+      debugIndex: 19
       strings:
       - Selection
       - '*Selection_Opening1-6-2'
@@ -2935,50 +2991,13 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 18
-      debugIndex: 18
+    - rowIndex: 20
+      debugIndex: 20
       strings:
       - '*Selection_Opening1-6-2'
       - 
       - 
       - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 19
-      debugIndex: 19
-      strings:
-      - 
-      - Heimdall
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u826F\u3044\u8FD4\u4E8B\u3060"
-      - 
-      - 
-      - 
-      - Good answer.
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 20
-      debugIndex: 20
-      strings:
-      - Wait
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 1
       - 
       - 
       - 
@@ -2998,6 +3017,43 @@ MonoBehaviour:
       - 
       - 
       - 
+      - "\u826F\u3044\u8FD4\u4E8B\u3060"
+      - 
+      - 
+      - 
+      - Good answer.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 22
+      debugIndex: 22
+      strings:
+      - Wait
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 1
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 23
+      debugIndex: 23
+      strings:
+      - 
+      - Heimdall
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
       - "\u3067\u306F\u6211\u3089\u306E\u62E0\u70B9\u30D3\u30D5\u30EC\u30B9\u30C8\u306B\u6848\u5185\u3057\u3088\u3046"
       - 
       - 
@@ -3006,8 +3062,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 22
-      debugIndex: 22
+    - rowIndex: 24
+      debugIndex: 24
       strings:
       - 
       - Heimdall
@@ -3025,8 +3081,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 23
-      debugIndex: 23
+    - rowIndex: 25
+      debugIndex: 25
       strings:
       - Wait
       - 
@@ -3043,8 +3099,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 24
-      debugIndex: 24
+    - rowIndex: 26
+      debugIndex: 26
       strings:
       - EndScenario
       - 
@@ -3063,7 +3119,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/ADVScene/AdvFiles/StageEvent.xls:Opening1-6
     type: 1
-    textLength: 892
+    textLength: 919
     headerRow: 0
     sourceAssetInEditor: {fileID: 102900000, guid: 92415a379ab63ee4d852b579424efbc4,
       type: 3}
@@ -5893,8 +5949,10 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "Sigurd,<speed=0.5> </speed>\nLord V\xED\xF0arr has arrived to command the
-        front lines."
+      - 'Sigurd,<speed=0.5> </speed>
+
+        Lord Vidar has arrived to command the
+        front lines.'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -6006,7 +6064,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "I am V\xED\xF0arr.<speed=0.5> </speed>\nTo the point\u2014"
+      - "I am Vidar.<speed=0.5> </speed>\nTo the point\u2014"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -6137,8 +6195,10 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "Lord V\xED\xF0arr may be taciturn,\nbut he is a wise and capable military
-        leader."
+      - 'Lord Vidar may be taciturn,
+
+        but he is a wise and capable military
+        leader.'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -6202,7 +6262,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/ADVScene/AdvFiles/StageEvent.xls:Interrude3-2
     type: 1
-    textLength: 881
+    textLength: 878
     headerRow: 0
     sourceAssetInEditor: {fileID: 102900000, guid: 92415a379ab63ee4d852b579424efbc4,
       type: 3}
@@ -13099,8 +13159,8 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\n\n\n\n\n\n\n\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000<speed=0>preparing
-        for her final showdown with Fafnir!</speed>"
+      - "\n\n\n\n\n\n\n\u3000\u3000\u3000\u3000\u3000\u3000<speed=0>preparing for
+        her final showdown with Fafnir!</speed>"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -13142,7 +13202,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/ADVScene/AdvFiles/StageEvent.xls:Opening1-1
     type: 1
-    textLength: 1089
+    textLength: 1084
     headerRow: 0
     sourceAssetInEditor: {fileID: 102900000, guid: 92415a379ab63ee4d852b579424efbc4,
       type: 3}
@@ -14126,7 +14186,9 @@ MonoBehaviour:
       - 
       - 
       - 
-      - and the sorrow left behind for those who are left behind.
+      - 'and the sorrow left behind
+
+        for those who are left behind.'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -15172,10 +15234,12 @@ MonoBehaviour:
       - Next
       - 
       - 
-      - 'From this day forward
+      - '
 
-        the wilderness where Fafnir resides has been
-        covered by a thick wall of flames,'
+        From this day forward
+
+        the wilderness where Fafnir resides
+        has been covered by a thick wall of flames,'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -15212,7 +15276,9 @@ MonoBehaviour:
       - InputBr
       - 
       - 
-      - and it continues to burn brightly, warding off anyone who approaches.
+      - 'and it continues to burn brightly, warding off anyone who approaches.
+
+'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -15267,7 +15333,9 @@ MonoBehaviour:
       - 
       - 
       - 
-      - Fifteen years passed...
+      - '
+
+        Fifteen years passed...'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -15292,6 +15360,21 @@ MonoBehaviour:
     - rowIndex: 40
       debugIndex: 40
       strings:
+      - FadeOut
+      - black
+      - 
+      - 
+      - 
+      - 
+      - .5
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 41
+      debugIndex: 41
+      strings:
       - StopBgm2
       - 
       - 
@@ -15307,8 +15390,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 41
-      debugIndex: 41
+    - rowIndex: 42
+      debugIndex: 42
       strings:
       - EndScenario
       - 
@@ -15327,7 +15410,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/ADVScene/AdvFiles/StageEvent.xls:Opening1-5
     type: 1
-    textLength: 1571
+    textLength: 1588
     headerRow: 0
     sourceAssetInEditor: {fileID: 102900000, guid: 92415a379ab63ee4d852b579424efbc4,
       type: 3}
@@ -15354,16 +15437,13 @@ MonoBehaviour:
     - rowIndex: 1
       debugIndex: 1
       strings:
-      - Wait
+      - FadeIn
+      - black
       - 
       - 
       - 
       - 
-      - 
-      - 1
-      - 
-      - 
-      - 
+      - .5
       - 
       - 
       isEmpty: 0
@@ -15372,10 +15452,10 @@ MonoBehaviour:
     - rowIndex: 2
       debugIndex: 2
       strings:
-      - 
-      - Heimdall
-      - 
-      - 
+      - PlayBgm
+      - Title
+      - 1
+      - 1
       - 
       - 
       - 
@@ -15408,8 +15488,16 @@ MonoBehaviour:
     - rowIndex: 4
       debugIndex: 4
       strings:
-      - ChangeMessageWindow
-      - MessageWindow
+      - 
+      - Heimdall
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
       - 
       - 
       isEmpty: 0
@@ -15417,6 +15505,34 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 5
       debugIndex: 5
+      strings:
+      - Wait
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 1
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 6
+      debugIndex: 6
+      strings:
+      - ChangeMessageWindow
+      - MessageWindow
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 7
+      debugIndex: 7
       strings:
       - 
       - Heimdall
@@ -15434,8 +15550,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 6
-      debugIndex: 6
+    - rowIndex: 8
+      debugIndex: 8
       strings:
       - 
       - Heimdall
@@ -15453,8 +15569,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 7
-      debugIndex: 7
+    - rowIndex: 9
+      debugIndex: 9
       strings:
       - Selection
       - '*Selection_Opening1-6-1'
@@ -15472,8 +15588,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 8
-      debugIndex: 8
+    - rowIndex: 10
+      debugIndex: 10
       strings:
       - '*Selection_Opening1-6-1'
       - 
@@ -15487,8 +15603,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 9
-      debugIndex: 9
+    - rowIndex: 11
+      debugIndex: 11
       strings:
       - 
       - Heimdall
@@ -15506,8 +15622,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 10
-      debugIndex: 10
+    - rowIndex: 12
+      debugIndex: 12
       strings:
       - 
       - Heimdall
@@ -15525,8 +15641,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 11
-      debugIndex: 11
+    - rowIndex: 13
+      debugIndex: 13
       strings:
       - 
       - Heimdall
@@ -15544,8 +15660,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 12
-      debugIndex: 12
+    - rowIndex: 14
+      debugIndex: 14
       strings:
       - Wait
       - 
@@ -15562,8 +15678,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 13
-      debugIndex: 13
+    - rowIndex: 15
+      debugIndex: 15
       strings:
       - 
       - Heimdall
@@ -15581,8 +15697,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 14
-      debugIndex: 14
+    - rowIndex: 16
+      debugIndex: 16
       strings:
       - 
       - Heimdall
@@ -15602,8 +15718,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 15
-      debugIndex: 15
+    - rowIndex: 17
+      debugIndex: 17
       strings:
       - 
       - Heimdall
@@ -15623,8 +15739,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 16
-      debugIndex: 16
+    - rowIndex: 18
+      debugIndex: 18
       strings:
       - 
       - Heimdall
@@ -15642,8 +15758,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 17
-      debugIndex: 17
+    - rowIndex: 19
+      debugIndex: 19
       strings:
       - Selection
       - '*Selection_Opening1-6-2'
@@ -15661,50 +15777,13 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 18
-      debugIndex: 18
+    - rowIndex: 20
+      debugIndex: 20
       strings:
       - '*Selection_Opening1-6-2'
       - 
       - 
       - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 19
-      debugIndex: 19
-      strings:
-      - 
-      - Heimdall
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u826F\u3044\u8FD4\u4E8B\u3060"
-      - 
-      - 
-      - 
-      - Good answer.
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 20
-      debugIndex: 20
-      strings:
-      - Wait
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 1
       - 
       - 
       - 
@@ -15724,6 +15803,43 @@ MonoBehaviour:
       - 
       - 
       - 
+      - "\u826F\u3044\u8FD4\u4E8B\u3060"
+      - 
+      - 
+      - 
+      - Good answer.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 22
+      debugIndex: 22
+      strings:
+      - Wait
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 1
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 23
+      debugIndex: 23
+      strings:
+      - 
+      - Heimdall
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
       - "\u3067\u306F\u6211\u3089\u306E\u62E0\u70B9\u30D3\u30D5\u30EC\u30B9\u30C8\u306B\u6848\u5185\u3057\u3088\u3046"
       - 
       - 
@@ -15732,8 +15848,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 22
-      debugIndex: 22
+    - rowIndex: 24
+      debugIndex: 24
       strings:
       - 
       - Heimdall
@@ -15751,8 +15867,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 23
-      debugIndex: 23
+    - rowIndex: 25
+      debugIndex: 25
       strings:
       - Wait
       - 
@@ -15769,8 +15885,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 24
-      debugIndex: 24
+    - rowIndex: 26
+      debugIndex: 26
       strings:
       - EndScenario
       - 
@@ -15789,7 +15905,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/ADVScene/AdvFiles/StageEvent.xls:Opening1-6
     type: 1
-    textLength: 892
+    textLength: 919
     headerRow: 0
     sourceAssetInEditor: {fileID: 102900000, guid: 92415a379ab63ee4d852b579424efbc4,
       type: 3}
@@ -18601,8 +18717,10 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "Sigurd,<speed=0.5> </speed>\nLord V\xED\xF0arr has arrived to command the
-        front lines."
+      - 'Sigurd,<speed=0.5> </speed>
+
+        Lord Vidar has arrived to command the
+        front lines.'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -18714,7 +18832,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "I am V\xED\xF0arr.<speed=0.5> </speed>\nTo the point\u2014"
+      - "I am Vidar.<speed=0.5> </speed>\nTo the point\u2014"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -18845,8 +18963,10 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "Lord V\xED\xF0arr may be taciturn,\nbut he is a wise and capable military
-        leader."
+      - 'Lord Vidar may be taciturn,
+
+        but he is a wise and capable military
+        leader.'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -18910,7 +19030,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/ADVScene/AdvFiles/StageEvent.xls:Interrude3-2
     type: 1
-    textLength: 881
+    textLength: 878
     headerRow: 0
     sourceAssetInEditor: {fileID: 102900000, guid: 92415a379ab63ee4d852b579424efbc4,
       type: 3}
