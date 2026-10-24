@@ -217,7 +217,7 @@ namespace Ryneus
                 } else
                 if (lines[i].Contains("(Condition"))
                 {
-                    _ = helpText.Append(lines[i].Replace("(Condition", GameSystem.TempData.ColorSettings.GetColorTag(TextColorType.SkillTrigger)) + "(Condition" + "</color>");
+                    _ = helpText.Append(GameSystem.TempData.ColorSettings.GetColorTag(TextColorType.SkillTrigger) + lines[i] + "</color>");
                 }
                 else
                 {

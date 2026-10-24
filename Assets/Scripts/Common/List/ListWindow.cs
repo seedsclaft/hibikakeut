@@ -723,7 +723,7 @@ namespace Ryneus
                     {
                         break;
                     }
-                    if (listItem.Disable != null && !listItem.Disable.activeSelf)
+                    if (listItem != null/* && !listItem.Disable.activeSelf*/)
                     {
                         break;
                     }
@@ -758,7 +758,7 @@ namespace Ryneus
                         {
                             break;
                         }
-                        if (listItem.Disable != null && listItem.Disable.activeSelf == false)
+                        if (listItem != null/* && listItem.Disable.activeSelf == false*/)
                         {
                             break;
                         }

@@ -100,7 +100,7 @@ namespace Ryneus
         public void SetPlayerPosition()
         {
             // 位置保存情報を復帰
-            _moveController.SetPlayerPosition(CurrentDeckInfo.PositionX.Value,CurrentDeckInfo.PositionY.Value,CurrentDeckInfo.Direction.Value);
+            _moveController.SetPlayerPosition(CurrentDeckInfo.PositionX.Value, CurrentDeckInfo.PositionY.Value, CurrentDeckInfo.Direction.Value);
         }
 
         public void UpdateEventObjects()

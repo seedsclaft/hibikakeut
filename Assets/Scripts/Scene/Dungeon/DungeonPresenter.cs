@@ -578,6 +578,9 @@ namespace Ryneus
                 case StageEventType.DungeonClear:
                     StageEventDungeonClear(moved, stageEvent, endEvent);
                     return;
+                case StageEventType.MoveDirection:
+                    StageEventMoveDirection(moved, stageEvent, endEvent);
+                    return;
                 case StageEventType.GetArtifact:
                     StageEventGetArtifact(stageEvent);
                     return;
@@ -799,6 +802,20 @@ namespace Ryneus
             }
             _model.CurrentDeckInfo.DungeonBgmTimeStamp.SetValue(0);
             CheckStageEvent(moved);
+        }
+
+        private void StageEventMoveDirection(bool moved, StageEventData stageEvent, Action endEvent)
+        {
+            if (moved)
+            {
+                _model.CurrentDeckInfo.Direction.SetValue(stageEvent.Param);
+                _model.SetPlayerPosition();
+                endEvent?.Invoke();
+            }
+            else
+            {
+                endEvent?.Invoke();
+            }
         }
 
         private void StageEventGetArtifact(StageEventData stageEvent)

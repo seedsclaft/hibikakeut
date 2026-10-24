@@ -158,6 +158,15 @@ namespace Ryneus
             image.sprite = sprite;
         }
 
+        public static void SetColor(Image image, Color color)
+        {
+            if (image == null)
+            {
+                return;
+            }
+            image.color = color;
+        }
+
         public static void SetActive(GameObject gameObject, bool isActive)
         {
             if (gameObject == null)

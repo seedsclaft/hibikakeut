@@ -150,6 +150,7 @@ namespace Ryneus
         MoveDungeonFloor = 2020,
         MoveDungeonFloorForce = 2021,
         DungeonClear = 2030,
+        MoveDirection = 2040,
         GetArtifact = 3010, // アーティファクト取得
         GetItem = 3020, // アイテム取得
         GetSkill = 3030, // 魔法取得

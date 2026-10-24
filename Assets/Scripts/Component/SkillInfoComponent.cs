@@ -14,7 +14,7 @@ namespace Ryneus
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI mpCost;
         [SerializeField] private Image lineImage;
-        [SerializeField] private Transform skillTypeBgRoot;
+        [SerializeField] private Image skillTypeBg;
         [SerializeField] private TextMeshProUGUI type;
         [SerializeField] private TextMeshProUGUI useCount;
         [SerializeField] private TextMeshProUGUI description;
@@ -113,12 +113,10 @@ namespace Ryneus
             }
             if (icon != null)
             {
-                UIComponent.SetActive(icon, true);
                 UpdateSkillIcon(skillData.IconIndex);
             }
             if (iconBack != null)
             {
-                UIComponent.SetActive(iconBack, true);
                 UpdateSkillIconBack(skillData.Attribute);
             }
             if (nameText != null)
@@ -132,16 +130,7 @@ namespace Ryneus
             var mpCostText = skillData.SkillType == SkillType.Active ? "(" + skillData.MpCost.ToString() + ")" : "";
             UIComponent.SetText(mpCost, mpCostText);
             UIComponent.SetText(type, skillData.SkillType.ToString());
-            if (skillTypeBgRoot != null)
-            {
-                var count = 1;
-                var skillType = (int)skillData.SkillType;
-                foreach (Transform child in skillTypeBgRoot.transform)
-                {
-                    child.gameObject.SetActive(skillType == count);
-                    count++;
-                }
-            }
+            UIComponent.SetColor(skillTypeBg, GameSystem.TempData.ColorSettings.GetSkillBgColor(skillData.SkillType));
             UIComponent.SetActive(countTurnRoot, (skillData.SkillType == SkillType.Active && skillData.CountTurn > 0) || (skillData.SkillType == SkillType.Passive && skillData.CountTurn > 0));
             UIComponent.SetText(countTurn, skillData.CountTurn.ToString());
             if (rank != null)
@@ -234,13 +223,7 @@ namespace Ryneus
             UIComponent.ClearText(nameText);
             UIComponent.ClearText(mpCost);
             UIComponent.ClearText(type);
-            if (skillTypeBgRoot != null)
-            {
-                foreach (Transform child in skillTypeBgRoot.transform)
-                {
-                    UIComponent.SetActive(child.gameObject, false);
-                }
-            }
+            UIComponent.SetColor(skillTypeBg, GameSystem.TempData.ColorSettings.DummyColor);
             UIComponent.ClearText(description);
             UIComponent.SetActive(lineImage, false);
             UIComponent.SetActive(learningCost, false);
